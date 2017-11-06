@@ -39,9 +39,13 @@ exports.signup = async (ctx, next) => {
   ctx.assert(!result.errors, 400);
 
   const { value: userData } = result;
-  await createUserAccount(userData);
+  const user = await createUserAccount(userData);
 
-  ctx.body = {};
+  const response = {};
+  if (config.isDev) {
+    response._signupToken = user.signupToken;
+  }
+  ctx.body = response;
 };
 
 /**
@@ -76,8 +80,6 @@ exports.signin = async (ctx, next) => {
   const token = authService.createAuthToken({ userId: signinData.userId });
 
   ctx.body = {
-    email: signinData.email,
-    isEmailVerified: signinData.isEmailVerified,
     token,
   };
 };

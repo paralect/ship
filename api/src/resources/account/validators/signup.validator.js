@@ -31,12 +31,12 @@ const schema = {
   password: Joi.string()
     .trim()
     .min(6)
-    .max(20)
+    .max(40)
     .options({
       language: {
         string: {
-          min: '!!Password must be 6-20 characters',
-          max: '!!Password must be 6-20 characters',
+          min: '!!Password is too short',
+          max: '!!Password is too long',
         },
         any: { empty: '!!Password is required' },
       },
@@ -44,7 +44,7 @@ const schema = {
 };
 
 exports.validate = ctx => baseValidator(ctx, schema, async (data) => {
-  const userExists = await userService.exists({ email: ctx.request.body.email });
+  const userExists = await userService.exists({ email: data.email });
   if (userExists) {
     ctx.errors.push({ email: 'User with this email is already registered.' });
     return false;

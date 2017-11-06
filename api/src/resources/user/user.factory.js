@@ -1,21 +1,9 @@
 const Builder = require('./user.builder');
 
-exports.rootUser = async () => {
+exports.unverifiedUser = async ({ signupToken = '1234' } = {}) => {
   const builder = new Builder();
   const user = await builder
-    .rootEmail()
-    .password()
-    .build();
-
-  return user;
-};
-
-exports.unverifiedUser = async (signupToken = '123') => {
-  const builder = new Builder();
-  const user = await builder
-    .email()
-    .password()
-    .signupToken(signupToken)
+    .notVerifiedEmail()
     .build();
 
   return user;

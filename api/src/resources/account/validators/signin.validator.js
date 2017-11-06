@@ -5,6 +5,8 @@ const baseValidator = require('resources/base.validator');
 const userService = require('resources/user/user.service');
 const securityUtil = require('security.util');
 
+const incorrectCredentials = 'Incorrect email or password.';
+
 const schema = {
   email: Joi.string()
     .email({ minDomainAtoms: 2 })
@@ -19,23 +21,24 @@ const schema = {
   password: Joi.string()
     .trim()
     .min(6)
-    .max(20)
+    .max(40)
     .options({
       language: {
         string: {
-          min: '!!Password must be 6-20 characters',
-          max: '!!Password must be 6-20 characters',
+          min: `!!${incorrectCredentials}`,
+          max: `!!${incorrectCredentials}`,
         },
         any: { empty: '!!Password is required' },
       },
     }),
 };
 
+
 exports.validate = ctx => baseValidator(ctx, schema, async (signinData) => {
   const user = await userService.findOne({ email: signinData.email });
 
   if (!user) {
-    ctx.errors.push({ email: "User with such email doesn't exist" });
+    ctx.errors.push({ credentials: incorrectCredentials });
     return false;
   }
 
@@ -46,13 +49,16 @@ exports.validate = ctx => baseValidator(ctx, schema, async (signinData) => {
   );
 
   if (!isPasswordMatch) {
-    ctx.errors.push({ password: 'Invalid password' });
+    ctx.errors.push({ credentials: incorrectCredentials });
+    return false;
+  }
+
+  if (!user.isEmailVerified) {
+    ctx.errors.push({ email: 'Please verify your email to sign in' });
     return false;
   }
 
   return {
     userId: user._id,
-    email: user.email,
-    isEmailVerified: user.isEmailVerified,
   };
 });

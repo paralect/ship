@@ -9,7 +9,7 @@ let base = {
   port: process.env.PORT || 3001,
   isDev: env === 'development',
   isTest: env === 'test',
-  webUrl: 'http://localhost:5000',
+  webUrl: 'http://localhost:3000',
   jwtSecret: 'jwt_secret',
 };
 

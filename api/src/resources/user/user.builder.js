@@ -16,15 +16,14 @@ class UserBuilder extends BaseBuilder {
     this.data.signupToken = null;
     this.data.resetPasswordToken = `${this.data._id}_reset_password_token`;
     this.data.isEmailVerified = true;
+
+    this.email();
+    this.password();
+    this.signupToken();
   }
 
   email(emailAddress) {
     this.data.email = emailAddress || faker.internet.email();
-    return this;
-  }
-
-  rootEmail() {
-    this.data.email = 'root@root.root';
     return this;
   }
 
@@ -40,7 +39,7 @@ class UserBuilder extends BaseBuilder {
   }
 
   signupToken(token) {
-    this.data.signupToken = token;
+    this.data.signupToken = token || faker.random.alphaNumeric();
     return this;
   }
 }
