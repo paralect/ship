@@ -22,7 +22,7 @@ We believe we could ship great products faster, while maintain decent quality an
   - Accept invitation
   - Privacy policy
   - Terms of service
-2. [Restful API](https://github.com/startupsummer/product-stack/tree/master/koa-api-starter), connected to the MongoDB that implements landing site functionality.
+2. [Restful API](https://github.com/paralect/koa-api-starter), connected to the MongoDB that implements landing site functionality.
 3. Koa, React.JS based Single Page Application which shows after you login on landing site. Proper build configuration for development and production environments.
 4. Application deployment using Ansible.
 5. Continuous integration server using Drone CI.

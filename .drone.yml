@@ -1,0 +1,21 @@
+pipeline:
+  run-api-tests:
+    image: node:8.9
+    commands:
+      - cd api && ./bin/run.sh && cd ../
+    when:
+      status: [ failure, success ]
+      event: [ pull_request ]
+
+  run-web-tests:
+    image: node:8.9
+    commands:
+      - cd web && ./bin/run.sh && cd ../
+    when:
+      status: [ failure, success ]
+      event: [ pull_request ]
+
+services:
+  mongo:
+    image: mongo:3.4
+branches: [ master, "*:master" ]
