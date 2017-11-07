@@ -1,0 +1,11 @@
+FROM node:8.9
+
+EXPOSE 3001
+COPY ["./package.json", "./package-lock.json", "./.eslintrc.js", "./.eslintignore", "/api/"]
+
+WORKDIR /api
+
+VOLUME /api/src
+
+RUN npm i --quiet
+CMD npm run development

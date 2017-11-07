@@ -1,0 +1,21 @@
+version: '3.3'  
+services:  
+  mongo:
+    command: mongod
+    image: mongo:3.4
+    ports:
+      - "27017:27017" # map port to none standard port, to avoid conflicts with locally installed mongodb. 
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  api:
+    build:
+      context: "./api"
+      dockerfile: Dockerfile.dev
+    volumes:
+      - type: bind
+        source: ./api/src
+        target: /api/src
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
