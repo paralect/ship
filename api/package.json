@@ -13,7 +13,8 @@
   ],
   "scripts": {
     "test": "eslint ./src && NODE_ENV=test mocha --timeout 20000 --recursive --exit -c -R spec src/tests/app.spec.js",
-    "development": "NODE_ENV=development nodemon --watch src src/app.js"
+    "development": "NODE_ENV=development nodemon --watch src src/app.js",
+    "start": "node src/app.js"
   },
   "dependencies": {
     "@paralect/common-logger": "0.1.10",
