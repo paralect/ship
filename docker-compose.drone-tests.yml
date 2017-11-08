@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  mongo:
+    command: mongod
+    image: mongo:3.4
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  api-tests:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    command: npm test
+    depends_on:
+      - mongo
