@@ -1,0 +1,40 @@
+---
+- name: Setup nginx for drone
+  hosts: nginx
+  become: true
+  become_user: root
+  gather_facts: False
+  vars_prompt:
+    - name: run_roles
+      prompt: "Install nginx from scratch?"
+      default: "n"
+  vars_files:
+    - "vars/credentials.yml"
+    - "vars/main.yml"
+  roles:
+    - { role: nginx, when: run_roles == "y" }
+  tasks:
+    - name: Assures /etc/nginx/ssl exists
+      file: path=/etc/nginx/ssl state=directory
+      when: server_setup_ssl
+
+    - name: Copy ssl certiicate to /etc/nginx/ssl
+      copy: src=ssl-keys/{{item.src}} dest={{item.dest}} owner=root mode=744
+      with_items:
+        - {src: 'app.crt', dest: '{{server_ssl_cert_path}}'}
+        - {src: 'app.key', dest: '{{server_ssl_key_path}}'}
+      when: server_setup_ssl
+
+    - name: copy nginx virtual host file
+      template: src="templates/drone-nginx-config.j2"
+                dest="/etc/nginx/sites-available/01_drone-ci"
+                owner=root
+                group=root
+
+    - name: link nginx virtual host file
+      file: src="/etc/nginx/sites-available/01_drone-ci"
+            dest="/etc/nginx/sites-enabled/01_drone-ci"
+            state=link
+
+    - name: restart nginx
+      service: name=nginx state=restarted
