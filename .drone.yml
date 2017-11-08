@@ -30,7 +30,7 @@ pipeline:
       - mkdir -p ~/.ssh/
       - echo -n "$SSH_KEY" >> ~/.ssh/id_rsa_app && chmod 600 ~/.ssh/id_rsa_app
       - cp ./deploy/app/vars/credentials-template.yml ./deploy/app/vars/credentials.yml
-      - cd ./deploy/app && ./bin/deploy-staging.sh --extra-vars "docker_tag=latest docker_registry_username=$DOCKER_USERNAME docker_registry_password=$DOCKER_PASSWORD docker_registry_email=$DOCKER_EMAIL"
+      - cd ./deploy/app && ./bin/deploy-staging.sh --private-key ~/.ssh/id_rsa_app --extra-vars "docker_tag=latest docker_registry_username=$DOCKER_USERNAME docker_registry_password=$DOCKER_PASSWORD docker_registry_email=$DOCKER_EMAIL"
     when:
       branch: ["master"]
       event: [push]
