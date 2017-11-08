@@ -1,0 +1,3 @@
+*.retry
+.DS_Store
+vars/credentials.yml

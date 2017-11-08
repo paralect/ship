@@ -1,0 +1,34 @@
+---
+-   name: Deploy application using docker
+    hosts: app
+    remote_user: root
+    become: true
+    vars_files:
+      - ["vars/credentials.yml"]
+      - ["vars/main.yml"]
+    tasks:
+      - name: Log into DockerHub
+        docker_login:
+          username: "{{docker_registry_username}}"
+          password: "{{docker_registry_password}}"
+          email: "{{docker_registry_email}}"
+
+      - name: pull api docker image
+        docker_image:
+          state: present
+          force: yes
+          name: "paralect/ship-api:{{ docker_tag }}"
+
+      - name: run api container
+        docker_container:
+           name: "api-{{ item }}"
+           image: "paralect/ship-api:{{ docker_tag }}"
+           state: started
+           restart_policy: always
+           links:
+             - mongo
+           published_ports:
+             - "127.0.0.1:{{ item }}:3001"
+           env:
+             NODE_ENV: "{{ env }}"
+        with_items: "{{ api_ports }}"
