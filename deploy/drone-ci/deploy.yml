@@ -1,0 +1,23 @@
+---
+- name: Deploy drone ci server
+  hosts: drone
+  become_user: root
+  become: true
+  vars_files:
+    - "vars/credentials.yml"
+    - "vars/main.yml"
+  roles:
+    - role: paralect.drone
+      # Version of Drone CI, see other versions here: https://hub.docker.com/r/drone/drone/tags/
+      drone_version: latest
+
+      # the url, where drone instance will be publicly available
+      # typically you would have nginx in front of Drone CI
+      drone_host: "http://{{nginx_drone_server_name}}"
+
+      # Variables below are configuraed using vars/credentials.yml & vars/main.yml
+      # drone_secret:
+      # drone_postgress_user:
+      # drone_postgress_password:
+      # drone_github_client:
+      # drone_github_secret:
