@@ -10,6 +10,15 @@ In the rush, developers often ignore quality. Backups, monitoring, proper data v
 
 We believe we could ship great products faster, while maintain decent quality and have a plan for scaling when hypotheses where right.
 
+## Getting Started with Ship
+
+Just fork or clone and push repository into your own repo. 
+
+### Deployment Getting Started
+
+1. [Setup Drone continuous integration server](./deploy/drone-ci/README.md)
+2. [Setup Staging deployment pipeline](./deploy/app/README.md)
+
 ## Roadmap
 
 1. Landing site & following pages connected to an API:
