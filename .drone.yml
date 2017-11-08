@@ -1,21 +1,24 @@
 pipeline:
-  run-api-tests:
-    image: node:8.9
+  run-test-suite:
+    image: michalpodeszwa/docker-compose:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     commands:
-      - cd api && ./bin/run.sh && cd ../
+      - ./bin/drone-run-tests.sh api-tests
     when:
-      status: [ failure, success ]
-      event: [ pull_request ]
+      event: [pull_request]
 
-  run-web-tests:
-    image: node:8.9
-    commands:
-      - cd web && ./bin/run.sh && cd ../
+  publish-api-docker:
+    image: plugins/docker
+    secrets: [ docker_username, docker_password, docker_email ]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    repo: paralect/ship-api
+    tags:
+      - latest
+      - ${DRONE_BRANCH}
+    dockerfile: ./api/Dockerfile
+    context: ./api
     when:
-      status: [ failure, success ]
-      event: [ pull_request ]
-
-services:
-  mongo:
-    image: mongo:3.4
-branches: [ master, "*:master" ]
+      branch: ["master", "production"]
+      event: [push]
