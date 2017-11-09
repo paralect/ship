@@ -6,4 +6,4 @@ IMAGE_NAME=paralect-stack-nextjs-landing
 
 docker build -t $IMAGE_NAME -f ./Dockerfile.dev .
 
-docker run -p "3002:3002" -t $IMAGE_NAME
+docker run -p "3000:3000" -t $IMAGE_NAME
