@@ -4,11 +4,9 @@
   "description": "Common landing website starter driven by next.js",
   "main": "index.js",
   "scripts": {
-    "development": "node ./src/server/app.js",
-    "build": "next build && next export",
-    "start": "next build && next start",
-    "test": "npm run lint",
-    "lint": "eslint --fix ./src"
+    "development": "npm run next-server",
+    "start": "NODE_ENV=production npm run next-server",
+    "next-server": "node ./src/server/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +15,7 @@
     "axios": "0.17.0",
     "classnames": "2.2.5",
     "lodash": "4.17.4",
-    "next": "4.1.0",
+    "next": "4.1.4",
     "postcss-cssnext": "3.0.2",
     "prop-types": "15.6.0",
     "react": "16.0.0",
