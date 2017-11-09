@@ -26,7 +26,7 @@ services:
     volumes:
       - type: bind
         source: ./web/src
-        target: /web/src
+        target: /app/src
     ports:
       - "3002:3000"
     depends_on:
@@ -38,8 +38,8 @@ services:
     volumes:
       - type: bind
         source: ./landing/src
-        target: /landing/src
+        target: /app/src
     ports:
-      - "3000:3000"
+      - "3000:3002"
     depends_on:
       - mongo

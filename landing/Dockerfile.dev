@@ -1,6 +1,6 @@
 FROM node:8.9
 
-EXPOSE 3000
+EXPOSE 3002
 COPY ["./package.json", "./package-lock.json", ".eslintrc.js", ".eslintignore", "/app/"]
 RUN cd /app && npm i --quiet
 
