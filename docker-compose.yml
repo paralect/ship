@@ -40,6 +40,6 @@ services:
         source: ./landing/src
         target: /app/src
     ports:
-      - "3000:3002"
+      - "3000:3000"
     depends_on:
       - mongo
