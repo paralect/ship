@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import Link from 'next/link';
 
-import Error from '~/components/Error';
-import Button from '~/components/Button';
+import Error from '~/components/error';
+import Button from '~/components/button';
 import Layout from '~/layouts/main';
 import { setFormValue } from '~/helpers';
 import { signin } from '~/resources/account/account.api';
