@@ -6,7 +6,9 @@
   "scripts": {
     "development": "npm run next-server",
     "start": "NODE_ENV=production npm run next-server",
-    "next-server": "node ./src/server/app.js"
+    "next-server": "node ./src/server/app.js",
+    "test": "npm run lint",
+    "lint": "eslint --fix ./src"
   },
   "author": "",
   "license": "ISC",
