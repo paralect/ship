@@ -13,7 +13,7 @@ This starter allows to build and customize your own fully-featured landing websi
 - Separate client and server configuration to hide secure server-only items
 
 ### Things to notice
-This starter files and code structure aimed to match other Stack's starters (such as [koa-api](https://github.com/startupsummer/product-stack/tree/master/koa-api-starter) and [koa-react](https://github.com/startupsummer/product-stack/tree/master/koa-react-starter)) features as much as possible.
+This starter files and code structure aimed to match other Stack's starters (such as [koa-api](https://github.com/paralect/koa-api-starter) and [koa-react](https://github.com/paralect/koa-react-starter) features as much as possible.
 Next.js introduces strict file conventions while SSR requires some important limitations and rules that leads to some differences described below along with other details.
 
 1. Next.js SSR implementation **does not allow adding custom webpack loaders** ([docs](https://github.com/zeit/next.js/#customizing-webpack-config) + [issue](https://github.com/zeit/next.js/issues/1245)). That means that:
@@ -24,9 +24,9 @@ Next.js introduces strict file conventions while SSR requires some important lim
 
 2. The starter has separate `client` and `server` folders containing corresponding pieces of application. <br/>
 
-  **./server** app will be rarely modified as next.js core functionality covers all the server needs and SSR requirements. `./server/app.js` defines [custom next.js server](https://github.com/zeit/next.js/#custom-server-and-routing) to work with Stack's logger and config. <br />
+   **./server** app will be rarely modified as next.js core functionality covers all the server needs and SSR requirements. `./server/app.js` defines [custom next.js server](https://github.com/zeit/next.js/#custom-server-and-routing) to work with Stack's logger and config. <br />
 
-  **./client** app is the main extension point.
+   **./client** app is the main extension point.
   - New pages must be added under `./client/pages` directory. New pages automatically become available under the endpoints that map directly to their name (for example `./client/pages/signin.js` page by default maps to `http://localhost:3002/signin` endpoint, `./client/pages/index.js` maps to the root url). Base page template is extendable via special `./client/pages/_document.js` file.
   - Linking must be maid with `next/link` component instead of `<a />` (which also has a cool `prefetch` prop)
   - Static content is served automatically from `./client/static` directory

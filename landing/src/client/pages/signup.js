@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import Layout from '~/layouts/main';
-import Button from '~/components/Button';
-import Error from '~/components/Error';
+import Button from '~/components/button';
+import Error from '~/components/error';
 import { setFormValue } from '~/helpers';
 import { signup } from '~/resources/account/account.api';
 import config from '~/config';
