@@ -1,4 +1,4 @@
-version: '3.3'  
+version: '3.3'
 services:
   mongo:
     command: mongod
@@ -17,5 +17,29 @@ services:
         target: /api/src
     ports:
       - "3001:3001"
+    depends_on:
+      - mongo
+  web:
+    build:
+      context: "./web"
+      dockerfile: Dockerfile.dev
+    volumes:
+      - type: bind
+        source: ./web/src
+        target: /web/src
+    ports:
+      - "3002:3000"
+    depends_on:
+      - mongo
+  landing:
+    build:
+      context: "./landing"
+      dockerfile: Dockerfile.dev
+    volumes:
+      - type: bind
+        source: ./landing/src
+        target: /landing/src
+    ports:
+      - "3000:3000"
     depends_on:
       - mongo

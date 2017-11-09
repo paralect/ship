@@ -1,0 +1,25 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "styled-jsx": {
+          "plugins": [
+            "styled-jsx-plugin-postcss"
+          ]
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "inline-react-svg",
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "~": "./src/client"
+        }
+      }
+    ]
+  ]
+}

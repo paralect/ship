@@ -23,6 +23,36 @@ pipeline:
       branch: ["master", "production"]
       event: [push]
 
+  publish-web-docker:
+    image: plugins/docker
+    secrets: [ docker_username, docker_password, docker_email ]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    repo: paralect/ship-web
+    tags:
+      - latest
+      - ${DRONE_BRANCH}
+    dockerfile: ./web/Dockerfile
+    context: ./web
+    when:
+      branch: ["master", "production"]
+      event: [push]
+
+  publish-landing-docker:
+    image: plugins/docker
+    secrets: [ docker_username, docker_password, docker_email ]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    repo: paralect/ship-landing
+    tags:
+      - latest
+      - ${DRONE_BRANCH}
+    dockerfile: ./landing/Dockerfile
+    context: ./landing
+    when:
+      branch: ["master", "production"]
+      event: [push]
+
   deploy-staging-app:
     image: williamyeh/ansible:ubuntu16.04
     secrets: [ ssh_key, docker_username, docker_password, docker_email ]
