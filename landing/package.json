@@ -1,8 +1,12 @@
 {
   "name": "next-landing-starter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Common landing website starter driven by next.js",
   "main": "index.js",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/paralect/nextjs-landing-starter"
+  },
   "scripts": {
     "development": "npm run next-server",
     "start": "NODE_ENV=production npm run next-server",
