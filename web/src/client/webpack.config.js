@@ -57,6 +57,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.jsx?$/,
+      exclude: /node_modules/,
       loader: 'babel-loader',
       options: {
         plugins: [
@@ -98,7 +99,7 @@ module.exports = {
     }],
   },
 
-  devtool: 'cheap-source-map',
+  devtool: 'source-map',
 
   resolve: {
     modules: ['./', 'node_modules'],
@@ -113,6 +114,15 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
         BABEL_ENV: JSON.stringify('production'),
       },
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      minimize: true,
+      compress: {
+          drop_debugger: true,
+          warnings: false,
+          drop_console: true
+      }
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'views/index.html'),
