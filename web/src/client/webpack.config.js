@@ -119,10 +119,10 @@ module.exports = {
       sourceMap: true,
       minimize: true,
       compress: {
-          drop_debugger: true,
-          warnings: false,
-          drop_console: true
-      }
+        drop_debugger: true,
+        warnings: false,
+        drop_console: true,
+      },
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'views/index.html'),
