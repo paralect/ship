@@ -7,4 +7,4 @@ nginx_drone_server_name: ship-ci.paralect.com
 nginx_drone_internal_host: http://localhost:8000
 
 # List of users with admin access to the drone, readme more: http://docs.drone.io/user-management/
-drone_admins: "anorsich"
+drone_admins: "anorsich,ezhivitsa,IharKrasnik"
