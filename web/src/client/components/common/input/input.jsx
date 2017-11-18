@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import _uniq from 'lodash/uniq';
+import _omit from 'lodash/omit';
 
 import styles from './input.styles';
 
@@ -39,21 +40,19 @@ export default class Input extends React.Component {
 
   render() {
     const {
-      type,
       className,
-      value,
       errors,
     } = this.props;
+    const props = _omit(this.props, ['className', 'errors', 'onChange']);
 
     return (
       <div>
         <input
-          type={type}
           className={classnames(styles.input, className, {
             [styles.error]: errors.length,
           })}
           onChange={this.onChange}
-          value={value}
+          {...props}
         />
 
         {this.errors()}

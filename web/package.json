@@ -60,6 +60,7 @@
     "react-router-redux": "5.0.0-alpha.8",
     "redux": "3.7.2",
     "redux-thunk": "2.2.0",
+    "uuid": "3.1.0",
     "webpack": "3.8.1"
   },
   "devDependencies": {

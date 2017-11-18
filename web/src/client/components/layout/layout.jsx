@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import { fetchUser } from 'resources/user/user.actions';
 
+import Toast from 'components/common/toast';
 import Index from 'components/index/async';
 import Profile from 'components/profile/async';
 import Header from './components/header';
@@ -31,6 +32,8 @@ class Layout extends Component {
             <Route path="/profile" component={Profile} />
           </Switch>
         </div>
+
+        <Toast />
       </div>
     );
   }

@@ -10,7 +10,12 @@ import * as fromUser from 'resources/user/user.selectors';
 import {
   updateUser,
   validateUserField,
+  validateUser,
 } from 'resources/user/user.actions';
+import {
+  addErrorMessage,
+  addSuccessMessage,
+} from 'components/common/toast/toast.actions';
 
 import styles from './profile.styles';
 
@@ -22,7 +27,8 @@ class Profile extends React.Component {
       info: PropTypes.string,
       errors: PropTypes.object,
     }).isRequired,
-    validateField: PropTypes.func.isRequired,
+    addErrorMessage: PropTypes.func.isRequired,
+    addSuccessMessage: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -32,6 +38,7 @@ class Profile extends React.Component {
     this.state = {
       username: user.username || '',
       info: user.info || '',
+      errors: {},
     };
   }
 
@@ -54,15 +61,30 @@ class Profile extends React.Component {
   };
 
   updateUser = () => {
-    this.props.updateUser(this.state);
-  };
+    validateUser(this.state)
+      .then(() => {
+        return this.props.updateUser(this.state);
+      })
+      .then((response) => {
+        this.props.addSuccessMessage('User info updated!');
+      })
+      .catch((error) => {
+        this.setState({ errors: error.response.data });
 
-  validateField = (field) => {
-    this.props.validateField(this.state, field);
+        this.props.addErrorMessage(
+          'Unable to save user info:',
+          error.response.data.global,
+        );
+      });
+  }
+
+  validateField = field => () => {
+    const result = validateUserField(this.state, field);
+    this.setState({ errors: result.errors });
   }
 
   error(field) {
-    return this.props.user.errors[field];
+    return this.state.errors[field];
   }
 
   render() {
@@ -119,5 +141,7 @@ export default connect(
   {
     updateUser,
     validateField: validateUserField,
+    addErrorMessage,
+    addSuccessMessage,
   },
 )(Profile);

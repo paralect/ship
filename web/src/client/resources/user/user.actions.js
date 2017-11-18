@@ -1,6 +1,7 @@
 import Joi from 'joi-browser';
 import _isEmpty from 'lodash/isEmpty';
 
+import ValidationError from 'helpers/validationError';
 import { validate, validateField } from 'helpers/validation';
 import * as api from './user.api';
 
@@ -34,31 +35,30 @@ export const USER_ERRORS = 'userErrors';
 export const fetchUser = () => dispatch =>
   api.fetchUser().then(payload => dispatch({ type: FETCH_USER, payload }));
 
-export const validateUserField = (data, field) => (dispatch) => {
-  const result = validateField(data, field, schema);
-  dispatch({
-    type: USER_ERRORS,
-    errors: result.errors,
-  });
+export const validateUserField = (data, field) => {
+  return validateField(data, field, schema);
+};
+
+export const validateUser = (data) => {
+  const result = validate(data, schema);
+  const isValid = _isEmpty(result.errors);
+
+  if (!isValid) {
+    return Promise.reject(new ValidationError({
+      global: 'Validation Error',
+      ...result.errors,
+    }));
+  }
+
+  return Promise.resolve();
 };
 
 export const updateUser = ({ username, info }) => (dispatch) => {
-  const result = validate({ username, info }, schema);
-  const isValid = _isEmpty(result.errors);
-
-  dispatch({
-    type: USER_ERRORS,
-    errors: result.errors,
-  });
-  if (!isValid) {
-    return;
-  }
-
-  api.updateUser({ username, info })
-    .then(payload => dispatch({
-      type: UPDATE_USER,
-      username,
-      info,
-      payload,
-    }));
+  return api.updateUser({ username, info })
+    .then((payload) => {
+      dispatch({
+        type: UPDATE_USER, username, info, payload,
+      });
+      return payload;
+    });
 };

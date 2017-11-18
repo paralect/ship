@@ -28,6 +28,7 @@ export default (state = initialState, action) => {
     case USER_ERRORS:
       return {
         ...state,
+        ...action.data,
         errors: action.errors,
       };
 
