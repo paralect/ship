@@ -23,7 +23,7 @@ const schema = {
 exports.validate = ctx => baseValidator(ctx, schema, async (data) => {
   const user = await userService.findOne({ resetPasswordToken: data.token });
   if (!user) {
-    ctx.errors.push({ token: 'Token is invalid' });
+    ctx.errors.push({ token: 'Password reset link has expired or invalid' });
     return false;
   }
 

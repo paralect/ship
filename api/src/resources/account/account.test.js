@@ -152,9 +152,23 @@ module.exports = (request) => {
     it('should successfully send forgot password link', (done) => {
       request.post('/account/forgotPassword')
         .send({
-          user: newUserData.email,
+          email: newUserData.email,
         })
         .expect(200)
+        .end(done);
+    });
+
+    it('should return an error forgot password email is not registered', (done) => {
+      const email = 'not@registered.user';
+      request.post('/account/forgotPassword')
+        .send({
+          email,
+        })
+        .expect(400)
+        .expect(({ body }) => {
+          const { errors } = body;
+          errors[0].email.should.be.equal(`Couldn't find account associated with ${email}. Please try again`);
+        })
         .end(done);
     });
 
@@ -167,7 +181,7 @@ module.exports = (request) => {
         .expect(400)
         .expect(({ body }) => {
           const { errors } = body;
-          errors[0].token.should.be.equal('Token is invalid');
+          errors[0].token.should.be.equal('Password reset link has expired or invalid');
         })
         .end(done);
     });
