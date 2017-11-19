@@ -40,20 +40,16 @@ export default class Signin extends PureComponent {
   render() {
     return (
       <Layout>
-        <div className="_root auth page">
+        <div className="auth page">
           <style jsx>{`
-            :root {
-              --breakpoint-small: 720px;
-            }
-
-            @custom-media --navbar-height-reached (height <= 600px);
-
-            ._root .test {
-              background: purple !important;
-            }
-
             .page {
               background-color: var(--color-brand);
+              @custom-media --navbar-height-reached (height <= 700px);
+
+              @media (--navbar-height-reached) {
+                padding-top: 100px;
+                align-items: flex-start;
+              }
 
               & .panel {
                 width: 850px;
@@ -79,7 +75,7 @@ export default class Signin extends PureComponent {
 
                     & :global(button.signin) {
                       /*https://github.com/zeit/styled-jsx/issues/273*/
-                      background-image: linear-gradient(to right, rgba(90,97,241,0.9) 0%, #7a00ff 100%);
+                      background-image: var(--button-primary-gradient);
                       margin-top: var(--form-padding)
                     }
 

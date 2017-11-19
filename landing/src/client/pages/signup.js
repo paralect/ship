@@ -70,7 +70,13 @@ export default class Signup extends PureComponent {
           <style jsx>{`
             .page {
               background: var(--color-secondary);
+              @custom-media --navbar-height-reached (height <= 700px);
 
+              @media (--navbar-height-reached) {
+                padding-top: 100px;
+                align-items: flex-start;
+              }
+              
               & .panel {
                 height: 600px;
                 width: 1014px;
