@@ -19,7 +19,7 @@ const types = {
   object: 'object',
 };
 
-const parseErrors = (error) => {
+const parseErrors = (error, defaultPath = '') => {
   const errors = {};
 
   if (!error) {
@@ -28,11 +28,13 @@ const parseErrors = (error) => {
 
   if (error.details instanceof Array) {
     error.details.forEach((err) => {
-      let pathErrors = _get(errors, err.path);
+      const path = err.path.join('.') || defaultPath;
+
+      let pathErrors = _get(errors, path);
       pathErrors = pathErrors || [];
       pathErrors.push(err.message);
 
-      _set(errors, err.path, pathErrors);
+      _set(errors, path, pathErrors);
     });
   } else if (error instanceof Error) {
     const match = error.message.match(errorRegExp);
@@ -44,28 +46,6 @@ const parseErrors = (error) => {
   }
 
   return errors;
-};
-
-/**
- * @desc transform errors to the form appropriate for react forms
- * @param {object[]} errors
- * @return {object}
- */
-export const transformServerErrors = (errors) => {
-  const result = {};
-  if (!errors) {
-    return result;
-  }
-
-  errors.forEach((error) => {
-    Object.keys(error).forEach((key) => {
-      const keyErrors = _get(result, key) || [];
-      keyErrors.push(error[key]);
-      _set(result, key, keyErrors);
-    });
-  });
-
-  return result;
 };
 
 /**
@@ -147,10 +127,23 @@ export const validate = (obj, schema) => {
  * @return {object}
  */
 export const validateField = (obj, field, schema) => {
-  const fieldValue = _get(obj, field);
-  const newObj = {};
-  _set(newObj, field, fieldValue);
+  if (field.indexOf('[') >= 0 && field.indexOf(']') > 0) {
+    const fieldValue = _get(obj, field);
+    const newObj = {};
+    _set(newObj, field, fieldValue);
 
-  const newSchema = getValidationObject(newObj, field, schema);
-  return validate(newObj, newSchema);
+    const newSchema = getValidationObject(newObj, field, schema);
+    return validate(newObj, newSchema);
+  }
+
+  const objSchema = schema.isJoi || Joi.object(schema);
+  const newSchema = Joi.reach(objSchema, field);
+
+  const result = Joi.validate(_get(obj, field), newSchema);
+  const errors = parseErrors(result.error, field);
+
+  return {
+    errors,
+    value: result.value,
+  };
 };

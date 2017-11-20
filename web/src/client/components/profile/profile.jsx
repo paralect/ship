@@ -60,22 +60,28 @@ class Profile extends React.Component {
     this.setState({ username });
   };
 
-  updateUser = () => {
-    validateUser(this.state)
-      .then(() => {
-        return this.props.updateUser(this.state);
-      })
-      .then((response) => {
-        this.props.addSuccessMessage('User info updated!');
-      })
-      .catch((error) => {
-        this.setState({ errors: error.response.data });
+  showErrors(errors) {
+    this.setState({ errors });
 
-        this.props.addErrorMessage(
-          'Unable to save user info:',
-          error.response.data.global,
-        );
-      });
+    this.props.addErrorMessage(
+      'Unable to save user info:',
+      errors.global,
+    );
+  }
+
+  updateUser = async () => {
+    const result = validateUser(this.state);
+
+    if (!result.isValid) {
+      this.showErrors(result.errors);
+    }
+
+    try {
+      await this.props.updateUser(this.state);
+      this.props.addSuccessMessage('User info updated!');
+    } catch (error) {
+      this.showErrors(error.response.data);
+    }
   }
 
   validateField = field => () => {

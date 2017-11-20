@@ -43,14 +43,13 @@ export const validateUser = (data) => {
   const result = validate(data, schema);
   const isValid = _isEmpty(result.errors);
 
-  if (!isValid) {
-    return Promise.reject(new ValidationError({
-      global: 'Validation Error',
+  return {
+    errors: {
       ...result.errors,
-    }));
-  }
-
-  return Promise.resolve();
+      global: 'Validation Error.',
+    },
+    isValid,
+  };
 };
 
 export const updateUser = ({ username, info }) => (dispatch) => {
