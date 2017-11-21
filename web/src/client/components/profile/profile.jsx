@@ -40,6 +40,8 @@ class Profile extends React.Component {
       info: user.info || '',
       errors: {},
     };
+
+    this.updateUser = this.updateUser.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -69,11 +71,12 @@ class Profile extends React.Component {
     );
   }
 
-  updateUser = async () => {
+  async updateUser(e) {
     const result = validateUser(this.state);
 
     if (!result.isValid) {
       this.showErrors(result.errors);
+      return;
     }
 
     try {
