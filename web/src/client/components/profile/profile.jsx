@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Input from 'components/common/input';
-import Button, {
-  colors as buttonColors,
-} from 'components/common/button';
+import Button, { colors as buttonColors } from 'components/common/button';
 import Form, { Row, Column } from 'components/common/form';
 
 import * as fromUser from 'resources/user/user.selectors';
@@ -20,7 +18,7 @@ class Profile extends React.Component {
       username: PropTypes.string,
       info: PropTypes.string,
     }).isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -44,15 +42,15 @@ class Profile extends React.Component {
 
   onInfoChange = (info) => {
     this.setState({ info });
-  }
+  };
 
   onUsernameChange = (username) => {
     this.setState({ username });
-  }
+  };
 
   updateUser = () => {
     this.props.updateUser(this.state);
-  }
+  };
 
   render() {
     return (
@@ -62,26 +60,16 @@ class Profile extends React.Component {
         <Form>
           <Row>
             <Column>
-              <Input
-                value={this.state.username}
-                onChange={this.onUsernameChange}
-              />
+              <Input value={this.state.username} onChange={this.onUsernameChange} />
             </Column>
 
             <Column>
-              <Input
-                value={this.state.info}
-                onChange={this.onInfoChange}
-              />
+              <Input value={this.state.info} onChange={this.onInfoChange} />
             </Column>
           </Row>
           <Row>
             <Column>
-              <Button
-                className={styles.button}
-                tabIndex={-1}
-                color={buttonColors.red}
-              >
+              <Button className={styles.button} tabIndex={-1} color={buttonColors.red}>
                 Cancel
               </Button>
 
@@ -101,8 +89,11 @@ class Profile extends React.Component {
   }
 }
 
-export default connect(state => ({
-  user: fromUser.getUser(state),
-}), {
-  updateUser,
-})(Profile);
+export default connect(
+  state => ({
+    user: fromUser.getUser(state),
+  }),
+  {
+    updateUser,
+  },
+)(Profile);

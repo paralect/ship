@@ -1,6 +1,6 @@
 :root {
   --size: 50px;
-  --primary-color: #42A5F5;
+  --primary-color: #42a5f5;
   --dark-color: #212121;
 }
 
@@ -28,56 +28,59 @@
       width: calc(var(--size) / 2);
       height: calc(var(--size) / 2);
       transform-origin: 100% 100%;
-      animation: folding 2.50s infinite linear both;
+      animation: folding 2.5s infinite linear both;
     }
   }
 
   & .leaf2 {
     transform: rotateZ(90deg) scale(1.1);
 
-    &::before{
-      animation-delay: .30s;
+    &::before {
+      animation-delay: 0.3s;
       background-color: darken(var(--primary-color), 5%);
     }
   }
 
-  & .leaf3{
+  & .leaf3 {
     transform: rotateZ(270deg) scale(1.1);
 
-    &::before{
-      animation-delay: .90s;
+    &::before {
+      animation-delay: 0.9s;
       background-color: darken(var(--primary-color), 5%);
     }
   }
 
-  & .leaf4{
+  & .leaf4 {
     transform: rotateZ(180deg) scale(1.1);
 
-    &::before{
-      animation-delay: .60s;
+    &::before {
+      animation-delay: 0.6s;
       background-color: darken(var(--primary-color), 10%);
     }
   }
 }
 
 @keyframes folding {
-  0%, 10%{
+  0%,
+  10% {
     transform: perspective(140px) rotateX(-180deg);
     opacity: 0;
   }
 
-  25%, 75%{
+  25%,
+  75% {
     transform: perspective(140px) rotateX(0deg);
     opacity: 1;
   }
 
-  90%, 100%{
-    transform: perspective(140px) rotateY(180deg); 
+  90%,
+  100% {
+    transform: perspective(140px) rotateY(180deg);
     opacity: 0;
   }
 }
 
-.cube-wrapper {  
+.cube-wrapper {
   position: fixed;
   left: 50%;
   top: 50%;
@@ -87,7 +90,7 @@
   height: calc(var(--size) * 2);
   text-align: center;
 
-  &:after{
+  &::after {
     content: '';
     position: absolute;
     left: 0;
@@ -96,14 +99,14 @@
     margin: auto;
     width: calc(var(--size) * 1.8);
     height: 6px;
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba(0, 0, 0, 0.1);
     filter: blur(2px);
     border-radius: 100%;
     z-index: 1;
     animation: shadow 0.5s ease infinite alternate;
   }
 
-  & .loading{
+  & .loading {
     font-size: 14px;
     display: block;
     color: var(--dark-color);
@@ -115,14 +118,14 @@
 }
 
 @keyframes text {
-  100%{
+  100% {
     top: calc(var(--size) / 2 + 10);
   }
 }
 
 @keyframes shadow {
-  100%{
-    bottom: -18px; 
+  100% {
+    bottom: -18px;
     width: calc(var(--size) * 2);
   }
 }

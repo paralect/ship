@@ -4,13 +4,8 @@ import classnames from 'classnames';
 
 import styles from './row.styles.pcss';
 
-const Row = ({
-  children,
-  className,
-}) => (
-  <div className={classnames(styles.row, className)}>
-    {children}
-  </div>
+const Row = ({ children, className }) => (
+  <div className={classnames(styles.row, className)}>{children}</div>
 );
 
 Row.propTypes = {

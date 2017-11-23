@@ -4,13 +4,8 @@ import classnames from 'classnames';
 
 import styles from './form.styles.pcss';
 
-const Form = ({
-  children,
-  className,
-}) => (
-  <div className={classnames(styles.form, className)}>
-    {children}
-  </div>
+const Form = ({ children, className }) => (
+  <div className={classnames(styles.form, className)}>{children}</div>
 );
 
 Form.propTypes = {

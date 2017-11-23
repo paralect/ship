@@ -1,7 +1,4 @@
-import {
-  FETCH_USER,
-  UPDATE_USER,
-} from './user.actions';
+import { FETCH_USER, UPDATE_USER } from './user.actions';
 
 const initialState = {
   username: '',
