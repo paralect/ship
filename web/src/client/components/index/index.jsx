@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Link } from 'components/common/button';
+import './index.styles.pcss';
 
 export default class Index extends React.Component {
   render() {

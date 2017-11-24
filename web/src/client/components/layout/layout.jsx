@@ -14,11 +14,11 @@ import styles from './layout.styles.pcss';
 class Layout extends Component {
   static propTypes = {
     fetchUser: PropTypes.func.isRequired,
-  }
+  };
 
   componentDidMount = () => {
     this.props.fetchUser();
-  }
+  };
 
   render() {
     return (

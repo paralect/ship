@@ -34,16 +34,16 @@ const createUniqueIdGenerator = () => {
 const uniqueIdGenerator = createUniqueIdGenerator();
 
 const generateScopedName = (localName, resourcePath) => {
-  const componentName = resourcePath.split('/').slice(-5, -1).join('/');
+  const componentName = resourcePath
+    .split('/')
+    .slice(-5, -1)
+    .join('/');
   return `${uniqueIdGenerator(componentName)}_${uniqueIdGenerator(localName)}`;
 };
 
 module.exports = {
   entry: {
-    main: [
-      'babel-polyfill',
-      './index.jsx',
-    ],
+    main: ['babel-polyfill', './index.jsx'],
   },
 
   output: {
@@ -55,48 +55,52 @@ module.exports = {
   context: path.resolve(__dirname, './'),
 
   module: {
-    rules: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader',
-      options: {
-        plugins: [
-          [
-            'react-css-modules',
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          plugins: [
+            [
+              'react-css-modules',
+              {
+                generateScopedName,
+                webpackHotModuleReloading: false,
+              },
+            ],
+          ],
+        },
+      },
+      {
+        test: /\.pcss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
             {
-              generateScopedName,
-              webpackHotModuleReloading: false,
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                camelCase: true,
+                getLocalIdent: (context, localIdentName, localName) => {
+                  return generateScopedName(localName, context.resourcePath);
+                },
+                minimize: true,
+                modules: true,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: { sourceMap: true },
             },
           ],
-        ],
+        }),
       },
-    }, {
-      test: /\.pcss$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              camelCase: true,
-              getLocalIdent: (context, localIdentName, localName) => {
-                return generateScopedName(localName, context.resourcePath);
-              },
-              minimize: true,
-              modules: true,
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: { sourceMap: true },
-          },
-        ],
-      }),
-    }, {
-      test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
-    }],
+      {
+        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
+      },
+    ],
   },
 
   devtool: 'source-map',

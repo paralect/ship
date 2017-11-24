@@ -13,10 +13,7 @@ class ButtonLink extends Component {
     onClick: PropTypes.func,
     text: PropTypes.string.isRequired,
     to: PropTypes.string.isRequired,
-    tabIndex: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]).isRequired,
+    tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   };
 
   static defaultProps = {
@@ -27,23 +24,16 @@ class ButtonLink extends Component {
     if (e.keyCode === 13 && this.props.onClick) {
       this.props.onClick(e);
     }
-  }
+  };
 
   render() {
     const {
-      to,
-      text,
-      onClick,
-      tabIndex,
+      to, text, onClick, tabIndex,
     } = this.props;
 
     return (
       <Link to={to} className={styles.link}>
-        <Button
-          onClick={onClick}
-          onKeyDown={this.onKeyDown}
-          tabIndex={tabIndex}
-        >
+        <Button onClick={onClick} onKeyDown={this.onKeyDown} tabIndex={tabIndex}>
           {text}
         </Button>
       </Link>

@@ -4,13 +4,8 @@ import classnames from 'classnames';
 
 import styles from './column.styles.pcss';
 
-const Column = ({
-  children,
-  className,
-}) => (
-  <div className={classnames(styles.column, className)}>
-    {children}
-  </div>
+const Column = ({ children, className }) => (
+  <div className={classnames(styles.column, className)}>{children}</div>
 );
 
 Column.propTypes = {

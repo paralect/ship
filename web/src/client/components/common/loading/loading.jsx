@@ -10,7 +10,9 @@ const Loading = () => (
       <span className={styles.leaf3} />
       <span className={styles.leaf4} />
     </div>
-    <span className={styles.loading} data-name="Loading">Loading</span>
+    <span className={styles.loading} data-name="Loading">
+      Loading
+    </span>
   </div>
 );
 
