@@ -1,7 +1,6 @@
 import Joi from 'joi-browser';
 import _isEmpty from 'lodash/isEmpty';
 
-import ValidationError from 'helpers/validationError';
 import { validate, validateField } from 'helpers/validation';
 import * as api from './user.api';
 
@@ -53,11 +52,13 @@ export const validateUser = (data) => {
 };
 
 export const updateUser = ({ username, info }) => (dispatch) => {
-  return api.updateUser({ username, info })
-    .then((payload) => {
-      dispatch({
-        type: UPDATE_USER, username, info, payload,
-      });
-      return payload;
+  return api.updateUser({ username, info }).then((payload) => {
+    dispatch({
+      type: UPDATE_USER,
+      username,
+      info,
+      payload,
     });
+    return payload;
+  });
 };

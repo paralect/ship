@@ -7,15 +7,8 @@ import Button, { colors as buttonColors } from 'components/common/button';
 import Form, { Row, Column } from 'components/common/form';
 
 import * as fromUser from 'resources/user/user.selectors';
-import {
-  updateUser,
-  validateUserField,
-  validateUser,
-} from 'resources/user/user.actions';
-import {
-  addErrorMessage,
-  addSuccessMessage,
-} from 'components/common/toast/toast.actions';
+import { updateUser, validateUserField, validateUser } from 'resources/user/user.actions';
+import { addErrorMessage, addSuccessMessage } from 'components/common/toast/toast.actions';
 
 import styles from './profile.styles';
 
@@ -29,7 +22,7 @@ class Profile extends React.Component {
     }).isRequired,
     addErrorMessage: PropTypes.func.isRequired,
     addSuccessMessage: PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -65,10 +58,7 @@ class Profile extends React.Component {
   showErrors(errors) {
     this.setState({ errors });
 
-    this.props.addErrorMessage(
-      'Unable to save user info:',
-      errors.global,
-    );
+    this.props.addErrorMessage('Unable to save user info:', errors.global);
   }
 
   async updateUser(e) {
@@ -90,7 +80,7 @@ class Profile extends React.Component {
   validateField = field => () => {
     const result = validateUserField(this.state, field);
     this.setState({ errors: result.errors });
-  }
+  };
 
   error(field) {
     return this.state.errors[field];

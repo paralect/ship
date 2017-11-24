@@ -1,7 +1,4 @@
-import {
-  ADD_MESSAGE,
-  REMOVE_MESSAGE,
-} from './toast.actions';
+import { ADD_MESSAGE, REMOVE_MESSAGE } from './toast.actions';
 
 const defaultState = {
   messages: [],
@@ -34,10 +31,9 @@ const toast = (state = defaultState, action) => {
 };
 
 export const getToasterMessages = (state, filter) => {
-  return state.messages
-    .filter((message) => {
-      return filter === 'all' || filter === message.type;
-    });
+  return state.messages.filter((message) => {
+    return filter === 'all' || filter === message.type;
+  });
 };
 
 export default toast;

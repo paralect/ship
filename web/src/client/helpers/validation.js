@@ -62,11 +62,9 @@ export const getValidationObject = (obj, field, schema) => {
 
     if (schema[objField]) {
       if (schema[objField]._type === types.array) {
-        let [, arrayItem] = (field.match(arrayItemRegExp) || []);
+        let [, arrayItem] = field.match(arrayItemRegExp) || [];
         arrayItem = arrayItem || '';
-        nextField = nextField
-          .replace(`${objField}${arrayItem}`, '')
-          .replace(dotRegExp, '');
+        nextField = nextField.replace(`${objField}${arrayItem}`, '').replace(dotRegExp, '');
 
         const arrayObj = _get(obj[objField], arrayItem);
         const [item] = schema[objField]._inner.items;
@@ -81,7 +79,9 @@ export const getValidationObject = (obj, field, schema) => {
             .sparse()
             .items(getValidationObject(arrayObj, nextField, schemaObj));
         } else {
-          newSchema[objField] = Joi.array().sparse().items(item);
+          newSchema[objField] = Joi.array()
+            .sparse()
+            .items(item);
         }
       } else if (schema[objField]._type === types.object) {
         nextField = nextField.replace(objField, '').replace(dotRegExp, '');

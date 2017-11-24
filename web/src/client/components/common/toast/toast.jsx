@@ -34,10 +34,7 @@ class Toast extends Component {
     messages: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
       type: PropTypes.oneOf(['error', 'success', 'warning']),
-      text: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string),
-      ]),
+      text: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
       isHTML: PropTypes.bool,
     })).isRequired,
     removeMessage: PropTypes.func.isRequired,
@@ -60,19 +57,18 @@ class Toast extends Component {
 
   onMessageClick = id => (e) => {
     this.props.removeMessage(id);
-  }
+  };
 
   onMessageKeyDown = id => (e) => {
     if (e.keyCode === 13) {
       this.props.removeMessage(id);
     }
-  }
+  };
 
   messagesList() {
     return this.props.messages.map((message, index) => {
-      const text = (!message.text || typeof message.text === 'string')
-        ? message.text
-        : message.text.join(', ');
+      const text =
+        !message.text || typeof message.text === 'string' ? message.text : message.text.join(', ');
 
       return (
         <div
@@ -94,10 +90,7 @@ class Toast extends Component {
   }
 
   render() {
-    return ReactDOM.createPortal(
-      this.messagesList(),
-      this.el,
-    );
+    return ReactDOM.createPortal(this.messagesList(), this.el);
   }
 }
 

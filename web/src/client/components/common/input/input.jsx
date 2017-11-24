@@ -20,7 +20,7 @@ export default class Input extends React.Component {
     className: null,
     type: 'text',
     errors: [],
-  }
+  };
 
   onChange = (e) => {
     this.props.onChange(e.target.value);
@@ -31,18 +31,11 @@ export default class Input extends React.Component {
       return null;
     }
 
-    return (
-      <div className={styles.errors}>
-        {_uniq(this.props.errors).join(', ')}
-      </div>
-    );
+    return <div className={styles.errors}>{_uniq(this.props.errors).join(', ')}</div>;
   }
 
   render() {
-    const {
-      className,
-      errors,
-    } = this.props;
+    const { className, errors } = this.props;
     const props = _omit(this.props, ['className', 'errors', 'onChange']);
 
     return (
