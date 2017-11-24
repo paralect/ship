@@ -108,6 +108,9 @@ module.exports = {
   resolve: {
     modules: ['./', 'node_modules'],
     extensions: ['.js', '.jsx', '.pcss'],
+    alias: {
+      joi: 'joi-browser',
+    },
   },
 
   plugins: [

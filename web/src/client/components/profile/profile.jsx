@@ -7,7 +7,8 @@ import Button, { colors as buttonColors } from 'components/common/button';
 import Form, { Row, Column } from 'components/common/form';
 
 import * as fromUser from 'resources/user/user.selectors';
-import { updateUser } from 'resources/user/user.actions';
+import { updateUser, validateUserField, validateUser } from 'resources/user/user.actions';
+import { addErrorMessage, addSuccessMessage } from 'components/common/toast/toast.actions';
 
 import styles from './profile.styles';
 
@@ -17,7 +18,10 @@ class Profile extends React.Component {
     user: PropTypes.shape({
       username: PropTypes.string,
       info: PropTypes.string,
+      errors: PropTypes.object,
     }).isRequired,
+    addErrorMessage: PropTypes.func.isRequired,
+    addSuccessMessage: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -27,7 +31,10 @@ class Profile extends React.Component {
     this.state = {
       username: user.username || '',
       info: user.info || '',
+      errors: {},
     };
+
+    this.updateUser = this.updateUser.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -48,9 +55,36 @@ class Profile extends React.Component {
     this.setState({ username });
   };
 
-  updateUser = () => {
-    this.props.updateUser(this.state);
+  showErrors(errors) {
+    this.setState({ errors });
+
+    this.props.addErrorMessage('Unable to save user info:', errors.global);
+  }
+
+  async updateUser(e) {
+    const result = validateUser(this.state);
+
+    if (!result.isValid) {
+      this.showErrors(result.errors);
+      return;
+    }
+
+    try {
+      await this.props.updateUser(this.state);
+      this.props.addSuccessMessage('User info updated!');
+    } catch (error) {
+      this.showErrors(error.response.data);
+    }
+  }
+
+  validateField = field => () => {
+    const result = validateUserField(this.state, field);
+    this.setState({ errors: result.errors });
   };
+
+  error(field) {
+    return this.state.errors[field];
+  }
 
   render() {
     return (
@@ -60,11 +94,21 @@ class Profile extends React.Component {
         <Form>
           <Row>
             <Column>
-              <Input value={this.state.username} onChange={this.onUsernameChange} />
+              <Input
+                errors={this.error('username')}
+                value={this.state.username}
+                onChange={this.onUsernameChange}
+                onBlur={this.validateField('username')}
+              />
             </Column>
 
             <Column>
-              <Input value={this.state.info} onChange={this.onInfoChange} />
+              <Input
+                errors={this.error('info')}
+                value={this.state.info}
+                onChange={this.onInfoChange}
+                onBlur={this.validateField('info')}
+              />
             </Column>
           </Row>
           <Row>
@@ -95,5 +139,8 @@ export default connect(
   }),
   {
     updateUser,
+    validateField: validateUserField,
+    addErrorMessage,
+    addSuccessMessage,
   },
 )(Profile);
