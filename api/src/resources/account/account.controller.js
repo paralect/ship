@@ -87,7 +87,7 @@ exports.signin = async (ctx, next) => {
 /**
 * Send forgot password email with a unique link to set new password
 * If user is found by email - sends forgot password email and update
-* `forgotPasswordToken` field. If user not found, still return 200 response
+* `forgotPasswordToken` field. If user not found, returns validator's error
 */
 exports.forgotPassword = async (ctx, next) => {
   const result = await validators.forgotPassword.validate(ctx);
@@ -96,15 +96,13 @@ exports.forgotPassword = async (ctx, next) => {
   const { value: data } = result;
   const user = await userService.findOne({ email: data.email });
 
-  if (user) {
-    let { resetPasswordToken } = user;
-    if (!resetPasswordToken) {
-      resetPasswordToken = await securityUtil.generateSecureToken();
-      await userService.updateResetPasswordToken(user._id, resetPasswordToken);
-    }
-
-    await emailService.sendForgotPassword(user, resetPasswordToken);
+  let { resetPasswordToken } = user;
+  if (!resetPasswordToken) {
+    resetPasswordToken = await securityUtil.generateSecureToken();
+    await userService.updateResetPasswordToken(user._id, resetPasswordToken);
   }
+
+  await emailService.sendForgotPassword(user, resetPasswordToken);
 
   ctx.body = {};
 };
