@@ -33,32 +33,31 @@ const schema = {
     }),
 };
 
+exports.validate = ctx =>
+  baseValidator(ctx, schema, async (signinData) => {
+    const user = await userService.findOne({ email: signinData.email });
+    if (!user) {
+      ctx.errors.push({ credentials: incorrectCredentials });
+      return false;
+    }
 
-exports.validate = ctx => baseValidator(ctx, schema, async (signinData) => {
-  const user = await userService.findOne({ email: signinData.email });
+    const isPasswordMatch = await securityUtil.compareTextWithHash(
+      signinData.password,
+      user.passwordHash,
+      user.passwordSalt,
+    );
 
-  if (!user) {
-    ctx.errors.push({ credentials: incorrectCredentials });
-    return false;
-  }
+    if (!isPasswordMatch) {
+      ctx.errors.push({ credentials: incorrectCredentials });
+      return false;
+    }
 
-  const isPasswordMatch = await securityUtil.compareTextWithHash(
-    signinData.password,
-    user.passwordHash,
-    user.passwordSalt,
-  );
+    if (!user.isEmailVerified) {
+      ctx.errors.push({ email: 'Please verify your email to sign in' });
+      return false;
+    }
 
-  if (!isPasswordMatch) {
-    ctx.errors.push({ credentials: incorrectCredentials });
-    return false;
-  }
-
-  if (!user.isEmailVerified) {
-    ctx.errors.push({ email: 'Please verify your email to sign in' });
-    return false;
-  }
-
-  return {
-    userId: user._id,
-  };
-});
+    return {
+      userId: user._id,
+    };
+  });

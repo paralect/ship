@@ -9,5 +9,15 @@ module.exports = {
         "**/*.factory.js",
       ],
     }],
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+          "src",
+          "node_modules"
+        ],
+      },
+    }
   }
 };

@@ -15,13 +15,16 @@ const schema = {
     }),
 };
 
-exports.validate = ctx => baseValidator(ctx, schema, async (data) => {
-  const userExists = await userService.exists({ email: data.email });
+exports.validate = ctx =>
+  baseValidator(ctx, schema, async (data) => {
+    const userExists = await userService.exists({ email: data.email });
 
-  if (!userExists) {
-    ctx.errors.push({ email: `Couldn't find account associated with ${data.email}. Please try again` });
-    return false;
-  }
+    if (!userExists) {
+      ctx.errors.push({
+        email: `Couldn't find account associated with ${data.email}. Please try again`,
+      });
+      return false;
+    }
 
-  return data;
-});
+    return data;
+  });

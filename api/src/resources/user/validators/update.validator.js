@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
-const userService = require('resources/user/user.service');
 const baseValidator = require('resources/base.validator');
+const userService = require('resources/user/user.service');
 
 const schema = {
   firstName: Joi.string()
@@ -28,26 +28,16 @@ const schema = {
         any: { empty: '!!Email is required' },
       },
     }),
-  password: Joi.string()
-    .trim()
-    .min(6)
-    .max(40)
-    .options({
-      language: {
-        string: {
-          min: '!!Password is too short',
-          max: '!!Password is too long',
-        },
-        any: { empty: '!!Password is required' },
-      },
-    }),
 };
 
 exports.validate = ctx =>
   baseValidator(ctx, schema, async (data) => {
-    const userExists = await userService.exists({ email: data.email });
-    if (userExists) {
-      ctx.errors.push({ email: 'User with this email is already registered.' });
+    const userExist = await userService.exists({
+      _id: { $ne: ctx.state.user._id },
+      email: data.email,
+    });
+    if (userExist) {
+      ctx.errors.push({ email: 'This email is already in use.' });
       return false;
     }
 

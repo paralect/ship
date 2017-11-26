@@ -28,14 +28,16 @@ module.exports = (request) => {
     });
 
     it('should successfully create new user', (done) => {
-      request.post('/account/signup')
+      request
+        .post('/account/signup')
         .send(newUserData)
         .expect(200)
         .end(done);
     });
 
     it('should return an error that email is already registered.', (done) => {
-      request.post('/account/signup')
+      request
+        .post('/account/signup')
         .send({
           firstName: 'Petr',
           lastName: 'Ivanov',
@@ -51,7 +53,8 @@ module.exports = (request) => {
     });
 
     it('should return an error that token is invalid', (done) => {
-      request.get('/account/verifyEmail/111')
+      request
+        .get('/account/verifyEmail/111')
         .expect(400)
         .expect(({ body }) => {
           const { errors } = body;
@@ -61,13 +64,15 @@ module.exports = (request) => {
     });
 
     it('should successfully verify email', (done) => {
-      request.get(`/account/verifyEmail/${user.signupToken}`)
+      request
+        .get(`/account/verifyEmail/${user.signupToken}`)
         .expect(302)
         .end(done);
     });
 
     it('should return an error if email is not registered', (done) => {
-      request.post('/account/signin')
+      request
+        .post('/account/signin')
         .send({
           email: 'test@test.com1',
           password: 'incorrect_password',
@@ -81,7 +86,8 @@ module.exports = (request) => {
     });
 
     it('should return an error that the password is too short', (done) => {
-      request.post('/account/signin')
+      request
+        .post('/account/signin')
         .send({
           email: newUserData.email,
           password: '1111',
@@ -95,7 +101,8 @@ module.exports = (request) => {
     });
 
     it('should return an error that the password is too long', (done) => {
-      request.post('/account/signin')
+      request
+        .post('/account/signin')
         .send({
           email: newUserData.email,
           password: Array(42).join('1'),
@@ -109,7 +116,8 @@ module.exports = (request) => {
     });
 
     it('should return an error if trying to log in before email is verified', (done) => {
-      request.post('/account/signin')
+      request
+        .post('/account/signin')
         .send({
           email: newUserData.email,
           password: newUserData.password,
@@ -123,7 +131,8 @@ module.exports = (request) => {
     });
 
     it('should return an error if wrong password is provided when logging in', (done) => {
-      request.post('/account/signin')
+      request
+        .post('/account/signin')
         .send({
           email: user.email,
           password: 'invalid_password',
@@ -137,7 +146,8 @@ module.exports = (request) => {
     });
 
     it('should return an error that the email address is incorrect', (done) => {
-      request.post('/account/forgotPassword')
+      request
+        .post('/account/forgotPassword')
         .send({
           email: 'test@test',
         })
@@ -150,7 +160,8 @@ module.exports = (request) => {
     });
 
     it('should successfully send forgot password link', (done) => {
-      request.post('/account/forgotPassword')
+      request
+        .post('/account/forgotPassword')
         .send({
           email: newUserData.email,
         })
@@ -160,7 +171,8 @@ module.exports = (request) => {
 
     it('should return an error forgot password email is not registered', (done) => {
       const email = 'not@registered.user';
-      request.post('/account/forgotPassword')
+      request
+        .post('/account/forgotPassword')
         .send({
           email,
         })
@@ -173,7 +185,8 @@ module.exports = (request) => {
     });
 
     it('should return an error that reset password token is invalid', (done) => {
-      request.put('/account/resetPassword')
+      request
+        .put('/account/resetPassword')
         .send({
           password: 'qwerty123',
           token: '234',
@@ -187,7 +200,8 @@ module.exports = (request) => {
     });
 
     it('should successfully reset old password', (done) => {
-      request.put('/account/resetPassword')
+      request
+        .put('/account/resetPassword')
         .send({
           password: 'new_password',
           token: `${user._id}_reset_password_token`,
@@ -197,7 +211,8 @@ module.exports = (request) => {
     });
 
     it('should successfully resend verification email', (done) => {
-      request.post('/account/resend')
+      request
+        .post('/account/resend')
         .send({
           email: 'test@test.test',
         })

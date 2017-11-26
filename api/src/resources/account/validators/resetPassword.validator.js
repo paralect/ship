@@ -20,15 +20,16 @@ const schema = {
     }),
 };
 
-exports.validate = ctx => baseValidator(ctx, schema, async (data) => {
-  const user = await userService.findOne({ resetPasswordToken: data.token });
-  if (!user) {
-    ctx.errors.push({ token: 'Password reset link has expired or invalid' });
-    return false;
-  }
+exports.validate = ctx =>
+  baseValidator(ctx, schema, async (data) => {
+    const user = await userService.findOne({ resetPasswordToken: data.token });
+    if (!user) {
+      ctx.errors.push({ token: 'Password reset link has expired or invalid' });
+      return false;
+    }
 
-  return {
-    userId: user._id,
-    password: data.password,
-  };
-});
+    return {
+      userId: user._id,
+      password: data.password,
+    };
+  });

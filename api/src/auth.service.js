@@ -3,15 +3,20 @@ const config = require('config');
 
 const { logger } = global;
 
-module.exports.createAuthToken = ({ userId }) => {
+const jwtOptions = {
+  audience: config.audience,
+  issuer: config.issuer,
+};
+
+exports.createAuthToken = ({ userId }) => {
   const payload = {
     _id: userId,
   };
 
-  return jwt.sign(payload, config.jwtSecret, {});
+  return jwt.sign(payload, config.jwtSecret, jwtOptions);
 };
 
-module.exports.decodeToken = (token) => {
+exports.decodeToken = (token) => {
   let res;
 
   try {

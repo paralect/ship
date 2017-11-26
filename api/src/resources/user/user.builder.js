@@ -23,7 +23,7 @@ class UserBuilder extends BaseBuilder {
   }
 
   email(emailAddress) {
-    this.data.email = emailAddress || faker.internet.email();
+    this.data.email = emailAddress || faker.internet.email().toLowerCase();
     return this;
   }
 
