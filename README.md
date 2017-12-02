@@ -35,12 +35,12 @@ Just fork or clone and push repository into your own repo.
 ./bin/start.sh
 ```
 
-# Change Log
+## Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 Every release is documented on the Github [Releases](https://github.com/paralect/ship/releases) page.
 
-# License
+## License
 
 Ship is released under the [MIT License](LICENSE).
 
