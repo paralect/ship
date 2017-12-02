@@ -1,4 +1,12 @@
-# Ship
+# ✨ Ship ✨
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![MIT License][license-badge]][LICENSE]
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+[![Watch on GitHub][github-watch-badge]][github-watch]
+[![Star on GitHub][github-star-badge]][github-star]
+[![Tweet][twitter-badge]][twitter]
+
 A toolkit for makers to ship better products faster 🚀.
 
 [Ship](https://github.com/paralect/ship) is based on Stack. Stack is an open-source (soon!) toolkit based on Node.JS, React.JS, PostCSS & friends.
@@ -24,3 +32,15 @@ Just fork or clone and push repository into your own repo.
 ```
 ./bin/start.sh
 ```
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars1.githubusercontent.com/u/7318?v=4" width="100px;"/><br /><sub><b>codegent</b></sub>](http://www.codegent.com)<br />[💻](https://github.com/paralect/ship/commits?author=code "Code") [📖](https://github.com/paralect/ship/commits?author=code "Documentation") [🤔](#ideas-code "Ideas, Planning, & Feedback") [👀](#review-code "Reviewed Pull Requests") [⚠️](https://github.com/paralect/ship/commits?author=code "Tests") |
+| :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

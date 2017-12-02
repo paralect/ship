@@ -1,0 +1,24 @@
+{
+  "projectName": "ship",
+  "projectOwner": "paralect",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "code",
+      "name": "codegent",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7318?v=4",
+      "profile": "http://www.codegent.com",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "review",
+        "test"
+      ]
+    }
+  ]
+}
