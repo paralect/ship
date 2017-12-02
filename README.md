@@ -6,10 +6,10 @@ A toolkit for makers to ship better products faster 🚀.
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-[![Watch on GitHub](https://img.shields.io/github/watchers/badges/shields.svg?style=social&label=Watch)](https://github.com/paralect/ship/watchers)
-[![Star on GitHub](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Stars)](https://github.com/paralect/ship/stargazers)
-[![Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow)](https://twitter.com/paralect)
-
+[![Watch on GitHub](https://img.shields.io/github/watchers/paralect/ship.svg?style=social&label=Watch)](https://github.com/paralect/ship/watchers)
+[![Star on GitHub](https://img.shields.io/github/stars/paralect/ship.svg?style=social&label=Stars)](https://github.com/paralect/ship/stargazers)
+[![Follow](https://img.shields.io/twitter/follow/paralect.svg?style=social&label=Follow)](https://twitter.com/paralect)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&style=flat-square)[https://twitter.com/intent/tweet?text=I%27m%20building%20my%20next%20product%20with%20Ship%20%F0%9F%9A%80.%20Check%20it%20out:%20https://github.com/paralect/ship]
 
 [Ship](https://github.com/paralect/ship) is based on Stack. Stack is an open-source (soon!) toolkit based on Node.JS, React.JS, PostCSS & friends.
 The Stack is result of 5 years of hard work on a number of awesome products.
