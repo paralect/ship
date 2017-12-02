@@ -39,7 +39,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars1.githubusercontent.com/u/7318?v=4" width="100px;"/><br /><sub><b>codegent</b></sub>](http://www.codegent.com)<br />[💻](https://github.com/paralect/ship/commits?author=code "Code") [📖](https://github.com/paralect/ship/commits?author=code "Documentation") [🤔](#ideas-code "Ideas, Planning, & Feedback") [👀](#review-code "Reviewed Pull Requests") [⚠️](https://github.com/paralect/ship/commits?author=code "Tests") |
+| [<img src="https://avatars2.githubusercontent.com/u/6461311?v=4" width="100px;"/><br /><sub><b>Evgeny Zhivitsa</b></sub>](https://github.com/ezhivitsa)<br />[💻](https://github.com/paralect/ship/commits?author=ezhivitsa "Code") [📖](https://github.com/paralect/ship/commits?author=ezhivitsa "Documentation") [🤔](#ideas-ezhivitsa "Ideas, Planning, & Feedback") [👀](#review-ezhivitsa "Reviewed Pull Requests") [⚠️](https://github.com/paralect/ship/commits?author=ezhivitsa "Tests") |
 | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
