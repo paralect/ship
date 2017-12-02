@@ -1,13 +1,15 @@
 # ✨ Ship ✨
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
-[![MIT License][license-badge]][LICENSE]
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-
-[![Watch on GitHub][github-watch-badge]][github-watch]
-[![Star on GitHub][github-star-badge]][github-star]
-[![Tweet][twitter-badge]][twitter]
 
 A toolkit for makers to ship better products faster 🚀.
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+[![Watch on GitHub](https://img.shields.io/github/watchers/badges/shields.svg?style=social&label=Watch)](https://github.com/paralect/ship/watchers)
+[![Star on GitHub](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Stars)](https://github.com/paralect/ship/stargazers)
+[![Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow)](https://twitter.com/paralect)
+
 
 [Ship](https://github.com/paralect/ship) is based on Stack. Stack is an open-source (soon!) toolkit based on Node.JS, React.JS, PostCSS & friends.
 The Stack is result of 5 years of hard work on a number of awesome products.
@@ -32,6 +34,15 @@ Just fork or clone and push repository into your own repo.
 ```
 ./bin/start.sh
 ```
+
+# Change Log
+
+This project adheres to [Semantic Versioning](http://semver.org/).
+Every release is documented on the Github [Releases](https://github.com/paralect/ship/releases) page.
+
+# License
+
+Ship is released under the [MIT License](LICENSE).
 
 ## Contributors
 
