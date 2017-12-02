@@ -1,0 +1,13 @@
+{
+  "name": "ship",
+  "description": "A toolkit for makers to ship better products faster 🚀",
+  "author": "Paralect, LLC",
+  "license": "MIT",
+  "devDependencies": {
+    "all-contributors-cli": "^4.10.0"
+  },
+  "scripts": {
+     "add-contributor": "all-contributors add",
+     "generate-contributors": "all-contributors generate"
+  }
+}
