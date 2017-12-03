@@ -1,15 +1,55 @@
+const axios = require('axios');
+const Router = require('koa-router');
+const jwt = require('jsonwebtoken');
+const _ = require('lodash');
+
 const config = require('config');
-const indexRouter = require('koa-router')();
+
+const { logger } = global;
+
+const indexRouter = new Router();
 
 // match all routes but not files (i.e. routes with dots)
 indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
   const data = {
+    isDev: config.isDev,
     config: {
       apiUrl: config.apiUrl,
     },
+    user: {},
+    token: '',
   };
 
-  return ctx.render(config.isDev ? 'index-dev' : 'index', data);
+  const jwtOptions = _.pick(config.jwt, ['audience', 'issuer']);
+
+  try {
+    if (ctx.query.token && jwt.verify(ctx.query.token, config.jwt.secret, jwtOptions)) {
+      ctx.session.token = ctx.query.token;
+      ctx.redirect(ctx.path);
+    }
+  } catch (error) {
+    ctx.session.token = null;
+    logger.error(error);
+  }
+
+  try {
+    if (ctx.session.token && jwt.verify(ctx.session.token, config.jwt.secret, jwtOptions)) {
+      const response = await axios.get(`${config.apiUrl}/users/current`, {
+        responseType: 'json',
+        headers: { Authorization: `Bearer ${ctx.session.token}` },
+      });
+
+      data.user = response.data;
+      data.token = ctx.session.token;
+    } else {
+      ctx.session.token = null;
+    }
+  } catch (error) {
+    ctx.session.token = null;
+    logger.error(error);
+  }
+
+  return ctx.render('index', data);
 });
 
 module.exports = indexRouter.routes();

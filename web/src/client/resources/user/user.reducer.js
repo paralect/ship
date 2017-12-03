@@ -1,9 +1,9 @@
-import { FETCH_USER, UPDATE_USER, USER_ERRORS } from './user.actions';
+import { FETCH_USER, UPDATE_USER } from './user.actions';
 
 const initialState = {
-  username: '',
-  info: '',
-  errors: {},
+  firstName: '',
+  lastName: '',
+  email: '',
 };
 
 export default (state = initialState, action) => {
@@ -11,21 +11,12 @@ export default (state = initialState, action) => {
     case FETCH_USER:
       return {
         ...action.payload,
-        errors: {},
       };
 
     case UPDATE_USER:
       return {
         ...state,
-        username: action.username || state.username,
-        info: action.info || state.info,
-      };
-
-    case USER_ERRORS:
-      return {
-        ...state,
-        ...action.data,
-        errors: action.errors,
+        ...action.payload,
       };
 
     default:

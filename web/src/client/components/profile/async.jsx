@@ -12,6 +12,4 @@ const LoadableComponent = Loadable({
   },
 });
 
-const AsyncProfile = props => <LoadableComponent {...props} />;
-
-export default AsyncProfile;
+export default LoadableComponent;

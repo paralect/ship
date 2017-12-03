@@ -3,5 +3,5 @@ export function getUser({ user }) {
 }
 
 export function getUsername({ user }) {
-  return user.username;
+  return `${user.firstName || ''} ${user.lastName || ''}`.trim();
 }

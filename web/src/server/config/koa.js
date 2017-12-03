@@ -4,9 +4,12 @@ const serve = require('koa-static');
 const mount = require('koa-mount');
 const bodyParser = require('koa-bodyparser');
 const views = require('koa-views');
+const session = require('koa-generic-session');
 const handlebars = require('handlebars');
 
 const config = require('config');
+
+const redisStore = require('koa-redis')(config.session.store);
 
 const { logger } = global;
 
@@ -36,6 +39,12 @@ module.exports = (app) => {
   } else {
     app.use(mount('/static', serve(pathToStatic)));
   }
+
+  app.keys = [config.session.secret]; // eslint-disable-line
+  app.use(session({
+    store: redisStore,
+    ttl: config.session.ttl,
+  }));
 
   app.use(async (ctx, next) => {
     try {
