@@ -14,7 +14,7 @@
   "scripts": {
     "test": "run-s test:**",
     "test:eslint": "eslint ./src",
-    "test:mocha": "NODE_ENV=test mocha --timeout 20000 --recursive --exit -c -R spec src/tests/app.spec.js",
+    "test:mocha": "NODE_ENV=test mocha --timeout 20000 --recursive --exit -c -R spec src/**/*.spec.js",
     "development": "NODE_ENV=development nodemon --watch src src/app.js",
     "format": "prettier-eslint --write \"src/**/*.js\""
   },
