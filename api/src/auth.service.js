@@ -9,11 +9,7 @@ exports.createAuthToken = ({ userId }) => {
     _id: userId,
   };
 
-  return jwt.sign(
-    payload,
-    config.jwt.secret,
-    _.pick(config.jwt, ['audience', 'issuer']),
-  );
+  return jwt.sign(payload, config.jwt.secret, _.pick(config.jwt, ['audience', 'issuer']));
 };
 
 exports.decodeToken = (token) => {
