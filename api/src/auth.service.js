@@ -1,21 +1,22 @@
 const jwt = require('jsonwebtoken');
+const _ = require('lodash');
 const config = require('config');
 
 const { logger } = global;
 
-module.exports.createAuthToken = ({ userId }) => {
+exports.createAuthToken = ({ userId }) => {
   const payload = {
     _id: userId,
   };
 
-  return jwt.sign(payload, config.jwtSecret, {});
+  return jwt.sign(payload, config.jwt.secret, _.pick(config.jwt, ['audience', 'issuer']));
 };
 
-module.exports.decodeToken = (token) => {
+exports.decodeToken = (token) => {
   let res;
 
   try {
-    res = jwt.verify(token, config.jwtSecret);
+    res = jwt.verify(token, config.jwt.secret);
   } catch (err) {
     logger.warn('Invalid json web token', err);
   }

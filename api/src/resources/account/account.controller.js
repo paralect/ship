@@ -31,9 +31,9 @@ const createUserAccount = async (userData) => {
 };
 
 /**
-* Create user, company, default app, send signup confirmation email and
-* create auth token for user to login
-*/
+ * Create user, company, default app, send signup confirmation email and
+ * create auth token for user to login
+ */
 exports.signup = async (ctx, next) => {
   const result = await validators.signup.validate(ctx);
   ctx.assert(!result.errors, 400);
@@ -49,9 +49,9 @@ exports.signup = async (ctx, next) => {
 };
 
 /**
-* Verify user's email when user click a link from email
-* sets `emailVerified` to true if token is valid
-*/
+ * Verify user's email when user click a link from email
+ * sets `emailVerified` to true if token is valid
+ */
 exports.verifyEmail = async (ctx, next) => {
   const result = await validators.verifyEmail.validate(ctx);
   ctx.assert(!result.errors, 400);
@@ -68,9 +68,9 @@ exports.verifyEmail = async (ctx, next) => {
 };
 
 /**
-* Sign in user
-* Loads user by email and compare password hashes
-*/
+ * Sign in user
+ * Loads user by email and compare password hashes
+ */
 exports.signin = async (ctx, next) => {
   const result = await validators.signin.validate(ctx);
   ctx.assert(!result.errors, 400);
@@ -85,10 +85,10 @@ exports.signin = async (ctx, next) => {
 };
 
 /**
-* Send forgot password email with a unique link to set new password
-* If user is found by email - sends forgot password email and update
-* `forgotPasswordToken` field. If user not found, returns validator's error
-*/
+ * Send forgot password email with a unique link to set new password
+ * If user is found by email - sends forgot password email and update
+ * `forgotPasswordToken` field. If user not found, returns validator's error
+ */
 exports.forgotPassword = async (ctx, next) => {
   const result = await validators.forgotPassword.validate(ctx);
   ctx.assert(!result.errors, 400);
@@ -108,8 +108,8 @@ exports.forgotPassword = async (ctx, next) => {
 };
 
 /**
-* Updates user password, used in combination with forgotPassword
-*/
+ * Updates user password, used in combination with forgotPassword
+ */
 exports.resetPassword = async (ctx, next) => {
   const result = await validators.resetPassword.validate(ctx);
   ctx.assert(!result.errors, 400);

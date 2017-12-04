@@ -9,7 +9,9 @@ const userSchema = {
   passwordHash: Joi.string(),
   passwordSalt: Joi.string(),
   signupToken: Joi.string(),
-  resetPasswordToken: Joi.string().allow(null).default(null),
+  resetPasswordToken: Joi.string()
+    .allow(null)
+    .default(null),
   isEmailVerified: Joi.boolean().default(false),
 };
 

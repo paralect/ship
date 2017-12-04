@@ -12,38 +12,44 @@
     "paralect"
   ],
   "scripts": {
-    "test": "eslint ./src && NODE_ENV=test mocha --timeout 20000 --recursive --exit -c -R spec src/tests/app.spec.js",
-    "development": "NODE_ENV=development nodemon --watch src src/app.js"
+    "test": "run-s test:**",
+    "test:eslint": "eslint ./src",
+    "test:mocha": "NODE_ENV=test mocha --timeout 20000 --recursive --exit -c -R spec src/**/*.spec.js",
+    "development": "NODE_ENV=development nodemon --watch src src/app.js",
+    "format": "prettier-eslint --write \"src/**/*.js\""
   },
   "dependencies": {
     "@paralect/common-logger": "0.1.10",
     "@paralect/node-mongo": "0.3.0",
     "app-module-path": "2.2.0",
     "bcrypt": "1.0.3",
-    "joi": "13.0.1",
+    "joi": "13.0.2",
     "jsonwebtoken": "8.1.0",
     "kcors": "2.2.1",
     "koa": "2.4.1",
     "koa-bodyparser": "4.2.0",
-    "koa-helmet": "3.2.0",
+    "koa-helmet": "3.3.0",
+    "koa-jwt": "3.2.2",
     "koa-logger": "3.1.0",
     "koa-mount": "3.0.0",
-    "koa-router": "7.2.1",
+    "koa-router": "7.3.0",
     "koa-validate": "1.0.7",
     "lodash": "4.17.4",
     "nodemon": "1.12.1"
   },
   "devDependencies": {
+    "@paralect/eslint-config": "0.1.5",
+    "babel-eslint": "8.0.2",
     "chai": "4.1.2",
-    "faker": "4.1.0",
-    "mocha": "4.0.1",
-    "supertest": "3.0.0",
-    "eslint": "4.10.0",
-    "babel-eslint": "8.0.1",
+    "eslint": "4.12.0",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
-    "eslint-plugin-react": "7.4.0",
-    "@paralect/eslint-config": "0.1.5"
+    "eslint-plugin-react": "7.5.1",
+    "faker": "4.1.0",
+    "mocha": "4.0.1",
+    "npm-run-all": "4.1.2",
+    "prettier-eslint-cli": "4.4.0",
+    "supertest": "3.0.0"
   },
   "repository": {
     "type": "git",
