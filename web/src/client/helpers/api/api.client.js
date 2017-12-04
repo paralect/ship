@@ -51,7 +51,10 @@ export const putRequest = httpRequest('put');
 export const deleteRequest = httpRequest('delete');
 
 const apiClient = {
-  get: getRequest, post: postRequest, put: putRequest, delete: deleteRequest,
+  get: getRequest,
+  post: postRequest,
+  put: putRequest,
+  delete: deleteRequest,
 };
 
 export default apiClient;

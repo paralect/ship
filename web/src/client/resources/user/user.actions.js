@@ -55,12 +55,11 @@ export const validateUser = (data) => {
 };
 
 export const updateUser = (id, data) => (dispatch) => {
-  return api.updateUser(id, data)
-    .then((payload) => {
-      dispatch({
-        type: UPDATE_USER,
-        payload,
-      });
-      return payload;
+  return api.updateUser(id, data).then((payload) => {
+    dispatch({
+      type: UPDATE_USER,
+      payload,
     });
+    return payload;
+  });
 };
