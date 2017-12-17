@@ -1,20 +1,19 @@
+// @flow
+
 import { ADD_MESSAGE, REMOVE_MESSAGE } from './toast.actions';
+import type { MessageType, StateType, ActionType } from './toast.types';
 
 const defaultState = {
   messages: [],
 };
 
-const toast = (state = defaultState, action) => {
-  let id;
+const toast = (state: StateType = defaultState, action: ActionType): StateType => {
   switch (action.type) {
     case ADD_MESSAGE:
-      id = action.message.id;
-
       return {
         messages: [
           ...state.messages,
           {
-            id,
             ...action.message,
           },
         ],
@@ -22,7 +21,9 @@ const toast = (state = defaultState, action) => {
 
     case REMOVE_MESSAGE:
       return {
-        messages: state.messages.filter(message => message.id !== action.id),
+        messages: state.messages.filter((message: MessageType): boolean => {
+          return message.id !== action.id;
+        }),
       };
 
     default:
@@ -30,8 +31,8 @@ const toast = (state = defaultState, action) => {
   }
 };
 
-export const getToasterMessages = (state, filter) => {
-  return state.messages.filter((message) => {
+export const getToasterMessages = (state: StateType, filter: string): Array<MessageType> => {
+  return state.messages.filter((message: MessageType): boolean => {
     return filter === 'all' || filter === message.type;
   });
 };

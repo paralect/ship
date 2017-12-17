@@ -1,0 +1,9 @@
+{
+    // Support using flow through your node_modules folder, WARNING: Checking this box is a security risk. When you open a project we will immediately run code contained within it.
+    "flow.useNPMPackagedFlow": true,
+    "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
+    // Enable/disable JavaScript validation. (For Flow)
+    "javascript.validate.enable": false,
+    // Use 'prettier-eslint' instead of 'prettier'. Other settings will only be fallbacks in case they could not be inferred from eslint rules.
+    "prettier.eslintIntegration": true
+}

@@ -1,9 +1,16 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 
 import styles from './loading.styles.pcss';
 
-const Loading = (props) => {
+type LoadingPropsType = {
+  error?: boolean,
+  pastDelay?: boolean,
+};
+
+const Loading = (props: LoadingPropsType): Node => {
   if (props.error) {
     return <div>Error!</div>;
   } else if (props.pastDelay) {
@@ -22,11 +29,6 @@ const Loading = (props) => {
     );
   }
   return null;
-};
-
-Loading.propTypes = {
-  error: PropTypes.bool,
-  pastDelay: PropTypes.bool,
 };
 
 Loading.defaultProps = {

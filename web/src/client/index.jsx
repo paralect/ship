@@ -1,8 +1,13 @@
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import type { Store } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
+
+import type { IntitialStateType } from './types';
 
 import routes from './routes';
 import configureStore from './resources/store';
@@ -10,15 +15,15 @@ import configureStore from './resources/store';
 import styles from './styles.pcss';
 import Layout from './components/layout';
 
-const minLoadingTime = 1500;
-const now = Date.now();
+const minLoadingTime: number = 1500;
+const now: number = Date.now();
 
-const initialState = {
+const initialState: IntitialStateType = {
   user: window.user,
 };
 
 const history = createHistory();
-const store = configureStore(initialState, history);
+const store: Store = configureStore(initialState, history);
 
 const Root = () => (
   <Provider store={store}>
@@ -30,21 +35,21 @@ const Root = () => (
   </Provider>
 );
 
-const renderApp = () => {
+const renderApp = (): void => {
   ReactDOM.render(
     <Root />,
     document.getElementById('root'),
   );
 };
 
-const hidePoster = () => {
-  const poster = document.querySelector('#poster');
+const hidePoster = (): void => {
+  const poster: HTMLElement = document.querySelector('#poster');
   if (!poster) {
     return;
   }
   poster.classList.add(styles.posterHidden);
 
-  setTimeout(() => {
+  setTimeout((): void => {
     poster.classList.add(styles.posterNone);
   }, 600);
 };
@@ -58,7 +63,7 @@ if (now - window.loadingTime > minLoadingTime) {
 }
 
 if (module.hot) {
-  module.hot.accept('./routes', () => {
+  module.hot.accept('./routes', (): void => {
     renderApp();
   });
 }

@@ -1,21 +1,26 @@
+// @flow
+
 import { createStore, applyMiddleware, compose } from 'redux';
+import type { Store } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 
 import reducer from './reducer';
+import type { InitialStateType } from '../types';
 
-const configureStore = (initialState, history) => {
-  const store = createStore(
+// eslint-disable-next-line flowtype/no-weak-types
+const configureStore = (initialState: InitialStateType, history: any): Store => {
+  const store: Store = createStore(
     reducer,
     initialState,
     compose(
       applyMiddleware(routerMiddleware(history), thunk),
-      window.devToolsExtension ? window.devToolsExtension() : f => f,
+      window.devToolsExtension ? window.devToolsExtension() : f => f, // eslint-disable-line
     ),
   );
 
   if (module.hot) {
-    module.hot.accept('./reducer', () => {
+    module.hot.accept('./reducer', (): void => {
       const nextRootReducer = require('./reducer').default; // eslint-disable-line
       store.replaceReducer(nextRootReducer);
     });

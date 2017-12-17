@@ -1,12 +1,25 @@
+// @flow
+
 import uuidv4 from 'uuid/v4';
 
-export const ADD_MESSAGE = 'add toast message';
-export const REMOVE_MESSAGE = 'remove toast message';
+import type { ShortMessageType, ActionType } from './toast.types';
+
+export const ADD_MESSAGE: string = 'add toast message';
+export const REMOVE_MESSAGE: string = 'remove toast message';
 
 const displayTime = 3000;
 
-const hideAfterTimeout = (dispatch, id) => {
-  setTimeout(() => {
+type DispatchFnType = (obj: ActionType) => void;
+
+type VoidFnType = (dispatch: DispatchFnType) => void;
+
+type RemoveMessageType = {
+  type: string,
+  id: string,
+};
+
+const hideAfterTimeout = (dispatch: DispatchFnType, id: string): void => {
+  setTimeout((): void => {
     dispatch({
       type: REMOVE_MESSAGE,
       id,
@@ -14,8 +27,8 @@ const hideAfterTimeout = (dispatch, id) => {
   }, displayTime);
 };
 
-const addMessage = (dispatch, data) => {
-  const id = uuidv4();
+const addMessage = (dispatch: DispatchFnType, data: ShortMessageType): void => {
+  const id: string = uuidv4();
 
   hideAfterTimeout(dispatch, id);
 
@@ -28,7 +41,11 @@ const addMessage = (dispatch, data) => {
   });
 };
 
-export const addErrorMessage = (title, text, isHTML = false) => (dispatch) => {
+export const addErrorMessage = (
+  title: string,
+  text: string,
+  isHTML: boolean = false,
+): VoidFnType => (dispatch: DispatchFnType): void => {
   addMessage(dispatch, {
     type: 'error',
     title,
@@ -37,7 +54,11 @@ export const addErrorMessage = (title, text, isHTML = false) => (dispatch) => {
   });
 };
 
-export const addSuccessMessage = (title, text, isHTML = false) => (dispatch) => {
+export const addSuccessMessage = (
+  title: string,
+  text: string,
+  isHTML: boolean = false,
+): VoidFnType => (dispatch: DispatchFnType): void => {
   addMessage(dispatch, {
     type: 'success',
     title,
@@ -46,7 +67,7 @@ export const addSuccessMessage = (title, text, isHTML = false) => (dispatch) => 
   });
 };
 
-export const removeMessage = id => ({
+export const removeMessage = (id: string): RemoveMessageType => ({
   type: REMOVE_MESSAGE,
   id,
 });
