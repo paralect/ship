@@ -26,3 +26,5 @@ export type ActionType = {
   message?: MessageType,
   id?: string,
 };
+
+export type ReducerType = (state: StateType, action: ActionType) => StateType;

@@ -7,7 +7,7 @@ import type { Store } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
 
-import type { IntitialStateType } from './types';
+import type { StateType, ActionType } from './resources/types';
 
 import routes from './routes';
 import configureStore from './resources/store';
@@ -18,14 +18,17 @@ import Layout from './components/layout';
 const minLoadingTime: number = 1500;
 const now: number = Date.now();
 
-const initialState: IntitialStateType = {
+const initialState: StateType = {
   user: window.user,
+  toast: {
+    messages: [],
+  },
 };
 
 const history = createHistory();
-const store: Store = configureStore(initialState, history);
+const store: Store<StateType, ActionType> = configureStore(initialState, history);
 
-const Root = () => (
+const Root = (): Node => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Layout>
@@ -36,15 +39,20 @@ const Root = () => (
 );
 
 const renderApp = (): void => {
+  const rootEl = document.getElementById('root');
+  if (!(rootEl instanceof Element)) {
+    throw new Error('invalid type');
+  }
+
   ReactDOM.render(
     <Root />,
-    document.getElementById('root'),
+    rootEl,
   );
 };
 
 const hidePoster = (): void => {
-  const poster: HTMLElement = document.querySelector('#poster');
-  if (!poster) {
+  const poster = document.getElementById('poster');
+  if (!(poster instanceof Element)) {
     return;
   }
   poster.classList.add(styles.posterHidden);

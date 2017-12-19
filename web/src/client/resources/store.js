@@ -6,11 +6,11 @@ import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 
 import reducer from './reducer';
-import type { InitialStateType } from '../types';
+import type { StateType, ActionType } from './types';
 
 // eslint-disable-next-line flowtype/no-weak-types
-const configureStore = (initialState: InitialStateType, history: any): Store => {
-  const store: Store = createStore(
+const configureStore = (initialState: StateType, history: any): Store<StateType, ActionType> => {
+  const store: Store<StateType, ActionType> = createStore(
     reducer,
     initialState,
     compose(

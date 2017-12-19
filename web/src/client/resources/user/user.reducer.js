@@ -1,9 +1,9 @@
 // @flow
 
 import { FETCH_USER, UPDATE_USER } from './user.actions';
-import type { UserType, ActionType } from './user.types';
+import type { StateType, ActionType } from './user.types';
 
-const initialState: UserType = {
+const initialState: StateType = {
   _id: '',
   createdOn: new Date(),
   firstName: '',
@@ -11,7 +11,7 @@ const initialState: UserType = {
   email: '',
 };
 
-export default (state: UserType = initialState, action: ActionType): UserType => {
+export default (state: StateType = initialState, action: ActionType): StateType => {
   switch (action.type) {
     case FETCH_USER:
       return {

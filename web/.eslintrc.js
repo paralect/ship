@@ -1,6 +1,7 @@
 module.exports = {
   "extends": "@paralect/eslint-config",
   "plugins": [
+    "react",
     "flowtype"
   ],
   "rules": {

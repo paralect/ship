@@ -1,7 +1,7 @@
 // @flow
 
 import type { StateType } from '../types';
-import type { UserType } from './user.types';
+import type { StateType as UserType } from './user.types';
 
 export function getUser({ user }: StateType): UserType {
   return user;

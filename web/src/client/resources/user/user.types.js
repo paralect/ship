@@ -1,6 +1,6 @@
 // @flow
 
-export type UserType = {
+export type StateType = {
   _id: string,
   createdOn: Date,
   firstName: string,
@@ -10,5 +10,7 @@ export type UserType = {
 
 export type ActionType = {
   type: string,
-  payload: UserType,
+  payload: StateType,
 };
+
+export type ReducerType = (state: StateType, action: ActionType) => StateType;

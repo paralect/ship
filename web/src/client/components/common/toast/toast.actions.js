@@ -9,7 +9,7 @@ export const REMOVE_MESSAGE: string = 'remove toast message';
 
 const displayTime = 3000;
 
-type DispatchFnType = (obj: ActionType) => void;
+type DispatchFnType = (obj: ActionType | Promise<ActionType>) => void;
 
 type VoidFnType = (dispatch: DispatchFnType) => void;
 
