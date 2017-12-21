@@ -1,0 +1,2 @@
+monitoring ansible_ssh_host=178.62.116.103 ansible_user=root
+app ansible_ssh_host=138.197.190.164 ansible_user=root
