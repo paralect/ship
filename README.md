@@ -36,11 +36,15 @@ TODO: list all components used to build current Ship version. Make a release aft
 
 Just fork or clone and push repository into your own repo. Rename [SHIP_README.md](SHIP_README.md) into README.md and optionally remove all files in the repo root except: `.drone.yml`, `docker-compose.drone-tests.yml`, `dodcker-compose.yml`.
 
+## Monitoring
+Ship has component which allows your to monitor MongoDb & Server (cpu, memory, docker containers, etc) using [Grafana](https://grafana.com/). [Grafana](https://grafana.com/) is an open source metric analytics & visualization suite. It is most commonly used for visualizing time series data for infrastructure and application analytics but many use it in other domains including industrial sensors, home automation, weather, and process control.
+
 ## Ship Demo
 
 * [CI Demo](http://ship-ci.paralect.com/paralect/ship) — build, test and deploy Ship to test environment after every commit to master branch.
 * [Ship Landing Demo](http://ship-demo.paralect.com/).
 * [Ship React App Demo](http://ship-app.paralect.com/).
+* [Grafana Monitoring](http://178.62.116.103:3000/dashboard/file/dashboards.json).
 
 ## Change Log
 
