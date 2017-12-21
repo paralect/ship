@@ -44,7 +44,9 @@ Ship has component which allows your to monitor MongoDb & Server (cpu, memory, d
 * [CI Demo](http://ship-ci.paralect.com/paralect/ship) — build, test and deploy Ship to test environment after every commit to master branch.
 * [Ship Landing Demo](http://ship-demo.paralect.com/).
 * [Ship React App Demo](http://ship-app.paralect.com/).
-* [Grafana Monitoring](http://178.62.116.103:3000/dashboard/file/dashboards.json).
+* [Grafana Monitoring](http://178.62.116.103:3000/dashboard/file/dashboards.json) — to login use the following credentials:  
+    user: admin,  
+    password: paralect_grafana.
 
 ## Change Log
 
