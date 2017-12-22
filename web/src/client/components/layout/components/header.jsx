@@ -8,7 +8,6 @@ import FaCaretDown from 'react-icons/lib/fa/caret-down';
 import FaUser from 'react-icons/lib/fa/user';
 import FaUnlockAlt from 'react-icons/lib/fa/unlock-alt';
 
-import { fetchUser } from 'resources/user/user.actions';
 import * as fromUser from 'resources/user/user.selectors';
 
 import { indexPath, profilePath, changePasswordPath } from '../paths';
@@ -95,11 +94,6 @@ class Header extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    username: fromUser.getUsername(state),
-  }),
-  {
-    fetchUser,
-  },
-)(Header);
+export default connect(state => ({
+  username: fromUser.getUsername(state),
+}))(Header);

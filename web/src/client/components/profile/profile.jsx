@@ -7,7 +7,12 @@ import Button, { colors as buttonColors } from 'components/common/button';
 import Form, { Row, Column } from 'components/common/form';
 
 import * as fromUser from 'resources/user/user.selectors';
-import { updateUser, validateUserField, validateUser } from 'resources/user/user.actions';
+import {
+  updateUser,
+  fetchUser,
+  validateUserField,
+  validateUser,
+} from 'resources/user/user.actions';
 import { addErrorMessage, addSuccessMessage } from 'components/common/toast/toast.actions';
 
 import styles from './profile.styles';
@@ -15,6 +20,7 @@ import styles from './profile.styles';
 class Profile extends React.Component {
   static propTypes = {
     updateUser: PropTypes.func.isRequired,
+    fetchUser: PropTypes.func.isRequired,
     user: PropTypes.shape({
       username: PropTypes.string,
       info: PropTypes.string,
@@ -27,32 +33,37 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    const { user = {} } = props;
     this.state = {
-      username: user.username || '',
-      info: user.info || '',
+      firstName: '',
+      lastName: '',
+      email: '',
       errors: {},
     };
 
     this.updateUser = this.updateUser.bind(this);
   }
 
-  componentWillReceiveProps(props) {
-    const { user } = props;
-    if (user.username !== this.state.username || user.info !== this.state.info) {
-      this.setState({
-        username: user.username,
-        info: user.info,
-      });
+  async componentDidMount() {
+    try {
+      await this.props.fetchUser('current');
+    } catch (error) {
+      this.props.addErrorMessage('Unable to receive user info:', error.global);
     }
   }
 
-  onInfoChange = (info) => {
-    this.setState({ info });
-  };
+  componentWillReceiveProps(props) {
+    const { user } = props;
+    if (
+      user.firstName !== this.state.firstName ||
+      user.lastName !== this.state.lastName ||
+      user.email !== this.state.email
+    ) {
+      this.setState(user);
+    }
+  }
 
-  onUsernameChange = (username) => {
-    this.setState({ username });
+  onFieldChange = field => (value) => {
+    this.setState({ [field]: value });
   };
 
   showErrors(errors) {
@@ -70,7 +81,7 @@ class Profile extends React.Component {
     }
 
     try {
-      await this.props.updateUser(this.state);
+      await this.props.updateUser('current', this.state);
       this.props.addSuccessMessage('User info updated!');
     } catch (error) {
       this.showErrors(error.response.data);
@@ -94,22 +105,37 @@ class Profile extends React.Component {
         <Form>
           <Row>
             <Column>
+              <span>First name</span>
               <Input
-                errors={this.error('username')}
-                value={this.state.username}
-                onChange={this.onUsernameChange}
-                onBlur={this.validateField('username')}
+                errors={this.error('firstName')}
+                value={this.state.firstName}
+                onChange={this.onFieldChange('firstName')}
+                onBlur={this.validateField('firstName')}
               />
             </Column>
 
             <Column>
+              <span>Last name</span>
               <Input
-                errors={this.error('info')}
-                value={this.state.info}
-                onChange={this.onInfoChange}
-                onBlur={this.validateField('info')}
+                errors={this.error('lastName')}
+                value={this.state.lastName}
+                onChange={this.onFieldChange('lastName')}
+                onBlur={this.validateField('lastName')}
               />
             </Column>
+          </Row>
+          <Row>
+            <Column>
+              <span>Email</span>
+              <Input
+                errors={this.error('email')}
+                value={this.state.email}
+                onChange={this.onFieldChange('email')}
+                onBlur={this.validateField('email')}
+              />
+            </Column>
+
+            <Column />
           </Row>
           <Row>
             <Column>
@@ -139,6 +165,7 @@ export default connect(
   }),
   {
     updateUser,
+    fetchUser,
     validateField: validateUserField,
     addErrorMessage,
     addSuccessMessage,

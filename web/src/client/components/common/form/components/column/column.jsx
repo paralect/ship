@@ -9,12 +9,13 @@ const Column = ({ children, className }) => (
 );
 
 Column.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
 };
 
 Column.defaultProps = {
   className: null,
+  children: null,
 };
 
 export default Column;

@@ -1,12 +1,9 @@
-export function fetchUser() {
-  return new Promise(resolve =>
-    resolve({
-      id: 1,
-      username: 'John Doe',
-      info: 'unknown',
-    }));
-}
+import { apiClient } from 'helpers/api';
 
-export function updateUser(id, newUsername, newInfo) {
-  return new Promise(resolve => resolve({}));
-}
+export const fetchUser = (id = '') => {
+  return apiClient.get(`/users/${id}`);
+};
+
+export const updateUser = (id = '', data = {}) => {
+  return apiClient.put(`/users/${id}`, data);
+};
