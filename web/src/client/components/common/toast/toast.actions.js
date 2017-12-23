@@ -18,8 +18,8 @@ type RemoveMessageType = {
   id: string,
 };
 
-const hideAfterTimeout = (dispatch: DispatchFnType, id: string): void => {
-  setTimeout((): void => {
+const hideAfterTimeout = (dispatch: DispatchFnType, id: string) => {
+  setTimeout(() => {
     dispatch({
       type: REMOVE_MESSAGE,
       id,
@@ -27,7 +27,7 @@ const hideAfterTimeout = (dispatch: DispatchFnType, id: string): void => {
   }, displayTime);
 };
 
-const addMessage = (dispatch: DispatchFnType, data: ShortMessageType): void => {
+const addMessage = (dispatch: DispatchFnType, data: ShortMessageType) => {
   const id: string = uuidv4();
 
   hideAfterTimeout(dispatch, id);
@@ -45,7 +45,7 @@ export const addErrorMessage = (
   title: string,
   text: string,
   isHTML: boolean = false,
-): VoidFnType => (dispatch: DispatchFnType): void => {
+): VoidFnType => (dispatch: DispatchFnType) => {
   addMessage(dispatch, {
     type: 'error',
     title,
@@ -58,7 +58,7 @@ export const addSuccessMessage = (
   title: string,
   text: string,
   isHTML: boolean = false,
-): VoidFnType => (dispatch: DispatchFnType): void => {
+): VoidFnType => (dispatch: DispatchFnType) => {
   addMessage(dispatch, {
     type: 'success',
     title,

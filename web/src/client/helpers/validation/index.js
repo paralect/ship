@@ -4,10 +4,7 @@ import Joi from 'joi-browser';
 import _get from 'lodash/get';
 import _set from 'lodash/set';
 
-import type {
-  ValidationResultType,
-  ValidationErrorsType,
-} from './types';
+import type { ValidationResultType, ValidationErrorsType } from './types';
 
 const arrayItemRegExp = /[^[]*(\[[^\]]+\]).*/;
 const dotRegExp = /^\./;
@@ -32,7 +29,7 @@ const parseErrors = (error?: ValidationError, defaultPath: string = ''): Validat
     return errors;
   }
 
-  error.details.forEach((err: ValidationErrorItem): void => {
+  error.details.forEach((err: ValidationErrorItem) => {
     const path = err.path.join('.') || defaultPath;
 
     let pathErrors = _get(errors, path);
@@ -56,7 +53,7 @@ const parseErrors = (error?: ValidationError, defaultPath: string = ''): Validat
  */
 export const getValidationObject = (obj: Object, field: string, schema: Object): Object => {
   const newSchema: Object = {};
-  Object.keys(obj).forEach((objField: string): void => {
+  Object.keys(obj).forEach((objField: string) => {
     let nextField = field;
 
     if (schema[objField]) {
@@ -70,7 +67,7 @@ export const getValidationObject = (obj: Object, field: string, schema: Object):
 
         if (item && item._type === types.object) {
           const schemaObj = {};
-          item._inner.children.forEach((child: Object): void => {
+          item._inner.children.forEach((child: Object) => {
             schemaObj[child.key] = child.schema;
           });
 
@@ -86,7 +83,7 @@ export const getValidationObject = (obj: Object, field: string, schema: Object):
         nextField = nextField.replace(objField, '').replace(dotRegExp, '');
 
         const schemaObj = {};
-        schema[objField]._inner.children.forEach((child: Object): void => {
+        schema[objField]._inner.children.forEach((child: Object) => {
           schemaObj[child.key] = child.schema;
         });
 

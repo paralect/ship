@@ -38,7 +38,7 @@ const Root = (): Node => (
   </Provider>
 );
 
-const renderApp = (): void => {
+const renderApp = () => {
   const rootEl = document.getElementById('root');
   if (!(rootEl instanceof Element)) {
     throw new Error('invalid type');
@@ -50,14 +50,14 @@ const renderApp = (): void => {
   );
 };
 
-const hidePoster = (): void => {
+const hidePoster = () => {
   const poster = document.getElementById('poster');
   if (!(poster instanceof Element)) {
     return;
   }
   poster.classList.add(styles.posterHidden);
 
-  setTimeout((): void => {
+  setTimeout(() => {
     poster.classList.add(styles.posterNone);
   }, 600);
 };
@@ -71,7 +71,7 @@ if (now - window.loadingTime > minLoadingTime) {
 }
 
 if (module.hot) {
-  module.hot.accept('./routes', (): void => {
+  module.hot.accept('./routes', () => {
     renderApp();
   });
 }

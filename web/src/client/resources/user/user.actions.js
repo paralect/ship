@@ -4,10 +4,7 @@ import Joi from 'joi-browser';
 import _isEmpty from 'lodash/isEmpty';
 
 import { validate, validateField } from 'helpers/validation';
-import type {
-  ValidationResultType,
-  ValidationResultErrorsType,
-} from 'helpers/validation/types';
+import type { ValidationResultType, ValidationResultErrorsType } from 'helpers/validation/types';
 import * as api from './user.api';
 
 import type { ActionType, StateType } from './user.types';
@@ -52,36 +49,34 @@ type DispatchFnType = (obj: ActionType | Promise<ActionType>) => void;
 type VoidFnType = (dispatch: DispatchFnType) => Promise<*>;
 
 export const fetchUser = (id: string): VoidFnType => (dispatch: DispatchFnType): Promise<*> => {
-  return api.fetchUser(id)
-    .then((payload: StateType): void => {
-      dispatch({ type: FETCH_USER, payload });
-    });
+  return api.fetchUser(id).then((payload: StateType) => {
+    dispatch({ type: FETCH_USER, payload });
+  });
 };
 
-export const validateUserField = (data: StateType, field: string): ValidationResultType => {
+export const validateUserField = (data: $Shape<StateType>, field: string): ValidationResultType => {
   return validateField(data, field, schema);
 };
 
-export const validateUser = (data: StateType): ValidationResultErrorsType => {
+export const validateUser = (data: $Shape<StateType>): ValidationResultErrorsType => {
   const result: ValidationResultType = validate(data, schema);
   const isValid: boolean = _isEmpty(result.errors);
 
   return {
     errors: {
       ...result.errors,
-      _global: 'Validation Error.',
+      _global: ['Validation Error.'],
     },
     isValid,
   };
 };
 
 export const updateUser = (id: string, data: StateType): VoidFnType => (dispatch: DispatchFnType): Promise<*> => {
-  return api.updateUser(id, data)
-    .then((payload: StateType): StateType => {
-      dispatch({
-        type: UPDATE_USER,
-        payload,
-      });
-      return payload;
+  return api.updateUser(id, data).then((payload: StateType): StateType => {
+    dispatch({
+      type: UPDATE_USER,
+      payload,
     });
+    return payload;
+  });
 };

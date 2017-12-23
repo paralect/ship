@@ -20,7 +20,7 @@ const configureStore = (initialState: StateType, history: any): Store<StateType,
   );
 
   if (module.hot) {
-    module.hot.accept('./reducer', (): void => {
+    module.hot.accept('./reducer', () => {
       const nextRootReducer = require('./reducer').default; // eslint-disable-line
       store.replaceReducer(nextRootReducer);
     });

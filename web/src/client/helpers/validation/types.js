@@ -1,7 +1,7 @@
 // @flow
 
 export type ValidationErrorsType = {
-  [key: string]: string | Array<string> | ValidationErrorsType,
+  [key: string]: any, // eslint-disable-line
 };
 
 export type ValidationResultType = {

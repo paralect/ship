@@ -1,3 +1,3 @@
 #!/bin/sh
-npm install --quiet
+npm i --quiet
 NODE_ENV=test npm test

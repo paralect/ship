@@ -4,16 +4,16 @@ export type MessageTypeType = 'error' | 'success' | 'warning';
 
 export type ShortMessageType = {
   type: MessageTypeType,
-  title?: string,
-  text: string | Array<string>,
+  title: string,
+  text?: string | Array<string>,
   isHTML: boolean,
 };
 
 export type MessageType = {
   id: string,
   type: MessageTypeType,
-  title?: string,
-  text: string | Array<string>,
+  title: string,
+  text?: string | Array<string>,
   isHTML: boolean,
 };
 

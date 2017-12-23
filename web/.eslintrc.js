@@ -48,9 +48,6 @@ module.exports = {
     "flowtype/require-return-type": [
       2,
       "always",
-      {
-        "annotateUndefined": "always"
-      }
     ],
     "flowtype/require-valid-file-annotation": 2,
     "flowtype/semi": [

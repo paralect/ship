@@ -47,30 +47,30 @@ const icon = (messageType: MessageTypeType): Node => {
 };
 
 class Toast extends Component<ToastPropsType> {
-  constructor(props: ToastPropsType): void {
+  constructor(props: ToastPropsType) {
     super(props);
 
     this.el = document.createElement('div');
     this.el.classList.add(styles.wrap);
   }
 
-  componentDidMount(): void {
+  componentDidMount() {
     if (document.body) {
       document.body.appendChild(this.el);
     }
   }
 
-  componentWillUnmount(): void {
+  componentWillUnmount() {
     if (document.body) {
       document.body.removeChild(this.el);
     }
   }
 
-  onMessageClick = (id: string): VoidFnType => (): void => {
+  onMessageClick = (id: string): VoidFnType => () => {
     this.props.removeMessage(id);
   };
 
-  onMessageKeyDown = (id: string): KeyDownFnType => (e: SyntheticKeyboardEvent<HTMLDivElement>): void => {
+  onMessageKeyDown = (id: string): KeyDownFnType => (e: SyntheticKeyboardEvent<HTMLDivElement>) => {
     if (e.keyCode === 13) {
       this.props.removeMessage(id);
     }
