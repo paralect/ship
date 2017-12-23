@@ -1,0 +1,131 @@
+:root {
+  --size: 50px;
+  --primary-color: #42a5f5;
+  --dark-color: #212121;
+}
+
+.cube-folding {
+  width: var(--size);
+  height: var(--size);
+  display: inline-block;
+  transform: rotate(45deg);
+  font-size: 0;
+
+  & span {
+    position: relative;
+    width: calc(var(--size) / 2);
+    height: calc(var(--size) / 2);
+    transform: scale(1.1);
+    display: inline-block;
+
+    &::before {
+      content: '';
+      background-color: var(--primary-color);
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: calc(var(--size) / 2);
+      height: calc(var(--size) / 2);
+      transform-origin: 100% 100%;
+      animation: folding 2.5s infinite linear both;
+    }
+  }
+
+  & .leaf2 {
+    transform: rotateZ(90deg) scale(1.1);
+
+    &::before {
+      animation-delay: 0.3s;
+      background-color: darken(var(--primary-color), 5%);
+    }
+  }
+
+  & .leaf3 {
+    transform: rotateZ(270deg) scale(1.1);
+
+    &::before {
+      animation-delay: 0.9s;
+      background-color: darken(var(--primary-color), 5%);
+    }
+  }
+
+  & .leaf4 {
+    transform: rotateZ(180deg) scale(1.1);
+
+    &::before {
+      animation-delay: 0.6s;
+      background-color: darken(var(--primary-color), 10%);
+    }
+  }
+}
+
+@keyframes folding {
+  0%,
+  10% {
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+
+  90%,
+  100% {
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+.cube-wrapper {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: calc(var(--size) * -1);
+  margin-left: calc(var(--size) * -1);
+  width: calc(var(--size) * 2);
+  height: calc(var(--size) * 2);
+  text-align: center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    margin: auto;
+    width: calc(var(--size) * 1.8);
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.1);
+    filter: blur(2px);
+    border-radius: 100%;
+    z-index: 1;
+    animation: shadow 0.5s ease infinite alternate;
+  }
+
+  & .loading {
+    font-size: 14px;
+    display: block;
+    color: var(--dark-color);
+    position: relative;
+    top: calc(var(--size) / 2);
+    z-index: 2;
+    animation: text 0.5s ease infinite alternate;
+  }
+}
+
+@keyframes text {
+  100% {
+    top: calc(var(--size) / 2 + 10);
+  }
+}
+
+@keyframes shadow {
+  100% {
+    bottom: -18px;
+    width: calc(var(--size) * 2);
+  }
+}

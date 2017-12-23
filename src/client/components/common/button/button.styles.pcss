@@ -1,0 +1,37 @@
+@import 'variables.pcss';
+
+.button {
+  display: inline-block;
+  border-radius: var(--border-radius-500);
+  padding: var(--distance-500) var(--distance-600);
+  transition: all 0.5s;
+  color: var(--white);
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 3px 7px var(--shadow-default);
+  outline: none;
+
+  &.green {
+    background: var(--green-600);
+
+    &:hover {
+      background: var(--green-800);
+    }
+  }
+
+  &.blue {
+    background: var(--blue-600);
+
+    &:hover {
+      background: var(--blue-800);
+    }
+  }
+
+  &.red {
+    background: var(--red-600);
+
+    &:hover {
+      background: var(--red-800);
+    }
+  }
+}
