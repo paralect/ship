@@ -7,19 +7,20 @@ export default () => (
     <div className="page">
       <style jsx>{`
         .page {
-          position: relative;
-          height: 100%;
-          box-shadow: 0 7px 30px 3px rgba(94,96,186,.35);
-          background-color: var(--color-brand);
+          flex: 1;
+          display: flex;
+          flex-direction: column;
 
           & .intro {
-            padding: 250px 0;
-            lost-column: 2/3;
+            padding: 20px 0;
+            min-width: 350px;
+            flex: 1;
 
             & .title {
               color: var(--color-white);
               font-size: 42px;
               font-weight: 300;
+              margin-top: 0;
             }
 
             & .description {
@@ -30,17 +31,19 @@ export default () => (
           }
 
           & .logo {
-            lost-column: 1/3;
+            padding: 20px 0;
+            max-width: 400px;
+            min-width: 300px;
+            min-height: 250px;
 
             display: flex;
             justify-content: center;
-            align-items: center;
 
             & div {
               display: block;
-              width: 400px;
-              height: 300px;
-              background-image: linear-gradient(to right, rgba(90, 97, 241, .9) 0%, #a900ff 100%);
+              width: 100%;
+              flex: 1;
+              background: linear-gradient(to right, rgba(90, 97, 241, .9) 0%, #a900ff 100%);
               border-radius: 50px;
               transform: skewX(-5deg);
               font-size: 100px;
@@ -51,6 +54,15 @@ export default () => (
               justify-content: center;
             }
           }
+        }
+
+        .container {
+          align-items: center;
+          flex: 1;
+          justify-content: space-between;
+          width: 100%;
+          max-width: var(--max-container-width);
+          box-sizing: border-box;
         }
       `}</style>
 

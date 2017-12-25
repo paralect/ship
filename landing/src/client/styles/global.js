@@ -5,9 +5,9 @@ export default () => (
     @lost flexbox flex;
 
     * {
-     font-size: 100%;
-     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-     color: #777;
+      font-size: 100%;
+      font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: #777;
     }
 
     html {
@@ -24,6 +24,8 @@ export default () => (
 
       --max-container-width: 1160px;
       --container-padding: 0 20px;
+
+      --button-primary-gradient: linear-gradient(to right, rgba(90,97,241,0.9) 0%, #7a00ff 100%);
     }
 
     form {
@@ -55,8 +57,7 @@ export default () => (
 
     body {
       margin: 0;
-      height: 100%;
-      background: #f0f0f0;
+      min-height: 100vh;
     }
 
     h1 {
@@ -67,6 +68,7 @@ export default () => (
     h2 {
       font-size: 35px;
       font-weight: normal;
+      margin: var(--form-padding) 0;
     }
 
     .container {
@@ -91,21 +93,15 @@ export default () => (
 
     .auth.page {
       @custom-media --breakpoint-small (width <= 720px);
-      @custom-media --navbar-height-reached (height <= 700px);
 
-      height: 100vh;
+      flex: 1;
       width: 100%;
-      padding-top: 75px;
+      padding-top: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       position: relative;
-
-      @media (--navbar-height-reached) {
-        padding-top: 100px;
-        align-items: flex-start;
-      }
 
       & .panel {
         height: 600px;
