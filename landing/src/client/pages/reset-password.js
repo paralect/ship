@@ -17,13 +17,11 @@ export default class Signin extends PureComponent {
     token: PropTypes.string.isRequired,
   }
 
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
     this.setPassword = setFormValue('password').bind(this);
-  }
 
-  componentWillMount() {
-    this.token = this.props.token;
+    this.token = props.token;
     this.state = {
       password: '',
       isLoading: false,
@@ -35,15 +33,20 @@ export default class Signin extends PureComponent {
   submitSignin = async (event) => {
     event.preventDefault();
 
+    this.setState({ isLoading: true, error: null });
+    const newState = {};
+
     try {
-      this.setState({ isLoading: true, error: null });
       await resetPassword({ password: this.state.password, token: this.token });
-      this.setState({ emailSent: true });
+      newState.emailSent = true;
     } catch (error) {
-      this.setState({ error });
-    } finally {
-      this.setState({ isLoading: false });
+      newState.error = error;
     }
+
+    this.setState({
+      ...newState,
+      isLoading: false,
+    });
   }
 
   render(props) {
@@ -52,8 +55,6 @@ export default class Signin extends PureComponent {
         <div className="auth page">
           <style jsx>{`
             .page {
-              background-color: var(--color-brand);
-
               & .panel {
                 width: 500px;
                 height: auto;
@@ -71,7 +72,7 @@ export default class Signin extends PureComponent {
                   & form {
                     & :global(button) {
                       margin: var(--form-padding) 0;
-                      background-image: var(--button-primary-gradient)
+                      background: var(--button-primary-gradient)
                     }
                   }
                 }

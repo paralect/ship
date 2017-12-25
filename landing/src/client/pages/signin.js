@@ -7,14 +7,17 @@ import Layout from '~/layouts/main';
 import { setFormValue } from '~/helpers';
 import { signin } from '~/resources/account/account.api';
 
+import config from '~/config';
+
+const { webUrl } = config;
+
 export default class Signin extends PureComponent {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
+
     this.setEmail = setFormValue('email').bind(this);
     this.setPassword = setFormValue('password').bind(this);
-  }
 
-  componentWillMount() {
     this.state = {
       email: '',
       password: '',
@@ -29,7 +32,12 @@ export default class Signin extends PureComponent {
     event.preventDefault();
     try {
       this.setState({ isLoading: true });
-      await signin({ email: this.state.email, password: this.state.password });
+      const response = await signin({
+        email: this.state.email,
+        password: this.state.password,
+      });
+
+      window.location.href = `${webUrl}?token=${response.token}`;
     } catch (error) {
       this.setState({ error });
     } finally {
@@ -47,7 +55,7 @@ export default class Signin extends PureComponent {
               @custom-media --navbar-height-reached (height <= 700px);
 
               @media (--navbar-height-reached) {
-                padding-top: 100px;
+                padding-top: 20px;
                 align-items: flex-start;
               }
 
@@ -75,7 +83,7 @@ export default class Signin extends PureComponent {
 
                     & :global(button.signin) {
                       /*https://github.com/zeit/styled-jsx/issues/273*/
-                      background-image: var(--button-primary-gradient);
+                      background: var(--button-primary-gradient);
                       margin-top: var(--form-padding)
                     }
 
@@ -98,6 +106,7 @@ export default class Signin extends PureComponent {
 
               <form className="form" onSubmit={this.submitSignin}>
                 <input
+                  key="email"
                   value={this.state.email}
                   onChange={this.setEmail}
                   required
@@ -106,6 +115,7 @@ export default class Signin extends PureComponent {
                   className="input"
                 />
                 <input
+                  key="password"
                   value={this.state.password}
                   onChange={this.setPassword}
                   required
@@ -117,7 +127,9 @@ export default class Signin extends PureComponent {
                 <Error error={this.state.error} />
 
                 <div className="forgot">
-                  <Link href="/forgot-password">Forgot Password?</Link>
+                  <Link href="/forgot-password">
+                    <a href="/forgot-password">Forgot Password?</a>
+                  </Link>
                 </div>
                 <div className="submit">
                   <Button
@@ -131,7 +143,9 @@ export default class Signin extends PureComponent {
                 </div>
 
                 <div className="signup">
-                  <Link href="/signup">{"Don't have an account? Sign Up"}</Link>
+                  <Link href="/signup">
+                    <a href="/signup">Don&apos;t have an account? Sign Up</a>
+                  </Link>
                 </div>
               </form>
             </div>

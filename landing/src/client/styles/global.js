@@ -5,9 +5,9 @@ export default () => (
     @lost flexbox flex;
 
     * {
-     font-size: 100%;
-     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-     color: #777;
+      font-size: 100%;
+      font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: #777;
     }
 
     html {
@@ -57,8 +57,7 @@ export default () => (
 
     body {
       margin: 0;
-      height: 100%;
-      background: #f0f0f0;
+      min-height: 100vh;
     }
 
     h1 {
@@ -95,9 +94,9 @@ export default () => (
     .auth.page {
       @custom-media --breakpoint-small (width <= 720px);
 
-      height: 100vh;
+      flex: 1;
       width: 100%;
-      padding-top: 75px;
+      padding-top: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
