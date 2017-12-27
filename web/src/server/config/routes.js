@@ -9,6 +9,8 @@ const { logger } = global;
 
 const indexRouter = new Router();
 
+const signinUrl = `${config.landingUrl}/signin`;
+
 // match all routes but not files (i.e. routes with dots)
 indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
   const data = {
@@ -30,6 +32,8 @@ indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
   } catch (error) {
     ctx.session.token = null;
     logger.error(error);
+    ctx.redirect(signinUrl);
+    return null;
   }
 
   try {
@@ -41,12 +45,12 @@ indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
 
       data.user = response.data;
       data.token = ctx.session.token;
-    } else {
-      ctx.session.token = null;
     }
   } catch (error) {
     ctx.session.token = null;
     logger.error(error);
+    ctx.redirect(signinUrl);
+    return null;
   }
 
   return ctx.render('index', data);
