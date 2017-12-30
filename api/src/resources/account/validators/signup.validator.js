@@ -43,12 +43,13 @@ const schema = {
     }),
 };
 
-exports.validate = ctx => baseValidator(ctx, schema, async (data) => {
-  const userExists = await userService.exists({ email: data.email });
-  if (userExists) {
-    ctx.errors.push({ email: 'User with this email is already registered.' });
-    return false;
-  }
+exports.validate = ctx =>
+  baseValidator(ctx, schema, async (data) => {
+    const userExists = await userService.exists({ email: data.email });
+    if (userExists) {
+      ctx.errors.push({ email: 'User with this email is already registered.' });
+      return false;
+    }
 
-  return data;
-});
+    return data;
+  });

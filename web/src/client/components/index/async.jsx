@@ -12,6 +12,4 @@ const LoadableComponent = Loadable({
   },
 });
 
-const AsyncIndex = props => <LoadableComponent {...props} />;
-
-export default AsyncIndex;
+export default LoadableComponent;

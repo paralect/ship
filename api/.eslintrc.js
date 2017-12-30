@@ -4,10 +4,20 @@ module.exports = {
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": [
         "**/tests/**",
-        "**/*.test.js",
+        "**/*.spec.js",
         "**/*.builder.js",
         "**/*.factory.js",
       ],
     }],
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+          "src",
+          "node_modules"
+        ],
+      },
+    }
   }
 };

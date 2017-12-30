@@ -7,15 +7,14 @@ import { signup } from '~/resources/account/account.api';
 import config from '~/config';
 
 export default class Signup extends PureComponent {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
+
     this.setFirstName = setFormValue('firstName').bind(this);
     this.setLastName = setFormValue('lastName').bind(this);
     this.setEmail = setFormValue('email').bind(this);
     this.setPassword = setFormValue('password').bind(this);
-  }
 
-  componentWillMount() {
     this.state = {
       firstName: '',
       lastName: '',
@@ -69,8 +68,13 @@ export default class Signup extends PureComponent {
         <div className="auth page">
           <style jsx>{`
             .page {
-              background: var(--color-secondary);
+              @custom-media --navbar-height-reached (height <= 700px);
 
+              @media (--navbar-height-reached) {
+                padding-top: 20px;
+                align-items: flex-start;
+              }
+              
               & .panel {
                 height: 600px;
                 width: 1014px;
@@ -92,7 +96,7 @@ export default class Signup extends PureComponent {
                   }
 
                   & :global(button.signup) {
-                    background-image: linear-gradient(to right, #18c76d 0%, #08af81 100%);
+                    background: linear-gradient(to right, #18c76d 0%, #08af81 100%);
                     margin-top: var(--form-padding)
                   }
                 }
@@ -123,6 +127,7 @@ export default class Signup extends PureComponent {
                 <form onSubmit={this.submitSignup} className="form">
                   <div className="names">
                     <input
+                      key="first-name"
                       value={this.state.firstName}
                       onChange={this.setFirstName}
                       required
@@ -131,6 +136,7 @@ export default class Signup extends PureComponent {
                       className="input"
                     />
                     <input
+                      key="last-name"
                       value={this.state.lastName}
                       onChange={this.setLastName}
                       required
@@ -140,6 +146,7 @@ export default class Signup extends PureComponent {
                     />
                   </div>
                   <input
+                    key="email"
                     value={this.state.email}
                     onChange={this.setEmail}
                     required
@@ -148,6 +155,7 @@ export default class Signup extends PureComponent {
                     className="input"
                   />
                   <input
+                    key="password"
                     value={this.state.password}
                     onChange={this.setPassword}
                     required

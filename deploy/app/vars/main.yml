@@ -1,6 +1,7 @@
 app_name: "ship"
 app_home: "/home/{{app_name}}"
 mongo_data_dir: "/home/{{app_name}}/mongo-data" # same as for pa until on one server
+redis_data_dir: "/home/{{app_name}}/redis-data"
 
 api_domain: "ship-api.paralect.com"
 api_ports: [ 6000 ]

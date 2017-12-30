@@ -21,7 +21,7 @@ module.exports = {
           "server"
         ],
         "paths": ["src/client"]
-      }
+      },
     }
   }
 };

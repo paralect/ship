@@ -47,8 +47,9 @@
            restart_policy: always
            links:
              - mongo
+             - redis
            published_ports:
-             - "127.0.0.1:{{ item }}:3000"
+             - "127.0.0.1:{{ item }}:3002"
            env:
              NODE_ENV: "{{ env }}"
         with_items: "{{ web_ports }}"

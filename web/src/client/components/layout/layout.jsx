@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
-import { fetchUser } from 'resources/user/user.actions';
-
+import Toast from 'components/common/toast';
 import Index from 'components/index/async';
 import Profile from 'components/profile/async';
 import Header from './components/header';
@@ -12,14 +9,6 @@ import Header from './components/header';
 import styles from './layout.styles.pcss';
 
 class Layout extends Component {
-  static propTypes = {
-    fetchUser: PropTypes.func.isRequired,
-  }
-
-  componentDidMount = () => {
-    this.props.fetchUser();
-  }
-
   render() {
     return (
       <div>
@@ -31,11 +20,11 @@ class Layout extends Component {
             <Route path="/profile" component={Profile} />
           </Switch>
         </div>
+
+        <Toast />
       </div>
     );
   }
 }
 
-export default connect(null, {
-  fetchUser,
-})(Layout);
+export default Layout;

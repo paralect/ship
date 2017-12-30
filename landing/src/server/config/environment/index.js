@@ -9,6 +9,8 @@ let base = {
   port: process.env.PORT || 3000,
   isDev: env === 'development',
   isTest: env === 'test',
+  apiUrl: 'http://localhost:3001',
+  webUrl: 'http://localhost:3002',
 };
 
 const envConfig = require(`./${env}.js`); // eslint-disable-line

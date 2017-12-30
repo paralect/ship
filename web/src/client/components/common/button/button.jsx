@@ -15,15 +15,8 @@ class Button extends Component {
     children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
-    tabIndex: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    color: PropTypes.oneOf([
-      colors.green,
-      colors.blue,
-      colors.red,
-    ]),
+    tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    color: PropTypes.oneOf([colors.green, colors.blue, colors.red]),
     className: PropTypes.string,
   };
 
@@ -39,16 +32,11 @@ class Button extends Component {
     if (e.keyCode === 13 && this.props.onClick) {
       this.props.onClick(e);
     }
-  }
+  };
 
   render() {
     const {
-      children,
-      tabIndex,
-      onClick,
-      onKeyDown,
-      color,
-      className,
+      children, tabIndex, onClick, onKeyDown, color, className,
     } = this.props;
 
     return (
@@ -65,8 +53,5 @@ class Button extends Component {
   }
 }
 
-
 export default Button;
-export {
-  colors,
-};
+export { colors };
