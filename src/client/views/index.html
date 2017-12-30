@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Index HTML</title>
+  </head>
+  <body>
+    {{#unless isDev}}
+    <div id="poster">
+      <style>
+          #poster {
+            position: absolute;
+            opacity: 1;
+            background: #55299a;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            overflow: hidden;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
+          }
+  
+          .stack {
+            width: 400px;
+            height: 300px;
+            background-image: -webkit-gradient(linear,left top, right top,from(rgba(90,97,241,.9)),to(#a900ff));
+            background-image: linear-gradient(to right,rgba(90,97,241,.9) 0%,#a900ff 100%);
+            border-radius: 50px;
+            -webkit-transform: skewX(-5deg);
+                    transform: skewX(-5deg);
+            font-size: 100px;
+            font-weight: 600;
+            color: rgba(255,255,255,.8);
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            -webkit-box-shadow: 3px 3px 15px 2px rgba(0,0,0,0.4);
+                    box-shadow: 3px 3px 15px 2px rgba(0,0,0,0.4);
+            -webkit-animation: bounceInLeft 1s;
+                    animation: bounceInLeft 1s;
+          }
+  
+          @-webkit-keyframes bounceInLeft {
+            0%, 60%, 75%, 90%, 100% {
+              -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
+                      animation-timing-function: cubic-bezier(.215,.61,.355,1);
+            }
+            0% {
+              opacity: 0;
+              -webkit-transform: translate3d(-3000px,0,0) skewX(-5deg);
+                      transform: translate3d(-3000px,0,0) skewX(-5deg);
+            }
+            60% {
+              opacity: 1;
+              -webkit-transform: translate3d(25px,0,0) skewX(-5deg);
+                      transform: translate3d(25px,0,0) skewX(-5deg);
+            }
+            75% {
+              -webkit-transform: translate3d(-10px,0,0) skewX(-5deg);
+                      transform: translate3d(-10px,0,0) skewX(-5deg);
+            }
+            90% {
+              -webkit-transform: translate3d(5px,0,0) skewX(-5deg);
+                      transform: translate3d(5px,0,0) skewX(-5deg);
+            }
+            100% {
+              -webkit-transform: skewX(-5deg);
+                      transform: skewX(-5deg);
+            }
+          }
+          @keyframes bounceInLeft {
+            0%, 60%, 75%, 90%, 100% {
+              -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
+                      animation-timing-function: cubic-bezier(.215,.61,.355,1);
+            }
+            0% {
+              opacity: 0;
+              -webkit-transform: translate3d(-3000px,0,0) skewX(-5deg);
+                      transform: translate3d(-3000px,0,0) skewX(-5deg);
+            }
+            60% {
+              opacity: 1;
+              -webkit-transform: translate3d(25px,0,0) skewX(-5deg);
+                      transform: translate3d(25px,0,0) skewX(-5deg);
+            }
+            75% {
+              -webkit-transform: translate3d(-10px,0,0) skewX(-5deg);
+                      transform: translate3d(-10px,0,0) skewX(-5deg);
+            }
+            90% {
+              -webkit-transform: translate3d(5px,0,0) skewX(-5deg);
+                      transform: translate3d(5px,0,0) skewX(-5deg);
+            }
+            100% {
+              -webkit-transform: skewX(-5deg);
+                      transform: skewX(-5deg);
+            }
+          }
+        </style>
+  
+        <div class="stack">
+          Stack
+        </div>
+    </div>
+    {{/unless}}
+
+    <div id="root"></div>
+
+    <script>
+      window.config = {{{json config}}};
+      window.token = {{{json token}}};
+      window.user = {{{json user}}};
+      window.loadingTime = Date.now();
+    </script>
+    
+    {{#if isDev}}
+      <script src="/static/main.js"></script>
+    {{/if}}
+  </body>
+</html>
