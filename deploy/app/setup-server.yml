@@ -19,6 +19,31 @@
       with_items:
         - "{{app_home}}"
         - "{{mongo_data_dir}}"
+        - "{{redis_data_dir}}"
+    
+    - name: pull redis docker image
+      docker_image:
+        state: present
+        force: yes
+        name: "redis:3.2"
+        tag: "3.2"
+      tags:
+        - redis
+
+    - name: run redis using docker
+      docker_container:
+        name: redis
+        image: redis:3.2
+        state: started
+        restart_policy: always
+        force_kill: yes
+        recreate: yes
+        volumes:
+          - "{{redis_data_dir}}:/data"
+        ports:
+          - "6379:6379"
+      tags:
+        - redis
 
     - name: run mongo using docker
       docker:

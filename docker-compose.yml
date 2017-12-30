@@ -7,6 +7,11 @@ services:
       - "27017:27017" # map port to none standard port, to avoid conflicts with locally installed mongodb.
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  redis:
+    command: redis
+    image: redis:4.0
+    ports:
+      - "6379:6379" # map port to none standard port, to avoid conflicts with locally installed redis.
   api:
     build:
       context: "./api"
@@ -28,9 +33,10 @@ services:
         source: ./web/src
         target: /app/src
     ports:
-      - "3002:3000"
+      - "3002:3002"
     depends_on:
       - mongo
+      - redis
   landing:
     build:
       context: "./landing"
