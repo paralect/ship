@@ -12,7 +12,7 @@ const nextJsConfig = require('./config/next.config.js');
 const nextDir = resolve(__dirname, './../client');
 
 const main = async () => {
-  if (config.env === 'production') {
+  if (config.env !== 'development') {
     logger.info('next build');
     await nextBuild(nextDir, nextJsConfig);
   }
