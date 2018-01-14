@@ -15,17 +15,6 @@ A toolkit for makers to ship better products faster 🚀.
 
 If you're looking to start your new product based on Ship we'd be happy to provide you with a free consultation. Contact Paralect at andrew@paralect.com.
 
-## Features
-
-TODO: stolen nice features overview from Parcel, todo: update
-
-* 📦 Out of the box infrastructure s and documentation for building React/Node apps.
-* 🚀 **Blazing fast** bundle times - multicore compilation, and a filesystem cache for fast rebuilds even after a restart.
-* 🐠 **Automatically transforms modules** using Babel, PostCSS, and PostHTML when needed - even `node_modules`.
-* ✂️ Zero configuration **code splitting** using dynamic `import()` statements.
-* 🔥 Built in support for **hot module replacement**
-* 🚨 Friendly error logging experience - syntax highlighted code frames help pinpoint the problem.
-
 ## Why Ship?
 
 Shipping is crucial part of any new product. The quicker you ship, the more time you have to validate your hypotheses. The quicker you validate your idea, the sooner you know if you're building what people want.
