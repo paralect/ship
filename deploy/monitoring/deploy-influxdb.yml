@@ -1,0 +1,43 @@
+---
+- name: Deploy influxdb to monitoring server
+  hosts: monitoring
+  become: true
+  become_user: root
+  gather_facts: False
+  tasks:
+    - name: Assures influxdb directories exists
+      file: path=/etc/influxdb state=directory
+      tags:
+        - influxdb
+    - name: Assures influxdb directories exists
+      file: path=/var/lib/influxdb state=directory
+      tags:
+        - influxdb
+
+    - name: Copy configurations
+      template: src="config/influxdb/influxdb.conf"
+                dest="/etc/influxdb/influxdb.conf"
+                owner=root
+                group=root
+      tags:
+        - influxdb
+
+    - name: "Launch InfluxDB container"
+      docker:
+        name: influxdb
+        image: influxdb
+        command: influxd -config /etc/influxdb/influxdb.conf
+        state: reloaded
+        restart_policy: always
+        log_driver: json-file
+        log_opt:
+          max-size: 50m
+          max-file: "1"
+        volumes:
+          - /var/lib/influxdb:/var/lib/influxdb
+          - /etc/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+        ports:
+          - "8083:8083"
+          - "8086:8086"
+      tags:
+        - influxdb

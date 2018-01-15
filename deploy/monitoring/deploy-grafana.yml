@@ -1,0 +1,14 @@
+---
+- name: Deploy grafana to monitoring server
+  hosts: monitoring
+  become: true
+  become_user: root
+  vars_files:
+    - "vars/credentials.yml"
+  roles:
+  - { role: paralect.grafana }
+      # Variables below are configuraed using vars/credentials.yml & vars/main.yml
+      # A password for admin user. You need it to login to the grafana.
+      # gf_admin_password:
+      # Name of the storage backends for your time series data (Data Source)
+      # data_source_name:
