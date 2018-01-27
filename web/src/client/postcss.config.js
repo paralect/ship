@@ -9,6 +9,8 @@ module.exports = {
       path: ['styles'],
     }),
     postcssCssNext,
-    cssnano,
+    cssnano({
+      zindex: false,
+    }),
   ],
 };
