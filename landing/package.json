@@ -1,5 +1,5 @@
 {
-  "name": "next-landing-starter",
+  "name": "nextjs-landing-starter",
   "version": "1.0.1",
   "description": "Common landing website starter driven by next.js",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "test": "npm run lint",
     "lint": "eslint --fix ./src"
   },
-  "author": "",
+  "author": "Paralect",
   "license": "MIT",
   "dependencies": {
     "@paralect/common-logger": "0.1.10",
