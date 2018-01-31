@@ -1,11 +1,11 @@
 # SHIP
 
 🔥 — this smiley means you have to replace some part of the readme with your project specific things. 
-🔥 (add your product description here, few lines is good enough)
+ (🔥 — add your product description here, few lines is good enough)
 
 ## Development process 
 
-1. [Active Sprint](https://trello.com/b/Qur5fy2O/ship-backlog-template) Trello board — list of current sprint tasks to work on. (🔥 — link includes simple development process description, you can copy a board and replace this link)
+1. [Active Sprint](https://trello.com/b/J8Sj2MZM/ship-active-sprint-template) Trello board — list of current sprint tasks to work on. (🔥 — link includes simple development process description, you can copy a board and replace this link)
 2. [Backlog](https://trello.com/b/Qur5fy2O/ship-backlog-template) Trello board — list of tasks & bugs planned for the next sprint. (🔥 — link includes sample backlog trello board)
 3. [Team Communication](https://paralect-stack.slack.com/messages) via [Slack](https://slack.com/). (🔥 — update link to your Slack account)
 4. [Continious Integration Server](http://product-stack-ci.paralect.com) via [Drone CI](https://github.com/drone/drone) (🔥 — CI server is not configured, if you want to setup it, instructions are [here](./deploy/drone-ci/README.md).)
@@ -34,11 +34,11 @@ Make sure to run them often:
 
 ## Envrionments
 
- 🔥 — include links to your envrionment
+ 🔥 — include links to your envrionments
 
 |Environment|Url|
 |:---|:----------|
-|Production 🚀|`In few weeks ⚡️`|
+|Production 🚀|`In a few weeks ⚡️`|
 |Staging ☠️|[http://ship-demo.paralect.com](http://ship-demo.paralect.com/)|
 
 
