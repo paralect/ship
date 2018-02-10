@@ -1,0 +1,12 @@
+services:
+  ship:
+    version: 1.0.3
+  api:
+    version: 1.5.2
+    include: true
+  web:
+    version: 1.3.3
+    include: true
+  landing:
+    version: 1.0.3
+    include: true
