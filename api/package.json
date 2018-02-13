@@ -1,0 +1,59 @@
+{
+  "name": "koa-api-starter",
+  "version": "1.5.2",
+  "description": "Koa api",
+  "private": false,
+  "main": "src/app.js",
+  "author": "Paralect",
+  "license": "MIT",
+  "keywords": [
+    "koa",
+    "rest api",
+    "paralect"
+  ],
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "run-s test:**",
+    "test:eslint": "eslint ./src",
+    "test:mocha": "NODE_ENV=test mocha --timeout 20000 --recursive --exit -c -R spec src/**/*.spec.js",
+    "development": "NODE_ENV=development nodemon --watch src src/app.js",
+    "format": "prettier-eslint --write \"src/**/*.js\""
+  },
+  "dependencies": {
+    "@paralect/common-logger": "0.1.10",
+    "@paralect/node-mongo": "0.3.1",
+    "app-module-path": "2.2.0",
+    "bcrypt": "1.0.3",
+    "joi": "13.1.1",
+    "jsonwebtoken": "8.1.1",
+    "kcors": "2.2.1",
+    "koa": "2.4.1",
+    "koa-bodyparser": "4.2.0",
+    "koa-helmet": "3.3.0",
+    "koa-jwt": "3.3.0",
+    "koa-logger": "3.1.0",
+    "koa-mount": "3.0.0",
+    "koa-router": "7.4.0",
+    "koa-validate": "1.0.7",
+    "lodash": "4.17.4",
+    "nodemon": "1.14.12"
+  },
+  "devDependencies": {
+    "@paralect/eslint-config": "0.1.5",
+    "babel-eslint": "8.2.1",
+    "chai": "4.1.2",
+    "eslint": "4.16.0",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.6.1",
+    "faker": "4.1.0",
+    "mocha": "5.0.0",
+    "npm-run-all": "4.1.2",
+    "prettier-eslint-cli": "4.7.0",
+    "supertest": "3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paralect/koa-api-starter.git"
+  }
+}
