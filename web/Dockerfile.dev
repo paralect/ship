@@ -1,0 +1,10 @@
+FROM node:8.9
+
+EXPOSE 3000
+COPY ["./package.json", "./package-lock.json", "./.eslintrc.js", "./.eslintignore", "./.babelrc", "./browserslist", "./.stylelintrc", "/app/"]
+
+WORKDIR /app
+
+RUN npm i --quiet
+
+CMD npm run development
