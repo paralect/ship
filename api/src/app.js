@@ -11,7 +11,7 @@ const config = require('config');
 const Koa = require('koa');
 
 process.on('unhandledRejection', (reason, p) => {
-  logger.log('Possibly Unhandled Rejection at: Promise ', p, ' reason: ', reason);
+  logger.error('Possibly Unhandled Rejection at: Promise ', p, ' reason: ', reason);
   // application specific logging here
 });
 
