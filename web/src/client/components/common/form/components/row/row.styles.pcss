@@ -1,0 +1,11 @@
+@import 'variables.pcss';
+
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 calc(var(--distance-600) / -2);
+
+  &:last-of-type {
+    margin-bottom: calc(var(--distance-600) / -2);
+  }
+}
