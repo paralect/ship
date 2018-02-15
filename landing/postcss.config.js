@@ -1,6 +1,20 @@
+const { join } = require('path');
+
+const postcssImport = require('postcss-import');
+const postcssCssNext = require('postcss-cssnext');
+const cssnano = require('cssnano');
+const lost = require('lost');
+
 module.exports = {
   plugins: [
-    require('postcss-cssnext'), // eslint-disable-line
-    require('lost'), // eslint-disable-line
+    postcssImport({
+      root: join(__dirname, 'src/client'),
+      path: ['styles'],
+    }),
+    postcssCssNext,
+    cssnano({
+      zindex: false,
+    }),
+    lost,
   ],
 };

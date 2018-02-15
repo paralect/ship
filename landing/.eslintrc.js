@@ -8,6 +8,11 @@ module.exports = {
     "jsx-a11y/anchor-is-valid": [ "error", {
       "components": [ "Link" ],
       "specialLink": [ "to" ]
-    }]
+    }],
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        "**/*.config.js",
+      ],
+    }],
   }
 };
