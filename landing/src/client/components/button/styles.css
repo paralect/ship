@@ -1,0 +1,18 @@
+button {
+  transition: 0.5s;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  padding: 15px 10px;
+  width: 100%;
+
+  &[disabled] {
+    cursor: default;
+  }
+
+  &.loading {
+    animation: Gradient 1s ease-in-out infinite;
+    background-position: right center;
+    opacity: .8;
+  }
+}

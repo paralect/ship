@@ -1,0 +1,48 @@
+@import 'variables.css';
+
+form {
+  &.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    & .input {
+      border-radius: 8px;
+      padding: var(--form-padding) calc(var(--form-padding) * 2);
+      margin: var(--form-padding) 0;
+      background: white;
+      border: 1px solid #e8e8e8;
+      transition: box-shadow .5s;
+
+      &:focus {
+        outline: none;
+        /*box-shadow: 0px 0px 10px color(var(--color-brand) alpha(-10%));*/
+        box-shadow: 0px 0px 10px color(#55299a alpha(-50%));
+      }
+    }
+
+    & button[type="submit"] {
+      margin: 16px;
+    }
+  }
+}
+
+.container {
+  @lost flexbox flex;
+  max-width: var(--max-container-width);
+  lost-center: var(--max-container-width);
+  padding: var(--container-padding);
+  margin: 0 auto;
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}

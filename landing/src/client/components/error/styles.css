@@ -1,0 +1,10 @@
+@import 'variables.css';
+
+.error {
+  background: color(red alpha(-50%));
+  color: var(--color-white);
+  padding: 20px 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  text-align: center;
+}
