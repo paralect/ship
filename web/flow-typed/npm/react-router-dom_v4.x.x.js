@@ -1,5 +1,5 @@
-// flow-typed signature: 4d8e947f2e396ef2f26ecbd1ed7f04ab
-// flow-typed version: 97d98ab83e/react-router-dom_v4.x.x/flow_>=v0.53.x
+// flow-typed signature: 25e4ee422b9f0108f151f2c05dd2471d
+// flow-typed version: 107feb8c45/react-router-dom_v4.x.x/flow_>=v0.53.x
 
 declare module "react-router-dom" {
   declare export class BrowserRouter extends React$Component<{
@@ -118,7 +118,7 @@ declare module "react-router-dom" {
   }> {}
 
   declare export class Prompt extends React$Component<{
-    message: string | ((location: Location) => string | true),
+    message: string | ((location: Location) => string | boolean),
     when?: boolean
   }> {}
 

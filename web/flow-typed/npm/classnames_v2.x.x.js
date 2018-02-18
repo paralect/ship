@@ -1,4 +1,4 @@
-// flow-typed signature: cf86673cc32d185bdab1d2ea90578d37
+// flow-typed signature: 00504217abb4effa078d1144a2bbba99
 // flow-typed version: 614bf49aa8/classnames_v2.x.x/flow_>=v0.25.x
 
 type $npm$classnames$Classes =

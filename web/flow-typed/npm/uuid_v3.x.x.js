@@ -1,4 +1,4 @@
-// flow-typed signature: 615e568e95029d58f116dd157e320137
+// flow-typed signature: 991e00092436adbdf7a54af2cfb676d1
 // flow-typed version: 2b95c0dfc1/uuid_v3.x.x/flow_>=v0.32.x
 
 declare module "uuid" {

@@ -9,7 +9,6 @@
 [options]
 esproposal.class_static_fields=enable
 esproposal.class_instance_fields=enable
-unsafe.enable_getters_and_setters=true
 
 module.name_mapper.extension='pcss' -> '<PROJECT_ROOT>/src/client/flow-interfaces/CSSFlowStub.js.flow'
 module.system.node.resolve_dirname=src/client
@@ -18,4 +17,4 @@ module.name_mapper='^helpers\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/helpers/\1'
 module.name_mapper='^resources\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/resources/\1'
 
 [version]
-^0.61.0
+^0.66.0
