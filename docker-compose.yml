@@ -19,7 +19,7 @@ services:
     volumes:
       - type: bind
         source: ./api/src
-        target: /api/src
+        target: /app/src
     ports:
       - "3001:3001"
     depends_on:
