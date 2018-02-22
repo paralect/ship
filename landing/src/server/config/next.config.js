@@ -9,7 +9,6 @@ module.exports = withCSS({
   cssModules: true,
   cssLoaderOptions: {
     camelCase: true,
-    localIdentName: '[local]__[hash:base64:5]',
   },
   dev: config.isDev,
   webpack: extendWebackConfig,

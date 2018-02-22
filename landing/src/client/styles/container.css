@@ -1,9 +1,0 @@
-@import 'variables.css';
-
-.container {
-  @lost flexbox flex;
-  max-width: var(--max-container-width);
-  lost-center: var(--max-container-width);
-  padding: var(--container-padding);
-  margin: 0 auto;
-}
