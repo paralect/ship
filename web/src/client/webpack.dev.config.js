@@ -6,7 +6,6 @@ module.exports = {
     main: [
       'babel-polyfill',
       'react-hot-loader/patch',
-      'webpack-hot-middleware/client?reload=true&path=/__webpack_hmr&timeout=20000',
       './index.jsx',
     ],
   },
@@ -52,5 +51,5 @@ module.exports = {
     extensions: ['.js', '.jsx', '.pcss'],
   },
 
-  plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin()],
+  plugins: [new webpack.NoEmitOnErrorsPlugin()],
 };
