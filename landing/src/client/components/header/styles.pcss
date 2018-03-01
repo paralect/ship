@@ -6,7 +6,7 @@
   min-height: 50px;
   color: var(--color-white);
 
-  & .menu {
+  .menu {
     max-width: var(--max-container-width);
     display: flex;
     justify-content: space-between;
@@ -15,13 +15,13 @@
     flex-flow: row wrap;
 
     & > .item {
-      & a {
+      a {
         color: white;
         text-decoration: none;
       }
 
       &.logo {
-        & img {
+        img {
           width: 132px;
           display: block;
         }
@@ -49,16 +49,16 @@
               background: linear-gradient(to right, #18c76d 0%, #08af81 100%);
             }
 
-            & a {
+            a {
               display: flex;
             }
 
-            & .text {
+            .text {
               color: var(--color-white);
               flex-shrink: 0;
             }
 
-            & .arrow {
+            .arrow {
               stroke: white;
               transition: transform 0.5s ease;
               margin-left: 5px;
