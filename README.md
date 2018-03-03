@@ -44,7 +44,7 @@ We believe we could ship great products faster, while maintain decent quality an
 |[Deploy Drone CI](https://github.com/paralect/deploy-drone)|Ansible automation for production-ready Drone CI deployment|[1.1.0](https://github.com/paralect/deploy-drone/releases/tag/1.1.0)|
 |[Eslint config](https://github.com/paralect/eslint-config)|Airbnb based eslint config|[0.1.5](https://github.com/paralect/eslint-config/releases/tag/0.1.5)|
 
-Note: [release.yml](release.yml) always contains correct versions of every component and produced by automated merge process.
+Note: [release.yml](release.yml) always contains correct versions of every component and produced by automated merge process. We do our best to keep readme in sync :)
 
 ## Getting Started with Ship
 
