@@ -42,6 +42,8 @@ const generateScopedName = (localName, resourcePath) => {
 };
 
 module.exports = {
+  mode: 'production',
+
   entry: {
     main: ['babel-polyfill', './index.jsx'],
   },
@@ -113,6 +115,10 @@ module.exports = {
     },
   },
 
+  optimization: {
+    minimize: true,
+  },
+
   plugins: [
     new ExtractTextPlugin({ filename: '[name].[hash].css' }),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -120,15 +126,6 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         BABEL_ENV: JSON.stringify('production'),
-      },
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      minimize: true,
-      compress: {
-        drop_debugger: true,
-        warnings: false,
-        drop_console: true,
       },
     }),
     new HtmlWebpackPlugin({
