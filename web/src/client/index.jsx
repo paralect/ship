@@ -8,6 +8,7 @@ import routes from './routes';
 import configureStore from './resources/store';
 
 import styles from './styles.pcss';
+import Layout from './components/layout';
 
 const minLoadingTime = 1500;
 const now = Date.now();
@@ -19,11 +20,19 @@ const initialState = {
 const history = createHistory();
 const store = configureStore(initialState, history);
 
+const Root = () => (
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Layout>
+        {routes()}
+      </Layout>
+    </ConnectedRouter>
+  </Provider>
+);
+
 const renderApp = () => {
   ReactDOM.render(
-    <Provider store={store}>
-      <ConnectedRouter history={history}>{routes()}</ConnectedRouter>
-    </Provider>,
+    <Root />,
     document.getElementById('root'),
   );
 };
