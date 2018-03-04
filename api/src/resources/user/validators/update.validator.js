@@ -8,14 +8,14 @@ const schema = {
     .trim()
     .options({
       language: {
-        any: { empty: '!!Your first name must be longer then 1 letter' },
+        any: { empty: '!!Your first name must be longer than 1 letter' },
       },
     }),
   lastName: Joi.string()
     .trim()
     .options({
       language: {
-        any: { empty: '!!Your last name must be longer then 1 letter' },
+        any: { empty: '!!Your last name must be longer than 1 letter' },
       },
     }),
   email: Joi.string()
