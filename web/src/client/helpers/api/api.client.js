@@ -7,7 +7,7 @@ import ApiError from './api.error';
 
 /* eslint-disable flowtype/no-weak-types */
 
-type AxiosFnType = (url: string, data: Object) => Promise<Object>;
+type AxiosFnType = (url: string, data?: Object) => Promise<Object>;
 
 // Do not throw errors on 'bad' server response codes
 axios.interceptors.response.use(

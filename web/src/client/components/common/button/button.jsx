@@ -1,5 +1,7 @@
+// @flow
+
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 import classnames from 'classnames';
 
 import styles from './button.styles.pcss';
@@ -10,31 +12,35 @@ const colors = {
   red: 'red',
 };
 
-class Button extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    onClick: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    color: PropTypes.oneOf([colors.green, colors.blue, colors.red]),
-    className: PropTypes.string,
-  };
+type ColorType = 'green' | 'blue' | 'red';
 
+type PropsType = {
+  children: Node,
+  onClick?: (e: SyntheticEvent<HTMLDivElement>) => Promise<*>
+    | (e: SyntheticEvent<HTMLDivElement>) => void,
+  onKeyDown?: (e: SyntheticKeyboardEvent<HTMLDivElement>) => Promise<*>
+    | (e: SyntheticKeyboardEvent<HTMLDivElement>) => void,
+  tabIndex?: string | number,
+  color?: ColorType,
+  className?: string,
+};
+
+class Button extends Component<PropsType> {
   static defaultProps = {
-    onClick: null,
-    onKeyDown: null,
+    onClick: undefined,
+    onKeyDown: undefined,
     tabIndex: 0,
     color: colors.blue,
-    className: null,
+    className: '',
   };
 
-  onEnterDown = (e) => {
+  onEnterDown = (e: SyntheticKeyboardEvent<HTMLDivElement>) => {
     if (e.keyCode === 13 && this.props.onClick) {
       this.props.onClick(e);
     }
   };
 
-  render() {
+  render(): Node {
     const {
       children, tabIndex, onClick, onKeyDown, color, className,
     } = this.props;

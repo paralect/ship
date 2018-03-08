@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react';
+import type { Node } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import type { Store } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
 
-import type { StateType, ActionType } from './resources/types';
+import type { StateType, StoreType } from './resources/types';
 
 import routes from './routes';
 import configureStore from './resources/store';
@@ -26,7 +26,7 @@ const initialState: StateType = {
 };
 
 const history = createHistory();
-const store: Store<StateType, ActionType> = configureStore(initialState, history);
+const store: StoreType = configureStore(initialState, history);
 
 const Root = (): Node => (
   <Provider store={store}>

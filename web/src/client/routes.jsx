@@ -7,8 +7,8 @@ import type { Node } from 'react';
 import Index from './components/index/async';
 import Profile from './components/profile/async';
 
-const key = (title) => {
-  return module.hot ? Math.random() : title;
+const key = (title: string): string => {
+  return module.hot ? Math.random().toString() : title;
 };
 
 // key={Math.random()} - is a workaround for work of the hmr with react-loadable

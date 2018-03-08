@@ -15,7 +15,7 @@ const schema = {
     .options({
       language: {
         any: {
-          empty: '!!Your first name must be longer then 1 letter',
+          empty: '!!Your first name must be longer than 1 letter',
         },
       },
     }),
@@ -24,7 +24,7 @@ const schema = {
     .options({
       language: {
         any: {
-          empty: '!!Your last name must be longer then 1 letter',
+          empty: '!!Your last name must be longer than 1 letter',
         },
       },
     }),

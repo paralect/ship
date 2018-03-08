@@ -1,20 +1,22 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 import classnames from 'classnames';
 
 import styles from './form.styles.pcss';
 
-const Form = ({ children, className }) => (
-  <div className={classnames(styles.form, className)}>{children}</div>
-);
-
-Form.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
+type PropsType = {
+  children: Node,
+  className?: string,
 };
 
+const Form = (props: PropsType): Node => (
+  <div className={classnames(styles.form, props.className)}>{props.children}</div>
+);
+
 Form.defaultProps = {
-  className: null,
+  className: '',
 };
 
 export default Form;

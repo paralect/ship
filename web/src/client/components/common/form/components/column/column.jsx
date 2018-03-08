@@ -1,20 +1,22 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 import classnames from 'classnames';
 
 import styles from './column.styles.pcss';
 
-const Column = ({ children, className }) => (
+type PropsType = {
+  children?: Node,
+  className?: string,
+};
+
+const Column = ({ children, className }: PropsType): Node => (
   <div className={classnames(styles.column, className)}>{children}</div>
 );
 
-Column.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-};
-
 Column.defaultProps = {
-  className: null,
+  className: '',
   children: null,
 };
 
