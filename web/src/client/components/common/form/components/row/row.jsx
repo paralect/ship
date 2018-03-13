@@ -1,20 +1,22 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 import classnames from 'classnames';
 
 import styles from './row.styles.pcss';
 
-const Row = ({ children, className }) => (
+type PropsType = {
+  children: Node,
+  className?: string,
+};
+
+const Row = ({ children, className }: PropsType): Node => (
   <div className={classnames(styles.row, className)}>{children}</div>
 );
 
-Row.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
-
 Row.defaultProps = {
-  className: null,
+  className: '',
 };
 
 export default Row;

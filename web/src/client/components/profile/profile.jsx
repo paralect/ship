@@ -1,6 +1,13 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 import { connect } from 'react-redux';
+
+import _pick from 'lodash/pick';
+import _omit from 'lodash/omit';
+
+import type { StateType } from 'resources/types';
 
 import Input from 'components/common/input';
 import Button, { colors as buttonColors } from 'components/common/button';
@@ -13,24 +20,39 @@ import {
   validateUserField,
   validateUser,
 } from 'resources/user/user.actions';
+import type { StateType as UserStateType, ValidationErrorsType } from 'resources/user/user.types';
+import type { ValidationResultErrorsType } from 'helpers/validation/types';
 import { addErrorMessage, addSuccessMessage } from 'components/common/toast/toast.actions';
 
-import styles from './profile.styles';
+import styles from './profile.styles.pcss';
 
-class Profile extends React.Component {
-  static propTypes = {
-    updateUser: PropTypes.func.isRequired,
-    fetchUser: PropTypes.func.isRequired,
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      info: PropTypes.string,
-      errors: PropTypes.object,
-    }).isRequired,
-    addErrorMessage: PropTypes.func.isRequired,
-    addSuccessMessage: PropTypes.func.isRequired,
-  };
+type PropsType = {
+  updateUser: (id: string, data: UserStateType) => ValidationResultErrorsType,
+  fetchUser: (id: string) => void,
+  user: UserStateType,
+  addErrorMessage: (title: string, text?: string, isHTML?: boolean) => void,
+  addSuccessMessage: (title: string, text?: string, isHTML?: boolean) => void,
+};
 
-  constructor(props) {
+type ProfileStateType = {
+  firstName: string,
+  lastName: string,
+  email: string,
+  errors: ValidationErrorsType,
+};
+
+type UserFieldType = 'firstName' | 'lastName' | 'email';
+
+type ConnectedStateType = {
+  user: UserStateType,
+};
+
+type ChangeFnType = (value: string) => void;
+type VoidFnType = () => void;
+type AsyncFnType = () => Promise<*>;
+
+class Profile extends React.Component<PropsType, ProfileStateType> {
+  constructor(props: PropsType) {
     super(props);
 
     this.state = {
@@ -40,40 +62,49 @@ class Profile extends React.Component {
       errors: {},
     };
 
-    this.updateUser = this.updateUser.bind(this);
+    this.updateUserAsync = this.updateUser.bind(this);
   }
 
-  async componentDidMount() {
+  async componentDidMount(): Promise<*> {
     try {
       await this.props.fetchUser('current');
     } catch (error) {
-      this.props.addErrorMessage('Unable to receive user info:', error.global);
+      const errors: ValidationErrorsType = error.data;
+      this.props.addErrorMessage(
+        'Unable to receive user info:',
+        errors._global ? errors._global.join(', ') : '',
+      );
     }
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps(props: PropsType) {
     const { user } = props;
     if (
       user.firstName !== this.state.firstName ||
       user.lastName !== this.state.lastName ||
       user.email !== this.state.email
     ) {
-      this.setState(user);
+      this.setState(_pick(user, ['firstName', 'lastName', 'email']));
     }
   }
 
-  onFieldChange = field => (value) => {
+  onFieldChange = (field: string): ChangeFnType => (value: string) => {
     this.setState({ [field]: value });
   };
 
-  showErrors(errors) {
+  updateUserAsync: AsyncFnType;
+
+  showErrors(errors: ValidationErrorsType) {
     this.setState({ errors });
 
-    this.props.addErrorMessage('Unable to save user info:', errors.global);
+    this.props.addErrorMessage(
+      'Unable to save user info:',
+      errors._global ? errors._global.join(', ') : '',
+    );
   }
 
-  async updateUser(e) {
-    const result = validateUser(this.state);
+  async updateUser(): Promise<*> {
+    const result: ValidationResultErrorsType = validateUser(this.state);
 
     if (!result.isValid) {
       this.showErrors(result.errors);
@@ -81,23 +112,23 @@ class Profile extends React.Component {
     }
 
     try {
-      await this.props.updateUser('current', this.state);
+      await this.props.updateUser('current', _omit(this.state, 'errors'));
       this.props.addSuccessMessage('User info updated!');
     } catch (error) {
-      this.showErrors(error.response.data);
+      this.showErrors(error.data.errors);
     }
   }
 
-  validateField = field => () => {
-    const result = validateUserField(this.state, field);
+  validateField = (field: UserFieldType): VoidFnType => () => {
+    const result = validateUserField(_omit(this.state, 'errors'), field);
     this.setState({ errors: result.errors });
   };
 
-  error(field) {
-    return this.state.errors[field];
+  error(field: UserFieldType): Array<string> {
+    return this.state.errors[field] || [];
   }
 
-  render() {
+  render(): Node {
     return (
       <div>
         <h1>Profile</h1>
@@ -145,7 +176,7 @@ class Profile extends React.Component {
 
               <Button
                 className={styles.button}
-                onClick={this.updateUser}
+                onClick={this.updateUserAsync}
                 tabIndex={0}
                 color={buttonColors.green}
               >
@@ -160,13 +191,12 @@ class Profile extends React.Component {
 }
 
 export default connect(
-  state => ({
+  (state: StateType): ConnectedStateType => ({
     user: fromUser.getUser(state),
   }),
   {
     updateUser,
     fetchUser,
-    validateField: validateUserField,
     addErrorMessage,
     addSuccessMessage,
   },

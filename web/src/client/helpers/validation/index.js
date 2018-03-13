@@ -1,12 +1,15 @@
+// @flow
+
 import Joi from 'joi-browser';
 import _get from 'lodash/get';
 import _set from 'lodash/set';
 
-const errorRegExp = /(^[^:\s]+):\s?(.+)/;
+import type { ValidationResultType, ValidationErrorsType } from './types';
+
 const arrayItemRegExp = /[^[]*(\[[^\]]+\]).*/;
 const dotRegExp = /^\./;
 
-const joiOptions = {
+const joiOptions: ValidationOptions = {
   abortEarly: false,
   allowUnknown: true,
   stripUnknown: {
@@ -19,34 +22,27 @@ const types = {
   object: 'object',
 };
 
-const parseErrors = (error, defaultPath = '') => {
-  const errors = {};
+const parseErrors = (error?: ValidationError, defaultPath: string = ''): ValidationErrorsType => {
+  const errors: ValidationErrorsType = {};
 
   if (!error) {
     return errors;
   }
 
-  if (error.details instanceof Array) {
-    error.details.forEach((err) => {
-      const path = err.path.join('.') || defaultPath;
+  error.details.forEach((err: ValidationErrorItem) => {
+    const path = err.path.join('.') || defaultPath;
 
-      let pathErrors = _get(errors, path);
-      pathErrors = pathErrors || [];
-      pathErrors.push(err.message);
+    let pathErrors = _get(errors, path);
+    pathErrors = pathErrors || [];
+    pathErrors.push(err.message);
 
-      _set(errors, path, pathErrors);
-    });
-  } else if (error instanceof Error) {
-    const match = error.message.match(errorRegExp);
-    const name = match ? match[1] : error.name;
-    const message = match ? match[2] : error.message;
-
-    errors[name] = errors[name] || [];
-    errors[name].push(message);
-  }
+    _set(errors, path, pathErrors);
+  });
 
   return errors;
 };
+
+/* eslint-disable flowtype/no-weak-types */
 
 /**
  * Get validation field
@@ -55,9 +51,9 @@ const parseErrors = (error, defaultPath = '') => {
  * @param {object} schema
  * @return {object}
  */
-export const getValidationObject = (obj, field, schema) => {
-  const newSchema = {};
-  Object.keys(obj).forEach((objField) => {
+export const getValidationObject = (obj: Object, field: string, schema: Object): Object => {
+  const newSchema: Object = {};
+  Object.keys(obj).forEach((objField: string) => {
     let nextField = field;
 
     if (schema[objField]) {
@@ -71,7 +67,7 @@ export const getValidationObject = (obj, field, schema) => {
 
         if (item && item._type === types.object) {
           const schemaObj = {};
-          item._inner.children.forEach((child) => {
+          item._inner.children.forEach((child: Object) => {
             schemaObj[child.key] = child.schema;
           });
 
@@ -87,7 +83,7 @@ export const getValidationObject = (obj, field, schema) => {
         nextField = nextField.replace(objField, '').replace(dotRegExp, '');
 
         const schemaObj = {};
-        schema[objField]._inner.children.forEach((child) => {
+        schema[objField]._inner.children.forEach((child: Object) => {
           schemaObj[child.key] = child.schema;
         });
 
@@ -109,9 +105,9 @@ export const getValidationObject = (obj, field, schema) => {
  * @param {object} schema
  * @return {object}
  */
-export const validate = (obj, schema) => {
-  const result = Joi.validate(obj, schema, joiOptions);
-  const errors = parseErrors(result.error);
+export const validate = (obj: Object, schema: Object): ValidationResultType => {
+  const result: ValidationResult<Object> = Joi.validate(obj, schema, joiOptions);
+  const errors: ValidationErrorsType = parseErrors(result.error);
 
   return {
     errors,
@@ -126,7 +122,7 @@ export const validate = (obj, schema) => {
  * @param {object} schema
  * @return {object}
  */
-export const validateField = (obj, field, schema) => {
+export const validateField = (obj: Object, field: string, schema: Object): ValidationResultType => {
   if (field.indexOf('[') >= 0 && field.indexOf(']') > 0) {
     const fieldValue = _get(obj, field);
     const newObj = {};

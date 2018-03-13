@@ -46,6 +46,7 @@ indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
       data.user = response.data;
       data.token = ctx.session.token;
     } else {
+      ctx.session.token = null;
       ctx.redirect(signinUrl);
       return null;
     }

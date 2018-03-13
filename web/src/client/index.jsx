@@ -1,8 +1,13 @@
+// @flow
+
 import React from 'react';
+import type { Node } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
+
+import type { StateType, StoreType } from './resources/types';
 
 import routes from './routes';
 import configureStore from './resources/store';
@@ -10,17 +15,20 @@ import configureStore from './resources/store';
 import styles from './styles.pcss';
 import Layout from './components/layout';
 
-const minLoadingTime = 1500;
-const now = Date.now();
+const minLoadingTime: number = 1500;
+const now: number = Date.now();
 
-const initialState = {
+const initialState: StateType = {
   user: window.user,
+  toast: {
+    messages: [],
+  },
 };
 
 const history = createHistory();
-const store = configureStore(initialState, history);
+const store: StoreType = configureStore(initialState, history);
 
-const Root = () => (
+const Root = (): Node => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Layout>
@@ -31,15 +39,20 @@ const Root = () => (
 );
 
 const renderApp = () => {
+  const rootEl = document.getElementById('root');
+  if (!(rootEl instanceof Element)) {
+    throw new Error('invalid type');
+  }
+
   ReactDOM.render(
     <Root />,
-    document.getElementById('root'),
+    rootEl,
   );
 };
 
 const hidePoster = () => {
-  const poster = document.querySelector('#poster');
-  if (!poster) {
+  const poster = document.getElementById('poster');
+  if (!(poster instanceof Element)) {
     return;
   }
   poster.classList.add(styles.posterHidden);

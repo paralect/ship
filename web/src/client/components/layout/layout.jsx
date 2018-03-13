@@ -1,17 +1,19 @@
+// @flow
+
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 
 import Toast from 'components/common/toast';
 import Header from './components/header';
 
 import styles from './layout.styles.pcss';
 
-class Layout extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-  };
+type PropsType = {
+  children: Node,
+};
 
-  render() {
+class Layout extends Component<PropsType> {
+  render(): Node {
     return (
       <div>
         <Header />

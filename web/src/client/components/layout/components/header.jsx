@@ -1,8 +1,12 @@
+// @flow
+
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
+
+import type { StateType as ReduxStateType } from 'resources/types';
 
 import FaCaretDown from 'react-icons/lib/fa/caret-down';
 import FaUser from 'react-icons/lib/fa/user';
@@ -12,13 +16,18 @@ import * as fromUser from 'resources/user/user.selectors';
 
 import { indexPath, profilePath, changePasswordPath } from '../paths';
 
-import styles from './header.styles';
+import styles from './header.styles.pcss';
 
-class Header extends Component {
-  static propTypes = {
-    username: PropTypes.string.isRequired,
-  };
+type PropsType = {
+  username: string,
+};
 
+type StateType = {
+  showMenu: boolean,
+  menuOpen: boolean,
+};
+
+class Header extends Component<PropsType, StateType> {
   state = {
     showMenu: false,
     menuOpen: false,
@@ -32,25 +41,32 @@ class Header extends Component {
     document.removeEventListener('click', this.onCloseMenu);
   }
 
-  onToggleMenu = (e) => {
+  onToggleMenu = () => {
     this.setState({
       menuOpen: !this.state.menuOpen,
     });
   };
 
-  onCloseMenu = (e) => {
-    if (e.target !== this.userBtn) {
+  // eslint-disable-next-line flowtype/no-weak-types
+  onCloseMenu = (e: MouseEvent) => {
+    this.closeMenu(e.target);
+  };
+
+  onEnterDown = (e: SyntheticKeyboardEvent<HTMLSpanElement>) => {
+    if (e.keyCode === 13) {
+      this.closeMenu(e.target);
+    }
+  };
+
+  closeMenu(target: EventTarget) {
+    if (target !== this.userBtn) {
       this.setState({ menuOpen: false });
     }
-  };
+  }
 
-  onEnterDown = action => (e) => {
-    if (e.keyCode === 13) {
-      action(e);
-    }
-  };
+  userBtn: ?HTMLSpanElement;
 
-  render() {
+  render(): Node {
     return (
       <div className={styles.header}>
         <Link className={styles.title} to={indexPath()}>
@@ -67,8 +83,8 @@ class Header extends Component {
             role="button"
             tabIndex="0"
             onClick={this.onToggleMenu}
-            onKeyDown={this.onEnterDown(this.onToggleMenu)}
-            ref={(btn) => {
+            onKeyDown={this.onEnterDown}
+            ref={(btn: ?HTMLSpanElement) => {
               this.userBtn = btn;
             }}
           >
@@ -94,6 +110,6 @@ class Header extends Component {
   }
 }
 
-export default connect(state => ({
+export default connect((state: ReduxStateType): PropsType => ({
   username: fromUser.getUsername(state),
 }))(Header);

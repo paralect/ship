@@ -1,0 +1,20 @@
+[ignore]
+
+<PROJECT_ROOT>/src/server/.*
+<PROJECT_ROOT>/bin/.*
+
+<PROJECT_ROOT>/.*/__tests__/.*
+<PROJECT_ROOT>/node_modules/.*
+
+[options]
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+
+module.name_mapper.extension='pcss' -> '<PROJECT_ROOT>/src/client/flow-interfaces/CSSFlowStub.js.flow'
+module.system.node.resolve_dirname=src/client
+module.name_mapper='^components\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/components/\1'
+module.name_mapper='^helpers\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/helpers/\1'
+module.name_mapper='^resources\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/resources/\1'
+
+[version]
+^0.67.0

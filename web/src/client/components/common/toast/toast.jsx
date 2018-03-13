@@ -1,19 +1,36 @@
+// @flow
+
 import React, { Component } from 'react';
+import type { Node } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import FaExclamationCircle from 'react-icons/lib/fa/exclamation-circle';
 import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle';
 import FaCheckCircle from 'react-icons/lib/fa/check-circle';
 
-import { getToasterMessages } from 'resources/reducer';
+import type { StateType } from 'resources/types';
+import { getToasterMessages } from './toast.selectors';
 import { removeMessage } from './toast.actions';
+
+import type { MessageType, MessageTypeType } from './toast.types';
 
 import styles from './toast.styles.pcss';
 
-const icon = (messageType) => {
+type ToastPropsType = {
+  messages: Array<MessageType>,
+  removeMessage: (id: string) => void,
+};
+
+type StatePropsType = {
+  messages: Array<MessageType>,
+};
+
+type KeyDownFnType = (e: SyntheticKeyboardEvent<HTMLDivElement>) => void;
+type VoidFnType = () => void;
+
+const icon = (messageType: MessageTypeType): Node => {
   switch (messageType) {
     case 'error':
       return <FaExclamationCircle className={styles.icon} size={25} />;
@@ -29,18 +46,8 @@ const icon = (messageType) => {
   }
 };
 
-class Toast extends Component {
-  static propTypes = {
-    messages: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string,
-      type: PropTypes.oneOf(['error', 'success', 'warning']),
-      text: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-      isHTML: PropTypes.bool,
-    })).isRequired,
-    removeMessage: PropTypes.func.isRequired,
-  };
-
-  constructor(props) {
+class Toast extends Component<ToastPropsType> {
+  constructor(props: ToastPropsType) {
     super(props);
 
     this.el = document.createElement('div');
@@ -48,25 +55,31 @@ class Toast extends Component {
   }
 
   componentDidMount() {
-    document.body.appendChild(this.el);
+    if (document.body) {
+      document.body.appendChild(this.el);
+    }
   }
 
   componentWillUnmount() {
-    document.body.removeChild(this.el);
+    if (document.body) {
+      document.body.removeChild(this.el);
+    }
   }
 
-  onMessageClick = id => (e) => {
+  onMessageClick = (id: string): VoidFnType => () => {
     this.props.removeMessage(id);
   };
 
-  onMessageKeyDown = id => (e) => {
+  onMessageKeyDown = (id: string): KeyDownFnType => (e: SyntheticKeyboardEvent<HTMLDivElement>) => {
     if (e.keyCode === 13) {
       this.props.removeMessage(id);
     }
   };
 
-  messagesList() {
-    return this.props.messages.map((message, index) => {
+  el: HTMLElement;
+
+  messagesList(): Array<Node> {
+    return this.props.messages.map((message: MessageType, index: number): Node => {
       const text =
         !message.text || typeof message.text === 'string' ? message.text : message.text.join(', ');
 
@@ -89,12 +102,12 @@ class Toast extends Component {
     });
   }
 
-  render() {
+  render(): Node {
     return ReactDOM.createPortal(this.messagesList(), this.el);
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: StateType): StatePropsType => ({
   messages: getToasterMessages(state, 'all'),
 });
 

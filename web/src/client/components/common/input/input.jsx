@@ -1,32 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// @flow
+
+import React, { Component } from 'react';
+import type { Node } from 'react';
 import classnames from 'classnames';
 
 import _uniq from 'lodash/uniq';
 import _omit from 'lodash/omit';
 
-import styles from './input.styles';
+import styles from './input.styles.pcss';
 
-export default class Input extends React.Component {
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
-    className: PropTypes.string,
-    type: PropTypes.oneOf(['text', 'search', 'email', 'number', 'password', 'url']),
-    errors: PropTypes.arrayOf(PropTypes.string),
-  };
+type InputType = 'text' | 'search' | 'email' | 'number' | 'password' | 'url';
 
+type PropsType = {
+  onChange: (value: string) => void,
+  value: string,
+  className?: string,
+  type: InputType,
+  errors: Array<string>,
+};
+
+export default class Input extends Component<PropsType> {
   static defaultProps = {
-    className: null,
+    className: '',
     type: 'text',
     errors: [],
   };
 
-  onChange = (e) => {
+  onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.props.onChange(e.target.value);
   };
 
-  errors() {
+  errors(): Node {
     if (!this.props.errors.length) {
       return null;
     }
@@ -34,7 +38,7 @@ export default class Input extends React.Component {
     return <div className={styles.errors}>{_uniq(this.props.errors).join(', ')}</div>;
   }
 
-  render() {
+  render(): Node {
     const { className, errors } = this.props;
     const props = _omit(this.props, ['className', 'errors', 'onChange']);
 

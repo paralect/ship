@@ -1,20 +1,40 @@
+// @flow
+
 import axios from 'axios';
+import type { $AxiosXHR, $AxiosError, $AxiosXHRConfig } from 'axios';
+
 import ApiError from './api.error';
 
+/* eslint-disable flowtype/no-weak-types */
+
+type AxiosFnType = (url: string, data?: Object) => Promise<Object>;
+
 // Do not throw errors on 'bad' server response codes
-axios.interceptors.response.use(axiosConfig => axiosConfig, error => error.response);
+axios.interceptors.response.use(
+  (axiosConfig: $AxiosXHR<*>): $AxiosXHR<*> => axiosConfig,
+  (error: $AxiosError<Object>): Object => error.response,
+);
 
-const generalError = { general: ['Unexpected Error Occurred'] };
+const generalError = {
+  _global: ['Unexpected Error Occurred'],
+};
 
-const throwApiError = ({ data, status }) => {
+const throwApiError = ({ data, status }: $AxiosXHR<Object>) => {
   console.error('API: Error Ocurred', status, data); //eslint-disable-line
   throw new ApiError(data, status);
 };
 
-const httpRequest = method => async (url, data) => {
-  const options = {
+const httpRequest = (method: string): AxiosFnType => async (url: string, data?: Object): Object => {
+  let urlWithSlash: string = url;
+
+  if (urlWithSlash[0] !== '/') {
+    urlWithSlash = `/${urlWithSlash}`;
+  }
+
+  const options: $AxiosXHRConfig<Object> = {
     headers: { Authorization: `Bearer ${window.token}` },
     method,
+    url: `${window.config.apiUrl}${urlWithSlash}`,
   };
 
   if (data) {
@@ -25,15 +45,7 @@ const httpRequest = method => async (url, data) => {
     }
   }
 
-  let urlWithSlash = url;
-
-  if (urlWithSlash[0] !== '/') {
-    urlWithSlash = `/${urlWithSlash}`;
-  }
-
-  options.url = `${window.config.apiUrl}${urlWithSlash}`;
-
-  const response = await axios(options);
+  const response: $AxiosXHR<Object> = await axios(options);
 
   if (response.status >= 200 && response.status < 300) {
     return response.data || {};
@@ -41,7 +53,10 @@ const httpRequest = method => async (url, data) => {
     throwApiError(response);
   }
 
-  throwApiError({ errors: [generalError] });
+  response.data = {
+    errors: generalError,
+  };
+  throwApiError(response);
   return null;
 };
 

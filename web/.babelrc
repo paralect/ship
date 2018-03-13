@@ -15,5 +15,6 @@
   "plugins": [
     "react-hot-loader/babel",
     "react-loadable/babel"
-  ]
+  ],
+  "retainLines": true
 }
