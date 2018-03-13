@@ -10,7 +10,7 @@
 3. [Team Communication](https://paralect-stack.slack.com/messages) via [Slack](https://slack.com/). (🔥 — update link to your Slack account)
 4. [Continious Integration Server](http://product-stack-ci.paralect.com) via [Drone CI](https://github.com/drone/drone) (🔥 — CI server is not configured, if you want to setup it, instructions are [here](./deploy/drone-ci/README.md).)
 
-## Development consitution
+## Development constitution
 
  🔥 — we always agree on the most important things and document them in a simple readme. Keep it if you like it :)
 
@@ -32,9 +32,9 @@ Make sure to run them often:
 ./bin/run-tests.sh 
 ```
 
-## Envrionments
+## Environments
 
- 🔥 — include links to your envrionments
+ 🔥 — include links to your environments
 
 |Environment|Url|
 |:---|:----------|
