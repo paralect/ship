@@ -2,6 +2,8 @@ import React from 'react';
 
 import { ApiError } from '~/helpers/api';
 
+import styles from './styles.pcss';
+
 const defaultMessage = 'Unexpected error occurred';
 
 const formatError = (err) => {
@@ -34,18 +36,7 @@ export default({ error } = {}) => {
   }
 
   return (
-    <div className="error">
-      <style jsx>{`
-        .error {
-          background: color(red alpha(-50%));
-          color: var(--color-white);
-          padding: 20px 10px;
-          border-radius: 5px;
-          margin: 10px 0;
-          text-align: center;
-        }
-      `}</style>
-
+    <div className={styles.error}>
       {formatError(error)}
     </div>
   );

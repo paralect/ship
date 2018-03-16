@@ -1,0 +1,14 @@
+@import 'variables.pcss';
+
+.input {
+  border-radius: 8px;
+  padding: var(--form-padding) calc(var(--form-padding) * 2);
+  background: white;
+  border: 1px solid #e8e8e8;
+  transition: box-shadow 0.5s;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 10px color(#55299a alpha(-50%));
+  }
+}

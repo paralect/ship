@@ -1,10 +1,16 @@
 import React, { PureComponent } from 'react';
 
+import Auth from '~/layouts/auth';
+
+import Form, { Wrap } from '~/components/form';
+import Input from '~/components/input';
 import Error from '~/components/error';
 import Button from '~/components/button';
-import Layout from '~/layouts/main';
+
 import { setFormValue } from '~/helpers';
 import { forgotPassword } from '~/resources/account/account.api';
+
+import styles from './styles.pcss';
 
 export default class ForgotPassword extends PureComponent {
   static emailSent() {
@@ -55,34 +61,26 @@ export default class ForgotPassword extends PureComponent {
   form() {
     return [
       <h2 key="title">Reset Your Password</h2>,
-      <form key="form" className="form" onSubmit={this.submitSignin}>
-        <style jsx>{`
-          :global(.submitBtn) {
-            margin: var(--form-padding) 0;
-            background: var(--button-primary-gradient);
-          }
-        `}</style>
-
-        <input
+      <Form key="form" onSubmit={this.submitSignin}>
+        <Input
           key="email"
           value={this.state.email}
           onChange={this.setEmail}
           required
           placeholder="Email"
           type="email"
-          className="input"
         />
 
-        <p className="description">
+        <p>
           Enter your email address and we will send
           you a link to reset your password.
         </p>
 
         <Error error={this.state.error} />
 
-        <div className="submit">
+        <div>
           <Button
-            className="submitBtn"
+            className={styles['submit-btn']}
             action="submit"
             primary
             isLoading={this.state.isLoading}
@@ -90,46 +88,22 @@ export default class ForgotPassword extends PureComponent {
             Submit
           </Button>
         </div>
-      </form>,
+      </Form>,
     ];
   }
 
   render() {
     return (
-      <Layout>
-        <div className="auth page">
-          <style jsx>{`
-            .page {
-              & .panel {
-                width: 500px;
-                height: auto;
-                padding: var(--form-padding);
+      <Auth className={styles.panel}>
+        <Wrap>
 
-                & .form-wrap {
-                  display: flex;
-                  flex-direction: column;
-                  padding: 0 30px;
-                  justify-content: center;
-                  align-items: flex-start;
-                  width: 100%;
-                  height: 100%;
-                }
-              }
-            }
-          `}</style>
-
-          <div className="panel">
-            <div className="form-wrap">
-
-              {
-                this.state.emailSent
-                  ? this.emailSent()
-                  : this.form()
-              }
-            </div>
-          </div>
-        </div>
-      </Layout>
+          {
+            this.state.emailSent
+              ? this.emailSent()
+              : this.form()
+          }
+        </Wrap>
+      </Auth>
     );
   }
 }

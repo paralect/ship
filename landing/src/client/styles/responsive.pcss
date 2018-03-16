@@ -1,0 +1,20 @@
+:root {
+  --phone: 575px;
+  --tablet: 768px;
+  --desktop: 992px;
+  --wide: 1200px;
+}
+
+@custom-media --wide (width >= 1200px);
+@custom-media --desktop (width >= 992px) and (width < 1200px);
+@custom-media --tablet (width >= 768px) and (width < 992px);
+@custom-media --phone (width >= 575px) and (width < 768px);
+@custom-media --phone-small (width < 575px);
+@custom-media --from-wide (width >= 1200px);
+@custom-media --from-desktop (width >= 992px);
+@custom-media --from-tablet (width >= 768px);
+@custom-media --from-phone (width >= 575px);
+@custom-media --until-wide (width < 1200px);
+@custom-media --until-desktop (width < 992px);
+@custom-media --until-tablet (width < 768px);
+@custom-media --until-phone (width < 575px);

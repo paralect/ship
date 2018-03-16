@@ -5,26 +5,16 @@ import { withRouter } from 'next/router';
 
 import Header from '~/components/header';
 
+import styles from './styles.pcss';
+
 const Layout = ({ children, router }) => {
   const secondary = router.pathname.includes('/signup');
 
   return (
-    <div className={classnames('wrap', { secondary })}>
-      <style jsx>{`
-          .wrap {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-
-            background-color: var(--color-brand);
-            box-shadow: 0 7px 30px 3px rgba(94,96,186,.35);
-        
-            &.secondary {
-              background-color: var(--color-secondary);
-            }
-          }
-        `}</style>
-
+    <div className={classnames([styles.wrap], {
+      [styles.secondary]: secondary,
+    })}
+    >
       <Header secondary={secondary} />
       { children }
     </div>
