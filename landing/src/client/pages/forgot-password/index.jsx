@@ -99,7 +99,7 @@ export default class ForgotPassword extends PureComponent {
 
           {
             this.state.emailSent
-              ? this.emailSent()
+              ? ForgotPassword.emailSent()
               : this.form()
           }
         </Wrap>
