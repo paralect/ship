@@ -1,0 +1,4 @@
+node_modules/*
+src/client/static
+src/client/views
+flow-typed/*

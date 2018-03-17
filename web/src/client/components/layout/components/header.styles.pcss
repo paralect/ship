@@ -1,0 +1,61 @@
+@import 'variables.pcss';
+
+.header {
+  background-color: #1976d2;
+  color: var(--white);
+  padding: 20px;
+  display: flex;
+}
+
+.title {
+  color: var(--white);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.user {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+
+  .user-btn {
+    outline: none;
+  }
+
+  .menu {
+    position: absolute;
+    width: 170px;
+    display: none;
+    flex-direction: column;
+    top: 25px;
+    right: 0;
+    background: var(--grey-100);
+    border: 1px solid var(--grey-500);
+    border-radius: var(--border-radius-500);
+    box-shadow: 0 5px 10px var(--shadow-default);
+
+    &.open {
+      display: flex;
+    }
+
+    & > a {
+      display: flex;
+      align-items: center;
+      padding: var(--distance-500);
+      color: var(--grey-800);
+      text-decoration: none;
+      font-size: var(--text-400);
+
+      & svg {
+        margin-right: var(--distance-400);
+      }
+
+      &:hover {
+        color: var(--blue-800);
+        background: var(--blue-50);
+      }
+    }
+  }
+}
