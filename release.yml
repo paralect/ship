@@ -1,12 +1,12 @@
 services:
   ship:
-    version: 2.0.0
+    version: 2.0.1
   api:
     version: 1.6.0
-    include: true
+    include: false
   web:
-    version: 2.0.0
+    version: 2.0.1
     include: true
   landing:
-    version: 2.0.0
+    version: 2.0.1
     include: true
