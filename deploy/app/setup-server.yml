@@ -25,15 +25,16 @@
       docker_image:
         state: present
         force: yes
-        name: "redis:3.2"
-        tag: "3.2"
+        name: "redis:4.0.8"
+        tag: "4.0.8"
       tags:
         - redis
 
     - name: run redis using docker
       docker_container:
         name: redis
-        image: redis:3.2
+        image: redis:4.0.8
+        command: ["redis-server", "--appendonly", "yes"]
         state: started
         restart_policy: always
         force_kill: yes
@@ -45,16 +46,27 @@
       tags:
         - redis
 
+    - name: pull mongo docker image
+      docker_image:
+        state: present
+        force: yes
+        name: "mongo:3.6.3"
+        tag: "3.6.3"
+      tags:
+        - mongo
+
     - name: run mongo using docker
-      docker:
+      docker_container:
         name: mongo
-        image: mongo:3.4
+        image: mongo:3.6.3
         command: mongod
-        state: restarted
+        state: started
         restart_policy: always
+        force_kill: yes
+        recreate: yes
         volumes:
           - "{{mongo_data_dir}}:/data/db"
         ports:
-          - "127.0.0.1:27017:27017"
+          - "27017:27017"
       tags:
         - mongo
