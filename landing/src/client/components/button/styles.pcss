@@ -1,0 +1,33 @@
+.button {
+  transition: 0.5s;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  padding: 15px 10px;
+  width: 100%;
+  line-height: 22px;
+
+  &[disabled] {
+    cursor: default;
+  }
+
+  &.loading {
+    animation: Gradient 1s ease-in-out infinite;
+    background-position: right center;
+    opacity: 0.8;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

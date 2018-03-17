@@ -1,0 +1,38 @@
+@import 'variables.pcss';
+@import 'responsive.pcss';
+
+.page {
+  flex: 1;
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.panel {
+  padding: 5px;
+  display: flex;
+  background: var(--color-white);
+  border-radius: 10px;
+  box-shadow: 0 7px 30px 3px rgba(94, 96, 186, 0.35);
+  margin: 10px;
+  height: 600px;
+
+  @media (--until-tablet) {
+    width: 100%;
+  }
+
+  img {
+    width: auto;
+    height: 100%;
+    border-radius: 10px;
+    background: var(--color-background);
+
+    @media (--until-tablet) {
+      display: none;
+    }
+  }
+}
