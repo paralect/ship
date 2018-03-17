@@ -1,6 +1,6 @@
 {
   "name": "react-starter",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Koa react",
   "private": false,
   "main": "src/server/app.js",
@@ -34,7 +34,6 @@
     "axios": "0.18.0",
     "classnames": "2.2.5",
     "cssnano": "3.10.0",
-    "extract-text-webpack-plugin": "4.0.0-beta.0",
     "file-loader": "1.1.11",
     "flow-bin": "0.68.0",
     "handlebars": "4.0.11",
@@ -94,6 +93,7 @@
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.7.0",
     "flow": "0.2.3",
+    "mini-css-extract-plugin": "0.2.0",
     "npm-run-all": "4.1.2",
     "postcss-loader": "2.1.1",
     "prettier-eslint-cli": "4.7.1",

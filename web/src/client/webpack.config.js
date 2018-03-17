@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const incstr = require('incstr');
 
@@ -76,27 +76,26 @@ module.exports = {
       },
       {
         test: /\.pcss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                camelCase: true,
-                getLocalIdent: (context, localIdentName, localName) => {
-                  return generateScopedName(localName, context.resourcePath);
-                },
-                minimize: true,
-                modules: true,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              camelCase: true,
+              getLocalIdent: (context, localIdentName, localName) => {
+                return generateScopedName(localName, context.resourcePath);
               },
+              minimize: true,
+              modules: true,
+              localIdentName: '[local]_[hash:base64:5]',
             },
-            {
-              loader: 'postcss-loader',
-              options: { sourceMap: true },
-            },
-          ],
-        }),
+          },
+          {
+            loader: 'postcss-loader',
+            options: { sourceMap: true },
+          },
+        ],
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -120,7 +119,7 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin({ filename: '[name].[hash].css' }),
+    new MiniCssExtractPlugin({ chunkFilename: '[name].[hash].css' }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
