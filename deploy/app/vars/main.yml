@@ -1,3 +1,5 @@
+server_setup_ssl: false
+
 app_name: "ship"
 app_home: "/home/{{app_name}}"
 mongo_data_dir: "/home/{{app_name}}/mongo-data" # same as for pa until on one server
@@ -11,3 +13,6 @@ web_ports: [ 6100 ]
 
 landing_domain: "ship-demo.paralect.com"
 landing_ports: [ 6200 ]
+
+ssl_key_path: "/etc/letsencrypt/live"
+ssl_cert_path: "/etc/letsencrypt/live"

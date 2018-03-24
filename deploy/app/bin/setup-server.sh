@@ -1,2 +1,2 @@
 #!/bin/sh
-ansible-playbook ./setup-server.yml -i ./hosts "$@"
+ansible-playbook ./setup-server.yml "$@"

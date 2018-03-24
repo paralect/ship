@@ -1,0 +1,102 @@
+upstream landing {
+  {% for item in landing_ports %}
+    server localhost:{{ item }};
+  {% endfor %}
+}
+
+upstream api {
+  {% for item in api_ports %}
+    server localhost:{{ item }};
+  {% endfor %}
+}
+
+upstream web {
+  {% for item in web_ports %}
+    server localhost:{{ item }};
+  {% endfor %}
+}
+
+server {
+  listen 80;
+  server_name {{ landing_domain }} {{ web_domain }} {{ api_domain }};
+
+  #Rewrite all none ssl requests to ssl.
+  return 301 https://$host$request_uri$is_args$args;
+}
+
+server {
+  listen 443 ssl http2;
+  server_name {{ landing_domain }};
+  ssl on;
+  ssl_certificate "{{ssl_cert_path}}/{{landing_domain}}/fullchain.pem";
+  ssl_certificate_key "{{ssl_key_path}}/{{landing_domain}}/privkey.pem";
+
+  ssl_protocols TLSv1.2;
+
+  gzip on;
+  gzip_proxied any;
+  gzip_min_length   280;
+  gzip_types        text/plain application/json text/css application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript image/x-icon image/bmp image/svg+xml;
+  gzip_vary         on;
+
+  location / {
+    client_max_body_size 20m;
+    client_body_timeout  300s;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+
+    proxy_pass http://landing;
+    proxy_redirect off;
+  }
+}
+
+server {
+  listen 443 ssl http2;
+  server_name {{ api_domain }};
+  ssl on;
+  ssl_certificate "{{ssl_cert_path}}/{{api_domain}}/fullchain.pem";
+  ssl_certificate_key "{{ssl_key_path}}/{{api_domain}}/privkey.pem";
+
+  ssl_protocols TLSv1.2;
+
+  gzip on;
+  gzip_proxied any;
+  gzip_min_length   280;
+  gzip_types        text/plain application/json text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript image/x-icon image/bmp image/svg+xml;
+  gzip_vary         on;
+
+  location / {
+     client_max_body_size 20m;
+     client_body_timeout  300s;
+     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+     proxy_set_header Host $host;
+     proxy_pass http://api;
+  }
+}
+
+server {
+  listen 443 ssl http2;
+  server_name {{ web_domain }};
+  ssl on;
+  ssl_certificate "{{ssl_cert_path}}/{{web_domain}}/fullchain.pem";
+  ssl_certificate_key "{{ssl_key_path}}/{{web_domain}}/privkey.pem";
+
+  ssl_protocols TLSv1.2;
+
+  gzip on;
+  gzip_proxied any;
+  gzip_min_length   280;
+  gzip_types        text/plain application/json text/css application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript image/x-icon image/bmp image/svg+xml;
+  gzip_vary         on;
+
+  location / {
+    client_max_body_size 20m;
+    client_body_timeout  300s;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Proto-Version $http2;
+    proxy_pass http://web;
+  }
+}
