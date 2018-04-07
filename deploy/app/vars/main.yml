@@ -1,6 +1,7 @@
 server_setup_ssl: false
 
 app_name: "ship"
+app_domain: "paralect.com"
 app_home: "/home/{{app_name}}"
 mongo_data_dir: "/home/{{app_name}}/mongo-data" # same as for pa until on one server
 redis_data_dir: "/home/{{app_name}}/redis-data"
@@ -14,5 +15,9 @@ web_ports: [ 6100 ]
 landing_domain: "ship-demo.paralect.com"
 landing_ports: [ 6200 ]
 
-ssl_key_path: "/etc/letsencrypt/live"
-ssl_cert_path: "/etc/letsencrypt/live"
+ssl_key_path: "/etc/letsencrypt/live/paralect.com"
+ssl_key: "fullchain.pem"
+ssl_cert_path: "/etc/letsencrypt/live/paralect.com"
+ssl_cert: "privkey.pem"
+
+letsencrypt_email: "ship@test.com"

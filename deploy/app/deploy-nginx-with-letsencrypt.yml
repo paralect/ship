@@ -7,38 +7,25 @@
     - name: run_roles
       prompt: "Install nginx from scratch?"
       default: "n"
-    - name: server_setup_ssl
-      prompt: "Install nginx with ssl certificates?"
+    - name: install_letsencrypt
+      prompt: "Install lestencrypt certificates?"
       default: "n"
   vars_files:
     - "vars/main.yml"
+  vars:
+    - ssl_key_path: "/etc/letsencrypt/live/{{app_domain}}"
+    - ssl_key: "fullchain.pem"
+    - ssl_cert_path: "/etc/letsencrypt/live/{{app_domain}}"
+    - ssl_cert: "privkey.pem"
   roles:
     - { role: nginx, when: run_roles == "y" }
+    - { role: letsencrypt, when: install_letsencrypt == "y" }
   tasks:
-    - name: Assures /etc/nginx/ssl exists
-      file: path=/etc/nginx/ssl state=directory
-      when: server_setup_ssl
-
-    - name: Copy ssl certificate to /etc/nginx/ssl
-      copy: src=ssl-keys/{{item.src}} dest={{item.dest}} owner=root mode=744
-      with_items:
-        - {src: '{{ssl_cert}}', dest: '{{ssl_cert_path}}'}
-        - {src: '{{ssl_key}}', dest: '{{ssl_key_path}}'}
-      when: server_setup_ssl
-
-    - name: copy nginx virtual host file
-      template: src="templates/{{env}}-nginx-config.j2"
-                dest="/etc/nginx/sites-available/{{app_name}}"
-                owner=root
-                group=root
-      when: not server_setup_ssl
-
     - name: copy nginx virtual host file
       template: src="templates/{{env}}-nginx-config-with-ssl.j2"
                 dest="/etc/nginx/sites-available/{{app_name}}"
                 owner=root
                 group=root
-      when: server_setup_ssl
 
     - name: link nginx virtual host file
       file: src="/etc/nginx/sites-available/{{app_name}}"
@@ -47,3 +34,4 @@
 
     - name: restart nginx
       service: name=nginx state=restarted
+
