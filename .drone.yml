@@ -10,7 +10,7 @@ pipeline:
 
   publish-api-docker:
     image: plugins/docker
-    secrets: [ docker_username, docker_password, docker_email ]
+    secrets: [ docker_username, docker_password ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     repo: paralect/ship-api
@@ -25,7 +25,7 @@ pipeline:
 
   publish-web-docker:
     image: plugins/docker
-    secrets: [ docker_username, docker_password, docker_email ]
+    secrets: [ docker_username, docker_password ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     repo: paralect/ship-web
@@ -40,7 +40,7 @@ pipeline:
 
   publish-landing-docker:
     image: plugins/docker
-    secrets: [ docker_username, docker_password, docker_email ]
+    secrets: [ docker_username, docker_password ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     repo: paralect/ship-landing
