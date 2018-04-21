@@ -6,26 +6,25 @@
   flex-direction: column;
 
   .intro {
-    padding: 20px 0;
+    padding: var(--distance-700) 0;
     min-width: 350px;
     flex: 1;
 
     .title {
-      color: var(--color-white);
-      font-size: 42px;
-      font-weight: 300;
+      color: var(--white);
+      font-size: var(--text-1100);
+      font-weight: var(--text-weight-300);
       margin-top: 0;
     }
 
     .description {
-      color: var(--color-white);
-      font-size: 20px;
-      opacity: 0.85;
+      color: var(--grey-300);
+      font-size: var(--text-700);
     }
   }
 
   .logo {
-    padding: 20px 0;
+    padding: var(--distance-700) var(--distance-600) var(--distance-700) 0;
     max-width: 400px;
     min-width: 300px;
     min-height: 250px;
@@ -40,7 +39,7 @@
       border-radius: 50px;
       transform: skewX(-5deg);
       font-size: 100px;
-      font-weight: 600;
+      font-weight: var(--text-weight-600);
       color: rgba(255, 255, 255, 0.8);
       align-items: center;
       justify-content: center;
@@ -57,6 +56,6 @@
   width: 100%;
   box-sizing: border-box;
   max-width: var(--max-container-width);
-  padding: var(--container-padding);
+  padding: 0 var(--distance-700);
   margin: 0 auto;
 }

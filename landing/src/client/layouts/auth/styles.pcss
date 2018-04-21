@@ -13,12 +13,12 @@
 }
 
 .panel {
-  padding: 5px;
+  padding: var(--distance-400);
   display: flex;
-  background: var(--color-white);
-  border-radius: 10px;
-  box-shadow: 0 7px 30px 3px rgba(94, 96, 186, 0.35);
-  margin: 10px;
+  background: var(--white);
+  border-radius: var(--border-radius-800);
+  box-shadow: 0 7px 30px 3px var(--deep-purple-shadow);
+  margin: var(--distance-500);
   height: 600px;
 
   @media (--until-tablet) {
@@ -28,8 +28,8 @@
   img {
     width: auto;
     height: 100%;
-    border-radius: 10px;
-    background: var(--color-background);
+    border-radius: var(--border-radius-800);
+    background: var(--grey-50);
 
     @media (--until-tablet) {
       display: none;

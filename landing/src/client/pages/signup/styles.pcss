@@ -2,7 +2,7 @@
 
 .panel {
   height: 600px;
-  width: 1014px;
+  max-width: 1000px;
 
   img {
     min-width: 450px;
@@ -14,27 +14,28 @@
   }
 
   form {
-    input:first-child {
-      margin-right: 16px;
-    }
-
     .names {
       display: flex;
 
       input {
-        width: 50%;
+        width: calc(50% - var(--distance-400));
+        margin-left: var(--distance-500);
+
+        &:first-of-type {
+          margin-left: 0;
+        }
       }
     }
 
     .signup {
-      background: linear-gradient(to right, #18c76d 0%, #08af81 100%);
-      margin-top: var(--form-padding);
+      background: var(--green-gradient);
+      margin-top: var(--distance-600);
     }
   }
 
   .signup-success {
     margin: auto;
     width: 100%;
-    padding: 30px;
+    padding: var(--distance-900);
   }
 }

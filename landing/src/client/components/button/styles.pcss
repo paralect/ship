@@ -1,11 +1,13 @@
+@import 'variables.pcss';
+
 .button {
   transition: 0.5s;
-  border-radius: 5px;
+  border-radius: var(--border-radius-500);
   cursor: pointer;
-  color: white;
-  padding: 15px 10px;
+  color: var(--white);
+  padding: var(--distance-600) var(--distance-500);
   width: 100%;
-  line-height: 22px;
+  line-height: var(--text-800);
 
   &[disabled] {
     cursor: default;
