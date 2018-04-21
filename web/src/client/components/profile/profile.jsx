@@ -8,6 +8,7 @@ import _pick from 'lodash/pick';
 import _omit from 'lodash/omit';
 
 import type { StateType } from 'resources/types';
+import type { ErrorDataType } from 'helpers/api/api.types';
 
 import Input from 'components/common/input';
 import Button, { colors as buttonColors } from 'components/common/button';
@@ -29,7 +30,7 @@ import styles from './profile.styles.pcss';
 type PropsType = {
   updateUser: (id: string, data: UserStateType) => ValidationResultErrorsType,
   fetchUser: (id: string) => void,
-  user: UserStateType,
+  user: UserStateType, // eslint-disable-line
   addErrorMessage: (title: string, text?: string, isHTML?: boolean) => void,
   addSuccessMessage: (title: string, text?: string, isHTML?: boolean) => void,
 };
@@ -52,6 +53,22 @@ type VoidFnType = () => void;
 type AsyncFnType = () => Promise<*>;
 
 class Profile extends React.Component<PropsType, ProfileStateType> {
+  static getDerivedStateFromProps(props: PropsType, state: ProfileStateType): ?ProfileStateType {
+    const { user } = props;
+    if (
+      user.firstName !== state.firstName ||
+      user.lastName !== state.lastName ||
+      user.email !== state.email
+    ) {
+      return {
+        ..._pick(user, ['firstName', 'lastName', 'email']),
+        errors: {},
+      };
+    }
+
+    return null;
+  }
+
   constructor(props: PropsType) {
     super(props);
 
@@ -69,22 +86,11 @@ class Profile extends React.Component<PropsType, ProfileStateType> {
     try {
       await this.props.fetchUser('current');
     } catch (error) {
-      const errors: ValidationErrorsType = error.data;
+      const { errors }: ErrorDataType = error.data;
       this.props.addErrorMessage(
         'Unable to receive user info:',
         errors._global ? errors._global.join(', ') : '',
       );
-    }
-  }
-
-  componentWillReceiveProps(props: PropsType) {
-    const { user } = props;
-    if (
-      user.firstName !== this.state.firstName ||
-      user.lastName !== this.state.lastName ||
-      user.email !== this.state.email
-    ) {
-      this.setState(_pick(user, ['firstName', 'lastName', 'email']));
     }
   }
 

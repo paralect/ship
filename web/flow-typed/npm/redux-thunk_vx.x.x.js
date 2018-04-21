@@ -13,27 +13,16 @@
  * https://github.com/flowtype/flow-typed
  */
 
+import { Middleware, Dispatch } from 'redux';
+
 declare module 'redux-thunk' {
-  declare module.exports: any;
-}
-
-/**
- * We include stubs for each file inside this npm package in case you need to
- * require those files directly. Feel free to delete any files that aren't
- * needed.
- */
-declare module 'redux-thunk/lib/index' {
-  declare module.exports: any;
-}
-
-declare module 'redux-thunk/src/index' {
-  declare module.exports: any;
-}
-
-// Filename aliases
-declare module 'redux-thunk/lib/index.js' {
-  declare module.exports: $Exports<'redux-thunk/lib/index'>;
-}
-declare module 'redux-thunk/src/index.js' {
-  declare module.exports: $Exports<'redux-thunk/src/index'>;
+  declare export type ThunkAction<R, S, E> = (
+    dispatch: Dispatch<S>,
+    getState: () => S,
+    extraArgument: E
+  ) => R;
+  declare var thunk: Middleware & {
+    withExtraArgument(extraArgument: any): Middleware
+  };
+  declare module.exports: typeof thunk;
 }

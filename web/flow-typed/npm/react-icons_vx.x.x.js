@@ -13,19822 +13,11320 @@
  * https://github.com/flowtype/flow-typed
  */
 
-declare module 'react-icons' {
-  declare module.exports: any;
-}
+import { IconBaseProps } from 'react-icon-base';
 
-/**
- * We include stubs for each file inside this npm package in case you need to
- * require those files directly. Feel free to delete any files that aren't
- * needed.
- */
 declare module 'react-icons/lib/fa/500px' {
-  declare module.exports: any;
+  declare export default class Fa500px extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/adjust' {
-  declare module.exports: any;
+  declare export default class FaAdjust extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/adn' {
-  declare module.exports: any;
+  declare export default class FaAdn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/align-center' {
-  declare module.exports: any;
+  declare export default class FaAlignCenter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/align-justify' {
-  declare module.exports: any;
+  declare export default class FaAlignJustify extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/align-left' {
-  declare module.exports: any;
+  declare export default class FaAlignLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/align-right' {
-  declare module.exports: any;
+  declare export default class FaAlignRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/amazon' {
-  declare module.exports: any;
+  declare export default class FaAmazon extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/ambulance' {
-  declare module.exports: any;
+  declare export default class FaAmbulance extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/american-sign-language-interpreting' {
-  declare module.exports: any;
+  declare export default class FaAmericanSignLanguageInterpreting extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/anchor' {
-  declare module.exports: any;
+  declare export default class FaAnchor extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/android' {
-  declare module.exports: any;
+  declare export default class FaAndroid extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/angellist' {
-  declare module.exports: any;
+  declare export default class FaAngellist extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/angle-double-down' {
-  declare module.exports: any;
+  declare export default class FaAngleDoubleDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/angle-double-left' {
-  declare module.exports: any;
+  declare export default class FaAngleDoubleLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/angle-double-right' {
-  declare module.exports: any;
+  declare export default class FaAngleDoubleRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/angle-double-up' {
-  declare module.exports: any;
+  declare export default class FaAngleDoubleUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/angle-down' {
-  declare module.exports: any;
+  declare export default class FaAngleDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/angle-left' {
-  declare module.exports: any;
+  declare export default class FaAngleLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/angle-right' {
-  declare module.exports: any;
+  declare export default class FaAngleRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/angle-up' {
-  declare module.exports: any;
+  declare export default class FaAngleUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/apple' {
-  declare module.exports: any;
+  declare export default class FaApple extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/archive' {
-  declare module.exports: any;
+  declare export default class FaArchive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/area-chart' {
-  declare module.exports: any;
+  declare export default class FaAreaChart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-circle-down' {
-  declare module.exports: any;
+  declare export default class FaArrowCircleDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-circle-left' {
-  declare module.exports: any;
+  declare export default class FaArrowCircleLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-circle-o-down' {
-  declare module.exports: any;
+  declare export default class FaArrowCircleODown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-circle-o-left' {
-  declare module.exports: any;
+  declare export default class FaArrowCircleOLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-circle-o-right' {
-  declare module.exports: any;
+  declare export default class FaArrowCircleORight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-circle-o-up' {
-  declare module.exports: any;
+  declare export default class FaArrowCircleOUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-circle-right' {
-  declare module.exports: any;
+  declare export default class FaArrowCircleRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-circle-up' {
-  declare module.exports: any;
+  declare export default class FaArrowCircleUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-down' {
-  declare module.exports: any;
+  declare export default class FaArrowDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-left' {
-  declare module.exports: any;
+  declare export default class FaArrowLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-right' {
-  declare module.exports: any;
+  declare export default class FaArrowRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrow-up' {
-  declare module.exports: any;
+  declare export default class FaArrowUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrows-alt' {
-  declare module.exports: any;
+  declare export default class FaArrowsAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrows-h' {
-  declare module.exports: any;
+  declare export default class FaArrowsH extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrows-v' {
-  declare module.exports: any;
+  declare export default class FaArrowsV extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/arrows' {
-  declare module.exports: any;
+  declare export default class FaArrows extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/assistive-listening-systems' {
-  declare module.exports: any;
+  declare export default class FaAssistiveListeningSystems extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/asterisk' {
-  declare module.exports: any;
+  declare export default class FaAsterisk extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/at' {
-  declare module.exports: any;
+  declare export default class FaAt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/audio-description' {
-  declare module.exports: any;
+  declare export default class FaAudioDescription extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/automobile' {
-  declare module.exports: any;
+  declare export default class FaAutomobile extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/backward' {
-  declare module.exports: any;
+  declare export default class FaBackward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/balance-scale' {
-  declare module.exports: any;
+  declare export default class FaBalanceScale extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/ban' {
-  declare module.exports: any;
+  declare export default class FaBan extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bank' {
-  declare module.exports: any;
+  declare export default class FaBank extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bar-chart' {
-  declare module.exports: any;
+  declare export default class FaBarChart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/barcode' {
-  declare module.exports: any;
+  declare export default class FaBarcode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bars' {
-  declare module.exports: any;
+  declare export default class FaBars extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/battery-0' {
-  declare module.exports: any;
+  declare export default class FaBattery0 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/battery-1' {
-  declare module.exports: any;
+  declare export default class FaBattery1 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/battery-2' {
-  declare module.exports: any;
+  declare export default class FaBattery2 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/battery-3' {
-  declare module.exports: any;
+  declare export default class FaBattery3 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/battery-4' {
-  declare module.exports: any;
+  declare export default class FaBattery4 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bed' {
-  declare module.exports: any;
+  declare export default class FaBed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/beer' {
-  declare module.exports: any;
+  declare export default class FaBeer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/behance-square' {
-  declare module.exports: any;
+  declare export default class FaBehanceSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/behance' {
-  declare module.exports: any;
+  declare export default class FaBehance extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bell-o' {
-  declare module.exports: any;
+  declare export default class FaBellO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bell-slash-o' {
-  declare module.exports: any;
+  declare export default class FaBellSlashO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bell-slash' {
-  declare module.exports: any;
+  declare export default class FaBellSlash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bell' {
-  declare module.exports: any;
+  declare export default class FaBell extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bicycle' {
-  declare module.exports: any;
+  declare export default class FaBicycle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/binoculars' {
-  declare module.exports: any;
+  declare export default class FaBinoculars extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/birthday-cake' {
-  declare module.exports: any;
+  declare export default class FaBirthdayCake extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bitbucket-square' {
-  declare module.exports: any;
+  declare export default class FaBitbucketSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bitbucket' {
-  declare module.exports: any;
+  declare export default class FaBitbucket extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bitcoin' {
-  declare module.exports: any;
+  declare export default class FaBitcoin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/black-tie' {
-  declare module.exports: any;
+  declare export default class FaBlackTie extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/blind' {
-  declare module.exports: any;
+  declare export default class FaBlind extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bluetooth-b' {
-  declare module.exports: any;
+  declare export default class FaBluetoothB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bluetooth' {
-  declare module.exports: any;
+  declare export default class FaBluetooth extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bold' {
-  declare module.exports: any;
+  declare export default class FaBold extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bolt' {
-  declare module.exports: any;
+  declare export default class FaBolt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bomb' {
-  declare module.exports: any;
+  declare export default class FaBomb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/book' {
-  declare module.exports: any;
+  declare export default class FaBook extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bookmark-o' {
-  declare module.exports: any;
+  declare export default class FaBookmarkO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bookmark' {
-  declare module.exports: any;
+  declare export default class FaBookmark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/braille' {
-  declare module.exports: any;
+  declare export default class FaBraille extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/briefcase' {
-  declare module.exports: any;
+  declare export default class FaBriefcase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bug' {
-  declare module.exports: any;
+  declare export default class FaBug extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/building-o' {
-  declare module.exports: any;
+  declare export default class FaBuildingO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/building' {
-  declare module.exports: any;
+  declare export default class FaBuilding extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bullhorn' {
-  declare module.exports: any;
+  declare export default class FaBullhorn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bullseye' {
-  declare module.exports: any;
+  declare export default class FaBullseye extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/bus' {
-  declare module.exports: any;
+  declare export default class FaBus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/buysellads' {
-  declare module.exports: any;
+  declare export default class FaBuysellads extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cab' {
-  declare module.exports: any;
+  declare export default class FaCab extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/calculator' {
-  declare module.exports: any;
+  declare export default class FaCalculator extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/calendar-check-o' {
-  declare module.exports: any;
+  declare export default class FaCalendarCheckO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/calendar-minus-o' {
-  declare module.exports: any;
+  declare export default class FaCalendarMinusO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/calendar-o' {
-  declare module.exports: any;
+  declare export default class FaCalendarO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/calendar-plus-o' {
-  declare module.exports: any;
+  declare export default class FaCalendarPlusO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/calendar-times-o' {
-  declare module.exports: any;
+  declare export default class FaCalendarTimesO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/calendar' {
-  declare module.exports: any;
+  declare export default class FaCalendar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/camera-retro' {
-  declare module.exports: any;
+  declare export default class FaCameraRetro extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/camera' {
-  declare module.exports: any;
+  declare export default class FaCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/caret-down' {
-  declare module.exports: any;
+  declare export default class FaCaretDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/caret-left' {
-  declare module.exports: any;
+  declare export default class FaCaretLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/caret-right' {
-  declare module.exports: any;
+  declare export default class FaCaretRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/caret-square-o-down' {
-  declare module.exports: any;
+  declare export default class FaCaretSquareODown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/caret-square-o-left' {
-  declare module.exports: any;
+  declare export default class FaCaretSquareOLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/caret-square-o-right' {
-  declare module.exports: any;
+  declare export default class FaCaretSquareORight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/caret-square-o-up' {
-  declare module.exports: any;
+  declare export default class FaCaretSquareOUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/caret-up' {
-  declare module.exports: any;
+  declare export default class FaCaretUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cart-arrow-down' {
-  declare module.exports: any;
+  declare export default class FaCartArrowDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cart-plus' {
-  declare module.exports: any;
+  declare export default class FaCartPlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cc-amex' {
-  declare module.exports: any;
+  declare export default class FaCcAmex extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cc-diners-club' {
-  declare module.exports: any;
+  declare export default class FaCcDinersClub extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cc-discover' {
-  declare module.exports: any;
+  declare export default class FaCcDiscover extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cc-jcb' {
-  declare module.exports: any;
+  declare export default class FaCcJcb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cc-mastercard' {
-  declare module.exports: any;
+  declare export default class FaCcMastercard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cc-paypal' {
-  declare module.exports: any;
+  declare export default class FaCcPaypal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cc-stripe' {
-  declare module.exports: any;
+  declare export default class FaCcStripe extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cc-visa' {
-  declare module.exports: any;
+  declare export default class FaCcVisa extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cc' {
-  declare module.exports: any;
+  declare export default class FaCc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/certificate' {
-  declare module.exports: any;
+  declare export default class FaCertificate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chain-broken' {
-  declare module.exports: any;
+  declare export default class FaChainBroken extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chain' {
-  declare module.exports: any;
+  declare export default class FaChain extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/check-circle-o' {
-  declare module.exports: any;
+  declare export default class FaCheckCircleO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/check-circle' {
-  declare module.exports: any;
+  declare export default class FaCheckCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/check-square-o' {
-  declare module.exports: any;
+  declare export default class FaCheckSquareO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/check-square' {
-  declare module.exports: any;
+  declare export default class FaCheckSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/check' {
-  declare module.exports: any;
+  declare export default class FaCheck extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chevron-circle-down' {
-  declare module.exports: any;
+  declare export default class FaChevronCircleDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chevron-circle-left' {
-  declare module.exports: any;
+  declare export default class FaChevronCircleLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chevron-circle-right' {
-  declare module.exports: any;
+  declare export default class FaChevronCircleRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chevron-circle-up' {
-  declare module.exports: any;
+  declare export default class FaChevronCircleUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chevron-down' {
-  declare module.exports: any;
+  declare export default class FaChevronDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chevron-left' {
-  declare module.exports: any;
+  declare export default class FaChevronLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chevron-right' {
-  declare module.exports: any;
+  declare export default class FaChevronRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chevron-up' {
-  declare module.exports: any;
+  declare export default class FaChevronUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/child' {
-  declare module.exports: any;
+  declare export default class FaChild extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/chrome' {
-  declare module.exports: any;
+  declare export default class FaChrome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/circle-o-notch' {
-  declare module.exports: any;
+  declare export default class FaCircleONotch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/circle-o' {
-  declare module.exports: any;
+  declare export default class FaCircleO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/circle-thin' {
-  declare module.exports: any;
+  declare export default class FaCircleThin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/circle' {
-  declare module.exports: any;
+  declare export default class FaCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/clipboard' {
-  declare module.exports: any;
+  declare export default class FaClipboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/clock-o' {
-  declare module.exports: any;
+  declare export default class FaClockO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/clone' {
-  declare module.exports: any;
+  declare export default class FaClone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/close' {
-  declare module.exports: any;
+  declare export default class FaClose extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cloud-download' {
-  declare module.exports: any;
+  declare export default class FaCloudDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cloud-upload' {
-  declare module.exports: any;
+  declare export default class FaCloudUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cloud' {
-  declare module.exports: any;
+  declare export default class FaCloud extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cny' {
-  declare module.exports: any;
+  declare export default class FaCny extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/code-fork' {
-  declare module.exports: any;
+  declare export default class FaCodeFork extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/code' {
-  declare module.exports: any;
+  declare export default class FaCode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/codepen' {
-  declare module.exports: any;
+  declare export default class FaCodepen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/codiepie' {
-  declare module.exports: any;
+  declare export default class FaCodiepie extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/coffee' {
-  declare module.exports: any;
+  declare export default class FaCoffee extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cog' {
-  declare module.exports: any;
+  declare export default class FaCog extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cogs' {
-  declare module.exports: any;
+  declare export default class FaCogs extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/columns' {
-  declare module.exports: any;
+  declare export default class FaColumns extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/comment-o' {
-  declare module.exports: any;
+  declare export default class FaCommentO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/comment' {
-  declare module.exports: any;
+  declare export default class FaComment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/commenting-o' {
-  declare module.exports: any;
+  declare export default class FaCommentingO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/commenting' {
-  declare module.exports: any;
+  declare export default class FaCommenting extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/comments-o' {
-  declare module.exports: any;
+  declare export default class FaCommentsO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/comments' {
-  declare module.exports: any;
+  declare export default class FaComments extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/compass' {
-  declare module.exports: any;
+  declare export default class FaCompass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/compress' {
-  declare module.exports: any;
+  declare export default class FaCompress extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/connectdevelop' {
-  declare module.exports: any;
+  declare export default class FaConnectdevelop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/contao' {
-  declare module.exports: any;
+  declare export default class FaContao extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/copy' {
-  declare module.exports: any;
+  declare export default class FaCopy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/copyright' {
-  declare module.exports: any;
+  declare export default class FaCopyright extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/creative-commons' {
-  declare module.exports: any;
+  declare export default class FaCreativeCommons extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/credit-card-alt' {
-  declare module.exports: any;
+  declare export default class FaCreditCardAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/credit-card' {
-  declare module.exports: any;
+  declare export default class FaCreditCard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/crop' {
-  declare module.exports: any;
+  declare export default class FaCrop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/crosshairs' {
-  declare module.exports: any;
+  declare export default class FaCrosshairs extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/css3' {
-  declare module.exports: any;
+  declare export default class FaCss3 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cube' {
-  declare module.exports: any;
+  declare export default class FaCube extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cubes' {
-  declare module.exports: any;
+  declare export default class FaCubes extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cut' {
-  declare module.exports: any;
+  declare export default class FaCut extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/cutlery' {
-  declare module.exports: any;
+  declare export default class FaCutlery extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/dashboard' {
-  declare module.exports: any;
+  declare export default class FaDashboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/dashcube' {
-  declare module.exports: any;
+  declare export default class FaDashcube extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/database' {
-  declare module.exports: any;
+  declare export default class FaDatabase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/deaf' {
-  declare module.exports: any;
+  declare export default class FaDeaf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/dedent' {
-  declare module.exports: any;
+  declare export default class FaDedent extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/delicious' {
-  declare module.exports: any;
+  declare export default class FaDelicious extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/desktop' {
-  declare module.exports: any;
+  declare export default class FaDesktop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/deviantart' {
-  declare module.exports: any;
+  declare export default class FaDeviantart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/diamond' {
-  declare module.exports: any;
+  declare export default class FaDiamond extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/digg' {
-  declare module.exports: any;
+  declare export default class FaDigg extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/dollar' {
-  declare module.exports: any;
+  declare export default class FaDollar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/dot-circle-o' {
-  declare module.exports: any;
+  declare export default class FaDotCircleO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/download' {
-  declare module.exports: any;
+  declare export default class FaDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/dribbble' {
-  declare module.exports: any;
+  declare export default class FaDribbble extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/dropbox' {
-  declare module.exports: any;
+  declare export default class FaDropbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/drupal' {
-  declare module.exports: any;
+  declare export default class FaDrupal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/edge' {
-  declare module.exports: any;
+  declare export default class FaEdge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/edit' {
-  declare module.exports: any;
+  declare export default class FaEdit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/eject' {
-  declare module.exports: any;
+  declare export default class FaEject extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/ellipsis-h' {
-  declare module.exports: any;
+  declare export default class FaEllipsisH extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/ellipsis-v' {
-  declare module.exports: any;
+  declare export default class FaEllipsisV extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/empire' {
-  declare module.exports: any;
+  declare export default class FaEmpire extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/envelope-o' {
-  declare module.exports: any;
+  declare export default class FaEnvelopeO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/envelope-square' {
-  declare module.exports: any;
+  declare export default class FaEnvelopeSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/envelope' {
-  declare module.exports: any;
+  declare export default class FaEnvelope extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/envira' {
-  declare module.exports: any;
+  declare export default class FaEnvira extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/eraser' {
-  declare module.exports: any;
+  declare export default class FaEraser extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/eur' {
-  declare module.exports: any;
+  declare export default class FaEur extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/exchange' {
-  declare module.exports: any;
+  declare export default class FaExchange extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/exclamation-circle' {
-  declare module.exports: any;
+  declare export default class FaExclamationCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/exclamation-triangle' {
-  declare module.exports: any;
+  declare export default class FaExclamationTriangle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/exclamation' {
-  declare module.exports: any;
+  declare export default class FaExclamation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/expand' {
-  declare module.exports: any;
+  declare export default class FaExpand extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/expeditedssl' {
-  declare module.exports: any;
+  declare export default class FaExpeditedssl extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/external-link-square' {
-  declare module.exports: any;
+  declare export default class FaExternalLinkSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/external-link' {
-  declare module.exports: any;
+  declare export default class FaExternalLink extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/eye-slash' {
-  declare module.exports: any;
+  declare export default class FaEyeSlash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/eye' {
-  declare module.exports: any;
+  declare export default class FaEye extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/eyedropper' {
-  declare module.exports: any;
+  declare export default class FaEyedropper extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/facebook-official' {
-  declare module.exports: any;
+  declare export default class FaFacebookOfficial extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/facebook-square' {
-  declare module.exports: any;
+  declare export default class FaFacebookSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/facebook' {
-  declare module.exports: any;
+  declare export default class FaFacebook extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/fast-backward' {
-  declare module.exports: any;
+  declare export default class FaFastBackward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/fast-forward' {
-  declare module.exports: any;
+  declare export default class FaFastForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/fax' {
-  declare module.exports: any;
+  declare export default class FaFax extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/feed' {
-  declare module.exports: any;
+  declare export default class FaFeed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/female' {
-  declare module.exports: any;
+  declare export default class FaFemale extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/fighter-jet' {
-  declare module.exports: any;
+  declare export default class FaFighterJet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-archive-o' {
-  declare module.exports: any;
+  declare export default class FaFileArchiveO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-audio-o' {
-  declare module.exports: any;
+  declare export default class FaFileAudioO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-code-o' {
-  declare module.exports: any;
+  declare export default class FaFileCodeO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-excel-o' {
-  declare module.exports: any;
+  declare export default class FaFileExcelO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-image-o' {
-  declare module.exports: any;
+  declare export default class FaFileImageO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-movie-o' {
-  declare module.exports: any;
+  declare export default class FaFileMovieO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-o' {
-  declare module.exports: any;
+  declare export default class FaFileO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-pdf-o' {
-  declare module.exports: any;
+  declare export default class FaFilePdfO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-powerpoint-o' {
-  declare module.exports: any;
+  declare export default class FaFilePowerpointO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-text-o' {
-  declare module.exports: any;
+  declare export default class FaFileTextO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-text' {
-  declare module.exports: any;
+  declare export default class FaFileText extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file-word-o' {
-  declare module.exports: any;
+  declare export default class FaFileWordO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/file' {
-  declare module.exports: any;
+  declare export default class FaFile extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/film' {
-  declare module.exports: any;
+  declare export default class FaFilm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/filter' {
-  declare module.exports: any;
+  declare export default class FaFilter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/fire-extinguisher' {
-  declare module.exports: any;
+  declare export default class FaFireExtinguisher extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/fire' {
-  declare module.exports: any;
+  declare export default class FaFire extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/firefox' {
-  declare module.exports: any;
+  declare export default class FaFirefox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/flag-checkered' {
-  declare module.exports: any;
+  declare export default class FaFlagCheckered extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/flag-o' {
-  declare module.exports: any;
+  declare export default class FaFlagO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/flag' {
-  declare module.exports: any;
+  declare export default class FaFlag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/flask' {
-  declare module.exports: any;
+  declare export default class FaFlask extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/flickr' {
-  declare module.exports: any;
+  declare export default class FaFlickr extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/floppy-o' {
-  declare module.exports: any;
+  declare export default class FaFloppyO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/folder-o' {
-  declare module.exports: any;
+  declare export default class FaFolderO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/folder-open-o' {
-  declare module.exports: any;
+  declare export default class FaFolderOpenO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/folder-open' {
-  declare module.exports: any;
+  declare export default class FaFolderOpen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/folder' {
-  declare module.exports: any;
+  declare export default class FaFolder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/font' {
-  declare module.exports: any;
+  declare export default class FaFont extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/fonticons' {
-  declare module.exports: any;
+  declare export default class FaFonticons extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/fort-awesome' {
-  declare module.exports: any;
+  declare export default class FaFortAwesome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/forumbee' {
-  declare module.exports: any;
+  declare export default class FaForumbee extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/forward' {
-  declare module.exports: any;
+  declare export default class FaForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/foursquare' {
-  declare module.exports: any;
+  declare export default class FaFoursquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/frown-o' {
-  declare module.exports: any;
+  declare export default class FaFrownO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/futbol-o' {
-  declare module.exports: any;
+  declare export default class FaFutbolO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/gamepad' {
-  declare module.exports: any;
+  declare export default class FaGamepad extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/gavel' {
-  declare module.exports: any;
+  declare export default class FaGavel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/gbp' {
-  declare module.exports: any;
+  declare export default class FaGbp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/genderless' {
-  declare module.exports: any;
+  declare export default class FaGenderless extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/get-pocket' {
-  declare module.exports: any;
+  declare export default class FaGetPocket extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/gg-circle' {
-  declare module.exports: any;
+  declare export default class FaGgCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/gg' {
-  declare module.exports: any;
+  declare export default class FaGg extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/gift' {
-  declare module.exports: any;
+  declare export default class FaGift extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/git-square' {
-  declare module.exports: any;
+  declare export default class FaGitSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/git' {
-  declare module.exports: any;
+  declare export default class FaGit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/github-alt' {
-  declare module.exports: any;
+  declare export default class FaGithubAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/github-square' {
-  declare module.exports: any;
+  declare export default class FaGithubSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/github' {
-  declare module.exports: any;
+  declare export default class FaGithub extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/gitlab' {
-  declare module.exports: any;
+  declare export default class FaGitlab extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/gittip' {
-  declare module.exports: any;
+  declare export default class FaGittip extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/glass' {
-  declare module.exports: any;
+  declare export default class FaGlass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/glide-g' {
-  declare module.exports: any;
+  declare export default class FaGlideG extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/glide' {
-  declare module.exports: any;
+  declare export default class FaGlide extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/globe' {
-  declare module.exports: any;
+  declare export default class FaGlobe extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/google-plus-square' {
-  declare module.exports: any;
+  declare export default class FaGooglePlusSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/google-plus' {
-  declare module.exports: any;
+  declare export default class FaGooglePlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/google-wallet' {
-  declare module.exports: any;
+  declare export default class FaGoogleWallet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/google' {
-  declare module.exports: any;
+  declare export default class FaGoogle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/graduation-cap' {
-  declare module.exports: any;
+  declare export default class FaGraduationCap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/group' {
-  declare module.exports: any;
+  declare export default class FaGroup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/h-square' {
-  declare module.exports: any;
+  declare export default class FaHSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hacker-news' {
-  declare module.exports: any;
+  declare export default class FaHackerNews extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-grab-o' {
-  declare module.exports: any;
+  declare export default class FaHandGrabO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-lizard-o' {
-  declare module.exports: any;
+  declare export default class FaHandLizardO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-o-down' {
-  declare module.exports: any;
+  declare export default class FaHandODown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-o-left' {
-  declare module.exports: any;
+  declare export default class FaHandOLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-o-right' {
-  declare module.exports: any;
+  declare export default class FaHandORight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-o-up' {
-  declare module.exports: any;
+  declare export default class FaHandOUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-paper-o' {
-  declare module.exports: any;
+  declare export default class FaHandPaperO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-peace-o' {
-  declare module.exports: any;
+  declare export default class FaHandPeaceO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-pointer-o' {
-  declare module.exports: any;
+  declare export default class FaHandPointerO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-scissors-o' {
-  declare module.exports: any;
+  declare export default class FaHandScissorsO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hand-spock-o' {
-  declare module.exports: any;
+  declare export default class FaHandSpockO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hashtag' {
-  declare module.exports: any;
+  declare export default class FaHashtag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hdd-o' {
-  declare module.exports: any;
+  declare export default class FaHddO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/header' {
-  declare module.exports: any;
+  declare export default class FaHeader extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/headphones' {
-  declare module.exports: any;
+  declare export default class FaHeadphones extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/heart-o' {
-  declare module.exports: any;
+  declare export default class FaHeartO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/heart' {
-  declare module.exports: any;
+  declare export default class FaHeart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/heartbeat' {
-  declare module.exports: any;
+  declare export default class FaHeartbeat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/history' {
-  declare module.exports: any;
+  declare export default class FaHistory extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/home' {
-  declare module.exports: any;
+  declare export default class FaHome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hospital-o' {
-  declare module.exports: any;
+  declare export default class FaHospitalO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hourglass-1' {
-  declare module.exports: any;
+  declare export default class FaHourglass1 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hourglass-2' {
-  declare module.exports: any;
+  declare export default class FaHourglass2 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hourglass-3' {
-  declare module.exports: any;
+  declare export default class FaHourglass3 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hourglass-o' {
-  declare module.exports: any;
+  declare export default class FaHourglassO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/hourglass' {
-  declare module.exports: any;
+  declare export default class FaHourglass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/houzz' {
-  declare module.exports: any;
+  declare export default class FaHouzz extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/html5' {
-  declare module.exports: any;
+  declare export default class FaHtml5 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/i-cursor' {
-  declare module.exports: any;
+  declare export default class FaICursor extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/ils' {
-  declare module.exports: any;
+  declare export default class FaIls extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/image' {
-  declare module.exports: any;
+  declare export default class FaImage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/inbox' {
-  declare module.exports: any;
+  declare export default class FaInbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/indent' {
-  declare module.exports: any;
+  declare export default class FaIndent extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/index' {
-  declare module.exports: any;
+  declare export default class FaIndex extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/industry' {
-  declare module.exports: any;
+  declare export default class FaIndustry extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/info-circle' {
-  declare module.exports: any;
+  declare export default class FaInfoCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/info' {
-  declare module.exports: any;
+  declare export default class FaInfo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/inr' {
-  declare module.exports: any;
+  declare export default class FaInr extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/instagram' {
-  declare module.exports: any;
+  declare export default class FaInstagram extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/internet-explorer' {
-  declare module.exports: any;
+  declare export default class FaInternetExplorer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/intersex' {
-  declare module.exports: any;
+  declare export default class FaIntersex extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/ioxhost' {
-  declare module.exports: any;
+  declare export default class FaIoxhost extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/italic' {
-  declare module.exports: any;
+  declare export default class FaItalic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/joomla' {
-  declare module.exports: any;
+  declare export default class FaJoomla extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/jsfiddle' {
-  declare module.exports: any;
+  declare export default class FaJsfiddle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/key' {
-  declare module.exports: any;
+  declare export default class FaKey extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/keyboard-o' {
-  declare module.exports: any;
+  declare export default class FaKeyboardO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/krw' {
-  declare module.exports: any;
+  declare export default class FaKrw extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/language' {
-  declare module.exports: any;
+  declare export default class FaLanguage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/laptop' {
-  declare module.exports: any;
+  declare export default class FaLaptop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/lastfm-square' {
-  declare module.exports: any;
+  declare export default class FaLastfmSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/lastfm' {
-  declare module.exports: any;
+  declare export default class FaLastfm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/leaf' {
-  declare module.exports: any;
+  declare export default class FaLeaf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/leanpub' {
-  declare module.exports: any;
+  declare export default class FaLeanpub extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/lemon-o' {
-  declare module.exports: any;
+  declare export default class FaLemonO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/level-down' {
-  declare module.exports: any;
+  declare export default class FaLevelDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/level-up' {
-  declare module.exports: any;
+  declare export default class FaLevelUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/life-bouy' {
-  declare module.exports: any;
+  declare export default class FaLifeBouy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/lightbulb-o' {
-  declare module.exports: any;
+  declare export default class FaLightbulbO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/line-chart' {
-  declare module.exports: any;
+  declare export default class FaLineChart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/linkedin-square' {
-  declare module.exports: any;
+  declare export default class FaLinkedinSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/linkedin' {
-  declare module.exports: any;
+  declare export default class FaLinkedin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/linux' {
-  declare module.exports: any;
+  declare export default class FaLinux extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/list-alt' {
-  declare module.exports: any;
+  declare export default class FaListAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/list-ol' {
-  declare module.exports: any;
+  declare export default class FaListOl extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/list-ul' {
-  declare module.exports: any;
+  declare export default class FaListUl extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/list' {
-  declare module.exports: any;
+  declare export default class FaList extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/location-arrow' {
-  declare module.exports: any;
+  declare export default class FaLocationArrow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/lock' {
-  declare module.exports: any;
+  declare export default class FaLock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/long-arrow-down' {
-  declare module.exports: any;
+  declare export default class FaLongArrowDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/long-arrow-left' {
-  declare module.exports: any;
+  declare export default class FaLongArrowLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/long-arrow-right' {
-  declare module.exports: any;
+  declare export default class FaLongArrowRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/long-arrow-up' {
-  declare module.exports: any;
+  declare export default class FaLongArrowUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/low-vision' {
-  declare module.exports: any;
+  declare export default class FaLowVision extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/magic' {
-  declare module.exports: any;
+  declare export default class FaMagic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/magnet' {
-  declare module.exports: any;
+  declare export default class FaMagnet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mail-forward' {
-  declare module.exports: any;
+  declare export default class FaMailForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mail-reply-all' {
-  declare module.exports: any;
+  declare export default class FaMailReplyAll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mail-reply' {
-  declare module.exports: any;
+  declare export default class FaMailReply extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/male' {
-  declare module.exports: any;
+  declare export default class FaMale extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/map-marker' {
-  declare module.exports: any;
+  declare export default class FaMapMarker extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/map-o' {
-  declare module.exports: any;
+  declare export default class FaMapO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/map-pin' {
-  declare module.exports: any;
+  declare export default class FaMapPin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/map-signs' {
-  declare module.exports: any;
+  declare export default class FaMapSigns extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/map' {
-  declare module.exports: any;
+  declare export default class FaMap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mars-double' {
-  declare module.exports: any;
+  declare export default class FaMarsDouble extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mars-stroke-h' {
-  declare module.exports: any;
+  declare export default class FaMarsStrokeH extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mars-stroke-v' {
-  declare module.exports: any;
+  declare export default class FaMarsStrokeV extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mars-stroke' {
-  declare module.exports: any;
+  declare export default class FaMarsStroke extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mars' {
-  declare module.exports: any;
+  declare export default class FaMars extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/maxcdn' {
-  declare module.exports: any;
+  declare export default class FaMaxcdn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/meanpath' {
-  declare module.exports: any;
+  declare export default class FaMeanpath extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/medium' {
-  declare module.exports: any;
+  declare export default class FaMedium extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/medkit' {
-  declare module.exports: any;
+  declare export default class FaMedkit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/meh-o' {
-  declare module.exports: any;
+  declare export default class FaMehO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mercury' {
-  declare module.exports: any;
+  declare export default class FaMercury extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/microphone-slash' {
-  declare module.exports: any;
+  declare export default class FaMicrophoneSlash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/microphone' {
-  declare module.exports: any;
+  declare export default class FaMicrophone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/minus-circle' {
-  declare module.exports: any;
+  declare export default class FaMinusCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/minus-square-o' {
-  declare module.exports: any;
+  declare export default class FaMinusSquareO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/minus-square' {
-  declare module.exports: any;
+  declare export default class FaMinusSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/minus' {
-  declare module.exports: any;
+  declare export default class FaMinus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mixcloud' {
-  declare module.exports: any;
+  declare export default class FaMixcloud extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mobile' {
-  declare module.exports: any;
+  declare export default class FaMobile extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/modx' {
-  declare module.exports: any;
+  declare export default class FaModx extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/money' {
-  declare module.exports: any;
+  declare export default class FaMoney extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/moon-o' {
-  declare module.exports: any;
+  declare export default class FaMoonO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/motorcycle' {
-  declare module.exports: any;
+  declare export default class FaMotorcycle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/mouse-pointer' {
-  declare module.exports: any;
+  declare export default class FaMousePointer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/music' {
-  declare module.exports: any;
+  declare export default class FaMusic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/neuter' {
-  declare module.exports: any;
+  declare export default class FaNeuter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/newspaper-o' {
-  declare module.exports: any;
+  declare export default class FaNewspaperO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/object-group' {
-  declare module.exports: any;
+  declare export default class FaObjectGroup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/object-ungroup' {
-  declare module.exports: any;
+  declare export default class FaObjectUngroup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/odnoklassniki-square' {
-  declare module.exports: any;
+  declare export default class FaOdnoklassnikiSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/odnoklassniki' {
-  declare module.exports: any;
+  declare export default class FaOdnoklassniki extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/opencart' {
-  declare module.exports: any;
+  declare export default class FaOpencart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/openid' {
-  declare module.exports: any;
+  declare export default class FaOpenid extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/opera' {
-  declare module.exports: any;
+  declare export default class FaOpera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/optin-monster' {
-  declare module.exports: any;
+  declare export default class FaOptinMonster extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pagelines' {
-  declare module.exports: any;
+  declare export default class FaPagelines extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/paint-brush' {
-  declare module.exports: any;
+  declare export default class FaPaintBrush extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/paper-plane-o' {
-  declare module.exports: any;
+  declare export default class FaPaperPlaneO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/paper-plane' {
-  declare module.exports: any;
+  declare export default class FaPaperPlane extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/paperclip' {
-  declare module.exports: any;
+  declare export default class FaPaperclip extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/paragraph' {
-  declare module.exports: any;
+  declare export default class FaParagraph extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pause-circle-o' {
-  declare module.exports: any;
+  declare export default class FaPauseCircleO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pause-circle' {
-  declare module.exports: any;
+  declare export default class FaPauseCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pause' {
-  declare module.exports: any;
+  declare export default class FaPause extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/paw' {
-  declare module.exports: any;
+  declare export default class FaPaw extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/paypal' {
-  declare module.exports: any;
+  declare export default class FaPaypal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pencil-square' {
-  declare module.exports: any;
+  declare export default class FaPencilSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pencil' {
-  declare module.exports: any;
+  declare export default class FaPencil extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/percent' {
-  declare module.exports: any;
+  declare export default class FaPercent extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/phone-square' {
-  declare module.exports: any;
+  declare export default class FaPhoneSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/phone' {
-  declare module.exports: any;
+  declare export default class FaPhone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pie-chart' {
-  declare module.exports: any;
+  declare export default class FaPieChart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pied-piper-alt' {
-  declare module.exports: any;
+  declare export default class FaPiedPiperAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pied-piper' {
-  declare module.exports: any;
+  declare export default class FaPiedPiper extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pinterest-p' {
-  declare module.exports: any;
+  declare export default class FaPinterestP extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pinterest-square' {
-  declare module.exports: any;
+  declare export default class FaPinterestSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/pinterest' {
-  declare module.exports: any;
+  declare export default class FaPinterest extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/plane' {
-  declare module.exports: any;
+  declare export default class FaPlane extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/play-circle-o' {
-  declare module.exports: any;
+  declare export default class FaPlayCircleO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/play-circle' {
-  declare module.exports: any;
+  declare export default class FaPlayCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/play' {
-  declare module.exports: any;
+  declare export default class FaPlay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/plug' {
-  declare module.exports: any;
+  declare export default class FaPlug extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/plus-circle' {
-  declare module.exports: any;
+  declare export default class FaPlusCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/plus-square-o' {
-  declare module.exports: any;
+  declare export default class FaPlusSquareO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/plus-square' {
-  declare module.exports: any;
+  declare export default class FaPlusSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/plus' {
-  declare module.exports: any;
+  declare export default class FaPlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/power-off' {
-  declare module.exports: any;
+  declare export default class FaPowerOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/print' {
-  declare module.exports: any;
+  declare export default class FaPrint extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/product-hunt' {
-  declare module.exports: any;
+  declare export default class FaProductHunt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/puzzle-piece' {
-  declare module.exports: any;
+  declare export default class FaPuzzlePiece extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/qq' {
-  declare module.exports: any;
+  declare export default class FaQq extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/qrcode' {
-  declare module.exports: any;
+  declare export default class FaQrcode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/question-circle-o' {
-  declare module.exports: any;
+  declare export default class FaQuestionCircleO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/question-circle' {
-  declare module.exports: any;
+  declare export default class FaQuestionCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/question' {
-  declare module.exports: any;
+  declare export default class FaQuestion extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/quote-left' {
-  declare module.exports: any;
+  declare export default class FaQuoteLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/quote-right' {
-  declare module.exports: any;
+  declare export default class FaQuoteRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/ra' {
-  declare module.exports: any;
+  declare export default class FaRa extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/random' {
-  declare module.exports: any;
+  declare export default class FaRandom extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/recycle' {
-  declare module.exports: any;
+  declare export default class FaRecycle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/reddit-alien' {
-  declare module.exports: any;
+  declare export default class FaRedditAlien extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/reddit-square' {
-  declare module.exports: any;
+  declare export default class FaRedditSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/reddit' {
-  declare module.exports: any;
+  declare export default class FaReddit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/refresh' {
-  declare module.exports: any;
+  declare export default class FaRefresh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/registered' {
-  declare module.exports: any;
+  declare export default class FaRegistered extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/renren' {
-  declare module.exports: any;
+  declare export default class FaRenren extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/repeat' {
-  declare module.exports: any;
+  declare export default class FaRepeat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/retweet' {
-  declare module.exports: any;
+  declare export default class FaRetweet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/road' {
-  declare module.exports: any;
+  declare export default class FaRoad extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/rocket' {
-  declare module.exports: any;
+  declare export default class FaRocket extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/rotate-left' {
-  declare module.exports: any;
+  declare export default class FaRotateLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/rouble' {
-  declare module.exports: any;
+  declare export default class FaRouble extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/rss-square' {
-  declare module.exports: any;
+  declare export default class FaRssSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/safari' {
-  declare module.exports: any;
+  declare export default class FaSafari extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/scribd' {
-  declare module.exports: any;
+  declare export default class FaScribd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/search-minus' {
-  declare module.exports: any;
+  declare export default class FaSearchMinus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/search-plus' {
-  declare module.exports: any;
+  declare export default class FaSearchPlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/search' {
-  declare module.exports: any;
+  declare export default class FaSearch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sellsy' {
-  declare module.exports: any;
+  declare export default class FaSellsy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/server' {
-  declare module.exports: any;
+  declare export default class FaServer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/share-alt-square' {
-  declare module.exports: any;
+  declare export default class FaShareAltSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/share-alt' {
-  declare module.exports: any;
+  declare export default class FaShareAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/share-square-o' {
-  declare module.exports: any;
+  declare export default class FaShareSquareO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/share-square' {
-  declare module.exports: any;
+  declare export default class FaShareSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/shield' {
-  declare module.exports: any;
+  declare export default class FaShield extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/ship' {
-  declare module.exports: any;
+  declare export default class FaShip extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/shirtsinbulk' {
-  declare module.exports: any;
+  declare export default class FaShirtsinbulk extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/shopping-bag' {
-  declare module.exports: any;
+  declare export default class FaShoppingBag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/shopping-basket' {
-  declare module.exports: any;
+  declare export default class FaShoppingBasket extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/shopping-cart' {
-  declare module.exports: any;
+  declare export default class FaShoppingCart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sign-in' {
-  declare module.exports: any;
+  declare export default class FaSignIn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sign-language' {
-  declare module.exports: any;
+  declare export default class FaSignLanguage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sign-out' {
-  declare module.exports: any;
+  declare export default class FaSignOut extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/signal' {
-  declare module.exports: any;
+  declare export default class FaSignal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/simplybuilt' {
-  declare module.exports: any;
+  declare export default class FaSimplybuilt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sitemap' {
-  declare module.exports: any;
+  declare export default class FaSitemap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/skyatlas' {
-  declare module.exports: any;
+  declare export default class FaSkyatlas extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/skype' {
-  declare module.exports: any;
+  declare export default class FaSkype extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/slack' {
-  declare module.exports: any;
+  declare export default class FaSlack extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sliders' {
-  declare module.exports: any;
+  declare export default class FaSliders extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/slideshare' {
-  declare module.exports: any;
+  declare export default class FaSlideshare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/smile-o' {
-  declare module.exports: any;
+  declare export default class FaSmileO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/snapchat-ghost' {
-  declare module.exports: any;
+  declare export default class FaSnapchatGhost extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/snapchat-square' {
-  declare module.exports: any;
+  declare export default class FaSnapchatSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/snapchat' {
-  declare module.exports: any;
+  declare export default class FaSnapchat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sort-alpha-asc' {
-  declare module.exports: any;
+  declare export default class FaSortAlphaAsc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sort-alpha-desc' {
-  declare module.exports: any;
+  declare export default class FaSortAlphaDesc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sort-amount-asc' {
-  declare module.exports: any;
+  declare export default class FaSortAmountAsc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sort-amount-desc' {
-  declare module.exports: any;
+  declare export default class FaSortAmountDesc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sort-asc' {
-  declare module.exports: any;
+  declare export default class FaSortAsc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sort-desc' {
-  declare module.exports: any;
+  declare export default class FaSortDesc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sort-numeric-asc' {
-  declare module.exports: any;
+  declare export default class FaSortNumericAsc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sort-numeric-desc' {
-  declare module.exports: any;
+  declare export default class FaSortNumericDesc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sort' {
-  declare module.exports: any;
+  declare export default class FaSort extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/soundcloud' {
-  declare module.exports: any;
+  declare export default class FaSoundcloud extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/space-shuttle' {
-  declare module.exports: any;
+  declare export default class FaSpaceShuttle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/spinner' {
-  declare module.exports: any;
+  declare export default class FaSpinner extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/spoon' {
-  declare module.exports: any;
+  declare export default class FaSpoon extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/spotify' {
-  declare module.exports: any;
+  declare export default class FaSpotify extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/square-o' {
-  declare module.exports: any;
+  declare export default class FaSquareO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/square' {
-  declare module.exports: any;
+  declare export default class FaSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/stack-exchange' {
-  declare module.exports: any;
+  declare export default class FaStackExchange extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/stack-overflow' {
-  declare module.exports: any;
+  declare export default class FaStackOverflow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/star-half-empty' {
-  declare module.exports: any;
+  declare export default class FaStarHalfEmpty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/star-half' {
-  declare module.exports: any;
+  declare export default class FaStarHalf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/star-o' {
-  declare module.exports: any;
+  declare export default class FaStarO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/star' {
-  declare module.exports: any;
+  declare export default class FaStar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/steam-square' {
-  declare module.exports: any;
+  declare export default class FaSteamSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/steam' {
-  declare module.exports: any;
+  declare export default class FaSteam extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/step-backward' {
-  declare module.exports: any;
+  declare export default class FaStepBackward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/step-forward' {
-  declare module.exports: any;
+  declare export default class FaStepForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/stethoscope' {
-  declare module.exports: any;
+  declare export default class FaStethoscope extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sticky-note-o' {
-  declare module.exports: any;
+  declare export default class FaStickyNoteO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sticky-note' {
-  declare module.exports: any;
+  declare export default class FaStickyNote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/stop-circle-o' {
-  declare module.exports: any;
+  declare export default class FaStopCircleO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/stop-circle' {
-  declare module.exports: any;
+  declare export default class FaStopCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/stop' {
-  declare module.exports: any;
+  declare export default class FaStop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/street-view' {
-  declare module.exports: any;
+  declare export default class FaStreetView extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/strikethrough' {
-  declare module.exports: any;
+  declare export default class FaStrikethrough extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/stumbleupon-circle' {
-  declare module.exports: any;
+  declare export default class FaStumbleuponCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/stumbleupon' {
-  declare module.exports: any;
+  declare export default class FaStumbleupon extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/subscript' {
-  declare module.exports: any;
+  declare export default class FaSubscript extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/subway' {
-  declare module.exports: any;
+  declare export default class FaSubway extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/suitcase' {
-  declare module.exports: any;
+  declare export default class FaSuitcase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/sun-o' {
-  declare module.exports: any;
+  declare export default class FaSunO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/superscript' {
-  declare module.exports: any;
+  declare export default class FaSuperscript extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/table' {
-  declare module.exports: any;
+  declare export default class FaTable extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tablet' {
-  declare module.exports: any;
+  declare export default class FaTablet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tag' {
-  declare module.exports: any;
+  declare export default class FaTag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tags' {
-  declare module.exports: any;
+  declare export default class FaTags extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tasks' {
-  declare module.exports: any;
+  declare export default class FaTasks extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/television' {
-  declare module.exports: any;
+  declare export default class FaTelevision extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tencent-weibo' {
-  declare module.exports: any;
+  declare export default class FaTencentWeibo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/terminal' {
-  declare module.exports: any;
+  declare export default class FaTerminal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/text-height' {
-  declare module.exports: any;
+  declare export default class FaTextHeight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/text-width' {
-  declare module.exports: any;
+  declare export default class FaTextWidth extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/th-large' {
-  declare module.exports: any;
+  declare export default class FaThLarge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/th-list' {
-  declare module.exports: any;
+  declare export default class FaThList extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/th' {
-  declare module.exports: any;
+  declare export default class FaTh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/thumb-tack' {
-  declare module.exports: any;
+  declare export default class FaThumbTack extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/thumbs-down' {
-  declare module.exports: any;
+  declare export default class FaThumbsDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/thumbs-o-down' {
-  declare module.exports: any;
+  declare export default class FaThumbsODown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/thumbs-o-up' {
-  declare module.exports: any;
+  declare export default class FaThumbsOUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/thumbs-up' {
-  declare module.exports: any;
+  declare export default class FaThumbsUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/ticket' {
-  declare module.exports: any;
+  declare export default class FaTicket extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/times-circle-o' {
-  declare module.exports: any;
+  declare export default class FaTimesCircleO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/times-circle' {
-  declare module.exports: any;
+  declare export default class FaTimesCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tint' {
-  declare module.exports: any;
+  declare export default class FaTint extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/toggle-off' {
-  declare module.exports: any;
+  declare export default class FaToggleOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/toggle-on' {
-  declare module.exports: any;
+  declare export default class FaToggleOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/trademark' {
-  declare module.exports: any;
+  declare export default class FaTrademark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/train' {
-  declare module.exports: any;
+  declare export default class FaTrain extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/transgender-alt' {
-  declare module.exports: any;
+  declare export default class FaTransgenderAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/trash-o' {
-  declare module.exports: any;
+  declare export default class FaTrashO extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/trash' {
-  declare module.exports: any;
+  declare export default class FaTrash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tree' {
-  declare module.exports: any;
+  declare export default class FaTree extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/trello' {
-  declare module.exports: any;
+  declare export default class FaTrello extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tripadvisor' {
-  declare module.exports: any;
+  declare export default class FaTripadvisor extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/trophy' {
-  declare module.exports: any;
+  declare export default class FaTrophy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/truck' {
-  declare module.exports: any;
+  declare export default class FaTruck extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/try' {
-  declare module.exports: any;
+  declare export default class FaTry extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tty' {
-  declare module.exports: any;
+  declare export default class FaTty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tumblr-square' {
-  declare module.exports: any;
+  declare export default class FaTumblrSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/tumblr' {
-  declare module.exports: any;
+  declare export default class FaTumblr extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/twitch' {
-  declare module.exports: any;
+  declare export default class FaTwitch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/twitter-square' {
-  declare module.exports: any;
+  declare export default class FaTwitterSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/twitter' {
-  declare module.exports: any;
+  declare export default class FaTwitter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/umbrella' {
-  declare module.exports: any;
+  declare export default class FaUmbrella extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/underline' {
-  declare module.exports: any;
+  declare export default class FaUnderline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/universal-access' {
-  declare module.exports: any;
+  declare export default class FaUniversalAccess extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/unlock-alt' {
-  declare module.exports: any;
+  declare export default class FaUnlockAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/unlock' {
-  declare module.exports: any;
+  declare export default class FaUnlock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/upload' {
-  declare module.exports: any;
+  declare export default class FaUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/usb' {
-  declare module.exports: any;
+  declare export default class FaUsb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/user-md' {
-  declare module.exports: any;
+  declare export default class FaUserMd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/user-plus' {
-  declare module.exports: any;
+  declare export default class FaUserPlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/user-secret' {
-  declare module.exports: any;
+  declare export default class FaUserSecret extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/user-times' {
-  declare module.exports: any;
+  declare export default class FaUserTimes extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/user' {
-  declare module.exports: any;
+  declare export default class FaUser extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/venus-double' {
-  declare module.exports: any;
+  declare export default class FaVenusDouble extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/venus-mars' {
-  declare module.exports: any;
+  declare export default class FaVenusMars extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/venus' {
-  declare module.exports: any;
+  declare export default class FaVenus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/viacoin' {
-  declare module.exports: any;
+  declare export default class FaViacoin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/viadeo-square' {
-  declare module.exports: any;
+  declare export default class FaViadeoSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/viadeo' {
-  declare module.exports: any;
+  declare export default class FaViadeo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/video-camera' {
-  declare module.exports: any;
+  declare export default class FaVideoCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/vimeo-square' {
-  declare module.exports: any;
+  declare export default class FaVimeoSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/vimeo' {
-  declare module.exports: any;
+  declare export default class FaVimeo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/vine' {
-  declare module.exports: any;
+  declare export default class FaVine extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/vk' {
-  declare module.exports: any;
+  declare export default class FaVk extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/volume-control-phone' {
-  declare module.exports: any;
+  declare export default class FaVolumeControlPhone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/volume-down' {
-  declare module.exports: any;
+  declare export default class FaVolumeDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/volume-off' {
-  declare module.exports: any;
+  declare export default class FaVolumeOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/volume-up' {
-  declare module.exports: any;
+  declare export default class FaVolumeUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/wechat' {
-  declare module.exports: any;
+  declare export default class FaWechat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/weibo' {
-  declare module.exports: any;
+  declare export default class FaWeibo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/whatsapp' {
-  declare module.exports: any;
+  declare export default class FaWhatsapp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/wheelchair-alt' {
-  declare module.exports: any;
+  declare export default class FaWheelchairAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/wheelchair' {
-  declare module.exports: any;
+  declare export default class FaWheelchair extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/wifi' {
-  declare module.exports: any;
+  declare export default class FaWifi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/wikipedia-w' {
-  declare module.exports: any;
+  declare export default class FaWikipediaW extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/windows' {
-  declare module.exports: any;
+  declare export default class FaWindows extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/wordpress' {
-  declare module.exports: any;
+  declare export default class FaWordpress extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/wpbeginner' {
-  declare module.exports: any;
+  declare export default class FaWpbeginner extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/wpforms' {
-  declare module.exports: any;
+  declare export default class FaWpforms extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/wrench' {
-  declare module.exports: any;
+  declare export default class FaWrench extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/xing-square' {
-  declare module.exports: any;
+  declare export default class FaXingSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/xing' {
-  declare module.exports: any;
+  declare export default class FaXing extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/y-combinator' {
-  declare module.exports: any;
+  declare export default class FaYCombinator extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/yahoo' {
-  declare module.exports: any;
+  declare export default class FaYahoo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/yelp' {
-  declare module.exports: any;
+  declare export default class FaYelp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/youtube-play' {
-  declare module.exports: any;
+  declare export default class FaYoutubePlay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/youtube-square' {
-  declare module.exports: any;
+  declare export default class FaYoutubeSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/fa/youtube' {
-  declare module.exports: any;
+  declare export default class FaYoutube extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/alert' {
-  declare module.exports: any;
+  declare export default class GoAlert extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/alignment-align' {
-  declare module.exports: any;
+  declare export default class GoAlignmentAlign extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/alignment-aligned-to' {
-  declare module.exports: any;
+  declare export default class GoAlignmentAlignedTo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/alignment-unalign' {
-  declare module.exports: any;
+  declare export default class GoAlignmentUnalign extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/arrow-down' {
-  declare module.exports: any;
+  declare export default class GoArrowDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/arrow-left' {
-  declare module.exports: any;
+  declare export default class GoArrowLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/arrow-right' {
-  declare module.exports: any;
+  declare export default class GoArrowRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/arrow-small-down' {
-  declare module.exports: any;
+  declare export default class GoArrowSmallDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/arrow-small-left' {
-  declare module.exports: any;
+  declare export default class GoArrowSmallLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/arrow-small-right' {
-  declare module.exports: any;
+  declare export default class GoArrowSmallRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/arrow-small-up' {
-  declare module.exports: any;
+  declare export default class GoArrowSmallUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/arrow-up' {
-  declare module.exports: any;
+  declare export default class GoArrowUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/beer' {
-  declare module.exports: any;
+  declare export default class GoBeer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/book' {
-  declare module.exports: any;
+  declare export default class GoBook extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/bookmark' {
-  declare module.exports: any;
+  declare export default class GoBookmark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/briefcase' {
-  declare module.exports: any;
+  declare export default class GoBriefcase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/broadcast' {
-  declare module.exports: any;
+  declare export default class GoBroadcast extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/browser' {
-  declare module.exports: any;
+  declare export default class GoBrowser extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/bug' {
-  declare module.exports: any;
+  declare export default class GoBug extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/calendar' {
-  declare module.exports: any;
+  declare export default class GoCalendar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/check' {
-  declare module.exports: any;
+  declare export default class GoCheck extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/checklist' {
-  declare module.exports: any;
+  declare export default class GoChecklist extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/chevron-down' {
-  declare module.exports: any;
+  declare export default class GoChevronDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/chevron-left' {
-  declare module.exports: any;
+  declare export default class GoChevronLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/chevron-right' {
-  declare module.exports: any;
+  declare export default class GoChevronRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/chevron-up' {
-  declare module.exports: any;
+  declare export default class GoChevronUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/circle-slash' {
-  declare module.exports: any;
+  declare export default class GoCircleSlash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/circuit-board' {
-  declare module.exports: any;
+  declare export default class GoCircuitBoard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/clippy' {
-  declare module.exports: any;
+  declare export default class GoClippy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/clock' {
-  declare module.exports: any;
+  declare export default class GoClock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/cloud-download' {
-  declare module.exports: any;
+  declare export default class GoCloudDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/cloud-upload' {
-  declare module.exports: any;
+  declare export default class GoCloudUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/code' {
-  declare module.exports: any;
+  declare export default class GoCode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/color-mode' {
-  declare module.exports: any;
+  declare export default class GoColorMode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/comment-discussion' {
-  declare module.exports: any;
+  declare export default class GoCommentDiscussion extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/comment' {
-  declare module.exports: any;
+  declare export default class GoComment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/credit-card' {
-  declare module.exports: any;
+  declare export default class GoCreditCard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/dash' {
-  declare module.exports: any;
+  declare export default class GoDash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/dashboard' {
-  declare module.exports: any;
+  declare export default class GoDashboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/database' {
-  declare module.exports: any;
+  declare export default class GoDatabase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/device-camera-video' {
-  declare module.exports: any;
+  declare export default class GoDeviceCameraVideo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/device-camera' {
-  declare module.exports: any;
+  declare export default class GoDeviceCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/device-desktop' {
-  declare module.exports: any;
+  declare export default class GoDeviceDesktop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/device-mobile' {
-  declare module.exports: any;
+  declare export default class GoDeviceMobile extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/diff-added' {
-  declare module.exports: any;
+  declare export default class GoDiffAdded extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/diff-ignored' {
-  declare module.exports: any;
+  declare export default class GoDiffIgnored extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/diff-modified' {
-  declare module.exports: any;
+  declare export default class GoDiffModified extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/diff-removed' {
-  declare module.exports: any;
+  declare export default class GoDiffRemoved extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/diff-renamed' {
-  declare module.exports: any;
+  declare export default class GoDiffRenamed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/diff' {
-  declare module.exports: any;
+  declare export default class GoDiff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/ellipsis' {
-  declare module.exports: any;
+  declare export default class GoEllipsis extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/eye' {
-  declare module.exports: any;
+  declare export default class GoEye extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-binary' {
-  declare module.exports: any;
+  declare export default class GoFileBinary extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-code' {
-  declare module.exports: any;
+  declare export default class GoFileCode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-directory' {
-  declare module.exports: any;
+  declare export default class GoFileDirectory extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-media' {
-  declare module.exports: any;
+  declare export default class GoFileMedia extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-pdf' {
-  declare module.exports: any;
+  declare export default class GoFilePdf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-submodule' {
-  declare module.exports: any;
+  declare export default class GoFileSubmodule extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-symlink-directory' {
-  declare module.exports: any;
+  declare export default class GoFileSymlinkDirectory extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-symlink-file' {
-  declare module.exports: any;
+  declare export default class GoFileSymlinkFile extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-text' {
-  declare module.exports: any;
+  declare export default class GoFileText extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/file-zip' {
-  declare module.exports: any;
+  declare export default class GoFileZip extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/flame' {
-  declare module.exports: any;
+  declare export default class GoFlame extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/fold' {
-  declare module.exports: any;
+  declare export default class GoFold extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/gear' {
-  declare module.exports: any;
+  declare export default class GoGear extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/gift' {
-  declare module.exports: any;
+  declare export default class GoGift extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/gist-secret' {
-  declare module.exports: any;
+  declare export default class GoGistSecret extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/gist' {
-  declare module.exports: any;
+  declare export default class GoGist extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/git-branch' {
-  declare module.exports: any;
+  declare export default class GoGitBranch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/git-commit' {
-  declare module.exports: any;
+  declare export default class GoGitCommit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/git-compare' {
-  declare module.exports: any;
+  declare export default class GoGitCompare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/git-merge' {
-  declare module.exports: any;
+  declare export default class GoGitMerge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/git-pull-request' {
-  declare module.exports: any;
+  declare export default class GoGitPullRequest extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/globe' {
-  declare module.exports: any;
+  declare export default class GoGlobe extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/graph' {
-  declare module.exports: any;
+  declare export default class GoGraph extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/heart' {
-  declare module.exports: any;
+  declare export default class GoHeart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/history' {
-  declare module.exports: any;
+  declare export default class GoHistory extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/home' {
-  declare module.exports: any;
+  declare export default class GoHome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/horizontal-rule' {
-  declare module.exports: any;
+  declare export default class GoHorizontalRule extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/hourglass' {
-  declare module.exports: any;
+  declare export default class GoHourglass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/hubot' {
-  declare module.exports: any;
+  declare export default class GoHubot extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/inbox' {
-  declare module.exports: any;
+  declare export default class GoInbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/index' {
-  declare module.exports: any;
+  declare export default class GoIndex extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/info' {
-  declare module.exports: any;
+  declare export default class GoInfo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/issue-closed' {
-  declare module.exports: any;
+  declare export default class GoIssueClosed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/issue-opened' {
-  declare module.exports: any;
+  declare export default class GoIssueOpened extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/issue-reopened' {
-  declare module.exports: any;
+  declare export default class GoIssueReopened extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/jersey' {
-  declare module.exports: any;
+  declare export default class GoJersey extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/jump-down' {
-  declare module.exports: any;
+  declare export default class GoJumpDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/jump-left' {
-  declare module.exports: any;
+  declare export default class GoJumpLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/jump-right' {
-  declare module.exports: any;
+  declare export default class GoJumpRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/jump-up' {
-  declare module.exports: any;
+  declare export default class GoJumpUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/key' {
-  declare module.exports: any;
+  declare export default class GoKey extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/keyboard' {
-  declare module.exports: any;
+  declare export default class GoKeyboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/law' {
-  declare module.exports: any;
+  declare export default class GoLaw extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/light-bulb' {
-  declare module.exports: any;
+  declare export default class GoLightBulb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/link-external' {
-  declare module.exports: any;
+  declare export default class GoLinkExternal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/link' {
-  declare module.exports: any;
+  declare export default class GoLink extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/list-ordered' {
-  declare module.exports: any;
+  declare export default class GoListOrdered extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/list-unordered' {
-  declare module.exports: any;
+  declare export default class GoListUnordered extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/location' {
-  declare module.exports: any;
+  declare export default class GoLocation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/lock' {
-  declare module.exports: any;
+  declare export default class GoLock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/logo-github' {
-  declare module.exports: any;
+  declare export default class GoLogoGithub extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/mail-read' {
-  declare module.exports: any;
+  declare export default class GoMailRead extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/mail-reply' {
-  declare module.exports: any;
+  declare export default class GoMailReply extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/mail' {
-  declare module.exports: any;
+  declare export default class GoMail extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/mark-github' {
-  declare module.exports: any;
+  declare export default class GoMarkGithub extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/markdown' {
-  declare module.exports: any;
+  declare export default class GoMarkdown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/megaphone' {
-  declare module.exports: any;
+  declare export default class GoMegaphone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/mention' {
-  declare module.exports: any;
+  declare export default class GoMention extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/microscope' {
-  declare module.exports: any;
+  declare export default class GoMicroscope extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/milestone' {
-  declare module.exports: any;
+  declare export default class GoMilestone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/mirror' {
-  declare module.exports: any;
+  declare export default class GoMirror extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/mortar-board' {
-  declare module.exports: any;
+  declare export default class GoMortarBoard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/move-down' {
-  declare module.exports: any;
+  declare export default class GoMoveDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/move-left' {
-  declare module.exports: any;
+  declare export default class GoMoveLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/move-right' {
-  declare module.exports: any;
+  declare export default class GoMoveRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/move-up' {
-  declare module.exports: any;
+  declare export default class GoMoveUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/mute' {
-  declare module.exports: any;
+  declare export default class GoMute extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/no-newline' {
-  declare module.exports: any;
+  declare export default class GoNoNewline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/octoface' {
-  declare module.exports: any;
+  declare export default class GoOctoface extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/organization' {
-  declare module.exports: any;
+  declare export default class GoOrganization extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/package' {
-  declare module.exports: any;
+  declare export default class GoPackage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/paintcan' {
-  declare module.exports: any;
+  declare export default class GoPaintcan extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/pencil' {
-  declare module.exports: any;
+  declare export default class GoPencil extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/person' {
-  declare module.exports: any;
+  declare export default class GoPerson extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/pin' {
-  declare module.exports: any;
+  declare export default class GoPin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/playback-fast-forward' {
-  declare module.exports: any;
+  declare export default class GoPlaybackFastForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/playback-pause' {
-  declare module.exports: any;
+  declare export default class GoPlaybackPause extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/playback-play' {
-  declare module.exports: any;
+  declare export default class GoPlaybackPlay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/playback-rewind' {
-  declare module.exports: any;
+  declare export default class GoPlaybackRewind extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/plug' {
-  declare module.exports: any;
+  declare export default class GoPlug extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/plus' {
-  declare module.exports: any;
+  declare export default class GoPlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/podium' {
-  declare module.exports: any;
+  declare export default class GoPodium extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/primitive-dot' {
-  declare module.exports: any;
+  declare export default class GoPrimitiveDot extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/primitive-square' {
-  declare module.exports: any;
+  declare export default class GoPrimitiveSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/pulse' {
-  declare module.exports: any;
+  declare export default class GoPulse extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/puzzle' {
-  declare module.exports: any;
+  declare export default class GoPuzzle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/question' {
-  declare module.exports: any;
+  declare export default class GoQuestion extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/quote' {
-  declare module.exports: any;
+  declare export default class GoQuote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/radio-tower' {
-  declare module.exports: any;
+  declare export default class GoRadioTower extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/repo-clone' {
-  declare module.exports: any;
+  declare export default class GoRepoClone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/repo-force-push' {
-  declare module.exports: any;
+  declare export default class GoRepoForcePush extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/repo-forked' {
-  declare module.exports: any;
+  declare export default class GoRepoForked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/repo-pull' {
-  declare module.exports: any;
+  declare export default class GoRepoPull extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/repo-push' {
-  declare module.exports: any;
+  declare export default class GoRepoPush extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/repo' {
-  declare module.exports: any;
+  declare export default class GoRepo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/rocket' {
-  declare module.exports: any;
+  declare export default class GoRocket extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/rss' {
-  declare module.exports: any;
+  declare export default class GoRss extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/ruby' {
-  declare module.exports: any;
+  declare export default class GoRuby extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/screen-full' {
-  declare module.exports: any;
+  declare export default class GoScreenFull extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/screen-normal' {
-  declare module.exports: any;
+  declare export default class GoScreenNormal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/search' {
-  declare module.exports: any;
+  declare export default class GoSearch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/server' {
-  declare module.exports: any;
+  declare export default class GoServer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/settings' {
-  declare module.exports: any;
+  declare export default class GoSettings extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/sign-in' {
-  declare module.exports: any;
+  declare export default class GoSignIn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/sign-out' {
-  declare module.exports: any;
+  declare export default class GoSignOut extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/split' {
-  declare module.exports: any;
+  declare export default class GoSplit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/squirrel' {
-  declare module.exports: any;
+  declare export default class GoSquirrel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/star' {
-  declare module.exports: any;
+  declare export default class GoStar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/steps' {
-  declare module.exports: any;
+  declare export default class GoSteps extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/stop' {
-  declare module.exports: any;
+  declare export default class GoStop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/sync' {
-  declare module.exports: any;
+  declare export default class GoSync extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/tag' {
-  declare module.exports: any;
+  declare export default class GoTag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/telescope' {
-  declare module.exports: any;
+  declare export default class GoTelescope extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/terminal' {
-  declare module.exports: any;
+  declare export default class GoTerminal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/three-bars' {
-  declare module.exports: any;
+  declare export default class GoThreeBars extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/tools' {
-  declare module.exports: any;
+  declare export default class GoTools extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/trashcan' {
-  declare module.exports: any;
+  declare export default class GoTrashcan extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/triangle-down' {
-  declare module.exports: any;
+  declare export default class GoTriangleDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/triangle-left' {
-  declare module.exports: any;
+  declare export default class GoTriangleLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/triangle-right' {
-  declare module.exports: any;
+  declare export default class GoTriangleRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/triangle-up' {
-  declare module.exports: any;
+  declare export default class GoTriangleUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/unfold' {
-  declare module.exports: any;
+  declare export default class GoUnfold extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/unmute' {
-  declare module.exports: any;
+  declare export default class GoUnmute extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/versions' {
-  declare module.exports: any;
+  declare export default class GoVersions extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/x' {
-  declare module.exports: any;
+  declare export default class GoX extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/go/zap' {
-  declare module.exports: any;
+  declare export default class GoZap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/IconBase' {
-  declare module.exports: any;
+  declare export default class Fa500px extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/alert-circled' {
-  declare module.exports: any;
+  declare export default class IoAlertCircled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/alert' {
-  declare module.exports: any;
+  declare export default class IoAlert extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-add-circle' {
-  declare module.exports: any;
+  declare export default class IoAndroidAddCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-add' {
-  declare module.exports: any;
+  declare export default class IoAndroidAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-alarm-clock' {
-  declare module.exports: any;
+  declare export default class IoAndroidAlarmClock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-alert' {
-  declare module.exports: any;
+  declare export default class IoAndroidAlert extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-apps' {
-  declare module.exports: any;
+  declare export default class IoAndroidApps extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-archive' {
-  declare module.exports: any;
+  declare export default class IoAndroidArchive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-back' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowBack extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-down' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-dropdown-circle' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowDropdownCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-dropdown' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowDropdown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-dropleft-circle' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowDropleftCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-dropleft' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowDropleft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-dropright-circle' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowDroprightCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-dropright' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowDropright extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-dropup-circle' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowDropupCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-dropup' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowDropup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-forward' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-arrow-up' {
-  declare module.exports: any;
+  declare export default class IoAndroidArrowUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-attach' {
-  declare module.exports: any;
+  declare export default class IoAndroidAttach extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-bar' {
-  declare module.exports: any;
+  declare export default class IoAndroidBar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-bicycle' {
-  declare module.exports: any;
+  declare export default class IoAndroidBicycle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-boat' {
-  declare module.exports: any;
+  declare export default class IoAndroidBoat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-bookmark' {
-  declare module.exports: any;
+  declare export default class IoAndroidBookmark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-bulb' {
-  declare module.exports: any;
+  declare export default class IoAndroidBulb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-bus' {
-  declare module.exports: any;
+  declare export default class IoAndroidBus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-calendar' {
-  declare module.exports: any;
+  declare export default class IoAndroidCalendar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-call' {
-  declare module.exports: any;
+  declare export default class IoAndroidCall extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-camera' {
-  declare module.exports: any;
+  declare export default class IoAndroidCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-cancel' {
-  declare module.exports: any;
+  declare export default class IoAndroidCancel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-car' {
-  declare module.exports: any;
+  declare export default class IoAndroidCar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-cart' {
-  declare module.exports: any;
+  declare export default class IoAndroidCart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-chat' {
-  declare module.exports: any;
+  declare export default class IoAndroidChat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-checkbox-blank' {
-  declare module.exports: any;
+  declare export default class IoAndroidCheckboxBlank extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-checkbox-outline-blank' {
-  declare module.exports: any;
+  declare export default class IoAndroidCheckboxOutlineBlank extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-checkbox-outline' {
-  declare module.exports: any;
+  declare export default class IoAndroidCheckboxOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-checkbox' {
-  declare module.exports: any;
+  declare export default class IoAndroidCheckbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-checkmark-circle' {
-  declare module.exports: any;
+  declare export default class IoAndroidCheckmarkCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-clipboard' {
-  declare module.exports: any;
+  declare export default class IoAndroidClipboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-close' {
-  declare module.exports: any;
+  declare export default class IoAndroidClose extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-cloud-circle' {
-  declare module.exports: any;
+  declare export default class IoAndroidCloudCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-cloud-done' {
-  declare module.exports: any;
+  declare export default class IoAndroidCloudDone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-cloud-outline' {
-  declare module.exports: any;
+  declare export default class IoAndroidCloudOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-cloud' {
-  declare module.exports: any;
+  declare export default class IoAndroidCloud extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-color-palette' {
-  declare module.exports: any;
+  declare export default class IoAndroidColorPalette extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-compass' {
-  declare module.exports: any;
+  declare export default class IoAndroidCompass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-contact' {
-  declare module.exports: any;
+  declare export default class IoAndroidContact extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-contacts' {
-  declare module.exports: any;
+  declare export default class IoAndroidContacts extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-contract' {
-  declare module.exports: any;
+  declare export default class IoAndroidContract extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-create' {
-  declare module.exports: any;
+  declare export default class IoAndroidCreate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-delete' {
-  declare module.exports: any;
+  declare export default class IoAndroidDelete extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-desktop' {
-  declare module.exports: any;
+  declare export default class IoAndroidDesktop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-document' {
-  declare module.exports: any;
+  declare export default class IoAndroidDocument extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-done-all' {
-  declare module.exports: any;
+  declare export default class IoAndroidDoneAll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-done' {
-  declare module.exports: any;
+  declare export default class IoAndroidDone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-download' {
-  declare module.exports: any;
+  declare export default class IoAndroidDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-drafts' {
-  declare module.exports: any;
+  declare export default class IoAndroidDrafts extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-exit' {
-  declare module.exports: any;
+  declare export default class IoAndroidExit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-expand' {
-  declare module.exports: any;
+  declare export default class IoAndroidExpand extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-favorite-outline' {
-  declare module.exports: any;
+  declare export default class IoAndroidFavoriteOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-favorite' {
-  declare module.exports: any;
+  declare export default class IoAndroidFavorite extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-film' {
-  declare module.exports: any;
+  declare export default class IoAndroidFilm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-folder-open' {
-  declare module.exports: any;
+  declare export default class IoAndroidFolderOpen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-folder' {
-  declare module.exports: any;
+  declare export default class IoAndroidFolder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-funnel' {
-  declare module.exports: any;
+  declare export default class IoAndroidFunnel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-globe' {
-  declare module.exports: any;
+  declare export default class IoAndroidGlobe extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-hand' {
-  declare module.exports: any;
+  declare export default class IoAndroidHand extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-hangout' {
-  declare module.exports: any;
+  declare export default class IoAndroidHangout extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-happy' {
-  declare module.exports: any;
+  declare export default class IoAndroidHappy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-home' {
-  declare module.exports: any;
+  declare export default class IoAndroidHome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-image' {
-  declare module.exports: any;
+  declare export default class IoAndroidImage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-laptop' {
-  declare module.exports: any;
+  declare export default class IoAndroidLaptop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-list' {
-  declare module.exports: any;
+  declare export default class IoAndroidList extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-locate' {
-  declare module.exports: any;
+  declare export default class IoAndroidLocate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-lock' {
-  declare module.exports: any;
+  declare export default class IoAndroidLock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-mail' {
-  declare module.exports: any;
+  declare export default class IoAndroidMail extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-map' {
-  declare module.exports: any;
+  declare export default class IoAndroidMap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-menu' {
-  declare module.exports: any;
+  declare export default class IoAndroidMenu extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-microphone-off' {
-  declare module.exports: any;
+  declare export default class IoAndroidMicrophoneOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-microphone' {
-  declare module.exports: any;
+  declare export default class IoAndroidMicrophone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-more-horizontal' {
-  declare module.exports: any;
+  declare export default class IoAndroidMoreHorizontal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-more-vertical' {
-  declare module.exports: any;
+  declare export default class IoAndroidMoreVertical extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-navigate' {
-  declare module.exports: any;
+  declare export default class IoAndroidNavigate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-notifications-none' {
-  declare module.exports: any;
+  declare export default class IoAndroidNotificationsNone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-notifications-off' {
-  declare module.exports: any;
+  declare export default class IoAndroidNotificationsOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-notifications' {
-  declare module.exports: any;
+  declare export default class IoAndroidNotifications extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-open' {
-  declare module.exports: any;
+  declare export default class IoAndroidOpen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-options' {
-  declare module.exports: any;
+  declare export default class IoAndroidOptions extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-people' {
-  declare module.exports: any;
+  declare export default class IoAndroidPeople extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-person-add' {
-  declare module.exports: any;
+  declare export default class IoAndroidPersonAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-person' {
-  declare module.exports: any;
+  declare export default class IoAndroidPerson extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-phone-landscape' {
-  declare module.exports: any;
+  declare export default class IoAndroidPhoneLandscape extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-phone-portrait' {
-  declare module.exports: any;
+  declare export default class IoAndroidPhonePortrait extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-pin' {
-  declare module.exports: any;
+  declare export default class IoAndroidPin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-plane' {
-  declare module.exports: any;
+  declare export default class IoAndroidPlane extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-playstore' {
-  declare module.exports: any;
+  declare export default class IoAndroidPlaystore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-print' {
-  declare module.exports: any;
+  declare export default class IoAndroidPrint extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-radio-button-off' {
-  declare module.exports: any;
+  declare export default class IoAndroidRadioButtonOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-radio-button-on' {
-  declare module.exports: any;
+  declare export default class IoAndroidRadioButtonOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-refresh' {
-  declare module.exports: any;
+  declare export default class IoAndroidRefresh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-remove-circle' {
-  declare module.exports: any;
+  declare export default class IoAndroidRemoveCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-remove' {
-  declare module.exports: any;
+  declare export default class IoAndroidRemove extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-restaurant' {
-  declare module.exports: any;
+  declare export default class IoAndroidRestaurant extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-sad' {
-  declare module.exports: any;
+  declare export default class IoAndroidSad extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-search' {
-  declare module.exports: any;
+  declare export default class IoAndroidSearch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-send' {
-  declare module.exports: any;
+  declare export default class IoAndroidSend extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-settings' {
-  declare module.exports: any;
+  declare export default class IoAndroidSettings extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-share-alt' {
-  declare module.exports: any;
+  declare export default class IoAndroidShareAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-share' {
-  declare module.exports: any;
+  declare export default class IoAndroidShare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-star-half' {
-  declare module.exports: any;
+  declare export default class IoAndroidStarHalf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-star-outline' {
-  declare module.exports: any;
+  declare export default class IoAndroidStarOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-star' {
-  declare module.exports: any;
+  declare export default class IoAndroidStar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-stopwatch' {
-  declare module.exports: any;
+  declare export default class IoAndroidStopwatch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-subway' {
-  declare module.exports: any;
+  declare export default class IoAndroidSubway extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-sunny' {
-  declare module.exports: any;
+  declare export default class IoAndroidSunny extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-sync' {
-  declare module.exports: any;
+  declare export default class IoAndroidSync extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-textsms' {
-  declare module.exports: any;
+  declare export default class IoAndroidTextsms extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-time' {
-  declare module.exports: any;
+  declare export default class IoAndroidTime extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-train' {
-  declare module.exports: any;
+  declare export default class IoAndroidTrain extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-unlock' {
-  declare module.exports: any;
+  declare export default class IoAndroidUnlock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-upload' {
-  declare module.exports: any;
+  declare export default class IoAndroidUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-volume-down' {
-  declare module.exports: any;
+  declare export default class IoAndroidVolumeDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-volume-mute' {
-  declare module.exports: any;
+  declare export default class IoAndroidVolumeMute extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-volume-off' {
-  declare module.exports: any;
+  declare export default class IoAndroidVolumeOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-volume-up' {
-  declare module.exports: any;
+  declare export default class IoAndroidVolumeUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-walk' {
-  declare module.exports: any;
+  declare export default class IoAndroidWalk extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-warning' {
-  declare module.exports: any;
+  declare export default class IoAndroidWarning extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-watch' {
-  declare module.exports: any;
+  declare export default class IoAndroidWatch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/android-wifi' {
-  declare module.exports: any;
+  declare export default class IoAndroidWifi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/aperture' {
-  declare module.exports: any;
+  declare export default class IoAperture extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/archive' {
-  declare module.exports: any;
+  declare export default class IoArchive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-down-a' {
-  declare module.exports: any;
+  declare export default class IoArrowDownA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-down-b' {
-  declare module.exports: any;
+  declare export default class IoArrowDownB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-down-c' {
-  declare module.exports: any;
+  declare export default class IoArrowDownC extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-expand' {
-  declare module.exports: any;
+  declare export default class IoArrowExpand extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-graph-down-left' {
-  declare module.exports: any;
+  declare export default class IoArrowGraphDownLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-graph-down-right' {
-  declare module.exports: any;
+  declare export default class IoArrowGraphDownRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-graph-up-left' {
-  declare module.exports: any;
+  declare export default class IoArrowGraphUpLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-graph-up-right' {
-  declare module.exports: any;
+  declare export default class IoArrowGraphUpRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-left-a' {
-  declare module.exports: any;
+  declare export default class IoArrowLeftA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-left-b' {
-  declare module.exports: any;
+  declare export default class IoArrowLeftB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-left-c' {
-  declare module.exports: any;
+  declare export default class IoArrowLeftC extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-move' {
-  declare module.exports: any;
+  declare export default class IoArrowMove extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-resize' {
-  declare module.exports: any;
+  declare export default class IoArrowResize extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-return-left' {
-  declare module.exports: any;
+  declare export default class IoArrowReturnLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-return-right' {
-  declare module.exports: any;
+  declare export default class IoArrowReturnRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-right-a' {
-  declare module.exports: any;
+  declare export default class IoArrowRightA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-right-b' {
-  declare module.exports: any;
+  declare export default class IoArrowRightB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-right-c' {
-  declare module.exports: any;
+  declare export default class IoArrowRightC extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-shrink' {
-  declare module.exports: any;
+  declare export default class IoArrowShrink extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-swap' {
-  declare module.exports: any;
+  declare export default class IoArrowSwap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-up-a' {
-  declare module.exports: any;
+  declare export default class IoArrowUpA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-up-b' {
-  declare module.exports: any;
+  declare export default class IoArrowUpB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/arrow-up-c' {
-  declare module.exports: any;
+  declare export default class IoArrowUpC extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/asterisk' {
-  declare module.exports: any;
+  declare export default class IoAsterisk extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/at' {
-  declare module.exports: any;
+  declare export default class IoAt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/backspace-outline' {
-  declare module.exports: any;
+  declare export default class IoBackspaceOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/backspace' {
-  declare module.exports: any;
+  declare export default class IoBackspace extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/bag' {
-  declare module.exports: any;
+  declare export default class IoBag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/battery-charging' {
-  declare module.exports: any;
+  declare export default class IoBatteryCharging extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/battery-empty' {
-  declare module.exports: any;
+  declare export default class IoBatteryEmpty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/battery-full' {
-  declare module.exports: any;
+  declare export default class IoBatteryFull extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/battery-half' {
-  declare module.exports: any;
+  declare export default class IoBatteryHalf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/battery-low' {
-  declare module.exports: any;
+  declare export default class IoBatteryLow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/beaker' {
-  declare module.exports: any;
+  declare export default class IoBeaker extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/beer' {
-  declare module.exports: any;
+  declare export default class IoBeer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/bluetooth' {
-  declare module.exports: any;
+  declare export default class IoBluetooth extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/bonfire' {
-  declare module.exports: any;
+  declare export default class IoBonfire extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/bookmark' {
-  declare module.exports: any;
+  declare export default class IoBookmark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/bowtie' {
-  declare module.exports: any;
+  declare export default class IoBowtie extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/briefcase' {
-  declare module.exports: any;
+  declare export default class IoBriefcase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/bug' {
-  declare module.exports: any;
+  declare export default class IoBug extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/calculator' {
-  declare module.exports: any;
+  declare export default class IoCalculator extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/calendar' {
-  declare module.exports: any;
+  declare export default class IoCalendar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/camera' {
-  declare module.exports: any;
+  declare export default class IoCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/card' {
-  declare module.exports: any;
+  declare export default class IoCard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/cash' {
-  declare module.exports: any;
+  declare export default class IoCash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chatbox-working' {
-  declare module.exports: any;
+  declare export default class IoChatboxWorking extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chatbox' {
-  declare module.exports: any;
+  declare export default class IoChatbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chatboxes' {
-  declare module.exports: any;
+  declare export default class IoChatboxes extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chatbubble-working' {
-  declare module.exports: any;
+  declare export default class IoChatbubbleWorking extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chatbubble' {
-  declare module.exports: any;
+  declare export default class IoChatbubble extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chatbubbles' {
-  declare module.exports: any;
+  declare export default class IoChatbubbles extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/checkmark-circled' {
-  declare module.exports: any;
+  declare export default class IoCheckmarkCircled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/checkmark-round' {
-  declare module.exports: any;
+  declare export default class IoCheckmarkRound extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/checkmark' {
-  declare module.exports: any;
+  declare export default class IoCheckmark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chevron-down' {
-  declare module.exports: any;
+  declare export default class IoChevronDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chevron-left' {
-  declare module.exports: any;
+  declare export default class IoChevronLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chevron-right' {
-  declare module.exports: any;
+  declare export default class IoChevronRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/chevron-up' {
-  declare module.exports: any;
+  declare export default class IoChevronUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/clipboard' {
-  declare module.exports: any;
+  declare export default class IoClipboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/clock' {
-  declare module.exports: any;
+  declare export default class IoClock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/close-circled' {
-  declare module.exports: any;
+  declare export default class IoCloseCircled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/close-round' {
-  declare module.exports: any;
+  declare export default class IoCloseRound extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/close' {
-  declare module.exports: any;
+  declare export default class IoClose extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/closed-captioning' {
-  declare module.exports: any;
+  declare export default class IoClosedCaptioning extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/cloud' {
-  declare module.exports: any;
+  declare export default class IoCloud extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/code-download' {
-  declare module.exports: any;
+  declare export default class IoCodeDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/code-working' {
-  declare module.exports: any;
+  declare export default class IoCodeWorking extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/code' {
-  declare module.exports: any;
+  declare export default class IoCode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/coffee' {
-  declare module.exports: any;
+  declare export default class IoCoffee extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/compass' {
-  declare module.exports: any;
+  declare export default class IoCompass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/compose' {
-  declare module.exports: any;
+  declare export default class IoCompose extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/connectbars' {
-  declare module.exports: any;
+  declare export default class IoConnectbars extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/contrast' {
-  declare module.exports: any;
+  declare export default class IoContrast extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/crop' {
-  declare module.exports: any;
+  declare export default class IoCrop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/cube' {
-  declare module.exports: any;
+  declare export default class IoCube extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/disc' {
-  declare module.exports: any;
+  declare export default class IoDisc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/document-text' {
-  declare module.exports: any;
+  declare export default class IoDocumentText extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/document' {
-  declare module.exports: any;
+  declare export default class IoDocument extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/drag' {
-  declare module.exports: any;
+  declare export default class IoDrag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/earth' {
-  declare module.exports: any;
+  declare export default class IoEarth extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/easel' {
-  declare module.exports: any;
+  declare export default class IoEasel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/edit' {
-  declare module.exports: any;
+  declare export default class IoEdit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/egg' {
-  declare module.exports: any;
+  declare export default class IoEgg extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/eject' {
-  declare module.exports: any;
+  declare export default class IoEject extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/email-unread' {
-  declare module.exports: any;
+  declare export default class IoEmailUnread extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/email' {
-  declare module.exports: any;
+  declare export default class IoEmail extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/erlenmeyer-flask-bubbles' {
-  declare module.exports: any;
+  declare export default class IoErlenmeyerFlaskBubbles extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/erlenmeyer-flask' {
-  declare module.exports: any;
+  declare export default class IoErlenmeyerFlask extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/eye-disabled' {
-  declare module.exports: any;
+  declare export default class IoEyeDisabled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/eye' {
-  declare module.exports: any;
+  declare export default class IoEye extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/female' {
-  declare module.exports: any;
+  declare export default class IoFemale extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/filing' {
-  declare module.exports: any;
+  declare export default class IoFiling extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/film-marker' {
-  declare module.exports: any;
+  declare export default class IoFilmMarker extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/fireball' {
-  declare module.exports: any;
+  declare export default class IoFireball extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/flag' {
-  declare module.exports: any;
+  declare export default class IoFlag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/flame' {
-  declare module.exports: any;
+  declare export default class IoFlame extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/flash-off' {
-  declare module.exports: any;
+  declare export default class IoFlashOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/flash' {
-  declare module.exports: any;
+  declare export default class IoFlash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/folder' {
-  declare module.exports: any;
+  declare export default class IoFolder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/fork-repo' {
-  declare module.exports: any;
+  declare export default class IoForkRepo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/fork' {
-  declare module.exports: any;
+  declare export default class IoFork extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/forward' {
-  declare module.exports: any;
+  declare export default class IoForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/funnel' {
-  declare module.exports: any;
+  declare export default class IoFunnel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/gear-a' {
-  declare module.exports: any;
+  declare export default class IoGearA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/gear-b' {
-  declare module.exports: any;
+  declare export default class IoGearB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/grid' {
-  declare module.exports: any;
+  declare export default class IoGrid extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/hammer' {
-  declare module.exports: any;
+  declare export default class IoHammer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/happy-outline' {
-  declare module.exports: any;
+  declare export default class IoHappyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/happy' {
-  declare module.exports: any;
+  declare export default class IoHappy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/headphone' {
-  declare module.exports: any;
+  declare export default class IoHeadphone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/heart-broken' {
-  declare module.exports: any;
+  declare export default class IoHeartBroken extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/heart' {
-  declare module.exports: any;
+  declare export default class IoHeart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/help-buoy' {
-  declare module.exports: any;
+  declare export default class IoHelpBuoy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/help-circled' {
-  declare module.exports: any;
+  declare export default class IoHelpCircled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/help' {
-  declare module.exports: any;
+  declare export default class IoHelp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/home' {
-  declare module.exports: any;
+  declare export default class IoHome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/icecream' {
-  declare module.exports: any;
+  declare export default class IoIcecream extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/image' {
-  declare module.exports: any;
+  declare export default class IoImage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/images' {
-  declare module.exports: any;
+  declare export default class IoImages extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/index' {
-  declare module.exports: any;
+  declare export default class IoIndex extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/informatcircled' {
-  declare module.exports: any;
+  declare export default class IoInformatcircled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/information' {
-  declare module.exports: any;
+  declare export default class IoInformation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ionic' {
-  declare module.exports: any;
+  declare export default class IoIonic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-alarm-outline' {
-  declare module.exports: any;
+  declare export default class IoIosAlarmOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-alarm' {
-  declare module.exports: any;
+  declare export default class IoIosAlarm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-albums-outline' {
-  declare module.exports: any;
+  declare export default class IoIosAlbumsOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-albums' {
-  declare module.exports: any;
+  declare export default class IoIosAlbums extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-americanfootball-outline' {
-  declare module.exports: any;
+  declare export default class IoIosAmericanfootballOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-americanfootball' {
-  declare module.exports: any;
+  declare export default class IoIosAmericanfootball extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-analytics-outline' {
-  declare module.exports: any;
+  declare export default class IoIosAnalyticsOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-analytics' {
-  declare module.exports: any;
+  declare export default class IoIosAnalytics extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-back' {
-  declare module.exports: any;
+  declare export default class IoIosArrowBack extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-down' {
-  declare module.exports: any;
+  declare export default class IoIosArrowDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-forward' {
-  declare module.exports: any;
+  declare export default class IoIosArrowForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-left' {
-  declare module.exports: any;
+  declare export default class IoIosArrowLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-right' {
-  declare module.exports: any;
+  declare export default class IoIosArrowRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-thin-down' {
-  declare module.exports: any;
+  declare export default class IoIosArrowThinDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-thin-left' {
-  declare module.exports: any;
+  declare export default class IoIosArrowThinLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-thin-right' {
-  declare module.exports: any;
+  declare export default class IoIosArrowThinRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-thin-up' {
-  declare module.exports: any;
+  declare export default class IoIosArrowThinUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-arrow-up' {
-  declare module.exports: any;
+  declare export default class IoIosArrowUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-at-outline' {
-  declare module.exports: any;
+  declare export default class IoIosAtOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-at' {
-  declare module.exports: any;
+  declare export default class IoIosAt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-barcode-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBarcodeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-barcode' {
-  declare module.exports: any;
+  declare export default class IoIosBarcode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-baseball-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBaseballOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-baseball' {
-  declare module.exports: any;
+  declare export default class IoIosBaseball extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-basketball-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBasketballOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-basketball' {
-  declare module.exports: any;
+  declare export default class IoIosBasketball extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-bell-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBellOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-bell' {
-  declare module.exports: any;
+  declare export default class IoIosBell extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-body-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBodyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-body' {
-  declare module.exports: any;
+  declare export default class IoIosBody extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-bolt-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBoltOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-bolt' {
-  declare module.exports: any;
+  declare export default class IoIosBolt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-book-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBookOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-book' {
-  declare module.exports: any;
+  declare export default class IoIosBook extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-bookmarks-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBookmarksOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-bookmarks' {
-  declare module.exports: any;
+  declare export default class IoIosBookmarks extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-box-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBoxOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-box' {
-  declare module.exports: any;
+  declare export default class IoIosBox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-briefcase-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBriefcaseOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-briefcase' {
-  declare module.exports: any;
+  declare export default class IoIosBriefcase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-browsers-outline' {
-  declare module.exports: any;
+  declare export default class IoIosBrowsersOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-browsers' {
-  declare module.exports: any;
+  declare export default class IoIosBrowsers extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-calculator-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCalculatorOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-calculator' {
-  declare module.exports: any;
+  declare export default class IoIosCalculator extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-calendar-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCalendarOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-calendar' {
-  declare module.exports: any;
+  declare export default class IoIosCalendar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-camera-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCameraOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-camera' {
-  declare module.exports: any;
+  declare export default class IoIosCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cart-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCartOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cart' {
-  declare module.exports: any;
+  declare export default class IoIosCart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-chatboxes-outline' {
-  declare module.exports: any;
+  declare export default class IoIosChatboxesOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-chatboxes' {
-  declare module.exports: any;
+  declare export default class IoIosChatboxes extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-chatbubble-outline' {
-  declare module.exports: any;
+  declare export default class IoIosChatbubbleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-chatbubble' {
-  declare module.exports: any;
+  declare export default class IoIosChatbubble extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-checkmark-empty' {
-  declare module.exports: any;
+  declare export default class IoIosCheckmarkEmpty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-checkmark-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCheckmarkOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-checkmark' {
-  declare module.exports: any;
+  declare export default class IoIosCheckmark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-circle-filled' {
-  declare module.exports: any;
+  declare export default class IoIosCircleFilled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-circle-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCircleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-clock-outline' {
-  declare module.exports: any;
+  declare export default class IoIosClockOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-clock' {
-  declare module.exports: any;
+  declare export default class IoIosClock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-close-empty' {
-  declare module.exports: any;
+  declare export default class IoIosCloseEmpty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-close-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCloseOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-close' {
-  declare module.exports: any;
+  declare export default class IoIosClose extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloud-download-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCloudDownloadOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloud-download' {
-  declare module.exports: any;
+  declare export default class IoIosCloudDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloud-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCloudOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloud-upload-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCloudUploadOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloud-upload' {
-  declare module.exports: any;
+  declare export default class IoIosCloudUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloud' {
-  declare module.exports: any;
+  declare export default class IoIosCloud extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloudy-night-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCloudyNightOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloudy-night' {
-  declare module.exports: any;
+  declare export default class IoIosCloudyNight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloudy-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCloudyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cloudy' {
-  declare module.exports: any;
+  declare export default class IoIosCloudy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cog-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCogOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-cog' {
-  declare module.exports: any;
+  declare export default class IoIosCog extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-color-filter-outline' {
-  declare module.exports: any;
+  declare export default class IoIosColorFilterOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-color-filter' {
-  declare module.exports: any;
+  declare export default class IoIosColorFilter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-color-wand-outline' {
-  declare module.exports: any;
+  declare export default class IoIosColorWandOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-color-wand' {
-  declare module.exports: any;
+  declare export default class IoIosColorWand extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-compose-outline' {
-  declare module.exports: any;
+  declare export default class IoIosComposeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-compose' {
-  declare module.exports: any;
+  declare export default class IoIosCompose extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-contact-outline' {
-  declare module.exports: any;
+  declare export default class IoIosContactOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-contact' {
-  declare module.exports: any;
+  declare export default class IoIosContact extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-copy-outline' {
-  declare module.exports: any;
+  declare export default class IoIosCopyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-copy' {
-  declare module.exports: any;
+  declare export default class IoIosCopy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-crop-strong' {
-  declare module.exports: any;
+  declare export default class IoIosCropStrong extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-crop' {
-  declare module.exports: any;
+  declare export default class IoIosCrop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-download-outline' {
-  declare module.exports: any;
+  declare export default class IoIosDownloadOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-download' {
-  declare module.exports: any;
+  declare export default class IoIosDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-drag' {
-  declare module.exports: any;
+  declare export default class IoIosDrag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-email-outline' {
-  declare module.exports: any;
+  declare export default class IoIosEmailOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-email' {
-  declare module.exports: any;
+  declare export default class IoIosEmail extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-eye-outline' {
-  declare module.exports: any;
+  declare export default class IoIosEyeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-eye' {
-  declare module.exports: any;
+  declare export default class IoIosEye extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-fastforward-outline' {
-  declare module.exports: any;
+  declare export default class IoIosFastforwardOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-fastforward' {
-  declare module.exports: any;
+  declare export default class IoIosFastforward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-filing-outline' {
-  declare module.exports: any;
+  declare export default class IoIosFilingOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-filing' {
-  declare module.exports: any;
+  declare export default class IoIosFiling extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-film-outline' {
-  declare module.exports: any;
+  declare export default class IoIosFilmOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-film' {
-  declare module.exports: any;
+  declare export default class IoIosFilm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-flag-outline' {
-  declare module.exports: any;
+  declare export default class IoIosFlagOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-flag' {
-  declare module.exports: any;
+  declare export default class IoIosFlag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-flame-outline' {
-  declare module.exports: any;
+  declare export default class IoIosFlameOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-flame' {
-  declare module.exports: any;
+  declare export default class IoIosFlame extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-flask-outline' {
-  declare module.exports: any;
+  declare export default class IoIosFlaskOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-flask' {
-  declare module.exports: any;
+  declare export default class IoIosFlask extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-flower-outline' {
-  declare module.exports: any;
+  declare export default class IoIosFlowerOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-flower' {
-  declare module.exports: any;
+  declare export default class IoIosFlower extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-folder-outline' {
-  declare module.exports: any;
+  declare export default class IoIosFolderOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-folder' {
-  declare module.exports: any;
+  declare export default class IoIosFolder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-football-outline' {
-  declare module.exports: any;
+  declare export default class IoIosFootballOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-football' {
-  declare module.exports: any;
+  declare export default class IoIosFootball extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-game-controller-a-outline' {
-  declare module.exports: any;
+  declare export default class IoIosGameControllerAOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-game-controller-a' {
-  declare module.exports: any;
+  declare export default class IoIosGameControllerA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-game-controller-b-outline' {
-  declare module.exports: any;
+  declare export default class IoIosGameControllerBOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-game-controller-b' {
-  declare module.exports: any;
+  declare export default class IoIosGameControllerB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-gear-outline' {
-  declare module.exports: any;
+  declare export default class IoIosGearOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-gear' {
-  declare module.exports: any;
+  declare export default class IoIosGear extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-glasses-outline' {
-  declare module.exports: any;
+  declare export default class IoIosGlassesOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-glasses' {
-  declare module.exports: any;
+  declare export default class IoIosGlasses extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-grid-view-outline' {
-  declare module.exports: any;
+  declare export default class IoIosGridViewOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-grid-view' {
-  declare module.exports: any;
+  declare export default class IoIosGridView extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-heart-outline' {
-  declare module.exports: any;
+  declare export default class IoIosHeartOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-heart' {
-  declare module.exports: any;
+  declare export default class IoIosHeart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-help-empty' {
-  declare module.exports: any;
+  declare export default class IoIosHelpEmpty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-help-outline' {
-  declare module.exports: any;
+  declare export default class IoIosHelpOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-help' {
-  declare module.exports: any;
+  declare export default class IoIosHelp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-home-outline' {
-  declare module.exports: any;
+  declare export default class IoIosHomeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-home' {
-  declare module.exports: any;
+  declare export default class IoIosHome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-infinite-outline' {
-  declare module.exports: any;
+  declare export default class IoIosInfiniteOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-infinite' {
-  declare module.exports: any;
+  declare export default class IoIosInfinite extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-informatempty' {
-  declare module.exports: any;
+  declare export default class IoIosInformatempty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-information' {
-  declare module.exports: any;
+  declare export default class IoIosInformation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-informatoutline' {
-  declare module.exports: any;
+  declare export default class IoIosInformatoutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-ionic-outline' {
-  declare module.exports: any;
+  declare export default class IoIosIonicOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-keypad-outline' {
-  declare module.exports: any;
+  declare export default class IoIosKeypadOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-keypad' {
-  declare module.exports: any;
+  declare export default class IoIosKeypad extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-lightbulb-outline' {
-  declare module.exports: any;
+  declare export default class IoIosLightbulbOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-lightbulb' {
-  declare module.exports: any;
+  declare export default class IoIosLightbulb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-list-outline' {
-  declare module.exports: any;
+  declare export default class IoIosListOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-list' {
-  declare module.exports: any;
+  declare export default class IoIosList extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-location' {
-  declare module.exports: any;
+  declare export default class IoIosLocation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-locatoutline' {
-  declare module.exports: any;
+  declare export default class IoIosLocatoutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-locked-outline' {
-  declare module.exports: any;
+  declare export default class IoIosLockedOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-locked' {
-  declare module.exports: any;
+  declare export default class IoIosLocked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-loop-strong' {
-  declare module.exports: any;
+  declare export default class IoIosLoopStrong extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-loop' {
-  declare module.exports: any;
+  declare export default class IoIosLoop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-medical-outline' {
-  declare module.exports: any;
+  declare export default class IoIosMedicalOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-medical' {
-  declare module.exports: any;
+  declare export default class IoIosMedical extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-medkit-outline' {
-  declare module.exports: any;
+  declare export default class IoIosMedkitOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-medkit' {
-  declare module.exports: any;
+  declare export default class IoIosMedkit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-mic-off' {
-  declare module.exports: any;
+  declare export default class IoIosMicOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-mic-outline' {
-  declare module.exports: any;
+  declare export default class IoIosMicOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-mic' {
-  declare module.exports: any;
+  declare export default class IoIosMic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-minus-empty' {
-  declare module.exports: any;
+  declare export default class IoIosMinusEmpty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-minus-outline' {
-  declare module.exports: any;
+  declare export default class IoIosMinusOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-minus' {
-  declare module.exports: any;
+  declare export default class IoIosMinus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-monitor-outline' {
-  declare module.exports: any;
+  declare export default class IoIosMonitorOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-monitor' {
-  declare module.exports: any;
+  declare export default class IoIosMonitor extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-moon-outline' {
-  declare module.exports: any;
+  declare export default class IoIosMoonOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-moon' {
-  declare module.exports: any;
+  declare export default class IoIosMoon extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-more-outline' {
-  declare module.exports: any;
+  declare export default class IoIosMoreOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-more' {
-  declare module.exports: any;
+  declare export default class IoIosMore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-musical-note' {
-  declare module.exports: any;
+  declare export default class IoIosMusicalNote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-musical-notes' {
-  declare module.exports: any;
+  declare export default class IoIosMusicalNotes extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-navigate-outline' {
-  declare module.exports: any;
+  declare export default class IoIosNavigateOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-navigate' {
-  declare module.exports: any;
+  declare export default class IoIosNavigate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-nutrition' {
-  declare module.exports: any;
+  declare export default class IoIosNutrition extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-nutritoutline' {
-  declare module.exports: any;
+  declare export default class IoIosNutritoutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-paper-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPaperOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-paper' {
-  declare module.exports: any;
+  declare export default class IoIosPaper extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-paperplane-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPaperplaneOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-paperplane' {
-  declare module.exports: any;
+  declare export default class IoIosPaperplane extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-partlysunny-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPartlysunnyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-partlysunny' {
-  declare module.exports: any;
+  declare export default class IoIosPartlysunny extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pause-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPauseOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pause' {
-  declare module.exports: any;
+  declare export default class IoIosPause extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-paw-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPawOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-paw' {
-  declare module.exports: any;
+  declare export default class IoIosPaw extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-people-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPeopleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-people' {
-  declare module.exports: any;
+  declare export default class IoIosPeople extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-person-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPersonOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-person' {
-  declare module.exports: any;
+  declare export default class IoIosPerson extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-personadd-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPersonaddOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-personadd' {
-  declare module.exports: any;
+  declare export default class IoIosPersonadd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-photos-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPhotosOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-photos' {
-  declare module.exports: any;
+  declare export default class IoIosPhotos extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pie-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPieOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pie' {
-  declare module.exports: any;
+  declare export default class IoIosPie extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pint-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPintOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pint' {
-  declare module.exports: any;
+  declare export default class IoIosPint extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-play-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPlayOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-play' {
-  declare module.exports: any;
+  declare export default class IoIosPlay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-plus-empty' {
-  declare module.exports: any;
+  declare export default class IoIosPlusEmpty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-plus-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPlusOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-plus' {
-  declare module.exports: any;
+  declare export default class IoIosPlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pricetag-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPricetagOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pricetag' {
-  declare module.exports: any;
+  declare export default class IoIosPricetag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pricetags-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPricetagsOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pricetags' {
-  declare module.exports: any;
+  declare export default class IoIosPricetags extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-printer-outline' {
-  declare module.exports: any;
+  declare export default class IoIosPrinterOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-printer' {
-  declare module.exports: any;
+  declare export default class IoIosPrinter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pulse-strong' {
-  declare module.exports: any;
+  declare export default class IoIosPulseStrong extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-pulse' {
-  declare module.exports: any;
+  declare export default class IoIosPulse extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-rainy-outline' {
-  declare module.exports: any;
+  declare export default class IoIosRainyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-rainy' {
-  declare module.exports: any;
+  declare export default class IoIosRainy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-recording-outline' {
-  declare module.exports: any;
+  declare export default class IoIosRecordingOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-recording' {
-  declare module.exports: any;
+  declare export default class IoIosRecording extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-redo-outline' {
-  declare module.exports: any;
+  declare export default class IoIosRedoOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-redo' {
-  declare module.exports: any;
+  declare export default class IoIosRedo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-refresh-empty' {
-  declare module.exports: any;
+  declare export default class IoIosRefreshEmpty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-refresh-outline' {
-  declare module.exports: any;
+  declare export default class IoIosRefreshOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-refresh' {
-  declare module.exports: any;
+  declare export default class IoIosRefresh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-reload' {
-  declare module.exports: any;
+  declare export default class IoIosReload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-reverse-camera-outline' {
-  declare module.exports: any;
+  declare export default class IoIosReverseCameraOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-reverse-camera' {
-  declare module.exports: any;
+  declare export default class IoIosReverseCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-rewind-outline' {
-  declare module.exports: any;
+  declare export default class IoIosRewindOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-rewind' {
-  declare module.exports: any;
+  declare export default class IoIosRewind extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-rose-outline' {
-  declare module.exports: any;
+  declare export default class IoIosRoseOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-rose' {
-  declare module.exports: any;
+  declare export default class IoIosRose extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-search-strong' {
-  declare module.exports: any;
+  declare export default class IoIosSearchStrong extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-search' {
-  declare module.exports: any;
+  declare export default class IoIosSearch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-settings-strong' {
-  declare module.exports: any;
+  declare export default class IoIosSettingsStrong extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-settings' {
-  declare module.exports: any;
+  declare export default class IoIosSettings extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-shuffle-strong' {
-  declare module.exports: any;
+  declare export default class IoIosShuffleStrong extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-shuffle' {
-  declare module.exports: any;
+  declare export default class IoIosShuffle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-skipbackward-outline' {
-  declare module.exports: any;
+  declare export default class IoIosSkipbackwardOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-skipbackward' {
-  declare module.exports: any;
+  declare export default class IoIosSkipbackward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-skipforward-outline' {
-  declare module.exports: any;
+  declare export default class IoIosSkipforwardOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-skipforward' {
-  declare module.exports: any;
+  declare export default class IoIosSkipforward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-snowy' {
-  declare module.exports: any;
+  declare export default class IoIosSnowy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-speedometer-outline' {
-  declare module.exports: any;
+  declare export default class IoIosSpeedometerOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-speedometer' {
-  declare module.exports: any;
+  declare export default class IoIosSpeedometer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-star-half' {
-  declare module.exports: any;
+  declare export default class IoIosStarHalf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-star-outline' {
-  declare module.exports: any;
+  declare export default class IoIosStarOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-star' {
-  declare module.exports: any;
+  declare export default class IoIosStar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-stopwatch-outline' {
-  declare module.exports: any;
+  declare export default class IoIosStopwatchOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-stopwatch' {
-  declare module.exports: any;
+  declare export default class IoIosStopwatch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-sunny-outline' {
-  declare module.exports: any;
+  declare export default class IoIosSunnyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-sunny' {
-  declare module.exports: any;
+  declare export default class IoIosSunny extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-telephone-outline' {
-  declare module.exports: any;
+  declare export default class IoIosTelephoneOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-telephone' {
-  declare module.exports: any;
+  declare export default class IoIosTelephone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-tennisball-outline' {
-  declare module.exports: any;
+  declare export default class IoIosTennisballOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-tennisball' {
-  declare module.exports: any;
+  declare export default class IoIosTennisball extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-thunderstorm-outline' {
-  declare module.exports: any;
+  declare export default class IoIosThunderstormOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-thunderstorm' {
-  declare module.exports: any;
+  declare export default class IoIosThunderstorm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-time-outline' {
-  declare module.exports: any;
+  declare export default class IoIosTimeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-time' {
-  declare module.exports: any;
+  declare export default class IoIosTime extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-timer-outline' {
-  declare module.exports: any;
+  declare export default class IoIosTimerOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-timer' {
-  declare module.exports: any;
+  declare export default class IoIosTimer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-toggle-outline' {
-  declare module.exports: any;
+  declare export default class IoIosToggleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-toggle' {
-  declare module.exports: any;
+  declare export default class IoIosToggle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-trash-outline' {
-  declare module.exports: any;
+  declare export default class IoIosTrashOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-trash' {
-  declare module.exports: any;
+  declare export default class IoIosTrash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-undo-outline' {
-  declare module.exports: any;
+  declare export default class IoIosUndoOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-undo' {
-  declare module.exports: any;
+  declare export default class IoIosUndo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-unlocked-outline' {
-  declare module.exports: any;
+  declare export default class IoIosUnlockedOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-unlocked' {
-  declare module.exports: any;
+  declare export default class IoIosUnlocked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-upload-outline' {
-  declare module.exports: any;
+  declare export default class IoIosUploadOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-upload' {
-  declare module.exports: any;
+  declare export default class IoIosUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-videocam-outline' {
-  declare module.exports: any;
+  declare export default class IoIosVideocamOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-videocam' {
-  declare module.exports: any;
+  declare export default class IoIosVideocam extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-volume-high' {
-  declare module.exports: any;
+  declare export default class IoIosVolumeHigh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-volume-low' {
-  declare module.exports: any;
+  declare export default class IoIosVolumeLow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-wineglass-outline' {
-  declare module.exports: any;
+  declare export default class IoIosWineglassOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-wineglass' {
-  declare module.exports: any;
+  declare export default class IoIosWineglass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-world-outline' {
-  declare module.exports: any;
+  declare export default class IoIosWorldOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ios-world' {
-  declare module.exports: any;
+  declare export default class IoIosWorld extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ipad' {
-  declare module.exports: any;
+  declare export default class IoIpad extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/iphone' {
-  declare module.exports: any;
+  declare export default class IoIphone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ipod' {
-  declare module.exports: any;
+  declare export default class IoIpod extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/jet' {
-  declare module.exports: any;
+  declare export default class IoJet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/key' {
-  declare module.exports: any;
+  declare export default class IoKey extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/knife' {
-  declare module.exports: any;
+  declare export default class IoKnife extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/laptop' {
-  declare module.exports: any;
+  declare export default class IoLaptop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/leaf' {
-  declare module.exports: any;
+  declare export default class IoLeaf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/levels' {
-  declare module.exports: any;
+  declare export default class IoLevels extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/lightbulb' {
-  declare module.exports: any;
+  declare export default class IoLightbulb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/link' {
-  declare module.exports: any;
+  declare export default class IoLink extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/load-a' {
-  declare module.exports: any;
+  declare export default class IoLoadA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/load-b' {
-  declare module.exports: any;
+  declare export default class IoLoadB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/load-c' {
-  declare module.exports: any;
+  declare export default class IoLoadC extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/load-d' {
-  declare module.exports: any;
+  declare export default class IoLoadD extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/location' {
-  declare module.exports: any;
+  declare export default class IoLocation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/lock-combination' {
-  declare module.exports: any;
+  declare export default class IoLockCombination extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/locked' {
-  declare module.exports: any;
+  declare export default class IoLocked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/log-in' {
-  declare module.exports: any;
+  declare export default class IoLogIn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/log-out' {
-  declare module.exports: any;
+  declare export default class IoLogOut extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/loop' {
-  declare module.exports: any;
+  declare export default class IoLoop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/magnet' {
-  declare module.exports: any;
+  declare export default class IoMagnet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/male' {
-  declare module.exports: any;
+  declare export default class IoMale extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/man' {
-  declare module.exports: any;
+  declare export default class IoMan extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/map' {
-  declare module.exports: any;
+  declare export default class IoMap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/medkit' {
-  declare module.exports: any;
+  declare export default class IoMedkit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/merge' {
-  declare module.exports: any;
+  declare export default class IoMerge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/mic-a' {
-  declare module.exports: any;
+  declare export default class IoMicA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/mic-b' {
-  declare module.exports: any;
+  declare export default class IoMicB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/mic-c' {
-  declare module.exports: any;
+  declare export default class IoMicC extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/minus-circled' {
-  declare module.exports: any;
+  declare export default class IoMinusCircled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/minus-round' {
-  declare module.exports: any;
+  declare export default class IoMinusRound extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/minus' {
-  declare module.exports: any;
+  declare export default class IoMinus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/model-s' {
-  declare module.exports: any;
+  declare export default class IoModelS extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/monitor' {
-  declare module.exports: any;
+  declare export default class IoMonitor extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/more' {
-  declare module.exports: any;
+  declare export default class IoMore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/mouse' {
-  declare module.exports: any;
+  declare export default class IoMouse extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/music-note' {
-  declare module.exports: any;
+  declare export default class IoMusicNote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/navicon-round' {
-  declare module.exports: any;
+  declare export default class IoNaviconRound extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/navicon' {
-  declare module.exports: any;
+  declare export default class IoNavicon extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/navigate' {
-  declare module.exports: any;
+  declare export default class IoNavigate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/network' {
-  declare module.exports: any;
+  declare export default class IoNetwork extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/no-smoking' {
-  declare module.exports: any;
+  declare export default class IoNoSmoking extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/nuclear' {
-  declare module.exports: any;
+  declare export default class IoNuclear extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/outlet' {
-  declare module.exports: any;
+  declare export default class IoOutlet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/paintbrush' {
-  declare module.exports: any;
+  declare export default class IoPaintbrush extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/paintbucket' {
-  declare module.exports: any;
+  declare export default class IoPaintbucket extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/paper-airplane' {
-  declare module.exports: any;
+  declare export default class IoPaperAirplane extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/paperclip' {
-  declare module.exports: any;
+  declare export default class IoPaperclip extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/pause' {
-  declare module.exports: any;
+  declare export default class IoPause extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/person-add' {
-  declare module.exports: any;
+  declare export default class IoPersonAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/person-stalker' {
-  declare module.exports: any;
+  declare export default class IoPersonStalker extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/person' {
-  declare module.exports: any;
+  declare export default class IoPerson extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/pie-graph' {
-  declare module.exports: any;
+  declare export default class IoPieGraph extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/pin' {
-  declare module.exports: any;
+  declare export default class IoPin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/pinpoint' {
-  declare module.exports: any;
+  declare export default class IoPinpoint extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/pizza' {
-  declare module.exports: any;
+  declare export default class IoPizza extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/plane' {
-  declare module.exports: any;
+  declare export default class IoPlane extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/planet' {
-  declare module.exports: any;
+  declare export default class IoPlanet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/play' {
-  declare module.exports: any;
+  declare export default class IoPlay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/playstation' {
-  declare module.exports: any;
+  declare export default class IoPlaystation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/plus-circled' {
-  declare module.exports: any;
+  declare export default class IoPlusCircled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/plus-round' {
-  declare module.exports: any;
+  declare export default class IoPlusRound extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/plus' {
-  declare module.exports: any;
+  declare export default class IoPlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/podium' {
-  declare module.exports: any;
+  declare export default class IoPodium extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/pound' {
-  declare module.exports: any;
+  declare export default class IoPound extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/power' {
-  declare module.exports: any;
+  declare export default class IoPower extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/pricetag' {
-  declare module.exports: any;
+  declare export default class IoPricetag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/pricetags' {
-  declare module.exports: any;
+  declare export default class IoPricetags extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/printer' {
-  declare module.exports: any;
+  declare export default class IoPrinter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/pull-request' {
-  declare module.exports: any;
+  declare export default class IoPullRequest extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/qr-scanner' {
-  declare module.exports: any;
+  declare export default class IoQrScanner extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/quote' {
-  declare module.exports: any;
+  declare export default class IoQuote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/radio-waves' {
-  declare module.exports: any;
+  declare export default class IoRadioWaves extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/record' {
-  declare module.exports: any;
+  declare export default class IoRecord extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/refresh' {
-  declare module.exports: any;
+  declare export default class IoRefresh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/reply-all' {
-  declare module.exports: any;
+  declare export default class IoReplyAll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/reply' {
-  declare module.exports: any;
+  declare export default class IoReply extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ribbon-a' {
-  declare module.exports: any;
+  declare export default class IoRibbonA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/ribbon-b' {
-  declare module.exports: any;
+  declare export default class IoRibbonB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/sad-outline' {
-  declare module.exports: any;
+  declare export default class IoSadOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/sad' {
-  declare module.exports: any;
+  declare export default class IoSad extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/scissors' {
-  declare module.exports: any;
+  declare export default class IoScissors extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/search' {
-  declare module.exports: any;
+  declare export default class IoSearch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/settings' {
-  declare module.exports: any;
+  declare export default class IoSettings extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/share' {
-  declare module.exports: any;
+  declare export default class IoShare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/shuffle' {
-  declare module.exports: any;
+  declare export default class IoShuffle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/skip-backward' {
-  declare module.exports: any;
+  declare export default class IoSkipBackward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/skip-forward' {
-  declare module.exports: any;
+  declare export default class IoSkipForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-android-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialAndroidOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-android' {
-  declare module.exports: any;
+  declare export default class IoSocialAndroid extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-angular-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialAngularOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-angular' {
-  declare module.exports: any;
+  declare export default class IoSocialAngular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-apple-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialAppleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-apple' {
-  declare module.exports: any;
+  declare export default class IoSocialApple extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-bitcoin-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialBitcoinOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-bitcoin' {
-  declare module.exports: any;
+  declare export default class IoSocialBitcoin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-buffer-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialBufferOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-buffer' {
-  declare module.exports: any;
+  declare export default class IoSocialBuffer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-chrome-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialChromeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-chrome' {
-  declare module.exports: any;
+  declare export default class IoSocialChrome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-codepen-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialCodepenOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-codepen' {
-  declare module.exports: any;
+  declare export default class IoSocialCodepen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-css3-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialCss3Outline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-css3' {
-  declare module.exports: any;
+  declare export default class IoSocialCss3 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-designernews-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialDesignernewsOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-designernews' {
-  declare module.exports: any;
+  declare export default class IoSocialDesignernews extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-dribbble-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialDribbbleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-dribbble' {
-  declare module.exports: any;
+  declare export default class IoSocialDribbble extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-dropbox-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialDropboxOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-dropbox' {
-  declare module.exports: any;
+  declare export default class IoSocialDropbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-euro-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialEuroOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-euro' {
-  declare module.exports: any;
+  declare export default class IoSocialEuro extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-facebook-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialFacebookOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-facebook' {
-  declare module.exports: any;
+  declare export default class IoSocialFacebook extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-foursquare-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialFoursquareOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-foursquare' {
-  declare module.exports: any;
+  declare export default class IoSocialFoursquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-freebsd-devil' {
-  declare module.exports: any;
+  declare export default class IoSocialFreebsdDevil extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-github-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialGithubOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-github' {
-  declare module.exports: any;
+  declare export default class IoSocialGithub extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-google-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialGoogleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-google' {
-  declare module.exports: any;
+  declare export default class IoSocialGoogle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-googleplus-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialGoogleplusOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-googleplus' {
-  declare module.exports: any;
+  declare export default class IoSocialGoogleplus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-hackernews-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialHackernewsOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-hackernews' {
-  declare module.exports: any;
+  declare export default class IoSocialHackernews extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-html5-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialHtml5Outline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-html5' {
-  declare module.exports: any;
+  declare export default class IoSocialHtml5 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-instagram-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialInstagramOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-instagram' {
-  declare module.exports: any;
+  declare export default class IoSocialInstagram extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-javascript-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialJavascriptOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-javascript' {
-  declare module.exports: any;
+  declare export default class IoSocialJavascript extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-linkedin-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialLinkedinOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-linkedin' {
-  declare module.exports: any;
+  declare export default class IoSocialLinkedin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-markdown' {
-  declare module.exports: any;
+  declare export default class IoSocialMarkdown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-nodejs' {
-  declare module.exports: any;
+  declare export default class IoSocialNodejs extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-octocat' {
-  declare module.exports: any;
+  declare export default class IoSocialOctocat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-pinterest-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialPinterestOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-pinterest' {
-  declare module.exports: any;
+  declare export default class IoSocialPinterest extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-python' {
-  declare module.exports: any;
+  declare export default class IoSocialPython extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-reddit-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialRedditOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-reddit' {
-  declare module.exports: any;
+  declare export default class IoSocialReddit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-rss-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialRssOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-rss' {
-  declare module.exports: any;
+  declare export default class IoSocialRss extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-sass' {
-  declare module.exports: any;
+  declare export default class IoSocialSass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-skype-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialSkypeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-skype' {
-  declare module.exports: any;
+  declare export default class IoSocialSkype extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-snapchat-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialSnapchatOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-snapchat' {
-  declare module.exports: any;
+  declare export default class IoSocialSnapchat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-tumblr-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialTumblrOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-tumblr' {
-  declare module.exports: any;
+  declare export default class IoSocialTumblr extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-tux' {
-  declare module.exports: any;
+  declare export default class IoSocialTux extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-twitch-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialTwitchOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-twitch' {
-  declare module.exports: any;
+  declare export default class IoSocialTwitch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-twitter-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialTwitterOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-twitter' {
-  declare module.exports: any;
+  declare export default class IoSocialTwitter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-usd-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialUsdOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-usd' {
-  declare module.exports: any;
+  declare export default class IoSocialUsd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-vimeo-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialVimeoOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-vimeo' {
-  declare module.exports: any;
+  declare export default class IoSocialVimeo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-whatsapp-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialWhatsappOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-whatsapp' {
-  declare module.exports: any;
+  declare export default class IoSocialWhatsapp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-windows-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialWindowsOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-windows' {
-  declare module.exports: any;
+  declare export default class IoSocialWindows extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-wordpress-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialWordpressOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-wordpress' {
-  declare module.exports: any;
+  declare export default class IoSocialWordpress extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-yahoo-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialYahooOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-yahoo' {
-  declare module.exports: any;
+  declare export default class IoSocialYahoo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-yen-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialYenOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-yen' {
-  declare module.exports: any;
+  declare export default class IoSocialYen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-youtube-outline' {
-  declare module.exports: any;
+  declare export default class IoSocialYoutubeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/social-youtube' {
-  declare module.exports: any;
+  declare export default class IoSocialYoutube extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/soup-can-outline' {
-  declare module.exports: any;
+  declare export default class IoSoupCanOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/soup-can' {
-  declare module.exports: any;
+  declare export default class IoSoupCan extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/speakerphone' {
-  declare module.exports: any;
+  declare export default class IoSpeakerphone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/speedometer' {
-  declare module.exports: any;
+  declare export default class IoSpeedometer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/spoon' {
-  declare module.exports: any;
+  declare export default class IoSpoon extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/star' {
-  declare module.exports: any;
+  declare export default class IoStar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/stats-bars' {
-  declare module.exports: any;
+  declare export default class IoStatsBars extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/steam' {
-  declare module.exports: any;
+  declare export default class IoSteam extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/stop' {
-  declare module.exports: any;
+  declare export default class IoStop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/thermometer' {
-  declare module.exports: any;
+  declare export default class IoThermometer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/thumbsdown' {
-  declare module.exports: any;
+  declare export default class IoThumbsdown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/thumbsup' {
-  declare module.exports: any;
+  declare export default class IoThumbsup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/toggle-filled' {
-  declare module.exports: any;
+  declare export default class IoToggleFilled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/toggle' {
-  declare module.exports: any;
+  declare export default class IoToggle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/transgender' {
-  declare module.exports: any;
+  declare export default class IoTransgender extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/trash-a' {
-  declare module.exports: any;
+  declare export default class IoTrashA extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/trash-b' {
-  declare module.exports: any;
+  declare export default class IoTrashB extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/trophy' {
-  declare module.exports: any;
+  declare export default class IoTrophy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/tshirt-outline' {
-  declare module.exports: any;
+  declare export default class IoTshirtOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/tshirt' {
-  declare module.exports: any;
+  declare export default class IoTshirt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/umbrella' {
-  declare module.exports: any;
+  declare export default class IoUmbrella extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/university' {
-  declare module.exports: any;
+  declare export default class IoUniversity extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/unlocked' {
-  declare module.exports: any;
+  declare export default class IoUnlocked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/upload' {
-  declare module.exports: any;
+  declare export default class IoUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/usb' {
-  declare module.exports: any;
+  declare export default class IoUsb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/videocamera' {
-  declare module.exports: any;
+  declare export default class IoVideocamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/volume-high' {
-  declare module.exports: any;
+  declare export default class IoVolumeHigh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/volume-low' {
-  declare module.exports: any;
+  declare export default class IoVolumeLow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/volume-medium' {
-  declare module.exports: any;
+  declare export default class IoVolumeMedium extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/volume-mute' {
-  declare module.exports: any;
+  declare export default class IoVolumeMute extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/wand' {
-  declare module.exports: any;
+  declare export default class IoWand extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/waterdrop' {
-  declare module.exports: any;
+  declare export default class IoWaterdrop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/wifi' {
-  declare module.exports: any;
+  declare export default class IoWifi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/wineglass' {
-  declare module.exports: any;
+  declare export default class IoWineglass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/woman' {
-  declare module.exports: any;
+  declare export default class IoWoman extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/wrench' {
-  declare module.exports: any;
+  declare export default class IoWrench extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/io/xbox' {
-  declare module.exports: any;
+  declare export default class IoXbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/3d-rotation' {
-  declare module.exports: any;
+  declare export default class Md3dRotation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/ac-unit' {
-  declare module.exports: any;
+  declare export default class MdAcUnit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/access-alarm' {
-  declare module.exports: any;
+  declare export default class MdAccessAlarm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/access-alarms' {
-  declare module.exports: any;
+  declare export default class MdAccessAlarms extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/access-time' {
-  declare module.exports: any;
+  declare export default class MdAccessTime extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/accessibility' {
-  declare module.exports: any;
+  declare export default class MdAccessibility extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/accessible' {
-  declare module.exports: any;
+  declare export default class MdAccessible extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/account-balance-wallet' {
-  declare module.exports: any;
+  declare export default class MdAccountBalanceWallet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/account-balance' {
-  declare module.exports: any;
+  declare export default class MdAccountBalance extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/account-box' {
-  declare module.exports: any;
+  declare export default class MdAccountBox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/account-circle' {
-  declare module.exports: any;
+  declare export default class MdAccountCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/adb' {
-  declare module.exports: any;
+  declare export default class MdAdb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-a-photo' {
-  declare module.exports: any;
+  declare export default class MdAddAPhoto extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-alarm' {
-  declare module.exports: any;
+  declare export default class MdAddAlarm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-alert' {
-  declare module.exports: any;
+  declare export default class MdAddAlert extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-box' {
-  declare module.exports: any;
+  declare export default class MdAddBox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-circle-outline' {
-  declare module.exports: any;
+  declare export default class MdAddCircleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-circle' {
-  declare module.exports: any;
+  declare export default class MdAddCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-location' {
-  declare module.exports: any;
+  declare export default class MdAddLocation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-shopping-cart' {
-  declare module.exports: any;
+  declare export default class MdAddShoppingCart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-to-photos' {
-  declare module.exports: any;
+  declare export default class MdAddToPhotos extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add-to-queue' {
-  declare module.exports: any;
+  declare export default class MdAddToQueue extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/add' {
-  declare module.exports: any;
+  declare export default class MdAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/adjust' {
-  declare module.exports: any;
+  declare export default class MdAdjust extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airline-seat-flat-angled' {
-  declare module.exports: any;
+  declare export default class MdAirlineSeatFlatAngled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airline-seat-flat' {
-  declare module.exports: any;
+  declare export default class MdAirlineSeatFlat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airline-seat-individual-suite' {
-  declare module.exports: any;
+  declare export default class MdAirlineSeatIndividualSuite extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airline-seat-legroom-extra' {
-  declare module.exports: any;
+  declare export default class MdAirlineSeatLegroomExtra extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airline-seat-legroom-normal' {
-  declare module.exports: any;
+  declare export default class MdAirlineSeatLegroomNormal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airline-seat-legroom-reduced' {
-  declare module.exports: any;
+  declare export default class MdAirlineSeatLegroomReduced extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airline-seat-recline-extra' {
-  declare module.exports: any;
+  declare export default class MdAirlineSeatReclineExtra extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airline-seat-recline-normal' {
-  declare module.exports: any;
+  declare export default class MdAirlineSeatReclineNormal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airplanemode-active' {
-  declare module.exports: any;
+  declare export default class MdAirplanemodeActive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airplanemode-inactive' {
-  declare module.exports: any;
+  declare export default class MdAirplanemodeInactive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airplay' {
-  declare module.exports: any;
+  declare export default class MdAirplay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/airport-shuttle' {
-  declare module.exports: any;
+  declare export default class MdAirportShuttle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/alarm-add' {
-  declare module.exports: any;
+  declare export default class MdAlarmAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/alarm-off' {
-  declare module.exports: any;
+  declare export default class MdAlarmOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/alarm-on' {
-  declare module.exports: any;
+  declare export default class MdAlarmOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/alarm' {
-  declare module.exports: any;
+  declare export default class MdAlarm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/album' {
-  declare module.exports: any;
+  declare export default class MdAlbum extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/all-inclusive' {
-  declare module.exports: any;
+  declare export default class MdAllInclusive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/all-out' {
-  declare module.exports: any;
+  declare export default class MdAllOut extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/android' {
-  declare module.exports: any;
+  declare export default class MdAndroid extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/announcement' {
-  declare module.exports: any;
+  declare export default class MdAnnouncement extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/apps' {
-  declare module.exports: any;
+  declare export default class MdApps extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/archive' {
-  declare module.exports: any;
+  declare export default class MdArchive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/arrow-back' {
-  declare module.exports: any;
+  declare export default class MdArrowBack extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/arrow-downward' {
-  declare module.exports: any;
+  declare export default class MdArrowDownward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/arrow-drop-down-circle' {
-  declare module.exports: any;
+  declare export default class MdArrowDropDownCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/arrow-drop-down' {
-  declare module.exports: any;
+  declare export default class MdArrowDropDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/arrow-drop-up' {
-  declare module.exports: any;
+  declare export default class MdArrowDropUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/arrow-forward' {
-  declare module.exports: any;
+  declare export default class MdArrowForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/arrow-upward' {
-  declare module.exports: any;
+  declare export default class MdArrowUpward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/art-track' {
-  declare module.exports: any;
+  declare export default class MdArtTrack extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/aspect-ratio' {
-  declare module.exports: any;
+  declare export default class MdAspectRatio extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/assessment' {
-  declare module.exports: any;
+  declare export default class MdAssessment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/assignment-ind' {
-  declare module.exports: any;
+  declare export default class MdAssignmentInd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/assignment-late' {
-  declare module.exports: any;
+  declare export default class MdAssignmentLate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/assignment-return' {
-  declare module.exports: any;
+  declare export default class MdAssignmentReturn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/assignment-returned' {
-  declare module.exports: any;
+  declare export default class MdAssignmentReturned extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/assignment-turned-in' {
-  declare module.exports: any;
+  declare export default class MdAssignmentTurnedIn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/assignment' {
-  declare module.exports: any;
+  declare export default class MdAssignment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/assistant-photo' {
-  declare module.exports: any;
+  declare export default class MdAssistantPhoto extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/assistant' {
-  declare module.exports: any;
+  declare export default class MdAssistant extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/attach-file' {
-  declare module.exports: any;
+  declare export default class MdAttachFile extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/attach-money' {
-  declare module.exports: any;
+  declare export default class MdAttachMoney extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/attachment' {
-  declare module.exports: any;
+  declare export default class MdAttachment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/audiotrack' {
-  declare module.exports: any;
+  declare export default class MdAudiotrack extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/autorenew' {
-  declare module.exports: any;
+  declare export default class MdAutorenew extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/av-timer' {
-  declare module.exports: any;
+  declare export default class MdAvTimer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/backspace' {
-  declare module.exports: any;
+  declare export default class MdBackspace extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/backup' {
-  declare module.exports: any;
+  declare export default class MdBackup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/battery-alert' {
-  declare module.exports: any;
+  declare export default class MdBatteryAlert extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/battery-charging-full' {
-  declare module.exports: any;
+  declare export default class MdBatteryChargingFull extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/battery-full' {
-  declare module.exports: any;
+  declare export default class MdBatteryFull extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/battery-std' {
-  declare module.exports: any;
+  declare export default class MdBatteryStd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/battery-unknown' {
-  declare module.exports: any;
+  declare export default class MdBatteryUnknown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/beach-access' {
-  declare module.exports: any;
+  declare export default class MdBeachAccess extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/beenhere' {
-  declare module.exports: any;
+  declare export default class MdBeenhere extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/block' {
-  declare module.exports: any;
+  declare export default class MdBlock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/bluetooth-audio' {
-  declare module.exports: any;
+  declare export default class MdBluetoothAudio extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/bluetooth-connected' {
-  declare module.exports: any;
+  declare export default class MdBluetoothConnected extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/bluetooth-disabled' {
-  declare module.exports: any;
+  declare export default class MdBluetoothDisabled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/bluetooth-searching' {
-  declare module.exports: any;
+  declare export default class MdBluetoothSearching extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/bluetooth' {
-  declare module.exports: any;
+  declare export default class MdBluetooth extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/blur-circular' {
-  declare module.exports: any;
+  declare export default class MdBlurCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/blur-linear' {
-  declare module.exports: any;
+  declare export default class MdBlurLinear extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/blur-off' {
-  declare module.exports: any;
+  declare export default class MdBlurOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/blur-on' {
-  declare module.exports: any;
+  declare export default class MdBlurOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/book' {
-  declare module.exports: any;
+  declare export default class MdBook extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/bookmark-outline' {
-  declare module.exports: any;
+  declare export default class MdBookmarkOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/bookmark' {
-  declare module.exports: any;
+  declare export default class MdBookmark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-all' {
-  declare module.exports: any;
+  declare export default class MdBorderAll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-bottom' {
-  declare module.exports: any;
+  declare export default class MdBorderBottom extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-clear' {
-  declare module.exports: any;
+  declare export default class MdBorderClear extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-color' {
-  declare module.exports: any;
+  declare export default class MdBorderColor extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-horizontal' {
-  declare module.exports: any;
+  declare export default class MdBorderHorizontal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-inner' {
-  declare module.exports: any;
+  declare export default class MdBorderInner extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-left' {
-  declare module.exports: any;
+  declare export default class MdBorderLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-outer' {
-  declare module.exports: any;
+  declare export default class MdBorderOuter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-right' {
-  declare module.exports: any;
+  declare export default class MdBorderRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-style' {
-  declare module.exports: any;
+  declare export default class MdBorderStyle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-top' {
-  declare module.exports: any;
+  declare export default class MdBorderTop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/border-vertical' {
-  declare module.exports: any;
+  declare export default class MdBorderVertical extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/branding-watermark' {
-  declare module.exports: any;
+  declare export default class MdBrandingWatermark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-1' {
-  declare module.exports: any;
+  declare export default class MdBrightness1 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-2' {
-  declare module.exports: any;
+  declare export default class MdBrightness2 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-3' {
-  declare module.exports: any;
+  declare export default class MdBrightness3 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-4' {
-  declare module.exports: any;
+  declare export default class MdBrightness4 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-5' {
-  declare module.exports: any;
+  declare export default class MdBrightness5 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-6' {
-  declare module.exports: any;
+  declare export default class MdBrightness6 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-7' {
-  declare module.exports: any;
+  declare export default class MdBrightness7 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-auto' {
-  declare module.exports: any;
+  declare export default class MdBrightnessAuto extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-high' {
-  declare module.exports: any;
+  declare export default class MdBrightnessHigh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-low' {
-  declare module.exports: any;
+  declare export default class MdBrightnessLow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brightness-medium' {
-  declare module.exports: any;
+  declare export default class MdBrightnessMedium extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/broken-image' {
-  declare module.exports: any;
+  declare export default class MdBrokenImage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/brush' {
-  declare module.exports: any;
+  declare export default class MdBrush extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/bubble-chart' {
-  declare module.exports: any;
+  declare export default class MdBubbleChart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/bug-report' {
-  declare module.exports: any;
+  declare export default class MdBugReport extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/build' {
-  declare module.exports: any;
+  declare export default class MdBuild extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/burst-mode' {
-  declare module.exports: any;
+  declare export default class MdBurstMode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/business-center' {
-  declare module.exports: any;
+  declare export default class MdBusinessCenter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/business' {
-  declare module.exports: any;
+  declare export default class MdBusiness extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cached' {
-  declare module.exports: any;
+  declare export default class MdCached extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cake' {
-  declare module.exports: any;
+  declare export default class MdCake extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/call-end' {
-  declare module.exports: any;
+  declare export default class MdCallEnd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/call-made' {
-  declare module.exports: any;
+  declare export default class MdCallMade extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/call-merge' {
-  declare module.exports: any;
+  declare export default class MdCallMerge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/call-missed-outgoing' {
-  declare module.exports: any;
+  declare export default class MdCallMissedOutgoing extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/call-missed' {
-  declare module.exports: any;
+  declare export default class MdCallMissed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/call-received' {
-  declare module.exports: any;
+  declare export default class MdCallReceived extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/call-split' {
-  declare module.exports: any;
+  declare export default class MdCallSplit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/call-to-action' {
-  declare module.exports: any;
+  declare export default class MdCallToAction extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/call' {
-  declare module.exports: any;
+  declare export default class MdCall extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/camera-alt' {
-  declare module.exports: any;
+  declare export default class MdCameraAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/camera-enhance' {
-  declare module.exports: any;
+  declare export default class MdCameraEnhance extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/camera-front' {
-  declare module.exports: any;
+  declare export default class MdCameraFront extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/camera-rear' {
-  declare module.exports: any;
+  declare export default class MdCameraRear extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/camera-roll' {
-  declare module.exports: any;
+  declare export default class MdCameraRoll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/camera' {
-  declare module.exports: any;
+  declare export default class MdCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cancel' {
-  declare module.exports: any;
+  declare export default class MdCancel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/card-giftcard' {
-  declare module.exports: any;
+  declare export default class MdCardGiftcard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/card-membership' {
-  declare module.exports: any;
+  declare export default class MdCardMembership extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/card-travel' {
-  declare module.exports: any;
+  declare export default class MdCardTravel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/casino' {
-  declare module.exports: any;
+  declare export default class MdCasino extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cast-connected' {
-  declare module.exports: any;
+  declare export default class MdCastConnected extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cast' {
-  declare module.exports: any;
+  declare export default class MdCast extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/center-focus-strong' {
-  declare module.exports: any;
+  declare export default class MdCenterFocusStrong extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/center-focus-weak' {
-  declare module.exports: any;
+  declare export default class MdCenterFocusWeak extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/change-history' {
-  declare module.exports: any;
+  declare export default class MdChangeHistory extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/chat-bubble-outline' {
-  declare module.exports: any;
+  declare export default class MdChatBubbleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/chat-bubble' {
-  declare module.exports: any;
+  declare export default class MdChatBubble extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/chat' {
-  declare module.exports: any;
+  declare export default class MdChat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/check-box-outline-blank' {
-  declare module.exports: any;
+  declare export default class MdCheckBoxOutlineBlank extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/check-box' {
-  declare module.exports: any;
+  declare export default class MdCheckBox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/check-circle' {
-  declare module.exports: any;
+  declare export default class MdCheckCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/check' {
-  declare module.exports: any;
+  declare export default class MdCheck extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/chevron-left' {
-  declare module.exports: any;
+  declare export default class MdChevronLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/chevron-right' {
-  declare module.exports: any;
+  declare export default class MdChevronRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/child-care' {
-  declare module.exports: any;
+  declare export default class MdChildCare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/child-friendly' {
-  declare module.exports: any;
+  declare export default class MdChildFriendly extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/chrome-reader-mode' {
-  declare module.exports: any;
+  declare export default class MdChromeReaderMode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/class' {
-  declare module.exports: any;
+  declare export default class MdClass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/clear-all' {
-  declare module.exports: any;
+  declare export default class MdClearAll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/clear' {
-  declare module.exports: any;
+  declare export default class MdClear extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/close' {
-  declare module.exports: any;
+  declare export default class MdClose extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/closed-caption' {
-  declare module.exports: any;
+  declare export default class MdClosedCaption extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cloud-circle' {
-  declare module.exports: any;
+  declare export default class MdCloudCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cloud-done' {
-  declare module.exports: any;
+  declare export default class MdCloudDone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cloud-download' {
-  declare module.exports: any;
+  declare export default class MdCloudDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cloud-off' {
-  declare module.exports: any;
+  declare export default class MdCloudOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cloud-queue' {
-  declare module.exports: any;
+  declare export default class MdCloudQueue extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cloud-upload' {
-  declare module.exports: any;
+  declare export default class MdCloudUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/cloud' {
-  declare module.exports: any;
+  declare export default class MdCloud extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/code' {
-  declare module.exports: any;
+  declare export default class MdCode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/collections-bookmark' {
-  declare module.exports: any;
+  declare export default class MdCollectionsBookmark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/collections' {
-  declare module.exports: any;
+  declare export default class MdCollections extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/color-lens' {
-  declare module.exports: any;
+  declare export default class MdColorLens extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/colorize' {
-  declare module.exports: any;
+  declare export default class MdColorize extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/comment' {
-  declare module.exports: any;
+  declare export default class MdComment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/compare-arrows' {
-  declare module.exports: any;
+  declare export default class MdCompareArrows extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/compare' {
-  declare module.exports: any;
+  declare export default class MdCompare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/computer' {
-  declare module.exports: any;
+  declare export default class MdComputer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/confirmation-number' {
-  declare module.exports: any;
+  declare export default class MdConfirmationNumber extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/contact-mail' {
-  declare module.exports: any;
+  declare export default class MdContactMail extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/contact-phone' {
-  declare module.exports: any;
+  declare export default class MdContactPhone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/contacts' {
-  declare module.exports: any;
+  declare export default class MdContacts extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/content-copy' {
-  declare module.exports: any;
+  declare export default class MdContentCopy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/content-cut' {
-  declare module.exports: any;
+  declare export default class MdContentCut extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/content-paste' {
-  declare module.exports: any;
+  declare export default class MdContentPaste extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/control-point-duplicate' {
-  declare module.exports: any;
+  declare export default class MdControlPointDuplicate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/control-point' {
-  declare module.exports: any;
+  declare export default class MdControlPoint extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/copyright' {
-  declare module.exports: any;
+  declare export default class MdCopyright extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/create-new-folder' {
-  declare module.exports: any;
+  declare export default class MdCreateNewFolder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/create' {
-  declare module.exports: any;
+  declare export default class MdCreate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/credit-card' {
-  declare module.exports: any;
+  declare export default class MdCreditCard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-16-9' {
-  declare module.exports: any;
+  declare export default class MdCrop169 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-3-2' {
-  declare module.exports: any;
+  declare export default class MdCrop32 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-5-4' {
-  declare module.exports: any;
+  declare export default class MdCrop54 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-7-5' {
-  declare module.exports: any;
+  declare export default class MdCrop75 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-din' {
-  declare module.exports: any;
+  declare export default class MdCropDin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-free' {
-  declare module.exports: any;
+  declare export default class MdCropFree extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-landscape' {
-  declare module.exports: any;
+  declare export default class MdCropLandscape extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-original' {
-  declare module.exports: any;
+  declare export default class MdCropOriginal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-portrait' {
-  declare module.exports: any;
+  declare export default class MdCropPortrait extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-rotate' {
-  declare module.exports: any;
+  declare export default class MdCropRotate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop-square' {
-  declare module.exports: any;
+  declare export default class MdCropSquare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/crop' {
-  declare module.exports: any;
+  declare export default class MdCrop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/dashboard' {
-  declare module.exports: any;
+  declare export default class MdDashboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/data-usage' {
-  declare module.exports: any;
+  declare export default class MdDataUsage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/date-range' {
-  declare module.exports: any;
+  declare export default class MdDateRange extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/dehaze' {
-  declare module.exports: any;
+  declare export default class MdDehaze extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/delete-forever' {
-  declare module.exports: any;
+  declare export default class MdDeleteForever extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/delete-sweep' {
-  declare module.exports: any;
+  declare export default class MdDeleteSweep extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/delete' {
-  declare module.exports: any;
+  declare export default class MdDelete extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/description' {
-  declare module.exports: any;
+  declare export default class MdDescription extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/desktop-mac' {
-  declare module.exports: any;
+  declare export default class MdDesktopMac extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/desktop-windows' {
-  declare module.exports: any;
+  declare export default class MdDesktopWindows extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/details' {
-  declare module.exports: any;
+  declare export default class MdDetails extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/developer-board' {
-  declare module.exports: any;
+  declare export default class MdDeveloperBoard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/developer-mode' {
-  declare module.exports: any;
+  declare export default class MdDeveloperMode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/device-hub' {
-  declare module.exports: any;
+  declare export default class MdDeviceHub extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/devices-other' {
-  declare module.exports: any;
+  declare export default class MdDevicesOther extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/devices' {
-  declare module.exports: any;
+  declare export default class MdDevices extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/dialer-sip' {
-  declare module.exports: any;
+  declare export default class MdDialerSip extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/dialpad' {
-  declare module.exports: any;
+  declare export default class MdDialpad extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-bike' {
-  declare module.exports: any;
+  declare export default class MdDirectionsBike extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-boat' {
-  declare module.exports: any;
+  declare export default class MdDirectionsBoat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-bus' {
-  declare module.exports: any;
+  declare export default class MdDirectionsBus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-car' {
-  declare module.exports: any;
+  declare export default class MdDirectionsCar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-ferry' {
-  declare module.exports: any;
+  declare export default class MdDirectionsFerry extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-railway' {
-  declare module.exports: any;
+  declare export default class MdDirectionsRailway extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-run' {
-  declare module.exports: any;
+  declare export default class MdDirectionsRun extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-subway' {
-  declare module.exports: any;
+  declare export default class MdDirectionsSubway extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-transit' {
-  declare module.exports: any;
+  declare export default class MdDirectionsTransit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions-walk' {
-  declare module.exports: any;
+  declare export default class MdDirectionsWalk extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/directions' {
-  declare module.exports: any;
+  declare export default class MdDirections extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/disc-full' {
-  declare module.exports: any;
+  declare export default class MdDiscFull extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/dns' {
-  declare module.exports: any;
+  declare export default class MdDns extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/do-not-disturb-alt' {
-  declare module.exports: any;
+  declare export default class MdDoNotDisturbAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/do-not-disturb-off' {
-  declare module.exports: any;
+  declare export default class MdDoNotDisturbOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/do-not-disturb' {
-  declare module.exports: any;
+  declare export default class MdDoNotDisturb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/dock' {
-  declare module.exports: any;
+  declare export default class MdDock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/domain' {
-  declare module.exports: any;
+  declare export default class MdDomain extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/done-all' {
-  declare module.exports: any;
+  declare export default class MdDoneAll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/done' {
-  declare module.exports: any;
+  declare export default class MdDone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/donut-large' {
-  declare module.exports: any;
+  declare export default class MdDonutLarge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/donut-small' {
-  declare module.exports: any;
+  declare export default class MdDonutSmall extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/drafts' {
-  declare module.exports: any;
+  declare export default class MdDrafts extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/drag-handle' {
-  declare module.exports: any;
+  declare export default class MdDragHandle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/drive-eta' {
-  declare module.exports: any;
+  declare export default class MdDriveEta extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/dvr' {
-  declare module.exports: any;
+  declare export default class MdDvr extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/edit-location' {
-  declare module.exports: any;
+  declare export default class MdEditLocation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/edit' {
-  declare module.exports: any;
+  declare export default class MdEdit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/eject' {
-  declare module.exports: any;
+  declare export default class MdEject extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/email' {
-  declare module.exports: any;
+  declare export default class MdEmail extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/enhanced-encryption' {
-  declare module.exports: any;
+  declare export default class MdEnhancedEncryption extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/equalizer' {
-  declare module.exports: any;
+  declare export default class MdEqualizer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/error-outline' {
-  declare module.exports: any;
+  declare export default class MdErrorOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/error' {
-  declare module.exports: any;
+  declare export default class MdError extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/euro-symbol' {
-  declare module.exports: any;
+  declare export default class MdEuroSymbol extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/ev-station' {
-  declare module.exports: any;
+  declare export default class MdEvStation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/event-available' {
-  declare module.exports: any;
+  declare export default class MdEventAvailable extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/event-busy' {
-  declare module.exports: any;
+  declare export default class MdEventBusy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/event-note' {
-  declare module.exports: any;
+  declare export default class MdEventNote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/event-seat' {
-  declare module.exports: any;
+  declare export default class MdEventSeat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/event' {
-  declare module.exports: any;
+  declare export default class MdEvent extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/exit-to-app' {
-  declare module.exports: any;
+  declare export default class MdExitToApp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/expand-less' {
-  declare module.exports: any;
+  declare export default class MdExpandLess extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/expand-more' {
-  declare module.exports: any;
+  declare export default class MdExpandMore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/explicit' {
-  declare module.exports: any;
+  declare export default class MdExplicit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/explore' {
-  declare module.exports: any;
+  declare export default class MdExplore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/exposure-minus-1' {
-  declare module.exports: any;
+  declare export default class MdExposureMinus1 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/exposure-minus-2' {
-  declare module.exports: any;
+  declare export default class MdExposureMinus2 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/exposure-neg-1' {
-  declare module.exports: any;
+  declare export default class MdExposureNeg1 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/exposure-neg-2' {
-  declare module.exports: any;
+  declare export default class MdExposureNeg2 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/exposure-plus-1' {
-  declare module.exports: any;
+  declare export default class MdExposurePlus1 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/exposure-plus-2' {
-  declare module.exports: any;
+  declare export default class MdExposurePlus2 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/exposure-zero' {
-  declare module.exports: any;
+  declare export default class MdExposureZero extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/exposure' {
-  declare module.exports: any;
+  declare export default class MdExposure extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/extension' {
-  declare module.exports: any;
+  declare export default class MdExtension extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/face' {
-  declare module.exports: any;
+  declare export default class MdFace extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fast-forward' {
-  declare module.exports: any;
+  declare export default class MdFastForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fast-rewind' {
-  declare module.exports: any;
+  declare export default class MdFastRewind extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/favorite-border' {
-  declare module.exports: any;
+  declare export default class MdFavoriteBorder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/favorite-outline' {
-  declare module.exports: any;
+  declare export default class MdFavoriteOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/favorite' {
-  declare module.exports: any;
+  declare export default class MdFavorite extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/featured-play-list' {
-  declare module.exports: any;
+  declare export default class MdFeaturedPlayList extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/featured-video' {
-  declare module.exports: any;
+  declare export default class MdFeaturedVideo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/feedback' {
-  declare module.exports: any;
+  declare export default class MdFeedback extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fiber-dvr' {
-  declare module.exports: any;
+  declare export default class MdFiberDvr extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fiber-manual-record' {
-  declare module.exports: any;
+  declare export default class MdFiberManualRecord extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fiber-new' {
-  declare module.exports: any;
+  declare export default class MdFiberNew extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fiber-pin' {
-  declare module.exports: any;
+  declare export default class MdFiberPin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fiber-smart-record' {
-  declare module.exports: any;
+  declare export default class MdFiberSmartRecord extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/file-download' {
-  declare module.exports: any;
+  declare export default class MdFileDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/file-upload' {
-  declare module.exports: any;
+  declare export default class MdFileUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-1' {
-  declare module.exports: any;
+  declare export default class MdFilter1 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-2' {
-  declare module.exports: any;
+  declare export default class MdFilter2 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-3' {
-  declare module.exports: any;
+  declare export default class MdFilter3 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-4' {
-  declare module.exports: any;
+  declare export default class MdFilter4 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-5' {
-  declare module.exports: any;
+  declare export default class MdFilter5 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-6' {
-  declare module.exports: any;
+  declare export default class MdFilter6 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-7' {
-  declare module.exports: any;
+  declare export default class MdFilter7 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-8' {
-  declare module.exports: any;
+  declare export default class MdFilter8 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-9-plus' {
-  declare module.exports: any;
+  declare export default class MdFilter9Plus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-9' {
-  declare module.exports: any;
+  declare export default class MdFilter9 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-b-and-w' {
-  declare module.exports: any;
+  declare export default class MdFilterBAndW extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-center-focus' {
-  declare module.exports: any;
+  declare export default class MdFilterCenterFocus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-drama' {
-  declare module.exports: any;
+  declare export default class MdFilterDrama extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-frames' {
-  declare module.exports: any;
+  declare export default class MdFilterFrames extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-hdr' {
-  declare module.exports: any;
+  declare export default class MdFilterHdr extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-list' {
-  declare module.exports: any;
+  declare export default class MdFilterList extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-none' {
-  declare module.exports: any;
+  declare export default class MdFilterNone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-tilt-shift' {
-  declare module.exports: any;
+  declare export default class MdFilterTiltShift extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter-vintage' {
-  declare module.exports: any;
+  declare export default class MdFilterVintage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/filter' {
-  declare module.exports: any;
+  declare export default class MdFilter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/find-in-page' {
-  declare module.exports: any;
+  declare export default class MdFindInPage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/find-replace' {
-  declare module.exports: any;
+  declare export default class MdFindReplace extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fingerprint' {
-  declare module.exports: any;
+  declare export default class MdFingerprint extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/first-page' {
-  declare module.exports: any;
+  declare export default class MdFirstPage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fitness-center' {
-  declare module.exports: any;
+  declare export default class MdFitnessCenter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flag' {
-  declare module.exports: any;
+  declare export default class MdFlag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flare' {
-  declare module.exports: any;
+  declare export default class MdFlare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flash-auto' {
-  declare module.exports: any;
+  declare export default class MdFlashAuto extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flash-off' {
-  declare module.exports: any;
+  declare export default class MdFlashOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flash-on' {
-  declare module.exports: any;
+  declare export default class MdFlashOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flight-land' {
-  declare module.exports: any;
+  declare export default class MdFlightLand extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flight-takeoff' {
-  declare module.exports: any;
+  declare export default class MdFlightTakeoff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flight' {
-  declare module.exports: any;
+  declare export default class MdFlight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flip-to-back' {
-  declare module.exports: any;
+  declare export default class MdFlipToBack extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flip-to-front' {
-  declare module.exports: any;
+  declare export default class MdFlipToFront extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/flip' {
-  declare module.exports: any;
+  declare export default class MdFlip extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/folder-open' {
-  declare module.exports: any;
+  declare export default class MdFolderOpen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/folder-shared' {
-  declare module.exports: any;
+  declare export default class MdFolderShared extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/folder-special' {
-  declare module.exports: any;
+  declare export default class MdFolderSpecial extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/folder' {
-  declare module.exports: any;
+  declare export default class MdFolder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/font-download' {
-  declare module.exports: any;
+  declare export default class MdFontDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-align-center' {
-  declare module.exports: any;
+  declare export default class MdFormatAlignCenter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-align-justify' {
-  declare module.exports: any;
+  declare export default class MdFormatAlignJustify extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-align-left' {
-  declare module.exports: any;
+  declare export default class MdFormatAlignLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-align-right' {
-  declare module.exports: any;
+  declare export default class MdFormatAlignRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-bold' {
-  declare module.exports: any;
+  declare export default class MdFormatBold extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-clear' {
-  declare module.exports: any;
+  declare export default class MdFormatClear extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-color-fill' {
-  declare module.exports: any;
+  declare export default class MdFormatColorFill extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-color-reset' {
-  declare module.exports: any;
+  declare export default class MdFormatColorReset extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-color-text' {
-  declare module.exports: any;
+  declare export default class MdFormatColorText extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-indent-decrease' {
-  declare module.exports: any;
+  declare export default class MdFormatIndentDecrease extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-indent-increase' {
-  declare module.exports: any;
+  declare export default class MdFormatIndentIncrease extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-italic' {
-  declare module.exports: any;
+  declare export default class MdFormatItalic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-line-spacing' {
-  declare module.exports: any;
+  declare export default class MdFormatLineSpacing extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-list-bulleted' {
-  declare module.exports: any;
+  declare export default class MdFormatListBulleted extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-list-numbered' {
-  declare module.exports: any;
+  declare export default class MdFormatListNumbered extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-paint' {
-  declare module.exports: any;
+  declare export default class MdFormatPaint extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-quote' {
-  declare module.exports: any;
+  declare export default class MdFormatQuote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-shapes' {
-  declare module.exports: any;
+  declare export default class MdFormatShapes extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-size' {
-  declare module.exports: any;
+  declare export default class MdFormatSize extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-strikethrough' {
-  declare module.exports: any;
+  declare export default class MdFormatStrikethrough extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-textdirection-l-to-r' {
-  declare module.exports: any;
+  declare export default class MdFormatTextdirectionLToR extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-textdirection-r-to-l' {
-  declare module.exports: any;
+  declare export default class MdFormatTextdirectionRToL extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/format-underlined' {
-  declare module.exports: any;
+  declare export default class MdFormatUnderlined extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/forum' {
-  declare module.exports: any;
+  declare export default class MdForum extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/forward-10' {
-  declare module.exports: any;
+  declare export default class MdForward10 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/forward-30' {
-  declare module.exports: any;
+  declare export default class MdForward30 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/forward-5' {
-  declare module.exports: any;
+  declare export default class MdForward5 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/forward' {
-  declare module.exports: any;
+  declare export default class MdForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/free-breakfast' {
-  declare module.exports: any;
+  declare export default class MdFreeBreakfast extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fullscreen-exit' {
-  declare module.exports: any;
+  declare export default class MdFullscreenExit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/fullscreen' {
-  declare module.exports: any;
+  declare export default class MdFullscreen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/functions' {
-  declare module.exports: any;
+  declare export default class MdFunctions extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/g-translate' {
-  declare module.exports: any;
+  declare export default class MdGTranslate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/gamepad' {
-  declare module.exports: any;
+  declare export default class MdGamepad extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/games' {
-  declare module.exports: any;
+  declare export default class MdGames extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/gavel' {
-  declare module.exports: any;
+  declare export default class MdGavel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/gesture' {
-  declare module.exports: any;
+  declare export default class MdGesture extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/get-app' {
-  declare module.exports: any;
+  declare export default class MdGetApp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/gif' {
-  declare module.exports: any;
+  declare export default class MdGif extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/goat' {
-  declare module.exports: any;
+  declare export default class MdGoat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/golf-course' {
-  declare module.exports: any;
+  declare export default class MdGolfCourse extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/gps-fixed' {
-  declare module.exports: any;
+  declare export default class MdGpsFixed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/gps-not-fixed' {
-  declare module.exports: any;
+  declare export default class MdGpsNotFixed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/gps-off' {
-  declare module.exports: any;
+  declare export default class MdGpsOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/grade' {
-  declare module.exports: any;
+  declare export default class MdGrade extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/gradient' {
-  declare module.exports: any;
+  declare export default class MdGradient extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/grain' {
-  declare module.exports: any;
+  declare export default class MdGrain extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/graphic-eq' {
-  declare module.exports: any;
+  declare export default class MdGraphicEq extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/grid-off' {
-  declare module.exports: any;
+  declare export default class MdGridOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/grid-on' {
-  declare module.exports: any;
+  declare export default class MdGridOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/group-add' {
-  declare module.exports: any;
+  declare export default class MdGroupAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/group-work' {
-  declare module.exports: any;
+  declare export default class MdGroupWork extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/group' {
-  declare module.exports: any;
+  declare export default class MdGroup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hd' {
-  declare module.exports: any;
+  declare export default class MdHd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hdr-off' {
-  declare module.exports: any;
+  declare export default class MdHdrOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hdr-on' {
-  declare module.exports: any;
+  declare export default class MdHdrOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hdr-strong' {
-  declare module.exports: any;
+  declare export default class MdHdrStrong extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hdr-weak' {
-  declare module.exports: any;
+  declare export default class MdHdrWeak extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/headset-mic' {
-  declare module.exports: any;
+  declare export default class MdHeadsetMic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/headset' {
-  declare module.exports: any;
+  declare export default class MdHeadset extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/healing' {
-  declare module.exports: any;
+  declare export default class MdHealing extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hearing' {
-  declare module.exports: any;
+  declare export default class MdHearing extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/help-outline' {
-  declare module.exports: any;
+  declare export default class MdHelpOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/help' {
-  declare module.exports: any;
+  declare export default class MdHelp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/high-quality' {
-  declare module.exports: any;
+  declare export default class MdHighQuality extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/highlight-off' {
-  declare module.exports: any;
+  declare export default class MdHighlightOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/highlight-remove' {
-  declare module.exports: any;
+  declare export default class MdHighlightRemove extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/highlight' {
-  declare module.exports: any;
+  declare export default class MdHighlight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/history' {
-  declare module.exports: any;
+  declare export default class MdHistory extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/home' {
-  declare module.exports: any;
+  declare export default class MdHome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hot-tub' {
-  declare module.exports: any;
+  declare export default class MdHotTub extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hotel' {
-  declare module.exports: any;
+  declare export default class MdHotel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hourglass-empty' {
-  declare module.exports: any;
+  declare export default class MdHourglassEmpty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/hourglass-full' {
-  declare module.exports: any;
+  declare export default class MdHourglassFull extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/http' {
-  declare module.exports: any;
+  declare export default class MdHttp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/https' {
-  declare module.exports: any;
+  declare export default class MdHttps extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/image-aspect-ratio' {
-  declare module.exports: any;
+  declare export default class MdImageAspectRatio extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/image' {
-  declare module.exports: any;
+  declare export default class MdImage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/import-contacts' {
-  declare module.exports: any;
+  declare export default class MdImportContacts extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/import-export' {
-  declare module.exports: any;
+  declare export default class MdImportExport extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/important-devices' {
-  declare module.exports: any;
+  declare export default class MdImportantDevices extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/inbox' {
-  declare module.exports: any;
+  declare export default class MdInbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/indeterminate-check-box' {
-  declare module.exports: any;
+  declare export default class MdIndeterminateCheckBox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/index' {
-  declare module.exports: any;
+  declare export default class MdIndex extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/info-outline' {
-  declare module.exports: any;
+  declare export default class MdInfoOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/info' {
-  declare module.exports: any;
+  declare export default class MdInfo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/input' {
-  declare module.exports: any;
+  declare export default class MdInput extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/insert-chart' {
-  declare module.exports: any;
+  declare export default class MdInsertChart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/insert-comment' {
-  declare module.exports: any;
+  declare export default class MdInsertComment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/insert-drive-file' {
-  declare module.exports: any;
+  declare export default class MdInsertDriveFile extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/insert-emoticon' {
-  declare module.exports: any;
+  declare export default class MdInsertEmoticon extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/insert-invitation' {
-  declare module.exports: any;
+  declare export default class MdInsertInvitation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/insert-link' {
-  declare module.exports: any;
+  declare export default class MdInsertLink extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/insert-photo' {
-  declare module.exports: any;
+  declare export default class MdInsertPhoto extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/invert-colors-off' {
-  declare module.exports: any;
+  declare export default class MdInvertColorsOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/invert-colors-on' {
-  declare module.exports: any;
+  declare export default class MdInvertColorsOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/invert-colors' {
-  declare module.exports: any;
+  declare export default class MdInvertColors extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/iso' {
-  declare module.exports: any;
+  declare export default class MdIso extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-arrow-down' {
-  declare module.exports: any;
+  declare export default class MdKeyboardArrowDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-arrow-left' {
-  declare module.exports: any;
+  declare export default class MdKeyboardArrowLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-arrow-right' {
-  declare module.exports: any;
+  declare export default class MdKeyboardArrowRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-arrow-up' {
-  declare module.exports: any;
+  declare export default class MdKeyboardArrowUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-backspace' {
-  declare module.exports: any;
+  declare export default class MdKeyboardBackspace extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-capslock' {
-  declare module.exports: any;
+  declare export default class MdKeyboardCapslock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-control' {
-  declare module.exports: any;
+  declare export default class MdKeyboardControl extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-hide' {
-  declare module.exports: any;
+  declare export default class MdKeyboardHide extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-return' {
-  declare module.exports: any;
+  declare export default class MdKeyboardReturn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-tab' {
-  declare module.exports: any;
+  declare export default class MdKeyboardTab extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard-voice' {
-  declare module.exports: any;
+  declare export default class MdKeyboardVoice extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/keyboard' {
-  declare module.exports: any;
+  declare export default class MdKeyboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/kitchen' {
-  declare module.exports: any;
+  declare export default class MdKitchen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/label-outline' {
-  declare module.exports: any;
+  declare export default class MdLabelOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/label' {
-  declare module.exports: any;
+  declare export default class MdLabel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/landscape' {
-  declare module.exports: any;
+  declare export default class MdLandscape extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/language' {
-  declare module.exports: any;
+  declare export default class MdLanguage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/laptop-chromebook' {
-  declare module.exports: any;
+  declare export default class MdLaptopChromebook extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/laptop-mac' {
-  declare module.exports: any;
+  declare export default class MdLaptopMac extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/laptop-windows' {
-  declare module.exports: any;
+  declare export default class MdLaptopWindows extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/laptop' {
-  declare module.exports: any;
+  declare export default class MdLaptop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/last-page' {
-  declare module.exports: any;
+  declare export default class MdLastPage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/launch' {
-  declare module.exports: any;
+  declare export default class MdLaunch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/layers-clear' {
-  declare module.exports: any;
+  declare export default class MdLayersClear extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/layers' {
-  declare module.exports: any;
+  declare export default class MdLayers extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/leak-add' {
-  declare module.exports: any;
+  declare export default class MdLeakAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/leak-remove' {
-  declare module.exports: any;
+  declare export default class MdLeakRemove extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/lens' {
-  declare module.exports: any;
+  declare export default class MdLens extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/library-add' {
-  declare module.exports: any;
+  declare export default class MdLibraryAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/library-books' {
-  declare module.exports: any;
+  declare export default class MdLibraryBooks extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/library-music' {
-  declare module.exports: any;
+  declare export default class MdLibraryMusic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/lightbulb-outline' {
-  declare module.exports: any;
+  declare export default class MdLightbulbOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/line-style' {
-  declare module.exports: any;
+  declare export default class MdLineStyle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/line-weight' {
-  declare module.exports: any;
+  declare export default class MdLineWeight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/linear-scale' {
-  declare module.exports: any;
+  declare export default class MdLinearScale extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/link' {
-  declare module.exports: any;
+  declare export default class MdLink extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/linked-camera' {
-  declare module.exports: any;
+  declare export default class MdLinkedCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/list' {
-  declare module.exports: any;
+  declare export default class MdList extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/live-help' {
-  declare module.exports: any;
+  declare export default class MdLiveHelp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/live-tv' {
-  declare module.exports: any;
+  declare export default class MdLiveTv extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-airport' {
-  declare module.exports: any;
+  declare export default class MdLocalAirport extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-atm' {
-  declare module.exports: any;
+  declare export default class MdLocalAtm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-attraction' {
-  declare module.exports: any;
+  declare export default class MdLocalAttraction extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-bar' {
-  declare module.exports: any;
+  declare export default class MdLocalBar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-cafe' {
-  declare module.exports: any;
+  declare export default class MdLocalCafe extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-car-wash' {
-  declare module.exports: any;
+  declare export default class MdLocalCarWash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-convenience-store' {
-  declare module.exports: any;
+  declare export default class MdLocalConvenienceStore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-drink' {
-  declare module.exports: any;
+  declare export default class MdLocalDrink extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-florist' {
-  declare module.exports: any;
+  declare export default class MdLocalFlorist extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-gas-station' {
-  declare module.exports: any;
+  declare export default class MdLocalGasStation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-grocery-store' {
-  declare module.exports: any;
+  declare export default class MdLocalGroceryStore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-hospital' {
-  declare module.exports: any;
+  declare export default class MdLocalHospital extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-hotel' {
-  declare module.exports: any;
+  declare export default class MdLocalHotel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-laundry-service' {
-  declare module.exports: any;
+  declare export default class MdLocalLaundryService extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-library' {
-  declare module.exports: any;
+  declare export default class MdLocalLibrary extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-mall' {
-  declare module.exports: any;
+  declare export default class MdLocalMall extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-movies' {
-  declare module.exports: any;
+  declare export default class MdLocalMovies extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-offer' {
-  declare module.exports: any;
+  declare export default class MdLocalOffer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-parking' {
-  declare module.exports: any;
+  declare export default class MdLocalParking extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-pharmacy' {
-  declare module.exports: any;
+  declare export default class MdLocalPharmacy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-phone' {
-  declare module.exports: any;
+  declare export default class MdLocalPhone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-pizza' {
-  declare module.exports: any;
+  declare export default class MdLocalPizza extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-play' {
-  declare module.exports: any;
+  declare export default class MdLocalPlay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-post-office' {
-  declare module.exports: any;
+  declare export default class MdLocalPostOffice extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-print-shop' {
-  declare module.exports: any;
+  declare export default class MdLocalPrintShop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-restaurant' {
-  declare module.exports: any;
+  declare export default class MdLocalRestaurant extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-see' {
-  declare module.exports: any;
+  declare export default class MdLocalSee extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-shipping' {
-  declare module.exports: any;
+  declare export default class MdLocalShipping extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/local-taxi' {
-  declare module.exports: any;
+  declare export default class MdLocalTaxi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/location-city' {
-  declare module.exports: any;
+  declare export default class MdLocationCity extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/location-disabled' {
-  declare module.exports: any;
+  declare export default class MdLocationDisabled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/location-history' {
-  declare module.exports: any;
+  declare export default class MdLocationHistory extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/location-off' {
-  declare module.exports: any;
+  declare export default class MdLocationOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/location-on' {
-  declare module.exports: any;
+  declare export default class MdLocationOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/location-searching' {
-  declare module.exports: any;
+  declare export default class MdLocationSearching extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/lock-open' {
-  declare module.exports: any;
+  declare export default class MdLockOpen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/lock-outline' {
-  declare module.exports: any;
+  declare export default class MdLockOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/lock' {
-  declare module.exports: any;
+  declare export default class MdLock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/looks-3' {
-  declare module.exports: any;
+  declare export default class MdLooks3 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/looks-4' {
-  declare module.exports: any;
+  declare export default class MdLooks4 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/looks-5' {
-  declare module.exports: any;
+  declare export default class MdLooks5 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/looks-6' {
-  declare module.exports: any;
+  declare export default class MdLooks6 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/looks-one' {
-  declare module.exports: any;
+  declare export default class MdLooksOne extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/looks-two' {
-  declare module.exports: any;
+  declare export default class MdLooksTwo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/looks' {
-  declare module.exports: any;
+  declare export default class MdLooks extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/loop' {
-  declare module.exports: any;
+  declare export default class MdLoop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/loupe' {
-  declare module.exports: any;
+  declare export default class MdLoupe extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/low-priority' {
-  declare module.exports: any;
+  declare export default class MdLowPriority extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/loyalty' {
-  declare module.exports: any;
+  declare export default class MdLoyalty extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mail-outline' {
-  declare module.exports: any;
+  declare export default class MdMailOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mail' {
-  declare module.exports: any;
+  declare export default class MdMail extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/map' {
-  declare module.exports: any;
+  declare export default class MdMap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/markunread-mailbox' {
-  declare module.exports: any;
+  declare export default class MdMarkunreadMailbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/markunread' {
-  declare module.exports: any;
+  declare export default class MdMarkunread extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/memory' {
-  declare module.exports: any;
+  declare export default class MdMemory extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/menu' {
-  declare module.exports: any;
+  declare export default class MdMenu extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/merge-type' {
-  declare module.exports: any;
+  declare export default class MdMergeType extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/message' {
-  declare module.exports: any;
+  declare export default class MdMessage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mic-none' {
-  declare module.exports: any;
+  declare export default class MdMicNone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mic-off' {
-  declare module.exports: any;
+  declare export default class MdMicOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mic' {
-  declare module.exports: any;
+  declare export default class MdMic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mms' {
-  declare module.exports: any;
+  declare export default class MdMms extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mode-comment' {
-  declare module.exports: any;
+  declare export default class MdModeComment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mode-edit' {
-  declare module.exports: any;
+  declare export default class MdModeEdit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/monetization-on' {
-  declare module.exports: any;
+  declare export default class MdMonetizationOn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/money-off' {
-  declare module.exports: any;
+  declare export default class MdMoneyOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/monochrome-photos' {
-  declare module.exports: any;
+  declare export default class MdMonochromePhotos extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mood-bad' {
-  declare module.exports: any;
+  declare export default class MdMoodBad extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mood' {
-  declare module.exports: any;
+  declare export default class MdMood extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/more-horiz' {
-  declare module.exports: any;
+  declare export default class MdMoreHoriz extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/more-vert' {
-  declare module.exports: any;
+  declare export default class MdMoreVert extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/more' {
-  declare module.exports: any;
+  declare export default class MdMore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/motorcycle' {
-  declare module.exports: any;
+  declare export default class MdMotorcycle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/mouse' {
-  declare module.exports: any;
+  declare export default class MdMouse extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/move-to-inbox' {
-  declare module.exports: any;
+  declare export default class MdMoveToInbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/movie-creation' {
-  declare module.exports: any;
+  declare export default class MdMovieCreation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/movie-filter' {
-  declare module.exports: any;
+  declare export default class MdMovieFilter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/movie' {
-  declare module.exports: any;
+  declare export default class MdMovie extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/multiline-chart' {
-  declare module.exports: any;
+  declare export default class MdMultilineChart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/music-note' {
-  declare module.exports: any;
+  declare export default class MdMusicNote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/music-video' {
-  declare module.exports: any;
+  declare export default class MdMusicVideo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/my-location' {
-  declare module.exports: any;
+  declare export default class MdMyLocation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/nature-people' {
-  declare module.exports: any;
+  declare export default class MdNaturePeople extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/nature' {
-  declare module.exports: any;
+  declare export default class MdNature extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/navigate-before' {
-  declare module.exports: any;
+  declare export default class MdNavigateBefore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/navigate-next' {
-  declare module.exports: any;
+  declare export default class MdNavigateNext extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/navigation' {
-  declare module.exports: any;
+  declare export default class MdNavigation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/near-me' {
-  declare module.exports: any;
+  declare export default class MdNearMe extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/network-cell' {
-  declare module.exports: any;
+  declare export default class MdNetworkCell extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/network-check' {
-  declare module.exports: any;
+  declare export default class MdNetworkCheck extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/network-locked' {
-  declare module.exports: any;
+  declare export default class MdNetworkLocked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/network-wifi' {
-  declare module.exports: any;
+  declare export default class MdNetworkWifi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/new-releases' {
-  declare module.exports: any;
+  declare export default class MdNewReleases extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/next-week' {
-  declare module.exports: any;
+  declare export default class MdNextWeek extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/nfc' {
-  declare module.exports: any;
+  declare export default class MdNfc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/no-encryption' {
-  declare module.exports: any;
+  declare export default class MdNoEncryption extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/no-sim' {
-  declare module.exports: any;
+  declare export default class MdNoSim extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/not-interested' {
-  declare module.exports: any;
+  declare export default class MdNotInterested extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/note-add' {
-  declare module.exports: any;
+  declare export default class MdNoteAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/note' {
-  declare module.exports: any;
+  declare export default class MdNote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/notifications-active' {
-  declare module.exports: any;
+  declare export default class MdNotificationsActive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/notifications-none' {
-  declare module.exports: any;
+  declare export default class MdNotificationsNone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/notifications-off' {
-  declare module.exports: any;
+  declare export default class MdNotificationsOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/notifications-paused' {
-  declare module.exports: any;
+  declare export default class MdNotificationsPaused extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/notifications' {
-  declare module.exports: any;
+  declare export default class MdNotifications extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/now-wallpaper' {
-  declare module.exports: any;
+  declare export default class MdNowWallpaper extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/now-widgets' {
-  declare module.exports: any;
+  declare export default class MdNowWidgets extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/offline-pin' {
-  declare module.exports: any;
+  declare export default class MdOfflinePin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/ondemand-video' {
-  declare module.exports: any;
+  declare export default class MdOndemandVideo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/opacity' {
-  declare module.exports: any;
+  declare export default class MdOpacity extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/open-in-browser' {
-  declare module.exports: any;
+  declare export default class MdOpenInBrowser extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/open-in-new' {
-  declare module.exports: any;
+  declare export default class MdOpenInNew extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/open-with' {
-  declare module.exports: any;
+  declare export default class MdOpenWith extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pages' {
-  declare module.exports: any;
+  declare export default class MdPages extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pageview' {
-  declare module.exports: any;
+  declare export default class MdPageview extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/palette' {
-  declare module.exports: any;
+  declare export default class MdPalette extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pan-tool' {
-  declare module.exports: any;
+  declare export default class MdPanTool extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/panorama-fish-eye' {
-  declare module.exports: any;
+  declare export default class MdPanoramaFishEye extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/panorama-horizontal' {
-  declare module.exports: any;
+  declare export default class MdPanoramaHorizontal extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/panorama-vertical' {
-  declare module.exports: any;
+  declare export default class MdPanoramaVertical extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/panorama-wide-angle' {
-  declare module.exports: any;
+  declare export default class MdPanoramaWideAngle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/panorama' {
-  declare module.exports: any;
+  declare export default class MdPanorama extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/party-mode' {
-  declare module.exports: any;
+  declare export default class MdPartyMode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pause-circle-filled' {
-  declare module.exports: any;
+  declare export default class MdPauseCircleFilled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pause-circle-outline' {
-  declare module.exports: any;
+  declare export default class MdPauseCircleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pause' {
-  declare module.exports: any;
+  declare export default class MdPause extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/payment' {
-  declare module.exports: any;
+  declare export default class MdPayment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/people-outline' {
-  declare module.exports: any;
+  declare export default class MdPeopleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/people' {
-  declare module.exports: any;
+  declare export default class MdPeople extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/perm-camera-mic' {
-  declare module.exports: any;
+  declare export default class MdPermCameraMic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/perm-contact-calendar' {
-  declare module.exports: any;
+  declare export default class MdPermContactCalendar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/perm-data-setting' {
-  declare module.exports: any;
+  declare export default class MdPermDataSetting extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/perm-device-information' {
-  declare module.exports: any;
+  declare export default class MdPermDeviceInformation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/perm-identity' {
-  declare module.exports: any;
+  declare export default class MdPermIdentity extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/perm-media' {
-  declare module.exports: any;
+  declare export default class MdPermMedia extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/perm-phone-msg' {
-  declare module.exports: any;
+  declare export default class MdPermPhoneMsg extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/perm-scan-wifi' {
-  declare module.exports: any;
+  declare export default class MdPermScanWifi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/person-add' {
-  declare module.exports: any;
+  declare export default class MdPersonAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/person-outline' {
-  declare module.exports: any;
+  declare export default class MdPersonOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/person-pin-circle' {
-  declare module.exports: any;
+  declare export default class MdPersonPinCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/person-pin' {
-  declare module.exports: any;
+  declare export default class MdPersonPin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/person' {
-  declare module.exports: any;
+  declare export default class MdPerson extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/personal-video' {
-  declare module.exports: any;
+  declare export default class MdPersonalVideo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pets' {
-  declare module.exports: any;
+  declare export default class MdPets extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phone-android' {
-  declare module.exports: any;
+  declare export default class MdPhoneAndroid extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phone-bluetooth-speaker' {
-  declare module.exports: any;
+  declare export default class MdPhoneBluetoothSpeaker extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phone-forwarded' {
-  declare module.exports: any;
+  declare export default class MdPhoneForwarded extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phone-in-talk' {
-  declare module.exports: any;
+  declare export default class MdPhoneInTalk extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phone-iphone' {
-  declare module.exports: any;
+  declare export default class MdPhoneIphone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phone-locked' {
-  declare module.exports: any;
+  declare export default class MdPhoneLocked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phone-missed' {
-  declare module.exports: any;
+  declare export default class MdPhoneMissed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phone-paused' {
-  declare module.exports: any;
+  declare export default class MdPhonePaused extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phone' {
-  declare module.exports: any;
+  declare export default class MdPhone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phonelink-erase' {
-  declare module.exports: any;
+  declare export default class MdPhonelinkErase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phonelink-lock' {
-  declare module.exports: any;
+  declare export default class MdPhonelinkLock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phonelink-off' {
-  declare module.exports: any;
+  declare export default class MdPhonelinkOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phonelink-ring' {
-  declare module.exports: any;
+  declare export default class MdPhonelinkRing extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phonelink-setup' {
-  declare module.exports: any;
+  declare export default class MdPhonelinkSetup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/phonelink' {
-  declare module.exports: any;
+  declare export default class MdPhonelink extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/photo-album' {
-  declare module.exports: any;
+  declare export default class MdPhotoAlbum extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/photo-camera' {
-  declare module.exports: any;
+  declare export default class MdPhotoCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/photo-filter' {
-  declare module.exports: any;
+  declare export default class MdPhotoFilter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/photo-library' {
-  declare module.exports: any;
+  declare export default class MdPhotoLibrary extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/photo-size-select-actual' {
-  declare module.exports: any;
+  declare export default class MdPhotoSizeSelectActual extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/photo-size-select-large' {
-  declare module.exports: any;
+  declare export default class MdPhotoSizeSelectLarge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/photo-size-select-small' {
-  declare module.exports: any;
+  declare export default class MdPhotoSizeSelectSmall extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/photo' {
-  declare module.exports: any;
+  declare export default class MdPhoto extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/picture-as-pdf' {
-  declare module.exports: any;
+  declare export default class MdPictureAsPdf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/picture-in-picture-alt' {
-  declare module.exports: any;
+  declare export default class MdPictureInPictureAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/picture-in-picture' {
-  declare module.exports: any;
+  declare export default class MdPictureInPicture extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pie-chart-outlined' {
-  declare module.exports: any;
+  declare export default class MdPieChartOutlined extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pie-chart' {
-  declare module.exports: any;
+  declare export default class MdPieChart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pin-drop' {
-  declare module.exports: any;
+  declare export default class MdPinDrop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/place' {
-  declare module.exports: any;
+  declare export default class MdPlace extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/play-arrow' {
-  declare module.exports: any;
+  declare export default class MdPlayArrow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/play-circle-filled' {
-  declare module.exports: any;
+  declare export default class MdPlayCircleFilled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/play-circle-outline' {
-  declare module.exports: any;
+  declare export default class MdPlayCircleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/play-for-work' {
-  declare module.exports: any;
+  declare export default class MdPlayForWork extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/playlist-add-check' {
-  declare module.exports: any;
+  declare export default class MdPlaylistAddCheck extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/playlist-add' {
-  declare module.exports: any;
+  declare export default class MdPlaylistAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/playlist-play' {
-  declare module.exports: any;
+  declare export default class MdPlaylistPlay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/plus-one' {
-  declare module.exports: any;
+  declare export default class MdPlusOne extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/poll' {
-  declare module.exports: any;
+  declare export default class MdPoll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/polymer' {
-  declare module.exports: any;
+  declare export default class MdPolymer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pool' {
-  declare module.exports: any;
+  declare export default class MdPool extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/portable-wifi-off' {
-  declare module.exports: any;
+  declare export default class MdPortableWifiOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/portrait' {
-  declare module.exports: any;
+  declare export default class MdPortrait extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/power-input' {
-  declare module.exports: any;
+  declare export default class MdPowerInput extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/power-settings-new' {
-  declare module.exports: any;
+  declare export default class MdPowerSettingsNew extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/power' {
-  declare module.exports: any;
+  declare export default class MdPower extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/pregnant-woman' {
-  declare module.exports: any;
+  declare export default class MdPregnantWoman extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/present-to-all' {
-  declare module.exports: any;
+  declare export default class MdPresentToAll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/print' {
-  declare module.exports: any;
+  declare export default class MdPrint extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/priority-high' {
-  declare module.exports: any;
+  declare export default class MdPriorityHigh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/public' {
-  declare module.exports: any;
+  declare export default class MdPublic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/publish' {
-  declare module.exports: any;
+  declare export default class MdPublish extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/query-builder' {
-  declare module.exports: any;
+  declare export default class MdQueryBuilder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/question-answer' {
-  declare module.exports: any;
+  declare export default class MdQuestionAnswer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/queue-music' {
-  declare module.exports: any;
+  declare export default class MdQueueMusic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/queue-play-next' {
-  declare module.exports: any;
+  declare export default class MdQueuePlayNext extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/queue' {
-  declare module.exports: any;
+  declare export default class MdQueue extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/radio-button-checked' {
-  declare module.exports: any;
+  declare export default class MdRadioButtonChecked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/radio-button-unchecked' {
-  declare module.exports: any;
+  declare export default class MdRadioButtonUnchecked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/radio' {
-  declare module.exports: any;
+  declare export default class MdRadio extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/rate-review' {
-  declare module.exports: any;
+  declare export default class MdRateReview extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/receipt' {
-  declare module.exports: any;
+  declare export default class MdReceipt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/recent-actors' {
-  declare module.exports: any;
+  declare export default class MdRecentActors extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/record-voice-over' {
-  declare module.exports: any;
+  declare export default class MdRecordVoiceOver extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/redeem' {
-  declare module.exports: any;
+  declare export default class MdRedeem extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/redo' {
-  declare module.exports: any;
+  declare export default class MdRedo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/refresh' {
-  declare module.exports: any;
+  declare export default class MdRefresh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/remove-circle-outline' {
-  declare module.exports: any;
+  declare export default class MdRemoveCircleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/remove-circle' {
-  declare module.exports: any;
+  declare export default class MdRemoveCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/remove-from-queue' {
-  declare module.exports: any;
+  declare export default class MdRemoveFromQueue extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/remove-red-eye' {
-  declare module.exports: any;
+  declare export default class MdRemoveRedEye extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/remove-shopping-cart' {
-  declare module.exports: any;
+  declare export default class MdRemoveShoppingCart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/remove' {
-  declare module.exports: any;
+  declare export default class MdRemove extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/reorder' {
-  declare module.exports: any;
+  declare export default class MdReorder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/repeat-one' {
-  declare module.exports: any;
+  declare export default class MdRepeatOne extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/repeat' {
-  declare module.exports: any;
+  declare export default class MdRepeat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/replay-10' {
-  declare module.exports: any;
+  declare export default class MdReplay10 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/replay-30' {
-  declare module.exports: any;
+  declare export default class MdReplay30 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/replay-5' {
-  declare module.exports: any;
+  declare export default class MdReplay5 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/replay' {
-  declare module.exports: any;
+  declare export default class MdReplay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/reply-all' {
-  declare module.exports: any;
+  declare export default class MdReplyAll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/reply' {
-  declare module.exports: any;
+  declare export default class MdReply extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/report-problem' {
-  declare module.exports: any;
+  declare export default class MdReportProblem extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/report' {
-  declare module.exports: any;
+  declare export default class MdReport extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/restaurant-menu' {
-  declare module.exports: any;
+  declare export default class MdRestaurantMenu extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/restaurant' {
-  declare module.exports: any;
+  declare export default class MdRestaurant extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/restore-page' {
-  declare module.exports: any;
+  declare export default class MdRestorePage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/restore' {
-  declare module.exports: any;
+  declare export default class MdRestore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/ring-volume' {
-  declare module.exports: any;
+  declare export default class MdRingVolume extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/room-service' {
-  declare module.exports: any;
+  declare export default class MdRoomService extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/room' {
-  declare module.exports: any;
+  declare export default class MdRoom extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/rotate-90-degrees-ccw' {
-  declare module.exports: any;
+  declare export default class MdRotate90DegreesCcw extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/rotate-left' {
-  declare module.exports: any;
+  declare export default class MdRotateLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/rotate-right' {
-  declare module.exports: any;
+  declare export default class MdRotateRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/rounded-corner' {
-  declare module.exports: any;
+  declare export default class MdRoundedCorner extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/router' {
-  declare module.exports: any;
+  declare export default class MdRouter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/rowing' {
-  declare module.exports: any;
+  declare export default class MdRowing extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/rss-feed' {
-  declare module.exports: any;
+  declare export default class MdRssFeed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/rv-hookup' {
-  declare module.exports: any;
+  declare export default class MdRvHookup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/satellite' {
-  declare module.exports: any;
+  declare export default class MdSatellite extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/save' {
-  declare module.exports: any;
+  declare export default class MdSave extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/scanner' {
-  declare module.exports: any;
+  declare export default class MdScanner extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/schedule' {
-  declare module.exports: any;
+  declare export default class MdSchedule extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/school' {
-  declare module.exports: any;
+  declare export default class MdSchool extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/screen-lock-landscape' {
-  declare module.exports: any;
+  declare export default class MdScreenLockLandscape extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/screen-lock-portrait' {
-  declare module.exports: any;
+  declare export default class MdScreenLockPortrait extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/screen-lock-rotation' {
-  declare module.exports: any;
+  declare export default class MdScreenLockRotation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/screen-rotation' {
-  declare module.exports: any;
+  declare export default class MdScreenRotation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/screen-share' {
-  declare module.exports: any;
+  declare export default class MdScreenShare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sd-card' {
-  declare module.exports: any;
+  declare export default class MdSdCard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sd-storage' {
-  declare module.exports: any;
+  declare export default class MdSdStorage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/search' {
-  declare module.exports: any;
+  declare export default class MdSearch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/security' {
-  declare module.exports: any;
+  declare export default class MdSecurity extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/select-all' {
-  declare module.exports: any;
+  declare export default class MdSelectAll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/send' {
-  declare module.exports: any;
+  declare export default class MdSend extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sentiment-dissatisfied' {
-  declare module.exports: any;
+  declare export default class MdSentimentDissatisfied extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sentiment-neutral' {
-  declare module.exports: any;
+  declare export default class MdSentimentNeutral extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sentiment-satisfied' {
-  declare module.exports: any;
+  declare export default class MdSentimentSatisfied extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sentiment-very-dissatisfied' {
-  declare module.exports: any;
+  declare export default class MdSentimentVeryDissatisfied extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sentiment-very-satisfied' {
-  declare module.exports: any;
+  declare export default class MdSentimentVerySatisfied extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-applications' {
-  declare module.exports: any;
+  declare export default class MdSettingsApplications extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-backup-restore' {
-  declare module.exports: any;
+  declare export default class MdSettingsBackupRestore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-bluetooth' {
-  declare module.exports: any;
+  declare export default class MdSettingsBluetooth extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-brightness' {
-  declare module.exports: any;
+  declare export default class MdSettingsBrightness extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-cell' {
-  declare module.exports: any;
+  declare export default class MdSettingsCell extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-ethernet' {
-  declare module.exports: any;
+  declare export default class MdSettingsEthernet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-input-antenna' {
-  declare module.exports: any;
+  declare export default class MdSettingsInputAntenna extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-input-component' {
-  declare module.exports: any;
+  declare export default class MdSettingsInputComponent extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-input-composite' {
-  declare module.exports: any;
+  declare export default class MdSettingsInputComposite extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-input-hdmi' {
-  declare module.exports: any;
+  declare export default class MdSettingsInputHdmi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-input-svideo' {
-  declare module.exports: any;
+  declare export default class MdSettingsInputSvideo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-overscan' {
-  declare module.exports: any;
+  declare export default class MdSettingsOverscan extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-phone' {
-  declare module.exports: any;
+  declare export default class MdSettingsPhone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-power' {
-  declare module.exports: any;
+  declare export default class MdSettingsPower extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-remote' {
-  declare module.exports: any;
+  declare export default class MdSettingsRemote extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-system-daydream' {
-  declare module.exports: any;
+  declare export default class MdSettingsSystemDaydream extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings-voice' {
-  declare module.exports: any;
+  declare export default class MdSettingsVoice extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/settings' {
-  declare module.exports: any;
+  declare export default class MdSettings extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/share' {
-  declare module.exports: any;
+  declare export default class MdShare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/shop-two' {
-  declare module.exports: any;
+  declare export default class MdShopTwo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/shop' {
-  declare module.exports: any;
+  declare export default class MdShop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/shopping-basket' {
-  declare module.exports: any;
+  declare export default class MdShoppingBasket extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/shopping-cart' {
-  declare module.exports: any;
+  declare export default class MdShoppingCart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/short-text' {
-  declare module.exports: any;
+  declare export default class MdShortText extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/show-chart' {
-  declare module.exports: any;
+  declare export default class MdShowChart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/shuffle' {
-  declare module.exports: any;
+  declare export default class MdShuffle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/signal-cellular-4-bar' {
-  declare module.exports: any;
+  declare export default class MdSignalCellular4Bar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/signal-cellular-connected-no-internet-4-bar' {
-  declare module.exports: any;
+  declare export default class MdSignalCellularConnectedNoInternet4Bar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/signal-cellular-no-sim' {
-  declare module.exports: any;
+  declare export default class MdSignalCellularNoSim extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/signal-cellular-null' {
-  declare module.exports: any;
+  declare export default class MdSignalCellularNull extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/signal-cellular-off' {
-  declare module.exports: any;
+  declare export default class MdSignalCellularOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/signal-wifi-4-bar-lock' {
-  declare module.exports: any;
+  declare export default class MdSignalWifi4BarLock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/signal-wifi-4-bar' {
-  declare module.exports: any;
+  declare export default class MdSignalWifi4Bar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/signal-wifi-off' {
-  declare module.exports: any;
+  declare export default class MdSignalWifiOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sim-card-alert' {
-  declare module.exports: any;
+  declare export default class MdSimCardAlert extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sim-card' {
-  declare module.exports: any;
+  declare export default class MdSimCard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/skip-next' {
-  declare module.exports: any;
+  declare export default class MdSkipNext extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/skip-previous' {
-  declare module.exports: any;
+  declare export default class MdSkipPrevious extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/slideshow' {
-  declare module.exports: any;
+  declare export default class MdSlideshow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/slow-motion-video' {
-  declare module.exports: any;
+  declare export default class MdSlowMotionVideo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/smartphone' {
-  declare module.exports: any;
+  declare export default class MdSmartphone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/smoke-free' {
-  declare module.exports: any;
+  declare export default class MdSmokeFree extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/smoking-rooms' {
-  declare module.exports: any;
+  declare export default class MdSmokingRooms extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sms-failed' {
-  declare module.exports: any;
+  declare export default class MdSmsFailed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sms' {
-  declare module.exports: any;
+  declare export default class MdSms extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/snooze' {
-  declare module.exports: any;
+  declare export default class MdSnooze extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sort-by-alpha' {
-  declare module.exports: any;
+  declare export default class MdSortByAlpha extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sort' {
-  declare module.exports: any;
+  declare export default class MdSort extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/spa' {
-  declare module.exports: any;
+  declare export default class MdSpa extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/space-bar' {
-  declare module.exports: any;
+  declare export default class MdSpaceBar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/speaker-group' {
-  declare module.exports: any;
+  declare export default class MdSpeakerGroup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/speaker-notes-off' {
-  declare module.exports: any;
+  declare export default class MdSpeakerNotesOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/speaker-notes' {
-  declare module.exports: any;
+  declare export default class MdSpeakerNotes extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/speaker-phone' {
-  declare module.exports: any;
+  declare export default class MdSpeakerPhone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/speaker' {
-  declare module.exports: any;
+  declare export default class MdSpeaker extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/spellcheck' {
-  declare module.exports: any;
+  declare export default class MdSpellcheck extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/star-border' {
-  declare module.exports: any;
+  declare export default class MdStarBorder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/star-half' {
-  declare module.exports: any;
+  declare export default class MdStarHalf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/star-outline' {
-  declare module.exports: any;
+  declare export default class MdStarOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/star' {
-  declare module.exports: any;
+  declare export default class MdStar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/stars' {
-  declare module.exports: any;
+  declare export default class MdStars extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/stay-current-landscape' {
-  declare module.exports: any;
+  declare export default class MdStayCurrentLandscape extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/stay-current-portrait' {
-  declare module.exports: any;
+  declare export default class MdStayCurrentPortrait extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/stay-primary-landscape' {
-  declare module.exports: any;
+  declare export default class MdStayPrimaryLandscape extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/stay-primary-portrait' {
-  declare module.exports: any;
+  declare export default class MdStayPrimaryPortrait extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/stop-screen-share' {
-  declare module.exports: any;
+  declare export default class MdStopScreenShare extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/stop' {
-  declare module.exports: any;
+  declare export default class MdStop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/storage' {
-  declare module.exports: any;
+  declare export default class MdStorage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/store-mall-directory' {
-  declare module.exports: any;
+  declare export default class MdStoreMallDirectory extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/store' {
-  declare module.exports: any;
+  declare export default class MdStore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/straighten' {
-  declare module.exports: any;
+  declare export default class MdStraighten extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/streetview' {
-  declare module.exports: any;
+  declare export default class MdStreetview extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/strikethrough-s' {
-  declare module.exports: any;
+  declare export default class MdStrikethroughS extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/style' {
-  declare module.exports: any;
+  declare export default class MdStyle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/subdirectory-arrow-left' {
-  declare module.exports: any;
+  declare export default class MdSubdirectoryArrowLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/subdirectory-arrow-right' {
-  declare module.exports: any;
+  declare export default class MdSubdirectoryArrowRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/subject' {
-  declare module.exports: any;
+  declare export default class MdSubject extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/subscriptions' {
-  declare module.exports: any;
+  declare export default class MdSubscriptions extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/subtitles' {
-  declare module.exports: any;
+  declare export default class MdSubtitles extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/subway' {
-  declare module.exports: any;
+  declare export default class MdSubway extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/supervisor-account' {
-  declare module.exports: any;
+  declare export default class MdSupervisorAccount extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/surround-sound' {
-  declare module.exports: any;
+  declare export default class MdSurroundSound extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/swap-calls' {
-  declare module.exports: any;
+  declare export default class MdSwapCalls extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/swap-horiz' {
-  declare module.exports: any;
+  declare export default class MdSwapHoriz extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/swap-vert' {
-  declare module.exports: any;
+  declare export default class MdSwapVert extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/swap-vertical-circle' {
-  declare module.exports: any;
+  declare export default class MdSwapVerticalCircle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/switch-camera' {
-  declare module.exports: any;
+  declare export default class MdSwitchCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/switch-video' {
-  declare module.exports: any;
+  declare export default class MdSwitchVideo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sync-disabled' {
-  declare module.exports: any;
+  declare export default class MdSyncDisabled extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sync-problem' {
-  declare module.exports: any;
+  declare export default class MdSyncProblem extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/sync' {
-  declare module.exports: any;
+  declare export default class MdSync extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/system-update-alt' {
-  declare module.exports: any;
+  declare export default class MdSystemUpdateAlt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/system-update' {
-  declare module.exports: any;
+  declare export default class MdSystemUpdate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tab-unselected' {
-  declare module.exports: any;
+  declare export default class MdTabUnselected extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tab' {
-  declare module.exports: any;
+  declare export default class MdTab extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tablet-android' {
-  declare module.exports: any;
+  declare export default class MdTabletAndroid extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tablet-mac' {
-  declare module.exports: any;
+  declare export default class MdTabletMac extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tablet' {
-  declare module.exports: any;
+  declare export default class MdTablet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tag-faces' {
-  declare module.exports: any;
+  declare export default class MdTagFaces extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tap-and-play' {
-  declare module.exports: any;
+  declare export default class MdTapAndPlay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/terrain' {
-  declare module.exports: any;
+  declare export default class MdTerrain extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/text-fields' {
-  declare module.exports: any;
+  declare export default class MdTextFields extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/text-format' {
-  declare module.exports: any;
+  declare export default class MdTextFormat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/textsms' {
-  declare module.exports: any;
+  declare export default class MdTextsms extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/texture' {
-  declare module.exports: any;
+  declare export default class MdTexture extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/theaters' {
-  declare module.exports: any;
+  declare export default class MdTheaters extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/thumb-down' {
-  declare module.exports: any;
+  declare export default class MdThumbDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/thumb-up' {
-  declare module.exports: any;
+  declare export default class MdThumbUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/thumbs-up-down' {
-  declare module.exports: any;
+  declare export default class MdThumbsUpDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/time-to-leave' {
-  declare module.exports: any;
+  declare export default class MdTimeToLeave extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/timelapse' {
-  declare module.exports: any;
+  declare export default class MdTimelapse extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/timeline' {
-  declare module.exports: any;
+  declare export default class MdTimeline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/timer-10' {
-  declare module.exports: any;
+  declare export default class MdTimer10 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/timer-3' {
-  declare module.exports: any;
+  declare export default class MdTimer3 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/timer-off' {
-  declare module.exports: any;
+  declare export default class MdTimerOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/timer' {
-  declare module.exports: any;
+  declare export default class MdTimer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/title' {
-  declare module.exports: any;
+  declare export default class MdTitle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/toc' {
-  declare module.exports: any;
+  declare export default class MdToc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/today' {
-  declare module.exports: any;
+  declare export default class MdToday extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/toll' {
-  declare module.exports: any;
+  declare export default class MdToll extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tonality' {
-  declare module.exports: any;
+  declare export default class MdTonality extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/touch-app' {
-  declare module.exports: any;
+  declare export default class MdTouchApp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/toys' {
-  declare module.exports: any;
+  declare export default class MdToys extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/track-changes' {
-  declare module.exports: any;
+  declare export default class MdTrackChanges extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/traffic' {
-  declare module.exports: any;
+  declare export default class MdTraffic extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/train' {
-  declare module.exports: any;
+  declare export default class MdTrain extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tram' {
-  declare module.exports: any;
+  declare export default class MdTram extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/transfer-within-a-station' {
-  declare module.exports: any;
+  declare export default class MdTransferWithinAStation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/transform' {
-  declare module.exports: any;
+  declare export default class MdTransform extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/translate' {
-  declare module.exports: any;
+  declare export default class MdTranslate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/trending-down' {
-  declare module.exports: any;
+  declare export default class MdTrendingDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/trending-flat' {
-  declare module.exports: any;
+  declare export default class MdTrendingFlat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/trending-neutral' {
-  declare module.exports: any;
+  declare export default class MdTrendingNeutral extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/trending-up' {
-  declare module.exports: any;
+  declare export default class MdTrendingUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tune' {
-  declare module.exports: any;
+  declare export default class MdTune extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/turned-in-not' {
-  declare module.exports: any;
+  declare export default class MdTurnedInNot extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/turned-in' {
-  declare module.exports: any;
+  declare export default class MdTurnedIn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/tv' {
-  declare module.exports: any;
+  declare export default class MdTv extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/unarchive' {
-  declare module.exports: any;
+  declare export default class MdUnarchive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/undo' {
-  declare module.exports: any;
+  declare export default class MdUndo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/unfold-less' {
-  declare module.exports: any;
+  declare export default class MdUnfoldLess extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/unfold-more' {
-  declare module.exports: any;
+  declare export default class MdUnfoldMore extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/update' {
-  declare module.exports: any;
+  declare export default class MdUpdate extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/usb' {
-  declare module.exports: any;
+  declare export default class MdUsb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/verified-user' {
-  declare module.exports: any;
+  declare export default class MdVerifiedUser extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/vertical-align-bottom' {
-  declare module.exports: any;
+  declare export default class MdVerticalAlignBottom extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/vertical-align-center' {
-  declare module.exports: any;
+  declare export default class MdVerticalAlignCenter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/vertical-align-top' {
-  declare module.exports: any;
+  declare export default class MdVerticalAlignTop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/vibration' {
-  declare module.exports: any;
+  declare export default class MdVibration extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/video-call' {
-  declare module.exports: any;
+  declare export default class MdVideoCall extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/video-collection' {
-  declare module.exports: any;
+  declare export default class MdVideoCollection extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/video-label' {
-  declare module.exports: any;
+  declare export default class MdVideoLabel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/video-library' {
-  declare module.exports: any;
+  declare export default class MdVideoLibrary extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/videocam-off' {
-  declare module.exports: any;
+  declare export default class MdVideocamOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/videocam' {
-  declare module.exports: any;
+  declare export default class MdVideocam extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/videogame-asset' {
-  declare module.exports: any;
+  declare export default class MdVideogameAsset extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-agenda' {
-  declare module.exports: any;
+  declare export default class MdViewAgenda extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-array' {
-  declare module.exports: any;
+  declare export default class MdViewArray extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-carousel' {
-  declare module.exports: any;
+  declare export default class MdViewCarousel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-column' {
-  declare module.exports: any;
+  declare export default class MdViewColumn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-comfortable' {
-  declare module.exports: any;
+  declare export default class MdViewComfortable extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-comfy' {
-  declare module.exports: any;
+  declare export default class MdViewComfy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-compact' {
-  declare module.exports: any;
+  declare export default class MdViewCompact extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-day' {
-  declare module.exports: any;
+  declare export default class MdViewDay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-headline' {
-  declare module.exports: any;
+  declare export default class MdViewHeadline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-list' {
-  declare module.exports: any;
+  declare export default class MdViewList extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-module' {
-  declare module.exports: any;
+  declare export default class MdViewModule extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-quilt' {
-  declare module.exports: any;
+  declare export default class MdViewQuilt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-stream' {
-  declare module.exports: any;
+  declare export default class MdViewStream extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/view-week' {
-  declare module.exports: any;
+  declare export default class MdViewWeek extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/vignette' {
-  declare module.exports: any;
+  declare export default class MdVignette extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/visibility-off' {
-  declare module.exports: any;
+  declare export default class MdVisibilityOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/visibility' {
-  declare module.exports: any;
+  declare export default class MdVisibility extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/voice-chat' {
-  declare module.exports: any;
+  declare export default class MdVoiceChat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/voicemail' {
-  declare module.exports: any;
+  declare export default class MdVoicemail extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/volume-down' {
-  declare module.exports: any;
+  declare export default class MdVolumeDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/volume-mute' {
-  declare module.exports: any;
+  declare export default class MdVolumeMute extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/volume-off' {
-  declare module.exports: any;
+  declare export default class MdVolumeOff extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/volume-up' {
-  declare module.exports: any;
+  declare export default class MdVolumeUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/vpn-key' {
-  declare module.exports: any;
+  declare export default class MdVpnKey extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/vpn-lock' {
-  declare module.exports: any;
+  declare export default class MdVpnLock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wallpaper' {
-  declare module.exports: any;
+  declare export default class MdWallpaper extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/warning' {
-  declare module.exports: any;
+  declare export default class MdWarning extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/watch-later' {
-  declare module.exports: any;
+  declare export default class MdWatchLater extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/watch' {
-  declare module.exports: any;
+  declare export default class MdWatch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wb-auto' {
-  declare module.exports: any;
+  declare export default class MdWbAuto extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wb-cloudy' {
-  declare module.exports: any;
+  declare export default class MdWbCloudy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wb-incandescent' {
-  declare module.exports: any;
+  declare export default class MdWbIncandescent extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wb-iridescent' {
-  declare module.exports: any;
+  declare export default class MdWbIridescent extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wb-sunny' {
-  declare module.exports: any;
+  declare export default class MdWbSunny extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wc' {
-  declare module.exports: any;
+  declare export default class MdWc extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/web-asset' {
-  declare module.exports: any;
+  declare export default class MdWebAsset extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/web' {
-  declare module.exports: any;
+  declare export default class MdWeb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/weekend' {
-  declare module.exports: any;
+  declare export default class MdWeekend extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/whatshot' {
-  declare module.exports: any;
+  declare export default class MdWhatshot extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/widgets' {
-  declare module.exports: any;
+  declare export default class MdWidgets extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wifi-lock' {
-  declare module.exports: any;
+  declare export default class MdWifiLock extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wifi-tethering' {
-  declare module.exports: any;
+  declare export default class MdWifiTethering extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wifi' {
-  declare module.exports: any;
+  declare export default class MdWifi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/work' {
-  declare module.exports: any;
+  declare export default class MdWork extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/wrap-text' {
-  declare module.exports: any;
+  declare export default class MdWrapText extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/youtube-searched-for' {
-  declare module.exports: any;
+  declare export default class MdYoutubeSearchedFor extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/zoom-in' {
-  declare module.exports: any;
+  declare export default class MdZoomIn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/zoom-out-map' {
-  declare module.exports: any;
+  declare export default class MdZoomOutMap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/md/zoom-out' {
-  declare module.exports: any;
+  declare export default class MdZoomOut extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/adjust-brightness' {
-  declare module.exports: any;
+  declare export default class TiAdjustBrightness extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/adjust-contrast' {
-  declare module.exports: any;
+  declare export default class TiAdjustContrast extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/anchor-outline' {
-  declare module.exports: any;
+  declare export default class TiAnchorOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/anchor' {
-  declare module.exports: any;
+  declare export default class TiAnchor extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/archive' {
-  declare module.exports: any;
+  declare export default class TiArchive extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-back-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowBackOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-back' {
-  declare module.exports: any;
+  declare export default class TiArrowBack extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-down-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowDownOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-down-thick' {
-  declare module.exports: any;
+  declare export default class TiArrowDownThick extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-down' {
-  declare module.exports: any;
+  declare export default class TiArrowDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-forward-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowForwardOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-forward' {
-  declare module.exports: any;
+  declare export default class TiArrowForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-left-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowLeftOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-left-thick' {
-  declare module.exports: any;
+  declare export default class TiArrowLeftThick extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-left' {
-  declare module.exports: any;
+  declare export default class TiArrowLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-loop-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowLoopOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-loop' {
-  declare module.exports: any;
+  declare export default class TiArrowLoop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-maximise-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowMaximiseOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-maximise' {
-  declare module.exports: any;
+  declare export default class TiArrowMaximise extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-minimise-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowMinimiseOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-minimise' {
-  declare module.exports: any;
+  declare export default class TiArrowMinimise extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-move-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowMoveOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-move' {
-  declare module.exports: any;
+  declare export default class TiArrowMove extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-repeat-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowRepeatOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-repeat' {
-  declare module.exports: any;
+  declare export default class TiArrowRepeat extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-right-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowRightOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-right-thick' {
-  declare module.exports: any;
+  declare export default class TiArrowRightThick extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-right' {
-  declare module.exports: any;
+  declare export default class TiArrowRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-shuffle' {
-  declare module.exports: any;
+  declare export default class TiArrowShuffle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-sorted-down' {
-  declare module.exports: any;
+  declare export default class TiArrowSortedDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-sorted-up' {
-  declare module.exports: any;
+  declare export default class TiArrowSortedUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-sync-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowSyncOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-sync' {
-  declare module.exports: any;
+  declare export default class TiArrowSync extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-unsorted' {
-  declare module.exports: any;
+  declare export default class TiArrowUnsorted extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-up-outline' {
-  declare module.exports: any;
+  declare export default class TiArrowUpOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-up-thick' {
-  declare module.exports: any;
+  declare export default class TiArrowUpThick extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/arrow-up' {
-  declare module.exports: any;
+  declare export default class TiArrowUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/at' {
-  declare module.exports: any;
+  declare export default class TiAt extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/attachment-outline' {
-  declare module.exports: any;
+  declare export default class TiAttachmentOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/attachment' {
-  declare module.exports: any;
+  declare export default class TiAttachment extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/backspace-outline' {
-  declare module.exports: any;
+  declare export default class TiBackspaceOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/backspace' {
-  declare module.exports: any;
+  declare export default class TiBackspace extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/battery-charge' {
-  declare module.exports: any;
+  declare export default class TiBatteryCharge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/battery-full' {
-  declare module.exports: any;
+  declare export default class TiBatteryFull extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/battery-high' {
-  declare module.exports: any;
+  declare export default class TiBatteryHigh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/battery-low' {
-  declare module.exports: any;
+  declare export default class TiBatteryLow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/battery-mid' {
-  declare module.exports: any;
+  declare export default class TiBatteryMid extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/beaker' {
-  declare module.exports: any;
+  declare export default class TiBeaker extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/beer' {
-  declare module.exports: any;
+  declare export default class TiBeer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/bell' {
-  declare module.exports: any;
+  declare export default class TiBell extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/book' {
-  declare module.exports: any;
+  declare export default class TiBook extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/bookmark' {
-  declare module.exports: any;
+  declare export default class TiBookmark extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/briefcase' {
-  declare module.exports: any;
+  declare export default class TiBriefcase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/brush' {
-  declare module.exports: any;
+  declare export default class TiBrush extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/business-card' {
-  declare module.exports: any;
+  declare export default class TiBusinessCard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/calculator' {
-  declare module.exports: any;
+  declare export default class TiCalculator extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/calendar-outline' {
-  declare module.exports: any;
+  declare export default class TiCalendarOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/calendar' {
-  declare module.exports: any;
+  declare export default class TiCalendar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/calender-outline' {
-  declare module.exports: any;
+  declare export default class TiCalenderOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/calender' {
-  declare module.exports: any;
+  declare export default class TiCalender extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/camera-outline' {
-  declare module.exports: any;
+  declare export default class TiCameraOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/camera' {
-  declare module.exports: any;
+  declare export default class TiCamera extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/cancel-outline' {
-  declare module.exports: any;
+  declare export default class TiCancelOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/cancel' {
-  declare module.exports: any;
+  declare export default class TiCancel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chart-area-outline' {
-  declare module.exports: any;
+  declare export default class TiChartAreaOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chart-area' {
-  declare module.exports: any;
+  declare export default class TiChartArea extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chart-bar-outline' {
-  declare module.exports: any;
+  declare export default class TiChartBarOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chart-bar' {
-  declare module.exports: any;
+  declare export default class TiChartBar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chart-line-outline' {
-  declare module.exports: any;
+  declare export default class TiChartLineOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chart-line' {
-  declare module.exports: any;
+  declare export default class TiChartLine extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chart-pie-outline' {
-  declare module.exports: any;
+  declare export default class TiChartPieOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chart-pie' {
-  declare module.exports: any;
+  declare export default class TiChartPie extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chevron-left-outline' {
-  declare module.exports: any;
+  declare export default class TiChevronLeftOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chevron-left' {
-  declare module.exports: any;
+  declare export default class TiChevronLeft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chevron-right-outline' {
-  declare module.exports: any;
+  declare export default class TiChevronRightOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/chevron-right' {
-  declare module.exports: any;
+  declare export default class TiChevronRight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/clipboard' {
-  declare module.exports: any;
+  declare export default class TiClipboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/cloud-storage-outline' {
-  declare module.exports: any;
+  declare export default class TiCloudStorageOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/cloud-storage' {
-  declare module.exports: any;
+  declare export default class TiCloudStorage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/code-outline' {
-  declare module.exports: any;
+  declare export default class TiCodeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/code' {
-  declare module.exports: any;
+  declare export default class TiCode extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/coffee' {
-  declare module.exports: any;
+  declare export default class TiCoffee extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/cog-outline' {
-  declare module.exports: any;
+  declare export default class TiCogOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/cog' {
-  declare module.exports: any;
+  declare export default class TiCog extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/compass' {
-  declare module.exports: any;
+  declare export default class TiCompass extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/contacts' {
-  declare module.exports: any;
+  declare export default class TiContacts extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/credit-card' {
-  declare module.exports: any;
+  declare export default class TiCreditCard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/cross' {
-  declare module.exports: any;
+  declare export default class TiCross extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/css3' {
-  declare module.exports: any;
+  declare export default class TiCss3 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/database' {
-  declare module.exports: any;
+  declare export default class TiDatabase extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/delete-outline' {
-  declare module.exports: any;
+  declare export default class TiDeleteOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/delete' {
-  declare module.exports: any;
+  declare export default class TiDelete extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/device-desktop' {
-  declare module.exports: any;
+  declare export default class TiDeviceDesktop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/device-laptop' {
-  declare module.exports: any;
+  declare export default class TiDeviceLaptop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/device-phone' {
-  declare module.exports: any;
+  declare export default class TiDevicePhone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/device-tablet' {
-  declare module.exports: any;
+  declare export default class TiDeviceTablet extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/directions' {
-  declare module.exports: any;
+  declare export default class TiDirections extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/divide-outline' {
-  declare module.exports: any;
+  declare export default class TiDivideOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/divide' {
-  declare module.exports: any;
+  declare export default class TiDivide extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/document-add' {
-  declare module.exports: any;
+  declare export default class TiDocumentAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/document-delete' {
-  declare module.exports: any;
+  declare export default class TiDocumentDelete extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/document-text' {
-  declare module.exports: any;
+  declare export default class TiDocumentText extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/document' {
-  declare module.exports: any;
+  declare export default class TiDocument extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/download-outline' {
-  declare module.exports: any;
+  declare export default class TiDownloadOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/download' {
-  declare module.exports: any;
+  declare export default class TiDownload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/dropbox' {
-  declare module.exports: any;
+  declare export default class TiDropbox extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/edit' {
-  declare module.exports: any;
+  declare export default class TiEdit extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/eject-outline' {
-  declare module.exports: any;
+  declare export default class TiEjectOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/eject' {
-  declare module.exports: any;
+  declare export default class TiEject extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/equals-outline' {
-  declare module.exports: any;
+  declare export default class TiEqualsOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/equals' {
-  declare module.exports: any;
+  declare export default class TiEquals extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/export-outline' {
-  declare module.exports: any;
+  declare export default class TiExportOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/export' {
-  declare module.exports: any;
+  declare export default class TiExport extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/eye-outline' {
-  declare module.exports: any;
+  declare export default class TiEyeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/eye' {
-  declare module.exports: any;
+  declare export default class TiEye extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/feather' {
-  declare module.exports: any;
+  declare export default class TiFeather extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/film' {
-  declare module.exports: any;
+  declare export default class TiFilm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/filter' {
-  declare module.exports: any;
+  declare export default class TiFilter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/flag-outline' {
-  declare module.exports: any;
+  declare export default class TiFlagOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/flag' {
-  declare module.exports: any;
+  declare export default class TiFlag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/flash-outline' {
-  declare module.exports: any;
+  declare export default class TiFlashOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/flash' {
-  declare module.exports: any;
+  declare export default class TiFlash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/flow-children' {
-  declare module.exports: any;
+  declare export default class TiFlowChildren extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/flow-merge' {
-  declare module.exports: any;
+  declare export default class TiFlowMerge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/flow-parallel' {
-  declare module.exports: any;
+  declare export default class TiFlowParallel extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/flow-switch' {
-  declare module.exports: any;
+  declare export default class TiFlowSwitch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/folder-add' {
-  declare module.exports: any;
+  declare export default class TiFolderAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/folder-delete' {
-  declare module.exports: any;
+  declare export default class TiFolderDelete extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/folder-open' {
-  declare module.exports: any;
+  declare export default class TiFolderOpen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/folder' {
-  declare module.exports: any;
+  declare export default class TiFolder extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/gift' {
-  declare module.exports: any;
+  declare export default class TiGift extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/globe-outline' {
-  declare module.exports: any;
+  declare export default class TiGlobeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/globe' {
-  declare module.exports: any;
+  declare export default class TiGlobe extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/group-outline' {
-  declare module.exports: any;
+  declare export default class TiGroupOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/group' {
-  declare module.exports: any;
+  declare export default class TiGroup extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/headphones' {
-  declare module.exports: any;
+  declare export default class TiHeadphones extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/heart-full-outline' {
-  declare module.exports: any;
+  declare export default class TiHeartFullOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/heart-half-outline' {
-  declare module.exports: any;
+  declare export default class TiHeartHalfOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/heart-outline' {
-  declare module.exports: any;
+  declare export default class TiHeartOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/heart' {
-  declare module.exports: any;
+  declare export default class TiHeart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/home-outline' {
-  declare module.exports: any;
+  declare export default class TiHomeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/home' {
-  declare module.exports: any;
+  declare export default class TiHome extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/html5' {
-  declare module.exports: any;
+  declare export default class TiHtml5 extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/image-outline' {
-  declare module.exports: any;
+  declare export default class TiImageOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/image' {
-  declare module.exports: any;
+  declare export default class TiImage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/index' {
-  declare module.exports: any;
+  declare export default class TiIndex extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/infinity-outline' {
-  declare module.exports: any;
+  declare export default class TiInfinityOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/infinity' {
-  declare module.exports: any;
+  declare export default class TiInfinity extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/info-large-outline' {
-  declare module.exports: any;
+  declare export default class TiInfoLargeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/info-large' {
-  declare module.exports: any;
+  declare export default class TiInfoLarge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/info-outline' {
-  declare module.exports: any;
+  declare export default class TiInfoOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/info' {
-  declare module.exports: any;
+  declare export default class TiInfo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/input-checked-outline' {
-  declare module.exports: any;
+  declare export default class TiInputCheckedOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/input-checked' {
-  declare module.exports: any;
+  declare export default class TiInputChecked extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/key-outline' {
-  declare module.exports: any;
+  declare export default class TiKeyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/key' {
-  declare module.exports: any;
+  declare export default class TiKey extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/keyboard' {
-  declare module.exports: any;
+  declare export default class TiKeyboard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/leaf' {
-  declare module.exports: any;
+  declare export default class TiLeaf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/lightbulb' {
-  declare module.exports: any;
+  declare export default class TiLightbulb extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/link-outline' {
-  declare module.exports: any;
+  declare export default class TiLinkOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/link' {
-  declare module.exports: any;
+  declare export default class TiLink extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/location-arrow-outline' {
-  declare module.exports: any;
+  declare export default class TiLocationArrowOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/location-arrow' {
-  declare module.exports: any;
+  declare export default class TiLocationArrow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/location-outline' {
-  declare module.exports: any;
+  declare export default class TiLocationOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/location' {
-  declare module.exports: any;
+  declare export default class TiLocation extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/lock-closed-outline' {
-  declare module.exports: any;
+  declare export default class TiLockClosedOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/lock-closed' {
-  declare module.exports: any;
+  declare export default class TiLockClosed extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/lock-open-outline' {
-  declare module.exports: any;
+  declare export default class TiLockOpenOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/lock-open' {
-  declare module.exports: any;
+  declare export default class TiLockOpen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/mail' {
-  declare module.exports: any;
+  declare export default class TiMail extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/map' {
-  declare module.exports: any;
+  declare export default class TiMap extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-eject-outline' {
-  declare module.exports: any;
+  declare export default class TiMediaEjectOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-eject' {
-  declare module.exports: any;
+  declare export default class TiMediaEject extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-fast-forward-outline' {
-  declare module.exports: any;
+  declare export default class TiMediaFastForwardOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-fast-forward' {
-  declare module.exports: any;
+  declare export default class TiMediaFastForward extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-pause-outline' {
-  declare module.exports: any;
+  declare export default class TiMediaPauseOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-pause' {
-  declare module.exports: any;
+  declare export default class TiMediaPause extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-play-outline' {
-  declare module.exports: any;
+  declare export default class TiMediaPlayOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-play-reverse-outline' {
-  declare module.exports: any;
+  declare export default class TiMediaPlayReverseOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-play-reverse' {
-  declare module.exports: any;
+  declare export default class TiMediaPlayReverse extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-play' {
-  declare module.exports: any;
+  declare export default class TiMediaPlay extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-record-outline' {
-  declare module.exports: any;
+  declare export default class TiMediaRecordOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-record' {
-  declare module.exports: any;
+  declare export default class TiMediaRecord extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-rewind-outline' {
-  declare module.exports: any;
+  declare export default class TiMediaRewindOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-rewind' {
-  declare module.exports: any;
+  declare export default class TiMediaRewind extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-stop-outline' {
-  declare module.exports: any;
+  declare export default class TiMediaStopOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/media-stop' {
-  declare module.exports: any;
+  declare export default class TiMediaStop extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/message-typing' {
-  declare module.exports: any;
+  declare export default class TiMessageTyping extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/message' {
-  declare module.exports: any;
+  declare export default class TiMessage extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/messages' {
-  declare module.exports: any;
+  declare export default class TiMessages extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/microphone-outline' {
-  declare module.exports: any;
+  declare export default class TiMicrophoneOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/microphone' {
-  declare module.exports: any;
+  declare export default class TiMicrophone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/minus-outline' {
-  declare module.exports: any;
+  declare export default class TiMinusOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/minus' {
-  declare module.exports: any;
+  declare export default class TiMinus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/mortar-board' {
-  declare module.exports: any;
+  declare export default class TiMortarBoard extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/news' {
-  declare module.exports: any;
+  declare export default class TiNews extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/notes-outline' {
-  declare module.exports: any;
+  declare export default class TiNotesOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/notes' {
-  declare module.exports: any;
+  declare export default class TiNotes extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/pen' {
-  declare module.exports: any;
+  declare export default class TiPen extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/pencil' {
-  declare module.exports: any;
+  declare export default class TiPencil extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/phone-outline' {
-  declare module.exports: any;
+  declare export default class TiPhoneOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/phone' {
-  declare module.exports: any;
+  declare export default class TiPhone extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/pi-outline' {
-  declare module.exports: any;
+  declare export default class TiPiOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/pi' {
-  declare module.exports: any;
+  declare export default class TiPi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/pin-outline' {
-  declare module.exports: any;
+  declare export default class TiPinOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/pin' {
-  declare module.exports: any;
+  declare export default class TiPin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/pipette' {
-  declare module.exports: any;
+  declare export default class TiPipette extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/plane-outline' {
-  declare module.exports: any;
+  declare export default class TiPlaneOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/plane' {
-  declare module.exports: any;
+  declare export default class TiPlane extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/plug' {
-  declare module.exports: any;
+  declare export default class TiPlug extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/plus-outline' {
-  declare module.exports: any;
+  declare export default class TiPlusOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/plus' {
-  declare module.exports: any;
+  declare export default class TiPlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/point-of-interest-outline' {
-  declare module.exports: any;
+  declare export default class TiPointOfInterestOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/point-of-interest' {
-  declare module.exports: any;
+  declare export default class TiPointOfInterest extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/power-outline' {
-  declare module.exports: any;
+  declare export default class TiPowerOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/power' {
-  declare module.exports: any;
+  declare export default class TiPower extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/printer' {
-  declare module.exports: any;
+  declare export default class TiPrinter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/puzzle-outline' {
-  declare module.exports: any;
+  declare export default class TiPuzzleOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/puzzle' {
-  declare module.exports: any;
+  declare export default class TiPuzzle extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/radar-outline' {
-  declare module.exports: any;
+  declare export default class TiRadarOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/radar' {
-  declare module.exports: any;
+  declare export default class TiRadar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/refresh-outline' {
-  declare module.exports: any;
+  declare export default class TiRefreshOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/refresh' {
-  declare module.exports: any;
+  declare export default class TiRefresh extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/rss-outline' {
-  declare module.exports: any;
+  declare export default class TiRssOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/rss' {
-  declare module.exports: any;
+  declare export default class TiRss extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/scissors-outline' {
-  declare module.exports: any;
+  declare export default class TiScissorsOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/scissors' {
-  declare module.exports: any;
+  declare export default class TiScissors extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/shopping-bag' {
-  declare module.exports: any;
+  declare export default class TiShoppingBag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/shopping-cart' {
-  declare module.exports: any;
+  declare export default class TiShoppingCart extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-at-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialAtCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-dribbble-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialDribbbleCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-dribbble' {
-  declare module.exports: any;
+  declare export default class TiSocialDribbble extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-facebook-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialFacebookCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-facebook' {
-  declare module.exports: any;
+  declare export default class TiSocialFacebook extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-flickr-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialFlickrCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-flickr' {
-  declare module.exports: any;
+  declare export default class TiSocialFlickr extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-github-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialGithubCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-github' {
-  declare module.exports: any;
+  declare export default class TiSocialGithub extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-google-plus-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialGooglePlusCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-google-plus' {
-  declare module.exports: any;
+  declare export default class TiSocialGooglePlus extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-instagram-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialInstagramCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-instagram' {
-  declare module.exports: any;
+  declare export default class TiSocialInstagram extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-last-fm-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialLastFmCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-last-fm' {
-  declare module.exports: any;
+  declare export default class TiSocialLastFm extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-linkedin-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialLinkedinCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-linkedin' {
-  declare module.exports: any;
+  declare export default class TiSocialLinkedin extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-pinterest-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialPinterestCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-pinterest' {
-  declare module.exports: any;
+  declare export default class TiSocialPinterest extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-skype-outline' {
-  declare module.exports: any;
+  declare export default class TiSocialSkypeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-skype' {
-  declare module.exports: any;
+  declare export default class TiSocialSkype extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-tumbler-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialTumblerCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-tumbler' {
-  declare module.exports: any;
+  declare export default class TiSocialTumbler extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-twitter-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialTwitterCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-twitter' {
-  declare module.exports: any;
+  declare export default class TiSocialTwitter extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-vimeo-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialVimeoCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-vimeo' {
-  declare module.exports: any;
+  declare export default class TiSocialVimeo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-youtube-circular' {
-  declare module.exports: any;
+  declare export default class TiSocialYoutubeCircular extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/social-youtube' {
-  declare module.exports: any;
+  declare export default class TiSocialYoutube extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/sort-alphabetically-outline' {
-  declare module.exports: any;
+  declare export default class TiSortAlphabeticallyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/sort-alphabetically' {
-  declare module.exports: any;
+  declare export default class TiSortAlphabetically extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/sort-numerically-outline' {
-  declare module.exports: any;
+  declare export default class TiSortNumericallyOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/sort-numerically' {
-  declare module.exports: any;
+  declare export default class TiSortNumerically extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/spanner-outline' {
-  declare module.exports: any;
+  declare export default class TiSpannerOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/spanner' {
-  declare module.exports: any;
+  declare export default class TiSpanner extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/spiral' {
-  declare module.exports: any;
+  declare export default class TiSpiral extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/star-full-outline' {
-  declare module.exports: any;
+  declare export default class TiStarFullOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/star-half-outline' {
-  declare module.exports: any;
+  declare export default class TiStarHalfOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/star-half' {
-  declare module.exports: any;
+  declare export default class TiStarHalf extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/star-outline' {
-  declare module.exports: any;
+  declare export default class TiStarOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/star' {
-  declare module.exports: any;
+  declare export default class TiStar extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/starburst-outline' {
-  declare module.exports: any;
+  declare export default class TiStarburstOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/starburst' {
-  declare module.exports: any;
+  declare export default class TiStarburst extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/stopwatch' {
-  declare module.exports: any;
+  declare export default class TiStopwatch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/support' {
-  declare module.exports: any;
+  declare export default class TiSupport extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/tabs-outline' {
-  declare module.exports: any;
+  declare export default class TiTabsOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/tag' {
-  declare module.exports: any;
+  declare export default class TiTag extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/tags' {
-  declare module.exports: any;
+  declare export default class TiTags extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/th-large-outline' {
-  declare module.exports: any;
+  declare export default class TiThLargeOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/th-large' {
-  declare module.exports: any;
+  declare export default class TiThLarge extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/th-list-outline' {
-  declare module.exports: any;
+  declare export default class TiThListOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/th-list' {
-  declare module.exports: any;
+  declare export default class TiThList extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/th-menu-outline' {
-  declare module.exports: any;
+  declare export default class TiThMenuOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/th-menu' {
-  declare module.exports: any;
+  declare export default class TiThMenu extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/th-small-outline' {
-  declare module.exports: any;
+  declare export default class TiThSmallOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/th-small' {
-  declare module.exports: any;
+  declare export default class TiThSmall extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/thermometer' {
-  declare module.exports: any;
+  declare export default class TiThermometer extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/thumbs-down' {
-  declare module.exports: any;
+  declare export default class TiThumbsDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/thumbs-ok' {
-  declare module.exports: any;
+  declare export default class TiThumbsOk extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/thumbs-up' {
-  declare module.exports: any;
+  declare export default class TiThumbsUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/tick-outline' {
-  declare module.exports: any;
+  declare export default class TiTickOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/tick' {
-  declare module.exports: any;
+  declare export default class TiTick extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/ticket' {
-  declare module.exports: any;
+  declare export default class TiTicket extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/time' {
-  declare module.exports: any;
+  declare export default class TiTime extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/times-outline' {
-  declare module.exports: any;
+  declare export default class TiTimesOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/times' {
-  declare module.exports: any;
+  declare export default class TiTimes extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/trash' {
-  declare module.exports: any;
+  declare export default class TiTrash extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/tree' {
-  declare module.exports: any;
+  declare export default class TiTree extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/upload-outline' {
-  declare module.exports: any;
+  declare export default class TiUploadOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/upload' {
-  declare module.exports: any;
+  declare export default class TiUpload extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/user-add-outline' {
-  declare module.exports: any;
+  declare export default class TiUserAddOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/user-add' {
-  declare module.exports: any;
+  declare export default class TiUserAdd extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/user-delete-outline' {
-  declare module.exports: any;
+  declare export default class TiUserDeleteOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/user-delete' {
-  declare module.exports: any;
+  declare export default class TiUserDelete extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/user-outline' {
-  declare module.exports: any;
+  declare export default class TiUserOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/user' {
-  declare module.exports: any;
+  declare export default class TiUser extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/vendor-android' {
-  declare module.exports: any;
+  declare export default class TiVendorAndroid extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/vendor-apple' {
-  declare module.exports: any;
+  declare export default class TiVendorApple extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/vendor-microsoft' {
-  declare module.exports: any;
+  declare export default class TiVendorMicrosoft extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/video-outline' {
-  declare module.exports: any;
+  declare export default class TiVideoOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/video' {
-  declare module.exports: any;
+  declare export default class TiVideo extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/volume-down' {
-  declare module.exports: any;
+  declare export default class TiVolumeDown extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/volume-mute' {
-  declare module.exports: any;
+  declare export default class TiVolumeMute extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/volume-up' {
-  declare module.exports: any;
+  declare export default class TiVolumeUp extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/volume' {
-  declare module.exports: any;
+  declare export default class TiVolume extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/warning-outline' {
-  declare module.exports: any;
+  declare export default class TiWarningOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/warning' {
-  declare module.exports: any;
+  declare export default class TiWarning extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/watch' {
-  declare module.exports: any;
+  declare export default class TiWatch extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/waves-outline' {
-  declare module.exports: any;
+  declare export default class TiWavesOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/waves' {
-  declare module.exports: any;
+  declare export default class TiWaves extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-cloudy' {
-  declare module.exports: any;
+  declare export default class TiWeatherCloudy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-downpour' {
-  declare module.exports: any;
+  declare export default class TiWeatherDownpour extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-night' {
-  declare module.exports: any;
+  declare export default class TiWeatherNight extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-partly-sunny' {
-  declare module.exports: any;
+  declare export default class TiWeatherPartlySunny extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-shower' {
-  declare module.exports: any;
+  declare export default class TiWeatherShower extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-snow' {
-  declare module.exports: any;
+  declare export default class TiWeatherSnow extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-stormy' {
-  declare module.exports: any;
+  declare export default class TiWeatherStormy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-sunny' {
-  declare module.exports: any;
+  declare export default class TiWeatherSunny extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-windy-cloudy' {
-  declare module.exports: any;
+  declare export default class TiWeatherWindyCloudy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/weather-windy' {
-  declare module.exports: any;
+  declare export default class TiWeatherWindy extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/wi-fi-outline' {
-  declare module.exports: any;
+  declare export default class TiWiFiOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/wi-fi' {
-  declare module.exports: any;
+  declare export default class TiWiFi extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/wine' {
-  declare module.exports: any;
+  declare export default class TiWine extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/world-outline' {
-  declare module.exports: any;
+  declare export default class TiWorldOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/world' {
-  declare module.exports: any;
+  declare export default class TiWorld extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/zoom-in-outline' {
-  declare module.exports: any;
+  declare export default class TiZoomInOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/zoom-in' {
-  declare module.exports: any;
+  declare export default class TiZoomIn extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/zoom-out-outline' {
-  declare module.exports: any;
+  declare export default class TiZoomOutOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/zoom-out' {
-  declare module.exports: any;
+  declare export default class TiZoomOut extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/zoom-outline' {
-  declare module.exports: any;
+  declare export default class TiZoomOutline extends React$Component<IconBaseProps> {}
 }
 
 declare module 'react-icons/lib/ti/zoom' {
-  declare module.exports: any;
-}
-
-declare module 'react-icons/md/3d-rotation' {
-  declare module.exports: any;
-}
-
-declare module 'react-icons/lib/fa/500px.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/500px'>;
-}
-declare module 'react-icons/lib/fa/adjust.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/adjust'>;
-}
-declare module 'react-icons/lib/fa/adn.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/adn'>;
-}
-declare module 'react-icons/lib/fa/align-center.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/align-center'>;
-}
-declare module 'react-icons/lib/fa/align-justify.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/align-justify'>;
-}
-declare module 'react-icons/lib/fa/align-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/align-left'>;
-}
-declare module 'react-icons/lib/fa/align-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/align-right'>;
-}
-declare module 'react-icons/lib/fa/amazon.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/amazon'>;
-}
-declare module 'react-icons/lib/fa/ambulance.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/ambulance'>;
-}
-declare module 'react-icons/lib/fa/american-sign-language-interpreting.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/american-sign-language-interpreting'>;
-}
-declare module 'react-icons/lib/fa/anchor.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/anchor'>;
-}
-declare module 'react-icons/lib/fa/android.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/android'>;
-}
-declare module 'react-icons/lib/fa/angellist.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/angellist'>;
-}
-declare module 'react-icons/lib/fa/angle-double-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/angle-double-down'>;
-}
-declare module 'react-icons/lib/fa/angle-double-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/angle-double-left'>;
-}
-declare module 'react-icons/lib/fa/angle-double-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/angle-double-right'>;
-}
-declare module 'react-icons/lib/fa/angle-double-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/angle-double-up'>;
-}
-declare module 'react-icons/lib/fa/angle-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/angle-down'>;
-}
-declare module 'react-icons/lib/fa/angle-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/angle-left'>;
-}
-declare module 'react-icons/lib/fa/angle-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/angle-right'>;
-}
-declare module 'react-icons/lib/fa/angle-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/angle-up'>;
-}
-declare module 'react-icons/lib/fa/apple.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/apple'>;
-}
-declare module 'react-icons/lib/fa/archive.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/archive'>;
-}
-declare module 'react-icons/lib/fa/area-chart.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/area-chart'>;
-}
-declare module 'react-icons/lib/fa/arrow-circle-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-circle-down'>;
-}
-declare module 'react-icons/lib/fa/arrow-circle-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-circle-left'>;
-}
-declare module 'react-icons/lib/fa/arrow-circle-o-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-circle-o-down'>;
-}
-declare module 'react-icons/lib/fa/arrow-circle-o-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-circle-o-left'>;
-}
-declare module 'react-icons/lib/fa/arrow-circle-o-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-circle-o-right'>;
-}
-declare module 'react-icons/lib/fa/arrow-circle-o-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-circle-o-up'>;
-}
-declare module 'react-icons/lib/fa/arrow-circle-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-circle-right'>;
-}
-declare module 'react-icons/lib/fa/arrow-circle-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-circle-up'>;
-}
-declare module 'react-icons/lib/fa/arrow-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-down'>;
-}
-declare module 'react-icons/lib/fa/arrow-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-left'>;
-}
-declare module 'react-icons/lib/fa/arrow-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-right'>;
-}
-declare module 'react-icons/lib/fa/arrow-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrow-up'>;
-}
-declare module 'react-icons/lib/fa/arrows-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrows-alt'>;
-}
-declare module 'react-icons/lib/fa/arrows-h.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrows-h'>;
-}
-declare module 'react-icons/lib/fa/arrows-v.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrows-v'>;
-}
-declare module 'react-icons/lib/fa/arrows.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/arrows'>;
-}
-declare module 'react-icons/lib/fa/assistive-listening-systems.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/assistive-listening-systems'>;
-}
-declare module 'react-icons/lib/fa/asterisk.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/asterisk'>;
-}
-declare module 'react-icons/lib/fa/at.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/at'>;
-}
-declare module 'react-icons/lib/fa/audio-description.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/audio-description'>;
-}
-declare module 'react-icons/lib/fa/automobile.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/automobile'>;
-}
-declare module 'react-icons/lib/fa/backward.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/backward'>;
-}
-declare module 'react-icons/lib/fa/balance-scale.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/balance-scale'>;
-}
-declare module 'react-icons/lib/fa/ban.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/ban'>;
-}
-declare module 'react-icons/lib/fa/bank.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bank'>;
-}
-declare module 'react-icons/lib/fa/bar-chart.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bar-chart'>;
-}
-declare module 'react-icons/lib/fa/barcode.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/barcode'>;
-}
-declare module 'react-icons/lib/fa/bars.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bars'>;
-}
-declare module 'react-icons/lib/fa/battery-0.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/battery-0'>;
-}
-declare module 'react-icons/lib/fa/battery-1.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/battery-1'>;
-}
-declare module 'react-icons/lib/fa/battery-2.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/battery-2'>;
-}
-declare module 'react-icons/lib/fa/battery-3.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/battery-3'>;
-}
-declare module 'react-icons/lib/fa/battery-4.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/battery-4'>;
-}
-declare module 'react-icons/lib/fa/bed.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bed'>;
-}
-declare module 'react-icons/lib/fa/beer.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/beer'>;
-}
-declare module 'react-icons/lib/fa/behance-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/behance-square'>;
-}
-declare module 'react-icons/lib/fa/behance.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/behance'>;
-}
-declare module 'react-icons/lib/fa/bell-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bell-o'>;
-}
-declare module 'react-icons/lib/fa/bell-slash-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bell-slash-o'>;
-}
-declare module 'react-icons/lib/fa/bell-slash.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bell-slash'>;
-}
-declare module 'react-icons/lib/fa/bell.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bell'>;
-}
-declare module 'react-icons/lib/fa/bicycle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bicycle'>;
-}
-declare module 'react-icons/lib/fa/binoculars.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/binoculars'>;
-}
-declare module 'react-icons/lib/fa/birthday-cake.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/birthday-cake'>;
-}
-declare module 'react-icons/lib/fa/bitbucket-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bitbucket-square'>;
-}
-declare module 'react-icons/lib/fa/bitbucket.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bitbucket'>;
-}
-declare module 'react-icons/lib/fa/bitcoin.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bitcoin'>;
-}
-declare module 'react-icons/lib/fa/black-tie.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/black-tie'>;
-}
-declare module 'react-icons/lib/fa/blind.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/blind'>;
-}
-declare module 'react-icons/lib/fa/bluetooth-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bluetooth-b'>;
-}
-declare module 'react-icons/lib/fa/bluetooth.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bluetooth'>;
-}
-declare module 'react-icons/lib/fa/bold.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bold'>;
-}
-declare module 'react-icons/lib/fa/bolt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bolt'>;
-}
-declare module 'react-icons/lib/fa/bomb.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bomb'>;
-}
-declare module 'react-icons/lib/fa/book.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/book'>;
-}
-declare module 'react-icons/lib/fa/bookmark-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bookmark-o'>;
-}
-declare module 'react-icons/lib/fa/bookmark.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bookmark'>;
-}
-declare module 'react-icons/lib/fa/braille.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/braille'>;
-}
-declare module 'react-icons/lib/fa/briefcase.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/briefcase'>;
-}
-declare module 'react-icons/lib/fa/bug.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bug'>;
-}
-declare module 'react-icons/lib/fa/building-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/building-o'>;
-}
-declare module 'react-icons/lib/fa/building.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/building'>;
-}
-declare module 'react-icons/lib/fa/bullhorn.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bullhorn'>;
-}
-declare module 'react-icons/lib/fa/bullseye.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bullseye'>;
-}
-declare module 'react-icons/lib/fa/bus.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/bus'>;
-}
-declare module 'react-icons/lib/fa/buysellads.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/buysellads'>;
-}
-declare module 'react-icons/lib/fa/cab.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cab'>;
-}
-declare module 'react-icons/lib/fa/calculator.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/calculator'>;
-}
-declare module 'react-icons/lib/fa/calendar-check-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/calendar-check-o'>;
-}
-declare module 'react-icons/lib/fa/calendar-minus-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/calendar-minus-o'>;
-}
-declare module 'react-icons/lib/fa/calendar-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/calendar-o'>;
-}
-declare module 'react-icons/lib/fa/calendar-plus-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/calendar-plus-o'>;
-}
-declare module 'react-icons/lib/fa/calendar-times-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/calendar-times-o'>;
-}
-declare module 'react-icons/lib/fa/calendar.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/calendar'>;
-}
-declare module 'react-icons/lib/fa/camera-retro.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/camera-retro'>;
-}
-declare module 'react-icons/lib/fa/camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/camera'>;
-}
-declare module 'react-icons/lib/fa/caret-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/caret-down'>;
-}
-declare module 'react-icons/lib/fa/caret-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/caret-left'>;
-}
-declare module 'react-icons/lib/fa/caret-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/caret-right'>;
-}
-declare module 'react-icons/lib/fa/caret-square-o-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/caret-square-o-down'>;
-}
-declare module 'react-icons/lib/fa/caret-square-o-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/caret-square-o-left'>;
-}
-declare module 'react-icons/lib/fa/caret-square-o-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/caret-square-o-right'>;
-}
-declare module 'react-icons/lib/fa/caret-square-o-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/caret-square-o-up'>;
-}
-declare module 'react-icons/lib/fa/caret-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/caret-up'>;
-}
-declare module 'react-icons/lib/fa/cart-arrow-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cart-arrow-down'>;
-}
-declare module 'react-icons/lib/fa/cart-plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cart-plus'>;
-}
-declare module 'react-icons/lib/fa/cc-amex.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cc-amex'>;
-}
-declare module 'react-icons/lib/fa/cc-diners-club.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cc-diners-club'>;
-}
-declare module 'react-icons/lib/fa/cc-discover.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cc-discover'>;
-}
-declare module 'react-icons/lib/fa/cc-jcb.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cc-jcb'>;
-}
-declare module 'react-icons/lib/fa/cc-mastercard.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cc-mastercard'>;
-}
-declare module 'react-icons/lib/fa/cc-paypal.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cc-paypal'>;
-}
-declare module 'react-icons/lib/fa/cc-stripe.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cc-stripe'>;
-}
-declare module 'react-icons/lib/fa/cc-visa.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cc-visa'>;
-}
-declare module 'react-icons/lib/fa/cc.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cc'>;
-}
-declare module 'react-icons/lib/fa/certificate.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/certificate'>;
-}
-declare module 'react-icons/lib/fa/chain-broken.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chain-broken'>;
-}
-declare module 'react-icons/lib/fa/chain.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chain'>;
-}
-declare module 'react-icons/lib/fa/check-circle-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/check-circle-o'>;
-}
-declare module 'react-icons/lib/fa/check-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/check-circle'>;
-}
-declare module 'react-icons/lib/fa/check-square-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/check-square-o'>;
-}
-declare module 'react-icons/lib/fa/check-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/check-square'>;
-}
-declare module 'react-icons/lib/fa/check.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/check'>;
-}
-declare module 'react-icons/lib/fa/chevron-circle-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chevron-circle-down'>;
-}
-declare module 'react-icons/lib/fa/chevron-circle-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chevron-circle-left'>;
-}
-declare module 'react-icons/lib/fa/chevron-circle-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chevron-circle-right'>;
-}
-declare module 'react-icons/lib/fa/chevron-circle-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chevron-circle-up'>;
-}
-declare module 'react-icons/lib/fa/chevron-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chevron-down'>;
-}
-declare module 'react-icons/lib/fa/chevron-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chevron-left'>;
-}
-declare module 'react-icons/lib/fa/chevron-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chevron-right'>;
-}
-declare module 'react-icons/lib/fa/chevron-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chevron-up'>;
-}
-declare module 'react-icons/lib/fa/child.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/child'>;
-}
-declare module 'react-icons/lib/fa/chrome.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/chrome'>;
-}
-declare module 'react-icons/lib/fa/circle-o-notch.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/circle-o-notch'>;
-}
-declare module 'react-icons/lib/fa/circle-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/circle-o'>;
-}
-declare module 'react-icons/lib/fa/circle-thin.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/circle-thin'>;
-}
-declare module 'react-icons/lib/fa/circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/circle'>;
-}
-declare module 'react-icons/lib/fa/clipboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/clipboard'>;
-}
-declare module 'react-icons/lib/fa/clock-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/clock-o'>;
-}
-declare module 'react-icons/lib/fa/clone.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/clone'>;
-}
-declare module 'react-icons/lib/fa/close.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/close'>;
-}
-declare module 'react-icons/lib/fa/cloud-download.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cloud-download'>;
-}
-declare module 'react-icons/lib/fa/cloud-upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cloud-upload'>;
-}
-declare module 'react-icons/lib/fa/cloud.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cloud'>;
-}
-declare module 'react-icons/lib/fa/cny.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cny'>;
-}
-declare module 'react-icons/lib/fa/code-fork.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/code-fork'>;
-}
-declare module 'react-icons/lib/fa/code.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/code'>;
-}
-declare module 'react-icons/lib/fa/codepen.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/codepen'>;
-}
-declare module 'react-icons/lib/fa/codiepie.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/codiepie'>;
-}
-declare module 'react-icons/lib/fa/coffee.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/coffee'>;
-}
-declare module 'react-icons/lib/fa/cog.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cog'>;
-}
-declare module 'react-icons/lib/fa/cogs.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cogs'>;
-}
-declare module 'react-icons/lib/fa/columns.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/columns'>;
-}
-declare module 'react-icons/lib/fa/comment-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/comment-o'>;
-}
-declare module 'react-icons/lib/fa/comment.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/comment'>;
-}
-declare module 'react-icons/lib/fa/commenting-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/commenting-o'>;
-}
-declare module 'react-icons/lib/fa/commenting.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/commenting'>;
-}
-declare module 'react-icons/lib/fa/comments-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/comments-o'>;
-}
-declare module 'react-icons/lib/fa/comments.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/comments'>;
-}
-declare module 'react-icons/lib/fa/compass.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/compass'>;
-}
-declare module 'react-icons/lib/fa/compress.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/compress'>;
-}
-declare module 'react-icons/lib/fa/connectdevelop.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/connectdevelop'>;
-}
-declare module 'react-icons/lib/fa/contao.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/contao'>;
-}
-declare module 'react-icons/lib/fa/copy.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/copy'>;
-}
-declare module 'react-icons/lib/fa/copyright.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/copyright'>;
-}
-declare module 'react-icons/lib/fa/creative-commons.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/creative-commons'>;
-}
-declare module 'react-icons/lib/fa/credit-card-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/credit-card-alt'>;
-}
-declare module 'react-icons/lib/fa/credit-card.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/credit-card'>;
-}
-declare module 'react-icons/lib/fa/crop.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/crop'>;
-}
-declare module 'react-icons/lib/fa/crosshairs.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/crosshairs'>;
-}
-declare module 'react-icons/lib/fa/css3.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/css3'>;
-}
-declare module 'react-icons/lib/fa/cube.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cube'>;
-}
-declare module 'react-icons/lib/fa/cubes.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cubes'>;
-}
-declare module 'react-icons/lib/fa/cut.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cut'>;
-}
-declare module 'react-icons/lib/fa/cutlery.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/cutlery'>;
-}
-declare module 'react-icons/lib/fa/dashboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/dashboard'>;
-}
-declare module 'react-icons/lib/fa/dashcube.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/dashcube'>;
-}
-declare module 'react-icons/lib/fa/database.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/database'>;
-}
-declare module 'react-icons/lib/fa/deaf.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/deaf'>;
-}
-declare module 'react-icons/lib/fa/dedent.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/dedent'>;
-}
-declare module 'react-icons/lib/fa/delicious.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/delicious'>;
-}
-declare module 'react-icons/lib/fa/desktop.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/desktop'>;
-}
-declare module 'react-icons/lib/fa/deviantart.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/deviantart'>;
-}
-declare module 'react-icons/lib/fa/diamond.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/diamond'>;
-}
-declare module 'react-icons/lib/fa/digg.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/digg'>;
-}
-declare module 'react-icons/lib/fa/dollar.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/dollar'>;
-}
-declare module 'react-icons/lib/fa/dot-circle-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/dot-circle-o'>;
-}
-declare module 'react-icons/lib/fa/download.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/download'>;
-}
-declare module 'react-icons/lib/fa/dribbble.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/dribbble'>;
-}
-declare module 'react-icons/lib/fa/dropbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/dropbox'>;
-}
-declare module 'react-icons/lib/fa/drupal.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/drupal'>;
-}
-declare module 'react-icons/lib/fa/edge.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/edge'>;
-}
-declare module 'react-icons/lib/fa/edit.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/edit'>;
-}
-declare module 'react-icons/lib/fa/eject.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/eject'>;
-}
-declare module 'react-icons/lib/fa/ellipsis-h.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/ellipsis-h'>;
-}
-declare module 'react-icons/lib/fa/ellipsis-v.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/ellipsis-v'>;
-}
-declare module 'react-icons/lib/fa/empire.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/empire'>;
-}
-declare module 'react-icons/lib/fa/envelope-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/envelope-o'>;
-}
-declare module 'react-icons/lib/fa/envelope-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/envelope-square'>;
-}
-declare module 'react-icons/lib/fa/envelope.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/envelope'>;
-}
-declare module 'react-icons/lib/fa/envira.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/envira'>;
-}
-declare module 'react-icons/lib/fa/eraser.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/eraser'>;
-}
-declare module 'react-icons/lib/fa/eur.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/eur'>;
-}
-declare module 'react-icons/lib/fa/exchange.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/exchange'>;
-}
-declare module 'react-icons/lib/fa/exclamation-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/exclamation-circle'>;
-}
-declare module 'react-icons/lib/fa/exclamation-triangle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/exclamation-triangle'>;
-}
-declare module 'react-icons/lib/fa/exclamation.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/exclamation'>;
-}
-declare module 'react-icons/lib/fa/expand.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/expand'>;
-}
-declare module 'react-icons/lib/fa/expeditedssl.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/expeditedssl'>;
-}
-declare module 'react-icons/lib/fa/external-link-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/external-link-square'>;
-}
-declare module 'react-icons/lib/fa/external-link.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/external-link'>;
-}
-declare module 'react-icons/lib/fa/eye-slash.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/eye-slash'>;
-}
-declare module 'react-icons/lib/fa/eye.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/eye'>;
-}
-declare module 'react-icons/lib/fa/eyedropper.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/eyedropper'>;
-}
-declare module 'react-icons/lib/fa/facebook-official.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/facebook-official'>;
-}
-declare module 'react-icons/lib/fa/facebook-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/facebook-square'>;
-}
-declare module 'react-icons/lib/fa/facebook.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/facebook'>;
-}
-declare module 'react-icons/lib/fa/fast-backward.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/fast-backward'>;
-}
-declare module 'react-icons/lib/fa/fast-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/fast-forward'>;
-}
-declare module 'react-icons/lib/fa/fax.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/fax'>;
-}
-declare module 'react-icons/lib/fa/feed.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/feed'>;
-}
-declare module 'react-icons/lib/fa/female.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/female'>;
-}
-declare module 'react-icons/lib/fa/fighter-jet.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/fighter-jet'>;
-}
-declare module 'react-icons/lib/fa/file-archive-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-archive-o'>;
-}
-declare module 'react-icons/lib/fa/file-audio-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-audio-o'>;
-}
-declare module 'react-icons/lib/fa/file-code-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-code-o'>;
-}
-declare module 'react-icons/lib/fa/file-excel-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-excel-o'>;
-}
-declare module 'react-icons/lib/fa/file-image-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-image-o'>;
-}
-declare module 'react-icons/lib/fa/file-movie-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-movie-o'>;
-}
-declare module 'react-icons/lib/fa/file-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-o'>;
-}
-declare module 'react-icons/lib/fa/file-pdf-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-pdf-o'>;
-}
-declare module 'react-icons/lib/fa/file-powerpoint-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-powerpoint-o'>;
-}
-declare module 'react-icons/lib/fa/file-text-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-text-o'>;
-}
-declare module 'react-icons/lib/fa/file-text.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-text'>;
-}
-declare module 'react-icons/lib/fa/file-word-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file-word-o'>;
-}
-declare module 'react-icons/lib/fa/file.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/file'>;
-}
-declare module 'react-icons/lib/fa/film.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/film'>;
-}
-declare module 'react-icons/lib/fa/filter.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/filter'>;
-}
-declare module 'react-icons/lib/fa/fire-extinguisher.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/fire-extinguisher'>;
-}
-declare module 'react-icons/lib/fa/fire.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/fire'>;
-}
-declare module 'react-icons/lib/fa/firefox.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/firefox'>;
-}
-declare module 'react-icons/lib/fa/flag-checkered.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/flag-checkered'>;
-}
-declare module 'react-icons/lib/fa/flag-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/flag-o'>;
-}
-declare module 'react-icons/lib/fa/flag.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/flag'>;
-}
-declare module 'react-icons/lib/fa/flask.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/flask'>;
-}
-declare module 'react-icons/lib/fa/flickr.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/flickr'>;
-}
-declare module 'react-icons/lib/fa/floppy-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/floppy-o'>;
-}
-declare module 'react-icons/lib/fa/folder-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/folder-o'>;
-}
-declare module 'react-icons/lib/fa/folder-open-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/folder-open-o'>;
-}
-declare module 'react-icons/lib/fa/folder-open.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/folder-open'>;
-}
-declare module 'react-icons/lib/fa/folder.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/folder'>;
-}
-declare module 'react-icons/lib/fa/font.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/font'>;
-}
-declare module 'react-icons/lib/fa/fonticons.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/fonticons'>;
-}
-declare module 'react-icons/lib/fa/fort-awesome.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/fort-awesome'>;
-}
-declare module 'react-icons/lib/fa/forumbee.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/forumbee'>;
-}
-declare module 'react-icons/lib/fa/forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/forward'>;
-}
-declare module 'react-icons/lib/fa/foursquare.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/foursquare'>;
-}
-declare module 'react-icons/lib/fa/frown-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/frown-o'>;
-}
-declare module 'react-icons/lib/fa/futbol-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/futbol-o'>;
-}
-declare module 'react-icons/lib/fa/gamepad.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/gamepad'>;
-}
-declare module 'react-icons/lib/fa/gavel.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/gavel'>;
-}
-declare module 'react-icons/lib/fa/gbp.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/gbp'>;
-}
-declare module 'react-icons/lib/fa/genderless.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/genderless'>;
-}
-declare module 'react-icons/lib/fa/get-pocket.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/get-pocket'>;
-}
-declare module 'react-icons/lib/fa/gg-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/gg-circle'>;
-}
-declare module 'react-icons/lib/fa/gg.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/gg'>;
-}
-declare module 'react-icons/lib/fa/gift.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/gift'>;
-}
-declare module 'react-icons/lib/fa/git-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/git-square'>;
-}
-declare module 'react-icons/lib/fa/git.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/git'>;
-}
-declare module 'react-icons/lib/fa/github-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/github-alt'>;
-}
-declare module 'react-icons/lib/fa/github-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/github-square'>;
-}
-declare module 'react-icons/lib/fa/github.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/github'>;
-}
-declare module 'react-icons/lib/fa/gitlab.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/gitlab'>;
-}
-declare module 'react-icons/lib/fa/gittip.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/gittip'>;
-}
-declare module 'react-icons/lib/fa/glass.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/glass'>;
-}
-declare module 'react-icons/lib/fa/glide-g.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/glide-g'>;
-}
-declare module 'react-icons/lib/fa/glide.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/glide'>;
-}
-declare module 'react-icons/lib/fa/globe.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/globe'>;
-}
-declare module 'react-icons/lib/fa/google-plus-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/google-plus-square'>;
-}
-declare module 'react-icons/lib/fa/google-plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/google-plus'>;
-}
-declare module 'react-icons/lib/fa/google-wallet.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/google-wallet'>;
-}
-declare module 'react-icons/lib/fa/google.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/google'>;
-}
-declare module 'react-icons/lib/fa/graduation-cap.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/graduation-cap'>;
-}
-declare module 'react-icons/lib/fa/group.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/group'>;
-}
-declare module 'react-icons/lib/fa/h-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/h-square'>;
-}
-declare module 'react-icons/lib/fa/hacker-news.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hacker-news'>;
-}
-declare module 'react-icons/lib/fa/hand-grab-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-grab-o'>;
-}
-declare module 'react-icons/lib/fa/hand-lizard-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-lizard-o'>;
-}
-declare module 'react-icons/lib/fa/hand-o-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-o-down'>;
-}
-declare module 'react-icons/lib/fa/hand-o-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-o-left'>;
-}
-declare module 'react-icons/lib/fa/hand-o-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-o-right'>;
-}
-declare module 'react-icons/lib/fa/hand-o-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-o-up'>;
-}
-declare module 'react-icons/lib/fa/hand-paper-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-paper-o'>;
-}
-declare module 'react-icons/lib/fa/hand-peace-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-peace-o'>;
-}
-declare module 'react-icons/lib/fa/hand-pointer-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-pointer-o'>;
-}
-declare module 'react-icons/lib/fa/hand-scissors-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-scissors-o'>;
-}
-declare module 'react-icons/lib/fa/hand-spock-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hand-spock-o'>;
-}
-declare module 'react-icons/lib/fa/hashtag.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hashtag'>;
-}
-declare module 'react-icons/lib/fa/hdd-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hdd-o'>;
-}
-declare module 'react-icons/lib/fa/header.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/header'>;
-}
-declare module 'react-icons/lib/fa/headphones.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/headphones'>;
-}
-declare module 'react-icons/lib/fa/heart-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/heart-o'>;
-}
-declare module 'react-icons/lib/fa/heart.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/heart'>;
-}
-declare module 'react-icons/lib/fa/heartbeat.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/heartbeat'>;
-}
-declare module 'react-icons/lib/fa/history.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/history'>;
-}
-declare module 'react-icons/lib/fa/home.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/home'>;
-}
-declare module 'react-icons/lib/fa/hospital-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hospital-o'>;
-}
-declare module 'react-icons/lib/fa/hourglass-1.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hourglass-1'>;
-}
-declare module 'react-icons/lib/fa/hourglass-2.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hourglass-2'>;
-}
-declare module 'react-icons/lib/fa/hourglass-3.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hourglass-3'>;
-}
-declare module 'react-icons/lib/fa/hourglass-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hourglass-o'>;
-}
-declare module 'react-icons/lib/fa/hourglass.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/hourglass'>;
-}
-declare module 'react-icons/lib/fa/houzz.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/houzz'>;
-}
-declare module 'react-icons/lib/fa/html5.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/html5'>;
-}
-declare module 'react-icons/lib/fa/i-cursor.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/i-cursor'>;
-}
-declare module 'react-icons/lib/fa/ils.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/ils'>;
-}
-declare module 'react-icons/lib/fa/image.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/image'>;
-}
-declare module 'react-icons/lib/fa/inbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/inbox'>;
-}
-declare module 'react-icons/lib/fa/indent.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/indent'>;
-}
-declare module 'react-icons/lib/fa/index.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/index'>;
-}
-declare module 'react-icons/lib/fa/industry.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/industry'>;
-}
-declare module 'react-icons/lib/fa/info-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/info-circle'>;
-}
-declare module 'react-icons/lib/fa/info.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/info'>;
-}
-declare module 'react-icons/lib/fa/inr.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/inr'>;
-}
-declare module 'react-icons/lib/fa/instagram.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/instagram'>;
-}
-declare module 'react-icons/lib/fa/internet-explorer.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/internet-explorer'>;
-}
-declare module 'react-icons/lib/fa/intersex.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/intersex'>;
-}
-declare module 'react-icons/lib/fa/ioxhost.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/ioxhost'>;
-}
-declare module 'react-icons/lib/fa/italic.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/italic'>;
-}
-declare module 'react-icons/lib/fa/joomla.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/joomla'>;
-}
-declare module 'react-icons/lib/fa/jsfiddle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/jsfiddle'>;
-}
-declare module 'react-icons/lib/fa/key.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/key'>;
-}
-declare module 'react-icons/lib/fa/keyboard-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/keyboard-o'>;
-}
-declare module 'react-icons/lib/fa/krw.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/krw'>;
-}
-declare module 'react-icons/lib/fa/language.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/language'>;
-}
-declare module 'react-icons/lib/fa/laptop.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/laptop'>;
-}
-declare module 'react-icons/lib/fa/lastfm-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/lastfm-square'>;
-}
-declare module 'react-icons/lib/fa/lastfm.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/lastfm'>;
-}
-declare module 'react-icons/lib/fa/leaf.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/leaf'>;
-}
-declare module 'react-icons/lib/fa/leanpub.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/leanpub'>;
-}
-declare module 'react-icons/lib/fa/lemon-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/lemon-o'>;
-}
-declare module 'react-icons/lib/fa/level-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/level-down'>;
-}
-declare module 'react-icons/lib/fa/level-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/level-up'>;
-}
-declare module 'react-icons/lib/fa/life-bouy.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/life-bouy'>;
-}
-declare module 'react-icons/lib/fa/lightbulb-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/lightbulb-o'>;
-}
-declare module 'react-icons/lib/fa/line-chart.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/line-chart'>;
-}
-declare module 'react-icons/lib/fa/linkedin-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/linkedin-square'>;
-}
-declare module 'react-icons/lib/fa/linkedin.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/linkedin'>;
-}
-declare module 'react-icons/lib/fa/linux.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/linux'>;
-}
-declare module 'react-icons/lib/fa/list-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/list-alt'>;
-}
-declare module 'react-icons/lib/fa/list-ol.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/list-ol'>;
-}
-declare module 'react-icons/lib/fa/list-ul.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/list-ul'>;
-}
-declare module 'react-icons/lib/fa/list.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/list'>;
-}
-declare module 'react-icons/lib/fa/location-arrow.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/location-arrow'>;
-}
-declare module 'react-icons/lib/fa/lock.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/lock'>;
-}
-declare module 'react-icons/lib/fa/long-arrow-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/long-arrow-down'>;
-}
-declare module 'react-icons/lib/fa/long-arrow-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/long-arrow-left'>;
-}
-declare module 'react-icons/lib/fa/long-arrow-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/long-arrow-right'>;
-}
-declare module 'react-icons/lib/fa/long-arrow-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/long-arrow-up'>;
-}
-declare module 'react-icons/lib/fa/low-vision.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/low-vision'>;
-}
-declare module 'react-icons/lib/fa/magic.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/magic'>;
-}
-declare module 'react-icons/lib/fa/magnet.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/magnet'>;
-}
-declare module 'react-icons/lib/fa/mail-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mail-forward'>;
-}
-declare module 'react-icons/lib/fa/mail-reply-all.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mail-reply-all'>;
-}
-declare module 'react-icons/lib/fa/mail-reply.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mail-reply'>;
-}
-declare module 'react-icons/lib/fa/male.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/male'>;
-}
-declare module 'react-icons/lib/fa/map-marker.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/map-marker'>;
-}
-declare module 'react-icons/lib/fa/map-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/map-o'>;
-}
-declare module 'react-icons/lib/fa/map-pin.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/map-pin'>;
-}
-declare module 'react-icons/lib/fa/map-signs.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/map-signs'>;
-}
-declare module 'react-icons/lib/fa/map.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/map'>;
-}
-declare module 'react-icons/lib/fa/mars-double.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mars-double'>;
-}
-declare module 'react-icons/lib/fa/mars-stroke-h.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mars-stroke-h'>;
-}
-declare module 'react-icons/lib/fa/mars-stroke-v.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mars-stroke-v'>;
-}
-declare module 'react-icons/lib/fa/mars-stroke.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mars-stroke'>;
-}
-declare module 'react-icons/lib/fa/mars.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mars'>;
-}
-declare module 'react-icons/lib/fa/maxcdn.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/maxcdn'>;
-}
-declare module 'react-icons/lib/fa/meanpath.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/meanpath'>;
-}
-declare module 'react-icons/lib/fa/medium.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/medium'>;
-}
-declare module 'react-icons/lib/fa/medkit.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/medkit'>;
-}
-declare module 'react-icons/lib/fa/meh-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/meh-o'>;
-}
-declare module 'react-icons/lib/fa/mercury.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mercury'>;
-}
-declare module 'react-icons/lib/fa/microphone-slash.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/microphone-slash'>;
-}
-declare module 'react-icons/lib/fa/microphone.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/microphone'>;
-}
-declare module 'react-icons/lib/fa/minus-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/minus-circle'>;
-}
-declare module 'react-icons/lib/fa/minus-square-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/minus-square-o'>;
-}
-declare module 'react-icons/lib/fa/minus-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/minus-square'>;
-}
-declare module 'react-icons/lib/fa/minus.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/minus'>;
-}
-declare module 'react-icons/lib/fa/mixcloud.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mixcloud'>;
-}
-declare module 'react-icons/lib/fa/mobile.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mobile'>;
-}
-declare module 'react-icons/lib/fa/modx.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/modx'>;
-}
-declare module 'react-icons/lib/fa/money.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/money'>;
-}
-declare module 'react-icons/lib/fa/moon-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/moon-o'>;
-}
-declare module 'react-icons/lib/fa/motorcycle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/motorcycle'>;
-}
-declare module 'react-icons/lib/fa/mouse-pointer.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/mouse-pointer'>;
-}
-declare module 'react-icons/lib/fa/music.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/music'>;
-}
-declare module 'react-icons/lib/fa/neuter.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/neuter'>;
-}
-declare module 'react-icons/lib/fa/newspaper-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/newspaper-o'>;
-}
-declare module 'react-icons/lib/fa/object-group.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/object-group'>;
-}
-declare module 'react-icons/lib/fa/object-ungroup.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/object-ungroup'>;
-}
-declare module 'react-icons/lib/fa/odnoklassniki-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/odnoklassniki-square'>;
-}
-declare module 'react-icons/lib/fa/odnoklassniki.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/odnoklassniki'>;
-}
-declare module 'react-icons/lib/fa/opencart.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/opencart'>;
-}
-declare module 'react-icons/lib/fa/openid.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/openid'>;
-}
-declare module 'react-icons/lib/fa/opera.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/opera'>;
-}
-declare module 'react-icons/lib/fa/optin-monster.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/optin-monster'>;
-}
-declare module 'react-icons/lib/fa/pagelines.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pagelines'>;
-}
-declare module 'react-icons/lib/fa/paint-brush.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/paint-brush'>;
-}
-declare module 'react-icons/lib/fa/paper-plane-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/paper-plane-o'>;
-}
-declare module 'react-icons/lib/fa/paper-plane.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/paper-plane'>;
-}
-declare module 'react-icons/lib/fa/paperclip.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/paperclip'>;
-}
-declare module 'react-icons/lib/fa/paragraph.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/paragraph'>;
-}
-declare module 'react-icons/lib/fa/pause-circle-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pause-circle-o'>;
-}
-declare module 'react-icons/lib/fa/pause-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pause-circle'>;
-}
-declare module 'react-icons/lib/fa/pause.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pause'>;
-}
-declare module 'react-icons/lib/fa/paw.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/paw'>;
-}
-declare module 'react-icons/lib/fa/paypal.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/paypal'>;
-}
-declare module 'react-icons/lib/fa/pencil-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pencil-square'>;
-}
-declare module 'react-icons/lib/fa/pencil.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pencil'>;
-}
-declare module 'react-icons/lib/fa/percent.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/percent'>;
-}
-declare module 'react-icons/lib/fa/phone-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/phone-square'>;
-}
-declare module 'react-icons/lib/fa/phone.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/phone'>;
-}
-declare module 'react-icons/lib/fa/pie-chart.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pie-chart'>;
-}
-declare module 'react-icons/lib/fa/pied-piper-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pied-piper-alt'>;
-}
-declare module 'react-icons/lib/fa/pied-piper.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pied-piper'>;
-}
-declare module 'react-icons/lib/fa/pinterest-p.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pinterest-p'>;
-}
-declare module 'react-icons/lib/fa/pinterest-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pinterest-square'>;
-}
-declare module 'react-icons/lib/fa/pinterest.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/pinterest'>;
-}
-declare module 'react-icons/lib/fa/plane.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/plane'>;
-}
-declare module 'react-icons/lib/fa/play-circle-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/play-circle-o'>;
-}
-declare module 'react-icons/lib/fa/play-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/play-circle'>;
-}
-declare module 'react-icons/lib/fa/play.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/play'>;
-}
-declare module 'react-icons/lib/fa/plug.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/plug'>;
-}
-declare module 'react-icons/lib/fa/plus-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/plus-circle'>;
-}
-declare module 'react-icons/lib/fa/plus-square-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/plus-square-o'>;
-}
-declare module 'react-icons/lib/fa/plus-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/plus-square'>;
-}
-declare module 'react-icons/lib/fa/plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/plus'>;
-}
-declare module 'react-icons/lib/fa/power-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/power-off'>;
-}
-declare module 'react-icons/lib/fa/print.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/print'>;
-}
-declare module 'react-icons/lib/fa/product-hunt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/product-hunt'>;
-}
-declare module 'react-icons/lib/fa/puzzle-piece.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/puzzle-piece'>;
-}
-declare module 'react-icons/lib/fa/qq.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/qq'>;
-}
-declare module 'react-icons/lib/fa/qrcode.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/qrcode'>;
-}
-declare module 'react-icons/lib/fa/question-circle-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/question-circle-o'>;
-}
-declare module 'react-icons/lib/fa/question-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/question-circle'>;
-}
-declare module 'react-icons/lib/fa/question.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/question'>;
-}
-declare module 'react-icons/lib/fa/quote-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/quote-left'>;
-}
-declare module 'react-icons/lib/fa/quote-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/quote-right'>;
-}
-declare module 'react-icons/lib/fa/ra.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/ra'>;
-}
-declare module 'react-icons/lib/fa/random.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/random'>;
-}
-declare module 'react-icons/lib/fa/recycle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/recycle'>;
-}
-declare module 'react-icons/lib/fa/reddit-alien.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/reddit-alien'>;
-}
-declare module 'react-icons/lib/fa/reddit-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/reddit-square'>;
-}
-declare module 'react-icons/lib/fa/reddit.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/reddit'>;
-}
-declare module 'react-icons/lib/fa/refresh.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/refresh'>;
-}
-declare module 'react-icons/lib/fa/registered.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/registered'>;
-}
-declare module 'react-icons/lib/fa/renren.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/renren'>;
-}
-declare module 'react-icons/lib/fa/repeat.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/repeat'>;
-}
-declare module 'react-icons/lib/fa/retweet.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/retweet'>;
-}
-declare module 'react-icons/lib/fa/road.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/road'>;
-}
-declare module 'react-icons/lib/fa/rocket.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/rocket'>;
-}
-declare module 'react-icons/lib/fa/rotate-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/rotate-left'>;
-}
-declare module 'react-icons/lib/fa/rouble.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/rouble'>;
-}
-declare module 'react-icons/lib/fa/rss-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/rss-square'>;
-}
-declare module 'react-icons/lib/fa/safari.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/safari'>;
-}
-declare module 'react-icons/lib/fa/scribd.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/scribd'>;
-}
-declare module 'react-icons/lib/fa/search-minus.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/search-minus'>;
-}
-declare module 'react-icons/lib/fa/search-plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/search-plus'>;
-}
-declare module 'react-icons/lib/fa/search.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/search'>;
-}
-declare module 'react-icons/lib/fa/sellsy.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sellsy'>;
-}
-declare module 'react-icons/lib/fa/server.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/server'>;
-}
-declare module 'react-icons/lib/fa/share-alt-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/share-alt-square'>;
-}
-declare module 'react-icons/lib/fa/share-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/share-alt'>;
-}
-declare module 'react-icons/lib/fa/share-square-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/share-square-o'>;
-}
-declare module 'react-icons/lib/fa/share-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/share-square'>;
-}
-declare module 'react-icons/lib/fa/shield.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/shield'>;
-}
-declare module 'react-icons/lib/fa/ship.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/ship'>;
-}
-declare module 'react-icons/lib/fa/shirtsinbulk.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/shirtsinbulk'>;
-}
-declare module 'react-icons/lib/fa/shopping-bag.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/shopping-bag'>;
-}
-declare module 'react-icons/lib/fa/shopping-basket.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/shopping-basket'>;
-}
-declare module 'react-icons/lib/fa/shopping-cart.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/shopping-cart'>;
-}
-declare module 'react-icons/lib/fa/sign-in.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sign-in'>;
-}
-declare module 'react-icons/lib/fa/sign-language.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sign-language'>;
-}
-declare module 'react-icons/lib/fa/sign-out.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sign-out'>;
-}
-declare module 'react-icons/lib/fa/signal.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/signal'>;
-}
-declare module 'react-icons/lib/fa/simplybuilt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/simplybuilt'>;
-}
-declare module 'react-icons/lib/fa/sitemap.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sitemap'>;
-}
-declare module 'react-icons/lib/fa/skyatlas.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/skyatlas'>;
-}
-declare module 'react-icons/lib/fa/skype.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/skype'>;
-}
-declare module 'react-icons/lib/fa/slack.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/slack'>;
-}
-declare module 'react-icons/lib/fa/sliders.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sliders'>;
-}
-declare module 'react-icons/lib/fa/slideshare.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/slideshare'>;
-}
-declare module 'react-icons/lib/fa/smile-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/smile-o'>;
-}
-declare module 'react-icons/lib/fa/snapchat-ghost.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/snapchat-ghost'>;
-}
-declare module 'react-icons/lib/fa/snapchat-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/snapchat-square'>;
-}
-declare module 'react-icons/lib/fa/snapchat.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/snapchat'>;
-}
-declare module 'react-icons/lib/fa/sort-alpha-asc.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sort-alpha-asc'>;
-}
-declare module 'react-icons/lib/fa/sort-alpha-desc.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sort-alpha-desc'>;
-}
-declare module 'react-icons/lib/fa/sort-amount-asc.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sort-amount-asc'>;
-}
-declare module 'react-icons/lib/fa/sort-amount-desc.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sort-amount-desc'>;
-}
-declare module 'react-icons/lib/fa/sort-asc.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sort-asc'>;
-}
-declare module 'react-icons/lib/fa/sort-desc.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sort-desc'>;
-}
-declare module 'react-icons/lib/fa/sort-numeric-asc.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sort-numeric-asc'>;
-}
-declare module 'react-icons/lib/fa/sort-numeric-desc.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sort-numeric-desc'>;
-}
-declare module 'react-icons/lib/fa/sort.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sort'>;
-}
-declare module 'react-icons/lib/fa/soundcloud.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/soundcloud'>;
-}
-declare module 'react-icons/lib/fa/space-shuttle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/space-shuttle'>;
-}
-declare module 'react-icons/lib/fa/spinner.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/spinner'>;
-}
-declare module 'react-icons/lib/fa/spoon.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/spoon'>;
-}
-declare module 'react-icons/lib/fa/spotify.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/spotify'>;
-}
-declare module 'react-icons/lib/fa/square-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/square-o'>;
-}
-declare module 'react-icons/lib/fa/square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/square'>;
-}
-declare module 'react-icons/lib/fa/stack-exchange.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/stack-exchange'>;
-}
-declare module 'react-icons/lib/fa/stack-overflow.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/stack-overflow'>;
-}
-declare module 'react-icons/lib/fa/star-half-empty.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/star-half-empty'>;
-}
-declare module 'react-icons/lib/fa/star-half.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/star-half'>;
-}
-declare module 'react-icons/lib/fa/star-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/star-o'>;
-}
-declare module 'react-icons/lib/fa/star.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/star'>;
-}
-declare module 'react-icons/lib/fa/steam-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/steam-square'>;
-}
-declare module 'react-icons/lib/fa/steam.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/steam'>;
-}
-declare module 'react-icons/lib/fa/step-backward.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/step-backward'>;
-}
-declare module 'react-icons/lib/fa/step-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/step-forward'>;
-}
-declare module 'react-icons/lib/fa/stethoscope.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/stethoscope'>;
-}
-declare module 'react-icons/lib/fa/sticky-note-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sticky-note-o'>;
-}
-declare module 'react-icons/lib/fa/sticky-note.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sticky-note'>;
-}
-declare module 'react-icons/lib/fa/stop-circle-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/stop-circle-o'>;
-}
-declare module 'react-icons/lib/fa/stop-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/stop-circle'>;
-}
-declare module 'react-icons/lib/fa/stop.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/stop'>;
-}
-declare module 'react-icons/lib/fa/street-view.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/street-view'>;
-}
-declare module 'react-icons/lib/fa/strikethrough.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/strikethrough'>;
-}
-declare module 'react-icons/lib/fa/stumbleupon-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/stumbleupon-circle'>;
-}
-declare module 'react-icons/lib/fa/stumbleupon.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/stumbleupon'>;
-}
-declare module 'react-icons/lib/fa/subscript.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/subscript'>;
-}
-declare module 'react-icons/lib/fa/subway.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/subway'>;
-}
-declare module 'react-icons/lib/fa/suitcase.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/suitcase'>;
-}
-declare module 'react-icons/lib/fa/sun-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/sun-o'>;
-}
-declare module 'react-icons/lib/fa/superscript.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/superscript'>;
-}
-declare module 'react-icons/lib/fa/table.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/table'>;
-}
-declare module 'react-icons/lib/fa/tablet.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tablet'>;
-}
-declare module 'react-icons/lib/fa/tag.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tag'>;
-}
-declare module 'react-icons/lib/fa/tags.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tags'>;
-}
-declare module 'react-icons/lib/fa/tasks.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tasks'>;
-}
-declare module 'react-icons/lib/fa/television.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/television'>;
-}
-declare module 'react-icons/lib/fa/tencent-weibo.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tencent-weibo'>;
-}
-declare module 'react-icons/lib/fa/terminal.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/terminal'>;
-}
-declare module 'react-icons/lib/fa/text-height.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/text-height'>;
-}
-declare module 'react-icons/lib/fa/text-width.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/text-width'>;
-}
-declare module 'react-icons/lib/fa/th-large.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/th-large'>;
-}
-declare module 'react-icons/lib/fa/th-list.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/th-list'>;
-}
-declare module 'react-icons/lib/fa/th.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/th'>;
-}
-declare module 'react-icons/lib/fa/thumb-tack.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/thumb-tack'>;
-}
-declare module 'react-icons/lib/fa/thumbs-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/thumbs-down'>;
-}
-declare module 'react-icons/lib/fa/thumbs-o-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/thumbs-o-down'>;
-}
-declare module 'react-icons/lib/fa/thumbs-o-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/thumbs-o-up'>;
-}
-declare module 'react-icons/lib/fa/thumbs-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/thumbs-up'>;
-}
-declare module 'react-icons/lib/fa/ticket.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/ticket'>;
-}
-declare module 'react-icons/lib/fa/times-circle-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/times-circle-o'>;
-}
-declare module 'react-icons/lib/fa/times-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/times-circle'>;
-}
-declare module 'react-icons/lib/fa/tint.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tint'>;
-}
-declare module 'react-icons/lib/fa/toggle-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/toggle-off'>;
-}
-declare module 'react-icons/lib/fa/toggle-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/toggle-on'>;
-}
-declare module 'react-icons/lib/fa/trademark.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/trademark'>;
-}
-declare module 'react-icons/lib/fa/train.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/train'>;
-}
-declare module 'react-icons/lib/fa/transgender-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/transgender-alt'>;
-}
-declare module 'react-icons/lib/fa/trash-o.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/trash-o'>;
-}
-declare module 'react-icons/lib/fa/trash.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/trash'>;
-}
-declare module 'react-icons/lib/fa/tree.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tree'>;
-}
-declare module 'react-icons/lib/fa/trello.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/trello'>;
-}
-declare module 'react-icons/lib/fa/tripadvisor.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tripadvisor'>;
-}
-declare module 'react-icons/lib/fa/trophy.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/trophy'>;
-}
-declare module 'react-icons/lib/fa/truck.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/truck'>;
-}
-declare module 'react-icons/lib/fa/try.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/try'>;
-}
-declare module 'react-icons/lib/fa/tty.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tty'>;
-}
-declare module 'react-icons/lib/fa/tumblr-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tumblr-square'>;
-}
-declare module 'react-icons/lib/fa/tumblr.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/tumblr'>;
-}
-declare module 'react-icons/lib/fa/twitch.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/twitch'>;
-}
-declare module 'react-icons/lib/fa/twitter-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/twitter-square'>;
-}
-declare module 'react-icons/lib/fa/twitter.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/twitter'>;
-}
-declare module 'react-icons/lib/fa/umbrella.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/umbrella'>;
-}
-declare module 'react-icons/lib/fa/underline.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/underline'>;
-}
-declare module 'react-icons/lib/fa/universal-access.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/universal-access'>;
-}
-declare module 'react-icons/lib/fa/unlock-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/unlock-alt'>;
-}
-declare module 'react-icons/lib/fa/unlock.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/unlock'>;
-}
-declare module 'react-icons/lib/fa/upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/upload'>;
-}
-declare module 'react-icons/lib/fa/usb.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/usb'>;
-}
-declare module 'react-icons/lib/fa/user-md.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/user-md'>;
-}
-declare module 'react-icons/lib/fa/user-plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/user-plus'>;
-}
-declare module 'react-icons/lib/fa/user-secret.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/user-secret'>;
-}
-declare module 'react-icons/lib/fa/user-times.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/user-times'>;
-}
-declare module 'react-icons/lib/fa/user.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/user'>;
-}
-declare module 'react-icons/lib/fa/venus-double.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/venus-double'>;
-}
-declare module 'react-icons/lib/fa/venus-mars.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/venus-mars'>;
-}
-declare module 'react-icons/lib/fa/venus.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/venus'>;
-}
-declare module 'react-icons/lib/fa/viacoin.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/viacoin'>;
-}
-declare module 'react-icons/lib/fa/viadeo-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/viadeo-square'>;
-}
-declare module 'react-icons/lib/fa/viadeo.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/viadeo'>;
-}
-declare module 'react-icons/lib/fa/video-camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/video-camera'>;
-}
-declare module 'react-icons/lib/fa/vimeo-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/vimeo-square'>;
-}
-declare module 'react-icons/lib/fa/vimeo.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/vimeo'>;
-}
-declare module 'react-icons/lib/fa/vine.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/vine'>;
-}
-declare module 'react-icons/lib/fa/vk.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/vk'>;
-}
-declare module 'react-icons/lib/fa/volume-control-phone.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/volume-control-phone'>;
-}
-declare module 'react-icons/lib/fa/volume-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/volume-down'>;
-}
-declare module 'react-icons/lib/fa/volume-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/volume-off'>;
-}
-declare module 'react-icons/lib/fa/volume-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/volume-up'>;
-}
-declare module 'react-icons/lib/fa/wechat.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/wechat'>;
-}
-declare module 'react-icons/lib/fa/weibo.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/weibo'>;
-}
-declare module 'react-icons/lib/fa/whatsapp.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/whatsapp'>;
-}
-declare module 'react-icons/lib/fa/wheelchair-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/wheelchair-alt'>;
-}
-declare module 'react-icons/lib/fa/wheelchair.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/wheelchair'>;
-}
-declare module 'react-icons/lib/fa/wifi.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/wifi'>;
-}
-declare module 'react-icons/lib/fa/wikipedia-w.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/wikipedia-w'>;
-}
-declare module 'react-icons/lib/fa/windows.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/windows'>;
-}
-declare module 'react-icons/lib/fa/wordpress.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/wordpress'>;
-}
-declare module 'react-icons/lib/fa/wpbeginner.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/wpbeginner'>;
-}
-declare module 'react-icons/lib/fa/wpforms.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/wpforms'>;
-}
-declare module 'react-icons/lib/fa/wrench.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/wrench'>;
-}
-declare module 'react-icons/lib/fa/xing-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/xing-square'>;
-}
-declare module 'react-icons/lib/fa/xing.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/xing'>;
-}
-declare module 'react-icons/lib/fa/y-combinator.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/y-combinator'>;
-}
-declare module 'react-icons/lib/fa/yahoo.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/yahoo'>;
-}
-declare module 'react-icons/lib/fa/yelp.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/yelp'>;
-}
-declare module 'react-icons/lib/fa/youtube-play.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/youtube-play'>;
-}
-declare module 'react-icons/lib/fa/youtube-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/youtube-square'>;
-}
-declare module 'react-icons/lib/fa/youtube.js' {
-  declare module.exports: $Exports<'react-icons/lib/fa/youtube'>;
-}
-declare module 'react-icons/lib/go/alert.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/alert'>;
-}
-declare module 'react-icons/lib/go/alignment-align.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/alignment-align'>;
-}
-declare module 'react-icons/lib/go/alignment-aligned-to.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/alignment-aligned-to'>;
-}
-declare module 'react-icons/lib/go/alignment-unalign.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/alignment-unalign'>;
-}
-declare module 'react-icons/lib/go/arrow-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/arrow-down'>;
-}
-declare module 'react-icons/lib/go/arrow-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/arrow-left'>;
-}
-declare module 'react-icons/lib/go/arrow-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/arrow-right'>;
-}
-declare module 'react-icons/lib/go/arrow-small-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/arrow-small-down'>;
-}
-declare module 'react-icons/lib/go/arrow-small-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/arrow-small-left'>;
-}
-declare module 'react-icons/lib/go/arrow-small-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/arrow-small-right'>;
-}
-declare module 'react-icons/lib/go/arrow-small-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/arrow-small-up'>;
-}
-declare module 'react-icons/lib/go/arrow-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/arrow-up'>;
-}
-declare module 'react-icons/lib/go/beer.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/beer'>;
-}
-declare module 'react-icons/lib/go/book.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/book'>;
-}
-declare module 'react-icons/lib/go/bookmark.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/bookmark'>;
-}
-declare module 'react-icons/lib/go/briefcase.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/briefcase'>;
-}
-declare module 'react-icons/lib/go/broadcast.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/broadcast'>;
-}
-declare module 'react-icons/lib/go/browser.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/browser'>;
-}
-declare module 'react-icons/lib/go/bug.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/bug'>;
-}
-declare module 'react-icons/lib/go/calendar.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/calendar'>;
-}
-declare module 'react-icons/lib/go/check.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/check'>;
-}
-declare module 'react-icons/lib/go/checklist.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/checklist'>;
-}
-declare module 'react-icons/lib/go/chevron-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/chevron-down'>;
-}
-declare module 'react-icons/lib/go/chevron-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/chevron-left'>;
-}
-declare module 'react-icons/lib/go/chevron-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/chevron-right'>;
-}
-declare module 'react-icons/lib/go/chevron-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/chevron-up'>;
-}
-declare module 'react-icons/lib/go/circle-slash.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/circle-slash'>;
-}
-declare module 'react-icons/lib/go/circuit-board.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/circuit-board'>;
-}
-declare module 'react-icons/lib/go/clippy.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/clippy'>;
-}
-declare module 'react-icons/lib/go/clock.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/clock'>;
-}
-declare module 'react-icons/lib/go/cloud-download.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/cloud-download'>;
-}
-declare module 'react-icons/lib/go/cloud-upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/cloud-upload'>;
-}
-declare module 'react-icons/lib/go/code.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/code'>;
-}
-declare module 'react-icons/lib/go/color-mode.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/color-mode'>;
-}
-declare module 'react-icons/lib/go/comment-discussion.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/comment-discussion'>;
-}
-declare module 'react-icons/lib/go/comment.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/comment'>;
-}
-declare module 'react-icons/lib/go/credit-card.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/credit-card'>;
-}
-declare module 'react-icons/lib/go/dash.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/dash'>;
-}
-declare module 'react-icons/lib/go/dashboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/dashboard'>;
-}
-declare module 'react-icons/lib/go/database.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/database'>;
-}
-declare module 'react-icons/lib/go/device-camera-video.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/device-camera-video'>;
-}
-declare module 'react-icons/lib/go/device-camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/device-camera'>;
-}
-declare module 'react-icons/lib/go/device-desktop.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/device-desktop'>;
-}
-declare module 'react-icons/lib/go/device-mobile.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/device-mobile'>;
-}
-declare module 'react-icons/lib/go/diff-added.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/diff-added'>;
-}
-declare module 'react-icons/lib/go/diff-ignored.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/diff-ignored'>;
-}
-declare module 'react-icons/lib/go/diff-modified.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/diff-modified'>;
-}
-declare module 'react-icons/lib/go/diff-removed.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/diff-removed'>;
-}
-declare module 'react-icons/lib/go/diff-renamed.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/diff-renamed'>;
-}
-declare module 'react-icons/lib/go/diff.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/diff'>;
-}
-declare module 'react-icons/lib/go/ellipsis.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/ellipsis'>;
-}
-declare module 'react-icons/lib/go/eye.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/eye'>;
-}
-declare module 'react-icons/lib/go/file-binary.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-binary'>;
-}
-declare module 'react-icons/lib/go/file-code.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-code'>;
-}
-declare module 'react-icons/lib/go/file-directory.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-directory'>;
-}
-declare module 'react-icons/lib/go/file-media.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-media'>;
-}
-declare module 'react-icons/lib/go/file-pdf.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-pdf'>;
-}
-declare module 'react-icons/lib/go/file-submodule.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-submodule'>;
-}
-declare module 'react-icons/lib/go/file-symlink-directory.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-symlink-directory'>;
-}
-declare module 'react-icons/lib/go/file-symlink-file.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-symlink-file'>;
-}
-declare module 'react-icons/lib/go/file-text.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-text'>;
-}
-declare module 'react-icons/lib/go/file-zip.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/file-zip'>;
-}
-declare module 'react-icons/lib/go/flame.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/flame'>;
-}
-declare module 'react-icons/lib/go/fold.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/fold'>;
-}
-declare module 'react-icons/lib/go/gear.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/gear'>;
-}
-declare module 'react-icons/lib/go/gift.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/gift'>;
-}
-declare module 'react-icons/lib/go/gist-secret.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/gist-secret'>;
-}
-declare module 'react-icons/lib/go/gist.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/gist'>;
-}
-declare module 'react-icons/lib/go/git-branch.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/git-branch'>;
-}
-declare module 'react-icons/lib/go/git-commit.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/git-commit'>;
-}
-declare module 'react-icons/lib/go/git-compare.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/git-compare'>;
-}
-declare module 'react-icons/lib/go/git-merge.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/git-merge'>;
-}
-declare module 'react-icons/lib/go/git-pull-request.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/git-pull-request'>;
-}
-declare module 'react-icons/lib/go/globe.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/globe'>;
-}
-declare module 'react-icons/lib/go/graph.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/graph'>;
-}
-declare module 'react-icons/lib/go/heart.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/heart'>;
-}
-declare module 'react-icons/lib/go/history.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/history'>;
-}
-declare module 'react-icons/lib/go/home.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/home'>;
-}
-declare module 'react-icons/lib/go/horizontal-rule.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/horizontal-rule'>;
-}
-declare module 'react-icons/lib/go/hourglass.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/hourglass'>;
-}
-declare module 'react-icons/lib/go/hubot.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/hubot'>;
-}
-declare module 'react-icons/lib/go/inbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/inbox'>;
-}
-declare module 'react-icons/lib/go/index.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/index'>;
-}
-declare module 'react-icons/lib/go/info.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/info'>;
-}
-declare module 'react-icons/lib/go/issue-closed.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/issue-closed'>;
-}
-declare module 'react-icons/lib/go/issue-opened.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/issue-opened'>;
-}
-declare module 'react-icons/lib/go/issue-reopened.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/issue-reopened'>;
-}
-declare module 'react-icons/lib/go/jersey.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/jersey'>;
-}
-declare module 'react-icons/lib/go/jump-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/jump-down'>;
-}
-declare module 'react-icons/lib/go/jump-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/jump-left'>;
-}
-declare module 'react-icons/lib/go/jump-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/jump-right'>;
-}
-declare module 'react-icons/lib/go/jump-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/jump-up'>;
-}
-declare module 'react-icons/lib/go/key.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/key'>;
-}
-declare module 'react-icons/lib/go/keyboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/keyboard'>;
-}
-declare module 'react-icons/lib/go/law.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/law'>;
-}
-declare module 'react-icons/lib/go/light-bulb.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/light-bulb'>;
-}
-declare module 'react-icons/lib/go/link-external.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/link-external'>;
-}
-declare module 'react-icons/lib/go/link.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/link'>;
-}
-declare module 'react-icons/lib/go/list-ordered.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/list-ordered'>;
-}
-declare module 'react-icons/lib/go/list-unordered.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/list-unordered'>;
-}
-declare module 'react-icons/lib/go/location.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/location'>;
-}
-declare module 'react-icons/lib/go/lock.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/lock'>;
-}
-declare module 'react-icons/lib/go/logo-github.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/logo-github'>;
-}
-declare module 'react-icons/lib/go/mail-read.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/mail-read'>;
-}
-declare module 'react-icons/lib/go/mail-reply.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/mail-reply'>;
-}
-declare module 'react-icons/lib/go/mail.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/mail'>;
-}
-declare module 'react-icons/lib/go/mark-github.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/mark-github'>;
-}
-declare module 'react-icons/lib/go/markdown.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/markdown'>;
-}
-declare module 'react-icons/lib/go/megaphone.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/megaphone'>;
-}
-declare module 'react-icons/lib/go/mention.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/mention'>;
-}
-declare module 'react-icons/lib/go/microscope.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/microscope'>;
-}
-declare module 'react-icons/lib/go/milestone.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/milestone'>;
-}
-declare module 'react-icons/lib/go/mirror.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/mirror'>;
-}
-declare module 'react-icons/lib/go/mortar-board.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/mortar-board'>;
-}
-declare module 'react-icons/lib/go/move-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/move-down'>;
-}
-declare module 'react-icons/lib/go/move-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/move-left'>;
-}
-declare module 'react-icons/lib/go/move-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/move-right'>;
-}
-declare module 'react-icons/lib/go/move-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/move-up'>;
-}
-declare module 'react-icons/lib/go/mute.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/mute'>;
-}
-declare module 'react-icons/lib/go/no-newline.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/no-newline'>;
-}
-declare module 'react-icons/lib/go/octoface.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/octoface'>;
-}
-declare module 'react-icons/lib/go/organization.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/organization'>;
-}
-declare module 'react-icons/lib/go/package.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/package'>;
-}
-declare module 'react-icons/lib/go/paintcan.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/paintcan'>;
-}
-declare module 'react-icons/lib/go/pencil.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/pencil'>;
-}
-declare module 'react-icons/lib/go/person.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/person'>;
-}
-declare module 'react-icons/lib/go/pin.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/pin'>;
-}
-declare module 'react-icons/lib/go/playback-fast-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/playback-fast-forward'>;
-}
-declare module 'react-icons/lib/go/playback-pause.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/playback-pause'>;
-}
-declare module 'react-icons/lib/go/playback-play.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/playback-play'>;
-}
-declare module 'react-icons/lib/go/playback-rewind.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/playback-rewind'>;
-}
-declare module 'react-icons/lib/go/plug.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/plug'>;
-}
-declare module 'react-icons/lib/go/plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/plus'>;
-}
-declare module 'react-icons/lib/go/podium.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/podium'>;
-}
-declare module 'react-icons/lib/go/primitive-dot.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/primitive-dot'>;
-}
-declare module 'react-icons/lib/go/primitive-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/primitive-square'>;
-}
-declare module 'react-icons/lib/go/pulse.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/pulse'>;
-}
-declare module 'react-icons/lib/go/puzzle.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/puzzle'>;
-}
-declare module 'react-icons/lib/go/question.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/question'>;
-}
-declare module 'react-icons/lib/go/quote.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/quote'>;
-}
-declare module 'react-icons/lib/go/radio-tower.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/radio-tower'>;
-}
-declare module 'react-icons/lib/go/repo-clone.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/repo-clone'>;
-}
-declare module 'react-icons/lib/go/repo-force-push.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/repo-force-push'>;
-}
-declare module 'react-icons/lib/go/repo-forked.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/repo-forked'>;
-}
-declare module 'react-icons/lib/go/repo-pull.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/repo-pull'>;
-}
-declare module 'react-icons/lib/go/repo-push.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/repo-push'>;
-}
-declare module 'react-icons/lib/go/repo.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/repo'>;
-}
-declare module 'react-icons/lib/go/rocket.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/rocket'>;
-}
-declare module 'react-icons/lib/go/rss.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/rss'>;
-}
-declare module 'react-icons/lib/go/ruby.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/ruby'>;
-}
-declare module 'react-icons/lib/go/screen-full.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/screen-full'>;
-}
-declare module 'react-icons/lib/go/screen-normal.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/screen-normal'>;
-}
-declare module 'react-icons/lib/go/search.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/search'>;
-}
-declare module 'react-icons/lib/go/server.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/server'>;
-}
-declare module 'react-icons/lib/go/settings.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/settings'>;
-}
-declare module 'react-icons/lib/go/sign-in.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/sign-in'>;
-}
-declare module 'react-icons/lib/go/sign-out.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/sign-out'>;
-}
-declare module 'react-icons/lib/go/split.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/split'>;
-}
-declare module 'react-icons/lib/go/squirrel.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/squirrel'>;
-}
-declare module 'react-icons/lib/go/star.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/star'>;
-}
-declare module 'react-icons/lib/go/steps.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/steps'>;
-}
-declare module 'react-icons/lib/go/stop.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/stop'>;
-}
-declare module 'react-icons/lib/go/sync.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/sync'>;
-}
-declare module 'react-icons/lib/go/tag.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/tag'>;
-}
-declare module 'react-icons/lib/go/telescope.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/telescope'>;
-}
-declare module 'react-icons/lib/go/terminal.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/terminal'>;
-}
-declare module 'react-icons/lib/go/three-bars.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/three-bars'>;
-}
-declare module 'react-icons/lib/go/tools.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/tools'>;
-}
-declare module 'react-icons/lib/go/trashcan.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/trashcan'>;
-}
-declare module 'react-icons/lib/go/triangle-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/triangle-down'>;
-}
-declare module 'react-icons/lib/go/triangle-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/triangle-left'>;
-}
-declare module 'react-icons/lib/go/triangle-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/triangle-right'>;
-}
-declare module 'react-icons/lib/go/triangle-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/triangle-up'>;
-}
-declare module 'react-icons/lib/go/unfold.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/unfold'>;
-}
-declare module 'react-icons/lib/go/unmute.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/unmute'>;
-}
-declare module 'react-icons/lib/go/versions.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/versions'>;
-}
-declare module 'react-icons/lib/go/x.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/x'>;
-}
-declare module 'react-icons/lib/go/zap.js' {
-  declare module.exports: $Exports<'react-icons/lib/go/zap'>;
-}
-declare module 'react-icons/lib/IconBase.js' {
-  declare module.exports: $Exports<'react-icons/lib/IconBase'>;
-}
-declare module 'react-icons/lib/io/alert-circled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/alert-circled'>;
-}
-declare module 'react-icons/lib/io/alert.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/alert'>;
-}
-declare module 'react-icons/lib/io/android-add-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-add-circle'>;
-}
-declare module 'react-icons/lib/io/android-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-add'>;
-}
-declare module 'react-icons/lib/io/android-alarm-clock.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-alarm-clock'>;
-}
-declare module 'react-icons/lib/io/android-alert.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-alert'>;
-}
-declare module 'react-icons/lib/io/android-apps.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-apps'>;
-}
-declare module 'react-icons/lib/io/android-archive.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-archive'>;
-}
-declare module 'react-icons/lib/io/android-arrow-back.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-back'>;
-}
-declare module 'react-icons/lib/io/android-arrow-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-down'>;
-}
-declare module 'react-icons/lib/io/android-arrow-dropdown-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-dropdown-circle'>;
-}
-declare module 'react-icons/lib/io/android-arrow-dropdown.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-dropdown'>;
-}
-declare module 'react-icons/lib/io/android-arrow-dropleft-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-dropleft-circle'>;
-}
-declare module 'react-icons/lib/io/android-arrow-dropleft.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-dropleft'>;
-}
-declare module 'react-icons/lib/io/android-arrow-dropright-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-dropright-circle'>;
-}
-declare module 'react-icons/lib/io/android-arrow-dropright.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-dropright'>;
-}
-declare module 'react-icons/lib/io/android-arrow-dropup-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-dropup-circle'>;
-}
-declare module 'react-icons/lib/io/android-arrow-dropup.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-dropup'>;
-}
-declare module 'react-icons/lib/io/android-arrow-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-forward'>;
-}
-declare module 'react-icons/lib/io/android-arrow-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-arrow-up'>;
-}
-declare module 'react-icons/lib/io/android-attach.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-attach'>;
-}
-declare module 'react-icons/lib/io/android-bar.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-bar'>;
-}
-declare module 'react-icons/lib/io/android-bicycle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-bicycle'>;
-}
-declare module 'react-icons/lib/io/android-boat.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-boat'>;
-}
-declare module 'react-icons/lib/io/android-bookmark.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-bookmark'>;
-}
-declare module 'react-icons/lib/io/android-bulb.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-bulb'>;
-}
-declare module 'react-icons/lib/io/android-bus.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-bus'>;
-}
-declare module 'react-icons/lib/io/android-calendar.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-calendar'>;
-}
-declare module 'react-icons/lib/io/android-call.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-call'>;
-}
-declare module 'react-icons/lib/io/android-camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-camera'>;
-}
-declare module 'react-icons/lib/io/android-cancel.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-cancel'>;
-}
-declare module 'react-icons/lib/io/android-car.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-car'>;
-}
-declare module 'react-icons/lib/io/android-cart.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-cart'>;
-}
-declare module 'react-icons/lib/io/android-chat.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-chat'>;
-}
-declare module 'react-icons/lib/io/android-checkbox-blank.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-checkbox-blank'>;
-}
-declare module 'react-icons/lib/io/android-checkbox-outline-blank.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-checkbox-outline-blank'>;
-}
-declare module 'react-icons/lib/io/android-checkbox-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-checkbox-outline'>;
-}
-declare module 'react-icons/lib/io/android-checkbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-checkbox'>;
-}
-declare module 'react-icons/lib/io/android-checkmark-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-checkmark-circle'>;
-}
-declare module 'react-icons/lib/io/android-clipboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-clipboard'>;
-}
-declare module 'react-icons/lib/io/android-close.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-close'>;
-}
-declare module 'react-icons/lib/io/android-cloud-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-cloud-circle'>;
-}
-declare module 'react-icons/lib/io/android-cloud-done.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-cloud-done'>;
-}
-declare module 'react-icons/lib/io/android-cloud-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-cloud-outline'>;
-}
-declare module 'react-icons/lib/io/android-cloud.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-cloud'>;
-}
-declare module 'react-icons/lib/io/android-color-palette.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-color-palette'>;
-}
-declare module 'react-icons/lib/io/android-compass.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-compass'>;
-}
-declare module 'react-icons/lib/io/android-contact.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-contact'>;
-}
-declare module 'react-icons/lib/io/android-contacts.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-contacts'>;
-}
-declare module 'react-icons/lib/io/android-contract.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-contract'>;
-}
-declare module 'react-icons/lib/io/android-create.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-create'>;
-}
-declare module 'react-icons/lib/io/android-delete.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-delete'>;
-}
-declare module 'react-icons/lib/io/android-desktop.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-desktop'>;
-}
-declare module 'react-icons/lib/io/android-document.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-document'>;
-}
-declare module 'react-icons/lib/io/android-done-all.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-done-all'>;
-}
-declare module 'react-icons/lib/io/android-done.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-done'>;
-}
-declare module 'react-icons/lib/io/android-download.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-download'>;
-}
-declare module 'react-icons/lib/io/android-drafts.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-drafts'>;
-}
-declare module 'react-icons/lib/io/android-exit.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-exit'>;
-}
-declare module 'react-icons/lib/io/android-expand.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-expand'>;
-}
-declare module 'react-icons/lib/io/android-favorite-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-favorite-outline'>;
-}
-declare module 'react-icons/lib/io/android-favorite.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-favorite'>;
-}
-declare module 'react-icons/lib/io/android-film.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-film'>;
-}
-declare module 'react-icons/lib/io/android-folder-open.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-folder-open'>;
-}
-declare module 'react-icons/lib/io/android-folder.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-folder'>;
-}
-declare module 'react-icons/lib/io/android-funnel.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-funnel'>;
-}
-declare module 'react-icons/lib/io/android-globe.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-globe'>;
-}
-declare module 'react-icons/lib/io/android-hand.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-hand'>;
-}
-declare module 'react-icons/lib/io/android-hangout.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-hangout'>;
-}
-declare module 'react-icons/lib/io/android-happy.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-happy'>;
-}
-declare module 'react-icons/lib/io/android-home.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-home'>;
-}
-declare module 'react-icons/lib/io/android-image.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-image'>;
-}
-declare module 'react-icons/lib/io/android-laptop.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-laptop'>;
-}
-declare module 'react-icons/lib/io/android-list.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-list'>;
-}
-declare module 'react-icons/lib/io/android-locate.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-locate'>;
-}
-declare module 'react-icons/lib/io/android-lock.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-lock'>;
-}
-declare module 'react-icons/lib/io/android-mail.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-mail'>;
-}
-declare module 'react-icons/lib/io/android-map.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-map'>;
-}
-declare module 'react-icons/lib/io/android-menu.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-menu'>;
-}
-declare module 'react-icons/lib/io/android-microphone-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-microphone-off'>;
-}
-declare module 'react-icons/lib/io/android-microphone.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-microphone'>;
-}
-declare module 'react-icons/lib/io/android-more-horizontal.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-more-horizontal'>;
-}
-declare module 'react-icons/lib/io/android-more-vertical.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-more-vertical'>;
-}
-declare module 'react-icons/lib/io/android-navigate.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-navigate'>;
-}
-declare module 'react-icons/lib/io/android-notifications-none.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-notifications-none'>;
-}
-declare module 'react-icons/lib/io/android-notifications-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-notifications-off'>;
-}
-declare module 'react-icons/lib/io/android-notifications.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-notifications'>;
-}
-declare module 'react-icons/lib/io/android-open.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-open'>;
-}
-declare module 'react-icons/lib/io/android-options.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-options'>;
-}
-declare module 'react-icons/lib/io/android-people.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-people'>;
-}
-declare module 'react-icons/lib/io/android-person-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-person-add'>;
-}
-declare module 'react-icons/lib/io/android-person.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-person'>;
-}
-declare module 'react-icons/lib/io/android-phone-landscape.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-phone-landscape'>;
-}
-declare module 'react-icons/lib/io/android-phone-portrait.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-phone-portrait'>;
-}
-declare module 'react-icons/lib/io/android-pin.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-pin'>;
-}
-declare module 'react-icons/lib/io/android-plane.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-plane'>;
-}
-declare module 'react-icons/lib/io/android-playstore.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-playstore'>;
-}
-declare module 'react-icons/lib/io/android-print.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-print'>;
-}
-declare module 'react-icons/lib/io/android-radio-button-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-radio-button-off'>;
-}
-declare module 'react-icons/lib/io/android-radio-button-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-radio-button-on'>;
-}
-declare module 'react-icons/lib/io/android-refresh.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-refresh'>;
-}
-declare module 'react-icons/lib/io/android-remove-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-remove-circle'>;
-}
-declare module 'react-icons/lib/io/android-remove.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-remove'>;
-}
-declare module 'react-icons/lib/io/android-restaurant.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-restaurant'>;
-}
-declare module 'react-icons/lib/io/android-sad.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-sad'>;
-}
-declare module 'react-icons/lib/io/android-search.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-search'>;
-}
-declare module 'react-icons/lib/io/android-send.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-send'>;
-}
-declare module 'react-icons/lib/io/android-settings.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-settings'>;
-}
-declare module 'react-icons/lib/io/android-share-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-share-alt'>;
-}
-declare module 'react-icons/lib/io/android-share.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-share'>;
-}
-declare module 'react-icons/lib/io/android-star-half.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-star-half'>;
-}
-declare module 'react-icons/lib/io/android-star-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-star-outline'>;
-}
-declare module 'react-icons/lib/io/android-star.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-star'>;
-}
-declare module 'react-icons/lib/io/android-stopwatch.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-stopwatch'>;
-}
-declare module 'react-icons/lib/io/android-subway.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-subway'>;
-}
-declare module 'react-icons/lib/io/android-sunny.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-sunny'>;
-}
-declare module 'react-icons/lib/io/android-sync.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-sync'>;
-}
-declare module 'react-icons/lib/io/android-textsms.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-textsms'>;
-}
-declare module 'react-icons/lib/io/android-time.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-time'>;
-}
-declare module 'react-icons/lib/io/android-train.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-train'>;
-}
-declare module 'react-icons/lib/io/android-unlock.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-unlock'>;
-}
-declare module 'react-icons/lib/io/android-upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-upload'>;
-}
-declare module 'react-icons/lib/io/android-volume-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-volume-down'>;
-}
-declare module 'react-icons/lib/io/android-volume-mute.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-volume-mute'>;
-}
-declare module 'react-icons/lib/io/android-volume-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-volume-off'>;
-}
-declare module 'react-icons/lib/io/android-volume-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-volume-up'>;
-}
-declare module 'react-icons/lib/io/android-walk.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-walk'>;
-}
-declare module 'react-icons/lib/io/android-warning.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-warning'>;
-}
-declare module 'react-icons/lib/io/android-watch.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-watch'>;
-}
-declare module 'react-icons/lib/io/android-wifi.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/android-wifi'>;
-}
-declare module 'react-icons/lib/io/aperture.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/aperture'>;
-}
-declare module 'react-icons/lib/io/archive.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/archive'>;
-}
-declare module 'react-icons/lib/io/arrow-down-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-down-a'>;
-}
-declare module 'react-icons/lib/io/arrow-down-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-down-b'>;
-}
-declare module 'react-icons/lib/io/arrow-down-c.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-down-c'>;
-}
-declare module 'react-icons/lib/io/arrow-expand.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-expand'>;
-}
-declare module 'react-icons/lib/io/arrow-graph-down-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-graph-down-left'>;
-}
-declare module 'react-icons/lib/io/arrow-graph-down-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-graph-down-right'>;
-}
-declare module 'react-icons/lib/io/arrow-graph-up-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-graph-up-left'>;
-}
-declare module 'react-icons/lib/io/arrow-graph-up-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-graph-up-right'>;
-}
-declare module 'react-icons/lib/io/arrow-left-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-left-a'>;
-}
-declare module 'react-icons/lib/io/arrow-left-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-left-b'>;
-}
-declare module 'react-icons/lib/io/arrow-left-c.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-left-c'>;
-}
-declare module 'react-icons/lib/io/arrow-move.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-move'>;
-}
-declare module 'react-icons/lib/io/arrow-resize.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-resize'>;
-}
-declare module 'react-icons/lib/io/arrow-return-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-return-left'>;
-}
-declare module 'react-icons/lib/io/arrow-return-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-return-right'>;
-}
-declare module 'react-icons/lib/io/arrow-right-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-right-a'>;
-}
-declare module 'react-icons/lib/io/arrow-right-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-right-b'>;
-}
-declare module 'react-icons/lib/io/arrow-right-c.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-right-c'>;
-}
-declare module 'react-icons/lib/io/arrow-shrink.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-shrink'>;
-}
-declare module 'react-icons/lib/io/arrow-swap.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-swap'>;
-}
-declare module 'react-icons/lib/io/arrow-up-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-up-a'>;
-}
-declare module 'react-icons/lib/io/arrow-up-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-up-b'>;
-}
-declare module 'react-icons/lib/io/arrow-up-c.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/arrow-up-c'>;
-}
-declare module 'react-icons/lib/io/asterisk.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/asterisk'>;
-}
-declare module 'react-icons/lib/io/at.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/at'>;
-}
-declare module 'react-icons/lib/io/backspace-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/backspace-outline'>;
-}
-declare module 'react-icons/lib/io/backspace.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/backspace'>;
-}
-declare module 'react-icons/lib/io/bag.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/bag'>;
-}
-declare module 'react-icons/lib/io/battery-charging.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/battery-charging'>;
-}
-declare module 'react-icons/lib/io/battery-empty.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/battery-empty'>;
-}
-declare module 'react-icons/lib/io/battery-full.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/battery-full'>;
-}
-declare module 'react-icons/lib/io/battery-half.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/battery-half'>;
-}
-declare module 'react-icons/lib/io/battery-low.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/battery-low'>;
-}
-declare module 'react-icons/lib/io/beaker.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/beaker'>;
-}
-declare module 'react-icons/lib/io/beer.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/beer'>;
-}
-declare module 'react-icons/lib/io/bluetooth.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/bluetooth'>;
-}
-declare module 'react-icons/lib/io/bonfire.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/bonfire'>;
-}
-declare module 'react-icons/lib/io/bookmark.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/bookmark'>;
-}
-declare module 'react-icons/lib/io/bowtie.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/bowtie'>;
-}
-declare module 'react-icons/lib/io/briefcase.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/briefcase'>;
-}
-declare module 'react-icons/lib/io/bug.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/bug'>;
-}
-declare module 'react-icons/lib/io/calculator.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/calculator'>;
-}
-declare module 'react-icons/lib/io/calendar.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/calendar'>;
-}
-declare module 'react-icons/lib/io/camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/camera'>;
-}
-declare module 'react-icons/lib/io/card.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/card'>;
-}
-declare module 'react-icons/lib/io/cash.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/cash'>;
-}
-declare module 'react-icons/lib/io/chatbox-working.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chatbox-working'>;
-}
-declare module 'react-icons/lib/io/chatbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chatbox'>;
-}
-declare module 'react-icons/lib/io/chatboxes.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chatboxes'>;
-}
-declare module 'react-icons/lib/io/chatbubble-working.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chatbubble-working'>;
-}
-declare module 'react-icons/lib/io/chatbubble.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chatbubble'>;
-}
-declare module 'react-icons/lib/io/chatbubbles.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chatbubbles'>;
-}
-declare module 'react-icons/lib/io/checkmark-circled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/checkmark-circled'>;
-}
-declare module 'react-icons/lib/io/checkmark-round.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/checkmark-round'>;
-}
-declare module 'react-icons/lib/io/checkmark.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/checkmark'>;
-}
-declare module 'react-icons/lib/io/chevron-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chevron-down'>;
-}
-declare module 'react-icons/lib/io/chevron-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chevron-left'>;
-}
-declare module 'react-icons/lib/io/chevron-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chevron-right'>;
-}
-declare module 'react-icons/lib/io/chevron-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/chevron-up'>;
-}
-declare module 'react-icons/lib/io/clipboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/clipboard'>;
-}
-declare module 'react-icons/lib/io/clock.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/clock'>;
-}
-declare module 'react-icons/lib/io/close-circled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/close-circled'>;
-}
-declare module 'react-icons/lib/io/close-round.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/close-round'>;
-}
-declare module 'react-icons/lib/io/close.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/close'>;
-}
-declare module 'react-icons/lib/io/closed-captioning.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/closed-captioning'>;
-}
-declare module 'react-icons/lib/io/cloud.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/cloud'>;
-}
-declare module 'react-icons/lib/io/code-download.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/code-download'>;
-}
-declare module 'react-icons/lib/io/code-working.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/code-working'>;
-}
-declare module 'react-icons/lib/io/code.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/code'>;
-}
-declare module 'react-icons/lib/io/coffee.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/coffee'>;
-}
-declare module 'react-icons/lib/io/compass.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/compass'>;
-}
-declare module 'react-icons/lib/io/compose.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/compose'>;
-}
-declare module 'react-icons/lib/io/connectbars.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/connectbars'>;
-}
-declare module 'react-icons/lib/io/contrast.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/contrast'>;
-}
-declare module 'react-icons/lib/io/crop.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/crop'>;
-}
-declare module 'react-icons/lib/io/cube.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/cube'>;
-}
-declare module 'react-icons/lib/io/disc.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/disc'>;
-}
-declare module 'react-icons/lib/io/document-text.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/document-text'>;
-}
-declare module 'react-icons/lib/io/document.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/document'>;
-}
-declare module 'react-icons/lib/io/drag.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/drag'>;
-}
-declare module 'react-icons/lib/io/earth.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/earth'>;
-}
-declare module 'react-icons/lib/io/easel.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/easel'>;
-}
-declare module 'react-icons/lib/io/edit.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/edit'>;
-}
-declare module 'react-icons/lib/io/egg.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/egg'>;
-}
-declare module 'react-icons/lib/io/eject.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/eject'>;
-}
-declare module 'react-icons/lib/io/email-unread.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/email-unread'>;
-}
-declare module 'react-icons/lib/io/email.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/email'>;
-}
-declare module 'react-icons/lib/io/erlenmeyer-flask-bubbles.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/erlenmeyer-flask-bubbles'>;
-}
-declare module 'react-icons/lib/io/erlenmeyer-flask.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/erlenmeyer-flask'>;
-}
-declare module 'react-icons/lib/io/eye-disabled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/eye-disabled'>;
-}
-declare module 'react-icons/lib/io/eye.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/eye'>;
-}
-declare module 'react-icons/lib/io/female.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/female'>;
-}
-declare module 'react-icons/lib/io/filing.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/filing'>;
-}
-declare module 'react-icons/lib/io/film-marker.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/film-marker'>;
-}
-declare module 'react-icons/lib/io/fireball.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/fireball'>;
-}
-declare module 'react-icons/lib/io/flag.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/flag'>;
-}
-declare module 'react-icons/lib/io/flame.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/flame'>;
-}
-declare module 'react-icons/lib/io/flash-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/flash-off'>;
-}
-declare module 'react-icons/lib/io/flash.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/flash'>;
-}
-declare module 'react-icons/lib/io/folder.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/folder'>;
-}
-declare module 'react-icons/lib/io/fork-repo.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/fork-repo'>;
-}
-declare module 'react-icons/lib/io/fork.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/fork'>;
-}
-declare module 'react-icons/lib/io/forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/forward'>;
-}
-declare module 'react-icons/lib/io/funnel.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/funnel'>;
-}
-declare module 'react-icons/lib/io/gear-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/gear-a'>;
-}
-declare module 'react-icons/lib/io/gear-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/gear-b'>;
-}
-declare module 'react-icons/lib/io/grid.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/grid'>;
-}
-declare module 'react-icons/lib/io/hammer.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/hammer'>;
-}
-declare module 'react-icons/lib/io/happy-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/happy-outline'>;
-}
-declare module 'react-icons/lib/io/happy.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/happy'>;
-}
-declare module 'react-icons/lib/io/headphone.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/headphone'>;
-}
-declare module 'react-icons/lib/io/heart-broken.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/heart-broken'>;
-}
-declare module 'react-icons/lib/io/heart.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/heart'>;
-}
-declare module 'react-icons/lib/io/help-buoy.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/help-buoy'>;
-}
-declare module 'react-icons/lib/io/help-circled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/help-circled'>;
-}
-declare module 'react-icons/lib/io/help.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/help'>;
-}
-declare module 'react-icons/lib/io/home.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/home'>;
-}
-declare module 'react-icons/lib/io/icecream.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/icecream'>;
-}
-declare module 'react-icons/lib/io/image.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/image'>;
-}
-declare module 'react-icons/lib/io/images.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/images'>;
-}
-declare module 'react-icons/lib/io/index.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/index'>;
-}
-declare module 'react-icons/lib/io/informatcircled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/informatcircled'>;
-}
-declare module 'react-icons/lib/io/information.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/information'>;
-}
-declare module 'react-icons/lib/io/ionic.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ionic'>;
-}
-declare module 'react-icons/lib/io/ios-alarm-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-alarm-outline'>;
-}
-declare module 'react-icons/lib/io/ios-alarm.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-alarm'>;
-}
-declare module 'react-icons/lib/io/ios-albums-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-albums-outline'>;
-}
-declare module 'react-icons/lib/io/ios-albums.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-albums'>;
-}
-declare module 'react-icons/lib/io/ios-americanfootball-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-americanfootball-outline'>;
-}
-declare module 'react-icons/lib/io/ios-americanfootball.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-americanfootball'>;
-}
-declare module 'react-icons/lib/io/ios-analytics-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-analytics-outline'>;
-}
-declare module 'react-icons/lib/io/ios-analytics.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-analytics'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-back.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-back'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-down'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-forward'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-left'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-right'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-thin-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-thin-down'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-thin-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-thin-left'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-thin-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-thin-right'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-thin-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-thin-up'>;
-}
-declare module 'react-icons/lib/io/ios-arrow-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-arrow-up'>;
-}
-declare module 'react-icons/lib/io/ios-at-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-at-outline'>;
-}
-declare module 'react-icons/lib/io/ios-at.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-at'>;
-}
-declare module 'react-icons/lib/io/ios-barcode-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-barcode-outline'>;
-}
-declare module 'react-icons/lib/io/ios-barcode.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-barcode'>;
-}
-declare module 'react-icons/lib/io/ios-baseball-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-baseball-outline'>;
-}
-declare module 'react-icons/lib/io/ios-baseball.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-baseball'>;
-}
-declare module 'react-icons/lib/io/ios-basketball-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-basketball-outline'>;
-}
-declare module 'react-icons/lib/io/ios-basketball.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-basketball'>;
-}
-declare module 'react-icons/lib/io/ios-bell-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-bell-outline'>;
-}
-declare module 'react-icons/lib/io/ios-bell.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-bell'>;
-}
-declare module 'react-icons/lib/io/ios-body-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-body-outline'>;
-}
-declare module 'react-icons/lib/io/ios-body.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-body'>;
-}
-declare module 'react-icons/lib/io/ios-bolt-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-bolt-outline'>;
-}
-declare module 'react-icons/lib/io/ios-bolt.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-bolt'>;
-}
-declare module 'react-icons/lib/io/ios-book-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-book-outline'>;
-}
-declare module 'react-icons/lib/io/ios-book.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-book'>;
-}
-declare module 'react-icons/lib/io/ios-bookmarks-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-bookmarks-outline'>;
-}
-declare module 'react-icons/lib/io/ios-bookmarks.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-bookmarks'>;
-}
-declare module 'react-icons/lib/io/ios-box-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-box-outline'>;
-}
-declare module 'react-icons/lib/io/ios-box.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-box'>;
-}
-declare module 'react-icons/lib/io/ios-briefcase-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-briefcase-outline'>;
-}
-declare module 'react-icons/lib/io/ios-briefcase.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-briefcase'>;
-}
-declare module 'react-icons/lib/io/ios-browsers-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-browsers-outline'>;
-}
-declare module 'react-icons/lib/io/ios-browsers.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-browsers'>;
-}
-declare module 'react-icons/lib/io/ios-calculator-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-calculator-outline'>;
-}
-declare module 'react-icons/lib/io/ios-calculator.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-calculator'>;
-}
-declare module 'react-icons/lib/io/ios-calendar-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-calendar-outline'>;
-}
-declare module 'react-icons/lib/io/ios-calendar.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-calendar'>;
-}
-declare module 'react-icons/lib/io/ios-camera-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-camera-outline'>;
-}
-declare module 'react-icons/lib/io/ios-camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-camera'>;
-}
-declare module 'react-icons/lib/io/ios-cart-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cart-outline'>;
-}
-declare module 'react-icons/lib/io/ios-cart.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cart'>;
-}
-declare module 'react-icons/lib/io/ios-chatboxes-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-chatboxes-outline'>;
-}
-declare module 'react-icons/lib/io/ios-chatboxes.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-chatboxes'>;
-}
-declare module 'react-icons/lib/io/ios-chatbubble-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-chatbubble-outline'>;
-}
-declare module 'react-icons/lib/io/ios-chatbubble.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-chatbubble'>;
-}
-declare module 'react-icons/lib/io/ios-checkmark-empty.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-checkmark-empty'>;
-}
-declare module 'react-icons/lib/io/ios-checkmark-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-checkmark-outline'>;
-}
-declare module 'react-icons/lib/io/ios-checkmark.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-checkmark'>;
-}
-declare module 'react-icons/lib/io/ios-circle-filled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-circle-filled'>;
-}
-declare module 'react-icons/lib/io/ios-circle-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-circle-outline'>;
-}
-declare module 'react-icons/lib/io/ios-clock-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-clock-outline'>;
-}
-declare module 'react-icons/lib/io/ios-clock.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-clock'>;
-}
-declare module 'react-icons/lib/io/ios-close-empty.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-close-empty'>;
-}
-declare module 'react-icons/lib/io/ios-close-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-close-outline'>;
-}
-declare module 'react-icons/lib/io/ios-close.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-close'>;
-}
-declare module 'react-icons/lib/io/ios-cloud-download-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloud-download-outline'>;
-}
-declare module 'react-icons/lib/io/ios-cloud-download.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloud-download'>;
-}
-declare module 'react-icons/lib/io/ios-cloud-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloud-outline'>;
-}
-declare module 'react-icons/lib/io/ios-cloud-upload-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloud-upload-outline'>;
-}
-declare module 'react-icons/lib/io/ios-cloud-upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloud-upload'>;
-}
-declare module 'react-icons/lib/io/ios-cloud.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloud'>;
-}
-declare module 'react-icons/lib/io/ios-cloudy-night-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloudy-night-outline'>;
-}
-declare module 'react-icons/lib/io/ios-cloudy-night.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloudy-night'>;
-}
-declare module 'react-icons/lib/io/ios-cloudy-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloudy-outline'>;
-}
-declare module 'react-icons/lib/io/ios-cloudy.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cloudy'>;
-}
-declare module 'react-icons/lib/io/ios-cog-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cog-outline'>;
-}
-declare module 'react-icons/lib/io/ios-cog.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-cog'>;
-}
-declare module 'react-icons/lib/io/ios-color-filter-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-color-filter-outline'>;
-}
-declare module 'react-icons/lib/io/ios-color-filter.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-color-filter'>;
-}
-declare module 'react-icons/lib/io/ios-color-wand-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-color-wand-outline'>;
-}
-declare module 'react-icons/lib/io/ios-color-wand.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-color-wand'>;
-}
-declare module 'react-icons/lib/io/ios-compose-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-compose-outline'>;
-}
-declare module 'react-icons/lib/io/ios-compose.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-compose'>;
-}
-declare module 'react-icons/lib/io/ios-contact-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-contact-outline'>;
-}
-declare module 'react-icons/lib/io/ios-contact.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-contact'>;
-}
-declare module 'react-icons/lib/io/ios-copy-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-copy-outline'>;
-}
-declare module 'react-icons/lib/io/ios-copy.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-copy'>;
-}
-declare module 'react-icons/lib/io/ios-crop-strong.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-crop-strong'>;
-}
-declare module 'react-icons/lib/io/ios-crop.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-crop'>;
-}
-declare module 'react-icons/lib/io/ios-download-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-download-outline'>;
-}
-declare module 'react-icons/lib/io/ios-download.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-download'>;
-}
-declare module 'react-icons/lib/io/ios-drag.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-drag'>;
-}
-declare module 'react-icons/lib/io/ios-email-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-email-outline'>;
-}
-declare module 'react-icons/lib/io/ios-email.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-email'>;
-}
-declare module 'react-icons/lib/io/ios-eye-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-eye-outline'>;
-}
-declare module 'react-icons/lib/io/ios-eye.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-eye'>;
-}
-declare module 'react-icons/lib/io/ios-fastforward-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-fastforward-outline'>;
-}
-declare module 'react-icons/lib/io/ios-fastforward.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-fastforward'>;
-}
-declare module 'react-icons/lib/io/ios-filing-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-filing-outline'>;
-}
-declare module 'react-icons/lib/io/ios-filing.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-filing'>;
-}
-declare module 'react-icons/lib/io/ios-film-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-film-outline'>;
-}
-declare module 'react-icons/lib/io/ios-film.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-film'>;
-}
-declare module 'react-icons/lib/io/ios-flag-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-flag-outline'>;
-}
-declare module 'react-icons/lib/io/ios-flag.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-flag'>;
-}
-declare module 'react-icons/lib/io/ios-flame-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-flame-outline'>;
-}
-declare module 'react-icons/lib/io/ios-flame.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-flame'>;
-}
-declare module 'react-icons/lib/io/ios-flask-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-flask-outline'>;
-}
-declare module 'react-icons/lib/io/ios-flask.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-flask'>;
-}
-declare module 'react-icons/lib/io/ios-flower-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-flower-outline'>;
-}
-declare module 'react-icons/lib/io/ios-flower.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-flower'>;
-}
-declare module 'react-icons/lib/io/ios-folder-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-folder-outline'>;
-}
-declare module 'react-icons/lib/io/ios-folder.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-folder'>;
-}
-declare module 'react-icons/lib/io/ios-football-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-football-outline'>;
-}
-declare module 'react-icons/lib/io/ios-football.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-football'>;
-}
-declare module 'react-icons/lib/io/ios-game-controller-a-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-game-controller-a-outline'>;
-}
-declare module 'react-icons/lib/io/ios-game-controller-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-game-controller-a'>;
-}
-declare module 'react-icons/lib/io/ios-game-controller-b-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-game-controller-b-outline'>;
-}
-declare module 'react-icons/lib/io/ios-game-controller-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-game-controller-b'>;
-}
-declare module 'react-icons/lib/io/ios-gear-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-gear-outline'>;
-}
-declare module 'react-icons/lib/io/ios-gear.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-gear'>;
-}
-declare module 'react-icons/lib/io/ios-glasses-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-glasses-outline'>;
-}
-declare module 'react-icons/lib/io/ios-glasses.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-glasses'>;
-}
-declare module 'react-icons/lib/io/ios-grid-view-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-grid-view-outline'>;
-}
-declare module 'react-icons/lib/io/ios-grid-view.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-grid-view'>;
-}
-declare module 'react-icons/lib/io/ios-heart-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-heart-outline'>;
-}
-declare module 'react-icons/lib/io/ios-heart.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-heart'>;
-}
-declare module 'react-icons/lib/io/ios-help-empty.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-help-empty'>;
-}
-declare module 'react-icons/lib/io/ios-help-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-help-outline'>;
-}
-declare module 'react-icons/lib/io/ios-help.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-help'>;
-}
-declare module 'react-icons/lib/io/ios-home-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-home-outline'>;
-}
-declare module 'react-icons/lib/io/ios-home.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-home'>;
-}
-declare module 'react-icons/lib/io/ios-infinite-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-infinite-outline'>;
-}
-declare module 'react-icons/lib/io/ios-infinite.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-infinite'>;
-}
-declare module 'react-icons/lib/io/ios-informatempty.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-informatempty'>;
-}
-declare module 'react-icons/lib/io/ios-information.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-information'>;
-}
-declare module 'react-icons/lib/io/ios-informatoutline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-informatoutline'>;
-}
-declare module 'react-icons/lib/io/ios-ionic-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-ionic-outline'>;
-}
-declare module 'react-icons/lib/io/ios-keypad-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-keypad-outline'>;
-}
-declare module 'react-icons/lib/io/ios-keypad.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-keypad'>;
-}
-declare module 'react-icons/lib/io/ios-lightbulb-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-lightbulb-outline'>;
-}
-declare module 'react-icons/lib/io/ios-lightbulb.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-lightbulb'>;
-}
-declare module 'react-icons/lib/io/ios-list-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-list-outline'>;
-}
-declare module 'react-icons/lib/io/ios-list.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-list'>;
-}
-declare module 'react-icons/lib/io/ios-location.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-location'>;
-}
-declare module 'react-icons/lib/io/ios-locatoutline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-locatoutline'>;
-}
-declare module 'react-icons/lib/io/ios-locked-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-locked-outline'>;
-}
-declare module 'react-icons/lib/io/ios-locked.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-locked'>;
-}
-declare module 'react-icons/lib/io/ios-loop-strong.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-loop-strong'>;
-}
-declare module 'react-icons/lib/io/ios-loop.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-loop'>;
-}
-declare module 'react-icons/lib/io/ios-medical-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-medical-outline'>;
-}
-declare module 'react-icons/lib/io/ios-medical.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-medical'>;
-}
-declare module 'react-icons/lib/io/ios-medkit-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-medkit-outline'>;
-}
-declare module 'react-icons/lib/io/ios-medkit.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-medkit'>;
-}
-declare module 'react-icons/lib/io/ios-mic-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-mic-off'>;
-}
-declare module 'react-icons/lib/io/ios-mic-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-mic-outline'>;
-}
-declare module 'react-icons/lib/io/ios-mic.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-mic'>;
-}
-declare module 'react-icons/lib/io/ios-minus-empty.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-minus-empty'>;
-}
-declare module 'react-icons/lib/io/ios-minus-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-minus-outline'>;
-}
-declare module 'react-icons/lib/io/ios-minus.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-minus'>;
-}
-declare module 'react-icons/lib/io/ios-monitor-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-monitor-outline'>;
-}
-declare module 'react-icons/lib/io/ios-monitor.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-monitor'>;
-}
-declare module 'react-icons/lib/io/ios-moon-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-moon-outline'>;
-}
-declare module 'react-icons/lib/io/ios-moon.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-moon'>;
-}
-declare module 'react-icons/lib/io/ios-more-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-more-outline'>;
-}
-declare module 'react-icons/lib/io/ios-more.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-more'>;
-}
-declare module 'react-icons/lib/io/ios-musical-note.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-musical-note'>;
-}
-declare module 'react-icons/lib/io/ios-musical-notes.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-musical-notes'>;
-}
-declare module 'react-icons/lib/io/ios-navigate-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-navigate-outline'>;
-}
-declare module 'react-icons/lib/io/ios-navigate.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-navigate'>;
-}
-declare module 'react-icons/lib/io/ios-nutrition.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-nutrition'>;
-}
-declare module 'react-icons/lib/io/ios-nutritoutline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-nutritoutline'>;
-}
-declare module 'react-icons/lib/io/ios-paper-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-paper-outline'>;
-}
-declare module 'react-icons/lib/io/ios-paper.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-paper'>;
-}
-declare module 'react-icons/lib/io/ios-paperplane-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-paperplane-outline'>;
-}
-declare module 'react-icons/lib/io/ios-paperplane.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-paperplane'>;
-}
-declare module 'react-icons/lib/io/ios-partlysunny-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-partlysunny-outline'>;
-}
-declare module 'react-icons/lib/io/ios-partlysunny.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-partlysunny'>;
-}
-declare module 'react-icons/lib/io/ios-pause-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pause-outline'>;
-}
-declare module 'react-icons/lib/io/ios-pause.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pause'>;
-}
-declare module 'react-icons/lib/io/ios-paw-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-paw-outline'>;
-}
-declare module 'react-icons/lib/io/ios-paw.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-paw'>;
-}
-declare module 'react-icons/lib/io/ios-people-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-people-outline'>;
-}
-declare module 'react-icons/lib/io/ios-people.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-people'>;
-}
-declare module 'react-icons/lib/io/ios-person-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-person-outline'>;
-}
-declare module 'react-icons/lib/io/ios-person.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-person'>;
-}
-declare module 'react-icons/lib/io/ios-personadd-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-personadd-outline'>;
-}
-declare module 'react-icons/lib/io/ios-personadd.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-personadd'>;
-}
-declare module 'react-icons/lib/io/ios-photos-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-photos-outline'>;
-}
-declare module 'react-icons/lib/io/ios-photos.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-photos'>;
-}
-declare module 'react-icons/lib/io/ios-pie-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pie-outline'>;
-}
-declare module 'react-icons/lib/io/ios-pie.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pie'>;
-}
-declare module 'react-icons/lib/io/ios-pint-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pint-outline'>;
-}
-declare module 'react-icons/lib/io/ios-pint.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pint'>;
-}
-declare module 'react-icons/lib/io/ios-play-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-play-outline'>;
-}
-declare module 'react-icons/lib/io/ios-play.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-play'>;
-}
-declare module 'react-icons/lib/io/ios-plus-empty.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-plus-empty'>;
-}
-declare module 'react-icons/lib/io/ios-plus-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-plus-outline'>;
-}
-declare module 'react-icons/lib/io/ios-plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-plus'>;
-}
-declare module 'react-icons/lib/io/ios-pricetag-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pricetag-outline'>;
-}
-declare module 'react-icons/lib/io/ios-pricetag.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pricetag'>;
-}
-declare module 'react-icons/lib/io/ios-pricetags-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pricetags-outline'>;
-}
-declare module 'react-icons/lib/io/ios-pricetags.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pricetags'>;
-}
-declare module 'react-icons/lib/io/ios-printer-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-printer-outline'>;
-}
-declare module 'react-icons/lib/io/ios-printer.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-printer'>;
-}
-declare module 'react-icons/lib/io/ios-pulse-strong.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pulse-strong'>;
-}
-declare module 'react-icons/lib/io/ios-pulse.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-pulse'>;
-}
-declare module 'react-icons/lib/io/ios-rainy-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-rainy-outline'>;
-}
-declare module 'react-icons/lib/io/ios-rainy.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-rainy'>;
-}
-declare module 'react-icons/lib/io/ios-recording-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-recording-outline'>;
-}
-declare module 'react-icons/lib/io/ios-recording.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-recording'>;
-}
-declare module 'react-icons/lib/io/ios-redo-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-redo-outline'>;
-}
-declare module 'react-icons/lib/io/ios-redo.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-redo'>;
-}
-declare module 'react-icons/lib/io/ios-refresh-empty.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-refresh-empty'>;
-}
-declare module 'react-icons/lib/io/ios-refresh-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-refresh-outline'>;
-}
-declare module 'react-icons/lib/io/ios-refresh.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-refresh'>;
-}
-declare module 'react-icons/lib/io/ios-reload.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-reload'>;
-}
-declare module 'react-icons/lib/io/ios-reverse-camera-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-reverse-camera-outline'>;
-}
-declare module 'react-icons/lib/io/ios-reverse-camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-reverse-camera'>;
-}
-declare module 'react-icons/lib/io/ios-rewind-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-rewind-outline'>;
-}
-declare module 'react-icons/lib/io/ios-rewind.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-rewind'>;
-}
-declare module 'react-icons/lib/io/ios-rose-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-rose-outline'>;
-}
-declare module 'react-icons/lib/io/ios-rose.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-rose'>;
-}
-declare module 'react-icons/lib/io/ios-search-strong.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-search-strong'>;
-}
-declare module 'react-icons/lib/io/ios-search.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-search'>;
-}
-declare module 'react-icons/lib/io/ios-settings-strong.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-settings-strong'>;
-}
-declare module 'react-icons/lib/io/ios-settings.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-settings'>;
-}
-declare module 'react-icons/lib/io/ios-shuffle-strong.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-shuffle-strong'>;
-}
-declare module 'react-icons/lib/io/ios-shuffle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-shuffle'>;
-}
-declare module 'react-icons/lib/io/ios-skipbackward-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-skipbackward-outline'>;
-}
-declare module 'react-icons/lib/io/ios-skipbackward.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-skipbackward'>;
-}
-declare module 'react-icons/lib/io/ios-skipforward-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-skipforward-outline'>;
-}
-declare module 'react-icons/lib/io/ios-skipforward.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-skipforward'>;
-}
-declare module 'react-icons/lib/io/ios-snowy.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-snowy'>;
-}
-declare module 'react-icons/lib/io/ios-speedometer-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-speedometer-outline'>;
-}
-declare module 'react-icons/lib/io/ios-speedometer.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-speedometer'>;
-}
-declare module 'react-icons/lib/io/ios-star-half.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-star-half'>;
-}
-declare module 'react-icons/lib/io/ios-star-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-star-outline'>;
-}
-declare module 'react-icons/lib/io/ios-star.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-star'>;
-}
-declare module 'react-icons/lib/io/ios-stopwatch-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-stopwatch-outline'>;
-}
-declare module 'react-icons/lib/io/ios-stopwatch.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-stopwatch'>;
-}
-declare module 'react-icons/lib/io/ios-sunny-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-sunny-outline'>;
-}
-declare module 'react-icons/lib/io/ios-sunny.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-sunny'>;
-}
-declare module 'react-icons/lib/io/ios-telephone-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-telephone-outline'>;
-}
-declare module 'react-icons/lib/io/ios-telephone.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-telephone'>;
-}
-declare module 'react-icons/lib/io/ios-tennisball-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-tennisball-outline'>;
-}
-declare module 'react-icons/lib/io/ios-tennisball.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-tennisball'>;
-}
-declare module 'react-icons/lib/io/ios-thunderstorm-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-thunderstorm-outline'>;
-}
-declare module 'react-icons/lib/io/ios-thunderstorm.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-thunderstorm'>;
-}
-declare module 'react-icons/lib/io/ios-time-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-time-outline'>;
-}
-declare module 'react-icons/lib/io/ios-time.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-time'>;
-}
-declare module 'react-icons/lib/io/ios-timer-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-timer-outline'>;
-}
-declare module 'react-icons/lib/io/ios-timer.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-timer'>;
-}
-declare module 'react-icons/lib/io/ios-toggle-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-toggle-outline'>;
-}
-declare module 'react-icons/lib/io/ios-toggle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-toggle'>;
-}
-declare module 'react-icons/lib/io/ios-trash-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-trash-outline'>;
-}
-declare module 'react-icons/lib/io/ios-trash.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-trash'>;
-}
-declare module 'react-icons/lib/io/ios-undo-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-undo-outline'>;
-}
-declare module 'react-icons/lib/io/ios-undo.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-undo'>;
-}
-declare module 'react-icons/lib/io/ios-unlocked-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-unlocked-outline'>;
-}
-declare module 'react-icons/lib/io/ios-unlocked.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-unlocked'>;
-}
-declare module 'react-icons/lib/io/ios-upload-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-upload-outline'>;
-}
-declare module 'react-icons/lib/io/ios-upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-upload'>;
-}
-declare module 'react-icons/lib/io/ios-videocam-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-videocam-outline'>;
-}
-declare module 'react-icons/lib/io/ios-videocam.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-videocam'>;
-}
-declare module 'react-icons/lib/io/ios-volume-high.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-volume-high'>;
-}
-declare module 'react-icons/lib/io/ios-volume-low.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-volume-low'>;
-}
-declare module 'react-icons/lib/io/ios-wineglass-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-wineglass-outline'>;
-}
-declare module 'react-icons/lib/io/ios-wineglass.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-wineglass'>;
-}
-declare module 'react-icons/lib/io/ios-world-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-world-outline'>;
-}
-declare module 'react-icons/lib/io/ios-world.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ios-world'>;
-}
-declare module 'react-icons/lib/io/ipad.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ipad'>;
-}
-declare module 'react-icons/lib/io/iphone.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/iphone'>;
-}
-declare module 'react-icons/lib/io/ipod.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ipod'>;
-}
-declare module 'react-icons/lib/io/jet.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/jet'>;
-}
-declare module 'react-icons/lib/io/key.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/key'>;
-}
-declare module 'react-icons/lib/io/knife.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/knife'>;
-}
-declare module 'react-icons/lib/io/laptop.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/laptop'>;
-}
-declare module 'react-icons/lib/io/leaf.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/leaf'>;
-}
-declare module 'react-icons/lib/io/levels.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/levels'>;
-}
-declare module 'react-icons/lib/io/lightbulb.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/lightbulb'>;
-}
-declare module 'react-icons/lib/io/link.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/link'>;
-}
-declare module 'react-icons/lib/io/load-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/load-a'>;
-}
-declare module 'react-icons/lib/io/load-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/load-b'>;
-}
-declare module 'react-icons/lib/io/load-c.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/load-c'>;
-}
-declare module 'react-icons/lib/io/load-d.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/load-d'>;
-}
-declare module 'react-icons/lib/io/location.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/location'>;
-}
-declare module 'react-icons/lib/io/lock-combination.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/lock-combination'>;
-}
-declare module 'react-icons/lib/io/locked.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/locked'>;
-}
-declare module 'react-icons/lib/io/log-in.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/log-in'>;
-}
-declare module 'react-icons/lib/io/log-out.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/log-out'>;
-}
-declare module 'react-icons/lib/io/loop.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/loop'>;
-}
-declare module 'react-icons/lib/io/magnet.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/magnet'>;
-}
-declare module 'react-icons/lib/io/male.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/male'>;
-}
-declare module 'react-icons/lib/io/man.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/man'>;
-}
-declare module 'react-icons/lib/io/map.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/map'>;
-}
-declare module 'react-icons/lib/io/medkit.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/medkit'>;
-}
-declare module 'react-icons/lib/io/merge.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/merge'>;
-}
-declare module 'react-icons/lib/io/mic-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/mic-a'>;
-}
-declare module 'react-icons/lib/io/mic-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/mic-b'>;
-}
-declare module 'react-icons/lib/io/mic-c.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/mic-c'>;
-}
-declare module 'react-icons/lib/io/minus-circled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/minus-circled'>;
-}
-declare module 'react-icons/lib/io/minus-round.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/minus-round'>;
-}
-declare module 'react-icons/lib/io/minus.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/minus'>;
-}
-declare module 'react-icons/lib/io/model-s.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/model-s'>;
-}
-declare module 'react-icons/lib/io/monitor.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/monitor'>;
-}
-declare module 'react-icons/lib/io/more.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/more'>;
-}
-declare module 'react-icons/lib/io/mouse.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/mouse'>;
-}
-declare module 'react-icons/lib/io/music-note.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/music-note'>;
-}
-declare module 'react-icons/lib/io/navicon-round.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/navicon-round'>;
-}
-declare module 'react-icons/lib/io/navicon.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/navicon'>;
-}
-declare module 'react-icons/lib/io/navigate.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/navigate'>;
-}
-declare module 'react-icons/lib/io/network.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/network'>;
-}
-declare module 'react-icons/lib/io/no-smoking.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/no-smoking'>;
-}
-declare module 'react-icons/lib/io/nuclear.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/nuclear'>;
-}
-declare module 'react-icons/lib/io/outlet.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/outlet'>;
-}
-declare module 'react-icons/lib/io/paintbrush.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/paintbrush'>;
-}
-declare module 'react-icons/lib/io/paintbucket.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/paintbucket'>;
-}
-declare module 'react-icons/lib/io/paper-airplane.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/paper-airplane'>;
-}
-declare module 'react-icons/lib/io/paperclip.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/paperclip'>;
-}
-declare module 'react-icons/lib/io/pause.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/pause'>;
-}
-declare module 'react-icons/lib/io/person-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/person-add'>;
-}
-declare module 'react-icons/lib/io/person-stalker.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/person-stalker'>;
-}
-declare module 'react-icons/lib/io/person.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/person'>;
-}
-declare module 'react-icons/lib/io/pie-graph.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/pie-graph'>;
-}
-declare module 'react-icons/lib/io/pin.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/pin'>;
-}
-declare module 'react-icons/lib/io/pinpoint.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/pinpoint'>;
-}
-declare module 'react-icons/lib/io/pizza.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/pizza'>;
-}
-declare module 'react-icons/lib/io/plane.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/plane'>;
-}
-declare module 'react-icons/lib/io/planet.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/planet'>;
-}
-declare module 'react-icons/lib/io/play.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/play'>;
-}
-declare module 'react-icons/lib/io/playstation.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/playstation'>;
-}
-declare module 'react-icons/lib/io/plus-circled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/plus-circled'>;
-}
-declare module 'react-icons/lib/io/plus-round.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/plus-round'>;
-}
-declare module 'react-icons/lib/io/plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/plus'>;
-}
-declare module 'react-icons/lib/io/podium.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/podium'>;
-}
-declare module 'react-icons/lib/io/pound.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/pound'>;
-}
-declare module 'react-icons/lib/io/power.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/power'>;
-}
-declare module 'react-icons/lib/io/pricetag.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/pricetag'>;
-}
-declare module 'react-icons/lib/io/pricetags.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/pricetags'>;
-}
-declare module 'react-icons/lib/io/printer.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/printer'>;
-}
-declare module 'react-icons/lib/io/pull-request.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/pull-request'>;
-}
-declare module 'react-icons/lib/io/qr-scanner.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/qr-scanner'>;
-}
-declare module 'react-icons/lib/io/quote.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/quote'>;
-}
-declare module 'react-icons/lib/io/radio-waves.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/radio-waves'>;
-}
-declare module 'react-icons/lib/io/record.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/record'>;
-}
-declare module 'react-icons/lib/io/refresh.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/refresh'>;
-}
-declare module 'react-icons/lib/io/reply-all.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/reply-all'>;
-}
-declare module 'react-icons/lib/io/reply.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/reply'>;
-}
-declare module 'react-icons/lib/io/ribbon-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ribbon-a'>;
-}
-declare module 'react-icons/lib/io/ribbon-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/ribbon-b'>;
-}
-declare module 'react-icons/lib/io/sad-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/sad-outline'>;
-}
-declare module 'react-icons/lib/io/sad.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/sad'>;
-}
-declare module 'react-icons/lib/io/scissors.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/scissors'>;
-}
-declare module 'react-icons/lib/io/search.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/search'>;
-}
-declare module 'react-icons/lib/io/settings.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/settings'>;
-}
-declare module 'react-icons/lib/io/share.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/share'>;
-}
-declare module 'react-icons/lib/io/shuffle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/shuffle'>;
-}
-declare module 'react-icons/lib/io/skip-backward.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/skip-backward'>;
-}
-declare module 'react-icons/lib/io/skip-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/skip-forward'>;
-}
-declare module 'react-icons/lib/io/social-android-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-android-outline'>;
-}
-declare module 'react-icons/lib/io/social-android.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-android'>;
-}
-declare module 'react-icons/lib/io/social-angular-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-angular-outline'>;
-}
-declare module 'react-icons/lib/io/social-angular.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-angular'>;
-}
-declare module 'react-icons/lib/io/social-apple-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-apple-outline'>;
-}
-declare module 'react-icons/lib/io/social-apple.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-apple'>;
-}
-declare module 'react-icons/lib/io/social-bitcoin-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-bitcoin-outline'>;
-}
-declare module 'react-icons/lib/io/social-bitcoin.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-bitcoin'>;
-}
-declare module 'react-icons/lib/io/social-buffer-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-buffer-outline'>;
-}
-declare module 'react-icons/lib/io/social-buffer.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-buffer'>;
-}
-declare module 'react-icons/lib/io/social-chrome-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-chrome-outline'>;
-}
-declare module 'react-icons/lib/io/social-chrome.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-chrome'>;
-}
-declare module 'react-icons/lib/io/social-codepen-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-codepen-outline'>;
-}
-declare module 'react-icons/lib/io/social-codepen.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-codepen'>;
-}
-declare module 'react-icons/lib/io/social-css3-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-css3-outline'>;
-}
-declare module 'react-icons/lib/io/social-css3.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-css3'>;
-}
-declare module 'react-icons/lib/io/social-designernews-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-designernews-outline'>;
-}
-declare module 'react-icons/lib/io/social-designernews.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-designernews'>;
-}
-declare module 'react-icons/lib/io/social-dribbble-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-dribbble-outline'>;
-}
-declare module 'react-icons/lib/io/social-dribbble.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-dribbble'>;
-}
-declare module 'react-icons/lib/io/social-dropbox-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-dropbox-outline'>;
-}
-declare module 'react-icons/lib/io/social-dropbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-dropbox'>;
-}
-declare module 'react-icons/lib/io/social-euro-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-euro-outline'>;
-}
-declare module 'react-icons/lib/io/social-euro.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-euro'>;
-}
-declare module 'react-icons/lib/io/social-facebook-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-facebook-outline'>;
-}
-declare module 'react-icons/lib/io/social-facebook.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-facebook'>;
-}
-declare module 'react-icons/lib/io/social-foursquare-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-foursquare-outline'>;
-}
-declare module 'react-icons/lib/io/social-foursquare.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-foursquare'>;
-}
-declare module 'react-icons/lib/io/social-freebsd-devil.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-freebsd-devil'>;
-}
-declare module 'react-icons/lib/io/social-github-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-github-outline'>;
-}
-declare module 'react-icons/lib/io/social-github.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-github'>;
-}
-declare module 'react-icons/lib/io/social-google-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-google-outline'>;
-}
-declare module 'react-icons/lib/io/social-google.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-google'>;
-}
-declare module 'react-icons/lib/io/social-googleplus-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-googleplus-outline'>;
-}
-declare module 'react-icons/lib/io/social-googleplus.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-googleplus'>;
-}
-declare module 'react-icons/lib/io/social-hackernews-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-hackernews-outline'>;
-}
-declare module 'react-icons/lib/io/social-hackernews.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-hackernews'>;
-}
-declare module 'react-icons/lib/io/social-html5-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-html5-outline'>;
-}
-declare module 'react-icons/lib/io/social-html5.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-html5'>;
-}
-declare module 'react-icons/lib/io/social-instagram-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-instagram-outline'>;
-}
-declare module 'react-icons/lib/io/social-instagram.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-instagram'>;
-}
-declare module 'react-icons/lib/io/social-javascript-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-javascript-outline'>;
-}
-declare module 'react-icons/lib/io/social-javascript.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-javascript'>;
-}
-declare module 'react-icons/lib/io/social-linkedin-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-linkedin-outline'>;
-}
-declare module 'react-icons/lib/io/social-linkedin.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-linkedin'>;
-}
-declare module 'react-icons/lib/io/social-markdown.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-markdown'>;
-}
-declare module 'react-icons/lib/io/social-nodejs.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-nodejs'>;
-}
-declare module 'react-icons/lib/io/social-octocat.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-octocat'>;
-}
-declare module 'react-icons/lib/io/social-pinterest-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-pinterest-outline'>;
-}
-declare module 'react-icons/lib/io/social-pinterest.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-pinterest'>;
-}
-declare module 'react-icons/lib/io/social-python.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-python'>;
-}
-declare module 'react-icons/lib/io/social-reddit-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-reddit-outline'>;
-}
-declare module 'react-icons/lib/io/social-reddit.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-reddit'>;
-}
-declare module 'react-icons/lib/io/social-rss-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-rss-outline'>;
-}
-declare module 'react-icons/lib/io/social-rss.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-rss'>;
-}
-declare module 'react-icons/lib/io/social-sass.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-sass'>;
-}
-declare module 'react-icons/lib/io/social-skype-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-skype-outline'>;
-}
-declare module 'react-icons/lib/io/social-skype.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-skype'>;
-}
-declare module 'react-icons/lib/io/social-snapchat-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-snapchat-outline'>;
-}
-declare module 'react-icons/lib/io/social-snapchat.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-snapchat'>;
-}
-declare module 'react-icons/lib/io/social-tumblr-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-tumblr-outline'>;
-}
-declare module 'react-icons/lib/io/social-tumblr.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-tumblr'>;
-}
-declare module 'react-icons/lib/io/social-tux.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-tux'>;
-}
-declare module 'react-icons/lib/io/social-twitch-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-twitch-outline'>;
-}
-declare module 'react-icons/lib/io/social-twitch.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-twitch'>;
-}
-declare module 'react-icons/lib/io/social-twitter-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-twitter-outline'>;
-}
-declare module 'react-icons/lib/io/social-twitter.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-twitter'>;
-}
-declare module 'react-icons/lib/io/social-usd-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-usd-outline'>;
-}
-declare module 'react-icons/lib/io/social-usd.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-usd'>;
-}
-declare module 'react-icons/lib/io/social-vimeo-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-vimeo-outline'>;
-}
-declare module 'react-icons/lib/io/social-vimeo.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-vimeo'>;
-}
-declare module 'react-icons/lib/io/social-whatsapp-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-whatsapp-outline'>;
-}
-declare module 'react-icons/lib/io/social-whatsapp.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-whatsapp'>;
-}
-declare module 'react-icons/lib/io/social-windows-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-windows-outline'>;
-}
-declare module 'react-icons/lib/io/social-windows.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-windows'>;
-}
-declare module 'react-icons/lib/io/social-wordpress-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-wordpress-outline'>;
-}
-declare module 'react-icons/lib/io/social-wordpress.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-wordpress'>;
-}
-declare module 'react-icons/lib/io/social-yahoo-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-yahoo-outline'>;
-}
-declare module 'react-icons/lib/io/social-yahoo.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-yahoo'>;
-}
-declare module 'react-icons/lib/io/social-yen-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-yen-outline'>;
-}
-declare module 'react-icons/lib/io/social-yen.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-yen'>;
-}
-declare module 'react-icons/lib/io/social-youtube-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-youtube-outline'>;
-}
-declare module 'react-icons/lib/io/social-youtube.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/social-youtube'>;
-}
-declare module 'react-icons/lib/io/soup-can-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/soup-can-outline'>;
-}
-declare module 'react-icons/lib/io/soup-can.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/soup-can'>;
-}
-declare module 'react-icons/lib/io/speakerphone.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/speakerphone'>;
-}
-declare module 'react-icons/lib/io/speedometer.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/speedometer'>;
-}
-declare module 'react-icons/lib/io/spoon.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/spoon'>;
-}
-declare module 'react-icons/lib/io/star.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/star'>;
-}
-declare module 'react-icons/lib/io/stats-bars.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/stats-bars'>;
-}
-declare module 'react-icons/lib/io/steam.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/steam'>;
-}
-declare module 'react-icons/lib/io/stop.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/stop'>;
-}
-declare module 'react-icons/lib/io/thermometer.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/thermometer'>;
-}
-declare module 'react-icons/lib/io/thumbsdown.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/thumbsdown'>;
-}
-declare module 'react-icons/lib/io/thumbsup.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/thumbsup'>;
-}
-declare module 'react-icons/lib/io/toggle-filled.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/toggle-filled'>;
-}
-declare module 'react-icons/lib/io/toggle.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/toggle'>;
-}
-declare module 'react-icons/lib/io/transgender.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/transgender'>;
-}
-declare module 'react-icons/lib/io/trash-a.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/trash-a'>;
-}
-declare module 'react-icons/lib/io/trash-b.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/trash-b'>;
-}
-declare module 'react-icons/lib/io/trophy.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/trophy'>;
-}
-declare module 'react-icons/lib/io/tshirt-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/tshirt-outline'>;
-}
-declare module 'react-icons/lib/io/tshirt.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/tshirt'>;
-}
-declare module 'react-icons/lib/io/umbrella.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/umbrella'>;
-}
-declare module 'react-icons/lib/io/university.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/university'>;
-}
-declare module 'react-icons/lib/io/unlocked.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/unlocked'>;
-}
-declare module 'react-icons/lib/io/upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/upload'>;
-}
-declare module 'react-icons/lib/io/usb.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/usb'>;
-}
-declare module 'react-icons/lib/io/videocamera.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/videocamera'>;
-}
-declare module 'react-icons/lib/io/volume-high.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/volume-high'>;
-}
-declare module 'react-icons/lib/io/volume-low.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/volume-low'>;
-}
-declare module 'react-icons/lib/io/volume-medium.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/volume-medium'>;
-}
-declare module 'react-icons/lib/io/volume-mute.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/volume-mute'>;
-}
-declare module 'react-icons/lib/io/wand.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/wand'>;
-}
-declare module 'react-icons/lib/io/waterdrop.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/waterdrop'>;
-}
-declare module 'react-icons/lib/io/wifi.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/wifi'>;
-}
-declare module 'react-icons/lib/io/wineglass.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/wineglass'>;
-}
-declare module 'react-icons/lib/io/woman.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/woman'>;
-}
-declare module 'react-icons/lib/io/wrench.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/wrench'>;
-}
-declare module 'react-icons/lib/io/xbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/io/xbox'>;
-}
-declare module 'react-icons/lib/md/3d-rotation.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/3d-rotation'>;
-}
-declare module 'react-icons/lib/md/ac-unit.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/ac-unit'>;
-}
-declare module 'react-icons/lib/md/access-alarm.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/access-alarm'>;
-}
-declare module 'react-icons/lib/md/access-alarms.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/access-alarms'>;
-}
-declare module 'react-icons/lib/md/access-time.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/access-time'>;
-}
-declare module 'react-icons/lib/md/accessibility.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/accessibility'>;
-}
-declare module 'react-icons/lib/md/accessible.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/accessible'>;
-}
-declare module 'react-icons/lib/md/account-balance-wallet.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/account-balance-wallet'>;
-}
-declare module 'react-icons/lib/md/account-balance.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/account-balance'>;
-}
-declare module 'react-icons/lib/md/account-box.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/account-box'>;
-}
-declare module 'react-icons/lib/md/account-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/account-circle'>;
-}
-declare module 'react-icons/lib/md/adb.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/adb'>;
-}
-declare module 'react-icons/lib/md/add-a-photo.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-a-photo'>;
-}
-declare module 'react-icons/lib/md/add-alarm.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-alarm'>;
-}
-declare module 'react-icons/lib/md/add-alert.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-alert'>;
-}
-declare module 'react-icons/lib/md/add-box.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-box'>;
-}
-declare module 'react-icons/lib/md/add-circle-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-circle-outline'>;
-}
-declare module 'react-icons/lib/md/add-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-circle'>;
-}
-declare module 'react-icons/lib/md/add-location.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-location'>;
-}
-declare module 'react-icons/lib/md/add-shopping-cart.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-shopping-cart'>;
-}
-declare module 'react-icons/lib/md/add-to-photos.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-to-photos'>;
-}
-declare module 'react-icons/lib/md/add-to-queue.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add-to-queue'>;
-}
-declare module 'react-icons/lib/md/add.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/add'>;
-}
-declare module 'react-icons/lib/md/adjust.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/adjust'>;
-}
-declare module 'react-icons/lib/md/airline-seat-flat-angled.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airline-seat-flat-angled'>;
-}
-declare module 'react-icons/lib/md/airline-seat-flat.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airline-seat-flat'>;
-}
-declare module 'react-icons/lib/md/airline-seat-individual-suite.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airline-seat-individual-suite'>;
-}
-declare module 'react-icons/lib/md/airline-seat-legroom-extra.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airline-seat-legroom-extra'>;
-}
-declare module 'react-icons/lib/md/airline-seat-legroom-normal.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airline-seat-legroom-normal'>;
-}
-declare module 'react-icons/lib/md/airline-seat-legroom-reduced.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airline-seat-legroom-reduced'>;
-}
-declare module 'react-icons/lib/md/airline-seat-recline-extra.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airline-seat-recline-extra'>;
-}
-declare module 'react-icons/lib/md/airline-seat-recline-normal.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airline-seat-recline-normal'>;
-}
-declare module 'react-icons/lib/md/airplanemode-active.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airplanemode-active'>;
-}
-declare module 'react-icons/lib/md/airplanemode-inactive.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airplanemode-inactive'>;
-}
-declare module 'react-icons/lib/md/airplay.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airplay'>;
-}
-declare module 'react-icons/lib/md/airport-shuttle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/airport-shuttle'>;
-}
-declare module 'react-icons/lib/md/alarm-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/alarm-add'>;
-}
-declare module 'react-icons/lib/md/alarm-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/alarm-off'>;
-}
-declare module 'react-icons/lib/md/alarm-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/alarm-on'>;
-}
-declare module 'react-icons/lib/md/alarm.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/alarm'>;
-}
-declare module 'react-icons/lib/md/album.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/album'>;
-}
-declare module 'react-icons/lib/md/all-inclusive.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/all-inclusive'>;
-}
-declare module 'react-icons/lib/md/all-out.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/all-out'>;
-}
-declare module 'react-icons/lib/md/android.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/android'>;
-}
-declare module 'react-icons/lib/md/announcement.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/announcement'>;
-}
-declare module 'react-icons/lib/md/apps.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/apps'>;
-}
-declare module 'react-icons/lib/md/archive.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/archive'>;
-}
-declare module 'react-icons/lib/md/arrow-back.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/arrow-back'>;
-}
-declare module 'react-icons/lib/md/arrow-downward.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/arrow-downward'>;
-}
-declare module 'react-icons/lib/md/arrow-drop-down-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/arrow-drop-down-circle'>;
-}
-declare module 'react-icons/lib/md/arrow-drop-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/arrow-drop-down'>;
-}
-declare module 'react-icons/lib/md/arrow-drop-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/arrow-drop-up'>;
-}
-declare module 'react-icons/lib/md/arrow-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/arrow-forward'>;
-}
-declare module 'react-icons/lib/md/arrow-upward.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/arrow-upward'>;
-}
-declare module 'react-icons/lib/md/art-track.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/art-track'>;
-}
-declare module 'react-icons/lib/md/aspect-ratio.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/aspect-ratio'>;
-}
-declare module 'react-icons/lib/md/assessment.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/assessment'>;
-}
-declare module 'react-icons/lib/md/assignment-ind.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/assignment-ind'>;
-}
-declare module 'react-icons/lib/md/assignment-late.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/assignment-late'>;
-}
-declare module 'react-icons/lib/md/assignment-return.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/assignment-return'>;
-}
-declare module 'react-icons/lib/md/assignment-returned.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/assignment-returned'>;
-}
-declare module 'react-icons/lib/md/assignment-turned-in.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/assignment-turned-in'>;
-}
-declare module 'react-icons/lib/md/assignment.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/assignment'>;
-}
-declare module 'react-icons/lib/md/assistant-photo.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/assistant-photo'>;
-}
-declare module 'react-icons/lib/md/assistant.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/assistant'>;
-}
-declare module 'react-icons/lib/md/attach-file.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/attach-file'>;
-}
-declare module 'react-icons/lib/md/attach-money.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/attach-money'>;
-}
-declare module 'react-icons/lib/md/attachment.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/attachment'>;
-}
-declare module 'react-icons/lib/md/audiotrack.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/audiotrack'>;
-}
-declare module 'react-icons/lib/md/autorenew.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/autorenew'>;
-}
-declare module 'react-icons/lib/md/av-timer.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/av-timer'>;
-}
-declare module 'react-icons/lib/md/backspace.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/backspace'>;
-}
-declare module 'react-icons/lib/md/backup.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/backup'>;
-}
-declare module 'react-icons/lib/md/battery-alert.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/battery-alert'>;
-}
-declare module 'react-icons/lib/md/battery-charging-full.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/battery-charging-full'>;
-}
-declare module 'react-icons/lib/md/battery-full.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/battery-full'>;
-}
-declare module 'react-icons/lib/md/battery-std.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/battery-std'>;
-}
-declare module 'react-icons/lib/md/battery-unknown.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/battery-unknown'>;
-}
-declare module 'react-icons/lib/md/beach-access.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/beach-access'>;
-}
-declare module 'react-icons/lib/md/beenhere.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/beenhere'>;
-}
-declare module 'react-icons/lib/md/block.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/block'>;
-}
-declare module 'react-icons/lib/md/bluetooth-audio.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/bluetooth-audio'>;
-}
-declare module 'react-icons/lib/md/bluetooth-connected.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/bluetooth-connected'>;
-}
-declare module 'react-icons/lib/md/bluetooth-disabled.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/bluetooth-disabled'>;
-}
-declare module 'react-icons/lib/md/bluetooth-searching.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/bluetooth-searching'>;
-}
-declare module 'react-icons/lib/md/bluetooth.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/bluetooth'>;
-}
-declare module 'react-icons/lib/md/blur-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/blur-circular'>;
-}
-declare module 'react-icons/lib/md/blur-linear.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/blur-linear'>;
-}
-declare module 'react-icons/lib/md/blur-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/blur-off'>;
-}
-declare module 'react-icons/lib/md/blur-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/blur-on'>;
-}
-declare module 'react-icons/lib/md/book.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/book'>;
-}
-declare module 'react-icons/lib/md/bookmark-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/bookmark-outline'>;
-}
-declare module 'react-icons/lib/md/bookmark.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/bookmark'>;
-}
-declare module 'react-icons/lib/md/border-all.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-all'>;
-}
-declare module 'react-icons/lib/md/border-bottom.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-bottom'>;
-}
-declare module 'react-icons/lib/md/border-clear.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-clear'>;
-}
-declare module 'react-icons/lib/md/border-color.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-color'>;
-}
-declare module 'react-icons/lib/md/border-horizontal.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-horizontal'>;
-}
-declare module 'react-icons/lib/md/border-inner.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-inner'>;
-}
-declare module 'react-icons/lib/md/border-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-left'>;
-}
-declare module 'react-icons/lib/md/border-outer.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-outer'>;
-}
-declare module 'react-icons/lib/md/border-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-right'>;
-}
-declare module 'react-icons/lib/md/border-style.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-style'>;
-}
-declare module 'react-icons/lib/md/border-top.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-top'>;
-}
-declare module 'react-icons/lib/md/border-vertical.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/border-vertical'>;
-}
-declare module 'react-icons/lib/md/branding-watermark.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/branding-watermark'>;
-}
-declare module 'react-icons/lib/md/brightness-1.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-1'>;
-}
-declare module 'react-icons/lib/md/brightness-2.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-2'>;
-}
-declare module 'react-icons/lib/md/brightness-3.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-3'>;
-}
-declare module 'react-icons/lib/md/brightness-4.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-4'>;
-}
-declare module 'react-icons/lib/md/brightness-5.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-5'>;
-}
-declare module 'react-icons/lib/md/brightness-6.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-6'>;
-}
-declare module 'react-icons/lib/md/brightness-7.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-7'>;
-}
-declare module 'react-icons/lib/md/brightness-auto.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-auto'>;
-}
-declare module 'react-icons/lib/md/brightness-high.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-high'>;
-}
-declare module 'react-icons/lib/md/brightness-low.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-low'>;
-}
-declare module 'react-icons/lib/md/brightness-medium.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brightness-medium'>;
-}
-declare module 'react-icons/lib/md/broken-image.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/broken-image'>;
-}
-declare module 'react-icons/lib/md/brush.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/brush'>;
-}
-declare module 'react-icons/lib/md/bubble-chart.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/bubble-chart'>;
-}
-declare module 'react-icons/lib/md/bug-report.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/bug-report'>;
-}
-declare module 'react-icons/lib/md/build.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/build'>;
-}
-declare module 'react-icons/lib/md/burst-mode.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/burst-mode'>;
-}
-declare module 'react-icons/lib/md/business-center.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/business-center'>;
-}
-declare module 'react-icons/lib/md/business.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/business'>;
-}
-declare module 'react-icons/lib/md/cached.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cached'>;
-}
-declare module 'react-icons/lib/md/cake.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cake'>;
-}
-declare module 'react-icons/lib/md/call-end.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/call-end'>;
-}
-declare module 'react-icons/lib/md/call-made.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/call-made'>;
-}
-declare module 'react-icons/lib/md/call-merge.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/call-merge'>;
-}
-declare module 'react-icons/lib/md/call-missed-outgoing.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/call-missed-outgoing'>;
-}
-declare module 'react-icons/lib/md/call-missed.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/call-missed'>;
-}
-declare module 'react-icons/lib/md/call-received.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/call-received'>;
-}
-declare module 'react-icons/lib/md/call-split.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/call-split'>;
-}
-declare module 'react-icons/lib/md/call-to-action.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/call-to-action'>;
-}
-declare module 'react-icons/lib/md/call.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/call'>;
-}
-declare module 'react-icons/lib/md/camera-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/camera-alt'>;
-}
-declare module 'react-icons/lib/md/camera-enhance.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/camera-enhance'>;
-}
-declare module 'react-icons/lib/md/camera-front.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/camera-front'>;
-}
-declare module 'react-icons/lib/md/camera-rear.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/camera-rear'>;
-}
-declare module 'react-icons/lib/md/camera-roll.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/camera-roll'>;
-}
-declare module 'react-icons/lib/md/camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/camera'>;
-}
-declare module 'react-icons/lib/md/cancel.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cancel'>;
-}
-declare module 'react-icons/lib/md/card-giftcard.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/card-giftcard'>;
-}
-declare module 'react-icons/lib/md/card-membership.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/card-membership'>;
-}
-declare module 'react-icons/lib/md/card-travel.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/card-travel'>;
-}
-declare module 'react-icons/lib/md/casino.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/casino'>;
-}
-declare module 'react-icons/lib/md/cast-connected.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cast-connected'>;
-}
-declare module 'react-icons/lib/md/cast.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cast'>;
-}
-declare module 'react-icons/lib/md/center-focus-strong.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/center-focus-strong'>;
-}
-declare module 'react-icons/lib/md/center-focus-weak.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/center-focus-weak'>;
-}
-declare module 'react-icons/lib/md/change-history.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/change-history'>;
-}
-declare module 'react-icons/lib/md/chat-bubble-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/chat-bubble-outline'>;
-}
-declare module 'react-icons/lib/md/chat-bubble.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/chat-bubble'>;
-}
-declare module 'react-icons/lib/md/chat.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/chat'>;
-}
-declare module 'react-icons/lib/md/check-box-outline-blank.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/check-box-outline-blank'>;
-}
-declare module 'react-icons/lib/md/check-box.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/check-box'>;
-}
-declare module 'react-icons/lib/md/check-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/check-circle'>;
-}
-declare module 'react-icons/lib/md/check.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/check'>;
-}
-declare module 'react-icons/lib/md/chevron-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/chevron-left'>;
-}
-declare module 'react-icons/lib/md/chevron-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/chevron-right'>;
-}
-declare module 'react-icons/lib/md/child-care.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/child-care'>;
-}
-declare module 'react-icons/lib/md/child-friendly.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/child-friendly'>;
-}
-declare module 'react-icons/lib/md/chrome-reader-mode.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/chrome-reader-mode'>;
-}
-declare module 'react-icons/lib/md/class.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/class'>;
-}
-declare module 'react-icons/lib/md/clear-all.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/clear-all'>;
-}
-declare module 'react-icons/lib/md/clear.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/clear'>;
-}
-declare module 'react-icons/lib/md/close.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/close'>;
-}
-declare module 'react-icons/lib/md/closed-caption.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/closed-caption'>;
-}
-declare module 'react-icons/lib/md/cloud-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cloud-circle'>;
-}
-declare module 'react-icons/lib/md/cloud-done.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cloud-done'>;
-}
-declare module 'react-icons/lib/md/cloud-download.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cloud-download'>;
-}
-declare module 'react-icons/lib/md/cloud-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cloud-off'>;
-}
-declare module 'react-icons/lib/md/cloud-queue.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cloud-queue'>;
-}
-declare module 'react-icons/lib/md/cloud-upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cloud-upload'>;
-}
-declare module 'react-icons/lib/md/cloud.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/cloud'>;
-}
-declare module 'react-icons/lib/md/code.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/code'>;
-}
-declare module 'react-icons/lib/md/collections-bookmark.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/collections-bookmark'>;
-}
-declare module 'react-icons/lib/md/collections.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/collections'>;
-}
-declare module 'react-icons/lib/md/color-lens.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/color-lens'>;
-}
-declare module 'react-icons/lib/md/colorize.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/colorize'>;
-}
-declare module 'react-icons/lib/md/comment.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/comment'>;
-}
-declare module 'react-icons/lib/md/compare-arrows.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/compare-arrows'>;
-}
-declare module 'react-icons/lib/md/compare.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/compare'>;
-}
-declare module 'react-icons/lib/md/computer.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/computer'>;
-}
-declare module 'react-icons/lib/md/confirmation-number.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/confirmation-number'>;
-}
-declare module 'react-icons/lib/md/contact-mail.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/contact-mail'>;
-}
-declare module 'react-icons/lib/md/contact-phone.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/contact-phone'>;
-}
-declare module 'react-icons/lib/md/contacts.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/contacts'>;
-}
-declare module 'react-icons/lib/md/content-copy.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/content-copy'>;
-}
-declare module 'react-icons/lib/md/content-cut.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/content-cut'>;
-}
-declare module 'react-icons/lib/md/content-paste.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/content-paste'>;
-}
-declare module 'react-icons/lib/md/control-point-duplicate.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/control-point-duplicate'>;
-}
-declare module 'react-icons/lib/md/control-point.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/control-point'>;
-}
-declare module 'react-icons/lib/md/copyright.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/copyright'>;
-}
-declare module 'react-icons/lib/md/create-new-folder.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/create-new-folder'>;
-}
-declare module 'react-icons/lib/md/create.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/create'>;
-}
-declare module 'react-icons/lib/md/credit-card.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/credit-card'>;
-}
-declare module 'react-icons/lib/md/crop-16-9.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-16-9'>;
-}
-declare module 'react-icons/lib/md/crop-3-2.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-3-2'>;
-}
-declare module 'react-icons/lib/md/crop-5-4.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-5-4'>;
-}
-declare module 'react-icons/lib/md/crop-7-5.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-7-5'>;
-}
-declare module 'react-icons/lib/md/crop-din.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-din'>;
-}
-declare module 'react-icons/lib/md/crop-free.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-free'>;
-}
-declare module 'react-icons/lib/md/crop-landscape.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-landscape'>;
-}
-declare module 'react-icons/lib/md/crop-original.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-original'>;
-}
-declare module 'react-icons/lib/md/crop-portrait.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-portrait'>;
-}
-declare module 'react-icons/lib/md/crop-rotate.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-rotate'>;
-}
-declare module 'react-icons/lib/md/crop-square.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop-square'>;
-}
-declare module 'react-icons/lib/md/crop.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/crop'>;
-}
-declare module 'react-icons/lib/md/dashboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/dashboard'>;
-}
-declare module 'react-icons/lib/md/data-usage.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/data-usage'>;
-}
-declare module 'react-icons/lib/md/date-range.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/date-range'>;
-}
-declare module 'react-icons/lib/md/dehaze.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/dehaze'>;
-}
-declare module 'react-icons/lib/md/delete-forever.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/delete-forever'>;
-}
-declare module 'react-icons/lib/md/delete-sweep.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/delete-sweep'>;
-}
-declare module 'react-icons/lib/md/delete.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/delete'>;
-}
-declare module 'react-icons/lib/md/description.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/description'>;
-}
-declare module 'react-icons/lib/md/desktop-mac.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/desktop-mac'>;
-}
-declare module 'react-icons/lib/md/desktop-windows.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/desktop-windows'>;
-}
-declare module 'react-icons/lib/md/details.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/details'>;
-}
-declare module 'react-icons/lib/md/developer-board.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/developer-board'>;
-}
-declare module 'react-icons/lib/md/developer-mode.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/developer-mode'>;
-}
-declare module 'react-icons/lib/md/device-hub.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/device-hub'>;
-}
-declare module 'react-icons/lib/md/devices-other.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/devices-other'>;
-}
-declare module 'react-icons/lib/md/devices.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/devices'>;
-}
-declare module 'react-icons/lib/md/dialer-sip.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/dialer-sip'>;
-}
-declare module 'react-icons/lib/md/dialpad.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/dialpad'>;
-}
-declare module 'react-icons/lib/md/directions-bike.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-bike'>;
-}
-declare module 'react-icons/lib/md/directions-boat.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-boat'>;
-}
-declare module 'react-icons/lib/md/directions-bus.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-bus'>;
-}
-declare module 'react-icons/lib/md/directions-car.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-car'>;
-}
-declare module 'react-icons/lib/md/directions-ferry.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-ferry'>;
-}
-declare module 'react-icons/lib/md/directions-railway.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-railway'>;
-}
-declare module 'react-icons/lib/md/directions-run.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-run'>;
-}
-declare module 'react-icons/lib/md/directions-subway.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-subway'>;
-}
-declare module 'react-icons/lib/md/directions-transit.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-transit'>;
-}
-declare module 'react-icons/lib/md/directions-walk.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions-walk'>;
-}
-declare module 'react-icons/lib/md/directions.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/directions'>;
-}
-declare module 'react-icons/lib/md/disc-full.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/disc-full'>;
-}
-declare module 'react-icons/lib/md/dns.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/dns'>;
-}
-declare module 'react-icons/lib/md/do-not-disturb-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/do-not-disturb-alt'>;
-}
-declare module 'react-icons/lib/md/do-not-disturb-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/do-not-disturb-off'>;
-}
-declare module 'react-icons/lib/md/do-not-disturb.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/do-not-disturb'>;
-}
-declare module 'react-icons/lib/md/dock.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/dock'>;
-}
-declare module 'react-icons/lib/md/domain.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/domain'>;
-}
-declare module 'react-icons/lib/md/done-all.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/done-all'>;
-}
-declare module 'react-icons/lib/md/done.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/done'>;
-}
-declare module 'react-icons/lib/md/donut-large.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/donut-large'>;
-}
-declare module 'react-icons/lib/md/donut-small.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/donut-small'>;
-}
-declare module 'react-icons/lib/md/drafts.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/drafts'>;
-}
-declare module 'react-icons/lib/md/drag-handle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/drag-handle'>;
-}
-declare module 'react-icons/lib/md/drive-eta.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/drive-eta'>;
-}
-declare module 'react-icons/lib/md/dvr.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/dvr'>;
-}
-declare module 'react-icons/lib/md/edit-location.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/edit-location'>;
-}
-declare module 'react-icons/lib/md/edit.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/edit'>;
-}
-declare module 'react-icons/lib/md/eject.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/eject'>;
-}
-declare module 'react-icons/lib/md/email.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/email'>;
-}
-declare module 'react-icons/lib/md/enhanced-encryption.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/enhanced-encryption'>;
-}
-declare module 'react-icons/lib/md/equalizer.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/equalizer'>;
-}
-declare module 'react-icons/lib/md/error-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/error-outline'>;
-}
-declare module 'react-icons/lib/md/error.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/error'>;
-}
-declare module 'react-icons/lib/md/euro-symbol.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/euro-symbol'>;
-}
-declare module 'react-icons/lib/md/ev-station.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/ev-station'>;
-}
-declare module 'react-icons/lib/md/event-available.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/event-available'>;
-}
-declare module 'react-icons/lib/md/event-busy.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/event-busy'>;
-}
-declare module 'react-icons/lib/md/event-note.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/event-note'>;
-}
-declare module 'react-icons/lib/md/event-seat.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/event-seat'>;
-}
-declare module 'react-icons/lib/md/event.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/event'>;
-}
-declare module 'react-icons/lib/md/exit-to-app.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/exit-to-app'>;
-}
-declare module 'react-icons/lib/md/expand-less.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/expand-less'>;
-}
-declare module 'react-icons/lib/md/expand-more.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/expand-more'>;
-}
-declare module 'react-icons/lib/md/explicit.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/explicit'>;
-}
-declare module 'react-icons/lib/md/explore.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/explore'>;
-}
-declare module 'react-icons/lib/md/exposure-minus-1.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/exposure-minus-1'>;
-}
-declare module 'react-icons/lib/md/exposure-minus-2.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/exposure-minus-2'>;
-}
-declare module 'react-icons/lib/md/exposure-neg-1.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/exposure-neg-1'>;
-}
-declare module 'react-icons/lib/md/exposure-neg-2.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/exposure-neg-2'>;
-}
-declare module 'react-icons/lib/md/exposure-plus-1.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/exposure-plus-1'>;
-}
-declare module 'react-icons/lib/md/exposure-plus-2.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/exposure-plus-2'>;
-}
-declare module 'react-icons/lib/md/exposure-zero.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/exposure-zero'>;
-}
-declare module 'react-icons/lib/md/exposure.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/exposure'>;
-}
-declare module 'react-icons/lib/md/extension.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/extension'>;
-}
-declare module 'react-icons/lib/md/face.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/face'>;
-}
-declare module 'react-icons/lib/md/fast-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fast-forward'>;
-}
-declare module 'react-icons/lib/md/fast-rewind.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fast-rewind'>;
-}
-declare module 'react-icons/lib/md/favorite-border.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/favorite-border'>;
-}
-declare module 'react-icons/lib/md/favorite-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/favorite-outline'>;
-}
-declare module 'react-icons/lib/md/favorite.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/favorite'>;
-}
-declare module 'react-icons/lib/md/featured-play-list.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/featured-play-list'>;
-}
-declare module 'react-icons/lib/md/featured-video.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/featured-video'>;
-}
-declare module 'react-icons/lib/md/feedback.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/feedback'>;
-}
-declare module 'react-icons/lib/md/fiber-dvr.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fiber-dvr'>;
-}
-declare module 'react-icons/lib/md/fiber-manual-record.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fiber-manual-record'>;
-}
-declare module 'react-icons/lib/md/fiber-new.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fiber-new'>;
-}
-declare module 'react-icons/lib/md/fiber-pin.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fiber-pin'>;
-}
-declare module 'react-icons/lib/md/fiber-smart-record.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fiber-smart-record'>;
-}
-declare module 'react-icons/lib/md/file-download.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/file-download'>;
-}
-declare module 'react-icons/lib/md/file-upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/file-upload'>;
-}
-declare module 'react-icons/lib/md/filter-1.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-1'>;
-}
-declare module 'react-icons/lib/md/filter-2.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-2'>;
-}
-declare module 'react-icons/lib/md/filter-3.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-3'>;
-}
-declare module 'react-icons/lib/md/filter-4.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-4'>;
-}
-declare module 'react-icons/lib/md/filter-5.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-5'>;
-}
-declare module 'react-icons/lib/md/filter-6.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-6'>;
-}
-declare module 'react-icons/lib/md/filter-7.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-7'>;
-}
-declare module 'react-icons/lib/md/filter-8.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-8'>;
-}
-declare module 'react-icons/lib/md/filter-9-plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-9-plus'>;
-}
-declare module 'react-icons/lib/md/filter-9.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-9'>;
-}
-declare module 'react-icons/lib/md/filter-b-and-w.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-b-and-w'>;
-}
-declare module 'react-icons/lib/md/filter-center-focus.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-center-focus'>;
-}
-declare module 'react-icons/lib/md/filter-drama.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-drama'>;
-}
-declare module 'react-icons/lib/md/filter-frames.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-frames'>;
-}
-declare module 'react-icons/lib/md/filter-hdr.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-hdr'>;
-}
-declare module 'react-icons/lib/md/filter-list.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-list'>;
-}
-declare module 'react-icons/lib/md/filter-none.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-none'>;
-}
-declare module 'react-icons/lib/md/filter-tilt-shift.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-tilt-shift'>;
-}
-declare module 'react-icons/lib/md/filter-vintage.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter-vintage'>;
-}
-declare module 'react-icons/lib/md/filter.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/filter'>;
-}
-declare module 'react-icons/lib/md/find-in-page.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/find-in-page'>;
-}
-declare module 'react-icons/lib/md/find-replace.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/find-replace'>;
-}
-declare module 'react-icons/lib/md/fingerprint.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fingerprint'>;
-}
-declare module 'react-icons/lib/md/first-page.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/first-page'>;
-}
-declare module 'react-icons/lib/md/fitness-center.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fitness-center'>;
-}
-declare module 'react-icons/lib/md/flag.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flag'>;
-}
-declare module 'react-icons/lib/md/flare.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flare'>;
-}
-declare module 'react-icons/lib/md/flash-auto.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flash-auto'>;
-}
-declare module 'react-icons/lib/md/flash-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flash-off'>;
-}
-declare module 'react-icons/lib/md/flash-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flash-on'>;
-}
-declare module 'react-icons/lib/md/flight-land.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flight-land'>;
-}
-declare module 'react-icons/lib/md/flight-takeoff.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flight-takeoff'>;
-}
-declare module 'react-icons/lib/md/flight.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flight'>;
-}
-declare module 'react-icons/lib/md/flip-to-back.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flip-to-back'>;
-}
-declare module 'react-icons/lib/md/flip-to-front.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flip-to-front'>;
-}
-declare module 'react-icons/lib/md/flip.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/flip'>;
-}
-declare module 'react-icons/lib/md/folder-open.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/folder-open'>;
-}
-declare module 'react-icons/lib/md/folder-shared.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/folder-shared'>;
-}
-declare module 'react-icons/lib/md/folder-special.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/folder-special'>;
-}
-declare module 'react-icons/lib/md/folder.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/folder'>;
-}
-declare module 'react-icons/lib/md/font-download.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/font-download'>;
-}
-declare module 'react-icons/lib/md/format-align-center.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-align-center'>;
-}
-declare module 'react-icons/lib/md/format-align-justify.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-align-justify'>;
-}
-declare module 'react-icons/lib/md/format-align-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-align-left'>;
-}
-declare module 'react-icons/lib/md/format-align-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-align-right'>;
-}
-declare module 'react-icons/lib/md/format-bold.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-bold'>;
-}
-declare module 'react-icons/lib/md/format-clear.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-clear'>;
-}
-declare module 'react-icons/lib/md/format-color-fill.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-color-fill'>;
-}
-declare module 'react-icons/lib/md/format-color-reset.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-color-reset'>;
-}
-declare module 'react-icons/lib/md/format-color-text.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-color-text'>;
-}
-declare module 'react-icons/lib/md/format-indent-decrease.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-indent-decrease'>;
-}
-declare module 'react-icons/lib/md/format-indent-increase.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-indent-increase'>;
-}
-declare module 'react-icons/lib/md/format-italic.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-italic'>;
-}
-declare module 'react-icons/lib/md/format-line-spacing.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-line-spacing'>;
-}
-declare module 'react-icons/lib/md/format-list-bulleted.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-list-bulleted'>;
-}
-declare module 'react-icons/lib/md/format-list-numbered.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-list-numbered'>;
-}
-declare module 'react-icons/lib/md/format-paint.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-paint'>;
-}
-declare module 'react-icons/lib/md/format-quote.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-quote'>;
-}
-declare module 'react-icons/lib/md/format-shapes.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-shapes'>;
-}
-declare module 'react-icons/lib/md/format-size.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-size'>;
-}
-declare module 'react-icons/lib/md/format-strikethrough.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-strikethrough'>;
-}
-declare module 'react-icons/lib/md/format-textdirection-l-to-r.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-textdirection-l-to-r'>;
-}
-declare module 'react-icons/lib/md/format-textdirection-r-to-l.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-textdirection-r-to-l'>;
-}
-declare module 'react-icons/lib/md/format-underlined.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/format-underlined'>;
-}
-declare module 'react-icons/lib/md/forum.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/forum'>;
-}
-declare module 'react-icons/lib/md/forward-10.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/forward-10'>;
-}
-declare module 'react-icons/lib/md/forward-30.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/forward-30'>;
-}
-declare module 'react-icons/lib/md/forward-5.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/forward-5'>;
-}
-declare module 'react-icons/lib/md/forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/forward'>;
-}
-declare module 'react-icons/lib/md/free-breakfast.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/free-breakfast'>;
-}
-declare module 'react-icons/lib/md/fullscreen-exit.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fullscreen-exit'>;
-}
-declare module 'react-icons/lib/md/fullscreen.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/fullscreen'>;
-}
-declare module 'react-icons/lib/md/functions.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/functions'>;
-}
-declare module 'react-icons/lib/md/g-translate.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/g-translate'>;
-}
-declare module 'react-icons/lib/md/gamepad.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/gamepad'>;
-}
-declare module 'react-icons/lib/md/games.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/games'>;
-}
-declare module 'react-icons/lib/md/gavel.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/gavel'>;
-}
-declare module 'react-icons/lib/md/gesture.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/gesture'>;
-}
-declare module 'react-icons/lib/md/get-app.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/get-app'>;
-}
-declare module 'react-icons/lib/md/gif.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/gif'>;
-}
-declare module 'react-icons/lib/md/goat.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/goat'>;
-}
-declare module 'react-icons/lib/md/golf-course.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/golf-course'>;
-}
-declare module 'react-icons/lib/md/gps-fixed.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/gps-fixed'>;
-}
-declare module 'react-icons/lib/md/gps-not-fixed.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/gps-not-fixed'>;
-}
-declare module 'react-icons/lib/md/gps-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/gps-off'>;
-}
-declare module 'react-icons/lib/md/grade.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/grade'>;
-}
-declare module 'react-icons/lib/md/gradient.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/gradient'>;
-}
-declare module 'react-icons/lib/md/grain.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/grain'>;
-}
-declare module 'react-icons/lib/md/graphic-eq.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/graphic-eq'>;
-}
-declare module 'react-icons/lib/md/grid-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/grid-off'>;
-}
-declare module 'react-icons/lib/md/grid-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/grid-on'>;
-}
-declare module 'react-icons/lib/md/group-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/group-add'>;
-}
-declare module 'react-icons/lib/md/group-work.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/group-work'>;
-}
-declare module 'react-icons/lib/md/group.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/group'>;
-}
-declare module 'react-icons/lib/md/hd.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hd'>;
-}
-declare module 'react-icons/lib/md/hdr-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hdr-off'>;
-}
-declare module 'react-icons/lib/md/hdr-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hdr-on'>;
-}
-declare module 'react-icons/lib/md/hdr-strong.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hdr-strong'>;
-}
-declare module 'react-icons/lib/md/hdr-weak.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hdr-weak'>;
-}
-declare module 'react-icons/lib/md/headset-mic.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/headset-mic'>;
-}
-declare module 'react-icons/lib/md/headset.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/headset'>;
-}
-declare module 'react-icons/lib/md/healing.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/healing'>;
-}
-declare module 'react-icons/lib/md/hearing.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hearing'>;
-}
-declare module 'react-icons/lib/md/help-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/help-outline'>;
-}
-declare module 'react-icons/lib/md/help.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/help'>;
-}
-declare module 'react-icons/lib/md/high-quality.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/high-quality'>;
-}
-declare module 'react-icons/lib/md/highlight-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/highlight-off'>;
-}
-declare module 'react-icons/lib/md/highlight-remove.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/highlight-remove'>;
-}
-declare module 'react-icons/lib/md/highlight.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/highlight'>;
-}
-declare module 'react-icons/lib/md/history.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/history'>;
-}
-declare module 'react-icons/lib/md/home.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/home'>;
-}
-declare module 'react-icons/lib/md/hot-tub.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hot-tub'>;
-}
-declare module 'react-icons/lib/md/hotel.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hotel'>;
-}
-declare module 'react-icons/lib/md/hourglass-empty.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hourglass-empty'>;
-}
-declare module 'react-icons/lib/md/hourglass-full.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/hourglass-full'>;
-}
-declare module 'react-icons/lib/md/http.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/http'>;
-}
-declare module 'react-icons/lib/md/https.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/https'>;
-}
-declare module 'react-icons/lib/md/image-aspect-ratio.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/image-aspect-ratio'>;
-}
-declare module 'react-icons/lib/md/image.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/image'>;
-}
-declare module 'react-icons/lib/md/import-contacts.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/import-contacts'>;
-}
-declare module 'react-icons/lib/md/import-export.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/import-export'>;
-}
-declare module 'react-icons/lib/md/important-devices.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/important-devices'>;
-}
-declare module 'react-icons/lib/md/inbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/inbox'>;
-}
-declare module 'react-icons/lib/md/indeterminate-check-box.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/indeterminate-check-box'>;
-}
-declare module 'react-icons/lib/md/index.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/index'>;
-}
-declare module 'react-icons/lib/md/info-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/info-outline'>;
-}
-declare module 'react-icons/lib/md/info.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/info'>;
-}
-declare module 'react-icons/lib/md/input.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/input'>;
-}
-declare module 'react-icons/lib/md/insert-chart.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/insert-chart'>;
-}
-declare module 'react-icons/lib/md/insert-comment.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/insert-comment'>;
-}
-declare module 'react-icons/lib/md/insert-drive-file.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/insert-drive-file'>;
-}
-declare module 'react-icons/lib/md/insert-emoticon.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/insert-emoticon'>;
-}
-declare module 'react-icons/lib/md/insert-invitation.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/insert-invitation'>;
-}
-declare module 'react-icons/lib/md/insert-link.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/insert-link'>;
-}
-declare module 'react-icons/lib/md/insert-photo.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/insert-photo'>;
-}
-declare module 'react-icons/lib/md/invert-colors-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/invert-colors-off'>;
-}
-declare module 'react-icons/lib/md/invert-colors-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/invert-colors-on'>;
-}
-declare module 'react-icons/lib/md/invert-colors.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/invert-colors'>;
-}
-declare module 'react-icons/lib/md/iso.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/iso'>;
-}
-declare module 'react-icons/lib/md/keyboard-arrow-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-arrow-down'>;
-}
-declare module 'react-icons/lib/md/keyboard-arrow-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-arrow-left'>;
-}
-declare module 'react-icons/lib/md/keyboard-arrow-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-arrow-right'>;
-}
-declare module 'react-icons/lib/md/keyboard-arrow-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-arrow-up'>;
-}
-declare module 'react-icons/lib/md/keyboard-backspace.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-backspace'>;
-}
-declare module 'react-icons/lib/md/keyboard-capslock.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-capslock'>;
-}
-declare module 'react-icons/lib/md/keyboard-control.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-control'>;
-}
-declare module 'react-icons/lib/md/keyboard-hide.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-hide'>;
-}
-declare module 'react-icons/lib/md/keyboard-return.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-return'>;
-}
-declare module 'react-icons/lib/md/keyboard-tab.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-tab'>;
-}
-declare module 'react-icons/lib/md/keyboard-voice.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard-voice'>;
-}
-declare module 'react-icons/lib/md/keyboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/keyboard'>;
-}
-declare module 'react-icons/lib/md/kitchen.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/kitchen'>;
-}
-declare module 'react-icons/lib/md/label-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/label-outline'>;
-}
-declare module 'react-icons/lib/md/label.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/label'>;
-}
-declare module 'react-icons/lib/md/landscape.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/landscape'>;
-}
-declare module 'react-icons/lib/md/language.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/language'>;
-}
-declare module 'react-icons/lib/md/laptop-chromebook.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/laptop-chromebook'>;
-}
-declare module 'react-icons/lib/md/laptop-mac.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/laptop-mac'>;
-}
-declare module 'react-icons/lib/md/laptop-windows.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/laptop-windows'>;
-}
-declare module 'react-icons/lib/md/laptop.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/laptop'>;
-}
-declare module 'react-icons/lib/md/last-page.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/last-page'>;
-}
-declare module 'react-icons/lib/md/launch.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/launch'>;
-}
-declare module 'react-icons/lib/md/layers-clear.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/layers-clear'>;
-}
-declare module 'react-icons/lib/md/layers.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/layers'>;
-}
-declare module 'react-icons/lib/md/leak-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/leak-add'>;
-}
-declare module 'react-icons/lib/md/leak-remove.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/leak-remove'>;
-}
-declare module 'react-icons/lib/md/lens.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/lens'>;
-}
-declare module 'react-icons/lib/md/library-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/library-add'>;
-}
-declare module 'react-icons/lib/md/library-books.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/library-books'>;
-}
-declare module 'react-icons/lib/md/library-music.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/library-music'>;
-}
-declare module 'react-icons/lib/md/lightbulb-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/lightbulb-outline'>;
-}
-declare module 'react-icons/lib/md/line-style.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/line-style'>;
-}
-declare module 'react-icons/lib/md/line-weight.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/line-weight'>;
-}
-declare module 'react-icons/lib/md/linear-scale.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/linear-scale'>;
-}
-declare module 'react-icons/lib/md/link.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/link'>;
-}
-declare module 'react-icons/lib/md/linked-camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/linked-camera'>;
-}
-declare module 'react-icons/lib/md/list.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/list'>;
-}
-declare module 'react-icons/lib/md/live-help.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/live-help'>;
-}
-declare module 'react-icons/lib/md/live-tv.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/live-tv'>;
-}
-declare module 'react-icons/lib/md/local-airport.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-airport'>;
-}
-declare module 'react-icons/lib/md/local-atm.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-atm'>;
-}
-declare module 'react-icons/lib/md/local-attraction.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-attraction'>;
-}
-declare module 'react-icons/lib/md/local-bar.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-bar'>;
-}
-declare module 'react-icons/lib/md/local-cafe.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-cafe'>;
-}
-declare module 'react-icons/lib/md/local-car-wash.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-car-wash'>;
-}
-declare module 'react-icons/lib/md/local-convenience-store.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-convenience-store'>;
-}
-declare module 'react-icons/lib/md/local-drink.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-drink'>;
-}
-declare module 'react-icons/lib/md/local-florist.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-florist'>;
-}
-declare module 'react-icons/lib/md/local-gas-station.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-gas-station'>;
-}
-declare module 'react-icons/lib/md/local-grocery-store.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-grocery-store'>;
-}
-declare module 'react-icons/lib/md/local-hospital.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-hospital'>;
-}
-declare module 'react-icons/lib/md/local-hotel.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-hotel'>;
-}
-declare module 'react-icons/lib/md/local-laundry-service.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-laundry-service'>;
-}
-declare module 'react-icons/lib/md/local-library.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-library'>;
-}
-declare module 'react-icons/lib/md/local-mall.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-mall'>;
-}
-declare module 'react-icons/lib/md/local-movies.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-movies'>;
-}
-declare module 'react-icons/lib/md/local-offer.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-offer'>;
-}
-declare module 'react-icons/lib/md/local-parking.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-parking'>;
-}
-declare module 'react-icons/lib/md/local-pharmacy.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-pharmacy'>;
-}
-declare module 'react-icons/lib/md/local-phone.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-phone'>;
-}
-declare module 'react-icons/lib/md/local-pizza.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-pizza'>;
-}
-declare module 'react-icons/lib/md/local-play.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-play'>;
-}
-declare module 'react-icons/lib/md/local-post-office.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-post-office'>;
-}
-declare module 'react-icons/lib/md/local-print-shop.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-print-shop'>;
-}
-declare module 'react-icons/lib/md/local-restaurant.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-restaurant'>;
-}
-declare module 'react-icons/lib/md/local-see.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-see'>;
-}
-declare module 'react-icons/lib/md/local-shipping.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-shipping'>;
-}
-declare module 'react-icons/lib/md/local-taxi.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/local-taxi'>;
-}
-declare module 'react-icons/lib/md/location-city.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/location-city'>;
-}
-declare module 'react-icons/lib/md/location-disabled.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/location-disabled'>;
-}
-declare module 'react-icons/lib/md/location-history.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/location-history'>;
-}
-declare module 'react-icons/lib/md/location-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/location-off'>;
-}
-declare module 'react-icons/lib/md/location-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/location-on'>;
-}
-declare module 'react-icons/lib/md/location-searching.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/location-searching'>;
-}
-declare module 'react-icons/lib/md/lock-open.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/lock-open'>;
-}
-declare module 'react-icons/lib/md/lock-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/lock-outline'>;
-}
-declare module 'react-icons/lib/md/lock.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/lock'>;
-}
-declare module 'react-icons/lib/md/looks-3.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/looks-3'>;
-}
-declare module 'react-icons/lib/md/looks-4.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/looks-4'>;
-}
-declare module 'react-icons/lib/md/looks-5.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/looks-5'>;
-}
-declare module 'react-icons/lib/md/looks-6.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/looks-6'>;
-}
-declare module 'react-icons/lib/md/looks-one.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/looks-one'>;
-}
-declare module 'react-icons/lib/md/looks-two.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/looks-two'>;
-}
-declare module 'react-icons/lib/md/looks.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/looks'>;
-}
-declare module 'react-icons/lib/md/loop.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/loop'>;
-}
-declare module 'react-icons/lib/md/loupe.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/loupe'>;
-}
-declare module 'react-icons/lib/md/low-priority.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/low-priority'>;
-}
-declare module 'react-icons/lib/md/loyalty.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/loyalty'>;
-}
-declare module 'react-icons/lib/md/mail-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mail-outline'>;
-}
-declare module 'react-icons/lib/md/mail.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mail'>;
-}
-declare module 'react-icons/lib/md/map.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/map'>;
-}
-declare module 'react-icons/lib/md/markunread-mailbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/markunread-mailbox'>;
-}
-declare module 'react-icons/lib/md/markunread.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/markunread'>;
-}
-declare module 'react-icons/lib/md/memory.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/memory'>;
-}
-declare module 'react-icons/lib/md/menu.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/menu'>;
-}
-declare module 'react-icons/lib/md/merge-type.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/merge-type'>;
-}
-declare module 'react-icons/lib/md/message.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/message'>;
-}
-declare module 'react-icons/lib/md/mic-none.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mic-none'>;
-}
-declare module 'react-icons/lib/md/mic-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mic-off'>;
-}
-declare module 'react-icons/lib/md/mic.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mic'>;
-}
-declare module 'react-icons/lib/md/mms.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mms'>;
-}
-declare module 'react-icons/lib/md/mode-comment.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mode-comment'>;
-}
-declare module 'react-icons/lib/md/mode-edit.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mode-edit'>;
-}
-declare module 'react-icons/lib/md/monetization-on.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/monetization-on'>;
-}
-declare module 'react-icons/lib/md/money-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/money-off'>;
-}
-declare module 'react-icons/lib/md/monochrome-photos.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/monochrome-photos'>;
-}
-declare module 'react-icons/lib/md/mood-bad.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mood-bad'>;
-}
-declare module 'react-icons/lib/md/mood.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mood'>;
-}
-declare module 'react-icons/lib/md/more-horiz.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/more-horiz'>;
-}
-declare module 'react-icons/lib/md/more-vert.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/more-vert'>;
-}
-declare module 'react-icons/lib/md/more.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/more'>;
-}
-declare module 'react-icons/lib/md/motorcycle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/motorcycle'>;
-}
-declare module 'react-icons/lib/md/mouse.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/mouse'>;
-}
-declare module 'react-icons/lib/md/move-to-inbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/move-to-inbox'>;
-}
-declare module 'react-icons/lib/md/movie-creation.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/movie-creation'>;
-}
-declare module 'react-icons/lib/md/movie-filter.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/movie-filter'>;
-}
-declare module 'react-icons/lib/md/movie.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/movie'>;
-}
-declare module 'react-icons/lib/md/multiline-chart.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/multiline-chart'>;
-}
-declare module 'react-icons/lib/md/music-note.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/music-note'>;
-}
-declare module 'react-icons/lib/md/music-video.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/music-video'>;
-}
-declare module 'react-icons/lib/md/my-location.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/my-location'>;
-}
-declare module 'react-icons/lib/md/nature-people.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/nature-people'>;
-}
-declare module 'react-icons/lib/md/nature.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/nature'>;
-}
-declare module 'react-icons/lib/md/navigate-before.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/navigate-before'>;
-}
-declare module 'react-icons/lib/md/navigate-next.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/navigate-next'>;
-}
-declare module 'react-icons/lib/md/navigation.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/navigation'>;
-}
-declare module 'react-icons/lib/md/near-me.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/near-me'>;
-}
-declare module 'react-icons/lib/md/network-cell.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/network-cell'>;
-}
-declare module 'react-icons/lib/md/network-check.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/network-check'>;
-}
-declare module 'react-icons/lib/md/network-locked.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/network-locked'>;
-}
-declare module 'react-icons/lib/md/network-wifi.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/network-wifi'>;
-}
-declare module 'react-icons/lib/md/new-releases.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/new-releases'>;
-}
-declare module 'react-icons/lib/md/next-week.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/next-week'>;
-}
-declare module 'react-icons/lib/md/nfc.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/nfc'>;
-}
-declare module 'react-icons/lib/md/no-encryption.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/no-encryption'>;
-}
-declare module 'react-icons/lib/md/no-sim.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/no-sim'>;
-}
-declare module 'react-icons/lib/md/not-interested.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/not-interested'>;
-}
-declare module 'react-icons/lib/md/note-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/note-add'>;
-}
-declare module 'react-icons/lib/md/note.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/note'>;
-}
-declare module 'react-icons/lib/md/notifications-active.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/notifications-active'>;
-}
-declare module 'react-icons/lib/md/notifications-none.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/notifications-none'>;
-}
-declare module 'react-icons/lib/md/notifications-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/notifications-off'>;
-}
-declare module 'react-icons/lib/md/notifications-paused.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/notifications-paused'>;
-}
-declare module 'react-icons/lib/md/notifications.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/notifications'>;
-}
-declare module 'react-icons/lib/md/now-wallpaper.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/now-wallpaper'>;
-}
-declare module 'react-icons/lib/md/now-widgets.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/now-widgets'>;
-}
-declare module 'react-icons/lib/md/offline-pin.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/offline-pin'>;
-}
-declare module 'react-icons/lib/md/ondemand-video.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/ondemand-video'>;
-}
-declare module 'react-icons/lib/md/opacity.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/opacity'>;
-}
-declare module 'react-icons/lib/md/open-in-browser.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/open-in-browser'>;
-}
-declare module 'react-icons/lib/md/open-in-new.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/open-in-new'>;
-}
-declare module 'react-icons/lib/md/open-with.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/open-with'>;
-}
-declare module 'react-icons/lib/md/pages.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pages'>;
-}
-declare module 'react-icons/lib/md/pageview.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pageview'>;
-}
-declare module 'react-icons/lib/md/palette.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/palette'>;
-}
-declare module 'react-icons/lib/md/pan-tool.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pan-tool'>;
-}
-declare module 'react-icons/lib/md/panorama-fish-eye.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/panorama-fish-eye'>;
-}
-declare module 'react-icons/lib/md/panorama-horizontal.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/panorama-horizontal'>;
-}
-declare module 'react-icons/lib/md/panorama-vertical.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/panorama-vertical'>;
-}
-declare module 'react-icons/lib/md/panorama-wide-angle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/panorama-wide-angle'>;
-}
-declare module 'react-icons/lib/md/panorama.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/panorama'>;
-}
-declare module 'react-icons/lib/md/party-mode.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/party-mode'>;
-}
-declare module 'react-icons/lib/md/pause-circle-filled.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pause-circle-filled'>;
-}
-declare module 'react-icons/lib/md/pause-circle-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pause-circle-outline'>;
-}
-declare module 'react-icons/lib/md/pause.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pause'>;
-}
-declare module 'react-icons/lib/md/payment.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/payment'>;
-}
-declare module 'react-icons/lib/md/people-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/people-outline'>;
-}
-declare module 'react-icons/lib/md/people.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/people'>;
-}
-declare module 'react-icons/lib/md/perm-camera-mic.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/perm-camera-mic'>;
-}
-declare module 'react-icons/lib/md/perm-contact-calendar.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/perm-contact-calendar'>;
-}
-declare module 'react-icons/lib/md/perm-data-setting.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/perm-data-setting'>;
-}
-declare module 'react-icons/lib/md/perm-device-information.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/perm-device-information'>;
-}
-declare module 'react-icons/lib/md/perm-identity.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/perm-identity'>;
-}
-declare module 'react-icons/lib/md/perm-media.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/perm-media'>;
-}
-declare module 'react-icons/lib/md/perm-phone-msg.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/perm-phone-msg'>;
-}
-declare module 'react-icons/lib/md/perm-scan-wifi.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/perm-scan-wifi'>;
-}
-declare module 'react-icons/lib/md/person-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/person-add'>;
-}
-declare module 'react-icons/lib/md/person-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/person-outline'>;
-}
-declare module 'react-icons/lib/md/person-pin-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/person-pin-circle'>;
-}
-declare module 'react-icons/lib/md/person-pin.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/person-pin'>;
-}
-declare module 'react-icons/lib/md/person.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/person'>;
-}
-declare module 'react-icons/lib/md/personal-video.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/personal-video'>;
-}
-declare module 'react-icons/lib/md/pets.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pets'>;
-}
-declare module 'react-icons/lib/md/phone-android.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phone-android'>;
-}
-declare module 'react-icons/lib/md/phone-bluetooth-speaker.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phone-bluetooth-speaker'>;
-}
-declare module 'react-icons/lib/md/phone-forwarded.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phone-forwarded'>;
-}
-declare module 'react-icons/lib/md/phone-in-talk.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phone-in-talk'>;
-}
-declare module 'react-icons/lib/md/phone-iphone.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phone-iphone'>;
-}
-declare module 'react-icons/lib/md/phone-locked.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phone-locked'>;
-}
-declare module 'react-icons/lib/md/phone-missed.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phone-missed'>;
-}
-declare module 'react-icons/lib/md/phone-paused.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phone-paused'>;
-}
-declare module 'react-icons/lib/md/phone.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phone'>;
-}
-declare module 'react-icons/lib/md/phonelink-erase.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phonelink-erase'>;
-}
-declare module 'react-icons/lib/md/phonelink-lock.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phonelink-lock'>;
-}
-declare module 'react-icons/lib/md/phonelink-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phonelink-off'>;
-}
-declare module 'react-icons/lib/md/phonelink-ring.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phonelink-ring'>;
-}
-declare module 'react-icons/lib/md/phonelink-setup.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phonelink-setup'>;
-}
-declare module 'react-icons/lib/md/phonelink.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/phonelink'>;
-}
-declare module 'react-icons/lib/md/photo-album.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/photo-album'>;
-}
-declare module 'react-icons/lib/md/photo-camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/photo-camera'>;
-}
-declare module 'react-icons/lib/md/photo-filter.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/photo-filter'>;
-}
-declare module 'react-icons/lib/md/photo-library.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/photo-library'>;
-}
-declare module 'react-icons/lib/md/photo-size-select-actual.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/photo-size-select-actual'>;
-}
-declare module 'react-icons/lib/md/photo-size-select-large.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/photo-size-select-large'>;
-}
-declare module 'react-icons/lib/md/photo-size-select-small.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/photo-size-select-small'>;
-}
-declare module 'react-icons/lib/md/photo.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/photo'>;
-}
-declare module 'react-icons/lib/md/picture-as-pdf.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/picture-as-pdf'>;
-}
-declare module 'react-icons/lib/md/picture-in-picture-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/picture-in-picture-alt'>;
-}
-declare module 'react-icons/lib/md/picture-in-picture.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/picture-in-picture'>;
-}
-declare module 'react-icons/lib/md/pie-chart-outlined.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pie-chart-outlined'>;
-}
-declare module 'react-icons/lib/md/pie-chart.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pie-chart'>;
-}
-declare module 'react-icons/lib/md/pin-drop.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pin-drop'>;
-}
-declare module 'react-icons/lib/md/place.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/place'>;
-}
-declare module 'react-icons/lib/md/play-arrow.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/play-arrow'>;
-}
-declare module 'react-icons/lib/md/play-circle-filled.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/play-circle-filled'>;
-}
-declare module 'react-icons/lib/md/play-circle-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/play-circle-outline'>;
-}
-declare module 'react-icons/lib/md/play-for-work.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/play-for-work'>;
-}
-declare module 'react-icons/lib/md/playlist-add-check.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/playlist-add-check'>;
-}
-declare module 'react-icons/lib/md/playlist-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/playlist-add'>;
-}
-declare module 'react-icons/lib/md/playlist-play.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/playlist-play'>;
-}
-declare module 'react-icons/lib/md/plus-one.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/plus-one'>;
-}
-declare module 'react-icons/lib/md/poll.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/poll'>;
-}
-declare module 'react-icons/lib/md/polymer.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/polymer'>;
-}
-declare module 'react-icons/lib/md/pool.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pool'>;
-}
-declare module 'react-icons/lib/md/portable-wifi-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/portable-wifi-off'>;
-}
-declare module 'react-icons/lib/md/portrait.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/portrait'>;
-}
-declare module 'react-icons/lib/md/power-input.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/power-input'>;
-}
-declare module 'react-icons/lib/md/power-settings-new.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/power-settings-new'>;
-}
-declare module 'react-icons/lib/md/power.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/power'>;
-}
-declare module 'react-icons/lib/md/pregnant-woman.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/pregnant-woman'>;
-}
-declare module 'react-icons/lib/md/present-to-all.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/present-to-all'>;
-}
-declare module 'react-icons/lib/md/print.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/print'>;
-}
-declare module 'react-icons/lib/md/priority-high.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/priority-high'>;
-}
-declare module 'react-icons/lib/md/public.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/public'>;
-}
-declare module 'react-icons/lib/md/publish.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/publish'>;
-}
-declare module 'react-icons/lib/md/query-builder.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/query-builder'>;
-}
-declare module 'react-icons/lib/md/question-answer.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/question-answer'>;
-}
-declare module 'react-icons/lib/md/queue-music.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/queue-music'>;
-}
-declare module 'react-icons/lib/md/queue-play-next.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/queue-play-next'>;
-}
-declare module 'react-icons/lib/md/queue.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/queue'>;
-}
-declare module 'react-icons/lib/md/radio-button-checked.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/radio-button-checked'>;
-}
-declare module 'react-icons/lib/md/radio-button-unchecked.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/radio-button-unchecked'>;
-}
-declare module 'react-icons/lib/md/radio.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/radio'>;
-}
-declare module 'react-icons/lib/md/rate-review.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/rate-review'>;
-}
-declare module 'react-icons/lib/md/receipt.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/receipt'>;
-}
-declare module 'react-icons/lib/md/recent-actors.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/recent-actors'>;
-}
-declare module 'react-icons/lib/md/record-voice-over.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/record-voice-over'>;
-}
-declare module 'react-icons/lib/md/redeem.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/redeem'>;
-}
-declare module 'react-icons/lib/md/redo.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/redo'>;
-}
-declare module 'react-icons/lib/md/refresh.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/refresh'>;
-}
-declare module 'react-icons/lib/md/remove-circle-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/remove-circle-outline'>;
-}
-declare module 'react-icons/lib/md/remove-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/remove-circle'>;
-}
-declare module 'react-icons/lib/md/remove-from-queue.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/remove-from-queue'>;
-}
-declare module 'react-icons/lib/md/remove-red-eye.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/remove-red-eye'>;
-}
-declare module 'react-icons/lib/md/remove-shopping-cart.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/remove-shopping-cart'>;
-}
-declare module 'react-icons/lib/md/remove.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/remove'>;
-}
-declare module 'react-icons/lib/md/reorder.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/reorder'>;
-}
-declare module 'react-icons/lib/md/repeat-one.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/repeat-one'>;
-}
-declare module 'react-icons/lib/md/repeat.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/repeat'>;
-}
-declare module 'react-icons/lib/md/replay-10.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/replay-10'>;
-}
-declare module 'react-icons/lib/md/replay-30.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/replay-30'>;
-}
-declare module 'react-icons/lib/md/replay-5.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/replay-5'>;
-}
-declare module 'react-icons/lib/md/replay.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/replay'>;
-}
-declare module 'react-icons/lib/md/reply-all.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/reply-all'>;
-}
-declare module 'react-icons/lib/md/reply.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/reply'>;
-}
-declare module 'react-icons/lib/md/report-problem.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/report-problem'>;
-}
-declare module 'react-icons/lib/md/report.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/report'>;
-}
-declare module 'react-icons/lib/md/restaurant-menu.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/restaurant-menu'>;
-}
-declare module 'react-icons/lib/md/restaurant.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/restaurant'>;
-}
-declare module 'react-icons/lib/md/restore-page.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/restore-page'>;
-}
-declare module 'react-icons/lib/md/restore.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/restore'>;
-}
-declare module 'react-icons/lib/md/ring-volume.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/ring-volume'>;
-}
-declare module 'react-icons/lib/md/room-service.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/room-service'>;
-}
-declare module 'react-icons/lib/md/room.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/room'>;
-}
-declare module 'react-icons/lib/md/rotate-90-degrees-ccw.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/rotate-90-degrees-ccw'>;
-}
-declare module 'react-icons/lib/md/rotate-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/rotate-left'>;
-}
-declare module 'react-icons/lib/md/rotate-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/rotate-right'>;
-}
-declare module 'react-icons/lib/md/rounded-corner.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/rounded-corner'>;
-}
-declare module 'react-icons/lib/md/router.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/router'>;
-}
-declare module 'react-icons/lib/md/rowing.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/rowing'>;
-}
-declare module 'react-icons/lib/md/rss-feed.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/rss-feed'>;
-}
-declare module 'react-icons/lib/md/rv-hookup.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/rv-hookup'>;
-}
-declare module 'react-icons/lib/md/satellite.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/satellite'>;
-}
-declare module 'react-icons/lib/md/save.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/save'>;
-}
-declare module 'react-icons/lib/md/scanner.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/scanner'>;
-}
-declare module 'react-icons/lib/md/schedule.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/schedule'>;
-}
-declare module 'react-icons/lib/md/school.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/school'>;
-}
-declare module 'react-icons/lib/md/screen-lock-landscape.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/screen-lock-landscape'>;
-}
-declare module 'react-icons/lib/md/screen-lock-portrait.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/screen-lock-portrait'>;
-}
-declare module 'react-icons/lib/md/screen-lock-rotation.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/screen-lock-rotation'>;
-}
-declare module 'react-icons/lib/md/screen-rotation.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/screen-rotation'>;
-}
-declare module 'react-icons/lib/md/screen-share.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/screen-share'>;
-}
-declare module 'react-icons/lib/md/sd-card.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sd-card'>;
-}
-declare module 'react-icons/lib/md/sd-storage.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sd-storage'>;
-}
-declare module 'react-icons/lib/md/search.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/search'>;
-}
-declare module 'react-icons/lib/md/security.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/security'>;
-}
-declare module 'react-icons/lib/md/select-all.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/select-all'>;
-}
-declare module 'react-icons/lib/md/send.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/send'>;
-}
-declare module 'react-icons/lib/md/sentiment-dissatisfied.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sentiment-dissatisfied'>;
-}
-declare module 'react-icons/lib/md/sentiment-neutral.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sentiment-neutral'>;
-}
-declare module 'react-icons/lib/md/sentiment-satisfied.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sentiment-satisfied'>;
-}
-declare module 'react-icons/lib/md/sentiment-very-dissatisfied.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sentiment-very-dissatisfied'>;
-}
-declare module 'react-icons/lib/md/sentiment-very-satisfied.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sentiment-very-satisfied'>;
-}
-declare module 'react-icons/lib/md/settings-applications.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-applications'>;
-}
-declare module 'react-icons/lib/md/settings-backup-restore.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-backup-restore'>;
-}
-declare module 'react-icons/lib/md/settings-bluetooth.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-bluetooth'>;
-}
-declare module 'react-icons/lib/md/settings-brightness.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-brightness'>;
-}
-declare module 'react-icons/lib/md/settings-cell.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-cell'>;
-}
-declare module 'react-icons/lib/md/settings-ethernet.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-ethernet'>;
-}
-declare module 'react-icons/lib/md/settings-input-antenna.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-input-antenna'>;
-}
-declare module 'react-icons/lib/md/settings-input-component.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-input-component'>;
-}
-declare module 'react-icons/lib/md/settings-input-composite.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-input-composite'>;
-}
-declare module 'react-icons/lib/md/settings-input-hdmi.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-input-hdmi'>;
-}
-declare module 'react-icons/lib/md/settings-input-svideo.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-input-svideo'>;
-}
-declare module 'react-icons/lib/md/settings-overscan.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-overscan'>;
-}
-declare module 'react-icons/lib/md/settings-phone.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-phone'>;
-}
-declare module 'react-icons/lib/md/settings-power.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-power'>;
-}
-declare module 'react-icons/lib/md/settings-remote.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-remote'>;
-}
-declare module 'react-icons/lib/md/settings-system-daydream.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-system-daydream'>;
-}
-declare module 'react-icons/lib/md/settings-voice.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings-voice'>;
-}
-declare module 'react-icons/lib/md/settings.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/settings'>;
-}
-declare module 'react-icons/lib/md/share.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/share'>;
-}
-declare module 'react-icons/lib/md/shop-two.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/shop-two'>;
-}
-declare module 'react-icons/lib/md/shop.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/shop'>;
-}
-declare module 'react-icons/lib/md/shopping-basket.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/shopping-basket'>;
-}
-declare module 'react-icons/lib/md/shopping-cart.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/shopping-cart'>;
-}
-declare module 'react-icons/lib/md/short-text.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/short-text'>;
-}
-declare module 'react-icons/lib/md/show-chart.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/show-chart'>;
-}
-declare module 'react-icons/lib/md/shuffle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/shuffle'>;
-}
-declare module 'react-icons/lib/md/signal-cellular-4-bar.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/signal-cellular-4-bar'>;
-}
-declare module 'react-icons/lib/md/signal-cellular-connected-no-internet-4-bar.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/signal-cellular-connected-no-internet-4-bar'>;
-}
-declare module 'react-icons/lib/md/signal-cellular-no-sim.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/signal-cellular-no-sim'>;
-}
-declare module 'react-icons/lib/md/signal-cellular-null.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/signal-cellular-null'>;
-}
-declare module 'react-icons/lib/md/signal-cellular-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/signal-cellular-off'>;
-}
-declare module 'react-icons/lib/md/signal-wifi-4-bar-lock.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/signal-wifi-4-bar-lock'>;
-}
-declare module 'react-icons/lib/md/signal-wifi-4-bar.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/signal-wifi-4-bar'>;
-}
-declare module 'react-icons/lib/md/signal-wifi-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/signal-wifi-off'>;
-}
-declare module 'react-icons/lib/md/sim-card-alert.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sim-card-alert'>;
-}
-declare module 'react-icons/lib/md/sim-card.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sim-card'>;
-}
-declare module 'react-icons/lib/md/skip-next.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/skip-next'>;
-}
-declare module 'react-icons/lib/md/skip-previous.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/skip-previous'>;
-}
-declare module 'react-icons/lib/md/slideshow.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/slideshow'>;
-}
-declare module 'react-icons/lib/md/slow-motion-video.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/slow-motion-video'>;
-}
-declare module 'react-icons/lib/md/smartphone.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/smartphone'>;
-}
-declare module 'react-icons/lib/md/smoke-free.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/smoke-free'>;
-}
-declare module 'react-icons/lib/md/smoking-rooms.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/smoking-rooms'>;
-}
-declare module 'react-icons/lib/md/sms-failed.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sms-failed'>;
-}
-declare module 'react-icons/lib/md/sms.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sms'>;
-}
-declare module 'react-icons/lib/md/snooze.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/snooze'>;
-}
-declare module 'react-icons/lib/md/sort-by-alpha.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sort-by-alpha'>;
-}
-declare module 'react-icons/lib/md/sort.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sort'>;
-}
-declare module 'react-icons/lib/md/spa.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/spa'>;
-}
-declare module 'react-icons/lib/md/space-bar.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/space-bar'>;
-}
-declare module 'react-icons/lib/md/speaker-group.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/speaker-group'>;
-}
-declare module 'react-icons/lib/md/speaker-notes-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/speaker-notes-off'>;
-}
-declare module 'react-icons/lib/md/speaker-notes.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/speaker-notes'>;
-}
-declare module 'react-icons/lib/md/speaker-phone.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/speaker-phone'>;
-}
-declare module 'react-icons/lib/md/speaker.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/speaker'>;
-}
-declare module 'react-icons/lib/md/spellcheck.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/spellcheck'>;
-}
-declare module 'react-icons/lib/md/star-border.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/star-border'>;
-}
-declare module 'react-icons/lib/md/star-half.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/star-half'>;
-}
-declare module 'react-icons/lib/md/star-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/star-outline'>;
-}
-declare module 'react-icons/lib/md/star.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/star'>;
-}
-declare module 'react-icons/lib/md/stars.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/stars'>;
-}
-declare module 'react-icons/lib/md/stay-current-landscape.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/stay-current-landscape'>;
-}
-declare module 'react-icons/lib/md/stay-current-portrait.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/stay-current-portrait'>;
-}
-declare module 'react-icons/lib/md/stay-primary-landscape.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/stay-primary-landscape'>;
-}
-declare module 'react-icons/lib/md/stay-primary-portrait.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/stay-primary-portrait'>;
-}
-declare module 'react-icons/lib/md/stop-screen-share.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/stop-screen-share'>;
-}
-declare module 'react-icons/lib/md/stop.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/stop'>;
-}
-declare module 'react-icons/lib/md/storage.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/storage'>;
-}
-declare module 'react-icons/lib/md/store-mall-directory.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/store-mall-directory'>;
-}
-declare module 'react-icons/lib/md/store.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/store'>;
-}
-declare module 'react-icons/lib/md/straighten.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/straighten'>;
-}
-declare module 'react-icons/lib/md/streetview.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/streetview'>;
-}
-declare module 'react-icons/lib/md/strikethrough-s.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/strikethrough-s'>;
-}
-declare module 'react-icons/lib/md/style.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/style'>;
-}
-declare module 'react-icons/lib/md/subdirectory-arrow-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/subdirectory-arrow-left'>;
-}
-declare module 'react-icons/lib/md/subdirectory-arrow-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/subdirectory-arrow-right'>;
-}
-declare module 'react-icons/lib/md/subject.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/subject'>;
-}
-declare module 'react-icons/lib/md/subscriptions.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/subscriptions'>;
-}
-declare module 'react-icons/lib/md/subtitles.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/subtitles'>;
-}
-declare module 'react-icons/lib/md/subway.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/subway'>;
-}
-declare module 'react-icons/lib/md/supervisor-account.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/supervisor-account'>;
-}
-declare module 'react-icons/lib/md/surround-sound.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/surround-sound'>;
-}
-declare module 'react-icons/lib/md/swap-calls.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/swap-calls'>;
-}
-declare module 'react-icons/lib/md/swap-horiz.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/swap-horiz'>;
-}
-declare module 'react-icons/lib/md/swap-vert.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/swap-vert'>;
-}
-declare module 'react-icons/lib/md/swap-vertical-circle.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/swap-vertical-circle'>;
-}
-declare module 'react-icons/lib/md/switch-camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/switch-camera'>;
-}
-declare module 'react-icons/lib/md/switch-video.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/switch-video'>;
-}
-declare module 'react-icons/lib/md/sync-disabled.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sync-disabled'>;
-}
-declare module 'react-icons/lib/md/sync-problem.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sync-problem'>;
-}
-declare module 'react-icons/lib/md/sync.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/sync'>;
-}
-declare module 'react-icons/lib/md/system-update-alt.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/system-update-alt'>;
-}
-declare module 'react-icons/lib/md/system-update.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/system-update'>;
-}
-declare module 'react-icons/lib/md/tab-unselected.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tab-unselected'>;
-}
-declare module 'react-icons/lib/md/tab.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tab'>;
-}
-declare module 'react-icons/lib/md/tablet-android.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tablet-android'>;
-}
-declare module 'react-icons/lib/md/tablet-mac.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tablet-mac'>;
-}
-declare module 'react-icons/lib/md/tablet.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tablet'>;
-}
-declare module 'react-icons/lib/md/tag-faces.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tag-faces'>;
-}
-declare module 'react-icons/lib/md/tap-and-play.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tap-and-play'>;
-}
-declare module 'react-icons/lib/md/terrain.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/terrain'>;
-}
-declare module 'react-icons/lib/md/text-fields.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/text-fields'>;
-}
-declare module 'react-icons/lib/md/text-format.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/text-format'>;
-}
-declare module 'react-icons/lib/md/textsms.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/textsms'>;
-}
-declare module 'react-icons/lib/md/texture.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/texture'>;
-}
-declare module 'react-icons/lib/md/theaters.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/theaters'>;
-}
-declare module 'react-icons/lib/md/thumb-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/thumb-down'>;
-}
-declare module 'react-icons/lib/md/thumb-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/thumb-up'>;
-}
-declare module 'react-icons/lib/md/thumbs-up-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/thumbs-up-down'>;
-}
-declare module 'react-icons/lib/md/time-to-leave.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/time-to-leave'>;
-}
-declare module 'react-icons/lib/md/timelapse.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/timelapse'>;
-}
-declare module 'react-icons/lib/md/timeline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/timeline'>;
-}
-declare module 'react-icons/lib/md/timer-10.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/timer-10'>;
-}
-declare module 'react-icons/lib/md/timer-3.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/timer-3'>;
-}
-declare module 'react-icons/lib/md/timer-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/timer-off'>;
-}
-declare module 'react-icons/lib/md/timer.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/timer'>;
-}
-declare module 'react-icons/lib/md/title.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/title'>;
-}
-declare module 'react-icons/lib/md/toc.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/toc'>;
-}
-declare module 'react-icons/lib/md/today.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/today'>;
-}
-declare module 'react-icons/lib/md/toll.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/toll'>;
-}
-declare module 'react-icons/lib/md/tonality.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tonality'>;
-}
-declare module 'react-icons/lib/md/touch-app.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/touch-app'>;
-}
-declare module 'react-icons/lib/md/toys.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/toys'>;
-}
-declare module 'react-icons/lib/md/track-changes.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/track-changes'>;
-}
-declare module 'react-icons/lib/md/traffic.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/traffic'>;
-}
-declare module 'react-icons/lib/md/train.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/train'>;
-}
-declare module 'react-icons/lib/md/tram.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tram'>;
-}
-declare module 'react-icons/lib/md/transfer-within-a-station.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/transfer-within-a-station'>;
-}
-declare module 'react-icons/lib/md/transform.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/transform'>;
-}
-declare module 'react-icons/lib/md/translate.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/translate'>;
-}
-declare module 'react-icons/lib/md/trending-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/trending-down'>;
-}
-declare module 'react-icons/lib/md/trending-flat.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/trending-flat'>;
-}
-declare module 'react-icons/lib/md/trending-neutral.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/trending-neutral'>;
-}
-declare module 'react-icons/lib/md/trending-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/trending-up'>;
-}
-declare module 'react-icons/lib/md/tune.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tune'>;
-}
-declare module 'react-icons/lib/md/turned-in-not.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/turned-in-not'>;
-}
-declare module 'react-icons/lib/md/turned-in.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/turned-in'>;
-}
-declare module 'react-icons/lib/md/tv.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/tv'>;
-}
-declare module 'react-icons/lib/md/unarchive.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/unarchive'>;
-}
-declare module 'react-icons/lib/md/undo.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/undo'>;
-}
-declare module 'react-icons/lib/md/unfold-less.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/unfold-less'>;
-}
-declare module 'react-icons/lib/md/unfold-more.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/unfold-more'>;
-}
-declare module 'react-icons/lib/md/update.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/update'>;
-}
-declare module 'react-icons/lib/md/usb.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/usb'>;
-}
-declare module 'react-icons/lib/md/verified-user.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/verified-user'>;
-}
-declare module 'react-icons/lib/md/vertical-align-bottom.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/vertical-align-bottom'>;
-}
-declare module 'react-icons/lib/md/vertical-align-center.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/vertical-align-center'>;
-}
-declare module 'react-icons/lib/md/vertical-align-top.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/vertical-align-top'>;
-}
-declare module 'react-icons/lib/md/vibration.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/vibration'>;
-}
-declare module 'react-icons/lib/md/video-call.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/video-call'>;
-}
-declare module 'react-icons/lib/md/video-collection.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/video-collection'>;
-}
-declare module 'react-icons/lib/md/video-label.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/video-label'>;
-}
-declare module 'react-icons/lib/md/video-library.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/video-library'>;
-}
-declare module 'react-icons/lib/md/videocam-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/videocam-off'>;
-}
-declare module 'react-icons/lib/md/videocam.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/videocam'>;
-}
-declare module 'react-icons/lib/md/videogame-asset.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/videogame-asset'>;
-}
-declare module 'react-icons/lib/md/view-agenda.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-agenda'>;
-}
-declare module 'react-icons/lib/md/view-array.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-array'>;
-}
-declare module 'react-icons/lib/md/view-carousel.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-carousel'>;
-}
-declare module 'react-icons/lib/md/view-column.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-column'>;
-}
-declare module 'react-icons/lib/md/view-comfortable.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-comfortable'>;
-}
-declare module 'react-icons/lib/md/view-comfy.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-comfy'>;
-}
-declare module 'react-icons/lib/md/view-compact.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-compact'>;
-}
-declare module 'react-icons/lib/md/view-day.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-day'>;
-}
-declare module 'react-icons/lib/md/view-headline.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-headline'>;
-}
-declare module 'react-icons/lib/md/view-list.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-list'>;
-}
-declare module 'react-icons/lib/md/view-module.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-module'>;
-}
-declare module 'react-icons/lib/md/view-quilt.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-quilt'>;
-}
-declare module 'react-icons/lib/md/view-stream.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-stream'>;
-}
-declare module 'react-icons/lib/md/view-week.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/view-week'>;
-}
-declare module 'react-icons/lib/md/vignette.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/vignette'>;
-}
-declare module 'react-icons/lib/md/visibility-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/visibility-off'>;
-}
-declare module 'react-icons/lib/md/visibility.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/visibility'>;
-}
-declare module 'react-icons/lib/md/voice-chat.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/voice-chat'>;
-}
-declare module 'react-icons/lib/md/voicemail.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/voicemail'>;
-}
-declare module 'react-icons/lib/md/volume-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/volume-down'>;
-}
-declare module 'react-icons/lib/md/volume-mute.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/volume-mute'>;
-}
-declare module 'react-icons/lib/md/volume-off.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/volume-off'>;
-}
-declare module 'react-icons/lib/md/volume-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/volume-up'>;
-}
-declare module 'react-icons/lib/md/vpn-key.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/vpn-key'>;
-}
-declare module 'react-icons/lib/md/vpn-lock.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/vpn-lock'>;
-}
-declare module 'react-icons/lib/md/wallpaper.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wallpaper'>;
-}
-declare module 'react-icons/lib/md/warning.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/warning'>;
-}
-declare module 'react-icons/lib/md/watch-later.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/watch-later'>;
-}
-declare module 'react-icons/lib/md/watch.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/watch'>;
-}
-declare module 'react-icons/lib/md/wb-auto.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wb-auto'>;
-}
-declare module 'react-icons/lib/md/wb-cloudy.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wb-cloudy'>;
-}
-declare module 'react-icons/lib/md/wb-incandescent.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wb-incandescent'>;
-}
-declare module 'react-icons/lib/md/wb-iridescent.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wb-iridescent'>;
-}
-declare module 'react-icons/lib/md/wb-sunny.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wb-sunny'>;
-}
-declare module 'react-icons/lib/md/wc.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wc'>;
-}
-declare module 'react-icons/lib/md/web-asset.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/web-asset'>;
-}
-declare module 'react-icons/lib/md/web.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/web'>;
-}
-declare module 'react-icons/lib/md/weekend.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/weekend'>;
-}
-declare module 'react-icons/lib/md/whatshot.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/whatshot'>;
-}
-declare module 'react-icons/lib/md/widgets.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/widgets'>;
-}
-declare module 'react-icons/lib/md/wifi-lock.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wifi-lock'>;
-}
-declare module 'react-icons/lib/md/wifi-tethering.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wifi-tethering'>;
-}
-declare module 'react-icons/lib/md/wifi.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wifi'>;
-}
-declare module 'react-icons/lib/md/work.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/work'>;
-}
-declare module 'react-icons/lib/md/wrap-text.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/wrap-text'>;
-}
-declare module 'react-icons/lib/md/youtube-searched-for.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/youtube-searched-for'>;
-}
-declare module 'react-icons/lib/md/zoom-in.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/zoom-in'>;
-}
-declare module 'react-icons/lib/md/zoom-out-map.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/zoom-out-map'>;
-}
-declare module 'react-icons/lib/md/zoom-out.js' {
-  declare module.exports: $Exports<'react-icons/lib/md/zoom-out'>;
-}
-declare module 'react-icons/lib/ti/adjust-brightness.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/adjust-brightness'>;
-}
-declare module 'react-icons/lib/ti/adjust-contrast.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/adjust-contrast'>;
-}
-declare module 'react-icons/lib/ti/anchor-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/anchor-outline'>;
-}
-declare module 'react-icons/lib/ti/anchor.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/anchor'>;
-}
-declare module 'react-icons/lib/ti/archive.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/archive'>;
-}
-declare module 'react-icons/lib/ti/arrow-back-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-back-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-back.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-back'>;
-}
-declare module 'react-icons/lib/ti/arrow-down-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-down-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-down-thick.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-down-thick'>;
-}
-declare module 'react-icons/lib/ti/arrow-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-down'>;
-}
-declare module 'react-icons/lib/ti/arrow-forward-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-forward-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-forward'>;
-}
-declare module 'react-icons/lib/ti/arrow-left-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-left-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-left-thick.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-left-thick'>;
-}
-declare module 'react-icons/lib/ti/arrow-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-left'>;
-}
-declare module 'react-icons/lib/ti/arrow-loop-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-loop-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-loop.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-loop'>;
-}
-declare module 'react-icons/lib/ti/arrow-maximise-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-maximise-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-maximise.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-maximise'>;
-}
-declare module 'react-icons/lib/ti/arrow-minimise-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-minimise-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-minimise.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-minimise'>;
-}
-declare module 'react-icons/lib/ti/arrow-move-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-move-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-move.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-move'>;
-}
-declare module 'react-icons/lib/ti/arrow-repeat-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-repeat-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-repeat.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-repeat'>;
-}
-declare module 'react-icons/lib/ti/arrow-right-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-right-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-right-thick.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-right-thick'>;
-}
-declare module 'react-icons/lib/ti/arrow-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-right'>;
-}
-declare module 'react-icons/lib/ti/arrow-shuffle.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-shuffle'>;
-}
-declare module 'react-icons/lib/ti/arrow-sorted-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-sorted-down'>;
-}
-declare module 'react-icons/lib/ti/arrow-sorted-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-sorted-up'>;
-}
-declare module 'react-icons/lib/ti/arrow-sync-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-sync-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-sync.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-sync'>;
-}
-declare module 'react-icons/lib/ti/arrow-unsorted.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-unsorted'>;
-}
-declare module 'react-icons/lib/ti/arrow-up-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-up-outline'>;
-}
-declare module 'react-icons/lib/ti/arrow-up-thick.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-up-thick'>;
-}
-declare module 'react-icons/lib/ti/arrow-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/arrow-up'>;
-}
-declare module 'react-icons/lib/ti/at.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/at'>;
-}
-declare module 'react-icons/lib/ti/attachment-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/attachment-outline'>;
-}
-declare module 'react-icons/lib/ti/attachment.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/attachment'>;
-}
-declare module 'react-icons/lib/ti/backspace-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/backspace-outline'>;
-}
-declare module 'react-icons/lib/ti/backspace.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/backspace'>;
-}
-declare module 'react-icons/lib/ti/battery-charge.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/battery-charge'>;
-}
-declare module 'react-icons/lib/ti/battery-full.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/battery-full'>;
-}
-declare module 'react-icons/lib/ti/battery-high.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/battery-high'>;
-}
-declare module 'react-icons/lib/ti/battery-low.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/battery-low'>;
-}
-declare module 'react-icons/lib/ti/battery-mid.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/battery-mid'>;
-}
-declare module 'react-icons/lib/ti/beaker.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/beaker'>;
-}
-declare module 'react-icons/lib/ti/beer.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/beer'>;
-}
-declare module 'react-icons/lib/ti/bell.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/bell'>;
-}
-declare module 'react-icons/lib/ti/book.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/book'>;
-}
-declare module 'react-icons/lib/ti/bookmark.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/bookmark'>;
-}
-declare module 'react-icons/lib/ti/briefcase.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/briefcase'>;
-}
-declare module 'react-icons/lib/ti/brush.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/brush'>;
-}
-declare module 'react-icons/lib/ti/business-card.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/business-card'>;
-}
-declare module 'react-icons/lib/ti/calculator.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/calculator'>;
-}
-declare module 'react-icons/lib/ti/calendar-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/calendar-outline'>;
-}
-declare module 'react-icons/lib/ti/calendar.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/calendar'>;
-}
-declare module 'react-icons/lib/ti/calender-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/calender-outline'>;
-}
-declare module 'react-icons/lib/ti/calender.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/calender'>;
-}
-declare module 'react-icons/lib/ti/camera-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/camera-outline'>;
-}
-declare module 'react-icons/lib/ti/camera.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/camera'>;
-}
-declare module 'react-icons/lib/ti/cancel-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/cancel-outline'>;
-}
-declare module 'react-icons/lib/ti/cancel.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/cancel'>;
-}
-declare module 'react-icons/lib/ti/chart-area-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chart-area-outline'>;
-}
-declare module 'react-icons/lib/ti/chart-area.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chart-area'>;
-}
-declare module 'react-icons/lib/ti/chart-bar-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chart-bar-outline'>;
-}
-declare module 'react-icons/lib/ti/chart-bar.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chart-bar'>;
-}
-declare module 'react-icons/lib/ti/chart-line-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chart-line-outline'>;
-}
-declare module 'react-icons/lib/ti/chart-line.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chart-line'>;
-}
-declare module 'react-icons/lib/ti/chart-pie-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chart-pie-outline'>;
-}
-declare module 'react-icons/lib/ti/chart-pie.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chart-pie'>;
-}
-declare module 'react-icons/lib/ti/chevron-left-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chevron-left-outline'>;
-}
-declare module 'react-icons/lib/ti/chevron-left.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chevron-left'>;
-}
-declare module 'react-icons/lib/ti/chevron-right-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chevron-right-outline'>;
-}
-declare module 'react-icons/lib/ti/chevron-right.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/chevron-right'>;
-}
-declare module 'react-icons/lib/ti/clipboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/clipboard'>;
-}
-declare module 'react-icons/lib/ti/cloud-storage-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/cloud-storage-outline'>;
-}
-declare module 'react-icons/lib/ti/cloud-storage.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/cloud-storage'>;
-}
-declare module 'react-icons/lib/ti/code-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/code-outline'>;
-}
-declare module 'react-icons/lib/ti/code.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/code'>;
-}
-declare module 'react-icons/lib/ti/coffee.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/coffee'>;
-}
-declare module 'react-icons/lib/ti/cog-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/cog-outline'>;
-}
-declare module 'react-icons/lib/ti/cog.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/cog'>;
-}
-declare module 'react-icons/lib/ti/compass.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/compass'>;
-}
-declare module 'react-icons/lib/ti/contacts.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/contacts'>;
-}
-declare module 'react-icons/lib/ti/credit-card.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/credit-card'>;
-}
-declare module 'react-icons/lib/ti/cross.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/cross'>;
-}
-declare module 'react-icons/lib/ti/css3.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/css3'>;
-}
-declare module 'react-icons/lib/ti/database.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/database'>;
-}
-declare module 'react-icons/lib/ti/delete-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/delete-outline'>;
-}
-declare module 'react-icons/lib/ti/delete.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/delete'>;
-}
-declare module 'react-icons/lib/ti/device-desktop.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/device-desktop'>;
-}
-declare module 'react-icons/lib/ti/device-laptop.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/device-laptop'>;
-}
-declare module 'react-icons/lib/ti/device-phone.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/device-phone'>;
-}
-declare module 'react-icons/lib/ti/device-tablet.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/device-tablet'>;
-}
-declare module 'react-icons/lib/ti/directions.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/directions'>;
-}
-declare module 'react-icons/lib/ti/divide-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/divide-outline'>;
-}
-declare module 'react-icons/lib/ti/divide.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/divide'>;
-}
-declare module 'react-icons/lib/ti/document-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/document-add'>;
-}
-declare module 'react-icons/lib/ti/document-delete.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/document-delete'>;
-}
-declare module 'react-icons/lib/ti/document-text.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/document-text'>;
-}
-declare module 'react-icons/lib/ti/document.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/document'>;
-}
-declare module 'react-icons/lib/ti/download-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/download-outline'>;
-}
-declare module 'react-icons/lib/ti/download.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/download'>;
-}
-declare module 'react-icons/lib/ti/dropbox.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/dropbox'>;
-}
-declare module 'react-icons/lib/ti/edit.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/edit'>;
-}
-declare module 'react-icons/lib/ti/eject-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/eject-outline'>;
-}
-declare module 'react-icons/lib/ti/eject.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/eject'>;
-}
-declare module 'react-icons/lib/ti/equals-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/equals-outline'>;
-}
-declare module 'react-icons/lib/ti/equals.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/equals'>;
-}
-declare module 'react-icons/lib/ti/export-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/export-outline'>;
-}
-declare module 'react-icons/lib/ti/export.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/export'>;
-}
-declare module 'react-icons/lib/ti/eye-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/eye-outline'>;
-}
-declare module 'react-icons/lib/ti/eye.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/eye'>;
-}
-declare module 'react-icons/lib/ti/feather.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/feather'>;
-}
-declare module 'react-icons/lib/ti/film.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/film'>;
-}
-declare module 'react-icons/lib/ti/filter.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/filter'>;
-}
-declare module 'react-icons/lib/ti/flag-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/flag-outline'>;
-}
-declare module 'react-icons/lib/ti/flag.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/flag'>;
-}
-declare module 'react-icons/lib/ti/flash-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/flash-outline'>;
-}
-declare module 'react-icons/lib/ti/flash.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/flash'>;
-}
-declare module 'react-icons/lib/ti/flow-children.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/flow-children'>;
-}
-declare module 'react-icons/lib/ti/flow-merge.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/flow-merge'>;
-}
-declare module 'react-icons/lib/ti/flow-parallel.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/flow-parallel'>;
-}
-declare module 'react-icons/lib/ti/flow-switch.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/flow-switch'>;
-}
-declare module 'react-icons/lib/ti/folder-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/folder-add'>;
-}
-declare module 'react-icons/lib/ti/folder-delete.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/folder-delete'>;
-}
-declare module 'react-icons/lib/ti/folder-open.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/folder-open'>;
-}
-declare module 'react-icons/lib/ti/folder.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/folder'>;
-}
-declare module 'react-icons/lib/ti/gift.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/gift'>;
-}
-declare module 'react-icons/lib/ti/globe-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/globe-outline'>;
-}
-declare module 'react-icons/lib/ti/globe.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/globe'>;
-}
-declare module 'react-icons/lib/ti/group-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/group-outline'>;
-}
-declare module 'react-icons/lib/ti/group.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/group'>;
-}
-declare module 'react-icons/lib/ti/headphones.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/headphones'>;
-}
-declare module 'react-icons/lib/ti/heart-full-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/heart-full-outline'>;
-}
-declare module 'react-icons/lib/ti/heart-half-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/heart-half-outline'>;
-}
-declare module 'react-icons/lib/ti/heart-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/heart-outline'>;
-}
-declare module 'react-icons/lib/ti/heart.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/heart'>;
-}
-declare module 'react-icons/lib/ti/home-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/home-outline'>;
-}
-declare module 'react-icons/lib/ti/home.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/home'>;
-}
-declare module 'react-icons/lib/ti/html5.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/html5'>;
-}
-declare module 'react-icons/lib/ti/image-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/image-outline'>;
-}
-declare module 'react-icons/lib/ti/image.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/image'>;
-}
-declare module 'react-icons/lib/ti/index.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/index'>;
-}
-declare module 'react-icons/lib/ti/infinity-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/infinity-outline'>;
-}
-declare module 'react-icons/lib/ti/infinity.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/infinity'>;
-}
-declare module 'react-icons/lib/ti/info-large-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/info-large-outline'>;
-}
-declare module 'react-icons/lib/ti/info-large.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/info-large'>;
-}
-declare module 'react-icons/lib/ti/info-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/info-outline'>;
-}
-declare module 'react-icons/lib/ti/info.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/info'>;
-}
-declare module 'react-icons/lib/ti/input-checked-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/input-checked-outline'>;
-}
-declare module 'react-icons/lib/ti/input-checked.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/input-checked'>;
-}
-declare module 'react-icons/lib/ti/key-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/key-outline'>;
-}
-declare module 'react-icons/lib/ti/key.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/key'>;
-}
-declare module 'react-icons/lib/ti/keyboard.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/keyboard'>;
-}
-declare module 'react-icons/lib/ti/leaf.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/leaf'>;
-}
-declare module 'react-icons/lib/ti/lightbulb.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/lightbulb'>;
-}
-declare module 'react-icons/lib/ti/link-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/link-outline'>;
-}
-declare module 'react-icons/lib/ti/link.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/link'>;
-}
-declare module 'react-icons/lib/ti/location-arrow-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/location-arrow-outline'>;
-}
-declare module 'react-icons/lib/ti/location-arrow.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/location-arrow'>;
-}
-declare module 'react-icons/lib/ti/location-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/location-outline'>;
-}
-declare module 'react-icons/lib/ti/location.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/location'>;
-}
-declare module 'react-icons/lib/ti/lock-closed-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/lock-closed-outline'>;
-}
-declare module 'react-icons/lib/ti/lock-closed.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/lock-closed'>;
-}
-declare module 'react-icons/lib/ti/lock-open-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/lock-open-outline'>;
-}
-declare module 'react-icons/lib/ti/lock-open.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/lock-open'>;
-}
-declare module 'react-icons/lib/ti/mail.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/mail'>;
-}
-declare module 'react-icons/lib/ti/map.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/map'>;
-}
-declare module 'react-icons/lib/ti/media-eject-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-eject-outline'>;
-}
-declare module 'react-icons/lib/ti/media-eject.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-eject'>;
-}
-declare module 'react-icons/lib/ti/media-fast-forward-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-fast-forward-outline'>;
-}
-declare module 'react-icons/lib/ti/media-fast-forward.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-fast-forward'>;
-}
-declare module 'react-icons/lib/ti/media-pause-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-pause-outline'>;
-}
-declare module 'react-icons/lib/ti/media-pause.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-pause'>;
-}
-declare module 'react-icons/lib/ti/media-play-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-play-outline'>;
-}
-declare module 'react-icons/lib/ti/media-play-reverse-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-play-reverse-outline'>;
-}
-declare module 'react-icons/lib/ti/media-play-reverse.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-play-reverse'>;
-}
-declare module 'react-icons/lib/ti/media-play.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-play'>;
-}
-declare module 'react-icons/lib/ti/media-record-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-record-outline'>;
-}
-declare module 'react-icons/lib/ti/media-record.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-record'>;
-}
-declare module 'react-icons/lib/ti/media-rewind-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-rewind-outline'>;
-}
-declare module 'react-icons/lib/ti/media-rewind.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-rewind'>;
-}
-declare module 'react-icons/lib/ti/media-stop-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-stop-outline'>;
-}
-declare module 'react-icons/lib/ti/media-stop.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/media-stop'>;
-}
-declare module 'react-icons/lib/ti/message-typing.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/message-typing'>;
-}
-declare module 'react-icons/lib/ti/message.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/message'>;
-}
-declare module 'react-icons/lib/ti/messages.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/messages'>;
-}
-declare module 'react-icons/lib/ti/microphone-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/microphone-outline'>;
-}
-declare module 'react-icons/lib/ti/microphone.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/microphone'>;
-}
-declare module 'react-icons/lib/ti/minus-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/minus-outline'>;
-}
-declare module 'react-icons/lib/ti/minus.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/minus'>;
-}
-declare module 'react-icons/lib/ti/mortar-board.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/mortar-board'>;
-}
-declare module 'react-icons/lib/ti/news.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/news'>;
-}
-declare module 'react-icons/lib/ti/notes-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/notes-outline'>;
-}
-declare module 'react-icons/lib/ti/notes.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/notes'>;
-}
-declare module 'react-icons/lib/ti/pen.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/pen'>;
-}
-declare module 'react-icons/lib/ti/pencil.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/pencil'>;
-}
-declare module 'react-icons/lib/ti/phone-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/phone-outline'>;
-}
-declare module 'react-icons/lib/ti/phone.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/phone'>;
-}
-declare module 'react-icons/lib/ti/pi-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/pi-outline'>;
-}
-declare module 'react-icons/lib/ti/pi.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/pi'>;
-}
-declare module 'react-icons/lib/ti/pin-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/pin-outline'>;
-}
-declare module 'react-icons/lib/ti/pin.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/pin'>;
-}
-declare module 'react-icons/lib/ti/pipette.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/pipette'>;
-}
-declare module 'react-icons/lib/ti/plane-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/plane-outline'>;
-}
-declare module 'react-icons/lib/ti/plane.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/plane'>;
-}
-declare module 'react-icons/lib/ti/plug.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/plug'>;
-}
-declare module 'react-icons/lib/ti/plus-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/plus-outline'>;
-}
-declare module 'react-icons/lib/ti/plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/plus'>;
-}
-declare module 'react-icons/lib/ti/point-of-interest-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/point-of-interest-outline'>;
-}
-declare module 'react-icons/lib/ti/point-of-interest.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/point-of-interest'>;
-}
-declare module 'react-icons/lib/ti/power-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/power-outline'>;
-}
-declare module 'react-icons/lib/ti/power.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/power'>;
-}
-declare module 'react-icons/lib/ti/printer.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/printer'>;
-}
-declare module 'react-icons/lib/ti/puzzle-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/puzzle-outline'>;
-}
-declare module 'react-icons/lib/ti/puzzle.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/puzzle'>;
-}
-declare module 'react-icons/lib/ti/radar-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/radar-outline'>;
-}
-declare module 'react-icons/lib/ti/radar.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/radar'>;
-}
-declare module 'react-icons/lib/ti/refresh-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/refresh-outline'>;
-}
-declare module 'react-icons/lib/ti/refresh.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/refresh'>;
-}
-declare module 'react-icons/lib/ti/rss-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/rss-outline'>;
-}
-declare module 'react-icons/lib/ti/rss.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/rss'>;
-}
-declare module 'react-icons/lib/ti/scissors-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/scissors-outline'>;
-}
-declare module 'react-icons/lib/ti/scissors.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/scissors'>;
-}
-declare module 'react-icons/lib/ti/shopping-bag.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/shopping-bag'>;
-}
-declare module 'react-icons/lib/ti/shopping-cart.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/shopping-cart'>;
-}
-declare module 'react-icons/lib/ti/social-at-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-at-circular'>;
-}
-declare module 'react-icons/lib/ti/social-dribbble-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-dribbble-circular'>;
-}
-declare module 'react-icons/lib/ti/social-dribbble.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-dribbble'>;
-}
-declare module 'react-icons/lib/ti/social-facebook-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-facebook-circular'>;
-}
-declare module 'react-icons/lib/ti/social-facebook.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-facebook'>;
-}
-declare module 'react-icons/lib/ti/social-flickr-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-flickr-circular'>;
-}
-declare module 'react-icons/lib/ti/social-flickr.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-flickr'>;
-}
-declare module 'react-icons/lib/ti/social-github-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-github-circular'>;
-}
-declare module 'react-icons/lib/ti/social-github.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-github'>;
-}
-declare module 'react-icons/lib/ti/social-google-plus-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-google-plus-circular'>;
-}
-declare module 'react-icons/lib/ti/social-google-plus.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-google-plus'>;
-}
-declare module 'react-icons/lib/ti/social-instagram-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-instagram-circular'>;
-}
-declare module 'react-icons/lib/ti/social-instagram.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-instagram'>;
-}
-declare module 'react-icons/lib/ti/social-last-fm-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-last-fm-circular'>;
-}
-declare module 'react-icons/lib/ti/social-last-fm.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-last-fm'>;
-}
-declare module 'react-icons/lib/ti/social-linkedin-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-linkedin-circular'>;
-}
-declare module 'react-icons/lib/ti/social-linkedin.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-linkedin'>;
-}
-declare module 'react-icons/lib/ti/social-pinterest-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-pinterest-circular'>;
-}
-declare module 'react-icons/lib/ti/social-pinterest.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-pinterest'>;
-}
-declare module 'react-icons/lib/ti/social-skype-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-skype-outline'>;
-}
-declare module 'react-icons/lib/ti/social-skype.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-skype'>;
-}
-declare module 'react-icons/lib/ti/social-tumbler-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-tumbler-circular'>;
-}
-declare module 'react-icons/lib/ti/social-tumbler.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-tumbler'>;
-}
-declare module 'react-icons/lib/ti/social-twitter-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-twitter-circular'>;
-}
-declare module 'react-icons/lib/ti/social-twitter.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-twitter'>;
-}
-declare module 'react-icons/lib/ti/social-vimeo-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-vimeo-circular'>;
-}
-declare module 'react-icons/lib/ti/social-vimeo.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-vimeo'>;
-}
-declare module 'react-icons/lib/ti/social-youtube-circular.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-youtube-circular'>;
-}
-declare module 'react-icons/lib/ti/social-youtube.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/social-youtube'>;
-}
-declare module 'react-icons/lib/ti/sort-alphabetically-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/sort-alphabetically-outline'>;
-}
-declare module 'react-icons/lib/ti/sort-alphabetically.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/sort-alphabetically'>;
-}
-declare module 'react-icons/lib/ti/sort-numerically-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/sort-numerically-outline'>;
-}
-declare module 'react-icons/lib/ti/sort-numerically.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/sort-numerically'>;
-}
-declare module 'react-icons/lib/ti/spanner-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/spanner-outline'>;
-}
-declare module 'react-icons/lib/ti/spanner.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/spanner'>;
-}
-declare module 'react-icons/lib/ti/spiral.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/spiral'>;
-}
-declare module 'react-icons/lib/ti/star-full-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/star-full-outline'>;
-}
-declare module 'react-icons/lib/ti/star-half-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/star-half-outline'>;
-}
-declare module 'react-icons/lib/ti/star-half.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/star-half'>;
-}
-declare module 'react-icons/lib/ti/star-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/star-outline'>;
-}
-declare module 'react-icons/lib/ti/star.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/star'>;
-}
-declare module 'react-icons/lib/ti/starburst-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/starburst-outline'>;
-}
-declare module 'react-icons/lib/ti/starburst.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/starburst'>;
-}
-declare module 'react-icons/lib/ti/stopwatch.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/stopwatch'>;
-}
-declare module 'react-icons/lib/ti/support.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/support'>;
-}
-declare module 'react-icons/lib/ti/tabs-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/tabs-outline'>;
-}
-declare module 'react-icons/lib/ti/tag.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/tag'>;
-}
-declare module 'react-icons/lib/ti/tags.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/tags'>;
-}
-declare module 'react-icons/lib/ti/th-large-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/th-large-outline'>;
-}
-declare module 'react-icons/lib/ti/th-large.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/th-large'>;
-}
-declare module 'react-icons/lib/ti/th-list-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/th-list-outline'>;
-}
-declare module 'react-icons/lib/ti/th-list.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/th-list'>;
-}
-declare module 'react-icons/lib/ti/th-menu-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/th-menu-outline'>;
-}
-declare module 'react-icons/lib/ti/th-menu.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/th-menu'>;
-}
-declare module 'react-icons/lib/ti/th-small-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/th-small-outline'>;
-}
-declare module 'react-icons/lib/ti/th-small.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/th-small'>;
-}
-declare module 'react-icons/lib/ti/thermometer.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/thermometer'>;
-}
-declare module 'react-icons/lib/ti/thumbs-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/thumbs-down'>;
-}
-declare module 'react-icons/lib/ti/thumbs-ok.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/thumbs-ok'>;
-}
-declare module 'react-icons/lib/ti/thumbs-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/thumbs-up'>;
-}
-declare module 'react-icons/lib/ti/tick-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/tick-outline'>;
-}
-declare module 'react-icons/lib/ti/tick.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/tick'>;
-}
-declare module 'react-icons/lib/ti/ticket.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/ticket'>;
-}
-declare module 'react-icons/lib/ti/time.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/time'>;
-}
-declare module 'react-icons/lib/ti/times-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/times-outline'>;
-}
-declare module 'react-icons/lib/ti/times.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/times'>;
-}
-declare module 'react-icons/lib/ti/trash.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/trash'>;
-}
-declare module 'react-icons/lib/ti/tree.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/tree'>;
-}
-declare module 'react-icons/lib/ti/upload-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/upload-outline'>;
-}
-declare module 'react-icons/lib/ti/upload.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/upload'>;
-}
-declare module 'react-icons/lib/ti/user-add-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/user-add-outline'>;
-}
-declare module 'react-icons/lib/ti/user-add.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/user-add'>;
-}
-declare module 'react-icons/lib/ti/user-delete-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/user-delete-outline'>;
-}
-declare module 'react-icons/lib/ti/user-delete.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/user-delete'>;
-}
-declare module 'react-icons/lib/ti/user-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/user-outline'>;
-}
-declare module 'react-icons/lib/ti/user.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/user'>;
-}
-declare module 'react-icons/lib/ti/vendor-android.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/vendor-android'>;
-}
-declare module 'react-icons/lib/ti/vendor-apple.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/vendor-apple'>;
-}
-declare module 'react-icons/lib/ti/vendor-microsoft.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/vendor-microsoft'>;
-}
-declare module 'react-icons/lib/ti/video-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/video-outline'>;
-}
-declare module 'react-icons/lib/ti/video.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/video'>;
-}
-declare module 'react-icons/lib/ti/volume-down.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/volume-down'>;
-}
-declare module 'react-icons/lib/ti/volume-mute.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/volume-mute'>;
-}
-declare module 'react-icons/lib/ti/volume-up.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/volume-up'>;
-}
-declare module 'react-icons/lib/ti/volume.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/volume'>;
-}
-declare module 'react-icons/lib/ti/warning-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/warning-outline'>;
-}
-declare module 'react-icons/lib/ti/warning.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/warning'>;
-}
-declare module 'react-icons/lib/ti/watch.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/watch'>;
-}
-declare module 'react-icons/lib/ti/waves-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/waves-outline'>;
-}
-declare module 'react-icons/lib/ti/waves.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/waves'>;
-}
-declare module 'react-icons/lib/ti/weather-cloudy.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-cloudy'>;
-}
-declare module 'react-icons/lib/ti/weather-downpour.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-downpour'>;
-}
-declare module 'react-icons/lib/ti/weather-night.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-night'>;
-}
-declare module 'react-icons/lib/ti/weather-partly-sunny.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-partly-sunny'>;
-}
-declare module 'react-icons/lib/ti/weather-shower.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-shower'>;
-}
-declare module 'react-icons/lib/ti/weather-snow.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-snow'>;
-}
-declare module 'react-icons/lib/ti/weather-stormy.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-stormy'>;
-}
-declare module 'react-icons/lib/ti/weather-sunny.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-sunny'>;
-}
-declare module 'react-icons/lib/ti/weather-windy-cloudy.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-windy-cloudy'>;
-}
-declare module 'react-icons/lib/ti/weather-windy.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/weather-windy'>;
-}
-declare module 'react-icons/lib/ti/wi-fi-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/wi-fi-outline'>;
-}
-declare module 'react-icons/lib/ti/wi-fi.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/wi-fi'>;
-}
-declare module 'react-icons/lib/ti/wine.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/wine'>;
-}
-declare module 'react-icons/lib/ti/world-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/world-outline'>;
-}
-declare module 'react-icons/lib/ti/world.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/world'>;
-}
-declare module 'react-icons/lib/ti/zoom-in-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/zoom-in-outline'>;
-}
-declare module 'react-icons/lib/ti/zoom-in.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/zoom-in'>;
-}
-declare module 'react-icons/lib/ti/zoom-out-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/zoom-out-outline'>;
-}
-declare module 'react-icons/lib/ti/zoom-out.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/zoom-out'>;
-}
-declare module 'react-icons/lib/ti/zoom-outline.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/zoom-outline'>;
-}
-declare module 'react-icons/lib/ti/zoom.js' {
-  declare module.exports: $Exports<'react-icons/lib/ti/zoom'>;
-}
-declare module 'react-icons/md/3d-rotation.js' {
-  declare module.exports: $Exports<'react-icons/md/3d-rotation'>;
+  declare export default class TiZoom extends React$Component<IconBaseProps> {}
 }

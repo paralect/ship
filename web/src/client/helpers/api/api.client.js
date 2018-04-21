@@ -9,6 +9,11 @@ import ApiError from './api.error';
 
 type AxiosFnType = (url: string, data?: Object) => Promise<Object>;
 
+type ApiErrorDataType = {
+  data: Object,
+  status: number,
+};
+
 // Do not throw errors on 'bad' server response codes
 axios.interceptors.response.use(
   (axiosConfig: $AxiosXHR<*>): $AxiosXHR<*> => axiosConfig,
@@ -19,7 +24,7 @@ const generalError = {
   _global: ['Unexpected Error Occurred'],
 };
 
-const throwApiError = ({ data, status }: $AxiosXHR<Object>) => {
+const throwApiError = ({ data = {}, status = 500 }: ApiErrorDataType) => {
   console.error('API: Error Ocurred', status, data); //eslint-disable-line
   throw new ApiError(data, status);
 };
@@ -45,7 +50,14 @@ const httpRequest = (method: string): AxiosFnType => async (url: string, data?: 
     }
   }
 
-  const response: $AxiosXHR<Object> = await axios(options);
+  const response: ?$AxiosXHR<Object> = await axios(options);
+  if (!response) {
+    throwApiError({
+      data: { errors: generalError },
+      status: 500,
+    });
+    return null;
+  }
 
   if (response.status >= 200 && response.status < 300) {
     return response.data || {};
@@ -53,9 +65,7 @@ const httpRequest = (method: string): AxiosFnType => async (url: string, data?: 
     throwApiError(response);
   }
 
-  response.data = {
-    errors: generalError,
-  };
+  response.data.errors = response.data.errors || generalError;
   throwApiError(response);
   return null;
 };

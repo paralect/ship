@@ -5,6 +5,7 @@ import type { Node } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
+import type { History } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
 
 import type { StateType, StoreType } from './resources/types';
@@ -25,7 +26,7 @@ const initialState: StateType = {
   },
 };
 
-const history = createHistory();
+const history: History = createHistory();
 const store: StoreType = configureStore(initialState, history);
 
 const Root = (): Node => (

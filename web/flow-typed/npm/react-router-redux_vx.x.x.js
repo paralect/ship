@@ -13,54 +13,74 @@
  * https://github.com/flowtype/flow-typed
  */
 
+import {
+  Store,
+  Dispatch,
+  Middleware,
+  Reducer
+} from 'redux';
+import {
+  History,
+  Location,
+  Path,
+  LocationState,
+  LocationDescriptor
+} from 'history';
+import { match } from 'react-router-dom';
+
 declare module 'react-router-redux' {
-  declare module.exports: any;
-}
+  declare export interface ConnectedRouterProps<State>{
+    store?: Store<State>,
+    history: History
+  }
+  declare export class ConnectedRouter<State>mixins React$Component<ConnectedRouterProps<State >> {}
+  declare export var LOCATION_CHANGE: string;
+  declare export interface RouterState {
+    location: Location | null
+  }
 
-/**
- * We include stubs for each file inside this npm package in case you need to
- * require those files directly. Feel free to delete any files that aren't
- * needed.
- */
-declare module 'react-router-redux/actions' {
-  declare module.exports: any;
-}
+  declare export type LocationActionPayload = {
+    method: string,
+    args?: Array<any>
+  }
 
-declare module 'react-router-redux/ConnectedRouter' {
-  declare module.exports: any;
-}
+  declare export type RouterAction = {
+    type: string,
+    payload: LocationActionPayload
+  }
 
-declare module 'react-router-redux/middleware' {
-  declare module.exports: any;
-}
-
-declare module 'react-router-redux/reducer' {
-  declare module.exports: any;
-}
-
-declare module 'react-router-redux/selectors' {
-  declare module.exports: any;
-}
-
-// Filename aliases
-declare module 'react-router-redux/actions.js' {
-  declare module.exports: $Exports<'react-router-redux/actions'>;
-}
-declare module 'react-router-redux/ConnectedRouter.js' {
-  declare module.exports: $Exports<'react-router-redux/ConnectedRouter'>;
-}
-declare module 'react-router-redux/index' {
-  declare module.exports: $Exports<'react-router-redux'>;
-}
-declare module 'react-router-redux/index.js' {
-  declare module.exports: $Exports<'react-router-redux'>;
-}
-declare module 'react-router-redux/middleware.js' {
-  declare module.exports: $Exports<'react-router-redux/middleware'>;
-}
-declare module 'react-router-redux/reducer.js' {
-  declare module.exports: $Exports<'react-router-redux/reducer'>;
-}
-declare module 'react-router-redux/selectors.js' {
-  declare module.exports: $Exports<'react-router-redux/selectors'>;
+  declare export var routerReducer: Reducer<RouterState>;
+  declare export var CALL_HISTORY_METHOD: string;
+  declare export function push(location: LocationDescriptor, state?: LocationState): RouterAction;
+  declare export function replace(location: LocationDescriptor, state?: LocationState): RouterAction;
+  declare export function go(n: number): RouterAction;
+  declare export function goBack(): RouterAction;
+  declare export function goForward(): RouterAction;
+  declare export var routerActions: {
+    push: typeof push,
+    replace: typeof replace,
+    go: typeof go,
+    goBack: typeof goBack,
+    goForward: typeof goForward
+  };
+  
+  declare export interface LocationChangeAction {
+    type: string,
+    payload: Location & {
+      props?: {
+        match: {
+          path: string,
+          url: string,
+          params: any,
+          isExact: boolean
+        },
+        location: Location,
+        history: History
+      }
+    }
+  }
+  declare export function routerMiddleware(history: History): Middleware;
+  declare export function createMatchSelector(path: string): (state: {
+    router: RouterState
+  }) => match<{}> | null
 }

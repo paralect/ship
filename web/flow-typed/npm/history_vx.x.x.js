@@ -13,68 +13,150 @@
  * https://github.com/flowtype/flow-typed
  */
 
-declare module 'history' {
-  declare module.exports: any;
+
+type isExtraneousPopstateEvent = boolean;
+type addEventListener = (
+  node: EventTarget,
+  event: string,
+  listener: EventListener
+) => void;
+type removeEventListener = (
+  node: EventTarget,
+  event: string,
+  listener: EventListener
+) => void;
+type getConfirmation = (message: string, callback: (result: boolean) => void) => void;
+type supportsHistory = () => boolean;
+type supportsGoWithoutReloadUsingHash = () => boolean;
+
+type Action = 'PUSH' | 'POP' | 'REPLACE';
+type UnregisterCallback = () => void;
+
+type $Path = string;
+type $LocationKey = string;
+type $LocationDescriptor = $Path | $LocationDescriptorObject;
+type $LocationListener = (location: $Location, action: Action) => void;
+type $LocationState = any;
+type $Pathname = string;
+type $Search = string;
+type $TransitionHook = (location: $Location, callback: (result: any) => void) => any;
+type $TransitionPromptHook = (location: $Location, action: Action) => string | false | void;
+type $Hash = string;
+type $Href = string;
+
+declare type $Location = {
+  pathname: $Pathname,
+  search: $Search,
+  state: $LocationState,
+  hash: $Hash,
+  key?: $LocationKey,
+};
+
+declare type $LocationDescriptorObject = {
+  pathname?: $Pathname,
+  search?: $Search,
+  state?: $LocationState,
+  hash?: $Hash,
+  key?: $LocationKey,
+};
+
+declare class $History {
+  length: number;
+  action: Action;
+  location: $Location;
+  push(path: $Path, state?: $LocationState): void;
+  push(location: $LocationDescriptorObject): void;
+  replace(path: $Path, state?: $LocationState): void;
+  replace(location: $LocationDescriptorObject): void;
+  go(n: number): void;
+  goBack(): void;
+  goForward(): void;
+  block(prompt?: boolean | string | $TransitionPromptHook): UnregisterCallback;
+  listen(listener: $LocationListener): UnregisterCallback;
+  createHref(location: $LocationDescriptorObject): $Href;
 }
 
-/**
- * We include stubs for each file inside this npm package in case you need to
- * require those files directly. Feel free to delete any files that aren't
- * needed.
- */
+declare module 'history' {
+  declare export type History = $History;
+  declare export type Location = $Location;
+
+  declare export type Path = $Path;
+  declare export type LocationKey = $LocationKey;
+  declare export type LocationDescriptor = $LocationDescriptor;
+  declare export type LocationListener = $LocationListener;
+  declare export type LocationState = $LocationState;
+  declare export type Pathname = $Pathname;
+  declare export type Search = $Search;
+  declare export type TransitionHook = $TransitionHook;
+  declare export type TransitionPromptHook = $TransitionPromptHook;
+  declare export type Hash = $Hash;
+  declare export type Href = $Href;
+}
+
 declare module 'history/createBrowserHistory' {
-  declare module.exports: any;
+  declare type BrowserHistoryBuildOptions = {
+    basename?: string,
+    forceRefresh?: boolean,
+    getUserConfirmation?: getConfirmation,
+    keyLength?: number,
+  }
+
+  declare module.exports: {
+    (options?: BrowserHistoryBuildOptions): $History
+  };
 }
 
 declare module 'history/createHashHistory' {
-  declare module.exports: any;
+  declare type HashType = 'hashbang' | 'noslash' | 'slash';
+
+  declare type HashHistoryBuildOptions = {
+    basename?: string,
+    hashType?: HashType,
+    getUserConfirmation?: getConfirmation,
+  };
+
+  declare module.exports: {
+    (options?: HashHistoryBuildOptions): $History
+  };
 }
 
 declare module 'history/createMemoryHistory' {
-  declare module.exports: any;
+  declare type MemoryHistoryBuildOptions = {
+    getUserConfirmation?: getConfirmation,
+    initialEntries?: Array<string>,
+    initialIndex?: number,
+    keyLength?: number,
+  };
+  
+  declare class MemoryHistory extends History {
+    index: number,
+    entries: Array<$Location>,
+    canGo(n: number): boolean,
+  }
+  
+  declare module.exports: {
+    (options?: MemoryHistoryBuildOptions): MemoryHistory
+  };
 }
 
 declare module 'history/createTransitionManager' {
-  declare module.exports: any;
-}
+  declare type PromptFunction = (location: $Location, action: Action) => any;
 
-declare module 'history/DOMUtils' {
-  declare module.exports: any;
-}
+  declare type Prompt = PromptFunction | boolean;
 
-declare module 'history/LocationUtils' {
-  declare module.exports: any;
-}
+  declare class TransitionManager {
+    setPrompt(nextPrompt?: Prompt): UnregisterCallback,
+    appendListener(listener: $LocationListener): UnregisterCallback,
+    notifyListeners(location: $Location, action: Action): void,
+    confirmTransitionTo(
+      location: $Location,
+      action: Action,
+      getUserConfirmation: getConfirmation,
+      callback: (result: boolean) => void
+    ): void,
+  }
 
-declare module 'history/PathUtils' {
-  declare module.exports: any;
-}
-
-// Filename aliases
-declare module 'history/createBrowserHistory.js' {
-  declare module.exports: $Exports<'history/createBrowserHistory'>;
-}
-declare module 'history/createHashHistory.js' {
-  declare module.exports: $Exports<'history/createHashHistory'>;
-}
-declare module 'history/createMemoryHistory.js' {
-  declare module.exports: $Exports<'history/createMemoryHistory'>;
-}
-declare module 'history/createTransitionManager.js' {
-  declare module.exports: $Exports<'history/createTransitionManager'>;
-}
-declare module 'history/DOMUtils.js' {
-  declare module.exports: $Exports<'history/DOMUtils'>;
-}
-declare module 'history/index' {
-  declare module.exports: $Exports<'history'>;
-}
-declare module 'history/index.js' {
-  declare module.exports: $Exports<'history'>;
-}
-declare module 'history/LocationUtils.js' {
-  declare module.exports: $Exports<'history/LocationUtils'>;
-}
-declare module 'history/PathUtils.js' {
-  declare module.exports: $Exports<'history/PathUtils'>;
+  declare module.exports: {
+    (): TransitionManager
+  };
 }
