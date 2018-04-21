@@ -1,0 +1,2 @@
+drone ansible_ssh_host=178.62.116.103 ansible_user=root ansible_python_interpreter='/usr/bin/python3'
+nginx ansible_ssh_host=178.62.116.103 ansible_user=root ansible_python_interpreter='/usr/bin/python3'

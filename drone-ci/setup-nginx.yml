@@ -2,7 +2,6 @@
 - name: Setup nginx for drone
   hosts: nginx
   become: true
-  become_user: root
   gather_facts: False
   vars_prompt:
     - name: run_roles

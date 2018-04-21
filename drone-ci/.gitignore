@@ -4,3 +4,5 @@ local/drone-data
 ssl-keys
 vars/credentials.yml
 local/drone.env
+node_modules
+package-lock.json

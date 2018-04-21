@@ -1,7 +1,6 @@
 ---
 - name: Deploy drone ci server
   hosts: drone
-  become_user: root
   become: true
   vars_files:
     - "vars/credentials.yml"
@@ -9,7 +8,7 @@
   roles:
     - role: paralect.drone
       # Version of Drone CI, see other versions here: https://hub.docker.com/r/drone/drone/tags/
-      drone_version: latest
+      drone_version: 0.8.5
 
       # the url, where drone instance will be publicly available
       # typically you would have nginx in front of Drone CI
