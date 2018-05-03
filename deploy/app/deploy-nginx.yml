@@ -2,20 +2,47 @@
 - name: Setup nginx for the application
   hosts: app
   become: true
-  become_user: root
   gather_facts: False
+  vars_prompt:
+    - name: run_roles
+      prompt: "Install nginx from scratch?"
+      default: "n"
+    - name: server_setup_ssl
+      prompt: "Install nginx with ssl certificates?"
+      default: "n"
   vars_files:
     - "vars/main.yml"
+  roles:
+    - { role: nginx, when: run_roles == "y" }
   tasks:
+    - name: Assures /etc/nginx/ssl exists
+      file: path=/etc/nginx/ssl state=directory
+      when: server_setup_ssl
+
+    - name: Copy ssl certificate to /etc/nginx/ssl
+      copy: src=ssl-keys/{{item.src}} dest={{item.dest}} owner=root mode=744
+      with_items:
+        - {src: '{{ssl_cert}}', dest: '{{ssl_cert_path}}'}
+        - {src: '{{ssl_key}}', dest: '{{ssl_key_path}}'}
+      when: server_setup_ssl
+
     - name: copy nginx virtual host file
       template: src="templates/{{env}}-nginx-config.j2"
-                dest="/etc/nginx/sites-available/02_app"
+                dest="/etc/nginx/sites-available/{{app_name}}"
                 owner=root
                 group=root
+      when: not server_setup_ssl
+
+    - name: copy nginx virtual host file
+      template: src="templates/{{env}}-nginx-config-with-ssl.j2"
+                dest="/etc/nginx/sites-available/{{app_name}}"
+                owner=root
+                group=root
+      when: server_setup_ssl
 
     - name: link nginx virtual host file
-      file: src="/etc/nginx/sites-available/02_app"
-            dest="/etc/nginx/sites-enabled/02_app"
+      file: src="/etc/nginx/sites-available/{{app_name}}"
+            dest="/etc/nginx/sites-enabled/{{app_name}}"
             state=link
 
     - name: restart nginx

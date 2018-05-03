@@ -1,0 +1,85 @@
+---
+- name: Setup nginx for the application
+  hosts: app
+  become: true
+  gather_facts: False
+  vars_prompt:
+    - name: run_roles
+      prompt: "Install nginx from scratch?"
+      default: "n"
+    - name: install_letsencrypt
+      prompt: "Install lestencrypt certificates?"
+      default: "n"
+  vars_files:
+    - "vars/main.yml"
+  vars:
+    - ssl_key_path: "/etc/letsencrypt/live/{{app_domain}}"
+    - ssl_key: "fullchain.pem"
+    - ssl_cert_path: "/etc/letsencrypt/live/{{app_domain}}"
+    - ssl_cert: "privkey.pem"
+  roles:
+    - { role: nginx, when: run_roles == "y" }
+  tasks:
+    - name: Create base directories
+      file: path="{{item}}" state=directory
+      with_items:
+        - "/etc/letsencrypt"
+        - "/var/lib/letsencrypt"
+        - "/var/log/letsencrypt"
+        - "/var/.secrets/certbot"
+
+    - name: copy dns credenteals
+      template: src="secrets/dnsimple-credentials.ini"
+                dest="/var/.secrets/certbot/dnsimple-credentials.ini"
+                owner=root
+                group=root
+
+    - name: pull certbot plugin docker image
+      docker_image:
+        state: present
+        force: yes
+        name: "certbot/dns-{{dns_plugin}}:v0.23.0"
+      when: install_letsencrypt == "y"
+    
+    - name: run certbot plugin image
+      docker_container:
+        name: "certbot-dns-{{dns_plugin}}"
+        image: "certbot/dns-{{dns_plugin}}:v0.23.0"
+        state: started
+        restart_policy: always
+        force_kill: yes
+        cleanup: yes
+        volumes:
+          - "/etc/letsencrypt:/etc/letsencrypt"
+          - "/var/lib/letsencrypt:/var/lib/letsencrypt"
+          - "/var/log/letsencrypt:/var/log/letsencrypt"
+          - "/var/.secrets:/var/.secrets"
+        command: certonly --agree-tos -m {{letsencrypt_email}} -d "*.{{app_domain}}" --dns-{{dns_plugin}} --dns-{{dns_plugin}}-propagation-seconds 60 --dns-{{dns_plugin}}-credentials /var/.secrets/certbot/dnsimple-credentials.ini --server https://acme-v02.api.letsencrypt.org/directory
+      when: install_letsencrypt == "y"
+
+    - name: Add letsencrypt cronjob for cert renewal
+      cron:
+        name: letsencrypt_renewal
+        special_time: monthly
+        job: sudo docker run --rm -it --name certbot-dns-{{dns_plugin}} -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt -v /var/.secrets:/var/.secrets -v /var/log/letsencrypt:/var/log/letsencrypt certbot/dns-{{dns_plugin}}:v0.23.0 renew --pre-hook "service nginx stop" --post-hook "service nginx start"
+      when: install_letsencrypt == "y"
+
+    - name: Generate dhparams
+      shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
+      args:
+        creates: /etc/nginx/dhparams.pem
+      when: install_letsencrypt == "y"
+
+    - name: copy nginx virtual host file
+      template: src="templates/{{env}}-nginx-config-with-ssl.j2"
+                dest="/etc/nginx/sites-available/{{app_name}}"
+                owner=root
+                group=root
+
+    - name: link nginx virtual host file
+      file: src="/etc/nginx/sites-available/{{app_name}}"
+            dest="/etc/nginx/sites-enabled/{{app_name}}"
+            state=link
+
+    - name: restart nginx
+      service: name=nginx state=restarted

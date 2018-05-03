@@ -1,6 +1,7 @@
 app_name: "ship"
+app_domain: "paralect.com"
 app_home: "/home/{{app_name}}"
-mongo_data_dir: "/home/{{app_name}}/mongo-data" # same as for pa until on one server
+mongo_data_dir: "/home/{{app_name}}/mongo-data"
 redis_data_dir: "/home/{{app_name}}/redis-data"
 
 api_domain: "ship-api.paralect.com"
@@ -11,3 +12,12 @@ web_ports: [ 6100 ]
 
 landing_domain: "ship-demo.paralect.com"
 landing_ports: [ 6200 ]
+
+default_ssl_key_path: "/etc/letsencrypt/live/takebuddy.com"
+default_ssl_key: "fullchain.pem"
+default_ssl_cert_path: "/etc/letsencrypt/live/takebuddy.com"
+default_ssl_cert: "privkey.pem"
+default_ssl_dhparams: "/etc/nginx/dhparams.pem"
+
+letsencrypt_email: "ship@test.com"
+dns_plugin: "cloudflare"

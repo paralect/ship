@@ -2,17 +2,10 @@
 - name: Setup server
   hosts: app
   become: true
-  become_user: root
-  gather_facts: False
   vars_files:
     - ["vars/main.yml"]
   roles:
     - { role: angstwad.docker_ubuntu}
-    - { role: nginx }
-  pre_tasks:
-    - name: setup python 2 to make ansible work on ubuntu 16.04
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-    - setup: # aka gather_facts
   tasks:
     - name: Create base directories
       file: path="{{item}}" state=directory
@@ -37,8 +30,6 @@
         command: ["redis-server", "--appendonly", "yes"]
         state: started
         restart_policy: always
-        force_kill: yes
-        recreate: yes
         volumes:
           - "{{redis_data_dir}}:/data"
         ports:
@@ -62,8 +53,6 @@
         command: mongod
         state: started
         restart_policy: always
-        force_kill: yes
-        recreate: yes
         volumes:
           - "{{mongo_data_dir}}:/data/db"
         ports:
