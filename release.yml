@@ -1,15 +1,18 @@
 services:
   ship:
-    version: 2.0.2
-  api:
-    version: 1.6.0
-    include: false
-  web:
     version: 2.1.0
+  api:
+    version: 1.6.1
+    include: true
+  web:
+    version: 2.1.1
     include: true
   landing:
-    version: 2.0.2
+    version: 2.1.0
     include: true
   drone:
-    version: 1.2.1
+    version: 1.2.2
+    include: true
+  monitoring:
+    version: 1.0.0
     include: true

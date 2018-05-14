@@ -72,13 +72,13 @@
 
     - name: copy nginx virtual host file
       template: src="templates/{{env}}-nginx-config-with-ssl.j2"
-                dest="/etc/nginx/sites-available/{{app_name}}"
+                dest="/etc/nginx/sites-available/02_app"
                 owner=root
                 group=root
 
     - name: link nginx virtual host file
-      file: src="/etc/nginx/sites-available/{{app_name}}"
-            dest="/etc/nginx/sites-enabled/{{app_name}}"
+      file: src="/etc/nginx/sites-available/02_app"
+            dest="/etc/nginx/sites-enabled/02_app"
             state=link
 
     - name: restart nginx
