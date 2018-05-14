@@ -1,0 +1,30 @@
+hostname: ship
+
+gf_domain: ship-monitor.paralect.com
+
+# postgres database name
+postgres_db_name: ship_grafana
+
+# Data source name, used by grafana
+data_source_name: DS_INFLUXDB
+# Influx database name
+influx_db_name: "monitoring"
+
+# InfluxDB connection string, used by telegraf to send data
+# e.g.
+#   http://10.10.3.33:8086
+influxdb_connection: http://178.62.116.103:8086
+
+# Mongo connection string, used by telegraf to monitor count of operations
+# e.g.
+#   mongodb://user:auth_key@10.10.3.30:27017,
+#   mongodb://10.10.3.33:18832,
+#   10.0.0.1:10000, etc.
+# mongo_connection: mongodb://10.10.3.33:27017
+mongo_connection: mongodb://178.62.1.32:27017
+# Redis connection string, used by telegraf to monitor count of operations
+# e.g.
+#   tcp://localhost:6379
+#   tcp://:password@192.168.99.100
+#   unix:///var/run/redis.sock
+redis_connection: tcp://178.62.1.32:6379

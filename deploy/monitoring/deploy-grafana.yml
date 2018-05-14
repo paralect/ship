@@ -1,0 +1,108 @@
+---
+- name: Deploy grafana to monitoring server
+  hosts: monitoring
+  become: true
+  gather_facts: False
+  vars_files:
+    - "vars/main.yml"
+    - "vars/credentials.yml"
+  tasks:
+    - name: Assures directories exists
+      file: path="{{item}}" state=directory
+      with_items:
+        - "/etc/grafana/provisioning/dashboards"
+        - "/etc/grafana/provisioning/datasources"
+        - "/var/lib/grafana/dashboards"
+        - "/var/log/grafana"
+        - "/var/lib/postgresql/data"
+      tags:
+        - grafana
+        - postgres
+
+    - name: Copy configurations
+      template: src="./config/grafana/grafana.ini"
+                dest="/etc/grafana/grafana.ini"
+                owner=root
+                group=root
+      tags:
+        - grafana
+
+    - name: Copy dashboard config
+      template: src="./config/grafana/dashboards.yaml"
+                dest="/etc/grafana/provisioning/dashboards/dashboards.yaml"
+                owner=root
+                group=root
+      tags:
+        - grafana
+
+    - name: Copy dashboard
+      template: src="./config/grafana/dashboards.json"
+                dest="/var/lib/grafana/dashboards/dashboards.json"
+                owner=root
+                group=root
+      tags:
+        - grafana
+
+    - name: Copy influxdb datasorce
+      template: src="./config/grafana/datasources.yaml"
+                dest="/etc/grafana/provisioning/datasources/datasources.yaml"
+                owner=root
+                group=root
+      tags:
+        - grafana
+
+    - name: "Pull PostgreSQL docker image"
+      docker_image:
+        state: present
+        force: yes
+        name: "postgres:10.3"
+        tag: "10.3"
+      tags:
+        - postgres
+
+    - name: "Launch PostgreSQL container"
+      docker_container:
+        name: postgres
+        image: postgres:10.3
+        state: started
+        restart_policy: always
+        ports:
+          - "5432:5432"
+        volumes:
+          - /var/lib/postgresql/data:/var/lib/postgresql/data
+        env:
+          POSTGRES_USER: "{{postgres_user}}"
+          POSTGRES_PASSWORD: "{{postgres_password}}"
+          POSTGRES_DB: "{{postgres_db_name}}"
+      tags:
+        - postgres
+
+    - name: "Pull Grafana docker image"
+      docker_image:
+        state: present
+        force: yes
+        name: "grafana/grafana:5.0.4"
+        tag: "5.0.4"
+      tags:
+        - grafana
+
+    - name: "Launch Grafana container"
+      docker_container:
+        name: grafana
+        image: grafana/grafana:5.0.4
+        state: started
+        restart_policy: always
+        ports:
+          - "3000:3000"
+        links:
+          - influxdb
+          - postgres
+        volumes:
+          - /var/lib/grafana:/var/lib/grafana
+          - /etc/grafana:/etc/grafana
+          - /var/log/grafana:/var/log/grafana
+        env:
+          GF_SECURITY_ADMIN_USER: "{{gf_admin_user}}"
+          GF_SECURITY_ADMIN_PASSWORD: "{{gf_admin_password}}"
+      tags:
+        - grafana

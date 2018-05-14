@@ -1,0 +1,6 @@
+---
+- name: Setup monitoring server
+  hosts: monitoring
+  become: true
+  roles:
+    - { role: angstwad.docker_ubuntu }

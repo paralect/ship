@@ -1,0 +1,44 @@
+# config file version
+apiVersion: 1
+
+# list of datasources that should be deleted from the database
+deleteDatasources:
+  - name: {{data_source_name}}
+    orgId: 1
+
+# list of datasources to insert/update depending
+# whats available in the database
+datasources:
+  # <string, required> name of the datasource. Required
+- name: {{data_source_name}}
+  # <string, required> datasource type. Required
+  type: influxdb
+  # <string, required> access mode. direct or proxy. Required
+  access: proxy
+  # <int> org id. will default to orgId 1 if not specified
+  orgId: 1
+  # <string> url
+  url: http://influxdb:8086
+  # <string> database password, if used
+  password: {{influx_read_user_password}}
+  # <string> database user, if used
+  user: {{influx_read_user}}
+  # <string> database name, if used
+  database: {{influx_db_name}}
+  # <bool> enable/disable basic auth
+  basicAuth:
+  # <string> basic auth username
+  basicAuthUser:
+  # <string> basic auth password
+  basicAuthPassword:
+  # <bool> enable/disable with credentials headers
+  withCredentials:
+  # <bool> mark as default datasource. Max one per org
+  isDefault: true
+  # <map> fields that will be converted to json and stored in json_data
+  jsonData:
+  # <string> json object of data that will be encrypted.
+  secureJsonData:
+  version: 1
+  # <bool> allow users to edit datasources from the UI.
+  editable: true

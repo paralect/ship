@@ -1,0 +1,60 @@
+---
+- name: Deploy influxdb to monitoring server
+  hosts: monitoring
+  become: true
+  gather_facts: False
+  vars_files:
+    - "vars/main.yml"
+    - "vars/credentials.yml"
+  tasks:
+    - name: Assures directories exists
+      file: path="{{item}}" state=directory
+      with_items:
+        - "/etc/influxdb"
+        - "/var/lib/influxdb"
+      tags:
+        - influxdb
+
+    - name: Copy configurations
+      template: src="config/influxdb/influxdb.conf"
+                dest="/etc/influxdb/influxdb.conf"
+                owner=root
+                group=root
+      tags:
+        - influxdb
+
+    - name: "Pull influxdb docker image"
+      docker_image:
+        state: present
+        name: "influxdb:1.5.2"
+        tag: "1.5.2"
+      tags:
+        - influxdb
+
+    - name: "Launch InfluxDB container"
+      docker_container:
+        name: influxdb
+        image: "influxdb:1.5.2"
+        command: influxd -config /etc/influxdb/influxdb.conf
+        state: started
+        restart_policy: always
+        log_driver: json-file
+        log_opt:
+          max-size: 50m
+          max-file: "1"
+        volumes:
+          - /var/lib/influxdb:/var/lib/influxdb
+          - /etc/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+        ports:
+          - "8083:8083"
+          - "8086:8086"
+        env:
+          INFLUXDB_ADMIN_USER: "{{influx_admin_user}}"
+          INFLUXDB_ADMIN_PASSWORD: "{{influx_admin_password}}"
+          INFLUXDB_USER: "{{influx_user}}"
+          INFLUXDB_USER_PASSWORD: "{{influx_user_password}}"
+          INFLUXDB_READ_USER: "{{influx_read_user}}"
+          INFLUXDB_READ_USER_PASSWORD: "{{influx_read_user_password}}"
+          INFLUXDB_DB: "{{influx_db_name}}"
+      tags:
+        - influxdb

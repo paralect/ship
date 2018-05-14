@@ -1,0 +1,53 @@
+---
+- name: Deploy Telegraf
+  hosts: app
+  become: true
+  gather_facts: False
+  vars_files:
+    - "vars/main.yml"
+    - "vars/credentials.yml"
+  tasks:
+    - name: Assures grafana directories exists
+      file: path=/etc/telegraf state=directory
+      tags:
+        - telegraf
+    - name: Copy telegraf configurations
+      template: src="config/telegraf/telegraf.conf.j2"
+                dest="/etc/telegraf/telegraf.conf"
+                owner=root
+                group=root
+      tags:
+        - telegraf
+
+    - name: pull telegraf image
+      docker_image:
+        state: present
+        force: yes
+        name: "telegraf:1.5.3"
+        tag: "1.5.3"
+      tags:
+        - telegraf
+
+    - name: run telegraf via docker
+      docker_container:
+        name: telegraf
+        image: telegraf:1.5.3
+        state: started
+        restart_policy: always
+        force_kill: yes
+        ports:
+          - "8092:8092/udp"
+          - "8125:8125/udp"
+          - "8094:8094"
+        volumes:
+          - /etc/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+          - /var/run/docker.sock:/var/run/docker.sock:ro
+          - /sys:/rootfs/sys:ro
+          - /proc:/rootfs/proc:ro
+          - /etc:/rootfs/etc:ro
+        env:
+          HOST_PROC: /rootfs/proc
+          HOST_SYS: /rootfs/sys
+          HOST_ETC: /rootfs/etc
+      tags:
+        - telegraf

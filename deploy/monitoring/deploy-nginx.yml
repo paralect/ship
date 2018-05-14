@@ -1,0 +1,22 @@
+---
+- name: Deploy and configure Influx Grafana stack
+  hosts: monitoring
+  become: true
+  vars_files:
+    - "vars/main.yml"
+  roles:
+    - { role: nginx, when: run_roles == "y" }
+  tasks:
+    - name: copy nginx virtual host file
+      template: src="templates/nginx-config.j2"
+                dest="/etc/nginx/sites-available/03_monitoring"
+                owner=root
+                group=root
+
+    - name: link nginx virtual host file
+      file: src="/etc/nginx/sites-available/03_monitoring"
+            dest="/etc/nginx/sites-enabled/03_monitoring"
+            state=link
+
+    - name: restart nginx
+      service: name=nginx state=restarted
