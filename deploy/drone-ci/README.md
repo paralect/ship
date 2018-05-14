@@ -7,7 +7,7 @@ Prerequisites:
 
 Installation steps:
 
-1. Update server ip in `deploy/hosts` file. If you are planning to use same server for both drone and nginx - just put same ip for both, drone & nginx targets.
+1. Update server ip in `hosts` file. If you are planning to use same server for both drone and nginx - just put same ip for both, drone & nginx targets.
 2. Install Ansible role dependencies with one command: `./bin/install-ansible-dependencies.sh`
 3. Update github application callback url to either point to your server ip address or your domain. For example:
 `http://ci.myapp.com/authorize` or just `http://server_ip/authorize`.
@@ -33,7 +33,7 @@ If you would like to install nginx on a same server with Drone CI - just run fol
 
 If you already have nginx installed somewhere else and just would like to attach drone nginx configuration to existing nginx server you can do following:
 
-1. Set nginx server ip in `deploy/hosts` file for the nginx target
+1. Set nginx server ip in `hosts` file for the nginx target
 2. Run same command `./bin/setup-nginx.sh`, but reply `no` to the question about nginx installation.
 
 In this case nginx configuration for Drone CI will be copied to the existing nginx server.

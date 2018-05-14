@@ -8,3 +8,5 @@ nginx_drone_internal_host: http://localhost:8000
 
 # List of users with admin access to the drone, readme more: http://docs.drone.io/user-management/
 drone_admins: "anorsich,ezhivitsa,IharKrasnik"
+
+drone_postgress_db: ship_drone
