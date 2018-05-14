@@ -3,12 +3,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
-import type { History } from 'history';
+import type { BrowserHistory } from 'history/createBrowserHistory';
 
 import reducer from './reducer';
 import type { StoreType, StateType } from './types';
 
-const configureStore = (initialState: StateType, history: History): StoreType => {
+const configureStore = (initialState: StateType, history: BrowserHistory): StoreType => {
   const store: StoreType = createStore(
     reducer,
     initialState,

@@ -11,10 +11,10 @@ import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle';
 import FaCheckCircle from 'react-icons/lib/fa/check-circle';
 
 import type { StateType } from 'resources/types';
-import { getToasterMessages } from './toast.selectors';
-import { removeMessage } from './toast.actions';
+import { getToasterMessages } from 'resources/toast/toast.selectors';
+import { removeMessage } from 'resources/toast/toast.actions';
 
-import type { MessageType, MessageTypeType } from './toast.types';
+import type { MessageType, MessageTypeType } from 'resources/toast/toast.types';
 
 import styles from './toast.styles.pcss';
 

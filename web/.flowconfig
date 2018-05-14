@@ -17,4 +17,4 @@ module.name_mapper='^helpers\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/helpers/\1'
 module.name_mapper='^resources\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/resources/\1'
 
 [version]
-^0.69.0
+^0.70.0

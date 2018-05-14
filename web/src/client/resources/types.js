@@ -5,7 +5,7 @@ import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux';
 import type {
   StateType as ToastStateType,
   ActionType as ToastActionType,
-} from 'components/common/toast/toast.types';
+} from './toast/toast.types';
 import type { StateType as UserType, ActionType as UserActionType } from './user/user.types';
 
 export type StateType = {

@@ -23,7 +23,7 @@ import {
 } from 'resources/user/user.actions';
 import type { StateType as UserStateType, ValidationErrorsType } from 'resources/user/user.types';
 import type { ValidationResultErrorsType } from 'helpers/validation/types';
-import { addErrorMessage, addSuccessMessage } from 'components/common/toast/toast.actions';
+import { addErrorMessage, addSuccessMessage } from 'resources/toast/toast.actions';
 
 import styles from './profile.styles.pcss';
 
