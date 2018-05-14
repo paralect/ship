@@ -5,9 +5,9 @@
   border-radius: var(--border-radius-500);
   cursor: pointer;
   color: var(--white);
-  padding: var(--distance-600) var(--distance-500);
   width: 100%;
   line-height: var(--text-800);
+  box-shadow: 0 2px 15px 1px var(--grey-shadow);
 
   &[disabled] {
     cursor: default;
@@ -18,6 +18,28 @@
     background-position: right center;
     opacity: 0.8;
   }
+}
+
+.purple {
+  background: var(--deep-purple-gradient);
+}
+
+.green {
+  background: var(--green-gradient);
+}
+
+.blue {
+  background: var(--light-blue-gradient);
+}
+
+.medium {
+  padding: var(--distance-600) var(--distance-500);
+  font-size: var(--text-500);
+}
+
+.small {
+  padding: var(--distance-500) var(--distance-400);
+  font-size: var(--text-400);
 }
 
 @keyframes Gradient {

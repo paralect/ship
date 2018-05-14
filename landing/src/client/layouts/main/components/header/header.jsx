@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import classnames from 'classnames';
 
-import ArrowSvg from './arrow';
+import ButtonLink from '~/components/button-link';
+import Link from '~/components/link';
+import { states } from '~/constants';
+
+import Logo from '~/static/logo.svg';
+import ArrowSvg from './components/arrow';
 
 import styles from './styles.pcss';
 
-const Header = ({ secondary }) => (
+const Header = ({ state }) => (
   <nav className={styles.nav}>
     <div className={styles.container}>
       <div className={styles.menu}>
         <div className={classnames(styles.item, styles.logo)}>
           <Link href="/">
-            <a href="/"> <img src="static/logo.png" alt="logo" /> </a>
+            <Logo />
           </Link>
         </div>
         <div className={styles.item}>
@@ -24,16 +28,16 @@ const Header = ({ secondary }) => (
             <li className={styles.link}>
               Blog
             </li>
-            <li className={classnames(styles.link, styles.login, {
-              [styles.secondary]: secondary,
-            })}
-            >
-              <Link prefetch href="/signin">
-                <a href="/signin">
-                  <span className={styles.text}>Log In</span>
-                  <div className={styles.arrow}><ArrowSvg /></div>
-                </a>
-              </Link>
+            <li className={styles.link}>
+              <ButtonLink
+                prefetch
+                href="/signin"
+                state={state}
+                className={styles.login}
+              >
+                <span className={styles.text}>Log In</span>
+                <div className={styles.arrow}><ArrowSvg /></div>
+              </ButtonLink>
             </li>
           </ul>
         </div>
@@ -43,11 +47,11 @@ const Header = ({ secondary }) => (
 );
 
 Header.propTypes = {
-  secondary: PropTypes.bool,
+  state: PropTypes.string,
 };
 
 Header.defaultProps = {
-  secondary: false,
+  state: states.purple,
 };
 
 export default Header;

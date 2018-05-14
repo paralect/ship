@@ -4,6 +4,7 @@ const postcssImport = require('postcss-import');
 const postcssCssNext = require('postcss-cssnext');
 const cssnano = require('cssnano');
 const postcssNested = require('postcss-nested');
+const postcssHexrgba = require('postcss-hexrgba');
 const lost = require('lost');
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
     }),
     postcssNested,
     postcssCssNext,
+    postcssHexrgba,
     cssnano({
       zindex: false,
     }),

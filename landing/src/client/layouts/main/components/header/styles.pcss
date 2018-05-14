@@ -21,9 +21,8 @@
       }
 
       &.logo {
-        img {
-          width: 132px;
-          display: block;
+        svg {
+          width: 100px;
         }
       }
 
@@ -40,15 +39,9 @@
           line-height: 50px;
           transition: color 0.1s ease;
 
-          &.login {
-            background: var(--deep-purple-gradient);
-            border-radius: var(--border-radius-500);
-            box-shadow: 0 2px 15px 1px var(--grey-shadow);
-            cursor: pointer;
-
-            &.secondary {
-              background: var(--green-gradient);
-            }
+          .login {
+            font-size: var(--text-600);
+            padding: var(--distance-500) var(--distance-700);
 
             a {
               display: flex;

@@ -1,8 +1,11 @@
 import axios from 'axios';
-import config from '~/config';
+import getConfig from 'next/config';
+
 import ApiError from './api.error';
 
-const { apiUrl } = config;
+const {
+  publicRuntimeConfig: { apiUrl },
+} = getConfig();
 
 // Do not throw errors on 'bad' server response codes
 axios.interceptors.response.use(axiosConfig => axiosConfig, error => error.response);

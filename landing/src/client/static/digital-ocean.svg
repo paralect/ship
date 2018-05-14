@@ -1,0 +1,16 @@
+<svg viewBox="0 0 170 130" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Canvas" transform="translate(0 0)">
+    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#00CAD4"></use>
+    <use xlink:href="#ship-huge-rocket11_fill" transform="translate(39 20)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket12_fill" transform="translate(78 55)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket13_fill" transform="translate(81 71)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket14_fill" transform="translate(65 72)" fill="#FFFFFF"></use>
+  </g>
+  <defs>
+    <path id="ship-huge-rocket10_fill" fill-rule="evenodd" d="M 0.0519778 48.7284L 0 73.1479L 82.9517 122L 165.948 73.2724L 166 48.8529L 83.0475 0L 0.0519778 48.7284Z"></path>
+    <path id="ship-huge-rocket11_fill" fill-rule="evenodd" d="M 75.1348 51L 63.0622 42.8387C 75.8409 34.2001 73.0874 18.9266 54.7315 13.152C 47.9887 11.0283 40.011 11.0283 33.2335 13.1753C 14.9123 18.9746 12.1241 34.224 24.9027 42.862L 12.8649 51C -7.50299 37.2305 -3.69101 13.1753 24.3377 3.24848C 36.5868 -1.07083 51.4483 -1.09481 63.662 3.24848C 91.6907 13.1753 95.5034 37.2305 75.1348 51"></path>
+    <path id="ship-huge-rocket12_fill" fill-rule="evenodd" d="M 24 7.99965L 12.0004 16L 0 7.99965L 12.0004 0L 24 7.99965Z"></path>
+    <path id="ship-huge-rocket13_fill" fill-rule="evenodd" d="M 18 6.50037L 9 13L 0 6.50037L 9 0L 18 6.50037Z"></path>
+    <path id="ship-huge-rocket14_fill" fill-rule="evenodd" d="M 15 5.50037L 7.5 11L 0 5.50037L 7.5 0L 15 5.50037Z"></path>
+  </defs>
+</svg>

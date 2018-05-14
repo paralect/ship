@@ -1,0 +1,14 @@
+<svg viewBox="0 0 170 130" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Canvas" transform="translate(0 0)">
+    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#FF9558"></use>
+    <use xlink:href="#ship-huge-rocket55_fill" transform="translate(44 48)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket56_fill" transform="translate(79 27)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket57_fill" transform="translate(61 26)" fill="#FFFFFF"></use>
+  </g>
+  <defs>
+    <path id="ship-huge-rocket10_fill" fill-rule="evenodd" d="M 0.0519778 48.7284L 0 73.1479L 82.9517 122L 165.948 73.2724L 166 48.8529L 83.0475 0L 0.0519778 48.7284Z"></path>
+    <path id="ship-huge-rocket55_fill" fill-rule="evenodd" d="M 0 27L 44 26.8181L 43.9351 20.984L 9.58159 21.1269L 9.86801 0.0484541L 0.365607 0L 0 27Z"></path>
+    <path id="ship-huge-rocket56_fill" fill-rule="evenodd" d="M 0 0.181915L 0.0640233 6.01511L 34.4176 5.8723L 34.132 26.9507L 43.6344 27L 44 0L 0 0.181915Z"></path>
+    <path id="ship-huge-rocket57_fill" fill-rule="evenodd" d="M 8.50949 0L 0 2.61917L 38.4905 49L 47 46.3808L 8.50949 0Z"></path>
+  </defs>
+</svg>

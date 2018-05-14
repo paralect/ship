@@ -1,0 +1,37 @@
+@import 'global.pcss';
+
+.wrap {
+  max-width: 900px;
+  width: calc(100% - var(--distance-900) * 2);
+  margin: var(--distance-900) auto;
+
+  h1 {
+    font-size: var(--text-800);
+    line-height: var(--text-900);
+    color: var(--grey-900);
+  }
+
+  p {
+    font-size: var(--text-400);
+    color: var(--grey-800);
+    text-align: justify;
+
+    a {
+      color: var(--deep-purple-700);
+      padding: 0 var(--distance-300);
+    }
+  }
+
+  h2 {
+    font-size: var(--text-700);
+    color: var(--grey-900);
+    margin: var(--distance-700) 0;
+  }
+
+  li {
+    margin: var(--distance-500) 0;
+    font-size: var(--text-400);
+    color: var(--grey-800);
+    text-align: justify;
+  }
+}

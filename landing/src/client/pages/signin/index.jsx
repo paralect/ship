@@ -1,21 +1,24 @@
 import React, { PureComponent } from 'react';
 import Link from 'next/link';
+import getConfig from 'next/config';
 
 import Error from '~/components/error';
 import Button from '~/components/button';
 import Form, { Wrap } from '~/components/form';
 import Input from '~/components/input';
 
+import Layout from '~/layouts/main';
 import Auth from '~/layouts/auth';
+import { states } from '~/constants';
 
 import { setFormValue } from '~/helpers';
 import { signin } from '~/resources/account/account.api';
 
-import config from '~/config';
-
 import styles from './styles.pcss';
 
-const { webUrl } = config;
+const {
+  publicRuntimeConfig: { webUrl },
+} = getConfig();
 
 export default class Signin extends PureComponent {
   constructor(props) {
@@ -53,56 +56,61 @@ export default class Signin extends PureComponent {
 
   render() {
     return (
-      <Auth className={styles.panel}>
-        <img className={styles.greeting} alt="Welcome Back" src="/static/password.jpg" />
+      <Layout state={states.blue}>
+        <Layout.HeaderContent state={states.blue}>
+          <Auth className={styles.panel}>
+            <img className={styles.greeting} alt="Welcome Back" src="/static/password.jpg" />
 
-        <Wrap>
-          <h2 className={styles.title}>Welcome Back!</h2>
+            <Wrap>
+              <h2 className={styles.title}>Welcome Back!</h2>
 
-          <Form onSubmit={this.submitSignin}>
-            <Input
-              key="email"
-              value={this.state.email}
-              onChange={this.setEmail}
-              required
-              placeholder="Email"
-              type="email"
-            />
-            <Input
-              key="password"
-              value={this.state.password}
-              onChange={this.setPassword}
-              required
-              placeholder="Password"
-              type="password"
-            />
+              <Form onSubmit={this.submitSignin}>
+                <Input
+                  key="email"
+                  value={this.state.email}
+                  onChange={this.setEmail}
+                  required
+                  placeholder="Email"
+                  type="email"
+                />
+                <Input
+                  key="password"
+                  value={this.state.password}
+                  onChange={this.setPassword}
+                  required
+                  placeholder="Password"
+                  type="password"
+                />
 
-            <Error error={this.state.error} />
+                <Error error={this.state.error} />
 
-            <div className={styles.forgot}>
-              <Link href="/forgot-password">
-                <a href="/forgot-password">Forgot Password?</a>
-              </Link>
-            </div>
-            <div className={styles.submit}>
-              <Button
-                className={styles.signin}
-                action="submit"
-                primary
-                isLoading={this.state.isLoading}
-              >
-                Let me in
-              </Button>
-            </div>
+                <div className={styles.forgot}>
+                  <Link href="/forgot-password">
+                    <a href="/forgot-password">Forgot Password?</a>
+                  </Link>
+                </div>
+                <div className={styles.submit}>
+                  <Button
+                    className={styles.signin}
+                    action="submit"
+                    primary
+                    isLoading={this.state.isLoading}
+                    state={states.blue}
+                  >
+                    Let me in
+                  </Button>
+                </div>
 
-            <div className={styles.signup}>
-              <Link href="/signup">
-                <a href="/signup">Don&apos;t have an account? Sign Up</a>
-              </Link>
-            </div>
-          </Form>
-        </Wrap>
-      </Auth>
+                <div className={styles.signup}>
+                  <Link href="/signup">
+                    <a href="/signup">Don&apos;t have an account? Sign Up</a>
+                  </Link>
+                </div>
+              </Form>
+            </Wrap>
+          </Auth>
+        </Layout.HeaderContent>
+      </Layout>
     );
   }
 }

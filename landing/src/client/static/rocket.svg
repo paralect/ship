@@ -1,0 +1,38 @@
+<svg viewBox="0 0 335 904" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Canvas" transform="translate(-1328 -2762)">
+    <use xlink:href="#ship-huge-rocket7_fill" transform="translate(1384.46 2963.76)" fill="#9d75dc"></use>
+    <use xlink:href="#ship-huge-rocket3_fill" transform="translate(1383.46 3027.76)" fill="#ddd0f2"></use>
+    <use xlink:href="#ship-huge-rocket1_fill" transform="translate(1332 3304.81)" fill="#7a44cd"></use>
+    <use xlink:href="#ship-huge-rocket6_fill" transform="translate(1432.46 3281.76)" fill="#7a44cd"></use>
+    <use xlink:href="#ship-huge-rocket2_fill" transform="translate(1555.55 3304.67)" fill="#7a44cd"></use>
+    <use xlink:href="#ship-huge-rocket7_stroke" transform="translate(1384.46 2963.76)" fill="#444444"></use>
+    <use xlink:href="#ship-huge-rocket0_fill" transform="translate(1496.04 2769)" fill="#804fce"></use>
+    <use xlink:href="#ship-huge-rocket0_stroke" transform="translate(1496.04 2769)" fill="#444444"></use>
+    <use xlink:href="#ship-huge-rocket1_stroke" transform="translate(1332 3304.81)" fill="#444444"></use>
+    <use xlink:href="#ship-huge-rocket2_stroke" transform="translate(1555.55 3304.67)" fill="#444444"></use>
+    <use xlink:href="#ship-huge-rocket3_stroke" transform="translate(1383.46 3027.76)" fill="#444444"></use>
+    <use xlink:href="#ship-huge-rocket4_stroke" transform="translate(1384.46 2992.76)" fill="#444444"></use>
+    <use xlink:href="#ship-huge-rocket5_stroke" transform="translate(1495.46 3092.76)" fill="#444444"></use>
+    <use xlink:href="#ship-huge-rocket6_stroke" transform="translate(1432.46 3281.76)" fill="#444444"></use>
+    <use xlink:href="#ship-huge-rocket8_stroke" transform="translate(1432.46 3565.76)" fill="#444444"></use>
+    <use xlink:href="#ship-huge-rocket9_stroke" transform="translate(1384.9 2769)" fill="#444444"></use>
+  </g>
+  <defs>
+    <polygon id="ship-huge-rocket0_fill" points="0,0 -110,224 0,288.391 110,224"></polygon>
+    <polygon id="ship-huge-rocket3_fill" points="0,0 112,-65 220,0 112,65"></polygon>
+    <polygon id="ship-huge-rocket7_fill" points="110,0 0,65 0,350 50,600 110,325 170,600, 221,350, 221,65"></polygon>
+    <polygon id="ship-huge-rocket1_fill" points="50,0 0,265 100,265"></polygon>
+    <polygon id="ship-huge-rocket6_fill" points="62,0 2,285 62,375 122,285"></polygon>
+    <polygon id="ship-huge-rocket2_fill" points="50,0 0,265 105,265"></polygon>
+    <path id="ship-huge-rocket0_stroke" d="M 3 288.391L 3 0L -3 0L -3 288.391L 3 288.391Z"></path>
+    <path id="ship-huge-rocket1_stroke" d="M 0 261.545L -2.94204 260.958L -3.6571 264.543L -0.00173805 264.545L 0 261.545ZM 103.983 258.606L 0.00173805 258.545L -0.00173805 264.545L 103.98 264.606L 103.983 258.606ZM 2.94204 262.132L 55.1136 0.586861L 49.2295 -0.586861L -2.94204 260.958L 2.94204 262.132Z"></path>
+    <path id="ship-huge-rocket2_stroke" d="M 103.168 261.606L 103.166 264.606L 106.821 264.608L 106.111 261.022L 103.168 261.606ZM -0.0017278 264.546L 103.166 264.606L 103.17 258.606L 0.0017278 258.546L -0.0017278 264.546ZM 106.111 261.022L 54.2418 -0.583455L 48.3563 0.583455L 100.225 262.189L 106.111 261.022Z"></path>
+    <path id="ship-huge-rocket3_stroke" d="M 54.1207 30.8521L 53.1001 32.6456L 53.1001 32.6456L 54.1207 30.8521ZM 112.369 64L 111.349 65.7934L 112.373 66.3764L 113.396 65.7902L 112.369 64ZM -1.0206 1.84682L 53.1001 32.6456L 55.1413 29.0587L 1.0206 -1.74005L -1.0206 1.84682ZM 53.1001 32.6456L 111.349 65.7934L 113.39 62.2066L 55.1413 29.0587L 53.1001 32.6456ZM 113.396 65.7902L 225.026 1.79016L 222.974 -1.79016L 111.343 62.2098L 113.396 65.7902Z"></path>
+    <path id="ship-huge-rocket4_stroke" d="M 110.963 64L 109.464 66.5987L 110.961 67.4621L 112.459 66.6005L 110.963 64ZM -1.49887 2.59873L 109.464 66.5987L 112.462 61.4013L 1.49887 -2.59873L -1.49887 2.59873ZM 112.459 66.6005L 223.496 2.72862L 220.504 -2.4723L 109.467 61.3995L 112.459 66.6005Z"></path>
+    <path id="ship-huge-rocket5_stroke" d="M 3 567L 3 0L -3 0L -3 567L 3 567Z"></path>
+    <path id="ship-huge-rocket6_stroke" d="M 63.2859 0L 66.2217 -0.617285L 60.3579 -0.65332L 63.2859 0ZM 2.928 284.283L 66.2139 0.65332L 60.3579 -0.65332L -2.928 282.976L 2.928 284.283ZM 60.3501 0.617285L 120.064 284.617L 125.936 283.383L 66.2217 -0.617285L 60.3501 0.617285Z"></path>
+    <path id="ship-huge-rocket7_stroke" d="M 222.838 341.372L 225.782 341.95L 225.838 341.665L 225.838 341.374L 222.838 341.372ZM 223 64.2671L 226 64.2689L 226.001 62.5369L 224.502 61.67L 223 64.2671ZM 111.841 0L 113.343 -2.59717L 111.843 -3.46415L 110.343 -2.5989L 111.841 0ZM 0.608422 64.1384L -0.890143 61.5395L -2.38778 62.4031L -2.39157 64.1319L 0.608422 64.1384ZM 0 341.512L -2.99999 341.505L -3.0006 341.783L -2.9501 342.057L 0 341.512ZM 174.445 603.578L 225.782 341.95L 219.894 340.795L 168.558 602.422L 174.445 603.578ZM 225.838 341.374L 226 64.2689L 220 64.2654L 219.838 341.371L 225.838 341.374ZM 224.502 61.67L 113.343 -2.59717L 110.34 2.59717L 221.498 66.8643L 224.502 61.67ZM 110.343 -2.5989L -0.890143 61.5395L 2.10699 66.7373L 113.34 2.5989L 110.343 -2.5989ZM -2.39157 64.1319L -2.99999 341.505L 2.99999 341.518L 3.60841 64.145L -2.39157 64.1319ZM -2.9501 342.057L 45.2814 603.174L 51.1816 602.084L 2.9501 340.967L -2.9501 342.057Z"></path>
+    <path id="ship-huge-rocket8_stroke" d="M 62.4488 94L 59.95 95.6601L 62.4866 99.4783L 64.9703 95.6255L 62.4488 94ZM -2.49882 1.66009L 59.95 95.6601L 64.9476 92.3399L 2.49882 -1.66009L -2.49882 1.66009ZM 64.9703 95.6255L 125.521 1.697L 120.479 -1.55394L 59.9274 92.3745L 64.9703 95.6255Z"></path>
+    <path id="ship-huge-rocket9_stroke" d="M 111.241 0L 113.929 -1.33317L 111.245 -6.74293L 108.555 -1.33629L 111.241 0ZM 224.91 222.391L 113.929 -1.33317L 108.554 1.33317L 219.535 225.057L 224.91 222.391ZM 108.555 -1.33629L -2.68595 222.259L 2.68595 224.932L 113.927 1.33629L 108.555 -1.33629Z"></path>
+  </defs>
+</svg>

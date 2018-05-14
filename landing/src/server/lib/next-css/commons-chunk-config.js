@@ -1,9 +1,9 @@
-module.exports = (config, test = /\.pcss$/) => {
+module.exports = (config, test = /\.p?css$/) => {
   // Extend the default CommonsChunkPlugin config
   config.plugins = config.plugins.map((plugin) => { // eslint-disable-line
     if (
       plugin.constructor.name === 'CommonsChunkPlugin' &&
-      (plugin.filenameTemplate === 'commons.js' || plugin.filenameTemplate === 'main.js')
+      typeof plugin.minChunks !== 'undefined'
     ) {
       const defaultMinChunks = plugin.minChunks;
       plugin.minChunks = (module, count) => { // eslint-disable-line
@@ -11,8 +11,10 @@ module.exports = (config, test = /\.pcss$/) => {
         if (module.resource && module.resource.match(test)) {
           return true;
         }
-        // Use default minChunks function for non-style modules
-        return defaultMinChunks(module, count);
+        // Use default minChunks for non-style modules
+        return typeof defaultMinChunks === 'function'
+          ? defaultMinChunks(module, count)
+          : count >= defaultMinChunks;
       };
     }
     return plugin;

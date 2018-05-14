@@ -1,0 +1,40 @@
+<svg viewBox="0 0 170 130" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Canvas" transform="translate(0 0)">
+    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#5EB859"></use>
+    <use xlink:href="#ship-huge-rocket28_fill" transform="translate(94 31)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket31_fill" transform="translate(45 63)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket32_fill" transform="translate(54 57)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket33_fill" transform="translate(63 51)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket34_fill" transform="translate(72 45)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket35_fill" transform="translate(81 39)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket31_fill" transform="translate(63 39)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket34_fill" transform="translate(45 51)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket34_fill" transform="translate(54 45)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket32_fill" transform="translate(54 33)" fill="#FFFFFF"></use>
+    <mask id="mask1_outline" mask-type="alpha">
+      <use xlink:href="#ship-huge-rocket36_fill" transform="translate(55.74 39.88)" fill="#FFFFFF"></use>
+    </mask>
+    <mask id="mask0_outline" mask-type="alpha">
+      <use xlink:href="#ship-huge-rocket29_fill" transform="translate(110.52 28.76)" fill="#FFFFFF"></use>
+    </mask>
+    <g mask="url(#mask0_outline)">
+      <use xlink:href="#ship-huge-rocket30_fill" transform="translate(110.52 28.76)" fill="#FFFFFF"></use>
+    </g>
+    <g mask="url(#mask1_outline)">
+      <use xlink:href="#ship-huge-rocket37_fill" transform="translate(55.74 39.88)" fill="#FFFFFF"></use>
+    </g>
+  </g>
+  <defs>
+    <path id="ship-huge-rocket10_fill" fill-rule="evenodd" d="M 0.0519778 48.7284L 0 73.1479L 82.9517 122L 165.948 73.2724L 166 48.8529L 83.0475 0L 0.0519778 48.7284Z"></path>
+    <path id="ship-huge-rocket28_fill" fill-rule="evenodd" d="M 0 0.67962C 0 0.67962 1.2411 5.69249 6.2117 7.84584C 11.1823 9.99985 18 8.47838 18 8.47838C 18 8.47838 16.9652 3.22387 11.9946 1.06986C 7.02403 -1.08349 0 0.67962 0 0.67962"></path>
+    <path id="ship-huge-rocket29_fill" fill-rule="evenodd" d="M 0 0L 12.4023 0L 12.4023 12.8174L 0 12.8174L 0 0Z"></path>
+    <path id="ship-huge-rocket30_fill" fill-rule="evenodd" d="M 10.2844 0C 10.2844 0 3.18638 1.51048 0.841833 5.05019C -1.50272 8.58929 1.79408 12.8174 1.79408 12.8174C 1.79408 12.8174 9.27688 11.4072 11.6214 7.86748C 13.966 4.32838 10.2844 0 10.2844 0"></path>
+    <path id="ship-huge-rocket31_fill" fill-rule="evenodd" d="M 15 4.99968L 7.50032 10L 0 4.99968L 7.50032 0L 15 4.99968Z"></path>
+    <path id="ship-huge-rocket32_fill" fill-rule="evenodd" d="M 15 5.00032L 7.50032 10L 0 5.00032L 7.50032 0L 15 5.00032Z"></path>
+    <path id="ship-huge-rocket33_fill" fill-rule="evenodd" d="M 15 5L 7.50032 10L 0 5L 7.50032 0L 15 5Z"></path>
+    <path id="ship-huge-rocket34_fill" fill-rule="evenodd" d="M 15 5L 7.49968 10L 0 5L 7.49968 0L 15 5Z"></path>
+    <path id="ship-huge-rocket35_fill" fill-rule="evenodd" d="M 15 4.99968L 7.49968 10L 0 4.99968L 7.49968 0L 15 4.99968Z"></path>
+    <path id="ship-huge-rocket36_fill" fill-rule="evenodd" d="M 0 0L 64.3468 0L 64.3468 45.878L 0 45.878L 0 0Z"></path>
+    <path id="ship-huge-rocket37_fill" fill-rule="evenodd" d="M 24.0994 38.5007C 22.251 39.7181 19.2541 39.7181 17.4063 38.5007C 15.5573 37.2833 15.5573 35.3097 17.4063 34.0923C 19.2541 32.8748 22.251 32.8748 24.0994 34.0923C 25.9478 35.3097 25.9478 37.2833 24.0994 38.5007L 24.0994 38.5007ZM 29.454 19.3981C 13.3119 30.0291 -0.220055 38.3538 0.00271184 38.5007C 16.1454 49.1317 35.032 47.4644 48.4195 38.6475C 64.5616 28.0164 69.3918 7.20175 58.4592 0.00180392C 58.2364 -0.145648 45.5961 8.76638 29.454 19.3981L 29.454 19.3981Z"></path>
+  </defs>
+</svg>

@@ -1,0 +1,26 @@
+@import 'variables.pcss';
+
+.chapter {
+  font-size: var(--text-400);
+  color: var(--grey-800);
+  padding-right: var(--distance-400);
+  font-weight: var(--text-weight-600);
+}
+
+p.alert {
+  font-size: calc(var(--text-400) + 1px);
+
+  &.transform-uppercase {
+    text-transform: uppercase;
+  }
+}
+
+.list-title {
+  padding: 0 var(--distance-400);
+  text-decoration: underline;
+  color: var(--grey-800);
+}
+
+li .list-title {
+  padding-left: 0;
+}

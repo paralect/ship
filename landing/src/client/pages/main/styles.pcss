@@ -1,14 +1,59 @@
 @import 'variables.pcss';
 
+.layout {
+  overflow: hidden;
+}
+
+.icons {
+  position: absolute;
+  top: -70px;
+  right: -50px;
+
+  div {
+    white-space: nowrap;
+    display: flex;
+
+    &:nth-of-type(2) {
+      padding-left: var(--distance-600);
+    }
+
+    &:last-of-type {
+      padding-left: calc(var(--distance-600) * 2);
+    }
+
+    span {
+      display: block;
+      height: 70px;
+      overflow: hidden;
+
+      &:first-of-type {
+        margin-top: calc(var(--distance-600) * 2);
+      }
+
+      &:nth-of-type(2) {
+        margin-top: var(--distance-600);
+      }
+    }
+  }
+
+  svg {
+    width: 100px;
+    transform: rotateZ(27deg) rotateY(25deg) skewY(-5deg);
+  }
+}
+
 .page {
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
+  margin-bottom: var(--distance-900);
 
   .intro {
     padding: var(--distance-700) 0;
     min-width: 350px;
     flex: 1;
+    max-width: 800px;
 
     .title {
       color: var(--white);
@@ -18,8 +63,9 @@
     }
 
     .description {
-      color: var(--grey-300);
-      font-size: var(--text-700);
+      color: var(--grey-200);
+      font-size: var(--text-500);
+      margin: var(--distance-800) 0;
     }
   }
 
@@ -30,19 +76,11 @@
     min-height: 250px;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 
-    div {
-      display: flex;
-      width: 100%;
-      flex: 1;
-      background: linear-gradient(to right, rgba(90, 97, 241, 0.9) 0%, #a900ff 100%);
-      border-radius: 50px;
-      transform: skewX(-5deg);
-      font-size: 100px;
-      font-weight: var(--text-weight-600);
-      color: rgba(255, 255, 255, 0.8);
-      align-items: center;
-      justify-content: center;
+    svg {
+      height: 400px;
+      transform: rotate(-10deg);
     }
   }
 }
@@ -56,6 +94,33 @@
   width: 100%;
   box-sizing: border-box;
   max-width: var(--max-container-width);
-  padding: 0 var(--distance-700);
+  padding: 0 var(--distance-700) var(--distance-700);
   margin: 0 auto;
+}
+
+.link {
+  text-transform: uppercase;
+  width: 180px;
+}
+
+.content {
+  position: relative;
+  min-height: 250px;
+}
+
+.ship-description {
+  padding-right: 400px;
+
+  h2 {
+    text-align: right;
+    font-size: var(--text-800);
+    max-width: 400px;
+    margin-left: auto;
+  }
+
+  p {
+    text-align: right;
+    max-width: 550px;
+    margin-left: auto;
+  }
 }

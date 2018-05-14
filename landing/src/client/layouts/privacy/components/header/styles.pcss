@@ -1,0 +1,47 @@
+@import 'variables.pcss';
+
+.nav {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: var(--distance-900) 0;
+}
+
+.logo {
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.links {
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+
+  .link-item {
+    margin: 0 var(--distance-500);
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  .link {
+    font-size: var(--text-700);
+    color: var(--grey-600);
+    text-decoration: none;
+
+    &.link-active {
+      color: var(--grey-900);
+    }
+
+    &:hover {
+      color: var(--grey-800);
+    }
+  }
+}

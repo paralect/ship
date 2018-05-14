@@ -1,11 +1,14 @@
 import React, { PureComponent } from 'react';
 
+import Layout from '~/layouts/main';
 import Auth from '~/layouts/auth';
 
 import Form, { Wrap } from '~/components/form';
 import Input from '~/components/input';
 import Error from '~/components/error';
 import Button from '~/components/button';
+
+import { states } from '~/constants';
 
 import { setFormValue } from '~/helpers';
 import { forgotPassword } from '~/resources/account/account.api';
@@ -80,10 +83,11 @@ export default class ForgotPassword extends PureComponent {
 
         <div>
           <Button
-            className={styles['submit-btn']}
+            className={styles.submitBtn}
             action="submit"
             primary
             isLoading={this.state.isLoading}
+            state={states.purple}
           >
             Submit
           </Button>
@@ -94,16 +98,20 @@ export default class ForgotPassword extends PureComponent {
 
   render() {
     return (
-      <Auth className={styles.panel}>
-        <Wrap>
+      <Layout state={states.purple}>
+        <Layout.HeaderContent state={states.purple}>
+          <Auth className={styles.panel}>
+            <Wrap>
 
-          {
-            this.state.emailSent
-              ? ForgotPassword.emailSent()
-              : this.form()
-          }
-        </Wrap>
-      </Auth>
+              {
+                this.state.emailSent
+                  ? ForgotPassword.emailSent()
+                  : this.form()
+              }
+            </Wrap>
+          </Auth>
+        </Layout.HeaderContent>
+      </Layout>
     );
   }
 }

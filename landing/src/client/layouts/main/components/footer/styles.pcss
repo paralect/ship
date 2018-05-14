@@ -1,0 +1,46 @@
+@import 'variables.pcss';
+
+.wrap {
+  border-top: 1px solid var(--grey-300);
+  background: var(--grey-100);
+  padding: calc(var(--distance-900) * 2) 0;
+  margin-top: var(--distance-900);
+
+  &.purple {
+    background: rgba(var(--deep-purple-100), 0.5);
+  }
+
+  &.green {
+    background: rgba(var(--green-100), 0.3);
+  }
+
+  &.blue {
+    background: rgba(var(--light-blue-100), 0.3);
+  }
+}
+
+.footer {
+  margin: 0 auto;
+  padding: 0 var(--distance-700);
+  width: 100%;
+  max-width: var(--max-container-width);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  svg {
+    width: 80px;
+  }
+}
+
+.link {
+  font-weight: var(--text-weight-600);
+  text-decoration: none;
+  font-size: var(--text-500);
+  margin-left: var(--distance-600);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

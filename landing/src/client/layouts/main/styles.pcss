@@ -1,14 +1,11 @@
-@import 'variables.pcss';
 @import 'global.pcss';
+@import 'variables.pcss';
 
 .wrap {
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
   min-height: 100vh;
-  background-color: var(--deep-purple-700);
-  box-shadow: 0 7px 30px 3px var(--deep-purple-shadow);
-
-  &.secondary {
-    background-color: var(--green-600);
-  }
+  justify-content: space-between;
 }

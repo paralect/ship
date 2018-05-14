@@ -1,0 +1,14 @@
+<svg viewBox="0 0 170 130" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Canvas" transform="translate(0 0)">
+    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#00C5BF"></use>
+    <use xlink:href="#ship-huge-rocket15_fill" transform="translate(41 25)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket16_fill" transform="translate(68 43)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket17_fill" transform="translate(78 49)" fill="#FFFFFF"></use>
+  </g>
+  <defs>
+    <path id="ship-huge-rocket10_fill" fill-rule="evenodd" d="M 0.0519778 48.7284L 0 73.1479L 82.9517 122L 165.948 73.2724L 166 48.8529L 83.0475 0L 0.0519778 48.7284Z"></path>
+    <path id="ship-huge-rocket15_fill" fill-rule="evenodd" d="M 14.4113 9.26436C -4.80378 21.6168 -4.80378 41.6453 14.4113 53.9978C 14.6213 54.1325 23.4897 48.0813 36.2602 39.6934C 30.9191 35.1081 31.487 28.5786 37.9711 24.41C 44.456 20.2421 54.6129 19.8768 61.7448 23.3102C 74.7935 15.1006 84.2058 9.39911 83.9966 9.26436C 64.7807 -3.08812 33.6265 -3.08812 14.4113 9.26436"></path>
+    <path id="ship-huge-rocket16_fill" fill-rule="evenodd" d="M 37.3905 7.93427C 42.0017 12.4457 41.2228 18.5664 35.0522 22.5331C 28.8809 26.5006 19.3599 27.0012 12.3427 24.0364C 4.91993 28.6786 -0.126878 31.7571 0.00242818 31.8399C 9.7443 38.103 30.9544 37.4832 44.6309 28.6917C 58.3074 19.8987 59.2711 6.26386 49.5292 0.00157687C 49.3999 -0.0819822 44.6109 3.16289 37.3905 7.93427"></path>
+    <path id="ship-huge-rocket17_fill" fill-rule="evenodd" d="M 22.1919 2.48964C 27.2694 5.80915 27.2694 11.191 22.1919 14.5098C 17.1151 17.8301 8.88486 17.8301 3.80812 14.5098C -1.26937 11.191 -1.26937 5.80915 3.80812 2.48964C 8.88486 -0.829878 17.1151 -0.829878 22.1919 2.48964"></path>
+  </defs>
+</svg>
