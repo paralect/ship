@@ -1,3 +1,12 @@
+## 2.1.0 (May 14, 2018)
+
+* New release of ship with the following components:
+  1) api version [1.6.1](https://github.com/paralect/koa-api-starter/releases/tag/1.6.1)
+  2) landing version [2.1.0](https://github.com/paralect/nextjs-landing-starter/releases/tag/2.1.0)
+  3) web version [2.1.1](https://github.com/paralect/koa-react-starter/releases/tag/2.1.1)
+  4) deploy drone version [1.2.2](https://github.com/paralect/deploy-drone/releases/tag/1.2.2)
+  5) deploy grafana version [1.0.0](https://github.com/paralect/deploy-grafana/releases/tag/1.0.0)
+
 ## 2.0.2 (April 21, 2018)
 
 * New release of ship with the following components:
