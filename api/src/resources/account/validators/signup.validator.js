@@ -1,7 +1,6 @@
-const Joi = require('joi');
+const Joi = require('helpers/joi.adapter');
 
 const userService = require('resources/user/user.service');
-const baseValidator = require('resources/base.validator');
 
 const schema = {
   firstName: Joi.string()
@@ -43,13 +42,24 @@ const schema = {
     }),
 };
 
-exports.validate = ctx =>
-  baseValidator(ctx, schema, async (data) => {
-    const userExists = await userService.exists({ email: data.email });
-    if (userExists) {
-      ctx.errors.push({ email: 'User with this email is already registered.' });
-      return false;
-    }
+const validateFunc = async (data) => {
+  const userExists = await userService.exists({ email: data.email });
+  const errors = [];
+  if (userExists) {
+    errors.push({ email: 'User with this email is already registered.' });
+    return {
+      errors,
+    };
+  }
 
-    return data;
-  });
+
+  return {
+    value: data,
+    errors,
+  };
+};
+
+module.exports = [
+  Joi.validate(schema),
+  validateFunc,
+];

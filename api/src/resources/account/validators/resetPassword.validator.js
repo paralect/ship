@@ -1,6 +1,5 @@
-const Joi = require('joi');
+const Joi = require('helpers/joi.adapter');
 
-const baseValidator = require('resources/base.validator');
 const userService = require('resources/user/user.service');
 
 const schema = {
@@ -19,17 +18,26 @@ const schema = {
       },
     }),
 };
+const validateFunc = async (data) => {
+  const user = await userService.findOne({ resetPasswordToken: data.token });
+  const errors = [];
 
-exports.validate = ctx =>
-  baseValidator(ctx, schema, async (data) => {
-    const user = await userService.findOne({ resetPasswordToken: data.token });
-    if (!user) {
-      ctx.errors.push({ token: 'Password reset link has expired or invalid' });
-      return false;
-    }
+  if (!user) {
+    errors.push({ token: 'Password reset link has expired or invalid' });
+    return { errors };
+  }
 
-    return {
+
+  return {
+    value: {
       userId: user._id,
       password: data.password,
-    };
-  });
+    },
+    errors,
+  };
+};
+
+module.exports = [
+  Joi.validate(schema),
+  validateFunc,
+];

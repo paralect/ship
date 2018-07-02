@@ -15,6 +15,9 @@ let base = {
     audience: 'api',
     issuer: 'api',
   },
+  mongo: {
+    connection: 'mongodb://localhost:27017/api',
+  },
 };
 
 const envConfig = require(`./${env}.js`); // eslint-disable-line

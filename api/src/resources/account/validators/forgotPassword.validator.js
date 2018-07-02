@@ -1,5 +1,4 @@
-const Joi = require('joi');
-const baseValidator = require('resources/base.validator');
+const Joi = require('helpers/joi.adapter');
 const userService = require('resources/user/user.service');
 
 const schema = {
@@ -15,16 +14,23 @@ const schema = {
     }),
 };
 
-exports.validate = ctx =>
-  baseValidator(ctx, schema, async (data) => {
-    const userExists = await userService.exists({ email: data.email });
+const validateFunc = async (data) => {
+  const userExists = await userService.exists({ email: data.email });
+  const errors = [];
+  if (!userExists) {
+    errors.push({
+      email: `Couldn't find account associated with ${data.email}. Please try again`,
+    });
+    return { errors };
+  }
 
-    if (!userExists) {
-      ctx.errors.push({
-        email: `Couldn't find account associated with ${data.email}. Please try again`,
-      });
-      return false;
-    }
+  return {
+    value: data,
+    errors,
+  };
+};
 
-    return data;
-  });
+module.exports = [
+  Joi.validate(schema),
+  validateFunc,
+];

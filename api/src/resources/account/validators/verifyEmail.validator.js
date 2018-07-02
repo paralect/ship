@@ -1,7 +1,6 @@
-const Joi = require('joi');
+const Joi = require('helpers/joi.adapter');
 
 const userService = require('resources/user/user.service');
-const baseValidator = require('resources/base.validator');
 
 const schema = {
   token: Joi.string().options({
@@ -11,16 +10,25 @@ const schema = {
   }),
 };
 
-exports.validate = ctx =>
-  baseValidator(ctx, schema, async (data) => {
-    const user = await userService.findOne({ signupToken: ctx.params.token });
-
-    if (!user) {
-      ctx.errors.push({ token: 'Token is invalid' });
-      return false;
-    }
-
+const validateFunc = async (data) => {
+  const user = await userService.findOne({ signupToken: data.token });
+  const errors = [];
+  if (!user) {
+    errors.push({ token: 'Token is invalid' });
     return {
-      userId: user._id,
+      errors,
     };
-  });
+  }
+
+  return {
+    value: {
+      userId: user._id,
+    },
+    errors,
+  };
+};
+
+module.exports = [
+  Joi.validate(schema),
+  validateFunc,
+];

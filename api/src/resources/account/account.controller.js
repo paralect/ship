@@ -1,5 +1,3 @@
-const validators = require('./validators');
-
 const userService = require('resources/user/user.service');
 const authService = require('auth.service');
 const emailService = require('email.service');
@@ -34,11 +32,8 @@ const createUserAccount = async (userData) => {
  * Create user, company, default app, send signup confirmation email and
  * create auth token for user to login
  */
-exports.signup = async (ctx, next) => {
-  const result = await validators.signup.validate(ctx);
-  ctx.assert(!result.errors, 400);
-
-  const { value: userData } = result;
+exports.signup = async (ctx) => {
+  const userData = ctx.validatedRequest.value;
   const user = await createUserAccount(userData);
 
   const response = {};
@@ -53,10 +48,7 @@ exports.signup = async (ctx, next) => {
  * sets `emailVerified` to true if token is valid
  */
 exports.verifyEmail = async (ctx, next) => {
-  const result = await validators.verifyEmail.validate(ctx);
-  ctx.assert(!result.errors, 400);
-
-  const { value: data } = result;
+  const data = ctx.validatedRequest.value;
   const user = await userService.markEmailAsVerified(data.userId);
 
   const token = authService.createAuthToken({
@@ -72,10 +64,7 @@ exports.verifyEmail = async (ctx, next) => {
  * Loads user by email and compare password hashes
  */
 exports.signin = async (ctx, next) => {
-  const result = await validators.signin.validate(ctx);
-  ctx.assert(!result.errors, 400);
-
-  const { value: signinData } = result;
+  const signinData = ctx.validatedRequest.value;
 
   const token = authService.createAuthToken({ userId: signinData.userId });
 
@@ -90,10 +79,7 @@ exports.signin = async (ctx, next) => {
  * `forgotPasswordToken` field. If user not found, returns validator's error
  */
 exports.forgotPassword = async (ctx, next) => {
-  const result = await validators.forgotPassword.validate(ctx);
-  ctx.assert(!result.errors, 400);
-
-  const { value: data } = result;
+  const data = ctx.validatedRequest.value;
   const user = await userService.findOne({ email: data.email });
 
   let { resetPasswordToken } = user;
@@ -111,10 +97,7 @@ exports.forgotPassword = async (ctx, next) => {
  * Updates user password, used in combination with forgotPassword
  */
 exports.resetPassword = async (ctx, next) => {
-  const result = await validators.resetPassword.validate(ctx);
-  ctx.assert(!result.errors, 400);
-
-  const { userId, password } = result.value;
+  const { userId, password } = ctx.validatedRequest.value;
 
   await userService.updatePassword(userId, password);
   await userService.updateResetPasswordToken(userId, '');

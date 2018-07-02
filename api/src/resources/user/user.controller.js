@@ -1,20 +1,23 @@
 const _ = require('lodash');
-
 const userService = require('./user.service');
-const validators = require('./validators');
 
 const userOmitFelds = ['passwordHash', 'passwordSalt', 'signupToken', 'resetPasswordToken'];
 
-exports.getCurrent = async (ctx, next) => {
+exports.getCurrent = async (ctx) => {
   const user = await userService.findById(ctx.state.user._id);
   ctx.body = _.omit(user, userOmitFelds);
 };
 
-exports.updateCurrent = async (ctx, next) => {
-  const result = await validators.update.validate(ctx);
-  ctx.assert(!result.errors, 400);
+exports.updateCurrent = async (ctx) => {
+  if (ctx.validatedRequest.errors.length) {
+    ctx.body = {
+      errors: ctx.validatedRequest.errors,
+    };
 
-  const { value: userData } = result;
+    ctx.throw(400);
+  }
+
+  const userData = ctx.validatedRequest.value;
   const user = await userService.updateInfo(ctx.state.user._id, userData);
 
   ctx.body = _.omit(user, userOmitFelds);

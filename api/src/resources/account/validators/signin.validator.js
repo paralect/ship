@@ -1,6 +1,4 @@
-const Joi = require('joi');
-
-const baseValidator = require('resources/base.validator');
+const Joi = require('helpers/joi.adapter');
 
 const userService = require('resources/user/user.service');
 const securityUtil = require('security.util');
@@ -33,31 +31,46 @@ const schema = {
     }),
 };
 
-exports.validate = ctx =>
-  baseValidator(ctx, schema, async (signinData) => {
-    const user = await userService.findOne({ email: signinData.email });
-    if (!user) {
-      ctx.errors.push({ credentials: incorrectCredentials });
-      return false;
-    }
-
-    const isPasswordMatch = await securityUtil.compareTextWithHash(
-      signinData.password,
-      user.passwordHash,
-      user.passwordSalt,
-    );
-
-    if (!isPasswordMatch) {
-      ctx.errors.push({ credentials: incorrectCredentials });
-      return false;
-    }
-
-    if (!user.isEmailVerified) {
-      ctx.errors.push({ email: 'Please verify your email to sign in' });
-      return false;
-    }
-
+const validateFunc = async (signinData) => {
+  const user = await userService.findOne({ email: signinData.email });
+  const errors = [];
+  if (!user) {
+    errors.push({ credentials: incorrectCredentials });
     return {
-      userId: user._id,
+      errors,
     };
-  });
+  }
+
+  const isPasswordMatch = await securityUtil.compareTextWithHash(
+    signinData.password,
+    user.passwordHash,
+    user.passwordSalt,
+  );
+
+  if (!isPasswordMatch) {
+    errors.push({ credentials: incorrectCredentials });
+    return {
+      errors,
+    };
+  }
+
+  if (!user.isEmailVerified) {
+    errors.push({ email: 'Please verify your email to sign in' });
+    return {
+      errors,
+    };
+  }
+
+  return {
+    value: {
+      userId: user._id,
+    },
+    errors,
+  };
+};
+
+module.exports = [
+  Joi.validate(schema),
+  validateFunc,
+];
+
