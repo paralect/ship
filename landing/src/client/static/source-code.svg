@@ -1,11 +1,11 @@
 <svg viewBox="0 0 170 130" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g id="Canvas" transform="translate(0 0)">
-    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#FFB900"></use>
-    <use xlink:href="#ship-huge-rocket48_fill" transform="translate(29 45.94)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket50_fill" transform="translate(70.95 18)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket51_fill" transform="translate(64.36 56.88)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket52_fill" transform="translate(61.9 48.44)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket51_fill" transform="translate(87.21 40.01)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#ffb900"></use>
+    <use xlink:href="#ship-huge-rocket48_fill" transform="translate(29 45.94)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket50_fill" transform="translate(70.95 18)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket51_fill" transform="translate(64.36 56.88)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket52_fill" transform="translate(61.9 48.44)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket51_fill" transform="translate(87.21 40.01)" fill="#fff"></use>
   </g>
   <defs>
     <path id="ship-huge-rocket10_fill" fill-rule="evenodd" d="M 0.0519778 48.7284L 0 73.1479L 82.9517 122L 165.948 73.2724L 166 48.8529L 83.0475 0L 0.0519778 48.7284Z"></path>

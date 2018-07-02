@@ -35,9 +35,11 @@ export default class Signin extends PureComponent {
 
       error: null,
     };
+
+    this.submitSigninAsync = this.submitSignin.bind(this);
   }
 
-  submitSignin = async (event) => {
+  async submitSignin(event) {
     event.preventDefault();
     try {
       this.setState({ isLoading: true });
@@ -64,7 +66,7 @@ export default class Signin extends PureComponent {
             <Wrap>
               <h2 className={styles.title}>Welcome Back!</h2>
 
-              <Form onSubmit={this.submitSignin}>
+              <Form onSubmit={this.submitSigninAsync}>
                 <Input
                   key="email"
                   value={this.state.email}

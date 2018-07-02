@@ -2,7 +2,7 @@
 
 Landing site is based on [Next.JS](https://github.com/zeit/next.js).
 
-## Run 
+## Run
 
 `npm run development` — run landing in development mode with hot-reloading in place.
 `npm start` — run landing in production mode.

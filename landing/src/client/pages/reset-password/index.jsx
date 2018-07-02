@@ -15,10 +15,6 @@ import { resetPassword } from '~/resources/account/account.api';
 import styles from './styles.pcss';
 
 export default class Signin extends PureComponent {
-  static getInitialProps({ query }) {
-    return { token: query.token };
-  }
-
   static propTypes = {
     token: PropTypes.string.isRequired,
   }
@@ -31,12 +27,17 @@ export default class Signin extends PureComponent {
     this.state = {
       password: '',
       isLoading: false,
-
       error: null,
     };
+
+    this.submitSigninAsync = this.submitSignin.bind(this);
   }
 
-  submitSignin = async (event) => {
+  static getInitialProps({ query }) {
+    return { token: query.token };
+  }
+
+  async submitSignin(event) {
     event.preventDefault();
 
     this.setState({ isLoading: true, error: null });
@@ -69,7 +70,7 @@ export default class Signin extends PureComponent {
             </div>
           ) : ([
             <h2 key="title">Reset Your Password</h2>,
-            <Form key="form" onSubmit={this.submitSignin}>
+            <Form key="form" onSubmit={this.submitSigninAsync}>
               <Input
                 value={this.state.password}
                 onChange={this.setPassword}

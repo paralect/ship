@@ -40,9 +40,11 @@ export default class Signup extends PureComponent {
 
       error: null,
     };
+
+    this.submitSignupAsync = this.submitSignup.bind(this);
   }
 
-  submitSignup = async (event) => {
+  async submitSignup(event) {
     event.preventDefault();
     this.setState({
       isLoading: true,
@@ -94,7 +96,7 @@ export default class Signup extends PureComponent {
               <Wrap>
                 <h2>Sign Up</h2>
 
-                <Form onSubmit={this.submitSignup} className={styles.form}>
+                <Form onSubmit={this.submitSignupAsync} className={styles.form}>
                   <div className={styles.names}>
                     <Input
                       key="first-name"

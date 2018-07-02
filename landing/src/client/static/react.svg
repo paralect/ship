@@ -1,20 +1,20 @@
 <svg viewBox="0 0 170 130" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g id="Canvas" transform="translate(0 0)">
-    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#EFBE00"></use>
-    <use xlink:href="#ship-huge-rocket42_fill" transform="translate(41.8 25.5)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#efbe00"></use>
+    <use xlink:href="#ship-huge-rocket42_fill" transform="translate(41.8 25.5)" fill="#fff"></use>
     <mask id="mask2_outline" mask-type="alpha">
-      <use xlink:href="#ship-huge-rocket43_fill" transform="translate(55.04 18.92)" fill="#FFFFFF"></use>
+      <use xlink:href="#ship-huge-rocket43_fill" transform="translate(55.04 18.92)" fill="#fff"></use>
     </mask>
     <mask id="mask3_outline" mask-type="alpha">
-      <use xlink:href="#ship-huge-rocket45_fill" transform="translate(32 34.38)" fill="#FFFFFF"></use>
+      <use xlink:href="#ship-huge-rocket45_fill" transform="translate(32 34.38)" fill="#fff"></use>
     </mask>
     <g mask="url(#mask2_outline)">
-      <use xlink:href="#ship-huge-rocket44_fill" transform="translate(55.04 18.92)" fill="#FFFFFF"></use>
+      <use xlink:href="#ship-huge-rocket44_fill" transform="translate(55.04 18.92)" fill="#fff"></use>
     </g>
     <g mask="url(#mask3_outline)">
-      <use xlink:href="#ship-huge-rocket46_fill" transform="translate(32 34.38)" fill="#FFFFFF"></use>
+      <use xlink:href="#ship-huge-rocket46_fill" transform="translate(32 34.38)" fill="#fff"></use>
     </g>
-    <use xlink:href="#ship-huge-rocket47_fill" transform="translate(74.69 47.57)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket47_fill" transform="translate(74.69 47.57)" fill="#fff"></use>
   </g>
   <defs>
     <path id="ship-huge-rocket10_fill" fill-rule="evenodd" d="M 0.0519778 48.7284L 0 73.1479L 82.9517 122L 165.948 73.2724L 166 48.8529L 83.0475 0L 0.0519778 48.7284Z"></path>

@@ -1,25 +1,25 @@
 <svg viewBox="0 0 170 130" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g id="Canvas" transform="translate(0 0)">
-    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#FF8383"></use>
+    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#ff8383"></use>
     <mask id="mask6_outline" mask-type="alpha">
-      <use xlink:href="#ship-huge-rocket58_fill" transform="translate(40.17 24.1)" fill="#FFFFFF"></use>
+      <use xlink:href="#ship-huge-rocket58_fill" transform="translate(40.17 24.1)" fill="#fff"></use>
     </mask>
     <g mask="url(#mask6_outline)">
-      <use xlink:href="#ship-huge-rocket59_fill" transform="translate(40.17 24.1)" fill="#FFFFFF"></use>
+      <use xlink:href="#ship-huge-rocket59_fill" transform="translate(40.17 24.1)" fill="#fff"></use>
     </g>
 
-    <use xlink:href="#ship-huge-rocket60_fill" transform="translate(77.11 59.94)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket61_fill" transform="translate(76.13 59.35)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket60_fill" transform="translate(99.11 46.16)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket62_fill" transform="translate(98.13 45.57)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket63_fill" transform="translate(39.04 45.46)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket64_fill" transform="translate(34 42.55)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket65_fill" transform="translate(73.44 23.92)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket60_fill" transform="translate(77.11 59.94)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket61_fill" transform="translate(76.13 59.35)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket60_fill" transform="translate(99.11 46.16)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket62_fill" transform="translate(98.13 45.57)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket63_fill" transform="translate(39.04 45.46)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket64_fill" transform="translate(34 42.55)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket65_fill" transform="translate(73.44 23.92)" fill="#fff"></use>
     <mask id="mask7_outline" mask-type="alpha">
-      <use xlink:href="#ship-huge-rocket66_fill" transform="translate(68.41 21)" fill="#FFFFFF"></use>
+      <use xlink:href="#ship-huge-rocket66_fill" transform="translate(68.41 21)" fill="#fff"></use>
     </mask>
     <g mask="url(#mask7_outline)">
-      <use xlink:href="#ship-huge-rocket67_fill" transform="translate(68.41 21)" fill="#FFFFFF"></use>
+      <use xlink:href="#ship-huge-rocket67_fill" transform="translate(68.41 21)" fill="#fff"></use>
     </g>
   </g>
   <defs>

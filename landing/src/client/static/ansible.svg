@@ -1,7 +1,7 @@
 <svg viewBox="0 0 170 130" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g id="Canvas" transform="translate(0 0)">
-    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#00B784"></use>
-    <use xlink:href="#ship-huge-rocket27_stroke" transform="translate(56 31)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket10_fill" transform="translate(0 0)" fill="#00b784"></use>
+    <use xlink:href="#ship-huge-rocket27_stroke" transform="translate(56 31)" fill="#fff"></use>
   </g>
   <defs>
     <path id="ship-huge-rocket10_fill" fill-rule="evenodd" d="M 0.0519778 48.7284L 0 73.1479L 82.9517 122L 165.948 73.2724L 166 48.8529L 83.0475 0L 0.0519778 48.7284Z"></path>

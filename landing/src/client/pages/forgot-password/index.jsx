@@ -40,9 +40,11 @@ export default class ForgotPassword extends PureComponent {
 
       error: null,
     };
+
+    this.submitSigninAsync = this.submitSignin.bind(this);
   }
 
-  submitSignin = async (event) => {
+  async submitSignin(event) {
     event.preventDefault();
 
     this.setState({ isLoading: true, error: null });
@@ -64,7 +66,7 @@ export default class ForgotPassword extends PureComponent {
   form() {
     return [
       <h2 key="title">Reset Your Password</h2>,
-      <Form key="form" onSubmit={this.submitSignin}>
+      <Form key="form" onSubmit={this.submitSigninAsync}>
         <Input
           key="email"
           value={this.state.email}

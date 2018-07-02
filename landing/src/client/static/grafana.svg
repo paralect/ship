@@ -1,14 +1,14 @@
 <svg viewBox="0 0 170 130" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g id="Canvas" transform="translate(0 0)">
-    <use xlink:href="#ship-huge-rocket18_fill" transform="translate(0 0)" fill="#00BDA0"></use>
-    <use xlink:href="#ship-huge-rocket19_fill" transform="translate(50 23)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket20_fill" transform="translate(41 46)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket21_fill" transform="translate(56 64)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket22_fill" transform="translate(88 69)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket23_fill" transform="translate(109 54)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket24_fill" transform="translate(105 42)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket25_fill" transform="translate(51 31)" fill="#FFFFFF"></use>
-    <use xlink:href="#ship-huge-rocket26_fill" transform="translate(73 22)" fill="#FFFFFF"></use>
+    <use xlink:href="#ship-huge-rocket18_fill" transform="translate(0 0)" fill="#00bda0"></use>
+    <use xlink:href="#ship-huge-rocket19_fill" transform="translate(50 23)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket20_fill" transform="translate(41 46)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket21_fill" transform="translate(56 64)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket22_fill" transform="translate(88 69)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket23_fill" transform="translate(109 54)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket24_fill" transform="translate(105 42)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket25_fill" transform="translate(51 31)" fill="#fff"></use>
+    <use xlink:href="#ship-huge-rocket26_fill" transform="translate(73 22)" fill="#fff"></use>
   </g>
   <defs>
     <path id="ship-huge-rocket18_fill" fill-rule="evenodd" d="M 0.0519778 48.7276L 0 73.1471L 82.9517 122L 165.948 73.2716L 166 48.8521L 83.0475 0L 0.0519778 48.7276Z"></path>
