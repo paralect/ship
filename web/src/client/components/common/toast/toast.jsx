@@ -12,7 +12,7 @@ import FaCheckCircle from 'react-icons/lib/fa/check-circle';
 
 import type { StateType } from 'resources/types';
 import { getToasterMessages } from 'resources/toast/toast.selectors';
-import { removeMessage } from 'resources/toast/toast.actions';
+import { removeMessage as removeMessageAction } from 'resources/toast/toast.actions';
 
 import type { MessageType, MessageTypeType } from 'resources/toast/toast.types';
 
@@ -67,21 +67,26 @@ class Toast extends Component<ToastPropsType> {
   }
 
   onMessageClick = (id: string): VoidFnType => () => {
-    this.props.removeMessage(id);
+    const { removeMessage } = this.props;
+    removeMessage(id);
   };
 
   onMessageKeyDown = (id: string): KeyDownFnType => (e: SyntheticKeyboardEvent<HTMLDivElement>) => {
     if (e.keyCode === 13) {
-      this.props.removeMessage(id);
+      const { removeMessage } = this.props;
+      removeMessage(id);
     }
   };
 
   el: HTMLElement;
 
   messagesList(): Array<Node> {
-    return this.props.messages.map((message: MessageType, index: number): Node => {
-      const text =
-        !message.text || typeof message.text === 'string' ? message.text : message.text.join(', ');
+    const { messages } = this.props;
+
+    return messages.map((message: MessageType, index: number): Node => {
+      const text = !message.text || typeof message.text === 'string'
+        ? message.text
+        : message.text.join(', ');
 
       return (
         <div
@@ -94,8 +99,16 @@ class Toast extends Component<ToastPropsType> {
         >
           {icon(message.type)}
           <div>
-            {message.title && <div className={styles.title}>{message.title}</div>}
-            <div>{text}</div>
+            {
+              message.title && (
+                <div className={styles.title}>
+                  {message.title}
+                </div>
+              )
+            }
+            <div>
+              {text}
+            </div>
           </div>
         </div>
       );
@@ -112,5 +125,5 @@ const mapStateToProps = (state: StateType): StatePropsType => ({
 });
 
 export default connect(mapStateToProps, {
-  removeMessage,
+  removeMessage: removeMessageAction,
 })(Toast);

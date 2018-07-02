@@ -12,7 +12,9 @@ type PropsType = {
 };
 
 const Row = ({ children, className }: PropsType): Node => (
-  <div className={classnames(styles.row, className)}>{children}</div>
+  <div className={classnames(styles.row, className)}>
+    {children}
+  </div>
 );
 
 Row.defaultProps = {

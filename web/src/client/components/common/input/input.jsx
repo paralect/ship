@@ -27,15 +27,21 @@ export default class Input extends Component<PropsType> {
   };
 
   onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
-    this.props.onChange(e.target.value);
+    const { onChange } = this.props;
+    onChange(e.target.value);
   };
 
   errors(): Node {
-    if (!this.props.errors.length) {
+    const { errors } = this.props;
+    if (!errors.length) {
       return null;
     }
 
-    return <div className={styles.errors}>{_uniq(this.props.errors).join(', ')}</div>;
+    return (
+      <div className={styles.errors}>
+        {_uniq(errors).join(', ')}
+      </div>
+    );
   }
 
   render(): Node {

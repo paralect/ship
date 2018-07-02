@@ -1,6 +1,9 @@
 // @flow
 
 import { combineReducers } from 'redux';
+import type { CombinedReducer } from 'redux';
+
+import type { StateType, ActionType } from './types';
 
 import toast from './toast/toast.reducer';
 import type { ReducerType as ToastReducerType } from './toast/toast.types';
@@ -18,4 +21,6 @@ const reducers: ReducersType = {
   toast,
 };
 
-export default combineReducers(reducers);
+const combinedReducer: CombinedReducer<StateType, ActionType> = combineReducers(reducers);
+
+export default combinedReducer;

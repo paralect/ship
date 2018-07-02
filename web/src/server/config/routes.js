@@ -10,6 +10,7 @@ const { logger } = global;
 const indexRouter = new Router();
 
 const signinUrl = `${config.landingUrl}/signin`;
+const apiUrl = config.apiInternalUrl || config.apiUrl;
 
 // match all routes but not files (i.e. routes with dots)
 indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
@@ -38,7 +39,7 @@ indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
 
   try {
     if (ctx.session.token && jwt.verify(ctx.session.token, config.jwt.secret, jwtOptions)) {
-      const response = await axios.get(`${config.apiUrl}/users/current`, {
+      const response = await axios.get(`${apiUrl}/users/current`, {
         responseType: 'json',
         headers: { Authorization: `Bearer ${ctx.session.token}` },
       });

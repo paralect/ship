@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html class="show-poster">
   <head>
     <meta charset="utf-8">
     <title>Index HTML</title>
+    <link rel="shortcut icon" href="/static/favicon.ico" />
   </head>
   <body>
-    {{#unless isDev}}
-    <div id="poster">
-      <style>
+    <div class="wrapper">
+      {{#unless isDev}}
+      <div id="poster">
+        <style>
+          .show-poster,
+          .show-poster body {
+            height: 100%;
+            overflow: hidden;
+          }
+
+          .show-poster .wrapper {
+            height: 100%;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+          }
+
           #poster {
             position: absolute;
             opacity: 1;
@@ -30,7 +44,7 @@
                 -ms-flex-pack: center;
                     justify-content: center;
           }
-  
+
           .stack {
             width: 400px;
             height: 300px;
@@ -57,7 +71,7 @@
             -webkit-animation: bounceInLeft 1s;
                     animation: bounceInLeft 1s;
           }
-  
+
           @-webkit-keyframes bounceInLeft {
             0%, 60%, 75%, 90%, 100% {
               -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
@@ -115,14 +129,15 @@
             }
           }
         </style>
-  
+
         <div class="stack">
           Stack
         </div>
-    </div>
-    {{/unless}}
+      </div>
+      {{/unless}}
 
-    <div id="root"></div>
+      <div id="root"></div>
+    </div>
 
     <script>
       window.config = {{{json config}}};

@@ -17,7 +17,7 @@ type ApiErrorDataType = {
 // Do not throw errors on 'bad' server response codes
 axios.interceptors.response.use(
   (axiosConfig: $AxiosXHR<*>): $AxiosXHR<*> => axiosConfig,
-  (error: $AxiosError<Object>): Object => error.response,
+  (error: $AxiosError<Object>): Object => error.response || {},
 );
 
 const generalError = {
@@ -59,9 +59,12 @@ const httpRequest = (method: string): AxiosFnType => async (url: string, data?: 
     return null;
   }
 
+  response.data = response.data || {};
+
   if (response.status >= 200 && response.status < 300) {
-    return response.data || {};
-  } else if (response.status === 400) {
+    return response;
+  }
+  if (response.status === 400) {
     throwApiError(response);
   }
 

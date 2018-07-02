@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import type { BrowserHistory } from 'history/createBrowserHistory';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 
 import type { StateType, StoreType } from './resources/types';
 
@@ -53,13 +53,15 @@ const renderApp = () => {
 
 const hidePoster = () => {
   const poster = document.getElementById('poster');
-  if (!(poster instanceof Element)) {
+  const html = document.documentElement;
+  if (!(poster instanceof Element) || !(html instanceof Element)) {
     return;
   }
   poster.classList.add(styles.posterHidden);
 
   setTimeout(() => {
     poster.classList.add(styles.posterNone);
+    html.classList.remove('show-poster');
   }, 600);
 };
 

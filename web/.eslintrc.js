@@ -24,6 +24,10 @@ module.exports = {
       // ignore function with specified types for parameters and return type
       ignorePattern: '.+=.*\\(.+:.+\\):\\s.+'
     }],
+    "react/require-default-props": [
+      2,
+      { forbidDefaultForRequired: false }
+    ],
     "flowtype/boolean-style": [
       2,
       "boolean"

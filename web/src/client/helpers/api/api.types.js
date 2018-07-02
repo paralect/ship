@@ -1,6 +1,6 @@
 // @flow
 
-import ApiError from './api.error';
+import ApiError from './api.error'; // eslint-disable-line
 
 export type ErrorType = {
   [string]: Array<string>,

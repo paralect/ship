@@ -15,6 +15,7 @@ module.system.node.resolve_dirname=src/client
 module.name_mapper='^components\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/components/\1'
 module.name_mapper='^helpers\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/helpers/\1'
 module.name_mapper='^resources\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/resources/\1'
+module.name_mapper='^assets\/\(.*\)$' -> '<PROJECT_ROOT>/src/client/assets/\1'
 
 [version]
-^0.70.0
+^0.75.0

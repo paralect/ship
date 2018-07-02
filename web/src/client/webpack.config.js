@@ -33,11 +33,18 @@ const createUniqueIdGenerator = () => {
 
 const uniqueIdGenerator = createUniqueIdGenerator();
 
+const getComponentName = (resourcePath, separator) => {
+  return resourcePath.split(separator).slice(-5, -1).join(separator);
+};
+
 const generateScopedName = (localName, resourcePath) => {
-  const componentName = resourcePath
-    .split('/')
-    .slice(-5, -1)
-    .join('/');
+  const componentUnixName = getComponentName(resourcePath, '/');
+  const componentWindowsName = getComponentName(resourcePath, '\\');
+
+  const componentName = componentUnixName > componentWindowsName
+    ? componentUnixName
+    : componentWindowsName;
+
   return `${uniqueIdGenerator(componentName)}_${uniqueIdGenerator(localName)}`;
 };
 
@@ -51,7 +58,8 @@ module.exports = {
   output: {
     path: `${__dirname}/static/`,
     publicPath: '/static/',
-    filename: '[name].[hash].js',
+    filename: 'main.[hash].js',
+    chunkFilename: 'main.[id].[hash].js',
   },
 
   context: path.resolve(__dirname, './'),
@@ -71,6 +79,14 @@ module.exports = {
                 webpackHotModuleReloading: false,
               },
             ],
+            [
+              'inline-react-svg',
+              {
+                svgo: {
+                  plugins: [{ cleanupIDs: false }],
+                },
+              },
+            ],
           ],
         },
       },
@@ -83,8 +99,8 @@ module.exports = {
             options: {
               importLoaders: 1,
               camelCase: true,
-              getLocalIdent: (context, localIdentName, localName) => {
-                return generateScopedName(localName, context.resourcePath);
+              getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
+                return generateScopedName(localName, resourcePath);
               },
               minimize: true,
               modules: true,
@@ -98,7 +114,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: ['url-loader?limit=5000&name=[name].[hash].[ext]?'],
       },
     ],
@@ -119,7 +135,10 @@ module.exports = {
   },
 
   plugins: [
-    new MiniCssExtractPlugin({ chunkFilename: '[name].[hash].css' }),
+    new MiniCssExtractPlugin({
+      filename: 'main.[hash].css',
+      chunkFilename: 'main.[id].[hash].css',
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {

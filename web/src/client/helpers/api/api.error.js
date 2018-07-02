@@ -1,13 +1,16 @@
 // @flow
 
-import type { ErrorDataType } from './api.types';
+import type { ErrorDataType } from './api.types'; // eslint-disable-line
 
 class ApiError extends Error {
   data: ErrorDataType;
+
   status: number;
 
   constructor(data: ErrorDataType, status: number) {
     super(data);
+
+    this.name = this.constructor.name;
 
     // a workaround to make `instanceof ApiError` work in ES5 with babel
     // $FlowFixMe

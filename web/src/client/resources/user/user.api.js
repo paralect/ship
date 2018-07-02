@@ -1,9 +1,10 @@
 // @flow
 
 import { apiClient } from 'helpers/api';
+
 import type { StateType } from './user.types';
 
-export const fetchUser = (id: string = ''): Promise<*> => {
+export const fetchUser = (id: string = ''): Promise<StateType> => {
   return apiClient.get(`/users/${id}`);
 };
 

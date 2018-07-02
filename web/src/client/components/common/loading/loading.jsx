@@ -15,7 +15,7 @@ const Loading = (): Node => {
         <span className={styles.leaf4} />
       </div>
       <span className={styles.loading} data-name="Loading">
-        Loading
+        {'Loading'}
       </span>
     </div>
   );

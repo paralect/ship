@@ -3,20 +3,18 @@ const koaWebpack = require('koa-webpack');
 
 const webpackConfig = require('../client/webpack.dev.config');
 
-module.exports = (app) => {
+module.exports = () => {
   // workaround for docker containers
   const host = process.env.HRM_HOST || 'localhost';
 
-  app.use(koaWebpack({
+  return koaWebpack({
     compiler: webpack(webpackConfig),
-    hot: {
-      path: '/__webpack_hmr',
-      heartbeat: 10 * 1000,
+    hotClient: {
       host,
       port: 8081,
     },
-    dev: {
+    devMiddleware: {
       publicPath: webpackConfig.output.publicPath,
     },
-  }));
+  });
 };

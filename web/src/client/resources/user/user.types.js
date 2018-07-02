@@ -21,4 +21,4 @@ export type ActionType = {
   payload: StateType,
 };
 
-export type ReducerType = (state: StateType, action: ActionType) => StateType;
+export type ReducerType = (state?: StateType, action: ActionType) => StateType;

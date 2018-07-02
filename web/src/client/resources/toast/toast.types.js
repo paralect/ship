@@ -27,4 +27,4 @@ export type ActionType = {
   id?: string,
 };
 
-export type ReducerType = (state: StateType, action: ActionType) => StateType;
+export type ReducerType = (state?: StateType, action: ActionType) => StateType;

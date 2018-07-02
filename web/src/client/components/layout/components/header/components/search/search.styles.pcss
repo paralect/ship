@@ -1,0 +1,71 @@
+@import 'variables.pcss';
+
+.input {
+  display: block;
+  border-radius: var(--border-radius-900);
+  width: 100%;
+  padding-right: 30px;
+  border: 0;
+  height: 30px;
+  box-sizing: border-box;
+  background: none;
+  transition: all 0.5s;
+
+  &::-ms-clear,
+  &::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+
+  &:focus {
+    box-shadow: 0 0 1pt 2pt var(--light-blue-700);
+    outline: none;
+  }
+}
+
+.icon {
+  margin-top: -1px;
+  cursor: pointer;
+  transition: all 0.5s;
+  padding: 0 var(--distance-400);
+  position: absolute;
+  right: 0;
+  top: 5px;
+}
+
+.wrap {
+  border-radius: var(--border-radius-900);
+  width: 30px;
+  height: 30px;
+  transition: all 0.5s;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.active {
+  background: var(--white);
+
+  .input {
+    background: var(--white);
+  }
+
+  .icon {
+    color: var(--deep-purple-600);
+  }
+}
+
+.open {
+  width: 200px;
+
+  .input {
+    padding-left: var(--distance-500);
+  }
+}
