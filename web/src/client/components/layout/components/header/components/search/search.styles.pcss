@@ -26,9 +26,22 @@
   }
 
   &:focus {
-    box-shadow: 0 0 1pt 2pt var(--light-blue-700);
     outline: none;
+
+    & ~ .input-focus {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      bottom: -5px;
+      left: -5px;
+      border-radius: var(--border-radius-1000);
+      border: 2px dashed var(--red-100);
+    }
   }
+}
+
+.input-wrap {
+  position: relative;
 }
 
 .icon {

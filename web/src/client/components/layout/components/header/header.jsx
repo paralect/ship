@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import FaBellO from 'react-icons/lib/fa/bell-o';
+import { FaBell } from 'react-icons/fa';
 
 import { indexPath } from 'components/layout/layout.paths';
 
@@ -25,7 +25,7 @@ const Header = (): React$Node => {
       <Menu className={styles.menuList} />
       <Search className={styles.search} />
 
-      <FaBellO size={20} className={styles.notificationsBtn} />
+      <FaBell size={20} className={styles.notificationsBtn} />
 
       <UserMenu />
     </div>

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import type { Node } from 'react';
 
-import FaClockO from 'react-icons/lib/fa/clock-o';
+import { FaClock } from 'react-icons/fa';
 
 import styles from './home.styles.pcss';
 
@@ -59,7 +59,7 @@ class Home extends Component<*> {
           className={styles.meeting}
         >
           <div className={styles.time}>
-            <FaClockO size={15} />
+            <FaClock size={15} />
             <span>
               {meeting.time}
             </span>

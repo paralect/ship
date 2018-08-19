@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 
-import FaSearch from 'react-icons/lib/fa/search';
+import { FaSearch } from 'react-icons/fa';
 
 import styles from './search.styles.pcss';
 
@@ -47,6 +47,22 @@ class Search extends Component<PropsType, StateType> {
       });
     } else {
       this.onCloseSearch();
+    }
+  }
+
+  onInputKeyDown = (e: SyntheticKeyboardEvent<*>) => {
+    const { active } = this.state;
+
+    if (e.keyCode === 13) {
+      if (!active) {
+        this.onChangeSearchState();
+      } else {
+        // send request to the server
+      }
+    } else if (e.keyCode === 27) {
+      if (active) {
+        this.onChangeSearchState();
+      }
     }
   }
 
@@ -95,13 +111,18 @@ class Search extends Component<PropsType, StateType> {
         }, className)}
         ref={(wrap: ?HTMLDivElement) => { this.wrap = wrap; }}
       >
-        <input
-          className={styles.input}
-          type="search"
-          ref={(input: ?HTMLInputElement) => { this.input = input; }}
-          value={search}
-          onChange={this.onChangeSearchValue}
-        />
+        <div className={styles.inputWrap}>
+          <input
+            className={styles.input}
+            type="search"
+            ref={(input: ?HTMLInputElement) => { this.input = input; }}
+            value={search}
+            onChange={this.onChangeSearchValue}
+            onKeyDown={this.onInputKeyDown}
+          />
+
+          <div className={styles.inputFocus} />
+        </div>
 
         <FaSearch
           size={20}

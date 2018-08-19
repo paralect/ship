@@ -102,7 +102,6 @@ module.exports = {
               getLocalIdent: ({ resourcePath }, localIdentName, localName) => {
                 return generateScopedName(localName, resourcePath);
               },
-              minimize: true,
               modules: true,
               localIdentName: '[local]_[hash:base64:5]',
             },
@@ -124,9 +123,10 @@ module.exports = {
 
   resolve: {
     modules: ['./', 'node_modules'],
-    extensions: ['.js', '.jsx', '.pcss'],
+    extensions: ['.mjs', '.js', '.jsx', '.pcss'],
     alias: {
-      joi: 'joi-browser',
+      // temp solution [issue](https://github.com/jquense/yup/issues/273)
+      '@babel/runtime/helpers/builtin': path.resolve('./node_modules/@babel/runtime/helpers'),
     },
   },
 

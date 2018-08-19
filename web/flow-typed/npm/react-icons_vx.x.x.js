@@ -13,11320 +13,3450 @@
  * https://github.com/flowtype/flow-typed
  */
 
-import { IconBaseProps } from 'react-icon-base';
-
-declare module 'react-icons/lib/fa/500px' {
-  declare export default class Fa500px extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/adjust' {
-  declare export default class FaAdjust extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/adn' {
-  declare export default class FaAdn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/align-center' {
-  declare export default class FaAlignCenter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/align-justify' {
-  declare export default class FaAlignJustify extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/align-left' {
-  declare export default class FaAlignLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/align-right' {
-  declare export default class FaAlignRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/amazon' {
-  declare export default class FaAmazon extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/ambulance' {
-  declare export default class FaAmbulance extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/american-sign-language-interpreting' {
-  declare export default class FaAmericanSignLanguageInterpreting extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/anchor' {
-  declare export default class FaAnchor extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/android' {
-  declare export default class FaAndroid extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/angellist' {
-  declare export default class FaAngellist extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/angle-double-down' {
-  declare export default class FaAngleDoubleDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/angle-double-left' {
-  declare export default class FaAngleDoubleLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/angle-double-right' {
-  declare export default class FaAngleDoubleRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/angle-double-up' {
-  declare export default class FaAngleDoubleUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/angle-down' {
-  declare export default class FaAngleDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/angle-left' {
-  declare export default class FaAngleLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/angle-right' {
-  declare export default class FaAngleRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/angle-up' {
-  declare export default class FaAngleUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/apple' {
-  declare export default class FaApple extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/archive' {
-  declare export default class FaArchive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/area-chart' {
-  declare export default class FaAreaChart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-circle-down' {
-  declare export default class FaArrowCircleDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-circle-left' {
-  declare export default class FaArrowCircleLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-circle-o-down' {
-  declare export default class FaArrowCircleODown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-circle-o-left' {
-  declare export default class FaArrowCircleOLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-circle-o-right' {
-  declare export default class FaArrowCircleORight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-circle-o-up' {
-  declare export default class FaArrowCircleOUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-circle-right' {
-  declare export default class FaArrowCircleRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-circle-up' {
-  declare export default class FaArrowCircleUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-down' {
-  declare export default class FaArrowDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-left' {
-  declare export default class FaArrowLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-right' {
-  declare export default class FaArrowRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrow-up' {
-  declare export default class FaArrowUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrows-alt' {
-  declare export default class FaArrowsAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrows-h' {
-  declare export default class FaArrowsH extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrows-v' {
-  declare export default class FaArrowsV extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/arrows' {
-  declare export default class FaArrows extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/assistive-listening-systems' {
-  declare export default class FaAssistiveListeningSystems extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/asterisk' {
-  declare export default class FaAsterisk extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/at' {
-  declare export default class FaAt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/audio-description' {
-  declare export default class FaAudioDescription extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/automobile' {
-  declare export default class FaAutomobile extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/backward' {
-  declare export default class FaBackward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/balance-scale' {
-  declare export default class FaBalanceScale extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/ban' {
-  declare export default class FaBan extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bank' {
-  declare export default class FaBank extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bar-chart' {
-  declare export default class FaBarChart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/barcode' {
-  declare export default class FaBarcode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bars' {
-  declare export default class FaBars extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/battery-0' {
-  declare export default class FaBattery0 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/battery-1' {
-  declare export default class FaBattery1 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/battery-2' {
-  declare export default class FaBattery2 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/battery-3' {
-  declare export default class FaBattery3 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/battery-4' {
-  declare export default class FaBattery4 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bed' {
-  declare export default class FaBed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/beer' {
-  declare export default class FaBeer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/behance-square' {
-  declare export default class FaBehanceSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/behance' {
-  declare export default class FaBehance extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bell-o' {
-  declare export default class FaBellO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bell-slash-o' {
-  declare export default class FaBellSlashO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bell-slash' {
-  declare export default class FaBellSlash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bell' {
-  declare export default class FaBell extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bicycle' {
-  declare export default class FaBicycle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/binoculars' {
-  declare export default class FaBinoculars extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/birthday-cake' {
-  declare export default class FaBirthdayCake extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bitbucket-square' {
-  declare export default class FaBitbucketSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bitbucket' {
-  declare export default class FaBitbucket extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bitcoin' {
-  declare export default class FaBitcoin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/black-tie' {
-  declare export default class FaBlackTie extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/blind' {
-  declare export default class FaBlind extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bluetooth-b' {
-  declare export default class FaBluetoothB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bluetooth' {
-  declare export default class FaBluetooth extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bold' {
-  declare export default class FaBold extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bolt' {
-  declare export default class FaBolt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bomb' {
-  declare export default class FaBomb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/book' {
-  declare export default class FaBook extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bookmark-o' {
-  declare export default class FaBookmarkO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bookmark' {
-  declare export default class FaBookmark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/braille' {
-  declare export default class FaBraille extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/briefcase' {
-  declare export default class FaBriefcase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bug' {
-  declare export default class FaBug extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/building-o' {
-  declare export default class FaBuildingO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/building' {
-  declare export default class FaBuilding extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bullhorn' {
-  declare export default class FaBullhorn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bullseye' {
-  declare export default class FaBullseye extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/bus' {
-  declare export default class FaBus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/buysellads' {
-  declare export default class FaBuysellads extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cab' {
-  declare export default class FaCab extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/calculator' {
-  declare export default class FaCalculator extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/calendar-check-o' {
-  declare export default class FaCalendarCheckO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/calendar-minus-o' {
-  declare export default class FaCalendarMinusO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/calendar-o' {
-  declare export default class FaCalendarO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/calendar-plus-o' {
-  declare export default class FaCalendarPlusO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/calendar-times-o' {
-  declare export default class FaCalendarTimesO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/calendar' {
-  declare export default class FaCalendar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/camera-retro' {
-  declare export default class FaCameraRetro extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/camera' {
-  declare export default class FaCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/caret-down' {
-  declare export default class FaCaretDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/caret-left' {
-  declare export default class FaCaretLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/caret-right' {
-  declare export default class FaCaretRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/caret-square-o-down' {
-  declare export default class FaCaretSquareODown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/caret-square-o-left' {
-  declare export default class FaCaretSquareOLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/caret-square-o-right' {
-  declare export default class FaCaretSquareORight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/caret-square-o-up' {
-  declare export default class FaCaretSquareOUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/caret-up' {
-  declare export default class FaCaretUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cart-arrow-down' {
-  declare export default class FaCartArrowDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cart-plus' {
-  declare export default class FaCartPlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cc-amex' {
-  declare export default class FaCcAmex extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cc-diners-club' {
-  declare export default class FaCcDinersClub extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cc-discover' {
-  declare export default class FaCcDiscover extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cc-jcb' {
-  declare export default class FaCcJcb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cc-mastercard' {
-  declare export default class FaCcMastercard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cc-paypal' {
-  declare export default class FaCcPaypal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cc-stripe' {
-  declare export default class FaCcStripe extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cc-visa' {
-  declare export default class FaCcVisa extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cc' {
-  declare export default class FaCc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/certificate' {
-  declare export default class FaCertificate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chain-broken' {
-  declare export default class FaChainBroken extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chain' {
-  declare export default class FaChain extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/check-circle-o' {
-  declare export default class FaCheckCircleO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/check-circle' {
-  declare export default class FaCheckCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/check-square-o' {
-  declare export default class FaCheckSquareO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/check-square' {
-  declare export default class FaCheckSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/check' {
-  declare export default class FaCheck extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chevron-circle-down' {
-  declare export default class FaChevronCircleDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chevron-circle-left' {
-  declare export default class FaChevronCircleLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chevron-circle-right' {
-  declare export default class FaChevronCircleRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chevron-circle-up' {
-  declare export default class FaChevronCircleUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chevron-down' {
-  declare export default class FaChevronDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chevron-left' {
-  declare export default class FaChevronLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chevron-right' {
-  declare export default class FaChevronRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chevron-up' {
-  declare export default class FaChevronUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/child' {
-  declare export default class FaChild extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/chrome' {
-  declare export default class FaChrome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/circle-o-notch' {
-  declare export default class FaCircleONotch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/circle-o' {
-  declare export default class FaCircleO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/circle-thin' {
-  declare export default class FaCircleThin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/circle' {
-  declare export default class FaCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/clipboard' {
-  declare export default class FaClipboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/clock-o' {
-  declare export default class FaClockO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/clone' {
-  declare export default class FaClone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/close' {
-  declare export default class FaClose extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cloud-download' {
-  declare export default class FaCloudDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cloud-upload' {
-  declare export default class FaCloudUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cloud' {
-  declare export default class FaCloud extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cny' {
-  declare export default class FaCny extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/code-fork' {
-  declare export default class FaCodeFork extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/code' {
-  declare export default class FaCode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/codepen' {
-  declare export default class FaCodepen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/codiepie' {
-  declare export default class FaCodiepie extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/coffee' {
-  declare export default class FaCoffee extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cog' {
-  declare export default class FaCog extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cogs' {
-  declare export default class FaCogs extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/columns' {
-  declare export default class FaColumns extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/comment-o' {
-  declare export default class FaCommentO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/comment' {
-  declare export default class FaComment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/commenting-o' {
-  declare export default class FaCommentingO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/commenting' {
-  declare export default class FaCommenting extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/comments-o' {
-  declare export default class FaCommentsO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/comments' {
-  declare export default class FaComments extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/compass' {
-  declare export default class FaCompass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/compress' {
-  declare export default class FaCompress extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/connectdevelop' {
-  declare export default class FaConnectdevelop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/contao' {
-  declare export default class FaContao extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/copy' {
-  declare export default class FaCopy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/copyright' {
-  declare export default class FaCopyright extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/creative-commons' {
-  declare export default class FaCreativeCommons extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/credit-card-alt' {
-  declare export default class FaCreditCardAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/credit-card' {
-  declare export default class FaCreditCard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/crop' {
-  declare export default class FaCrop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/crosshairs' {
-  declare export default class FaCrosshairs extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/css3' {
-  declare export default class FaCss3 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cube' {
-  declare export default class FaCube extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cubes' {
-  declare export default class FaCubes extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cut' {
-  declare export default class FaCut extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/cutlery' {
-  declare export default class FaCutlery extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/dashboard' {
-  declare export default class FaDashboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/dashcube' {
-  declare export default class FaDashcube extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/database' {
-  declare export default class FaDatabase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/deaf' {
-  declare export default class FaDeaf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/dedent' {
-  declare export default class FaDedent extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/delicious' {
-  declare export default class FaDelicious extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/desktop' {
-  declare export default class FaDesktop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/deviantart' {
-  declare export default class FaDeviantart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/diamond' {
-  declare export default class FaDiamond extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/digg' {
-  declare export default class FaDigg extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/dollar' {
-  declare export default class FaDollar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/dot-circle-o' {
-  declare export default class FaDotCircleO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/download' {
-  declare export default class FaDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/dribbble' {
-  declare export default class FaDribbble extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/dropbox' {
-  declare export default class FaDropbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/drupal' {
-  declare export default class FaDrupal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/edge' {
-  declare export default class FaEdge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/edit' {
-  declare export default class FaEdit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/eject' {
-  declare export default class FaEject extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/ellipsis-h' {
-  declare export default class FaEllipsisH extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/ellipsis-v' {
-  declare export default class FaEllipsisV extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/empire' {
-  declare export default class FaEmpire extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/envelope-o' {
-  declare export default class FaEnvelopeO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/envelope-square' {
-  declare export default class FaEnvelopeSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/envelope' {
-  declare export default class FaEnvelope extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/envira' {
-  declare export default class FaEnvira extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/eraser' {
-  declare export default class FaEraser extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/eur' {
-  declare export default class FaEur extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/exchange' {
-  declare export default class FaExchange extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/exclamation-circle' {
-  declare export default class FaExclamationCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/exclamation-triangle' {
-  declare export default class FaExclamationTriangle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/exclamation' {
-  declare export default class FaExclamation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/expand' {
-  declare export default class FaExpand extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/expeditedssl' {
-  declare export default class FaExpeditedssl extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/external-link-square' {
-  declare export default class FaExternalLinkSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/external-link' {
-  declare export default class FaExternalLink extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/eye-slash' {
-  declare export default class FaEyeSlash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/eye' {
-  declare export default class FaEye extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/eyedropper' {
-  declare export default class FaEyedropper extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/facebook-official' {
-  declare export default class FaFacebookOfficial extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/facebook-square' {
-  declare export default class FaFacebookSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/facebook' {
-  declare export default class FaFacebook extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/fast-backward' {
-  declare export default class FaFastBackward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/fast-forward' {
-  declare export default class FaFastForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/fax' {
-  declare export default class FaFax extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/feed' {
-  declare export default class FaFeed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/female' {
-  declare export default class FaFemale extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/fighter-jet' {
-  declare export default class FaFighterJet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-archive-o' {
-  declare export default class FaFileArchiveO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-audio-o' {
-  declare export default class FaFileAudioO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-code-o' {
-  declare export default class FaFileCodeO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-excel-o' {
-  declare export default class FaFileExcelO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-image-o' {
-  declare export default class FaFileImageO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-movie-o' {
-  declare export default class FaFileMovieO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-o' {
-  declare export default class FaFileO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-pdf-o' {
-  declare export default class FaFilePdfO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-powerpoint-o' {
-  declare export default class FaFilePowerpointO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-text-o' {
-  declare export default class FaFileTextO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-text' {
-  declare export default class FaFileText extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file-word-o' {
-  declare export default class FaFileWordO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/file' {
-  declare export default class FaFile extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/film' {
-  declare export default class FaFilm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/filter' {
-  declare export default class FaFilter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/fire-extinguisher' {
-  declare export default class FaFireExtinguisher extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/fire' {
-  declare export default class FaFire extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/firefox' {
-  declare export default class FaFirefox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/flag-checkered' {
-  declare export default class FaFlagCheckered extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/flag-o' {
-  declare export default class FaFlagO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/flag' {
-  declare export default class FaFlag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/flask' {
-  declare export default class FaFlask extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/flickr' {
-  declare export default class FaFlickr extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/floppy-o' {
-  declare export default class FaFloppyO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/folder-o' {
-  declare export default class FaFolderO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/folder-open-o' {
-  declare export default class FaFolderOpenO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/folder-open' {
-  declare export default class FaFolderOpen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/folder' {
-  declare export default class FaFolder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/font' {
-  declare export default class FaFont extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/fonticons' {
-  declare export default class FaFonticons extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/fort-awesome' {
-  declare export default class FaFortAwesome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/forumbee' {
-  declare export default class FaForumbee extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/forward' {
-  declare export default class FaForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/foursquare' {
-  declare export default class FaFoursquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/frown-o' {
-  declare export default class FaFrownO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/futbol-o' {
-  declare export default class FaFutbolO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/gamepad' {
-  declare export default class FaGamepad extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/gavel' {
-  declare export default class FaGavel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/gbp' {
-  declare export default class FaGbp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/genderless' {
-  declare export default class FaGenderless extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/get-pocket' {
-  declare export default class FaGetPocket extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/gg-circle' {
-  declare export default class FaGgCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/gg' {
-  declare export default class FaGg extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/gift' {
-  declare export default class FaGift extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/git-square' {
-  declare export default class FaGitSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/git' {
-  declare export default class FaGit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/github-alt' {
-  declare export default class FaGithubAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/github-square' {
-  declare export default class FaGithubSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/github' {
-  declare export default class FaGithub extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/gitlab' {
-  declare export default class FaGitlab extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/gittip' {
-  declare export default class FaGittip extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/glass' {
-  declare export default class FaGlass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/glide-g' {
-  declare export default class FaGlideG extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/glide' {
-  declare export default class FaGlide extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/globe' {
-  declare export default class FaGlobe extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/google-plus-square' {
-  declare export default class FaGooglePlusSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/google-plus' {
-  declare export default class FaGooglePlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/google-wallet' {
-  declare export default class FaGoogleWallet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/google' {
-  declare export default class FaGoogle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/graduation-cap' {
-  declare export default class FaGraduationCap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/group' {
-  declare export default class FaGroup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/h-square' {
-  declare export default class FaHSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hacker-news' {
-  declare export default class FaHackerNews extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-grab-o' {
-  declare export default class FaHandGrabO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-lizard-o' {
-  declare export default class FaHandLizardO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-o-down' {
-  declare export default class FaHandODown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-o-left' {
-  declare export default class FaHandOLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-o-right' {
-  declare export default class FaHandORight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-o-up' {
-  declare export default class FaHandOUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-paper-o' {
-  declare export default class FaHandPaperO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-peace-o' {
-  declare export default class FaHandPeaceO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-pointer-o' {
-  declare export default class FaHandPointerO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-scissors-o' {
-  declare export default class FaHandScissorsO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hand-spock-o' {
-  declare export default class FaHandSpockO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hashtag' {
-  declare export default class FaHashtag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hdd-o' {
-  declare export default class FaHddO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/header' {
-  declare export default class FaHeader extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/headphones' {
-  declare export default class FaHeadphones extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/heart-o' {
-  declare export default class FaHeartO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/heart' {
-  declare export default class FaHeart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/heartbeat' {
-  declare export default class FaHeartbeat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/history' {
-  declare export default class FaHistory extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/home' {
-  declare export default class FaHome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hospital-o' {
-  declare export default class FaHospitalO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hourglass-1' {
-  declare export default class FaHourglass1 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hourglass-2' {
-  declare export default class FaHourglass2 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hourglass-3' {
-  declare export default class FaHourglass3 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hourglass-o' {
-  declare export default class FaHourglassO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/hourglass' {
-  declare export default class FaHourglass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/houzz' {
-  declare export default class FaHouzz extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/html5' {
-  declare export default class FaHtml5 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/i-cursor' {
-  declare export default class FaICursor extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/ils' {
-  declare export default class FaIls extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/image' {
-  declare export default class FaImage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/inbox' {
-  declare export default class FaInbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/indent' {
-  declare export default class FaIndent extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/index' {
-  declare export default class FaIndex extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/industry' {
-  declare export default class FaIndustry extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/info-circle' {
-  declare export default class FaInfoCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/info' {
-  declare export default class FaInfo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/inr' {
-  declare export default class FaInr extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/instagram' {
-  declare export default class FaInstagram extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/internet-explorer' {
-  declare export default class FaInternetExplorer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/intersex' {
-  declare export default class FaIntersex extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/ioxhost' {
-  declare export default class FaIoxhost extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/italic' {
-  declare export default class FaItalic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/joomla' {
-  declare export default class FaJoomla extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/jsfiddle' {
-  declare export default class FaJsfiddle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/key' {
-  declare export default class FaKey extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/keyboard-o' {
-  declare export default class FaKeyboardO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/krw' {
-  declare export default class FaKrw extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/language' {
-  declare export default class FaLanguage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/laptop' {
-  declare export default class FaLaptop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/lastfm-square' {
-  declare export default class FaLastfmSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/lastfm' {
-  declare export default class FaLastfm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/leaf' {
-  declare export default class FaLeaf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/leanpub' {
-  declare export default class FaLeanpub extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/lemon-o' {
-  declare export default class FaLemonO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/level-down' {
-  declare export default class FaLevelDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/level-up' {
-  declare export default class FaLevelUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/life-bouy' {
-  declare export default class FaLifeBouy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/lightbulb-o' {
-  declare export default class FaLightbulbO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/line-chart' {
-  declare export default class FaLineChart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/linkedin-square' {
-  declare export default class FaLinkedinSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/linkedin' {
-  declare export default class FaLinkedin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/linux' {
-  declare export default class FaLinux extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/list-alt' {
-  declare export default class FaListAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/list-ol' {
-  declare export default class FaListOl extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/list-ul' {
-  declare export default class FaListUl extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/list' {
-  declare export default class FaList extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/location-arrow' {
-  declare export default class FaLocationArrow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/lock' {
-  declare export default class FaLock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/long-arrow-down' {
-  declare export default class FaLongArrowDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/long-arrow-left' {
-  declare export default class FaLongArrowLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/long-arrow-right' {
-  declare export default class FaLongArrowRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/long-arrow-up' {
-  declare export default class FaLongArrowUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/low-vision' {
-  declare export default class FaLowVision extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/magic' {
-  declare export default class FaMagic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/magnet' {
-  declare export default class FaMagnet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mail-forward' {
-  declare export default class FaMailForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mail-reply-all' {
-  declare export default class FaMailReplyAll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mail-reply' {
-  declare export default class FaMailReply extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/male' {
-  declare export default class FaMale extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/map-marker' {
-  declare export default class FaMapMarker extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/map-o' {
-  declare export default class FaMapO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/map-pin' {
-  declare export default class FaMapPin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/map-signs' {
-  declare export default class FaMapSigns extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/map' {
-  declare export default class FaMap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mars-double' {
-  declare export default class FaMarsDouble extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mars-stroke-h' {
-  declare export default class FaMarsStrokeH extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mars-stroke-v' {
-  declare export default class FaMarsStrokeV extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mars-stroke' {
-  declare export default class FaMarsStroke extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mars' {
-  declare export default class FaMars extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/maxcdn' {
-  declare export default class FaMaxcdn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/meanpath' {
-  declare export default class FaMeanpath extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/medium' {
-  declare export default class FaMedium extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/medkit' {
-  declare export default class FaMedkit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/meh-o' {
-  declare export default class FaMehO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mercury' {
-  declare export default class FaMercury extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/microphone-slash' {
-  declare export default class FaMicrophoneSlash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/microphone' {
-  declare export default class FaMicrophone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/minus-circle' {
-  declare export default class FaMinusCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/minus-square-o' {
-  declare export default class FaMinusSquareO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/minus-square' {
-  declare export default class FaMinusSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/minus' {
-  declare export default class FaMinus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mixcloud' {
-  declare export default class FaMixcloud extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mobile' {
-  declare export default class FaMobile extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/modx' {
-  declare export default class FaModx extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/money' {
-  declare export default class FaMoney extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/moon-o' {
-  declare export default class FaMoonO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/motorcycle' {
-  declare export default class FaMotorcycle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/mouse-pointer' {
-  declare export default class FaMousePointer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/music' {
-  declare export default class FaMusic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/neuter' {
-  declare export default class FaNeuter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/newspaper-o' {
-  declare export default class FaNewspaperO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/object-group' {
-  declare export default class FaObjectGroup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/object-ungroup' {
-  declare export default class FaObjectUngroup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/odnoklassniki-square' {
-  declare export default class FaOdnoklassnikiSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/odnoklassniki' {
-  declare export default class FaOdnoklassniki extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/opencart' {
-  declare export default class FaOpencart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/openid' {
-  declare export default class FaOpenid extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/opera' {
-  declare export default class FaOpera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/optin-monster' {
-  declare export default class FaOptinMonster extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pagelines' {
-  declare export default class FaPagelines extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/paint-brush' {
-  declare export default class FaPaintBrush extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/paper-plane-o' {
-  declare export default class FaPaperPlaneO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/paper-plane' {
-  declare export default class FaPaperPlane extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/paperclip' {
-  declare export default class FaPaperclip extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/paragraph' {
-  declare export default class FaParagraph extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pause-circle-o' {
-  declare export default class FaPauseCircleO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pause-circle' {
-  declare export default class FaPauseCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pause' {
-  declare export default class FaPause extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/paw' {
-  declare export default class FaPaw extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/paypal' {
-  declare export default class FaPaypal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pencil-square' {
-  declare export default class FaPencilSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pencil' {
-  declare export default class FaPencil extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/percent' {
-  declare export default class FaPercent extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/phone-square' {
-  declare export default class FaPhoneSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/phone' {
-  declare export default class FaPhone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pie-chart' {
-  declare export default class FaPieChart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pied-piper-alt' {
-  declare export default class FaPiedPiperAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pied-piper' {
-  declare export default class FaPiedPiper extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pinterest-p' {
-  declare export default class FaPinterestP extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pinterest-square' {
-  declare export default class FaPinterestSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/pinterest' {
-  declare export default class FaPinterest extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/plane' {
-  declare export default class FaPlane extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/play-circle-o' {
-  declare export default class FaPlayCircleO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/play-circle' {
-  declare export default class FaPlayCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/play' {
-  declare export default class FaPlay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/plug' {
-  declare export default class FaPlug extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/plus-circle' {
-  declare export default class FaPlusCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/plus-square-o' {
-  declare export default class FaPlusSquareO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/plus-square' {
-  declare export default class FaPlusSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/plus' {
-  declare export default class FaPlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/power-off' {
-  declare export default class FaPowerOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/print' {
-  declare export default class FaPrint extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/product-hunt' {
-  declare export default class FaProductHunt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/puzzle-piece' {
-  declare export default class FaPuzzlePiece extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/qq' {
-  declare export default class FaQq extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/qrcode' {
-  declare export default class FaQrcode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/question-circle-o' {
-  declare export default class FaQuestionCircleO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/question-circle' {
-  declare export default class FaQuestionCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/question' {
-  declare export default class FaQuestion extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/quote-left' {
-  declare export default class FaQuoteLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/quote-right' {
-  declare export default class FaQuoteRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/ra' {
-  declare export default class FaRa extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/random' {
-  declare export default class FaRandom extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/recycle' {
-  declare export default class FaRecycle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/reddit-alien' {
-  declare export default class FaRedditAlien extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/reddit-square' {
-  declare export default class FaRedditSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/reddit' {
-  declare export default class FaReddit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/refresh' {
-  declare export default class FaRefresh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/registered' {
-  declare export default class FaRegistered extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/renren' {
-  declare export default class FaRenren extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/repeat' {
-  declare export default class FaRepeat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/retweet' {
-  declare export default class FaRetweet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/road' {
-  declare export default class FaRoad extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/rocket' {
-  declare export default class FaRocket extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/rotate-left' {
-  declare export default class FaRotateLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/rouble' {
-  declare export default class FaRouble extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/rss-square' {
-  declare export default class FaRssSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/safari' {
-  declare export default class FaSafari extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/scribd' {
-  declare export default class FaScribd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/search-minus' {
-  declare export default class FaSearchMinus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/search-plus' {
-  declare export default class FaSearchPlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/search' {
-  declare export default class FaSearch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sellsy' {
-  declare export default class FaSellsy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/server' {
-  declare export default class FaServer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/share-alt-square' {
-  declare export default class FaShareAltSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/share-alt' {
-  declare export default class FaShareAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/share-square-o' {
-  declare export default class FaShareSquareO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/share-square' {
-  declare export default class FaShareSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/shield' {
-  declare export default class FaShield extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/ship' {
-  declare export default class FaShip extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/shirtsinbulk' {
-  declare export default class FaShirtsinbulk extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/shopping-bag' {
-  declare export default class FaShoppingBag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/shopping-basket' {
-  declare export default class FaShoppingBasket extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/shopping-cart' {
-  declare export default class FaShoppingCart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sign-in' {
-  declare export default class FaSignIn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sign-language' {
-  declare export default class FaSignLanguage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sign-out' {
-  declare export default class FaSignOut extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/signal' {
-  declare export default class FaSignal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/simplybuilt' {
-  declare export default class FaSimplybuilt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sitemap' {
-  declare export default class FaSitemap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/skyatlas' {
-  declare export default class FaSkyatlas extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/skype' {
-  declare export default class FaSkype extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/slack' {
-  declare export default class FaSlack extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sliders' {
-  declare export default class FaSliders extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/slideshare' {
-  declare export default class FaSlideshare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/smile-o' {
-  declare export default class FaSmileO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/snapchat-ghost' {
-  declare export default class FaSnapchatGhost extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/snapchat-square' {
-  declare export default class FaSnapchatSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/snapchat' {
-  declare export default class FaSnapchat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sort-alpha-asc' {
-  declare export default class FaSortAlphaAsc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sort-alpha-desc' {
-  declare export default class FaSortAlphaDesc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sort-amount-asc' {
-  declare export default class FaSortAmountAsc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sort-amount-desc' {
-  declare export default class FaSortAmountDesc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sort-asc' {
-  declare export default class FaSortAsc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sort-desc' {
-  declare export default class FaSortDesc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sort-numeric-asc' {
-  declare export default class FaSortNumericAsc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sort-numeric-desc' {
-  declare export default class FaSortNumericDesc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sort' {
-  declare export default class FaSort extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/soundcloud' {
-  declare export default class FaSoundcloud extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/space-shuttle' {
-  declare export default class FaSpaceShuttle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/spinner' {
-  declare export default class FaSpinner extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/spoon' {
-  declare export default class FaSpoon extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/spotify' {
-  declare export default class FaSpotify extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/square-o' {
-  declare export default class FaSquareO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/square' {
-  declare export default class FaSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/stack-exchange' {
-  declare export default class FaStackExchange extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/stack-overflow' {
-  declare export default class FaStackOverflow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/star-half-empty' {
-  declare export default class FaStarHalfEmpty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/star-half' {
-  declare export default class FaStarHalf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/star-o' {
-  declare export default class FaStarO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/star' {
-  declare export default class FaStar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/steam-square' {
-  declare export default class FaSteamSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/steam' {
-  declare export default class FaSteam extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/step-backward' {
-  declare export default class FaStepBackward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/step-forward' {
-  declare export default class FaStepForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/stethoscope' {
-  declare export default class FaStethoscope extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sticky-note-o' {
-  declare export default class FaStickyNoteO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sticky-note' {
-  declare export default class FaStickyNote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/stop-circle-o' {
-  declare export default class FaStopCircleO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/stop-circle' {
-  declare export default class FaStopCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/stop' {
-  declare export default class FaStop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/street-view' {
-  declare export default class FaStreetView extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/strikethrough' {
-  declare export default class FaStrikethrough extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/stumbleupon-circle' {
-  declare export default class FaStumbleuponCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/stumbleupon' {
-  declare export default class FaStumbleupon extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/subscript' {
-  declare export default class FaSubscript extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/subway' {
-  declare export default class FaSubway extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/suitcase' {
-  declare export default class FaSuitcase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/sun-o' {
-  declare export default class FaSunO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/superscript' {
-  declare export default class FaSuperscript extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/table' {
-  declare export default class FaTable extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tablet' {
-  declare export default class FaTablet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tag' {
-  declare export default class FaTag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tags' {
-  declare export default class FaTags extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tasks' {
-  declare export default class FaTasks extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/television' {
-  declare export default class FaTelevision extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tencent-weibo' {
-  declare export default class FaTencentWeibo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/terminal' {
-  declare export default class FaTerminal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/text-height' {
-  declare export default class FaTextHeight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/text-width' {
-  declare export default class FaTextWidth extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/th-large' {
-  declare export default class FaThLarge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/th-list' {
-  declare export default class FaThList extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/th' {
-  declare export default class FaTh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/thumb-tack' {
-  declare export default class FaThumbTack extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/thumbs-down' {
-  declare export default class FaThumbsDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/thumbs-o-down' {
-  declare export default class FaThumbsODown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/thumbs-o-up' {
-  declare export default class FaThumbsOUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/thumbs-up' {
-  declare export default class FaThumbsUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/ticket' {
-  declare export default class FaTicket extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/times-circle-o' {
-  declare export default class FaTimesCircleO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/times-circle' {
-  declare export default class FaTimesCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tint' {
-  declare export default class FaTint extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/toggle-off' {
-  declare export default class FaToggleOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/toggle-on' {
-  declare export default class FaToggleOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/trademark' {
-  declare export default class FaTrademark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/train' {
-  declare export default class FaTrain extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/transgender-alt' {
-  declare export default class FaTransgenderAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/trash-o' {
-  declare export default class FaTrashO extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/trash' {
-  declare export default class FaTrash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tree' {
-  declare export default class FaTree extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/trello' {
-  declare export default class FaTrello extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tripadvisor' {
-  declare export default class FaTripadvisor extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/trophy' {
-  declare export default class FaTrophy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/truck' {
-  declare export default class FaTruck extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/try' {
-  declare export default class FaTry extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tty' {
-  declare export default class FaTty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tumblr-square' {
-  declare export default class FaTumblrSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/tumblr' {
-  declare export default class FaTumblr extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/twitch' {
-  declare export default class FaTwitch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/twitter-square' {
-  declare export default class FaTwitterSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/twitter' {
-  declare export default class FaTwitter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/umbrella' {
-  declare export default class FaUmbrella extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/underline' {
-  declare export default class FaUnderline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/universal-access' {
-  declare export default class FaUniversalAccess extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/unlock-alt' {
-  declare export default class FaUnlockAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/unlock' {
-  declare export default class FaUnlock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/upload' {
-  declare export default class FaUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/usb' {
-  declare export default class FaUsb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/user-md' {
-  declare export default class FaUserMd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/user-plus' {
-  declare export default class FaUserPlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/user-secret' {
-  declare export default class FaUserSecret extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/user-times' {
-  declare export default class FaUserTimes extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/user' {
-  declare export default class FaUser extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/venus-double' {
-  declare export default class FaVenusDouble extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/venus-mars' {
-  declare export default class FaVenusMars extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/venus' {
-  declare export default class FaVenus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/viacoin' {
-  declare export default class FaViacoin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/viadeo-square' {
-  declare export default class FaViadeoSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/viadeo' {
-  declare export default class FaViadeo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/video-camera' {
-  declare export default class FaVideoCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/vimeo-square' {
-  declare export default class FaVimeoSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/vimeo' {
-  declare export default class FaVimeo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/vine' {
-  declare export default class FaVine extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/vk' {
-  declare export default class FaVk extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/volume-control-phone' {
-  declare export default class FaVolumeControlPhone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/volume-down' {
-  declare export default class FaVolumeDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/volume-off' {
-  declare export default class FaVolumeOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/volume-up' {
-  declare export default class FaVolumeUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/wechat' {
-  declare export default class FaWechat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/weibo' {
-  declare export default class FaWeibo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/whatsapp' {
-  declare export default class FaWhatsapp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/wheelchair-alt' {
-  declare export default class FaWheelchairAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/wheelchair' {
-  declare export default class FaWheelchair extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/wifi' {
-  declare export default class FaWifi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/wikipedia-w' {
-  declare export default class FaWikipediaW extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/windows' {
-  declare export default class FaWindows extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/wordpress' {
-  declare export default class FaWordpress extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/wpbeginner' {
-  declare export default class FaWpbeginner extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/wpforms' {
-  declare export default class FaWpforms extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/wrench' {
-  declare export default class FaWrench extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/xing-square' {
-  declare export default class FaXingSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/xing' {
-  declare export default class FaXing extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/y-combinator' {
-  declare export default class FaYCombinator extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/yahoo' {
-  declare export default class FaYahoo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/yelp' {
-  declare export default class FaYelp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/youtube-play' {
-  declare export default class FaYoutubePlay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/youtube-square' {
-  declare export default class FaYoutubeSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/fa/youtube' {
-  declare export default class FaYoutube extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/alert' {
-  declare export default class GoAlert extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/alignment-align' {
-  declare export default class GoAlignmentAlign extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/alignment-aligned-to' {
-  declare export default class GoAlignmentAlignedTo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/alignment-unalign' {
-  declare export default class GoAlignmentUnalign extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/arrow-down' {
-  declare export default class GoArrowDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/arrow-left' {
-  declare export default class GoArrowLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/arrow-right' {
-  declare export default class GoArrowRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/arrow-small-down' {
-  declare export default class GoArrowSmallDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/arrow-small-left' {
-  declare export default class GoArrowSmallLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/arrow-small-right' {
-  declare export default class GoArrowSmallRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/arrow-small-up' {
-  declare export default class GoArrowSmallUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/arrow-up' {
-  declare export default class GoArrowUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/beer' {
-  declare export default class GoBeer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/book' {
-  declare export default class GoBook extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/bookmark' {
-  declare export default class GoBookmark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/briefcase' {
-  declare export default class GoBriefcase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/broadcast' {
-  declare export default class GoBroadcast extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/browser' {
-  declare export default class GoBrowser extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/bug' {
-  declare export default class GoBug extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/calendar' {
-  declare export default class GoCalendar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/check' {
-  declare export default class GoCheck extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/checklist' {
-  declare export default class GoChecklist extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/chevron-down' {
-  declare export default class GoChevronDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/chevron-left' {
-  declare export default class GoChevronLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/chevron-right' {
-  declare export default class GoChevronRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/chevron-up' {
-  declare export default class GoChevronUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/circle-slash' {
-  declare export default class GoCircleSlash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/circuit-board' {
-  declare export default class GoCircuitBoard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/clippy' {
-  declare export default class GoClippy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/clock' {
-  declare export default class GoClock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/cloud-download' {
-  declare export default class GoCloudDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/cloud-upload' {
-  declare export default class GoCloudUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/code' {
-  declare export default class GoCode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/color-mode' {
-  declare export default class GoColorMode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/comment-discussion' {
-  declare export default class GoCommentDiscussion extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/comment' {
-  declare export default class GoComment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/credit-card' {
-  declare export default class GoCreditCard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/dash' {
-  declare export default class GoDash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/dashboard' {
-  declare export default class GoDashboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/database' {
-  declare export default class GoDatabase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/device-camera-video' {
-  declare export default class GoDeviceCameraVideo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/device-camera' {
-  declare export default class GoDeviceCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/device-desktop' {
-  declare export default class GoDeviceDesktop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/device-mobile' {
-  declare export default class GoDeviceMobile extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/diff-added' {
-  declare export default class GoDiffAdded extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/diff-ignored' {
-  declare export default class GoDiffIgnored extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/diff-modified' {
-  declare export default class GoDiffModified extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/diff-removed' {
-  declare export default class GoDiffRemoved extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/diff-renamed' {
-  declare export default class GoDiffRenamed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/diff' {
-  declare export default class GoDiff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/ellipsis' {
-  declare export default class GoEllipsis extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/eye' {
-  declare export default class GoEye extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-binary' {
-  declare export default class GoFileBinary extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-code' {
-  declare export default class GoFileCode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-directory' {
-  declare export default class GoFileDirectory extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-media' {
-  declare export default class GoFileMedia extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-pdf' {
-  declare export default class GoFilePdf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-submodule' {
-  declare export default class GoFileSubmodule extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-symlink-directory' {
-  declare export default class GoFileSymlinkDirectory extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-symlink-file' {
-  declare export default class GoFileSymlinkFile extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-text' {
-  declare export default class GoFileText extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/file-zip' {
-  declare export default class GoFileZip extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/flame' {
-  declare export default class GoFlame extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/fold' {
-  declare export default class GoFold extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/gear' {
-  declare export default class GoGear extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/gift' {
-  declare export default class GoGift extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/gist-secret' {
-  declare export default class GoGistSecret extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/gist' {
-  declare export default class GoGist extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/git-branch' {
-  declare export default class GoGitBranch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/git-commit' {
-  declare export default class GoGitCommit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/git-compare' {
-  declare export default class GoGitCompare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/git-merge' {
-  declare export default class GoGitMerge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/git-pull-request' {
-  declare export default class GoGitPullRequest extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/globe' {
-  declare export default class GoGlobe extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/graph' {
-  declare export default class GoGraph extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/heart' {
-  declare export default class GoHeart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/history' {
-  declare export default class GoHistory extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/home' {
-  declare export default class GoHome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/horizontal-rule' {
-  declare export default class GoHorizontalRule extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/hourglass' {
-  declare export default class GoHourglass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/hubot' {
-  declare export default class GoHubot extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/inbox' {
-  declare export default class GoInbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/index' {
-  declare export default class GoIndex extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/info' {
-  declare export default class GoInfo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/issue-closed' {
-  declare export default class GoIssueClosed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/issue-opened' {
-  declare export default class GoIssueOpened extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/issue-reopened' {
-  declare export default class GoIssueReopened extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/jersey' {
-  declare export default class GoJersey extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/jump-down' {
-  declare export default class GoJumpDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/jump-left' {
-  declare export default class GoJumpLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/jump-right' {
-  declare export default class GoJumpRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/jump-up' {
-  declare export default class GoJumpUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/key' {
-  declare export default class GoKey extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/keyboard' {
-  declare export default class GoKeyboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/law' {
-  declare export default class GoLaw extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/light-bulb' {
-  declare export default class GoLightBulb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/link-external' {
-  declare export default class GoLinkExternal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/link' {
-  declare export default class GoLink extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/list-ordered' {
-  declare export default class GoListOrdered extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/list-unordered' {
-  declare export default class GoListUnordered extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/location' {
-  declare export default class GoLocation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/lock' {
-  declare export default class GoLock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/logo-github' {
-  declare export default class GoLogoGithub extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/mail-read' {
-  declare export default class GoMailRead extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/mail-reply' {
-  declare export default class GoMailReply extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/mail' {
-  declare export default class GoMail extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/mark-github' {
-  declare export default class GoMarkGithub extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/markdown' {
-  declare export default class GoMarkdown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/megaphone' {
-  declare export default class GoMegaphone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/mention' {
-  declare export default class GoMention extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/microscope' {
-  declare export default class GoMicroscope extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/milestone' {
-  declare export default class GoMilestone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/mirror' {
-  declare export default class GoMirror extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/mortar-board' {
-  declare export default class GoMortarBoard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/move-down' {
-  declare export default class GoMoveDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/move-left' {
-  declare export default class GoMoveLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/move-right' {
-  declare export default class GoMoveRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/move-up' {
-  declare export default class GoMoveUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/mute' {
-  declare export default class GoMute extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/no-newline' {
-  declare export default class GoNoNewline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/octoface' {
-  declare export default class GoOctoface extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/organization' {
-  declare export default class GoOrganization extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/package' {
-  declare export default class GoPackage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/paintcan' {
-  declare export default class GoPaintcan extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/pencil' {
-  declare export default class GoPencil extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/person' {
-  declare export default class GoPerson extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/pin' {
-  declare export default class GoPin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/playback-fast-forward' {
-  declare export default class GoPlaybackFastForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/playback-pause' {
-  declare export default class GoPlaybackPause extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/playback-play' {
-  declare export default class GoPlaybackPlay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/playback-rewind' {
-  declare export default class GoPlaybackRewind extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/plug' {
-  declare export default class GoPlug extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/plus' {
-  declare export default class GoPlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/podium' {
-  declare export default class GoPodium extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/primitive-dot' {
-  declare export default class GoPrimitiveDot extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/primitive-square' {
-  declare export default class GoPrimitiveSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/pulse' {
-  declare export default class GoPulse extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/puzzle' {
-  declare export default class GoPuzzle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/question' {
-  declare export default class GoQuestion extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/quote' {
-  declare export default class GoQuote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/radio-tower' {
-  declare export default class GoRadioTower extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/repo-clone' {
-  declare export default class GoRepoClone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/repo-force-push' {
-  declare export default class GoRepoForcePush extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/repo-forked' {
-  declare export default class GoRepoForked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/repo-pull' {
-  declare export default class GoRepoPull extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/repo-push' {
-  declare export default class GoRepoPush extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/repo' {
-  declare export default class GoRepo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/rocket' {
-  declare export default class GoRocket extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/rss' {
-  declare export default class GoRss extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/ruby' {
-  declare export default class GoRuby extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/screen-full' {
-  declare export default class GoScreenFull extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/screen-normal' {
-  declare export default class GoScreenNormal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/search' {
-  declare export default class GoSearch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/server' {
-  declare export default class GoServer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/settings' {
-  declare export default class GoSettings extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/sign-in' {
-  declare export default class GoSignIn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/sign-out' {
-  declare export default class GoSignOut extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/split' {
-  declare export default class GoSplit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/squirrel' {
-  declare export default class GoSquirrel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/star' {
-  declare export default class GoStar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/steps' {
-  declare export default class GoSteps extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/stop' {
-  declare export default class GoStop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/sync' {
-  declare export default class GoSync extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/tag' {
-  declare export default class GoTag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/telescope' {
-  declare export default class GoTelescope extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/terminal' {
-  declare export default class GoTerminal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/three-bars' {
-  declare export default class GoThreeBars extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/tools' {
-  declare export default class GoTools extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/trashcan' {
-  declare export default class GoTrashcan extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/triangle-down' {
-  declare export default class GoTriangleDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/triangle-left' {
-  declare export default class GoTriangleLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/triangle-right' {
-  declare export default class GoTriangleRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/triangle-up' {
-  declare export default class GoTriangleUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/unfold' {
-  declare export default class GoUnfold extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/unmute' {
-  declare export default class GoUnmute extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/versions' {
-  declare export default class GoVersions extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/x' {
-  declare export default class GoX extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/go/zap' {
-  declare export default class GoZap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/IconBase' {
-  declare export default class Fa500px extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/alert-circled' {
-  declare export default class IoAlertCircled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/alert' {
-  declare export default class IoAlert extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-add-circle' {
-  declare export default class IoAndroidAddCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-add' {
-  declare export default class IoAndroidAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-alarm-clock' {
-  declare export default class IoAndroidAlarmClock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-alert' {
-  declare export default class IoAndroidAlert extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-apps' {
-  declare export default class IoAndroidApps extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-archive' {
-  declare export default class IoAndroidArchive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-back' {
-  declare export default class IoAndroidArrowBack extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-down' {
-  declare export default class IoAndroidArrowDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-dropdown-circle' {
-  declare export default class IoAndroidArrowDropdownCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-dropdown' {
-  declare export default class IoAndroidArrowDropdown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-dropleft-circle' {
-  declare export default class IoAndroidArrowDropleftCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-dropleft' {
-  declare export default class IoAndroidArrowDropleft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-dropright-circle' {
-  declare export default class IoAndroidArrowDroprightCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-dropright' {
-  declare export default class IoAndroidArrowDropright extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-dropup-circle' {
-  declare export default class IoAndroidArrowDropupCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-dropup' {
-  declare export default class IoAndroidArrowDropup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-forward' {
-  declare export default class IoAndroidArrowForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-arrow-up' {
-  declare export default class IoAndroidArrowUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-attach' {
-  declare export default class IoAndroidAttach extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-bar' {
-  declare export default class IoAndroidBar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-bicycle' {
-  declare export default class IoAndroidBicycle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-boat' {
-  declare export default class IoAndroidBoat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-bookmark' {
-  declare export default class IoAndroidBookmark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-bulb' {
-  declare export default class IoAndroidBulb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-bus' {
-  declare export default class IoAndroidBus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-calendar' {
-  declare export default class IoAndroidCalendar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-call' {
-  declare export default class IoAndroidCall extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-camera' {
-  declare export default class IoAndroidCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-cancel' {
-  declare export default class IoAndroidCancel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-car' {
-  declare export default class IoAndroidCar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-cart' {
-  declare export default class IoAndroidCart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-chat' {
-  declare export default class IoAndroidChat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-checkbox-blank' {
-  declare export default class IoAndroidCheckboxBlank extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-checkbox-outline-blank' {
-  declare export default class IoAndroidCheckboxOutlineBlank extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-checkbox-outline' {
-  declare export default class IoAndroidCheckboxOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-checkbox' {
-  declare export default class IoAndroidCheckbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-checkmark-circle' {
-  declare export default class IoAndroidCheckmarkCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-clipboard' {
-  declare export default class IoAndroidClipboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-close' {
-  declare export default class IoAndroidClose extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-cloud-circle' {
-  declare export default class IoAndroidCloudCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-cloud-done' {
-  declare export default class IoAndroidCloudDone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-cloud-outline' {
-  declare export default class IoAndroidCloudOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-cloud' {
-  declare export default class IoAndroidCloud extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-color-palette' {
-  declare export default class IoAndroidColorPalette extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-compass' {
-  declare export default class IoAndroidCompass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-contact' {
-  declare export default class IoAndroidContact extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-contacts' {
-  declare export default class IoAndroidContacts extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-contract' {
-  declare export default class IoAndroidContract extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-create' {
-  declare export default class IoAndroidCreate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-delete' {
-  declare export default class IoAndroidDelete extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-desktop' {
-  declare export default class IoAndroidDesktop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-document' {
-  declare export default class IoAndroidDocument extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-done-all' {
-  declare export default class IoAndroidDoneAll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-done' {
-  declare export default class IoAndroidDone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-download' {
-  declare export default class IoAndroidDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-drafts' {
-  declare export default class IoAndroidDrafts extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-exit' {
-  declare export default class IoAndroidExit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-expand' {
-  declare export default class IoAndroidExpand extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-favorite-outline' {
-  declare export default class IoAndroidFavoriteOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-favorite' {
-  declare export default class IoAndroidFavorite extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-film' {
-  declare export default class IoAndroidFilm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-folder-open' {
-  declare export default class IoAndroidFolderOpen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-folder' {
-  declare export default class IoAndroidFolder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-funnel' {
-  declare export default class IoAndroidFunnel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-globe' {
-  declare export default class IoAndroidGlobe extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-hand' {
-  declare export default class IoAndroidHand extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-hangout' {
-  declare export default class IoAndroidHangout extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-happy' {
-  declare export default class IoAndroidHappy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-home' {
-  declare export default class IoAndroidHome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-image' {
-  declare export default class IoAndroidImage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-laptop' {
-  declare export default class IoAndroidLaptop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-list' {
-  declare export default class IoAndroidList extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-locate' {
-  declare export default class IoAndroidLocate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-lock' {
-  declare export default class IoAndroidLock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-mail' {
-  declare export default class IoAndroidMail extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-map' {
-  declare export default class IoAndroidMap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-menu' {
-  declare export default class IoAndroidMenu extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-microphone-off' {
-  declare export default class IoAndroidMicrophoneOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-microphone' {
-  declare export default class IoAndroidMicrophone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-more-horizontal' {
-  declare export default class IoAndroidMoreHorizontal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-more-vertical' {
-  declare export default class IoAndroidMoreVertical extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-navigate' {
-  declare export default class IoAndroidNavigate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-notifications-none' {
-  declare export default class IoAndroidNotificationsNone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-notifications-off' {
-  declare export default class IoAndroidNotificationsOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-notifications' {
-  declare export default class IoAndroidNotifications extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-open' {
-  declare export default class IoAndroidOpen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-options' {
-  declare export default class IoAndroidOptions extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-people' {
-  declare export default class IoAndroidPeople extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-person-add' {
-  declare export default class IoAndroidPersonAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-person' {
-  declare export default class IoAndroidPerson extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-phone-landscape' {
-  declare export default class IoAndroidPhoneLandscape extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-phone-portrait' {
-  declare export default class IoAndroidPhonePortrait extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-pin' {
-  declare export default class IoAndroidPin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-plane' {
-  declare export default class IoAndroidPlane extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-playstore' {
-  declare export default class IoAndroidPlaystore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-print' {
-  declare export default class IoAndroidPrint extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-radio-button-off' {
-  declare export default class IoAndroidRadioButtonOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-radio-button-on' {
-  declare export default class IoAndroidRadioButtonOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-refresh' {
-  declare export default class IoAndroidRefresh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-remove-circle' {
-  declare export default class IoAndroidRemoveCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-remove' {
-  declare export default class IoAndroidRemove extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-restaurant' {
-  declare export default class IoAndroidRestaurant extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-sad' {
-  declare export default class IoAndroidSad extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-search' {
-  declare export default class IoAndroidSearch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-send' {
-  declare export default class IoAndroidSend extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-settings' {
-  declare export default class IoAndroidSettings extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-share-alt' {
-  declare export default class IoAndroidShareAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-share' {
-  declare export default class IoAndroidShare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-star-half' {
-  declare export default class IoAndroidStarHalf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-star-outline' {
-  declare export default class IoAndroidStarOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-star' {
-  declare export default class IoAndroidStar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-stopwatch' {
-  declare export default class IoAndroidStopwatch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-subway' {
-  declare export default class IoAndroidSubway extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-sunny' {
-  declare export default class IoAndroidSunny extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-sync' {
-  declare export default class IoAndroidSync extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-textsms' {
-  declare export default class IoAndroidTextsms extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-time' {
-  declare export default class IoAndroidTime extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-train' {
-  declare export default class IoAndroidTrain extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-unlock' {
-  declare export default class IoAndroidUnlock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-upload' {
-  declare export default class IoAndroidUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-volume-down' {
-  declare export default class IoAndroidVolumeDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-volume-mute' {
-  declare export default class IoAndroidVolumeMute extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-volume-off' {
-  declare export default class IoAndroidVolumeOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-volume-up' {
-  declare export default class IoAndroidVolumeUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-walk' {
-  declare export default class IoAndroidWalk extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-warning' {
-  declare export default class IoAndroidWarning extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-watch' {
-  declare export default class IoAndroidWatch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/android-wifi' {
-  declare export default class IoAndroidWifi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/aperture' {
-  declare export default class IoAperture extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/archive' {
-  declare export default class IoArchive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-down-a' {
-  declare export default class IoArrowDownA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-down-b' {
-  declare export default class IoArrowDownB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-down-c' {
-  declare export default class IoArrowDownC extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-expand' {
-  declare export default class IoArrowExpand extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-graph-down-left' {
-  declare export default class IoArrowGraphDownLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-graph-down-right' {
-  declare export default class IoArrowGraphDownRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-graph-up-left' {
-  declare export default class IoArrowGraphUpLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-graph-up-right' {
-  declare export default class IoArrowGraphUpRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-left-a' {
-  declare export default class IoArrowLeftA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-left-b' {
-  declare export default class IoArrowLeftB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-left-c' {
-  declare export default class IoArrowLeftC extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-move' {
-  declare export default class IoArrowMove extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-resize' {
-  declare export default class IoArrowResize extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-return-left' {
-  declare export default class IoArrowReturnLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-return-right' {
-  declare export default class IoArrowReturnRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-right-a' {
-  declare export default class IoArrowRightA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-right-b' {
-  declare export default class IoArrowRightB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-right-c' {
-  declare export default class IoArrowRightC extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-shrink' {
-  declare export default class IoArrowShrink extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-swap' {
-  declare export default class IoArrowSwap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-up-a' {
-  declare export default class IoArrowUpA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-up-b' {
-  declare export default class IoArrowUpB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/arrow-up-c' {
-  declare export default class IoArrowUpC extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/asterisk' {
-  declare export default class IoAsterisk extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/at' {
-  declare export default class IoAt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/backspace-outline' {
-  declare export default class IoBackspaceOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/backspace' {
-  declare export default class IoBackspace extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/bag' {
-  declare export default class IoBag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/battery-charging' {
-  declare export default class IoBatteryCharging extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/battery-empty' {
-  declare export default class IoBatteryEmpty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/battery-full' {
-  declare export default class IoBatteryFull extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/battery-half' {
-  declare export default class IoBatteryHalf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/battery-low' {
-  declare export default class IoBatteryLow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/beaker' {
-  declare export default class IoBeaker extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/beer' {
-  declare export default class IoBeer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/bluetooth' {
-  declare export default class IoBluetooth extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/bonfire' {
-  declare export default class IoBonfire extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/bookmark' {
-  declare export default class IoBookmark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/bowtie' {
-  declare export default class IoBowtie extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/briefcase' {
-  declare export default class IoBriefcase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/bug' {
-  declare export default class IoBug extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/calculator' {
-  declare export default class IoCalculator extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/calendar' {
-  declare export default class IoCalendar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/camera' {
-  declare export default class IoCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/card' {
-  declare export default class IoCard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/cash' {
-  declare export default class IoCash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chatbox-working' {
-  declare export default class IoChatboxWorking extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chatbox' {
-  declare export default class IoChatbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chatboxes' {
-  declare export default class IoChatboxes extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chatbubble-working' {
-  declare export default class IoChatbubbleWorking extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chatbubble' {
-  declare export default class IoChatbubble extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chatbubbles' {
-  declare export default class IoChatbubbles extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/checkmark-circled' {
-  declare export default class IoCheckmarkCircled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/checkmark-round' {
-  declare export default class IoCheckmarkRound extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/checkmark' {
-  declare export default class IoCheckmark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chevron-down' {
-  declare export default class IoChevronDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chevron-left' {
-  declare export default class IoChevronLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chevron-right' {
-  declare export default class IoChevronRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/chevron-up' {
-  declare export default class IoChevronUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/clipboard' {
-  declare export default class IoClipboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/clock' {
-  declare export default class IoClock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/close-circled' {
-  declare export default class IoCloseCircled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/close-round' {
-  declare export default class IoCloseRound extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/close' {
-  declare export default class IoClose extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/closed-captioning' {
-  declare export default class IoClosedCaptioning extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/cloud' {
-  declare export default class IoCloud extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/code-download' {
-  declare export default class IoCodeDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/code-working' {
-  declare export default class IoCodeWorking extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/code' {
-  declare export default class IoCode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/coffee' {
-  declare export default class IoCoffee extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/compass' {
-  declare export default class IoCompass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/compose' {
-  declare export default class IoCompose extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/connectbars' {
-  declare export default class IoConnectbars extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/contrast' {
-  declare export default class IoContrast extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/crop' {
-  declare export default class IoCrop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/cube' {
-  declare export default class IoCube extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/disc' {
-  declare export default class IoDisc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/document-text' {
-  declare export default class IoDocumentText extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/document' {
-  declare export default class IoDocument extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/drag' {
-  declare export default class IoDrag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/earth' {
-  declare export default class IoEarth extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/easel' {
-  declare export default class IoEasel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/edit' {
-  declare export default class IoEdit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/egg' {
-  declare export default class IoEgg extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/eject' {
-  declare export default class IoEject extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/email-unread' {
-  declare export default class IoEmailUnread extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/email' {
-  declare export default class IoEmail extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/erlenmeyer-flask-bubbles' {
-  declare export default class IoErlenmeyerFlaskBubbles extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/erlenmeyer-flask' {
-  declare export default class IoErlenmeyerFlask extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/eye-disabled' {
-  declare export default class IoEyeDisabled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/eye' {
-  declare export default class IoEye extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/female' {
-  declare export default class IoFemale extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/filing' {
-  declare export default class IoFiling extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/film-marker' {
-  declare export default class IoFilmMarker extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/fireball' {
-  declare export default class IoFireball extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/flag' {
-  declare export default class IoFlag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/flame' {
-  declare export default class IoFlame extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/flash-off' {
-  declare export default class IoFlashOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/flash' {
-  declare export default class IoFlash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/folder' {
-  declare export default class IoFolder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/fork-repo' {
-  declare export default class IoForkRepo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/fork' {
-  declare export default class IoFork extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/forward' {
-  declare export default class IoForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/funnel' {
-  declare export default class IoFunnel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/gear-a' {
-  declare export default class IoGearA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/gear-b' {
-  declare export default class IoGearB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/grid' {
-  declare export default class IoGrid extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/hammer' {
-  declare export default class IoHammer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/happy-outline' {
-  declare export default class IoHappyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/happy' {
-  declare export default class IoHappy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/headphone' {
-  declare export default class IoHeadphone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/heart-broken' {
-  declare export default class IoHeartBroken extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/heart' {
-  declare export default class IoHeart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/help-buoy' {
-  declare export default class IoHelpBuoy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/help-circled' {
-  declare export default class IoHelpCircled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/help' {
-  declare export default class IoHelp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/home' {
-  declare export default class IoHome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/icecream' {
-  declare export default class IoIcecream extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/image' {
-  declare export default class IoImage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/images' {
-  declare export default class IoImages extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/index' {
-  declare export default class IoIndex extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/informatcircled' {
-  declare export default class IoInformatcircled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/information' {
-  declare export default class IoInformation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ionic' {
-  declare export default class IoIonic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-alarm-outline' {
-  declare export default class IoIosAlarmOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-alarm' {
-  declare export default class IoIosAlarm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-albums-outline' {
-  declare export default class IoIosAlbumsOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-albums' {
-  declare export default class IoIosAlbums extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-americanfootball-outline' {
-  declare export default class IoIosAmericanfootballOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-americanfootball' {
-  declare export default class IoIosAmericanfootball extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-analytics-outline' {
-  declare export default class IoIosAnalyticsOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-analytics' {
-  declare export default class IoIosAnalytics extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-back' {
-  declare export default class IoIosArrowBack extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-down' {
-  declare export default class IoIosArrowDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-forward' {
-  declare export default class IoIosArrowForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-left' {
-  declare export default class IoIosArrowLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-right' {
-  declare export default class IoIosArrowRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-thin-down' {
-  declare export default class IoIosArrowThinDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-thin-left' {
-  declare export default class IoIosArrowThinLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-thin-right' {
-  declare export default class IoIosArrowThinRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-thin-up' {
-  declare export default class IoIosArrowThinUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-arrow-up' {
-  declare export default class IoIosArrowUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-at-outline' {
-  declare export default class IoIosAtOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-at' {
-  declare export default class IoIosAt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-barcode-outline' {
-  declare export default class IoIosBarcodeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-barcode' {
-  declare export default class IoIosBarcode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-baseball-outline' {
-  declare export default class IoIosBaseballOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-baseball' {
-  declare export default class IoIosBaseball extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-basketball-outline' {
-  declare export default class IoIosBasketballOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-basketball' {
-  declare export default class IoIosBasketball extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-bell-outline' {
-  declare export default class IoIosBellOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-bell' {
-  declare export default class IoIosBell extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-body-outline' {
-  declare export default class IoIosBodyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-body' {
-  declare export default class IoIosBody extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-bolt-outline' {
-  declare export default class IoIosBoltOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-bolt' {
-  declare export default class IoIosBolt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-book-outline' {
-  declare export default class IoIosBookOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-book' {
-  declare export default class IoIosBook extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-bookmarks-outline' {
-  declare export default class IoIosBookmarksOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-bookmarks' {
-  declare export default class IoIosBookmarks extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-box-outline' {
-  declare export default class IoIosBoxOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-box' {
-  declare export default class IoIosBox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-briefcase-outline' {
-  declare export default class IoIosBriefcaseOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-briefcase' {
-  declare export default class IoIosBriefcase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-browsers-outline' {
-  declare export default class IoIosBrowsersOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-browsers' {
-  declare export default class IoIosBrowsers extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-calculator-outline' {
-  declare export default class IoIosCalculatorOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-calculator' {
-  declare export default class IoIosCalculator extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-calendar-outline' {
-  declare export default class IoIosCalendarOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-calendar' {
-  declare export default class IoIosCalendar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-camera-outline' {
-  declare export default class IoIosCameraOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-camera' {
-  declare export default class IoIosCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cart-outline' {
-  declare export default class IoIosCartOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cart' {
-  declare export default class IoIosCart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-chatboxes-outline' {
-  declare export default class IoIosChatboxesOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-chatboxes' {
-  declare export default class IoIosChatboxes extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-chatbubble-outline' {
-  declare export default class IoIosChatbubbleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-chatbubble' {
-  declare export default class IoIosChatbubble extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-checkmark-empty' {
-  declare export default class IoIosCheckmarkEmpty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-checkmark-outline' {
-  declare export default class IoIosCheckmarkOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-checkmark' {
-  declare export default class IoIosCheckmark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-circle-filled' {
-  declare export default class IoIosCircleFilled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-circle-outline' {
-  declare export default class IoIosCircleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-clock-outline' {
-  declare export default class IoIosClockOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-clock' {
-  declare export default class IoIosClock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-close-empty' {
-  declare export default class IoIosCloseEmpty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-close-outline' {
-  declare export default class IoIosCloseOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-close' {
-  declare export default class IoIosClose extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloud-download-outline' {
-  declare export default class IoIosCloudDownloadOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloud-download' {
-  declare export default class IoIosCloudDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloud-outline' {
-  declare export default class IoIosCloudOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloud-upload-outline' {
-  declare export default class IoIosCloudUploadOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloud-upload' {
-  declare export default class IoIosCloudUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloud' {
-  declare export default class IoIosCloud extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloudy-night-outline' {
-  declare export default class IoIosCloudyNightOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloudy-night' {
-  declare export default class IoIosCloudyNight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloudy-outline' {
-  declare export default class IoIosCloudyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cloudy' {
-  declare export default class IoIosCloudy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cog-outline' {
-  declare export default class IoIosCogOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-cog' {
-  declare export default class IoIosCog extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-color-filter-outline' {
-  declare export default class IoIosColorFilterOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-color-filter' {
-  declare export default class IoIosColorFilter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-color-wand-outline' {
-  declare export default class IoIosColorWandOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-color-wand' {
-  declare export default class IoIosColorWand extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-compose-outline' {
-  declare export default class IoIosComposeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-compose' {
-  declare export default class IoIosCompose extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-contact-outline' {
-  declare export default class IoIosContactOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-contact' {
-  declare export default class IoIosContact extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-copy-outline' {
-  declare export default class IoIosCopyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-copy' {
-  declare export default class IoIosCopy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-crop-strong' {
-  declare export default class IoIosCropStrong extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-crop' {
-  declare export default class IoIosCrop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-download-outline' {
-  declare export default class IoIosDownloadOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-download' {
-  declare export default class IoIosDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-drag' {
-  declare export default class IoIosDrag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-email-outline' {
-  declare export default class IoIosEmailOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-email' {
-  declare export default class IoIosEmail extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-eye-outline' {
-  declare export default class IoIosEyeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-eye' {
-  declare export default class IoIosEye extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-fastforward-outline' {
-  declare export default class IoIosFastforwardOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-fastforward' {
-  declare export default class IoIosFastforward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-filing-outline' {
-  declare export default class IoIosFilingOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-filing' {
-  declare export default class IoIosFiling extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-film-outline' {
-  declare export default class IoIosFilmOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-film' {
-  declare export default class IoIosFilm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-flag-outline' {
-  declare export default class IoIosFlagOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-flag' {
-  declare export default class IoIosFlag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-flame-outline' {
-  declare export default class IoIosFlameOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-flame' {
-  declare export default class IoIosFlame extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-flask-outline' {
-  declare export default class IoIosFlaskOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-flask' {
-  declare export default class IoIosFlask extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-flower-outline' {
-  declare export default class IoIosFlowerOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-flower' {
-  declare export default class IoIosFlower extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-folder-outline' {
-  declare export default class IoIosFolderOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-folder' {
-  declare export default class IoIosFolder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-football-outline' {
-  declare export default class IoIosFootballOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-football' {
-  declare export default class IoIosFootball extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-game-controller-a-outline' {
-  declare export default class IoIosGameControllerAOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-game-controller-a' {
-  declare export default class IoIosGameControllerA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-game-controller-b-outline' {
-  declare export default class IoIosGameControllerBOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-game-controller-b' {
-  declare export default class IoIosGameControllerB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-gear-outline' {
-  declare export default class IoIosGearOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-gear' {
-  declare export default class IoIosGear extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-glasses-outline' {
-  declare export default class IoIosGlassesOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-glasses' {
-  declare export default class IoIosGlasses extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-grid-view-outline' {
-  declare export default class IoIosGridViewOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-grid-view' {
-  declare export default class IoIosGridView extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-heart-outline' {
-  declare export default class IoIosHeartOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-heart' {
-  declare export default class IoIosHeart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-help-empty' {
-  declare export default class IoIosHelpEmpty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-help-outline' {
-  declare export default class IoIosHelpOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-help' {
-  declare export default class IoIosHelp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-home-outline' {
-  declare export default class IoIosHomeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-home' {
-  declare export default class IoIosHome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-infinite-outline' {
-  declare export default class IoIosInfiniteOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-infinite' {
-  declare export default class IoIosInfinite extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-informatempty' {
-  declare export default class IoIosInformatempty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-information' {
-  declare export default class IoIosInformation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-informatoutline' {
-  declare export default class IoIosInformatoutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-ionic-outline' {
-  declare export default class IoIosIonicOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-keypad-outline' {
-  declare export default class IoIosKeypadOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-keypad' {
-  declare export default class IoIosKeypad extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-lightbulb-outline' {
-  declare export default class IoIosLightbulbOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-lightbulb' {
-  declare export default class IoIosLightbulb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-list-outline' {
-  declare export default class IoIosListOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-list' {
-  declare export default class IoIosList extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-location' {
-  declare export default class IoIosLocation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-locatoutline' {
-  declare export default class IoIosLocatoutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-locked-outline' {
-  declare export default class IoIosLockedOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-locked' {
-  declare export default class IoIosLocked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-loop-strong' {
-  declare export default class IoIosLoopStrong extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-loop' {
-  declare export default class IoIosLoop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-medical-outline' {
-  declare export default class IoIosMedicalOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-medical' {
-  declare export default class IoIosMedical extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-medkit-outline' {
-  declare export default class IoIosMedkitOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-medkit' {
-  declare export default class IoIosMedkit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-mic-off' {
-  declare export default class IoIosMicOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-mic-outline' {
-  declare export default class IoIosMicOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-mic' {
-  declare export default class IoIosMic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-minus-empty' {
-  declare export default class IoIosMinusEmpty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-minus-outline' {
-  declare export default class IoIosMinusOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-minus' {
-  declare export default class IoIosMinus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-monitor-outline' {
-  declare export default class IoIosMonitorOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-monitor' {
-  declare export default class IoIosMonitor extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-moon-outline' {
-  declare export default class IoIosMoonOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-moon' {
-  declare export default class IoIosMoon extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-more-outline' {
-  declare export default class IoIosMoreOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-more' {
-  declare export default class IoIosMore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-musical-note' {
-  declare export default class IoIosMusicalNote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-musical-notes' {
-  declare export default class IoIosMusicalNotes extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-navigate-outline' {
-  declare export default class IoIosNavigateOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-navigate' {
-  declare export default class IoIosNavigate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-nutrition' {
-  declare export default class IoIosNutrition extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-nutritoutline' {
-  declare export default class IoIosNutritoutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-paper-outline' {
-  declare export default class IoIosPaperOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-paper' {
-  declare export default class IoIosPaper extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-paperplane-outline' {
-  declare export default class IoIosPaperplaneOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-paperplane' {
-  declare export default class IoIosPaperplane extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-partlysunny-outline' {
-  declare export default class IoIosPartlysunnyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-partlysunny' {
-  declare export default class IoIosPartlysunny extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pause-outline' {
-  declare export default class IoIosPauseOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pause' {
-  declare export default class IoIosPause extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-paw-outline' {
-  declare export default class IoIosPawOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-paw' {
-  declare export default class IoIosPaw extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-people-outline' {
-  declare export default class IoIosPeopleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-people' {
-  declare export default class IoIosPeople extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-person-outline' {
-  declare export default class IoIosPersonOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-person' {
-  declare export default class IoIosPerson extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-personadd-outline' {
-  declare export default class IoIosPersonaddOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-personadd' {
-  declare export default class IoIosPersonadd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-photos-outline' {
-  declare export default class IoIosPhotosOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-photos' {
-  declare export default class IoIosPhotos extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pie-outline' {
-  declare export default class IoIosPieOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pie' {
-  declare export default class IoIosPie extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pint-outline' {
-  declare export default class IoIosPintOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pint' {
-  declare export default class IoIosPint extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-play-outline' {
-  declare export default class IoIosPlayOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-play' {
-  declare export default class IoIosPlay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-plus-empty' {
-  declare export default class IoIosPlusEmpty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-plus-outline' {
-  declare export default class IoIosPlusOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-plus' {
-  declare export default class IoIosPlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pricetag-outline' {
-  declare export default class IoIosPricetagOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pricetag' {
-  declare export default class IoIosPricetag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pricetags-outline' {
-  declare export default class IoIosPricetagsOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pricetags' {
-  declare export default class IoIosPricetags extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-printer-outline' {
-  declare export default class IoIosPrinterOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-printer' {
-  declare export default class IoIosPrinter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pulse-strong' {
-  declare export default class IoIosPulseStrong extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-pulse' {
-  declare export default class IoIosPulse extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-rainy-outline' {
-  declare export default class IoIosRainyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-rainy' {
-  declare export default class IoIosRainy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-recording-outline' {
-  declare export default class IoIosRecordingOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-recording' {
-  declare export default class IoIosRecording extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-redo-outline' {
-  declare export default class IoIosRedoOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-redo' {
-  declare export default class IoIosRedo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-refresh-empty' {
-  declare export default class IoIosRefreshEmpty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-refresh-outline' {
-  declare export default class IoIosRefreshOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-refresh' {
-  declare export default class IoIosRefresh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-reload' {
-  declare export default class IoIosReload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-reverse-camera-outline' {
-  declare export default class IoIosReverseCameraOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-reverse-camera' {
-  declare export default class IoIosReverseCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-rewind-outline' {
-  declare export default class IoIosRewindOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-rewind' {
-  declare export default class IoIosRewind extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-rose-outline' {
-  declare export default class IoIosRoseOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-rose' {
-  declare export default class IoIosRose extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-search-strong' {
-  declare export default class IoIosSearchStrong extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-search' {
-  declare export default class IoIosSearch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-settings-strong' {
-  declare export default class IoIosSettingsStrong extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-settings' {
-  declare export default class IoIosSettings extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-shuffle-strong' {
-  declare export default class IoIosShuffleStrong extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-shuffle' {
-  declare export default class IoIosShuffle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-skipbackward-outline' {
-  declare export default class IoIosSkipbackwardOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-skipbackward' {
-  declare export default class IoIosSkipbackward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-skipforward-outline' {
-  declare export default class IoIosSkipforwardOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-skipforward' {
-  declare export default class IoIosSkipforward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-snowy' {
-  declare export default class IoIosSnowy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-speedometer-outline' {
-  declare export default class IoIosSpeedometerOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-speedometer' {
-  declare export default class IoIosSpeedometer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-star-half' {
-  declare export default class IoIosStarHalf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-star-outline' {
-  declare export default class IoIosStarOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-star' {
-  declare export default class IoIosStar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-stopwatch-outline' {
-  declare export default class IoIosStopwatchOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-stopwatch' {
-  declare export default class IoIosStopwatch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-sunny-outline' {
-  declare export default class IoIosSunnyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-sunny' {
-  declare export default class IoIosSunny extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-telephone-outline' {
-  declare export default class IoIosTelephoneOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-telephone' {
-  declare export default class IoIosTelephone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-tennisball-outline' {
-  declare export default class IoIosTennisballOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-tennisball' {
-  declare export default class IoIosTennisball extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-thunderstorm-outline' {
-  declare export default class IoIosThunderstormOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-thunderstorm' {
-  declare export default class IoIosThunderstorm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-time-outline' {
-  declare export default class IoIosTimeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-time' {
-  declare export default class IoIosTime extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-timer-outline' {
-  declare export default class IoIosTimerOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-timer' {
-  declare export default class IoIosTimer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-toggle-outline' {
-  declare export default class IoIosToggleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-toggle' {
-  declare export default class IoIosToggle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-trash-outline' {
-  declare export default class IoIosTrashOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-trash' {
-  declare export default class IoIosTrash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-undo-outline' {
-  declare export default class IoIosUndoOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-undo' {
-  declare export default class IoIosUndo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-unlocked-outline' {
-  declare export default class IoIosUnlockedOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-unlocked' {
-  declare export default class IoIosUnlocked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-upload-outline' {
-  declare export default class IoIosUploadOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-upload' {
-  declare export default class IoIosUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-videocam-outline' {
-  declare export default class IoIosVideocamOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-videocam' {
-  declare export default class IoIosVideocam extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-volume-high' {
-  declare export default class IoIosVolumeHigh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-volume-low' {
-  declare export default class IoIosVolumeLow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-wineglass-outline' {
-  declare export default class IoIosWineglassOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-wineglass' {
-  declare export default class IoIosWineglass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-world-outline' {
-  declare export default class IoIosWorldOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ios-world' {
-  declare export default class IoIosWorld extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ipad' {
-  declare export default class IoIpad extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/iphone' {
-  declare export default class IoIphone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ipod' {
-  declare export default class IoIpod extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/jet' {
-  declare export default class IoJet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/key' {
-  declare export default class IoKey extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/knife' {
-  declare export default class IoKnife extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/laptop' {
-  declare export default class IoLaptop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/leaf' {
-  declare export default class IoLeaf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/levels' {
-  declare export default class IoLevels extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/lightbulb' {
-  declare export default class IoLightbulb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/link' {
-  declare export default class IoLink extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/load-a' {
-  declare export default class IoLoadA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/load-b' {
-  declare export default class IoLoadB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/load-c' {
-  declare export default class IoLoadC extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/load-d' {
-  declare export default class IoLoadD extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/location' {
-  declare export default class IoLocation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/lock-combination' {
-  declare export default class IoLockCombination extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/locked' {
-  declare export default class IoLocked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/log-in' {
-  declare export default class IoLogIn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/log-out' {
-  declare export default class IoLogOut extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/loop' {
-  declare export default class IoLoop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/magnet' {
-  declare export default class IoMagnet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/male' {
-  declare export default class IoMale extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/man' {
-  declare export default class IoMan extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/map' {
-  declare export default class IoMap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/medkit' {
-  declare export default class IoMedkit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/merge' {
-  declare export default class IoMerge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/mic-a' {
-  declare export default class IoMicA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/mic-b' {
-  declare export default class IoMicB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/mic-c' {
-  declare export default class IoMicC extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/minus-circled' {
-  declare export default class IoMinusCircled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/minus-round' {
-  declare export default class IoMinusRound extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/minus' {
-  declare export default class IoMinus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/model-s' {
-  declare export default class IoModelS extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/monitor' {
-  declare export default class IoMonitor extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/more' {
-  declare export default class IoMore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/mouse' {
-  declare export default class IoMouse extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/music-note' {
-  declare export default class IoMusicNote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/navicon-round' {
-  declare export default class IoNaviconRound extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/navicon' {
-  declare export default class IoNavicon extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/navigate' {
-  declare export default class IoNavigate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/network' {
-  declare export default class IoNetwork extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/no-smoking' {
-  declare export default class IoNoSmoking extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/nuclear' {
-  declare export default class IoNuclear extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/outlet' {
-  declare export default class IoOutlet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/paintbrush' {
-  declare export default class IoPaintbrush extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/paintbucket' {
-  declare export default class IoPaintbucket extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/paper-airplane' {
-  declare export default class IoPaperAirplane extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/paperclip' {
-  declare export default class IoPaperclip extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/pause' {
-  declare export default class IoPause extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/person-add' {
-  declare export default class IoPersonAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/person-stalker' {
-  declare export default class IoPersonStalker extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/person' {
-  declare export default class IoPerson extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/pie-graph' {
-  declare export default class IoPieGraph extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/pin' {
-  declare export default class IoPin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/pinpoint' {
-  declare export default class IoPinpoint extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/pizza' {
-  declare export default class IoPizza extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/plane' {
-  declare export default class IoPlane extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/planet' {
-  declare export default class IoPlanet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/play' {
-  declare export default class IoPlay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/playstation' {
-  declare export default class IoPlaystation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/plus-circled' {
-  declare export default class IoPlusCircled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/plus-round' {
-  declare export default class IoPlusRound extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/plus' {
-  declare export default class IoPlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/podium' {
-  declare export default class IoPodium extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/pound' {
-  declare export default class IoPound extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/power' {
-  declare export default class IoPower extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/pricetag' {
-  declare export default class IoPricetag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/pricetags' {
-  declare export default class IoPricetags extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/printer' {
-  declare export default class IoPrinter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/pull-request' {
-  declare export default class IoPullRequest extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/qr-scanner' {
-  declare export default class IoQrScanner extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/quote' {
-  declare export default class IoQuote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/radio-waves' {
-  declare export default class IoRadioWaves extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/record' {
-  declare export default class IoRecord extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/refresh' {
-  declare export default class IoRefresh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/reply-all' {
-  declare export default class IoReplyAll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/reply' {
-  declare export default class IoReply extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ribbon-a' {
-  declare export default class IoRibbonA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/ribbon-b' {
-  declare export default class IoRibbonB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/sad-outline' {
-  declare export default class IoSadOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/sad' {
-  declare export default class IoSad extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/scissors' {
-  declare export default class IoScissors extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/search' {
-  declare export default class IoSearch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/settings' {
-  declare export default class IoSettings extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/share' {
-  declare export default class IoShare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/shuffle' {
-  declare export default class IoShuffle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/skip-backward' {
-  declare export default class IoSkipBackward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/skip-forward' {
-  declare export default class IoSkipForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-android-outline' {
-  declare export default class IoSocialAndroidOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-android' {
-  declare export default class IoSocialAndroid extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-angular-outline' {
-  declare export default class IoSocialAngularOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-angular' {
-  declare export default class IoSocialAngular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-apple-outline' {
-  declare export default class IoSocialAppleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-apple' {
-  declare export default class IoSocialApple extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-bitcoin-outline' {
-  declare export default class IoSocialBitcoinOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-bitcoin' {
-  declare export default class IoSocialBitcoin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-buffer-outline' {
-  declare export default class IoSocialBufferOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-buffer' {
-  declare export default class IoSocialBuffer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-chrome-outline' {
-  declare export default class IoSocialChromeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-chrome' {
-  declare export default class IoSocialChrome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-codepen-outline' {
-  declare export default class IoSocialCodepenOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-codepen' {
-  declare export default class IoSocialCodepen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-css3-outline' {
-  declare export default class IoSocialCss3Outline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-css3' {
-  declare export default class IoSocialCss3 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-designernews-outline' {
-  declare export default class IoSocialDesignernewsOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-designernews' {
-  declare export default class IoSocialDesignernews extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-dribbble-outline' {
-  declare export default class IoSocialDribbbleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-dribbble' {
-  declare export default class IoSocialDribbble extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-dropbox-outline' {
-  declare export default class IoSocialDropboxOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-dropbox' {
-  declare export default class IoSocialDropbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-euro-outline' {
-  declare export default class IoSocialEuroOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-euro' {
-  declare export default class IoSocialEuro extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-facebook-outline' {
-  declare export default class IoSocialFacebookOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-facebook' {
-  declare export default class IoSocialFacebook extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-foursquare-outline' {
-  declare export default class IoSocialFoursquareOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-foursquare' {
-  declare export default class IoSocialFoursquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-freebsd-devil' {
-  declare export default class IoSocialFreebsdDevil extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-github-outline' {
-  declare export default class IoSocialGithubOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-github' {
-  declare export default class IoSocialGithub extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-google-outline' {
-  declare export default class IoSocialGoogleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-google' {
-  declare export default class IoSocialGoogle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-googleplus-outline' {
-  declare export default class IoSocialGoogleplusOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-googleplus' {
-  declare export default class IoSocialGoogleplus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-hackernews-outline' {
-  declare export default class IoSocialHackernewsOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-hackernews' {
-  declare export default class IoSocialHackernews extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-html5-outline' {
-  declare export default class IoSocialHtml5Outline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-html5' {
-  declare export default class IoSocialHtml5 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-instagram-outline' {
-  declare export default class IoSocialInstagramOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-instagram' {
-  declare export default class IoSocialInstagram extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-javascript-outline' {
-  declare export default class IoSocialJavascriptOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-javascript' {
-  declare export default class IoSocialJavascript extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-linkedin-outline' {
-  declare export default class IoSocialLinkedinOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-linkedin' {
-  declare export default class IoSocialLinkedin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-markdown' {
-  declare export default class IoSocialMarkdown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-nodejs' {
-  declare export default class IoSocialNodejs extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-octocat' {
-  declare export default class IoSocialOctocat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-pinterest-outline' {
-  declare export default class IoSocialPinterestOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-pinterest' {
-  declare export default class IoSocialPinterest extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-python' {
-  declare export default class IoSocialPython extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-reddit-outline' {
-  declare export default class IoSocialRedditOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-reddit' {
-  declare export default class IoSocialReddit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-rss-outline' {
-  declare export default class IoSocialRssOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-rss' {
-  declare export default class IoSocialRss extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-sass' {
-  declare export default class IoSocialSass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-skype-outline' {
-  declare export default class IoSocialSkypeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-skype' {
-  declare export default class IoSocialSkype extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-snapchat-outline' {
-  declare export default class IoSocialSnapchatOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-snapchat' {
-  declare export default class IoSocialSnapchat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-tumblr-outline' {
-  declare export default class IoSocialTumblrOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-tumblr' {
-  declare export default class IoSocialTumblr extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-tux' {
-  declare export default class IoSocialTux extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-twitch-outline' {
-  declare export default class IoSocialTwitchOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-twitch' {
-  declare export default class IoSocialTwitch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-twitter-outline' {
-  declare export default class IoSocialTwitterOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-twitter' {
-  declare export default class IoSocialTwitter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-usd-outline' {
-  declare export default class IoSocialUsdOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-usd' {
-  declare export default class IoSocialUsd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-vimeo-outline' {
-  declare export default class IoSocialVimeoOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-vimeo' {
-  declare export default class IoSocialVimeo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-whatsapp-outline' {
-  declare export default class IoSocialWhatsappOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-whatsapp' {
-  declare export default class IoSocialWhatsapp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-windows-outline' {
-  declare export default class IoSocialWindowsOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-windows' {
-  declare export default class IoSocialWindows extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-wordpress-outline' {
-  declare export default class IoSocialWordpressOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-wordpress' {
-  declare export default class IoSocialWordpress extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-yahoo-outline' {
-  declare export default class IoSocialYahooOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-yahoo' {
-  declare export default class IoSocialYahoo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-yen-outline' {
-  declare export default class IoSocialYenOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-yen' {
-  declare export default class IoSocialYen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-youtube-outline' {
-  declare export default class IoSocialYoutubeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/social-youtube' {
-  declare export default class IoSocialYoutube extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/soup-can-outline' {
-  declare export default class IoSoupCanOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/soup-can' {
-  declare export default class IoSoupCan extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/speakerphone' {
-  declare export default class IoSpeakerphone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/speedometer' {
-  declare export default class IoSpeedometer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/spoon' {
-  declare export default class IoSpoon extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/star' {
-  declare export default class IoStar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/stats-bars' {
-  declare export default class IoStatsBars extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/steam' {
-  declare export default class IoSteam extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/stop' {
-  declare export default class IoStop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/thermometer' {
-  declare export default class IoThermometer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/thumbsdown' {
-  declare export default class IoThumbsdown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/thumbsup' {
-  declare export default class IoThumbsup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/toggle-filled' {
-  declare export default class IoToggleFilled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/toggle' {
-  declare export default class IoToggle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/transgender' {
-  declare export default class IoTransgender extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/trash-a' {
-  declare export default class IoTrashA extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/trash-b' {
-  declare export default class IoTrashB extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/trophy' {
-  declare export default class IoTrophy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/tshirt-outline' {
-  declare export default class IoTshirtOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/tshirt' {
-  declare export default class IoTshirt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/umbrella' {
-  declare export default class IoUmbrella extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/university' {
-  declare export default class IoUniversity extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/unlocked' {
-  declare export default class IoUnlocked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/upload' {
-  declare export default class IoUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/usb' {
-  declare export default class IoUsb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/videocamera' {
-  declare export default class IoVideocamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/volume-high' {
-  declare export default class IoVolumeHigh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/volume-low' {
-  declare export default class IoVolumeLow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/volume-medium' {
-  declare export default class IoVolumeMedium extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/volume-mute' {
-  declare export default class IoVolumeMute extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/wand' {
-  declare export default class IoWand extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/waterdrop' {
-  declare export default class IoWaterdrop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/wifi' {
-  declare export default class IoWifi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/wineglass' {
-  declare export default class IoWineglass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/woman' {
-  declare export default class IoWoman extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/wrench' {
-  declare export default class IoWrench extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/io/xbox' {
-  declare export default class IoXbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/3d-rotation' {
-  declare export default class Md3dRotation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/ac-unit' {
-  declare export default class MdAcUnit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/access-alarm' {
-  declare export default class MdAccessAlarm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/access-alarms' {
-  declare export default class MdAccessAlarms extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/access-time' {
-  declare export default class MdAccessTime extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/accessibility' {
-  declare export default class MdAccessibility extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/accessible' {
-  declare export default class MdAccessible extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/account-balance-wallet' {
-  declare export default class MdAccountBalanceWallet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/account-balance' {
-  declare export default class MdAccountBalance extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/account-box' {
-  declare export default class MdAccountBox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/account-circle' {
-  declare export default class MdAccountCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/adb' {
-  declare export default class MdAdb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-a-photo' {
-  declare export default class MdAddAPhoto extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-alarm' {
-  declare export default class MdAddAlarm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-alert' {
-  declare export default class MdAddAlert extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-box' {
-  declare export default class MdAddBox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-circle-outline' {
-  declare export default class MdAddCircleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-circle' {
-  declare export default class MdAddCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-location' {
-  declare export default class MdAddLocation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-shopping-cart' {
-  declare export default class MdAddShoppingCart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-to-photos' {
-  declare export default class MdAddToPhotos extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add-to-queue' {
-  declare export default class MdAddToQueue extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/add' {
-  declare export default class MdAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/adjust' {
-  declare export default class MdAdjust extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airline-seat-flat-angled' {
-  declare export default class MdAirlineSeatFlatAngled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airline-seat-flat' {
-  declare export default class MdAirlineSeatFlat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airline-seat-individual-suite' {
-  declare export default class MdAirlineSeatIndividualSuite extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airline-seat-legroom-extra' {
-  declare export default class MdAirlineSeatLegroomExtra extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airline-seat-legroom-normal' {
-  declare export default class MdAirlineSeatLegroomNormal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airline-seat-legroom-reduced' {
-  declare export default class MdAirlineSeatLegroomReduced extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airline-seat-recline-extra' {
-  declare export default class MdAirlineSeatReclineExtra extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airline-seat-recline-normal' {
-  declare export default class MdAirlineSeatReclineNormal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airplanemode-active' {
-  declare export default class MdAirplanemodeActive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airplanemode-inactive' {
-  declare export default class MdAirplanemodeInactive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airplay' {
-  declare export default class MdAirplay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/airport-shuttle' {
-  declare export default class MdAirportShuttle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/alarm-add' {
-  declare export default class MdAlarmAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/alarm-off' {
-  declare export default class MdAlarmOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/alarm-on' {
-  declare export default class MdAlarmOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/alarm' {
-  declare export default class MdAlarm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/album' {
-  declare export default class MdAlbum extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/all-inclusive' {
-  declare export default class MdAllInclusive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/all-out' {
-  declare export default class MdAllOut extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/android' {
-  declare export default class MdAndroid extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/announcement' {
-  declare export default class MdAnnouncement extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/apps' {
-  declare export default class MdApps extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/archive' {
-  declare export default class MdArchive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/arrow-back' {
-  declare export default class MdArrowBack extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/arrow-downward' {
-  declare export default class MdArrowDownward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/arrow-drop-down-circle' {
-  declare export default class MdArrowDropDownCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/arrow-drop-down' {
-  declare export default class MdArrowDropDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/arrow-drop-up' {
-  declare export default class MdArrowDropUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/arrow-forward' {
-  declare export default class MdArrowForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/arrow-upward' {
-  declare export default class MdArrowUpward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/art-track' {
-  declare export default class MdArtTrack extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/aspect-ratio' {
-  declare export default class MdAspectRatio extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/assessment' {
-  declare export default class MdAssessment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/assignment-ind' {
-  declare export default class MdAssignmentInd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/assignment-late' {
-  declare export default class MdAssignmentLate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/assignment-return' {
-  declare export default class MdAssignmentReturn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/assignment-returned' {
-  declare export default class MdAssignmentReturned extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/assignment-turned-in' {
-  declare export default class MdAssignmentTurnedIn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/assignment' {
-  declare export default class MdAssignment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/assistant-photo' {
-  declare export default class MdAssistantPhoto extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/assistant' {
-  declare export default class MdAssistant extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/attach-file' {
-  declare export default class MdAttachFile extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/attach-money' {
-  declare export default class MdAttachMoney extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/attachment' {
-  declare export default class MdAttachment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/audiotrack' {
-  declare export default class MdAudiotrack extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/autorenew' {
-  declare export default class MdAutorenew extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/av-timer' {
-  declare export default class MdAvTimer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/backspace' {
-  declare export default class MdBackspace extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/backup' {
-  declare export default class MdBackup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/battery-alert' {
-  declare export default class MdBatteryAlert extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/battery-charging-full' {
-  declare export default class MdBatteryChargingFull extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/battery-full' {
-  declare export default class MdBatteryFull extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/battery-std' {
-  declare export default class MdBatteryStd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/battery-unknown' {
-  declare export default class MdBatteryUnknown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/beach-access' {
-  declare export default class MdBeachAccess extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/beenhere' {
-  declare export default class MdBeenhere extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/block' {
-  declare export default class MdBlock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/bluetooth-audio' {
-  declare export default class MdBluetoothAudio extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/bluetooth-connected' {
-  declare export default class MdBluetoothConnected extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/bluetooth-disabled' {
-  declare export default class MdBluetoothDisabled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/bluetooth-searching' {
-  declare export default class MdBluetoothSearching extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/bluetooth' {
-  declare export default class MdBluetooth extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/blur-circular' {
-  declare export default class MdBlurCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/blur-linear' {
-  declare export default class MdBlurLinear extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/blur-off' {
-  declare export default class MdBlurOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/blur-on' {
-  declare export default class MdBlurOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/book' {
-  declare export default class MdBook extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/bookmark-outline' {
-  declare export default class MdBookmarkOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/bookmark' {
-  declare export default class MdBookmark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-all' {
-  declare export default class MdBorderAll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-bottom' {
-  declare export default class MdBorderBottom extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-clear' {
-  declare export default class MdBorderClear extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-color' {
-  declare export default class MdBorderColor extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-horizontal' {
-  declare export default class MdBorderHorizontal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-inner' {
-  declare export default class MdBorderInner extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-left' {
-  declare export default class MdBorderLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-outer' {
-  declare export default class MdBorderOuter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-right' {
-  declare export default class MdBorderRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-style' {
-  declare export default class MdBorderStyle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-top' {
-  declare export default class MdBorderTop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/border-vertical' {
-  declare export default class MdBorderVertical extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/branding-watermark' {
-  declare export default class MdBrandingWatermark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-1' {
-  declare export default class MdBrightness1 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-2' {
-  declare export default class MdBrightness2 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-3' {
-  declare export default class MdBrightness3 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-4' {
-  declare export default class MdBrightness4 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-5' {
-  declare export default class MdBrightness5 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-6' {
-  declare export default class MdBrightness6 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-7' {
-  declare export default class MdBrightness7 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-auto' {
-  declare export default class MdBrightnessAuto extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-high' {
-  declare export default class MdBrightnessHigh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-low' {
-  declare export default class MdBrightnessLow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brightness-medium' {
-  declare export default class MdBrightnessMedium extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/broken-image' {
-  declare export default class MdBrokenImage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/brush' {
-  declare export default class MdBrush extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/bubble-chart' {
-  declare export default class MdBubbleChart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/bug-report' {
-  declare export default class MdBugReport extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/build' {
-  declare export default class MdBuild extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/burst-mode' {
-  declare export default class MdBurstMode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/business-center' {
-  declare export default class MdBusinessCenter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/business' {
-  declare export default class MdBusiness extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cached' {
-  declare export default class MdCached extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cake' {
-  declare export default class MdCake extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/call-end' {
-  declare export default class MdCallEnd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/call-made' {
-  declare export default class MdCallMade extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/call-merge' {
-  declare export default class MdCallMerge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/call-missed-outgoing' {
-  declare export default class MdCallMissedOutgoing extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/call-missed' {
-  declare export default class MdCallMissed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/call-received' {
-  declare export default class MdCallReceived extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/call-split' {
-  declare export default class MdCallSplit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/call-to-action' {
-  declare export default class MdCallToAction extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/call' {
-  declare export default class MdCall extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/camera-alt' {
-  declare export default class MdCameraAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/camera-enhance' {
-  declare export default class MdCameraEnhance extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/camera-front' {
-  declare export default class MdCameraFront extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/camera-rear' {
-  declare export default class MdCameraRear extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/camera-roll' {
-  declare export default class MdCameraRoll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/camera' {
-  declare export default class MdCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cancel' {
-  declare export default class MdCancel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/card-giftcard' {
-  declare export default class MdCardGiftcard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/card-membership' {
-  declare export default class MdCardMembership extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/card-travel' {
-  declare export default class MdCardTravel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/casino' {
-  declare export default class MdCasino extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cast-connected' {
-  declare export default class MdCastConnected extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cast' {
-  declare export default class MdCast extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/center-focus-strong' {
-  declare export default class MdCenterFocusStrong extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/center-focus-weak' {
-  declare export default class MdCenterFocusWeak extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/change-history' {
-  declare export default class MdChangeHistory extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/chat-bubble-outline' {
-  declare export default class MdChatBubbleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/chat-bubble' {
-  declare export default class MdChatBubble extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/chat' {
-  declare export default class MdChat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/check-box-outline-blank' {
-  declare export default class MdCheckBoxOutlineBlank extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/check-box' {
-  declare export default class MdCheckBox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/check-circle' {
-  declare export default class MdCheckCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/check' {
-  declare export default class MdCheck extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/chevron-left' {
-  declare export default class MdChevronLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/chevron-right' {
-  declare export default class MdChevronRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/child-care' {
-  declare export default class MdChildCare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/child-friendly' {
-  declare export default class MdChildFriendly extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/chrome-reader-mode' {
-  declare export default class MdChromeReaderMode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/class' {
-  declare export default class MdClass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/clear-all' {
-  declare export default class MdClearAll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/clear' {
-  declare export default class MdClear extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/close' {
-  declare export default class MdClose extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/closed-caption' {
-  declare export default class MdClosedCaption extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cloud-circle' {
-  declare export default class MdCloudCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cloud-done' {
-  declare export default class MdCloudDone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cloud-download' {
-  declare export default class MdCloudDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cloud-off' {
-  declare export default class MdCloudOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cloud-queue' {
-  declare export default class MdCloudQueue extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cloud-upload' {
-  declare export default class MdCloudUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/cloud' {
-  declare export default class MdCloud extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/code' {
-  declare export default class MdCode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/collections-bookmark' {
-  declare export default class MdCollectionsBookmark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/collections' {
-  declare export default class MdCollections extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/color-lens' {
-  declare export default class MdColorLens extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/colorize' {
-  declare export default class MdColorize extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/comment' {
-  declare export default class MdComment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/compare-arrows' {
-  declare export default class MdCompareArrows extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/compare' {
-  declare export default class MdCompare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/computer' {
-  declare export default class MdComputer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/confirmation-number' {
-  declare export default class MdConfirmationNumber extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/contact-mail' {
-  declare export default class MdContactMail extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/contact-phone' {
-  declare export default class MdContactPhone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/contacts' {
-  declare export default class MdContacts extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/content-copy' {
-  declare export default class MdContentCopy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/content-cut' {
-  declare export default class MdContentCut extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/content-paste' {
-  declare export default class MdContentPaste extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/control-point-duplicate' {
-  declare export default class MdControlPointDuplicate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/control-point' {
-  declare export default class MdControlPoint extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/copyright' {
-  declare export default class MdCopyright extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/create-new-folder' {
-  declare export default class MdCreateNewFolder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/create' {
-  declare export default class MdCreate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/credit-card' {
-  declare export default class MdCreditCard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-16-9' {
-  declare export default class MdCrop169 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-3-2' {
-  declare export default class MdCrop32 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-5-4' {
-  declare export default class MdCrop54 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-7-5' {
-  declare export default class MdCrop75 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-din' {
-  declare export default class MdCropDin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-free' {
-  declare export default class MdCropFree extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-landscape' {
-  declare export default class MdCropLandscape extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-original' {
-  declare export default class MdCropOriginal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-portrait' {
-  declare export default class MdCropPortrait extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-rotate' {
-  declare export default class MdCropRotate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop-square' {
-  declare export default class MdCropSquare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/crop' {
-  declare export default class MdCrop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/dashboard' {
-  declare export default class MdDashboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/data-usage' {
-  declare export default class MdDataUsage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/date-range' {
-  declare export default class MdDateRange extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/dehaze' {
-  declare export default class MdDehaze extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/delete-forever' {
-  declare export default class MdDeleteForever extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/delete-sweep' {
-  declare export default class MdDeleteSweep extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/delete' {
-  declare export default class MdDelete extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/description' {
-  declare export default class MdDescription extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/desktop-mac' {
-  declare export default class MdDesktopMac extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/desktop-windows' {
-  declare export default class MdDesktopWindows extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/details' {
-  declare export default class MdDetails extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/developer-board' {
-  declare export default class MdDeveloperBoard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/developer-mode' {
-  declare export default class MdDeveloperMode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/device-hub' {
-  declare export default class MdDeviceHub extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/devices-other' {
-  declare export default class MdDevicesOther extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/devices' {
-  declare export default class MdDevices extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/dialer-sip' {
-  declare export default class MdDialerSip extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/dialpad' {
-  declare export default class MdDialpad extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-bike' {
-  declare export default class MdDirectionsBike extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-boat' {
-  declare export default class MdDirectionsBoat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-bus' {
-  declare export default class MdDirectionsBus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-car' {
-  declare export default class MdDirectionsCar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-ferry' {
-  declare export default class MdDirectionsFerry extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-railway' {
-  declare export default class MdDirectionsRailway extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-run' {
-  declare export default class MdDirectionsRun extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-subway' {
-  declare export default class MdDirectionsSubway extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-transit' {
-  declare export default class MdDirectionsTransit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions-walk' {
-  declare export default class MdDirectionsWalk extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/directions' {
-  declare export default class MdDirections extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/disc-full' {
-  declare export default class MdDiscFull extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/dns' {
-  declare export default class MdDns extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/do-not-disturb-alt' {
-  declare export default class MdDoNotDisturbAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/do-not-disturb-off' {
-  declare export default class MdDoNotDisturbOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/do-not-disturb' {
-  declare export default class MdDoNotDisturb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/dock' {
-  declare export default class MdDock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/domain' {
-  declare export default class MdDomain extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/done-all' {
-  declare export default class MdDoneAll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/done' {
-  declare export default class MdDone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/donut-large' {
-  declare export default class MdDonutLarge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/donut-small' {
-  declare export default class MdDonutSmall extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/drafts' {
-  declare export default class MdDrafts extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/drag-handle' {
-  declare export default class MdDragHandle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/drive-eta' {
-  declare export default class MdDriveEta extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/dvr' {
-  declare export default class MdDvr extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/edit-location' {
-  declare export default class MdEditLocation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/edit' {
-  declare export default class MdEdit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/eject' {
-  declare export default class MdEject extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/email' {
-  declare export default class MdEmail extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/enhanced-encryption' {
-  declare export default class MdEnhancedEncryption extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/equalizer' {
-  declare export default class MdEqualizer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/error-outline' {
-  declare export default class MdErrorOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/error' {
-  declare export default class MdError extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/euro-symbol' {
-  declare export default class MdEuroSymbol extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/ev-station' {
-  declare export default class MdEvStation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/event-available' {
-  declare export default class MdEventAvailable extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/event-busy' {
-  declare export default class MdEventBusy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/event-note' {
-  declare export default class MdEventNote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/event-seat' {
-  declare export default class MdEventSeat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/event' {
-  declare export default class MdEvent extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/exit-to-app' {
-  declare export default class MdExitToApp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/expand-less' {
-  declare export default class MdExpandLess extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/expand-more' {
-  declare export default class MdExpandMore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/explicit' {
-  declare export default class MdExplicit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/explore' {
-  declare export default class MdExplore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/exposure-minus-1' {
-  declare export default class MdExposureMinus1 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/exposure-minus-2' {
-  declare export default class MdExposureMinus2 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/exposure-neg-1' {
-  declare export default class MdExposureNeg1 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/exposure-neg-2' {
-  declare export default class MdExposureNeg2 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/exposure-plus-1' {
-  declare export default class MdExposurePlus1 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/exposure-plus-2' {
-  declare export default class MdExposurePlus2 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/exposure-zero' {
-  declare export default class MdExposureZero extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/exposure' {
-  declare export default class MdExposure extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/extension' {
-  declare export default class MdExtension extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/face' {
-  declare export default class MdFace extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fast-forward' {
-  declare export default class MdFastForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fast-rewind' {
-  declare export default class MdFastRewind extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/favorite-border' {
-  declare export default class MdFavoriteBorder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/favorite-outline' {
-  declare export default class MdFavoriteOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/favorite' {
-  declare export default class MdFavorite extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/featured-play-list' {
-  declare export default class MdFeaturedPlayList extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/featured-video' {
-  declare export default class MdFeaturedVideo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/feedback' {
-  declare export default class MdFeedback extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fiber-dvr' {
-  declare export default class MdFiberDvr extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fiber-manual-record' {
-  declare export default class MdFiberManualRecord extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fiber-new' {
-  declare export default class MdFiberNew extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fiber-pin' {
-  declare export default class MdFiberPin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fiber-smart-record' {
-  declare export default class MdFiberSmartRecord extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/file-download' {
-  declare export default class MdFileDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/file-upload' {
-  declare export default class MdFileUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-1' {
-  declare export default class MdFilter1 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-2' {
-  declare export default class MdFilter2 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-3' {
-  declare export default class MdFilter3 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-4' {
-  declare export default class MdFilter4 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-5' {
-  declare export default class MdFilter5 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-6' {
-  declare export default class MdFilter6 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-7' {
-  declare export default class MdFilter7 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-8' {
-  declare export default class MdFilter8 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-9-plus' {
-  declare export default class MdFilter9Plus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-9' {
-  declare export default class MdFilter9 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-b-and-w' {
-  declare export default class MdFilterBAndW extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-center-focus' {
-  declare export default class MdFilterCenterFocus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-drama' {
-  declare export default class MdFilterDrama extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-frames' {
-  declare export default class MdFilterFrames extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-hdr' {
-  declare export default class MdFilterHdr extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-list' {
-  declare export default class MdFilterList extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-none' {
-  declare export default class MdFilterNone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-tilt-shift' {
-  declare export default class MdFilterTiltShift extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter-vintage' {
-  declare export default class MdFilterVintage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/filter' {
-  declare export default class MdFilter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/find-in-page' {
-  declare export default class MdFindInPage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/find-replace' {
-  declare export default class MdFindReplace extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fingerprint' {
-  declare export default class MdFingerprint extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/first-page' {
-  declare export default class MdFirstPage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fitness-center' {
-  declare export default class MdFitnessCenter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flag' {
-  declare export default class MdFlag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flare' {
-  declare export default class MdFlare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flash-auto' {
-  declare export default class MdFlashAuto extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flash-off' {
-  declare export default class MdFlashOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flash-on' {
-  declare export default class MdFlashOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flight-land' {
-  declare export default class MdFlightLand extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flight-takeoff' {
-  declare export default class MdFlightTakeoff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flight' {
-  declare export default class MdFlight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flip-to-back' {
-  declare export default class MdFlipToBack extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flip-to-front' {
-  declare export default class MdFlipToFront extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/flip' {
-  declare export default class MdFlip extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/folder-open' {
-  declare export default class MdFolderOpen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/folder-shared' {
-  declare export default class MdFolderShared extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/folder-special' {
-  declare export default class MdFolderSpecial extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/folder' {
-  declare export default class MdFolder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/font-download' {
-  declare export default class MdFontDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-align-center' {
-  declare export default class MdFormatAlignCenter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-align-justify' {
-  declare export default class MdFormatAlignJustify extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-align-left' {
-  declare export default class MdFormatAlignLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-align-right' {
-  declare export default class MdFormatAlignRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-bold' {
-  declare export default class MdFormatBold extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-clear' {
-  declare export default class MdFormatClear extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-color-fill' {
-  declare export default class MdFormatColorFill extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-color-reset' {
-  declare export default class MdFormatColorReset extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-color-text' {
-  declare export default class MdFormatColorText extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-indent-decrease' {
-  declare export default class MdFormatIndentDecrease extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-indent-increase' {
-  declare export default class MdFormatIndentIncrease extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-italic' {
-  declare export default class MdFormatItalic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-line-spacing' {
-  declare export default class MdFormatLineSpacing extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-list-bulleted' {
-  declare export default class MdFormatListBulleted extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-list-numbered' {
-  declare export default class MdFormatListNumbered extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-paint' {
-  declare export default class MdFormatPaint extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-quote' {
-  declare export default class MdFormatQuote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-shapes' {
-  declare export default class MdFormatShapes extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-size' {
-  declare export default class MdFormatSize extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-strikethrough' {
-  declare export default class MdFormatStrikethrough extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-textdirection-l-to-r' {
-  declare export default class MdFormatTextdirectionLToR extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-textdirection-r-to-l' {
-  declare export default class MdFormatTextdirectionRToL extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/format-underlined' {
-  declare export default class MdFormatUnderlined extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/forum' {
-  declare export default class MdForum extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/forward-10' {
-  declare export default class MdForward10 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/forward-30' {
-  declare export default class MdForward30 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/forward-5' {
-  declare export default class MdForward5 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/forward' {
-  declare export default class MdForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/free-breakfast' {
-  declare export default class MdFreeBreakfast extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fullscreen-exit' {
-  declare export default class MdFullscreenExit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/fullscreen' {
-  declare export default class MdFullscreen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/functions' {
-  declare export default class MdFunctions extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/g-translate' {
-  declare export default class MdGTranslate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/gamepad' {
-  declare export default class MdGamepad extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/games' {
-  declare export default class MdGames extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/gavel' {
-  declare export default class MdGavel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/gesture' {
-  declare export default class MdGesture extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/get-app' {
-  declare export default class MdGetApp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/gif' {
-  declare export default class MdGif extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/goat' {
-  declare export default class MdGoat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/golf-course' {
-  declare export default class MdGolfCourse extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/gps-fixed' {
-  declare export default class MdGpsFixed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/gps-not-fixed' {
-  declare export default class MdGpsNotFixed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/gps-off' {
-  declare export default class MdGpsOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/grade' {
-  declare export default class MdGrade extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/gradient' {
-  declare export default class MdGradient extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/grain' {
-  declare export default class MdGrain extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/graphic-eq' {
-  declare export default class MdGraphicEq extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/grid-off' {
-  declare export default class MdGridOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/grid-on' {
-  declare export default class MdGridOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/group-add' {
-  declare export default class MdGroupAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/group-work' {
-  declare export default class MdGroupWork extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/group' {
-  declare export default class MdGroup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hd' {
-  declare export default class MdHd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hdr-off' {
-  declare export default class MdHdrOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hdr-on' {
-  declare export default class MdHdrOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hdr-strong' {
-  declare export default class MdHdrStrong extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hdr-weak' {
-  declare export default class MdHdrWeak extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/headset-mic' {
-  declare export default class MdHeadsetMic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/headset' {
-  declare export default class MdHeadset extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/healing' {
-  declare export default class MdHealing extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hearing' {
-  declare export default class MdHearing extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/help-outline' {
-  declare export default class MdHelpOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/help' {
-  declare export default class MdHelp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/high-quality' {
-  declare export default class MdHighQuality extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/highlight-off' {
-  declare export default class MdHighlightOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/highlight-remove' {
-  declare export default class MdHighlightRemove extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/highlight' {
-  declare export default class MdHighlight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/history' {
-  declare export default class MdHistory extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/home' {
-  declare export default class MdHome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hot-tub' {
-  declare export default class MdHotTub extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hotel' {
-  declare export default class MdHotel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hourglass-empty' {
-  declare export default class MdHourglassEmpty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/hourglass-full' {
-  declare export default class MdHourglassFull extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/http' {
-  declare export default class MdHttp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/https' {
-  declare export default class MdHttps extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/image-aspect-ratio' {
-  declare export default class MdImageAspectRatio extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/image' {
-  declare export default class MdImage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/import-contacts' {
-  declare export default class MdImportContacts extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/import-export' {
-  declare export default class MdImportExport extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/important-devices' {
-  declare export default class MdImportantDevices extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/inbox' {
-  declare export default class MdInbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/indeterminate-check-box' {
-  declare export default class MdIndeterminateCheckBox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/index' {
-  declare export default class MdIndex extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/info-outline' {
-  declare export default class MdInfoOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/info' {
-  declare export default class MdInfo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/input' {
-  declare export default class MdInput extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/insert-chart' {
-  declare export default class MdInsertChart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/insert-comment' {
-  declare export default class MdInsertComment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/insert-drive-file' {
-  declare export default class MdInsertDriveFile extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/insert-emoticon' {
-  declare export default class MdInsertEmoticon extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/insert-invitation' {
-  declare export default class MdInsertInvitation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/insert-link' {
-  declare export default class MdInsertLink extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/insert-photo' {
-  declare export default class MdInsertPhoto extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/invert-colors-off' {
-  declare export default class MdInvertColorsOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/invert-colors-on' {
-  declare export default class MdInvertColorsOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/invert-colors' {
-  declare export default class MdInvertColors extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/iso' {
-  declare export default class MdIso extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-arrow-down' {
-  declare export default class MdKeyboardArrowDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-arrow-left' {
-  declare export default class MdKeyboardArrowLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-arrow-right' {
-  declare export default class MdKeyboardArrowRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-arrow-up' {
-  declare export default class MdKeyboardArrowUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-backspace' {
-  declare export default class MdKeyboardBackspace extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-capslock' {
-  declare export default class MdKeyboardCapslock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-control' {
-  declare export default class MdKeyboardControl extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-hide' {
-  declare export default class MdKeyboardHide extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-return' {
-  declare export default class MdKeyboardReturn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-tab' {
-  declare export default class MdKeyboardTab extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard-voice' {
-  declare export default class MdKeyboardVoice extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/keyboard' {
-  declare export default class MdKeyboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/kitchen' {
-  declare export default class MdKitchen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/label-outline' {
-  declare export default class MdLabelOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/label' {
-  declare export default class MdLabel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/landscape' {
-  declare export default class MdLandscape extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/language' {
-  declare export default class MdLanguage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/laptop-chromebook' {
-  declare export default class MdLaptopChromebook extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/laptop-mac' {
-  declare export default class MdLaptopMac extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/laptop-windows' {
-  declare export default class MdLaptopWindows extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/laptop' {
-  declare export default class MdLaptop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/last-page' {
-  declare export default class MdLastPage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/launch' {
-  declare export default class MdLaunch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/layers-clear' {
-  declare export default class MdLayersClear extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/layers' {
-  declare export default class MdLayers extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/leak-add' {
-  declare export default class MdLeakAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/leak-remove' {
-  declare export default class MdLeakRemove extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/lens' {
-  declare export default class MdLens extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/library-add' {
-  declare export default class MdLibraryAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/library-books' {
-  declare export default class MdLibraryBooks extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/library-music' {
-  declare export default class MdLibraryMusic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/lightbulb-outline' {
-  declare export default class MdLightbulbOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/line-style' {
-  declare export default class MdLineStyle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/line-weight' {
-  declare export default class MdLineWeight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/linear-scale' {
-  declare export default class MdLinearScale extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/link' {
-  declare export default class MdLink extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/linked-camera' {
-  declare export default class MdLinkedCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/list' {
-  declare export default class MdList extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/live-help' {
-  declare export default class MdLiveHelp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/live-tv' {
-  declare export default class MdLiveTv extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-airport' {
-  declare export default class MdLocalAirport extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-atm' {
-  declare export default class MdLocalAtm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-attraction' {
-  declare export default class MdLocalAttraction extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-bar' {
-  declare export default class MdLocalBar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-cafe' {
-  declare export default class MdLocalCafe extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-car-wash' {
-  declare export default class MdLocalCarWash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-convenience-store' {
-  declare export default class MdLocalConvenienceStore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-drink' {
-  declare export default class MdLocalDrink extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-florist' {
-  declare export default class MdLocalFlorist extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-gas-station' {
-  declare export default class MdLocalGasStation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-grocery-store' {
-  declare export default class MdLocalGroceryStore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-hospital' {
-  declare export default class MdLocalHospital extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-hotel' {
-  declare export default class MdLocalHotel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-laundry-service' {
-  declare export default class MdLocalLaundryService extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-library' {
-  declare export default class MdLocalLibrary extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-mall' {
-  declare export default class MdLocalMall extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-movies' {
-  declare export default class MdLocalMovies extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-offer' {
-  declare export default class MdLocalOffer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-parking' {
-  declare export default class MdLocalParking extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-pharmacy' {
-  declare export default class MdLocalPharmacy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-phone' {
-  declare export default class MdLocalPhone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-pizza' {
-  declare export default class MdLocalPizza extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-play' {
-  declare export default class MdLocalPlay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-post-office' {
-  declare export default class MdLocalPostOffice extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-print-shop' {
-  declare export default class MdLocalPrintShop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-restaurant' {
-  declare export default class MdLocalRestaurant extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-see' {
-  declare export default class MdLocalSee extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-shipping' {
-  declare export default class MdLocalShipping extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/local-taxi' {
-  declare export default class MdLocalTaxi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/location-city' {
-  declare export default class MdLocationCity extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/location-disabled' {
-  declare export default class MdLocationDisabled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/location-history' {
-  declare export default class MdLocationHistory extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/location-off' {
-  declare export default class MdLocationOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/location-on' {
-  declare export default class MdLocationOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/location-searching' {
-  declare export default class MdLocationSearching extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/lock-open' {
-  declare export default class MdLockOpen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/lock-outline' {
-  declare export default class MdLockOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/lock' {
-  declare export default class MdLock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/looks-3' {
-  declare export default class MdLooks3 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/looks-4' {
-  declare export default class MdLooks4 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/looks-5' {
-  declare export default class MdLooks5 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/looks-6' {
-  declare export default class MdLooks6 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/looks-one' {
-  declare export default class MdLooksOne extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/looks-two' {
-  declare export default class MdLooksTwo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/looks' {
-  declare export default class MdLooks extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/loop' {
-  declare export default class MdLoop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/loupe' {
-  declare export default class MdLoupe extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/low-priority' {
-  declare export default class MdLowPriority extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/loyalty' {
-  declare export default class MdLoyalty extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mail-outline' {
-  declare export default class MdMailOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mail' {
-  declare export default class MdMail extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/map' {
-  declare export default class MdMap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/markunread-mailbox' {
-  declare export default class MdMarkunreadMailbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/markunread' {
-  declare export default class MdMarkunread extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/memory' {
-  declare export default class MdMemory extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/menu' {
-  declare export default class MdMenu extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/merge-type' {
-  declare export default class MdMergeType extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/message' {
-  declare export default class MdMessage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mic-none' {
-  declare export default class MdMicNone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mic-off' {
-  declare export default class MdMicOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mic' {
-  declare export default class MdMic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mms' {
-  declare export default class MdMms extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mode-comment' {
-  declare export default class MdModeComment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mode-edit' {
-  declare export default class MdModeEdit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/monetization-on' {
-  declare export default class MdMonetizationOn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/money-off' {
-  declare export default class MdMoneyOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/monochrome-photos' {
-  declare export default class MdMonochromePhotos extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mood-bad' {
-  declare export default class MdMoodBad extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mood' {
-  declare export default class MdMood extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/more-horiz' {
-  declare export default class MdMoreHoriz extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/more-vert' {
-  declare export default class MdMoreVert extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/more' {
-  declare export default class MdMore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/motorcycle' {
-  declare export default class MdMotorcycle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/mouse' {
-  declare export default class MdMouse extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/move-to-inbox' {
-  declare export default class MdMoveToInbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/movie-creation' {
-  declare export default class MdMovieCreation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/movie-filter' {
-  declare export default class MdMovieFilter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/movie' {
-  declare export default class MdMovie extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/multiline-chart' {
-  declare export default class MdMultilineChart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/music-note' {
-  declare export default class MdMusicNote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/music-video' {
-  declare export default class MdMusicVideo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/my-location' {
-  declare export default class MdMyLocation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/nature-people' {
-  declare export default class MdNaturePeople extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/nature' {
-  declare export default class MdNature extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/navigate-before' {
-  declare export default class MdNavigateBefore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/navigate-next' {
-  declare export default class MdNavigateNext extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/navigation' {
-  declare export default class MdNavigation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/near-me' {
-  declare export default class MdNearMe extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/network-cell' {
-  declare export default class MdNetworkCell extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/network-check' {
-  declare export default class MdNetworkCheck extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/network-locked' {
-  declare export default class MdNetworkLocked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/network-wifi' {
-  declare export default class MdNetworkWifi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/new-releases' {
-  declare export default class MdNewReleases extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/next-week' {
-  declare export default class MdNextWeek extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/nfc' {
-  declare export default class MdNfc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/no-encryption' {
-  declare export default class MdNoEncryption extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/no-sim' {
-  declare export default class MdNoSim extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/not-interested' {
-  declare export default class MdNotInterested extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/note-add' {
-  declare export default class MdNoteAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/note' {
-  declare export default class MdNote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/notifications-active' {
-  declare export default class MdNotificationsActive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/notifications-none' {
-  declare export default class MdNotificationsNone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/notifications-off' {
-  declare export default class MdNotificationsOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/notifications-paused' {
-  declare export default class MdNotificationsPaused extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/notifications' {
-  declare export default class MdNotifications extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/now-wallpaper' {
-  declare export default class MdNowWallpaper extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/now-widgets' {
-  declare export default class MdNowWidgets extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/offline-pin' {
-  declare export default class MdOfflinePin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/ondemand-video' {
-  declare export default class MdOndemandVideo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/opacity' {
-  declare export default class MdOpacity extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/open-in-browser' {
-  declare export default class MdOpenInBrowser extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/open-in-new' {
-  declare export default class MdOpenInNew extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/open-with' {
-  declare export default class MdOpenWith extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pages' {
-  declare export default class MdPages extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pageview' {
-  declare export default class MdPageview extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/palette' {
-  declare export default class MdPalette extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pan-tool' {
-  declare export default class MdPanTool extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/panorama-fish-eye' {
-  declare export default class MdPanoramaFishEye extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/panorama-horizontal' {
-  declare export default class MdPanoramaHorizontal extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/panorama-vertical' {
-  declare export default class MdPanoramaVertical extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/panorama-wide-angle' {
-  declare export default class MdPanoramaWideAngle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/panorama' {
-  declare export default class MdPanorama extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/party-mode' {
-  declare export default class MdPartyMode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pause-circle-filled' {
-  declare export default class MdPauseCircleFilled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pause-circle-outline' {
-  declare export default class MdPauseCircleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pause' {
-  declare export default class MdPause extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/payment' {
-  declare export default class MdPayment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/people-outline' {
-  declare export default class MdPeopleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/people' {
-  declare export default class MdPeople extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/perm-camera-mic' {
-  declare export default class MdPermCameraMic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/perm-contact-calendar' {
-  declare export default class MdPermContactCalendar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/perm-data-setting' {
-  declare export default class MdPermDataSetting extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/perm-device-information' {
-  declare export default class MdPermDeviceInformation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/perm-identity' {
-  declare export default class MdPermIdentity extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/perm-media' {
-  declare export default class MdPermMedia extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/perm-phone-msg' {
-  declare export default class MdPermPhoneMsg extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/perm-scan-wifi' {
-  declare export default class MdPermScanWifi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/person-add' {
-  declare export default class MdPersonAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/person-outline' {
-  declare export default class MdPersonOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/person-pin-circle' {
-  declare export default class MdPersonPinCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/person-pin' {
-  declare export default class MdPersonPin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/person' {
-  declare export default class MdPerson extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/personal-video' {
-  declare export default class MdPersonalVideo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pets' {
-  declare export default class MdPets extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phone-android' {
-  declare export default class MdPhoneAndroid extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phone-bluetooth-speaker' {
-  declare export default class MdPhoneBluetoothSpeaker extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phone-forwarded' {
-  declare export default class MdPhoneForwarded extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phone-in-talk' {
-  declare export default class MdPhoneInTalk extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phone-iphone' {
-  declare export default class MdPhoneIphone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phone-locked' {
-  declare export default class MdPhoneLocked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phone-missed' {
-  declare export default class MdPhoneMissed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phone-paused' {
-  declare export default class MdPhonePaused extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phone' {
-  declare export default class MdPhone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phonelink-erase' {
-  declare export default class MdPhonelinkErase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phonelink-lock' {
-  declare export default class MdPhonelinkLock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phonelink-off' {
-  declare export default class MdPhonelinkOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phonelink-ring' {
-  declare export default class MdPhonelinkRing extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phonelink-setup' {
-  declare export default class MdPhonelinkSetup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/phonelink' {
-  declare export default class MdPhonelink extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/photo-album' {
-  declare export default class MdPhotoAlbum extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/photo-camera' {
-  declare export default class MdPhotoCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/photo-filter' {
-  declare export default class MdPhotoFilter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/photo-library' {
-  declare export default class MdPhotoLibrary extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/photo-size-select-actual' {
-  declare export default class MdPhotoSizeSelectActual extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/photo-size-select-large' {
-  declare export default class MdPhotoSizeSelectLarge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/photo-size-select-small' {
-  declare export default class MdPhotoSizeSelectSmall extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/photo' {
-  declare export default class MdPhoto extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/picture-as-pdf' {
-  declare export default class MdPictureAsPdf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/picture-in-picture-alt' {
-  declare export default class MdPictureInPictureAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/picture-in-picture' {
-  declare export default class MdPictureInPicture extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pie-chart-outlined' {
-  declare export default class MdPieChartOutlined extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pie-chart' {
-  declare export default class MdPieChart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pin-drop' {
-  declare export default class MdPinDrop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/place' {
-  declare export default class MdPlace extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/play-arrow' {
-  declare export default class MdPlayArrow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/play-circle-filled' {
-  declare export default class MdPlayCircleFilled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/play-circle-outline' {
-  declare export default class MdPlayCircleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/play-for-work' {
-  declare export default class MdPlayForWork extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/playlist-add-check' {
-  declare export default class MdPlaylistAddCheck extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/playlist-add' {
-  declare export default class MdPlaylistAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/playlist-play' {
-  declare export default class MdPlaylistPlay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/plus-one' {
-  declare export default class MdPlusOne extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/poll' {
-  declare export default class MdPoll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/polymer' {
-  declare export default class MdPolymer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pool' {
-  declare export default class MdPool extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/portable-wifi-off' {
-  declare export default class MdPortableWifiOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/portrait' {
-  declare export default class MdPortrait extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/power-input' {
-  declare export default class MdPowerInput extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/power-settings-new' {
-  declare export default class MdPowerSettingsNew extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/power' {
-  declare export default class MdPower extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/pregnant-woman' {
-  declare export default class MdPregnantWoman extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/present-to-all' {
-  declare export default class MdPresentToAll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/print' {
-  declare export default class MdPrint extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/priority-high' {
-  declare export default class MdPriorityHigh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/public' {
-  declare export default class MdPublic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/publish' {
-  declare export default class MdPublish extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/query-builder' {
-  declare export default class MdQueryBuilder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/question-answer' {
-  declare export default class MdQuestionAnswer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/queue-music' {
-  declare export default class MdQueueMusic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/queue-play-next' {
-  declare export default class MdQueuePlayNext extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/queue' {
-  declare export default class MdQueue extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/radio-button-checked' {
-  declare export default class MdRadioButtonChecked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/radio-button-unchecked' {
-  declare export default class MdRadioButtonUnchecked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/radio' {
-  declare export default class MdRadio extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/rate-review' {
-  declare export default class MdRateReview extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/receipt' {
-  declare export default class MdReceipt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/recent-actors' {
-  declare export default class MdRecentActors extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/record-voice-over' {
-  declare export default class MdRecordVoiceOver extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/redeem' {
-  declare export default class MdRedeem extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/redo' {
-  declare export default class MdRedo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/refresh' {
-  declare export default class MdRefresh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/remove-circle-outline' {
-  declare export default class MdRemoveCircleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/remove-circle' {
-  declare export default class MdRemoveCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/remove-from-queue' {
-  declare export default class MdRemoveFromQueue extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/remove-red-eye' {
-  declare export default class MdRemoveRedEye extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/remove-shopping-cart' {
-  declare export default class MdRemoveShoppingCart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/remove' {
-  declare export default class MdRemove extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/reorder' {
-  declare export default class MdReorder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/repeat-one' {
-  declare export default class MdRepeatOne extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/repeat' {
-  declare export default class MdRepeat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/replay-10' {
-  declare export default class MdReplay10 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/replay-30' {
-  declare export default class MdReplay30 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/replay-5' {
-  declare export default class MdReplay5 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/replay' {
-  declare export default class MdReplay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/reply-all' {
-  declare export default class MdReplyAll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/reply' {
-  declare export default class MdReply extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/report-problem' {
-  declare export default class MdReportProblem extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/report' {
-  declare export default class MdReport extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/restaurant-menu' {
-  declare export default class MdRestaurantMenu extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/restaurant' {
-  declare export default class MdRestaurant extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/restore-page' {
-  declare export default class MdRestorePage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/restore' {
-  declare export default class MdRestore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/ring-volume' {
-  declare export default class MdRingVolume extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/room-service' {
-  declare export default class MdRoomService extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/room' {
-  declare export default class MdRoom extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/rotate-90-degrees-ccw' {
-  declare export default class MdRotate90DegreesCcw extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/rotate-left' {
-  declare export default class MdRotateLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/rotate-right' {
-  declare export default class MdRotateRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/rounded-corner' {
-  declare export default class MdRoundedCorner extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/router' {
-  declare export default class MdRouter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/rowing' {
-  declare export default class MdRowing extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/rss-feed' {
-  declare export default class MdRssFeed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/rv-hookup' {
-  declare export default class MdRvHookup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/satellite' {
-  declare export default class MdSatellite extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/save' {
-  declare export default class MdSave extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/scanner' {
-  declare export default class MdScanner extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/schedule' {
-  declare export default class MdSchedule extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/school' {
-  declare export default class MdSchool extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/screen-lock-landscape' {
-  declare export default class MdScreenLockLandscape extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/screen-lock-portrait' {
-  declare export default class MdScreenLockPortrait extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/screen-lock-rotation' {
-  declare export default class MdScreenLockRotation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/screen-rotation' {
-  declare export default class MdScreenRotation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/screen-share' {
-  declare export default class MdScreenShare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sd-card' {
-  declare export default class MdSdCard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sd-storage' {
-  declare export default class MdSdStorage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/search' {
-  declare export default class MdSearch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/security' {
-  declare export default class MdSecurity extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/select-all' {
-  declare export default class MdSelectAll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/send' {
-  declare export default class MdSend extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sentiment-dissatisfied' {
-  declare export default class MdSentimentDissatisfied extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sentiment-neutral' {
-  declare export default class MdSentimentNeutral extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sentiment-satisfied' {
-  declare export default class MdSentimentSatisfied extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sentiment-very-dissatisfied' {
-  declare export default class MdSentimentVeryDissatisfied extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sentiment-very-satisfied' {
-  declare export default class MdSentimentVerySatisfied extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-applications' {
-  declare export default class MdSettingsApplications extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-backup-restore' {
-  declare export default class MdSettingsBackupRestore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-bluetooth' {
-  declare export default class MdSettingsBluetooth extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-brightness' {
-  declare export default class MdSettingsBrightness extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-cell' {
-  declare export default class MdSettingsCell extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-ethernet' {
-  declare export default class MdSettingsEthernet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-input-antenna' {
-  declare export default class MdSettingsInputAntenna extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-input-component' {
-  declare export default class MdSettingsInputComponent extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-input-composite' {
-  declare export default class MdSettingsInputComposite extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-input-hdmi' {
-  declare export default class MdSettingsInputHdmi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-input-svideo' {
-  declare export default class MdSettingsInputSvideo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-overscan' {
-  declare export default class MdSettingsOverscan extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-phone' {
-  declare export default class MdSettingsPhone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-power' {
-  declare export default class MdSettingsPower extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-remote' {
-  declare export default class MdSettingsRemote extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-system-daydream' {
-  declare export default class MdSettingsSystemDaydream extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings-voice' {
-  declare export default class MdSettingsVoice extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/settings' {
-  declare export default class MdSettings extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/share' {
-  declare export default class MdShare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/shop-two' {
-  declare export default class MdShopTwo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/shop' {
-  declare export default class MdShop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/shopping-basket' {
-  declare export default class MdShoppingBasket extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/shopping-cart' {
-  declare export default class MdShoppingCart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/short-text' {
-  declare export default class MdShortText extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/show-chart' {
-  declare export default class MdShowChart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/shuffle' {
-  declare export default class MdShuffle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/signal-cellular-4-bar' {
-  declare export default class MdSignalCellular4Bar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/signal-cellular-connected-no-internet-4-bar' {
-  declare export default class MdSignalCellularConnectedNoInternet4Bar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/signal-cellular-no-sim' {
-  declare export default class MdSignalCellularNoSim extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/signal-cellular-null' {
-  declare export default class MdSignalCellularNull extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/signal-cellular-off' {
-  declare export default class MdSignalCellularOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/signal-wifi-4-bar-lock' {
-  declare export default class MdSignalWifi4BarLock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/signal-wifi-4-bar' {
-  declare export default class MdSignalWifi4Bar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/signal-wifi-off' {
-  declare export default class MdSignalWifiOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sim-card-alert' {
-  declare export default class MdSimCardAlert extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sim-card' {
-  declare export default class MdSimCard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/skip-next' {
-  declare export default class MdSkipNext extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/skip-previous' {
-  declare export default class MdSkipPrevious extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/slideshow' {
-  declare export default class MdSlideshow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/slow-motion-video' {
-  declare export default class MdSlowMotionVideo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/smartphone' {
-  declare export default class MdSmartphone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/smoke-free' {
-  declare export default class MdSmokeFree extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/smoking-rooms' {
-  declare export default class MdSmokingRooms extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sms-failed' {
-  declare export default class MdSmsFailed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sms' {
-  declare export default class MdSms extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/snooze' {
-  declare export default class MdSnooze extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sort-by-alpha' {
-  declare export default class MdSortByAlpha extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sort' {
-  declare export default class MdSort extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/spa' {
-  declare export default class MdSpa extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/space-bar' {
-  declare export default class MdSpaceBar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/speaker-group' {
-  declare export default class MdSpeakerGroup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/speaker-notes-off' {
-  declare export default class MdSpeakerNotesOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/speaker-notes' {
-  declare export default class MdSpeakerNotes extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/speaker-phone' {
-  declare export default class MdSpeakerPhone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/speaker' {
-  declare export default class MdSpeaker extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/spellcheck' {
-  declare export default class MdSpellcheck extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/star-border' {
-  declare export default class MdStarBorder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/star-half' {
-  declare export default class MdStarHalf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/star-outline' {
-  declare export default class MdStarOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/star' {
-  declare export default class MdStar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/stars' {
-  declare export default class MdStars extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/stay-current-landscape' {
-  declare export default class MdStayCurrentLandscape extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/stay-current-portrait' {
-  declare export default class MdStayCurrentPortrait extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/stay-primary-landscape' {
-  declare export default class MdStayPrimaryLandscape extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/stay-primary-portrait' {
-  declare export default class MdStayPrimaryPortrait extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/stop-screen-share' {
-  declare export default class MdStopScreenShare extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/stop' {
-  declare export default class MdStop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/storage' {
-  declare export default class MdStorage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/store-mall-directory' {
-  declare export default class MdStoreMallDirectory extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/store' {
-  declare export default class MdStore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/straighten' {
-  declare export default class MdStraighten extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/streetview' {
-  declare export default class MdStreetview extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/strikethrough-s' {
-  declare export default class MdStrikethroughS extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/style' {
-  declare export default class MdStyle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/subdirectory-arrow-left' {
-  declare export default class MdSubdirectoryArrowLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/subdirectory-arrow-right' {
-  declare export default class MdSubdirectoryArrowRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/subject' {
-  declare export default class MdSubject extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/subscriptions' {
-  declare export default class MdSubscriptions extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/subtitles' {
-  declare export default class MdSubtitles extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/subway' {
-  declare export default class MdSubway extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/supervisor-account' {
-  declare export default class MdSupervisorAccount extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/surround-sound' {
-  declare export default class MdSurroundSound extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/swap-calls' {
-  declare export default class MdSwapCalls extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/swap-horiz' {
-  declare export default class MdSwapHoriz extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/swap-vert' {
-  declare export default class MdSwapVert extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/swap-vertical-circle' {
-  declare export default class MdSwapVerticalCircle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/switch-camera' {
-  declare export default class MdSwitchCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/switch-video' {
-  declare export default class MdSwitchVideo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sync-disabled' {
-  declare export default class MdSyncDisabled extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sync-problem' {
-  declare export default class MdSyncProblem extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/sync' {
-  declare export default class MdSync extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/system-update-alt' {
-  declare export default class MdSystemUpdateAlt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/system-update' {
-  declare export default class MdSystemUpdate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tab-unselected' {
-  declare export default class MdTabUnselected extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tab' {
-  declare export default class MdTab extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tablet-android' {
-  declare export default class MdTabletAndroid extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tablet-mac' {
-  declare export default class MdTabletMac extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tablet' {
-  declare export default class MdTablet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tag-faces' {
-  declare export default class MdTagFaces extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tap-and-play' {
-  declare export default class MdTapAndPlay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/terrain' {
-  declare export default class MdTerrain extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/text-fields' {
-  declare export default class MdTextFields extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/text-format' {
-  declare export default class MdTextFormat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/textsms' {
-  declare export default class MdTextsms extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/texture' {
-  declare export default class MdTexture extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/theaters' {
-  declare export default class MdTheaters extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/thumb-down' {
-  declare export default class MdThumbDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/thumb-up' {
-  declare export default class MdThumbUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/thumbs-up-down' {
-  declare export default class MdThumbsUpDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/time-to-leave' {
-  declare export default class MdTimeToLeave extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/timelapse' {
-  declare export default class MdTimelapse extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/timeline' {
-  declare export default class MdTimeline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/timer-10' {
-  declare export default class MdTimer10 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/timer-3' {
-  declare export default class MdTimer3 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/timer-off' {
-  declare export default class MdTimerOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/timer' {
-  declare export default class MdTimer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/title' {
-  declare export default class MdTitle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/toc' {
-  declare export default class MdToc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/today' {
-  declare export default class MdToday extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/toll' {
-  declare export default class MdToll extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tonality' {
-  declare export default class MdTonality extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/touch-app' {
-  declare export default class MdTouchApp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/toys' {
-  declare export default class MdToys extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/track-changes' {
-  declare export default class MdTrackChanges extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/traffic' {
-  declare export default class MdTraffic extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/train' {
-  declare export default class MdTrain extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tram' {
-  declare export default class MdTram extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/transfer-within-a-station' {
-  declare export default class MdTransferWithinAStation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/transform' {
-  declare export default class MdTransform extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/translate' {
-  declare export default class MdTranslate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/trending-down' {
-  declare export default class MdTrendingDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/trending-flat' {
-  declare export default class MdTrendingFlat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/trending-neutral' {
-  declare export default class MdTrendingNeutral extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/trending-up' {
-  declare export default class MdTrendingUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tune' {
-  declare export default class MdTune extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/turned-in-not' {
-  declare export default class MdTurnedInNot extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/turned-in' {
-  declare export default class MdTurnedIn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/tv' {
-  declare export default class MdTv extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/unarchive' {
-  declare export default class MdUnarchive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/undo' {
-  declare export default class MdUndo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/unfold-less' {
-  declare export default class MdUnfoldLess extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/unfold-more' {
-  declare export default class MdUnfoldMore extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/update' {
-  declare export default class MdUpdate extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/usb' {
-  declare export default class MdUsb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/verified-user' {
-  declare export default class MdVerifiedUser extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/vertical-align-bottom' {
-  declare export default class MdVerticalAlignBottom extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/vertical-align-center' {
-  declare export default class MdVerticalAlignCenter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/vertical-align-top' {
-  declare export default class MdVerticalAlignTop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/vibration' {
-  declare export default class MdVibration extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/video-call' {
-  declare export default class MdVideoCall extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/video-collection' {
-  declare export default class MdVideoCollection extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/video-label' {
-  declare export default class MdVideoLabel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/video-library' {
-  declare export default class MdVideoLibrary extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/videocam-off' {
-  declare export default class MdVideocamOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/videocam' {
-  declare export default class MdVideocam extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/videogame-asset' {
-  declare export default class MdVideogameAsset extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-agenda' {
-  declare export default class MdViewAgenda extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-array' {
-  declare export default class MdViewArray extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-carousel' {
-  declare export default class MdViewCarousel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-column' {
-  declare export default class MdViewColumn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-comfortable' {
-  declare export default class MdViewComfortable extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-comfy' {
-  declare export default class MdViewComfy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-compact' {
-  declare export default class MdViewCompact extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-day' {
-  declare export default class MdViewDay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-headline' {
-  declare export default class MdViewHeadline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-list' {
-  declare export default class MdViewList extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-module' {
-  declare export default class MdViewModule extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-quilt' {
-  declare export default class MdViewQuilt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-stream' {
-  declare export default class MdViewStream extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/view-week' {
-  declare export default class MdViewWeek extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/vignette' {
-  declare export default class MdVignette extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/visibility-off' {
-  declare export default class MdVisibilityOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/visibility' {
-  declare export default class MdVisibility extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/voice-chat' {
-  declare export default class MdVoiceChat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/voicemail' {
-  declare export default class MdVoicemail extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/volume-down' {
-  declare export default class MdVolumeDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/volume-mute' {
-  declare export default class MdVolumeMute extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/volume-off' {
-  declare export default class MdVolumeOff extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/volume-up' {
-  declare export default class MdVolumeUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/vpn-key' {
-  declare export default class MdVpnKey extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/vpn-lock' {
-  declare export default class MdVpnLock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wallpaper' {
-  declare export default class MdWallpaper extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/warning' {
-  declare export default class MdWarning extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/watch-later' {
-  declare export default class MdWatchLater extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/watch' {
-  declare export default class MdWatch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wb-auto' {
-  declare export default class MdWbAuto extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wb-cloudy' {
-  declare export default class MdWbCloudy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wb-incandescent' {
-  declare export default class MdWbIncandescent extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wb-iridescent' {
-  declare export default class MdWbIridescent extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wb-sunny' {
-  declare export default class MdWbSunny extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wc' {
-  declare export default class MdWc extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/web-asset' {
-  declare export default class MdWebAsset extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/web' {
-  declare export default class MdWeb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/weekend' {
-  declare export default class MdWeekend extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/whatshot' {
-  declare export default class MdWhatshot extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/widgets' {
-  declare export default class MdWidgets extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wifi-lock' {
-  declare export default class MdWifiLock extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wifi-tethering' {
-  declare export default class MdWifiTethering extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wifi' {
-  declare export default class MdWifi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/work' {
-  declare export default class MdWork extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/wrap-text' {
-  declare export default class MdWrapText extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/youtube-searched-for' {
-  declare export default class MdYoutubeSearchedFor extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/zoom-in' {
-  declare export default class MdZoomIn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/zoom-out-map' {
-  declare export default class MdZoomOutMap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/md/zoom-out' {
-  declare export default class MdZoomOut extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/adjust-brightness' {
-  declare export default class TiAdjustBrightness extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/adjust-contrast' {
-  declare export default class TiAdjustContrast extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/anchor-outline' {
-  declare export default class TiAnchorOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/anchor' {
-  declare export default class TiAnchor extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/archive' {
-  declare export default class TiArchive extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-back-outline' {
-  declare export default class TiArrowBackOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-back' {
-  declare export default class TiArrowBack extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-down-outline' {
-  declare export default class TiArrowDownOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-down-thick' {
-  declare export default class TiArrowDownThick extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-down' {
-  declare export default class TiArrowDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-forward-outline' {
-  declare export default class TiArrowForwardOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-forward' {
-  declare export default class TiArrowForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-left-outline' {
-  declare export default class TiArrowLeftOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-left-thick' {
-  declare export default class TiArrowLeftThick extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-left' {
-  declare export default class TiArrowLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-loop-outline' {
-  declare export default class TiArrowLoopOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-loop' {
-  declare export default class TiArrowLoop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-maximise-outline' {
-  declare export default class TiArrowMaximiseOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-maximise' {
-  declare export default class TiArrowMaximise extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-minimise-outline' {
-  declare export default class TiArrowMinimiseOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-minimise' {
-  declare export default class TiArrowMinimise extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-move-outline' {
-  declare export default class TiArrowMoveOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-move' {
-  declare export default class TiArrowMove extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-repeat-outline' {
-  declare export default class TiArrowRepeatOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-repeat' {
-  declare export default class TiArrowRepeat extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-right-outline' {
-  declare export default class TiArrowRightOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-right-thick' {
-  declare export default class TiArrowRightThick extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-right' {
-  declare export default class TiArrowRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-shuffle' {
-  declare export default class TiArrowShuffle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-sorted-down' {
-  declare export default class TiArrowSortedDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-sorted-up' {
-  declare export default class TiArrowSortedUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-sync-outline' {
-  declare export default class TiArrowSyncOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-sync' {
-  declare export default class TiArrowSync extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-unsorted' {
-  declare export default class TiArrowUnsorted extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-up-outline' {
-  declare export default class TiArrowUpOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-up-thick' {
-  declare export default class TiArrowUpThick extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/arrow-up' {
-  declare export default class TiArrowUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/at' {
-  declare export default class TiAt extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/attachment-outline' {
-  declare export default class TiAttachmentOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/attachment' {
-  declare export default class TiAttachment extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/backspace-outline' {
-  declare export default class TiBackspaceOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/backspace' {
-  declare export default class TiBackspace extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/battery-charge' {
-  declare export default class TiBatteryCharge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/battery-full' {
-  declare export default class TiBatteryFull extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/battery-high' {
-  declare export default class TiBatteryHigh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/battery-low' {
-  declare export default class TiBatteryLow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/battery-mid' {
-  declare export default class TiBatteryMid extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/beaker' {
-  declare export default class TiBeaker extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/beer' {
-  declare export default class TiBeer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/bell' {
-  declare export default class TiBell extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/book' {
-  declare export default class TiBook extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/bookmark' {
-  declare export default class TiBookmark extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/briefcase' {
-  declare export default class TiBriefcase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/brush' {
-  declare export default class TiBrush extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/business-card' {
-  declare export default class TiBusinessCard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/calculator' {
-  declare export default class TiCalculator extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/calendar-outline' {
-  declare export default class TiCalendarOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/calendar' {
-  declare export default class TiCalendar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/calender-outline' {
-  declare export default class TiCalenderOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/calender' {
-  declare export default class TiCalender extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/camera-outline' {
-  declare export default class TiCameraOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/camera' {
-  declare export default class TiCamera extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/cancel-outline' {
-  declare export default class TiCancelOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/cancel' {
-  declare export default class TiCancel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chart-area-outline' {
-  declare export default class TiChartAreaOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chart-area' {
-  declare export default class TiChartArea extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chart-bar-outline' {
-  declare export default class TiChartBarOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chart-bar' {
-  declare export default class TiChartBar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chart-line-outline' {
-  declare export default class TiChartLineOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chart-line' {
-  declare export default class TiChartLine extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chart-pie-outline' {
-  declare export default class TiChartPieOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chart-pie' {
-  declare export default class TiChartPie extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chevron-left-outline' {
-  declare export default class TiChevronLeftOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chevron-left' {
-  declare export default class TiChevronLeft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chevron-right-outline' {
-  declare export default class TiChevronRightOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/chevron-right' {
-  declare export default class TiChevronRight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/clipboard' {
-  declare export default class TiClipboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/cloud-storage-outline' {
-  declare export default class TiCloudStorageOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/cloud-storage' {
-  declare export default class TiCloudStorage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/code-outline' {
-  declare export default class TiCodeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/code' {
-  declare export default class TiCode extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/coffee' {
-  declare export default class TiCoffee extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/cog-outline' {
-  declare export default class TiCogOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/cog' {
-  declare export default class TiCog extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/compass' {
-  declare export default class TiCompass extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/contacts' {
-  declare export default class TiContacts extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/credit-card' {
-  declare export default class TiCreditCard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/cross' {
-  declare export default class TiCross extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/css3' {
-  declare export default class TiCss3 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/database' {
-  declare export default class TiDatabase extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/delete-outline' {
-  declare export default class TiDeleteOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/delete' {
-  declare export default class TiDelete extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/device-desktop' {
-  declare export default class TiDeviceDesktop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/device-laptop' {
-  declare export default class TiDeviceLaptop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/device-phone' {
-  declare export default class TiDevicePhone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/device-tablet' {
-  declare export default class TiDeviceTablet extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/directions' {
-  declare export default class TiDirections extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/divide-outline' {
-  declare export default class TiDivideOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/divide' {
-  declare export default class TiDivide extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/document-add' {
-  declare export default class TiDocumentAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/document-delete' {
-  declare export default class TiDocumentDelete extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/document-text' {
-  declare export default class TiDocumentText extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/document' {
-  declare export default class TiDocument extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/download-outline' {
-  declare export default class TiDownloadOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/download' {
-  declare export default class TiDownload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/dropbox' {
-  declare export default class TiDropbox extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/edit' {
-  declare export default class TiEdit extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/eject-outline' {
-  declare export default class TiEjectOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/eject' {
-  declare export default class TiEject extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/equals-outline' {
-  declare export default class TiEqualsOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/equals' {
-  declare export default class TiEquals extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/export-outline' {
-  declare export default class TiExportOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/export' {
-  declare export default class TiExport extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/eye-outline' {
-  declare export default class TiEyeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/eye' {
-  declare export default class TiEye extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/feather' {
-  declare export default class TiFeather extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/film' {
-  declare export default class TiFilm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/filter' {
-  declare export default class TiFilter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/flag-outline' {
-  declare export default class TiFlagOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/flag' {
-  declare export default class TiFlag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/flash-outline' {
-  declare export default class TiFlashOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/flash' {
-  declare export default class TiFlash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/flow-children' {
-  declare export default class TiFlowChildren extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/flow-merge' {
-  declare export default class TiFlowMerge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/flow-parallel' {
-  declare export default class TiFlowParallel extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/flow-switch' {
-  declare export default class TiFlowSwitch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/folder-add' {
-  declare export default class TiFolderAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/folder-delete' {
-  declare export default class TiFolderDelete extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/folder-open' {
-  declare export default class TiFolderOpen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/folder' {
-  declare export default class TiFolder extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/gift' {
-  declare export default class TiGift extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/globe-outline' {
-  declare export default class TiGlobeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/globe' {
-  declare export default class TiGlobe extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/group-outline' {
-  declare export default class TiGroupOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/group' {
-  declare export default class TiGroup extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/headphones' {
-  declare export default class TiHeadphones extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/heart-full-outline' {
-  declare export default class TiHeartFullOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/heart-half-outline' {
-  declare export default class TiHeartHalfOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/heart-outline' {
-  declare export default class TiHeartOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/heart' {
-  declare export default class TiHeart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/home-outline' {
-  declare export default class TiHomeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/home' {
-  declare export default class TiHome extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/html5' {
-  declare export default class TiHtml5 extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/image-outline' {
-  declare export default class TiImageOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/image' {
-  declare export default class TiImage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/index' {
-  declare export default class TiIndex extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/infinity-outline' {
-  declare export default class TiInfinityOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/infinity' {
-  declare export default class TiInfinity extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/info-large-outline' {
-  declare export default class TiInfoLargeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/info-large' {
-  declare export default class TiInfoLarge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/info-outline' {
-  declare export default class TiInfoOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/info' {
-  declare export default class TiInfo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/input-checked-outline' {
-  declare export default class TiInputCheckedOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/input-checked' {
-  declare export default class TiInputChecked extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/key-outline' {
-  declare export default class TiKeyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/key' {
-  declare export default class TiKey extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/keyboard' {
-  declare export default class TiKeyboard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/leaf' {
-  declare export default class TiLeaf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/lightbulb' {
-  declare export default class TiLightbulb extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/link-outline' {
-  declare export default class TiLinkOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/link' {
-  declare export default class TiLink extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/location-arrow-outline' {
-  declare export default class TiLocationArrowOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/location-arrow' {
-  declare export default class TiLocationArrow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/location-outline' {
-  declare export default class TiLocationOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/location' {
-  declare export default class TiLocation extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/lock-closed-outline' {
-  declare export default class TiLockClosedOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/lock-closed' {
-  declare export default class TiLockClosed extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/lock-open-outline' {
-  declare export default class TiLockOpenOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/lock-open' {
-  declare export default class TiLockOpen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/mail' {
-  declare export default class TiMail extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/map' {
-  declare export default class TiMap extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-eject-outline' {
-  declare export default class TiMediaEjectOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-eject' {
-  declare export default class TiMediaEject extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-fast-forward-outline' {
-  declare export default class TiMediaFastForwardOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-fast-forward' {
-  declare export default class TiMediaFastForward extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-pause-outline' {
-  declare export default class TiMediaPauseOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-pause' {
-  declare export default class TiMediaPause extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-play-outline' {
-  declare export default class TiMediaPlayOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-play-reverse-outline' {
-  declare export default class TiMediaPlayReverseOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-play-reverse' {
-  declare export default class TiMediaPlayReverse extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-play' {
-  declare export default class TiMediaPlay extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-record-outline' {
-  declare export default class TiMediaRecordOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-record' {
-  declare export default class TiMediaRecord extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-rewind-outline' {
-  declare export default class TiMediaRewindOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-rewind' {
-  declare export default class TiMediaRewind extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-stop-outline' {
-  declare export default class TiMediaStopOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/media-stop' {
-  declare export default class TiMediaStop extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/message-typing' {
-  declare export default class TiMessageTyping extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/message' {
-  declare export default class TiMessage extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/messages' {
-  declare export default class TiMessages extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/microphone-outline' {
-  declare export default class TiMicrophoneOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/microphone' {
-  declare export default class TiMicrophone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/minus-outline' {
-  declare export default class TiMinusOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/minus' {
-  declare export default class TiMinus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/mortar-board' {
-  declare export default class TiMortarBoard extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/news' {
-  declare export default class TiNews extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/notes-outline' {
-  declare export default class TiNotesOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/notes' {
-  declare export default class TiNotes extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/pen' {
-  declare export default class TiPen extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/pencil' {
-  declare export default class TiPencil extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/phone-outline' {
-  declare export default class TiPhoneOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/phone' {
-  declare export default class TiPhone extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/pi-outline' {
-  declare export default class TiPiOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/pi' {
-  declare export default class TiPi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/pin-outline' {
-  declare export default class TiPinOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/pin' {
-  declare export default class TiPin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/pipette' {
-  declare export default class TiPipette extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/plane-outline' {
-  declare export default class TiPlaneOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/plane' {
-  declare export default class TiPlane extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/plug' {
-  declare export default class TiPlug extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/plus-outline' {
-  declare export default class TiPlusOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/plus' {
-  declare export default class TiPlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/point-of-interest-outline' {
-  declare export default class TiPointOfInterestOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/point-of-interest' {
-  declare export default class TiPointOfInterest extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/power-outline' {
-  declare export default class TiPowerOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/power' {
-  declare export default class TiPower extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/printer' {
-  declare export default class TiPrinter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/puzzle-outline' {
-  declare export default class TiPuzzleOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/puzzle' {
-  declare export default class TiPuzzle extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/radar-outline' {
-  declare export default class TiRadarOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/radar' {
-  declare export default class TiRadar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/refresh-outline' {
-  declare export default class TiRefreshOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/refresh' {
-  declare export default class TiRefresh extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/rss-outline' {
-  declare export default class TiRssOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/rss' {
-  declare export default class TiRss extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/scissors-outline' {
-  declare export default class TiScissorsOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/scissors' {
-  declare export default class TiScissors extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/shopping-bag' {
-  declare export default class TiShoppingBag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/shopping-cart' {
-  declare export default class TiShoppingCart extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-at-circular' {
-  declare export default class TiSocialAtCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-dribbble-circular' {
-  declare export default class TiSocialDribbbleCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-dribbble' {
-  declare export default class TiSocialDribbble extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-facebook-circular' {
-  declare export default class TiSocialFacebookCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-facebook' {
-  declare export default class TiSocialFacebook extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-flickr-circular' {
-  declare export default class TiSocialFlickrCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-flickr' {
-  declare export default class TiSocialFlickr extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-github-circular' {
-  declare export default class TiSocialGithubCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-github' {
-  declare export default class TiSocialGithub extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-google-plus-circular' {
-  declare export default class TiSocialGooglePlusCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-google-plus' {
-  declare export default class TiSocialGooglePlus extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-instagram-circular' {
-  declare export default class TiSocialInstagramCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-instagram' {
-  declare export default class TiSocialInstagram extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-last-fm-circular' {
-  declare export default class TiSocialLastFmCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-last-fm' {
-  declare export default class TiSocialLastFm extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-linkedin-circular' {
-  declare export default class TiSocialLinkedinCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-linkedin' {
-  declare export default class TiSocialLinkedin extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-pinterest-circular' {
-  declare export default class TiSocialPinterestCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-pinterest' {
-  declare export default class TiSocialPinterest extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-skype-outline' {
-  declare export default class TiSocialSkypeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-skype' {
-  declare export default class TiSocialSkype extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-tumbler-circular' {
-  declare export default class TiSocialTumblerCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-tumbler' {
-  declare export default class TiSocialTumbler extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-twitter-circular' {
-  declare export default class TiSocialTwitterCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-twitter' {
-  declare export default class TiSocialTwitter extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-vimeo-circular' {
-  declare export default class TiSocialVimeoCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-vimeo' {
-  declare export default class TiSocialVimeo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-youtube-circular' {
-  declare export default class TiSocialYoutubeCircular extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/social-youtube' {
-  declare export default class TiSocialYoutube extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/sort-alphabetically-outline' {
-  declare export default class TiSortAlphabeticallyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/sort-alphabetically' {
-  declare export default class TiSortAlphabetically extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/sort-numerically-outline' {
-  declare export default class TiSortNumericallyOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/sort-numerically' {
-  declare export default class TiSortNumerically extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/spanner-outline' {
-  declare export default class TiSpannerOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/spanner' {
-  declare export default class TiSpanner extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/spiral' {
-  declare export default class TiSpiral extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/star-full-outline' {
-  declare export default class TiStarFullOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/star-half-outline' {
-  declare export default class TiStarHalfOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/star-half' {
-  declare export default class TiStarHalf extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/star-outline' {
-  declare export default class TiStarOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/star' {
-  declare export default class TiStar extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/starburst-outline' {
-  declare export default class TiStarburstOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/starburst' {
-  declare export default class TiStarburst extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/stopwatch' {
-  declare export default class TiStopwatch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/support' {
-  declare export default class TiSupport extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/tabs-outline' {
-  declare export default class TiTabsOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/tag' {
-  declare export default class TiTag extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/tags' {
-  declare export default class TiTags extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/th-large-outline' {
-  declare export default class TiThLargeOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/th-large' {
-  declare export default class TiThLarge extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/th-list-outline' {
-  declare export default class TiThListOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/th-list' {
-  declare export default class TiThList extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/th-menu-outline' {
-  declare export default class TiThMenuOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/th-menu' {
-  declare export default class TiThMenu extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/th-small-outline' {
-  declare export default class TiThSmallOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/th-small' {
-  declare export default class TiThSmall extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/thermometer' {
-  declare export default class TiThermometer extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/thumbs-down' {
-  declare export default class TiThumbsDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/thumbs-ok' {
-  declare export default class TiThumbsOk extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/thumbs-up' {
-  declare export default class TiThumbsUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/tick-outline' {
-  declare export default class TiTickOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/tick' {
-  declare export default class TiTick extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/ticket' {
-  declare export default class TiTicket extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/time' {
-  declare export default class TiTime extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/times-outline' {
-  declare export default class TiTimesOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/times' {
-  declare export default class TiTimes extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/trash' {
-  declare export default class TiTrash extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/tree' {
-  declare export default class TiTree extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/upload-outline' {
-  declare export default class TiUploadOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/upload' {
-  declare export default class TiUpload extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/user-add-outline' {
-  declare export default class TiUserAddOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/user-add' {
-  declare export default class TiUserAdd extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/user-delete-outline' {
-  declare export default class TiUserDeleteOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/user-delete' {
-  declare export default class TiUserDelete extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/user-outline' {
-  declare export default class TiUserOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/user' {
-  declare export default class TiUser extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/vendor-android' {
-  declare export default class TiVendorAndroid extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/vendor-apple' {
-  declare export default class TiVendorApple extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/vendor-microsoft' {
-  declare export default class TiVendorMicrosoft extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/video-outline' {
-  declare export default class TiVideoOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/video' {
-  declare export default class TiVideo extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/volume-down' {
-  declare export default class TiVolumeDown extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/volume-mute' {
-  declare export default class TiVolumeMute extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/volume-up' {
-  declare export default class TiVolumeUp extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/volume' {
-  declare export default class TiVolume extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/warning-outline' {
-  declare export default class TiWarningOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/warning' {
-  declare export default class TiWarning extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/watch' {
-  declare export default class TiWatch extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/waves-outline' {
-  declare export default class TiWavesOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/waves' {
-  declare export default class TiWaves extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-cloudy' {
-  declare export default class TiWeatherCloudy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-downpour' {
-  declare export default class TiWeatherDownpour extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-night' {
-  declare export default class TiWeatherNight extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-partly-sunny' {
-  declare export default class TiWeatherPartlySunny extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-shower' {
-  declare export default class TiWeatherShower extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-snow' {
-  declare export default class TiWeatherSnow extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-stormy' {
-  declare export default class TiWeatherStormy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-sunny' {
-  declare export default class TiWeatherSunny extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-windy-cloudy' {
-  declare export default class TiWeatherWindyCloudy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/weather-windy' {
-  declare export default class TiWeatherWindy extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/wi-fi-outline' {
-  declare export default class TiWiFiOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/wi-fi' {
-  declare export default class TiWiFi extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/wine' {
-  declare export default class TiWine extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/world-outline' {
-  declare export default class TiWorldOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/world' {
-  declare export default class TiWorld extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/zoom-in-outline' {
-  declare export default class TiZoomInOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/zoom-in' {
-  declare export default class TiZoomIn extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/zoom-out-outline' {
-  declare export default class TiZoomOutOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/zoom-out' {
-  declare export default class TiZoomOut extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/zoom-outline' {
-  declare export default class TiZoomOutline extends React$Component<IconBaseProps> {}
-}
-
-declare module 'react-icons/lib/ti/zoom' {
-  declare export default class TiZoom extends React$Component<IconBaseProps> {}
+type IconBaseProps = {
+  children?: React$Node,
+  size?: string | number,
+  color?: string,
+};
+
+declare module 'react-icons/fa' {
+  declare export class Fa500px extends React$Component<IconBaseProps> {}
+  declare export class FaAccessibleIcon extends React$Component<IconBaseProps> {}
+  declare export class FaAccusoft extends React$Component<IconBaseProps> {}
+  declare export class FaAdn extends React$Component<IconBaseProps> {}
+  declare export class FaAdversal extends React$Component<IconBaseProps> {}
+  declare export class FaAffiliatetheme extends React$Component<IconBaseProps> {}
+  declare export class FaAlgolia extends React$Component<IconBaseProps> {}
+  declare export class FaAmazonPay extends React$Component<IconBaseProps> {}
+  declare export class FaAmazon extends React$Component<IconBaseProps> {}
+  declare export class FaAmilia extends React$Component<IconBaseProps> {}
+  declare export class FaAndroid extends React$Component<IconBaseProps> {}
+  declare export class FaAngellist extends React$Component<IconBaseProps> {}
+  declare export class FaAngrycreative extends React$Component<IconBaseProps> {}
+  declare export class FaAngular extends React$Component<IconBaseProps> {}
+  declare export class FaAppStoreIos extends React$Component<IconBaseProps> {}
+  declare export class FaAppStore extends React$Component<IconBaseProps> {}
+  declare export class FaApper extends React$Component<IconBaseProps> {}
+  declare export class FaApplePay extends React$Component<IconBaseProps> {}
+  declare export class FaApple extends React$Component<IconBaseProps> {}
+  declare export class FaAsymmetrik extends React$Component<IconBaseProps> {}
+  declare export class FaAudible extends React$Component<IconBaseProps> {}
+  declare export class FaAutoprefixer extends React$Component<IconBaseProps> {}
+  declare export class FaAvianex extends React$Component<IconBaseProps> {}
+  declare export class FaAviato extends React$Component<IconBaseProps> {}
+  declare export class FaAws extends React$Component<IconBaseProps> {}
+  declare export class FaBandcamp extends React$Component<IconBaseProps> {}
+  declare export class FaBehanceSquare extends React$Component<IconBaseProps> {}
+  declare export class FaBehance extends React$Component<IconBaseProps> {}
+  declare export class FaBimobject extends React$Component<IconBaseProps> {}
+  declare export class FaBitbucket extends React$Component<IconBaseProps> {}
+  declare export class FaBitcoin extends React$Component<IconBaseProps> {}
+  declare export class FaBity extends React$Component<IconBaseProps> {}
+  declare export class FaBlackTie extends React$Component<IconBaseProps> {}
+  declare export class FaBlackberry extends React$Component<IconBaseProps> {}
+  declare export class FaBloggerB extends React$Component<IconBaseProps> {}
+  declare export class FaBlogger extends React$Component<IconBaseProps> {}
+  declare export class FaBluetoothB extends React$Component<IconBaseProps> {}
+  declare export class FaBluetooth extends React$Component<IconBaseProps> {}
+  declare export class FaBtc extends React$Component<IconBaseProps> {}
+  declare export class FaBuromobelexperte extends React$Component<IconBaseProps> {}
+  declare export class FaBuysellads extends React$Component<IconBaseProps> {}
+  declare export class FaCcAmazonPay extends React$Component<IconBaseProps> {}
+  declare export class FaCcAmex extends React$Component<IconBaseProps> {}
+  declare export class FaCcApplePay extends React$Component<IconBaseProps> {}
+  declare export class FaCcDinersClub extends React$Component<IconBaseProps> {}
+  declare export class FaCcDiscover extends React$Component<IconBaseProps> {}
+  declare export class FaCcJcb extends React$Component<IconBaseProps> {}
+  declare export class FaCcMastercard extends React$Component<IconBaseProps> {}
+  declare export class FaCcPaypal extends React$Component<IconBaseProps> {}
+  declare export class FaCcStripe extends React$Component<IconBaseProps> {}
+  declare export class FaCcVisa extends React$Component<IconBaseProps> {}
+  declare export class FaCentercode extends React$Component<IconBaseProps> {}
+  declare export class FaChrome extends React$Component<IconBaseProps> {}
+  declare export class FaCloudscale extends React$Component<IconBaseProps> {}
+  declare export class FaCloudsmith extends React$Component<IconBaseProps> {}
+  declare export class FaCloudversify extends React$Component<IconBaseProps> {}
+  declare export class FaCodepen extends React$Component<IconBaseProps> {}
+  declare export class FaCodiepie extends React$Component<IconBaseProps> {}
+  declare export class FaConnectdevelop extends React$Component<IconBaseProps> {}
+  declare export class FaContao extends React$Component<IconBaseProps> {}
+  declare export class FaCpanel extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsBy extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsNcEu extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsNcJp extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsNc extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsNd extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsPdAlt extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsPd extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsRemix extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsSa extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsSamplingPlus extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsSampling extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommonsShare extends React$Component<IconBaseProps> {}
+  declare export class FaCreativeCommons extends React$Component<IconBaseProps> {}
+  declare export class FaCss3Alt extends React$Component<IconBaseProps> {}
+  declare export class FaCss3 extends React$Component<IconBaseProps> {}
+  declare export class FaCuttlefish extends React$Component<IconBaseProps> {}
+  declare export class FaDAndD extends React$Component<IconBaseProps> {}
+  declare export class FaDashcube extends React$Component<IconBaseProps> {}
+  declare export class FaDelicious extends React$Component<IconBaseProps> {}
+  declare export class FaDeploydog extends React$Component<IconBaseProps> {}
+  declare export class FaDeskpro extends React$Component<IconBaseProps> {}
+  declare export class FaDeviantart extends React$Component<IconBaseProps> {}
+  declare export class FaDigg extends React$Component<IconBaseProps> {}
+  declare export class FaDigitalOcean extends React$Component<IconBaseProps> {}
+  declare export class FaDiscord extends React$Component<IconBaseProps> {}
+  declare export class FaDiscourse extends React$Component<IconBaseProps> {}
+  declare export class FaDochub extends React$Component<IconBaseProps> {}
+  declare export class FaDocker extends React$Component<IconBaseProps> {}
+  declare export class FaDraft2digital extends React$Component<IconBaseProps> {}
+  declare export class FaDribbbleSquare extends React$Component<IconBaseProps> {}
+  declare export class FaDribbble extends React$Component<IconBaseProps> {}
+  declare export class FaDropbox extends React$Component<IconBaseProps> {}
+  declare export class FaDrupal extends React$Component<IconBaseProps> {}
+  declare export class FaDyalog extends React$Component<IconBaseProps> {}
+  declare export class FaEarlybirds extends React$Component<IconBaseProps> {}
+  declare export class FaEbay extends React$Component<IconBaseProps> {}
+  declare export class FaEdge extends React$Component<IconBaseProps> {}
+  declare export class FaElementor extends React$Component<IconBaseProps> {}
+  declare export class FaEmber extends React$Component<IconBaseProps> {}
+  declare export class FaEmpire extends React$Component<IconBaseProps> {}
+  declare export class FaEnvira extends React$Component<IconBaseProps> {}
+  declare export class FaErlang extends React$Component<IconBaseProps> {}
+  declare export class FaEthereum extends React$Component<IconBaseProps> {}
+  declare export class FaEtsy extends React$Component<IconBaseProps> {}
+  declare export class FaExpeditedssl extends React$Component<IconBaseProps> {}
+  declare export class FaFacebookF extends React$Component<IconBaseProps> {}
+  declare export class FaFacebookMessenger extends React$Component<IconBaseProps> {}
+  declare export class FaFacebookSquare extends React$Component<IconBaseProps> {}
+  declare export class FaFacebook extends React$Component<IconBaseProps> {}
+  declare export class FaFirefox extends React$Component<IconBaseProps> {}
+  declare export class FaFirstOrderAlt extends React$Component<IconBaseProps> {}
+  declare export class FaFirstOrder extends React$Component<IconBaseProps> {}
+  declare export class FaFirstdraft extends React$Component<IconBaseProps> {}
+  declare export class FaFlickr extends React$Component<IconBaseProps> {}
+  declare export class FaFlipboard extends React$Component<IconBaseProps> {}
+  declare export class FaFly extends React$Component<IconBaseProps> {}
+  declare export class FaFontAwesomeAlt extends React$Component<IconBaseProps> {}
+  declare export class FaFontAwesomeFlag extends React$Component<IconBaseProps> {}
+  declare export class FaFontAwesomeLogoFull extends React$Component<IconBaseProps> {}
+  declare export class FaFontAwesome extends React$Component<IconBaseProps> {}
+  declare export class FaFonticonsFi extends React$Component<IconBaseProps> {}
+  declare export class FaFonticons extends React$Component<IconBaseProps> {}
+  declare export class FaFortAwesomeAlt extends React$Component<IconBaseProps> {}
+  declare export class FaFortAwesome extends React$Component<IconBaseProps> {}
+  declare export class FaForumbee extends React$Component<IconBaseProps> {}
+  declare export class FaFoursquare extends React$Component<IconBaseProps> {}
+  declare export class FaFreeCodeCamp extends React$Component<IconBaseProps> {}
+  declare export class FaFreebsd extends React$Component<IconBaseProps> {}
+  declare export class FaFulcrum extends React$Component<IconBaseProps> {}
+  declare export class FaGalacticRepublic extends React$Component<IconBaseProps> {}
+  declare export class FaGalacticSenate extends React$Component<IconBaseProps> {}
+  declare export class FaGetPocket extends React$Component<IconBaseProps> {}
+  declare export class FaGgCircle extends React$Component<IconBaseProps> {}
+  declare export class FaGg extends React$Component<IconBaseProps> {}
+  declare export class FaGitSquare extends React$Component<IconBaseProps> {}
+  declare export class FaGit extends React$Component<IconBaseProps> {}
+  declare export class FaGithubAlt extends React$Component<IconBaseProps> {}
+  declare export class FaGithubSquare extends React$Component<IconBaseProps> {}
+  declare export class FaGithub extends React$Component<IconBaseProps> {}
+  declare export class FaGitkraken extends React$Component<IconBaseProps> {}
+  declare export class FaGitlab extends React$Component<IconBaseProps> {}
+  declare export class FaGitter extends React$Component<IconBaseProps> {}
+  declare export class FaGlideG extends React$Component<IconBaseProps> {}
+  declare export class FaGlide extends React$Component<IconBaseProps> {}
+  declare export class FaGofore extends React$Component<IconBaseProps> {}
+  declare export class FaGoodreadsG extends React$Component<IconBaseProps> {}
+  declare export class FaGoodreads extends React$Component<IconBaseProps> {}
+  declare export class FaGoogleDrive extends React$Component<IconBaseProps> {}
+  declare export class FaGooglePlay extends React$Component<IconBaseProps> {}
+  declare export class FaGooglePlusG extends React$Component<IconBaseProps> {}
+  declare export class FaGooglePlusSquare extends React$Component<IconBaseProps> {}
+  declare export class FaGooglePlus extends React$Component<IconBaseProps> {}
+  declare export class FaGoogleWallet extends React$Component<IconBaseProps> {}
+  declare export class FaGoogle extends React$Component<IconBaseProps> {}
+  declare export class FaGratipay extends React$Component<IconBaseProps> {}
+  declare export class FaGrav extends React$Component<IconBaseProps> {}
+  declare export class FaGripfire extends React$Component<IconBaseProps> {}
+  declare export class FaGrunt extends React$Component<IconBaseProps> {}
+  declare export class FaGulp extends React$Component<IconBaseProps> {}
+  declare export class FaHackerNewsSquare extends React$Component<IconBaseProps> {}
+  declare export class FaHackerNews extends React$Component<IconBaseProps> {}
+  declare export class FaHips extends React$Component<IconBaseProps> {}
+  declare export class FaHireAHelper extends React$Component<IconBaseProps> {}
+  declare export class FaHooli extends React$Component<IconBaseProps> {}
+  declare export class FaHotjar extends React$Component<IconBaseProps> {}
+  declare export class FaHouzz extends React$Component<IconBaseProps> {}
+  declare export class FaHtml5 extends React$Component<IconBaseProps> {}
+  declare export class FaHubspot extends React$Component<IconBaseProps> {}
+  declare export class FaImdb extends React$Component<IconBaseProps> {}
+  declare export class FaInstagram extends React$Component<IconBaseProps> {}
+  declare export class FaInternetExplorer extends React$Component<IconBaseProps> {}
+  declare export class FaIoxhost extends React$Component<IconBaseProps> {}
+  declare export class FaItunesNote extends React$Component<IconBaseProps> {}
+  declare export class FaItunes extends React$Component<IconBaseProps> {}
+  declare export class FaJava extends React$Component<IconBaseProps> {}
+  declare export class FaJediOrder extends React$Component<IconBaseProps> {}
+  declare export class FaJenkins extends React$Component<IconBaseProps> {}
+  declare export class FaJoget extends React$Component<IconBaseProps> {}
+  declare export class FaJoomla extends React$Component<IconBaseProps> {}
+  declare export class FaJsSquare extends React$Component<IconBaseProps> {}
+  declare export class FaJs extends React$Component<IconBaseProps> {}
+  declare export class FaJsfiddle extends React$Component<IconBaseProps> {}
+  declare export class FaKeybase extends React$Component<IconBaseProps> {}
+  declare export class FaKeycdn extends React$Component<IconBaseProps> {}
+  declare export class FaKickstarterK extends React$Component<IconBaseProps> {}
+  declare export class FaKickstarter extends React$Component<IconBaseProps> {}
+  declare export class FaKorvue extends React$Component<IconBaseProps> {}
+  declare export class FaLaravel extends React$Component<IconBaseProps> {}
+  declare export class FaLastfmSquare extends React$Component<IconBaseProps> {}
+  declare export class FaLastfm extends React$Component<IconBaseProps> {}
+  declare export class FaLeanpub extends React$Component<IconBaseProps> {}
+  declare export class FaLess extends React$Component<IconBaseProps> {}
+  declare export class FaLine extends React$Component<IconBaseProps> {}
+  declare export class FaLinkedinIn extends React$Component<IconBaseProps> {}
+  declare export class FaLinkedin extends React$Component<IconBaseProps> {}
+  declare export class FaLinode extends React$Component<IconBaseProps> {}
+  declare export class FaLinux extends React$Component<IconBaseProps> {}
+  declare export class FaLyft extends React$Component<IconBaseProps> {}
+  declare export class FaMagento extends React$Component<IconBaseProps> {}
+  declare export class FaMandalorian extends React$Component<IconBaseProps> {}
+  declare export class FaMastodon extends React$Component<IconBaseProps> {}
+  declare export class FaMaxcdn extends React$Component<IconBaseProps> {}
+  declare export class FaMedapps extends React$Component<IconBaseProps> {}
+  declare export class FaMediumM extends React$Component<IconBaseProps> {}
+  declare export class FaMedium extends React$Component<IconBaseProps> {}
+  declare export class FaMedrt extends React$Component<IconBaseProps> {}
+  declare export class FaMeetup extends React$Component<IconBaseProps> {}
+  declare export class FaMicrosoft extends React$Component<IconBaseProps> {}
+  declare export class FaMix extends React$Component<IconBaseProps> {}
+  declare export class FaMixcloud extends React$Component<IconBaseProps> {}
+  declare export class FaMizuni extends React$Component<IconBaseProps> {}
+  declare export class FaModx extends React$Component<IconBaseProps> {}
+  declare export class FaMonero extends React$Component<IconBaseProps> {}
+  declare export class FaNapster extends React$Component<IconBaseProps> {}
+  declare export class FaNintendoSwitch extends React$Component<IconBaseProps> {}
+  declare export class FaNodeJs extends React$Component<IconBaseProps> {}
+  declare export class FaNode extends React$Component<IconBaseProps> {}
+  declare export class FaNpm extends React$Component<IconBaseProps> {}
+  declare export class FaNs8 extends React$Component<IconBaseProps> {}
+  declare export class FaNutritionix extends React$Component<IconBaseProps> {}
+  declare export class FaOdnoklassnikiSquare extends React$Component<IconBaseProps> {}
+  declare export class FaOdnoklassniki extends React$Component<IconBaseProps> {}
+  declare export class FaOldRepublic extends React$Component<IconBaseProps> {}
+  declare export class FaOpencart extends React$Component<IconBaseProps> {}
+  declare export class FaOpenid extends React$Component<IconBaseProps> {}
+  declare export class FaOpera extends React$Component<IconBaseProps> {}
+  declare export class FaOptinMonster extends React$Component<IconBaseProps> {}
+  declare export class FaOsi extends React$Component<IconBaseProps> {}
+  declare export class FaPage4 extends React$Component<IconBaseProps> {}
+  declare export class FaPagelines extends React$Component<IconBaseProps> {}
+  declare export class FaPalfed extends React$Component<IconBaseProps> {}
+  declare export class FaPatreon extends React$Component<IconBaseProps> {}
+  declare export class FaPaypal extends React$Component<IconBaseProps> {}
+  declare export class FaPeriscope extends React$Component<IconBaseProps> {}
+  declare export class FaPhabricator extends React$Component<IconBaseProps> {}
+  declare export class FaPhoenixFramework extends React$Component<IconBaseProps> {}
+  declare export class FaPhoenixSquadron extends React$Component<IconBaseProps> {}
+  declare export class FaPhp extends React$Component<IconBaseProps> {}
+  declare export class FaPiedPiperAlt extends React$Component<IconBaseProps> {}
+  declare export class FaPiedPiperHat extends React$Component<IconBaseProps> {}
+  declare export class FaPiedPiperPp extends React$Component<IconBaseProps> {}
+  declare export class FaPiedPiper extends React$Component<IconBaseProps> {}
+  declare export class FaPinterestP extends React$Component<IconBaseProps> {}
+  declare export class FaPinterestSquare extends React$Component<IconBaseProps> {}
+  declare export class FaPinterest extends React$Component<IconBaseProps> {}
+  declare export class FaPlaystation extends React$Component<IconBaseProps> {}
+  declare export class FaProductHunt extends React$Component<IconBaseProps> {}
+  declare export class FaPushed extends React$Component<IconBaseProps> {}
+  declare export class FaPython extends React$Component<IconBaseProps> {}
+  declare export class FaQq extends React$Component<IconBaseProps> {}
+  declare export class FaQuinscape extends React$Component<IconBaseProps> {}
+  declare export class FaQuora extends React$Component<IconBaseProps> {}
+  declare export class FaRProject extends React$Component<IconBaseProps> {}
+  declare export class FaR extends React$Component<IconBaseProps> {}
+  declare export class FaRavelry extends React$Component<IconBaseProps> {}
+  declare export class FaReact extends React$Component<IconBaseProps> {}
+  declare export class FaReadme extends React$Component<IconBaseProps> {}
+  declare export class FaRebel extends React$Component<IconBaseProps> {}
+  declare export class FaRedRiver extends React$Component<IconBaseProps> {}
+  declare export class FaRedditAlien extends React$Component<IconBaseProps> {}
+  declare export class FaRedditSquare extends React$Component<IconBaseProps> {}
+  declare export class FaReddit extends React$Component<IconBaseProps> {}
+  declare export class FaRendact extends React$Component<IconBaseProps> {}
+  declare export class FaRenren extends React$Component<IconBaseProps> {}
+  declare export class FaReplyd extends React$Component<IconBaseProps> {}
+  declare export class FaResearchgate extends React$Component<IconBaseProps> {}
+  declare export class FaResolving extends React$Component<IconBaseProps> {}
+  declare export class FaRocketchat extends React$Component<IconBaseProps> {}
+  declare export class FaRockrms extends React$Component<IconBaseProps> {}
+  declare export class FaSafari extends React$Component<IconBaseProps> {}
+  declare export class FaSass extends React$Component<IconBaseProps> {}
+  declare export class FaSchlix extends React$Component<IconBaseProps> {}
+  declare export class FaScribd extends React$Component<IconBaseProps> {}
+  declare export class FaSearchengin extends React$Component<IconBaseProps> {}
+  declare export class FaSellcast extends React$Component<IconBaseProps> {}
+  declare export class FaSellsy extends React$Component<IconBaseProps> {}
+  declare export class FaServicestack extends React$Component<IconBaseProps> {}
+  declare export class FaShirtsinbulk extends React$Component<IconBaseProps> {}
+  declare export class FaSimplybuilt extends React$Component<IconBaseProps> {}
+  declare export class FaSistrix extends React$Component<IconBaseProps> {}
+  declare export class FaSith extends React$Component<IconBaseProps> {}
+  declare export class FaSkyatlas extends React$Component<IconBaseProps> {}
+  declare export class FaSkype extends React$Component<IconBaseProps> {}
+  declare export class FaSlackHash extends React$Component<IconBaseProps> {}
+  declare export class FaSlack extends React$Component<IconBaseProps> {}
+  declare export class FaSlideshare extends React$Component<IconBaseProps> {}
+  declare export class FaSnapchatGhost extends React$Component<IconBaseProps> {}
+  declare export class FaSnapchatSquare extends React$Component<IconBaseProps> {}
+  declare export class FaSnapchat extends React$Component<IconBaseProps> {}
+  declare export class FaSoundcloud extends React$Component<IconBaseProps> {}
+  declare export class FaSpeakap extends React$Component<IconBaseProps> {}
+  declare export class FaSpotify extends React$Component<IconBaseProps> {}
+  declare export class FaStackExchange extends React$Component<IconBaseProps> {}
+  declare export class FaStackOverflow extends React$Component<IconBaseProps> {}
+  declare export class FaStaylinked extends React$Component<IconBaseProps> {}
+  declare export class FaSteamSquare extends React$Component<IconBaseProps> {}
+  declare export class FaSteamSymbol extends React$Component<IconBaseProps> {}
+  declare export class FaSteam extends React$Component<IconBaseProps> {}
+  declare export class FaStickerMule extends React$Component<IconBaseProps> {}
+  declare export class FaStrava extends React$Component<IconBaseProps> {}
+  declare export class FaStripeS extends React$Component<IconBaseProps> {}
+  declare export class FaStripe extends React$Component<IconBaseProps> {}
+  declare export class FaStudiovinari extends React$Component<IconBaseProps> {}
+  declare export class FaStumbleuponCircle extends React$Component<IconBaseProps> {}
+  declare export class FaStumbleupon extends React$Component<IconBaseProps> {}
+  declare export class FaSuperpowers extends React$Component<IconBaseProps> {}
+  declare export class FaSupple extends React$Component<IconBaseProps> {}
+  declare export class FaTeamspeak extends React$Component<IconBaseProps> {}
+  declare export class FaTelegramPlane extends React$Component<IconBaseProps> {}
+  declare export class FaTelegram extends React$Component<IconBaseProps> {}
+  declare export class FaTencentWeibo extends React$Component<IconBaseProps> {}
+  declare export class FaThemeisle extends React$Component<IconBaseProps> {}
+  declare export class FaTradeFederation extends React$Component<IconBaseProps> {}
+  declare export class FaTrello extends React$Component<IconBaseProps> {}
+  declare export class FaTripadvisor extends React$Component<IconBaseProps> {}
+  declare export class FaTumblrSquare extends React$Component<IconBaseProps> {}
+  declare export class FaTumblr extends React$Component<IconBaseProps> {}
+  declare export class FaTwitch extends React$Component<IconBaseProps> {}
+  declare export class FaTwitterSquare extends React$Component<IconBaseProps> {}
+  declare export class FaTwitter extends React$Component<IconBaseProps> {}
+  declare export class FaTypo3 extends React$Component<IconBaseProps> {}
+  declare export class FaUber extends React$Component<IconBaseProps> {}
+  declare export class FaUikit extends React$Component<IconBaseProps> {}
+  declare export class FaUniregistry extends React$Component<IconBaseProps> {}
+  declare export class FaUntappd extends React$Component<IconBaseProps> {}
+  declare export class FaUsb extends React$Component<IconBaseProps> {}
+  declare export class FaUssunnah extends React$Component<IconBaseProps> {}
+  declare export class FaVaadin extends React$Component<IconBaseProps> {}
+  declare export class FaViacoin extends React$Component<IconBaseProps> {}
+  declare export class FaViadeoSquare extends React$Component<IconBaseProps> {}
+  declare export class FaViadeo extends React$Component<IconBaseProps> {}
+  declare export class FaViber extends React$Component<IconBaseProps> {}
+  declare export class FaVimeoSquare extends React$Component<IconBaseProps> {}
+  declare export class FaVimeoV extends React$Component<IconBaseProps> {}
+  declare export class FaVimeo extends React$Component<IconBaseProps> {}
+  declare export class FaVine extends React$Component<IconBaseProps> {}
+  declare export class FaVk extends React$Component<IconBaseProps> {}
+  declare export class FaVnv extends React$Component<IconBaseProps> {}
+  declare export class FaVuejs extends React$Component<IconBaseProps> {}
+  declare export class FaWeibo extends React$Component<IconBaseProps> {}
+  declare export class FaWeixin extends React$Component<IconBaseProps> {}
+  declare export class FaWhatsappSquare extends React$Component<IconBaseProps> {}
+  declare export class FaWhatsapp extends React$Component<IconBaseProps> {}
+  declare export class FaWhmcs extends React$Component<IconBaseProps> {}
+  declare export class FaWikipediaW extends React$Component<IconBaseProps> {}
+  declare export class FaWindows extends React$Component<IconBaseProps> {}
+  declare export class FaWolfPackBattalion extends React$Component<IconBaseProps> {}
+  declare export class FaWordpressSimple extends React$Component<IconBaseProps> {}
+  declare export class FaWordpress extends React$Component<IconBaseProps> {}
+  declare export class FaWpbeginner extends React$Component<IconBaseProps> {}
+  declare export class FaWpexplorer extends React$Component<IconBaseProps> {}
+  declare export class FaWpforms extends React$Component<IconBaseProps> {}
+  declare export class FaXbox extends React$Component<IconBaseProps> {}
+  declare export class FaXingSquare extends React$Component<IconBaseProps> {}
+  declare export class FaXing extends React$Component<IconBaseProps> {}
+  declare export class FaYCombinator extends React$Component<IconBaseProps> {}
+  declare export class FaYahoo extends React$Component<IconBaseProps> {}
+  declare export class FaYandexInternational extends React$Component<IconBaseProps> {}
+  declare export class FaYandex extends React$Component<IconBaseProps> {}
+  declare export class FaYelp extends React$Component<IconBaseProps> {}
+  declare export class FaYoast extends React$Component<IconBaseProps> {}
+  declare export class FaYoutubeSquare extends React$Component<IconBaseProps> {}
+  declare export class FaYoutube extends React$Component<IconBaseProps> {}
+  declare export class FaAddressBook extends React$Component<IconBaseProps> {}
+  declare export class FaAddressCard extends React$Component<IconBaseProps> {}
+  declare export class FaAdjust extends React$Component<IconBaseProps> {}
+  declare export class FaAlignCenter extends React$Component<IconBaseProps> {}
+  declare export class FaAlignJustify extends React$Component<IconBaseProps> {}
+  declare export class FaAlignLeft extends React$Component<IconBaseProps> {}
+  declare export class FaAlignRight extends React$Component<IconBaseProps> {}
+  declare export class FaAllergies extends React$Component<IconBaseProps> {}
+  declare export class FaAmbulance extends React$Component<IconBaseProps> {}
+  declare export class FaAmericanSignLanguageInterpreting extends React$Component<IconBaseProps> {}
+  declare export class FaAnchor extends React$Component<IconBaseProps> {}
+  declare export class FaAngleDoubleDown extends React$Component<IconBaseProps> {}
+  declare export class FaAngleDoubleLeft extends React$Component<IconBaseProps> {}
+  declare export class FaAngleDoubleRight extends React$Component<IconBaseProps> {}
+  declare export class FaAngleDoubleUp extends React$Component<IconBaseProps> {}
+  declare export class FaAngleDown extends React$Component<IconBaseProps> {}
+  declare export class FaAngleLeft extends React$Component<IconBaseProps> {}
+  declare export class FaAngleRight extends React$Component<IconBaseProps> {}
+  declare export class FaAngleUp extends React$Component<IconBaseProps> {}
+  declare export class FaArchive extends React$Component<IconBaseProps> {}
+  declare export class FaArrowAltCircleDown extends React$Component<IconBaseProps> {}
+  declare export class FaArrowAltCircleLeft extends React$Component<IconBaseProps> {}
+  declare export class FaArrowAltCircleRight extends React$Component<IconBaseProps> {}
+  declare export class FaArrowAltCircleUp extends React$Component<IconBaseProps> {}
+  declare export class FaArrowCircleDown extends React$Component<IconBaseProps> {}
+  declare export class FaArrowCircleLeft extends React$Component<IconBaseProps> {}
+  declare export class FaArrowCircleRight extends React$Component<IconBaseProps> {}
+  declare export class FaArrowCircleUp extends React$Component<IconBaseProps> {}
+  declare export class FaArrowDown extends React$Component<IconBaseProps> {}
+  declare export class FaArrowLeft extends React$Component<IconBaseProps> {}
+  declare export class FaArrowRight extends React$Component<IconBaseProps> {}
+  declare export class FaArrowUp extends React$Component<IconBaseProps> {}
+  declare export class FaArrowsAltH extends React$Component<IconBaseProps> {}
+  declare export class FaArrowsAltV extends React$Component<IconBaseProps> {}
+  declare export class FaArrowsAlt extends React$Component<IconBaseProps> {}
+  declare export class FaAssistiveListeningSystems extends React$Component<IconBaseProps> {}
+  declare export class FaAsterisk extends React$Component<IconBaseProps> {}
+  declare export class FaAt extends React$Component<IconBaseProps> {}
+  declare export class FaAudioDescription extends React$Component<IconBaseProps> {}
+  declare export class FaBackward extends React$Component<IconBaseProps> {}
+  declare export class FaBalanceScale extends React$Component<IconBaseProps> {}
+  declare export class FaBan extends React$Component<IconBaseProps> {}
+  declare export class FaBandAid extends React$Component<IconBaseProps> {}
+  declare export class FaBarcode extends React$Component<IconBaseProps> {}
+  declare export class FaBars extends React$Component<IconBaseProps> {}
+  declare export class FaBaseballBall extends React$Component<IconBaseProps> {}
+  declare export class FaBasketballBall extends React$Component<IconBaseProps> {}
+  declare export class FaBath extends React$Component<IconBaseProps> {}
+  declare export class FaBatteryEmpty extends React$Component<IconBaseProps> {}
+  declare export class FaBatteryFull extends React$Component<IconBaseProps> {}
+  declare export class FaBatteryHalf extends React$Component<IconBaseProps> {}
+  declare export class FaBatteryQuarter extends React$Component<IconBaseProps> {}
+  declare export class FaBatteryThreeQuarters extends React$Component<IconBaseProps> {}
+  declare export class FaBed extends React$Component<IconBaseProps> {}
+  declare export class FaBeer extends React$Component<IconBaseProps> {}
+  declare export class FaBellSlash extends React$Component<IconBaseProps> {}
+  declare export class FaBell extends React$Component<IconBaseProps> {}
+  declare export class FaBicycle extends React$Component<IconBaseProps> {}
+  declare export class FaBinoculars extends React$Component<IconBaseProps> {}
+  declare export class FaBirthdayCake extends React$Component<IconBaseProps> {}
+  declare export class FaBlender extends React$Component<IconBaseProps> {}
+  declare export class FaBlind extends React$Component<IconBaseProps> {}
+  declare export class FaBold extends React$Component<IconBaseProps> {}
+  declare export class FaBolt extends React$Component<IconBaseProps> {}
+  declare export class FaBomb extends React$Component<IconBaseProps> {}
+  declare export class FaBookOpen extends React$Component<IconBaseProps> {}
+  declare export class FaBook extends React$Component<IconBaseProps> {}
+  declare export class FaBookmark extends React$Component<IconBaseProps> {}
+  declare export class FaBowlingBall extends React$Component<IconBaseProps> {}
+  declare export class FaBoxOpen extends React$Component<IconBaseProps> {}
+  declare export class FaBox extends React$Component<IconBaseProps> {}
+  declare export class FaBoxes extends React$Component<IconBaseProps> {}
+  declare export class FaBraille extends React$Component<IconBaseProps> {}
+  declare export class FaBriefcaseMedical extends React$Component<IconBaseProps> {}
+  declare export class FaBriefcase extends React$Component<IconBaseProps> {}
+  declare export class FaBroadcastTower extends React$Component<IconBaseProps> {}
+  declare export class FaBroom extends React$Component<IconBaseProps> {}
+  declare export class FaBug extends React$Component<IconBaseProps> {}
+  declare export class FaBuilding extends React$Component<IconBaseProps> {}
+  declare export class FaBullhorn extends React$Component<IconBaseProps> {}
+  declare export class FaBullseye extends React$Component<IconBaseProps> {}
+  declare export class FaBurn extends React$Component<IconBaseProps> {}
+  declare export class FaBus extends React$Component<IconBaseProps> {}
+  declare export class FaCalculator extends React$Component<IconBaseProps> {}
+  declare export class FaCalendarAlt extends React$Component<IconBaseProps> {}
+  declare export class FaCalendarCheck extends React$Component<IconBaseProps> {}
+  declare export class FaCalendarMinus extends React$Component<IconBaseProps> {}
+  declare export class FaCalendarPlus extends React$Component<IconBaseProps> {}
+  declare export class FaCalendarTimes extends React$Component<IconBaseProps> {}
+  declare export class FaCalendar extends React$Component<IconBaseProps> {}
+  declare export class FaCameraRetro extends React$Component<IconBaseProps> {}
+  declare export class FaCamera extends React$Component<IconBaseProps> {}
+  declare export class FaCapsules extends React$Component<IconBaseProps> {}
+  declare export class FaCar extends React$Component<IconBaseProps> {}
+  declare export class FaCaretDown extends React$Component<IconBaseProps> {}
+  declare export class FaCaretLeft extends React$Component<IconBaseProps> {}
+  declare export class FaCaretRight extends React$Component<IconBaseProps> {}
+  declare export class FaCaretSquareDown extends React$Component<IconBaseProps> {}
+  declare export class FaCaretSquareLeft extends React$Component<IconBaseProps> {}
+  declare export class FaCaretSquareRight extends React$Component<IconBaseProps> {}
+  declare export class FaCaretSquareUp extends React$Component<IconBaseProps> {}
+  declare export class FaCaretUp extends React$Component<IconBaseProps> {}
+  declare export class FaCartArrowDown extends React$Component<IconBaseProps> {}
+  declare export class FaCartPlus extends React$Component<IconBaseProps> {}
+  declare export class FaCertificate extends React$Component<IconBaseProps> {}
+  declare export class FaChalkboardTeacher extends React$Component<IconBaseProps> {}
+  declare export class FaChalkboard extends React$Component<IconBaseProps> {}
+  declare export class FaChartArea extends React$Component<IconBaseProps> {}
+  declare export class FaChartBar extends React$Component<IconBaseProps> {}
+  declare export class FaChartLine extends React$Component<IconBaseProps> {}
+  declare export class FaChartPie extends React$Component<IconBaseProps> {}
+  declare export class FaCheckCircle extends React$Component<IconBaseProps> {}
+  declare export class FaCheckSquare extends React$Component<IconBaseProps> {}
+  declare export class FaCheck extends React$Component<IconBaseProps> {}
+  declare export class FaChessBishop extends React$Component<IconBaseProps> {}
+  declare export class FaChessBoard extends React$Component<IconBaseProps> {}
+  declare export class FaChessKing extends React$Component<IconBaseProps> {}
+  declare export class FaChessKnight extends React$Component<IconBaseProps> {}
+  declare export class FaChessPawn extends React$Component<IconBaseProps> {}
+  declare export class FaChessQueen extends React$Component<IconBaseProps> {}
+  declare export class FaChessRook extends React$Component<IconBaseProps> {}
+  declare export class FaChess extends React$Component<IconBaseProps> {}
+  declare export class FaChevronCircleDown extends React$Component<IconBaseProps> {}
+  declare export class FaChevronCircleLeft extends React$Component<IconBaseProps> {}
+  declare export class FaChevronCircleRight extends React$Component<IconBaseProps> {}
+  declare export class FaChevronCircleUp extends React$Component<IconBaseProps> {}
+  declare export class FaChevronDown extends React$Component<IconBaseProps> {}
+  declare export class FaChevronLeft extends React$Component<IconBaseProps> {}
+  declare export class FaChevronRight extends React$Component<IconBaseProps> {}
+  declare export class FaChevronUp extends React$Component<IconBaseProps> {}
+  declare export class FaChild extends React$Component<IconBaseProps> {}
+  declare export class FaChurch extends React$Component<IconBaseProps> {}
+  declare export class FaCircleNotch extends React$Component<IconBaseProps> {}
+  declare export class FaCircle extends React$Component<IconBaseProps> {}
+  declare export class FaClipboardCheck extends React$Component<IconBaseProps> {}
+  declare export class FaClipboardList extends React$Component<IconBaseProps> {}
+  declare export class FaClipboard extends React$Component<IconBaseProps> {}
+  declare export class FaClock extends React$Component<IconBaseProps> {}
+  declare export class FaClone extends React$Component<IconBaseProps> {}
+  declare export class FaClosedCaptioning extends React$Component<IconBaseProps> {}
+  declare export class FaCloudDownloadAlt extends React$Component<IconBaseProps> {}
+  declare export class FaCloudUploadAlt extends React$Component<IconBaseProps> {}
+  declare export class FaCloud extends React$Component<IconBaseProps> {}
+  declare export class FaCodeBranch extends React$Component<IconBaseProps> {}
+  declare export class FaCode extends React$Component<IconBaseProps> {}
+  declare export class FaCoffee extends React$Component<IconBaseProps> {}
+  declare export class FaCog extends React$Component<IconBaseProps> {}
+  declare export class FaCogs extends React$Component<IconBaseProps> {}
+  declare export class FaCoins extends React$Component<IconBaseProps> {}
+  declare export class FaColumns extends React$Component<IconBaseProps> {}
+  declare export class FaCommentAlt extends React$Component<IconBaseProps> {}
+  declare export class FaCommentDots extends React$Component<IconBaseProps> {}
+  declare export class FaCommentSlash extends React$Component<IconBaseProps> {}
+  declare export class FaComment extends React$Component<IconBaseProps> {}
+  declare export class FaComments extends React$Component<IconBaseProps> {}
+  declare export class FaCompactDisc extends React$Component<IconBaseProps> {}
+  declare export class FaCompass extends React$Component<IconBaseProps> {}
+  declare export class FaCompress extends React$Component<IconBaseProps> {}
+  declare export class FaCopy extends React$Component<IconBaseProps> {}
+  declare export class FaCopyright extends React$Component<IconBaseProps> {}
+  declare export class FaCouch extends React$Component<IconBaseProps> {}
+  declare export class FaCreditCard extends React$Component<IconBaseProps> {}
+  declare export class FaCrop extends React$Component<IconBaseProps> {}
+  declare export class FaCrosshairs extends React$Component<IconBaseProps> {}
+  declare export class FaCrow extends React$Component<IconBaseProps> {}
+  declare export class FaCrown extends React$Component<IconBaseProps> {}
+  declare export class FaCube extends React$Component<IconBaseProps> {}
+  declare export class FaCubes extends React$Component<IconBaseProps> {}
+  declare export class FaCut extends React$Component<IconBaseProps> {}
+  declare export class FaDatabase extends React$Component<IconBaseProps> {}
+  declare export class FaDeaf extends React$Component<IconBaseProps> {}
+  declare export class FaDesktop extends React$Component<IconBaseProps> {}
+  declare export class FaDiagnoses extends React$Component<IconBaseProps> {}
+  declare export class FaDiceFive extends React$Component<IconBaseProps> {}
+  declare export class FaDiceFour extends React$Component<IconBaseProps> {}
+  declare export class FaDiceOne extends React$Component<IconBaseProps> {}
+  declare export class FaDiceSix extends React$Component<IconBaseProps> {}
+  declare export class FaDiceThree extends React$Component<IconBaseProps> {}
+  declare export class FaDiceTwo extends React$Component<IconBaseProps> {}
+  declare export class FaDice extends React$Component<IconBaseProps> {}
+  declare export class FaDivide extends React$Component<IconBaseProps> {}
+  declare export class FaDna extends React$Component<IconBaseProps> {}
+  declare export class FaDollarSign extends React$Component<IconBaseProps> {}
+  declare export class FaDollyFlatbed extends React$Component<IconBaseProps> {}
+  declare export class FaDolly extends React$Component<IconBaseProps> {}
+  declare export class FaDonate extends React$Component<IconBaseProps> {}
+  declare export class FaDoorClosed extends React$Component<IconBaseProps> {}
+  declare export class FaDoorOpen extends React$Component<IconBaseProps> {}
+  declare export class FaDotCircle extends React$Component<IconBaseProps> {}
+  declare export class FaDove extends React$Component<IconBaseProps> {}
+  declare export class FaDownload extends React$Component<IconBaseProps> {}
+  declare export class FaDumbbell extends React$Component<IconBaseProps> {}
+  declare export class FaEdit extends React$Component<IconBaseProps> {}
+  declare export class FaEject extends React$Component<IconBaseProps> {}
+  declare export class FaEllipsisH extends React$Component<IconBaseProps> {}
+  declare export class FaEllipsisV extends React$Component<IconBaseProps> {}
+  declare export class FaEnvelopeOpen extends React$Component<IconBaseProps> {}
+  declare export class FaEnvelopeSquare extends React$Component<IconBaseProps> {}
+  declare export class FaEnvelope extends React$Component<IconBaseProps> {}
+  declare export class FaEquals extends React$Component<IconBaseProps> {}
+  declare export class FaEraser extends React$Component<IconBaseProps> {}
+  declare export class FaEuroSign extends React$Component<IconBaseProps> {}
+  declare export class FaExchangeAlt extends React$Component<IconBaseProps> {}
+  declare export class FaExclamationCircle extends React$Component<IconBaseProps> {}
+  declare export class FaExclamationTriangle extends React$Component<IconBaseProps> {}
+  declare export class FaExclamation extends React$Component<IconBaseProps> {}
+  declare export class FaExpandArrowsAlt extends React$Component<IconBaseProps> {}
+  declare export class FaExpand extends React$Component<IconBaseProps> {}
+  declare export class FaExternalLinkAlt extends React$Component<IconBaseProps> {}
+  declare export class FaExternalLinkSquareAlt extends React$Component<IconBaseProps> {}
+  declare export class FaEyeDropper extends React$Component<IconBaseProps> {}
+  declare export class FaEyeSlash extends React$Component<IconBaseProps> {}
+  declare export class FaEye extends React$Component<IconBaseProps> {}
+  declare export class FaFastBackward extends React$Component<IconBaseProps> {}
+  declare export class FaFastForward extends React$Component<IconBaseProps> {}
+  declare export class FaFax extends React$Component<IconBaseProps> {}
+  declare export class FaFeather extends React$Component<IconBaseProps> {}
+  declare export class FaFemale extends React$Component<IconBaseProps> {}
+  declare export class FaFighterJet extends React$Component<IconBaseProps> {}
+  declare export class FaFileAlt extends React$Component<IconBaseProps> {}
+  declare export class FaFileArchive extends React$Component<IconBaseProps> {}
+  declare export class FaFileAudio extends React$Component<IconBaseProps> {}
+  declare export class FaFileCode extends React$Component<IconBaseProps> {}
+  declare export class FaFileExcel extends React$Component<IconBaseProps> {}
+  declare export class FaFileImage extends React$Component<IconBaseProps> {}
+  declare export class FaFileMedicalAlt extends React$Component<IconBaseProps> {}
+  declare export class FaFileMedical extends React$Component<IconBaseProps> {}
+  declare export class FaFilePdf extends React$Component<IconBaseProps> {}
+  declare export class FaFilePowerpoint extends React$Component<IconBaseProps> {}
+  declare export class FaFileVideo extends React$Component<IconBaseProps> {}
+  declare export class FaFileWord extends React$Component<IconBaseProps> {}
+  declare export class FaFile extends React$Component<IconBaseProps> {}
+  declare export class FaFilm extends React$Component<IconBaseProps> {}
+  declare export class FaFilter extends React$Component<IconBaseProps> {}
+  declare export class FaFireExtinguisher extends React$Component<IconBaseProps> {}
+  declare export class FaFire extends React$Component<IconBaseProps> {}
+  declare export class FaFirstAid extends React$Component<IconBaseProps> {}
+  declare export class FaFlagCheckered extends React$Component<IconBaseProps> {}
+  declare export class FaFlag extends React$Component<IconBaseProps> {}
+  declare export class FaFlask extends React$Component<IconBaseProps> {}
+  declare export class FaFolderOpen extends React$Component<IconBaseProps> {}
+  declare export class FaFolder extends React$Component<IconBaseProps> {}
+  declare export class FaFont extends React$Component<IconBaseProps> {}
+  declare export class FaFootballBall extends React$Component<IconBaseProps> {}
+  declare export class FaForward extends React$Component<IconBaseProps> {}
+  declare export class FaFrog extends React$Component<IconBaseProps> {}
+  declare export class FaFrown extends React$Component<IconBaseProps> {}
+  declare export class FaFutbol extends React$Component<IconBaseProps> {}
+  declare export class FaGamepad extends React$Component<IconBaseProps> {}
+  declare export class FaGasPump extends React$Component<IconBaseProps> {}
+  declare export class FaGavel extends React$Component<IconBaseProps> {}
+  declare export class FaGem extends React$Component<IconBaseProps> {}
+  declare export class FaGenderless extends React$Component<IconBaseProps> {}
+  declare export class FaGift extends React$Component<IconBaseProps> {}
+  declare export class FaGlassMartini extends React$Component<IconBaseProps> {}
+  declare export class FaGlasses extends React$Component<IconBaseProps> {}
+  declare export class FaGlobe extends React$Component<IconBaseProps> {}
+  declare export class FaGolfBall extends React$Component<IconBaseProps> {}
+  declare export class FaGraduationCap extends React$Component<IconBaseProps> {}
+  declare export class FaGreaterThanEqual extends React$Component<IconBaseProps> {}
+  declare export class FaGreaterThan extends React$Component<IconBaseProps> {}
+  declare export class FaHSquare extends React$Component<IconBaseProps> {}
+  declare export class FaHandHoldingHeart extends React$Component<IconBaseProps> {}
+  declare export class FaHandHoldingUsd extends React$Component<IconBaseProps> {}
+  declare export class FaHandHolding extends React$Component<IconBaseProps> {}
+  declare export class FaHandLizard extends React$Component<IconBaseProps> {}
+  declare export class FaHandPaper extends React$Component<IconBaseProps> {}
+  declare export class FaHandPeace extends React$Component<IconBaseProps> {}
+  declare export class FaHandPointDown extends React$Component<IconBaseProps> {}
+  declare export class FaHandPointLeft extends React$Component<IconBaseProps> {}
+  declare export class FaHandPointRight extends React$Component<IconBaseProps> {}
+  declare export class FaHandPointUp extends React$Component<IconBaseProps> {}
+  declare export class FaHandPointer extends React$Component<IconBaseProps> {}
+  declare export class FaHandRock extends React$Component<IconBaseProps> {}
+  declare export class FaHandScissors extends React$Component<IconBaseProps> {}
+  declare export class FaHandSpock extends React$Component<IconBaseProps> {}
+  declare export class FaHandsHelping extends React$Component<IconBaseProps> {}
+  declare export class FaHands extends React$Component<IconBaseProps> {}
+  declare export class FaHandshake extends React$Component<IconBaseProps> {}
+  declare export class FaHashtag extends React$Component<IconBaseProps> {}
+  declare export class FaHdd extends React$Component<IconBaseProps> {}
+  declare export class FaHeading extends React$Component<IconBaseProps> {}
+  declare export class FaHeadphones extends React$Component<IconBaseProps> {}
+  declare export class FaHeart extends React$Component<IconBaseProps> {}
+  declare export class FaHeartbeat extends React$Component<IconBaseProps> {}
+  declare export class FaHelicopter extends React$Component<IconBaseProps> {}
+  declare export class FaHistory extends React$Component<IconBaseProps> {}
+  declare export class FaHockeyPuck extends React$Component<IconBaseProps> {}
+  declare export class FaHome extends React$Component<IconBaseProps> {}
+  declare export class FaHospitalAlt extends React$Component<IconBaseProps> {}
+  declare export class FaHospitalSymbol extends React$Component<IconBaseProps> {}
+  declare export class FaHospital extends React$Component<IconBaseProps> {}
+  declare export class FaHourglassEnd extends React$Component<IconBaseProps> {}
+  declare export class FaHourglassHalf extends React$Component<IconBaseProps> {}
+  declare export class FaHourglassStart extends React$Component<IconBaseProps> {}
+  declare export class FaHourglass extends React$Component<IconBaseProps> {}
+  declare export class FaICursor extends React$Component<IconBaseProps> {}
+  declare export class FaIdBadge extends React$Component<IconBaseProps> {}
+  declare export class FaIdCardAlt extends React$Component<IconBaseProps> {}
+  declare export class FaIdCard extends React$Component<IconBaseProps> {}
+  declare export class FaImage extends React$Component<IconBaseProps> {}
+  declare export class FaImages extends React$Component<IconBaseProps> {}
+  declare export class FaInbox extends React$Component<IconBaseProps> {}
+  declare export class FaIndent extends React$Component<IconBaseProps> {}
+  declare export class FaIndustry extends React$Component<IconBaseProps> {}
+  declare export class FaInfinity extends React$Component<IconBaseProps> {}
+  declare export class FaInfoCircle extends React$Component<IconBaseProps> {}
+  declare export class FaInfo extends React$Component<IconBaseProps> {}
+  declare export class FaItalic extends React$Component<IconBaseProps> {}
+  declare export class FaKey extends React$Component<IconBaseProps> {}
+  declare export class FaKeyboard extends React$Component<IconBaseProps> {}
+  declare export class FaKiwiBird extends React$Component<IconBaseProps> {}
+  declare export class FaLanguage extends React$Component<IconBaseProps> {}
+  declare export class FaLaptop extends React$Component<IconBaseProps> {}
+  declare export class FaLeaf extends React$Component<IconBaseProps> {}
+  declare export class FaLemon extends React$Component<IconBaseProps> {}
+  declare export class FaLessThanEqual extends React$Component<IconBaseProps> {}
+  declare export class FaLessThan extends React$Component<IconBaseProps> {}
+  declare export class FaLevelDownAlt extends React$Component<IconBaseProps> {}
+  declare export class FaLevelUpAlt extends React$Component<IconBaseProps> {}
+  declare export class FaLifeRing extends React$Component<IconBaseProps> {}
+  declare export class FaLightbulb extends React$Component<IconBaseProps> {}
+  declare export class FaLink extends React$Component<IconBaseProps> {}
+  declare export class FaLiraSign extends React$Component<IconBaseProps> {}
+  declare export class FaListAlt extends React$Component<IconBaseProps> {}
+  declare export class FaListOl extends React$Component<IconBaseProps> {}
+  declare export class FaListUl extends React$Component<IconBaseProps> {}
+  declare export class FaList extends React$Component<IconBaseProps> {}
+  declare export class FaLocationArrow extends React$Component<IconBaseProps> {}
+  declare export class FaLockOpen extends React$Component<IconBaseProps> {}
+  declare export class FaLock extends React$Component<IconBaseProps> {}
+  declare export class FaLongArrowAltDown extends React$Component<IconBaseProps> {}
+  declare export class FaLongArrowAltLeft extends React$Component<IconBaseProps> {}
+  declare export class FaLongArrowAltRight extends React$Component<IconBaseProps> {}
+  declare export class FaLongArrowAltUp extends React$Component<IconBaseProps> {}
+  declare export class FaLowVision extends React$Component<IconBaseProps> {}
+  declare export class FaMagic extends React$Component<IconBaseProps> {}
+  declare export class FaMagnet extends React$Component<IconBaseProps> {}
+  declare export class FaMale extends React$Component<IconBaseProps> {}
+  declare export class FaMapMarkerAlt extends React$Component<IconBaseProps> {}
+  declare export class FaMapMarker extends React$Component<IconBaseProps> {}
+  declare export class FaMapPin extends React$Component<IconBaseProps> {}
+  declare export class FaMapSigns extends React$Component<IconBaseProps> {}
+  declare export class FaMap extends React$Component<IconBaseProps> {}
+  declare export class FaMarsDouble extends React$Component<IconBaseProps> {}
+  declare export class FaMarsStrokeH extends React$Component<IconBaseProps> {}
+  declare export class FaMarsStrokeV extends React$Component<IconBaseProps> {}
+  declare export class FaMarsStroke extends React$Component<IconBaseProps> {}
+  declare export class FaMars extends React$Component<IconBaseProps> {}
+  declare export class FaMedkit extends React$Component<IconBaseProps> {}
+  declare export class FaMeh extends React$Component<IconBaseProps> {}
+  declare export class FaMemory extends React$Component<IconBaseProps> {}
+  declare export class FaMercury extends React$Component<IconBaseProps> {}
+  declare export class FaMicrochip extends React$Component<IconBaseProps> {}
+  declare export class FaMicrophoneAltSlash extends React$Component<IconBaseProps> {}
+  declare export class FaMicrophoneAlt extends React$Component<IconBaseProps> {}
+  declare export class FaMicrophoneSlash extends React$Component<IconBaseProps> {}
+  declare export class FaMicrophone extends React$Component<IconBaseProps> {}
+  declare export class FaMinusCircle extends React$Component<IconBaseProps> {}
+  declare export class FaMinusSquare extends React$Component<IconBaseProps> {}
+  declare export class FaMinus extends React$Component<IconBaseProps> {}
+  declare export class FaMobileAlt extends React$Component<IconBaseProps> {}
+  declare export class FaMobile extends React$Component<IconBaseProps> {}
+  declare export class FaMoneyBillAlt extends React$Component<IconBaseProps> {}
+  declare export class FaMoneyBillWaveAlt extends React$Component<IconBaseProps> {}
+  declare export class FaMoneyBillWave extends React$Component<IconBaseProps> {}
+  declare export class FaMoneyBill extends React$Component<IconBaseProps> {}
+  declare export class FaMoneyCheckAlt extends React$Component<IconBaseProps> {}
+  declare export class FaMoneyCheck extends React$Component<IconBaseProps> {}
+  declare export class FaMoon extends React$Component<IconBaseProps> {}
+  declare export class FaMotorcycle extends React$Component<IconBaseProps> {}
+  declare export class FaMousePointer extends React$Component<IconBaseProps> {}
+  declare export class FaMusic extends React$Component<IconBaseProps> {}
+  declare export class FaNeuter extends React$Component<IconBaseProps> {}
+  declare export class FaNewspaper extends React$Component<IconBaseProps> {}
+  declare export class FaNotEqual extends React$Component<IconBaseProps> {}
+  declare export class FaNotesMedical extends React$Component<IconBaseProps> {}
+  declare export class FaObjectGroup extends React$Component<IconBaseProps> {}
+  declare export class FaObjectUngroup extends React$Component<IconBaseProps> {}
+  declare export class FaOutdent extends React$Component<IconBaseProps> {}
+  declare export class FaPaintBrush extends React$Component<IconBaseProps> {}
+  declare export class FaPalette extends React$Component<IconBaseProps> {}
+  declare export class FaPallet extends React$Component<IconBaseProps> {}
+  declare export class FaPaperPlane extends React$Component<IconBaseProps> {}
+  declare export class FaPaperclip extends React$Component<IconBaseProps> {}
+  declare export class FaParachuteBox extends React$Component<IconBaseProps> {}
+  declare export class FaParagraph extends React$Component<IconBaseProps> {}
+  declare export class FaParking extends React$Component<IconBaseProps> {}
+  declare export class FaPaste extends React$Component<IconBaseProps> {}
+  declare export class FaPauseCircle extends React$Component<IconBaseProps> {}
+  declare export class FaPause extends React$Component<IconBaseProps> {}
+  declare export class FaPaw extends React$Component<IconBaseProps> {}
+  declare export class FaPenSquare extends React$Component<IconBaseProps> {}
+  declare export class FaPencilAlt extends React$Component<IconBaseProps> {}
+  declare export class FaPeopleCarry extends React$Component<IconBaseProps> {}
+  declare export class FaPercent extends React$Component<IconBaseProps> {}
+  declare export class FaPercentage extends React$Component<IconBaseProps> {}
+  declare export class FaPhoneSlash extends React$Component<IconBaseProps> {}
+  declare export class FaPhoneSquare extends React$Component<IconBaseProps> {}
+  declare export class FaPhoneVolume extends React$Component<IconBaseProps> {}
+  declare export class FaPhone extends React$Component<IconBaseProps> {}
+  declare export class FaPiggyBank extends React$Component<IconBaseProps> {}
+  declare export class FaPills extends React$Component<IconBaseProps> {}
+  declare export class FaPlane extends React$Component<IconBaseProps> {}
+  declare export class FaPlayCircle extends React$Component<IconBaseProps> {}
+  declare export class FaPlay extends React$Component<IconBaseProps> {}
+  declare export class FaPlug extends React$Component<IconBaseProps> {}
+  declare export class FaPlusCircle extends React$Component<IconBaseProps> {}
+  declare export class FaPlusSquare extends React$Component<IconBaseProps> {}
+  declare export class FaPlus extends React$Component<IconBaseProps> {}
+  declare export class FaPodcast extends React$Component<IconBaseProps> {}
+  declare export class FaPoo extends React$Component<IconBaseProps> {}
+  declare export class FaPortrait extends React$Component<IconBaseProps> {}
+  declare export class FaPoundSign extends React$Component<IconBaseProps> {}
+  declare export class FaPowerOff extends React$Component<IconBaseProps> {}
+  declare export class FaPrescriptionBottleAlt extends React$Component<IconBaseProps> {}
+  declare export class FaPrescriptionBottle extends React$Component<IconBaseProps> {}
+  declare export class FaPrint extends React$Component<IconBaseProps> {}
+  declare export class FaProcedures extends React$Component<IconBaseProps> {}
+  declare export class FaProjectDiagram extends React$Component<IconBaseProps> {}
+  declare export class FaPuzzlePiece extends React$Component<IconBaseProps> {}
+  declare export class FaQrcode extends React$Component<IconBaseProps> {}
+  declare export class FaQuestionCircle extends React$Component<IconBaseProps> {}
+  declare export class FaQuestion extends React$Component<IconBaseProps> {}
+  declare export class FaQuidditch extends React$Component<IconBaseProps> {}
+  declare export class FaQuoteLeft extends React$Component<IconBaseProps> {}
+  declare export class FaQuoteRight extends React$Component<IconBaseProps> {}
+  declare export class FaRandom extends React$Component<IconBaseProps> {}
+  declare export class FaReceipt extends React$Component<IconBaseProps> {}
+  declare export class FaRecycle extends React$Component<IconBaseProps> {}
+  declare export class FaRedoAlt extends React$Component<IconBaseProps> {}
+  declare export class FaRedo extends React$Component<IconBaseProps> {}
+  declare export class FaRegistered extends React$Component<IconBaseProps> {}
+  declare export class FaReplyAll extends React$Component<IconBaseProps> {}
+  declare export class FaReply extends React$Component<IconBaseProps> {}
+  declare export class FaRetweet extends React$Component<IconBaseProps> {}
+  declare export class FaRibbon extends React$Component<IconBaseProps> {}
+  declare export class FaRoad extends React$Component<IconBaseProps> {}
+  declare export class FaRobot extends React$Component<IconBaseProps> {}
+  declare export class FaRocket extends React$Component<IconBaseProps> {}
+  declare export class FaRssSquare extends React$Component<IconBaseProps> {}
+  declare export class FaRss extends React$Component<IconBaseProps> {}
+  declare export class FaRubleSign extends React$Component<IconBaseProps> {}
+  declare export class FaRulerCombined extends React$Component<IconBaseProps> {}
+  declare export class FaRulerHorizontal extends React$Component<IconBaseProps> {}
+  declare export class FaRulerVertical extends React$Component<IconBaseProps> {}
+  declare export class FaRuler extends React$Component<IconBaseProps> {}
+  declare export class FaRupeeSign extends React$Component<IconBaseProps> {}
+  declare export class FaSave extends React$Component<IconBaseProps> {}
+  declare export class FaSchool extends React$Component<IconBaseProps> {}
+  declare export class FaScrewdriver extends React$Component<IconBaseProps> {}
+  declare export class FaSearchMinus extends React$Component<IconBaseProps> {}
+  declare export class FaSearchPlus extends React$Component<IconBaseProps> {}
+  declare export class FaSearch extends React$Component<IconBaseProps> {}
+  declare export class FaSeedling extends React$Component<IconBaseProps> {}
+  declare export class FaServer extends React$Component<IconBaseProps> {}
+  declare export class FaShareAltSquare extends React$Component<IconBaseProps> {}
+  declare export class FaShareAlt extends React$Component<IconBaseProps> {}
+  declare export class FaShareSquare extends React$Component<IconBaseProps> {}
+  declare export class FaShare extends React$Component<IconBaseProps> {}
+  declare export class FaShekelSign extends React$Component<IconBaseProps> {}
+  declare export class FaShieldAlt extends React$Component<IconBaseProps> {}
+  declare export class FaShip extends React$Component<IconBaseProps> {}
+  declare export class FaShippingFast extends React$Component<IconBaseProps> {}
+  declare export class FaShoePrints extends React$Component<IconBaseProps> {}
+  declare export class FaShoppingBag extends React$Component<IconBaseProps> {}
+  declare export class FaShoppingBasket extends React$Component<IconBaseProps> {}
+  declare export class FaShoppingCart extends React$Component<IconBaseProps> {}
+  declare export class FaShower extends React$Component<IconBaseProps> {}
+  declare export class FaSignInAlt extends React$Component<IconBaseProps> {}
+  declare export class FaSignLanguage extends React$Component<IconBaseProps> {}
+  declare export class FaSignOutAlt extends React$Component<IconBaseProps> {}
+  declare export class FaSign extends React$Component<IconBaseProps> {}
+  declare export class FaSignal extends React$Component<IconBaseProps> {}
+  declare export class FaSitemap extends React$Component<IconBaseProps> {}
+  declare export class FaSkull extends React$Component<IconBaseProps> {}
+  declare export class FaSlidersH extends React$Component<IconBaseProps> {}
+  declare export class FaSmile extends React$Component<IconBaseProps> {}
+  declare export class FaSmokingBan extends React$Component<IconBaseProps> {}
+  declare export class FaSmoking extends React$Component<IconBaseProps> {}
+  declare export class FaSnowflake extends React$Component<IconBaseProps> {}
+  declare export class FaSortAlphaDown extends React$Component<IconBaseProps> {}
+  declare export class FaSortAlphaUp extends React$Component<IconBaseProps> {}
+  declare export class FaSortAmountDown extends React$Component<IconBaseProps> {}
+  declare export class FaSortAmountUp extends React$Component<IconBaseProps> {}
+  declare export class FaSortDown extends React$Component<IconBaseProps> {}
+  declare export class FaSortNumericDown extends React$Component<IconBaseProps> {}
+  declare export class FaSortNumericUp extends React$Component<IconBaseProps> {}
+  declare export class FaSortUp extends React$Component<IconBaseProps> {}
+  declare export class FaSort extends React$Component<IconBaseProps> {}
+  declare export class FaSpaceShuttle extends React$Component<IconBaseProps> {}
+  declare export class FaSpinner extends React$Component<IconBaseProps> {}
+  declare export class FaSquareFull extends React$Component<IconBaseProps> {}
+  declare export class FaSquare extends React$Component<IconBaseProps> {}
+  declare export class FaStarHalf extends React$Component<IconBaseProps> {}
+  declare export class FaStar extends React$Component<IconBaseProps> {}
+  declare export class FaStepBackward extends React$Component<IconBaseProps> {}
+  declare export class FaStepForward extends React$Component<IconBaseProps> {}
+  declare export class FaStethoscope extends React$Component<IconBaseProps> {}
+  declare export class FaStickyNote extends React$Component<IconBaseProps> {}
+  declare export class FaStopCircle extends React$Component<IconBaseProps> {}
+  declare export class FaStop extends React$Component<IconBaseProps> {}
+  declare export class FaStopwatch extends React$Component<IconBaseProps> {}
+  declare export class FaStoreAlt extends React$Component<IconBaseProps> {}
+  declare export class FaStore extends React$Component<IconBaseProps> {}
+  declare export class FaStream extends React$Component<IconBaseProps> {}
+  declare export class FaStreetView extends React$Component<IconBaseProps> {}
+  declare export class FaStrikethrough extends React$Component<IconBaseProps> {}
+  declare export class FaStroopwafel extends React$Component<IconBaseProps> {}
+  declare export class FaSubscript extends React$Component<IconBaseProps> {}
+  declare export class FaSubway extends React$Component<IconBaseProps> {}
+  declare export class FaSuitcase extends React$Component<IconBaseProps> {}
+  declare export class FaSun extends React$Component<IconBaseProps> {}
+  declare export class FaSuperscript extends React$Component<IconBaseProps> {}
+  declare export class FaSyncAlt extends React$Component<IconBaseProps> {}
+  declare export class FaSync extends React$Component<IconBaseProps> {}
+  declare export class FaSyringe extends React$Component<IconBaseProps> {}
+  declare export class FaTableTennis extends React$Component<IconBaseProps> {}
+  declare export class FaTable extends React$Component<IconBaseProps> {}
+  declare export class FaTabletAlt extends React$Component<IconBaseProps> {}
+  declare export class FaTablet extends React$Component<IconBaseProps> {}
+  declare export class FaTablets extends React$Component<IconBaseProps> {}
+  declare export class FaTachometerAlt extends React$Component<IconBaseProps> {}
+  declare export class FaTag extends React$Component<IconBaseProps> {}
+  declare export class FaTags extends React$Component<IconBaseProps> {}
+  declare export class FaTape extends React$Component<IconBaseProps> {}
+  declare export class FaTasks extends React$Component<IconBaseProps> {}
+  declare export class FaTaxi extends React$Component<IconBaseProps> {}
+  declare export class FaTerminal extends React$Component<IconBaseProps> {}
+  declare export class FaTextHeight extends React$Component<IconBaseProps> {}
+  declare export class FaTextWidth extends React$Component<IconBaseProps> {}
+  declare export class FaThLarge extends React$Component<IconBaseProps> {}
+  declare export class FaThList extends React$Component<IconBaseProps> {}
+  declare export class FaTh extends React$Component<IconBaseProps> {}
+  declare export class FaThermometerEmpty extends React$Component<IconBaseProps> {}
+  declare export class FaThermometerFull extends React$Component<IconBaseProps> {}
+  declare export class FaThermometerHalf extends React$Component<IconBaseProps> {}
+  declare export class FaThermometerQuarter extends React$Component<IconBaseProps> {}
+  declare export class FaThermometerThreeQuarters extends React$Component<IconBaseProps> {}
+  declare export class FaThermometer extends React$Component<IconBaseProps> {}
+  declare export class FaThumbsDown extends React$Component<IconBaseProps> {}
+  declare export class FaThumbsUp extends React$Component<IconBaseProps> {}
+  declare export class FaThumbtack extends React$Component<IconBaseProps> {}
+  declare export class FaTicketAlt extends React$Component<IconBaseProps> {}
+  declare export class FaTimesCircle extends React$Component<IconBaseProps> {}
+  declare export class FaTimes extends React$Component<IconBaseProps> {}
+  declare export class FaTint extends React$Component<IconBaseProps> {}
+  declare export class FaToggleOff extends React$Component<IconBaseProps> {}
+  declare export class FaToggleOn extends React$Component<IconBaseProps> {}
+  declare export class FaToolbox extends React$Component<IconBaseProps> {}
+  declare export class FaTrademark extends React$Component<IconBaseProps> {}
+  declare export class FaTrain extends React$Component<IconBaseProps> {}
+  declare export class FaTransgenderAlt extends React$Component<IconBaseProps> {}
+  declare export class FaTransgender extends React$Component<IconBaseProps> {}
+  declare export class FaTrashAlt extends React$Component<IconBaseProps> {}
+  declare export class FaTrash extends React$Component<IconBaseProps> {}
+  declare export class FaTree extends React$Component<IconBaseProps> {}
+  declare export class FaTrophy extends React$Component<IconBaseProps> {}
+  declare export class FaTruckLoading extends React$Component<IconBaseProps> {}
+  declare export class FaTruckMoving extends React$Component<IconBaseProps> {}
+  declare export class FaTruck extends React$Component<IconBaseProps> {}
+  declare export class FaTshirt extends React$Component<IconBaseProps> {}
+  declare export class FaTty extends React$Component<IconBaseProps> {}
+  declare export class FaTv extends React$Component<IconBaseProps> {}
+  declare export class FaUmbrella extends React$Component<IconBaseProps> {}
+  declare export class FaUnderline extends React$Component<IconBaseProps> {}
+  declare export class FaUndoAlt extends React$Component<IconBaseProps> {}
+  declare export class FaUndo extends React$Component<IconBaseProps> {}
+  declare export class FaUniversalAccess extends React$Component<IconBaseProps> {}
+  declare export class FaUniversity extends React$Component<IconBaseProps> {}
+  declare export class FaUnlink extends React$Component<IconBaseProps> {}
+  declare export class FaUnlockAlt extends React$Component<IconBaseProps> {}
+  declare export class FaUnlock extends React$Component<IconBaseProps> {}
+  declare export class FaUpload extends React$Component<IconBaseProps> {}
+  declare export class FaUserAltSlash extends React$Component<IconBaseProps> {}
+  declare export class FaUserAlt extends React$Component<IconBaseProps> {}
+  declare export class FaUserAstronaut extends React$Component<IconBaseProps> {}
+  declare export class FaUserCheck extends React$Component<IconBaseProps> {}
+  declare export class FaUserCircle extends React$Component<IconBaseProps> {}
+  declare export class FaUserClock extends React$Component<IconBaseProps> {}
+  declare export class FaUserCog extends React$Component<IconBaseProps> {}
+  declare export class FaUserEdit extends React$Component<IconBaseProps> {}
+  declare export class FaUserFriends extends React$Component<IconBaseProps> {}
+  declare export class FaUserGraduate extends React$Component<IconBaseProps> {}
+  declare export class FaUserLock extends React$Component<IconBaseProps> {}
+  declare export class FaUserMd extends React$Component<IconBaseProps> {}
+  declare export class FaUserMinus extends React$Component<IconBaseProps> {}
+  declare export class FaUserNinja extends React$Component<IconBaseProps> {}
+  declare export class FaUserPlus extends React$Component<IconBaseProps> {}
+  declare export class FaUserSecret extends React$Component<IconBaseProps> {}
+  declare export class FaUserShield extends React$Component<IconBaseProps> {}
+  declare export class FaUserSlash extends React$Component<IconBaseProps> {}
+  declare export class FaUserTag extends React$Component<IconBaseProps> {}
+  declare export class FaUserTie extends React$Component<IconBaseProps> {}
+  declare export class FaUserTimes extends React$Component<IconBaseProps> {}
+  declare export class FaUser extends React$Component<IconBaseProps> {}
+  declare export class FaUsersCog extends React$Component<IconBaseProps> {}
+  declare export class FaUsers extends React$Component<IconBaseProps> {}
+  declare export class FaUtensilSpoon extends React$Component<IconBaseProps> {}
+  declare export class FaUtensils extends React$Component<IconBaseProps> {}
+  declare export class FaVenusDouble extends React$Component<IconBaseProps> {}
+  declare export class FaVenusMars extends React$Component<IconBaseProps> {}
+  declare export class FaVenus extends React$Component<IconBaseProps> {}
+  declare export class FaVial extends React$Component<IconBaseProps> {}
+  declare export class FaVials extends React$Component<IconBaseProps> {}
+  declare export class FaVideoSlash extends React$Component<IconBaseProps> {}
+  declare export class FaVideo extends React$Component<IconBaseProps> {}
+  declare export class FaVolleyballBall extends React$Component<IconBaseProps> {}
+  declare export class FaVolumeDown extends React$Component<IconBaseProps> {}
+  declare export class FaVolumeOff extends React$Component<IconBaseProps> {}
+  declare export class FaVolumeUp extends React$Component<IconBaseProps> {}
+  declare export class FaWalking extends React$Component<IconBaseProps> {}
+  declare export class FaWallet extends React$Component<IconBaseProps> {}
+  declare export class FaWarehouse extends React$Component<IconBaseProps> {}
+  declare export class FaWeight extends React$Component<IconBaseProps> {}
+  declare export class FaWheelchair extends React$Component<IconBaseProps> {}
+  declare export class FaWifi extends React$Component<IconBaseProps> {}
+  declare export class FaWindowClose extends React$Component<IconBaseProps> {}
+  declare export class FaWindowMaximize extends React$Component<IconBaseProps> {}
+  declare export class FaWindowMinimize extends React$Component<IconBaseProps> {}
+  declare export class FaWindowRestore extends React$Component<IconBaseProps> {}
+  declare export class FaWineGlass extends React$Component<IconBaseProps> {}
+  declare export class FaWonSign extends React$Component<IconBaseProps> {}
+  declare export class FaWrench extends React$Component<IconBaseProps> {}
+  declare export class FaXRay extends React$Component<IconBaseProps> {}
+  declare export class FaYenSign extends React$Component<IconBaseProps> {}
+}
+
+declare module 'react-icons/io' {
+  declare export class IoIosAddCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosAddCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosAdd extends React$Component<IconBaseProps> {}
+  declare export class IoIosAirplane extends React$Component<IconBaseProps> {}
+  declare export class IoIosAlarm extends React$Component<IconBaseProps> {}
+  declare export class IoIosAlbums extends React$Component<IconBaseProps> {}
+  declare export class IoIosAlert extends React$Component<IconBaseProps> {}
+  declare export class IoIosAmericanFootball extends React$Component<IconBaseProps> {}
+  declare export class IoIosAnalytics extends React$Component<IconBaseProps> {}
+  declare export class IoIosAperture extends React$Component<IconBaseProps> {}
+  declare export class IoIosApps extends React$Component<IconBaseProps> {}
+  declare export class IoIosAppstore extends React$Component<IconBaseProps> {}
+  declare export class IoIosArchive extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowBack extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowDown extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowDropdownCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowDropdown extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowDropleftCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowDropleft extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowDroprightCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowDropright extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowDropupCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowDropup extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowForward extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowRoundBack extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowRoundDown extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowRoundForward extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowRoundUp extends React$Component<IconBaseProps> {}
+  declare export class IoIosArrowUp extends React$Component<IconBaseProps> {}
+  declare export class IoIosAt extends React$Component<IconBaseProps> {}
+  declare export class IoIosAttach extends React$Component<IconBaseProps> {}
+  declare export class IoIosBackspace extends React$Component<IconBaseProps> {}
+  declare export class IoIosBarcode extends React$Component<IconBaseProps> {}
+  declare export class IoIosBaseball extends React$Component<IconBaseProps> {}
+  declare export class IoIosBasket extends React$Component<IconBaseProps> {}
+  declare export class IoIosBasketball extends React$Component<IconBaseProps> {}
+  declare export class IoIosBatteryCharging extends React$Component<IconBaseProps> {}
+  declare export class IoIosBatteryDead extends React$Component<IconBaseProps> {}
+  declare export class IoIosBatteryFull extends React$Component<IconBaseProps> {}
+  declare export class IoIosBeaker extends React$Component<IconBaseProps> {}
+  declare export class IoIosBed extends React$Component<IconBaseProps> {}
+  declare export class IoIosBeer extends React$Component<IconBaseProps> {}
+  declare export class IoIosBicycle extends React$Component<IconBaseProps> {}
+  declare export class IoIosBluetooth extends React$Component<IconBaseProps> {}
+  declare export class IoIosBoat extends React$Component<IconBaseProps> {}
+  declare export class IoIosBody extends React$Component<IconBaseProps> {}
+  declare export class IoIosBonfire extends React$Component<IconBaseProps> {}
+  declare export class IoIosBook extends React$Component<IconBaseProps> {}
+  declare export class IoIosBookmark extends React$Component<IconBaseProps> {}
+  declare export class IoIosBookmarks extends React$Component<IconBaseProps> {}
+  declare export class IoIosBowtie extends React$Component<IconBaseProps> {}
+  declare export class IoIosBriefcase extends React$Component<IconBaseProps> {}
+  declare export class IoIosBrowsers extends React$Component<IconBaseProps> {}
+  declare export class IoIosBrush extends React$Component<IconBaseProps> {}
+  declare export class IoIosBug extends React$Component<IconBaseProps> {}
+  declare export class IoIosBuild extends React$Component<IconBaseProps> {}
+  declare export class IoIosBulb extends React$Component<IconBaseProps> {}
+  declare export class IoIosBus extends React$Component<IconBaseProps> {}
+  declare export class IoIosBusiness extends React$Component<IconBaseProps> {}
+  declare export class IoIosCafe extends React$Component<IconBaseProps> {}
+  declare export class IoIosCalculator extends React$Component<IconBaseProps> {}
+  declare export class IoIosCalendar extends React$Component<IconBaseProps> {}
+  declare export class IoIosCall extends React$Component<IconBaseProps> {}
+  declare export class IoIosCamera extends React$Component<IconBaseProps> {}
+  declare export class IoIosCar extends React$Component<IconBaseProps> {}
+  declare export class IoIosCard extends React$Component<IconBaseProps> {}
+  declare export class IoIosCart extends React$Component<IconBaseProps> {}
+  declare export class IoIosCash extends React$Component<IconBaseProps> {}
+  declare export class IoIosCellular extends React$Component<IconBaseProps> {}
+  declare export class IoIosChatboxes extends React$Component<IconBaseProps> {}
+  declare export class IoIosChatbubbles extends React$Component<IconBaseProps> {}
+  declare export class IoIosCheckboxOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosCheckbox extends React$Component<IconBaseProps> {}
+  declare export class IoIosCheckmarkCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosCheckmarkCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosCheckmark extends React$Component<IconBaseProps> {}
+  declare export class IoIosClipboard extends React$Component<IconBaseProps> {}
+  declare export class IoIosClock extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloseCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloseCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosClose extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloudCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloudDone extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloudDownload extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloudOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloudUpload extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloud extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloudyNight extends React$Component<IconBaseProps> {}
+  declare export class IoIosCloudy extends React$Component<IconBaseProps> {}
+  declare export class IoIosCodeDownload extends React$Component<IconBaseProps> {}
+  declare export class IoIosCodeWorking extends React$Component<IconBaseProps> {}
+  declare export class IoIosCode extends React$Component<IconBaseProps> {}
+  declare export class IoIosCog extends React$Component<IconBaseProps> {}
+  declare export class IoIosColorFill extends React$Component<IconBaseProps> {}
+  declare export class IoIosColorFilter extends React$Component<IconBaseProps> {}
+  declare export class IoIosColorPalette extends React$Component<IconBaseProps> {}
+  declare export class IoIosColorWand extends React$Component<IconBaseProps> {}
+  declare export class IoIosCompass extends React$Component<IconBaseProps> {}
+  declare export class IoIosConstruct extends React$Component<IconBaseProps> {}
+  declare export class IoIosContact extends React$Component<IconBaseProps> {}
+  declare export class IoIosContacts extends React$Component<IconBaseProps> {}
+  declare export class IoIosContract extends React$Component<IconBaseProps> {}
+  declare export class IoIosContrast extends React$Component<IconBaseProps> {}
+  declare export class IoIosCopy extends React$Component<IconBaseProps> {}
+  declare export class IoIosCreate extends React$Component<IconBaseProps> {}
+  declare export class IoIosCrop extends React$Component<IconBaseProps> {}
+  declare export class IoIosCube extends React$Component<IconBaseProps> {}
+  declare export class IoIosCut extends React$Component<IconBaseProps> {}
+  declare export class IoIosDesktop extends React$Component<IconBaseProps> {}
+  declare export class IoIosDisc extends React$Component<IconBaseProps> {}
+  declare export class IoIosDocument extends React$Component<IconBaseProps> {}
+  declare export class IoIosDoneAll extends React$Component<IconBaseProps> {}
+  declare export class IoIosDownload extends React$Component<IconBaseProps> {}
+  declare export class IoIosEasel extends React$Component<IconBaseProps> {}
+  declare export class IoIosEgg extends React$Component<IconBaseProps> {}
+  declare export class IoIosExit extends React$Component<IconBaseProps> {}
+  declare export class IoIosExpand extends React$Component<IconBaseProps> {}
+  declare export class IoIosEyeOff extends React$Component<IconBaseProps> {}
+  declare export class IoIosEye extends React$Component<IconBaseProps> {}
+  declare export class IoIosFastforward extends React$Component<IconBaseProps> {}
+  declare export class IoIosFemale extends React$Component<IconBaseProps> {}
+  declare export class IoIosFiling extends React$Component<IconBaseProps> {}
+  declare export class IoIosFilm extends React$Component<IconBaseProps> {}
+  declare export class IoIosFingerPrint extends React$Component<IconBaseProps> {}
+  declare export class IoIosFitness extends React$Component<IconBaseProps> {}
+  declare export class IoIosFlag extends React$Component<IconBaseProps> {}
+  declare export class IoIosFlame extends React$Component<IconBaseProps> {}
+  declare export class IoIosFlashOff extends React$Component<IconBaseProps> {}
+  declare export class IoIosFlash extends React$Component<IconBaseProps> {}
+  declare export class IoIosFlashlight extends React$Component<IconBaseProps> {}
+  declare export class IoIosFlask extends React$Component<IconBaseProps> {}
+  declare export class IoIosFlower extends React$Component<IconBaseProps> {}
+  declare export class IoIosFolderOpen extends React$Component<IconBaseProps> {}
+  declare export class IoIosFolder extends React$Component<IconBaseProps> {}
+  declare export class IoIosFootball extends React$Component<IconBaseProps> {}
+  declare export class IoIosFunnel extends React$Component<IconBaseProps> {}
+  declare export class IoIosGift extends React$Component<IconBaseProps> {}
+  declare export class IoIosGitBranch extends React$Component<IconBaseProps> {}
+  declare export class IoIosGitCommit extends React$Component<IconBaseProps> {}
+  declare export class IoIosGitCompare extends React$Component<IconBaseProps> {}
+  declare export class IoIosGitMerge extends React$Component<IconBaseProps> {}
+  declare export class IoIosGitNetwork extends React$Component<IconBaseProps> {}
+  declare export class IoIosGitPullRequest extends React$Component<IconBaseProps> {}
+  declare export class IoIosGlasses extends React$Component<IconBaseProps> {}
+  declare export class IoIosGlobe extends React$Component<IconBaseProps> {}
+  declare export class IoIosGrid extends React$Component<IconBaseProps> {}
+  declare export class IoIosHammer extends React$Component<IconBaseProps> {}
+  declare export class IoIosHand extends React$Component<IconBaseProps> {}
+  declare export class IoIosHappy extends React$Component<IconBaseProps> {}
+  declare export class IoIosHeadset extends React$Component<IconBaseProps> {}
+  declare export class IoIosHeartDislike extends React$Component<IconBaseProps> {}
+  declare export class IoIosHeartEmpty extends React$Component<IconBaseProps> {}
+  declare export class IoIosHeartHalf extends React$Component<IconBaseProps> {}
+  declare export class IoIosHeart extends React$Component<IconBaseProps> {}
+  declare export class IoIosHelpBuoy extends React$Component<IconBaseProps> {}
+  declare export class IoIosHelpCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosHelpCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosHelp extends React$Component<IconBaseProps> {}
+  declare export class IoIosHome extends React$Component<IconBaseProps> {}
+  declare export class IoIosHourglass extends React$Component<IconBaseProps> {}
+  declare export class IoIosIceCream extends React$Component<IconBaseProps> {}
+  declare export class IoIosImage extends React$Component<IconBaseProps> {}
+  declare export class IoIosImages extends React$Component<IconBaseProps> {}
+  declare export class IoIosInfinite extends React$Component<IconBaseProps> {}
+  declare export class IoIosInformationCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosInformationCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosInformation extends React$Component<IconBaseProps> {}
+  declare export class IoIosJet extends React$Component<IconBaseProps> {}
+  declare export class IoIosJournal extends React$Component<IconBaseProps> {}
+  declare export class IoIosKey extends React$Component<IconBaseProps> {}
+  declare export class IoIosKeypad extends React$Component<IconBaseProps> {}
+  declare export class IoIosLaptop extends React$Component<IconBaseProps> {}
+  declare export class IoIosLeaf extends React$Component<IconBaseProps> {}
+  declare export class IoIosLink extends React$Component<IconBaseProps> {}
+  declare export class IoIosListBox extends React$Component<IconBaseProps> {}
+  declare export class IoIosList extends React$Component<IconBaseProps> {}
+  declare export class IoIosLocate extends React$Component<IconBaseProps> {}
+  declare export class IoIosLock extends React$Component<IconBaseProps> {}
+  declare export class IoIosLogIn extends React$Component<IconBaseProps> {}
+  declare export class IoIosLogOut extends React$Component<IconBaseProps> {}
+  declare export class IoIosMagnet extends React$Component<IconBaseProps> {}
+  declare export class IoIosMailOpen extends React$Component<IconBaseProps> {}
+  declare export class IoIosMailUnread extends React$Component<IconBaseProps> {}
+  declare export class IoIosMail extends React$Component<IconBaseProps> {}
+  declare export class IoIosMale extends React$Component<IconBaseProps> {}
+  declare export class IoIosMan extends React$Component<IconBaseProps> {}
+  declare export class IoIosMap extends React$Component<IconBaseProps> {}
+  declare export class IoIosMedal extends React$Component<IconBaseProps> {}
+  declare export class IoIosMedical extends React$Component<IconBaseProps> {}
+  declare export class IoIosMedkit extends React$Component<IconBaseProps> {}
+  declare export class IoIosMegaphone extends React$Component<IconBaseProps> {}
+  declare export class IoIosMenu extends React$Component<IconBaseProps> {}
+  declare export class IoIosMicOff extends React$Component<IconBaseProps> {}
+  declare export class IoIosMic extends React$Component<IconBaseProps> {}
+  declare export class IoIosMicrophone extends React$Component<IconBaseProps> {}
+  declare export class IoIosMoon extends React$Component<IconBaseProps> {}
+  declare export class IoIosMore extends React$Component<IconBaseProps> {}
+  declare export class IoIosMove extends React$Component<IconBaseProps> {}
+  declare export class IoIosMusicalNote extends React$Component<IconBaseProps> {}
+  declare export class IoIosMusicalNotes extends React$Component<IconBaseProps> {}
+  declare export class IoIosNavigate extends React$Component<IconBaseProps> {}
+  declare export class IoIosNotificationsOff extends React$Component<IconBaseProps> {}
+  declare export class IoIosNotificationsOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosNotifications extends React$Component<IconBaseProps> {}
+  declare export class IoIosNuclear extends React$Component<IconBaseProps> {}
+  declare export class IoIosNutrition extends React$Component<IconBaseProps> {}
+  declare export class IoIosOpen extends React$Component<IconBaseProps> {}
+  declare export class IoIosOptions extends React$Component<IconBaseProps> {}
+  declare export class IoIosOutlet extends React$Component<IconBaseProps> {}
+  declare export class IoIosPaperPlane extends React$Component<IconBaseProps> {}
+  declare export class IoIosPaper extends React$Component<IconBaseProps> {}
+  declare export class IoIosPartlySunny extends React$Component<IconBaseProps> {}
+  declare export class IoIosPause extends React$Component<IconBaseProps> {}
+  declare export class IoIosPaw extends React$Component<IconBaseProps> {}
+  declare export class IoIosPeople extends React$Component<IconBaseProps> {}
+  declare export class IoIosPersonAdd extends React$Component<IconBaseProps> {}
+  declare export class IoIosPerson extends React$Component<IconBaseProps> {}
+  declare export class IoIosPhoneLandscape extends React$Component<IconBaseProps> {}
+  declare export class IoIosPhonePortrait extends React$Component<IconBaseProps> {}
+  declare export class IoIosPhotos extends React$Component<IconBaseProps> {}
+  declare export class IoIosPie extends React$Component<IconBaseProps> {}
+  declare export class IoIosPin extends React$Component<IconBaseProps> {}
+  declare export class IoIosPint extends React$Component<IconBaseProps> {}
+  declare export class IoIosPizza extends React$Component<IconBaseProps> {}
+  declare export class IoIosPlanet extends React$Component<IconBaseProps> {}
+  declare export class IoIosPlayCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosPlay extends React$Component<IconBaseProps> {}
+  declare export class IoIosPodium extends React$Component<IconBaseProps> {}
+  declare export class IoIosPower extends React$Component<IconBaseProps> {}
+  declare export class IoIosPricetag extends React$Component<IconBaseProps> {}
+  declare export class IoIosPricetags extends React$Component<IconBaseProps> {}
+  declare export class IoIosPrint extends React$Component<IconBaseProps> {}
+  declare export class IoIosPulse extends React$Component<IconBaseProps> {}
+  declare export class IoIosQrScanner extends React$Component<IconBaseProps> {}
+  declare export class IoIosQuote extends React$Component<IconBaseProps> {}
+  declare export class IoIosRadioButtonOff extends React$Component<IconBaseProps> {}
+  declare export class IoIosRadioButtonOn extends React$Component<IconBaseProps> {}
+  declare export class IoIosRadio extends React$Component<IconBaseProps> {}
+  declare export class IoIosRainy extends React$Component<IconBaseProps> {}
+  declare export class IoIosRecording extends React$Component<IconBaseProps> {}
+  declare export class IoIosRedo extends React$Component<IconBaseProps> {}
+  declare export class IoIosRefreshCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosRefresh extends React$Component<IconBaseProps> {}
+  declare export class IoIosRemoveCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosRemoveCircle extends React$Component<IconBaseProps> {}
+  declare export class IoIosRemove extends React$Component<IconBaseProps> {}
+  declare export class IoIosReorder extends React$Component<IconBaseProps> {}
+  declare export class IoIosRepeat extends React$Component<IconBaseProps> {}
+  declare export class IoIosResize extends React$Component<IconBaseProps> {}
+  declare export class IoIosRestaurant extends React$Component<IconBaseProps> {}
+  declare export class IoIosReturnLeft extends React$Component<IconBaseProps> {}
+  declare export class IoIosReturnRight extends React$Component<IconBaseProps> {}
+  declare export class IoIosReverseCamera extends React$Component<IconBaseProps> {}
+  declare export class IoIosRewind extends React$Component<IconBaseProps> {}
+  declare export class IoIosRibbon extends React$Component<IconBaseProps> {}
+  declare export class IoIosRocket extends React$Component<IconBaseProps> {}
+  declare export class IoIosRose extends React$Component<IconBaseProps> {}
+  declare export class IoIosSad extends React$Component<IconBaseProps> {}
+  declare export class IoIosSave extends React$Component<IconBaseProps> {}
+  declare export class IoIosSchool extends React$Component<IconBaseProps> {}
+  declare export class IoIosSearch extends React$Component<IconBaseProps> {}
+  declare export class IoIosSend extends React$Component<IconBaseProps> {}
+  declare export class IoIosSettings extends React$Component<IconBaseProps> {}
+  declare export class IoIosShareAlt extends React$Component<IconBaseProps> {}
+  declare export class IoIosShare extends React$Component<IconBaseProps> {}
+  declare export class IoIosShirt extends React$Component<IconBaseProps> {}
+  declare export class IoIosShuffle extends React$Component<IconBaseProps> {}
+  declare export class IoIosSkipBackward extends React$Component<IconBaseProps> {}
+  declare export class IoIosSkipForward extends React$Component<IconBaseProps> {}
+  declare export class IoIosSnow extends React$Component<IconBaseProps> {}
+  declare export class IoIosSpeedometer extends React$Component<IconBaseProps> {}
+  declare export class IoIosSquareOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosSquare extends React$Component<IconBaseProps> {}
+  declare export class IoIosStarHalf extends React$Component<IconBaseProps> {}
+  declare export class IoIosStarOutline extends React$Component<IconBaseProps> {}
+  declare export class IoIosStar extends React$Component<IconBaseProps> {}
+  declare export class IoIosStats extends React$Component<IconBaseProps> {}
+  declare export class IoIosStopwatch extends React$Component<IconBaseProps> {}
+  declare export class IoIosSubway extends React$Component<IconBaseProps> {}
+  declare export class IoIosSunny extends React$Component<IconBaseProps> {}
+  declare export class IoIosSwap extends React$Component<IconBaseProps> {}
+  declare export class IoIosSwitch extends React$Component<IconBaseProps> {}
+  declare export class IoIosSync extends React$Component<IconBaseProps> {}
+  declare export class IoIosTabletLandscape extends React$Component<IconBaseProps> {}
+  declare export class IoIosTabletPortrait extends React$Component<IconBaseProps> {}
+  declare export class IoIosTennisball extends React$Component<IconBaseProps> {}
+  declare export class IoIosText extends React$Component<IconBaseProps> {}
+  declare export class IoIosThermometer extends React$Component<IconBaseProps> {}
+  declare export class IoIosThumbsDown extends React$Component<IconBaseProps> {}
+  declare export class IoIosThumbsUp extends React$Component<IconBaseProps> {}
+  declare export class IoIosThunderstorm extends React$Component<IconBaseProps> {}
+  declare export class IoIosTime extends React$Component<IconBaseProps> {}
+  declare export class IoIosTimer extends React$Component<IconBaseProps> {}
+  declare export class IoIosToday extends React$Component<IconBaseProps> {}
+  declare export class IoIosTrain extends React$Component<IconBaseProps> {}
+  declare export class IoIosTransgender extends React$Component<IconBaseProps> {}
+  declare export class IoIosTrash extends React$Component<IconBaseProps> {}
+  declare export class IoIosTrendingDown extends React$Component<IconBaseProps> {}
+  declare export class IoIosTrendingUp extends React$Component<IconBaseProps> {}
+  declare export class IoIosTrophy extends React$Component<IconBaseProps> {}
+  declare export class IoIosTv extends React$Component<IconBaseProps> {}
+  declare export class IoIosUmbrella extends React$Component<IconBaseProps> {}
+  declare export class IoIosUndo extends React$Component<IconBaseProps> {}
+  declare export class IoIosUnlock extends React$Component<IconBaseProps> {}
+  declare export class IoIosVideocam extends React$Component<IconBaseProps> {}
+  declare export class IoIosVolumeHigh extends React$Component<IconBaseProps> {}
+  declare export class IoIosVolumeLow extends React$Component<IconBaseProps> {}
+  declare export class IoIosVolumeMute extends React$Component<IconBaseProps> {}
+  declare export class IoIosVolumeOff extends React$Component<IconBaseProps> {}
+  declare export class IoIosWalk extends React$Component<IconBaseProps> {}
+  declare export class IoIosWallet extends React$Component<IconBaseProps> {}
+  declare export class IoIosWarning extends React$Component<IconBaseProps> {}
+  declare export class IoIosWatch extends React$Component<IconBaseProps> {}
+  declare export class IoIosWater extends React$Component<IconBaseProps> {}
+  declare export class IoIosWifi extends React$Component<IconBaseProps> {}
+  declare export class IoIosWine extends React$Component<IconBaseProps> {}
+  declare export class IoIosWoman extends React$Component<IconBaseProps> {}
+  declare export class IoLogoAndroid extends React$Component<IconBaseProps> {}
+  declare export class IoLogoAngular extends React$Component<IconBaseProps> {}
+  declare export class IoLogoApple extends React$Component<IconBaseProps> {}
+  declare export class IoLogoBitbucket extends React$Component<IconBaseProps> {}
+  declare export class IoLogoBitcoin extends React$Component<IconBaseProps> {}
+  declare export class IoLogoBuffer extends React$Component<IconBaseProps> {}
+  declare export class IoLogoChrome extends React$Component<IconBaseProps> {}
+  declare export class IoLogoClosedCaptioning extends React$Component<IconBaseProps> {}
+  declare export class IoLogoCodepen extends React$Component<IconBaseProps> {}
+  declare export class IoLogoCss3 extends React$Component<IconBaseProps> {}
+  declare export class IoLogoDesignernews extends React$Component<IconBaseProps> {}
+  declare export class IoLogoDribbble extends React$Component<IconBaseProps> {}
+  declare export class IoLogoDropbox extends React$Component<IconBaseProps> {}
+  declare export class IoLogoEuro extends React$Component<IconBaseProps> {}
+  declare export class IoLogoFacebook extends React$Component<IconBaseProps> {}
+  declare export class IoLogoFlickr extends React$Component<IconBaseProps> {}
+  declare export class IoLogoFoursquare extends React$Component<IconBaseProps> {}
+  declare export class IoLogoFreebsdDevil extends React$Component<IconBaseProps> {}
+  declare export class IoLogoGameControllerA extends React$Component<IconBaseProps> {}
+  declare export class IoLogoGameControllerB extends React$Component<IconBaseProps> {}
+  declare export class IoLogoGithub extends React$Component<IconBaseProps> {}
+  declare export class IoLogoGoogle extends React$Component<IconBaseProps> {}
+  declare export class IoLogoGoogleplus extends React$Component<IconBaseProps> {}
+  declare export class IoLogoHackernews extends React$Component<IconBaseProps> {}
+  declare export class IoLogoHtml5 extends React$Component<IconBaseProps> {}
+  declare export class IoLogoInstagram extends React$Component<IconBaseProps> {}
+  declare export class IoLogoIonic extends React$Component<IconBaseProps> {}
+  declare export class IoLogoIonitron extends React$Component<IconBaseProps> {}
+  declare export class IoLogoJavascript extends React$Component<IconBaseProps> {}
+  declare export class IoLogoLinkedin extends React$Component<IconBaseProps> {}
+  declare export class IoLogoMarkdown extends React$Component<IconBaseProps> {}
+  declare export class IoLogoModelS extends React$Component<IconBaseProps> {}
+  declare export class IoLogoNoSmoking extends React$Component<IconBaseProps> {}
+  declare export class IoLogoNodejs extends React$Component<IconBaseProps> {}
+  declare export class IoLogoNpm extends React$Component<IconBaseProps> {}
+  declare export class IoLogoOctocat extends React$Component<IconBaseProps> {}
+  declare export class IoLogoPinterest extends React$Component<IconBaseProps> {}
+  declare export class IoLogoPlaystation extends React$Component<IconBaseProps> {}
+  declare export class IoLogoPolymer extends React$Component<IconBaseProps> {}
+  declare export class IoLogoPython extends React$Component<IconBaseProps> {}
+  declare export class IoLogoReddit extends React$Component<IconBaseProps> {}
+  declare export class IoLogoRss extends React$Component<IconBaseProps> {}
+  declare export class IoLogoSass extends React$Component<IconBaseProps> {}
+  declare export class IoLogoSkype extends React$Component<IconBaseProps> {}
+  declare export class IoLogoSlack extends React$Component<IconBaseProps> {}
+  declare export class IoLogoSnapchat extends React$Component<IconBaseProps> {}
+  declare export class IoLogoSteam extends React$Component<IconBaseProps> {}
+  declare export class IoLogoTumblr extends React$Component<IconBaseProps> {}
+  declare export class IoLogoTux extends React$Component<IconBaseProps> {}
+  declare export class IoLogoTwitch extends React$Component<IconBaseProps> {}
+  declare export class IoLogoTwitter extends React$Component<IconBaseProps> {}
+  declare export class IoLogoUsd extends React$Component<IconBaseProps> {}
+  declare export class IoLogoVimeo extends React$Component<IconBaseProps> {}
+  declare export class IoLogoVk extends React$Component<IconBaseProps> {}
+  declare export class IoLogoWhatsapp extends React$Component<IconBaseProps> {}
+  declare export class IoLogoWindows extends React$Component<IconBaseProps> {}
+  declare export class IoLogoWordpress extends React$Component<IconBaseProps> {}
+  declare export class IoLogoXbox extends React$Component<IconBaseProps> {}
+  declare export class IoLogoXing extends React$Component<IconBaseProps> {}
+  declare export class IoLogoYahoo extends React$Component<IconBaseProps> {}
+  declare export class IoLogoYen extends React$Component<IconBaseProps> {}
+  declare export class IoLogoYoutube extends React$Component<IconBaseProps> {}
+  declare export class IoMdAddCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdAddCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdAdd extends React$Component<IconBaseProps> {}
+  declare export class IoMdAirplane extends React$Component<IconBaseProps> {}
+  declare export class IoMdAlarm extends React$Component<IconBaseProps> {}
+  declare export class IoMdAlbums extends React$Component<IconBaseProps> {}
+  declare export class IoMdAlert extends React$Component<IconBaseProps> {}
+  declare export class IoMdAmericanFootball extends React$Component<IconBaseProps> {}
+  declare export class IoMdAnalytics extends React$Component<IconBaseProps> {}
+  declare export class IoMdAperture extends React$Component<IconBaseProps> {}
+  declare export class IoMdApps extends React$Component<IconBaseProps> {}
+  declare export class IoMdAppstore extends React$Component<IconBaseProps> {}
+  declare export class IoMdArchive extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowBack extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowDown extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowDropdownCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowDropdown extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowDropleftCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowDropleft extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowDroprightCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowDropright extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowDropupCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowDropup extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowForward extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowRoundBack extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowRoundDown extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowRoundForward extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowRoundUp extends React$Component<IconBaseProps> {}
+  declare export class IoMdArrowUp extends React$Component<IconBaseProps> {}
+  declare export class IoMdAt extends React$Component<IconBaseProps> {}
+  declare export class IoMdAttach extends React$Component<IconBaseProps> {}
+  declare export class IoMdBackspace extends React$Component<IconBaseProps> {}
+  declare export class IoMdBarcode extends React$Component<IconBaseProps> {}
+  declare export class IoMdBaseball extends React$Component<IconBaseProps> {}
+  declare export class IoMdBasket extends React$Component<IconBaseProps> {}
+  declare export class IoMdBasketball extends React$Component<IconBaseProps> {}
+  declare export class IoMdBatteryCharging extends React$Component<IconBaseProps> {}
+  declare export class IoMdBatteryDead extends React$Component<IconBaseProps> {}
+  declare export class IoMdBatteryFull extends React$Component<IconBaseProps> {}
+  declare export class IoMdBeaker extends React$Component<IconBaseProps> {}
+  declare export class IoMdBed extends React$Component<IconBaseProps> {}
+  declare export class IoMdBeer extends React$Component<IconBaseProps> {}
+  declare export class IoMdBicycle extends React$Component<IconBaseProps> {}
+  declare export class IoMdBluetooth extends React$Component<IconBaseProps> {}
+  declare export class IoMdBoat extends React$Component<IconBaseProps> {}
+  declare export class IoMdBody extends React$Component<IconBaseProps> {}
+  declare export class IoMdBonfire extends React$Component<IconBaseProps> {}
+  declare export class IoMdBook extends React$Component<IconBaseProps> {}
+  declare export class IoMdBookmark extends React$Component<IconBaseProps> {}
+  declare export class IoMdBookmarks extends React$Component<IconBaseProps> {}
+  declare export class IoMdBowtie extends React$Component<IconBaseProps> {}
+  declare export class IoMdBriefcase extends React$Component<IconBaseProps> {}
+  declare export class IoMdBrowsers extends React$Component<IconBaseProps> {}
+  declare export class IoMdBrush extends React$Component<IconBaseProps> {}
+  declare export class IoMdBug extends React$Component<IconBaseProps> {}
+  declare export class IoMdBuild extends React$Component<IconBaseProps> {}
+  declare export class IoMdBulb extends React$Component<IconBaseProps> {}
+  declare export class IoMdBus extends React$Component<IconBaseProps> {}
+  declare export class IoMdBusiness extends React$Component<IconBaseProps> {}
+  declare export class IoMdCafe extends React$Component<IconBaseProps> {}
+  declare export class IoMdCalculator extends React$Component<IconBaseProps> {}
+  declare export class IoMdCalendar extends React$Component<IconBaseProps> {}
+  declare export class IoMdCall extends React$Component<IconBaseProps> {}
+  declare export class IoMdCamera extends React$Component<IconBaseProps> {}
+  declare export class IoMdCar extends React$Component<IconBaseProps> {}
+  declare export class IoMdCard extends React$Component<IconBaseProps> {}
+  declare export class IoMdCart extends React$Component<IconBaseProps> {}
+  declare export class IoMdCash extends React$Component<IconBaseProps> {}
+  declare export class IoMdCellular extends React$Component<IconBaseProps> {}
+  declare export class IoMdChatboxes extends React$Component<IconBaseProps> {}
+  declare export class IoMdChatbubbles extends React$Component<IconBaseProps> {}
+  declare export class IoMdCheckboxOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdCheckbox extends React$Component<IconBaseProps> {}
+  declare export class IoMdCheckmarkCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdCheckmarkCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdCheckmark extends React$Component<IconBaseProps> {}
+  declare export class IoMdClipboard extends React$Component<IconBaseProps> {}
+  declare export class IoMdClock extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloseCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloseCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdClose extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloudCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloudDone extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloudDownload extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloudOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloudUpload extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloud extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloudyNight extends React$Component<IconBaseProps> {}
+  declare export class IoMdCloudy extends React$Component<IconBaseProps> {}
+  declare export class IoMdCodeDownload extends React$Component<IconBaseProps> {}
+  declare export class IoMdCodeWorking extends React$Component<IconBaseProps> {}
+  declare export class IoMdCode extends React$Component<IconBaseProps> {}
+  declare export class IoMdCog extends React$Component<IconBaseProps> {}
+  declare export class IoMdColorFill extends React$Component<IconBaseProps> {}
+  declare export class IoMdColorFilter extends React$Component<IconBaseProps> {}
+  declare export class IoMdColorPalette extends React$Component<IconBaseProps> {}
+  declare export class IoMdColorWand extends React$Component<IconBaseProps> {}
+  declare export class IoMdCompass extends React$Component<IconBaseProps> {}
+  declare export class IoMdConstruct extends React$Component<IconBaseProps> {}
+  declare export class IoMdContact extends React$Component<IconBaseProps> {}
+  declare export class IoMdContacts extends React$Component<IconBaseProps> {}
+  declare export class IoMdContract extends React$Component<IconBaseProps> {}
+  declare export class IoMdContrast extends React$Component<IconBaseProps> {}
+  declare export class IoMdCopy extends React$Component<IconBaseProps> {}
+  declare export class IoMdCreate extends React$Component<IconBaseProps> {}
+  declare export class IoMdCrop extends React$Component<IconBaseProps> {}
+  declare export class IoMdCube extends React$Component<IconBaseProps> {}
+  declare export class IoMdCut extends React$Component<IconBaseProps> {}
+  declare export class IoMdDesktop extends React$Component<IconBaseProps> {}
+  declare export class IoMdDisc extends React$Component<IconBaseProps> {}
+  declare export class IoMdDocument extends React$Component<IconBaseProps> {}
+  declare export class IoMdDoneAll extends React$Component<IconBaseProps> {}
+  declare export class IoMdDownload extends React$Component<IconBaseProps> {}
+  declare export class IoMdEasel extends React$Component<IconBaseProps> {}
+  declare export class IoMdEgg extends React$Component<IconBaseProps> {}
+  declare export class IoMdExit extends React$Component<IconBaseProps> {}
+  declare export class IoMdExpand extends React$Component<IconBaseProps> {}
+  declare export class IoMdEyeOff extends React$Component<IconBaseProps> {}
+  declare export class IoMdEye extends React$Component<IconBaseProps> {}
+  declare export class IoMdFastforward extends React$Component<IconBaseProps> {}
+  declare export class IoMdFemale extends React$Component<IconBaseProps> {}
+  declare export class IoMdFiling extends React$Component<IconBaseProps> {}
+  declare export class IoMdFilm extends React$Component<IconBaseProps> {}
+  declare export class IoMdFingerPrint extends React$Component<IconBaseProps> {}
+  declare export class IoMdFitness extends React$Component<IconBaseProps> {}
+  declare export class IoMdFlag extends React$Component<IconBaseProps> {}
+  declare export class IoMdFlame extends React$Component<IconBaseProps> {}
+  declare export class IoMdFlashOff extends React$Component<IconBaseProps> {}
+  declare export class IoMdFlash extends React$Component<IconBaseProps> {}
+  declare export class IoMdFlashlight extends React$Component<IconBaseProps> {}
+  declare export class IoMdFlask extends React$Component<IconBaseProps> {}
+  declare export class IoMdFlower extends React$Component<IconBaseProps> {}
+  declare export class IoMdFolderOpen extends React$Component<IconBaseProps> {}
+  declare export class IoMdFolder extends React$Component<IconBaseProps> {}
+  declare export class IoMdFootball extends React$Component<IconBaseProps> {}
+  declare export class IoMdFunnel extends React$Component<IconBaseProps> {}
+  declare export class IoMdGift extends React$Component<IconBaseProps> {}
+  declare export class IoMdGitBranch extends React$Component<IconBaseProps> {}
+  declare export class IoMdGitCommit extends React$Component<IconBaseProps> {}
+  declare export class IoMdGitCompare extends React$Component<IconBaseProps> {}
+  declare export class IoMdGitMerge extends React$Component<IconBaseProps> {}
+  declare export class IoMdGitNetwork extends React$Component<IconBaseProps> {}
+  declare export class IoMdGitPullRequest extends React$Component<IconBaseProps> {}
+  declare export class IoMdGlasses extends React$Component<IconBaseProps> {}
+  declare export class IoMdGlobe extends React$Component<IconBaseProps> {}
+  declare export class IoMdGrid extends React$Component<IconBaseProps> {}
+  declare export class IoMdHammer extends React$Component<IconBaseProps> {}
+  declare export class IoMdHand extends React$Component<IconBaseProps> {}
+  declare export class IoMdHappy extends React$Component<IconBaseProps> {}
+  declare export class IoMdHeadset extends React$Component<IconBaseProps> {}
+  declare export class IoMdHeartDislike extends React$Component<IconBaseProps> {}
+  declare export class IoMdHeartEmpty extends React$Component<IconBaseProps> {}
+  declare export class IoMdHeartHalf extends React$Component<IconBaseProps> {}
+  declare export class IoMdHeart extends React$Component<IconBaseProps> {}
+  declare export class IoMdHelpBuoy extends React$Component<IconBaseProps> {}
+  declare export class IoMdHelpCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdHelpCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdHelp extends React$Component<IconBaseProps> {}
+  declare export class IoMdHome extends React$Component<IconBaseProps> {}
+  declare export class IoMdHourglass extends React$Component<IconBaseProps> {}
+  declare export class IoMdIceCream extends React$Component<IconBaseProps> {}
+  declare export class IoMdImage extends React$Component<IconBaseProps> {}
+  declare export class IoMdImages extends React$Component<IconBaseProps> {}
+  declare export class IoMdInfinite extends React$Component<IconBaseProps> {}
+  declare export class IoMdInformationCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdInformationCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdInformation extends React$Component<IconBaseProps> {}
+  declare export class IoMdJet extends React$Component<IconBaseProps> {}
+  declare export class IoMdJournal extends React$Component<IconBaseProps> {}
+  declare export class IoMdKey extends React$Component<IconBaseProps> {}
+  declare export class IoMdKeypad extends React$Component<IconBaseProps> {}
+  declare export class IoMdLaptop extends React$Component<IconBaseProps> {}
+  declare export class IoMdLeaf extends React$Component<IconBaseProps> {}
+  declare export class IoMdLink extends React$Component<IconBaseProps> {}
+  declare export class IoMdListBox extends React$Component<IconBaseProps> {}
+  declare export class IoMdList extends React$Component<IconBaseProps> {}
+  declare export class IoMdLocate extends React$Component<IconBaseProps> {}
+  declare export class IoMdLock extends React$Component<IconBaseProps> {}
+  declare export class IoMdLogIn extends React$Component<IconBaseProps> {}
+  declare export class IoMdLogOut extends React$Component<IconBaseProps> {}
+  declare export class IoMdMagnet extends React$Component<IconBaseProps> {}
+  declare export class IoMdMailOpen extends React$Component<IconBaseProps> {}
+  declare export class IoMdMailUnread extends React$Component<IconBaseProps> {}
+  declare export class IoMdMail extends React$Component<IconBaseProps> {}
+  declare export class IoMdMale extends React$Component<IconBaseProps> {}
+  declare export class IoMdMan extends React$Component<IconBaseProps> {}
+  declare export class IoMdMap extends React$Component<IconBaseProps> {}
+  declare export class IoMdMedal extends React$Component<IconBaseProps> {}
+  declare export class IoMdMedical extends React$Component<IconBaseProps> {}
+  declare export class IoMdMedkit extends React$Component<IconBaseProps> {}
+  declare export class IoMdMegaphone extends React$Component<IconBaseProps> {}
+  declare export class IoMdMenu extends React$Component<IconBaseProps> {}
+  declare export class IoMdMicOff extends React$Component<IconBaseProps> {}
+  declare export class IoMdMic extends React$Component<IconBaseProps> {}
+  declare export class IoMdMicrophone extends React$Component<IconBaseProps> {}
+  declare export class IoMdMoon extends React$Component<IconBaseProps> {}
+  declare export class IoMdMore extends React$Component<IconBaseProps> {}
+  declare export class IoMdMove extends React$Component<IconBaseProps> {}
+  declare export class IoMdMusicalNote extends React$Component<IconBaseProps> {}
+  declare export class IoMdMusicalNotes extends React$Component<IconBaseProps> {}
+  declare export class IoMdNavigate extends React$Component<IconBaseProps> {}
+  declare export class IoMdNotificationsOff extends React$Component<IconBaseProps> {}
+  declare export class IoMdNotificationsOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdNotifications extends React$Component<IconBaseProps> {}
+  declare export class IoMdNuclear extends React$Component<IconBaseProps> {}
+  declare export class IoMdNutrition extends React$Component<IconBaseProps> {}
+  declare export class IoMdOpen extends React$Component<IconBaseProps> {}
+  declare export class IoMdOptions extends React$Component<IconBaseProps> {}
+  declare export class IoMdOutlet extends React$Component<IconBaseProps> {}
+  declare export class IoMdPaperPlane extends React$Component<IconBaseProps> {}
+  declare export class IoMdPaper extends React$Component<IconBaseProps> {}
+  declare export class IoMdPartlySunny extends React$Component<IconBaseProps> {}
+  declare export class IoMdPause extends React$Component<IconBaseProps> {}
+  declare export class IoMdPaw extends React$Component<IconBaseProps> {}
+  declare export class IoMdPeople extends React$Component<IconBaseProps> {}
+  declare export class IoMdPersonAdd extends React$Component<IconBaseProps> {}
+  declare export class IoMdPerson extends React$Component<IconBaseProps> {}
+  declare export class IoMdPhoneLandscape extends React$Component<IconBaseProps> {}
+  declare export class IoMdPhonePortrait extends React$Component<IconBaseProps> {}
+  declare export class IoMdPhotos extends React$Component<IconBaseProps> {}
+  declare export class IoMdPie extends React$Component<IconBaseProps> {}
+  declare export class IoMdPin extends React$Component<IconBaseProps> {}
+  declare export class IoMdPint extends React$Component<IconBaseProps> {}
+  declare export class IoMdPizza extends React$Component<IconBaseProps> {}
+  declare export class IoMdPlanet extends React$Component<IconBaseProps> {}
+  declare export class IoMdPlayCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdPlay extends React$Component<IconBaseProps> {}
+  declare export class IoMdPodium extends React$Component<IconBaseProps> {}
+  declare export class IoMdPower extends React$Component<IconBaseProps> {}
+  declare export class IoMdPricetag extends React$Component<IconBaseProps> {}
+  declare export class IoMdPricetags extends React$Component<IconBaseProps> {}
+  declare export class IoMdPrint extends React$Component<IconBaseProps> {}
+  declare export class IoMdPulse extends React$Component<IconBaseProps> {}
+  declare export class IoMdQrScanner extends React$Component<IconBaseProps> {}
+  declare export class IoMdQuote extends React$Component<IconBaseProps> {}
+  declare export class IoMdRadioButtonOff extends React$Component<IconBaseProps> {}
+  declare export class IoMdRadioButtonOn extends React$Component<IconBaseProps> {}
+  declare export class IoMdRadio extends React$Component<IconBaseProps> {}
+  declare export class IoMdRainy extends React$Component<IconBaseProps> {}
+  declare export class IoMdRecording extends React$Component<IconBaseProps> {}
+  declare export class IoMdRedo extends React$Component<IconBaseProps> {}
+  declare export class IoMdRefreshCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdRefresh extends React$Component<IconBaseProps> {}
+  declare export class IoMdRemoveCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdRemoveCircle extends React$Component<IconBaseProps> {}
+  declare export class IoMdRemove extends React$Component<IconBaseProps> {}
+  declare export class IoMdReorder extends React$Component<IconBaseProps> {}
+  declare export class IoMdRepeat extends React$Component<IconBaseProps> {}
+  declare export class IoMdResize extends React$Component<IconBaseProps> {}
+  declare export class IoMdRestaurant extends React$Component<IconBaseProps> {}
+  declare export class IoMdReturnLeft extends React$Component<IconBaseProps> {}
+  declare export class IoMdReturnRight extends React$Component<IconBaseProps> {}
+  declare export class IoMdReverseCamera extends React$Component<IconBaseProps> {}
+  declare export class IoMdRewind extends React$Component<IconBaseProps> {}
+  declare export class IoMdRibbon extends React$Component<IconBaseProps> {}
+  declare export class IoMdRocket extends React$Component<IconBaseProps> {}
+  declare export class IoMdRose extends React$Component<IconBaseProps> {}
+  declare export class IoMdSad extends React$Component<IconBaseProps> {}
+  declare export class IoMdSave extends React$Component<IconBaseProps> {}
+  declare export class IoMdSchool extends React$Component<IconBaseProps> {}
+  declare export class IoMdSearch extends React$Component<IconBaseProps> {}
+  declare export class IoMdSend extends React$Component<IconBaseProps> {}
+  declare export class IoMdSettings extends React$Component<IconBaseProps> {}
+  declare export class IoMdShareAlt extends React$Component<IconBaseProps> {}
+  declare export class IoMdShare extends React$Component<IconBaseProps> {}
+  declare export class IoMdShirt extends React$Component<IconBaseProps> {}
+  declare export class IoMdShuffle extends React$Component<IconBaseProps> {}
+  declare export class IoMdSkipBackward extends React$Component<IconBaseProps> {}
+  declare export class IoMdSkipForward extends React$Component<IconBaseProps> {}
+  declare export class IoMdSnow extends React$Component<IconBaseProps> {}
+  declare export class IoMdSpeedometer extends React$Component<IconBaseProps> {}
+  declare export class IoMdSquareOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdSquare extends React$Component<IconBaseProps> {}
+  declare export class IoMdStarHalf extends React$Component<IconBaseProps> {}
+  declare export class IoMdStarOutline extends React$Component<IconBaseProps> {}
+  declare export class IoMdStar extends React$Component<IconBaseProps> {}
+  declare export class IoMdStats extends React$Component<IconBaseProps> {}
+  declare export class IoMdStopwatch extends React$Component<IconBaseProps> {}
+  declare export class IoMdSubway extends React$Component<IconBaseProps> {}
+  declare export class IoMdSunny extends React$Component<IconBaseProps> {}
+  declare export class IoMdSwap extends React$Component<IconBaseProps> {}
+  declare export class IoMdSwitch extends React$Component<IconBaseProps> {}
+  declare export class IoMdSync extends React$Component<IconBaseProps> {}
+  declare export class IoMdTabletLandscape extends React$Component<IconBaseProps> {}
+  declare export class IoMdTabletPortrait extends React$Component<IconBaseProps> {}
+  declare export class IoMdTennisball extends React$Component<IconBaseProps> {}
+  declare export class IoMdText extends React$Component<IconBaseProps> {}
+  declare export class IoMdThermometer extends React$Component<IconBaseProps> {}
+  declare export class IoMdThumbsDown extends React$Component<IconBaseProps> {}
+  declare export class IoMdThumbsUp extends React$Component<IconBaseProps> {}
+  declare export class IoMdThunderstorm extends React$Component<IconBaseProps> {}
+  declare export class IoMdTime extends React$Component<IconBaseProps> {}
+  declare export class IoMdTimer extends React$Component<IconBaseProps> {}
+  declare export class IoMdToday extends React$Component<IconBaseProps> {}
+  declare export class IoMdTrain extends React$Component<IconBaseProps> {}
+  declare export class IoMdTransgender extends React$Component<IconBaseProps> {}
+  declare export class IoMdTrash extends React$Component<IconBaseProps> {}
+  declare export class IoMdTrendingDown extends React$Component<IconBaseProps> {}
+  declare export class IoMdTrendingUp extends React$Component<IconBaseProps> {}
+  declare export class IoMdTrophy extends React$Component<IconBaseProps> {}
+  declare export class IoMdTv extends React$Component<IconBaseProps> {}
+  declare export class IoMdUmbrella extends React$Component<IconBaseProps> {}
+  declare export class IoMdUndo extends React$Component<IconBaseProps> {}
+  declare export class IoMdUnlock extends React$Component<IconBaseProps> {}
+  declare export class IoMdVideocam extends React$Component<IconBaseProps> {}
+  declare export class IoMdVolumeHigh extends React$Component<IconBaseProps> {}
+  declare export class IoMdVolumeLow extends React$Component<IconBaseProps> {}
+  declare export class IoMdVolumeMute extends React$Component<IconBaseProps> {}
+  declare export class IoMdVolumeOff extends React$Component<IconBaseProps> {}
+  declare export class IoMdWalk extends React$Component<IconBaseProps> {}
+  declare export class IoMdWallet extends React$Component<IconBaseProps> {}
+  declare export class IoMdWarning extends React$Component<IconBaseProps> {}
+  declare export class IoMdWatch extends React$Component<IconBaseProps> {}
+  declare export class IoMdWater extends React$Component<IconBaseProps> {}
+  declare export class IoMdWifi extends React$Component<IconBaseProps> {}
+  declare export class IoMdWine extends React$Component<IconBaseProps> {}
+  declare export class IoMdWoman extends React$Component<IconBaseProps> {}
+}
+
+declare module 'react-icons/md' {
+  declare export class Md3dRotation extends React$Component<IconBaseProps> {}
+  declare export class MdAccessibility extends React$Component<IconBaseProps> {}
+  declare export class MdAccessible extends React$Component<IconBaseProps> {}
+  declare export class MdAccountBalance extends React$Component<IconBaseProps> {}
+  declare export class MdAccountBalanceWallet extends React$Component<IconBaseProps> {}
+  declare export class MdAccountBox extends React$Component<IconBaseProps> {}
+  declare export class MdAccountCircle extends React$Component<IconBaseProps> {}
+  declare export class MdAddShoppingCart extends React$Component<IconBaseProps> {}
+  declare export class MdAlarm extends React$Component<IconBaseProps> {}
+  declare export class MdAlarmAdd extends React$Component<IconBaseProps> {}
+  declare export class MdAlarmOff extends React$Component<IconBaseProps> {}
+  declare export class MdAlarmOn extends React$Component<IconBaseProps> {}
+  declare export class MdAllOut extends React$Component<IconBaseProps> {}
+  declare export class MdAndroid extends React$Component<IconBaseProps> {}
+  declare export class MdAnnouncement extends React$Component<IconBaseProps> {}
+  declare export class MdAspectRatio extends React$Component<IconBaseProps> {}
+  declare export class MdAssessment extends React$Component<IconBaseProps> {}
+  declare export class MdAssignment extends React$Component<IconBaseProps> {}
+  declare export class MdAssignmentInd extends React$Component<IconBaseProps> {}
+  declare export class MdAssignmentLate extends React$Component<IconBaseProps> {}
+  declare export class MdAssignmentReturn extends React$Component<IconBaseProps> {}
+  declare export class MdAssignmentReturned extends React$Component<IconBaseProps> {}
+  declare export class MdAssignmentTurnedIn extends React$Component<IconBaseProps> {}
+  declare export class MdAutorenew extends React$Component<IconBaseProps> {}
+  declare export class MdBackup extends React$Component<IconBaseProps> {}
+  declare export class MdBook extends React$Component<IconBaseProps> {}
+  declare export class MdBookmark extends React$Component<IconBaseProps> {}
+  declare export class MdBookmarkBorder extends React$Component<IconBaseProps> {}
+  declare export class MdBugReport extends React$Component<IconBaseProps> {}
+  declare export class MdBuild extends React$Component<IconBaseProps> {}
+  declare export class MdCached extends React$Component<IconBaseProps> {}
+  declare export class MdCameraEnhance extends React$Component<IconBaseProps> {}
+  declare export class MdCardGiftcard extends React$Component<IconBaseProps> {}
+  declare export class MdCardMembership extends React$Component<IconBaseProps> {}
+  declare export class MdCardTravel extends React$Component<IconBaseProps> {}
+  declare export class MdChangeHistory extends React$Component<IconBaseProps> {}
+  declare export class MdCheckCircle extends React$Component<IconBaseProps> {}
+  declare export class MdChromeReaderMode extends React$Component<IconBaseProps> {}
+  declare export class MdClass extends React$Component<IconBaseProps> {}
+  declare export class MdCode extends React$Component<IconBaseProps> {}
+  declare export class MdCompareArrows extends React$Component<IconBaseProps> {}
+  declare export class MdCopyright extends React$Component<IconBaseProps> {}
+  declare export class MdCreditCard extends React$Component<IconBaseProps> {}
+  declare export class MdDashboard extends React$Component<IconBaseProps> {}
+  declare export class MdDateRange extends React$Component<IconBaseProps> {}
+  declare export class MdDelete extends React$Component<IconBaseProps> {}
+  declare export class MdDeleteForever extends React$Component<IconBaseProps> {}
+  declare export class MdDescription extends React$Component<IconBaseProps> {}
+  declare export class MdDns extends React$Component<IconBaseProps> {}
+  declare export class MdDone extends React$Component<IconBaseProps> {}
+  declare export class MdDoneAll extends React$Component<IconBaseProps> {}
+  declare export class MdDonutLarge extends React$Component<IconBaseProps> {}
+  declare export class MdDonutSmall extends React$Component<IconBaseProps> {}
+  declare export class MdEject extends React$Component<IconBaseProps> {}
+  declare export class MdEuroSymbol extends React$Component<IconBaseProps> {}
+  declare export class MdEvent extends React$Component<IconBaseProps> {}
+  declare export class MdEventSeat extends React$Component<IconBaseProps> {}
+  declare export class MdExitToApp extends React$Component<IconBaseProps> {}
+  declare export class MdExplore extends React$Component<IconBaseProps> {}
+  declare export class MdExtension extends React$Component<IconBaseProps> {}
+  declare export class MdFace extends React$Component<IconBaseProps> {}
+  declare export class MdFavorite extends React$Component<IconBaseProps> {}
+  declare export class MdFavoriteBorder extends React$Component<IconBaseProps> {}
+  declare export class MdFeedback extends React$Component<IconBaseProps> {}
+  declare export class MdFindInPage extends React$Component<IconBaseProps> {}
+  declare export class MdFindReplace extends React$Component<IconBaseProps> {}
+  declare export class MdFingerprint extends React$Component<IconBaseProps> {}
+  declare export class MdFlightLand extends React$Component<IconBaseProps> {}
+  declare export class MdFlightTakeoff extends React$Component<IconBaseProps> {}
+  declare export class MdFlipToBack extends React$Component<IconBaseProps> {}
+  declare export class MdFlipToFront extends React$Component<IconBaseProps> {}
+  declare export class MdGTranslate extends React$Component<IconBaseProps> {}
+  declare export class MdGavel extends React$Component<IconBaseProps> {}
+  declare export class MdGetApp extends React$Component<IconBaseProps> {}
+  declare export class MdGif extends React$Component<IconBaseProps> {}
+  declare export class MdGrade extends React$Component<IconBaseProps> {}
+  declare export class MdGroupWork extends React$Component<IconBaseProps> {}
+  declare export class MdHelp extends React$Component<IconBaseProps> {}
+  declare export class MdHelpOutline extends React$Component<IconBaseProps> {}
+  declare export class MdHighlightOff extends React$Component<IconBaseProps> {}
+  declare export class MdHistory extends React$Component<IconBaseProps> {}
+  declare export class MdHome extends React$Component<IconBaseProps> {}
+  declare export class MdHourglassEmpty extends React$Component<IconBaseProps> {}
+  declare export class MdHourglassFull extends React$Component<IconBaseProps> {}
+  declare export class MdHttp extends React$Component<IconBaseProps> {}
+  declare export class MdHttps extends React$Component<IconBaseProps> {}
+  declare export class MdImportantDevices extends React$Component<IconBaseProps> {}
+  declare export class MdInfo extends React$Component<IconBaseProps> {}
+  declare export class MdInfoOutline extends React$Component<IconBaseProps> {}
+  declare export class MdInput extends React$Component<IconBaseProps> {}
+  declare export class MdInvertColors extends React$Component<IconBaseProps> {}
+  declare export class MdLabel extends React$Component<IconBaseProps> {}
+  declare export class MdLabelOutline extends React$Component<IconBaseProps> {}
+  declare export class MdLanguage extends React$Component<IconBaseProps> {}
+  declare export class MdLaunch extends React$Component<IconBaseProps> {}
+  declare export class MdLightbulbOutline extends React$Component<IconBaseProps> {}
+  declare export class MdLineStyle extends React$Component<IconBaseProps> {}
+  declare export class MdLineWeight extends React$Component<IconBaseProps> {}
+  declare export class MdList extends React$Component<IconBaseProps> {}
+  declare export class MdLock extends React$Component<IconBaseProps> {}
+  declare export class MdLockOpen extends React$Component<IconBaseProps> {}
+  declare export class MdLockOutline extends React$Component<IconBaseProps> {}
+  declare export class MdLoyalty extends React$Component<IconBaseProps> {}
+  declare export class MdMarkunreadMailbox extends React$Component<IconBaseProps> {}
+  declare export class MdMotorcycle extends React$Component<IconBaseProps> {}
+  declare export class MdNoteAdd extends React$Component<IconBaseProps> {}
+  declare export class MdOfflinePin extends React$Component<IconBaseProps> {}
+  declare export class MdOpacity extends React$Component<IconBaseProps> {}
+  declare export class MdOpenInBrowser extends React$Component<IconBaseProps> {}
+  declare export class MdOpenInNew extends React$Component<IconBaseProps> {}
+  declare export class MdOpenWith extends React$Component<IconBaseProps> {}
+  declare export class MdPageview extends React$Component<IconBaseProps> {}
+  declare export class MdPanTool extends React$Component<IconBaseProps> {}
+  declare export class MdPayment extends React$Component<IconBaseProps> {}
+  declare export class MdPermCameraMic extends React$Component<IconBaseProps> {}
+  declare export class MdPermContactCalendar extends React$Component<IconBaseProps> {}
+  declare export class MdPermDataSetting extends React$Component<IconBaseProps> {}
+  declare export class MdPermDeviceInformation extends React$Component<IconBaseProps> {}
+  declare export class MdPermIdentity extends React$Component<IconBaseProps> {}
+  declare export class MdPermMedia extends React$Component<IconBaseProps> {}
+  declare export class MdPermPhoneMsg extends React$Component<IconBaseProps> {}
+  declare export class MdPermScanWifi extends React$Component<IconBaseProps> {}
+  declare export class MdPets extends React$Component<IconBaseProps> {}
+  declare export class MdPictureInPicture extends React$Component<IconBaseProps> {}
+  declare export class MdPictureInPictureAlt extends React$Component<IconBaseProps> {}
+  declare export class MdPlayForWork extends React$Component<IconBaseProps> {}
+  declare export class MdPolymer extends React$Component<IconBaseProps> {}
+  declare export class MdPowerSettingsNew extends React$Component<IconBaseProps> {}
+  declare export class MdPregnantWoman extends React$Component<IconBaseProps> {}
+  declare export class MdPrint extends React$Component<IconBaseProps> {}
+  declare export class MdQueryBuilder extends React$Component<IconBaseProps> {}
+  declare export class MdQuestionAnswer extends React$Component<IconBaseProps> {}
+  declare export class MdReceipt extends React$Component<IconBaseProps> {}
+  declare export class MdRecordVoiceOver extends React$Component<IconBaseProps> {}
+  declare export class MdRedeem extends React$Component<IconBaseProps> {}
+  declare export class MdRemoveShoppingCart extends React$Component<IconBaseProps> {}
+  declare export class MdReorder extends React$Component<IconBaseProps> {}
+  declare export class MdReportProblem extends React$Component<IconBaseProps> {}
+  declare export class MdRestore extends React$Component<IconBaseProps> {}
+  declare export class MdRestorePage extends React$Component<IconBaseProps> {}
+  declare export class MdRoom extends React$Component<IconBaseProps> {}
+  declare export class MdRoundedCorner extends React$Component<IconBaseProps> {}
+  declare export class MdRowing extends React$Component<IconBaseProps> {}
+  declare export class MdSchedule extends React$Component<IconBaseProps> {}
+  declare export class MdSearch extends React$Component<IconBaseProps> {}
+  declare export class MdSettings extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsApplications extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsBackupRestore extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsBluetooth extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsBrightness extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsCell extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsEthernet extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsInputAntenna extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsInputComponent extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsInputComposite extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsInputHdmi extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsInputSvideo extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsOverscan extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsPhone extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsPower extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsRemote extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsVoice extends React$Component<IconBaseProps> {}
+  declare export class MdShop extends React$Component<IconBaseProps> {}
+  declare export class MdShopTwo extends React$Component<IconBaseProps> {}
+  declare export class MdShoppingBasket extends React$Component<IconBaseProps> {}
+  declare export class MdShoppingCart extends React$Component<IconBaseProps> {}
+  declare export class MdSpeakerNotes extends React$Component<IconBaseProps> {}
+  declare export class MdSpeakerNotesOff extends React$Component<IconBaseProps> {}
+  declare export class MdSpellcheck extends React$Component<IconBaseProps> {}
+  declare export class MdStars extends React$Component<IconBaseProps> {}
+  declare export class MdStore extends React$Component<IconBaseProps> {}
+  declare export class MdSubject extends React$Component<IconBaseProps> {}
+  declare export class MdSupervisorAccount extends React$Component<IconBaseProps> {}
+  declare export class MdSwapHoriz extends React$Component<IconBaseProps> {}
+  declare export class MdSwapVert extends React$Component<IconBaseProps> {}
+  declare export class MdSwapVerticalCircle extends React$Component<IconBaseProps> {}
+  declare export class MdSystemUpdateAlt extends React$Component<IconBaseProps> {}
+  declare export class MdTab extends React$Component<IconBaseProps> {}
+  declare export class MdTabUnselected extends React$Component<IconBaseProps> {}
+  declare export class MdTheaters extends React$Component<IconBaseProps> {}
+  declare export class MdThumbDown extends React$Component<IconBaseProps> {}
+  declare export class MdThumbUp extends React$Component<IconBaseProps> {}
+  declare export class MdThumbsUpDown extends React$Component<IconBaseProps> {}
+  declare export class MdTimeline extends React$Component<IconBaseProps> {}
+  declare export class MdToc extends React$Component<IconBaseProps> {}
+  declare export class MdToday extends React$Component<IconBaseProps> {}
+  declare export class MdToll extends React$Component<IconBaseProps> {}
+  declare export class MdTouchApp extends React$Component<IconBaseProps> {}
+  declare export class MdTrackChanges extends React$Component<IconBaseProps> {}
+  declare export class MdTranslate extends React$Component<IconBaseProps> {}
+  declare export class MdTrendingDown extends React$Component<IconBaseProps> {}
+  declare export class MdTrendingFlat extends React$Component<IconBaseProps> {}
+  declare export class MdTrendingUp extends React$Component<IconBaseProps> {}
+  declare export class MdTurnedIn extends React$Component<IconBaseProps> {}
+  declare export class MdTurnedInNot extends React$Component<IconBaseProps> {}
+  declare export class MdUpdate extends React$Component<IconBaseProps> {}
+  declare export class MdVerifiedUser extends React$Component<IconBaseProps> {}
+  declare export class MdViewAgenda extends React$Component<IconBaseProps> {}
+  declare export class MdViewArray extends React$Component<IconBaseProps> {}
+  declare export class MdViewCarousel extends React$Component<IconBaseProps> {}
+  declare export class MdViewColumn extends React$Component<IconBaseProps> {}
+  declare export class MdViewDay extends React$Component<IconBaseProps> {}
+  declare export class MdViewHeadline extends React$Component<IconBaseProps> {}
+  declare export class MdViewList extends React$Component<IconBaseProps> {}
+  declare export class MdViewModule extends React$Component<IconBaseProps> {}
+  declare export class MdViewQuilt extends React$Component<IconBaseProps> {}
+  declare export class MdViewStream extends React$Component<IconBaseProps> {}
+  declare export class MdViewWeek extends React$Component<IconBaseProps> {}
+  declare export class MdVisibility extends React$Component<IconBaseProps> {}
+  declare export class MdVisibilityOff extends React$Component<IconBaseProps> {}
+  declare export class MdWatchLater extends React$Component<IconBaseProps> {}
+  declare export class MdWork extends React$Component<IconBaseProps> {}
+  declare export class MdYoutubeSearchedFor extends React$Component<IconBaseProps> {}
+  declare export class MdZoomIn extends React$Component<IconBaseProps> {}
+  declare export class MdZoomOut extends React$Component<IconBaseProps> {}
+  declare export class MdAddAlert extends React$Component<IconBaseProps> {}
+  declare export class MdError extends React$Component<IconBaseProps> {}
+  declare export class MdErrorOutline extends React$Component<IconBaseProps> {}
+  declare export class MdWarning extends React$Component<IconBaseProps> {}
+  declare export class MdAddToQueue extends React$Component<IconBaseProps> {}
+  declare export class MdAirplay extends React$Component<IconBaseProps> {}
+  declare export class MdAlbum extends React$Component<IconBaseProps> {}
+  declare export class MdArtTrack extends React$Component<IconBaseProps> {}
+  declare export class MdAvTimer extends React$Component<IconBaseProps> {}
+  declare export class MdBrandingWatermark extends React$Component<IconBaseProps> {}
+  declare export class MdCallToAction extends React$Component<IconBaseProps> {}
+  declare export class MdClosedCaption extends React$Component<IconBaseProps> {}
+  declare export class MdEqualizer extends React$Component<IconBaseProps> {}
+  declare export class MdExplicit extends React$Component<IconBaseProps> {}
+  declare export class MdFastForward extends React$Component<IconBaseProps> {}
+  declare export class MdFastRewind extends React$Component<IconBaseProps> {}
+  declare export class MdFeaturedPlayList extends React$Component<IconBaseProps> {}
+  declare export class MdFeaturedVideo extends React$Component<IconBaseProps> {}
+  declare export class MdFiberDvr extends React$Component<IconBaseProps> {}
+  declare export class MdFiberManualRecord extends React$Component<IconBaseProps> {}
+  declare export class MdFiberNew extends React$Component<IconBaseProps> {}
+  declare export class MdFiberPin extends React$Component<IconBaseProps> {}
+  declare export class MdFiberSmartRecord extends React$Component<IconBaseProps> {}
+  declare export class MdForward10 extends React$Component<IconBaseProps> {}
+  declare export class MdForward30 extends React$Component<IconBaseProps> {}
+  declare export class MdForward5 extends React$Component<IconBaseProps> {}
+  declare export class MdGames extends React$Component<IconBaseProps> {}
+  declare export class MdHd extends React$Component<IconBaseProps> {}
+  declare export class MdHearing extends React$Component<IconBaseProps> {}
+  declare export class MdHighQuality extends React$Component<IconBaseProps> {}
+  declare export class MdLibraryAdd extends React$Component<IconBaseProps> {}
+  declare export class MdLibraryBooks extends React$Component<IconBaseProps> {}
+  declare export class MdLibraryMusic extends React$Component<IconBaseProps> {}
+  declare export class MdLoop extends React$Component<IconBaseProps> {}
+  declare export class MdMic extends React$Component<IconBaseProps> {}
+  declare export class MdMicNone extends React$Component<IconBaseProps> {}
+  declare export class MdMicOff extends React$Component<IconBaseProps> {}
+  declare export class MdMovie extends React$Component<IconBaseProps> {}
+  declare export class MdMusicVideo extends React$Component<IconBaseProps> {}
+  declare export class MdNewReleases extends React$Component<IconBaseProps> {}
+  declare export class MdNotInterested extends React$Component<IconBaseProps> {}
+  declare export class MdNote extends React$Component<IconBaseProps> {}
+  declare export class MdPause extends React$Component<IconBaseProps> {}
+  declare export class MdPauseCircleFilled extends React$Component<IconBaseProps> {}
+  declare export class MdPauseCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class MdPlayArrow extends React$Component<IconBaseProps> {}
+  declare export class MdPlayCircleFilled extends React$Component<IconBaseProps> {}
+  declare export class MdPlayCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class MdPlaylistAdd extends React$Component<IconBaseProps> {}
+  declare export class MdPlaylistAddCheck extends React$Component<IconBaseProps> {}
+  declare export class MdPlaylistPlay extends React$Component<IconBaseProps> {}
+  declare export class MdQueue extends React$Component<IconBaseProps> {}
+  declare export class MdQueueMusic extends React$Component<IconBaseProps> {}
+  declare export class MdQueuePlayNext extends React$Component<IconBaseProps> {}
+  declare export class MdRadio extends React$Component<IconBaseProps> {}
+  declare export class MdRecentActors extends React$Component<IconBaseProps> {}
+  declare export class MdRemoveFromQueue extends React$Component<IconBaseProps> {}
+  declare export class MdRepeat extends React$Component<IconBaseProps> {}
+  declare export class MdRepeatOne extends React$Component<IconBaseProps> {}
+  declare export class MdReplay10 extends React$Component<IconBaseProps> {}
+  declare export class MdReplay extends React$Component<IconBaseProps> {}
+  declare export class MdReplay30 extends React$Component<IconBaseProps> {}
+  declare export class MdReplay5 extends React$Component<IconBaseProps> {}
+  declare export class MdShuffle extends React$Component<IconBaseProps> {}
+  declare export class MdSkipNext extends React$Component<IconBaseProps> {}
+  declare export class MdSkipPrevious extends React$Component<IconBaseProps> {}
+  declare export class MdSlowMotionVideo extends React$Component<IconBaseProps> {}
+  declare export class MdSnooze extends React$Component<IconBaseProps> {}
+  declare export class MdSortByAlpha extends React$Component<IconBaseProps> {}
+  declare export class MdStop extends React$Component<IconBaseProps> {}
+  declare export class MdSubscriptions extends React$Component<IconBaseProps> {}
+  declare export class MdSubtitles extends React$Component<IconBaseProps> {}
+  declare export class MdSurroundSound extends React$Component<IconBaseProps> {}
+  declare export class MdVideoCall extends React$Component<IconBaseProps> {}
+  declare export class MdVideoLabel extends React$Component<IconBaseProps> {}
+  declare export class MdVideoLibrary extends React$Component<IconBaseProps> {}
+  declare export class MdVideocam extends React$Component<IconBaseProps> {}
+  declare export class MdVideocamOff extends React$Component<IconBaseProps> {}
+  declare export class MdVolumeDown extends React$Component<IconBaseProps> {}
+  declare export class MdVolumeMute extends React$Component<IconBaseProps> {}
+  declare export class MdVolumeOff extends React$Component<IconBaseProps> {}
+  declare export class MdVolumeUp extends React$Component<IconBaseProps> {}
+  declare export class MdWeb extends React$Component<IconBaseProps> {}
+  declare export class MdWebAsset extends React$Component<IconBaseProps> {}
+  declare export class MdBusiness extends React$Component<IconBaseProps> {}
+  declare export class MdCall extends React$Component<IconBaseProps> {}
+  declare export class MdCallEnd extends React$Component<IconBaseProps> {}
+  declare export class MdCallMade extends React$Component<IconBaseProps> {}
+  declare export class MdCallMerge extends React$Component<IconBaseProps> {}
+  declare export class MdCallMissed extends React$Component<IconBaseProps> {}
+  declare export class MdCallMissedOutgoing extends React$Component<IconBaseProps> {}
+  declare export class MdCallReceived extends React$Component<IconBaseProps> {}
+  declare export class MdCallSplit extends React$Component<IconBaseProps> {}
+  declare export class MdChat extends React$Component<IconBaseProps> {}
+  declare export class MdChatBubble extends React$Component<IconBaseProps> {}
+  declare export class MdChatBubbleOutline extends React$Component<IconBaseProps> {}
+  declare export class MdClearAll extends React$Component<IconBaseProps> {}
+  declare export class MdComment extends React$Component<IconBaseProps> {}
+  declare export class MdContactMail extends React$Component<IconBaseProps> {}
+  declare export class MdContactPhone extends React$Component<IconBaseProps> {}
+  declare export class MdContacts extends React$Component<IconBaseProps> {}
+  declare export class MdDialerSip extends React$Component<IconBaseProps> {}
+  declare export class MdDialpad extends React$Component<IconBaseProps> {}
+  declare export class MdEmail extends React$Component<IconBaseProps> {}
+  declare export class MdForum extends React$Component<IconBaseProps> {}
+  declare export class MdImportContacts extends React$Component<IconBaseProps> {}
+  declare export class MdImportExport extends React$Component<IconBaseProps> {}
+  declare export class MdInvertColorsOff extends React$Component<IconBaseProps> {}
+  declare export class MdLiveHelp extends React$Component<IconBaseProps> {}
+  declare export class MdLocationOff extends React$Component<IconBaseProps> {}
+  declare export class MdLocationOn extends React$Component<IconBaseProps> {}
+  declare export class MdMailOutline extends React$Component<IconBaseProps> {}
+  declare export class MdMessage extends React$Component<IconBaseProps> {}
+  declare export class MdNoSim extends React$Component<IconBaseProps> {}
+  declare export class MdPhone extends React$Component<IconBaseProps> {}
+  declare export class MdPhonelinkErase extends React$Component<IconBaseProps> {}
+  declare export class MdPhonelinkLock extends React$Component<IconBaseProps> {}
+  declare export class MdPhonelinkRing extends React$Component<IconBaseProps> {}
+  declare export class MdPhonelinkSetup extends React$Component<IconBaseProps> {}
+  declare export class MdPortableWifiOff extends React$Component<IconBaseProps> {}
+  declare export class MdPresentToAll extends React$Component<IconBaseProps> {}
+  declare export class MdRingVolume extends React$Component<IconBaseProps> {}
+  declare export class MdRssFeed extends React$Component<IconBaseProps> {}
+  declare export class MdScreenShare extends React$Component<IconBaseProps> {}
+  declare export class MdSpeakerPhone extends React$Component<IconBaseProps> {}
+  declare export class MdStayCurrentLandscape extends React$Component<IconBaseProps> {}
+  declare export class MdStayCurrentPortrait extends React$Component<IconBaseProps> {}
+  declare export class MdStayPrimaryLandscape extends React$Component<IconBaseProps> {}
+  declare export class MdStayPrimaryPortrait extends React$Component<IconBaseProps> {}
+  declare export class MdStopScreenShare extends React$Component<IconBaseProps> {}
+  declare export class MdSwapCalls extends React$Component<IconBaseProps> {}
+  declare export class MdTextsms extends React$Component<IconBaseProps> {}
+  declare export class MdVoicemail extends React$Component<IconBaseProps> {}
+  declare export class MdVpnKey extends React$Component<IconBaseProps> {}
+  declare export class MdAdd extends React$Component<IconBaseProps> {}
+  declare export class MdAddBox extends React$Component<IconBaseProps> {}
+  declare export class MdAddCircle extends React$Component<IconBaseProps> {}
+  declare export class MdAddCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class MdArchive extends React$Component<IconBaseProps> {}
+  declare export class MdBackspace extends React$Component<IconBaseProps> {}
+  declare export class MdBlock extends React$Component<IconBaseProps> {}
+  declare export class MdClear extends React$Component<IconBaseProps> {}
+  declare export class MdContentCopy extends React$Component<IconBaseProps> {}
+  declare export class MdContentCut extends React$Component<IconBaseProps> {}
+  declare export class MdContentPaste extends React$Component<IconBaseProps> {}
+  declare export class MdCreate extends React$Component<IconBaseProps> {}
+  declare export class MdDeleteSweep extends React$Component<IconBaseProps> {}
+  declare export class MdDrafts extends React$Component<IconBaseProps> {}
+  declare export class MdFilterList extends React$Component<IconBaseProps> {}
+  declare export class MdFlag extends React$Component<IconBaseProps> {}
+  declare export class MdFontDownload extends React$Component<IconBaseProps> {}
+  declare export class MdForward extends React$Component<IconBaseProps> {}
+  declare export class MdGesture extends React$Component<IconBaseProps> {}
+  declare export class MdInbox extends React$Component<IconBaseProps> {}
+  declare export class MdLink extends React$Component<IconBaseProps> {}
+  declare export class MdLowPriority extends React$Component<IconBaseProps> {}
+  declare export class MdMail extends React$Component<IconBaseProps> {}
+  declare export class MdMarkunread extends React$Component<IconBaseProps> {}
+  declare export class MdMoveToInbox extends React$Component<IconBaseProps> {}
+  declare export class MdNextWeek extends React$Component<IconBaseProps> {}
+  declare export class MdRedo extends React$Component<IconBaseProps> {}
+  declare export class MdRemove extends React$Component<IconBaseProps> {}
+  declare export class MdRemoveCircle extends React$Component<IconBaseProps> {}
+  declare export class MdRemoveCircleOutline extends React$Component<IconBaseProps> {}
+  declare export class MdReply extends React$Component<IconBaseProps> {}
+  declare export class MdReplyAll extends React$Component<IconBaseProps> {}
+  declare export class MdReport extends React$Component<IconBaseProps> {}
+  declare export class MdSave extends React$Component<IconBaseProps> {}
+  declare export class MdSelectAll extends React$Component<IconBaseProps> {}
+  declare export class MdSend extends React$Component<IconBaseProps> {}
+  declare export class MdSort extends React$Component<IconBaseProps> {}
+  declare export class MdTextFormat extends React$Component<IconBaseProps> {}
+  declare export class MdUnarchive extends React$Component<IconBaseProps> {}
+  declare export class MdUndo extends React$Component<IconBaseProps> {}
+  declare export class MdWeekend extends React$Component<IconBaseProps> {}
+  declare export class MdAccessAlarm extends React$Component<IconBaseProps> {}
+  declare export class MdAccessAlarms extends React$Component<IconBaseProps> {}
+  declare export class MdAccessTime extends React$Component<IconBaseProps> {}
+  declare export class MdAddAlarm extends React$Component<IconBaseProps> {}
+  declare export class MdAirplanemodeActive extends React$Component<IconBaseProps> {}
+  declare export class MdAirplanemodeInactive extends React$Component<IconBaseProps> {}
+  declare export class MdBattery20 extends React$Component<IconBaseProps> {}
+  declare export class MdBattery30 extends React$Component<IconBaseProps> {}
+  declare export class MdBattery50 extends React$Component<IconBaseProps> {}
+  declare export class MdBattery60 extends React$Component<IconBaseProps> {}
+  declare export class MdBattery80 extends React$Component<IconBaseProps> {}
+  declare export class MdBattery90 extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryAlert extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryCharging20 extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryCharging30 extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryCharging50 extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryCharging60 extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryCharging80 extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryCharging90 extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryChargingFull extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryFull extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryStd extends React$Component<IconBaseProps> {}
+  declare export class MdBatteryUnknown extends React$Component<IconBaseProps> {}
+  declare export class MdBluetooth extends React$Component<IconBaseProps> {}
+  declare export class MdBluetoothConnected extends React$Component<IconBaseProps> {}
+  declare export class MdBluetoothDisabled extends React$Component<IconBaseProps> {}
+  declare export class MdBluetoothSearching extends React$Component<IconBaseProps> {}
+  declare export class MdBrightnessAuto extends React$Component<IconBaseProps> {}
+  declare export class MdBrightnessHigh extends React$Component<IconBaseProps> {}
+  declare export class MdBrightnessLow extends React$Component<IconBaseProps> {}
+  declare export class MdBrightnessMedium extends React$Component<IconBaseProps> {}
+  declare export class MdDataUsage extends React$Component<IconBaseProps> {}
+  declare export class MdDeveloperMode extends React$Component<IconBaseProps> {}
+  declare export class MdDevices extends React$Component<IconBaseProps> {}
+  declare export class MdDvr extends React$Component<IconBaseProps> {}
+  declare export class MdGpsFixed extends React$Component<IconBaseProps> {}
+  declare export class MdGpsNotFixed extends React$Component<IconBaseProps> {}
+  declare export class MdGpsOff extends React$Component<IconBaseProps> {}
+  declare export class MdGraphicEq extends React$Component<IconBaseProps> {}
+  declare export class MdLocationDisabled extends React$Component<IconBaseProps> {}
+  declare export class MdLocationSearching extends React$Component<IconBaseProps> {}
+  declare export class MdNetworkCell extends React$Component<IconBaseProps> {}
+  declare export class MdNetworkWifi extends React$Component<IconBaseProps> {}
+  declare export class MdNfc extends React$Component<IconBaseProps> {}
+  declare export class MdScreenLockLandscape extends React$Component<IconBaseProps> {}
+  declare export class MdScreenLockPortrait extends React$Component<IconBaseProps> {}
+  declare export class MdScreenLockRotation extends React$Component<IconBaseProps> {}
+  declare export class MdScreenRotation extends React$Component<IconBaseProps> {}
+  declare export class MdSdStorage extends React$Component<IconBaseProps> {}
+  declare export class MdSettingsSystemDaydream extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellular0Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellular1Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellular2Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellular3Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellular4Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellularConnectedNoInternet0Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellularConnectedNoInternet1Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellularConnectedNoInternet2Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellularConnectedNoInternet3Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellularConnectedNoInternet4Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellularNoSim extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellularNull extends React$Component<IconBaseProps> {}
+  declare export class MdSignalCellularOff extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifi0Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifi1Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifi1BarLock extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifi2Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifi2BarLock extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifi3Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifi3BarLock extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifi4Bar extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifi4BarLock extends React$Component<IconBaseProps> {}
+  declare export class MdSignalWifiOff extends React$Component<IconBaseProps> {}
+  declare export class MdStorage extends React$Component<IconBaseProps> {}
+  declare export class MdUsb extends React$Component<IconBaseProps> {}
+  declare export class MdWallpaper extends React$Component<IconBaseProps> {}
+  declare export class MdWidgets extends React$Component<IconBaseProps> {}
+  declare export class MdWifiLock extends React$Component<IconBaseProps> {}
+  declare export class MdWifiTethering extends React$Component<IconBaseProps> {}
+  declare export class MdAttachFile extends React$Component<IconBaseProps> {}
+  declare export class MdAttachMoney extends React$Component<IconBaseProps> {}
+  declare export class MdBorderAll extends React$Component<IconBaseProps> {}
+  declare export class MdBorderBottom extends React$Component<IconBaseProps> {}
+  declare export class MdBorderClear extends React$Component<IconBaseProps> {}
+  declare export class MdBorderColor extends React$Component<IconBaseProps> {}
+  declare export class MdBorderHorizontal extends React$Component<IconBaseProps> {}
+  declare export class MdBorderInner extends React$Component<IconBaseProps> {}
+  declare export class MdBorderLeft extends React$Component<IconBaseProps> {}
+  declare export class MdBorderOuter extends React$Component<IconBaseProps> {}
+  declare export class MdBorderRight extends React$Component<IconBaseProps> {}
+  declare export class MdBorderStyle extends React$Component<IconBaseProps> {}
+  declare export class MdBorderTop extends React$Component<IconBaseProps> {}
+  declare export class MdBorderVertical extends React$Component<IconBaseProps> {}
+  declare export class MdBubbleChart extends React$Component<IconBaseProps> {}
+  declare export class MdDragHandle extends React$Component<IconBaseProps> {}
+  declare export class MdFormatAlignCenter extends React$Component<IconBaseProps> {}
+  declare export class MdFormatAlignJustify extends React$Component<IconBaseProps> {}
+  declare export class MdFormatAlignLeft extends React$Component<IconBaseProps> {}
+  declare export class MdFormatAlignRight extends React$Component<IconBaseProps> {}
+  declare export class MdFormatBold extends React$Component<IconBaseProps> {}
+  declare export class MdFormatClear extends React$Component<IconBaseProps> {}
+  declare export class MdFormatColorFill extends React$Component<IconBaseProps> {}
+  declare export class MdFormatColorReset extends React$Component<IconBaseProps> {}
+  declare export class MdFormatColorText extends React$Component<IconBaseProps> {}
+  declare export class MdFormatIndentDecrease extends React$Component<IconBaseProps> {}
+  declare export class MdFormatIndentIncrease extends React$Component<IconBaseProps> {}
+  declare export class MdFormatItalic extends React$Component<IconBaseProps> {}
+  declare export class MdFormatLineSpacing extends React$Component<IconBaseProps> {}
+  declare export class MdFormatListBulleted extends React$Component<IconBaseProps> {}
+  declare export class MdFormatListNumbered extends React$Component<IconBaseProps> {}
+  declare export class MdFormatPaint extends React$Component<IconBaseProps> {}
+  declare export class MdFormatQuote extends React$Component<IconBaseProps> {}
+  declare export class MdFormatShapes extends React$Component<IconBaseProps> {}
+  declare export class MdFormatSize extends React$Component<IconBaseProps> {}
+  declare export class MdFormatStrikethrough extends React$Component<IconBaseProps> {}
+  declare export class MdFormatTextdirectionLToR extends React$Component<IconBaseProps> {}
+  declare export class MdFormatTextdirectionRToL extends React$Component<IconBaseProps> {}
+  declare export class MdFormatUnderlined extends React$Component<IconBaseProps> {}
+  declare export class MdFunctions extends React$Component<IconBaseProps> {}
+  declare export class MdHighlight extends React$Component<IconBaseProps> {}
+  declare export class MdInsertChart extends React$Component<IconBaseProps> {}
+  declare export class MdInsertComment extends React$Component<IconBaseProps> {}
+  declare export class MdInsertDriveFile extends React$Component<IconBaseProps> {}
+  declare export class MdInsertEmoticon extends React$Component<IconBaseProps> {}
+  declare export class MdInsertInvitation extends React$Component<IconBaseProps> {}
+  declare export class MdInsertLink extends React$Component<IconBaseProps> {}
+  declare export class MdInsertPhoto extends React$Component<IconBaseProps> {}
+  declare export class MdLinearScale extends React$Component<IconBaseProps> {}
+  declare export class MdMergeType extends React$Component<IconBaseProps> {}
+  declare export class MdModeComment extends React$Component<IconBaseProps> {}
+  declare export class MdModeEdit extends React$Component<IconBaseProps> {}
+  declare export class MdMonetizationOn extends React$Component<IconBaseProps> {}
+  declare export class MdMoneyOff extends React$Component<IconBaseProps> {}
+  declare export class MdMultilineChart extends React$Component<IconBaseProps> {}
+  declare export class MdPieChart extends React$Component<IconBaseProps> {}
+  declare export class MdPieChartOutlined extends React$Component<IconBaseProps> {}
+  declare export class MdPublish extends React$Component<IconBaseProps> {}
+  declare export class MdShortText extends React$Component<IconBaseProps> {}
+  declare export class MdShowChart extends React$Component<IconBaseProps> {}
+  declare export class MdSpaceBar extends React$Component<IconBaseProps> {}
+  declare export class MdStrikethroughS extends React$Component<IconBaseProps> {}
+  declare export class MdTextFields extends React$Component<IconBaseProps> {}
+  declare export class MdTitle extends React$Component<IconBaseProps> {}
+  declare export class MdVerticalAlignBottom extends React$Component<IconBaseProps> {}
+  declare export class MdVerticalAlignCenter extends React$Component<IconBaseProps> {}
+  declare export class MdVerticalAlignTop extends React$Component<IconBaseProps> {}
+  declare export class MdWrapText extends React$Component<IconBaseProps> {}
+  declare export class MdAttachment extends React$Component<IconBaseProps> {}
+  declare export class MdCloud extends React$Component<IconBaseProps> {}
+  declare export class MdCloudCircle extends React$Component<IconBaseProps> {}
+  declare export class MdCloudDone extends React$Component<IconBaseProps> {}
+  declare export class MdCloudDownload extends React$Component<IconBaseProps> {}
+  declare export class MdCloudOff extends React$Component<IconBaseProps> {}
+  declare export class MdCloudQueue extends React$Component<IconBaseProps> {}
+  declare export class MdCloudUpload extends React$Component<IconBaseProps> {}
+  declare export class MdCreateNewFolder extends React$Component<IconBaseProps> {}
+  declare export class MdFileDownload extends React$Component<IconBaseProps> {}
+  declare export class MdFileUpload extends React$Component<IconBaseProps> {}
+  declare export class MdFolder extends React$Component<IconBaseProps> {}
+  declare export class MdFolderOpen extends React$Component<IconBaseProps> {}
+  declare export class MdFolderShared extends React$Component<IconBaseProps> {}
+  declare export class MdCast extends React$Component<IconBaseProps> {}
+  declare export class MdCastConnected extends React$Component<IconBaseProps> {}
+  declare export class MdComputer extends React$Component<IconBaseProps> {}
+  declare export class MdDesktopMac extends React$Component<IconBaseProps> {}
+  declare export class MdDesktopWindows extends React$Component<IconBaseProps> {}
+  declare export class MdDeveloperBoard extends React$Component<IconBaseProps> {}
+  declare export class MdDeviceHub extends React$Component<IconBaseProps> {}
+  declare export class MdDevicesOther extends React$Component<IconBaseProps> {}
+  declare export class MdDock extends React$Component<IconBaseProps> {}
+  declare export class MdGamepad extends React$Component<IconBaseProps> {}
+  declare export class MdHeadset extends React$Component<IconBaseProps> {}
+  declare export class MdHeadsetMic extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboard extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardArrowDown extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardArrowLeft extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardArrowRight extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardArrowUp extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardBackspace extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardCapslock extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardHide extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardReturn extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardTab extends React$Component<IconBaseProps> {}
+  declare export class MdKeyboardVoice extends React$Component<IconBaseProps> {}
+  declare export class MdLaptop extends React$Component<IconBaseProps> {}
+  declare export class MdLaptopChromebook extends React$Component<IconBaseProps> {}
+  declare export class MdLaptopMac extends React$Component<IconBaseProps> {}
+  declare export class MdLaptopWindows extends React$Component<IconBaseProps> {}
+  declare export class MdMemory extends React$Component<IconBaseProps> {}
+  declare export class MdMouse extends React$Component<IconBaseProps> {}
+  declare export class MdPhoneAndroid extends React$Component<IconBaseProps> {}
+  declare export class MdPhoneIphone extends React$Component<IconBaseProps> {}
+  declare export class MdPhonelink extends React$Component<IconBaseProps> {}
+  declare export class MdPhonelinkOff extends React$Component<IconBaseProps> {}
+  declare export class MdPowerInput extends React$Component<IconBaseProps> {}
+  declare export class MdRouter extends React$Component<IconBaseProps> {}
+  declare export class MdScanner extends React$Component<IconBaseProps> {}
+  declare export class MdSecurity extends React$Component<IconBaseProps> {}
+  declare export class MdSimCard extends React$Component<IconBaseProps> {}
+  declare export class MdSmartphone extends React$Component<IconBaseProps> {}
+  declare export class MdSpeaker extends React$Component<IconBaseProps> {}
+  declare export class MdSpeakerGroup extends React$Component<IconBaseProps> {}
+  declare export class MdTablet extends React$Component<IconBaseProps> {}
+  declare export class MdTabletAndroid extends React$Component<IconBaseProps> {}
+  declare export class MdTabletMac extends React$Component<IconBaseProps> {}
+  declare export class MdToys extends React$Component<IconBaseProps> {}
+  declare export class MdTv extends React$Component<IconBaseProps> {}
+  declare export class MdVideogameAsset extends React$Component<IconBaseProps> {}
+  declare export class MdWatch extends React$Component<IconBaseProps> {}
+  declare export class MdAddAPhoto extends React$Component<IconBaseProps> {}
+  declare export class MdAddToPhotos extends React$Component<IconBaseProps> {}
+  declare export class MdAdjust extends React$Component<IconBaseProps> {}
+  declare export class MdAssistant extends React$Component<IconBaseProps> {}
+  declare export class MdAssistantPhoto extends React$Component<IconBaseProps> {}
+  declare export class MdAudiotrack extends React$Component<IconBaseProps> {}
+  declare export class MdBlurCircular extends React$Component<IconBaseProps> {}
+  declare export class MdBlurLinear extends React$Component<IconBaseProps> {}
+  declare export class MdBlurOff extends React$Component<IconBaseProps> {}
+  declare export class MdBlurOn extends React$Component<IconBaseProps> {}
+  declare export class MdBrightness1 extends React$Component<IconBaseProps> {}
+  declare export class MdBrightness2 extends React$Component<IconBaseProps> {}
+  declare export class MdBrightness3 extends React$Component<IconBaseProps> {}
+  declare export class MdBrightness4 extends React$Component<IconBaseProps> {}
+  declare export class MdBrightness5 extends React$Component<IconBaseProps> {}
+  declare export class MdBrightness6 extends React$Component<IconBaseProps> {}
+  declare export class MdBrightness7 extends React$Component<IconBaseProps> {}
+  declare export class MdBrokenImage extends React$Component<IconBaseProps> {}
+  declare export class MdBrush extends React$Component<IconBaseProps> {}
+  declare export class MdBurstMode extends React$Component<IconBaseProps> {}
+  declare export class MdCamera extends React$Component<IconBaseProps> {}
+  declare export class MdCameraAlt extends React$Component<IconBaseProps> {}
+  declare export class MdCameraFront extends React$Component<IconBaseProps> {}
+  declare export class MdCameraRear extends React$Component<IconBaseProps> {}
+  declare export class MdCameraRoll extends React$Component<IconBaseProps> {}
+  declare export class MdCenterFocusStrong extends React$Component<IconBaseProps> {}
+  declare export class MdCenterFocusWeak extends React$Component<IconBaseProps> {}
+  declare export class MdCollections extends React$Component<IconBaseProps> {}
+  declare export class MdCollectionsBookmark extends React$Component<IconBaseProps> {}
+  declare export class MdColorLens extends React$Component<IconBaseProps> {}
+  declare export class MdColorize extends React$Component<IconBaseProps> {}
+  declare export class MdCompare extends React$Component<IconBaseProps> {}
+  declare export class MdControlPoint extends React$Component<IconBaseProps> {}
+  declare export class MdControlPointDuplicate extends React$Component<IconBaseProps> {}
+  declare export class MdCrop169 extends React$Component<IconBaseProps> {}
+  declare export class MdCrop extends React$Component<IconBaseProps> {}
+  declare export class MdCrop32 extends React$Component<IconBaseProps> {}
+  declare export class MdCrop54 extends React$Component<IconBaseProps> {}
+  declare export class MdCrop75 extends React$Component<IconBaseProps> {}
+  declare export class MdCropDin extends React$Component<IconBaseProps> {}
+  declare export class MdCropFree extends React$Component<IconBaseProps> {}
+  declare export class MdCropLandscape extends React$Component<IconBaseProps> {}
+  declare export class MdCropOriginal extends React$Component<IconBaseProps> {}
+  declare export class MdCropPortrait extends React$Component<IconBaseProps> {}
+  declare export class MdCropRotate extends React$Component<IconBaseProps> {}
+  declare export class MdCropSquare extends React$Component<IconBaseProps> {}
+  declare export class MdDehaze extends React$Component<IconBaseProps> {}
+  declare export class MdDetails extends React$Component<IconBaseProps> {}
+  declare export class MdEdit extends React$Component<IconBaseProps> {}
+  declare export class MdExposure extends React$Component<IconBaseProps> {}
+  declare export class MdExposureNeg1 extends React$Component<IconBaseProps> {}
+  declare export class MdExposureNeg2 extends React$Component<IconBaseProps> {}
+  declare export class MdExposurePlus1 extends React$Component<IconBaseProps> {}
+  declare export class MdExposurePlus2 extends React$Component<IconBaseProps> {}
+  declare export class MdExposureZero extends React$Component<IconBaseProps> {}
+  declare export class MdFilter1 extends React$Component<IconBaseProps> {}
+  declare export class MdFilter2 extends React$Component<IconBaseProps> {}
+  declare export class MdFilter extends React$Component<IconBaseProps> {}
+  declare export class MdFilter3 extends React$Component<IconBaseProps> {}
+  declare export class MdFilter4 extends React$Component<IconBaseProps> {}
+  declare export class MdFilter5 extends React$Component<IconBaseProps> {}
+  declare export class MdFilter6 extends React$Component<IconBaseProps> {}
+  declare export class MdFilter7 extends React$Component<IconBaseProps> {}
+  declare export class MdFilter8 extends React$Component<IconBaseProps> {}
+  declare export class MdFilter9 extends React$Component<IconBaseProps> {}
+  declare export class MdFilter9Plus extends React$Component<IconBaseProps> {}
+  declare export class MdFilterBAndW extends React$Component<IconBaseProps> {}
+  declare export class MdFilterCenterFocus extends React$Component<IconBaseProps> {}
+  declare export class MdFilterDrama extends React$Component<IconBaseProps> {}
+  declare export class MdFilterFrames extends React$Component<IconBaseProps> {}
+  declare export class MdFilterHdr extends React$Component<IconBaseProps> {}
+  declare export class MdFilterNone extends React$Component<IconBaseProps> {}
+  declare export class MdFilterTiltShift extends React$Component<IconBaseProps> {}
+  declare export class MdFilterVintage extends React$Component<IconBaseProps> {}
+  declare export class MdFlare extends React$Component<IconBaseProps> {}
+  declare export class MdFlashAuto extends React$Component<IconBaseProps> {}
+  declare export class MdFlashOff extends React$Component<IconBaseProps> {}
+  declare export class MdFlashOn extends React$Component<IconBaseProps> {}
+  declare export class MdFlip extends React$Component<IconBaseProps> {}
+  declare export class MdGradient extends React$Component<IconBaseProps> {}
+  declare export class MdGrain extends React$Component<IconBaseProps> {}
+  declare export class MdGridOff extends React$Component<IconBaseProps> {}
+  declare export class MdGridOn extends React$Component<IconBaseProps> {}
+  declare export class MdHdrOff extends React$Component<IconBaseProps> {}
+  declare export class MdHdrOn extends React$Component<IconBaseProps> {}
+  declare export class MdHdrStrong extends React$Component<IconBaseProps> {}
+  declare export class MdHdrWeak extends React$Component<IconBaseProps> {}
+  declare export class MdHealing extends React$Component<IconBaseProps> {}
+  declare export class MdImage extends React$Component<IconBaseProps> {}
+  declare export class MdImageAspectRatio extends React$Component<IconBaseProps> {}
+  declare export class MdIso extends React$Component<IconBaseProps> {}
+  declare export class MdLandscape extends React$Component<IconBaseProps> {}
+  declare export class MdLeakAdd extends React$Component<IconBaseProps> {}
+  declare export class MdLeakRemove extends React$Component<IconBaseProps> {}
+  declare export class MdLens extends React$Component<IconBaseProps> {}
+  declare export class MdLinkedCamera extends React$Component<IconBaseProps> {}
+  declare export class MdLooks extends React$Component<IconBaseProps> {}
+  declare export class MdLooks3 extends React$Component<IconBaseProps> {}
+  declare export class MdLooks4 extends React$Component<IconBaseProps> {}
+  declare export class MdLooks5 extends React$Component<IconBaseProps> {}
+  declare export class MdLooks6 extends React$Component<IconBaseProps> {}
+  declare export class MdLooksOne extends React$Component<IconBaseProps> {}
+  declare export class MdLooksTwo extends React$Component<IconBaseProps> {}
+  declare export class MdLoupe extends React$Component<IconBaseProps> {}
+  declare export class MdMonochromePhotos extends React$Component<IconBaseProps> {}
+  declare export class MdMovieCreation extends React$Component<IconBaseProps> {}
+  declare export class MdMovieFilter extends React$Component<IconBaseProps> {}
+  declare export class MdMusicNote extends React$Component<IconBaseProps> {}
+  declare export class MdNature extends React$Component<IconBaseProps> {}
+  declare export class MdNaturePeople extends React$Component<IconBaseProps> {}
+  declare export class MdNavigateBefore extends React$Component<IconBaseProps> {}
+  declare export class MdNavigateNext extends React$Component<IconBaseProps> {}
+  declare export class MdPalette extends React$Component<IconBaseProps> {}
+  declare export class MdPanorama extends React$Component<IconBaseProps> {}
+  declare export class MdPanoramaFishEye extends React$Component<IconBaseProps> {}
+  declare export class MdPanoramaHorizontal extends React$Component<IconBaseProps> {}
+  declare export class MdPanoramaVertical extends React$Component<IconBaseProps> {}
+  declare export class MdPanoramaWideAngle extends React$Component<IconBaseProps> {}
+  declare export class MdPhoto extends React$Component<IconBaseProps> {}
+  declare export class MdPhotoAlbum extends React$Component<IconBaseProps> {}
+  declare export class MdPhotoCamera extends React$Component<IconBaseProps> {}
+  declare export class MdPhotoFilter extends React$Component<IconBaseProps> {}
+  declare export class MdPhotoLibrary extends React$Component<IconBaseProps> {}
+  declare export class MdPhotoSizeSelectActual extends React$Component<IconBaseProps> {}
+  declare export class MdPhotoSizeSelectLarge extends React$Component<IconBaseProps> {}
+  declare export class MdPhotoSizeSelectSmall extends React$Component<IconBaseProps> {}
+  declare export class MdPictureAsPdf extends React$Component<IconBaseProps> {}
+  declare export class MdPortrait extends React$Component<IconBaseProps> {}
+  declare export class MdRemoveRedEye extends React$Component<IconBaseProps> {}
+  declare export class MdRotate90DegreesCcw extends React$Component<IconBaseProps> {}
+  declare export class MdRotateLeft extends React$Component<IconBaseProps> {}
+  declare export class MdRotateRight extends React$Component<IconBaseProps> {}
+  declare export class MdSlideshow extends React$Component<IconBaseProps> {}
+  declare export class MdStraighten extends React$Component<IconBaseProps> {}
+  declare export class MdStyle extends React$Component<IconBaseProps> {}
+  declare export class MdSwitchCamera extends React$Component<IconBaseProps> {}
+  declare export class MdSwitchVideo extends React$Component<IconBaseProps> {}
+  declare export class MdTagFaces extends React$Component<IconBaseProps> {}
+  declare export class MdTexture extends React$Component<IconBaseProps> {}
+  declare export class MdTimelapse extends React$Component<IconBaseProps> {}
+  declare export class MdTimer10 extends React$Component<IconBaseProps> {}
+  declare export class MdTimer extends React$Component<IconBaseProps> {}
+  declare export class MdTimer3 extends React$Component<IconBaseProps> {}
+  declare export class MdTimerOff extends React$Component<IconBaseProps> {}
+  declare export class MdTonality extends React$Component<IconBaseProps> {}
+  declare export class MdTransform extends React$Component<IconBaseProps> {}
+  declare export class MdTune extends React$Component<IconBaseProps> {}
+  declare export class MdViewComfy extends React$Component<IconBaseProps> {}
+  declare export class MdViewCompact extends React$Component<IconBaseProps> {}
+  declare export class MdVignette extends React$Component<IconBaseProps> {}
+  declare export class MdWbAuto extends React$Component<IconBaseProps> {}
+  declare export class MdWbCloudy extends React$Component<IconBaseProps> {}
+  declare export class MdWbIncandescent extends React$Component<IconBaseProps> {}
+  declare export class MdWbIridescent extends React$Component<IconBaseProps> {}
+  declare export class MdWbSunny extends React$Component<IconBaseProps> {}
+  declare export class MdAddLocation extends React$Component<IconBaseProps> {}
+  declare export class MdBeenhere extends React$Component<IconBaseProps> {}
+  declare export class MdDirections extends React$Component<IconBaseProps> {}
+  declare export class MdDirectionsBike extends React$Component<IconBaseProps> {}
+  declare export class MdDirectionsBoat extends React$Component<IconBaseProps> {}
+  declare export class MdDirectionsBus extends React$Component<IconBaseProps> {}
+  declare export class MdDirectionsCar extends React$Component<IconBaseProps> {}
+  declare export class MdDirectionsRailway extends React$Component<IconBaseProps> {}
+  declare export class MdDirectionsRun extends React$Component<IconBaseProps> {}
+  declare export class MdDirectionsSubway extends React$Component<IconBaseProps> {}
+  declare export class MdDirectionsTransit extends React$Component<IconBaseProps> {}
+  declare export class MdDirectionsWalk extends React$Component<IconBaseProps> {}
+  declare export class MdEditLocation extends React$Component<IconBaseProps> {}
+  declare export class MdEvStation extends React$Component<IconBaseProps> {}
+  declare export class MdFlight extends React$Component<IconBaseProps> {}
+  declare export class MdHotel extends React$Component<IconBaseProps> {}
+  declare export class MdLayers extends React$Component<IconBaseProps> {}
+  declare export class MdLayersClear extends React$Component<IconBaseProps> {}
+  declare export class MdLocalActivity extends React$Component<IconBaseProps> {}
+  declare export class MdLocalAirport extends React$Component<IconBaseProps> {}
+  declare export class MdLocalAtm extends React$Component<IconBaseProps> {}
+  declare export class MdLocalBar extends React$Component<IconBaseProps> {}
+  declare export class MdLocalCafe extends React$Component<IconBaseProps> {}
+  declare export class MdLocalCarWash extends React$Component<IconBaseProps> {}
+  declare export class MdLocalConvenienceStore extends React$Component<IconBaseProps> {}
+  declare export class MdLocalDining extends React$Component<IconBaseProps> {}
+  declare export class MdLocalDrink extends React$Component<IconBaseProps> {}
+  declare export class MdLocalFlorist extends React$Component<IconBaseProps> {}
+  declare export class MdLocalGasStation extends React$Component<IconBaseProps> {}
+  declare export class MdLocalGroceryStore extends React$Component<IconBaseProps> {}
+  declare export class MdLocalHospital extends React$Component<IconBaseProps> {}
+  declare export class MdLocalHotel extends React$Component<IconBaseProps> {}
+  declare export class MdLocalLaundryService extends React$Component<IconBaseProps> {}
+  declare export class MdLocalLibrary extends React$Component<IconBaseProps> {}
+  declare export class MdLocalMall extends React$Component<IconBaseProps> {}
+  declare export class MdLocalMovies extends React$Component<IconBaseProps> {}
+  declare export class MdLocalOffer extends React$Component<IconBaseProps> {}
+  declare export class MdLocalParking extends React$Component<IconBaseProps> {}
+  declare export class MdLocalPharmacy extends React$Component<IconBaseProps> {}
+  declare export class MdLocalPhone extends React$Component<IconBaseProps> {}
+  declare export class MdLocalPizza extends React$Component<IconBaseProps> {}
+  declare export class MdLocalPlay extends React$Component<IconBaseProps> {}
+  declare export class MdLocalPostOffice extends React$Component<IconBaseProps> {}
+  declare export class MdLocalPrintshop extends React$Component<IconBaseProps> {}
+  declare export class MdLocalSee extends React$Component<IconBaseProps> {}
+  declare export class MdLocalShipping extends React$Component<IconBaseProps> {}
+  declare export class MdLocalTaxi extends React$Component<IconBaseProps> {}
+  declare export class MdMap extends React$Component<IconBaseProps> {}
+  declare export class MdMyLocation extends React$Component<IconBaseProps> {}
+  declare export class MdNavigation extends React$Component<IconBaseProps> {}
+  declare export class MdNearMe extends React$Component<IconBaseProps> {}
+  declare export class MdPersonPin extends React$Component<IconBaseProps> {}
+  declare export class MdPersonPinCircle extends React$Component<IconBaseProps> {}
+  declare export class MdPinDrop extends React$Component<IconBaseProps> {}
+  declare export class MdPlace extends React$Component<IconBaseProps> {}
+  declare export class MdRateReview extends React$Component<IconBaseProps> {}
+  declare export class MdRestaurant extends React$Component<IconBaseProps> {}
+  declare export class MdRestaurantMenu extends React$Component<IconBaseProps> {}
+  declare export class MdSatellite extends React$Component<IconBaseProps> {}
+  declare export class MdStoreMallDirectory extends React$Component<IconBaseProps> {}
+  declare export class MdStreetview extends React$Component<IconBaseProps> {}
+  declare export class MdSubway extends React$Component<IconBaseProps> {}
+  declare export class MdTerrain extends React$Component<IconBaseProps> {}
+  declare export class MdTraffic extends React$Component<IconBaseProps> {}
+  declare export class MdTrain extends React$Component<IconBaseProps> {}
+  declare export class MdTram extends React$Component<IconBaseProps> {}
+  declare export class MdTransferWithinAStation extends React$Component<IconBaseProps> {}
+  declare export class MdZoomOutMap extends React$Component<IconBaseProps> {}
+  declare export class MdApps extends React$Component<IconBaseProps> {}
+  declare export class MdArrowBack extends React$Component<IconBaseProps> {}
+  declare export class MdArrowDownward extends React$Component<IconBaseProps> {}
+  declare export class MdArrowDropDown extends React$Component<IconBaseProps> {}
+  declare export class MdArrowDropDownCircle extends React$Component<IconBaseProps> {}
+  declare export class MdArrowDropUp extends React$Component<IconBaseProps> {}
+  declare export class MdArrowForward extends React$Component<IconBaseProps> {}
+  declare export class MdArrowUpward extends React$Component<IconBaseProps> {}
+  declare export class MdCancel extends React$Component<IconBaseProps> {}
+  declare export class MdCheck extends React$Component<IconBaseProps> {}
+  declare export class MdChevronLeft extends React$Component<IconBaseProps> {}
+  declare export class MdChevronRight extends React$Component<IconBaseProps> {}
+  declare export class MdClose extends React$Component<IconBaseProps> {}
+  declare export class MdExpandLess extends React$Component<IconBaseProps> {}
+  declare export class MdExpandMore extends React$Component<IconBaseProps> {}
+  declare export class MdFirstPage extends React$Component<IconBaseProps> {}
+  declare export class MdFullscreen extends React$Component<IconBaseProps> {}
+  declare export class MdFullscreenExit extends React$Component<IconBaseProps> {}
+  declare export class MdLastPage extends React$Component<IconBaseProps> {}
+  declare export class MdMenu extends React$Component<IconBaseProps> {}
+  declare export class MdMoreHoriz extends React$Component<IconBaseProps> {}
+  declare export class MdMoreVert extends React$Component<IconBaseProps> {}
+  declare export class MdRefresh extends React$Component<IconBaseProps> {}
+  declare export class MdSubdirectoryArrowLeft extends React$Component<IconBaseProps> {}
+  declare export class MdSubdirectoryArrowRight extends React$Component<IconBaseProps> {}
+  declare export class MdUnfoldLess extends React$Component<IconBaseProps> {}
+  declare export class MdUnfoldMore extends React$Component<IconBaseProps> {}
+  declare export class MdAdb extends React$Component<IconBaseProps> {}
+  declare export class MdAirlineSeatFlat extends React$Component<IconBaseProps> {}
+  declare export class MdAirlineSeatFlatAngled extends React$Component<IconBaseProps> {}
+  declare export class MdAirlineSeatIndividualSuite extends React$Component<IconBaseProps> {}
+  declare export class MdAirlineSeatLegroomExtra extends React$Component<IconBaseProps> {}
+  declare export class MdAirlineSeatLegroomNormal extends React$Component<IconBaseProps> {}
+  declare export class MdAirlineSeatLegroomReduced extends React$Component<IconBaseProps> {}
+  declare export class MdAirlineSeatReclineExtra extends React$Component<IconBaseProps> {}
+  declare export class MdAirlineSeatReclineNormal extends React$Component<IconBaseProps> {}
+  declare export class MdBluetoothAudio extends React$Component<IconBaseProps> {}
+  declare export class MdConfirmationNumber extends React$Component<IconBaseProps> {}
+  declare export class MdDiscFull extends React$Component<IconBaseProps> {}
+  declare export class MdDoNotDisturb extends React$Component<IconBaseProps> {}
+  declare export class MdDoNotDisturbAlt extends React$Component<IconBaseProps> {}
+  declare export class MdDoNotDisturbOff extends React$Component<IconBaseProps> {}
+  declare export class MdDoNotDisturbOn extends React$Component<IconBaseProps> {}
+  declare export class MdDriveEta extends React$Component<IconBaseProps> {}
+  declare export class MdEnhancedEncryption extends React$Component<IconBaseProps> {}
+  declare export class MdEventAvailable extends React$Component<IconBaseProps> {}
+  declare export class MdEventBusy extends React$Component<IconBaseProps> {}
+  declare export class MdEventNote extends React$Component<IconBaseProps> {}
+  declare export class MdFolderSpecial extends React$Component<IconBaseProps> {}
+  declare export class MdLiveTv extends React$Component<IconBaseProps> {}
+  declare export class MdMms extends React$Component<IconBaseProps> {}
+  declare export class MdMore extends React$Component<IconBaseProps> {}
+  declare export class MdNetworkCheck extends React$Component<IconBaseProps> {}
+  declare export class MdNetworkLocked extends React$Component<IconBaseProps> {}
+  declare export class MdNoEncryption extends React$Component<IconBaseProps> {}
+  declare export class MdOndemandVideo extends React$Component<IconBaseProps> {}
+  declare export class MdPersonalVideo extends React$Component<IconBaseProps> {}
+  declare export class MdPhoneBluetoothSpeaker extends React$Component<IconBaseProps> {}
+  declare export class MdPhoneForwarded extends React$Component<IconBaseProps> {}
+  declare export class MdPhoneInTalk extends React$Component<IconBaseProps> {}
+  declare export class MdPhoneLocked extends React$Component<IconBaseProps> {}
+  declare export class MdPhoneMissed extends React$Component<IconBaseProps> {}
+  declare export class MdPhonePaused extends React$Component<IconBaseProps> {}
+  declare export class MdPower extends React$Component<IconBaseProps> {}
+  declare export class MdPriorityHigh extends React$Component<IconBaseProps> {}
+  declare export class MdRvHookup extends React$Component<IconBaseProps> {}
+  declare export class MdSdCard extends React$Component<IconBaseProps> {}
+  declare export class MdSimCardAlert extends React$Component<IconBaseProps> {}
+  declare export class MdSms extends React$Component<IconBaseProps> {}
+  declare export class MdSmsFailed extends React$Component<IconBaseProps> {}
+  declare export class MdSync extends React$Component<IconBaseProps> {}
+  declare export class MdSyncDisabled extends React$Component<IconBaseProps> {}
+  declare export class MdSyncProblem extends React$Component<IconBaseProps> {}
+  declare export class MdSystemUpdate extends React$Component<IconBaseProps> {}
+  declare export class MdTapAndPlay extends React$Component<IconBaseProps> {}
+  declare export class MdTimeToLeave extends React$Component<IconBaseProps> {}
+  declare export class MdVibration extends React$Component<IconBaseProps> {}
+  declare export class MdVoiceChat extends React$Component<IconBaseProps> {}
+  declare export class MdVpnLock extends React$Component<IconBaseProps> {}
+  declare export class MdWc extends React$Component<IconBaseProps> {}
+  declare export class MdWifi extends React$Component<IconBaseProps> {}
+  declare export class MdAcUnit extends React$Component<IconBaseProps> {}
+  declare export class MdAirportShuttle extends React$Component<IconBaseProps> {}
+  declare export class MdAllInclusive extends React$Component<IconBaseProps> {}
+  declare export class MdBeachAccess extends React$Component<IconBaseProps> {}
+  declare export class MdBusinessCenter extends React$Component<IconBaseProps> {}
+  declare export class MdCasino extends React$Component<IconBaseProps> {}
+  declare export class MdChildCare extends React$Component<IconBaseProps> {}
+  declare export class MdChildFriendly extends React$Component<IconBaseProps> {}
+  declare export class MdFitnessCenter extends React$Component<IconBaseProps> {}
+  declare export class MdFreeBreakfast extends React$Component<IconBaseProps> {}
+  declare export class MdGolfCourse extends React$Component<IconBaseProps> {}
+  declare export class MdHotTub extends React$Component<IconBaseProps> {}
+  declare export class MdKitchen extends React$Component<IconBaseProps> {}
+  declare export class MdPool extends React$Component<IconBaseProps> {}
+  declare export class MdRoomService extends React$Component<IconBaseProps> {}
+  declare export class MdSmokeFree extends React$Component<IconBaseProps> {}
+  declare export class MdSmokingRooms extends React$Component<IconBaseProps> {}
+  declare export class MdSpa extends React$Component<IconBaseProps> {}
+  declare export class MdCake extends React$Component<IconBaseProps> {}
+  declare export class MdDomain extends React$Component<IconBaseProps> {}
+  declare export class MdGroup extends React$Component<IconBaseProps> {}
+  declare export class MdGroupAdd extends React$Component<IconBaseProps> {}
+  declare export class MdLocationCity extends React$Component<IconBaseProps> {}
+  declare export class MdMood extends React$Component<IconBaseProps> {}
+  declare export class MdMoodBad extends React$Component<IconBaseProps> {}
+  declare export class MdNotifications extends React$Component<IconBaseProps> {}
+  declare export class MdNotificationsActive extends React$Component<IconBaseProps> {}
+  declare export class MdNotificationsNone extends React$Component<IconBaseProps> {}
+  declare export class MdNotificationsOff extends React$Component<IconBaseProps> {}
+  declare export class MdNotificationsPaused extends React$Component<IconBaseProps> {}
+  declare export class MdPages extends React$Component<IconBaseProps> {}
+  declare export class MdPartyMode extends React$Component<IconBaseProps> {}
+  declare export class MdPeople extends React$Component<IconBaseProps> {}
+  declare export class MdPeopleOutline extends React$Component<IconBaseProps> {}
+  declare export class MdPerson extends React$Component<IconBaseProps> {}
+  declare export class MdPersonAdd extends React$Component<IconBaseProps> {}
+  declare export class MdPersonOutline extends React$Component<IconBaseProps> {}
+  declare export class MdPlusOne extends React$Component<IconBaseProps> {}
+  declare export class MdPoll extends React$Component<IconBaseProps> {}
+  declare export class MdPublic extends React$Component<IconBaseProps> {}
+  declare export class MdSchool extends React$Component<IconBaseProps> {}
+  declare export class MdSentimentDissatisfied extends React$Component<IconBaseProps> {}
+  declare export class MdSentimentNeutral extends React$Component<IconBaseProps> {}
+  declare export class MdSentimentSatisfied extends React$Component<IconBaseProps> {}
+  declare export class MdSentimentVeryDissatisfied extends React$Component<IconBaseProps> {}
+  declare export class MdSentimentVerySatisfied extends React$Component<IconBaseProps> {}
+  declare export class MdShare extends React$Component<IconBaseProps> {}
+  declare export class MdWhatshot extends React$Component<IconBaseProps> {}
+  declare export class MdCheckBox extends React$Component<IconBaseProps> {}
+  declare export class MdCheckBoxOutlineBlank extends React$Component<IconBaseProps> {}
+  declare export class MdIndeterminateCheckBox extends React$Component<IconBaseProps> {}
+  declare export class MdRadioButtonChecked extends React$Component<IconBaseProps> {}
+  declare export class MdRadioButtonUnchecked extends React$Component<IconBaseProps> {}
+  declare export class MdStar extends React$Component<IconBaseProps> {}
+  declare export class MdStarBorder extends React$Component<IconBaseProps> {}
+  declare export class MdStarHalf extends React$Component<IconBaseProps> {}
+}
+
+declare module 'react-icons/ti' {
+  declare export class TiAdjustBrightness extends React$Component<IconBaseProps> {}
+  declare export class TiAdjustContrast extends React$Component<IconBaseProps> {}
+  declare export class TiAnchorOutline extends React$Component<IconBaseProps> {}
+  declare export class TiAnchor extends React$Component<IconBaseProps> {}
+  declare export class TiArchive extends React$Component<IconBaseProps> {}
+  declare export class TiArrowBackOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowBack extends React$Component<IconBaseProps> {}
+  declare export class TiArrowDownOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowDownThick extends React$Component<IconBaseProps> {}
+  declare export class TiArrowDown extends React$Component<IconBaseProps> {}
+  declare export class TiArrowForwardOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowForward extends React$Component<IconBaseProps> {}
+  declare export class TiArrowLeftOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowLeftThick extends React$Component<IconBaseProps> {}
+  declare export class TiArrowLeft extends React$Component<IconBaseProps> {}
+  declare export class TiArrowLoopOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowLoop extends React$Component<IconBaseProps> {}
+  declare export class TiArrowMaximiseOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowMaximise extends React$Component<IconBaseProps> {}
+  declare export class TiArrowMinimiseOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowMinimise extends React$Component<IconBaseProps> {}
+  declare export class TiArrowMoveOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowMove extends React$Component<IconBaseProps> {}
+  declare export class TiArrowRepeatOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowRepeat extends React$Component<IconBaseProps> {}
+  declare export class TiArrowRightOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowRightThick extends React$Component<IconBaseProps> {}
+  declare export class TiArrowRight extends React$Component<IconBaseProps> {}
+  declare export class TiArrowShuffle extends React$Component<IconBaseProps> {}
+  declare export class TiArrowSortedDown extends React$Component<IconBaseProps> {}
+  declare export class TiArrowSortedUp extends React$Component<IconBaseProps> {}
+  declare export class TiArrowSyncOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowSync extends React$Component<IconBaseProps> {}
+  declare export class TiArrowUnsorted extends React$Component<IconBaseProps> {}
+  declare export class TiArrowUpOutline extends React$Component<IconBaseProps> {}
+  declare export class TiArrowUpThick extends React$Component<IconBaseProps> {}
+  declare export class TiArrowUp extends React$Component<IconBaseProps> {}
+  declare export class TiAt extends React$Component<IconBaseProps> {}
+  declare export class TiAttachmentOutline extends React$Component<IconBaseProps> {}
+  declare export class TiAttachment extends React$Component<IconBaseProps> {}
+  declare export class TiBackspaceOutline extends React$Component<IconBaseProps> {}
+  declare export class TiBackspace extends React$Component<IconBaseProps> {}
+  declare export class TiBatteryCharge extends React$Component<IconBaseProps> {}
+  declare export class TiBatteryFull extends React$Component<IconBaseProps> {}
+  declare export class TiBatteryHigh extends React$Component<IconBaseProps> {}
+  declare export class TiBatteryLow extends React$Component<IconBaseProps> {}
+  declare export class TiBatteryMid extends React$Component<IconBaseProps> {}
+  declare export class TiBeaker extends React$Component<IconBaseProps> {}
+  declare export class TiBeer extends React$Component<IconBaseProps> {}
+  declare export class TiBell extends React$Component<IconBaseProps> {}
+  declare export class TiBook extends React$Component<IconBaseProps> {}
+  declare export class TiBookmark extends React$Component<IconBaseProps> {}
+  declare export class TiBriefcase extends React$Component<IconBaseProps> {}
+  declare export class TiBrush extends React$Component<IconBaseProps> {}
+  declare export class TiBusinessCard extends React$Component<IconBaseProps> {}
+  declare export class TiCalculator extends React$Component<IconBaseProps> {}
+  declare export class TiCalendarOutline extends React$Component<IconBaseProps> {}
+  declare export class TiCalendar extends React$Component<IconBaseProps> {}
+  declare export class TiCameraOutline extends React$Component<IconBaseProps> {}
+  declare export class TiCamera extends React$Component<IconBaseProps> {}
+  declare export class TiCancelOutline extends React$Component<IconBaseProps> {}
+  declare export class TiCancel extends React$Component<IconBaseProps> {}
+  declare export class TiChartAreaOutline extends React$Component<IconBaseProps> {}
+  declare export class TiChartArea extends React$Component<IconBaseProps> {}
+  declare export class TiChartBarOutline extends React$Component<IconBaseProps> {}
+  declare export class TiChartBar extends React$Component<IconBaseProps> {}
+  declare export class TiChartLineOutline extends React$Component<IconBaseProps> {}
+  declare export class TiChartLine extends React$Component<IconBaseProps> {}
+  declare export class TiChartPieOutline extends React$Component<IconBaseProps> {}
+  declare export class TiChartPie extends React$Component<IconBaseProps> {}
+  declare export class TiChevronLeftOutline extends React$Component<IconBaseProps> {}
+  declare export class TiChevronLeft extends React$Component<IconBaseProps> {}
+  declare export class TiChevronRightOutline extends React$Component<IconBaseProps> {}
+  declare export class TiChevronRight extends React$Component<IconBaseProps> {}
+  declare export class TiClipboard extends React$Component<IconBaseProps> {}
+  declare export class TiCloudStorageOutline extends React$Component<IconBaseProps> {}
+  declare export class TiCloudStorage extends React$Component<IconBaseProps> {}
+  declare export class TiCodeOutline extends React$Component<IconBaseProps> {}
+  declare export class TiCode extends React$Component<IconBaseProps> {}
+  declare export class TiCoffee extends React$Component<IconBaseProps> {}
+  declare export class TiCogOutline extends React$Component<IconBaseProps> {}
+  declare export class TiCog extends React$Component<IconBaseProps> {}
+  declare export class TiCompass extends React$Component<IconBaseProps> {}
+  declare export class TiContacts extends React$Component<IconBaseProps> {}
+  declare export class TiCreditCard extends React$Component<IconBaseProps> {}
+  declare export class TiCss3 extends React$Component<IconBaseProps> {}
+  declare export class TiDatabase extends React$Component<IconBaseProps> {}
+  declare export class TiDeleteOutline extends React$Component<IconBaseProps> {}
+  declare export class TiDelete extends React$Component<IconBaseProps> {}
+  declare export class TiDeviceDesktop extends React$Component<IconBaseProps> {}
+  declare export class TiDeviceLaptop extends React$Component<IconBaseProps> {}
+  declare export class TiDevicePhone extends React$Component<IconBaseProps> {}
+  declare export class TiDeviceTablet extends React$Component<IconBaseProps> {}
+  declare export class TiDirections extends React$Component<IconBaseProps> {}
+  declare export class TiDivideOutline extends React$Component<IconBaseProps> {}
+  declare export class TiDivide extends React$Component<IconBaseProps> {}
+  declare export class TiDocumentAdd extends React$Component<IconBaseProps> {}
+  declare export class TiDocumentDelete extends React$Component<IconBaseProps> {}
+  declare export class TiDocumentText extends React$Component<IconBaseProps> {}
+  declare export class TiDocument extends React$Component<IconBaseProps> {}
+  declare export class TiDownloadOutline extends React$Component<IconBaseProps> {}
+  declare export class TiDownload extends React$Component<IconBaseProps> {}
+  declare export class TiDropbox extends React$Component<IconBaseProps> {}
+  declare export class TiEdit extends React$Component<IconBaseProps> {}
+  declare export class TiEjectOutline extends React$Component<IconBaseProps> {}
+  declare export class TiEject extends React$Component<IconBaseProps> {}
+  declare export class TiEqualsOutline extends React$Component<IconBaseProps> {}
+  declare export class TiEquals extends React$Component<IconBaseProps> {}
+  declare export class TiExportOutline extends React$Component<IconBaseProps> {}
+  declare export class TiExport extends React$Component<IconBaseProps> {}
+  declare export class TiEyeOutline extends React$Component<IconBaseProps> {}
+  declare export class TiEye extends React$Component<IconBaseProps> {}
+  declare export class TiFeather extends React$Component<IconBaseProps> {}
+  declare export class TiFilm extends React$Component<IconBaseProps> {}
+  declare export class TiFilter extends React$Component<IconBaseProps> {}
+  declare export class TiFlagOutline extends React$Component<IconBaseProps> {}
+  declare export class TiFlag extends React$Component<IconBaseProps> {}
+  declare export class TiFlashOutline extends React$Component<IconBaseProps> {}
+  declare export class TiFlash extends React$Component<IconBaseProps> {}
+  declare export class TiFlowChildren extends React$Component<IconBaseProps> {}
+  declare export class TiFlowMerge extends React$Component<IconBaseProps> {}
+  declare export class TiFlowParallel extends React$Component<IconBaseProps> {}
+  declare export class TiFlowSwitch extends React$Component<IconBaseProps> {}
+  declare export class TiFolderAdd extends React$Component<IconBaseProps> {}
+  declare export class TiFolderDelete extends React$Component<IconBaseProps> {}
+  declare export class TiFolderOpen extends React$Component<IconBaseProps> {}
+  declare export class TiFolder extends React$Component<IconBaseProps> {}
+  declare export class TiGift extends React$Component<IconBaseProps> {}
+  declare export class TiGlobeOutline extends React$Component<IconBaseProps> {}
+  declare export class TiGlobe extends React$Component<IconBaseProps> {}
+  declare export class TiGroupOutline extends React$Component<IconBaseProps> {}
+  declare export class TiGroup extends React$Component<IconBaseProps> {}
+  declare export class TiHeadphones extends React$Component<IconBaseProps> {}
+  declare export class TiHeartFullOutline extends React$Component<IconBaseProps> {}
+  declare export class TiHeartHalfOutline extends React$Component<IconBaseProps> {}
+  declare export class TiHeartOutline extends React$Component<IconBaseProps> {}
+  declare export class TiHeart extends React$Component<IconBaseProps> {}
+  declare export class TiHomeOutline extends React$Component<IconBaseProps> {}
+  declare export class TiHome extends React$Component<IconBaseProps> {}
+  declare export class TiHtml5 extends React$Component<IconBaseProps> {}
+  declare export class TiImageOutline extends React$Component<IconBaseProps> {}
+  declare export class TiImage extends React$Component<IconBaseProps> {}
+  declare export class TiInfinityOutline extends React$Component<IconBaseProps> {}
+  declare export class TiInfinity extends React$Component<IconBaseProps> {}
+  declare export class TiInfoLargeOutline extends React$Component<IconBaseProps> {}
+  declare export class TiInfoLarge extends React$Component<IconBaseProps> {}
+  declare export class TiInfoOutline extends React$Component<IconBaseProps> {}
+  declare export class TiInfo extends React$Component<IconBaseProps> {}
+  declare export class TiInputCheckedOutline extends React$Component<IconBaseProps> {}
+  declare export class TiInputChecked extends React$Component<IconBaseProps> {}
+  declare export class TiKeyOutline extends React$Component<IconBaseProps> {}
+  declare export class TiKey extends React$Component<IconBaseProps> {}
+  declare export class TiKeyboard extends React$Component<IconBaseProps> {}
+  declare export class TiLeaf extends React$Component<IconBaseProps> {}
+  declare export class TiLightbulb extends React$Component<IconBaseProps> {}
+  declare export class TiLinkOutline extends React$Component<IconBaseProps> {}
+  declare export class TiLink extends React$Component<IconBaseProps> {}
+  declare export class TiLocationArrowOutline extends React$Component<IconBaseProps> {}
+  declare export class TiLocationArrow extends React$Component<IconBaseProps> {}
+  declare export class TiLocationOutline extends React$Component<IconBaseProps> {}
+  declare export class TiLocation extends React$Component<IconBaseProps> {}
+  declare export class TiLockClosedOutline extends React$Component<IconBaseProps> {}
+  declare export class TiLockClosed extends React$Component<IconBaseProps> {}
+  declare export class TiLockOpenOutline extends React$Component<IconBaseProps> {}
+  declare export class TiLockOpen extends React$Component<IconBaseProps> {}
+  declare export class TiMail extends React$Component<IconBaseProps> {}
+  declare export class TiMap extends React$Component<IconBaseProps> {}
+  declare export class TiMediaEjectOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMediaEject extends React$Component<IconBaseProps> {}
+  declare export class TiMediaFastForwardOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMediaFastForward extends React$Component<IconBaseProps> {}
+  declare export class TiMediaPauseOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMediaPause extends React$Component<IconBaseProps> {}
+  declare export class TiMediaPlayOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMediaPlayReverseOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMediaPlayReverse extends React$Component<IconBaseProps> {}
+  declare export class TiMediaPlay extends React$Component<IconBaseProps> {}
+  declare export class TiMediaRecordOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMediaRecord extends React$Component<IconBaseProps> {}
+  declare export class TiMediaRewindOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMediaRewind extends React$Component<IconBaseProps> {}
+  declare export class TiMediaStopOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMediaStop extends React$Component<IconBaseProps> {}
+  declare export class TiMessageTyping extends React$Component<IconBaseProps> {}
+  declare export class TiMessage extends React$Component<IconBaseProps> {}
+  declare export class TiMessages extends React$Component<IconBaseProps> {}
+  declare export class TiMicrophoneOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMicrophone extends React$Component<IconBaseProps> {}
+  declare export class TiMinusOutline extends React$Component<IconBaseProps> {}
+  declare export class TiMinus extends React$Component<IconBaseProps> {}
+  declare export class TiMortarBoard extends React$Component<IconBaseProps> {}
+  declare export class TiNews extends React$Component<IconBaseProps> {}
+  declare export class TiNotesOutline extends React$Component<IconBaseProps> {}
+  declare export class TiNotes extends React$Component<IconBaseProps> {}
+  declare export class TiPen extends React$Component<IconBaseProps> {}
+  declare export class TiPencil extends React$Component<IconBaseProps> {}
+  declare export class TiPhoneOutline extends React$Component<IconBaseProps> {}
+  declare export class TiPhone extends React$Component<IconBaseProps> {}
+  declare export class TiPiOutline extends React$Component<IconBaseProps> {}
+  declare export class TiPi extends React$Component<IconBaseProps> {}
+  declare export class TiPinOutline extends React$Component<IconBaseProps> {}
+  declare export class TiPin extends React$Component<IconBaseProps> {}
+  declare export class TiPipette extends React$Component<IconBaseProps> {}
+  declare export class TiPlaneOutline extends React$Component<IconBaseProps> {}
+  declare export class TiPlane extends React$Component<IconBaseProps> {}
+  declare export class TiPlug extends React$Component<IconBaseProps> {}
+  declare export class TiPlusOutline extends React$Component<IconBaseProps> {}
+  declare export class TiPlus extends React$Component<IconBaseProps> {}
+  declare export class TiPointOfInterestOutline extends React$Component<IconBaseProps> {}
+  declare export class TiPointOfInterest extends React$Component<IconBaseProps> {}
+  declare export class TiPowerOutline extends React$Component<IconBaseProps> {}
+  declare export class TiPower extends React$Component<IconBaseProps> {}
+  declare export class TiPrinter extends React$Component<IconBaseProps> {}
+  declare export class TiPuzzleOutline extends React$Component<IconBaseProps> {}
+  declare export class TiPuzzle extends React$Component<IconBaseProps> {}
+  declare export class TiRadarOutline extends React$Component<IconBaseProps> {}
+  declare export class TiRadar extends React$Component<IconBaseProps> {}
+  declare export class TiRefreshOutline extends React$Component<IconBaseProps> {}
+  declare export class TiRefresh extends React$Component<IconBaseProps> {}
+  declare export class TiRssOutline extends React$Component<IconBaseProps> {}
+  declare export class TiRss extends React$Component<IconBaseProps> {}
+  declare export class TiScissorsOutline extends React$Component<IconBaseProps> {}
+  declare export class TiScissors extends React$Component<IconBaseProps> {}
+  declare export class TiShoppingBag extends React$Component<IconBaseProps> {}
+  declare export class TiShoppingCart extends React$Component<IconBaseProps> {}
+  declare export class TiSocialAtCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialDribbbleCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialDribbble extends React$Component<IconBaseProps> {}
+  declare export class TiSocialFacebookCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialFacebook extends React$Component<IconBaseProps> {}
+  declare export class TiSocialFlickrCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialFlickr extends React$Component<IconBaseProps> {}
+  declare export class TiSocialGithubCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialGithub extends React$Component<IconBaseProps> {}
+  declare export class TiSocialGooglePlusCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialGooglePlus extends React$Component<IconBaseProps> {}
+  declare export class TiSocialInstagramCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialInstagram extends React$Component<IconBaseProps> {}
+  declare export class TiSocialLastFmCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialLastFm extends React$Component<IconBaseProps> {}
+  declare export class TiSocialLinkedinCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialLinkedin extends React$Component<IconBaseProps> {}
+  declare export class TiSocialPinterestCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialPinterest extends React$Component<IconBaseProps> {}
+  declare export class TiSocialSkypeOutline extends React$Component<IconBaseProps> {}
+  declare export class TiSocialSkype extends React$Component<IconBaseProps> {}
+  declare export class TiSocialTumblerCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialTumbler extends React$Component<IconBaseProps> {}
+  declare export class TiSocialTwitterCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialTwitter extends React$Component<IconBaseProps> {}
+  declare export class TiSocialVimeoCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialVimeo extends React$Component<IconBaseProps> {}
+  declare export class TiSocialYoutubeCircular extends React$Component<IconBaseProps> {}
+  declare export class TiSocialYoutube extends React$Component<IconBaseProps> {}
+  declare export class TiSortAlphabeticallyOutline extends React$Component<IconBaseProps> {}
+  declare export class TiSortAlphabetically extends React$Component<IconBaseProps> {}
+  declare export class TiSortNumericallyOutline extends React$Component<IconBaseProps> {}
+  declare export class TiSortNumerically extends React$Component<IconBaseProps> {}
+  declare export class TiSpannerOutline extends React$Component<IconBaseProps> {}
+  declare export class TiSpanner extends React$Component<IconBaseProps> {}
+  declare export class TiSpiral extends React$Component<IconBaseProps> {}
+  declare export class TiStarFullOutline extends React$Component<IconBaseProps> {}
+  declare export class TiStarHalfOutline extends React$Component<IconBaseProps> {}
+  declare export class TiStarHalf extends React$Component<IconBaseProps> {}
+  declare export class TiStarOutline extends React$Component<IconBaseProps> {}
+  declare export class TiStar extends React$Component<IconBaseProps> {}
+  declare export class TiStarburstOutline extends React$Component<IconBaseProps> {}
+  declare export class TiStarburst extends React$Component<IconBaseProps> {}
+  declare export class TiStopwatch extends React$Component<IconBaseProps> {}
+  declare export class TiSupport extends React$Component<IconBaseProps> {}
+  declare export class TiTabsOutline extends React$Component<IconBaseProps> {}
+  declare export class TiTag extends React$Component<IconBaseProps> {}
+  declare export class TiTags extends React$Component<IconBaseProps> {}
+  declare export class TiThLargeOutline extends React$Component<IconBaseProps> {}
+  declare export class TiThLarge extends React$Component<IconBaseProps> {}
+  declare export class TiThListOutline extends React$Component<IconBaseProps> {}
+  declare export class TiThList extends React$Component<IconBaseProps> {}
+  declare export class TiThMenuOutline extends React$Component<IconBaseProps> {}
+  declare export class TiThMenu extends React$Component<IconBaseProps> {}
+  declare export class TiThSmallOutline extends React$Component<IconBaseProps> {}
+  declare export class TiThSmall extends React$Component<IconBaseProps> {}
+  declare export class TiThermometer extends React$Component<IconBaseProps> {}
+  declare export class TiThumbsDown extends React$Component<IconBaseProps> {}
+  declare export class TiThumbsOk extends React$Component<IconBaseProps> {}
+  declare export class TiThumbsUp extends React$Component<IconBaseProps> {}
+  declare export class TiTickOutline extends React$Component<IconBaseProps> {}
+  declare export class TiTick extends React$Component<IconBaseProps> {}
+  declare export class TiTicket extends React$Component<IconBaseProps> {}
+  declare export class TiTime extends React$Component<IconBaseProps> {}
+  declare export class TiTimesOutline extends React$Component<IconBaseProps> {}
+  declare export class TiTimes extends React$Component<IconBaseProps> {}
+  declare export class TiTrash extends React$Component<IconBaseProps> {}
+  declare export class TiTree extends React$Component<IconBaseProps> {}
+  declare export class TiUploadOutline extends React$Component<IconBaseProps> {}
+  declare export class TiUpload extends React$Component<IconBaseProps> {}
+  declare export class TiUserAddOutline extends React$Component<IconBaseProps> {}
+  declare export class TiUserAdd extends React$Component<IconBaseProps> {}
+  declare export class TiUserDeleteOutline extends React$Component<IconBaseProps> {}
+  declare export class TiUserDelete extends React$Component<IconBaseProps> {}
+  declare export class TiUserOutline extends React$Component<IconBaseProps> {}
+  declare export class TiUser extends React$Component<IconBaseProps> {}
+  declare export class TiVendorAndroid extends React$Component<IconBaseProps> {}
+  declare export class TiVendorApple extends React$Component<IconBaseProps> {}
+  declare export class TiVendorMicrosoft extends React$Component<IconBaseProps> {}
+  declare export class TiVideoOutline extends React$Component<IconBaseProps> {}
+  declare export class TiVideo extends React$Component<IconBaseProps> {}
+  declare export class TiVolumeDown extends React$Component<IconBaseProps> {}
+  declare export class TiVolumeMute extends React$Component<IconBaseProps> {}
+  declare export class TiVolumeUp extends React$Component<IconBaseProps> {}
+  declare export class TiVolume extends React$Component<IconBaseProps> {}
+  declare export class TiWarningOutline extends React$Component<IconBaseProps> {}
+  declare export class TiWarning extends React$Component<IconBaseProps> {}
+  declare export class TiWatch extends React$Component<IconBaseProps> {}
+  declare export class TiWavesOutline extends React$Component<IconBaseProps> {}
+  declare export class TiWaves extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherCloudy extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherDownpour extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherNight extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherPartlySunny extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherShower extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherSnow extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherStormy extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherSunny extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherWindyCloudy extends React$Component<IconBaseProps> {}
+  declare export class TiWeatherWindy extends React$Component<IconBaseProps> {}
+  declare export class TiWiFiOutline extends React$Component<IconBaseProps> {}
+  declare export class TiWiFi extends React$Component<IconBaseProps> {}
+  declare export class TiWine extends React$Component<IconBaseProps> {}
+  declare export class TiWorldOutline extends React$Component<IconBaseProps> {}
+  declare export class TiWorld extends React$Component<IconBaseProps> {}
+  declare export class TiZoomInOutline extends React$Component<IconBaseProps> {}
+  declare export class TiZoomIn extends React$Component<IconBaseProps> {}
+  declare export class TiZoomOutOutline extends React$Component<IconBaseProps> {}
+  declare export class TiZoomOut extends React$Component<IconBaseProps> {}
+  declare export class TiZoomOutline extends React$Component<IconBaseProps> {}
+  declare export class TiZoom extends React$Component<IconBaseProps> {}
+}
+
+declare module 'react-icons/go' {
+  declare export class GoAlert extends React$Component<IconBaseProps> {}
+  declare export class GoArchive extends React$Component<IconBaseProps> {}
+  declare export class GoArrowDown extends React$Component<IconBaseProps> {}
+  declare export class GoArrowLeft extends React$Component<IconBaseProps> {}
+  declare export class GoArrowRight extends React$Component<IconBaseProps> {}
+  declare export class GoArrowSmallDown extends React$Component<IconBaseProps> {}
+  declare export class GoArrowSmallLeft extends React$Component<IconBaseProps> {}
+  declare export class GoArrowSmallRight extends React$Component<IconBaseProps> {}
+  declare export class GoArrowSmallUp extends React$Component<IconBaseProps> {}
+  declare export class GoArrowUp extends React$Component<IconBaseProps> {}
+  declare export class GoBeaker extends React$Component<IconBaseProps> {}
+  declare export class GoBell extends React$Component<IconBaseProps> {}
+  declare export class GoBold extends React$Component<IconBaseProps> {}
+  declare export class GoBook extends React$Component<IconBaseProps> {}
+  declare export class GoBookmark extends React$Component<IconBaseProps> {}
+  declare export class GoBriefcase extends React$Component<IconBaseProps> {}
+  declare export class GoBroadcast extends React$Component<IconBaseProps> {}
+  declare export class GoBrowser extends React$Component<IconBaseProps> {}
+  declare export class GoBug extends React$Component<IconBaseProps> {}
+  declare export class GoCalendar extends React$Component<IconBaseProps> {}
+  declare export class GoCheck extends React$Component<IconBaseProps> {}
+  declare export class GoChecklist extends React$Component<IconBaseProps> {}
+  declare export class GoChevronDown extends React$Component<IconBaseProps> {}
+  declare export class GoChevronLeft extends React$Component<IconBaseProps> {}
+  declare export class GoChevronRight extends React$Component<IconBaseProps> {}
+  declare export class GoChevronUp extends React$Component<IconBaseProps> {}
+  declare export class GoCircleSlash extends React$Component<IconBaseProps> {}
+  declare export class GoCircuitBoard extends React$Component<IconBaseProps> {}
+  declare export class GoClippy extends React$Component<IconBaseProps> {}
+  declare export class GoClock extends React$Component<IconBaseProps> {}
+  declare export class GoCloudDownload extends React$Component<IconBaseProps> {}
+  declare export class GoCloudUpload extends React$Component<IconBaseProps> {}
+  declare export class GoCode extends React$Component<IconBaseProps> {}
+  declare export class GoCommentDiscussion extends React$Component<IconBaseProps> {}
+  declare export class GoComment extends React$Component<IconBaseProps> {}
+  declare export class GoCreditCard extends React$Component<IconBaseProps> {}
+  declare export class GoDash extends React$Component<IconBaseProps> {}
+  declare export class GoDashboard extends React$Component<IconBaseProps> {}
+  declare export class GoDatabase extends React$Component<IconBaseProps> {}
+  declare export class GoDesktopDownload extends React$Component<IconBaseProps> {}
+  declare export class GoDeviceCameraVideo extends React$Component<IconBaseProps> {}
+  declare export class GoDeviceCamera extends React$Component<IconBaseProps> {}
+  declare export class GoDeviceDesktop extends React$Component<IconBaseProps> {}
+  declare export class GoDeviceMobile extends React$Component<IconBaseProps> {}
+  declare export class GoDiffAdded extends React$Component<IconBaseProps> {}
+  declare export class GoDiffIgnored extends React$Component<IconBaseProps> {}
+  declare export class GoDiffModified extends React$Component<IconBaseProps> {}
+  declare export class GoDiffRemoved extends React$Component<IconBaseProps> {}
+  declare export class GoDiffRenamed extends React$Component<IconBaseProps> {}
+  declare export class GoDiff extends React$Component<IconBaseProps> {}
+  declare export class GoEllipsis extends React$Component<IconBaseProps> {}
+  declare export class GoEye extends React$Component<IconBaseProps> {}
+  declare export class GoFileBinary extends React$Component<IconBaseProps> {}
+  declare export class GoFileCode extends React$Component<IconBaseProps> {}
+  declare export class GoFileDirectory extends React$Component<IconBaseProps> {}
+  declare export class GoFileMedia extends React$Component<IconBaseProps> {}
+  declare export class GoFilePdf extends React$Component<IconBaseProps> {}
+  declare export class GoFileSubmodule extends React$Component<IconBaseProps> {}
+  declare export class GoFileSymlinkDirectory extends React$Component<IconBaseProps> {}
+  declare export class GoFileSymlinkFile extends React$Component<IconBaseProps> {}
+  declare export class GoFileZip extends React$Component<IconBaseProps> {}
+  declare export class GoFile extends React$Component<IconBaseProps> {}
+  declare export class GoFlame extends React$Component<IconBaseProps> {}
+  declare export class GoFold extends React$Component<IconBaseProps> {}
+  declare export class GoGear extends React$Component<IconBaseProps> {}
+  declare export class GoGift extends React$Component<IconBaseProps> {}
+  declare export class GoGistSecret extends React$Component<IconBaseProps> {}
+  declare export class GoGist extends React$Component<IconBaseProps> {}
+  declare export class GoGitBranch extends React$Component<IconBaseProps> {}
+  declare export class GoGitCommit extends React$Component<IconBaseProps> {}
+  declare export class GoGitCompare extends React$Component<IconBaseProps> {}
+  declare export class GoGitMerge extends React$Component<IconBaseProps> {}
+  declare export class GoGitPullRequest extends React$Component<IconBaseProps> {}
+  declare export class GoGlobe extends React$Component<IconBaseProps> {}
+  declare export class GoGrabber extends React$Component<IconBaseProps> {}
+  declare export class GoGraph extends React$Component<IconBaseProps> {}
+  declare export class GoHeart extends React$Component<IconBaseProps> {}
+  declare export class GoHistory extends React$Component<IconBaseProps> {}
+  declare export class GoHome extends React$Component<IconBaseProps> {}
+  declare export class GoHorizontalRule extends React$Component<IconBaseProps> {}
+  declare export class GoHubot extends React$Component<IconBaseProps> {}
+  declare export class GoInbox extends React$Component<IconBaseProps> {}
+  declare export class GoInfo extends React$Component<IconBaseProps> {}
+  declare export class GoIssueClosed extends React$Component<IconBaseProps> {}
+  declare export class GoIssueOpened extends React$Component<IconBaseProps> {}
+  declare export class GoIssueReopened extends React$Component<IconBaseProps> {}
+  declare export class GoItalic extends React$Component<IconBaseProps> {}
+  declare export class GoJersey extends React$Component<IconBaseProps> {}
+  declare export class GoKebabHorizontal extends React$Component<IconBaseProps> {}
+  declare export class GoKebabVertical extends React$Component<IconBaseProps> {}
+  declare export class GoKey extends React$Component<IconBaseProps> {}
+  declare export class GoKeyboard extends React$Component<IconBaseProps> {}
+  declare export class GoLaw extends React$Component<IconBaseProps> {}
+  declare export class GoLightBulb extends React$Component<IconBaseProps> {}
+  declare export class GoLinkExternal extends React$Component<IconBaseProps> {}
+  declare export class GoLink extends React$Component<IconBaseProps> {}
+  declare export class GoListOrdered extends React$Component<IconBaseProps> {}
+  declare export class GoListUnordered extends React$Component<IconBaseProps> {}
+  declare export class GoLocation extends React$Component<IconBaseProps> {}
+  declare export class GoLock extends React$Component<IconBaseProps> {}
+  declare export class GoLogoGist extends React$Component<IconBaseProps> {}
+  declare export class GoLogoGithub extends React$Component<IconBaseProps> {}
+  declare export class GoMailRead extends React$Component<IconBaseProps> {}
+  declare export class GoMail extends React$Component<IconBaseProps> {}
+  declare export class GoMarkGithub extends React$Component<IconBaseProps> {}
+  declare export class GoMarkdown extends React$Component<IconBaseProps> {}
+  declare export class GoMegaphone extends React$Component<IconBaseProps> {}
+  declare export class GoMention extends React$Component<IconBaseProps> {}
+  declare export class GoMilestone extends React$Component<IconBaseProps> {}
+  declare export class GoMirror extends React$Component<IconBaseProps> {}
+  declare export class GoMortarBoard extends React$Component<IconBaseProps> {}
+  declare export class GoMute extends React$Component<IconBaseProps> {}
+  declare export class GoNoNewline extends React$Component<IconBaseProps> {}
+  declare export class GoNote extends React$Component<IconBaseProps> {}
+  declare export class GoOctoface extends React$Component<IconBaseProps> {}
+  declare export class GoOrganization extends React$Component<IconBaseProps> {}
+  declare export class GoPackage extends React$Component<IconBaseProps> {}
+  declare export class GoPaintcan extends React$Component<IconBaseProps> {}
+  declare export class GoPencil extends React$Component<IconBaseProps> {}
+  declare export class GoPerson extends React$Component<IconBaseProps> {}
+  declare export class GoPin extends React$Component<IconBaseProps> {}
+  declare export class GoPlug extends React$Component<IconBaseProps> {}
+  declare export class GoPlusSmall extends React$Component<IconBaseProps> {}
+  declare export class GoPlus extends React$Component<IconBaseProps> {}
+  declare export class GoPrimitiveDot extends React$Component<IconBaseProps> {}
+  declare export class GoPrimitiveSquare extends React$Component<IconBaseProps> {}
+  declare export class GoProject extends React$Component<IconBaseProps> {}
+  declare export class GoPulse extends React$Component<IconBaseProps> {}
+  declare export class GoQuestion extends React$Component<IconBaseProps> {}
+  declare export class GoQuote extends React$Component<IconBaseProps> {}
+  declare export class GoRadioTower extends React$Component<IconBaseProps> {}
+  declare export class GoReply extends React$Component<IconBaseProps> {}
+  declare export class GoRepoClone extends React$Component<IconBaseProps> {}
+  declare export class GoRepoForcePush extends React$Component<IconBaseProps> {}
+  declare export class GoRepoForked extends React$Component<IconBaseProps> {}
+  declare export class GoRepoPull extends React$Component<IconBaseProps> {}
+  declare export class GoRepoPush extends React$Component<IconBaseProps> {}
+  declare export class GoRepo extends React$Component<IconBaseProps> {}
+  declare export class GoReport extends React$Component<IconBaseProps> {}
+  declare export class GoRocket extends React$Component<IconBaseProps> {}
+  declare export class GoRss extends React$Component<IconBaseProps> {}
+  declare export class GoRuby extends React$Component<IconBaseProps> {}
+  declare export class GoScreenFull extends React$Component<IconBaseProps> {}
+  declare export class GoScreenNormal extends React$Component<IconBaseProps> {}
+  declare export class GoSearch extends React$Component<IconBaseProps> {}
+  declare export class GoServer extends React$Component<IconBaseProps> {}
+  declare export class GoSettings extends React$Component<IconBaseProps> {}
+  declare export class GoShield extends React$Component<IconBaseProps> {}
+  declare export class GoSignIn extends React$Component<IconBaseProps> {}
+  declare export class GoSignOut extends React$Component<IconBaseProps> {}
+  declare export class GoSmiley extends React$Component<IconBaseProps> {}
+  declare export class GoSquirrel extends React$Component<IconBaseProps> {}
+  declare export class GoStar extends React$Component<IconBaseProps> {}
+  declare export class GoStop extends React$Component<IconBaseProps> {}
+  declare export class GoSync extends React$Component<IconBaseProps> {}
+  declare export class GoTag extends React$Component<IconBaseProps> {}
+  declare export class GoTasklist extends React$Component<IconBaseProps> {}
+  declare export class GoTelescope extends React$Component<IconBaseProps> {}
+  declare export class GoTerminal extends React$Component<IconBaseProps> {}
+  declare export class GoTextSize extends React$Component<IconBaseProps> {}
+  declare export class GoThreeBars extends React$Component<IconBaseProps> {}
+  declare export class GoThumbsdown extends React$Component<IconBaseProps> {}
+  declare export class GoThumbsup extends React$Component<IconBaseProps> {}
+  declare export class GoTools extends React$Component<IconBaseProps> {}
+  declare export class GoTrashcan extends React$Component<IconBaseProps> {}
+  declare export class GoTriangleDown extends React$Component<IconBaseProps> {}
+  declare export class GoTriangleLeft extends React$Component<IconBaseProps> {}
+  declare export class GoTriangleRight extends React$Component<IconBaseProps> {}
+  declare export class GoTriangleUp extends React$Component<IconBaseProps> {}
+  declare export class GoUnfold extends React$Component<IconBaseProps> {}
+  declare export class GoUnmute extends React$Component<IconBaseProps> {}
+  declare export class GoUnverified extends React$Component<IconBaseProps> {}
+  declare export class GoVerified extends React$Component<IconBaseProps> {}
+  declare export class GoVersions extends React$Component<IconBaseProps> {}
+  declare export class GoWatch extends React$Component<IconBaseProps> {}
+  declare export class GoX extends React$Component<IconBaseProps> {}
+  declare export class GoZap extends React$Component<IconBaseProps> {}
+}
+
+declare module 'react-icons/fi' {
+  declare export class FiActivity extends React$Component<IconBaseProps> {}
+  declare export class FiAirplay extends React$Component<IconBaseProps> {}
+  declare export class FiAlertCircle extends React$Component<IconBaseProps> {}
+  declare export class FiAlertOctagon extends React$Component<IconBaseProps> {}
+  declare export class FiAlertTriangle extends React$Component<IconBaseProps> {}
+  declare export class FiAlignCenter extends React$Component<IconBaseProps> {}
+  declare export class FiAlignJustify extends React$Component<IconBaseProps> {}
+  declare export class FiAlignLeft extends React$Component<IconBaseProps> {}
+  declare export class FiAlignRight extends React$Component<IconBaseProps> {}
+  declare export class FiAnchor extends React$Component<IconBaseProps> {}
+  declare export class FiAperture extends React$Component<IconBaseProps> {}
+  declare export class FiArchive extends React$Component<IconBaseProps> {}
+  declare export class FiArrowDownCircle extends React$Component<IconBaseProps> {}
+  declare export class FiArrowDownLeft extends React$Component<IconBaseProps> {}
+  declare export class FiArrowDownRight extends React$Component<IconBaseProps> {}
+  declare export class FiArrowDown extends React$Component<IconBaseProps> {}
+  declare export class FiArrowLeftCircle extends React$Component<IconBaseProps> {}
+  declare export class FiArrowLeft extends React$Component<IconBaseProps> {}
+  declare export class FiArrowRightCircle extends React$Component<IconBaseProps> {}
+  declare export class FiArrowRight extends React$Component<IconBaseProps> {}
+  declare export class FiArrowUpCircle extends React$Component<IconBaseProps> {}
+  declare export class FiArrowUpLeft extends React$Component<IconBaseProps> {}
+  declare export class FiArrowUpRight extends React$Component<IconBaseProps> {}
+  declare export class FiArrowUp extends React$Component<IconBaseProps> {}
+  declare export class FiAtSign extends React$Component<IconBaseProps> {}
+  declare export class FiAward extends React$Component<IconBaseProps> {}
+  declare export class FiBarChart2 extends React$Component<IconBaseProps> {}
+  declare export class FiBarChart extends React$Component<IconBaseProps> {}
+  declare export class FiBatteryCharging extends React$Component<IconBaseProps> {}
+  declare export class FiBattery extends React$Component<IconBaseProps> {}
+  declare export class FiBellOff extends React$Component<IconBaseProps> {}
+  declare export class FiBell extends React$Component<IconBaseProps> {}
+  declare export class FiBluetooth extends React$Component<IconBaseProps> {}
+  declare export class FiBold extends React$Component<IconBaseProps> {}
+  declare export class FiBookOpen extends React$Component<IconBaseProps> {}
+  declare export class FiBook extends React$Component<IconBaseProps> {}
+  declare export class FiBookmark extends React$Component<IconBaseProps> {}
+  declare export class FiBox extends React$Component<IconBaseProps> {}
+  declare export class FiBriefcase extends React$Component<IconBaseProps> {}
+  declare export class FiCalendar extends React$Component<IconBaseProps> {}
+  declare export class FiCameraOff extends React$Component<IconBaseProps> {}
+  declare export class FiCamera extends React$Component<IconBaseProps> {}
+  declare export class FiCast extends React$Component<IconBaseProps> {}
+  declare export class FiCheckCircle extends React$Component<IconBaseProps> {}
+  declare export class FiCheckSquare extends React$Component<IconBaseProps> {}
+  declare export class FiCheck extends React$Component<IconBaseProps> {}
+  declare export class FiChevronDown extends React$Component<IconBaseProps> {}
+  declare export class FiChevronLeft extends React$Component<IconBaseProps> {}
+  declare export class FiChevronRight extends React$Component<IconBaseProps> {}
+  declare export class FiChevronUp extends React$Component<IconBaseProps> {}
+  declare export class FiChevronsDown extends React$Component<IconBaseProps> {}
+  declare export class FiChevronsLeft extends React$Component<IconBaseProps> {}
+  declare export class FiChevronsRight extends React$Component<IconBaseProps> {}
+  declare export class FiChevronsUp extends React$Component<IconBaseProps> {}
+  declare export class FiChrome extends React$Component<IconBaseProps> {}
+  declare export class FiCircle extends React$Component<IconBaseProps> {}
+  declare export class FiClipboard extends React$Component<IconBaseProps> {}
+  declare export class FiClock extends React$Component<IconBaseProps> {}
+  declare export class FiCloudDrizzle extends React$Component<IconBaseProps> {}
+  declare export class FiCloudLightning extends React$Component<IconBaseProps> {}
+  declare export class FiCloudOff extends React$Component<IconBaseProps> {}
+  declare export class FiCloudRain extends React$Component<IconBaseProps> {}
+  declare export class FiCloudSnow extends React$Component<IconBaseProps> {}
+  declare export class FiCloud extends React$Component<IconBaseProps> {}
+  declare export class FiCode extends React$Component<IconBaseProps> {}
+  declare export class FiCodepen extends React$Component<IconBaseProps> {}
+  declare export class FiCommand extends React$Component<IconBaseProps> {}
+  declare export class FiCompass extends React$Component<IconBaseProps> {}
+  declare export class FiCopy extends React$Component<IconBaseProps> {}
+  declare export class FiCornerDownLeft extends React$Component<IconBaseProps> {}
+  declare export class FiCornerDownRight extends React$Component<IconBaseProps> {}
+  declare export class FiCornerLeftDown extends React$Component<IconBaseProps> {}
+  declare export class FiCornerLeftUp extends React$Component<IconBaseProps> {}
+  declare export class FiCornerRightDown extends React$Component<IconBaseProps> {}
+  declare export class FiCornerRightUp extends React$Component<IconBaseProps> {}
+  declare export class FiCornerUpLeft extends React$Component<IconBaseProps> {}
+  declare export class FiCornerUpRight extends React$Component<IconBaseProps> {}
+  declare export class FiCpu extends React$Component<IconBaseProps> {}
+  declare export class FiCreditCard extends React$Component<IconBaseProps> {}
+  declare export class FiCrop extends React$Component<IconBaseProps> {}
+  declare export class FiCrosshair extends React$Component<IconBaseProps> {}
+  declare export class FiDatabase extends React$Component<IconBaseProps> {}
+  declare export class FiDelete extends React$Component<IconBaseProps> {}
+  declare export class FiDisc extends React$Component<IconBaseProps> {}
+  declare export class FiDollarSign extends React$Component<IconBaseProps> {}
+  declare export class FiDownloadCloud extends React$Component<IconBaseProps> {}
+  declare export class FiDownload extends React$Component<IconBaseProps> {}
+  declare export class FiDroplet extends React$Component<IconBaseProps> {}
+  declare export class FiEdit2 extends React$Component<IconBaseProps> {}
+  declare export class FiEdit3 extends React$Component<IconBaseProps> {}
+  declare export class FiEdit extends React$Component<IconBaseProps> {}
+  declare export class FiExternalLink extends React$Component<IconBaseProps> {}
+  declare export class FiEyeOff extends React$Component<IconBaseProps> {}
+  declare export class FiEye extends React$Component<IconBaseProps> {}
+  declare export class FiFacebook extends React$Component<IconBaseProps> {}
+  declare export class FiFastForward extends React$Component<IconBaseProps> {}
+  declare export class FiFeather extends React$Component<IconBaseProps> {}
+  declare export class FiFileMinus extends React$Component<IconBaseProps> {}
+  declare export class FiFilePlus extends React$Component<IconBaseProps> {}
+  declare export class FiFileText extends React$Component<IconBaseProps> {}
+  declare export class FiFile extends React$Component<IconBaseProps> {}
+  declare export class FiFilm extends React$Component<IconBaseProps> {}
+  declare export class FiFilter extends React$Component<IconBaseProps> {}
+  declare export class FiFlag extends React$Component<IconBaseProps> {}
+  declare export class FiFolderMinus extends React$Component<IconBaseProps> {}
+  declare export class FiFolderPlus extends React$Component<IconBaseProps> {}
+  declare export class FiFolder extends React$Component<IconBaseProps> {}
+  declare export class FiGift extends React$Component<IconBaseProps> {}
+  declare export class FiGitBranch extends React$Component<IconBaseProps> {}
+  declare export class FiGitCommit extends React$Component<IconBaseProps> {}
+  declare export class FiGitMerge extends React$Component<IconBaseProps> {}
+  declare export class FiGitPullRequest extends React$Component<IconBaseProps> {}
+  declare export class FiGithub extends React$Component<IconBaseProps> {}
+  declare export class FiGitlab extends React$Component<IconBaseProps> {}
+  declare export class FiGlobe extends React$Component<IconBaseProps> {}
+  declare export class FiGrid extends React$Component<IconBaseProps> {}
+  declare export class FiHardDrive extends React$Component<IconBaseProps> {}
+  declare export class FiHash extends React$Component<IconBaseProps> {}
+  declare export class FiHeadphones extends React$Component<IconBaseProps> {}
+  declare export class FiHeart extends React$Component<IconBaseProps> {}
+  declare export class FiHelpCircle extends React$Component<IconBaseProps> {}
+  declare export class FiHome extends React$Component<IconBaseProps> {}
+  declare export class FiImage extends React$Component<IconBaseProps> {}
+  declare export class FiInbox extends React$Component<IconBaseProps> {}
+  declare export class FiInfo extends React$Component<IconBaseProps> {}
+  declare export class FiInstagram extends React$Component<IconBaseProps> {}
+  declare export class FiItalic extends React$Component<IconBaseProps> {}
+  declare export class FiLayers extends React$Component<IconBaseProps> {}
+  declare export class FiLayout extends React$Component<IconBaseProps> {}
+  declare export class FiLifeBuoy extends React$Component<IconBaseProps> {}
+  declare export class FiLink2 extends React$Component<IconBaseProps> {}
+  declare export class FiLink extends React$Component<IconBaseProps> {}
+  declare export class FiLinkedin extends React$Component<IconBaseProps> {}
+  declare export class FiList extends React$Component<IconBaseProps> {}
+  declare export class FiLoader extends React$Component<IconBaseProps> {}
+  declare export class FiLock extends React$Component<IconBaseProps> {}
+  declare export class FiLogIn extends React$Component<IconBaseProps> {}
+  declare export class FiLogOut extends React$Component<IconBaseProps> {}
+  declare export class FiMail extends React$Component<IconBaseProps> {}
+  declare export class FiMapPin extends React$Component<IconBaseProps> {}
+  declare export class FiMap extends React$Component<IconBaseProps> {}
+  declare export class FiMaximize2 extends React$Component<IconBaseProps> {}
+  declare export class FiMaximize extends React$Component<IconBaseProps> {}
+  declare export class FiMenu extends React$Component<IconBaseProps> {}
+  declare export class FiMessageCircle extends React$Component<IconBaseProps> {}
+  declare export class FiMessageSquare extends React$Component<IconBaseProps> {}
+  declare export class FiMicOff extends React$Component<IconBaseProps> {}
+  declare export class FiMic extends React$Component<IconBaseProps> {}
+  declare export class FiMinimize2 extends React$Component<IconBaseProps> {}
+  declare export class FiMinimize extends React$Component<IconBaseProps> {}
+  declare export class FiMinusCircle extends React$Component<IconBaseProps> {}
+  declare export class FiMinusSquare extends React$Component<IconBaseProps> {}
+  declare export class FiMinus extends React$Component<IconBaseProps> {}
+  declare export class FiMonitor extends React$Component<IconBaseProps> {}
+  declare export class FiMoon extends React$Component<IconBaseProps> {}
+  declare export class FiMoreHorizontal extends React$Component<IconBaseProps> {}
+  declare export class FiMoreVertical extends React$Component<IconBaseProps> {}
+  declare export class FiMove extends React$Component<IconBaseProps> {}
+  declare export class FiMusic extends React$Component<IconBaseProps> {}
+  declare export class FiNavigation2 extends React$Component<IconBaseProps> {}
+  declare export class FiNavigation extends React$Component<IconBaseProps> {}
+  declare export class FiOctagon extends React$Component<IconBaseProps> {}
+  declare export class FiPackage extends React$Component<IconBaseProps> {}
+  declare export class FiPaperclip extends React$Component<IconBaseProps> {}
+  declare export class FiPauseCircle extends React$Component<IconBaseProps> {}
+  declare export class FiPause extends React$Component<IconBaseProps> {}
+  declare export class FiPercent extends React$Component<IconBaseProps> {}
+  declare export class FiPhoneCall extends React$Component<IconBaseProps> {}
+  declare export class FiPhoneForwarded extends React$Component<IconBaseProps> {}
+  declare export class FiPhoneIncoming extends React$Component<IconBaseProps> {}
+  declare export class FiPhoneMissed extends React$Component<IconBaseProps> {}
+  declare export class FiPhoneOff extends React$Component<IconBaseProps> {}
+  declare export class FiPhoneOutgoing extends React$Component<IconBaseProps> {}
+  declare export class FiPhone extends React$Component<IconBaseProps> {}
+  declare export class FiPieChart extends React$Component<IconBaseProps> {}
+  declare export class FiPlayCircle extends React$Component<IconBaseProps> {}
+  declare export class FiPlay extends React$Component<IconBaseProps> {}
+  declare export class FiPlusCircle extends React$Component<IconBaseProps> {}
+  declare export class FiPlusSquare extends React$Component<IconBaseProps> {}
+  declare export class FiPlus extends React$Component<IconBaseProps> {}
+  declare export class FiPocket extends React$Component<IconBaseProps> {}
+  declare export class FiPower extends React$Component<IconBaseProps> {}
+  declare export class FiPrinter extends React$Component<IconBaseProps> {}
+  declare export class FiRadio extends React$Component<IconBaseProps> {}
+  declare export class FiRefreshCcw extends React$Component<IconBaseProps> {}
+  declare export class FiRefreshCw extends React$Component<IconBaseProps> {}
+  declare export class FiRepeat extends React$Component<IconBaseProps> {}
+  declare export class FiRewind extends React$Component<IconBaseProps> {}
+  declare export class FiRotateCcw extends React$Component<IconBaseProps> {}
+  declare export class FiRotateCw extends React$Component<IconBaseProps> {}
+  declare export class FiRss extends React$Component<IconBaseProps> {}
+  declare export class FiSave extends React$Component<IconBaseProps> {}
+  declare export class FiScissors extends React$Component<IconBaseProps> {}
+  declare export class FiSearch extends React$Component<IconBaseProps> {}
+  declare export class FiSend extends React$Component<IconBaseProps> {}
+  declare export class FiServer extends React$Component<IconBaseProps> {}
+  declare export class FiSettings extends React$Component<IconBaseProps> {}
+  declare export class FiShare2 extends React$Component<IconBaseProps> {}
+  declare export class FiShare extends React$Component<IconBaseProps> {}
+  declare export class FiShieldOff extends React$Component<IconBaseProps> {}
+  declare export class FiShield extends React$Component<IconBaseProps> {}
+  declare export class FiShoppingBag extends React$Component<IconBaseProps> {}
+  declare export class FiShoppingCart extends React$Component<IconBaseProps> {}
+  declare export class FiShuffle extends React$Component<IconBaseProps> {}
+  declare export class FiSidebar extends React$Component<IconBaseProps> {}
+  declare export class FiSkipBack extends React$Component<IconBaseProps> {}
+  declare export class FiSkipForward extends React$Component<IconBaseProps> {}
+  declare export class FiSlack extends React$Component<IconBaseProps> {}
+  declare export class FiSlash extends React$Component<IconBaseProps> {}
+  declare export class FiSliders extends React$Component<IconBaseProps> {}
+  declare export class FiSmartphone extends React$Component<IconBaseProps> {}
+  declare export class FiSpeaker extends React$Component<IconBaseProps> {}
+  declare export class FiSquare extends React$Component<IconBaseProps> {}
+  declare export class FiStar extends React$Component<IconBaseProps> {}
+  declare export class FiStopCircle extends React$Component<IconBaseProps> {}
+  declare export class FiSun extends React$Component<IconBaseProps> {}
+  declare export class FiSunrise extends React$Component<IconBaseProps> {}
+  declare export class FiSunset extends React$Component<IconBaseProps> {}
+  declare export class FiTablet extends React$Component<IconBaseProps> {}
+  declare export class FiTag extends React$Component<IconBaseProps> {}
+  declare export class FiTarget extends React$Component<IconBaseProps> {}
+  declare export class FiTerminal extends React$Component<IconBaseProps> {}
+  declare export class FiThermometer extends React$Component<IconBaseProps> {}
+  declare export class FiThumbsDown extends React$Component<IconBaseProps> {}
+  declare export class FiThumbsUp extends React$Component<IconBaseProps> {}
+  declare export class FiToggleLeft extends React$Component<IconBaseProps> {}
+  declare export class FiToggleRight extends React$Component<IconBaseProps> {}
+  declare export class FiTrash2 extends React$Component<IconBaseProps> {}
+  declare export class FiTrash extends React$Component<IconBaseProps> {}
+  declare export class FiTrendingDown extends React$Component<IconBaseProps> {}
+  declare export class FiTrendingUp extends React$Component<IconBaseProps> {}
+  declare export class FiTriangle extends React$Component<IconBaseProps> {}
+  declare export class FiTruck extends React$Component<IconBaseProps> {}
+  declare export class FiTv extends React$Component<IconBaseProps> {}
+  declare export class FiTwitter extends React$Component<IconBaseProps> {}
+  declare export class FiType extends React$Component<IconBaseProps> {}
+  declare export class FiUmbrella extends React$Component<IconBaseProps> {}
+  declare export class FiUnderline extends React$Component<IconBaseProps> {}
+  declare export class FiUnlock extends React$Component<IconBaseProps> {}
+  declare export class FiUploadCloud extends React$Component<IconBaseProps> {}
+  declare export class FiUpload extends React$Component<IconBaseProps> {}
+  declare export class FiUserCheck extends React$Component<IconBaseProps> {}
+  declare export class FiUserMinus extends React$Component<IconBaseProps> {}
+  declare export class FiUserPlus extends React$Component<IconBaseProps> {}
+  declare export class FiUserX extends React$Component<IconBaseProps> {}
+  declare export class FiUser extends React$Component<IconBaseProps> {}
+  declare export class FiUsers extends React$Component<IconBaseProps> {}
+  declare export class FiVideoOff extends React$Component<IconBaseProps> {}
+  declare export class FiVideo extends React$Component<IconBaseProps> {}
+  declare export class FiVoicemail extends React$Component<IconBaseProps> {}
+  declare export class FiVolume1 extends React$Component<IconBaseProps> {}
+  declare export class FiVolume2 extends React$Component<IconBaseProps> {}
+  declare export class FiVolumeX extends React$Component<IconBaseProps> {}
+  declare export class FiVolume extends React$Component<IconBaseProps> {}
+  declare export class FiWatch extends React$Component<IconBaseProps> {}
+  declare export class FiWifiOff extends React$Component<IconBaseProps> {}
+  declare export class FiWifi extends React$Component<IconBaseProps> {}
+  declare export class FiWind extends React$Component<IconBaseProps> {}
+  declare export class FiXCircle extends React$Component<IconBaseProps> {}
+  declare export class FiXSquare extends React$Component<IconBaseProps> {}
+  declare export class FiX extends React$Component<IconBaseProps> {}
+  declare export class FiYoutube extends React$Component<IconBaseProps> {}
+  declare export class FiZapOff extends React$Component<IconBaseProps> {}
+  declare export class FiZap extends React$Component<IconBaseProps> {}
+  declare export class FiZoomIn extends React$Component<IconBaseProps> {}
+  declare export class FiZoomOut extends React$Component<IconBaseProps> {}
 }

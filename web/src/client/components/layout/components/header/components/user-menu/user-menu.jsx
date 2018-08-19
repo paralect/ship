@@ -8,10 +8,12 @@ import type { LocationShape } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 
-import FaAngleDown from 'react-icons/lib/fa/angle-down';
-import FaUnlockAlt from 'react-icons/lib/fa/unlock-alt';
+import {
+  FaAngleDown,
+  FaUnlockAlt,
+  FaSignOutAlt,
+} from 'react-icons/fa';
 import UserCircleO from 'components/common/icons/user-circle-o';
-import FaSignOut from 'react-icons/lib/fa/sign-out';
 
 import {
   profilePath,
@@ -45,7 +47,7 @@ const linksList: Array<LinkType> = [
   {
     label: 'Log Out',
     to: logoutPath(),
-    icon: FaSignOut,
+    icon: FaSignOutAlt,
   },
 ];
 
