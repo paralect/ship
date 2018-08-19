@@ -15,8 +15,7 @@ module.exports = (nextConfig = {}) => {
       // If extractCSSPlugin is not defined we pass the same instance of
       // ExtractTextPlugin to all css related modules
       // So that they compile to the same file in production
-      let extractCSSPlugin =
-        nextConfig.extractCSSPlugin || options.extractCSSPlugin;
+      let extractCSSPlugin = nextConfig.extractCSSPlugin || options.extractCSSPlugin;
 
       if (!extractCSSPlugin) {
         extractCSSPlugin = new ExtractTextPlugin({

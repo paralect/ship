@@ -38,7 +38,8 @@ const httpRequest = method => async (url, data) => {
 
   if (response.status >= 200 && response.status < 300) {
     return response.data || { };
-  } else if (response.status === 400) {
+  }
+  if (response.status === 400) {
     throwApiError(response);
   }
 

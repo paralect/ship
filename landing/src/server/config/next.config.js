@@ -1,6 +1,7 @@
+const { resolve } = require('path');
+
 const withCSS = require('../lib/next-css');
 
-const { resolve } = require('path');
 const { apiUrl, webUrl, isDev } = require('./index');
 
 module.exports = withCSS({

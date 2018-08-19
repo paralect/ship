@@ -3,7 +3,7 @@ const { parse } = require('url');
 const { resolve } = require('path');
 
 const next = require('next');
-const nextBuild = require('next/dist/server/build').default;
+const nextBuild = require('next/dist/server').default;
 
 const logger = require('./logger');
 const config = require('./config');

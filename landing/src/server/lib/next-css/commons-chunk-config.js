@@ -2,8 +2,8 @@ module.exports = (config, test = /\.p?css$/) => {
   // Extend the default CommonsChunkPlugin config
   config.plugins = config.plugins.map((plugin) => { // eslint-disable-line
     if (
-      plugin.constructor.name === 'CommonsChunkPlugin' &&
-      typeof plugin.minChunks !== 'undefined'
+      plugin.constructor.name === 'CommonsChunkPlugin'
+      && typeof plugin.minChunks !== 'undefined'
     ) {
       const defaultMinChunks = plugin.minChunks;
       plugin.minChunks = (module, count) => { // eslint-disable-line
