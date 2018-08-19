@@ -9,7 +9,9 @@ let base = {
   port: process.env.PORT || 3001,
   isDev: env === 'development',
   isTest: env === 'test',
+  landingUrl: 'http://localhost:3000',
   webUrl: 'http://localhost:3002',
+  apiUrl: 'http://localhost:3001',
   jwt: {
     secret: 'jwt_secret',
     audience: 'api',
@@ -17,6 +19,10 @@ let base = {
   },
   mongo: {
     connection: 'mongodb://localhost:27017/api',
+  },
+  mailgun: {
+    apiKey: 'key',
+    domain: 'domain',
   },
 };
 

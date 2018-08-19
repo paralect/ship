@@ -1,10 +1,11 @@
 const db = require('db');
-const schema = require('./user.schema');
 
 const constants = require('app.constants');
+const securityUtil = require('security.util');
+
+const schema = require('./user.schema');
 
 const service = db.createService(constants.DATABASE_DOCUMENTS.USERS, schema);
-const securityUtil = require('security.util');
 
 service.markEmailAsVerified = (_id) => {
   return service.update(

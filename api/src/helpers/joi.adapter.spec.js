@@ -1,5 +1,6 @@
-const Joi = require('./joi.adapter');
 const chai = require('chai');
+
+const Joi = require('./joi.adapter');
 
 chai.should();
 

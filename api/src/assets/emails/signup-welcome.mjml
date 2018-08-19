@@ -1,0 +1,48 @@
+<mjml>
+  <mj-head>
+    <!-- ===== STYLES FOR MJML TAGS ==== -->
+    <mj-include path="./styles.mjml" />
+  </mj-head>
+
+  <mj-body>
+    <mj-include path="./header.mjml" />
+
+    <mj-section mj-class="main-section-image">
+      <mj-column vertical-align="top" width="100%">
+        <mj-image src="{{landingUrl}}/assets/images/rocket.png" />
+      </mj-column>
+    </mj-section>
+
+    <mj-section mj-class="main-section">
+      <mj-column vertical-align="middle" width="100%">
+        <mj-text mj-class="big-text">
+          Hi, there.
+        </mj-text>
+
+        <mj-text mj-class="text">
+          Thanks for checking out Ship, we hope our products can make your routine
+          life a little more enjoyable.
+        </mj-text>
+
+        <mj-button
+          mj-class="btn"
+          href="{{apiUrl}}/account/verifyEmail/{{signupToken}}"
+        >
+          Verify Your Email
+        </mj-button>
+      </mj-column>
+    </mj-section>
+      
+    <mj-section mj-class="bottom-section">
+      <mj-column vertical-align="middle" width="70%">
+        <mj-text mj-class="small-text">
+          INTERESTING FACT
+        </mj-text>
+        
+        <mj-text mj-class="tiny-text">
+          It took more than three years to build the Titanic.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

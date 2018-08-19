@@ -83,12 +83,17 @@ exports.forgotPassword = async (ctx, next) => {
   const user = await userService.findOne({ email: data.email });
 
   let { resetPasswordToken } = user;
+  const { firstName } = user;
   if (!resetPasswordToken) {
     resetPasswordToken = await securityUtil.generateSecureToken();
     await userService.updateResetPasswordToken(user._id, resetPasswordToken);
   }
 
-  await emailService.sendForgotPassword(user, resetPasswordToken);
+  await emailService.sendForgotPassword({
+    email: user.email,
+    resetPasswordToken,
+    firstName,
+  });
 
   ctx.body = {};
 };

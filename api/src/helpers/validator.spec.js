@@ -1,5 +1,6 @@
-const { validate, Symbols } = require('./validator');
 const chai = require('chai');
+
+const { validate, Symbols } = require('./validator');
 
 chai.should();
 

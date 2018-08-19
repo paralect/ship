@@ -1,12 +1,14 @@
-const server = require('../../app');
+const chai = require('chai');
+const supertest = require('supertest');
 
 const db = require('db');
-const chai = require('chai');
 const constants = require('app.constants');
 
-const request = require('supertest').agent(server.listen());
-
 const userFactory = require('resources/user/user.factory');
+
+const server = require('../../app');
+
+const request = supertest.agent(server.listen());
 
 chai.should();
 

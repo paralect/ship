@@ -73,4 +73,3 @@ module.exports = [
   Joi.validate(schema),
   validateFunc,
 ];
-

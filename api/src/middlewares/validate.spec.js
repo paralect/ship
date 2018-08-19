@@ -1,10 +1,11 @@
 const path = require('path');
 const _ = require('lodash');
+const chai = require('chai');
+
 require('app-module-path').addPath(path.resolve(__dirname, '../'));
 
-const validate = require('./validate');
 const Joi = require('helpers/joi.adapter');
-const chai = require('chai');
+const validate = require('./validate');
 
 chai.should();
 
