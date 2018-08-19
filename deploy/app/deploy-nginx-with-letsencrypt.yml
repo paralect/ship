@@ -46,9 +46,10 @@
         name: "certbot-dns-{{dns_plugin}}"
         image: "certbot/dns-{{dns_plugin}}:v0.23.0"
         state: started
-        restart_policy: always
+        restart_policy: no
         force_kill: yes
         cleanup: yes
+        auto_remove: yes
         volumes:
           - "/etc/letsencrypt:/etc/letsencrypt"
           - "/var/lib/letsencrypt:/var/lib/letsencrypt"
@@ -61,7 +62,7 @@
       cron:
         name: letsencrypt_renewal
         special_time: monthly
-        job: sudo docker run --rm -it --name certbot-dns-{{dns_plugin}} -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt -v /var/.secrets:/var/.secrets -v /var/log/letsencrypt:/var/log/letsencrypt certbot/dns-{{dns_plugin}}:v0.23.0 renew --pre-hook "service nginx stop" --post-hook "service nginx start"
+        job: sudo docker run --rm -it --name certbot-dns-{{dns_plugin}} -v /etc/letsencrypt:/etc/letsencrypt -v /var/lib/letsencrypt:/var/lib/letsencrypt -v /var/.secrets:/var/.secrets -v /var/log/letsencrypt:/var/log/letsencrypt certbot/dns-{{dns_plugin}}:v0.23.0 renew
       when: install_letsencrypt == "y"
 
     - name: Generate dhparams
