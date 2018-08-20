@@ -4,7 +4,7 @@
   "author": "Paralect, LLC",
   "license": "MIT",
   "devDependencies": {
-    "all-contributors-cli": "^4.10.0"
+    "all-contributors-cli": "5.4.0"
   },
   "scripts": {
      "add-contributor": "all-contributors add",

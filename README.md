@@ -39,11 +39,11 @@ We believe we could ship great products faster, while maintain decent quality an
 |[Next.JS landing](https://github.com/paralect/nextjs-landing-starter)|Landing site|[2.3.0](https://github.com/paralect/nextjs-landing-starter/releases/tag/2.3.0)|
 |[Koa.JS REST api](https://github.com/paralect/koa-api-starter)|REST api|[2.1.0](https://github.com/paralect/koa-api-starter/releases/tag/2.1.0)|
 |[React.JS(with Redux) web app](https://github.com/paralect/koa-react-starter)|React.JS application|[3.1.0](https://github.com/paralect/koa-react-starter/releases/tag/3.1.0)
-|[MongoDB Api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API |[0.3.1](https://github.com/paralect/node-mongo/releases/tag/0.3.1)|
+|[MongoDB Api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API |[1.0.0](https://github.com/paralect/node-mongo/releases/tag/1.0.0)|
 |[Ansible Drone role](https://github.com/paralect/ansible-drone)|Ansible role for drone deployment|[1.0.0](https://github.com/paralect/ansible-drone/releases/tag/1.0)|
 |[Deploy Drone CI](https://github.com/paralect/deploy-drone)|Ansible automation for production-ready Drone CI deployment|[1.2.2](https://github.com/paralect/deploy-drone/releases/tag/1.2.2)|
 |[Deploy Grafana](https://github.com/paralect/deploy-grafana)|Ansible automation for production-ready Grafana deployment|[1.0.1](https://github.com/paralect/deploy-grafana/releases/tag/1.0.1)|
-|[Eslint config](https://github.com/paralect/eslint-config)|Airbnb based eslint config|[0.1.5](https://github.com/paralect/eslint-config/releases/tag/0.1.5)|
+|[Eslint config](https://github.com/paralect/eslint-config)|Airbnb based eslint config|[0.2.0](https://github.com/paralect/eslint-config/releases/tag/0.2.0)|
 
 Note: [release.yml](release.yml) always contains correct versions of every component and produced by automated merge process. We do our best to keep readme in sync :)
 
