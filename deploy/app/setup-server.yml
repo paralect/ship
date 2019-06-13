@@ -13,7 +13,7 @@
         - "{{app_home}}"
         - "{{mongo_data_dir}}"
         - "{{redis_data_dir}}"
-    
+
     - name: pull redis docker image
       docker_image:
         state: present
@@ -26,14 +26,15 @@
     - name: run redis using docker
       docker_container:
         name: redis
-        image: redis:4.0.8
+        image: redis:5.0.5
         command: ["redis-server", "--appendonly", "yes"]
         state: started
         restart_policy: always
         volumes:
           - "{{redis_data_dir}}:/data"
         ports:
-          - "6379:6379"
+          - "127.0.0.1:6379:6379"
+          - "{{private_host}}:6379:6379"
       tags:
         - redis
 
@@ -49,7 +50,7 @@
     - name: run mongo using docker
       docker_container:
         name: mongo
-        image: mongo:3.6.3
+        image: mongo:4.0.10
         command: mongod
         state: started
         restart_policy: always
@@ -57,5 +58,6 @@
           - "{{mongo_data_dir}}:/data/db"
         ports:
           - "127.0.0.1:27017:27017"
+          - "{{private_host}}:27017:27017"
       tags:
         - mongo

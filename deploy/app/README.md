@@ -2,14 +2,15 @@
 
 ### Update project specific variables
 
-1. Change `hosts/staging` to match you staging server ip address
+1. Change `hosts/staging` to match your staging server ip address and private ip address. Private ip address can be found in the result of `ifconfig` command on the server (`eth1`) 
 2. Change `api_domain,web_domain,landing_domain` domains in the `vars/main.yml`
 3. Change name of the docker images in the `deploy-app.yml` to match yours. e.x.: `paralect/ship-api` to `company/yourProduct-api`
 
 ### Setup commands
 
-1. Use `./bin/setup-server.sh` for one time server configuration. That installs Docker, MongoDb and Nginx.
-2. Use `./bin/setup-nginx.sh -i ./hosts/staging --extra-vars "env=staging"` for the first time and after nginx config changes to copy nginx template to the server.
+1. Use `./bin/install-ansible-dependencies.sh` once for installing ansible dependencies globally.
+2. Use `./bin/setup-staging.sh` for one time server configuration. That installs Docker, MongoDb and Nginx.
+3. Use `./bin/setup-nginx.sh -i ./hosts/staging --extra-vars "env=staging"` for the first time and after nginx config changes to copy nginx template to the server.
 
 ### Manual deployment
 

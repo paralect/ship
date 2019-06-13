@@ -82,6 +82,17 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "SobakaSlava",
+      "name": "sobakaslava",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/23057064?v=4",
+      "profile": "https://github.com/SobakaSlava",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
-  ]
+  ],
+  "repoType": "github"
 }
