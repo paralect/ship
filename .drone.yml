@@ -1,68 +1,110 @@
-pipeline:
-  run-test-suite:
+kind: pipeline
+name: default
+
+steps:
+  - name: run-test-suite
     image: michalpodeszwa/docker-compose:latest
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - name: docker-socket
+        path: /var/run/docker.sock
     commands:
       - ./bin/drone-run-tests.sh api-tests
     when:
-      event: [pull_request]
+      event:
+        - pull_request
 
-  publish-api-docker:
+  - name: publish-api-docker
     image: plugins/docker
-    secrets: [ docker_username, docker_password ]
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    repo: paralect/ship-api
-    tags:
-      - latest
-      - ${DRONE_BRANCH}
-    dockerfile: ./api/Dockerfile
-    context: ./api
+      - name: docker-socket
+        path: /var/run/docker.sock
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: sobakaslava/ship-api-grafana
+      tags:
+        - latest
+        - ${DRONE_BRANCH}
+      dockerfile: ./api/Dockerfile
+      context: ./api
     when:
-      branch: ["master", "production"]
-      event: [push]
+      branch:
+        - master
+        - production
+      event:
+        - push
 
-  publish-web-docker:
+  - name: publish-web-docker
     image: plugins/docker
-    secrets: [ docker_username, docker_password ]
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    repo: paralect/ship-web
-    tags:
-      - latest
-      - ${DRONE_BRANCH}
-    dockerfile: ./web/Dockerfile
-    context: ./web
+      - name: docker-socket
+        path: /var/run/docker.sock
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: sobakaslava/ship-web-grafana
+      tags:
+        - latest
+        - ${DRONE_BRANCH}
+      dockerfile: ./web/Dockerfile
+      context: ./web
     when:
-      branch: ["master", "production"]
-      event: [push]
+      branch:
+        - master
+        - production
+      event:
+        - push
 
-  publish-landing-docker:
+  - name: publish-landing-docker
     image: plugins/docker
-    secrets: [ docker_username, docker_password ]
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    repo: paralect/ship-landing
-    tags:
-      - latest
-      - ${DRONE_BRANCH}
-    dockerfile: ./landing/Dockerfile
-    context: ./landing
+      - name: docker-socket
+        path: /var/run/docker.sock
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: sobakaslava/ship-landing-grafana
+      tags:
+        - latest
+        - ${DRONE_BRANCH}
+      dockerfile: ./landing/Dockerfile
+      context: ./landing
     when:
-      branch: ["master", "production"]
-      event: [push]
+      branch:
+        - master
+        - production
+      event:
+        - push
 
-  deploy-staging-app:
+  - name: deploy-staging-app
     image: williamyeh/ansible:ubuntu16.04
-    secrets: [ ssh_key, docker_username, docker_password, docker_email ]
+    environment:
+      DOCKER_USERNAME:
+        from_secret: docker_username
+      DOCKER_PASSWORD:
+        from_secret: docker_password
+      DOCKER_EMAIL:
+        from_secret: docker_email
+      SSH_KEY:
+        from_secret: ssh_key
     commands:
       - mkdir -p ~/.ssh/
       - echo -n "$SSH_KEY" >> ~/.ssh/id_rsa_app && chmod 600 ~/.ssh/id_rsa_app
       - cp ./deploy/app/vars/credentials-template.yml ./deploy/app/vars/credentials.yml
       - cd ./deploy/app && ./bin/deploy-staging.sh --private-key ~/.ssh/id_rsa_app --extra-vars "docker_tag=latest docker_registry_username=$DOCKER_USERNAME docker_registry_password=$DOCKER_PASSWORD docker_registry_email=$DOCKER_EMAIL"
     when:
-      branch: ["master"]
-      event: [push]
+      branch:
+        - master
+      event:
+        - push
 
-branches: [ master, production, "*:master" ]
+volumes:
+  - name: docker-socket
+    host:
+      path: /var/run/docker.sock
