@@ -1,2 +1,2 @@
-app ansible_ssh_host=178.62.1.32 private_host=10.135.46.120 ansible_user=root ansible_python_interpreter='/usr/bin/python3'
+app ansible_ssh_host=209.97.143.27 private_host=10.131.42.101 ansible_user=root ansible_python_interpreter='/usr/bin/python3'
 localhost ansible_connection=local
