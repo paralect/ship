@@ -26,15 +26,15 @@
     - name: "Pull influxdb docker image"
       docker_image:
         state: present
-        name: "influxdb:1.5.2"
-        tag: "1.5.2"
+        name: "influxdb:1.7.6"
+        tag: "1.7.6"
       tags:
         - influxdb
 
     - name: "Launch InfluxDB container"
       docker_container:
         name: influxdb
-        image: "influxdb:1.5.2"
+        image: "influxdb:1.7.6"
         command: influxd -config /etc/influxdb/influxdb.conf
         state: started
         restart_policy: always

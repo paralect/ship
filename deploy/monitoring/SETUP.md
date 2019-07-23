@@ -58,7 +58,7 @@ Prepare for deployment:
 
 Once you done all above, run the following command:
 ```
-./bin/setup-server.sh && ./bin/deploy-influxdb.sh && ./bin/deploy-grafana.sh ./bin/deploy-nginx.sh
+./bin/setup-server.sh && ./bin/deploy-influxdb.sh && ./bin/deploy-grafana.sh && ./bin/deploy-nginx.sh
 ```
 
 ### Setting up Telegraf to collect data

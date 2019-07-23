@@ -5,6 +5,7 @@
   vars_prompt:
     - name: run_roles
       prompt: "Install nginx from scratch?"
+      private: false
       default: "n"
   vars_files:
     - "vars/main.yml"
