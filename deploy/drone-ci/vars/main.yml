@@ -4,9 +4,10 @@ server_ssl_cert_path: "/etc/nginx/ssl/drone-ci.crt"
 
 nginx_drone_server_name: ship-ci.paralect.com
 # Internal drone ui http url used by nginx to proxy traffic. For example: http://localhost:8000
-nginx_drone_internal_host: http://localhost:8000
+nginx_drone_internal_host: http://localhost:8080
 
-# List of users with admin access to the drone, readme more: http://docs.drone.io/user-management/
-drone_admins: "anorsich,ezhivitsa,IharKrasnik"
+# Initial administrative account, which can be used to grant the administrator role to additional accounts.
+# Read more: https://docs.drone.io/administration/user/admins/
+drone_user_create: "username:arlovaalina,admin:true"
 
 drone_postgress_db: ship_drone
