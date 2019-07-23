@@ -1,6 +1,6 @@
 module.exports = {
   mongo: {
-    connection: 'mongodb://mongo:27017/api-development',
+    connection: 'mongodb://root:rootPassword@mongo:27017/api-development?authSource=admin',
   },
   jwt: {
     secret: 'the_secret',

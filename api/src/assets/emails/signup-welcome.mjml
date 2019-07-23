@@ -26,19 +26,19 @@
 
         <mj-button
           mj-class="btn"
-          href="{{apiUrl}}/account/verifyEmail/{{signupToken}}"
+          href="{{verifyEmailUrl}}"
         >
           Verify Your Email
         </mj-button>
       </mj-column>
     </mj-section>
-      
+
     <mj-section mj-class="bottom-section">
       <mj-column vertical-align="middle" width="70%">
         <mj-text mj-class="small-text">
           INTERESTING FACT
         </mj-text>
-        
+
         <mj-text mj-class="tiny-text">
           It took more than three years to build the Titanic.
         </mj-text>

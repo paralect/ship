@@ -44,7 +44,6 @@ const validateFunc = async (signinData) => {
   const isPasswordMatch = await securityUtil.compareTextWithHash(
     signinData.password,
     user.passwordHash,
-    user.passwordSalt,
   );
 
   if (!isPasswordMatch) {

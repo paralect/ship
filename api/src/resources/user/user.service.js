@@ -31,8 +31,7 @@ service.updateResetPasswordToken = (_id, token) => {
 };
 
 service.updatePassword = async (_id, newPassword) => {
-  const salt = await securityUtil.generateSalt();
-  const hash = await securityUtil.getHash(newPassword, salt);
+  const hash = await securityUtil.getHash(newPassword);
 
   return service.update(
     {
@@ -41,7 +40,6 @@ service.updatePassword = async (_id, newPassword) => {
     (doc) => {
       const userDoc = doc;
       userDoc.passwordHash = hash;
-      userDoc.passwordSalt = salt;
     },
   );
 };

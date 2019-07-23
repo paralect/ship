@@ -7,16 +7,24 @@ const schema = {
     .trim()
     .options({
       language: {
-        any: { empty: '!!Your first name must be longer than 1 letter' },
+        any: {
+          empty: '!!Your first name must be longer than 1 letter',
+          required: '!!First name is required',
+        },
       },
-    }),
+    })
+    .required(),
   lastName: Joi.string()
     .trim()
     .options({
       language: {
-        any: { empty: '!!Your last name must be longer than 1 letter' },
+        any: {
+          empty: '!!Your last name must be longer than 1 letter',
+          required: '!!Last name is required',
+        },
       },
-    }),
+    })
+    .required(),
   email: Joi.string()
     .email({ minDomainAtoms: 2 })
     .trim()

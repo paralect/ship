@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const userService = require('./user.service');
 
-const userOmitFelds = ['passwordHash', 'passwordSalt', 'signupToken', 'resetPasswordToken'];
+const userOmitFelds = ['passwordHash', 'signupToken', 'resetPasswordToken'];
 
 exports.getCurrent = async (ctx) => {
   const user = await userService.findById(ctx.state.user._id);
