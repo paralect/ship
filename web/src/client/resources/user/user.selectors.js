@@ -1,12 +1,7 @@
-// @flow
-
-import type { StateType } from '../types';
-import type { StateType as UserType } from './user.types';
-
-export function getUser({ user }: StateType): UserType {
+export function getUser({ user }) {
   return user;
 }
 
-export function getUsername({ user }: StateType): string {
+export function getUsername({ user }) {
   return `${user.firstName || ''} ${user.lastName || ''}`.trim();
 }

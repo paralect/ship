@@ -1,19 +1,9 @@
-// @flow
-
 import React, { Component } from 'react';
-import type { Node } from 'react';
-
 import { FaClock } from 'react-icons/fa';
 
 import styles from './home.styles.pcss';
 
-type MeetingType = {
-  time: string,
-  description: string,
-  participants: Array<string>,
-};
-
-const meetingsList: Array<MeetingType> = [
+const meetingsList = [
   {
     time: '08:00 AM',
     description: 'Discussion of the attack strategy',
@@ -40,9 +30,9 @@ const meetingsList: Array<MeetingType> = [
   },
 ];
 
-class Home extends Component<*> {
-  static participantsList(participants: Array<string>): Array<React$Node> {
-    return participants.map((participator: string): React$Node => {
+class Home extends Component {
+  static participantsList(participants) {
+    return participants.map((participator) => {
       return (
         <li key={participator}>
           {participator}
@@ -51,8 +41,8 @@ class Home extends Component<*> {
     });
   }
 
-  static meetings(): Array<React$Node> {
-    return meetingsList.map((meeting: MeetingType): React$Node => {
+  static meetings() {
+    return meetingsList.map((meeting) => {
       return (
         <div
           key={meeting.description}
@@ -80,7 +70,7 @@ class Home extends Component<*> {
     });
   }
 
-  render(): Node {
+  render() {
     return (
       <div>
         <h1 className={styles.title}>

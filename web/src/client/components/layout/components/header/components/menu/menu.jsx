@@ -1,25 +1,13 @@
-// @flow
-
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
 import { indexPath, reportsPath } from 'components/layout/layout.paths';
 
-import type { LocationShape } from 'react-router-dom';
-
 import styles from './menu.styles.pcss';
 
-type PropType = {
-  className: string,
-};
-
-type LinkType = {
-  label: string,
-  to: LocationShape,
-};
-
-const links: Array<LinkType> = [
+const links = [
   {
     label: 'Dashboard',
     to: indexPath(),
@@ -30,8 +18,8 @@ const links: Array<LinkType> = [
   },
 ];
 
-class Menu extends Component<PropType> {
-  static item(link: LinkType): React$Node {
+class Menu extends Component {
+  static item(link) {
     return (
       <li key={link.label} className={styles.item}>
         <NavLink
@@ -45,10 +33,10 @@ class Menu extends Component<PropType> {
     );
   }
 
-  render(): React$Node {
+  render() {
     const { className } = this.props;
 
-    const linkNodes = links.map((link: LinkType): React$Node => {
+    const linkNodes = links.map((link) => {
       return Menu.item(link);
     });
 
@@ -59,5 +47,9 @@ class Menu extends Component<PropType> {
     );
   }
 }
+
+Menu.propTypes = {
+  className: PropTypes.string.isRequired,
+};
 
 export default Menu;

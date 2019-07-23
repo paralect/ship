@@ -1,28 +1,24 @@
-// @flow
-
-import type { LocationShape } from 'react-router-dom';
-
-export const indexPath = (options: LocationShape = {}): LocationShape => ({
+export const indexPath = (options = {}) => ({
   ...options,
   pathname: '/',
 });
 
-export const profilePath = (options: LocationShape = {}): LocationShape => ({
+export const profilePath = (options = {}) => ({
   ...options,
   pathname: '/profile',
 });
 
-export const changePasswordPath = (options: LocationShape = {}): LocationShape => ({
+export const changePasswordPath = (options = {}) => ({
   ...options,
   pathname: '/change-password',
 });
 
-export const logoutPath = (options: LocationShape = {}): LocationShape => ({
+export const logoutPath = (options = {}) => ({
   ...options,
   pathname: '/logout',
 });
 
-export const reportsPath = (options: LocationShape = {}): LocationShape => ({
+export const reportsPath = (options = {}) => ({
   ...options,
   pathname: '/reports',
 });

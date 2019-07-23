@@ -1,34 +1,22 @@
-// @flow
-
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Button from 'components/common/button/button';
 
 import styles from './link.styles.pcss';
 
-type PropsType = {
-  onClick?: (e: SyntheticEvent<HTMLDivElement>) => void,
-  text: string,
-  to: string,
-  tabIndex: number | string,
-};
-
 const noop = () => {};
 
-class ButtonLink extends Component<PropsType> {
-  static defaultProps = {
-    onClick: noop,
-  };
-
-  onKeyDown = (e: SyntheticKeyboardEvent<HTMLDivElement>) => {
+class ButtonLink extends Component {
+  onKeyDown = (e) => {
     const { onClick } = this.props;
     if (e.keyCode === 13 && onClick) {
       onClick(e);
     }
   };
 
-  render(): React$Node {
+  render() {
     const {
       to, text, onClick, tabIndex,
     } = this.props;
@@ -42,5 +30,16 @@ class ButtonLink extends Component<PropsType> {
     );
   }
 }
+
+ButtonLink.propTypes = {
+  onClick: PropTypes.func,
+  text: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+  tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+};
+
+ButtonLink.defaultProps = {
+  onClick: noop,
+};
 
 export default ButtonLink;

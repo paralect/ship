@@ -1,26 +1,17 @@
-// @flow
-
 import { combineReducers } from 'redux';
-import type { CombinedReducer } from 'redux';
-
-import type { StateType, ActionType } from './types';
+import { connectRouter } from 'connected-react-router';
 
 import toast from './toast/toast.reducer';
-import type { ReducerType as ToastReducerType } from './toast/toast.types';
-
 import user from './user/user.reducer';
-import type { ReducerType as UserReducerType } from './user/user.types';
 
-type ReducersType = {
-  user: UserReducerType,
-  toast: ToastReducerType,
-};
-
-const reducers: ReducersType = {
+const reducers = {
   user,
   toast,
 };
 
-const combinedReducer: CombinedReducer<StateType, ActionType> = combineReducers(reducers);
+const combinedReducer = history => combineReducers({
+  router: connectRouter(history),
+  ...reducers,
+});
 
 export default combinedReducer;

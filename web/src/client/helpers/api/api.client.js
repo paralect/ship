@@ -1,42 +1,30 @@
-// @flow
-
 import axios from 'axios';
-import type { $AxiosXHR, $AxiosError, $AxiosXHRConfig } from 'axios';
-
 import ApiError from './api.error';
 
-/* eslint-disable flowtype/no-weak-types */
-
-type AxiosFnType = (url: string, data?: Object) => Promise<Object>;
-
-type ApiErrorDataType = {
-  data: Object,
-  status: number,
-};
 
 // Do not throw errors on 'bad' server response codes
 axios.interceptors.response.use(
-  (axiosConfig: $AxiosXHR<*>): $AxiosXHR<*> => axiosConfig,
-  (error: $AxiosError<Object>): Object => error.response || {},
+  axiosConfig => axiosConfig,
+  error => error.response || {},
 );
 
 const generalError = {
   _global: ['Unexpected Error Occurred'],
 };
 
-const throwApiError = ({ data = {}, status = 500 }: ApiErrorDataType) => {
+const throwApiError = ({ data = {}, status = 500 }) => {
   console.error('API: Error Ocurred', status, data); //eslint-disable-line
   throw new ApiError(data, status);
 };
 
-const httpRequest = (method: string): AxiosFnType => async (url: string, data?: Object): Object => {
-  let urlWithSlash: string = url;
+const httpRequest = method => async (url, data) => {
+  let urlWithSlash = url;
 
   if (urlWithSlash[0] !== '/') {
     urlWithSlash = `/${urlWithSlash}`;
   }
 
-  const options: $AxiosXHRConfig<Object> = {
+  const options = {
     headers: { Authorization: `Bearer ${window.token}` },
     method,
     url: `${window.config.apiUrl}${urlWithSlash}`,
@@ -50,7 +38,7 @@ const httpRequest = (method: string): AxiosFnType => async (url: string, data?: 
     }
   }
 
-  const response: ?$AxiosXHR<Object> = await axios(options);
+  const response = await axios(options);
   if (!response) {
     throwApiError({
       data: { errors: generalError },
