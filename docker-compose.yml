@@ -2,13 +2,15 @@ version: '3.3'
 services:
   mongo:
     command: mongod
-    image: mongo:3.6.3
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootPassword
+    image: mongo:4.0.10
     ports:
       - "27017:27017" # map port to none standard port, to avoid conflicts with locally installed mongodb.
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   redis:
-    command: redis
     image: redis:4.0.8
     command: ["redis-server", "--appendonly", "yes"]
     hostname: redis
@@ -32,8 +34,6 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - "./web/src:/app/src"
-    ports:
-      - "3002:3002"
     depends_on:
       - redis
     links:
