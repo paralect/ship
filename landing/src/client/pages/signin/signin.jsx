@@ -6,6 +6,7 @@ import Error from '~/components/error';
 import Button from '~/components/button';
 import Form, { Wrap } from '~/components/form';
 import Input from '~/components/input';
+import SignUpGoogle from '~/components/signup-google';
 
 import Layout from '~/layouts/main';
 import Auth from '~/layouts/auth';
@@ -14,7 +15,7 @@ import { states } from '~/constants';
 import { setFormValue } from '~/helpers';
 import { signin } from '~/resources/account/account.api';
 
-import styles from './styles.pcss';
+import styles from './signin.styles.pcss';
 
 const {
   publicRuntimeConfig: { webUrl },
@@ -42,10 +43,12 @@ export default class Signin extends PureComponent {
   async submitSignin(event) {
     event.preventDefault();
     try {
+      const { email, password } = this.state;
+
       this.setState({ isLoading: true });
       const response = await signin({
-        email: this.state.email,
-        password: this.state.password,
+        email,
+        password,
       });
 
       window.location.href = `${webUrl}?token=${response.token}`;
@@ -57,6 +60,13 @@ export default class Signin extends PureComponent {
   }
 
   render() {
+    const {
+      email,
+      password,
+      error,
+      isLoading,
+    } = this.state;
+
     return (
       <Layout state={states.blue}>
         <Layout.HeaderContent state={states.blue}>
@@ -69,7 +79,7 @@ export default class Signin extends PureComponent {
               <Form onSubmit={this.submitSigninAsync}>
                 <Input
                   key="email"
-                  value={this.state.email}
+                  value={email}
                   onChange={this.setEmail}
                   required
                   placeholder="Email"
@@ -77,14 +87,14 @@ export default class Signin extends PureComponent {
                 />
                 <Input
                   key="password"
-                  value={this.state.password}
+                  value={password}
                   onChange={this.setPassword}
                   required
                   placeholder="Password"
                   type="password"
                 />
 
-                <Error error={this.state.error} />
+                <Error error={error} />
 
                 <div className={styles.forgot}>
                   <Link href="/forgot-password">
@@ -94,9 +104,9 @@ export default class Signin extends PureComponent {
                 <div className={styles.submit}>
                   <Button
                     className={styles.signin}
-                    action="submit"
+                    type="submit"
                     primary
-                    isLoading={this.state.isLoading}
+                    isLoading={isLoading}
                     state={states.blue}
                   >
                     Let me in
@@ -109,6 +119,8 @@ export default class Signin extends PureComponent {
                   </Link>
                 </div>
               </Form>
+
+              <SignUpGoogle />
             </Wrap>
           </Auth>
         </Layout.HeaderContent>

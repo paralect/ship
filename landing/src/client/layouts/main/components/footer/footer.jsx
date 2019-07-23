@@ -6,7 +6,7 @@ import Link from '~/components/link';
 
 import Logo from '~/static/logo.svg';
 
-import styles from './styles.pcss';
+import styles from './footer.styles.pcss';
 
 const Footer = ({ state }) => {
   const currentYear = new Date().getFullYear();
@@ -16,7 +16,10 @@ const Footer = ({ state }) => {
       <footer className={styles.footer}>
         <div>
           <Logo />
-          <div>© {currentYear}, All rights reserved</div>
+          <div>
+            ©
+            { currentYear }, All rights reserved
+          </div>
         </div>
 
         <div className={styles.links}>

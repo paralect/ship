@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import styles from './styles.pcss';
+import styles from './input.styles.pcss';
 
 const Input = ({ className, ...props }) => {
   return (

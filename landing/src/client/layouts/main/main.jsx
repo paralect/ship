@@ -8,9 +8,9 @@ import HeaderContent from './components/header-content';
 import Content from './components/content';
 import Footer from './components/footer';
 
-import styles from './styles.pcss';
+import styles from './main.styles.pcss';
 
-const Layout = ({ children, className, state }) => {
+const Main = ({ children, className, state }) => {
   return (
     <div className={classnames(styles.wrap, className)}>
       {children}
@@ -20,18 +20,18 @@ const Layout = ({ children, className, state }) => {
   );
 };
 
-Layout.propTypes = {
+Main.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   state: PropTypes.string,
 };
 
-Layout.defaultProps = {
+Main.defaultProps = {
   className: '',
   state: states.purple,
 };
 
-Layout.HeaderContent = HeaderContent;
-Layout.Content = Content;
+Main.HeaderContent = HeaderContent;
+Main.Content = Content;
 
-export default Layout;
+export default Main;

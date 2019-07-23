@@ -13,7 +13,7 @@ import { states } from '~/constants';
 import { setFormValue } from '~/helpers';
 import { forgotPassword } from '~/resources/account/account.api';
 
-import styles from './styles.pcss';
+import styles from './forgot-password.styles.pcss';
 
 export default class ForgotPassword extends PureComponent {
   static emailSent() {
@@ -51,7 +51,9 @@ export default class ForgotPassword extends PureComponent {
     const newState = {};
 
     try {
-      await forgotPassword({ email: this.state.email });
+      const { email } = this.state;
+
+      await forgotPassword({ email });
       newState.emailSent = true;
     } catch (error) {
       newState.error = error;
@@ -64,12 +66,14 @@ export default class ForgotPassword extends PureComponent {
   }
 
   form() {
+    const { email, error, isLoading } = this.state;
+
     return [
       <h2 key="title">Reset Your Password</h2>,
       <Form key="form" onSubmit={this.submitSigninAsync}>
         <Input
           key="email"
-          value={this.state.email}
+          value={email}
           onChange={this.setEmail}
           required
           placeholder="Email"
@@ -81,14 +85,14 @@ export default class ForgotPassword extends PureComponent {
           you a link to reset your password.
         </p>
 
-        <Error error={this.state.error} />
+        <Error error={error} />
 
         <div>
           <Button
             className={styles.submitBtn}
-            action="submit"
+            type="submit"
             primary
-            isLoading={this.state.isLoading}
+            isLoading={isLoading}
             state={states.purple}
           >
             Submit
@@ -99,6 +103,8 @@ export default class ForgotPassword extends PureComponent {
   }
 
   render() {
+    const { emailSent } = this.state;
+
     return (
       <Layout state={states.purple}>
         <Layout.HeaderContent state={states.purple}>
@@ -106,7 +112,7 @@ export default class ForgotPassword extends PureComponent {
             <Wrap>
 
               {
-                this.state.emailSent
+                emailSent
                   ? ForgotPassword.emailSent()
                   : this.form()
               }

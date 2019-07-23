@@ -1,37 +1,23 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const cssLoaderConfig = require('./css-loader-config');
-const commonsChunkConfig = require('./commons-chunk-config');
 
 module.exports = (nextConfig = {}) => {
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
       if (!options.defaultLoaders) {
-        throw new Error('This plugin is not compatible with Next.js versions below 5.0.0 https://err.sh/next-plugins/upgrade');
+        throw new Error(
+          'This plugin is not compatible with Next.js versions below 5.0.0 https://err.sh/next-plugins/upgrade',
+        );
       }
 
       const { dev, isServer } = options;
-      const { cssModules, cssLoaderOptions } = nextConfig;
-      // Support the user providing their own instance of ExtractTextPlugin.
-      // If extractCSSPlugin is not defined we pass the same instance of
-      // ExtractTextPlugin to all css related modules
-      // So that they compile to the same file in production
-      let extractCSSPlugin = nextConfig.extractCSSPlugin || options.extractCSSPlugin;
-
-      if (!extractCSSPlugin) {
-        extractCSSPlugin = new ExtractTextPlugin({
-          filename: 'static/style.css',
-        });
-        config.plugins.push(extractCSSPlugin);
-        options.extractCSSPlugin = extractCSSPlugin; // eslint-disable-line
-        if (!isServer) {
-          config = commonsChunkConfig(config); // eslint-disable-line
-        }
-      }
+      const { cssModules, cssLoaderOptions, postcssLoaderOptions } = nextConfig;
 
       // eslint-disable-next-line
-      options.defaultLoaders.css = cssLoaderConfig(config, extractCSSPlugin, {
+      options.defaultLoaders.css = cssLoaderConfig(config, {
+        extensions: ['pcss'],
         cssModules,
         cssLoaderOptions,
+        postcssLoaderOptions,
         dev,
         isServer,
       });

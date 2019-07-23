@@ -15,12 +15,12 @@ import { states } from '~/constants';
 import { setFormValue } from '~/helpers';
 import { resetPassword } from '~/resources/account/account.api';
 
-import styles from './styles.pcss';
+import styles from './reset-password.styles.pcss';
 
 export default class ResetPassword extends PureComponent {
   static propTypes = {
     token: PropTypes.string.isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -43,11 +43,13 @@ export default class ResetPassword extends PureComponent {
   async submitSignin(event) {
     event.preventDefault();
 
+    const { password } = this.state;
+
     this.setState({ isLoading: true, error: null });
     const newState = {};
 
     try {
-      await resetPassword({ password: this.state.password, token: this.token });
+      await resetPassword({ password, token: this.token });
       newState.emailSent = true;
     } catch (error) {
       newState.error = error;
@@ -60,12 +62,21 @@ export default class ResetPassword extends PureComponent {
   }
 
   form() {
-    if (this.state.emailSent) {
+    const {
+      password,
+      emailSent,
+      error,
+      isLoading,
+    } = this.state;
+
+    if (emailSent) {
       return (
         <div>
           <h2> Password Changed </h2>
           <p>
-            Your password has been changed. Please <Link href="/signin">Log In</Link> to continue.
+            Your password has been changed. Please
+            <Link href="/signin">Log In</Link>
+            to continue.
           </p>
         </div>
       );
@@ -79,21 +90,21 @@ export default class ResetPassword extends PureComponent {
           <p>Please choose new password.</p>
 
           <Input
-            value={this.state.password}
+            value={password}
             onChange={this.setPassword}
             required
             placeholder="New Password"
             type="password"
           />
 
-          <Error error={this.state.error} />
+          <Error error={error} />
 
           <div>
             <Button
               className={styles.signin}
-              action="submit"
+              type="submit"
               state={states.purple}
-              isLoading={this.state.isLoading}
+              isLoading={isLoading}
             >
               Submit
             </Button>

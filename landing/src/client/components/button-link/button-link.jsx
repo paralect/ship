@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import Link from '~/components/link';
 import Button, { sizes } from '~/components/button';
 
-import styles from './styles.pcss';
+import styles from './button-link.styles.pcss';
 
 const ButtonLink = ({
   href,
@@ -14,6 +14,8 @@ const ButtonLink = ({
   className,
   ...props
 }) => {
+  const { size } = props;
+
   return (
     <Button
       {...props}
@@ -21,7 +23,7 @@ const ButtonLink = ({
     >
       <Link
         href={href}
-        className={classnames(styles.link, styles[props.size])}
+        className={classnames(styles.link, styles[size])}
         prefetch={prefetch}
       >
         {children}

@@ -17,7 +17,7 @@ import ButtonLink from '~/components/button-link';
 import { sizes as buttonSizes } from '~/components/button';
 import { states } from '~/constants';
 
-import styles from './styles.pcss';
+import styles from './main.styles.pcss';
 
 export default () => (
   <Layout className={styles.layout}>

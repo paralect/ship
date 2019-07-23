@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { states } from '~/constants';
 
-import styles from './styles.pcss';
+import styles from './background.styles.pcss';
 
 const Background = ({ state }) => {
   return (

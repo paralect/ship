@@ -6,7 +6,7 @@ import Background from '~/components/background';
 
 import Header from '../header';
 
-import styles from './styles.pcss';
+import styles from './header-content.styles.pcss';
 
 const HeaderContent = ({ children, state }) => {
   return (

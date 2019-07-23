@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Header from './components/header';
 
-import styles from './styles.pcss';
+import styles from './privacy.styles.pcss';
 
 const PrivacyLayout = ({ children }) => {
   return (

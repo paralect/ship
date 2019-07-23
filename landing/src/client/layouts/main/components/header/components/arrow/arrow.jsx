@@ -1,9 +1,9 @@
 import React from 'react';
 import IconBase from 'react-icon-base';
 
-import styles from './styles.pcss';
+import styles from './arrow.styles.pcss';
 
-export default class FaHeart extends React.Component {
+export default class Arrow extends React.Component {
   render() {
     return (
       <IconBase width="13" height="10" viewBox="0 0 13 10" style={{ stroke: 'white' }} {...this.props}>

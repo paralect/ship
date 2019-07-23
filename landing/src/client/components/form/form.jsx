@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import styles from './styles.pcss';
+import styles from './form.styles.pcss';
 
 const Form = ({ children, className, ...props }) => {
   return (
