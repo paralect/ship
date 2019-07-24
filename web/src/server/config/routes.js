@@ -12,6 +12,12 @@ const indexRouter = new Router();
 const signinUrl = `${config.landingUrl}/signin`;
 const apiUrl = config.apiInternalUrl || config.apiUrl;
 
+indexRouter.get('/logout', async (ctx) => {
+  ctx.session = null;
+  ctx.redirect(signinUrl);
+  ctx.body = {};
+});
+
 // match all routes but not files (i.e. routes with dots)
 indexRouter.get(/^((?!\.).)*$/, async (ctx) => {
   const data = {

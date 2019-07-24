@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { ApiError } from '~/helpers/api';
 
-import styles from './styles.pcss';
+import styles from './error.styles.pcss';
 
 const defaultMessage = 'Unexpected error occurred';
 
@@ -10,7 +11,9 @@ const formatError = (err) => {
   if (err instanceof ApiError) {
     if (err.serverError) {
       return defaultMessage;
-    } else if (err._status === 400) {
+    }
+
+    if (err._status === 400) {
       if (err.data && err.data.errors) {
         let errorText = '';
 
@@ -30,7 +33,7 @@ const formatError = (err) => {
   return defaultMessage;
 };
 
-export default({ error } = {}) => {
+const Error = ({ error }) => {
   if (!error) {
     return null;
   }
@@ -41,3 +44,13 @@ export default({ error } = {}) => {
     </div>
   );
 };
+
+Error.propTypes = {
+  error: PropTypes.shape(),
+};
+
+Error.defaultProps = {
+  error: {},
+};
+
+export default Error;

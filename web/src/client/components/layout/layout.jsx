@@ -1,7 +1,5 @@
-// @flow
-
 import React, { Component } from 'react';
-import type { Node } from 'react';
+import PropTypes from 'prop-types';
 
 import Toast from 'components/common/toast';
 import Header from './components/header';
@@ -9,12 +7,8 @@ import Footer from './components/footer';
 
 import styles from './layout.styles.pcss';
 
-type PropsType = {
-  children: Node,
-};
-
-class Layout extends Component<PropsType> {
-  render(): Node {
+class Layout extends Component {
+  render() {
     const { children } = this.props;
 
     return (
@@ -32,5 +26,9 @@ class Layout extends Component<PropsType> {
     );
   }
 }
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Layout;

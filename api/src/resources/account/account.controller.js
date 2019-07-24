@@ -6,10 +6,8 @@ const securityUtil = require('security.util');
 const config = require('config');
 
 const createUserAccount = async (userData) => {
-  const salt = await securityUtil.generateSalt();
-
   const [hash, signupToken] = await Promise.all([
-    securityUtil.getHash(userData.password, salt),
+    securityUtil.getHash(userData.password),
     securityUtil.generateSecureToken(),
   ]);
 
@@ -17,13 +15,17 @@ const createUserAccount = async (userData) => {
     firstName: userData.firstName,
     lastName: userData.lastName,
     passwordHash: hash.toString(),
-    passwordSalt: salt.toString(),
     email: userData.email,
     isEmailVerified: false,
     signupToken,
+    oauth: {
+      google: false,
+    },
   });
 
-  await emailService.sendSignupWelcome({ email: user.email, signupToken });
+  const verifyEmailUrl = `${config.apiUrl}/account/verifyEmail/${signupToken}`;
+
+  await emailService.sendSignupWelcome({ email: user.email, verifyEmailUrl });
 
   return user;
 };
@@ -89,9 +91,11 @@ exports.forgotPassword = async (ctx, next) => {
     await userService.updateResetPasswordToken(user._id, resetPasswordToken);
   }
 
+  const resetPasswordUrl = `${config.landingUrl}/reset-password?token=${resetPasswordToken}`;
+
   await emailService.sendForgotPassword({
     email: user.email,
-    resetPasswordToken,
+    resetPasswordUrl,
     firstName,
   });
 

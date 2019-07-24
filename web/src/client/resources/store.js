@@ -1,26 +1,22 @@
-// @flow
-
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import type { BrowserHistory } from 'history/createBrowserHistory';
+import { routerMiddleware } from 'connected-react-router';
 
-import reducer from './reducer';
-import type { StoreType, StateType } from './types';
+import createRootReducer from './reducer';
 
-const configureStore = (initialState: StateType, history: BrowserHistory): StoreType => {
-  const store: StoreType = createStore(
-    connectRouter(history)(reducer),
+const configureStore = (initialState, history) => {
+  const store = createStore(
+    createRootReducer(history),
     initialState,
     compose(
       applyMiddleware(routerMiddleware(history), thunk),
-      window.devToolsExtension ? window.devToolsExtension() : f => f, // eslint-disable-line
+      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f, // eslint-disable-line
     ),
   );
 
   if (module.hot) {
     module.hot.accept('./reducer', () => {
-      store.replaceReducer(connectRouter(history)(reducer));
+      store.replaceReducer(createRootReducer(history));
     });
   }
 

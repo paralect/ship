@@ -1,7 +1,5 @@
-// @flow
-
 import React, { Component } from 'react';
-import type { Node } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import styles from './button.styles.pcss';
@@ -12,36 +10,17 @@ const colors = {
   red: 'red',
 };
 
-type ColorType = 'green' | 'blue' | 'red';
-
-type PropsType = {
-  children: Node,
-  onClick?: (e: SyntheticEvent<HTMLDivElement>) => Promise<*> | void,
-  onKeyDown?: (e: SyntheticKeyboardEvent<HTMLDivElement>) => Promise<*> | void,
-  tabIndex?: string | number,
-  color?: ColorType,
-  className?: string,
-};
-
 const noop = () => {};
 
-class Button extends Component<PropsType> {
-  static defaultProps = {
-    onClick: noop,
-    onKeyDown: noop,
-    tabIndex: 0,
-    color: colors.blue,
-    className: '',
-  };
-
-  onEnterDown = (e: SyntheticKeyboardEvent<HTMLDivElement>) => {
+class Button extends Component {
+  onEnterDown = (e) => {
     const { onClick } = this.props;
     if (e.keyCode === 13 && onClick) {
       onClick(e);
     }
   };
 
-  render(): Node {
+  render() {
     const {
       children, tabIndex, onClick, onKeyDown, color, className,
     } = this.props;
@@ -59,6 +38,23 @@ class Button extends Component<PropsType> {
     );
   }
 }
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  color: PropTypes.oneOf([colors.green, colors.blue, colors.red]),
+  className: PropTypes.string,
+};
+
+Button.defaultProps = {
+  onClick: noop,
+  onKeyDown: noop,
+  tabIndex: 0,
+  color: colors.blue,
+  className: '',
+};
 
 export default Button;
 export { colors };

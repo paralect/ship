@@ -1,7 +1,5 @@
-// @flow
-
 import React, { Component } from 'react';
-import type { Node } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import _uniq from 'lodash/uniq';
@@ -9,29 +7,13 @@ import _omit from 'lodash/omit';
 
 import styles from './input.styles.pcss';
 
-type InputType = 'text' | 'search' | 'email' | 'number' | 'password' | 'url';
-
-type PropsType = {
-  onChange: (value: string) => void,
-  value: string,
-  className?: string,
-  type: InputType,
-  errors: Array<string>,
-};
-
-export default class Input extends Component<PropsType> {
-  static defaultProps = {
-    className: '',
-    type: 'text',
-    errors: [],
-  };
-
-  onChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
+export default class Input extends Component {
+  onChange = (e) => {
     const { onChange } = this.props;
     onChange(e.target.value);
   };
 
-  errors(): Node {
+  errors() {
     const { errors } = this.props;
     if (!errors.length) {
       return null;
@@ -44,7 +26,7 @@ export default class Input extends Component<PropsType> {
     );
   }
 
-  render(): Node {
+  render() {
     const { className, errors } = this.props;
     const props = _omit(this.props, ['className', 'errors', 'onChange']);
 
@@ -63,3 +45,17 @@ export default class Input extends Component<PropsType> {
     );
   }
 }
+
+Input.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  type: PropTypes.oneOf(['text', 'search', 'email', 'number', 'password', 'url']),
+  errors: PropTypes.arrayOf(PropTypes.string),
+};
+
+Input.defaultProps = {
+  className: '',
+  type: 'text',
+  errors: [],
+};

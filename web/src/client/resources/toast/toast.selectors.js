@@ -1,9 +1,5 @@
-// @flow
-
-import type { StateType } from 'resources/types';
-import type { MessageType } from './toast.types';
 import * as fromToast from './toast.reducer';
 
-export const getToasterMessages = (state: StateType, filter: string): Array<MessageType> => {
+export const getToasterMessages = (state, filter) => {
   return fromToast.getToasterMessages(state.toast, filter);
 };

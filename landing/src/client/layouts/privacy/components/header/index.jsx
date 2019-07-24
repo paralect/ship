@@ -16,7 +16,8 @@ class Header extends Component {
   };
 
   isActiveLink(href) {
-    return this.props.router.pathname === href;
+    const { router } = this.props;
+    return router.pathname === href;
   }
 
   render() {

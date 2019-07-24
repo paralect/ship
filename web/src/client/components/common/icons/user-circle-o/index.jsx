@@ -1,11 +1,7 @@
-// @flow
-
 import React from 'react';
 import Icon from 'react-icon-base';
 
-import type { IconBaseProps } from 'react-icon-base';
-
-const UserCircle = (props: IconBaseProps): React$Node => (
+const UserCircle = props => (
   <Icon viewBox="0 0 1792 1792" {...props}>
     <g xmlns="http://www.w3.org/2000/svg" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g fill="currentColor">

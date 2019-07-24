@@ -36,7 +36,7 @@
         - grafana
 
     - name: Copy dashboard
-      template: src="./config/grafana/dashboards.json"
+      template: src="./config/grafana/dashboards.json.j2"
                 dest="/var/lib/grafana/dashboards/dashboards.json"
                 owner=root
                 group=root
@@ -55,15 +55,15 @@
       docker_image:
         state: present
         force: yes
-        name: "postgres:10.3"
-        tag: "10.3"
+        name: "postgres:11.3"
+        tag: "11.3"
       tags:
         - postgres
 
     - name: "Launch PostgreSQL container"
       docker_container:
         name: postgres
-        image: postgres:10.3
+        image: postgres:11.3
         state: started
         restart_policy: always
         ports:
@@ -81,16 +81,17 @@
       docker_image:
         state: present
         force: yes
-        name: "grafana/grafana:5.0.4"
-        tag: "5.0.4"
+        name: "grafana/grafana:5.4.3"
+        tag: "5.4.3"
       tags:
         - grafana
 
     - name: "Launch Grafana container"
       docker_container:
         name: grafana
-        image: grafana/grafana:5.0.4
+        image: grafana/grafana:5.4.3
         state: started
+        user: "0"
         restart_policy: always
         ports:
           - "3000:3000"

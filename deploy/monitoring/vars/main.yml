@@ -22,9 +22,16 @@ influxdb_connection: http://178.62.116.103:8086
 #   10.0.0.1:10000, etc.
 # mongo_connection: mongodb://10.10.3.33:27017
 mongo_connection: mongodb://178.62.1.32:27017
+
 # Redis connection string, used by telegraf to monitor count of operations
 # e.g.
 #   tcp://localhost:6379
 #   tcp://:password@192.168.99.100
 #   unix:///var/run/redis.sock
 redis_connection: tcp://178.62.1.32:6379
+
+# Urls to monitor by telegraf (array of strings)
+# empty array will turn monitoring off
+# e.g.
+#   ["http://www.github.com","http://www.google.com"]
+urls: []

@@ -1,12 +1,9 @@
-// @flow
-
 import React from 'react';
-import type { Node } from 'react';
-import type { LoadableExport$LoadingComponentProps } from 'react-loadable';
+import PropTypes from 'prop-types';
 
 import Loading from 'components/common/loading/loading';
 
-const AsyncLoading = ({ error, pastDelay }: LoadableExport$LoadingComponentProps): Node => {
+const AsyncLoading = ({ error, pastDelay }) => {
   if (error) {
     return (
       <div>
@@ -18,6 +15,19 @@ const AsyncLoading = ({ error, pastDelay }: LoadableExport$LoadingComponentProps
     return <Loading />;
   }
   return null;
+};
+
+AsyncLoading.propTypes = {
+  error: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    stack: PropTypes.string,
+  }),
+  pastDelay: PropTypes.bool.isRequired,
+};
+
+AsyncLoading.defaultProps = {
+  error: null,
 };
 
 export default AsyncLoading;

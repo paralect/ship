@@ -3,8 +3,7 @@ const faker = require('faker');
 const BaseBuilder = require('tests/base.builder');
 const userService = require('resources/user/user.service');
 
-const salt = 'salt';
-const qwertyHash = '$2a$10$8Z0s/vCE09wIN.piv7qCEuBmV8oIfafV.j7IOCXUTPZOUOpaLPa9K';
+const qwertyHash = '$2b$10$3d46e9T4n/UwEjIFFkIPXeoKSkgsz5jFE.20Cc9E8WOAjbGWqENs.';
 
 class UserBuilder extends BaseBuilder {
   constructor() {
@@ -27,9 +26,8 @@ class UserBuilder extends BaseBuilder {
     return this;
   }
 
-  password(passwordHash = qwertyHash, passwordSalt = salt) {
+  password(passwordHash = qwertyHash) {
     this.data.passwordHash = passwordHash;
-    this.data.passwordSalt = passwordSalt;
     return this;
   }
 

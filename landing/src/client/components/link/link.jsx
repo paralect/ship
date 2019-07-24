@@ -4,16 +4,20 @@ import NextLink from 'next/link';
 
 import _omit from 'lodash/omit';
 
-const Link = props => (
-  <NextLink {..._omit(props, ['className'])}>
-    <a
-      href={props.href}
-      className={props.className}
-    >
-      {props.children}
-    </a>
-  </NextLink>
-);
+const Link = (props) => {
+  const { href, className, children } = props;
+
+  return (
+    <NextLink {..._omit(props, ['className'])}>
+      <a
+        href={href}
+        className={className}
+      >
+        {children}
+      </a>
+    </NextLink>
+  );
+};
 
 Link.propTypes = {
   href: PropTypes.string.isRequired,

@@ -5,6 +5,7 @@
   gather_facts: False
   vars_prompt:
     - name: run_roles
+      private: false
       prompt: "Install nginx from scratch?"
       default: "n"
   vars_files:

@@ -6,7 +6,7 @@ module.exports = {
 
   entry: {
     main: [
-      'babel-polyfill',
+      '@babel/polyfill',
       'react-hot-loader/patch',
       './index.jsx',
     ],
@@ -34,10 +34,11 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
+              modules: {
+                localIdentName: '[local]_[hash:base64:5]',
+              },
+              localsConvention: 'camelCase',
               importLoaders: 1,
-              camelCase: true,
-              localIdentName: '[local]_[hash:base64:5]',
             },
           },
           { loader: 'postcss-loader' },

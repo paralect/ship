@@ -1,26 +1,21 @@
-// @flow
-
 import { reach } from 'yup';
-import type { ValidateOptions, ValidationError, Schema } from 'yup';
-
 import _get from 'lodash/get';
 import _set from 'lodash/set';
 
-import type { ValidationResultType, ValidationErrorsType } from './types';
 
-const yupOptions: ValidateOptions = {
+const yupOptions = {
   abortEarly: false,
 };
 
-const parseErrors = (error?: ValidationError, defaultPath: string = ''): ValidationErrorsType => {
-  const errors: ValidationErrorsType = {};
+const parseErrors = (error, defaultPath = '') => {
+  const errors = {};
 
   if (!error) {
     return errors;
   }
 
-  error.inner.forEach((err: ValidationError) => {
-    const path: string = err.path || defaultPath;
+  error.inner.forEach((err) => {
+    const path = err.path || defaultPath;
 
     let pathErrors = _get(errors, path);
     pathErrors = pathErrors || [];
@@ -32,23 +27,21 @@ const parseErrors = (error?: ValidationError, defaultPath: string = ''): Validat
   return errors;
 };
 
-/* eslint-disable flowtype/no-weak-types */
-
 /**
  * Validate some object using Joi schema
  * @param {object} obj
  * @param {object} schema
  * @return {object}
  */
-export const validate = async (obj: Object, schema: Schema): Promise<ValidationResultType> => {
+export const validate = async (obj, schema) => {
   try {
-    const value: Object = await schema.validate(obj, yupOptions);
+    const value = await schema.validate(obj, yupOptions);
     return {
       errors: {},
       value,
     };
   } catch (error) {
-    const errors: ValidationErrorsType = parseErrors(error);
+    const errors = parseErrors(error);
     return {
       value: obj,
       errors,
@@ -63,17 +56,17 @@ export const validate = async (obj: Object, schema: Schema): Promise<ValidationR
  * @param {object} schema
  * @return {object}
  */
-export const validateField = async (obj: Object, field: string, schema: Schema): Promise<ValidationResultType> => {
-  const newSchema: Schema = reach(schema, field);
+export const validateField = async (obj, field, schema) => {
+  const newSchema = reach(schema, field);
 
   try {
-    const value: Object = await newSchema.validate(_get(obj, field), yupOptions);
+    const value = await newSchema.validate(_get(obj, field), yupOptions);
     return {
       errors: {},
       value,
     };
   } catch (error) {
-    const errors: ValidationErrorsType = parseErrors(error, field);
+    const errors = parseErrors(error, field);
     return {
       value: obj,
       errors,

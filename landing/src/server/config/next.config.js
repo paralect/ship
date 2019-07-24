@@ -2,13 +2,20 @@ const { resolve } = require('path');
 
 const withCSS = require('../lib/next-css');
 
-const { apiUrl, webUrl, isDev } = require('./index');
+const {
+  apiUrl,
+  webUrl,
+  isDev,
+  gaTrackingId,
+} = require('./index');
 
 module.exports = withCSS({
   cssModules: true,
   cssLoaderOptions: {
-    camelCase: true,
-    localIdentName: '[local]___[hash:base64:5]',
+    localsConvention: 'camelCase',
+    modules: {
+      localIdentName: '[local]_[hash:base64:5]',
+    },
   },
   dev: isDev,
   dir: resolve('./../../client'),
@@ -16,5 +23,6 @@ module.exports = withCSS({
   publicRuntimeConfig: {
     apiUrl,
     webUrl,
+    gaTrackingId,
   },
 });

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +13,7 @@ import UserMenu from './components/user-menu';
 
 import styles from './header.styles.pcss';
 
-const Header = (): React$Node => {
+const Header = () => {
   return (
     <div className={styles.header}>
       <Link className={styles.title} to={indexPath()}>

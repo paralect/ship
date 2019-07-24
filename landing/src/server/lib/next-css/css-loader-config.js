@@ -1,37 +1,81 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const findUp = require('find-up');
+
+const fileExtensions = new Set();
+let extractCssInitialized = false;
 
 module.exports = (
   config,
-  extractPlugin,
   {
-    cssModules = false, cssLoaderOptions = {}, dev, isServer, loaders = [],
+    extensions = [],
+    cssModules = false,
+    cssLoaderOptions = {},
+    dev,
+    isServer,
+    postcssLoaderOptions = {},
+    loaders = [],
   },
 ) => {
+  // We have to keep a list of extensions for the splitchunk config
+  // eslint-disable-next-line
+  for (const extension of extensions) {
+    fileExtensions.add(extension);
+  }
+
+  if (!isServer) {
+    // eslint-disable-next-line
+    config.optimization.splitChunks.cacheGroups.styles = {
+      name: 'styles',
+      test: new RegExp(`\\.+(${[...fileExtensions].join('|')})$`),
+      chunks: 'all',
+      enforce: true,
+    };
+  }
+
+  if (!isServer && !extractCssInitialized) {
+    config.plugins.push(new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: dev
+        ? 'static/css/[name].css'
+        : 'static/css/[name].[contenthash:8].css',
+      chunkFilename: dev
+        ? 'static/css/[name].chunk.css'
+        : 'static/css/[name].[contenthash:8].chunk.css',
+    }));
+    extractCssInitialized = true;
+  }
+
   const postcssConfig = findUp.sync('postcss.config.js', {
     cwd: config.context,
   });
   let postcssLoader;
 
   if (postcssConfig) {
+    // Copy the postcss-loader config options first.
+    const postcssOptionsConfig = Object.assign(
+      {},
+      postcssLoaderOptions.config,
+      { path: postcssConfig },
+    );
+
     postcssLoader = {
       loader: 'postcss-loader',
-      options: {
-        config: {
-          path: postcssConfig,
-        },
-      },
+      options: Object.assign({}, postcssLoaderOptions, {
+        config: postcssOptionsConfig,
+      }),
     };
   }
 
   const cssLoader = {
-    loader: isServer ? 'css-loader/locals' : 'css-loader',
+    loader: 'css-loader',
     options: Object.assign(
       {},
       {
         modules: cssModules,
-        minimize: !dev,
         sourceMap: dev,
         importLoaders: loaders.length + (postcssLoader ? 1 : 0),
+        onlyLocals: isServer,
       },
       cssLoaderOptions,
     ),
@@ -48,9 +92,10 @@ module.exports = (
   }
 
   return [
-    dev && 'extracted-loader',
-    ...extractPlugin.extract({
-      use: [cssLoader, postcssLoader, ...loaders].filter(Boolean),
-    }),
+    !isServer && dev && 'extracted-loader',
+    !isServer && MiniCssExtractPlugin.loader,
+    cssLoader,
+    postcssLoader,
+    ...loaders,
   ].filter(Boolean);
 };

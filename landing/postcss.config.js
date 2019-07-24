@@ -21,6 +21,7 @@ module.exports = {
           appendVariables: false,
           preserve: false, // use true when will be fixed bug with duplicate root variables
         },
+        'color-mod-function': true,
       },
     }),
     cssnano({

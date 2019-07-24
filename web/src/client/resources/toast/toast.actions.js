@@ -1,24 +1,12 @@
-// @flow
-
 import uuidv4 from 'uuid/v4';
 
-import type { ShortMessageType, ActionType } from './toast.types';
-
-export const ADD_MESSAGE: string = 'add toast message';
-export const REMOVE_MESSAGE: string = 'remove toast message';
+export const ADD_MESSAGE = 'add toast message';
+export const REMOVE_MESSAGE = 'remove toast message';
 
 const displayTime = 3000;
 
-type DispatchFnType = (obj: ActionType | Promise<ActionType>) => void;
 
-type VoidFnType = (dispatch: DispatchFnType) => void;
-
-type RemoveMessageType = {
-  type: string,
-  id: string,
-};
-
-const hideAfterTimeout = (dispatch: DispatchFnType, id: string) => {
+const hideAfterTimeout = (dispatch, id) => {
   setTimeout(() => {
     dispatch({
       type: REMOVE_MESSAGE,
@@ -27,8 +15,8 @@ const hideAfterTimeout = (dispatch: DispatchFnType, id: string) => {
   }, displayTime);
 };
 
-const addMessage = (dispatch: DispatchFnType, data: ShortMessageType) => {
-  const id: string = uuidv4();
+const addMessage = (dispatch, data) => {
+  const id = uuidv4();
 
   hideAfterTimeout(dispatch, id);
 
@@ -41,11 +29,7 @@ const addMessage = (dispatch: DispatchFnType, data: ShortMessageType) => {
   });
 };
 
-export const addErrorMessage = (
-  title: string,
-  text: string,
-  isHTML: boolean = false,
-): VoidFnType => (dispatch: DispatchFnType) => {
+export const addErrorMessage = (title, text, isHTML = false) => (dispatch) => {
   addMessage(dispatch, {
     type: 'error',
     title,
@@ -54,11 +38,7 @@ export const addErrorMessage = (
   });
 };
 
-export const addSuccessMessage = (
-  title: string,
-  text: string,
-  isHTML: boolean = false,
-): VoidFnType => (dispatch: DispatchFnType) => {
+export const addSuccessMessage = (title, text, isHTML = false) => (dispatch) => {
   addMessage(dispatch, {
     type: 'success',
     title,
@@ -67,7 +47,7 @@ export const addSuccessMessage = (
   });
 };
 
-export const removeMessage = (id: string): RemoveMessageType => ({
+export const removeMessage = id => ({
   type: REMOVE_MESSAGE,
   id,
 });
