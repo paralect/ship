@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Chart.Name }}
+  annotations:
+    kubernetes.io/ingress.class: "{{ .Values.ingress.class }}"
+    nginx.ingress.kubernetes.io/custom-http-errors: "{{ .Values.ingress.customHttpErrors }}"
+    nginx.ingress.kubernetes.io/default-backend: {{ .Values.ingress.defaultBackend }}
+    kubernetes.io/tls-acme: "true"
+spec:
+  tls:
+    - hosts:
+      {{- range $rule := .Values.ingress.rules }}
+        - {{ $rule.host }}
+      {{- end }}
+      secretName: letsencrypt
+  rules:
+    {{- range $rule := .Values.ingress.rules }}
+    - host: {{ $rule.host }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ $rule.serviceName }}
+              servicePort: {{ $rule.servicePort }}
+    {{- end }}

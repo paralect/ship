@@ -1,0 +1,36 @@
+{
+  "mongo": {
+    "connection": "Replace this by mongo db connection string"
+  },
+  "session": {
+    "secret": "Replace this by session secret",
+    "ttl": 7200000,
+    "store": {
+      "host": "redis",
+      "port": 6379
+    }
+  },
+  "jwt": {
+    "secret": "Replace this by jwt secret",
+    "audience": "Replace this by jwt audience",
+    "issuer": "Replace this by jwt issuer"
+  },
+  "apiUrl": "Replace this by api domain url",
+  "webUrl": "Replace this by web domain url",
+  "landingUrl": "Replace this by landing domain url",
+  "webSocketUrl": "Replace this by web-socket domain url",
+  "redis": {
+    "host": "redis",
+    "port": 6379
+  },
+  "mailgun": {
+    "apiKey": "Replace this by mailgun api key",
+    "domain": "Replace this by mailgun domain"
+  },
+  "google": {
+    "clientId": "Replace this by google clientId",
+    "clientSecret": "Replace this by google clientSecret",
+    "redirectUri": "Replace this by redirect uri"
+  },
+  "gaTrackingId": "Replace this by Google Analytics tracking id"
+}
