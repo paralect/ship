@@ -12,6 +12,7 @@ steps:
     when:
       event:
         - pull_request
+    privileged: true
 
   - name: publish-api-docker
     image: plugins/docker
