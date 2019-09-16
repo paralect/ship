@@ -32,8 +32,9 @@ const schema = {
 };
 
 const validateFunc = async (signinData) => {
-  const user = await userService.findOne({ email: signinData.email });
   const errors = [];
+  const user = await userService.findOne({ email: signinData.email });
+
   if (!user) {
     errors.push({ credentials: incorrectCredentials });
     return {
@@ -60,9 +61,27 @@ const validateFunc = async (signinData) => {
     };
   }
 
+  let shouldCompleteTwoFa = false;
+
+  if (user.twoFa.isEnabled) {
+    if (signinData.twoFaCode) {
+      const isTwoFaCodeValid = twoFaHelper
+        .isTwoFaCodeValid(signinData.twoFaCode, user.twoFa.secret);
+
+       if (!isTwoFaCodeValid) {
+        errors.push({ twoFaCode: 'Two factor authentication code is incorrect' });
+
+         return { errors };
+      }
+    } else {
+      shouldCompleteTwoFa = true;
+    }
+  }
+
   return {
     value: {
-      userId: user._id,
+      user,
+      shouldCompleteTwoFa,
     },
     errors,
   };

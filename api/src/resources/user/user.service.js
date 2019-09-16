@@ -58,4 +58,30 @@ service.updateInfo = (_id, { email, firstName, lastName }) => {
   );
 };
 
+service.enableTwoFa = (_id, twoFaSecret) => {
+  return service.atomic.update({ _id }, {
+    $set: {
+      twoFa: {
+        isEnabled: true,
+        secret: twoFaSecret,
+      },
+    },
+  });
+};
+
+ service.disableTwoFa = (_id) => {
+  return service.atomic.update({ _id }, {
+    $unset: {
+      twoFa: {
+        secret: true,
+      },
+    },
+    $set: {
+      twoFa: {
+        isEnabled: false,
+      },
+    },
+  });
+};
+
 module.exports = service;

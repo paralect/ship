@@ -66,9 +66,15 @@ exports.verifyEmail = async (ctx, next) => {
  * Loads user by email and compare password hashes
  */
 exports.signin = async (ctx, next) => {
-  const signinData = ctx.validatedRequest.value;
+  const { user: { _id: userId }, shouldCompleteTwoFa } = ctx.validatedRequest.value;
 
-  const token = authService.createAuthToken({ userId: signinData.userId });
+  if (shouldCompleteTwoFa) {
+    ctx.body = { shouldCompleteTwoFa };
+
+    return;
+  }
+
+  const token = authService.createAuthToken({ userId });
 
   ctx.body = {
     token,
