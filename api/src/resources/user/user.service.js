@@ -58,11 +58,20 @@ service.updateInfo = (_id, { email, firstName, lastName }) => {
   );
 };
 
-service.enableTwoFa = (_id, twoFaSecret) => {
+service.enableTwoFa = (_id) => {
   return service.atomic.update({ _id }, {
     $set: {
       twoFa: {
         isEnabled: true,
+      },
+    },
+  });
+};
+
+service.saveTwoFaSecret = (_id, twoFaSecret) => {
+  return service.atomic.update({ _id }, {
+    $set: {
+      twoFa: {
         secret: twoFaSecret,
       },
     },

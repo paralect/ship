@@ -1,7 +1,7 @@
 const qrCode = require('qrcode');
 const speakeasy = require('speakeasy');
 
-exports.generateTwoFaQrCode = (twoFaUserSecret, username) => {
+exports.generateTwoFaSetupQrCode = (twoFaUserSecret, username) => {
   const url = speakeasy.otpauthURL({ secret: twoFaUserSecret, label: username });
 
   return qrCode.toDataURL(url);

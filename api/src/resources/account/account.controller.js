@@ -21,6 +21,9 @@ const createUserAccount = async (userData) => {
     oauth: {
       google: false,
     },
+    twoFa: {
+      isEnabled: false,
+    },
   });
 
   const verifyEmailUrl = `${config.apiUrl}/account/verifyEmail/${signupToken}`;
