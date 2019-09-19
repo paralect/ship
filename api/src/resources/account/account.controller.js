@@ -69,7 +69,7 @@ exports.verifyEmail = async (ctx, next) => {
  * Loads user by email and compare password hashes
  */
 exports.signin = async (ctx, next) => {
-  const { user: { _id: userId }, shouldCompleteTwoFa } = ctx.validatedRequest.value;
+  const { userId, shouldCompleteTwoFa } = ctx.validatedRequest.value;
 
   if (shouldCompleteTwoFa) {
     ctx.body = { shouldCompleteTwoFa };

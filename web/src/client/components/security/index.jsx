@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import _omit from 'lodash/omit';
-import _pick from 'lodash/pick';
+import _ from 'lodash';
 
 import Input from 'components/common/input';
 import Button, { colors as buttonColors } from 'components/common/button';
 import Form, { Row, Column } from 'components/common/form';
 
-import * as fromUser from 'resources/user/user.selectors';
 import {
-  updateUser as updateUserAction,
-  fetchUser as fetchUserAction,
-  validateUserField,
-  validateUser,
-} from 'resources/user/user.actions';
+  getTwoFaStatus,
+  initializeTwoFaSetup,
+  verifyTwoFaSetup,
+  disableTwoFa,
+} from 'resources/user/user.api';
 
 import {
   addErrorMessage as addErrorMessageAction,
@@ -24,86 +21,119 @@ import {
 
 import styles from './styles.pcss';
 
+const initialState = {
+  isTwoFaEnabled: false,
+  isVerificationStep: false,
+  qrCode: '',
+  verificationCode: '',
+  key: '',
+  account: '',
+  errors: {},
+};
 
-class Profile extends React.Component {
+// TODO: use errors from fields
+const parseTwoFaErrorText = errors => errors[0].verificationCode || errors[0].twoFa || '';
+
+class Security extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      errors: {},
+      ...initialState,
     };
-
-    this.updateUserAsync = this.updateUser.bind(this);
   }
 
   componentDidMount() {
-    this.feathUserData();
+    this.getTwoFaStatus();
   }
 
   onFieldChange = field => (value) => {
     this.setState({ [field]: value });
   };
 
-  validateField = field => async () => {
-    const userData = _omit(this.state, ['errors', 'prevProps']);
-    const result = await validateUserField(userData, field);
-
-    this.setState({ errors: result.errors });
-  };
-
-  showErrors(errors) {
-    this.setState({ errors });
-
+  getTwoFaStatus = async () => {
     const { addErrorMessage } = this.props;
-    addErrorMessage(
-      'Unable to save user info:',
-      errors._global ? errors._global.join(', ') : '',
-    );
-  }
-
-  async feathUserData() {
-    const {
-      fetchUser,
-      addErrorMessage,
-    } = this.props;
 
     try {
-      const response = await fetchUser('current');
-      this.setState(_pick(response, ['firstName', 'lastName', 'email']));
+      const { data: { isTwoFaEnabled } } = await getTwoFaStatus();
+      this.setState({ isTwoFaEnabled });
     } catch (error) {
       const { errors } = error.data;
+      this.setState({ errors });
+
       addErrorMessage(
-        'Unable to receive user info:',
+        'Unable to receive two factor authentication info:',
         errors._global ? errors._global.join(', ') : '',
       );
     }
   }
 
-  async updateUser() {
-    const result = await validateUser(_omit(
-      this.state,
-      ['errors', 'prevProps'],
-    ));
-
-    if (!result.isValid) {
-      this.showErrors(result.errors);
-      return;
-    }
-
-    const {
-      updateUser,
-      addSuccessMessage,
-    } = this.props;
+  runVerificationStep = async () => {
+    const { addErrorMessage } = this.props;
+    this.setState({ isVerificationStep: true });
 
     try {
-      await updateUser('current', _omit(this.state, 'errors'));
-      addSuccessMessage('User info updated!');
+      const { data: { qrCode, account, key } } = await initializeTwoFaSetup();
+      this.setState({ qrCode, account, key });
     } catch (error) {
-      this.showErrors(error.data.errors);
+      const { errors } = error.data;
+      this.setState({ errors });
+
+      addErrorMessage(
+        'Unable to initialize two factor authentication setup:',
+        errors._global ? errors._global.join(', ') : parseTwoFaErrorText(errors),
+      );
+
+      this.setState({ isVerificationStep: false });
     }
+  }
+
+  verifyTwoFaSetup = async () => {
+    const { addErrorMessage, addSuccessMessage } = this.props;
+    const { verificationCode } = this.state;
+
+    try {
+      await verifyTwoFaSetup({ verificationCode });
+      addSuccessMessage('Two factor authentication is enabled');
+      this.setState({ isTwoFaEnabled: true });
+      this.cleanupVerification();
+    } catch (error) {
+      const { errors } = error.data;
+      this.setState({ errors });
+
+      addErrorMessage(
+        'Unable to verify 2fa:',
+        errors._global ? errors._global.join(', ') : parseTwoFaErrorText(errors),
+      );
+    }
+  }
+
+  disableTwoFa = async () => {
+    const { addErrorMessage } = this.props;
+
+    try {
+      await disableTwoFa();
+      this.setState({ isTwoFaEnabled: false });
+      this.cleanupVerification();
+    } catch (error) {
+      const { errors } = error.data;
+      this.setState({ errors });
+
+      addErrorMessage(
+        'Unable to disable two factor authentication:',
+        errors._global ? errors._global.join(', ') : '',
+      );
+    }
+  }
+
+  cancelVerification = async () => {
+    this.cleanupVerification();
+
+    await this.getTwoFaStatus();
+  }
+
+  cleanupVerification = () => {
+    this.setState(_.omit(initialState, 'isTwoFaEnabled'));
   }
 
   error(field) {
@@ -111,76 +141,76 @@ class Profile extends React.Component {
     return errors[field] || [];
   }
 
-  render() {
+  renderVerificationStep = () => {
     const {
-      firstName,
-      lastName,
-      email,
+      verificationCode,
+      qrCode,
+      account,
+      key,
     } = this.state;
 
     return (
       <div>
         <h1>
-          {'Profile'}
+          {'Verify Two Factor Authentication'}
         </h1>
 
-        <Form>
+        <Form className={styles.form}>
           <Row>
             <Column>
-              <span>
-                {'First name'}
-              </span>
+              <p>
+                {'Install a soft token authenticator like FreeOTP or Google Authenticator from your application repository and scan this QR code.'}
+              </p>
 
-              <Input
-                errors={this.error('firstName')}
-                value={firstName}
-                onChange={this.onFieldChange('firstName')}
-                onBlur={this.validateField('firstName')}
-              />
-            </Column>
+              <img src={qrCode} alt="QR code" />
 
-            <Column>
-              <span>
-                {'Last name'}
-              </span>
-
-              <Input
-                errors={this.error('lastName')}
-                value={lastName}
-                onChange={this.onFieldChange('lastName')}
-                onBlur={this.validateField('lastName')}
-              />
+              <p>
+                Can't scan the code?
+                <br />
+                To add the entry manually, provide the following details to the application on your phone.
+                <br />
+                <i>
+                  {`Account: ${account}`}
+                </i>
+                <br />
+                <i>
+                  {`Key: ${key}`}
+                </i>
+                <br />
+                <i>Time based: Yes</i>
+              </p>
             </Column>
           </Row>
           <Row>
             <Column>
               <span>
-                {'Email'}
+                {'Verification Code:'}
               </span>
 
               <Input
-                errors={this.error('email')}
-                value={email}
-                onChange={this.onFieldChange('email')}
-                onBlur={this.validateField('email')}
+                value={verificationCode}
+                onChange={this.onFieldChange('verificationCode')}
               />
             </Column>
-
-            <Column />
           </Row>
           <Row>
             <Column>
-              <Button className={styles.button} tabIndex={-1} color={buttonColors.red}>
+              <Button
+                className={styles.button}
+                tabIndex={-1}
+                color={buttonColors.red}
+                onClick={this.cancelVerification}
+              >
                 {'Cancel'}
               </Button>
 
               <Button
                 className={styles.button}
-                onClick={this.updateUserAsync}
+                onClick={this.verifyTwoFaSetup}
                 tabIndex={0}
                 color={buttonColors.green}
               >
-                {'Save'}
+                {'Verify'}
               </Button>
             </Column>
           </Row>
@@ -188,29 +218,65 @@ class Profile extends React.Component {
       </div>
     );
   }
+
+  renderTwoFaStatus = () => {
+    const { isTwoFaEnabled } = this.state;
+
+    return (
+      <div>
+        <h1>
+          {'Two Factor Authentication'}
+        </h1>
+
+        <h2>
+          {`Status:${isTwoFaEnabled ? 'Enabled' : 'Disabled'}`}
+        </h2>
+
+        { !isTwoFaEnabled && (
+          <Button
+            className={styles.button}
+            onClick={this.runVerificationStep}
+            tabIndex={0}
+            color={buttonColors.green}
+          >
+            {'Enable'}
+          </Button>
+        )}
+        { isTwoFaEnabled && (
+          <Button
+            className={styles.button}
+            onClick={this.disableTwoFa}
+            tabIndex={0}
+            color={buttonColors.red}
+          >
+            {'Disable'}
+          </Button>
+        )}
+      </div>
+    );
+  }
+
+  render() {
+    const { isVerificationStep } = this.state;
+
+    return (
+      <div className={styles.content}>
+        { !isVerificationStep && this.renderTwoFaStatus() }
+        { isVerificationStep && this.renderVerificationStep() }
+      </div>
+    );
+  }
 }
 
-Profile.propTypes = {
-  updateUser: PropTypes.func.isRequired,
-  fetchUser: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    _id: PropTypes.string,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    email: PropTypes.string,
-  }).isRequired,
+Security.propTypes = {
   addErrorMessage: PropTypes.func.isRequired,
   addSuccessMessage: PropTypes.func.isRequired,
 };
 
 export default connect(
-  state => ({
-    user: fromUser.getUser(state),
-  }),
+  () => ({}),
   {
-    updateUser: updateUserAction,
-    fetchUser: fetchUserAction,
     addErrorMessage: addErrorMessageAction,
     addSuccessMessage: addSuccessMessageAction,
   },
-)(Profile);
+)(Security);

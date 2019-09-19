@@ -12,6 +12,7 @@ let base = {
   landingUrl: 'http://localhost:3000',
   webUrl: 'http://localhost:3002',
   apiUrl: 'http://localhost:3001',
+  applicationName: 'Ship',
   jwt: {
     secret: 'jwt_secret',
     audience: 'api',

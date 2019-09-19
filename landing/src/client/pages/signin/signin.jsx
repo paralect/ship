@@ -36,7 +36,7 @@ export default class Signin extends PureComponent {
       isLoading: false,
 
       error: null,
-      isTwoFaEnabled: true,
+      isTwoFaEnabled: false,
     };
   }
 

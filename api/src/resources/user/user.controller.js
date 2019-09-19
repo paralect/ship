@@ -25,28 +25,32 @@ exports.updateCurrent = async (ctx) => {
 };
 
 exports.getTwoFaStatus = async (ctx) => {
-  const { twoFa: { isEnabled: isTwoFaEnabled, secret: twoFaSecret }, email } = ctx.state.user;
+  const { twoFa: { isEnabled: isTwoFaEnabled } } = ctx.state.user;
 
   ctx.body = { isTwoFaEnabled };
 };
 
 exports.initializeTwoFaSetup = async (ctx) => {
-  const { email } = ctx.state.user;
+  const { email, _id: userId } = ctx.state.user;
+  const accountName = twoFaHelper.generateAccountName(email);
 
-  const userTwoFaSecret = twoFaHelper.generateTwoFaSecret();
-  const [qrCode] = await Promise.all([
-    twoFaHelper.generateTwoFaSetupQrCode(userTwoFaSecret, email),
-    userService.saveTwoFaSecret(userId, userTwoFaSecret),
-  ]);
+  let { twoFa: { secret } } = ctx.state.user;
 
-  // TBD: send secret key and account name to allow manual setup without of a qr code 
-  ctx.body = { qrCode };
+  if (!secret) {
+    secret = twoFaHelper.generateSecret(accountName);
+
+    await userService.saveTwoFaSecret(userId, secret);
+  }
+
+  const qrCode = await twoFaHelper.generateQrCode(secret, accountName);
+
+  ctx.body = { qrCode, key: secret, account: accountName };
 };
 
-exports.completeTwoFaSetup = async (ctx) => {
+exports.verifyTwoFaSetup = async (ctx) => {
   const { _id: userId } = ctx.state.user;
 
-  await userService.enableTwoFa(userId, userTwoFaSecret),
+  await userService.enableTwoFa(userId);
 
   // TBD: send recovery codes
   ctx.body = {};
@@ -54,7 +58,7 @@ exports.completeTwoFaSetup = async (ctx) => {
 
 exports.disableTwoFa = async (ctx) => {
   const { twoFa: { isEnabled: isTwoFaEnabled }, _id: userId } = ctx.state.user;
-  
+
   if (isTwoFaEnabled) {
     await userService.disableTwoFa(userId);
   }

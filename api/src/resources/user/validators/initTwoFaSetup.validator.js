@@ -1,6 +1,6 @@
 const validationFunction = async (data, persistentData) => {
   const errors = [];
-  const { twoFa: { isEnabled: isTwoFaEnabled } } = pesistentData.state.user;
+  const { twoFa: { isEnabled: isTwoFaEnabled } } = persistentData.state.user;
 
   if (isTwoFaEnabled) {
     errors.push({ twoFa: 'Two factor authentication is already enabled' });
@@ -18,4 +18,3 @@ const validationFunction = async (data, persistentData) => {
 module.exports = [
   validationFunction,
 ];
-

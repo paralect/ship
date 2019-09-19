@@ -1,16 +1,19 @@
 const qrCode = require('qrcode');
 const speakeasy = require('speakeasy');
+const config = require('config');
 
-exports.generateTwoFaSetupQrCode = (twoFaUserSecret, username) => {
-  const url = speakeasy.otpauthURL({ secret: twoFaUserSecret, label: username });
+exports.generateAccountName = userAccountName => `${config.applicationName}:${userAccountName}`;
 
-  return qrCode.toDataURL(url);
-};
-
-exports.generateTwoFaSecret = () => {
-  const secret = speakeasy.generateSecret();
+exports.generateSecret = (accountName) => {
+  const secret = speakeasy.generateSecret({ name: accountName });
 
   return secret.base32;
+};
+
+exports.generateQrCode = (secret, accountName) => {
+  const otpauthURL = speakeasy.otpauthURL({ secret, label: encodeURIComponent(accountName), encoding: 'base32' });
+
+  return qrCode.toDataURL(otpauthURL);
 };
 
 exports.isTwoFaCodeValid = (twoFaCode, twoFaSecret) => speakeasy.totp.verify({

@@ -60,36 +60,20 @@ service.updateInfo = (_id, { email, firstName, lastName }) => {
 
 service.enableTwoFa = (_id) => {
   return service.atomic.update({ _id }, {
-    $set: {
-      twoFa: {
-        isEnabled: true,
-      },
-    },
+    $set: { 'twoFa.isEnabled': true },
   });
 };
 
 service.saveTwoFaSecret = (_id, twoFaSecret) => {
   return service.atomic.update({ _id }, {
-    $set: {
-      twoFa: {
-        secret: twoFaSecret,
-      },
-    },
+    $set: { 'twoFa.secret': twoFaSecret },
   });
 };
 
- service.disableTwoFa = (_id) => {
+service.disableTwoFa = (_id) => {
   return service.atomic.update({ _id }, {
-    $unset: {
-      twoFa: {
-        secret: true,
-      },
-    },
-    $set: {
-      twoFa: {
-        isEnabled: false,
-      },
-    },
+    $set: { 'twoFa.isEnabled': false },
+    $unset: { 'twoFa.secret': true },
   });
 };
 
