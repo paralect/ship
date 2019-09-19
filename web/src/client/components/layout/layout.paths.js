@@ -18,6 +18,11 @@ export const logoutPath = (options = {}) => ({
   pathname: '/logout',
 });
 
+export const securityPath = (options = {}) => ({
+  ...options,
+  pathname: '/security',
+});
+
 export const reportsPath = (options = {}) => ({
   ...options,
   pathname: '/reports',

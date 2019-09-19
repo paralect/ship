@@ -7,6 +7,7 @@ import {
   FaAngleDown,
   FaUnlockAlt,
   FaSignOutAlt,
+  FaLock,
 } from 'react-icons/fa';
 import UserCircleO from 'components/common/icons/user-circle-o';
 
@@ -14,6 +15,7 @@ import {
   profilePath,
   changePasswordPath,
   logoutPath,
+  securityPath,
 } from 'components/layout/layout.paths';
 
 import styles from './user-menu.styles.pcss';
@@ -23,6 +25,12 @@ const linksList = [
     label: 'Profile',
     to: profilePath(),
     icon: UserCircleO,
+    routerLink: true,
+  },
+  {
+    label: 'Security',
+    to: securityPath(),
+    icon: FaLock,
     routerLink: true,
   },
   {
