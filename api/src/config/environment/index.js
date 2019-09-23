@@ -29,6 +29,11 @@ let base = {
     clientSecret: 'clientSecret',
     redirectUri: 'redirectUri',
   },
+  facebook: {
+    clientId: 'clientId',
+    clientSecret: 'clientSecret',
+    redirectUri: 'redirectUri',
+  },
 };
 
 const envConfig = require(`./${env}.js`); // eslint-disable-line

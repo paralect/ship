@@ -72,3 +72,8 @@ if (module.hot) {
     renderApp();
   });
 }
+
+// Remove extra symbols in address bar after facebook oauth login
+if (window.location.hash === '#_=_') {
+  window.history.pushState('', document.title, window.location.pathname + window.location.search);
+}

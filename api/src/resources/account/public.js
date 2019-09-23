@@ -12,7 +12,11 @@ router.post('/signin', validate(validators.signin), controller.signin);
 router.post('/forgotPassword', validate(validators.forgotPassword), controller.forgotPassword);
 router.put('/resetPassword', validate(validators.resetPassword), controller.resetPassword);
 router.post('/resend', controller.resendVerification);
+
 router.get('/signin/google/auth', googleController.getOAuthUrl);
 router.get('/signin/google', googleController.signinGoogleWithCode);
+
+router.get('/auth/facebook', controller.handleOauth('facebook', { scope: ['email'] }));
+router.get('/auth/facebook/callback', controller.handleOauthCallback('facebook'));
 
 module.exports = router.routes();

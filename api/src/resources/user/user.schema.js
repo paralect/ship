@@ -14,6 +14,7 @@ const userSchema = {
   isEmailVerified: Joi.boolean().default(false),
   oauth: Joi.object().keys({
     google: Joi.boolean().default(false),
+    facebookId: Joi.string(),
   }),
 };
 

@@ -4,6 +4,9 @@ const helmet = require('koa-helmet');
 const validate = require('koa-validate');
 const requestLogger = require('koa-logger');
 
+const passport = require('koa-passport');
+require('./passport');
+
 const { logger } = global;
 const routes = require('./routes');
 
@@ -56,6 +59,7 @@ module.exports = (app) => {
   app.use(helmet());
   app.use(bodyParser({ enableTypes: ['json', 'form', 'text'] }));
   app.use(requestLogger());
+  app.use(passport.initialize());
 
   validate(app);
 

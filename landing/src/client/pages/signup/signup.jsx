@@ -6,6 +6,7 @@ import Error from '~/components/error';
 import Form, { Wrap } from '~/components/form';
 import Input from '~/components/input';
 import SignUpGoogle from '~/components/signup-google';
+import OAuth from '~/components/oauth';
 
 import Layout from '~/layouts/main';
 import Auth from '~/layouts/auth';
@@ -43,6 +44,13 @@ export default class Signup extends PureComponent {
     };
 
     this.submitSignupAsync = this.submitSignup.bind(this);
+  }
+
+  componentDidMount() {
+    // Remove extra symbols in address bar after facebook oauth login
+    if (window.location.hash === '#_=_') {
+      window.history.pushState('', document.title, window.location.pathname + window.location.search);
+    }
   }
 
   async submitSignup(event) {
@@ -165,6 +173,7 @@ export default class Signup extends PureComponent {
                 </Form>
 
                 <SignUpGoogle />
+                <OAuth name="facebook" />
               </Wrap>
             )}
             <img alt="signup" src="/static/postman.jpg" />
