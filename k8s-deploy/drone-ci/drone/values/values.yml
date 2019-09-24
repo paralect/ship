@@ -1,0 +1,38 @@
+service:
+  type: ClusterIP
+
+sourceControl:
+  provider: github
+  github:
+    clientID: 66828c86031b2675bc50
+  secret: drone-server-secrets
+
+server:
+  host: ship-ci.paralect.com
+  adminUser: sobakaslava
+  kubernetes:
+    enabled: false
+  protocol: https
+
+ingress:
+  enabled: true
+  hosts:
+    - ship-ci.paralect.com
+  tls:
+    - hosts:
+        - ship-ci.paralect.com
+      secretName: letsencrypt
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    customHttpErrors: "404,502"
+    nginx.ingress.kubernetes.io/default-backend: error-pages
+    kubernetes.io/tls-acme: "true"
+
+agent:
+  volumes:
+    - name: docker-socket
+      hostPath:
+        path: /var/run/docker.sock
+  volumeMounts:
+    - name: docker-socket
+      mountPath: /var/run/docker.sock

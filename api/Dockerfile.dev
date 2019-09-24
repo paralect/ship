@@ -1,10 +1,12 @@
 FROM node:10.16.0
 
-EXPOSE 3001
-COPY ["./package.json", "./package-lock.json", ".eslintrc.js", ".eslintignore", "/app/"]
 WORKDIR /app
-RUN npm i --quiet
+COPY ./package.json ./
+RUN npm i
+COPY . .
 
 VOLUME "/app/src"
+
+EXPOSE 3001
 
 CMD npm run development

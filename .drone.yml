@@ -9,6 +9,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - ./bin/drone-run-tests.sh api-tests
+      - ./bin/drone-run-tests.sh web-tests
     when:
       event:
         - pull_request
@@ -18,92 +19,131 @@ steps:
     volumes:
       - name: docker-socket
         path: /var/run/docker.sock
+    purge: false
     settings:
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      repo: sobakaslava/ship-api-grafana
+      repo: paralect/ship-api
       tags:
         - latest
-        - ${DRONE_BRANCH}
+        - ${DRONE_BRANCH}.${DRONE_COMMIT}
       dockerfile: ./api/Dockerfile
       context: ./api
     when:
       branch:
-        - master
         - production
       event:
         - push
 
   - name: publish-web-docker
+    depends_on:
+      - publish-api-docker
     image: plugins/docker
     volumes:
       - name: docker-socket
         path: /var/run/docker.sock
+    purge: false
     settings:
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      repo: sobakaslava/ship-web-grafana
+      repo: paralect/ship-web
       tags:
         - latest
-        - ${DRONE_BRANCH}
+        - ${DRONE_BRANCH}.${DRONE_COMMIT}
       dockerfile: ./web/Dockerfile
       context: ./web
     when:
       branch:
-        - master
         - production
       event:
         - push
 
   - name: publish-landing-docker
+    depends_on:
+      - publish-api-docker
+      - publish-web-docker
     image: plugins/docker
     volumes:
       - name: docker-socket
         path: /var/run/docker.sock
+    purge: false
     settings:
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      repo: sobakaslava/ship-landing-grafana
+      repo: paralect/ship-landing
       tags:
         - latest
-        - ${DRONE_BRANCH}
+        - ${DRONE_BRANCH}.${DRONE_COMMIT}
       dockerfile: ./landing/Dockerfile
       context: ./landing
     when:
       branch:
-        - master
         - production
       event:
         - push
 
-  - name: deploy-staging-app
-    image: williamyeh/ansible:ubuntu16.04
+  - name: helm-deploy
+    depends_on:
+      - publish-api-docker
+      - publish-web-docker
+      - publish-landing-docker
+    image: quay.io/ipedrazas/drone-helm
     environment:
-      DOCKER_USERNAME:
-        from_secret: docker_username
-      DOCKER_PASSWORD:
-        from_secret: docker_password
-      DOCKER_EMAIL:
-        from_secret: docker_email
-      SSH_KEY:
-        from_secret: ssh_key
-    commands:
-      - mkdir -p ~/.ssh/
-      - echo -n "$SSH_KEY" >> ~/.ssh/id_rsa_app && chmod 600 ~/.ssh/id_rsa_app
-      - cp ./deploy/app/vars/credentials-template.yml ./deploy/app/vars/credentials.yml
-      - cd ./deploy/app && ./bin/deploy-staging.sh --private-key ~/.ssh/id_rsa_app --extra-vars "docker_tag=latest docker_registry_username=$DOCKER_USERNAME docker_registry_password=$DOCKER_PASSWORD docker_registry_email=$DOCKER_EMAIL"
+      PROD_API_SERVER:
+        from_secret: prod_api_server
+      PROD_KUBERNETES_TOKEN:
+        from_secret: prod_kubernetes_token
+      MONGO_USERNAME_KEY:
+        from_secret: mongo_username_key
+      MONGO_USERNAME_VALUE:
+        from_secret: mongo_username_value
+      MONGO_PASSWORD_KEY:
+        from_secret: mongo_password_key
+      MONGO_PASSWORD_VALUE:
+        from_secret: mongo_password_value
+      IMAGE_CREDENTIALS_ENABLED:
+        from_secret: image_credentials_enabled
+      IMAGE_CREDENTIALS_REGISTRY:
+        from_secret: image_credentials_registry
+      IMAGE_CREDENTIALS_USERNAME:
+        from_secret: image_credentials_username
+      IMAGE_CREDENTIALS_PASSWORD:
+        from_secret: image_credentials_password
+      IMAGE_CREDENTIALS_SECRET_NAME:
+        from_secret: image_credentials_secret_name
+    settings:
+      prefix: PROD
+      namespace: app
+      skip_tls_verify: true
+      chart: ./k8s-deploy/app/ship
+      release: ship-release
+      wait: true
+      recreate_pods: false
+      service_account: tiller
+      values_files:
+        - ./k8s-deploy/app/ship/values/values.yml
+      values:
+        - imagesVersion=${DRONE_BRANCH}.${DRONE_COMMIT}
+        - statefullSet.env[0].name=$MONGO_USERNAME_KEY
+        - statefullSet.env[0].value=$MONGO_USERNAME_VALUE
+        - statefullSet.env[1].name=$MONGO_PASSWORD_KEY
+        - statefullSet.env[1].value=$MONGO_PASSWORD_VALUE
+        - imageCredentials.enabled=$IMAGE_CREDENTIALS_ENABLED
+        - imageCredentials.registry=$IMAGE_CREDENTIALS_REGISTRY
+        - imageCredentials.username=$IMAGE_CREDENTIALS_USERNAME
+        - imageCredentials.password=$IMAGE_CREDENTIALS_PASSWORD
+        - imageCredentials.secretName=$IMAGE_CREDENTIALS_SECRET_NAME
     when:
       branch:
-        - master
+        - production
       event:
         - push
-
 volumes:
   - name: docker-socket
     host:

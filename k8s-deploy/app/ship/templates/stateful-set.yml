@@ -1,0 +1,39 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.statefullSet.name }}
+spec:
+  serviceName: "{{ .Values.statefullSet.name }}"
+  replicas: {{ .Values.statefullSet.replicas }}
+  template:
+    metadata:
+      labels:
+        role: {{ .Values.statefullSet.name }}
+        environment: {{ .Values.environment }}
+    spec:
+      terminationGracePeriodSeconds: {{ .Values.statefullSet.terminationGracePeriodSeconds }}
+      containers:
+        - name: {{ .Values.statefullSet.name }}
+          image: {{ .Values.statefullSet.image }}
+          env:
+{{ toYaml .Values.statefullSet.env | indent 12 }}
+          ports:
+{{ toYaml .Values.statefullSet.ports | indent 12 }}
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /data/db
+        - name: mongo-sidecar
+          image: cvallance/mongo-k8s-sidecar
+          env:
+            - name: MONGO_SIDECAR_POD_LABELS
+              value: "role=mongo,environment=staging"
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-persistent-storage
+        annotations:
+          volume.beta.kubernetes.io/storage-class: "do-block-storage"
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.statefullSet.storage }}

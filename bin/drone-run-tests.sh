@@ -2,7 +2,8 @@
 file=docker-compose.drone-tests.yml
 docker-compose --file $file stop
 docker-compose --file $file rm -f # remove old containers
-docker-compose --file $file up --build "$@"
+docker-compose --file $file up --build --force-recreate "$@"
+
 exitCode=$?
 if [ "$exitCode" != "0" ]; then
    echo "Docker-compose build failed"

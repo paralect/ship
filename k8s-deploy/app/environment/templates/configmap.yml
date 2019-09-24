@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: environment-config
+data:
+  staging.json: |-
+{{ .Files.Get "config.json" | indent 4 }}

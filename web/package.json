@@ -16,8 +16,8 @@
     "build-client": "webpack -p --config src/client/webpack.config.js",
     "start": "node src/server/app.js",
     "test": "run-s test:**",
-    "test:server": "eslint ./src/server",
-    "test:client": "eslint  --ext js --ext jsx ./src/client",
+    "test:server": "eslint src/server",
+    "test:client": "eslint  --ext js --ext jsx src/client",
     "test:lint-styles": "stylelint \"src/client/**/*.pcss\"",
     "development": "nodemon --watch src/server --watch src/client/webpack.dev.config.js src/server/app.js",
     "format": "prettier-eslint --write \"src/**/*.?(js|jsx)\""

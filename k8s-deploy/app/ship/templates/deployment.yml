@@ -1,0 +1,65 @@
+{{- range $deploy := .Values.deploys }}
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: {{ $deploy.name }}
+  labels:
+    app: {{ $deploy.name }}
+spec:
+  replicas: {{ $deploy.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $deploy.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $deploy.name }}
+    spec:
+      {{- if $.Values.imageCredentials.enabled }}
+      imagePullSecrets:
+        name: {{ $.Values.imageCredentials.secretName }}
+      {{- end }}
+      containers:
+        - name: {{ $deploy.name }}
+          image: '{{ $deploy.repository }}:{{ $deploy.imageVersion | default $.Values.imagesVersion }}'
+          {{- if $deploy.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: {{ $deploy.livenessProbe.path }}
+              port: {{ $deploy.livenessProbe.port }}
+            initialDelaySeconds: {{ $deploy.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $deploy.livenessProbe.periodSeconds }}
+          {{- end }}
+          {{- if $deploy.env }}
+          env:
+{{ toYaml $deploy.env | indent 12 }}
+          {{- end }}
+          {{- if $deploy.ports }}
+          ports:
+{{ toYaml $deploy.ports | indent 12 }}
+          {{- end }}
+          {{- if $deploy.configMountPath }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: {{ $deploy.configMountPath }}/{{ $.Values.environment }}.json
+              subPath: {{ $.Values.environment }}.json
+          {{- end }}
+          {{- if $deploy.resources }}
+          resources:
+{{ toYaml $deploy.resources | indent 12 }}
+          {{- end }}
+          imagePullPolicy: {{ $deploy.imagePullPolicy }}
+      {{- if $deploy.configMountPath }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: environment-config
+      {{- end }}
+      restartPolicy: Always
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+---
+{{- end }}
