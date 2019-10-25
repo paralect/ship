@@ -12,11 +12,12 @@
 
 A toolkit for makers to ship better products faster 🚀. 
 
-[Ship](https://github.com/paralect/ship) is a tool which help you setup your new product in matter of minutes. Ship is based on Stack. [Stack](https://github.com/paralect/stack) is an number of open-source components, resulted from years of hard work on a number of awesome products. We carefully select, document and share our production-ready knowledge with you. 
+[Ship](https://github.com/paralect/ship) is a tool which helps you setup your new product in a matter of minutes. Ship is based on Stack. [Stack](https://github.com/paralect/stack) is a number of open-source components, resulted from years of hard work on several awesome products. We carefully select, document and share our production-ready knowledge with you.
 
-We encourage developers to share production-ready solutions and help to  business ship something people need as quick as possible. 
+We encourage developers to share production-ready solutions and help to business ship something people need as quick as possible.
 
-If you're looking to start your new product based on Ship we'd be happy to provide you with a free consultation. Contact Paralect at andrew@paralect.com.
+If you're looking to start your new product based on Ship we'd be happy to provide you with a free consultation. Contact Paralect at  
+andrew@paralect.com.
 
 ## Why Ship?
 
@@ -30,7 +31,7 @@ We believe we could ship great products faster, while maintain decent quality an
 
 * We automatically build ship out of the number of smaller components. Our ultimate goal is too keep only parts your need for your product development.
 * Every component is kept is tiny as possible to simplify maintenance and stay up to date with new releases. 
-* Ship is always in production ready state. We test every release manually to make sure great developer experience. We use ship to build our own products, see more [here](https://github.com/paralect/ship).
+* Ship is always in a production-ready state. We test every release manually to make sure great developer experience. We use ship to build our products, see more [here](https://github.com/paralect/ship).
 
 ## Ship components
 
