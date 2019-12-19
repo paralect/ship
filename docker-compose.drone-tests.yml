@@ -2,7 +2,7 @@ version: '3.3'
 services:
   mongo:
     command: mongod
-    image: mongo:4.0.10
+    image: mongo:4.2
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   api-tests:
