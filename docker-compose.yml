@@ -5,7 +5,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=rootPassword
-    image: mongo:4.0.10
+    image: mongo:4.2
     ports:
       - "27017:27017" # map port to none standard port, to avoid conflicts with locally installed mongodb.
     volumes:

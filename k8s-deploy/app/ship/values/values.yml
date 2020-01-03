@@ -13,7 +13,7 @@ deploys:
     configMountPath: /app/src/config/environment
     imagePullPolicy: Always
     env:
-      - name: NODE_ENV
+      - name: APP_ENV
         value: "staging"
     ports:
       - containerPort: 3001
@@ -30,7 +30,7 @@ deploys:
     configMountPath: /app/src/server/config/environment
     imagePullPolicy: Always
     env:
-      - name: NODE_ENV
+      - name: APP_ENV
         value: "staging"
     ports:
       - containerPort: 3002

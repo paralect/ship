@@ -17,7 +17,7 @@ spec:
     spec:
       {{- if $.Values.imageCredentials.enabled }}
       imagePullSecrets:
-        name: {{ $.Values.imageCredentials.secretName }}
+        - name: {{ $.Values.imageCredentials.secretName }}
       {{- end }}
       containers:
         - name: {{ $deploy.name }}
