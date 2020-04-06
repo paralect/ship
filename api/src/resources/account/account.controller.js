@@ -1,3 +1,4 @@
+const passport = require('koa-passport');
 const userService = require('resources/user/user.service');
 const authService = require('auth.service');
 const emailService = require('email.service');
@@ -123,4 +124,22 @@ exports.resendVerification = async (ctx, next) => {
   }
 
   ctx.body = {};
+};
+
+exports
+  .handleOauth = (oauthStrategy, options) => passport.authenticate(oauthStrategy, options);
+
+exports.handleOauthCallback = oauthStrategy => async (ctx) => {
+  return passport.authenticate(oauthStrategy, (err, user, info) => {
+    // TBD: try to save original url of registration
+    // and return user to it in case of errors
+    if (err) {
+      ctx.status = 401;
+      ctx.body = {};
+    }
+
+    const token = authService.createAuthToken({ userId: user._id });
+
+    ctx.redirect(`${config.webUrl}?token=${token}`);
+  })(ctx);
 };
