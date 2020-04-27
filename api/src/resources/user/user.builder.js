@@ -15,6 +15,9 @@ class UserBuilder extends BaseBuilder {
     this.data.signupToken = null;
     this.data.resetPasswordToken = `${this.data._id}_reset_password_token`;
     this.data.isEmailVerified = true;
+    this.data.twoFa = {
+      isEnabled: false,
+    };
 
     this.email();
     this.password();

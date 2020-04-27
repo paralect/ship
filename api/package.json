@@ -41,7 +41,9 @@
     "koa-router": "7.4.0",
     "koa-validate": "1.0.7",
     "lodash": "4.17.14",
-    "nodemon": "1.19.1"
+    "nodemon": "1.19.1",
+    "qrcode": "1.4.1",
+    "speakeasy": "2.0.0"
   },
   "devDependencies": {
     "@paralect/eslint-config": "1.1.0",

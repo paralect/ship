@@ -21,6 +21,9 @@ const createUserAccount = async (userData) => {
     oauth: {
       google: false,
     },
+    twoFa: {
+      isEnabled: false,
+    },
   });
 
   const verifyEmailUrl = `${config.apiUrl}/account/verifyEmail/${signupToken}`;
@@ -66,9 +69,15 @@ exports.verifyEmail = async (ctx, next) => {
  * Loads user by email and compare password hashes
  */
 exports.signin = async (ctx, next) => {
-  const signinData = ctx.validatedRequest.value;
+  const { userId, shouldCompleteTwoFa } = ctx.validatedRequest.value;
 
-  const token = authService.createAuthToken({ userId: signinData.userId });
+  if (shouldCompleteTwoFa) {
+    ctx.body = { shouldCompleteTwoFa };
+
+    return;
+  }
+
+  const token = authService.createAuthToken({ userId });
 
   ctx.body = {
     token,

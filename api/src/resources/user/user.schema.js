@@ -15,6 +15,10 @@ const userSchema = {
   oauth: Joi.object().keys({
     google: Joi.boolean().default(false),
   }),
+  twoFa: Joi.object().keys({
+    isEnabled: Joi.boolean().default(false),
+    secret: Joi.string(),
+  }).required(),
 };
 
 module.exports = obj => Joi.validate(obj, userSchema, { allowUnknown: true });

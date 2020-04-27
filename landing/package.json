@@ -25,6 +25,7 @@
     "test:lint-styles": "stylelint \"src/client/**/*.pcss\""
   },
   "dependencies": {
+    "@material-ui/core": "4.4.2",
     "@paralect/common-logger": "0.1.10",
     "acorn": "6.2.0",
     "axios": "0.19.0",

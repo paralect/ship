@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomeAsync from './components/home/home.async';
 import ProfileAsync from './components/profile/profile.async';
+import SecurityAsync from './components/security/async';
 
 const key = (title) => {
   return module.hot ? Math.random().toString() : title;
@@ -14,6 +15,7 @@ const routes = () => (
   <Switch>
     <Route exact path="/" component={HomeAsync} key={key('index')} />
     <Route path="/profile" component={ProfileAsync} key={key('profile')} />
+    <Route path="/security" component={SecurityAsync} key={key('security')} />
   </Switch>
 );
 
