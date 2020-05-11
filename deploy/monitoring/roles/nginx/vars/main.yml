@@ -1,5 +1,0 @@
----
-nginx_user: www-data
-nginx_pid: /var/run/nginx.pid
-nginx_worker_processes: 2
-nginx_worker_connections: 1024

@@ -1,0 +1,35 @@
+service:
+  type: ClusterIP
+
+sourceControl:
+  provider: github
+  secret: drone-server-secrets
+
+server:
+  host: ci.paralect.net
+  kubernetes:
+    enabled: false
+  protocol: https
+
+ingress:
+  enabled: true
+  hosts:
+    - ci.paralect.net
+  tls:
+    - hosts:
+        - ci.paralect.net
+      secretName: letsencrypt
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    customHttpErrors: "404,502"
+    nginx.ingress.kubernetes.io/default-backend: error-pages
+    kubernetes.io/tls-acme: "true"
+
+agent:
+  volumes:
+    - name: docker-socket
+      hostPath:
+        path: /var/run/docker.sock
+  volumeMounts:
+    - name: docker-socket
+      mountPath: /var/run/docker.sock

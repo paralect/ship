@@ -1,0 +1,93 @@
+environment: staging
+namespace: app
+
+apps:
+  api:
+    deployment:
+      repository: paralect/ship-api
+      replicas: 1
+      livenessProbe:
+        path: /health
+        port: 3001
+        initialDelaySeconds: 6000
+        periodSeconds: 12000
+      imagePullPolicy: Always
+      env:
+        - name: APP_ENV
+          value: "staging"
+      ports:
+        - containerPort: 3001
+          protocol: TCP
+    services:
+      - name: api
+        type: ClusterIP
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 3001
+        ingress:
+          host: api.paralect.net
+      - name: socket
+        type: ClusterIP
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 8082
+        ingress:
+          host: socket.paralect.net
+
+  web:
+    deployment:
+      repository: paralect/ship-web
+      replicas: 1
+      livenessProbe:
+        path: /health
+        port: 3002
+        initialDelaySeconds: 3
+        periodSeconds: 5
+      imagePullPolicy: Always
+      env:
+        - name: APP_ENV
+          value: "staging"
+      ports:
+        - containerPort: 3002
+          protocol: TCP
+    services:
+      - name: web
+        type: ClusterIP
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 3002
+        ingress:
+          host: app.paralect.net
+
+  landing:
+    deployment:
+      repository: paralect/ship-landing
+      replicas: 1
+      livenessProbe:
+        path: /health
+        port: 3000
+        initialDelaySeconds: 3
+        periodSeconds: 5
+      imagePullPolicy: Always
+      env:
+        - name: APP_ENV
+          value: "staging"
+      ports:
+        - containerPort: 3000
+          protocol: TCP
+    services:
+      - name: landing
+        type: ClusterIP
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 3000
+        ingress:
+          host: landing.paralect.net
+
+imageCredentials:
+  enabled: true
+  secretName: regcred
