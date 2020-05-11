@@ -1,0 +1,70 @@
+
+{{- $app := pluck .Values.appname .Values.apps | first }}
+
+{{- if $app }}
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.appname }}
+  labels:
+    app: {{ .Values.appname }}
+spec:
+  replicas: {{ $app.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appname }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appname }}
+    spec:
+      {{- if $.Values.imageCredentials.enabled }}
+      imagePullSecrets:
+        - name: {{ $.Values.imageCredentials.secretName }}
+      {{- end }}
+      containers:
+        - name: {{ .Values.appname }}
+          image: '{{ $app.deployment.repository }}:{{ $app.deployment.imageVersion | default $.Values.imagesVersion }}'
+          {{- if $app.deployment.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: {{ $app.deployment.livenessProbe.path }}
+              port: {{ $app.deployment.livenessProbe.port }}
+            initialDelaySeconds: {{ $app.deployment.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $app.deployment.livenessProbe.periodSeconds }}
+          {{- end }}
+          {{- if $app.deployment.env }}
+          env:
+{{ toYaml $app.deployment.env | indent 12 }}
+          {{- end }}
+          {{- if $app.deployment.ports }}
+          ports:
+{{ toYaml $app.deployment.ports | indent 12 }}
+          {{- end }}
+          {{- if $app.deployment.configMountPath }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: {{ $app.deployment.configMountPath }}/{{ $.Values.environment }}.json
+              subPath: {{ $.Values.environment }}.json
+          {{- end }}
+          {{- if $app.deployment.resources }}
+          resources:
+{{ toYaml $app.deployment.resources | indent 12 }}
+          {{- end }}
+          imagePullPolicy: {{ $app.deployment.imagePullPolicy }}
+      {{- if $app.deployment.configMountPath }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: environment-config
+      {{- end }}
+      restartPolicy: Always
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+---
+
+{{- end }}

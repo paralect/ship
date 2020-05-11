@@ -1,0 +1,8 @@
+mongodbUsername: admin
+mongodbDatabase: staging-db
+
+replicaSet:
+  enabled: true
+  replicas:
+    secondary: 0
+    arbiter: 0
