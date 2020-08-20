@@ -27,7 +27,7 @@
     "@paralect/email-service": "0.2.0",
     "@paralect/node-mongo": "1.1.0",
     "app-module-path": "2.2.0",
-    "bcrypt": "3.0.6",
+    "bcrypt": "5.0.0",
     "google-auth-library": "4.2.5",
     "joi": "14.3.1",
     "jsonwebtoken": "8.5.1",
