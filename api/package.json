@@ -40,7 +40,7 @@
     "koa-mount": "4.0.0",
     "koa-router": "7.4.0",
     "koa-validate": "1.0.7",
-    "lodash": "4.17.14",
+    "lodash": "4.17.21",
     "nodemon": "1.19.1"
   },
   "devDependencies": {
