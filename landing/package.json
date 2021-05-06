@@ -31,7 +31,7 @@
     "classnames": "2.2.6",
     "cssnano": "4.1.10",
     "find-up": "4.1.0",
-    "lodash": "4.17.14",
+    "lodash": "4.17.21",
     "mini-css-extract-plugin": "0.7.0",
     "next": "9.0.0",
     "normalize.css": "8.0.1",
