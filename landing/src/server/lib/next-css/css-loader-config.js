@@ -17,13 +17,13 @@ module.exports = (
   },
 ) => {
   // We have to keep a list of extensions for the splitchunk config
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-restricted-syntax
   for (const extension of extensions) {
     fileExtensions.add(extension);
   }
 
   if (!isServer) {
-    // eslint-disable-next-line
+    // eslint-disable-next-line no-param-reassign
     config.optimization.splitChunks.cacheGroups.styles = {
       name: 'styles',
       test: new RegExp(`\\.+(${[...fileExtensions].join('|')})$`),
@@ -53,32 +53,29 @@ module.exports = (
 
   if (postcssConfig) {
     // Copy the postcss-loader config options first.
-    const postcssOptionsConfig = Object.assign(
-      {},
-      postcssLoaderOptions.config,
-      { path: postcssConfig },
-    );
+    const postcssOptionsConfig = {
+      ...postcssLoaderOptions.config,
+      path: postcssConfig,
+    };
 
     postcssLoader = {
       loader: 'postcss-loader',
-      options: Object.assign({}, postcssLoaderOptions, {
+      options: {
+        ...postcssLoaderOptions,
         config: postcssOptionsConfig,
-      }),
+      },
     };
   }
 
   const cssLoader = {
     loader: 'css-loader',
-    options: Object.assign(
-      {},
-      {
-        modules: cssModules,
-        sourceMap: dev,
-        importLoaders: loaders.length + (postcssLoader ? 1 : 0),
-        onlyLocals: isServer,
-      },
-      cssLoaderOptions,
-    ),
+    options: {
+      modules: cssModules,
+      sourceMap: dev,
+      importLoaders: loaders.length + (postcssLoader ? 1 : 0),
+      onlyLocals: isServer,
+      ...cssLoaderOptions,
+    },
   };
 
   // When not using css modules we don't transpile on the server

@@ -37,7 +37,9 @@ export default class CustomDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`}
           />
-          <script dangerouslySetInnerHTML={this.setGoogleTags()} />
+          <script
+            dangerouslySetInnerHTML={this.setGoogleTags() /* eslint-disable-line react/no-danger */}
+          />
         </body>
       </html>
     );

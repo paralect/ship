@@ -9,12 +9,6 @@ import Logo from '~/static/logo.svg';
 import styles from './styles.pcss';
 
 class Header extends Component {
-  static propTypes = {
-    router: PropTypes.shape({
-      pathname: PropTypes.string,
-    }).isRequired,
-  };
-
   isActiveLink(href) {
     const { router } = this.props;
     return router.pathname === href;
@@ -25,7 +19,7 @@ class Header extends Component {
       <nav className={styles.nav}>
         <div className={styles.logo}>
           <Link prefetch href="/">
-            <a href="/"><Logo /></a>
+            <a href="/" label="Logo"><Logo /></a>
           </Link>
         </div>
 
@@ -59,5 +53,11 @@ class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  router: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+};
 
 export default withRouter(Header);

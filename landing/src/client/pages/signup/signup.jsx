@@ -107,7 +107,8 @@ export default class Signup extends PureComponent {
                 <h2>Thank you for signing up!</h2>
                 <p>
                   The verification email has been sent to
-                  {email}.
+                  {email}
+                  .
                   <br />
                   Please follow the instructions from the email to complete a signup process.
                 </p>

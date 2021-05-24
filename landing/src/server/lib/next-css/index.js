@@ -1,7 +1,8 @@
 const cssLoaderConfig = require('./css-loader-config');
 
 module.exports = (nextConfig = {}) => {
-  return Object.assign({}, nextConfig, {
+  return {
+    ...nextConfig,
     webpack(config, options) {
       if (!options.defaultLoaders) {
         throw new Error(
@@ -12,7 +13,7 @@ module.exports = (nextConfig = {}) => {
       const { dev, isServer } = options;
       const { cssModules, cssLoaderOptions, postcssLoaderOptions } = nextConfig;
 
-      // eslint-disable-next-line
+      // eslint-disable-next-line no-param-reassign
       options.defaultLoaders.css = cssLoaderConfig(config, {
         extensions: ['pcss'],
         cssModules,
@@ -33,5 +34,5 @@ module.exports = (nextConfig = {}) => {
 
       return config;
     },
-  });
+  };
 };

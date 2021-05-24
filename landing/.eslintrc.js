@@ -1,19 +1,49 @@
 module.exports = {
-  "extends": "@paralect/eslint-config",
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+  },
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "es6": true,
+    "node": true,
+  },
   "plugins": [
     "react",
   ],
   "rules": {
-    "import/extensions": 0, //https://github.com/benmosher/eslint-plugin-import/issues/764,
-    "jsx-a11y/anchor-is-valid": [ "error", {
-      "components": [ "Link" ],
-      "specialLink": [ "to" ]
+    "arrow-body-style": 0,
+    "linebreak-style": 0,
+    "no-underscore-dangle": 0,
+    "import/prefer-default-export": 0,
+    "import/extensions": ["error", "ignorePackages", {
+      "js": "never",
+      "jsx": "never",
     }],
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": [
-        "**/*.config.js",
-      ],
-    }],
-    "react/jsx-one-expression-per-line": ["warn"],
-  }
+  },
+  "settings": {
+    "import/resolver": {
+      "eslint-import-resolver-custom-alias": {
+        "alias": {
+          "~": "./src/client",
+        },
+      },
+      "node": {
+        "extensions": [".js", ".jsx"],
+        "moduleDirectory": [
+          "src",
+          "node_modules",
+          "server",
+        ],
+        "paths": ["src/client"],
+      },
+    },
+  },
+  "globals": {
+    "APP_CONFIG": true,
+    "APP_CONSTANTS": true,
+  },
 };

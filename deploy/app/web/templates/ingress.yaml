@@ -1,0 +1,22 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+  name: web
+  labels:
+    app: web
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/custom-http-errors: "404,502"
+    nginx.ingress.kubernetes.io/default-backend: error-pages
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    kubernetes.io/tls-acme: "true"
+spec:
+  rules:
+  - host: {{ .Values.domain }}
+    http:
+      paths:
+      - backend:
+          serviceName: web
+          servicePort: 3020

@@ -8,7 +8,7 @@ const Form = ({ children, className, ...props }) => {
   return (
     <form
       className={classnames(styles.form, className)}
-      {...props}
+      {...props /* eslint-disable-line react/jsx-props-no-spreading */}
     >
       {children}
     </form>

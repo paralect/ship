@@ -18,7 +18,8 @@ const Footer = ({ state }) => {
           <Logo />
           <div>
             ©
-            { currentYear }, All rights reserved
+            { currentYear }
+            , All rights reserved
           </div>
         </div>
 

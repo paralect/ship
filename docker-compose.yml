@@ -1,0 +1,107 @@
+version: '3.6'
+services:
+  mongo:
+    container_name: ship-mongo
+    image: mongo:4.2
+    command: --replSet ship-rs --bind_ip_all
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    networks:
+      - ship
+    ports:
+      - 27017:27017
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - type: volume
+        source: mongodb
+        target: /data/db
+      - type: volume
+        source: mongodb-cfg
+        target: /data/configdb
+  mongo-replicator:
+    container_name: ship-mongo-replicator
+    build: ./api/mongo-replicator
+    environment:
+      - HOST=mongo
+      - PORT=27017
+      - USERNAME=root
+      - PASSWORD=root
+      - REPLICA_SET_NAME=ship-rs
+    networks:
+      - ship
+    depends_on:
+      - mongo
+  redis:
+    container_name: ship-redis
+    image: redis:5.0.5
+    command: redis-server --appendonly yes
+    hostname: redis
+    networks:
+      - ship
+    ports:
+      - 6379:6379
+  api:
+    container_name: ship-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    networks:
+      - ship
+    environment:
+      APP_ENV: development
+    volumes:
+      - ./api/src:/app/src
+    ports:
+      - 3001:3001
+      - 8082:8082
+    depends_on:
+      - redis
+      - mongo-replicator
+  migrator:
+    container_name: ship-migrator
+    command: npm run migrate
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    networks:
+      - ship
+    volumes:
+      - ./api/src:/app/src
+    depends_on:
+      - mongo-replicator
+  scheduler:
+    container_name: ship-scheduler
+    command: npm run schedule-dev
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    networks:
+      - ship
+    volumes:
+      - ./api/src:/app/src
+    depends_on:
+      - mongo-replicator
+  web:
+    container_name: ship-web
+    build:
+      context: ./web
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./web/src:/app/src
+    networks:
+      - ship
+    environment:
+      NODE_ENV: development
+      HRM_HOST: 0.0.0.0
+    ports:
+      - 3002:3002
+      - 8081:8081
+
+networks:
+  ship:
+    name: ship-network
+
+volumes:
+  mongodb:
+  mongodb-cfg:

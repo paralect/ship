@@ -1,0 +1,76 @@
+.button {
+  border: 0;
+  position: relative;
+  display: inline-block;
+  border-radius: 4px;
+  padding: 10px 15px;
+  transition: background 0.5s;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+  outline: none;
+
+  &.primary {
+    background: var(--primary);
+  }
+
+  &.success {
+    background: var(--green);
+  }
+
+  &.danger {
+    background: var(--red);
+  }
+}
+
+.buttonLoading {
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader {
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  border-top-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  animation: spin 1.5s linear infinite;
+
+  &::before {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    top: 0.5px;
+    left: 0.8px;
+    position: absolute;
+    background: #fff;
+  }
+
+  &::after {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    top: 0.5px;
+    right: 0.8px;
+    position: absolute;
+    background: #fff;
+  }
+}

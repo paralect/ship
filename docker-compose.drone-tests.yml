@@ -1,0 +1,56 @@
+version: '3.6'
+services:
+  mongo-test:
+    container_name: ship-test-mongo
+    image: mongo:4.2
+    command: --replSet ship-test-rs --bind_ip_all
+    networks:
+      - ship-test
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  mongo-replicator-test:
+    container_name: ship-test-mongo-replicator
+    build: ./api/mongo-replicator
+    environment:
+      - HOST=mongo-test
+      - PORT=27017
+      - REPLICA_SET_NAME=ship-test-rs
+      - IMMORTAL=true
+    networks:
+      - ship-test
+    depends_on:
+      - mongo-test
+  redis-test:
+    container_name: ship-test-redis
+    image: redis:5.0.5
+    command: redis-server --appendonly yes
+    hostname: redis
+    networks:
+      - ship-test
+  api-test:
+    container_name: ship-test-api
+    command: npm test
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    networks:
+      - ship-test
+    environment:
+      APP_ENV: test
+    depends_on:
+      - redis-test
+      - mongo-replicator-test
+  web-test:
+    container_name: ship-test-web
+    command: npm test
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    networks:
+      - ship-test
+    environment:
+      NODE_ENV: development
+
+networks:
+  ship-test:
+    name: ship-test-network

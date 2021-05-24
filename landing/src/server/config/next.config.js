@@ -4,12 +4,19 @@ const withCSS = require('../lib/next-css');
 
 const {
   apiUrl,
-  webUrl,
   isDev,
   gaTrackingId,
 } = require('./index');
 
-module.exports = withCSS({
+const config = {
+  dev: isDev,
+  dir: resolve('./../../client'),
+  isServer: true,
+  publicRuntimeConfig: {
+    apiUrl,
+    gaTrackingId,
+  },
+
   cssModules: true,
   cssLoaderOptions: {
     localsConvention: 'camelCase',
@@ -17,12 +24,6 @@ module.exports = withCSS({
       localIdentName: '[local]_[hash:base64:5]',
     },
   },
-  dev: isDev,
-  dir: resolve('./../../client'),
-  isServer: true,
-  publicRuntimeConfig: {
-    apiUrl,
-    webUrl,
-    gaTrackingId,
-  },
-});
+};
+
+module.exports = withCSS(config);

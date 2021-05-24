@@ -1,0 +1,20 @@
+{
+  "mongo": {
+    "connection": "mongodb://mongo-test/api-test?replicaSet=ship-test-rs"
+  },
+  "redis": {
+    "host": "redis-test",
+    "port": 6379
+  },
+  "apiUrl": "http://localhost:4001",
+  "webUrl": "http://localhost:3002",
+  "mailgun": {
+    "apiKey": "329a737adb6b47b77534b434fca1da72-b6183ad4-9914f83d",
+    "domain": "sandbox492d785e56fe42cdb3266d86c53cffca.mailgun.org"
+  },
+  "google": {
+    "clientId": "clientId",
+    "clientSecret": "clientSecret",
+    "redirectUri": "redirectUri"
+  }
+}

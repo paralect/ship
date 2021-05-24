@@ -1,10 +1,12 @@
 FROM node:10.16.0
 
-EXPOSE 3000
-COPY ["./package.json", "./package-lock.json", "./.eslintrc.js", "./.babelrc", "./postcss.config.js", "./.stylelintrc", "/app/"]
-RUN cd /app && npm i --quiet
-
-COPY ./src /app/src
 WORKDIR /app
+
+COPY ./package.json ./
+RUN npm i -s
+COPY . .
+RUN npm run build
+
+EXPOSE 3000
 
 CMD npm start

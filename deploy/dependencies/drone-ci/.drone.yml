@@ -1,0 +1,77 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: deploy-api
+    image: docker:latest
+    volumes:
+      - name: docker-socket
+        path: /var/run/docker.sock
+    environment:
+      DOCKER_AUTH_USERNAME:
+        from_secret: docker_username
+      DOCKER_AUTH_PASSWORD:
+        from_secret: docker_password
+      KUBE_CONFIG:
+        from_secret: kube_config
+      DRONE_BRANCH: ${DRONE_BRANCH}
+      DRONE_COMMIT: ${DRONE_COMMIT}
+    commands:
+      - docker build -f deploy/script/Dockerfile -t deploy ./
+      - docker run -v /var/run/docker.sock:/var/run/docker.sock:rw -e DOCKER_AUTH_USERNAME=$DOCKER_AUTH_USERNAME -e DOCKER_AUTH_PASSWORD=$DOCKER_AUTH_PASSWORD -e SERVICE=api -e IMAGE_TAG=$DRONE_BRANCH.$DRONE_COMMIT -e KUBE_CONFIG="$KUBE_CONFIG" deploy
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+  - name: deploy-web
+    image: docker:latest
+    volumes:
+      - name: docker-socket
+        path: /var/run/docker.sock
+    environment:
+      DOCKER_AUTH_USERNAME:
+        from_secret: docker_username
+      DOCKER_AUTH_PASSWORD:
+        from_secret: docker_password
+      KUBE_CONFIG:
+        from_secret: kube_config
+      DRONE_BRANCH: ${DRONE_BRANCH}
+      DRONE_COMMIT: ${DRONE_COMMIT}
+    commands:
+      - docker build -f deploy/script/Dockerfile -t deploy ./
+      - docker run -v /var/run/docker.sock:/var/run/docker.sock:rw -e DOCKER_AUTH_USERNAME=$DOCKER_AUTH_USERNAME -e DOCKER_AUTH_PASSWORD=$DOCKER_AUTH_PASSWORD -e SERVICE=web -e IMAGE_TAG=$DRONE_BRANCH.$DRONE_COMMIT -e KUBE_CONFIG="$KUBE_CONFIG" deploy
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+  - name: deploy-landing
+    image: docker:latest
+    volumes:
+      - name: docker-socket
+        path: /var/run/docker.sock
+    environment:
+      DOCKER_AUTH_USERNAME:
+        from_secret: docker_username
+      DOCKER_AUTH_PASSWORD:
+        from_secret: docker_password
+      KUBE_CONFIG:
+        from_secret: kube_config
+      DRONE_BRANCH: ${DRONE_BRANCH}
+      DRONE_COMMIT: ${DRONE_COMMIT}
+    commands:
+      - docker build -f deploy/script/Dockerfile -t deploy ./
+      - docker run -v /var/run/docker.sock:/var/run/docker.sock:rw -e DOCKER_AUTH_USERNAME=$DOCKER_AUTH_USERNAME -e DOCKER_AUTH_PASSWORD=$DOCKER_AUTH_PASSWORD -e SERVICE=landing -e IMAGE_TAG=$DRONE_BRANCH.$DRONE_COMMIT -e KUBE_CONFIG="$KUBE_CONFIG" deploy
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+volumes:
+  - name: docker-socket
+    host:
+      path: /var/run/docker.sock

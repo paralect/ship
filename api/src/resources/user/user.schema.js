@@ -1,20 +1,30 @@
 const Joi = require('joi');
 
-const userSchema = {
+const schema = Joi.object({
   _id: Joi.string(),
   createdOn: Joi.date(),
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-  email: Joi.string().email({ minDomainAtoms: 2 }),
-  passwordHash: Joi.string(),
-  signupToken: Joi.string(),
+  updatedOn: Joi.date(),
+  firstName: Joi.string()
+    .required(),
+  lastName: Joi.string()
+    .required(),
+  email: Joi.string()
+    .email()
+    .required(),
+  passwordHash: Joi.string()
+    .allow(null),
+  signupToken: Joi.string()
+    .allow(null),
   resetPasswordToken: Joi.string()
-    .allow(null)
-    .default(null),
-  isEmailVerified: Joi.boolean().default(false),
-  oauth: Joi.object().keys({
-    google: Joi.boolean().default(false),
-  }),
-};
+    .allow(null),
+  isEmailVerified: Joi.boolean()
+    .default(false),
+  oauth: Joi.object()
+    .keys({
+      google: Joi.boolean().default(false),
+    })
+    .required(),
+  lastRequest: Joi.date(),
+});
 
-module.exports = obj => Joi.validate(obj, userSchema, { allowUnknown: true });
+module.exports = (obj) => schema.validate(obj, { allowUnknown: false });

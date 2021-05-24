@@ -1,36 +1,41 @@
-const { validate, Symbols } = require('helpers/validator');
+function formatError(joiError) {
+  const errors = {};
 
-const defaultOptions = {
-  throwOnInvalid: true,
-};
+  joiError.details.forEach((error) => {
+    const key = error.path.join('.');
+    errors[key] = errors[key] || [];
+    errors[key].push(error.message);
+  });
 
-const validateMiddleware = (validators = [], options = defaultOptions) => async (ctx, next) => {
-  const {
-    throwOnInvalid,
-  } = {
-    ...defaultOptions,
-    ...options,
+  return errors;
+}
+
+function validate(schema) {
+  return async (ctx, next) => {
+    const { value, error } = await schema.validate(
+      {
+        ...ctx.request.body,
+        ...ctx.query,
+      },
+      {
+        abortEarly: false,
+        allowUnknown: true,
+        stripUnknown: {
+          objects: true,
+        },
+      },
+    );
+
+    if (error) {
+      ctx.body = {
+        errors: formatError(error),
+      };
+      ctx.throw(400);
+    }
+
+    ctx.validatedData = value;
+    await next();
   };
+}
 
-  const payload = {
-    ...ctx.request.body,
-    ...ctx.query,
-    ...ctx.params,
-    [Symbols.PERSISTENT]: ctx,
-  };
-
-  const result = await validate(payload, validators);
-
-  if (throwOnInvalid && result.errors.length) {
-    ctx.body = {
-      errors: result.errors,
-    };
-
-    ctx.throw(400);
-  }
-
-  ctx.validatedRequest = result;
-  await next();
-};
-
-module.exports = validateMiddleware;
+module.exports = validate;

@@ -18,7 +18,7 @@ const ButtonLink = ({
 
   return (
     <Button
-      {...props}
+      {...props /* eslint-disable-line react/jsx-props-no-spreading */}
       className={classnames(styles.button, className)}
     >
       <Link

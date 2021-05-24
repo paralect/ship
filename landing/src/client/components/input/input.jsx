@@ -8,7 +8,7 @@ const Input = ({ className, ...props }) => {
   return (
     <input
       className={classnames(styles.input, className)}
-      {...props}
+      {...props /* eslint-disable-line react/jsx-props-no-spreading */}
     />
   );
 };

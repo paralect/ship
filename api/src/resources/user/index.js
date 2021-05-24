@@ -1,11 +1,11 @@
-const Router = require('koa-router');
-const validate = require('middlewares/validate');
-const validators = require('./validators');
+const Router = require('@koa/router');
+
+require('./user.handler');
 
 const router = new Router();
-const controller = require('./user.controller');
 
-router.get('/current', controller.getCurrent);
-router.put('/current', validate(validators.update, { throwOnInvalid: false }), controller.updateCurrent);
+require('./get-current').register(router);
+require('./update-current').register(router);
+require('./list-users').register(router);
 
 module.exports = router.routes();

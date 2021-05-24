@@ -1,10 +1,9 @@
-FROM node:10.16.0
+FROM node:12
 
+EXPOSE 3001 8082
+COPY ["./package.json", "./package-lock.json", ".eslintrc.js", ".eslintignore", "/app/"]
 WORKDIR /app
-COPY ./package.json ./
-RUN npm i -s
-COPY . .
-
-EXPOSE 3001
+RUN npm ci --quiet
+COPY ./src /app/src
 
 CMD npm start

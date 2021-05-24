@@ -1,12 +1,10 @@
-FROM node:10.16.0
+FROM node:12
 
+EXPOSE 3001 8082
+COPY ["./package.json", "./package-lock.json", "/app/"]
 WORKDIR /app
-COPY ./package.json ./
-RUN npm i
-COPY . .
+RUN npm ci --quiet
 
 VOLUME "/app/src"
-
-EXPOSE 3001
 
 CMD npm run development

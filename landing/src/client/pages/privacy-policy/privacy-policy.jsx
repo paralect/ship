@@ -6,7 +6,7 @@ import PrivacyLayout from '~/layouts/privacy';
 import styles from './privacy-policy.styles.pcss';
 
 export default class PrivacyPolicy extends PureComponent {
-  render(props) {
+  render() {
     return (
       <PrivacyLayout>
         <h1>Ship Privacy Policy</h1>

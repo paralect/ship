@@ -2,24 +2,26 @@ const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.APP_ENV || 'development';
 
 let base = {
   env,
   port: process.env.PORT || 3000,
   isDev: env === 'development',
   isTest: env === 'test',
+  gaTrackingId: 'gaTrackingId',
 };
 
-const envConfig = require(`./${env}.js`); // eslint-disable-line
+const envConfig = require(`./${env}.json`); // eslint-disable-line import/no-dynamic-require
 
 base = _.merge(base, envConfig || {});
 
 const loadLocalConfig = (name) => {
   const localConfigPath = path.join(__dirname, name);
   if (fs.existsSync(localConfigPath)) {
-    base = _.merge(base, require(localConfigPath)); // eslint-disable-line
-    console.log(`loaded ${localConfigPath} config`); // eslint-disable-line
+    // eslint-disable-next-line import/no-dynamic-require, global-require
+    base = _.merge(base, require(localConfigPath));
+    console.log(`loaded ${localConfigPath} config`); // eslint-disable-line no-console
   }
 };
 

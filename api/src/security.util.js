@@ -11,8 +11,8 @@ const compare = util.promisify(bcrypt.compare, bcrypt);
  *
  * @return {string} - random string
  */
-exports.generateSecureToken = async () => {
-  const buf = await randomBytes(48);
+exports.generateSecureToken = async (tokenLength = 48) => {
+  const buf = await randomBytes(tokenLength);
   return buf.toString('hex');
 };
 

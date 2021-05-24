@@ -8,7 +8,7 @@ const Link = (props) => {
   const { href, className, children } = props;
 
   return (
-    <NextLink {..._omit(props, ['className'])}>
+    <NextLink {..._omit(props, ['className']) /* eslint-disable-line react/jsx-props-no-spreading */}>
       <a
         href={href}
         className={className}
