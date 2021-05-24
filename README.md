@@ -33,14 +33,10 @@ We believe we could ship great products faster, while maintain decent quality an
 
 |Name|Description|
 |:---|:----------|
-|[Next.JS landing](https://github.com/paralect/nextjs-landing-starter)|Landing site|
 |[Koa.JS REST api](https://github.com/paralect/koa-api-starter)|REST api|
-|[React.JS(with Redux) web app](https://github.com/paralect/koa-react-starter)|React.JS application|
-|[MongoDB Api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API|
-|[Ansible Drone role](https://github.com/paralect/ansible-drone)|Ansible role for drone deployment|
-|[Deploy Drone CI](https://github.com/paralect/deploy-drone)|Ansible automation for production-ready Drone CI deployment|
-|[Deploy Grafana](https://github.com/paralect/deploy-grafana)|Ansible automation for production-ready Grafana deployment|
-|[Eslint config](https://github.com/paralect/eslint-config)|Airbnb based eslint config|
+|[React.JS (with Redux Toolkit) web app](https://github.com/paralect/koa-react-starter)|React.JS application|
+|[MongoDB api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API|
+|[Deploy (k8s and Drone CI)](https://github.com/paralect/ship-deploy)|Deploy scripts for Kubernetes|
 
 ## License
 
