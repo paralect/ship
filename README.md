@@ -3,7 +3,6 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![Build Status](http://ship-ci.paralect.com/api/badges/paralect/ship/status.svg)](http://ship-ci.paralect.com/paralect/ship)
 
 [![Watch on GitHub](https://img.shields.io/github/watchers/paralect/ship.svg?style=social&label=Watch)](https://github.com/paralect/ship/watchers)
 [![Star on GitHub](https://img.shields.io/github/stars/paralect/ship.svg?style=social&label=Stars)](https://github.com/paralect/ship/stargazers)
@@ -15,9 +14,6 @@ A toolkit for makers to ship better products faster 🚀.
 [Ship](https://github.com/paralect/ship) is a tool which helps you setup your new product in a matter of minutes. Ship is based on Stack. [Stack](https://github.com/paralect/stack) is a number of open-source components, resulted from years of hard work on several awesome products. We carefully select, document and share our production-ready knowledge with you.
 
 We encourage developers to share production-ready solutions and help to business ship something people need as quick as possible.
-
-If you're looking to start your new product based on Ship we'd be happy to provide you with a free consultation. Contact Paralect at  
-andrew@paralect.com.
 
 ## Why Ship?
 
@@ -35,33 +31,16 @@ We believe we could ship great products faster, while maintain decent quality an
 
 ## Ship components
 
-|Name|Description|Version|
-|:---|:----------|:------|
-|[Next.JS landing](https://github.com/paralect/nextjs-landing-starter)|Landing site|[2.5.1](https://github.com/paralect/nextjs-landing-starter/releases/tag/2.5.1)|
-|[Koa.JS REST api](https://github.com/paralect/koa-api-starter)|REST api|[2.3.0](https://github.com/paralect/koa-api-starter/releases/tag/2.3.0)|
-|[React.JS(with Redux) web app](https://github.com/paralect/koa-react-starter)|React.JS application|[3.4.0](https://github.com/paralect/koa-react-starter/releases/tag/3.4.0)
-|[MongoDB Api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API |[1.1.0](https://github.com/paralect/node-mongo/releases/tag/1.1.0)|
-|[Ansible Drone role](https://github.com/paralect/ansible-drone)|Ansible role for drone deployment|[1.2.1](https://github.com/paralect/ansible-drone/releases/tag/1.2.1)|
-|[Deploy Drone CI](https://github.com/paralect/deploy-drone)|Ansible automation for production-ready Drone CI deployment|[0.1.1](https://github.com/paralect/deploy-drone/releases/tag/0.1.1)|
-|[Deploy Grafana](https://github.com/paralect/deploy-grafana)|Ansible automation for production-ready Grafana deployment|[1.1.1](https://github.com/paralect/deploy-grafana/releases/tag/1.1.1)|
-|[Eslint config](https://github.com/paralect/eslint-config)|Airbnb based eslint config|[1.1.0](https://github.com/paralect/eslint-config/releases/tag/1.1.0)|
-
-Note: [release.yml](release.yml) always contains correct versions of every component and produced by automated merge process. We do our best to keep readme in sync :)
-
-## Getting Started with Ship
-
-We made it simple for you to get started with Ship. Just go to the [paralect.com/ship](https://www.paralect.com/ship) and click `Start Your Product` and follow the wizard. The website will automatically fork this repository, remove files which is not needed for you (such as license, ship readmes, etc) and push the resulting code into your repository.
-
-## Ship Demo
-
-* [CI Demo](http://ship-ci.paralect.com/paralect/ship) — build, test and deploy Ship to test environment after every commit to master branch.
-* [Ship Landing Demo](http://ship-demo.paralect.com/).
-* [Ship React App Demo](http://ship-app.paralect.com/).
-
-## Change Log
-
-This project adheres to [Semantic Versioning](http://semver.org/).
-Every release is documented on the Github [Releases](https://github.com/paralect/ship/releases) page.
+|Name|Description|
+|:---|:----------|
+|[Next.JS landing](https://github.com/paralect/nextjs-landing-starter)|Landing site|
+|[Koa.JS REST api](https://github.com/paralect/koa-api-starter)|REST api|
+|[React.JS(with Redux) web app](https://github.com/paralect/koa-react-starter)|React.JS application|
+|[MongoDB Api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API|
+|[Ansible Drone role](https://github.com/paralect/ansible-drone)|Ansible role for drone deployment|
+|[Deploy Drone CI](https://github.com/paralect/deploy-drone)|Ansible automation for production-ready Drone CI deployment|
+|[Deploy Grafana](https://github.com/paralect/deploy-grafana)|Ansible automation for production-ready Grafana deployment|
+|[Eslint config](https://github.com/paralect/eslint-config)|Airbnb based eslint config|
 
 ## License
 
