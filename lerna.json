@@ -1,0 +1,8 @@
+{
+  "npmClient": "npm",
+  "version": "0.0.0",
+  "packages": [
+    "api",
+    "web"
+  ]
+}
