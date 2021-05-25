@@ -1,0 +1,43 @@
+.menu {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+
+.menu__item {
+  & + & {
+    margin-left: 16px;
+  }
+}
+
+.menu__link {
+  height: 56px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.menu__link_active {
+  cursor: default;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &::after {
+    height: 3px;
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+  }
+}

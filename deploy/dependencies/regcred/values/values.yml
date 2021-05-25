@@ -1,0 +1,3 @@
+imageCredentials:
+  registry: registry.digitalocean.com
+  secretName: regcred

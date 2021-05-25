@@ -1,0 +1,48 @@
+.container {
+  cursor: pointer;
+  position: relative;
+}
+
+.button {
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu {
+  width: 200px;
+  padding: 8px 0;
+  margin: 0;
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  list-style: none;
+}
+
+.menu_open {
+  display: block;
+}
+
+.menu_link {
+  width: 100%;
+  padding: 8px 16px;
+  border: 0;
+  display: block;
+  color: #222;
+  text-align: left;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}

@@ -1,0 +1,11 @@
+mongodbUsername: admin
+mongodbDatabase: staging-db
+
+nodeSelector:
+  doks.digitalocean.com/node-pool: pool-app
+
+replicaSet:
+  enabled: true
+  replicas:
+    secondary: 0
+    arbiter: 0

@@ -1,8 +1,6 @@
 #!/bin/sh
 file=docker-compose.drone-tests.yml
-docker-compose --file $file stop
-docker-compose --file $file rm -f # remove old containers
-docker-compose --file $file up --build --force-recreate "$@"
+docker-compose -f $file up --build --force-recreate "$@"
 
 exitCode=$?
 if [ "$exitCode" != "0" ]; then
@@ -11,9 +9,11 @@ if [ "$exitCode" != "0" ]; then
 fi
 
 echo "Inspecting exited containers:"
-docker-compose --file $file ps
-docker-compose --file $file ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | while read code; do
+docker-compose -f $file ps
+docker-compose -f $file ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | while read code; do
     if [ "$code" != "0" ]; then
        exit $code
     fi
 done
+
+docker-compose -f $file down

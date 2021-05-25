@@ -1,12 +1,10 @@
-FROM node:10.16.0
-
+FROM node:14.14-alpine as build
 WORKDIR /app
+COPY ["./package*.json", "/app/"]
+RUN npm install --silent
+COPY . ./
+RUN npm run build
 
-COPY ./package.json ./
-RUN npm i -s
-COPY . .
-RUN npm run build-client
-
-EXPOSE 3002 8081
-
-CMD npm start
+FROM nginx:1.19-alpine
+COPY --from=build /app/dist/ /usr/share/nginx/html
+COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf

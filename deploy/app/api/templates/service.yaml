@@ -1,0 +1,29 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: api
+  labels:
+    app: api
+spec:
+  type: ClusterIP
+  selector:
+    app: api
+  ports:
+  - protocol: TCP
+    port: 3001
+    targetPort: 3001
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-socket
+  labels:
+    app: api-socket
+spec:
+  type: ClusterIP
+  selector:
+    app: api-socket
+  ports:
+  - protocol: TCP
+    port: 8082
+    targetPort: 8082

@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: web
+  labels:
+    app: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: web
+        image: 666666666666.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/jipay-web:{{ $.Values.imagesVersion }}
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        env:
+        - name: APP_ENV
+          value: {{ .Values.environment }}
+        ports:
+        - containerPort: 80
+          protocol: TCP
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: pool-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1

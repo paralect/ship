@@ -1,14 +1,6 @@
-FROM node:10.16.0
-
+FROM node:14.14
 WORKDIR /app
-
-COPY ./package.json ./
-RUN npm i
-COPY . .
-RUN npm run build-client
-
-VOLUME "/app/src"
-
-EXPOSE 3002 8081
-
-CMD npm run development
+COPY ["./package*.json", "/app/"]
+RUN npm install --silent
+COPY . ./
+CMD npm start

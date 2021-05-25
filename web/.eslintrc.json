@@ -1,0 +1,35 @@
+{
+  "extends": ["airbnb", "airbnb/hooks"],
+  "parser": "@babel/eslint-parser",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "arrow-body-style": 0,
+    "no-underscore-dangle": 0,
+    "react/jsx-props-no-spreading": 0,
+    "no-restricted-imports": ["error", {
+      "name": "lodash",
+      "message": "Import individual methods from the Lodash module"
+    }],
+    "no-param-reassign": ["error", {
+      "props": true,
+      "ignorePropertyModificationsFor": ["state"]
+    }],
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": ["**/*.config.js"]
+    }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"],
+        "moduleDirectory": [
+          "src",
+          "node_modules"
+        ]
+      }
+    }
+  }
+}

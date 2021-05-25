@@ -1,72 +1,171 @@
-const chai = require('chai');
+const _ = require('lodash');
 const supertest = require('supertest');
+const chai = require('chai');
 
-const db = require('db');
-const constants = require('app.constants');
+const server = require('app');
+const db = require('tests/db');
+const { USER, ERRORS } = require('tests/constants');
+const authHelper = require('tests/auth.helper');
+const testsHelper = require('tests/tests.helper');
 
-const userFactory = require('resources/user/user.factory');
-const { signin } = require('tests/auth');
+const UserBuilder = require('./user.builder');
+const userSchema = require('./user.schema');
 
-const server = require('../../app');
-
-const request = supertest.agent(server.listen());
-
+const app = server.listen();
+const userService = db.createService(USER.COLLECTION, userSchema);
 chai.should();
 
-const emailInUseMessage = 'This email is already in use.';
+describe('/users', async () => {
+  let newUser;
+  let verifiedUser;
 
-describe('/users', () => {
-  const users = [];
-  let token;
+  let verifiedUserRequest;
 
   before(async () => {
-    await db.get(constants.DATABASE_DOCUMENTS.USERS).drop();
+    await db.get(USER.COLLECTION).drop();
 
-    users[0] = await userFactory.verifiedUser();
-    users[1] = await userFactory.unverifiedUser();
-    token = await signin(request, users[0]);
+    [
+      newUser,
+      verifiedUser,
+    ] = await Promise.all([
+      new UserBuilder().build(),
+      new UserBuilder().emailVerified().build(),
+    ]);
+
+    verifiedUserRequest = supertest.agent(app);
+    await authHelper.signin(verifiedUserRequest, verifiedUser);
   });
 
   it('should successfully return data of the current user', (done) => {
-    request
-      .get('/users/current')
-      .set('Authorization', `Bearer ${token}`)
-      .expect(200)
-      .expect((res) => {
-        res.body.email.should.be.equal(users[0].email);
-      })
-      .end(done);
+    testsHelper.test(done, async () => {
+      const startTime = Date.now();
+
+      let updated = verifiedUser;
+
+      const response = await verifiedUserRequest.get('/users/current')
+        .expect(200);
+
+      const autoUpdatedFields = ['lastRequest', 'updatedOn'];
+      updated = autoUpdatedFields.reduce((acc, field) => ({
+        ...acc,
+        [field]: response.body[field],
+      }), updated);
+
+      testsHelper.checkAutoUpdatedFields(response, startTime, autoUpdatedFields);
+      response.body.should.be.deep.equal(testsHelper.datesToISOStrings(
+        _.omit(updated, USER.PRIVATE_FIELDS),
+      ));
+
+      const dbUser = await userService.findOne({ _id: updated._id });
+      testsHelper.datesToISOStrings(dbUser).should.be.deep.equal(
+        testsHelper.datesToISOStrings(updated),
+      );
+
+      verifiedUser = updated;
+    });
   });
 
   it('should return an error that email is already in use', (done) => {
-    request
-      .put('/users/current')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        firstName: users[0].firstName,
-        lastName: users[0].lastName,
-        email: users[1].email,
-      })
-      .expect(400)
-      .expect(({ body: { errors } }) => {
-        errors[0].email.should.be.equal(emailInUseMessage);
-      })
-      .end(done);
+    testsHelper.test(done, async () => {
+      const response = await verifiedUserRequest.put('/users/current')
+        .send({ email: newUser.email })
+        .expect(400);
+
+      response.body.should.be.deep.equal({ errors: ERRORS.EMAIL_IN_USE });
+    });
   });
 
   it('should successfully update user info', (done) => {
-    request
-      .put('/users/current')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
+    testsHelper.test(done, async () => {
+      const startTime = Date.now();
+
+      const newUserData = {
         firstName: '123',
         lastName: 'Test',
-        email: users[0].email,
-      })
-      .expect(200)
-      .expect(({ body }) => {
-        body.lastName.should.be.equal('Test');
-      })
-      .end(done);
+      };
+      let updated = {
+        ...verifiedUser,
+        ...newUserData,
+      };
+
+      const response = await verifiedUserRequest
+        .put('/users/current')
+        .send(newUserData)
+        .expect(200);
+
+      const autoUpdatedFields = ['lastRequest', 'updatedOn'];
+      updated = autoUpdatedFields.reduce((acc, field) => ({
+        ...acc,
+        [field]: response.body[field],
+      }), updated);
+
+      testsHelper.checkAutoUpdatedFields(response, startTime, autoUpdatedFields);
+      response.body.should.be.deep.equal(testsHelper.datesToISOStrings(
+        _.omit(updated, USER.PRIVATE_FIELDS),
+      ));
+
+      const dbUser = await userService.findOne({ _id: updated._id });
+      testsHelper.datesToISOStrings(dbUser).should.be.deep.equal(
+        testsHelper.datesToISOStrings(updated),
+      );
+
+      verifiedUser = updated;
+    });
+  });
+
+  it('should successfully update user info exept not existing field', (done) => {
+    testsHelper.test(done, async () => {
+      const startTime = Date.now();
+
+      const newUserData = {
+        firstName: '123',
+        lastName: 'Test',
+        email: 'new@email.com',
+      };
+      let updated = {
+        ...verifiedUser,
+        ...newUserData,
+      };
+
+      const response = await verifiedUserRequest
+        .put('/users/current')
+        .send({
+          ...newUserData,
+          not_exists: 'value',
+        })
+        .expect(200);
+
+      const autoUpdatedFields = ['lastRequest', 'updatedOn'];
+      updated = autoUpdatedFields.reduce((acc, field) => ({
+        ...acc,
+        [field]: response.body[field],
+      }), updated);
+
+      testsHelper.checkAutoUpdatedFields(response, startTime, autoUpdatedFields);
+      response.body.should.be.deep.equal(testsHelper.datesToISOStrings(
+        _.omit(updated, USER.PRIVATE_FIELDS),
+      ));
+
+      const dbUser = await userService.findOne({ _id: updated._id });
+      testsHelper.datesToISOStrings(dbUser).should.be.deep.equal(
+        testsHelper.datesToISOStrings(updated),
+      );
+
+      verifiedUser = updated;
+    });
+  });
+  it('should successfully return data of users', (done) => {
+    testsHelper.test(done, async () => {
+      const response = await verifiedUserRequest
+        .get('/users/user')
+        .query({
+          limit: 1, page: 1, sortKey: 'firstName', sortDirection: 1,
+        })
+        .expect(200);
+
+      response.body.items.should.be.an('array');
+      response.body.totalPages.should.be.deep.equal(2);
+      response.body.currentPage.should.be.deep.equal(1);
+    });
   });
 });

@@ -1,2 +1,0 @@
-monitoring ansible_ssh_host=178.128.164.51 ansible_user=root ansible_python_interpreter='/usr/bin/python3'
-app ansible_ssh_host=209.97.143.27 ansible_user=root ansible_python_interpreter='/usr/bin/python3'

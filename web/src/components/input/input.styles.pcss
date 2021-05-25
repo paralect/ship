@@ -1,0 +1,30 @@
+.input {
+  border: 1px solid #616161;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 5px;
+
+  &:hover,
+  &:focus {
+    border-color: #0277bd;
+  }
+
+  &.error {
+    border-color: #f44336;
+
+    &:hover,
+    &:focus {
+      border-color: #c62828;
+    }
+  }
+}
+
+.errors {
+  font-size: 14px;
+  color: #f44336;
+  margin-top: 5px;
+}

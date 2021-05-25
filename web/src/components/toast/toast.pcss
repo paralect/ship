@@ -1,0 +1,39 @@
+.container {
+  position: fixed;
+  bottom: 32px;
+  left: 100px;
+  z-index: 100;
+}
+
+.toast {
+  width: 380px;
+  padding: 12px 15px 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+
+  & + & {
+    margin-top: 24px;
+  }
+
+  &.success {
+    background-color: #33a152;
+  }
+
+  &.info {
+    background-color: #4d5a64;
+  }
+
+  &.error {
+    background-color: #e53935;
+  }
+}
+
+.cross {
+  border: 0;
+  color: #fff;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}

@@ -1,10 +1,8 @@
-const { idGenerator } = require('@paralect/node-mongo');
-
 class BaseBuilder {
   constructor(service) {
     this._service = service;
 
-    this._id = idGenerator.generate();
+    this._id = service.generateId();
     this.data = {
       _id: this._id,
     };
