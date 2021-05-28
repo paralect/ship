@@ -1,0 +1,4 @@
+domain: ship-staging.paralect.net
+environment: staging
+awsAccountId: "402167441269"
+awsRegion: us-east-1

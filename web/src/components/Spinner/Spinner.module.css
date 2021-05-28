@@ -1,0 +1,75 @@
+.container {
+  --size: 40px;
+  --stroke-circle: #00000040;
+
+  width: var(--size);
+  height: var(--size);
+  position: relative;
+  display: flex;
+}
+
+.spinner {
+  z-index: 0;
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+
+  circle {
+    fill: transparent;
+    stroke: var(--stroke-circle);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: calc(3.14 * var(--size));
+    transform-origin: calc(1px * var(--size)) calc(1px * var(--size)) 0;
+  }
+
+  &.dark {
+    circle {
+      stroke: var(--gray-dark);
+    }
+  }
+}
+
+.spinner_loading {
+  z-index: 1;
+  animation: spinner 2s linear infinite;
+
+  circle {
+    stroke: var(--black);
+  }
+
+  &.dark {
+    circle {
+      stroke: var(--white);
+    }
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+    stroke-dashoffset: calc(0.66 * var(--size));
+  }
+
+  50% {
+    transform: rotate(720deg);
+    stroke-dashoffset: calc(3.14 * var(--size));
+  }
+
+  100% {
+    transform: rotate(1080deg);
+    stroke-dashoffset: calc(0.66 * var(--size));
+  }
+}
+
+.l {
+  transform: scale(1.5);
+}
+
+.m {
+  transform: scale(1);
+}
+
+.s {
+  transform: scale(0.5);
+}

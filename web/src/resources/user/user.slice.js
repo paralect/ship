@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import * as socketService from 'services/socket.service';
-
-import { routes } from 'routes';
-
 import * as api from './user.api';
 
 const initialState = null;
@@ -19,65 +15,45 @@ const userSlice = createSlice({
 
 const { setUser, removeUser } = userSlice.actions;
 
-const signIn = ({ email, password }) => async (dispatch) => {
-  const user = await api.signIn({
-    email,
-    password,
-  });
-  dispatch(setUser({ user }));
-};
-
-const signUp = ({
-  firstName,
-  lastName,
-  email,
-  password,
-}) => async () => {
-  const { signupToken } = await api.signUp({
-    firstName,
-    lastName,
-    email,
-    password,
-  });
-
+const signUp = (data) => async () => {
+  const { signupToken } = await api.signUp(data);
   return { signupToken };
 };
 
-const forgot = ({ email }) => async () => {
-  await api.forgot({ email });
-};
-
-const reset = ({ password, token }) => async (_dispatch, _getState, ctx) => {
-  await api.reset({ password, token });
-  ctx.history.push(routes.signIn.path);
+const signIn = (data) => async (dispatch) => {
+  const user = await api.signIn(data);
+  dispatch(setUser({ user }));
 };
 
 const signOut = () => async (dispatch) => {
   await api.signOut();
-  dispatch(removeUser());
-  socketService.disconnect();
+  await dispatch(removeUser());
 };
 
-const getCurrentUser = () => async (dispatch) => {
-  const user = await api.getCurrentUser();
+const getCurrent = () => async (dispatch) => {
+  const user = await api.getCurrent();
   dispatch(setUser({ user }));
 };
 
-const updateCurrentUser = (data) => async (dispatch) => {
-  const user = await api.updateCurrentUser(data);
-  dispatch(setUser({ user }));
-};
-
-export const userActions = {
+const userActions = {
   setUser,
   removeUser,
-  signIn,
   signUp,
-  forgot,
-  reset,
+  signIn,
   signOut,
-  getCurrentUser,
-  updateCurrentUser,
+  getCurrent,
 };
 
-export default userSlice.reducer;
+const selectUser = ({ user }) => user;
+
+const userSelectors = {
+  selectUser,
+};
+
+const userReducer = userSlice.reducer;
+
+export {
+  userSelectors,
+  userActions,
+  userReducer,
+};

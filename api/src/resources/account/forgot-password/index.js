@@ -1,9 +1,10 @@
 const Joi = require('joi');
 
-const validate = require('middlewares/validate');
+const validate = require('middlewares/validate.middleware');
 const securityUtil = require('security.util');
 const userService = require('resources/user/user.service');
-const emailService = require('services/email.service');
+const emailService = require('services/email/email.service');
+const config = require('config');
 
 const schema = Joi.object({
   email: Joi.string()
@@ -18,30 +19,42 @@ const schema = Joi.object({
     }),
 });
 
-async function handler(ctx) {
+async function validator(ctx, next) {
   const user = await userService.findOne({ email: ctx.validatedData.email });
 
-  if (user) {
-    let { resetPasswordToken } = user;
-
-    if (!resetPasswordToken) {
-      resetPasswordToken = await securityUtil.generateSecureToken();
-      await userService.updateOne(
-        { _id: user._id },
-        (old) => ({ ...old, resetPasswordToken }),
-      );
-    }
-
-    await emailService.sendForgotPassword({
-      email: user.email,
-      firstName: user.firstName,
-      resetPasswordToken,
-    });
+  if (!user) {
+    ctx.body = {};
+    return;
   }
+
+  ctx.validatedData.user = user;
+  await next();
+}
+
+async function handler(ctx) {
+  const { user } = ctx.validatedData;
+
+  let { resetPasswordToken } = user;
+
+  if (!resetPasswordToken) {
+    resetPasswordToken = await securityUtil.generateSecureToken();
+    await userService.updateOne(
+      { _id: user._id },
+      (old) => ({ ...old, resetPasswordToken }),
+    );
+  }
+
+  await emailService.sendForgotPassword(
+    user.email,
+    {
+      firstName: user.firstName,
+      resetPasswordUrl: `${config.apiUrl}/account/verify-reset-token?token=${resetPasswordToken}&email=${user.email}`,
+    },
+  );
 
   ctx.body = {};
 }
 
 module.exports.register = (router) => {
-  router.post('/forgot-password', validate(schema), handler);
+  router.post('/forgot-password', validate(schema), validator, handler);
 };

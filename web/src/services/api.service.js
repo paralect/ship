@@ -1,20 +1,33 @@
+// eslint-disable-next-line max-classes-per-file
 import axios from 'axios';
 import qs from 'qs';
 
 import config from 'config';
 
-function throwApiError({ message, status, data = {} }) {
-  const error = new Error();
-  error.name = 'Request Error';
-  error.message = message;
-  error.status = status;
-  error.data = data;
+class ApiError extends Error {
+  constructor(data, status = 500, statusText = 'Internal Server Error') {
+    super(`${status} ${statusText}`);
 
-  // eslint-disable-next-line no-console
-  console.error(error);
+    this.constructor = ApiError;
+    this.__proto__ = ApiError.prototype; // eslint-disable-line no-proto
 
-  throw error;
+    this.name = this.constructor.name;
+    this.data = data;
+    this.status = status;
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, this.constructor);
+    }
+  }
+
+  inspect() {
+    return this.stack;
+  }
 }
+const throwApiError = ({ status, statusText, data }) => {
+  console.error(`API Error: ${status} ${statusText}`, data); //eslint-disable-line
+  throw new ApiError(data, status, statusText);
+};
 
 class ApiClient {
   constructor(axiosConfig) {
@@ -24,9 +37,14 @@ class ApiClient {
     this._api.interceptors.response.use(
       (response) => response.data,
       (error) => {
+        if (axios.isCancel(error)) {
+          throw error;
+        }
+        // Axios Network Error & Timeout error dont have 'response' field
+        // https://github.com/axios/axios/issues/383
         const errorResponse = error.response || {
-          message: error.message,
           status: error.code,
+          statusText: error.message,
           data: error.data,
         };
 
@@ -35,7 +53,7 @@ class ApiClient {
           handler(errorResponse);
         });
 
-        throwApiError(errorResponse);
+        return throwApiError(errorResponse);
       },
     );
   }

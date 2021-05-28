@@ -10,7 +10,7 @@ const createToken = async (userId, type) => {
   const value = await securityUtil.generateSecureToken(TOKEN_SECURITY_LENGTH);
 
   return service.create({
-    type, value, userId, isShadow: false,
+    type, value, userId,
   });
 };
 
@@ -27,7 +27,6 @@ service.getUserDataByToken = async (token) => {
 
   return tokenEntity && {
     userId: tokenEntity.userId,
-    isShadow: tokenEntity.isShadow,
   };
 };
 

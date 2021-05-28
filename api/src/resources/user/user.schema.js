@@ -19,12 +19,9 @@ const schema = Joi.object({
     .allow(null),
   isEmailVerified: Joi.boolean()
     .default(false),
-  oauth: Joi.object()
-    .keys({
-      google: Joi.boolean().default(false),
-    })
-    .required(),
   lastRequest: Joi.date(),
+  avatarUrl: Joi.string()
+    .allow(null),
 });
 
 module.exports = (obj) => schema.validate(obj, { allowUnknown: false });

@@ -1,9 +1,20 @@
-FROM node:12
+FROM --platform=linux/amd64 node:16.13.1-alpine3.13
+RUN apk add --no-cache python3 py3-pip
 
-EXPOSE 3001 8082
-COPY ["./package.json", "./package-lock.json", ".eslintrc.js", ".eslintignore", "/app/"]
+EXPOSE 3001
+
+ARG NODE_ENV
+ARG APP_ENV
+
+ENV NODE_ENV=$NODE_ENV
+ENV APP_ENV=$APP_ENV
+
 WORKDIR /app
+COPY ["./package*.json", "/app/"]
 RUN npm ci --quiet
-COPY ./src /app/src
+
+COPY . ./
+
+RUN npm run build-assets
 
 CMD npm start

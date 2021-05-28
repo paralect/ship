@@ -1,0 +1,33 @@
+.iconButton {
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--gray-dark);
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--gray-light);
+    color: #3f3f3f;
+  }
+
+  &:disabled {
+    color: var(--gray-dark);
+    cursor: default;
+    opacity: 0.5;
+  }
+}
+
+.m {
+  height: 24px;
+  width: 24px;
+}
+
+.s {
+  height: 16px;
+  width: 16px;
+}

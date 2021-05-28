@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 import config from 'config';
 
-const socket = io(config.webSocketUrl, {
+const socket = io(config.apiUrl, {
   transports: ['websocket'],
   autoConnect: false,
 });
@@ -27,10 +27,6 @@ export const off = (event, callback) => {
   socket.off(event, callback);
 };
 
-export const connected = () => {
-  return socket.connected;
-};
+export const connected = () => socket.connected;
 
-export const disconnected = () => {
-  return socket.disconnected;
-};
+export const disconnected = () => socket.disconnected;

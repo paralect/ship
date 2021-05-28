@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-dynamic-require
-const config = require(`./${process.env.APP_ENV}.json`);
+import environmentConfig from './environment';
 
-export default config;
+export default environmentConfig;

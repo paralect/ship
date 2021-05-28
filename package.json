@@ -8,6 +8,8 @@
     "lerna": "4.0.0"
   },
   "scripts": {
+    "start": "./bin/start.sh",
+    "bootstrap": "lerna bootstrap",
     "add-contributor": "all-contributors add",
     "generate-contributors": "all-contributors generate"
   }

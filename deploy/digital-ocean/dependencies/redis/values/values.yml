@@ -1,0 +1,8 @@
+redis:
+  nodeSelector:
+    doks.digitalocean.com/node-pool: pool-app
+
+auth:
+  password: super-secured-password
+
+architecture: standalone

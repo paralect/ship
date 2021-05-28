@@ -2,9 +2,7 @@ import api from 'services/api.service';
 import * as socketService from 'services/socket.service';
 
 import store from 'resources/store';
-
-import * as userSelectors from 'resources/user/user.selectors';
-import { userActions } from 'resources/user/user.slice';
+import { userSelectors, userActions } from 'resources/user/user.slice';
 
 api.on('error', (error) => {
   if (error.status === 401) {

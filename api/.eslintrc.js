@@ -5,6 +5,7 @@ module.exports = {
     node: true,
   },
   rules: {
+    'max-len': 0,
     'arrow-body-style': 0,
     'no-underscore-dangle': 0,
     'import/no-extraneous-dependencies': ['error', {

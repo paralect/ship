@@ -1,0 +1,92 @@
+.uploadPhotoText {
+    font-weight: 500;
+}
+
+.photoContainer {
+    display: flex;
+    align-items: center;
+}
+
+.browseButton {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background-color: var(--white);
+    border: 1px dashed  var(--gray);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &.error {
+        border: 1px dashed var(--red);
+    }
+
+    &:hover {
+        .addIcon {
+            color: var(--gray-dark);
+        }
+    }
+}
+
+.addIcon {
+    color: var(--gray);
+    transition: all 0.2s ease-in-out;
+}
+
+.avatar {
+    width: 88px;
+    height: 88px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+
+    &:hover {
+        border-color: #10101099;
+    }
+
+    &:hover .innerAvatar {
+        opacity: 1;
+    }
+}
+
+.innerAvatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #10101099;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--gray);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.text {
+    width: 144px;
+    margin-left: 24px;
+    line-height: 24px;
+    color: var(--gray-dark);
+    word-wrap: break-word;
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+}
+
+.removeButton {
+    margin-left: 32px;
+}
+
+.errorMessage {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--red);
+}

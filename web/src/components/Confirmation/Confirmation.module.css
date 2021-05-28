@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.subheading {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--gray-dark);
+}
+
+.body {
+  margin: 24px 0 48px 0;
+  font-size: 14px;
+  line-height: 17px;
+
+  &.withoutMargins {
+    margin: 0;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+
+  & *:not(:last-child) {
+    margin-right: 16px;
+  }
+}

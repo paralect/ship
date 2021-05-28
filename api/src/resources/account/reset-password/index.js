@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const securityUtil = require('security.util');
-const validate = require('middlewares/validate');
+const validate = require('middlewares/validate.middleware');
 const userService = require('resources/user/user.service');
 
 const schema = Joi.object({
@@ -24,20 +24,23 @@ const schema = Joi.object({
     }),
 });
 
-async function handler(ctx) {
-  const { token, password } = ctx.validatedData;
+async function validator(ctx, next) {
+  const { token } = ctx.validatedData;
 
   const user = await userService.findOne({ resetPasswordToken: token });
-  if (!user) {
-    ctx.body = {
-      errors: {
-        token: ['Password reset link has expired or invalid'],
-      },
-    };
-    ctx.throw(400);
-  }
+  ctx.assertError(user, {
+    token: 'Password reset link has expired or invalid',
+  });
+
+  ctx.validatedData.user = user;
+  await next();
+}
+
+async function handler(ctx) {
+  const { user, password } = ctx.validatedData;
 
   const passwordHash = await securityUtil.getHash(password);
+
   await userService.updateOne(
     { _id: user._id },
     (old) => ({ ...old, passwordHash, resetPasswordToken: null }),
@@ -47,5 +50,5 @@ async function handler(ctx) {
 }
 
 module.exports.register = (router) => {
-  router.put('/reset-password', validate(schema), handler);
+  router.put('/reset-password', validate(schema), validator, handler);
 };

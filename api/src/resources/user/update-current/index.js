@@ -1,64 +1,53 @@
 const Joi = require('joi');
 
-const validate = require('middlewares/validate');
+const validate = require('middlewares/validate.middleware');
+
+const securityUtil = require('security.util');
+
 const userService = require('resources/user/user.service');
 
 const schema = Joi.object({
-  firstName: Joi.string()
+  password: Joi.string()
     .trim()
+    .min(6)
+    .max(50)
     .messages({
-      'string.empty': 'First name is required',
-    }),
-  lastName: Joi.string()
-    .trim()
-    .messages({
-      'string.empty': 'Last name is required',
-    }),
-  email: Joi.string()
-    .email()
-    .trim()
-    .lowercase()
-    .messages({
-      'string.empty': 'Email is required',
-      'string.email': 'Please enter a valid email address',
+      'any.required': 'Password is required',
+      'string.empty': 'Password is required',
+      'string.min': 'Password must be 6-50 characters',
+      'string.max': 'Password must be 6-50 characters',
     }),
 });
 
 async function validator(ctx, next) {
-  const { email } = ctx.validatedData;
+  const { user } = ctx.state;
+  const { password } = ctx.validatedData;
 
-  const isEmailInUse = await userService.exists({
-    _id: { $ne: ctx.state.user._id },
-    email,
+  const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
+  ctx.assertClientError(!isPasswordMatch, {
+    password: 'The new password should be different from the previous one',
   });
-
-  if (isEmailInUse) {
-    ctx.body = {
-      errors: {
-        email: ['This email is already in use'],
-      },
-    };
-    ctx.throw(400);
-  }
 
   await next();
 }
 
 async function handler(ctx) {
-  let { user } = ctx.state;
+  const { user } = ctx.state;
+  const { password } = ctx.validatedData;
 
-  const data = ctx.validatedData;
+  const passwordHash = await securityUtil.getHash(password);
 
-  if (Object.keys(data).length > 0) {
-    user = await userService.updateOne(
-      { _id: user._id },
-      (old) => ({ ...old, ...data }),
-    );
-  }
+  const updatedUser = await userService.updateOne(
+    { _id: user._id },
+    (old) => ({
+      ...old,
+      passwordHash,
+    }),
+  );
 
-  ctx.body = userService.getPublic(user);
+  ctx.body = userService.getPublic(updatedUser);
 }
 
 module.exports.register = (router) => {
-  router.put('/current', validate(schema), validator, handler);
+  router.post('/current', validate(schema), validator, handler);
 };

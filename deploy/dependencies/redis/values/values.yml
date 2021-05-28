@@ -1,9 +1,0 @@
-master:
-  nodeSelector:
-    doks.digitalocean.com/node-pool: pool-app
-
-slave:
-  nodeSelector:
-    doks.digitalocean.com/node-pool: pool-app
-
-password: super-secured-password

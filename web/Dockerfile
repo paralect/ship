@@ -1,10 +1,20 @@
-FROM node:14.14-alpine as build
+FROM --platform=linux/amd64 node:16.13.1-alpine3.13
+
+EXPOSE 3002
+
+ARG NODE_ENV
+ARG APP_ENV
+ARG NEXT_PUBLIC_APP_ENV=$APP_ENV
+
+ENV NODE_ENV=$NODE_ENV
+ENV NEXT_PUBLIC_APP_ENV=$NEXT_PUBLIC_APP_ENV
+
 WORKDIR /app
 COPY ["./package*.json", "/app/"]
-RUN npm install --silent
+RUN npm ci --quiet
+
 COPY . ./
+
 RUN npm run build
 
-FROM nginx:1.19-alpine
-COPY --from=build /app/dist/ /usr/share/nginx/html
-COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
+CMD npm start

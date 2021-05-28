@@ -1,0 +1,4 @@
+domain: ship-api.paralect.net
+environment: production
+awsAccountId: "402167441269"
+awsRegion: us-east-1

@@ -13,7 +13,6 @@ const schema = Joi.object({
     .required(),
   userId: Joi.string()
     .required(),
-  isShadow: Joi.boolean(),
 });
 
 module.exports = (obj) => schema.validate(obj, { allowUnknown: false });

@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const util = require('util');
 
 const randomBytes = util.promisify(crypto.randomBytes, crypto);

@@ -1,6 +1,0 @@
-domain: api.paralect.net
-socketDomain: socket.paralect.net
-secretName: letsencrypt-staging-api
-socketSecretName: letsencrypt-staging-api-socket
-environment: staging
-awsRegion: region-code

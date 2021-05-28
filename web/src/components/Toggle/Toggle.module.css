@@ -1,0 +1,83 @@
+.container {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+}
+
+.input {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.label {
+  cursor: pointer;
+  transition: inherit;
+  line-height: 17px;
+}
+
+.circle {
+  margin-left: 2px;
+  height: 14px;
+  width: 14px;
+  background: var(--gray);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: inherit;
+
+  &.checked {
+    transform: translateX(12px);
+    background: var(--white);
+
+    &.disabled {
+      background: var(--white);
+    }
+  }
+
+  &.disabled {
+    background: var(--black);
+  }
+}
+
+.toggle {
+  margin-left: 8px;
+  width: 32px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background: var(--white);
+  border: 1px solid var(--gray);
+  cursor: pointer;
+  transition: inherit;
+
+  &:hover {
+    border: 1px solid var(--black);
+    opacity: 0.7;
+  }
+
+  &:hover .circle {
+    background: var(--black);
+  }
+
+  &.checked {
+    background: var(--black);
+    border: 1px solid var(--black);
+
+    &:hover > .circle {
+      background: var(--white);
+    }
+  }
+
+  &.disabled {
+    border: 1px solid var(--black);
+  }
+}

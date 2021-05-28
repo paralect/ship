@@ -1,0 +1,11 @@
+controller:
+  publishService:
+    enabled: true
+  nodeSelector:
+    eks.amazonaws.com/nodegroup: pool-app
+
+rbac:
+  create: true
+
+defaultBackend:
+  enabled: false
