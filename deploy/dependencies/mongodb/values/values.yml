@@ -1,11 +1,10 @@
-mongodbUsername: admin
-mongodbDatabase: staging-db
+architecture: replicaset
 
-nodeSelector:
-  doks.digitalocean.com/node-pool: pool-app
-
-replicaSet:
+auth:
   enabled: true
-  replicas:
-    secondary: 0
-    arbiter: 0
+  username: admin
+  database: staging-db
+
+replicaCount: 0
+nodeSelector:
+  eks.amazonaws.com/nodegroup: pool-app

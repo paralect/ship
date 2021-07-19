@@ -8,12 +8,12 @@ const rootDir = path.resolve(__dirname, './../../../');
 
 const deployConfig =  {
   api: {
-    dockerRepo: 'paralect/ship-api',
+    dockerRepo: 'registry.digitalocean.com/paralect/ship-api',
     dir: `${rootDir}/api`,
     folder: 'api',
   },
   web: {
-    dockerRepo: 'paralect/ship-web',
+    dockerRepo: 'registry.digitalocean.com/paralect/ship-web',
     dir: `${rootDir}/web`,
     folder: 'web',
   },

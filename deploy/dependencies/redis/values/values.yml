@@ -1,9 +1,5 @@
-master:
+redis:
   nodeSelector:
-    doks.digitalocean.com/node-pool: pool-app
-
-slave:
-  nodeSelector:
-    doks.digitalocean.com/node-pool: pool-app
+    eks.amazonaws.com/nodegroup: pool-app
 
 password: super-secured-password

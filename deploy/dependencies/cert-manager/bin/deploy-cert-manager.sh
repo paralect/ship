@@ -2,18 +2,21 @@
 cd "$( dirname "${BASH_SOURCE[0]}" )"/../
 
 kubectl create namespace cert-manager
+
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 
-helm upgrade --install \
-  cert-manager jetstack/cert-manager \
+helm upgrade cert-manager jetstack/cert-manager \
+  --install \
   --namespace cert-manager \
-  --version v0.16.1 \
-  --set installCRDs=true \
-  --set ingressShim.defaultIssuerName=letsencrypt \
-  --set ingressShim.defaultIssuerKind=ClusterIssuer
+  --version v1.0.3 \
+  --set installCRDs=true
 
 read -p "cluster issuer acme email: " email
-helm upgrade --install cert-cluster-issuer ./cert-cluster-issuer --namespace cert-manager \
+helm upgrade cluster-issuer . \
+  --install \
+  --namespace cert-manager \
   -f ./cert-cluster-issuer/values/values.yml \
-  --set clusterIssuer.acme.email=$email
+  --set name=letsencrypt \
+  --set server=https://acme-v02.api.letsencrypt.org/directory \
+  --set email=$email
