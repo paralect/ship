@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Icon from 'components/icon';
+
 import Button from './index';
 
 export default {
@@ -11,24 +13,35 @@ export default {
   },
 };
 
-const Template = (args) => <Button {...args}>{args.children}</Button>;
-
-export const Success = Template.bind({});
-Success.args = {
-  color: 'success',
-};
+const Template = ({ ...args }) => <Button {...args}>{args.children}</Button>;
+const TemplateWithIcon = ({ ...args }) => (
+  <Button {...args}>
+    <Icon iconLabel="copy" />
+    {args.children}
+  </Button>
+);
 
 export const Primary = Template.bind({});
 Primary.args = {
-  color: 'primary',
+  type: 'primary',
 };
 
-export const Danger = Template.bind({});
-Danger.args = {
-  color: 'danger',
+export const Secondary = Template.bind({});
+Secondary.args = {
+  type: 'secondary',
+};
+
+export const Text = Template.bind({});
+Text.args = {
+  type: 'text',
 };
 
 export const Loading = Template.bind({});
 Loading.args = {
   isLoading: true,
+};
+
+export const WithIcon = TemplateWithIcon.bind({});
+Loading.args = {
+  type: 'primary',
 };

@@ -1,0 +1,46 @@
+.root {
+  width: fit-content;
+  height: 114px;
+  box-sizing: border-box;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 2px;
+  padding: 6px 0;
+  background: var(--white);
+  border: 1px solid var(--gray);
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 16px;
+  background: var(--white);
+  box-sizing: border-box;
+  border: none;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  &:hover {
+    background: var(--gray-light);
+  }
+}
+
+.icon {
+  margin-left: 5px;
+  transform: 'none';
+  transition: transform 0.5s;
+}
+
+.opened {
+  transform: rotate(180deg);
+}

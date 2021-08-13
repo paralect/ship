@@ -23,6 +23,16 @@ module.exports = {
       include: path.resolve(__dirname, '../'),
     });
 
+    const rule = config.module.rules.find(({ test }) => test.test(".svg"));
+    
+    // replace default storybook svg loader
+    rule.test = /\.(ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
+  
+    config.module.rules.unshift({
+      test: /\.svg$/,
+      loader: 'svg-react-loader'
+    });
+
     return config;
   },
   "stories": [

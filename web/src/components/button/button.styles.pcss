@@ -1,33 +1,91 @@
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
-  position: relative;
-  display: inline-block;
-  border-radius: 4px;
-  padding: 10px 15px;
-  transition: background 0.5s;
-  color: #fff;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-weight: 500;
+  line-height: 19.36px;
+  color: var(--white);
   cursor: pointer;
-  text-transform: uppercase;
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
-  outline: none;
+  transition: all 0.2s;
+  outline-color: var(--blue);
 
   &.primary {
     background: var(--primary);
+
+    &:hover {
+      background: var(--gray-dark);
+    }
+
+    &.disabled {
+      pointer-events: none;
+      background: var(--gray);
+    }
   }
 
-  &.success {
-    background: var(--green);
+  &.secondary {
+    border: 1px solid var(--gray);
+    background: var(--white);
+    color: var(--black);
+
+    &:hover {
+      background: var(--gray-light);
+    }
+
+    &.disabled {
+      pointer-events: none;
+      background: var(--white);
+      color: var(--gray);
+    }
   }
 
-  &.danger {
-    background: var(--red);
+  &.text {
+    border-radius: 6px;
+    background: transparent;
+    color: var(--black);
+
+    &:hover {
+      background: var(--gray-light);
+    }
+
+    &.disabled {
+      pointer-events: none;
+      background: transparent;
+      color: var(--gray);
+    }
+  }
+
+  &:focus {
+    border: 1px solid var(--blue);
   }
 }
 
 .buttonLoading {
+  position: relative;
   color: transparent;
   pointer-events: none;
   user-select: none;
+}
+
+.m {
+  height: 40px;
+  min-width: 81px;
+  padding: 8px 22px;
+  font-size: 16px;
+}
+
+.s {
+  height: 32px;
+  min-width: 77px;
+  padding: 8px 18px;
+  font-size: 14px;
+}
+
+.icon {
+  margin-right: 4px;
+  display: block;
 }
 
 @keyframes spin {
@@ -41,7 +99,7 @@
   margin: auto;
   border: 2px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
-  border-top-color: #fff;
+  border-top-color: var(--white);
   position: absolute;
   top: 0;
   left: 0;
@@ -59,7 +117,7 @@
     top: 0.5px;
     left: 0.8px;
     position: absolute;
-    background: #fff;
+    background: var(--white);
   }
 
   &::after {
@@ -71,6 +129,32 @@
     top: 0.5px;
     right: 0.8px;
     position: absolute;
-    background: #fff;
+    background: var(--white);
+  }
+
+  &.secondary {
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    border-top-color: var(--black);
+
+    &::before {
+      background: var(--black);
+    }
+
+    &::after {
+      background: var(--black);
+    }
+  }
+
+  &.text {
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    border-top-color: var(--black);
+
+    &::before {
+      background: var(--black);
+    }
+
+    &::after {
+      background: var(--black);
+    }
   }
 }

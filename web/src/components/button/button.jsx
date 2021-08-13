@@ -4,41 +4,65 @@ import PropTypes from 'prop-types';
 
 import styles from './button.styles.pcss';
 
-const colors = {
+const types = {
   primary: 'primary',
-  success: 'success',
-  danger: 'danger',
+  secondary: 'secondary',
+  text: 'text',
+};
+
+const sizes = {
+  m: 'm',
+  s: 's',
 };
 
 function Button({
-  children, color, isLoading, className, ...props
+  children, type, size, isLoading, disabled, className, ...props
 }) {
   return (
     <button
       type="button"
-      className={cn({
-        [styles.button]: true,
-        [styles.buttonLoading]: isLoading,
-      }, styles[color], className)}
+      className={cn(
+        {
+          [styles.buttonLoading]: isLoading,
+          [styles.disabled]: disabled,
+        },
+        styles.button,
+        styles[type],
+        styles[size],
+        className,
+      )}
       {...props}
     >
-      {children}
-      {isLoading && <span className={styles.loader} />}
+      {isLoading
+        ? (
+          <span
+            className={cn({
+              [styles.loader]: true,
+              [styles.loaderLoading]: isLoading,
+            },
+            styles[type])}
+          />
+        )
+        : children}
     </button>
   );
 }
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(Object.values(colors)),
+  type: PropTypes.oneOf(Object.values(types)),
+  size: PropTypes.oneOf(Object.values(sizes)),
+  disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   className: PropTypes.string,
 };
 
 Button.defaultProps = {
-  color: colors.primary,
+  type: types.primary,
+  size: sizes.m,
   isLoading: false,
   className: null,
+  disabled: false,
 };
 
 export default React.memo(Button);

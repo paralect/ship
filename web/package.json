@@ -82,6 +82,7 @@
     "style-loader": "2.0.0",
     "stylelint": "13.13.1",
     "stylelint-config-standard": "22.0.0",
+    "svg-react-loader": "0.4.6",
     "url-loader": "4.1.1",
     "webpack-cli": "4.7.0",
     "webpack-dev-server": "3.11.2"
