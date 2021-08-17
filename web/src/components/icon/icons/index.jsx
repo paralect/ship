@@ -1,6 +1,7 @@
 import Arrow from './arrow.svg';
 import ArrowDown from './arrowDown.svg';
 import ArrowRight from './arrowRight.svg';
+import Calendar from './calendar.svg';
 import Copy from './copy.svg';
 import Close from './close.svg';
 import FileUpload from './file-upload.svg';
@@ -16,6 +17,7 @@ const IMAGES = {
   arrowRight: ArrowRight,
   copy: Copy,
   close: Close,
+  calendar: Calendar,
   fileUpload: FileUpload,
   roundCheck: RoundCheck,
   roundCheckSmall: RoundCheckSmall,

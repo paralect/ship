@@ -45,16 +45,16 @@
   margin-top: 5px;
 }
 
+label:focus-within:not(.disabled) {
+  color: var(--blue);
+}
+
 .label {
   margin-bottom: 4px;
   font-weight: 500;
   font-size: 14px;
 
   &.error {
-    color: var(--red);
+    color: var(--red) !important;
   }
-}
-
-label:focus-within:not(.disabled) {
-  color: var(--blue);
 }

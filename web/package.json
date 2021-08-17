@@ -35,6 +35,7 @@
     "prop-types": "15.7.2",
     "qs": "6.10.1",
     "react": "16.14.0",
+    "react-datepicker": "4.2.0",
     "react-dom": "16.14.0",
     "react-dropzone": "11.3.4",
     "react-redux": "7.2.4",
