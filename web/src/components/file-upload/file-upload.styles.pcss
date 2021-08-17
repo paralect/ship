@@ -1,0 +1,46 @@
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 176px;
+  width: 320px;
+  border: 1px dashed var(--gray);
+  border-radius: 6px;
+  font-family: var(--font-family-common);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--black);
+
+  &.dragActive {
+    background-color: var(--gray-light);
+    border: 1px solid var(--gray-dark);
+  }
+
+  &.error {
+    border: 1px solid var(--red);
+  }
+}
+
+.fileUploadText {
+  margin-top: 12px;
+}
+
+.errorText {
+  margin-top: 4px;
+  font-family: var(--font-family-common);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.01em;
+  color: var(--red);
+}
+
+.linkButton {
+  all: unset;
+  color: var(--blue);
+  cursor: pointer;
+}

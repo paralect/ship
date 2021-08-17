@@ -36,6 +36,7 @@
     "qs": "6.10.1",
     "react": "16.14.0",
     "react-dom": "16.14.0",
+    "react-dropzone": "11.3.4",
     "react-redux": "7.2.4",
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",

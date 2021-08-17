@@ -1,0 +1,43 @@
+.fileProgress {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  & > :not(:last-child) {
+    margin-bottom: 4px;
+  }
+}
+
+.fileName {
+  font-family: var(--font-family-common);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--black);
+}
+
+.fileSize {
+  font-family: var(--font-family-common);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--gray);
+}
+
+.progressPercent {
+  margin-left: 8px;
+  font-family: var(--font-family-common);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--black);
+}
