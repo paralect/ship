@@ -7,7 +7,7 @@ import Icon from 'components/icon';
 import styles from './button-link.styles.pcss';
 
 function ButtonLink({
-  href, text, disabled, className, iconLabel, inNewTab,
+  href, text, disabled, className, icon, inNewTab,
 }) {
   return (
     <a
@@ -20,7 +20,7 @@ function ButtonLink({
     >
       <div className={styles.value}>
         {text}
-        {iconLabel && <Icon iconLabel={iconLabel} />}
+        {icon && <Icon icon={icon} />}
       </div>
     </a>
   );
@@ -29,7 +29,7 @@ function ButtonLink({
 ButtonLink.propTypes = {
   text: PropTypes.string.isRequired,
   className: PropTypes.string,
-  iconLabel: PropTypes.string,
+  icon: PropTypes.string,
   disabled: PropTypes.bool,
   inNewTab: PropTypes.bool,
   href: PropTypes.string,
@@ -40,7 +40,7 @@ ButtonLink.defaultProps = {
   href: '',
   disabled: false,
   inNewTab: true,
-  iconLabel: null,
+  icon: null,
 };
 
 export default React.memo(ButtonLink);

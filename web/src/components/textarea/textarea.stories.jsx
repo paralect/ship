@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Input from './index';
+import TextArea from './index';
 
 export default {
-  title: 'Components/Input',
-  component: Input,
+  title: 'Components/TextArea',
+  component: TextArea,
   decorators: [(Story) => <div style={{ 'max-width': '400px' }}><Story /></div>],
 };
 
-const Template = (args) => <Input {...args} />;
+const Template = (args) => <TextArea {...args} />;
 
 export const Empty = Template.bind({});
 Empty.args = {
@@ -41,20 +41,6 @@ Disabled.args = {
   disabled: true,
   value: 'Some text',
   label: 'Label',
-};
-
-export const Email = Template.bind({});
-Email.args = {
-  type: 'email',
-  value: 'example@gmail.com',
-  label: 'Email',
-};
-
-export const Password = Template.bind({});
-Password.args = {
-  type: 'password',
-  value: 'qwerty123',
-  label: 'Password',
 };
 
 export const WithPlaceholder = Template.bind({});

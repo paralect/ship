@@ -7,12 +7,12 @@ import ButtonMenu from './index';
 const OPTIONS = [{
   label: 'Option 1',
   handler: () => console.log('1'),
-  icon: () => <Icon iconLabel="copy" />,
+  icon: () => <Icon icon="copy" />,
 },
 {
   label: 'Option 2',
   handler: () => console.log('2'),
-  icon: () => <Icon iconLabel="copy" />,
+  icon: () => <Icon icon="copy" />,
 },
 {
   label: 'Option 3',

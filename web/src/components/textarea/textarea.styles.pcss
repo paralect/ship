@@ -1,12 +1,15 @@
 .input {
-  height: 40px;
+  height: 80px;
   width: 100%;
   background: var(--white);
   border: 1px solid var(--gray);
   box-sizing: border-box;
   border-radius: 6px;
   outline: none;
-  padding: 0 14px;
+  padding: 8px 14px;
+  resize: none;
+  font-size: 14px;
+  line-height: 17px;
 
   &:focus {
     border: 1px solid var(--blue);
@@ -46,9 +49,9 @@
 }
 
 .label {
-  margin-bottom: 4px;
   font-weight: 500;
   font-size: 14px;
+  margin-bottom: 4px;
 
   &.error {
     color: var(--red);

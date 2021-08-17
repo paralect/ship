@@ -16,7 +16,7 @@ const Template = ({ ...args }) => <IconButton {...args}>{args.children}</IconBut
 export const Active = Template.bind({});
 Active.args = {
   type: 'primary',
-  iconLabel: 'close',
+  icon: 'close',
 };
 
 export const Disabled = Template.bind({});

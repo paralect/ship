@@ -5,8 +5,8 @@ import cn from 'classnames';
 import styles from './icon.styles.pcss';
 import IMAGES from './icons';
 
-const Icon = ({ iconLabel, className, noWrapper }) => {
-  const IconComponent = IMAGES[iconLabel] || IMAGES.arrowRight;
+const Icon = ({ icon, className, noWrapper }) => {
+  const IconComponent = IMAGES[icon] || IMAGES.arrowRight;
 
   return (
     <div className={cn(!noWrapper && styles.iconWrapper, className)}>
@@ -16,13 +16,13 @@ const Icon = ({ iconLabel, className, noWrapper }) => {
 };
 
 Icon.propTypes = {
-  iconLabel: PropTypes.string,
+  icon: PropTypes.string,
   noWrapper: PropTypes.bool,
   className: PropTypes.string,
 };
 
 Icon.defaultProps = {
-  iconLabel: 'arrowRight',
+  icon: 'arrowRight',
   noWrapper: false,
   className: null,
 };

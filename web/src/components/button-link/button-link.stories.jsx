@@ -33,6 +33,6 @@ Disabled.args = {
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {
-  iconLabel: 'arrow',
+  icon: 'arrow',
   href: 'https://www.paralect.com/',
 };

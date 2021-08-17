@@ -16,7 +16,7 @@ export default {
 const Template = ({ ...args }) => <Button {...args}>{args.children}</Button>;
 const TemplateWithIcon = ({ ...args }) => (
   <Button {...args}>
-    <Icon iconLabel="copy" />
+    <Icon icon="copy" />
     {args.children}
   </Button>
 );

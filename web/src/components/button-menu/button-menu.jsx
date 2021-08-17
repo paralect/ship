@@ -40,7 +40,7 @@ function ButtonMenu({
             [styles.icon]: true,
             [styles.opened]: isMenuOpened,
           })}
-          iconLabel="arrowDown"
+          icon="arrowDown"
         />
       </Button>
       {isMenuOpened && options && options.length > 0
