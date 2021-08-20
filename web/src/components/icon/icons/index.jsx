@@ -10,6 +10,7 @@ import RoundCheckSmall from './round-check-small.svg';
 import RoundError from './round-error.svg';
 import RoundErrorSmall from './round-error-small.svg';
 import DocumentIcon from './document.svg';
+import Search from './search.svg';
 
 const IMAGES = {
   arrow: Arrow,
@@ -24,6 +25,7 @@ const IMAGES = {
   roundError: RoundError,
   roundErrorSmall: RoundErrorSmall,
   document: DocumentIcon,
+  search: Search,
 };
 
 export default IMAGES;
