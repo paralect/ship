@@ -32,7 +32,7 @@ const CheckBox = ({
 );
 
 CheckBox.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   disabled: PropTypes.bool,
   value: PropTypes.bool,
   className: PropTypes.string,
@@ -40,6 +40,7 @@ CheckBox.propTypes = {
 };
 
 CheckBox.defaultProps = {
+  text: '',
   disabled: false,
   value: false,
   className: null,

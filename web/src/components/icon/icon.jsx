@@ -13,7 +13,7 @@ const Icon = ({
   const IconComponent = IMAGES[icon] || IMAGES.arrowRight;
 
   return (
-    <div className={cn(!noWrapper && styles.iconWrapper, className)}>
+    <div className={cn(!noWrapper && styles.iconWrapper, className, styles.icon)}>
       <IconComponent color={color} />
     </div>
   );
@@ -27,7 +27,7 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  icon: 'arrowRight',
+  icon: 'roundError',
   noWrapper: false,
   className: null,
   color: DEFAULT_COLOR,

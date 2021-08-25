@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import styles from './radio-button.styles.pcss';
 
-const Switch = ({
+const RadioButton = ({
   label, disabled, value, onChange, className,
 }) => (
   <button
@@ -39,7 +39,7 @@ const Switch = ({
   </button>
 );
 
-Switch.propTypes = {
+RadioButton.propTypes = {
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   value: PropTypes.bool,
@@ -47,10 +47,10 @@ Switch.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-Switch.defaultProps = {
+RadioButton.defaultProps = {
   disabled: false,
   value: false,
   className: null,
 };
 
-export default memo(Switch);
+export default memo(RadioButton);

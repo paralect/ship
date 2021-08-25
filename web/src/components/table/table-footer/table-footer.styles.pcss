@@ -1,0 +1,44 @@
+.tableFooter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 24px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--black);
+}
+
+.controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 190px;
+
+  >* {
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.pageNumber {
+  all: unset;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+
+  &.current {
+    font-weight: 600;
+  }
+}
