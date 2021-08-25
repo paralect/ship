@@ -15,6 +15,8 @@ import roundErrorSmall from './round-error-small.svg';
 import document from './document.svg';
 import action from './action.svg';
 import search from './search.svg';
+import shipLogo from './ship-logo.svg';
+import lightning from './lightning.svg';
 
 const IMAGES = {
   arrow,
@@ -34,6 +36,8 @@ const IMAGES = {
   document,
   action,
   search,
+  shipLogo,
+  lightning,
 };
 
 export default IMAGES;

@@ -20,7 +20,7 @@ const sizes = {
 };
 
 function ButtonMenu({
-  options, ...props
+  options, children, ...props
 }) {
   const ref = useRef();
   const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -34,6 +34,7 @@ function ButtonMenu({
   return (
     <div ref={ref} className={styles.root}>
       <Button {...props} onClick={handleButtonClick}>
+        {children}
         Button
         <Icon
           className={cn({
@@ -43,24 +44,23 @@ function ButtonMenu({
           icon="arrowDown"
         />
       </Button>
-      {isMenuOpened && options && options.length > 0
-        && (
-          <div className={styles.menu}>
-            {options.map(({
-              label, handler, icon: OptionIcon,
-            }) => (
-              <button
-                type="button"
-                key={label}
-                className={styles.option}
-                onClick={handler}
-              >
-                {OptionIcon && <OptionIcon />}
-                {label}
-              </button>
-            ))}
-          </div>
-        )}
+      {isMenuOpened && options && options.length > 0 && (
+        <div className={styles.menu}>
+          {options.map(({
+            label, handler, icon: OptionIcon,
+          }) => (
+            <button
+              type="button"
+              key={label}
+              className={styles.option}
+              onClick={handler}
+            >
+              {OptionIcon && <OptionIcon />}
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
