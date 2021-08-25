@@ -6,7 +6,37 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as toastSelectors from 'resources/toast/toast.selectors';
 import { toastActions } from 'resources/toast/toast.slice';
 
-import styles from './toast.pcss';
+import Icon from 'components/icon';
+import IconButton from 'components/icon-button';
+
+import styles from './toast.styles.pcss';
+
+function getIconProps(type) {
+  switch (type) {
+    case 'success':
+      return {
+        icon: 'roundCheck',
+        color: '#FFF',
+      };
+    case 'warning':
+      return {
+        icon: 'roundWarning',
+        color: '#000',
+      };
+    case 'error':
+      return {
+        icon: 'roundError',
+        color: '#FFF',
+      };
+    case 'info':
+      return {
+        icon: 'roundInfo',
+        color: '#FFF',
+      };
+    default:
+      return {};
+  }
+}
 
 function RawToast() {
   const dispatch = useDispatch();
@@ -27,21 +57,33 @@ function RawToast() {
   function list() {
     return (
       <>
-        {messages.map((m) => (
-          <div
-            key={m.id}
-            className={cn(styles.toast, styles[m.type])}
-          >
-            <span>{m.text}</span>
-            <button
-              type="button"
-              className={styles.cross}
-              onClick={() => dispatch(toastActions.remove({ id: m.id }))}
+        {messages.map((m) => {
+          const closeToast = () => {
+            dispatch(toastActions.remove({ id: m.id }));
+          };
+
+          const iconProps = getIconProps(m.type);
+          return (
+            <div
+              key={m.id}
+              className={cn(styles.toast, styles[m.type])}
             >
-              x
-            </button>
-          </div>
-        ))}
+              <div className={styles.main}>
+                <Icon
+                  icon={iconProps.icon}
+                  color={iconProps.color}
+                  noWrapper
+                />
+                <span>{m.text}</span>
+              </div>
+              <IconButton
+                icon="close"
+                color={iconProps.color}
+                onClick={closeToast}
+              />
+            </div>
+          );
+        })}
       </>
     );
   }

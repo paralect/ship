@@ -8,6 +8,8 @@ import calendar from './calendar.svg';
 import copy from './copy.svg';
 import close from './close.svg';
 import fileUpload from './file-upload.svg';
+import roundWarning from './round-warning.svg';
+import roundInfo from './round-info.svg';
 import roundCheck from './round-check.svg';
 import roundCheckSmall from './round-check-small.svg';
 import roundError from './round-error.svg';
@@ -29,6 +31,8 @@ const IMAGES = {
   copy,
   close,
   fileUpload,
+  roundWarning,
+  roundInfo,
   roundCheck,
   roundCheckSmall,
   roundError,

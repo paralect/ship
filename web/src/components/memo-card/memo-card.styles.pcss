@@ -1,0 +1,33 @@
+.memoCard {
+  max-width: 300px;
+  padding: 14px;
+  border-radius: 6px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 150%;
+
+  >ul {
+    all: unset;
+
+    >li {
+      margin-left: 20px;
+    }
+  }
+
+  &.info {
+    background-color: rgba(0, 100, 235, 0.1);
+    color: var(--blue);
+  }
+
+  &.error {
+    background-color: rgba(235, 87, 87, 0.1);
+    color: var(--red);
+  }
+
+  &.warning {
+    background-color: rgba(242, 201, 76, 0.1);
+    color: #c89a0f;
+  }
+}

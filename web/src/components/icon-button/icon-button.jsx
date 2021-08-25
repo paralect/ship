@@ -7,7 +7,7 @@ import Icon from 'components/icon';
 import styles from './icon-button.styles.pcss';
 
 function IconButton({
-  icon, disabled, className, ...props
+  icon, color, disabled, className, ...props
 }) {
   return (
     <button
@@ -17,19 +17,21 @@ function IconButton({
       }, styles.button)}
       {...props}
     >
-      <Icon icon={icon} />
+      <Icon icon={icon} color={color} />
     </button>
   );
 }
 
 IconButton.propTypes = {
   icon: PropTypes.string,
+  color: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
 };
 
 IconButton.defaultProps = {
   icon: 'close',
+  color: undefined,
   className: null,
   disabled: false,
 };

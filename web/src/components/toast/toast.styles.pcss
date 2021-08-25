@@ -1,0 +1,46 @@
+.container {
+  position: fixed;
+  top: 60px;
+  right: 100px;
+  z-index: 100;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  padding: 12px 15px;
+  justify-content: space-between;
+  color: var(--white);
+  border-radius: 6px;
+
+  & + & {
+    margin-top: 24px;
+  }
+
+  &.success {
+    background-color: var(--green);
+  }
+
+  &.info {
+    background-color: var(--blue);
+  }
+
+  &.error {
+    background-color: var(--red);
+  }
+
+  &.warning {
+    background-color: var(--yellow);
+    color: var(--black);
+  }
+}
+
+.main {
+  display: flex;
+  align-items: center;
+
+  >:first-child {
+    margin-right: 12px;
+  }
+}

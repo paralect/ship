@@ -39,11 +39,16 @@ const error = (text) => (dispatch) => {
   dispatch(createToast({ type: 'error', text }));
 };
 
+const warning = (text) => (dispatch) => {
+  dispatch(createToast({ type: 'warning', text }));
+};
+
 export const toastActions = {
   remove,
   success,
   info,
   error,
+  warning,
 };
 
 export default toastSlice.reducer;
