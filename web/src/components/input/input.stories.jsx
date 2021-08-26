@@ -5,7 +5,7 @@ import Input from './index';
 export default {
   title: 'Components/Input',
   component: Input,
-  decorators: [(Story) => <div style={{ 'max-width': '400px' }}><Story /></div>],
+  decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
 };
 
 const Template = (args) => <Input {...args} />;

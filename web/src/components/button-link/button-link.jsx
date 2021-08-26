@@ -27,7 +27,7 @@ function ButtonLink({
 }
 
 ButtonLink.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   className: PropTypes.string,
   icon: PropTypes.string,
   disabled: PropTypes.bool,
@@ -38,6 +38,7 @@ ButtonLink.propTypes = {
 ButtonLink.defaultProps = {
   className: null,
   href: '',
+  text: '',
   disabled: false,
   inNewTab: true,
   icon: null,

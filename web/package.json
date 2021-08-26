@@ -25,6 +25,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@hookform/resolvers": "2.8.0",
     "@reduxjs/toolkit": "1.5.1",
     "axios": "0.21.1",
     "classnames": "2.3.1",
@@ -38,6 +39,7 @@
     "react-datepicker": "4.2.0",
     "react-dom": "16.14.0",
     "react-dropzone": "11.3.4",
+    "react-hook-form": "7.13.0",
     "react-modal": "3.14.3",
     "react-redux": "7.2.4",
     "react-router": "5.2.0",

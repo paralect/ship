@@ -5,28 +5,30 @@ import ReactSelect from 'react-select';
 
 import { getCustomStyle } from './helpers';
 
+import InputController from '../input-controller';
+
 import styles from './select.styles.pcss';
 
-const Select = ({
-  options, label, disabled, error, placeholder, className, onChange, value,
+const SelectComponent = ({
+  options, label, disabled, error, placeholder, className, onChange, value, name,
 }) => (
   <label
-    htmlFor="select"
+    htmlFor={name}
     className={cn(styles.label, className)}
   >
     {label && (
-      <span
-        className={
-          cn({
-            [styles.error]: error,
-          }, styles.title, className)
-        }
-      >
-        {label}
-      </span>
+    <span
+      className={
+            cn({
+              [styles.error]: error,
+            }, styles.title, className)
+          }
+    >
+      {label}
+    </span>
     )}
     <ReactSelect
-      name="select"
+      name={name}
       className={cn(styles.select, {
         [styles.error]: error,
       })}
@@ -45,7 +47,15 @@ const Select = ({
   </label>
 );
 
-Select.propTypes = {
+const Select = ({ ...props }) => (
+  props.name ? (
+    <InputController name={props.name} {...props}>
+      <SelectComponent />
+    </InputController>
+  ) : <SelectComponent {...props} />
+);
+
+SelectComponent.propTypes = {
   label: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.oneOfType([
@@ -53,24 +63,39 @@ Select.propTypes = {
       PropTypes.shape({}),
     ]),
     label: PropTypes.string.isRequired,
-  })).isRequired,
+  })),
   disabled: PropTypes.bool,
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),
   className: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({}),
+  ]),
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  name: PropTypes.string,
 };
 
-Select.defaultProps = {
+SelectComponent.defaultProps = {
   label: null,
   disabled: false,
   error: null,
   className: null,
   value: '',
   placeholder: '',
+  name: '',
+  options: [],
+  onChange: () => {},
+};
+
+Select.propTypes = {
+  name: PropTypes.string,
+};
+
+Select.defaultProps = {
+  name: '',
 };
 
 export default memo(Select);

@@ -57,8 +57,8 @@ function SearchInput({
 
 SearchInput.propTypes = {
   label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
   placeholder: PropTypes.string,
   className: PropTypes.string,
   errors: PropTypes.arrayOf(PropTypes.string),
@@ -69,10 +69,12 @@ SearchInput.propTypes = {
 
 SearchInput.defaultProps = {
   className: '',
+  value: '',
   errors: [],
   disabled: false,
   placeholder: null,
   interval: 500,
+  onChange: null,
 };
 
 export default React.memo(SearchInput);

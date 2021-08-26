@@ -54,7 +54,7 @@ TabBar.propTypes = {
     disabled: PropTypes.bool.isRequired,
   })).isRequired,
   withBorder: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   currentTab: PropTypes.shape({
     path: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -66,6 +66,7 @@ TabBar.propTypes = {
 TabBar.defaultProps = {
   withBorder: false,
   currentTab: {},
+  onChange: null,
 };
 
 export default memo(TabBar);

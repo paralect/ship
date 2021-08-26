@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker, { CalendarContainer } from 'react-datepicker';
 
@@ -8,6 +8,8 @@ import Icon from 'components/icon';
 import { MONTHS } from 'helpers/constants';
 
 import 'react-datepicker/dist/react-datepicker.css';
+
+import InputController from '../input-controller';
 
 import styles from './datepicker.styles.pcss';
 
@@ -39,32 +41,30 @@ const renderHeader = ({
   </div>
 );
 
-const DatepickerInput = ({ ...props }) => (
+const DatepickerInput = forwardRef(({ ...props }, ref) => (
   <div className={styles.inputRoot}>
-    <Input {...props} />
+    <Input {...props} name="" ref={ref} />
     <Icon
       icon="calendar"
       className={styles.icon}
     />
   </div>
-);
+));
 
-const Datepicker = ({
-  label, disabled, errors, placeholder, onChange, value,
+const DatepickerComponent = ({
+  label, disabled, errors, placeholder, onChange, value, name,
 }) => {
   const getDayStyle = (date) => (
     date.toString() === value.toString()
       ? styles.selectedDay
       : styles.day
   );
-
   const getWeekStyle = () => styles.weeks;
 
   return (
     <DatePicker
-      name="select"
+      name={name}
       renderCustomHeader={renderHeader}
-      placeholder={placeholder}
       value={value}
       selected={value}
       disabled={disabled}
@@ -72,8 +72,8 @@ const Datepicker = ({
       onChange={onChange}
       customInput={(
         <DatepickerInput
+          name={name}
           label={label}
-          disabled={disabled}
           errors={errors}
           placeholder={placeholder}
         />
@@ -88,21 +88,40 @@ const Datepicker = ({
   );
 };
 
-Datepicker.propTypes = {
+const Datepicker = ({ ...props }) => (
+  props.name ? (
+    <InputController name={props.name} {...props}>
+      <DatepickerComponent />
+    </InputController>
+  ) : <DatepickerComponent {...props} />
+);
+
+DatepickerComponent.propTypes = {
   label: PropTypes.string,
   disabled: PropTypes.bool,
   errors: PropTypes.arrayOf(PropTypes.string),
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  value: PropTypes.instanceOf(Date),
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  name: PropTypes.string,
 };
 
-Datepicker.defaultProps = {
+DatepickerComponent.defaultProps = {
   label: null,
   disabled: false,
   errors: [],
-  value: '',
+  value: null,
   placeholder: '',
+  name: '',
+  onChange: () => {},
+};
+
+Datepicker.propTypes = {
+  name: PropTypes.string,
+};
+
+Datepicker.defaultProps = {
+  name: '',
 };
 
 export default memo(Datepicker);

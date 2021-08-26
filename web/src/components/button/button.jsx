@@ -16,11 +16,12 @@ const sizes = {
 };
 
 function Button({
-  children, type, size, isLoading, disabled, className, ...props
+  children, type, size, isLoading, disabled, className, htmlType, ...props
 }) {
   return (
     <button
-      type="button"
+      // eslint-disable-next-line react/button-has-type
+      type={htmlType}
       className={cn(
         {
           [styles.buttonLoading]: isLoading,
@@ -55,6 +56,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   className: PropTypes.string,
+  htmlType: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -63,6 +65,7 @@ Button.defaultProps = {
   isLoading: false,
   className: null,
   disabled: false,
+  htmlType: 'button',
 };
 
 export default React.memo(Button);

@@ -6,12 +6,13 @@ import ReactSelect, { components } from 'react-select';
 
 import Icon from 'components/icon';
 
+import InputController from '../input-controller';
 import { getCustomStyle } from './helpers';
 
 import styles from './multi-select.styles.pcss';
 
-const MultiSelect = ({
-  options, label, disabled, error, className, onChange, value,
+const MultiSelectComponent = ({
+  options, label, disabled, error, className, onChange, value, name,
 }) => {
   const MultiValueRemove = (props) => (
     <>
@@ -25,7 +26,7 @@ const MultiSelect = ({
 
   return (
     <label
-      htmlFor="select"
+      htmlFor={name}
       className={cn(styles.label, className)}
     >
       {label && (
@@ -39,7 +40,7 @@ const MultiSelect = ({
       )}
       <ReactSelect
         value={value}
-        name="multiSelect"
+        name={name}
         className={cn(styles.select, {
           [styles.error]: error,
         })}
@@ -63,29 +64,50 @@ const MultiSelect = ({
   );
 };
 
-MultiSelect.propTypes = {
+const MultiSelect = ({ ...props }) => (
+  props.name ? (
+    <InputController name={props.name} {...props}>
+      <MultiSelectComponent />
+    </InputController>
+  ) : <MultiSelectComponent {...props} />
+);
+
+MultiSelectComponent.propTypes = {
   label: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  })).isRequired,
+    value: PropTypes.string,
+    label: PropTypes.string,
+  })),
   value: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  })).isRequired,
+    value: PropTypes.string,
+    label: PropTypes.string,
+  })),
   disabled: PropTypes.bool,
   error: PropTypes.shape({
-    message: PropTypes.string.isRequired,
+    message: PropTypes.string,
   }),
   className: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+  name: PropTypes.string,
 };
 
-MultiSelect.defaultProps = {
+MultiSelectComponent.defaultProps = {
   label: null,
   disabled: false,
   error: null,
   className: null,
+  onChange: null,
+  name: '',
+  value: undefined,
+  options: [],
+};
+
+MultiSelect.propTypes = {
+  name: PropTypes.string,
+};
+
+MultiSelect.defaultProps = {
+  name: '',
 };
 
 export default memo(MultiSelect);

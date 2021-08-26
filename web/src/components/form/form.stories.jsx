@@ -1,53 +1,150 @@
 import React from 'react';
+import * as yup from 'yup';
 
-import Form, { Row, Column } from './index';
+import Form from './index';
 import Input from '../input';
 import Button from '../button';
+import CheckBox from '../checkbox';
+import Datepicker from '../datepicker';
+import MultiSelect from '../multi-select';
+import RadioButton from '../radio-button';
+import Select from '../select';
+import Switch from '../switch';
+import TextArea from '../textarea';
+
+import styles from './storybook.form.styles.pcss';
+
+const options = [
+  {
+    value: '1',
+    label: 'One',
+  },
+  {
+    value: '2',
+    label: 'Two',
+  },
+  {
+    value: '3',
+    label: 'Three',
+  },
+  {
+    value: '4',
+    label: 'Four',
+  },
+  {
+    value: '5',
+    label: 'Five',
+  },
+];
 
 export default {
   title: 'Components/Form',
   component: Form,
 };
 
-export const Template = () => (
-  <Form>
-    <Row>
-      <Column>
-        <span>First name</span>
-        <Input value="firstName" />
-      </Column>
+const defaultValues = {
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'bachrimchuk@gmail.com',
+  datepicker: new Date(),
+  textarea: 'text area text',
+  multiSelect: [
+    {
+      value: '2',
+      label: 'Two',
+    },
+    {
+      value: '3',
+      label: 'Three',
+    },
+  ],
+  checkbox: true,
+  radioButton: true,
+  switch: true,
+  select: {
+    value: '2',
+    label: 'Two',
+  },
+};
 
-      <Column>
-        <span>Last name</span>
-        <Input value="lastName" />
-      </Column>
-    </Row>
+const schema = yup.object().shape({
+  email: yup.string().email('Email format is incorrect.').required('Field is required.'),
+  lastName: yup.string().required('Field is required.'),
+  firstName: yup.string().required('Field is required.'),
+  textarea: yup.string().required('Field is required.'),
+});
 
-    <Row>
-      <Column>
-        <span>Email</span>
-        <Input value="example@gmail.com" />
-      </Column>
+export const Template = () => {
+  const handleSubmit = (values) => {
+    // eslint-disable-next-line no-console
+    console.log(values);
+  };
 
-      <Column />
-    </Row>
-    <Row>
-      <Column>
-        <Button
-          tabIndex={-1}
-          color="danger"
-        >
-          Cancel
-        </Button>
+  return (
+    <Form
+      className={styles.form}
+      validationSchema={schema}
+      defaultValues={defaultValues}
+      onSubmit={handleSubmit}
+    >
+      <div className={styles.column}>
+        <Input
+          label="First Name"
+          placeholder="First Name"
+          name="firstName"
+        />
+        <Input
+          label="Last Name"
+          placeholder="Last Name"
+          name="lastName"
+        />
+        <Input
+          label="Email"
+          placeholder="Email"
+          name="email"
+        />
+        <Select
+          options={options}
+          label="Select"
+          placeholder="Select"
+          name="select"
+        />
+        <Datepicker
+          label="Datepicker"
+          placeholder="Datepicker"
+          name="datepicker"
+        />
+        <MultiSelect
+          label="MultiSelect"
+          placeholder="MultiSelect"
+          name="multiSelect"
+          options={options}
+        />
+        <TextArea
+          label="TextArea"
+          placeholder="TextArea"
+          name="textarea"
+        />
+        <div className={styles.row}>
+          <RadioButton
+            label="RadioButton"
+            placeholder="RadioButton"
+            name="radioButton"
+          />
+          <CheckBox
+            label="Checkbox"
+            placeholder="Checkbox"
+            name="checkbox"
+          />
+          <Switch
+            label="Switch"
+            placeholder="Switch"
+            name="switch"
+          />
+        </div>
+      </div>
+      <Button htmlType="submit"> Save </Button>
 
-        <Button
-          style={{ marginLeft: '20px' }}
-          tabIndex={0}
-          color="success"
-        >
-          Save
-        </Button>
-      </Column>
-    </Row>
-  </Form>
-);
+    </Form>
+  );
+};

@@ -5,7 +5,7 @@ import TextArea from './index';
 export default {
   title: 'Components/TextArea',
   component: TextArea,
-  decorators: [(Story) => <div style={{ 'max-width': '400px' }}><Story /></div>],
+  decorators: [(Story) => <div style={{ maxWidth: '400px' }}><Story /></div>],
 };
 
 const Template = (args) => <TextArea {...args} />;
