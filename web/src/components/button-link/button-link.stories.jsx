@@ -3,7 +3,7 @@ import React from 'react';
 import ButtonLink from './index';
 
 export default {
-  title: 'components/ButtonLink',
+  title: 'Components/ButtonLink',
   component: ButtonLink,
   argTypes: {
     disabled: {

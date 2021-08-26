@@ -4,3 +4,4 @@ storybook-static
 .idea
 .vscode
 .DS_Store
+build-storybook.log
