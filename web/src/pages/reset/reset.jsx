@@ -9,6 +9,7 @@ import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
+import Form from 'components/form';
 
 import styles from './reset.pcss';
 
@@ -21,21 +22,12 @@ function Reset() {
   const token = searchParams.get('token');
 
   const [pending, setPending] = React.useState(false);
-  const [errors, setErrors] = React.useState({});
 
-  const [password, setPassword] = React.useState('');
-
-  async function submit(event) {
-    event.preventDefault();
-
-    try {
-      setPending(true);
-      await dispatch(userActions.reset({ password, token }));
-    } catch (error) {
-      setErrors(error.data.errors);
-      setPending(false);
-    }
-  }
+  const handleSubmit = async (submitValues) => {
+    setPending(true);
+    await dispatch(userActions.reset(submitValues));
+    setPending(false);
+  };
 
   if (!token) {
     return (
@@ -48,9 +40,8 @@ function Reset() {
   }
 
   return (
-    <form
-      onSubmit={submit}
-      noValidate
+    <Form
+      onSubmit={handleSubmit}
       className={styles.container}
     >
       <h1 className={styles.title}>
@@ -62,24 +53,21 @@ function Reset() {
       <div className={styles.row}>
         <Input
           type="password"
-          value={password}
-          onChange={setPassword}
-          errors={errors.password}
+          name="password"
+          label="Password"
           placeholder="New Password"
           disabled={pending}
         />
       </div>
       <div className={styles.row}>
         <Button
-          type="submit"
-          color="success"
+          htmlType="submit"
           isLoading={pending}
-          disabled={!password}
         >
           Save New Password
         </Button>
       </div>
-    </form>
+    </Form>
   );
 }
 

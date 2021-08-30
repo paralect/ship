@@ -10,6 +10,7 @@ import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
+import Form from 'components/form';
 
 import styles from './sign-up.pcss';
 
@@ -18,35 +19,17 @@ function SignUp() {
 
   const user = useSelector(userSelectors.selectUser);
 
-  const [pending, setPending] = React.useState(false);
+  const [values, setValues] = React.useState({});
   const [registered, setRegistered] = React.useState(false);
-  const [errors, setErrors] = React.useState({});
 
-  const [firstName, setFirstName] = React.useState('');
-  const [lastName, setLastName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
   const [signupToken, setSignupToken] = React.useState();
 
-  async function submit(event) {
-    event.preventDefault();
-
-    try {
-      setPending(true);
-      const response = await dispatch(userActions.signUp({
-        firstName,
-        lastName,
-        email,
-        password,
-      }));
-      if (response.signupToken) setSignupToken(response.signupToken);
-      setRegistered(true);
-    } catch (error) {
-      setErrors(error.data.errors);
-    } finally {
-      setPending(false);
-    }
-  }
+  const handleSubmit = async (submitValues) => {
+    const response = await dispatch(userActions.signUp(submitValues));
+    if (response.signupToken) setSignupToken(response.signupToken);
+    setRegistered(true);
+    setValues(submitValues);
+  };
 
   if (user) {
     return <Redirect to={routes.home.url()} />;
@@ -61,7 +44,7 @@ function SignUp() {
         <div className={styles.row}>
           We just sent an email with a confirmation link to
           {' '}
-          <b>{email}</b>
+          <b>{values.email}</b>
           .
         </div>
         <div className={styles.row}>
@@ -83,9 +66,8 @@ function SignUp() {
   }
 
   return (
-    <form
-      onSubmit={submit}
-      noValidate
+    <Form
+      onSubmit={handleSubmit}
       className={styles.container}
     >
       <h1 className={styles.title}>
@@ -94,49 +76,38 @@ function SignUp() {
       <div className={styles.row}>
         <Input
           type="text"
-          value={firstName}
-          onChange={setFirstName}
-          errors={errors.firstName}
+          name="firstName"
           placeholder="First Name"
-          disabled={pending}
+          label="First Name"
         />
       </div>
       <div className={styles.row}>
         <Input
           type="text"
-          value={lastName}
-          onChange={setLastName}
-          errors={errors.lastName}
+          name="lastName"
+          label="Last Name"
           placeholder="Last Name"
-          disabled={pending}
         />
       </div>
       <div className={styles.row}>
         <Input
           type="email"
-          value={email}
-          onChange={setEmail}
-          errors={errors.email}
+          name="email"
           placeholder="Email"
-          disabled={pending}
+          label="Email"
         />
       </div>
       <div className={styles.row}>
         <Input
           type="password"
-          value={password}
-          onChange={setPassword}
-          errors={errors.password}
+          name="password"
+          label="Password"
           placeholder="Password"
-          disabled={pending}
         />
       </div>
       <div className={styles.row}>
         <Button
-          type="submit"
-          color="success"
-          isLoading={pending}
-          disabled={!firstName || !lastName || !email || !password}
+          htmlType="submit"
         >
           Sign up
         </Button>
@@ -150,7 +121,7 @@ function SignUp() {
           </Link>
         </div>
       </div>
-    </form>
+    </Form>
   );
 }
 

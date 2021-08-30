@@ -1,127 +1,105 @@
 import React from 'react';
+import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { useFormContext } from 'react-hook-form';
 
-import * as userValidators from 'resources/user/user.validators';
 import * as userSelectors from 'resources/user/user.selectors';
 import { userActions } from 'resources/user/user.slice';
 import { toastActions } from 'resources/toast/toast.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
-import Form, { Row, Column } from 'components/form';
+import Form from 'components/form';
 
 import styles from './profile.styles.pcss';
 
-function Profile() {
+const schema = yup.object({
+  firstName: yup.string()
+    .trim()
+    .required('First name is required'),
+  lastName: yup.string()
+    .trim()
+    .required('Last name is required'),
+  email: yup.string()
+    .trim()
+    .lowercase()
+    .required('Email is required')
+    .email('Please enter a valid email address'),
+});
+
+const CancelButton = () => {
+  const { reset } = useFormContext();
+  const user = useSelector(userSelectors.selectUser);
+
+  const handleClick = () => reset(user);
+
+  return (
+    <Button
+      className={styles.button}
+      tabIndex={-1}
+      type="secondary"
+      onClick={handleClick}
+    >
+      Cancel
+    </Button>
+  );
+};
+
+const Profile = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(userSelectors.selectUser);
 
-  const [firstName, setFirstName] = React.useState(user.firstName);
-  const [lastName, setLastName] = React.useState(user.lastName);
-  const [email, setEmail] = React.useState(user.email);
-  const [errors, setErrors] = React.useState({});
-
-  const showErrors = React.useCallback((newErrors) => {
-    setErrors(newErrors);
-    if (newErrors._global) {
-      dispatch(toastActions.error(newErrors._global.join('. ')));
-    }
+  const handleSubmit = React.useCallback(async (submitValues) => {
+    await dispatch(userActions.updateCurrentUser(submitValues));
+    dispatch(toastActions.success('User info updated!'));
   }, [dispatch]);
-
-  const updateUser = React.useCallback(async () => {
-    const data = {
-      firstName,
-      lastName,
-      email,
-    };
-
-    const result = await userValidators.validateUser(data);
-    if (!result.isValid) {
-      showErrors(result.errors);
-      return;
-    }
-
-    try {
-      await dispatch(userActions.updateCurrentUser(data));
-      dispatch(toastActions.success('User info updated!'));
-      setErrors({});
-    } catch (error) {
-      showErrors(error.data.errors);
-    }
-  }, [firstName, lastName, email, dispatch, showErrors]);
-
-  const cancel = React.useCallback(() => {
-    setFirstName(user.firstName);
-    setLastName(user.lastName);
-    setEmail(user.email);
-    setErrors({});
-  }, [user]);
-
-  const getError = React.useCallback((field) => {
-    return errors[field] || [];
-  }, [errors]);
 
   return (
     <>
       <h1>Profile</h1>
+      <Form
+        defaultValues={user}
+        onSubmit={handleSubmit}
+        validationSchema={schema}
+      >
+        <div className={styles.row}>
+          <Input
+            name="firstName"
+            placeholder="First Name"
+            label="First Name"
+          />
+        </div>
 
-      <Form>
-        <Row>
-          <Column>
-            <span>First name</span>
-            <Input
-              value={firstName}
-              onChange={setFirstName}
-              errors={getError('firstName')}
-            />
-          </Column>
+        <div className={styles.row}>
+          <Input
+            name="lastName"
+            placeholder="Last Name"
+            label="Last Name"
+          />
+        </div>
 
-          <Column>
-            <span>Last name</span>
-            <Input
-              value={lastName}
-              onChange={setLastName}
-              errors={getError('lastName')}
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Column>
-            <span>Email</span>
-            <Input
-              value={email}
-              onChange={setEmail}
-              errors={getError('email')}
-            />
-          </Column>
+        <div className={styles.row}>
+          <Input
+            name="email"
+            placeholder="Email"
+            label="Email"
+          />
+        </div>
 
-          <Column />
-        </Row>
-        <Row>
-          <Column>
-            <Button
-              className={styles.button}
-              onClick={cancel}
-              tabIndex={-1}
-              color="danger"
-            >
-              Cancel
-            </Button>
-
-            <Button
-              className={styles.button}
-              onClick={updateUser}
-              tabIndex={0}
-              color="success"
-            >
-              Save
-            </Button>
-          </Column>
-        </Row>
+        <div className={styles.buttons}>
+          <CancelButton />
+          <Button
+            className={styles.button}
+            tabIndex={0}
+            htmlType="submit"
+          >
+            Save
+          </Button>
+        </div>
       </Form>
     </>
   );
-}
+};
 
 export default React.memo(Profile);

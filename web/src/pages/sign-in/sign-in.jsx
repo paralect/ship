@@ -9,6 +9,7 @@ import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
+import Form from 'components/form';
 
 import styles from './sign-in.pcss';
 
@@ -17,23 +18,9 @@ function SignIn() {
 
   const dispatch = useDispatch();
 
-  const [pending, setPending] = React.useState(false);
-  const [errors, setErrors] = React.useState({});
-
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  async function submit(event) {
-    event.preventDefault();
-
-    try {
-      setPending(true);
-      await dispatch(userActions.signIn({ email, password }));
-    } catch (error) {
-      setErrors(error.data.errors);
-      setPending(false);
-    }
-  }
+  const handleSubmit = async (submitValues) => {
+    await dispatch(userActions.signIn(submitValues));
+  };
 
   if (user) {
     const redirectPath = new URLSearchParams(window.location.search).get('to');
@@ -42,9 +29,8 @@ function SignIn() {
   }
 
   return (
-    <form
-      onSubmit={submit}
-      noValidate
+    <Form
+      onSubmit={handleSubmit}
       className={styles.container}
     >
       <h1 className={styles.title}>
@@ -53,29 +39,22 @@ function SignIn() {
       <div className={styles.row}>
         <Input
           type="email"
-          value={email}
-          onChange={setEmail}
-          errors={errors.email}
           placeholder="Email"
-          disabled={pending}
+          name="email"
+          label="Email"
         />
       </div>
       <div className={styles.row}>
         <Input
           type="password"
-          value={password}
-          onChange={setPassword}
-          errors={errors.password}
+          name="password"
+          label="Password"
           placeholder="Password"
-          disabled={pending}
         />
       </div>
       <div className={styles.row}>
         <Button
-          type="submit"
-          color="success"
-          isLoading={pending}
-          disabled={!email || !password}
+          htmlType="submit"
         >
           Sign in
         </Button>
@@ -94,7 +73,7 @@ function SignIn() {
           </Link>
         </div>
       </div>
-    </form>
+    </Form>
   );
 }
 

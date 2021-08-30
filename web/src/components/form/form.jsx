@@ -14,22 +14,24 @@ const Form = ({
   validationSchema,
 }) => {
   const methods = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: validationSchema && yupResolver(validationSchema),
     mode: 'onSubmit',
     defaultValues,
   });
 
   const { handleSubmit, setError, clearErrors } = methods;
 
-  const submitHandler = useCallback((values) => {
+  const submitHandler = useCallback(async (values) => {
     try {
-      onSubmit(values);
+      await onSubmit(values);
       clearErrors();
     } catch ({ data }) {
       const { errors: validationErrors } = data;
-      Object.keys(validationErrors).forEach((key) => {
-        setError(key, { message: validationErrors[key].join(' ') }, { shouldFocus: true });
-      });
+      if (validationErrors) {
+        Object.keys(validationErrors).forEach((key) => {
+          setError(key, { message: validationErrors[key].join(' ') }, { shouldFocus: true });
+        });
+      }
     }
   }, [onSubmit, clearErrors, setError]);
 
@@ -50,14 +52,8 @@ const Form = ({
 Form.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  defaultValues: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({}),
-  ]),
-  validationSchema: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({}),
-  ]),
+  defaultValues: PropTypes.shape({}),
+  validationSchema: PropTypes.shape({}),
   onSubmit: PropTypes.func.isRequired,
 };
 

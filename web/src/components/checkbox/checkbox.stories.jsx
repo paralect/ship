@@ -31,9 +31,11 @@ const Template = (args) => {
 export const Active = Template.bind({});
 Active.args = {
   disabled: false,
+  label: 'Checkbox',
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
+  label: 'Checkbox',
 };

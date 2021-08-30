@@ -100,7 +100,7 @@ DatepickerComponent.propTypes = {
   label: PropTypes.string,
   disabled: PropTypes.bool,
   errors: PropTypes.arrayOf(PropTypes.string),
-  value: PropTypes.instanceOf(Date),
+  value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   name: PropTypes.string,

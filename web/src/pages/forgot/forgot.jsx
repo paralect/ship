@@ -10,33 +10,26 @@ import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/input';
 import Button from 'components/button';
+import Form from 'components/form';
 
 import styles from './forgot.pcss';
 
-function Forgot() {
+const Forgot = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(userSelectors.selectUser);
 
+  const [values, setValues] = React.useState({});
   const [pending, setPending] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
-  const [errors, setErrors] = React.useState({});
 
-  const [email, setEmail] = React.useState('');
-
-  async function submit(event) {
-    event.preventDefault();
-
-    try {
-      setPending(true);
-      await dispatch(userActions.forgot({ email }));
-      setSubmitted(true);
-    } catch (error) {
-      setErrors(error.data.errors);
-    } finally {
-      setPending(false);
-    }
-  }
+  const handleSubmit = async (submitValues) => {
+    setPending(true);
+    await dispatch(userActions.forgot(submitValues));
+    setValues(submitValues);
+    setSubmitted(true);
+    setPending(false);
+  };
 
   if (user) {
     return <Redirect to={routes.home.url()} />;
@@ -54,7 +47,7 @@ function Forgot() {
             We sent a reset link to your email:
           </p>
           <p className={cn(styles.description, styles.description_bold)}>
-            {email}
+            {values.email}
           </p>
         </>
       )}
@@ -64,23 +57,22 @@ function Forgot() {
           <p className={styles.description}>
             We’ll send a reset link to your email
           </p>
-          <form onSubmit={submit} noValidate className={styles.form}>
+          <Form
+            onSubmit={handleSubmit}
+            className={styles.form}
+          >
             <div className={styles.row}>
               <Input
                 type="email"
-                value={email}
-                onChange={setEmail}
-                errors={errors.email}
+                name="email"
                 placeholder="Email"
                 disabled={pending}
               />
             </div>
             <div className={styles.row}>
               <Button
-                type="submit"
-                color="success"
+                htmlType="submit"
                 isLoading={pending}
-                disabled={!email}
               >
                 Send reset link
               </Button>
@@ -94,11 +86,11 @@ function Forgot() {
                 </Link>
               </div>
             </div>
-          </form>
+          </Form>
         </>
       )}
     </div>
   );
-}
+};
 
 export default React.memo(Forgot);
