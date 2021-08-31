@@ -8,7 +8,9 @@ import styles from './file-upload.styles.pcss';
 const ICON_COLOR = '#808080';
 const ICON_COLOR_LIGHT = '#D4D8DD';
 
-const FileUpload = ({ onFileSelect, acceptFiles, error }) => {
+const FileUpload = ({
+  onFileSelect, accept, error, ...rest
+}) => {
   const handleFileSelect = (params) => {
     if (onFileSelect) {
       onFileSelect(params);
@@ -21,7 +23,8 @@ const FileUpload = ({ onFileSelect, acceptFiles, error }) => {
     onDrop: handleFileSelect,
     noClick: true,
     noDragEventsBubbling: true,
-    accept: acceptFiles,
+    accept,
+    ...rest,
   });
 
   return (
@@ -63,14 +66,14 @@ const FileUpload = ({ onFileSelect, acceptFiles, error }) => {
 
 FileUpload.propTypes = {
   onFileSelect: PropTypes.func,
-  acceptFiles: PropTypes.string,
+  accept: PropTypes.string,
   error: PropTypes.string,
   className: PropTypes.string,
 };
 
 FileUpload.defaultProps = {
   onFileSelect: undefined,
-  acceptFiles: undefined,
+  accept: undefined,
   error: undefined,
   className: undefined,
 };

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
+import _merge from 'lodash/merge';
 
 import config from 'config';
 
@@ -50,6 +51,24 @@ class ApiClient {
   }
 
   post(url, data = {}, requestConfig = {}) {
+    return this._api({
+      method: 'post',
+      url,
+      data,
+      ...requestConfig,
+    });
+  }
+
+  postFile(url, file, requestConfig = {}) {
+    const data = new FormData();
+    data.append('file', file);
+    _merge(requestConfig,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
     return this._api({
       method: 'post',
       url,
