@@ -19,5 +19,11 @@
     "clientId": "clientId",
     "clientSecret": "clientSecret",
     "redirectUri": "redirectUri"
+  },
+  "cloudStorage": {
+    "endpoint": "fra1.digitaloceanspaces.com",
+    "accessKeyId": "yourAccessKeyId",
+    "secretAccessKey": "yourSecretAccessKey",
+    "bucket": "yourBucket"
   }
 }

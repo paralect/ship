@@ -22,6 +22,8 @@ const schema = Joi.object({
       'string.empty': 'Email is required',
       'string.email': 'Please enter a valid email address',
     }),
+  avatarFileKey: Joi.string()
+    .allow(null),
 });
 
 async function validator(ctx, next) {

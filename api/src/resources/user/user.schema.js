@@ -25,6 +25,8 @@ const schema = Joi.object({
     })
     .required(),
   lastRequest: Joi.date(),
+  avatarFileKey: Joi.string()
+    .allow(null),
 });
 
 module.exports = (obj) => schema.validate(obj, { allowUnknown: false });
