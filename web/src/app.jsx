@@ -3,6 +3,8 @@ import { Provider, useSelector } from 'react-redux';
 import { Router } from 'react-router';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+import { useFetch } from 'hooks/useFetch';
+
 import history from 'services/history.service';
 import * as loaderService from 'services/loader.service';
 import * as socketService from 'services/socket.service';
@@ -85,22 +87,11 @@ Object.values(scope).forEach((s, scopeIndex) => {
 });
 
 function App() {
-  const [loading, setLoading] = React.useState(true);
+  const fetchFunction = () => store.dispatch(userActions.getCurrentUser());
 
-  React.useEffect(() => {
-    async function init() {
-      try {
-        await store.dispatch(userActions.getCurrentUser());
-      } catch (error) {
-        // @todo: add something like sentry
-      } finally {
-        setLoading(false);
-        loaderService.hide();
-      }
-    }
-
-    init();
-  }, []);
+  const { loading } = useFetch(fetchFunction, {
+    onFinish: () => loaderService.hide(),
+  });
 
   if (loading) return null;
 
