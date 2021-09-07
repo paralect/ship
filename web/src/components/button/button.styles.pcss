@@ -14,8 +14,10 @@
 
   &.primary {
     background: var(--primary);
+    border: 1px solid var(--primary);
 
     &:hover {
+      border: 1px solid var(--gray-dark);
       background: var(--gray-dark);
     }
 
@@ -44,6 +46,7 @@
   &.text {
     border-radius: 6px;
     background: transparent;
+    border: 1px solid transparent;
     color: var(--black);
 
     &:hover {

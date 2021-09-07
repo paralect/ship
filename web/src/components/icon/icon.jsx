@@ -5,8 +5,6 @@ import cn from 'classnames';
 import styles from './icon.styles.pcss';
 import IMAGES from './icons';
 
-const DEFAULT_COLOR = '#808080';
-
 const Icon = ({
   icon, className, noWrapper, color,
 }) => {
@@ -30,7 +28,7 @@ Icon.defaultProps = {
   icon: 'roundError',
   noWrapper: false,
   className: null,
-  color: DEFAULT_COLOR,
+  color: null,
 };
 
 export default Icon;

@@ -38,6 +38,7 @@ Text.args = {
 
 export const Loading = Template.bind({});
 Loading.args = {
+  type: 'primary',
   isLoading: true,
 };
 

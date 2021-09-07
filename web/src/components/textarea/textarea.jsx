@@ -6,7 +6,7 @@ import { useFormContext } from 'react-hook-form';
 import styles from './textarea.styles.pcss';
 
 const TextArea = ({
-  errors, label, placeholder, disabled, className, onChange, value, name, ...props
+  errors, label, placeholder, disabled, className, onChange, name, ...props
 }) => {
   const formContext = useFormContext();
 
@@ -38,7 +38,9 @@ const TextArea = ({
       />
       {(errors.length > 0 || formState?.errors[name]) && (
         <div className={styles.errors}>
-          {[...errors, formState?.errors[name]?.message].join(', ')}
+          {formState?.errors[name]
+            ? [...errors, formState?.errors[name]?.message].join(', ')
+            : errors.join(', ')}
         </div>
       )}
     </label>

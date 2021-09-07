@@ -19,7 +19,6 @@ const CheckBoxComponent = ({
         [styles.disabled]: disabled,
       }, styles.container, className)}
     >
-
       <input
         name={name}
         className={styles.checkbox}

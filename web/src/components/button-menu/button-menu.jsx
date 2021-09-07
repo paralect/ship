@@ -35,7 +35,6 @@ function ButtonMenu({
     <div ref={ref} className={styles.root}>
       <Button {...props} onClick={handleButtonClick}>
         {children}
-        Button
         <Icon
           className={cn({
             [styles.icon]: true,

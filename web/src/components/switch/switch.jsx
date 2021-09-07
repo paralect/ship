@@ -31,7 +31,12 @@ const SwitchComponent = ({
           [styles.disabled]: disabled,
         })}
       >
-        <input name={name} type="checkbox" />
+        <input
+          name={name}
+          type="checkbox"
+          checked={value}
+          onClick={handleChange}
+        />
         <span
           className={cn(styles.slider, className, {
             [styles.checked]: value,
