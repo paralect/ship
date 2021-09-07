@@ -1,5 +1,7 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import * as yup from 'yup';
+import store from 'resources/store';
 
 import Form from './index';
 import Input from '../input';
@@ -40,6 +42,13 @@ const options = [
 export default {
   title: 'Components/Form',
   component: Form,
+  decorators: [
+    (Story) => (
+      <Provider store={store}>
+        <Story />
+      </Provider>
+    ),
+  ],
 };
 
 const defaultValues = {

@@ -1,8 +1,11 @@
 import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+
+import { toastActions } from 'resources/toast/toast.slice';
 
 import styles from './form.styles.pcss';
 
@@ -13,6 +16,7 @@ const Form = ({
   onSubmit,
   validationSchema,
 }) => {
+  const dispatch = useDispatch();
   const methods = useForm({
     resolver: validationSchema && yupResolver(validationSchema),
     mode: 'onSubmit',
@@ -26,14 +30,15 @@ const Form = ({
       await onSubmit(values);
       clearErrors();
     } catch ({ data }) {
-      const { errors: validationErrors } = data;
-      if (validationErrors) {
+      const { errors: { _global, ...validationErrors } } = data;
+      if (_global) dispatch(toastActions.error(_global));
+      if (setError && validationErrors) {
         Object.keys(validationErrors).forEach((key) => {
           setError(key, { message: validationErrors[key].join(' ') }, { shouldFocus: true });
         });
       }
     }
-  }, [onSubmit, clearErrors, setError]);
+  }, [onSubmit, clearErrors, dispatch, setError]);
 
   return (
     <FormProvider

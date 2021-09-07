@@ -1,4 +1,7 @@
 const path = require('path');
+const webpack = require('webpack');
+
+const env = process.env.APP_ENV || 'development';
 
 module.exports = {
   core: {
@@ -24,14 +27,23 @@ module.exports = {
     });
 
     const rule = config.module.rules.find(({ test }) => test.test(".svg"));
-    
+
     // replace default storybook svg loader
     rule.test = /\.(ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
-  
+
     config.module.rules.unshift({
       test: /\.svg$/,
       loader: 'svg-react-loader'
     });
+
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('development'),
+          APP_ENV: JSON.stringify(env),
+        },
+      }),
+    );
 
     return config;
   },
