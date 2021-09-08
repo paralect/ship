@@ -33,34 +33,18 @@ async function validator(ctx, next) {
   const { email, password } = ctx.validatedData;
 
   const user = await userService.findOne({ email });
-  if (!user) {
-    ctx.body = {
-      errors: {
-        credentials: ['Incorrect email or password'],
-      },
-    };
-    ctx.throw(400);
-  }
+  ctx.assertError(!user, {
+    credentials: ['The email or password you have entered is invalid.'],
+  });
 
   const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
+  ctx.assertError(!isPasswordMatch, {
+    credentials: ['The email or password you have entered is invalid.'],
+  });
 
-  if (!isPasswordMatch) {
-    ctx.body = {
-      errors: {
-        credentials: ['Incorrect email or password'],
-      },
-    };
-    ctx.throw(400);
-  }
-
-  if (!user.isEmailVerified) {
-    ctx.body = {
-      errors: {
-        email: ['Please verify your email to sign in'],
-      },
-    };
-    ctx.throw(400);
-  }
+  ctx.assertError(!user.isEmailVerified, {
+    email: ['Please verify your email to sign in'],
+  });
 
   ctx.validatedData.user = user;
 

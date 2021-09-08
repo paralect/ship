@@ -5,14 +5,9 @@ async function validate(ctx, next) {
     const data = await cloudStorageService.getSignedDownloadUrl(ctx.params.key);
     ctx.validatedData = data;
   } catch (error) {
-    if (error.code) {
-      ctx.body = {
-        errors: {
-          file: [`An error has occurred (${error.code})`],
-        },
-      };
-      ctx.throw(error.statusCode);
-    }
+    ctx.assertError(error.code, {
+      file: [`An error has occurred (${error.code})`],
+    }, error.statusCode);
   }
 
   await next();

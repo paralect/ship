@@ -26,12 +26,7 @@ function validate(schema) {
       },
     );
 
-    if (error) {
-      ctx.body = {
-        errors: formatError(error),
-      };
-      ctx.throw(400);
-    }
+    if (error) ctx.throw(400, { errors: formatError(error) });
 
     ctx.validatedData = value;
     await next();

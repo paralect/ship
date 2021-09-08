@@ -16,15 +16,9 @@ const schema = Joi.object({
 
 async function validator(ctx, next) {
   const user = await userService.findOne({ signupToken: ctx.validatedData.token });
-
-  if (!user) {
-    ctx.body = {
-      errors: {
-        token: ['Token is invalid'],
-      },
-    };
-    ctx.throw(400);
-  }
+  ctx.assertError(!user, {
+    token: ['Token is invalid'],
+  });
 
   ctx.validatedData.userId = user._id;
 

@@ -34,14 +34,9 @@ async function validator(ctx, next) {
     email,
   });
 
-  if (isEmailInUse) {
-    ctx.body = {
-      errors: {
-        email: ['This email is already in use'],
-      },
-    };
-    ctx.throw(400);
-  }
+  ctx.assertError(isEmailInUse, {
+    email: ['This email is already in use'],
+  });
 
   await next();
 }

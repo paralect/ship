@@ -2,14 +2,9 @@ const cloudStorageService = require('services/cloud-storage.service');
 const uploadMiddleware = require('middlewares/uploadMiddleware');
 
 async function validate(ctx, next) {
-  if (!ctx.file) {
-    ctx.body = {
-      errors: {
-        file: ['File cannot be empty'],
-      },
-    };
-    ctx.throw(400);
-  }
+  ctx.assertError(!ctx.file, {
+    file: ['File cannot be empty'],
+  });
 
   await next();
 }
@@ -21,14 +16,9 @@ async function handler(ctx) {
     const { key } = await cloudStorageService.upload(fileName, ctx.file);
     ctx.body = { key };
   } catch (error) {
-    if (error.code) {
-      ctx.body = {
-        errors: {
-          file: [`An error has occurred (${error.code})`],
-        },
-      };
-      ctx.throw(error.statusCode);
-    }
+    ctx.assertError(error.code, {
+      file: [`An error has occurred (${error.code})`],
+    }, error.statusCode);
   }
 }
 
