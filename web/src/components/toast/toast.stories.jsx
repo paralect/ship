@@ -1,8 +1,8 @@
 import React from 'react';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from 'resources/store';
 
-import { toastActions } from 'resources/toast/toast.slice';
+import useToast from 'hooks/useToast';
 import Button from 'components/button';
 
 export default {
@@ -18,22 +18,24 @@ export default {
 };
 
 export const Template = () => {
-  const dispatch = useDispatch();
+  const {
+    toastSuccess, toastInfo, toastError, toastWarning,
+  } = useToast();
 
   const showSuccessToast = () => {
-    dispatch(toastActions.success('This is success toast! This is success toast!'));
+    toastSuccess('This is success toast! This is success toast!');
   };
 
   const showErrorToast = () => {
-    dispatch(toastActions.error('This is error toast! This is error toast!'));
+    toastError('This is error toast! This is error toast!');
   };
 
   const showInfoToast = () => {
-    dispatch(toastActions.info('This is info toast! This is info toast!'));
+    toastInfo('This is info toast! This is info toast!');
   };
 
   const showWarningToast = () => {
-    dispatch(toastActions.warning('This is warning toast! This is warning toast!'));
+    toastWarning('This is warning toast! This is warning toast!');
   };
 
   return (

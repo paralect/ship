@@ -1,14 +1,12 @@
-import { useDispatch } from 'react-redux';
-
-import { toastActions } from 'resources/toast/toast.slice';
+import useToast from './useToast';
 
 export default function useHandleError() {
-  const dispatch = useDispatch();
+  const { toastError } = useToast();
 
   return (e, setError) => {
     const { errors: { _global, ...errors } } = e.data;
 
-    if (_global) dispatch(toastActions.error(_global[0]));
+    if (_global) toastError(_global[0]);
 
     if (setError) {
       Object.keys(errors).forEach((key) => {

@@ -3,9 +3,9 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormContext } from 'react-hook-form';
 
+import useToast from 'hooks/useToast';
 import * as userSelectors from 'resources/user/user.selectors';
 import { userActions } from 'resources/user/user.slice';
-import { toastActions } from 'resources/toast/toast.slice';
 import * as filesApi from 'resources/files/files.api';
 
 import Input from 'components/input';
@@ -52,6 +52,7 @@ const CancelButton = ({ onCancel }) => { // eslint-disable-line react/prop-types
 };
 
 const Profile = () => {
+  const { toastSuccess, toastError } = useToast();
   const dispatch = useDispatch();
   const user = useSelector(userSelectors.selectUser);
   const { avatarFileKey: userAvatarFileKey } = user;
@@ -61,8 +62,8 @@ const Profile = () => {
 
   const handleSubmit = useCallback(async (submitValues) => {
     await dispatch(userActions.updateCurrentUser({ ...submitValues, avatarFileKey }));
-    dispatch(toastActions.success('User info updated!'));
-  }, [dispatch, avatarFileKey]);
+    toastSuccess('User info updated!');
+  }, [dispatch, avatarFileKey, toastSuccess]);
 
   const getAvatarUrl = useCallback(async (key) => {
     try {
@@ -71,9 +72,9 @@ const Profile = () => {
         setAvatarUrl(url);
       }
     } catch (error) {
-      dispatch(toastActions.error(error));
+      toastError(error);
     }
-  }, [dispatch]);
+  }, [toastError]);
 
   const uploadAvatar = async (files) => {
     try {
@@ -81,7 +82,7 @@ const Profile = () => {
       const { key } = await filesApi.upload(file);
       setAvatarFileKey(key);
     } catch (error) {
-      dispatch(toastActions.error(error));
+      toastError(error);
     }
   };
 
