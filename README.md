@@ -34,9 +34,9 @@ We believe we could ship great products faster, while maintain decent quality an
 |Name|Description|
 |:---|:----------|
 |[Koa.JS REST api](https://github.com/paralect/koa-api-starter)|REST api|
-|[React.JS (with Redux Toolkit) web app](https://github.com/paralect/koa-react-starter)|React.JS application|
+|[Next.JS (with Redux Toolkit) web app](https://github.com/paralect/next-starter)|Next.JS application|
 |[MongoDB api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API|
-|[Deploy (k8s and Drone CI)](https://github.com/paralect/ship-deploy)|Deploy scripts for Kubernetes|
+|[Deploy (k8s and Github Actions)](https://github.com/paralect/ship-deploy)|Deploy scripts for Kubernetes|
 
 ## License
 
