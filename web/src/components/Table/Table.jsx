@@ -91,7 +91,7 @@ const Table = ({
           <div className={cn(styles.cell, styles.checkable)}>
             <Checkbox
               id={id}
-              value={checked}
+              checked={checked}
               onChange={handleItemCheck}
             />
           </div>
@@ -134,7 +134,7 @@ const Table = ({
           <div className={cn(styles.headCellCheckable)}>
             <Checkbox
               disabled={items.length === 0}
-              value={allChecked}
+              checked={allChecked}
               onChange={handleAllCheck}
             />
           </div>
