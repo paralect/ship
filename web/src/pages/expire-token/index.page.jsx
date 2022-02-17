@@ -2,9 +2,9 @@ import { useCallback, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { path } from 'pages/routes';
+import { routes } from 'config';
 import { resendEmail } from 'resources/user/user.api';
-import useHandleError from 'hooks/use-handle-error';
+import { useHandleError } from 'hooks';
 
 import Button from 'components/Button';
 
@@ -44,7 +44,7 @@ const ForgotPassword = () => {
           <div className={styles.description}>
             Reset link sent successfully
           </div>
-          <Button onClick={() => router.push(path.signIn)}>
+          <Button onClick={() => router.push(routes.path.signIn)}>
             Back to Sign In
           </Button>
         </div>

@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 
 import store from 'resources/store';
 
-import useToast from 'hooks/use-toast';
+import { useToast } from 'hooks';
 
 import Avatar from 'components/Avatar';
 import Button from 'components/Button';
@@ -45,7 +45,7 @@ export const Basic = () => {
 };
 
 export const CustomBody = () => {
-  const { toastError } = useToast();
+  const { toastError } = useToastHook();
 
   const user = {
     fullName: 'Bachrimchuk Unknown',

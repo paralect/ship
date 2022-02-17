@@ -5,14 +5,12 @@ import { useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
-import useHandleError from 'hooks/use-handle-error';
-import useToast from 'hooks/use-toast';
+import { useHandleError, useToast } from 'hooks';
 import { updateCurrent } from 'resources/user/user.api';
 import { userSelectors } from 'resources/user/user.slice';
 
 import Input from 'components/Input';
 import Button from 'components/Button';
-import PhotoUpload from './components/PhotoUlpoad';
 
 import styles from './styles.module.css';
 
@@ -57,7 +55,6 @@ const Profile = () => {
       <div className={styles.uploadContainer}>
         <span>
           <h1 className={styles.heading}>Profile</h1>
-          <PhotoUpload />
           <form
             className={styles.form}
             onSubmit={handleSubmit(onSubmit)}

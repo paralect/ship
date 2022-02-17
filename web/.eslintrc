@@ -22,6 +22,7 @@
     ],
     "react/prop-types": "error",
     "import/prefer-default-export": "off",
+    "import/no-anonymous-default-export": "off",
     "no-underscore-dangle": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "react/display-name": "off",
@@ -34,6 +35,8 @@
       "name": "lodash",
       "message": "Import individual methods from the Lodash module"
     }],
+    "max-classes-per-file": "off",
+    "no-proto": "off",
     "consistent-return": "off",
     "import/no-extraneous-dependencies": "off",
     "@next/next/no-img-element": "off",

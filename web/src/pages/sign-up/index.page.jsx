@@ -5,9 +5,8 @@ import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
-import config from 'config';
-import { path } from 'pages/routes';
-import useHandleError from 'hooks/use-handle-error';
+import { environment, routes } from 'config';
+import { useHandleError } from 'hooks';
 import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/Input';
@@ -78,7 +77,7 @@ const SignUp = () => {
             <div>
               You look like a cool developer.
               {' '}
-              <Link size="l" href={`${config.apiUrl}/account/verify-email?token=${signupToken}`}>
+              <Link size="l" href={`${environment.apiUrl}/account/verify-email?token=${signupToken}`}>
                 Verify email
               </Link>
             </div>
@@ -142,7 +141,7 @@ const SignUp = () => {
           Have an account?
           <Link
             type="router"
-            href={path.signIn}
+            href={routes.path.signIn}
             className={styles.link}
           >
             Sign In

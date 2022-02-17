@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { path } from 'pages/routes';
+import { routes } from 'config';
 
 import ShipLogo from 'public/images/logo.svg';
 
@@ -11,7 +11,7 @@ import styles from './styles.module.css';
 const UnauthorizedLayout = ({ children }) => (
   <div className={styles.wrapper}>
     <header className={styles.header}>
-      <Link type="router" href={path.home} withoutUnderline>
+      <Link type="router" href={routes.path.home} withoutUnderline>
         <ShipLogo className={styles.logo} />
       </Link>
 

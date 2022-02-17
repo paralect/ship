@@ -5,9 +5,9 @@ import cn from 'classnames';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { path } from 'pages/routes';
+import { routes } from 'config';
 
-import { useOutsideClick } from 'hooks/use-outside-click';
+import { useOutsideClick } from 'hooks';
 
 import { userActions, userSelectors } from 'resources/user/user.slice';
 
@@ -30,7 +30,7 @@ const UserMenu = () => {
   }, [dispatch]);
 
   const onSettingsClick = useCallback(async () => {
-    await router.push(path.profile);
+    await router.push(routes.path.profile);
     setIsMenuOpened((prev) => !prev);
   }, [router]);
 

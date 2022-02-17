@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
-import { path } from 'pages/routes';
-import useHandleError from 'hooks/use-handle-error';
+import { routes } from 'config';
+import { useHandleError } from 'hooks';
 import { userActions } from 'resources/user/user.slice';
 
 import Input from 'components/Input';
@@ -82,7 +82,7 @@ const SignIn = () => {
               Don’t have an account?
               <Link
                 type="router"
-                href={path.signUp}
+                href={routes.path.signUp}
                 className={styles.signUplink}
               >
                 Sign up
@@ -90,7 +90,7 @@ const SignIn = () => {
             </div>
             <Link
               type="router"
-              href={path.forgotPassword}
+              href={routes.path.forgotPassword}
               className={styles.forgotPasswordLink}
             >
               Forgot password?

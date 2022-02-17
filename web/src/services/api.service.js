@@ -2,7 +2,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import config from 'config';
+import { environment } from 'config';
 
 class ApiError extends Error {
   constructor(data, status = 500, statusText = 'Internal Server Error') {
@@ -106,7 +106,7 @@ class ApiClient {
 }
 
 export default new ApiClient({
-  baseURL: config.apiUrl,
+  baseURL: environment.apiUrl,
   withCredentials: true,
   responseType: 'json',
   paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'brackets' }),

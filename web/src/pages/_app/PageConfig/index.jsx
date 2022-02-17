@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { userSelectors } from 'resources/user/user.slice';
 
-import * as routes from 'pages/routes';
+import { routes } from 'config';
 
 import 'resources/user/user.handlers';
 

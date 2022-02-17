@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
-import { path } from 'pages/routes';
+import { routes } from 'config';
 import { resetPassword } from 'resources/user/user.api';
-import useHandleError from 'hooks/use-handle-error';
+import { useHandleError } from 'hooks';
 
 import Input from 'components/Input';
 import Button from 'components/Button';
@@ -68,7 +68,7 @@ const ResetPassword = () => {
             Your password has been updated successfully.
             You can now use your new password to sign in.
           </p>
-          <Button onClick={() => router.push(path.signIn)}>
+          <Button onClick={() => router.push(routes.path.signIn)}>
             Back to Sign In
           </Button>
         </div>

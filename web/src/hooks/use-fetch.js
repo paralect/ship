@@ -43,7 +43,7 @@ export const useFetch = (fetchFunc, {
     };
 
     if (enabled) fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(params), enabled]);
 
   return { data, loading, error };

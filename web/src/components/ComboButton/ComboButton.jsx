@@ -6,7 +6,7 @@ import { ArrowDownIcon } from 'public/icons';
 
 import Button from 'components/Button';
 
-import { useOutsideClick } from 'hooks/use-outside-click';
+import { useOutsideClick } from 'hooks';
 
 import styles from './ComboButton.module.css';
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export const useOutsideClick = (ref, handler) => {
+export default function useOutsideClick(ref, handler) {
   useEffect(() => {
     const listener = (event) => {
       if (!ref.current || ref.current.contains(event.target)) return;
@@ -15,4 +15,4 @@ export const useOutsideClick = (ref, handler) => {
       document.removeEventListener('touchstart', listener);
     };
   }, [ref, handler]);
-};
+}

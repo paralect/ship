@@ -1,6 +1,6 @@
 import Logo from 'public/images/logo.svg';
 
-import { path } from 'pages/routes';
+import { routes } from 'config';
 
 import Link from 'components/Link';
 
@@ -10,7 +10,7 @@ import styles from './styles.module.css';
 
 const Header = () => (
   <header className={styles.header}>
-    <Link type="router" href={path.home} withoutUnderline>
+    <Link type="router" href={routes.path.home} withoutUnderline>
       <Logo className={styles.logo} />
     </Link>
 
