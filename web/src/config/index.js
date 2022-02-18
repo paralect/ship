@@ -1,7 +1,3 @@
-import * as routes from './routes';
-import environment from './environment';
+import environmentConfig from './environment';
 
-export {
-  routes,
-  environment,
-};
+export default environmentConfig;

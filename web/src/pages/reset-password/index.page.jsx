@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
-import { routes } from 'config';
+import * as routes from 'routes';
 import { resetPassword } from 'resources/user/user.api';
 import { useHandleError } from 'hooks';
 

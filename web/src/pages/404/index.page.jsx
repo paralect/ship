@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
 import Head from 'next/head';
-
-import { routes } from 'config';
 import router from 'next/router';
 
+import * as routes from 'routes';
 import Button from 'components/Button';
 
 import styles from './styles.module.css';

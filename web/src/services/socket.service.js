@@ -1,8 +1,8 @@
 import io from 'socket.io-client';
 
-import { environment } from 'config';
+import config from 'config';
 
-const socket = io(environment.apiUrl, {
+const socket = io(config.apiUrl, {
   transports: ['websocket'],
   autoConnect: false,
 });

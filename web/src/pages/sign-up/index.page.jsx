@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
-import { environment, routes } from 'config';
+import config from 'config';
+import * as routes from 'routes';
 import { useHandleError } from 'hooks';
 import { userActions } from 'resources/user/user.slice';
 
@@ -77,7 +78,7 @@ const SignUp = () => {
             <div>
               You look like a cool developer.
               {' '}
-              <Link size="l" href={`${environment.apiUrl}/account/verify-email?token=${signupToken}`}>
+              <Link size="l" href={`${config.apiUrl}/account/verify-email?token=${signupToken}`}>
                 Verify email
               </Link>
             </div>

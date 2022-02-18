@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { routes } from 'config';
+import * as routes from 'routes';
 import { useHandleError } from 'hooks';
 import { forgotPassword } from 'resources/user/user.api';
 

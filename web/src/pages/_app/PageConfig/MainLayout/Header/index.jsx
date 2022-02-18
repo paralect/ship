@@ -1,11 +1,8 @@
+import * as routes from 'routes';
+import Link from 'components/Link';
 import Logo from 'public/images/logo.svg';
 
-import { routes } from 'config';
-
-import Link from 'components/Link';
-
 import UserMenu from './components/UserMenu';
-
 import styles from './styles.module.css';
 
 const Header = () => (

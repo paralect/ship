@@ -5,12 +5,9 @@ import cn from 'classnames';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { routes } from 'config';
-
+import * as routes from 'routes';
 import { useOutsideClick } from 'hooks';
-
 import { userActions, userSelectors } from 'resources/user/user.slice';
-
 import Avatar from 'components/Avatar';
 
 import styles from './styles.module.css';

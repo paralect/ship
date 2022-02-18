@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { routes } from 'config';
+import * as routes from 'routes';
 import { resendEmail } from 'resources/user/user.api';
 import { useHandleError } from 'hooks';
 
