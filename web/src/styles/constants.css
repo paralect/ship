@@ -10,4 +10,8 @@
   --green: #219653;
   --red: #EB5757;
   --yellow: #F2C94C;
+  --toastify-icon-color-info: var(--white);
+  --toastify-icon-color-success: var(--white);
+  --toastify-icon-color-warning: var(--black);
+  --toastify-icon-color-error: var(--white);
 }

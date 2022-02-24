@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from 'react';
+import { forwardRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -63,4 +63,4 @@ Toggle.defaultProps = {
   className: null,
 };
 
-export default memo(Toggle);
+export default Toggle;

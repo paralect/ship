@@ -1,16 +1,14 @@
 import * as yup from 'yup';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
 import * as routes from 'routes';
-import { resetPassword } from 'resources/user/user.api';
-import { useHandleError } from 'hooks';
-
-import Input from 'components/Input';
-import Button from 'components/Button';
+import { handleError } from 'helpers';
+import { Input, Button } from 'components';
+import { accountApi } from 'resources/account';
 
 import styles from './styles.module.css';
 
@@ -20,9 +18,9 @@ const schema = yup.object().shape({
 
 const ResetPassword = () => {
   const router = useRouter();
-  const handleError = useHandleError();
 
   const { token } = router.query;
+  const [isSubmitted, setSubmitted] = useState(false);
 
   const {
     handleSubmit, formState: { errors }, control,
@@ -30,22 +28,15 @@ const ResetPassword = () => {
     resolver: yupResolver(schema),
   });
 
-  const [loading, setLoading] = useState(false);
-  const [isSubmitted, setSubmitted] = useState(false);
+  const {
+    mutate: resetPassword,
+    isLoading: isResetPasswordLoading,
+  } = accountApi.useResetPassword();
 
-  const onSubmit = useCallback(async ({ password }) => {
-    try {
-      setLoading(true);
-
-      await resetPassword({ password, token });
-
-      setSubmitted(true);
-    } catch (e) {
-      handleError(e);
-    } finally {
-      setLoading(false);
-    }
-  }, [handleError, token]);
+  const onSubmit = ({ password }) => resetPassword({ password, token }, {
+    onSuccess: () => setSubmitted(true),
+    onError: (e) => handleError(e),
+  });
 
   if (!token) {
     return (
@@ -95,7 +86,7 @@ const ResetPassword = () => {
           />
           <Button
             htmlType="submit"
-            loading={loading}
+            loading={isResetPasswordLoading}
             className={styles.button}
           >
             Save New Password

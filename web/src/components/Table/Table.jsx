@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import differenceBy from 'lodash/differenceBy';
 
-import Checkbox from 'components/Checkbox';
+import Checkbox from 'components/Checkbox/Checkbox';
 
 import TableHeadCell from './TableHeadCell/TableHeadCell';
 import TableFooter from './TableFooter/TableFooter';
@@ -181,4 +181,4 @@ Table.defaultProps = {
   paginationWithStroke: false,
 };
 
-export default Table;
+export default memo(Table);

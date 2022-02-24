@@ -1,12 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { memo, useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import { ArrowDownIcon } from 'public/icons';
-
-import Button from 'components/Button';
-
 import { useOutsideClick } from 'hooks';
+import Button from 'components/Button/Button';
+import { ArrowDownIcon } from 'public/icons';
 
 import styles from './ComboButton.module.css';
 
@@ -94,4 +92,4 @@ ComboButton.defaultProps = {
   type: types.primary,
 };
 
-export default React.memo(ComboButton);
+export default memo(ComboButton);

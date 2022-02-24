@@ -1,6 +1,6 @@
 .wrapper {
   height: 100vh;
-  padding: 0 48px;
+  padding: 0 32px;
   display: flex;
   flex-direction: column;
 }
@@ -17,8 +17,4 @@
   min-height: 72px;
   display: flex;
   align-items: center;
-}
-
-.logo {
-  width: 40px;
 }

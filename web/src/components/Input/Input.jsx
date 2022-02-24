@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import { useState, forwardRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 

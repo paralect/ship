@@ -3,7 +3,7 @@ import Head from 'next/head';
 import router from 'next/router';
 
 import * as routes from 'routes';
-import Button from 'components/Button';
+import { Button } from 'components';
 
 import styles from './styles.module.css';
 

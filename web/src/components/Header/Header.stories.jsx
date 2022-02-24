@@ -1,36 +1,33 @@
-/* eslint-disable no-console */
-import React from 'react';
-
 import { ActivateCardIcon } from 'public/icons';
 
-import Header from './index';
+import Header from './Header';
 
 const MENU_ITEMS = [
   {
-    handler: () => console.log('Dashboard'),
+    handler: () => {},
     label: 'Dashboard',
     icon: () => <ActivateCardIcon />,
   },
   {
-    handler: () => console.log('Subscription'),
+    handler: () => {},
     label: 'Subscription',
     icon: () => <ActivateCardIcon />,
   },
   {
-    handler: () => console.log('Profile'),
+    handler: () => {},
     label: 'Profile',
     icon: () => <ActivateCardIcon />,
     options: [
       {
-        handler: () => console.log('Dashboard'),
+        handler: () => {},
         label: 'Dashboard',
       },
       {
-        handler: () => console.log('Subscription'),
+        handler: () => {},
         label: 'Subscription',
       },
       {
-        handler: () => console.log('Profile'),
+        handler: () => {},
         label: 'Profile',
       },
     ],

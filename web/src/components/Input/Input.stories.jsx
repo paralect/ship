@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { SearchIcon } from 'public/icons';
+
 import Input from './index';
 
 export default {

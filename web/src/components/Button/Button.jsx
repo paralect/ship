@@ -1,10 +1,9 @@
-import React from 'react';
+import { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 import { ToRightIcon } from 'public/icons';
-
-import Spinner from 'components/Spinner';
+import Spinner from 'components/Spinner/Spinner';
 
 import styles from './Button.module.css';
 
@@ -74,4 +73,4 @@ Button.defaultProps = {
   className: null,
 };
 
-export default React.memo(Button);
+export default memo(Button);

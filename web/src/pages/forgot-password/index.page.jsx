@@ -1,17 +1,14 @@
-import { useCallback, useState } from 'react';
+import * as yup from 'yup';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import * as yup from 'yup';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import * as routes from 'routes';
-import { useHandleError } from 'hooks';
-import { forgotPassword } from 'resources/user/user.api';
-
-import Input from 'components/Input';
-import Button from 'components/Button';
-import Link from 'components/Link';
+import { handleError } from 'helpers';
+import { Input, Button, Link } from 'components';
+import { accountApi } from 'resources/account';
 
 import styles from './styles.module.css';
 
@@ -21,10 +18,13 @@ const schema = yup.object().shape({
 
 const ForgotPassword = () => {
   const router = useRouter();
-  const handleError = useHandleError();
 
   const [email, setEmail] = useState(null);
-  const [loading, setLoading] = useState(false);
+
+  const {
+    mutate: forgotPassword,
+    isLoading: isForgotPasswordLoading,
+  } = accountApi.useForgotPassword();
 
   const {
     handleSubmit, formState: { errors }, control,
@@ -32,19 +32,10 @@ const ForgotPassword = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(async (data) => {
-    try {
-      setLoading(true);
-
-      await forgotPassword(data);
-
-      setEmail(data.email);
-    } catch (e) {
-      handleError(e);
-    } finally {
-      setLoading(false);
-    }
-  }, [handleError]);
+  const onSubmit = (data) => forgotPassword(data, {
+    onSuccess: () => setEmail(data.email),
+    onError: (e) => handleError(e),
+  });
 
   if (email) {
     return (
@@ -61,7 +52,7 @@ const ForgotPassword = () => {
             . Please check your email inbox and follow the
             directions to reset your password.
           </p>
-          <Button onClick={() => router.push(path.signIn)}>
+          <Button onClick={() => router.push(routes.path.signIn)}>
             Back to Sign In
           </Button>
         </div>
@@ -91,7 +82,7 @@ const ForgotPassword = () => {
           />
           <Button
             htmlType="submit"
-            loading={loading}
+            loading={isForgotPasswordLoading}
             className={styles.button}
           >
             Send reset link

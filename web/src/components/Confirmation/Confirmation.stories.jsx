@@ -1,33 +1,20 @@
-import React from 'react';
-import { Provider } from 'react-redux';
+import Avatar from 'components/Avatar/Avatar';
+import Button from 'components/Button/Button';
 
-import store from 'resources/store';
-
-import { useToast } from 'hooks';
-
-import Avatar from 'components/Avatar';
-import Button from 'components/Button';
-import ToastProvider from 'components/Toast/ToastProvider';
 import styles from './Confirmation.stories.css';
-
-import { confirm } from './index';
+import confirm from './Confirmation';
 
 export default {
   title: 'Components/Confirmation',
   controls: { hideNoControlsWarning: true },
   decorators: [
     (Story) => (
-      <Provider store={store}>
-        <Story />
-        <ToastProvider />
-      </Provider>
+      <Story />
     ),
   ],
 };
 
 export const Basic = () => {
-  const { toastSuccess } = useToast();
-
   const basicDialog = async (args) => {
     const isConfirmed = await confirm({
       ...args,
@@ -37,7 +24,7 @@ export const Basic = () => {
     });
 
     if (isConfirmed) {
-      toastSuccess('Deleted successfully');
+      console.log('Deleted successfully');
     }
   };
 
@@ -45,8 +32,6 @@ export const Basic = () => {
 };
 
 export const CustomBody = () => {
-  const { toastError } = useToastHook();
-
   const user = {
     fullName: 'Bachrimchuk Unknown',
     avatarUrl: 'https://i.ibb.co/RvDN9gG/photo-2021-11-12-10-16-15.jpg',
@@ -88,7 +73,7 @@ export const CustomBody = () => {
     });
 
     if (isConfirmed) {
-      toastError('Sorry, but you cannot delete user with status "Legend"');
+      console.log('Sorry, but you cannot delete user with status "Legend"');
     }
   };
 

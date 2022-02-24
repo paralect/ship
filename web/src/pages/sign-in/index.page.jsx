@@ -1,18 +1,12 @@
 import * as yup from 'yup';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
 import * as routes from 'routes';
-import { useHandleError } from 'hooks';
-import { userActions } from 'resources/user/user.slice';
-
-import Input from 'components/Input';
-import Button from 'components/Button';
-import Link from 'components/Link';
-import MemoCard from 'components/MemoCard';
+import { handleError } from 'helpers';
+import { Input, Button, Link, MemoCard } from 'components';
+import { accountApi } from 'resources/account';
 
 import styles from './styles.module.css';
 
@@ -22,27 +16,15 @@ const schema = yup.object().shape({
 });
 
 const SignIn = () => {
-  const handleError = useHandleError();
-  const dispatch = useDispatch();
-
   const {
     handleSubmit, formState: { errors }, setError, control,
-  } = useForm({
-    resolver: yupResolver(schema),
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const { mutate: signIn, isLoading: isSignInLoading } = accountApi.useSignIn();
+
+  const onSubmit = (data) => signIn(data, {
+    onError: (e) => handleError(e, setError),
   });
-
-  const [loading, setLoading] = useState(false);
-
-  const onSubmit = async (data) => {
-    try {
-      setLoading(true);
-      await dispatch(userActions.signIn(data));
-    } catch (e) {
-      handleError(e, setError);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>
@@ -72,7 +54,7 @@ const SignIn = () => {
           />
           <Button
             className={styles.button}
-            loading={loading}
+            loading={isSignInLoading}
             htmlType="submit"
           >
             Sign in

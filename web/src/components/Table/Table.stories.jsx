@@ -1,11 +1,11 @@
 /* eslint-disable object-property-newline */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import random from 'lodash/random';
 import * as sort from 'lodash/sortBy';
 
-import Table from 'components/Table';
+import Table from 'components/Table/Table';
 import StatusTag from 'components/Table/StatusTag/StatusTag';
-import ButtonLink from 'components/Link';
+import ButtonLink from 'components/Link/Link';
 
 const columns = [
   {

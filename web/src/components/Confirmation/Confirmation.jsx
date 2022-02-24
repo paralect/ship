@@ -1,12 +1,10 @@
-import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import Modal from 'components/Modal';
-import Button from 'components/Button';
+import Modal from 'components/Modal/Modal';
+import Button from 'components/Button/Button';
 
 import createConfirmation from './createConfirmation';
-
 import styles from './Confirmation.module.css';
 
 const Confirmation = ({
@@ -73,4 +71,4 @@ Confirmation.defaultProps = {
   cancelButtonText: 'Cancel',
 };
 
-export const confirmation = createConfirmation(Confirmation);
+export default createConfirmation(Confirmation);

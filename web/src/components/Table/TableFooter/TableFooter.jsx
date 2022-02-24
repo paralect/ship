@@ -6,7 +6,6 @@ import ReactPaginate from 'react-paginate';
 import { ArrowLeftIcon, ArrowRightIcon } from 'public/icons';
 
 import SearchInfo from './SearchInfo';
-
 import styles from './TableFooter.module.css';
 
 const TableFooter = ({

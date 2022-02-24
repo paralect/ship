@@ -1,62 +1,20 @@
-import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Controller } from 'react-hook-form';
 
-import InputComponent from './Input';
+import Input from './Input';
+import FormInput from './FormInput';
 
-const Input = ({ ...props }) => (
+const InputComponent = ({ ...props }) => (
   props.control
-    ? <InputControlled {...props} />
-    : <InputComponent {...props} />
+    ? <FormInput {...props} />
+    : <Input {...props} />
 );
 
-const InputControlled = ({
-  name, control, defaultValue, ...props
-}) => (
-  <Controller
-    name={name}
-    control={control}
-    defaultValue={defaultValue}
-    render={({
-      field: {
-        onChange: controllerOnChange,
-        onBlur,
-        value,
-        ref,
-      },
-    }) => (
-      <InputComponent
-        {...props}
-        value={value}
-        onChange={(e) => {
-          controllerOnChange(e.target.value);
-          if (props.onChange) props.onChange(e);
-        }}
-        onBlur={onBlur}
-        ref={ref}
-      />
-    )}
-  />
-);
-
-InputControlled.propTypes = {
-  control: PropTypes.shape({}).isRequired,
-  name: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
-  onChange: PropTypes.func,
-};
-
-InputControlled.defaultProps = {
-  defaultValue: '',
-  onChange: null,
-};
-
-Input.propTypes = {
+InputComponent.propTypes = {
   control: PropTypes.shape({}),
 };
 
-Input.defaultProps = {
+InputComponent.defaultProps = {
   control: null,
 };
 
-export default memo(Input);
+export default InputComponent;

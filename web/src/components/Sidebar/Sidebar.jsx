@@ -1,9 +1,8 @@
-import React from 'react';
+import { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import { ShipLogo } from 'public/icons';
-import Avatar from 'components/Avatar';
+import Avatar from 'components/Avatar/Avatar';
 
 import styles from './Sidebar.module.css';
 
@@ -75,9 +74,9 @@ Sidebar.propTypes = {
 };
 
 Sidebar.defaultProps = {
-  Icon: () => <ShipLogo />,
+  Icon: () => null,
   name: 'ship',
   onChange: null,
 };
 
-export default React.memo(Sidebar);
+export default memo(Sidebar);

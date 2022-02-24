@@ -1,13 +1,11 @@
-import React, { forwardRef, memo } from 'react';
+import { forwardRef } from 'react';
+import ReactSelect, { components } from 'react-select';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import ReactSelect, { components } from 'react-select';
 
-import ArrowDownIcon from 'public/icons/arrow-down.svg';
+import { CloseSmallIcon, ArrowDownIcon } from 'public/icons';
 
-import { CloseSmallIcon } from 'public/icons';
 import { getCustomStyle } from './helpers';
-
 import styles from './Select.module.css';
 
 const Select = forwardRef(({
@@ -129,4 +127,4 @@ Select.defaultProps = {
   className: null,
 };
 
-export default memo(Select);
+export default Select;

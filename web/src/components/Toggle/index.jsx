@@ -1,57 +1,20 @@
-import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Controller } from 'react-hook-form';
 
-import ToggleComponent from './Toggle';
+import Toggle from './Toggle';
+import FormToggle from './FormToggle';
 
-const Toggle = ({ ...props }) => (
+const ToggleComponent = ({ ...props }) => (
   props.control
-    ? <ToggleControlled {...props} />
-    : <ToggleComponent {...props} />
+    ? <FormToggle {...props} />
+    : <Toggle {...props} />
 );
 
-const ToggleControlled = ({
-  name, control, defaultValue, ...props
-}) => (
-  <Controller
-    name={name}
-    control={control}
-    defaultValue={defaultValue}
-    render={({
-      field: {
-        onChange,
-        onBlur,
-        value,
-        ref,
-      },
-    }) => (
-      <ToggleComponent
-        checked={value}
-        onChange={() => onChange(!value)}
-        onBlur={onBlur}
-        ref={ref}
-        {...props}
-      />
-    )}
-  />
-);
-
-ToggleControlled.propTypes = {
-  control: PropTypes.shape({}).isRequired,
-  name: PropTypes.string.isRequired,
-  defaultValue: PropTypes.bool,
-};
-
-ToggleControlled.defaultProps = {
-  defaultValue: false,
-};
-
-Toggle.propTypes = {
+ToggleComponent.propTypes = {
   control: PropTypes.shape({}),
 };
 
-Toggle.defaultProps = {
+ToggleComponent.defaultProps = {
   control: null,
 };
 
-export default memo(Toggle);
+export default ToggleComponent;

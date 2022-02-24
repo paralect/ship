@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CopyIcon } from 'public/icons';
 
-import Button from './index';
+import Button from './Button';
 
 export default {
   title: 'Components/Button',

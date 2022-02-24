@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './SearchInfo.module.css';
@@ -32,4 +33,4 @@ SearchInfo.propTypes = {
   page: PropTypes.number.isRequired,
 };
 
-export default SearchInfo;
+export default memo(SearchInfo);

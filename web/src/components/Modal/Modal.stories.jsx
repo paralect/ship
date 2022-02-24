@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { MoreIcon } from 'public/icons';
+import Button from 'components/Button/Button';
+import IconButton from 'components/IconButton/IconButton';
 
-import Button from 'components/Button';
-
+import Modal from './Modal';
 import styles from './Modal.stories.css';
-
-import Modal from './index';
-import IconButton from '../IconButton/IconButton';
 
 export default {
   title: 'Components/Modal',

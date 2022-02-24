@@ -1,20 +1,18 @@
-import api from 'services/api.service';
-import * as socketService from 'services/socket.service';
+import queryClient from 'query-client';
+import { apiService, socketService } from 'services';
 
-import store from 'resources/store';
-import { userSelectors, userActions } from 'resources/user/user.slice';
-
-api.on('error', (error) => {
+apiService.on('error', (error) => {
   if (error.status === 401) {
-    store.dispatch(userActions.signOut());
+    queryClient.setQueryData(['currentUser'], null);
   }
 });
 
 socketService.on('connect', () => {
-  const user = userSelectors.selectUser(store.getState());
-  socketService.emit('subscribe', `user-${user._id}`);
+  const currentUser = queryClient.getQueryData(['currentUser']);
+
+  socketService.emit('subscribe', `user-${currentUser._id}`);
 });
 
-socketService.on('user:updated', (user) => {
-  store.dispatch(userActions.setUser({ user }));
+socketService.on('user:updated', (data) => {
+  queryClient.setQueryData(['currentUser'], data);
 });

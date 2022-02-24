@@ -1,16 +1,13 @@
 import * as yup from 'yup';
-import { useState, useCallback } from 'react';
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useQueryClient } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
-import { useHandleError, useToast } from 'hooks';
-import { updateCurrent } from 'resources/user/user.api';
-import { userSelectors } from 'resources/user/user.slice';
-
-import Input from 'components/Input';
-import Button from 'components/Button';
+import { handleError } from 'helpers';
+import { Input, Button } from 'components';
+import { userApi } from 'resources/user';
 
 import styles from './styles.module.css';
 
@@ -20,12 +17,9 @@ const schema = yup.object().shape({
 });
 
 const Profile = () => {
-  const handleError = useHandleError();
-  const { toastSuccess } = useToast();
+  const queryClient = useQueryClient();
 
-  const [loading, setLoading] = useState(false);
-
-  const { email } = useSelector(userSelectors.selectUser);
+  const { data: currentUser } = userApi.useGetCurrent();
 
   const {
     handleSubmit, formState: { errors }, setError, control,
@@ -33,19 +27,15 @@ const Profile = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(async ({ password }) => {
-    try {
-      setLoading(true);
+  const { mutate: updateCurrent, isLoading: isUpdateCurrentLoading } = userApi.useUpdateCurrent();
 
-      await updateCurrent({ password });
-
-      toastSuccess('Your password have been successfully updated.');
-    } catch (e) {
-      handleError(e, setError);
-    } finally {
-      setLoading(false);
-    }
-  }, [toastSuccess, handleError, setError]);
+  const onSubmit = ({ password }) => updateCurrent({ password }, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(['currentUser'], data);
+      toast.success('Your password have been successfully updated.');
+    },
+    onError: (e) => handleError(e, setError),
+  });
 
   return (
     <>
@@ -62,7 +52,7 @@ const Profile = () => {
             <Input
               name="email"
               label="Email Address"
-              defaultValue={email}
+              defaultValue={currentUser.email}
               control={control}
               error={errors.email}
               disabled
@@ -77,7 +67,7 @@ const Profile = () => {
             />
             <Button
               htmlType="submit"
-              loading={loading}
+              loading={isUpdateCurrentLoading}
             >
               Update Profile
             </Button>

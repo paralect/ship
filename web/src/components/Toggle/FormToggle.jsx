@@ -1,16 +1,9 @@
-import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
-import CheckboxComponent from './Checkbox';
+import Toggle from './Toggle';
 
-const Checkbox = ({ ...props }) => {
-  return props.control
-    ? <CheckboxControlled {...props} />
-    : <CheckboxComponent {...props} />;
-};
-
-const CheckboxControlled = ({
+const FormToggle = ({
   name, control, defaultValue, ...props
 }) => (
   <Controller
@@ -25,7 +18,7 @@ const CheckboxControlled = ({
         ref,
       },
     }) => (
-      <CheckboxComponent
+      <Toggle
         checked={value}
         onChange={() => onChange(!value)}
         onBlur={onBlur}
@@ -36,22 +29,14 @@ const CheckboxControlled = ({
   />
 );
 
-CheckboxControlled.propTypes = {
+FormToggle.propTypes = {
   control: PropTypes.shape({}).isRequired,
   name: PropTypes.string.isRequired,
   defaultValue: PropTypes.bool,
 };
 
-CheckboxControlled.defaultProps = {
+FormToggle.defaultProps = {
   defaultValue: false,
 };
 
-Checkbox.propTypes = {
-  control: PropTypes.shape({}),
-};
-
-Checkbox.defaultProps = {
-  control: null,
-};
-
-export default memo(Checkbox);
+export default FormToggle;

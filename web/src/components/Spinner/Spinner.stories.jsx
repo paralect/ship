@@ -1,8 +1,6 @@
-import React from 'react';
 import cn from 'classnames';
 
-import Spinner from './index';
-
+import Spinner from './Spinner';
 import styles from './Spinner.stories.css';
 
 export default {

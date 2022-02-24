@@ -1,10 +1,10 @@
-import React, {
-  memo, useCallback, useEffect, useState,
+import {
+  useCallback, useEffect, useState,
 } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import RadioButton from './RadioButton';
 
+import RadioButton from './RadioButton/RadioButton';
 import styles from './RadioGroup.module.css';
 
 const RadioGroup = ({
@@ -71,4 +71,4 @@ RadioGroup.defaultProps = {
   className: null,
 };
 
-export default memo(RadioGroup);
+export default RadioGroup;

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import * as socketService from 'services/socket.service';
+import { socketService } from 'services';
 
 const PrivateScope = ({ children }) => {
   useEffect(() => {

@@ -1,58 +1,20 @@
-import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Controller } from 'react-hook-form';
 
-import TextAreaComponent from './TextArea';
+import TextArea from './TextArea';
+import FormTextArea from './FormTextArea';
 
-const TextArea = ({ ...props }) => (
+const TextAreaComponent = ({ ...props }) => (
   props.control
-    ? <TextAreaControlled {...props} />
-    : <TextAreaComponent {...props} />
+    ? <FormTextArea {...props} />
+    : <TextArea {...props} />
 );
 
-const TextAreaControlled = ({
-  name, control, defaultValue, ...props
-}) => (
-  <Controller
-    name={name}
-    control={control}
-    defaultValue={defaultValue}
-    render={({
-      field: {
-        onChange,
-        onBlur,
-        value,
-        ref,
-      },
-    }) => (
-      <TextAreaComponent
-        value={value}
-        defaultValue={defaultValue}
-        onChange={onChange}
-        onBlur={onBlur}
-        ref={ref}
-        {...props}
-      />
-    )}
-  />
-);
-
-TextAreaControlled.propTypes = {
-  control: PropTypes.shape({}).isRequired,
-  name: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
-};
-
-TextAreaControlled.defaultProps = {
-  defaultValue: '',
-};
-
-TextArea.propTypes = {
+TextAreaComponent.propTypes = {
   control: PropTypes.shape({}),
 };
 
-TextArea.defaultProps = {
+TextAreaComponent.defaultProps = {
   control: null,
 };
 
-export default memo(TextArea);
+export default TextAreaComponent;

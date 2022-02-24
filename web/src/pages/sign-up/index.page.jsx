@@ -1,18 +1,14 @@
 import * as yup from 'yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import Head from 'next/head';
 
 import config from 'config';
 import * as routes from 'routes';
-import { useHandleError } from 'hooks';
-import { userActions } from 'resources/user/user.slice';
-
-import Input from 'components/Input';
-import Button from 'components/Button';
-import Link from 'components/Link';
+import { handleError } from 'helpers';
+import { Input, Button, Link } from 'components';
+import { accountApi } from 'resources/account';
 
 import styles from './styles.module.css';
 
@@ -27,15 +23,9 @@ const schema = yup.object().shape({
 });
 
 const SignUp = () => {
-  const handleError = useHandleError();
-  const dispatch = useDispatch();
-
-  const [values, setValues] = useState({});
+  const [email, setEmail] = useState(null);
   const [registered, setRegistered] = useState(false);
-
   const [signupToken, setSignupToken] = useState();
-
-  const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit, setError, formState: { errors }, control,
@@ -43,22 +33,17 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
-    try {
-      setLoading(true);
+  const { mutate: signUp, isLoading: isSignUpLoading } = accountApi.useSignUp();
 
-      const response = await dispatch(userActions.signUp(data));
-
+  const onSubmit = (data) => signUp(data, {
+    onSuccess: (response) => {
       if (response.signupToken) setSignupToken(response.signupToken);
 
       setRegistered(true);
-      setValues(data);
-    } catch (e) {
-      handleError(e, setError);
-    } finally {
-      setLoading(false);
-    }
-  };
+      setEmail(data.email);
+    },
+    onError: (e) => handleError(e, setError),
+  });
 
   if (registered) {
     return (
@@ -72,7 +57,7 @@ const SignUp = () => {
             Please follow the instructions from the email to complete a sign up process.
             We sent an email with a confirmation link to
             {' '}
-            <b>{values.email}</b>
+            <b>{email}</b>
           </div>
           {signupToken && (
             <div>
@@ -132,7 +117,7 @@ const SignUp = () => {
           />
           <Button
             htmlType="submit"
-            loading={loading}
+            loading={isSignUpLoading}
             className={styles.button}
           >
             Sign Up

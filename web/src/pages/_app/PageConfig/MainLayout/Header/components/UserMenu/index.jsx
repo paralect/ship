@@ -3,28 +3,24 @@ import {
 } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
 
 import * as routes from 'routes';
 import { useOutsideClick } from 'hooks';
-import { userActions, userSelectors } from 'resources/user/user.slice';
-import Avatar from 'components/Avatar';
+import { Avatar } from 'components';
+import { userApi } from 'resources/user';
+import { accountApi } from 'resources/account';
 
 import styles from './styles.module.css';
 
 const UserMenu = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
 
-  const user = useSelector(userSelectors.selectUser);
+  const { data: user } = userApi.useGetCurrent();
+  const { mutate: signOut } = accountApi.useSignOut();
 
   const avatarRef = useRef();
 
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-
-  const onSignOutClick = useCallback(async () => {
-    await dispatch(userActions.signOut());
-  }, [dispatch]);
 
   const onSettingsClick = useCallback(async () => {
     await router.push(routes.path.profile);
@@ -50,7 +46,7 @@ const UserMenu = () => {
         onClick={handleAvatarClick}
       >
         <Avatar
-          onClick={() => router.push(path.profile)}
+          onClick={() => router.push(routes.path.profile)}
           fullName={`${user.firstName} ${user.lastName}`}
           src={user.avatarUrl}
         />
@@ -69,7 +65,7 @@ const UserMenu = () => {
         </button>
         <button
           type="button"
-          onClick={onSignOutClick}
+          onClick={() => signOut()}
           className={styles.menuButton}
         >
           Log out

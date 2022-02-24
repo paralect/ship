@@ -1,8 +1,6 @@
-import React from 'react';
-
 import { CloseIcon, CloseSmallIcon } from 'public/icons';
 
-import IconButton from './index';
+import IconButton from './IconButton';
 
 export default {
   title: 'Components/Icon Button',

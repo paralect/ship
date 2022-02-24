@@ -1,12 +1,11 @@
-import React, { useState, memo } from 'react';
+import { useState, memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 import {
   CheckIcon, AlertIcon, ErrorIcon, InfoIcon, CloseIcon,
 } from 'public/icons';
-
-import Button from 'components/Button';
+import Button from 'components/Button/Button';
 
 import styles from './Banner.module.css';
 

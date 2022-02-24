@@ -1,10 +1,10 @@
-import React from 'react';
+import { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import Button from 'components/Button';
-import Avatar from 'components/Avatar';
-import ButtonMenu from 'components/ComboButton';
-import ShipLogo from 'public/icons/ship-logo.svg';
+
+import Button from 'components/Button/Button';
+import Avatar from 'components/Avatar/Avatar';
+import ButtonMenu from 'components/ComboButton/ComboButton';
 
 import styles from './Header.module.css';
 
@@ -74,10 +74,10 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  Icon: () => <ShipLogo />,
+  Icon: () => null,
   avatarSrc: null,
   fullName: null,
   className: null,
 };
 
-export default React.memo(Header);
+export default memo(Header);

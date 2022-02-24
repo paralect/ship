@@ -1,9 +1,6 @@
-/* eslint-disable no-console */
-import React from 'react';
-
 import { CopyIcon } from 'public/icons';
 
-import ComboButton from './index';
+import ComboButton from './ComboButton';
 
 const options = [{
   label: () => (

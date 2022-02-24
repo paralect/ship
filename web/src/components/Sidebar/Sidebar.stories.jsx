@@ -1,8 +1,6 @@
-import React from 'react';
-
 import { ActivateCardIcon } from 'public/icons';
 
-import Sidebar from './index';
+import Sidebar from './Sidebar';
 
 const MENU_ITEMS = [
   {

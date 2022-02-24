@@ -63,5 +63,3 @@ export const configuration = {
     layout: layout.MAIN,
   },
 };
-
-export const configurations = Object.values(configuration);

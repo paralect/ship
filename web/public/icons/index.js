@@ -28,8 +28,6 @@ import CheckSmallIcon from './check-small.svg';
 import ErrorSmallIcon from './error-small.svg';
 import AddIcon from './add.svg';
 import PenIcon from './pen.svg';
-
-import ShipLogo from './ship-logo.svg';
 import FileUploadIcon from './file-upload.svg';
 
 export {
@@ -62,6 +60,5 @@ export {
   ErrorSmallIcon,
   AddIcon,
   PenIcon,
-  ShipLogo,
   FileUploadIcon,
 };

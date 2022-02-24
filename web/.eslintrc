@@ -31,6 +31,7 @@
     "react/no-unstable-nested-components": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
+    "object-curly-newline": "off",
     "no-restricted-imports": ["error", {
       "name": "lodash",
       "message": "Import individual methods from the Lodash module"

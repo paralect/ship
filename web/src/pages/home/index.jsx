@@ -2,14 +2,9 @@ import { useCallback, useLayoutEffect, useState } from 'react';
 import cn from 'classnames';
 import Head from 'next/head';
 
-import { useFetch, useDebounce } from 'hooks';
-
-import { list } from 'resources/user/user.api';
-
-import Table from 'components/Table';
-import Input from 'components/Input';
-import Select from 'components/Select';
-import Spinner from 'components/Spinner';
+import { useDebounce } from 'hooks';
+import { Table, Input, Select, Spinner } from 'components';
+import { userApi } from 'resources/user';
 
 import styles from './styles.module.css';
 
@@ -70,9 +65,9 @@ const Home = () => {
     setPage(1);
   }, [debouncedSearch]);
 
-  const { data, loading } = useFetch(list, { params });
+  const { data, isLoading: isListLoading } = userApi.useList(params);
 
-  if (loading && data === null) {
+  if (isListLoading && data === null) {
     return (
       <div className={styles.helperContainer}>
         <Spinner />
@@ -87,7 +82,7 @@ const Home = () => {
       </Head>
       <h2 className={styles.title}>Users</h2>
       <div className={cn({
-        [styles.loading]: loading,
+        [styles.loading]: isListLoading,
       }, styles.container)}
       >
         <div className={styles.sortBarContainer}>

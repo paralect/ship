@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { ActivateCardIcon, ArchiveIcon } from 'public/icons';
 
-import TabBar from './index';
+import TabBar from './TabBar';
 
 const One = () => <div style={{ marginTop: '24px' }}>One Component</div>;
 const Two = () => <div style={{ marginTop: '24px' }}>Two Component</div>;

@@ -1,6 +1,4 @@
-import React from 'react';
-
-import MemoCard from './index';
+import MemoCard from './MemoCard';
 
 const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
 

@@ -50,3 +50,42 @@ h3 {
   line-height: 24px;
   color: var(--black);
 }
+
+.Toastify__toast {
+  padding: 12px;
+  border-radius: 6px;
+  align-items: center;
+  color: var(--white);
+  font-family: Inter, sans-serif;
+
+  svg {
+    min-width: 24px;
+  }
+}
+
+.Toastify__toast-body {
+  padding: 0;
+}
+
+.Toastify__toast--info {
+  background-color: var(--blue);
+}
+
+.Toastify__toast--success {
+  background-color: var(--green);
+}
+
+.Toastify__toast--warning {
+  color: var(--black);
+  background-color: var(--yellow);
+}
+
+.Toastify__toast--error {
+  background-color: var(--red);
+}
+
+.Toastify__toast-icon {
+  min-width: 24px;
+  margin-inline-end: 0;
+  margin-right: 12px;
+}

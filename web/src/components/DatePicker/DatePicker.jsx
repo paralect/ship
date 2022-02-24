@@ -1,19 +1,16 @@
-import React, {
-  memo, forwardRef, useState, useRef,
-} from 'react';
+import { forwardRef, useState, useRef } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import DatepickerComponent, { CalendarContainer } from 'react-datepicker';
 
 import { ArrowLeftIcon, ArrowRightIcon, CalendarIcon } from 'public/icons';
-
 import Input from 'components/Input/Input';
-import IconButton from 'components/IconButton';
+import IconButton from 'components/IconButton/IconButton';
 
 import { MONTHS } from './constants';
+import styles from './DatePicker.module.css';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import styles from './DatePicker.module.css';
 
 const renderContainer = ({ children }) => (
   <CalendarContainer className={styles.container}>
@@ -140,4 +137,4 @@ DatepickerInput.defaultProps = {
   onChange: null,
 };
 
-export default memo(Datepicker);
+export default Datepicker;
