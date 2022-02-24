@@ -49,7 +49,7 @@ async function validator(ctx, next) {
   const { email } = ctx.validatedData;
 
   const isUserExists = await userService.exists({ email });
-  ctx.assertError(!isUserExists, {
+  ctx.assertClientError(!isUserExists, {
     email: 'User with this email is already registered',
   });
 

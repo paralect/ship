@@ -28,9 +28,11 @@ async function validator(ctx, next) {
   const { token } = ctx.validatedData;
 
   const user = await userService.findOne({ resetPasswordToken: token });
-  ctx.assertError(user, {
-    token: 'Password reset link has expired or invalid',
-  });
+
+  if (!user) {
+    ctx.body = {};
+    return;
+  }
 
   ctx.validatedData.user = user;
   await next();
