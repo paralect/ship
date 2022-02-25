@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CopyIcon } from 'public/icons';
 
 import ComboButton from './ComboButton';

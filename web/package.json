@@ -16,9 +16,10 @@
     "build": "next build",
     "dev": "next dev -p 3002",
     "start": "next start -p 3002",
-    "precommit": "lint-staged && next lint",
     "storybook": "start-storybook -p 6007",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "precommit": "lint-staged && next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@hookform/resolvers": "2.8.8",
@@ -64,6 +65,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.29.0",
     "eslint-plugin-react-hooks": "4.3.0",
+    "husky": "7.0.4",
     "lint-staged": "12.3.4",
     "postcss": "8.4.7",
     "postcss-loader": "6.2.1",

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { ActivateCardIcon } from 'public/icons';
 
 import Sidebar from './Sidebar';
@@ -31,7 +33,7 @@ export default {
 };
 
 const Template = (args) => {
-  const [currentPage, setCurrentPage] = React.useState(MENU_ITEMS[0]);
+  const [currentPage, setCurrentPage] = useState(MENU_ITEMS[0]);
 
   return (
     <Sidebar

@@ -155,7 +155,7 @@ const Table = ({
 };
 
 Table.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   sortBy: PropTypes.shape({
     field: PropTypes.string,
     direction: PropTypes.number,
