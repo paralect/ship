@@ -34,9 +34,7 @@ const Sidebar = ({
             })}
             onClick={handleChange}
           >
-            <div className={styles.itemIcon}>
-              {icon()}
-            </div>
+            <div>{icon()}</div>
             <div className={styles.listItemText}>
               {label}
             </div>

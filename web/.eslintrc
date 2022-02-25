@@ -21,6 +21,7 @@
       { "ignore": ["public"] }
     ],
     "react/prop-types": "error",
+    "react/jsx-key": "off",
     "import/prefer-default-export": "off",
     "import/no-anonymous-default-export": "off",
     "no-underscore-dangle": "off",
