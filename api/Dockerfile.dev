@@ -11,6 +11,10 @@ ENV APP_ENV=$APP_ENV
 
 WORKDIR /app
 COPY ["./package*.json", "/app/"]
+
+# Disable husky
+RUN npm set-script prepare ""
+
 RUN npm ci --quiet
 
 COPY . ./
