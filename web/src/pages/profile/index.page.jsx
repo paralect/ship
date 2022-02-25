@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
 
 import { handleError } from 'helpers';

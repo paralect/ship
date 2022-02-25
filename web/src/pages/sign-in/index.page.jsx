@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
 
 import * as routes from 'routes';
