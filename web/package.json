@@ -19,13 +19,14 @@
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
     "precommit": "lint-staged && next lint",
-    "prepare": "husky install"
+    "prepare": "is-ci || husky install"
   },
   "dependencies": {
     "@hookform/resolvers": "2.8.8",
     "@svgr/webpack": "6.2.1",
     "axios": "0.26.0",
     "classnames": "2.3.1",
+    "is-ci": "3.0.1",
     "lodash": "4.17.21",
     "next": "12.1.0",
     "postcss-flexbugs-fixes": "5.0.2",
