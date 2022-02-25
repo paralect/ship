@@ -22,7 +22,8 @@
     "migrate": "node ./src/migrator.js",
     "schedule-dev": "nodemon --watch ./src ./src/scheduler ./src/scheduler.js",
     "schedule": "node ./src/scheduler.js",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@koa/cors": "3.1.0",
@@ -59,6 +60,7 @@
     "eslint": "8.9.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.25.4",
+    "husky": "7.0.4",
     "lint-staged": "12.3.4"
   },
   "lint-staged": {
