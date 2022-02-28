@@ -1,4 +1,4 @@
-FROM node:16.13.1-alpine3.13
+FROM node:16.13.1-alpine3.13 as base
 RUN apk add --no-cache python3 py3-pip
 
 EXPOSE 3001
@@ -19,6 +19,14 @@ RUN npm ci --quiet
 
 COPY . ./
 
+FROM base as build
 RUN npm run build-assets
 
+FROM base as migrator
+CMD npm run migrate
+
+FROM build as scheduler
+CMD npm run schedule-dev
+
+FROM build as app
 CMD npm run dev
