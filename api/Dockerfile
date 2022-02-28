@@ -3,7 +3,7 @@ RUN apk add --no-cache python3 py3-pip
 
 EXPOSE 3001
 
-ARG NODE_ENV
+ARG NODE_ENV=production
 ARG APP_ENV
 
 ENV NODE_ENV=$NODE_ENV
