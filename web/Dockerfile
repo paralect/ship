@@ -2,7 +2,7 @@ FROM --platform=linux/amd64 node:16.13.1-alpine3.13
 
 EXPOSE 3002
 
-ARG NODE_ENV
+ARG NODE_ENV=production
 ARG APP_ENV
 ARG NEXT_PUBLIC_APP_ENV=$APP_ENV
 
