@@ -46,6 +46,7 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
+      target: app
       args:
         APP_ENV: development
     networks:
@@ -59,10 +60,10 @@ services:
       - mongo-replicator
   migrator:
     container_name: ship-migrator
-    command: npm run migrate
     build:
       context: ./api
       dockerfile: Dockerfile.dev
+      target: migrator
       args:
         APP_ENV: development
     networks:
@@ -73,10 +74,10 @@ services:
       - mongo-replicator
   scheduler:
     container_name: ship-scheduler
-    command: npm run schedule-dev
     build:
       context: ./api
       dockerfile: Dockerfile.dev
+      target: scheduler
       args:
         APP_ENV: development
     networks:
@@ -94,6 +95,7 @@ services:
         APP_ENV: development
     volumes:
       - ./web/src:/app/src
+      - ./web/public:/app/public
     networks:
       - ship
     ports:
