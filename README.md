@@ -40,7 +40,7 @@ Please use the [merge scripts](https://github.com/paralect/ship-merge) to build 
 |[Koa.JS REST api](https://github.com/paralect/koa-api-starter)|REST api|
 |[Next.JS web app](https://github.com/paralect/next-starter)|Next.JS application|
 |[MongoDB api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API|
-|[Deploy (k8s and Github Actions)](https://github.com/paralect/ship-deploy)|Deploy scripts for Kubernetes|
+|[Deploy (k8s and GitHub Actions)](https://github.com/paralect/ship-deploy)|Deploy scripts for Kubernetes|
 |[Merge scripts](https://github.com/paralect/ship-merge)|Scripts for building ship template|
 
 
