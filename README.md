@@ -29,14 +29,20 @@ We believe we could ship great products faster, while maintain decent quality an
 * Every component is kept is tiny as possible to simplify maintenance and stay up to date with new releases. 
 * Ship is always in a production-ready state. We test every release manually to make sure great developer experience. We use ship to build our products, see more [here](https://github.com/paralect/ship).
 
+## Building ship
+
+Please use the [merge scripts](https://github.com/paralect/ship-merge) to build templates for new projects, this Ship repository is just an example.
+
 ## Ship components
 
 |Name|Description|
 |:---|:----------|
 |[Koa.JS REST api](https://github.com/paralect/koa-api-starter)|REST api|
-|[Next.JS (with Redux Toolkit) web app](https://github.com/paralect/next-starter)|Next.JS application|
+|[Next.JS web app](https://github.com/paralect/next-starter)|Next.JS application|
 |[MongoDB api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API|
 |[Deploy (k8s and Github Actions)](https://github.com/paralect/ship-deploy)|Deploy scripts for Kubernetes|
+|[Merge scripts](https://github.com/paralect/ship-merge)|Scripts for building ship template|
+
 
 ## License
 
