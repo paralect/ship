@@ -9,6 +9,7 @@ import { handleError } from 'helpers';
 import { Input, Button } from 'components';
 import { userApi } from 'resources/user';
 
+import PhotoUpload from './components/FileUpload';
 import styles from './styles.module.css';
 
 const schema = yup.object().shape({
@@ -45,6 +46,7 @@ const Profile = () => {
       <div className={styles.uploadContainer}>
         <span>
           <h1 className={styles.heading}>Profile</h1>
+          <PhotoUpload />
           <form
             className={styles.form}
             onSubmit={handleSubmit(onSubmit)}

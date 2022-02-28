@@ -14,6 +14,18 @@ export function useUpdateCurrent() {
   return useMutation(updateCurrent);
 }
 
+export function useUploadProfilePhoto() {
+  const uploadProfilePhoto = (data) => apiService.post('/users/upload-photo', data);
+
+  return useMutation(uploadProfilePhoto);
+}
+
+export function useRemoveProfilePhoto() {
+  const removeProfilePhoto = () => apiService.delete('/users/remove-photo');
+
+  return useMutation(removeProfilePhoto);
+}
+
 export const useList = (params) => {
   const list = () => apiService.get('/users', params);
 

@@ -3,7 +3,7 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 
-import { ArrowLeftIcon } from 'public/icons';
+import { ToRightIcon } from 'public/icons';
 
 import styles from './Link.module.css';
 
@@ -27,7 +27,7 @@ const Link = ({
               [styles.withoutUnderline]: withoutUnderline,
             }, styles[size], styles.link, className)}
           >
-            {withIcon && <ArrowLeftIcon className={styles.icon} />}
+            {withIcon && <ToRightIcon className={styles.icon} />}
             <span className={styles.text}>{children}</span>
           </a>
         </NextLink>
@@ -44,7 +44,7 @@ const Link = ({
             [styles.withoutUnderline]: withoutUnderline,
           }, styles[size], styles.link, className)}
         >
-          {withIcon && <ArrowLeftIcon className={styles.icon} />}
+          {withIcon && <ToRightIcon className={styles.icon} />}
           <span className={styles.text}>{children}</span>
         </a>
       );
