@@ -6,18 +6,26 @@ const deployConfig =  {
     dockerRepo: 'registry.digitalocean.com/paralect/ship-api',
     dir: `${rootDir}/api`,
     folder: 'api',
+    buildTarget: 'api',
   },
   web: {
     dockerRepo: 'registry.digitalocean.com/paralect/ship-web',
     dir: `${rootDir}/web`,
     folder: 'web',
   },
+  scheduler: {
+    dockerRepo: 'registry.digitalocean.com/paralect/ship-scheduler',
+    dir: `${rootDir}/api`,
+    folder: 'scheduler',
+    buildTarget: 'scheduler',
+  },
 };
 
 Object.keys(deployConfig).forEach(serviceName => {
-if (!deployConfig[serviceName].dockerFilePath) {
+  if (!deployConfig[serviceName].dockerFilePath) {
     deployConfig[serviceName].dockerFilePath = `${deployConfig[serviceName].dir}/Dockerfile`;
   }
+
   if (!deployConfig[serviceName].dockerContextDir) {
     deployConfig[serviceName].dockerContextDir = deployConfig[serviceName].dir;
   }

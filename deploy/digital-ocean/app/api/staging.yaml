@@ -1,2 +1,2 @@
 domain: ship-api-staging.paralect.net
-environment: staging
+nodePool: pool-app

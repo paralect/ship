@@ -1,4 +1,4 @@
 domain: ship-api.paralect.net
-environment: production
+nodePool: pool-app
 awsAccountId: "402167441269"
 awsRegion: us-east-1

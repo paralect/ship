@@ -1,2 +1,2 @@
 domain: ship.paralect.net
-environment: production
+nodePool: pool-app

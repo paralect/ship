@@ -32,18 +32,26 @@ const deployConfig =  {
     dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/api`,
     dir: `${rootDir}/api`,
     folder: 'api',
+    buildTarget: 'api',
   },
   web: {
     dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/web`,
     dir: `${rootDir}/web`,
     folder: 'web',
   },
+  scheduler: {
+    dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/scheduler`,
+    dir: `${rootDir}/api`,
+    folder: 'scheduler',
+    buildTarget: 'scheduler',
+  },
 };
 
 Object.keys(deployConfig).forEach(serviceName => {
-if (!deployConfig[serviceName].dockerFilePath) {
+  if (!deployConfig[serviceName].dockerFilePath) {
     deployConfig[serviceName].dockerFilePath = `${deployConfig[serviceName].dir}/Dockerfile`;
   }
+
   if (!deployConfig[serviceName].dockerContextDir) {
     deployConfig[serviceName].dockerContextDir = deployConfig[serviceName].dir;
   }

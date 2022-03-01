@@ -31,9 +31,12 @@ const askServiceToDeploy = async () => {
   return serviceConfig;
 };
 
-const buildAndPushImage = async ({ dockerFilePath, dockerRepo, dockerContextDir, imageTag, environment }) => {
+const buildAndPushImage = async ({ dockerFilePath, dockerRepo, dockerContextDir, imageTag, buildTarget, environment }) => {
+  const target = buildTarget ? `--target ${buildTarget}` : '';
+  
   await execCommand(`docker build \
     --build-arg APP_ENV=${environment} \
+    ${target} \
     -f ${dockerFilePath} \
     -t ${dockerRepo} \
     ${dockerContextDir}`);

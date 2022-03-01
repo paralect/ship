@@ -1,27 +1,24 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: web
+  name: scheduler
   labels:
-    app: web
+    app: scheduler
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web
+      app: scheduler
   template:
     metadata:
       labels:
-        app: web
+        app: scheduler
     spec:
       restartPolicy: Always
       containers:
-      - name: web
-        image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/web:{{ $.Values.imagesVersion }}
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3002
-          protocol: TCP
+        - name: scheduler
+          image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/scheduler:{{ $.Values.imagesVersion }}
+          imagePullPolicy: Always
       nodeSelector:
         eks.amazonaws.com/nodegroup: {{ .Values.nodePool }}
   strategy:

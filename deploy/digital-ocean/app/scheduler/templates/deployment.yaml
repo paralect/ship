@@ -1,35 +1,26 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: api
+  name: scheduler
   labels:
-    app: api
+    app: scheduler
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api
+      app: scheduler
   template:
     metadata:
       labels:
-        app: api
+        app: scheduler
     spec:
       restartPolicy: Always
       imagePullSecrets:
       - name: regcred
       containers:
-      - name: api
-        image: registry.digitalocean.com/paralect/ship-api:{{ .Values.imagesVersion }}
+      - name: scheduler
+        image: registry.digitalocean.com/paralect/ship-scheduler:{{ .Values.imagesVersion }}
         imagePullPolicy: Always
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 3001
-          initialDelaySeconds: 100
-          periodSeconds: 10
-        ports:
-        - containerPort: 3001
-          protocol: TCP
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   strategy:

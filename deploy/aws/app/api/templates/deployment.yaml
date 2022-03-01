@@ -29,7 +29,7 @@ spec:
         - containerPort: 3001
           protocol: TCP
       nodeSelector:
-        eks.amazonaws.com/nodegroup: pool-app
+        eks.amazonaws.com/nodegroup: {{ .Values.nodePool }}
   strategy:
     type: RollingUpdate
     rollingUpdate:

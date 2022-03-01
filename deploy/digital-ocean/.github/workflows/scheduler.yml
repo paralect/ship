@@ -1,0 +1,38 @@
+name: scheduler
+on:
+  push:
+    branches: [ main, production ]
+    paths:
+      - 'api/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set env vars (staging)
+        if: endsWith(github.ref, '/main')
+        run: |
+          echo "ENVIRONMENT=staging" >> $GITHUB_ENV
+          echo "KUBE_CONFIG<<EOF" >> $GITHUB_ENV
+          echo "${{ secrets.KUBE_CONFIG_STAGING }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Set env vars (production)
+        if: endsWith(github.ref, '/production')
+        run: |
+          echo "ENVIRONMENT=production" >> $GITHUB_ENV
+          echo "KUBE_CONFIG<<EOF" >> $GITHUB_ENV
+          echo "${{ secrets.KUBE_CONFIG_PRODUCTION }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Build scheduler
+        id: build-app
+        run: |
+          docker build -f deploy/script/Dockerfile -t deploy ./
+          docker run -v /var/run/docker.sock:/var/run/docker.sock:rw \
+          -e DOCKER_AUTH_USERNAME=${{ secrets.DIGITAL_OCEAN_TOKEN }} \
+          -e DOCKER_AUTH_PASSWORD=${{ secrets.DIGITAL_OCEAN_TOKEN }} \
+          -e KUBE_CONFIG="${{ env.KUBE_CONFIG }}" \
+          -e SERVICE=scheduler \
+          -e IMAGE_TAG=${{ env.ENVIRONMENT }}.${{ github.sha }} \
+          -e NAMESPACE=${{ env.ENVIRONMENT }} \
+          -e ENVIRONMENT=${{ env.ENVIRONMENT }} \
+          deploy

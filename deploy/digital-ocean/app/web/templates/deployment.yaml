@@ -25,7 +25,7 @@ spec:
         - containerPort: 3002
           protocol: TCP
       nodeSelector:
-        doks.digitalocean.com/node-pool: pool-app
+        doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   strategy:
     type: RollingUpdate
     rollingUpdate:

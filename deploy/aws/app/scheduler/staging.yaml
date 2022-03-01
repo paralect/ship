@@ -1,4 +1,3 @@
-domain: ship.paralect.net
 nodePool: pool-app
 awsAccountId: "402167441269"
 awsRegion: us-east-1
