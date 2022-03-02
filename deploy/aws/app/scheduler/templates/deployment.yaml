@@ -1,26 +1,26 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: scheduler
+  name: {{ .Values.service }}
   labels:
-    app: scheduler
+    app: {{ .Values.service }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: scheduler
+      app: {{ .Values.service }}
   template:
     metadata:
       labels:
-        app: scheduler
+        app: {{ .Values.service }}
     spec:
       restartPolicy: Always
       containers:
-        - name: scheduler
-          image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/scheduler:{{ $.Values.imagesVersion }}
+        - name: {{ .Values.service }}
+          image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
           imagePullPolicy: Always
       nodeSelector:
-        eks.amazonaws.com/nodegroup: {{ .Values.nodePool }}
+        eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:
     type: RollingUpdate
     rollingUpdate:

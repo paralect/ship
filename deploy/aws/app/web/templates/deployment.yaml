@@ -1,29 +1,29 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: web
+  name: {{ .Values.service }}
   labels:
-    app: web
+    app: {{ .Values.service }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web
+      app: {{ .Values.service }}
   template:
     metadata:
       labels:
-        app: web
+        app: {{ .Values.service }}
     spec:
       restartPolicy: Always
       containers:
-      - name: web
-        image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/web:{{ $.Values.imagesVersion }}
+      - name: {{ .Values.service }}
+        image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
         imagePullPolicy: Always
         ports:
-        - containerPort: 3002
+        - containerPort: {{ .Values.port }}
           protocol: TCP
       nodeSelector:
-        eks.amazonaws.com/nodegroup: {{ .Values.nodePool }}
+        eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:
     type: RollingUpdate
     rollingUpdate:

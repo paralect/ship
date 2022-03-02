@@ -8,19 +8,19 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: scheduler
+      app: {{ .Values.service }}
   template:
     metadata:
       labels:
-        app: scheduler
+        app: {{ .Values.service }}
     spec:
       restartPolicy: Always
       imagePullSecrets:
-      - name: regcred
+        - name: regcred
       containers:
-      - name: scheduler
-        image: registry.digitalocean.com/paralect/ship-scheduler:{{ .Values.imagesVersion }}
-        imagePullPolicy: Always
+        - name: {{ .Values.service }}
+          image: {{ .Values.containerRegistry }}-{{ .Values.service }}:{{ .Values.imagesVersion }}
+          imagePullPolicy: Always
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   strategy:

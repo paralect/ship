@@ -1,2 +1,5 @@
-domain: ship-api-staging.paralect.net
 nodePool: pool-app
+containerRegistry: registry.digitalocean.com/paralect/ship
+service: api
+port: 3001
+domain: ship-api-staging.paralect.net

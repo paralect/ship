@@ -1,35 +1,35 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: api
+  name: {{ .Values.service }}
   labels:
-    app: api
+    app: {{ .Values.service }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api
+      app: {{ .Values.service }}
   template:
     metadata:
       labels:
-        app: api
+        app: {{ .Values.service }}
     spec:
       restartPolicy: Always
       containers:
-      - name: api
-        image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/api:{{ $.Values.imagesVersion }}
+      - name: {{ .Values.service }}
+        image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /health
-            port: 3001
+            port: {{ .Values.port }}
           initialDelaySeconds: 100
           periodSeconds: 10
         ports:
-        - containerPort: 3001
+        - containerPort: {{ .Values.port }}
           protocol: TCP
       nodeSelector:
-        eks.amazonaws.com/nodegroup: {{ .Values.nodePool }}
+        eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:
     type: RollingUpdate
     rollingUpdate:

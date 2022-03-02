@@ -1,4 +1,6 @@
-domain: ship-staging.paralect.net
-nodePool: pool-app
+nodeGroup: pool-app
 awsAccountId: "402167441269"
 awsRegion: us-east-1
+service: web
+port: 3002
+domain: ship-staging.paralect.net

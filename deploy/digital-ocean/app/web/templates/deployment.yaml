@@ -1,29 +1,29 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: web
+  name: {{ .Values.service }}
   labels:
-    app: web
+    app: {{ .Values.service }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web
+      app: {{ .Values.service }}
   template:
     metadata:
       labels:
-        app: web
+        app: {{ .Values.service }}
     spec:
       restartPolicy: Always
       imagePullSecrets:
-      - name: regcred
+        - name: regcred
       containers:
-      - name: web
-        image: registry.digitalocean.com/paralect/ship-web:{{ .Values.imagesVersion }}
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3002
-          protocol: TCP
+        - name: {{ .Values.service }}
+          image: {{ .Values.containerRegistry }}-{{ .Values.service }}:{{ .Values.imagesVersion }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.port }}
+              protocol: TCP
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   strategy:
