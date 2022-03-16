@@ -42,9 +42,13 @@ const deployConfig =  {
   scheduler: {
     dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/scheduler`,
     dir: `${rootDir}/api`,
-    folder: 'scheduler',
     buildTarget: 'scheduler',
   },
+  migrator: {
+    dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/migrator`,
+    dir: `${rootDir}/api`,
+    buildTarget: 'migrator',
+  }
 };
 
 Object.keys(deployConfig).forEach(serviceName => {

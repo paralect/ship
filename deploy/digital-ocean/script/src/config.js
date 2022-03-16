@@ -16,9 +16,13 @@ const deployConfig =  {
   scheduler: {
     dockerRepo: 'registry.digitalocean.com/paralect/ship-scheduler',
     dir: `${rootDir}/api`,
-    folder: 'scheduler',
     buildTarget: 'scheduler',
   },
+  migrator: {
+    dockerRepo: 'registry.digitalocean.com/paralect/ship-migrator',
+    dir: `${rootDir}/api`,
+    buildTarget: 'migrator',
+  }
 };
 
 Object.keys(deployConfig).forEach(serviceName => {

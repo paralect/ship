@@ -6,7 +6,9 @@ const config = require('./config');
 const { execCommand } = require('./util');
 
 const askServiceToDeploy = async () => {
-  const choices = Object.keys(config.deploy);
+  const utils = ['migrator', 'scheduler'];
+  const choices = Object.keys(config.deploy).filter((c) => !utils.includes(c));
+
   let serviceToDeploy;
   
   if (config.service) {
@@ -47,7 +49,7 @@ const buildAndPushImage = async ({ dockerFilePath, dockerRepo, dockerContextDir,
 const pushToKubernetes = async ({ imageTag, appName, deployConfig }) => {
   const deployDir = `${config.rootDir}/deploy/app/${deployConfig.folder}`;
   
-  if (config.kubeConfig) {
+  if (config.kubeConfig && !fs.existsSync(`${config.home}/.kube/config`)) {
     console.log('Creating kubeconfig');
     fs.mkdirSync(`${config.home}/.kube`);
     fs.writeFileSync(`${config.home}/.kube/config`, config.kubeConfig);
@@ -59,6 +61,7 @@ const pushToKubernetes = async ({ imageTag, appName, deployConfig }) => {
       --set appname=${appName} \
       --set imagesVersion=${imageTag} \
       -f ${deployDir}/${config.environment}.yaml \
+      --timeout 35m \
   `);
 }
 
@@ -97,17 +100,50 @@ const deploy = async () => {
     imageTag = `${branch}.${commitSHA}`;
   }
   
-  await buildAndPushImage({
-    ...deployConfig,
-    imageTag: `${deployConfig.dockerRepo}:${imageTag}`,
-    environment: config.environment
-  });
-
-  await pushToKubernetes({
-    imageTag,
-    appName: deployConfig.name,
-    deployConfig
-  });
+  if (deployConfig.name === 'api') {
+    await buildAndPushImage({
+      ...config.deploy.migrator,
+      imageTag: `${config.deploy.migrator.dockerRepo}:${imageTag}`,
+      environment: config.environment
+    });
+    await buildAndPushImage({
+      ...deployConfig,
+      imageTag: `${deployConfig.dockerRepo}:${imageTag}`,
+      environment: config.environment
+    });
+    
+    await pushToKubernetes({
+      imageTag,
+      appName: 'api',
+      deployConfig
+    });
+    
+    await buildAndPushImage({
+      ...config.deploy.scheduler,
+      imageTag: `${config.deploy.scheduler.dockerRepo}:${imageTag}`,
+      environment: config.environment
+    });
+    
+    await pushToKubernetes({
+      imageTag,
+      appName: 'scheduler',
+      deployConfig: config.deploy.scheduler
+    });
+  }
+  
+  if (deployConfig.name === 'web') {
+    await buildAndPushImage({
+      ...deployConfig,
+      imageTag: `${deployConfig.dockerRepo}:${imageTag}`,
+      environment: config.environment
+    });
+    
+    await pushToKubernetes({
+      imageTag,
+      appName: 'web',
+      deployConfig
+    });
+  }
 }
 
 deploy();
