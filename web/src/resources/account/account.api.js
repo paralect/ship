@@ -1,10 +1,10 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 
+import queryClient from 'query-client';
 import { apiService } from 'services';
 
 export function useSignIn() {
   const signIn = (data) => apiService.post('/account/sign-in', data);
-  const queryClient = useQueryClient();
 
   return useMutation(signIn, {
     onSuccess: (data) => {
@@ -15,7 +15,6 @@ export function useSignIn() {
 
 export function useSignOut() {
   const signOut = () => apiService.post('/account/sign-out');
-  const queryClient = useQueryClient();
 
   return useMutation(signOut, {
     onSuccess: () => {

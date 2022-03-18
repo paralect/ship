@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from 'react-query';
 
+import queryClient from 'query-client';
 import { apiService } from 'services';
 
 export function useGetCurrent() {
@@ -17,13 +18,21 @@ export function useUpdateCurrent() {
 export function useUploadProfilePhoto() {
   const uploadProfilePhoto = (data) => apiService.post('/users/upload-photo', data);
 
-  return useMutation(uploadProfilePhoto);
+  return useMutation(uploadProfilePhoto, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(['currentUser'], data);
+    },
+  });
 }
 
 export function useRemoveProfilePhoto() {
   const removeProfilePhoto = () => apiService.delete('/users/remove-photo');
 
-  return useMutation(removeProfilePhoto);
+  return useMutation(removeProfilePhoto, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(['currentUser'], data);
+    },
+  });
 }
 
 export const useList = (params) => {

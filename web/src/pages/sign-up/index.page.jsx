@@ -87,7 +87,7 @@ const SignUp = () => {
           <Input
             name="firstName"
             label="First Name"
-            maxLength="100"
+            maxLength={100}
             placeholder="Your first name"
             control={control}
             error={errors.firstName}
@@ -95,7 +95,7 @@ const SignUp = () => {
           <Input
             name="lastName"
             label="Last Name"
-            maxLength="100"
+            maxLength={100}
             placeholder="Your last name"
             control={control}
             error={errors.lastName}
