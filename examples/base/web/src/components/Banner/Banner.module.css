@@ -1,0 +1,93 @@
+.banner {
+  width: 100%;
+  padding: 9px 64px;
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  transition: 0.3s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+
+  &.success {
+    background-color: var(--green);
+  }
+
+  &.info {
+    background-color: var(--blue);
+  }
+
+  &.error {
+    background-color: var(--red);
+  }
+
+  &.warning {
+    background-color: var(--yellow);
+    color: var(--black);
+  }
+
+  &.isOpen {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.text {
+  max-width: 80%;
+  margin-left: 12px;
+  line-height: 19px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.button {
+  && {
+    border: none !important;
+    background-color: var(--white) !important;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &.success {
+    color: var(--green);
+  }
+
+  &.info {
+    color: var(--blue);
+  }
+
+  &.error {
+    color: var(--red);
+  }
+
+  &.warning {
+    background-color: var(--black) !important;
+    color: var(--yellow);
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.buttonText {
+  max-width: 150px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.closeIcon {
+  margin-left: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

@@ -1,0 +1,11 @@
+controller:
+  publishService:
+    enabled: true
+  nodeSelector:
+    doks.digitalocean.com/node-pool: pool-app
+
+rbac:
+  create: true
+
+defaultBackend:
+  enabled: false

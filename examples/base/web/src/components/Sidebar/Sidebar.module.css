@@ -1,0 +1,104 @@
+.root {
+  height: 100vh;
+  width: 270px;
+  border-right: 1px solid var(--gray);
+  background: var(--white);
+  padding: 16px 8px;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.projectName {
+  align-items: center;
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  color: var(--black);
+  margin-left: 8px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.listItemText {
+  margin-left: 10px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding: 12px;
+  border: 0;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  background: transparent;
+  color: var(--black);
+  transition: all 0.2s;
+
+  &:focus {
+    background: transparent;
+  }
+
+  &.active {
+    background: var(--gray-light);
+  }
+
+  &:hover {
+    background: var(--gray-light);
+    color: var(--gray-dark);
+  }
+
+  &.disabled {
+    color: var(--gray);
+    pointer-events: none;
+  }
+}
+
+.footer {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  width: 262px;
+  height: 72px;
+  padding: 16px 8px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--gray);
+  cursor: pointer;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--gray);
+}
+
+.fullName {
+  color: var(--black);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  margin-bottom: 5px;
+}

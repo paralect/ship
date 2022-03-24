@@ -1,0 +1,25 @@
+.uploadContainer {
+  width: 100%;
+  padding-top: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  margin-bottom: 24px;
+}
+
+.form {
+  width: 328px;
+  margin-top: 30px;
+
+  > *:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
+.submitButton {
+  margin-top: 40px;
+  font-weight: 600;
+}

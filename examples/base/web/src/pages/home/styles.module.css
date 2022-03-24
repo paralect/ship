@@ -1,0 +1,39 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+
+  &.loading {
+    opacity: 0.2;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+}
+
+.title {
+  margin-top: 32px;
+}
+
+.sortBarContainer {
+  margin: 24px 0 32px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchField {
+  width: 360px;
+}
+
+.select {
+  width: 260px;
+}
+
+.helperContainer {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--gray-dark);
+}

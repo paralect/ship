@@ -7,6 +7,7 @@
     <mapping directory="$PROJECT_DIR$/cli/ship" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cli/ship-2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cli/shit" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cli/sss" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cli/test" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/examples/base" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/examples/ship" vcs="Git" />

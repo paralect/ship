@@ -1,0 +1,84 @@
+{
+  "name": "next-starter",
+  "version": "1.0.0",
+  "author": "Paralect",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "next",
+    "paralect"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paralect/next-starter.git"
+  },
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev -p 3002",
+    "start": "next start -p 3002",
+    "storybook": "start-storybook -p 6007",
+    "build-storybook": "build-storybook",
+    "precommit": "lint-staged && next lint",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "2.8.8",
+    "@svgr/webpack": "6.2.1",
+    "axios": "0.26.0",
+    "classnames": "2.3.1",
+    "lodash": "4.17.21",
+    "next": "12.1.0",
+    "postcss-flexbugs-fixes": "5.0.2",
+    "postcss-nested": "5.0.6",
+    "postcss-preset-env": "7.4.1",
+    "prop-types": "15.8.1",
+    "qs": "6.10.3",
+    "react": "17.0.2",
+    "react-datepicker": "4.6.0",
+    "react-dom": "17.0.2",
+    "react-hook-form": "7.27.1",
+    "react-modal": "3.14.4",
+    "react-paginate": "8.1.2",
+    "react-query": "3.34.16",
+    "react-select": "5.2.2",
+    "react-toastify": "8.2.0",
+    "socket.io-client": "4.4.1",
+    "yup": "0.32.11"
+  },
+  "devDependencies": {
+    "@babel/core": "7.17.5",
+    "@storybook/addon-actions": "6.4.19",
+    "@storybook/addon-essentials": "6.4.19",
+    "@storybook/addon-links": "6.4.19",
+    "@storybook/builder-webpack5": "6.4.19",
+    "@storybook/manager-webpack5": "6.4.19",
+    "@storybook/react": "6.4.19",
+    "babel-loader": "8.2.3",
+    "chromatic": "6.5.1",
+    "css-loader": "6.6.0",
+    "eslint": "8.9.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "8.4.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "7.29.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "husky": "7.0.4",
+    "lint-staged": "12.3.4",
+    "postcss": "8.4.7",
+    "postcss-loader": "6.2.1",
+    "style-loader": "3.3.1",
+    "stylelint": "14.5.3",
+    "stylelint-config-standard": "25.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --ext js --ext jsx --fix"
+    ],
+    "*.css": [
+      "stylelint --fix"
+    ]
+  }
+}

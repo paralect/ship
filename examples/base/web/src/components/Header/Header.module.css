@@ -1,0 +1,35 @@
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  width: 100vw;
+  height: 72px;
+  padding: 16px 32px;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray);
+}
+
+.panel {
+  display: flex;
+
+  & > div,
+  button {
+    margin-left: 5px;
+  }
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px;
+}

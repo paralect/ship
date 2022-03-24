@@ -1,0 +1,7 @@
+node_modules
+src/assets/emails/dist/*
+!src/assets/emails/dist/.gitkeep
+.DS_Store
+npm-debug.log
+.idea
+.vscode

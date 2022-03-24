@@ -1,0 +1,13 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "color-hex-case": "upper",
+    "selector-class-pattern": null,
+    "no-descending-specificity": null,
+    "selector-max-compound-selectors": 3
+  },
+  "ignoreFiles": [
+    "**/*.jsx",
+    "**/*.js"
+  ]
+}

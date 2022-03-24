@@ -1,0 +1,28 @@
+.statusTag {
+  display: flex;
+  align-items: center;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 150%;
+}
+
+.mark {
+  margin-right: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 6px;
+
+  &.positive {
+    background-color: var(--green);
+  }
+
+  &.negative {
+    background-color: var(--red);
+  }
+
+  &.neutral {
+    background-color: var(--gray);
+  }
+}

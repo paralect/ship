@@ -1,0 +1,33 @@
+.container {
+  width: 328px;
+  display: flex;
+  flex-direction: column;
+
+  > *:not(:last-child) {
+    margin-bottom: 24px;
+  }
+}
+
+.subheading {
+  margin-top: 0;
+}
+
+.button {
+  width: 100%;
+  margin-top: 32px;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.signInLink {
+  margin-left: 16px;
+}
+
+.invalidTokenContainer {
+  > *:not(:last-child) {
+    margin-bottom: 12px;
+  }
+}

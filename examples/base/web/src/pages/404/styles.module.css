@@ -1,0 +1,13 @@
+.container {
+  max-width: 496px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.error {
+  line-height: 180%;
+  color: var(--gray-dark);
+  margin: 20px 0 24px;
+}

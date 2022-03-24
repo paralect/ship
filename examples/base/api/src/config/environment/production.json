@@ -1,0 +1,18 @@
+{
+  "mongoUri": "mongodb+srv://<username>:<password>@<db>/app?retryWrites=true&w=majority",
+  "apiUrl": "https://ship-api.paralect.net",
+  "webUrl": "https://ship.paralect.net",
+  "redis": {
+    "host": "redis-master.redis.svc.cluster.local",
+    "port": 6379,
+    "password": "super-secured-password"
+  },
+  "sendgridApiKey": "",
+
+  "cloudStorage": {
+    "endpoint": "fra1.digitaloceanspaces.com",
+    "accessKeyId": "yourAccessKeyId",
+    "secretAccessKey": "yourSecretAccessKey",
+    "bucket": "yourBucket"
+  }
+}

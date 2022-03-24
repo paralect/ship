@@ -35,6 +35,10 @@ mkdir "$project_name"
 cd "$project_name"
 cp -a "$cli_dir"/template/. .
 echo "# $project_name" > README.md
+touch .gitignore
+echo ".idea" >> .gitignore
+echo "node-modules" >> .gitignore
+echo ".DS_Store" >> .gitignore
 
 for i in docker-compose*; do
   perl -i -pe"s/ship/$project_name/g" $i

@@ -1,0 +1,75 @@
+.container {
+  cursor: pointer;
+  position: relative;
+}
+
+.avatarWrapper {
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  position: relative;
+  background-color: transparent;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+.menu {
+  width: 170px;
+  padding: 6px 0;
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 48px;
+  right: 0;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
+  background: var(--white);
+
+  &.isOpen {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.menuButton {
+  height: 40px;
+  width: 100%;
+  border: 0;
+  padding: 4px 14px;
+  display: flex;
+  align-items: center;
+  line-height: 19px;
+  color: var(--black);
+  cursor: pointer;
+  background-color: var(--white);
+  transition: all 0.2s;
+
+  &:hover {
+    text-shadow: 0 0 1px var(--black);
+    background-color: var(--gray-light);
+  }
+}
+
