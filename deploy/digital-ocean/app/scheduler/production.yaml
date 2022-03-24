@@ -1,3 +1,0 @@
-nodePool: pool-app
-containerRegistry: registry.digitalocean.com/paralect/ship
-service: scheduler
