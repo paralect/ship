@@ -8,12 +8,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Ship',
   tagline: 'A toolkit for makers to ship better products faster 🚀.',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://ship.paralect.net',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
+  organizationName: 'paralect', // Usually your GitHub org/user name.
   projectName: 'docusaurus', // Usually your repo name.
 
   presets: [
