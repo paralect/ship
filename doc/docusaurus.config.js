@@ -9,7 +9,7 @@ const config = {
   title: 'Ship',
   tagline: 'A toolkit for makers to ship better products faster 🚀.',
   url: 'https://ship-paralect.com/',
-  baseUrl: '/docs',
+  baseUrl: '/docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -43,11 +43,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Ship',
-        // logo: {
-        //   alt: 'My Site Logo',
-        //   src: 'img/logo.svg',
-        // },
+        title: '',
+        logo: {
+          src: 'img/logo.svg',
+          href: 'https://ship.paralect.com/',
+          target: '_self',
+        },
         items: [
           {
             type: 'doc',
