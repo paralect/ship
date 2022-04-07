@@ -45,17 +45,17 @@ A resource represents on REST endpoint and most of the time one database table o
 We want to keep things together that belong together and keep them apart if they belong apart. With the structure and limitations above every resource has clear boundaries and every domain operation related to the resource can be found in the data service or workflow.
 
 Limitations are very important. We use them to keep things predictable and simple:
-- **All** entity updates should stay within resource folder. Direct database updates allowed in data services, handlers and actions. This restriction make sure that entity updates are not exposed outside resource, which enables discoverability of all updates and simplify resource changes.
+- **All** entity updates should stay within resource folder. Direct database updates allowed in data services, handlers and actions. This restriction make sure that entity updates are not exposed outside the resource. This enables the discoverability of all updates and simplifies resource changes.
 - Complex read operations (e.x. aggregation, complex queries) must be defined in the data service as well.
 - Put things as close as possible to the place where they are used. E.x. data schema is placed side by side with data service, where it is used.
-- Two data services can not use each other directly. You may use to services together in actions or (better!) workflows.
+- Two data services can not use each other directly. You may use two services together in actions or (better!) in workflows.
 
 ### Event handlers & denormalization
 
-Picture bellow shows the 'events part' of sample API implementation:
+The picture below shows the 'events part' of a sample API implementation:
 ![Event handlers](/img/api_event_handlers.png)
 
-In ship, every resource produces events on create, update and delete database operations. As result, we have all events in one place and these events describe system behavior. Stripe has [an event for any change](https://stripe.com/docs/api/events/types) that happens in their system. We do pretty much the same.
+In Ship, every resource produces events on create, update and delete database operations. As a result, we have all events in one place and these events describe system behavior. Stripe has [an event for any change](https://stripe.com/docs/api/events/types) that happens in their system. We do pretty much the same.
 
 ### Dependencies relatively to the /src folder
 
@@ -65,15 +65,21 @@ We require files from the current folder or from the root, `../` is not allowed.
 import service from 'resources/user/user.service';
 ```
 
-This make it easy to move files around without breaking an app and also much simpler to understand where actual file is located comparing to something like: `../../user.service`
+This makes it easy to move files around without breaking an app and also much simpler to understand where the actual file is located, compared to something like: `../../user.service`.
 
 
 ## Docker
 
-We use docker to run and deploy services on production and locally. We also use docker-compose to describe all services on a development environment. This makes running project as simple as: 
+We use docker to run and deploy services on production and locally. We also use docker-compose to describe all services in a development environment. Because of this, you can start a project easily on any machine by running this command: 
 
 ```shell
 docker-compose up --build
 ```
 
-Take a look into `docker-compose.yml` to see all services.
+For simplicity, the command is wrapped into a shell script:
+
+```shell
+./bin/start.sh
+```
+
+Take a look at `docker-compose.yml` to see all services.

@@ -19,12 +19,12 @@ Run command to create your project structure
 npx create-ship-app my-project
 ```
 
-This command will create everything you need to developer, launch locally and deploy your project. Usually full confirguration from start to deploy takes less than 20 minutes.
+This command will create everything you need to develop, launch locally and deploy your product. Usually, complete configuration from start to deployment takes less than 20 minutes.
 
 ## Next steps
 ### Learn key concents
 
-1. Learn about ship [architecture and key components](./architecture.md).
+1. Learn about Ship [architecture and key components](./architecture.md).
 2. Browse through the [API reference](./api-reference.md)
 
 ### Launch your project
@@ -39,7 +39,7 @@ npm i
 npm run bootstrap 
 
 # launch project
-npm start
+./bin/start.sh
 ```
 
 ### Deploy project
