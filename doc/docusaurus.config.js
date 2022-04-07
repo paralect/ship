@@ -9,7 +9,7 @@ const config = {
   title: 'Ship',
   tagline: 'A toolkit for makers to ship better products faster 🚀.',
   url: 'https://ship-paralect.com/',
-  baseUrl: '/docs/',
+  baseUrl: '/docs',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
