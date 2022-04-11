@@ -1,0 +1,22 @@
+.container {
+  width: 328px;
+  display: flex;
+  flex-direction: column;
+
+  > *:not(:last-child) {
+    margin-bottom: 24px;
+  }
+}
+
+.subheading {
+  margin-top: 0;
+}
+
+.button {
+  width: 100%;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 17px;
+}

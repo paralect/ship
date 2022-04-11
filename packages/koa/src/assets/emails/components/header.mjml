@@ -1,0 +1,17 @@
+<mj-section
+  background-color="#ffffff"
+  padding-bottom="0px"
+  padding-top="0"
+>
+  <mj-column vertical-align="top" width="100%">
+    <mj-text
+      align="center"
+      font-size="30px"
+      font-weight="bold"
+      font-family="Trebuchet MS, Arial, sans-serif"
+      color="#55299a"
+    >
+      Ship
+    </mj-text>
+  </mj-column>
+</mj-section>

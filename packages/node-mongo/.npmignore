@@ -1,0 +1,4 @@
+.eslintignore
+.eslintrc.js
+src/config
+src/*.test.js

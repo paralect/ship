@@ -1,0 +1,104 @@
+.container > div > div {
+  background: var(--white);
+  border: none;
+  border-radius: 8px;
+}
+
+.header {
+  padding: 8px 2px;
+  border-bottom: 1px solid var(--gray-light) !important;
+  border-radius: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--black);
+}
+
+.popper {
+  margin-top: 4px;
+  padding: 0 !important;
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.day {
+  height: 24px;
+  width: 24px;
+  margin: 2px 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--white);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--black);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    border-radius: 50%;
+  }
+}
+
+.selectedDay {
+  height: 24px;
+  width: 24px;
+  margin: 2px 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--black) !important;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--white);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.7;
+    border-radius: 50%;
+  }
+}
+
+.weeks {
+  display: inline-flex;
+  align-self: flex-end;
+  justify-content: center;
+  background-color: var(--white);
+  color: var(--gray-dark);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-bottom: -4px;
+}
+
+.inputRoot {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 31px;
+  right: 8px;
+  color: var(--gray-dark);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--black);
+  }
+
+  &.active {
+    color: var(--black);
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}

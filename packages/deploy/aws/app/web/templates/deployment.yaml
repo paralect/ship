@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.service }}
+  labels:
+    app: {{ .Values.service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.service }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.service }}
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: {{ .Values.service }}
+        image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ .Values.port }}
+          protocol: TCP
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1

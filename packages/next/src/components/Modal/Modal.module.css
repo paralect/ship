@@ -1,0 +1,39 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  z-index: 9999;
+  background: #040d1860;
+  animation: fadein 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.beforeClose {
+    opacity: 0;
+  }
+}
+
+.modal {
+  width: 488px;
+  padding: 24px 32px;
+  border-radius: 6px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  outline: none;
+  word-wrap: break-word;
+  background-color: var(--white);
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

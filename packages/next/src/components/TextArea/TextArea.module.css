@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease-in-out;
+
+  &:focus-within {
+    color: var(--blue);
+
+    .label {
+      &.error {
+        color: var(--red);
+      }
+    }
+  }
+}
+
+.label {
+  margin-bottom: 6px;
+  font-weight: 500;
+
+  &.error {
+    color: var(--red);
+  }
+}
+
+.textarea {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--gray);
+  font-size: 14px;
+  line-height: 21px;
+  outline: none;
+  resize: none;
+  transition: all 0.2s ease-in-out;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &:focus {
+    border: 1px solid var(--blue);
+  }
+
+  &:disabled {
+    background-color: var(--gray-light);
+  }
+
+  &:hover:not(:focus):not(:disabled) {
+    border: 1px solid var(--gray-dark);
+  }
+
+  &::placeholder {
+    color: var(--gray-dark);
+  }
+
+  &.error {
+    border-color: var(--red);
+
+    &:focus {
+      border-color: var(--red);
+    }
+
+    &:hover:not(:focus) {
+      border-color: var(--red);
+    }
+  }
+}
+
+.errorMessage {
+  margin-top: 2px;
+  color: var(--red);
+  font-size: 12px;
+  line-height: 15px;
+  word-wrap: break-word;
+}

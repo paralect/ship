@@ -1,0 +1,52 @@
+version: '3.6'
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:4.4
+    command: --replSet rs --bind_ip_all --keyFile /mongo-replicator/keyfile
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    networks:
+      - node-mongo-tests
+    ports:
+      - 27017:27017
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./mongo-replicator:/mongo-replicator
+      - type: volume
+        source: mongodb
+        target: /data/db
+      - type: volume
+        source: mongodb-cfg
+        target: /data/configdb
+  mongo-replicator:
+    container_name: mongo-replicator
+    build: ./mongo-replicator
+    environment:
+      - HOST=mongo
+      - PORT=27017
+      - USERNAME=root
+      - PASSWORD=root
+      - REPLICA_SET_NAME=rs
+    networks:
+      - node-mongo-tests
+    depends_on:
+      - mongo
+  tests:
+    container_name: tests
+    build:
+      context: .
+      dockerfile: ./Dockerfile.tests
+    networks:
+      - node-mongo-tests
+    depends_on:
+      - mongo-replicator
+
+networks:
+  node-mongo-tests:
+    name: node-mongo-tests-network
+
+volumes:
+  mongodb:
+  mongodb-cfg:

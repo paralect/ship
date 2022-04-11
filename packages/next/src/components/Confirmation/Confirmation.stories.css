@@ -1,0 +1,32 @@
+.profileContainer {
+  margin: 16px 0;
+  display: flex;
+}
+
+.profile {
+  margin: 4px 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.fullName {
+  margin-bottom: 4px;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.link {
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--gray-dark);
+  text-decoration: none;
+}
+
+.description {
+  margin-bottom: 24px;
+  font-size: 14px;
+  line-height: 22px;
+}

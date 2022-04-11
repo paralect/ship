@@ -1,0 +1,12 @@
+.header {
+  min-height: 72px;
+  padding: 0 32px;
+  background-color: var(--black);
+  display: flex;
+  align-items: center;
+  flex: 0 1 auto;
+}
+
+.menu {
+  margin-left: auto;
+}

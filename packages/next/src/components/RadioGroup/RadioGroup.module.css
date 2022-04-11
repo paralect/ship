@@ -1,0 +1,27 @@
+.container {
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+}
+
+.radioButtonsContainer {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: inherit;
+}
+
+.label {
+  transition: inherit;
+  line-height: 17px;
+  font-weight: 500;
+}
+
+.radioButton {
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

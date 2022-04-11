@@ -1,0 +1,51 @@
+{
+  "name": "@paralect/node-mongo",
+  "version": "3.0.0-beta3",
+  "author": "Paralect",
+  "description": "Reactive MongoDB wrapper for Node.JS",
+  "private": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "tests": "./bin/run-tests.sh",
+    "all": "run-s test:*",
+    "test:eslint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "test:mocha": "NODE_ENV=test mocha --exit --timeout 20000 -r ts-node/register src/**/*.spec.ts src/*.spec.ts",
+    "build": "tsc"
+  },
+  "keywords": [
+    "mongo",
+    "paralect"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "deep-diff": "1.0.2",
+    "joi": "17.4.2",
+    "lodash": "4.17.21",
+    "mongodb": "4.4.1"
+  },
+  "devDependencies": {
+    "@types/chai": "4.2.16",
+    "@types/chai-spies": "1.0.3",
+    "@types/deep-diff": "1.0.0",
+    "@types/hapi__joi": "17.1.6",
+    "@types/lodash": "4.14.168",
+    "@types/mocha": "8.2.2",
+    "@types/node": "14.14.35",
+    "@typescript-eslint/eslint-plugin": "4.22.1",
+    "@typescript-eslint/parser": "4.18.0",
+    "chai": "4.3.4",
+    "chai-spies": "1.0.0",
+    "eslint": "7.23.0",
+    "eslint-config-airbnb-typescript": "12.3.1",
+    "eslint-plugin-import": "2.22.1",
+    "mocha": "8.3.2",
+    "npm-run-all": "4.1.5",
+    "prettier": "2.2.1",
+    "ts-node": "9.1.1",
+    "typescript": "4.2.3"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
