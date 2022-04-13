@@ -14,6 +14,8 @@ import {
   OptionalUnlessRequiredId,
   TransactionOptions,
   UpdateFilter,
+  FindOneAndUpdateOptions,
+  UpdateOptions,
 } from 'mongodb';
 
 import logger from './logger';
@@ -557,7 +559,7 @@ class Service<T extends Document> {
     updateMany: async (
       query: Filter<T>,
       update: Partial<T> | UpdateFilter<T>,
-      options: GeneralRequestOptions = {},
+      options: UpdateOptions & GeneralRequestOptions = {},
     ): Promise<any> => {
       options.doNotAddDeletedOn = true;
       const collection = await this.getCollection();
@@ -569,7 +571,7 @@ class Service<T extends Document> {
     findOneAndUpdate: async (
       query: Filter<T>,
       update: T | UpdateFilter<T>,
-      options: GeneralRequestOptions = {},
+      options: FindOneAndUpdateOptions & GeneralRequestOptions = {},
     ): Promise<any> => {
       options.doNotAddDeletedOn = true;
       const collection = await this.getCollection();

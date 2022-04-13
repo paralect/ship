@@ -10,7 +10,7 @@
 
 A toolkit for makers to ship better products faster 🚀. 
 
-[Ship](https://github.com/paralect/ship) is a tool which helps you setup your new product in a matter of minutes. Ship is based on number of open-source components, resulted from years of hard work on several awesome products. We carefully select, document and share our production-ready knowledge with you.
+[Ship](https://github.com/paralect/ship) is a tool that helps create new products faster. Ship is based on several open-source components, resulting from years of hard work [Paralect](https://www.paralect.com) team. We carefully select, document, and share our production-ready knowledge with you.
 
 We encourage developers to share production-ready solutions and help to business ship something people need as quick as possible.
 
