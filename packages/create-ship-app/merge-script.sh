@@ -6,17 +6,19 @@ deploy_dir="deploy-setup"
 deploy_repo="https://github.com/paralect/ship-deploy"
 
 api_koa_dir="api"
-api_koa_repo="https://github.com/paralect/koa-api-starter"
+api_package_path="packages/koa"
 
 web_next_dir="web"
-web_next_repo="https://github.com/paralect/next-starter"
+api_package_path="packages/next"
 
 project_name="$1"
 platform_dir="$2"
 cli_dir="$3"
 
 filesToRemove=(
+  "bin"
   "docker-compose.yml"
+  ".github"
   ".husky"
 )
 
@@ -35,6 +37,7 @@ mkdir "$project_name"
 cd "$project_name"
 cp -a "$cli_dir"/template/. .
 echo "# $project_name" > README.md
+
 touch .gitignore
 echo ".idea" >> .gitignore
 echo "node-modules" >> .gitignore
