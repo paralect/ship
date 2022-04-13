@@ -22,11 +22,6 @@ npx create-ship-app my-project
 This command will create everything you need to develop, launch locally and deploy your product. Usually, complete configuration from start to deployment takes less than 20 minutes.
 
 ## Next steps
-### Learn key concents
-
-1. Learn about Ship [architecture and key components](./architecture.md).
-2. Browse through the [API reference](./api-reference.md)
-
 ### Launch your project
 
 We use [lerna](https://github.com/lerna/lerna) to easily install packages in the all services.
@@ -41,6 +36,12 @@ npm run bootstrap
 # launch project
 ./bin/start.sh
 ```
+
+### Learn key concepts
+
+1. Learn about Ship [architecture and key components](./architecture.md).
+2. Learn about [API](./api/overview.md)
+
 
 ### Deploy project
 
