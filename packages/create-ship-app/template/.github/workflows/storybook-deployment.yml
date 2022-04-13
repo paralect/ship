@@ -1,12 +1,22 @@
 # Workflow name
-name: 'Chromatic'
+name: 'storybook-deployment'
 
 # Event for the workflow
 on:
   push:
     branches: [ main ]
     paths:
-      - 'src/components/**'
+      - 'web/src/components/**'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario'
+        required: false
 
 # List of jobs
 jobs:

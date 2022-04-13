@@ -50,8 +50,8 @@ async function askProjectName() {
 }
 
 const deploymentFolder = {
-  'Digital Ocean': 'digital-ocean',
-  AWS: 'aws',
+  'Digital Ocean': 'deploy-digital-ocean',
+  AWS: 'deploy-aws',
 }
 
 async function askDeploymentService() {
@@ -84,6 +84,8 @@ function finish() {
     console.log(gradient.pastel.multiline(data) + '\n');
     process.exit(0);
   });
+  
+  console.log(`Run application: cd ${projectName} && npm start`);
 }
 
 (async () => {

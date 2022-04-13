@@ -45,8 +45,8 @@ services:
     container_name: ship-api
     build:
       context: ./api
-      dockerfile: Dockerfile.dev
-      target: api
+      dockerfile: Dockerfile
+      target: development
       args:
         APP_ENV: development
     networks:
@@ -62,10 +62,11 @@ services:
     container_name: ship-migrator
     build:
       context: ./api
-      dockerfile: Dockerfile.dev
-      target: migrator
+      dockerfile: Dockerfile
+      target: development
       args:
         APP_ENV: development
+    command: npm run migrate
     networks:
       - ship
     volumes:
@@ -76,10 +77,11 @@ services:
     container_name: ship-scheduler
     build:
       context: ./api
-      dockerfile: Dockerfile.dev
-      target: scheduler
+      dockerfile: Dockerfile
+      target: development
       args:
         APP_ENV: development
+    command: npm run schedule-dev
     networks:
       - ship
     volumes:

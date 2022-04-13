@@ -2,15 +2,6 @@
 set -e
 shopt -s dotglob
 
-deploy_dir="deploy-setup"
-deploy_repo="https://github.com/paralect/ship-deploy"
-
-api_koa_dir="api"
-api_package_path="packages/koa"
-
-web_next_dir="web"
-api_package_path="packages/next"
-
 project_name="$1"
 platform_dir="$2"
 cli_dir="$3"
@@ -23,43 +14,54 @@ filesToRemove=(
 )
 
 function installService() {
-  repo="$1"
-  dir="$2"
+  service="$1"
+  service_dir="$2"
 
-  mkdir "$dir"
-  cd "$dir"
-  git clone --quiet "$repo" .
-  rm -rf .git "${filesToRemove[@]}"
-  cd ../
+  cp -a "ship/services/$service_dir" "$service"
+
+  if [ "$service" != "deploy" ]; then
+    cd "$service"
+    rm -rf "${filesToRemove[@]}"
+    cd ../
+  fi
 }
+
+# Create the project directory from template
 
 mkdir "$project_name"
 cd "$project_name"
 cp -a "$cli_dir"/template/. .
 echo "# $project_name" > README.md
 
+# Create .gitignore
+
 touch .gitignore
 echo ".idea" >> .gitignore
 echo "node-modules" >> .gitignore
 echo ".DS_Store" >> .gitignore
 
+# Rename services in docker-compose.yml
+
 for i in docker-compose*; do
   perl -i -pe"s/ship/$project_name/g" $i
 done
 
-installService "$api_koa_repo" "$api_koa_dir"
-installService "$web_next_repo" "$web_next_dir"
-installService "$deploy_repo" "$deploy_dir"
+# Install services from ship monorepo
 
-mv ./"$deploy_dir"/"$platform_dir" ./deploy
-mv ./"$deploy_dir"/.gitignore ./deploy
-mv ./"$deploy_dir"/README.md ./deploy
-mv ./deploy/.github .
-mv  workflows/chromatic.yml .github/workflows
+git clone --quiet "https://github.com/paralect/ship"
 
-rm -rf "$deploy_dir"
-rm -rf web/.github
-rm -rf workflows
+installService "api" "api"
+installService "web" "web"
+installService "deploy" "$platform_dir"
+
+rm -rf ship
+
+# Add github actions from deploy service
+
+mv deploy/.github/workflows/* .github/workflows
+rm -rf deploy/.github
+
+# Install modules and setup husky
 
 npm install
 git init
