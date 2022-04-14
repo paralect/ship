@@ -10,15 +10,17 @@
 
 A toolkit for makers to ship better products faster 🚀. 
 
-[Ship](https://github.com/paralect/ship) is a tool that helps create new products faster. Ship is based on several open-source components, resulting from years of hard work [Paralect](https://www.paralect.com) team. We carefully select, document, and share our production-ready knowledge with you.
+[Ship](https://ship.paralect.com) is a tool that helps create new products faster. Ship is based on several open-source components, resulting from years of hard work [Paralect](https://www.paralect.com) team. We carefully select, document, and share our production-ready knowledge with you.
 
 We encourage developers to share production-ready solutions and help to business ship something people need as quick as possible.
 
-## Getting started
+## Quick Start
 
 ```shell
 npx create-ship-app init
 ```
+
+## [Documentation](https://ship.paralect.com/docs/intro)
 
 ## Why Ship?
 
@@ -36,14 +38,24 @@ We believe we could ship great products faster, while maintain decent quality an
 
 ## Ship components
 
+### Services
+
 |Name|Description|
 |:---|:----------|
-|[Koa.JS REST api](https://github.com/paralect/koa-api-starter)|REST api|
-|[Next.JS web app](https://github.com/paralect/next-starter)|Next.JS application|
-|[MongoDB api for Node.JS](https://github.com/paralect/node-mongo)|Reactive 🚀 extension to MongoDB API|
-|[Deploy (k8s and GitHub Actions)](https://github.com/paralect/ship-deploy)|Deploy scripts for Kubernetes|
+|[Api Starter](services/api/README.md)|Koa.js api starter|
+|[Web Starter](services/web/README.md)|Next.js web starter|
+|[Deploy scripts for Digital Ocean](services/deploy-digital-ocean/README.md)|Digital Ocean deploy scripts for Kubernetes|
+|[Deploy scripts for AWS](services/deploy-aws/README.md)|AWS deploy scripts for Kubernetes|
 
-## [Ship UI](https://master--62543f00c4eb91003a7f2a91.chromatic.com/)
+### Packages
+
+|Name|Description|
+|:---|:----------|
+|[@paralect/node-mongo](packages/node-mongo/README.md)|Reactive extension to MongoDB API|
+|[create-ship-app](packages/create-ship-app/README.md)|CLI tool for building Ship|
+
+### [Ship UI](https://master--62543f00c4eb91003a7f2a91.chromatic.com/)
+Basic set of easily customizable UI components for instantly applications launch.
 
 ## License
 
