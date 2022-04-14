@@ -14,8 +14,7 @@
     "start": "next start -p 3002",
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
-    "precommit": "lint-staged && next lint",
-    "prepare": "husky install"
+    "precommit": "lint-staged && next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "2.8.8",

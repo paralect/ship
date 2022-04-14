@@ -9,9 +9,6 @@ ENV NEXT_PUBLIC_APP_ENV=$NEXT_PUBLIC_APP_ENV
 WORKDIR /app
 COPY ["./package*.json", "/app/"]
 
-# Disable husky
-RUN npm set-script prepare ""
-
 RUN npm ci --quiet
 COPY . ./
 
