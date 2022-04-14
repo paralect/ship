@@ -107,7 +107,7 @@ async function installServices() {
       await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName} ${__dirname}`);
       break;
     case buildTypes.ONLY_BACKEND:
-      await exec(`bash ${__dirname}scripts/backend.sh ${projectName} ${__dirname}`);
+      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${__dirname}`);
       break;
   }
 
@@ -116,8 +116,12 @@ async function installServices() {
 
 function finish() {
   figlet('Happy coding!', (err, data) => {
+    const runCommand = buildType === buildTypes.ONLY_FRONTEND
+      ? 'npm run dev'
+      : 'npm start';
+    
     console.log(gradient.pastel.multiline(data) + '\n');
-    console.log(`Run application: cd ${projectName} && npm start`); // npm run dev for frontend
+    console.log(`Run application: cd ${projectName} && ${runCommand}`);
     process.exit(0);
   });
 }
