@@ -9,6 +9,7 @@ const { createSpinner } = require('nanospinner');
 
 let projectName;
 let deploymentService;
+let buildType;
 
 async function start() {
   console.clear();
@@ -49,16 +50,40 @@ async function askProjectName() {
   projectName = answers.projectName;
 }
 
+const buildTypes = {
+  FULL_STACK: 'Full-Stack (Frontend, Backend, Deploy)',
+  ONLY_FRONTEND: 'Only Frontend',
+  ONLY_BACKEND: 'Only Backend',
+};
+
+async function askBuildType() {
+  const answers = await inquirer.prompt({
+    name: 'buildType',
+    type: 'list',
+    message: 'Choose your build type:',
+    choices: Object.values(buildTypes),
+    default() {
+      return buildTypes.FULL_STACK;
+    },
+  });
+  
+  buildType = answers.buildType;
+  
+  if (buildType === buildTypes.FULL_STACK) {
+    await askDeploymentService();
+  }
+}
+
 const deploymentFolder = {
   'Digital Ocean': 'deploy-digital-ocean',
   AWS: 'deploy-aws',
-}
+};
 
 async function askDeploymentService() {
   const answers = await inquirer.prompt({
     name: 'deploymentService',
     type: 'list',
-    message: 'Choose your cloud service provider to deploy: ',
+    message: 'Choose your cloud service provider to deploy:',
     choices: [
       'Digital Ocean',
       'AWS',
@@ -73,24 +98,33 @@ async function askDeploymentService() {
 
 async function installServices() {
   const spinner = createSpinner(`Building ${projectName}...`).start();
-  
-  await exec(`bash ${__dirname}/merge-script.sh ${projectName} ${deploymentFolder[deploymentService]} ${__dirname}`);
-  
+
+  switch (buildType) {
+    case buildTypes.FULL_STACK:
+      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${deploymentFolder[deploymentService]}`);
+      break;
+    case buildTypes.ONLY_FRONTEND:
+      await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName} ${__dirname}`);
+      break;
+    case buildTypes.ONLY_BACKEND:
+      await exec(`bash ${__dirname}scripts/backend.sh ${projectName} ${__dirname}`);
+      break;
+  }
+
   spinner.success({ text: 'Done!' });
 }
 
 function finish() {
   figlet('Happy coding!', (err, data) => {
     console.log(gradient.pastel.multiline(data) + '\n');
+    console.log(`Run application: cd ${projectName} && npm start`); // npm run dev for frontend
     process.exit(0);
   });
-  
-  console.log(`Run application: cd ${projectName} && npm start`);
 }
 
 (async () => {
   await start();
-  await askDeploymentService();
+  await askBuildType();
   await installServices();
   finish();
 })();
