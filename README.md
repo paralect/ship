@@ -42,17 +42,17 @@ We believe we could ship great products faster, while maintain decent quality an
 
 |Name|Description|
 |:---|:----------|
-|[Api Starter](services/api/README.md)|Koa.js api starter|
-|[Web Starter](services/web/README.md)|Next.js web starter|
-|[Deploy scripts for Digital Ocean](services/deploy-digital-ocean/README.md)|Digital Ocean deploy scripts for Kubernetes|
-|[Deploy scripts for AWS](services/deploy-aws/README.md)|AWS deploy scripts for Kubernetes|
+|[Api Starter](services/api)|Koa.js api starter|
+|[Web Starter](services/web)|Next.js web starter|
+|[Deploy scripts for Digital Ocean](services/deploy-digital-ocean)|Digital Ocean deploy scripts for Kubernetes|
+|[Deploy scripts for AWS](services/deploy-aws)|AWS deploy scripts for Kubernetes|
 
 ### Packages
 
 |Name|Description|
 |:---|:----------|
-|[@paralect/node-mongo](packages/node-mongo/README.md)|Reactive extension to MongoDB API|
-|[create-ship-app](packages/create-ship-app/README.md)|CLI tool for building Ship|
+|[@paralect/node-mongo](packages/node-mongo)|Reactive extension to MongoDB API|
+|[create-ship-app](packages/create-ship-app)|CLI tool for building Ship|
 
 ### [Ship UI](https://master--62543f00c4eb91003a7f2a91.chromatic.com/)
 Basic set of easily customizable UI components for instantly applications launch.
