@@ -4,7 +4,23 @@ sidebar_position: 1
 
 # Introduction
 
-Ship is a framework that helps build & launch products fast. To achieve this we use simplest possible solutions depending on the application stage. We use React, Next.JS, Node.JS, MongoDB and Koa.
+Ship is a framework that will help you build and launch products faster. You can focus on getting things done, not building infrastructure.
+
+Ship uses simple tools and approaches and has built-in support for everything from the frontend to CI/CD automation. Ship was first created in 2015 and since then we keep testing it on real products.
+
+## Key priciples
+
+### Simplicity
+We use most simple solutions in every part of the Ship. They are easier to understand, test and maintain.
+
+### Product come first
+Our jobs from engineer to CEO are only exist because there are customers who use products we create. We encourage to focus on a product more than on technology and get things done as quick as possible. 
+
+### Production ready
+You can use ship to create production-ready products. We prefer to used well tested technologies to make sure this.
+
+### For developers
+Ship is written for developers, so we try to make it easy to use and understand. We write documentation to explain how things work.
 
 ## Getting started
 
