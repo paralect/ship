@@ -31,7 +31,6 @@ function installService() {
 mkdir "$project_name"
 cd "$project_name"
 cp -a "$cli_dir"/template/. .
-echo "# $project_name" > README.md
 
 # Create .gitignore
 
