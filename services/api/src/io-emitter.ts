@@ -20,7 +20,7 @@ const publish = (roomId: string | string[], eventName: string, ...data: unknown[
   emitter.to(roomId).emit(eventName, data);
 };
 
-export const initClient = async () => {
+const initClient = async () => {
   await redisClient.connect();
 
   emitter = new Emitter(redisClient);
@@ -29,6 +29,7 @@ export const initClient = async () => {
 const getUserRoomId = (userId: string) => `user-${userId}`;
 
 export default {
+  initClient,
   publishToUser: (userId: string, eventName: string, ...data: unknown[]): void => {
     const roomId = getUserRoomId(userId);
     publish(roomId, eventName, data);

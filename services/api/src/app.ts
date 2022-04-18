@@ -17,39 +17,44 @@ import config from 'config';
 import logger from 'logger';
 import { socketService } from 'services';
 import routes from 'routes';
-import { initClient } from 'io-emitter';
+import ioEmitter from 'io-emitter';
 import { AppKoa } from 'types'; 
 
+const initKoa = () => {
+  const app = new AppKoa();
+  const upload = multer();
 
-const app = new AppKoa();
-const upload = multer();
+  app.use(cors({ credentials: true }));
+  app.use(helmet());
+  qs(app as any); // TODO: figure out how to use koa-qs with types
+  app.use(upload.any());
+  app.use(bodyParser({
+    enableTypes: ['json', 'form', 'text'],
+    onerror: (err: Error, ctx) => {
+      const errText: string = err.stack || err.toString();
+      logger.warn(`Unable to parse request body. ${errText}`);
+      ctx.throw(422, 'Unable to parse request JSON.');
+    },
+  }));
+  app.use(requestLogger());
 
-app.use(cors({ credentials: true }));
-app.use(helmet());
-qs(app as any); // TODO: figure out how to use koa-qs with types
-app.use(upload.any());
-app.use(bodyParser({
-  enableTypes: ['json', 'form', 'text'],
-  onerror: (err: Error, ctx) => {
-    const errText: string = err.stack || err.toString();
-    logger.warn(`Unable to parse request body. ${errText}`);
-    ctx.throw(422, 'Unable to parse request JSON.');
-  },
-}));
-app.use(requestLogger());
+  routes(app);
 
-routes(app);
+  return app;
+};
 
-const server = http.createServer(app.callback());
+const app = initKoa();
+(async () => {
+  const server = http.createServer(app.callback());
+  await Promise.all([
+    ioEmitter.initClient(),
+    socketService(server),
+  ]);
 
-Promise.all([initClient(), socketService(server)])
-  .then(() => {
-    const message = `Api server listening on ${config.port}, in ${config.env} mode and ${process.env.APP_ENV} env`;
-
+  const message = `Api server listening on ${config.port}, in ${config.env} mode and ${process.env.APP_ENV} env`;
+  server.listen(config.port, () => {
     logger.info(message);
-  })
-  .catch(err => {
-    throw err;
   });
+})();
 
 export default app;
