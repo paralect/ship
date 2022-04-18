@@ -42,16 +42,16 @@ We believe we could ship great products faster, while maintain decent quality an
 
 |Name|Description|
 |:---|:----------|
-|[Api Starter](services/api)|Koa.js api starter|
-|[Web Starter](services/web)|Next.js web starter|
-|[Deploy scripts for Digital Ocean](services/deploy-digital-ocean)|Digital Ocean deploy scripts for Kubernetes|
-|[Deploy scripts for AWS](services/deploy-aws)|AWS deploy scripts for Kubernetes|
+|[api](services/api)|Koa.js backend starter|
+|[web](services/web)|Next.js frontend starter|
+|[deploy-digital-ocean](services/deploy-digital-ocean)|Digital Ocean deploy scripts for Kubernetes|
+|[deploy-aws](services/deploy-aws)|AWS deploy scripts for Kubernetes|
 
 ### Packages
 
 |Name|Description|
 |:---|:----------|
-|[@paralect/node-mongo](packages/node-mongo)|Reactive extension to MongoDB API|
+|[node-mongo](packages/node-mongo)|Reactive extension to MongoDB API|
 |[create-ship-app](packages/create-ship-app)|CLI tool for building Ship|
 
 ### [Ship UI](https://master--62543f00c4eb91003a7f2a91.chromatic.com/)
