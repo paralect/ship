@@ -12,7 +12,7 @@ Our technological choices based on the following tools: React, Next.JS Node.JS, 
 
 
 On a high-level Ship consist of the following parts:
-- `API service` — a service for writing simple REST API ([reference](./api-reference)).
+- `API service` — a service for writing simple REST API ([reference](./api/overview.md)).
 - `Frontend service` — a better version of react-create-app optimized for simplicity.
 - `CI/CD automation` — deployment scripts and GitHub actions that deploy an application to the AWS or Digital Ocean Kubernetes cluster.
 
