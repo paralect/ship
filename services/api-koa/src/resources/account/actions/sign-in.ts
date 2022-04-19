@@ -18,7 +18,6 @@ const schema = Joi.object({
       'string.email': 'Please enter a valid email address',
     }),
   password: Joi.string()
-    .trim()
     .min(6)
     .max(50)
     .required()

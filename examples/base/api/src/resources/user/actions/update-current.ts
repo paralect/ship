@@ -6,7 +6,6 @@ import { Next, AppKoaContext, AppRouter } from 'types';
 
 const schema = Joi.object({
   password: Joi.string()
-    .trim()
     .min(6)
     .max(50)
     .messages({
