@@ -8,19 +8,19 @@ Ship is a framework that will help you build and launch products faster. You can
 
 Ship uses simple tools and approaches and has built-in support for everything from the frontend to CI/CD automation. Ship was first created in 2015 and since then we keep testing it on real products.
 
-## Key priciples
+## Key principles
 
-### Simplicity
-We use most simple solutions in every part of the Ship. They are easier to understand, test and maintain.
+#### **Simplicity**
+We use the most simple solutions in every part of the Ship. They are easier to understand, test, and maintain.
 
-### Product come first
-Our jobs from engineer to CEO are only exist because there are customers who use products we create. We encourage to focus on a product more than on technology and get things done as quick as possible. 
+#### **Product comes first**
+Our jobs from engineer to CEO only exist because there are customers who use the products we create. We encourage developers to focus on a product more than on technology. Get things done as quickly as possible with S
 
-### Production ready
-You can use ship to create production-ready products. We prefer to used well tested technologies to make sure this.
+#### **Production ready**
+You can use Ship to create production-ready products. We prefer to use well-tested technologies.
 
-### For developers
-Ship is written for developers, so we try to make it easy to use and understand. We write documentation to explain how things work.
+#### **For developers**
+Ship is written for developers and easy to use and understand. We write documentation to explain how things work.
 
 ## Getting started
 
