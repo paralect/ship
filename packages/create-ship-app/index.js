@@ -8,8 +8,9 @@ const figlet = require('figlet');
 const { createSpinner } = require('nanospinner');
 
 let projectName;
-let deploymentService;
+let apiType;
 let buildType;
+let deploymentService;
 
 async function start() {
   console.clear();
@@ -48,6 +49,30 @@ async function askProjectName() {
   });
   
   projectName = answers.projectName;
+}
+
+const apiTypes = {
+  NODE: 'Node.js',
+  DOTNET: '.NET',
+};
+
+const apiFolder = {
+  [apiTypes.NODE]: 'api',
+  [apiTypes.DOTNET]: 'api-dotnet',
+};
+
+async function askApiType() {
+  const answers = await inquirer.prompt({
+    name: 'apiType',
+    type: 'list',
+    message: 'Choose your API type:',
+    choices: Object.values(apiTypes),
+    default() {
+      return apiTypes.NODE;
+    },
+  });
+  
+  apiType = answers.apiType;
 }
 
 const buildTypes = {
@@ -107,7 +132,7 @@ async function installServices() {
       await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName} ${__dirname}`);
       break;
     case buildTypes.ONLY_BACKEND:
-      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${__dirname}`);
+      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${apiFolder[apiType]}`);
       break;
   }
 
@@ -129,6 +154,7 @@ function finish() {
 (async () => {
   await start();
   await askBuildType();
+  await askApiType();
   await installServices();
   finish();
 })();
