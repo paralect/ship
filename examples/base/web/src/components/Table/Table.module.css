@@ -21,7 +21,7 @@
   align-items: center;
   padding-left: 24px;
   height: 48px;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -40,7 +40,7 @@
   align-items: center;
   height: 48px;
   padding-left: 24px;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 13px;
@@ -54,7 +54,7 @@
   position: relative;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

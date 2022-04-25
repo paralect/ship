@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:16.13.1-alpine3.13 as base
+FROM node:16.13.1-alpine3.13 as base
 RUN apk add --no-cache python3 py3-pip
 
 ARG NODE_ENV=production
@@ -7,22 +7,33 @@ ENV NODE_ENV=$NODE_ENV
 ENV APP_ENV=$APP_ENV
 
 WORKDIR /app
-COPY ["./package*.json", "/app/"]
-
-# Disable husky
-RUN npm set-script prepare ""
-
-RUN npm ci --quiet
-COPY . ./
-
-RUN npm run build-assets
-
-FROM base as migrator
-CMD npm run migrate
-
-FROM base as scheduler
-CMD npm run schedule
-
-FROM base as api
 EXPOSE 3001
+COPY ["./package*.json", "./.eslintrc.js", "./tsconfig.json", "/app/"]
+
+# ---- Dependencies ----
+FROM base AS dependencies
+# install node packages
+RUN npm set progress=false && npm config set depth 0
+RUN npm ci --only=production --quiet
+# copy production node_modules aside
+RUN cp -R node_modules prod_node_modules
+# install ALL node_modules, including 'devDependencies'
+RUN npm ci --quiet --include=dev
+
+# ---- Build ----
+FROM dependencies AS build
+COPY ./src /app/src
+RUN npm run build
+
+FROM build AS development
+CMD npm run dev
+
+#
+# ---- Release ----
+FROM base AS release
+# copy production node_modules
+COPY --from=dependencies /app/prod_node_modules ./node_modules
+# copy built dist
+COPY --from=build /app/dist ./dist
+
 CMD npm start

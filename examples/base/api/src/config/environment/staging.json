@@ -1,14 +1,12 @@
 {
-  "mongoUri": "mongodb+srv://<username>:<password>@<db>/app?retryWrites=true&w=majority",
+  "mongo": {
+    "connection": "mongodb+srv://<username>:<password>@<db>/api-staging?retryWrites=true&w=majority",
+    "dbName": "api-staging"
+  },
   "apiUrl": "https://ship-api-staging.paralect.net",
   "webUrl": "https://ship-staging.paralect.net",
-  "redis": {
-    "host": "redis-master.redis.svc.cluster.local",
-    "port": 6379,
-    "password": "super-secured-password"
-  },
+  "redis": "redis://:super-secured-password@redis-master.redis.svc.cluster.local:6379",
   "sendgridApiKey": "",
-
   "cloudStorage": {
     "endpoint": "fra1.digitaloceanspaces.com",
     "accessKeyId": "yourAccessKeyId",
