@@ -18,7 +18,7 @@ function installService() {
   service="$1"
   service_dir="$2"
 
-  cp -a "ship/services/$service_dir" "$service"
+  cp -a "ship/$service_dir" "$service"
 
   if [ "$service" != "deploy" ]; then
     cd "$service"
@@ -50,9 +50,9 @@ done
 
 git clone --quiet "https://github.com/paralect/ship"
 
-installService "api" "$api_dir"
-installService "web" "web"
-installService "deploy" "$platform_dir"
+installService "api" "services/$api_dir"
+installService "web" "services/web"
+installService "deploy" "deploy/$platform_dir"
 
 rm -rf ship
 

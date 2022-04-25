@@ -85,7 +85,7 @@ const apiTypes = {
 };
 
 const apiFolder = {
-  [apiTypes.KOA]: 'api',
+  [apiTypes.KOA]: 'api-koa',
   [apiTypes.DOTNET]: 'api-dotnet',
 };
 
@@ -104,8 +104,8 @@ async function askApiType() {
 }
 
 const deploymentFolder = {
-  'Digital Ocean': 'deploy-digital-ocean',
-  AWS: 'deploy-aws',
+  'Digital Ocean': 'digital-ocean',
+  AWS: 'aws',
 };
 
 async function askDeploymentService() {
