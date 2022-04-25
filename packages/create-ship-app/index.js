@@ -8,8 +8,8 @@ const figlet = require('figlet');
 const { createSpinner } = require('nanospinner');
 
 let projectName;
-let apiType;
 let buildType;
+let apiType;
 let deploymentService;
 
 async function start() {
@@ -51,30 +51,6 @@ async function askProjectName() {
   projectName = answers.projectName;
 }
 
-const apiTypes = {
-  NODE: 'Node.js',
-  DOTNET: '.NET',
-};
-
-const apiFolder = {
-  [apiTypes.NODE]: 'api',
-  [apiTypes.DOTNET]: 'api-dotnet',
-};
-
-async function askApiType() {
-  const answers = await inquirer.prompt({
-    name: 'apiType',
-    type: 'list',
-    message: 'Choose your API type:',
-    choices: Object.values(apiTypes),
-    default() {
-      return apiTypes.NODE;
-    },
-  });
-  
-  apiType = answers.apiType;
-}
-
 const buildTypes = {
   FULL_STACK: 'Full-Stack (Frontend, Backend, Deploy)',
   ONLY_FRONTEND: 'Only Frontend',
@@ -101,6 +77,30 @@ async function askBuildType() {
   if (buildType === buildTypes.FULL_STACK) {
     await askDeploymentService();
   }
+}
+
+const apiTypes = {
+  KOA: 'Koa.js',
+  DOTNET: '.NET',
+};
+
+const apiFolder = {
+  [apiTypes.KOA]: 'api',
+  [apiTypes.DOTNET]: 'api-dotnet',
+};
+
+async function askApiType() {
+  const answers = await inquirer.prompt({
+    name: 'apiType',
+    type: 'list',
+    message: 'Choose your API type:',
+    choices: Object.values(apiTypes),
+    default() {
+      return apiTypes.KOA;
+    },
+  });
+  
+  apiType = answers.apiType;
 }
 
 const deploymentFolder = {
