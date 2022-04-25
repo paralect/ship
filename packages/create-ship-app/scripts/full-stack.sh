@@ -4,7 +4,8 @@ shopt -s dotglob
 
 project_name="$1"
 cli_dir="$2"
-platform_dir="$3"
+api_dir="$3"
+platform_dir="$4"
 
 filesToRemove=(
   "bin"
@@ -49,7 +50,7 @@ done
 
 git clone --quiet "https://github.com/paralect/ship"
 
-installService "api" "api"
+installService "api" "$api_dir"
 installService "web" "web"
 installService "deploy" "$platform_dir"
 

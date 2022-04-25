@@ -8,8 +8,9 @@ const figlet = require('figlet');
 const { createSpinner } = require('nanospinner');
 
 let projectName;
-let deploymentService;
 let buildType;
+let apiType;
+let deploymentService;
 
 async function start() {
   console.clear();
@@ -68,10 +69,38 @@ async function askBuildType() {
   });
   
   buildType = answers.buildType;
+
+  if (buildType === buildTypes.ONLY_BACKEND || buildType === buildTypes.FULL_STACK) {
+    await askApiType();
+  }
   
   if (buildType === buildTypes.FULL_STACK) {
     await askDeploymentService();
   }
+}
+
+const apiTypes = {
+  KOA: 'Koa.js',
+  DOTNET: '.NET',
+};
+
+const apiFolder = {
+  [apiTypes.KOA]: 'api',
+  [apiTypes.DOTNET]: 'api-dotnet',
+};
+
+async function askApiType() {
+  const answers = await inquirer.prompt({
+    name: 'apiType',
+    type: 'list',
+    message: 'Choose your API type:',
+    choices: Object.values(apiTypes),
+    default() {
+      return apiTypes.KOA;
+    },
+  });
+  
+  apiType = answers.apiType;
 }
 
 const deploymentFolder = {
@@ -101,13 +130,13 @@ async function installServices() {
 
   switch (buildType) {
     case buildTypes.FULL_STACK:
-      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${deploymentFolder[deploymentService]}`);
+      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolder[apiType]} ${deploymentFolder[deploymentService]}`);
       break;
     case buildTypes.ONLY_FRONTEND:
-      await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName} ${__dirname}`);
+      await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
       break;
     case buildTypes.ONLY_BACKEND:
-      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${__dirname}`);
+      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${apiFolder[apiType]}`);
       break;
   }
 
