@@ -13,7 +13,7 @@ const migrationsPath = path.join(__dirname, 'migrations');
 const id = 'migration_version';
 
 const getMigrationNames = (): string[] => {
-  return fs.readdirSync(migrationsPath);
+  return fs.readdirSync(migrationsPath).filter(file => !file.endsWith('.js.map'));
 };
 
 const getCurrentMigrationVersion = () => service.findOne({ _id: id })

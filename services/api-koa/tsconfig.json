@@ -19,8 +19,7 @@
   },
   "include": [
     "src/**/*",
-    "src/**/*.json",
-    "src/assets/**/*.mjml",
+    "src/**/*.json"
   ],
   "ts-node": { "transpileOnly": true },
   "exclude": []

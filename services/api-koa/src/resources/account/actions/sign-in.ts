@@ -40,14 +40,12 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { email, password } = ctx.validatedData;
 
   const user = await userService.findOne({ email });
-  if (!user) {
-    ctx.status = 404;
-    return;
-  }
 
   ctx.assertClientError(user, {
     credentials: 'The email or password you have entered is invalid',
   });
+
+  if (!user) return; // FIXME: should not return here
 
   const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
   ctx.assertClientError(isPasswordMatch, {

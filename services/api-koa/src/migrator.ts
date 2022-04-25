@@ -4,6 +4,7 @@
 import moduleAlias from 'module-alias';
 moduleAlias.addPath(__dirname);
 moduleAlias(); // read aliases from package json
+
 import migrator from 'migrations/migrator';
 
 migrator.exec();

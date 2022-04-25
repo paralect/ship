@@ -19,16 +19,16 @@
     "copy-assets": "mkdir -p \"dist/src/assets/emails\" && cp -R src/assets/emails/* dist/src/assets/emails/",
     "build": "run-s build:**",
     "build:tcs": "tsc",
-    "build:email": "npm run copy-assets && mjml ./src/assets/emails/*.mjml -o ./src/assets/emails/dist/",
+    "build:email": "npm run copy-assets && mjml dist/src/assets/emails/*.mjml -o dist/src/assets/emails/dist/",
     "test": "run-s test:**",
     "test:lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "dev": "nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json src/app.ts",
     "start": "node dist/src/app.js",
-    "migrate": "ts-node ./src/migrator.ts",
+    "migrate-dev": "ts-node ./src/migrator.ts",
+    "migrate": "node dist/src/migrator.js",
     "schedule-dev": "nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json ./src/scheduler.ts",
     "schedule": "node dist/src/scheduler.js",
-    "precommit": "lint-staged",
-    "prepare": "husky install"
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@koa/cors": "3.1.0",
