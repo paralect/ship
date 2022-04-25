@@ -93,6 +93,10 @@ async function askBuildType() {
   });
   
   buildType = answers.buildType;
+
+  if (buildType === buildTypes.ONLY_BACKEND || buildType === buildTypes.FULL_STACK) {
+    await askApiType();
+  }
   
   if (buildType === buildTypes.FULL_STACK) {
     await askDeploymentService();
@@ -126,10 +130,10 @@ async function installServices() {
 
   switch (buildType) {
     case buildTypes.FULL_STACK:
-      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${deploymentFolder[deploymentService]}`);
+      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolder[apiType]} ${deploymentFolder[deploymentService]}`);
       break;
     case buildTypes.ONLY_FRONTEND:
-      await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName} ${__dirname}`);
+      await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
       break;
     case buildTypes.ONLY_BACKEND:
       await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${apiFolder[apiType]}`);
@@ -154,7 +158,6 @@ function finish() {
 (async () => {
   await start();
   await askBuildType();
-  await askApiType();
   await installServices();
   finish();
 })();
