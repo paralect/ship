@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:16.13.1-alpine3.13
+FROM node:16.13.1-alpine3.13 as base
 
 ARG NODE_ENV=production
 ARG APP_ENV
@@ -7,13 +7,16 @@ ENV NODE_ENV=$NODE_ENV
 ENV NEXT_PUBLIC_APP_ENV=$NEXT_PUBLIC_APP_ENV
 
 WORKDIR /app
+EXPOSE 3002
 COPY ["./package*.json", "/app/"]
 
 RUN npm ci --quiet
 COPY . ./
 
-EXPOSE 3002
+FROM base AS development
+CMD npm run dev
 
+FROM base AS release
 RUN npm run build
 
 CMD npm start

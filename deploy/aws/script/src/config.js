@@ -32,7 +32,6 @@ const deployConfig =  {
     dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/api`,
     dir: `${rootDir}/api`,
     folder: 'api',
-    buildTarget: 'api',
   },
   web: {
     dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/web`,
@@ -42,12 +41,13 @@ const deployConfig =  {
   scheduler: {
     dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/scheduler`,
     dir: `${rootDir}/api`,
-    buildTarget: 'scheduler',
+    folder: 'scheduler',
+    dockerFilePath: `${rootDir}/api/Dockerfile.scheduler`,
   },
   migrator: {
     dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/migrator`,
     dir: `${rootDir}/api`,
-    buildTarget: 'migrator',
+    dockerFilePath: `${rootDir}/api/Dockerfile.migrator`,
   }
 };
 

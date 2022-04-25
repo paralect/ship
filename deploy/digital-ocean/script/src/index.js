@@ -7,12 +7,12 @@ const { execCommand } = require('./util');
 const askServiceToDeploy = async () => {
   const utils = ['migrator', 'scheduler'];
   const choices = Object.keys(config.deploy).filter((c) => !utils.includes(c));
-
+  
   let serviceToDeploy;
-
+  
   if (config.service) {
     serviceToDeploy = config.service;
-
+    
     if (!choices.includes(serviceToDeploy)) {
       throw new Error(`Wrong service specified to deploy [${serviceToDeploy}]. Aborting`);
     }
@@ -22,22 +22,19 @@ const askServiceToDeploy = async () => {
       message: 'What service to deploy?',
       choices,
     });
-
+    
     serviceToDeploy = await list.run();
   }
-
+  
   const serviceConfig = config.deploy[serviceToDeploy];
   serviceConfig.name = serviceToDeploy;
-
+  
   return serviceConfig;
 };
 
-const buildAndPushImage = async ({ dockerFilePath, dockerRepo, dockerContextDir, imageTag, buildTarget, environment }) => {
-  const target = buildTarget ? `--target ${buildTarget}` : '';
-  
+const buildAndPushImage = async ({ dockerFilePath, dockerRepo, dockerContextDir, imageTag, environment }) => {
   await execCommand(`docker build \
     --build-arg APP_ENV=${environment} \
-    ${target} \
     -f ${dockerFilePath} \
     -t ${dockerRepo} \
     ${dockerContextDir}`);
@@ -53,7 +50,7 @@ const pushToKubernetes = async ({ imageTag, appName, deployConfig }) => {
     fs.mkdirSync(`${config.home}/.kube`);
     fs.writeFileSync(`${config.home}/.kube/config`, config.kubeConfig);
   }
-
+  
   await execCommand(`
     helm upgrade --install apps-${config.environment}-${appName} ${deployDir} \
       --namespace ${config.namespace} --create-namespace \
@@ -69,40 +66,46 @@ const deploy = async () => {
     await execCommand(`docker login --username ${config.dockerRegistry.username} --password ${config.dockerRegistry.password} registry.digitalocean.com`);
   }
   const deployConfig = await askServiceToDeploy();
-
+  
   let imageTag = config.dockerRegistry.imageTag;
-
+  
   if (!imageTag) {
     const { stdout: branch } = await execCommand('git rev-parse --abbrev-ref HEAD', { stdio: 'pipe' });
     const { stdout: commitSHA } = await execCommand('git rev-parse HEAD', { stdio: 'pipe' });
-
+    
     imageTag = `${branch}.${commitSHA}`;
   }
   
   if (deployConfig.name === 'api') {
+    // push migrator image to registry
     await buildAndPushImage({
       ...config.deploy.migrator,
       imageTag: `${config.deploy.migrator.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
+    
+    // push api image to registry
     await buildAndPushImage({
       ...deployConfig,
       imageTag: `${deployConfig.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
     
+    // deploy api to kubernetes and deploy migrator through helm hooks
     await pushToKubernetes({
       imageTag,
       appName: 'api',
       deployConfig
     });
     
+    // push scheduler image to registry
     await buildAndPushImage({
       ...config.deploy.scheduler,
       imageTag: `${config.deploy.scheduler.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
     
+    // deploy scheduler to kubernetes
     await pushToKubernetes({
       imageTag,
       appName: 'scheduler',
@@ -111,12 +114,14 @@ const deploy = async () => {
   }
   
   if (deployConfig.name === 'web') {
+    // push web image to registry
     await buildAndPushImage({
       ...deployConfig,
       imageTag: `${deployConfig.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
     
+    // deploy web to kubernetes
     await pushToKubernetes({
       imageTag,
       appName: 'web',
@@ -131,4 +136,3 @@ process.on('unhandledRejection', (error) => {
   console.error(error);
   process.exit(1);
 });
-

@@ -33,12 +33,9 @@ const askServiceToDeploy = async () => {
   return serviceConfig;
 };
 
-const buildAndPushImage = async ({ dockerFilePath, dockerRepo, dockerContextDir, imageTag, buildTarget, environment }) => {
-  const target = buildTarget ? `--target ${buildTarget}` : '';
-  
+const buildAndPushImage = async ({ dockerFilePath, dockerRepo, dockerContextDir, imageTag, environment }) => {
   await execCommand(`docker build \
     --build-arg APP_ENV=${environment} \
-    ${target} \
     -f ${dockerFilePath} \
     -t ${dockerRepo} \
     ${dockerContextDir}`);
@@ -101,29 +98,35 @@ const deploy = async () => {
   }
   
   if (deployConfig.name === 'api') {
+    // push migrator image to registry
     await buildAndPushImage({
       ...config.deploy.migrator,
       imageTag: `${config.deploy.migrator.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
+  
+    // push api image to registry
     await buildAndPushImage({
       ...deployConfig,
       imageTag: `${deployConfig.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
-    
+  
+    // deploy api to kubernetes and deploy migrator through helm hooks
     await pushToKubernetes({
       imageTag,
       appName: 'api',
       deployConfig
     });
-    
+  
+    // push scheduler image to registry
     await buildAndPushImage({
       ...config.deploy.scheduler,
       imageTag: `${config.deploy.scheduler.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
-    
+  
+    // deploy scheduler to kubernetes
     await pushToKubernetes({
       imageTag,
       appName: 'scheduler',
@@ -132,12 +135,14 @@ const deploy = async () => {
   }
   
   if (deployConfig.name === 'web') {
+    // push web image to registry
     await buildAndPushImage({
       ...deployConfig,
       imageTag: `${deployConfig.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
-    
+  
+    // deploy web to kubernetes
     await pushToKubernetes({
       imageTag,
       appName: 'web',
