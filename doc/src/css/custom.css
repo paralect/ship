@@ -6,14 +6,13 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
-  --ifm-code-font-size: 95%;
+  --ifm-color-primary: #7f20b6;
+  --ifm-color-primary-dark: #721da4;
+  --ifm-color-primary-darker: #6c1b9b;
+  --ifm-color-primary-darkest: #59167f;
+  --ifm-color-primary-light: #8c23c8;
+  --ifm-color-primary-lighter: #9225d1;
+  --ifm-color-primary-lightest: #a13adc;
 }
 
 .docusaurus-highlight-code-line {
@@ -25,4 +24,18 @@
 
 html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #eccbff;
+  --ifm-color-primary-dark: #db9dff;
+  --ifm-color-primary-darker: #d386ff;
+  --ifm-color-primary-darkest: #ba42ff;
+  --ifm-color-primary-light: #fdf9ff;
+  --ifm-color-primary-lighter: #ffffff;
+  --ifm-color-primary-lightest: #ffffff;
+}
+
+html[data-theme='dark'] footer {
+  background-color: var(--ifm-navbar-background-color);
 }
