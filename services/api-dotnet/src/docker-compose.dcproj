@@ -7,9 +7,11 @@
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>api</DockerServiceName>
+	<DockerComposeBaseFilePath>docker-compose.nosql</DockerComposeBaseFilePath>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="docker-compose.yml" />
+	<None Include="docker-compose.nosql.yml" />
+	<None Include="docker-compose.sql.yml" />
     <None Include=".dockerignore" />
     <None Include="docker_postgres_init.sql" />
   </ItemGroup>
