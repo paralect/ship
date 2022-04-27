@@ -4,8 +4,6 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["app/Scheduler/Scheduler.csproj", "app/Scheduler/"]
-COPY ["app/Common.Services/Common.Services.csproj", "app/Common.Services/"]
-COPY ["app/Api.Views/Api.Views.csproj", "app/Api.Views/"]
 COPY ["app/Common/Common.csproj", "app/Common/"]
 RUN dotnet restore "app/Scheduler/Scheduler.csproj"
 COPY . .
