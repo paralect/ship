@@ -16,7 +16,11 @@ const config = {
   organizationName: 'paralect', // Usually your GitHub org/user name.
   projectName: 'ship', // Usually your repo name.
 
-  scripts: [{src: 'https://ship-assets.fra1.cdn.digitaloceanspaces.com/crisp.js', async: true}],
+  scripts: [
+    {src: 'https://ship-assets.fra1.cdn.digitaloceanspaces.com/crisp.js', async: true},
+    {src: 'https://cdn.splitbee.io/sb.js', async: true},
+    {src: 'https://ship-assets.fra1.cdn.digitaloceanspaces.com/analytics.js', async: true},
+  ],
   
   presets: [
     [
