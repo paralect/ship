@@ -1,10 +1,10 @@
-﻿using Api.Views.Models.Infrastructure.Email;
-using Api.Views.Models.View.Account;
-using Common.Dal.Documents.User;
+﻿using Common.Dal.Documents.User;
 using Common.Dal.FluentUpdater;
 using Common.Dal.Interfaces;
 using Common.Dal.Repositories;
 using Common.Enums;
+using Common.Models.Infrastructure.Email;
+using Common.Models.View.Account;
 using Common.Services.Infrastructure.Interfaces;
 using Common.Services.NoSql.Domain.Interfaces;
 using Common.Utils;

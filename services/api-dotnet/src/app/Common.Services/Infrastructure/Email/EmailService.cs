@@ -1,4 +1,4 @@
-﻿using Api.Views.Models.Infrastructure.Email;
+﻿using Common.Models.Infrastructure.Email;
 using Common.Services.Infrastructure.Interfaces;
 using Common.Settings;
 using Common.Utils;

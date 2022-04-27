@@ -1,6 +1,6 @@
-﻿using Api.Views.Models.View.Account;
-using Common.DalSql.Entities;
+﻿using Common.DalSql.Entities;
 using Common.DalSql.Filters;
+using Common.Models.View.Account;
 
 namespace Common.Services.Sql.Domain.Interfaces;
 

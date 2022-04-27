@@ -1,6 +1,6 @@
-﻿using Api.Views.Models.View.Account;
-using Common.Dal.Documents.User;
+﻿using Common.Dal.Documents.User;
 using Common.Dal.Repositories;
+using Common.Models.View.Account;
 
 namespace Common.Services.NoSql.Domain.Interfaces;
 

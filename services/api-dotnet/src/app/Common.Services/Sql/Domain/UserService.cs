@@ -1,9 +1,9 @@
-﻿using Api.Views.Models.Infrastructure.Email;
-using Api.Views.Models.View.Account;
-using Common.DalSql.Entities;
+﻿using Common.DalSql.Entities;
 using Common.DalSql.Filters;
 using Common.DalSql.Interfaces;
 using Common.Enums;
+using Common.Models.Infrastructure.Email;
+using Common.Models.View.Account;
 using Common.Services.Infrastructure.Interfaces;
 using Common.Services.Sql.Domain.Interfaces;
 using Common.Utils;
