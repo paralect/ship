@@ -1,10 +1,10 @@
 ﻿using Api.NoSql.Utils;
-using Api.Views.Mappings;
-using Api.Views.Validators.Account;
 using Common;
 using Common.Dal;
+using Common.Mappings;
 using Common.Settings;
 using Common.Utils;
+using Common.Validators.Account;
 using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.Dashboard.BasicAuthorization;

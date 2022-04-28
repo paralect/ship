@@ -7,9 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["app/Api.Sql/Api.Sql.csproj", "app/Api.Sql/"]
-COPY ["app/Common.Services/Common.Services.csproj", "app/Common.Services/"]
 COPY ["app/Common/Common.csproj", "app/Common/"]
-COPY ["app/Api.Views/Api.Views.csproj", "app/Api.Views/"]
 RUN dotnet restore "app/Api.Sql/Api.Sql.csproj"
 COPY . .
 WORKDIR "/src/app/Api.Sql"

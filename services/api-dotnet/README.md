@@ -8,9 +8,7 @@ This is a fully featured .NET 6 restful API starter application, which is config
 |:---|:----------|
 |[API (NoSQL version)](src/app/Api.NoSql)|.NET backend starter, configured to work with MongoDB|
 |[API (SQL version)](src/app/Api.Sql)|.NET backend starter, configured to work with PostgreSQL|
-|[API models](src/app/Api.Views)|The project to share models, mappings and validators across APIs|
 |[Common](src/app/Common)|DAL (for MongoDB and PostgresSQL) and some configuration, which can be shared across all applications|
-|[Services](src/app/Common.Services)|Domain/infrastructure services, shared across all applications|
 |[Scheduler](src/app/Scheduler)|Background jobs runner built on Hangfire|
 |[Websocket server](src/app/SignalR)|SignalR websocket server (as of now works with MongoDB only)|
 |[Unit tests for NoSQL API](src/app/Tests.NoSql)|Unit tests for NoSQL API|

@@ -1,10 +1,10 @@
 ﻿using Api.Sql.Utils;
-using Api.Views.Mappings;
-using Api.Views.Validators.Account;
 using Common;
 using Common.DalSql;
+using Common.Mappings;
 using Common.Settings;
 using Common.Utils;
+using Common.Validators.Account;
 using FluentValidation.AspNetCore;
 using Hangfire;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;

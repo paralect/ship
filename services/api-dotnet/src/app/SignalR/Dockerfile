@@ -7,9 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["app/SignalR/SignalR.csproj", "app/SignalR/"]
-COPY ["app/Common.Services/Common.Services.csproj", "app/Common.Services/"]
 COPY ["app/Common/Common.csproj", "app/Common/"]
-COPY ["app/Api.Views/Api.Views.csproj", "app/Api.Views/"]
 RUN dotnet restore "app/SignalR/SignalR.csproj"
 COPY . .
 WORKDIR "/src/app/SignalR"

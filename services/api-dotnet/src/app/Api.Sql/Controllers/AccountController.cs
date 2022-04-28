@@ -1,12 +1,12 @@
 ﻿using Api.Sql.Security;
 using Api.Sql.Services.Interfaces;
-using Api.Views.Models.Infrastructure.Email;
-using Api.Views.Models.View.Account;
-using Api.Views.Models.View.User;
 using AutoMapper;
 using Common;
 using Common.DalSql.Entities;
 using Common.DalSql.Filters;
+using Common.Models.Infrastructure.Email;
+using Common.Models.View.Account;
+using Common.Models.View.User;
 using Common.Services.Infrastructure.Interfaces;
 using Common.Services.Sql.Domain.Interfaces;
 using Common.Settings;
