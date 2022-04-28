@@ -29,7 +29,7 @@ We have templates of deployment scripts for Digital Ocean and AWS, but you can u
 
 ## Deployment flow
 
-To application deployment, our script builds a Docker image, adds an image tag, and pushes it to the registry.
+To service deployment, our script builds a Docker image, adds an image tag, and pushes it to the registry.
 
 Image tag consists of repo branch and commit hash.
 ```shell
@@ -88,7 +88,7 @@ We have separate GitHub actions for different environments.
 
 We have 2 separate GitHub Actions for each environment: 
 - Deploy Web service
-- Deploy API, Scheduler and Migrator. Migrator deploys **before** api and scheduler.
+- Deploy API, Scheduler and Migrator. Migrator deploys **before** API and Scheduler.
 
 If the Migrator fails, API and Scheduler will be not deployed.
 This approach guarantees us that the API and Scheduler always work with the appropriate database schema.
@@ -136,10 +136,10 @@ You can check the required secrets inside [workflow](https://github.com/paralect
 
 |Service|Description|Kubernetes Resource|
 |:---|:---|:---|
-|[web](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/web)|Next.js server that serves static files and API endpoints|Pod|
-|[api](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/api)|Backend server|Pod|
-|[scheduler](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/scheduler)|Service that runs cron jobs|Pod|
-|[migrator](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/api/templates/job.yaml)|Service that migrates database schema. It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
+|[Web](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/web)|Next.js server that serves static files and API endpoints|Pod|
+|[API](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/api)|Backend server|Pod|
+|[Scheduler](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/scheduler)|Service that runs cron jobs|Pod|
+|[Migrator](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/api/templates/job.yaml)|Service that migrates database schema. It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
 
 If you are adding new service, you need to configure it in [app](https://github.com/paralect/ship/blob/master/examples/base/deploy/app) and [script](https://github.com/paralect/ship/blob/master/examples/base/deploy/script/src) folders.
 You can do it following the example from neighboring services.
