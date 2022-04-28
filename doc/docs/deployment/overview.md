@@ -32,7 +32,7 @@ Image tag consists from repo branch and commit hash.
 imageTag = `${branch}.${commitSHA}`;
 ```
 
-Then script creates Helm [release]((https://helm.sh/docs/intro/using_helm/#three-big-concepts)), that will install new version of the service in the cluster.
+Then script creates Helm [release](https://helm.sh/docs/intro/using_helm/#three-big-concepts), that will install new version of the service in the cluster.
 
 So, deployment process is pretty simple, it consists of two main parts: push built Docker image to registry and deploy it to Kubernetes cluster.
 
