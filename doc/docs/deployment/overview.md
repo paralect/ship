@@ -4,41 +4,43 @@ sidebar_position: 1
 
 # Overview
 
-We use next primary technologies for deployment:
+We use the next primary technologies for deployment:
 * [Docker](https://www.docker.com/)
 * [Kubernetes](https://kubernetes.io/)
 * [Helm](https://helm.sh/)
 * [GitHub Actions](https://github.com/features/actions)
 
-To use this guide comfortable you need to be a little familiar with them.
+To use this guide we highly recommend you to check their documentation and be familiar with basics.  
 
-Deployed application is a list of services, that wrapped inside Docker containers and runned inside Kubernetes cluster.
+Deployed application is multiple services, wrapped in Docker containers and run inside the Kubernetes cluster.
 
-Ship consists from 4 services by default: web, api, scheduler and migrator.
+The Ship consists of 4 services by default: **Web, API, scheduler,** and **migrator**.
 
-Deployment can be done manually on your local machine or with a CI/CD pipeline.
+Deployment can be done manually from your local machine or via a CI/CD pipeline.
 
-We automatically create deployment scripts for Digital Ocean and AWS, but you can use another cloud provider with minor changes in scripts.
+We have templates of deployment scripts for Digital Ocean and AWS, but you can use another cloud provider with minor changes.
 
 ## External services you need
 
 * Kubernetes cluster, you can create it on [Digital Ocean](https://www.digitalocean.com/) or [AWS](https://aws.amazon.com/).
 * Container registry for your Docker images, mostly cloud providers has it ([Digital Ocean](https://www.digitalocean.com/products/container-registry), [AWS](https://aws.amazon.com/ecr/)).
 * DNS provider account. We recommend [CloudFlare](https://www.cloudflare.com/), for AWS you can use [Route 53](https://aws.amazon.com/route53/).
-* Managed MongoDB. We recommend [MongoDB Atlas](https://www.mongodb.com/atlas/database) and [Digital Ocean](https://www.digitalocean.com/products/managed-databases-mongodb) 
+* Managed MongoDB. We recommend [MongoDB Atlas](https://www.mongodb.com/atlas/database) or [Digital Ocean](https://www.digitalocean.com/products/managed-databases-mongodb) 
 
 ## Deployment flow
 
-To deploy some service deployment script builds Docker image, adds image tag and push it to registry.
+To service deployment, our script builds a Docker image, adds an image tag, and pushes it to the registry.
 
-Image tag consists from repo branch and commit hash.
+Image tag consists of repo branch and commit hash.
 ```shell
 imageTag = `${branch}.${commitSHA}`;
 ```
 
-Then script creates Helm [release](https://helm.sh/docs/intro/using_helm/#three-big-concepts), that will install new version of the service in the cluster.
+Then script creates Helm [release](https://helm.sh/docs/intro/using_helm/#three-big-concepts), which will install the new version of the service in the cluster.
 
-So, deployment process is pretty simple, it consists of two main parts: push built Docker image to registry and deploy it to Kubernetes cluster.
+The deployment process is pretty simple, it consists of two main parts: 
+- Push built Docker image to the registry 
+- Deploy it to Kubernetes cluster
 
 ```javascript
 const buildAndPushImage = async ({ dockerFilePath, dockerRepo, dockerContextDir, imageTag, environment }) => {
@@ -82,15 +84,18 @@ await pushToKubernetes({
 
 We use [Rolling Update](https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/) for deployment.
 
-Web deploys separately and api, scheduler, migrator deploys together.
-Migrator deploys before api and scheduler.
+We have separate GitHub actions for different environments.
 
-If migration fails api and scheduler will be not deployed.
-This approach gives us a guarantee that the api and scheduler always work with the appropriate database schema.
+We have 2 separate GitHub Actions for each environment: 
+- Deploy Web service
+- Deploy API, Scheduler and Migrator. Migrator deploys **before** API and Scheduler.
+
+If the Migrator fails, API and Scheduler will be not deployed.
+This approach guarantees us that the API and Scheduler always work with the appropriate database schema.
 
 ## Database setup
 
-We recommend avoiding database deployment inside cluster and use some third-party service like [MongoDB Atlas](https://www.mongodb.com/atlas/database) that provides managed database. It handles a lot of complex things: database deployment, backups, scaling, security.
+We recommend avoiding self-managed database solutions and use cloud service like [MongoDB Atlas](https://www.mongodb.com/atlas/database) that provides managed database. It handles many quite complex things: database deployment, backups, scaling, and security.
 
 After you create the database you will need to add a connection string in the [config](https://github.com/paralect/ship/blob/master/examples/base/api/src/config/environment/production.json).
 
@@ -105,8 +110,8 @@ After you create the database you will need to add a connection string in the [c
 
 ## SSL
 
-In order for your application to work in modern browsers and be secure, you need to configure SSL certificates.
-The easiest way would be to use [CloudFlare](https://www.cloudflare.com/), it allows you to set up SSL in most simple way by proxying all traffic through CloudFlare. Use this [guide](https://developers.cloudflare.com/fundamentals/get-started/setup/add-site/).
+To make your application work in modern browsers and be secure, you need to configure SSL certificates.
+The easiest way is to use [CloudFlare](https://www.cloudflare.com/), it allows you to set up SSL in most simple way by proxying all traffic through CloudFlare. Use this [guide](https://developers.cloudflare.com/fundamentals/get-started/setup/add-site/).
 
 CloudFlare allows exporting DNS records from other services like [GoDaddy](https://www.godaddy.com/). Also, you can buy domain inside CloudFlare.
 
@@ -114,9 +119,9 @@ If you are deploying in AWS you can use [AWS Certificate Manager](https://aws.am
 
 ## Services
 
-Application services packaged as Helm Charts.
+Application services are packaged as Helm Charts.
 
-To deploy services in cluster manually you need to set cluster authorization credentials inside [config](https://github.com/paralect/ship/blob/master/examples/base/deploy/script/src/config.js) and run deployment [script](https://github.com/paralect/ship/blob/master/examples/base/deploy/script/src/index.js).
+To deploy services in the cluster manually you need to set cluster authorization credentials inside [config](https://github.com/paralect/ship/blob/master/examples/base/deploy/script/src/config.js) and run deployment [script](https://github.com/paralect/ship/blob/master/examples/base/deploy/script/src/index.js).
 
 ```shell
 node index
@@ -126,22 +131,22 @@ node index
   web
 ```
 
-When you will configure GitHub Secrets in your repo, GitHub Actions will automatically deploy your services on push in repo.
-You can check required secrets inside [workflows](https://github.com/paralect/ship/blob/master/examples/base/.github/workflows) files.
+When you will configure GitHub Secrets in your repo, GitHub Actions will automatically deploy your services on push in the repo.
+You can check the required secrets inside [workflow](https://github.com/paralect/ship/blob/master/examples/base/.github/workflows) files.
 
 |Service|Description|Kubernetes Resource|
 |:---|:---|:---|
-|[web](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/web)|Next.js server that serves static files and API endpoints|Pod|
-|[api](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/api)|Backend server|Pod|
-|[scheduler](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/scheduler)|Service that runs cron jobs|Pod|
-|[migrator](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/api/templates/job.yaml)|Service that migrates database schema. It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
+|[Web](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/web)|Next.js server that serves static files and API endpoints|Pod|
+|[API](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/api)|Backend server|Pod|
+|[Scheduler](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/scheduler)|Service that runs cron jobs|Pod|
+|[Migrator](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/api/templates/job.yaml)|Service that migrates database schema. It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
 
 If you are adding new service, you need to configure it in [app](https://github.com/paralect/ship/blob/master/examples/base/deploy/app) and [script](https://github.com/paralect/ship/blob/master/examples/base/deploy/script/src) folders.
 You can do it following the example from neighboring services.
 
 ## Dependencies
 
-Third-party services packaged as Helm Charts and utils scripts.
+Third-party services are packaged as Helm Charts and utils scripts.
 
 To deploy dependencies in cluster, you need to run [deploy-dependencies.sh](https://github.com/paralect/ship/blob/master/examples/base/deploy/bin/deploy-dependencies.sh) script.
 ```shell
