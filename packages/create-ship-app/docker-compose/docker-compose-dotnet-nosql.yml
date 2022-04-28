@@ -1,4 +1,5 @@
-version: '3.6'
+version: '3.8'
+
 services:
   mongo:
     container_name: ship-mongo
@@ -44,51 +45,51 @@ services:
   api:
     container_name: ship-api
     build:
-      context: ./api
-      dockerfile: Dockerfile
-      target: development
-      args:
-        NODE_ENV: development
-        APP_ENV: development
+      context: ./api/src
+      dockerfile: app/Api.NoSql/Dockerfile
     networks:
       - ship
     volumes:
       - ./api/src:/app/src
-    ports:
-      - 3001:3001
     depends_on:
       - redis
       - mongo-replicator
-  migrator:
-    container_name: ship-migrator
+    ports:
+      - "3001:3001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:3001
+  signal-r:
+    container_name: ship-signal-r
     build:
-      context: ./api
-      dockerfile: Dockerfile.migrator
-      target: development
-      args:
-        NODE_ENV: development
-        APP_ENV: development
+      context: ./api/src
+      dockerfile: app/SignalR/Dockerfile
     networks:
-      - ship
+     - ship
     volumes:
       - ./api/src:/app/src
     depends_on:
-      - mongo-replicator
+      - "api"
+    ports:
+      - "8082:8082"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8082
+      - WAIT_FOR_HOST=api
+      - WAIT_FOR_PORT=3001
   scheduler:
     container_name: ship-scheduler
     build:
-      context: ./api
-      dockerfile: Dockerfile.scheduler
-      target: development
-      args:
-        NODE_ENV: development
-        APP_ENV: development
+      context: ./api/src
+      dockerfile: app/Scheduler/Dockerfile
     networks:
       - ship
     volumes:
       - ./api/src:/app/src
     depends_on:
       - mongo-replicator
+    environment:
+      - DOTNET_ENVIRONMENT=DevelopmentNoSql
   web:
     container_name: ship-web
     build:
@@ -108,7 +109,7 @@ services:
 
 networks:
   ship:
-    name: ship-network
+    name: ship_network
 
 volumes:
   mongodb:

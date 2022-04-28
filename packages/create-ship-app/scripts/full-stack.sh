@@ -5,7 +5,8 @@ shopt -s dotglob
 project_name="$1"
 cli_dir="$2"
 api_dir="$3"
-platform_dir="$4"
+docker_compose_file_name="$4"
+platform_dir="$5"
 
 filesToRemove=(
   "bin"
@@ -32,6 +33,10 @@ function installService() {
 mkdir "$project_name"
 cd "$project_name"
 cp -a "$cli_dir"/template/. .
+
+# Copy docker-compose
+
+cp "$cli_dir"/docker-compose/$docker_compose_file_name docker-compose.yml
 
 # Create .gitignore
 
