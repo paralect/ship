@@ -91,7 +91,7 @@ We have 2 separate GitHub Actions for each environment:
 - Deploy API, scheduler and migrator. Migrator deploys **before** api and scheduler.
 
 If the Migrator fails, API and Scheduler will be not deployed.
-This approach guarantees us that the api and scheduler always work with the appropriate database schema.
+This approach guarantees us that the API and Scheduler always work with the appropriate database schema.
 
 ## Database setup
 
