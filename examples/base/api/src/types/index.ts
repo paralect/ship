@@ -13,9 +13,17 @@ export type AppKoaContextState = {
   accessToken: string;
 };
 
+export type CustomErrors = {
+  [name: string]: string;
+};
+
 export interface AppKoaContext<T = unknown> extends ParameterizedContext<AppKoaContextState> {
   request: AppKoaRequest<Record<string, string>>;
   validatedData: T;
+  throwError: (message: string) => never;
+  assertError: (condition: unknown, message: string) => asserts condition;
+  throwClientError: (errors: CustomErrors, status?: number) => never;
+  assertClientError: (condition: unknown, errors: CustomErrors, status?: number) => asserts condition;
 }
 
 export class AppRouter extends Router<AppKoaContextState, AppKoaContext> {}
