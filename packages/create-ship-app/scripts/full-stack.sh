@@ -36,16 +36,16 @@ mkdir "$project_name"
 cd "$project_name"
 cp -a "$cli_dir"/template/. .
 
-# Copy docker-compose
-
-cp "$cli_dir"/docker-compose/$docker_compose_file_name docker-compose.yml
-
 # Create .gitignore
 
 touch .gitignore
 echo ".idea" >> .gitignore
 echo "node-modules" >> .gitignore
 echo ".DS_Store" >> .gitignore
+
+# Copy docker-compose.yml
+
+cp "$cli_dir"/docker-compose/$docker_compose_file_name docker-compose.yml
 
 # Rename services in docker-compose.yml
 
@@ -62,6 +62,8 @@ installService "web" "services/web"
 installService "deploy" "deploy/$platform_dir"
 
 rm -rf ship
+
+# Remove unused folders and files
 
 bash $cli_dir/scripts/cleanup.sh $api_type $db_type
 
