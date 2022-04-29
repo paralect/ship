@@ -1,7 +1,7 @@
 {
   "name": "ship",
   "scripts": {
-    "start": "sh ./bin/start.sh",
+    "start": "bash ./bin/start.sh",
     "bootstrap": "lerna bootstrap"
   },
   "devDependencies": {

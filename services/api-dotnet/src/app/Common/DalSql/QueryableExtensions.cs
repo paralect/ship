@@ -1,8 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
-using Common.DalSql;
 
-namespace Common.Utils;
+namespace Common.DalSql;
 
 public static class QueryableExtensions
 {

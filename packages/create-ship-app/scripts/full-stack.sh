@@ -7,6 +7,8 @@ cli_dir="$2"
 api_dir="$3"
 docker_compose_file_name="$4"
 platform_dir="$5"
+api_type="$6"
+db_type="$7"
 
 filesToRemove=(
   "bin"
@@ -60,6 +62,8 @@ installService "web" "services/web"
 installService "deploy" "deploy/$platform_dir"
 
 rm -rf ship
+
+bash $cli_dir/scripts/cleanup.sh $api_type $db_type
 
 # Add github actions from deploy service
 

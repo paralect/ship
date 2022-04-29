@@ -173,13 +173,13 @@ async function installServices() {
 
   switch (buildType) {
     case buildTypes.FULL_STACK:
-      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${deploymentFolders[deploymentService]}`);
+      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${deploymentFolders[deploymentService]} ${apiType} ${dbType}`);
       break;
     case buildTypes.ONLY_FRONTEND:
       await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
       break;
     case buildTypes.ONLY_BACKEND:
-      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${apiFolders[apiType]}`);
+      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${apiType} ${dbType}`);
       break;
   }
 
