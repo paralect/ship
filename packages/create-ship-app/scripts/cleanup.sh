@@ -15,6 +15,10 @@ if [ "$api_type" == ".NET" ]; then
     rm "api/src/app/Scheduler/appsettings.DevelopmentSql.json"
     rm "api/src/docker-compose.sql.yml"
     rm "api/src/docker_postgres_init.sql"
+
+    rm "api/src/ApiStarter.sln"
+    rm "api/src/ApiStarterSql.sln"
+    mv "api/src/ApiStarterNoSql.sln" "api/src/ApiStarter.sln"
   fi
 
   if [ "$db_type" == "PostgreSQL" ]; then
@@ -27,5 +31,9 @@ if [ "$api_type" == ".NET" ]; then
     rm -rf "api/src/app/Common/Services/NoSql"
     rm "api/src/app/Scheduler/appsettings.DevelopmentNoSql.json"
     rm "api/src/docker-compose.nosql.yml"
+
+    rm "api/src/ApiStarter.sln"
+    rm "api/src/ApiStarterNoSql.sln"
+    mv "api/src/ApiStarterSql.sln" "api/src/ApiStarter.sln"
   fi
 fi

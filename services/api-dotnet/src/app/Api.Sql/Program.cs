@@ -1,7 +1,7 @@
 ﻿using Api.Sql.Utils;
 using Common;
 using Common.DalSql;
-using Common.Mappings;
+using Common.MappingsSql;
 using Common.Settings;
 using Common.Utils;
 using Common.Validators.Account;
