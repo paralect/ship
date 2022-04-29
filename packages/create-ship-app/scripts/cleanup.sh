@@ -39,5 +39,6 @@ if [ "$api_type" == ".NET" ]; then
 
     rm "api/src/docker-compose.nosql.dcproj"
     rm "api/src/docker-compose.nosql.yml"
+    cp "api/src/docker_postgres_init.sql" .
   fi
 fi
