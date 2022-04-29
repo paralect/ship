@@ -2,49 +2,63 @@ version: '3.8'
 
 services:
   mongo:
-    image: mongo:4.2
     container_name: ship-mongo
-    command: --replSet ship-rs --bind_ip_all
-    networks:
-      - ship
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    image: mongo:4.2
+    command: --replSet rs --bind_ip_all
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
-    ports:
-      - "27018:27017"
-  replicator:
-    container_name: ship-replicator
-    build: ./replicator
-    depends_on:
-      - mongo
-    links:
-      - "mongo"
     networks:
       - ship
+    ports:
+      - 27017:27017
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - type: volume
+        source: mongodb
+        target: /data/db
+      - type: volume
+        source: mongodb-cfg
+        target: /data/configdb
+  mongo-replicator:
+    container_name: ship-mongo-replicator
+    build: ../mongo-replicator
     environment:
-      - MONGO_HOST=mongo
-      - MONGO_PORT=27017
-      - MONGO_LOGIN=root
-      - MONGO_PASSWORD=root
-      - REPLICA_NAME=ship-rs
+      - HOST=mongo
+      - PORT=27017
+      - USERNAME=root
+      - PASSWORD=root
+      - REPLICA_SET_NAME=rs
+    networks:
+      - ship
+    depends_on:
+      - mongo
+  redis:
+    container_name: ship-redis
+    image: redis:5.0.5
+    command: redis-server --appendonly yes
+    hostname: redis
+    networks:
+      - ship
+    ports:
+      - 6379:6379
   api:
     container_name: ship-api
     build:
       context: .
       dockerfile: app/Api.NoSql/Dockerfile
     networks:
-     - ship
+      - ship
+    volumes:
+      - ./api/src:/app/src
     depends_on:
-      - "replicator"
-    links:
-      - "mongo"
+      - redis
+      - mongo-replicator
+    ports:
+      - "3001:3001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:3001
-    ports:
-      - "3001:3001"
   signal-r:
     container_name: ship-signal-r
     build:
@@ -53,23 +67,16 @@ services:
     networks:
      - ship
     volumes:
-      - "./src:/app/src"
+      - ./api/src:/app/src
     depends_on:
       - "api"
-    links:
-      - "api"
+    ports:
+      - "8082:8082"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8082
       - WAIT_FOR_HOST=api
       - WAIT_FOR_PORT=3001
-    ports:
-      - "8082:8082"
-  redis:
-    image: redis:6.2.6
-    container_name: ship-redis
-    networks:
-      - ship
   scheduler:
     container_name: ship-scheduler
     build:
@@ -77,12 +84,17 @@ services:
       dockerfile: app/Scheduler/Dockerfile
     networks:
       - ship
+    volumes:
+      - ./api/src:/app/src
     depends_on:
-      - "replicator"
-    links:
-      - "mongo"
+      - mongo-replicator
     environment:
-      - DOTNET_ENVIRONMENT=Development
+      - DOTNET_ENVIRONMENT=DevelopmentNoSql
+
 networks:
   ship:
     name: ship_network
+
+volumes:
+  mongodb:
+  mongodb-cfg:

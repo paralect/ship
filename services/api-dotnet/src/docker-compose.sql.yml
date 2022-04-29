@@ -17,7 +17,16 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=pwd
     ports:
-      - "5433:5432"
+      - "5432:5432"
+  redis:
+    container_name: ship-redis
+    image: redis:5.0.5
+    command: redis-server --appendonly yes
+    hostname: redis
+    networks:
+      - ship
+    ports:
+      - 6379:6379
   api:
     container_name: ship-api
     build:
@@ -25,19 +34,16 @@ services:
       dockerfile: app/Api.Sql/Dockerfile
     networks:
       - ship
+    volumes:
+      - ./api/src:/app/src
     depends_on:
       postgres:
         condition: service_healthy
+    ports:
+      - "3001:3001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:3001
-    ports:
-      - "3001:3001"
-  redis:
-    image: redis:6.2.6
-    container_name: ship-redis
-    networks:
-      - ship
   scheduler:
     container_name: ship-scheduler
     build:
@@ -45,11 +51,14 @@ services:
       dockerfile: app/Scheduler/Dockerfile
     networks:
       - ship
-    environment:
-      - DOTNET_ENVIRONMENT=Development
+    volumes:
+      - ./api/src:/app/src
     depends_on:
       postgres:
         condition: service_healthy
+    environment:
+      - DOTNET_ENVIRONMENT=DevelopmentSql
+
 networks:
   ship:
-    name: ship
+    name: ship-network
