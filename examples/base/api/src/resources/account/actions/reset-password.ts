@@ -13,7 +13,6 @@ const schema = Joi.object({
       'string.empty': 'Token is required',
     }),
   password: Joi.string()
-    .trim()
     .min(6)
     .max(50)
     .required()
