@@ -4,7 +4,7 @@
     "Scheduler": {
       "commandName": "Project",
       "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
+        "DOTNET_ENVIRONMENT": "DevelopmentNoSql"
       }
     }
   }

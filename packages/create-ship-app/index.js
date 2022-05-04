@@ -10,6 +10,7 @@ const { createSpinner } = require('nanospinner');
 let projectName;
 let buildType;
 let apiType;
+let dbType;
 let deploymentService;
 
 async function start() {
@@ -72,6 +73,10 @@ async function askBuildType() {
 
   if (buildType === buildTypes.ONLY_BACKEND || buildType === buildTypes.FULL_STACK) {
     await askApiType();
+
+    if (apiType === apiTypes.DOTNET) {
+      await askDbType();
+    }
   }
   
   if (buildType === buildTypes.FULL_STACK) {
@@ -84,7 +89,7 @@ const apiTypes = {
   DOTNET: '.NET',
 };
 
-const apiFolder = {
+const apiFolders = {
   [apiTypes.KOA]: 'api-koa',
   [apiTypes.DOTNET]: 'api-dotnet',
 };
@@ -103,7 +108,43 @@ async function askApiType() {
   apiType = answers.apiType;
 }
 
-const deploymentFolder = {
+const dbTypes = {
+  NOSQL: 'MongoDB',
+  SQL: 'PostgreSQL',
+};
+
+async function askDbType() {
+  const answers = await inquirer.prompt({
+    name: 'dbType',
+    type: 'list',
+    message: 'Choose your DB type:',
+    choices: Object.values(dbTypes),
+    default() {
+      return dbTypes.MONGODB;
+    },
+  });
+  
+  dbType = answers.dbType;
+}
+
+function getDockerComposeFileName() {
+  switch (apiType) {
+    case apiTypes.KOA:
+      return 'docker-compose-koa.yml';
+    case apiTypes.DOTNET:
+      switch (dbType) {
+        case dbTypes.NOSQL:
+          return 'docker-compose-dotnet-nosql.yml';
+        case dbTypes.SQL:
+          return 'docker-compose-dotnet-sql.yml';
+      }
+      break;
+    default:
+      return 'docker-compose-koa.yml';
+  }
+}
+
+const deploymentFolders = {
   'Digital Ocean': 'digital-ocean',
   AWS: 'aws',
 };
@@ -128,15 +169,17 @@ async function askDeploymentService() {
 async function installServices() {
   const spinner = createSpinner(`Building ${projectName}...`).start();
 
+  const dockerComposeFileName = getDockerComposeFileName();
+
   switch (buildType) {
     case buildTypes.FULL_STACK:
-      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolder[apiType]} ${deploymentFolder[deploymentService]}`);
+      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${deploymentFolders[deploymentService]} ${apiType} ${dbType}`);
       break;
     case buildTypes.ONLY_FRONTEND:
       await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
       break;
     case buildTypes.ONLY_BACKEND:
-      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${apiFolder[apiType]}`);
+      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${apiType} ${dbType}`);
       break;
   }
 

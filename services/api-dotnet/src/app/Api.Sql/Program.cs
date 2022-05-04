@@ -1,13 +1,14 @@
 ﻿using Api.Sql.Utils;
 using Common;
 using Common.DalSql;
-using Common.Mappings;
+using Common.MappingsSql;
 using Common.Settings;
 using Common.Utils;
 using Common.Validators.Account;
 using FluentValidation.AspNetCore;
 using Hangfire;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.FeatureManagement;
 using Serilog;
 
@@ -73,6 +74,13 @@ app.UseHangfireDashboard(appSettings);
 
 try
 {
+    Log.Information("Starting migrations");
+    using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+    {
+        var context = serviceScope.ServiceProvider.GetRequiredService<ShipDbContext>();
+        await context.Database.MigrateAsync();
+    }
+    
     Log.Information("Starting web host");
     await app.RunAsync();
 }

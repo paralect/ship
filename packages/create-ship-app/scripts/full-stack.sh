@@ -5,7 +5,10 @@ shopt -s dotglob
 project_name="$1"
 cli_dir="$2"
 api_dir="$3"
-platform_dir="$4"
+docker_compose_file_name="$4"
+platform_dir="$5"
+api_type="$6"
+db_type="$7"
 
 filesToRemove=(
   "bin"
@@ -55,6 +58,18 @@ installService "web" "services/web"
 installService "deploy" "deploy/$platform_dir"
 
 rm -rf ship
+
+# Copy docker-compose.yml
+
+cp "$cli_dir"/docker-compose/$docker_compose_file_name docker-compose.yml
+
+if [ "$api_type" == ".NET" -a "$db_type" == "PostgreSQL" ]; then
+  cp api/src/docker_postgres_init.sql .
+fi
+
+# Remove unused folders and files
+
+bash $cli_dir/scripts/cleanup.sh "api" $api_type $db_type
 
 # Add github actions from deploy service
 
