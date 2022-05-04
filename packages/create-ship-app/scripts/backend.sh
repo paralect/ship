@@ -13,13 +13,13 @@ cd "$project_name"
 
 git clone --quiet "https://github.com/paralect/ship"
 
-cp -a ship/services/$api_dir/ api
+cp -a ship/services/$api_dir/. .
 
 rm -rf ship
 
 # Remove unused folders and files
 
-bash $cli_dir/scripts/cleanup.sh $api_type $db_type
+bash $cli_dir/scripts/cleanup.sh "." $api_type $db_type
 
 # Install modules and setup husky
 

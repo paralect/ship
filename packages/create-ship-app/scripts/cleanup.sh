@@ -2,43 +2,43 @@
 set -e
 shopt -s dotglob
 
-api_type="$1"
-db_type="$2"
+api_dir="$1"
+api_type="$2"
+db_type="$3"
 
 if [ "$api_type" == ".NET" ]; then
   if [ "$db_type" == "MongoDB" ]; then
-    rm -rf "api/src/app/Api.Sql"
-    rm -rf "api/src/app/Tests.Sql"
-    rm -rf "api/src/app/Common/DalSql"
-    rm -rf "api/src/app/Common/MappingsSql"
-    rm -rf "api/src/app/Common/Services/Sql"
-    rm "api/src/app/Scheduler/appsettings.DevelopmentSql.json"
+    rm -rf $api_dir/src/app/Api.Sql
+    rm -rf $api_dir/src/app/Tests.Sql
+    rm -rf $api_dir/src/app/Common/DalSql
+    rm -rf $api_dir/src/app/Common/MappingsSql
+    rm -rf $api_dir/src/app/Common/Services/Sql
+    rm $api_dir/src/app/Scheduler/appsettings.DevelopmentSql.json
 
-    rm "api/src/ApiStarter.sln"
-    rm "api/src/ApiStarterSql.sln"
-    mv "api/src/ApiStarterNoSql.sln" "api/src/ApiStarter.sln"
+    rm $api_dir/src/ApiStarter.sln
+    rm $api_dir/src/ApiStarterSql.sln
+    mv $api_dir/src/ApiStarterNoSql.sln $api_dir/src/ApiStarter.sln
 
-    rm "api/src/docker-compose.sql.dcproj"
-    rm "api/src/docker-compose.sql.yml"
-    rm "api/src/docker_postgres_init.sql"
+    rm $api_dir/src/docker-compose.sql.dcproj
+    rm $api_dir/src/docker-compose.sql.yml
+    rm $api_dir/src/docker_postgres_init.sql
   fi
 
   if [ "$db_type" == "PostgreSQL" ]; then
-    rm -rf "api/mongo-replicator"
-    rm -rf "api/app/Api.NoSql"
-    rm -rf "api/app/SignalR"
-    rm -rf "api/app/Tests.NoSql"
-    rm -rf "api/src/app/Common/Dal"
-    rm -rf "api/src/app/Common/Mappings"
-    rm -rf "api/src/app/Common/Services/NoSql"
-    rm "api/src/app/Scheduler/appsettings.DevelopmentNoSql.json"
+    rm -rf $api_dir/mongo-replicator
+    rm -rf $api_dir/app/Api.NoSql
+    rm -rf $api_dir/app/SignalR
+    rm -rf $api_dir/app/Tests.NoSql
+    rm -rf $api_dir/src/app/Common/Dal
+    rm -rf $api_dir/src/app/Common/Mappings
+    rm -rf $api_dir/src/app/Common/Services/NoSql
+    rm $api_dir/src/app/Scheduler/appsettings.DevelopmentNoSql.json
 
-    rm "api/src/ApiStarter.sln"
-    rm "api/src/ApiStarterNoSql.sln"
-    mv "api/src/ApiStarterSql.sln" "api/src/ApiStarter.sln"
+    rm $api_dir/src/ApiStarter.sln
+    rm $api_dir/src/ApiStarterNoSql.sln
+    mv $api_dir/src/ApiStarterSql.sln $api_dir/src/ApiStarter.sln
 
-    rm "api/src/docker-compose.nosql.dcproj"
-    rm "api/src/docker-compose.nosql.yml"
-    cp "api/src/docker_postgres_init.sql" .
+    rm $api_dir/src/docker-compose.nosql.dcproj
+    rm $api_dir/src/docker-compose.nosql.yml
   fi
 fi

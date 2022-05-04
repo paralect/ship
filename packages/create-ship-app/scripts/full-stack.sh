@@ -43,10 +43,6 @@ echo ".idea" >> .gitignore
 echo "node-modules" >> .gitignore
 echo ".DS_Store" >> .gitignore
 
-# Copy docker-compose.yml
-
-cp "$cli_dir"/docker-compose/$docker_compose_file_name docker-compose.yml
-
 # Rename services in docker-compose.yml
 
 for i in docker-compose*; do
@@ -63,9 +59,17 @@ installService "deploy" "deploy/$platform_dir"
 
 rm -rf ship
 
+# Copy docker-compose.yml
+
+cp "$cli_dir"/docker-compose/$docker_compose_file_name docker-compose.yml
+
+if [ "$api_type" == ".NET" -a "$db_type" == "PostgreSQL" ]; then
+  cp api/src/docker_postgres_init.sql .
+fi
+
 # Remove unused folders and files
 
-bash $cli_dir/scripts/cleanup.sh $api_type $db_type
+bash $cli_dir/scripts/cleanup.sh "api" $api_type $db_type
 
 # Add github actions from deploy service
 
