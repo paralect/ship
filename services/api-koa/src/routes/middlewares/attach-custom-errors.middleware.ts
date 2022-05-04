@@ -1,10 +1,5 @@
 import _ from 'lodash';
-import { ValidationErrors, AppKoaContext, Next } from 'types';
-
-type ConditionFunc = () => boolean;
-type CustomErrors = {
-  [name: string]: string;
-};
+import { ValidationErrors, AppKoaContext, Next, CustomErrors } from 'types';
 
 const formatError = (customError: CustomErrors): ValidationErrors => {
   const errors: ValidationErrors = {};
@@ -19,12 +14,12 @@ const formatError = (customError: CustomErrors): ValidationErrors => {
 };
 
 const attachCustomErrors = async (ctx: AppKoaContext, next: Next) => {
-  ctx.throwError = (message: string) => ctx.throw(500, { message });
-  ctx.assertError = (condition: ConditionFunc, message: string) => ctx.assert(condition, 500, { message });
+  ctx.throwError = (message) => ctx.throw(500, { message });
+  ctx.assertError = (condition, message) => ctx.assert(condition, 500, { message });
 
-  ctx.throwClientError = (errors: CustomErrors) => ctx.throw(400, { errors: formatError(errors) });
-  ctx.assertClientError = (condition: ConditionFunc, errors: CustomErrors) =>
-    ctx.assert(condition, 400, { errors: formatError(errors) });
+  ctx.throwClientError = (errors, status = 400) => ctx.throw(status, { errors: formatError(errors) });
+  ctx.assertClientError = (condition, errors, status = 400) =>
+    ctx.assert(condition, status, { errors: formatError(errors) });
 
   await next();
 };

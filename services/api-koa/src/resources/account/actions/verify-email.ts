@@ -21,12 +21,9 @@ type ValidatedData = {
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const user = await userService.findOne({ signupToken: ctx.validatedData.token });
-  if (!user) {
-    ctx.status = 404;
-    return;
-  }
 
-  ctx.assertError(user, 'Token is invalid');
+  ctx.assertClientError(user, { token: 'Token is invalid' }, 404);
+  
   ctx.validatedData.userId = user._id;
   await next();
 }
