@@ -1,0 +1,8 @@
+redis:
+  nodeSelector:
+    eks.amazonaws.com/nodegroup: pool-app
+
+auth:
+  password: super-secured-password
+
+architecture: standalone

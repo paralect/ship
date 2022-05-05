@@ -1,0 +1,12 @@
+{
+  "name": "deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "execa": "4.0.0",
+    "prompt-list": "3.2.0"
+  }
+}
