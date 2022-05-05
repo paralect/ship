@@ -19,11 +19,6 @@ const deploymentTypes = {
   AWS: 'AWS'
 };
 
-const deploymentFolders = {
-  [deploymentTypes.DIGITAL_OCEAN]: 'digital-ocean',
-  [deploymentTypes.AWS]: 'aws',
-};
-
 const apiFolders = {
   [apiTypes.KOA]: 'api-koa',
   [apiTypes.DOTNET]: 'api-dotnet',
@@ -34,6 +29,5 @@ module.exports = {
   apiTypes,
   dbTypes,
   deploymentTypes,
-  deploymentFolders,
   apiFolders
 }

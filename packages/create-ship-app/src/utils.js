@@ -2,7 +2,7 @@ const { createSpinner } = require('nanospinner');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-const { apiTypes, dbTypes, buildTypes, apiFolders, deploymentFolders, deploymentTypes } = require('./config');
+const { apiTypes, dbTypes, buildTypes, apiFolders, deploymentTypes } = require('./config');
 
 function getCLIArgs() {
   const args = process.argv.slice(2);
@@ -41,9 +41,9 @@ function getDeploymentFolderName(deploymentType, apiType, dbType) {
   switch (deploymentType) {
     case deploymentTypes.AWS:
       switch (apiType) {
-        case apiType.KOA:
+        case apiTypes.KOA:
           return 'aws-koa';
-        case apiType.DOTNET:
+        case apiTypes.DOTNET:
           switch (dbType) {
             case dbTypes.NOSQL:
               return 'aws-dotnet-nosql';

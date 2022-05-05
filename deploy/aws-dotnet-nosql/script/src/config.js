@@ -30,7 +30,8 @@ const config = {
 const deployConfig =  {
   api: {
     dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/api`,
-    dir: `${rootDir}/api`,
+    dir: `${rootDir}/api/src`,
+    dockerFilePath: `${rootDir}/api/src/app/Api.NoSql/Dockerfile`,
     folder: 'api',
   },
   web: {
@@ -40,9 +41,9 @@ const deployConfig =  {
   },
   scheduler: {
     dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/scheduler`,
-    dir: `${rootDir}/api`,
+    dir: `${rootDir}/api/src`,
+    dockerFilePath: `${rootDir}/api/src/app/Scheduler/Dockerfile`,
     folder: 'scheduler',
-    dockerFilePath: `${rootDir}/api/Dockerfile.scheduler`,
   }
 };
 
