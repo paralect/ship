@@ -6,7 +6,7 @@ const config = require('./config');
 const { execCommand } = require('./util');
 
 const askServiceToDeploy = async () => {
-  const utils = ['migrator', 'scheduler'];
+  const utils = ['scheduler'];
   const choices = Object.keys(config.deploy).filter((c) => !utils.includes(c));
 
   let serviceToDeploy;
@@ -100,13 +100,6 @@ const deploy = async () => {
   }
   
   if (deployConfig.name === 'api') {
-    // push migrator image to registry
-    await buildAndPushImage({
-      ...config.deploy.migrator,
-      imageTag: `${config.deploy.migrator.dockerRepo}:${imageTag}`,
-      environment: config.environment
-    });
-  
     // push api image to registry
     await buildAndPushImage({
       ...deployConfig,
@@ -114,7 +107,7 @@ const deploy = async () => {
       environment: config.environment
     });
   
-    // deploy api to kubernetes and deploy migrator through helm hooks
+    // deploy api to kubernetes
     await pushToKubernetes({
       imageTag,
       appName: 'api',

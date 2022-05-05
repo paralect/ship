@@ -25,6 +25,9 @@ spec:
             port: {{ .Values.port }}
           initialDelaySeconds: 100
           periodSeconds: 10
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: {{ .Values.environment }}
         ports:
         - containerPort: {{ .Values.port }}
           protocol: TCP
