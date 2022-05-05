@@ -36,7 +36,7 @@ jobs:
           -e AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
           -e AWS_REGION="${{ secrets.AWS_REGION }}" \
           -e AWS_ACCOUNT_ID="${{ secrets.AWS_ACCOUNT_ID }}" \
-          -e CLUSTER_NAME=${{ env.CLUSTER_NAME_STAGING }} \
+          -e CLUSTER_NAME=${{ secrets.CLUSTER_NAME_STAGING }} \
           -e SERVICE=web \
           -e IMAGE_TAG=staging.${{ github.sha }} \
           -e NAMESPACE=staging \
