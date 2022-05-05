@@ -16,9 +16,9 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-        - name: {{ .Values.service }}
-          image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
-          imagePullPolicy: Always
+      - name: {{ .Values.service }}
+        image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
+        imagePullPolicy: Always
       nodeSelector:
         eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:
