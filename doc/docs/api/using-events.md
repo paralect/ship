@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Using events
 
-We are using events to keep our systems simple and use the full power of denormalized data in MongoDB [https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-2]. Denormalization is a database optimization technique in which we add redundant data to one or more tables. It can help us avoid costly joins in a database. You can find a simple example of this technique below.
+We are using events to keep our systems simple and use the [full power of denormalized data in MongoDB.](https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-2) Denormalization is a database optimization technique in which we add redundant data to one or more tables. It can help us avoid costly joins in a database. You can find a simple example of this technique below.
 
 ![Denormalization](/img/denormalization.png)
 
