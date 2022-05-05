@@ -2,7 +2,7 @@ const { createSpinner } = require('nanospinner');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-const { apiTypes, dbTypes, buildTypes, apiFolders, deploymentFolders } = require('./config');
+const { apiTypes, dbTypes, buildTypes, apiFolders, deploymentFolders, deploymentTypes } = require('./config');
 
 function getCLIArgs() {
   const args = process.argv.slice(2);
@@ -37,6 +37,31 @@ function getDockerComposeFileName(apiType, dbType) {
   }
 }
 
+function getDeploymentFolderName(deploymentType, apiType, dbType) {
+  switch (deploymentType) {
+    case deploymentTypes.AWS:
+      switch (apiType) {
+        case apiType.KOA:
+          return 'aws-koa';
+        case apiType.DOTNET:
+          switch (dbType) {
+            case dbTypes.NOSQL:
+              return 'aws-dotnet-nosql';
+            case dbTypes.SQL:
+              return 'aws-dotnet-sql';
+            default:
+              return 'aws-dotnet-nosql';
+          }
+        default:
+          return 'aws-koa';
+      }
+    case deploymentTypes.DIGITAL_OCEAN:
+      return 'digital-ocean';
+    default:
+      return 'digital-ocean';
+  }
+}
+
 function getRunCommand(buildType, apiType) {
   switch (buildType) {
     case buildTypes.ONLY_FRONTEND:
@@ -57,12 +82,12 @@ function getRunCommand(buildType, apiType) {
   }
 }
 
-async function installServices(projectName, buildType, apiType, dbType, deploymentType, dockerComposeFileName) {
+async function installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderName) {
   const spinner = createSpinner(`Building ${projectName}...`).start();
   
   switch (buildType) {
     case buildTypes.FULL_STACK:
-      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${deploymentFolders[deploymentType]} ${apiType} ${dbType}`);
+      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${deploymentFolderName} ${apiType} ${dbType}`);
       break;
     case buildTypes.ONLY_FRONTEND:
       await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
@@ -78,6 +103,7 @@ async function installServices(projectName, buildType, apiType, dbType, deployme
 module.exports = {
   getCLIArgs,
   getDockerComposeFileName,
+  getDeploymentFolderName,
   getRunCommand,
   installServices
 }
