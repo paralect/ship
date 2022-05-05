@@ -17,12 +17,11 @@ let deploymentType;
   console.clear();
   console.log(`Hey! Let’s build your ${gradient.pastel('Ship')} 🚀`);
   
-  const args = utils.getCLIArgs();
+  projectName = utils.getCLIArgs();
   
-  if (args[0] === 'init') {
+  if (projectName === 'init') {
     projectName = await buildSteps.askProjectName();
   } else {
-    projectName = args[0];
     console.log(`Project name: ${projectName}`);
   }
   
