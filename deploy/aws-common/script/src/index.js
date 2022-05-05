@@ -2,11 +2,11 @@ const fs = require('fs');
 const execa = require('execa');
 const List = require('prompt-list');
 
-const config = require('./config');
+const config = require('../../../aws-koa/script/src/config');
 const { execCommand } = require('./util');
 
 const askServiceToDeploy = async () => {
-  const utils = ['scheduler'];
+  const utils = ['migrator', 'scheduler'];
   const choices = Object.keys(config.deploy).filter((c) => !utils.includes(c));
 
   let serviceToDeploy;
@@ -59,7 +59,7 @@ const pushToKubernetes = async ({ imageTag, appName, deployConfig }) => {
       --set imagesVersion=${imageTag} \
       --set awsAccountId=${config.AWS.accountId} \
       --set awsRegion=${config.AWS.region} \
-      --set environment=${config.environment} \
+      --set environment=${config.environment}
       -f ${deployDir}/${config.environment}.yaml \
       --timeout 35m \
   `);
@@ -101,6 +101,13 @@ const deploy = async () => {
   }
   
   if (deployConfig.name === 'api') {
+    // push migrator image to registry
+    await buildAndPushImage({
+      ...config.deploy.migrator,
+      imageTag: `${config.deploy.migrator.dockerRepo}:${imageTag}`,
+      environment: config.environment
+    });
+  
     // push api image to registry
     await buildAndPushImage({
       ...deployConfig,
@@ -108,7 +115,7 @@ const deploy = async () => {
       environment: config.environment
     });
   
-    // deploy api to kubernetes
+    // deploy api to kubernetes and deploy migrator through helm hooks
     await pushToKubernetes({
       imageTag,
       appName: 'api',

@@ -6,9 +6,10 @@ project_name="$1"
 cli_dir="$2"
 api_dir="$3"
 docker_compose_file_name="$4"
-platform_dir="$5"
-api_type="$6"
-db_type="$7"
+api_type="$5"
+db_type="$6"
+platform_common_dir="$7"
+platform_specific_dir="$8"
 
 filesToRemove=(
   "bin"
@@ -51,11 +52,17 @@ done
 
 # Install services from ship monorepo
 
-git clone --quiet "https://github.com/paralect/ship"
+git clone -b a.yarmolovich/api-dotnet-deployment-test --quiet "https://github.com/paralect/ship"
 
 installService "api" "services/$api_dir"
 installService "web" "services/web"
-installService "deploy" "deploy/$platform_dir"
+
+if [ ! -z "$platform_common_dir" ]; then
+  installService "deploy" "deploy/$platform_common_dir"
+fi
+if [ ! -z "$platform_specific_dir" ]; then
+  installService "deploy" "deploy/$platform_specific_dir"
+fi
 
 rm -rf ship
 

@@ -37,28 +37,50 @@ function getDockerComposeFileName(apiType, dbType) {
   }
 }
 
-function getDeploymentFolderName(deploymentType, apiType, dbType) {
+function getDeploymentFolderNames(deploymentType, apiType, dbType) {
+  let platformCommonFolderName;
+  let platformSpecificFolderName;
+
   switch (deploymentType) {
     case deploymentTypes.AWS:
+      platformCommonFolderName = 'aws-common';
+
       switch (apiType) {
         case apiTypes.KOA:
-          return 'aws-koa';
+          platformSpecificFolderName = 'aws-koa';
+          break;
         case apiTypes.DOTNET:
           switch (dbType) {
             case dbTypes.NOSQL:
-              return 'aws-dotnet-nosql';
+              platformSpecificFolderName = 'aws-dotnet-nosql';
+              break;
             case dbTypes.SQL:
-              return 'aws-dotnet-sql';
+              platformSpecificFolderName = 'aws-dotnet-sql';
+              break;
             default:
-              return 'aws-dotnet-nosql';
+              platformSpecificFolderName = 'aws-dotnet-nosql';
+              break;
           }
         default:
-          return 'aws-koa';
+          platformSpecificFolderName = 'aws-koa';
+          break;
       }
+      break;
+
     case deploymentTypes.DIGITAL_OCEAN:
-      return 'digital-ocean';
+      platformCommonFolderName = 'digital-ocean';
+      platformSpecificFolderName = null;
+      break;
+
     default:
-      return 'digital-ocean';
+      platformCommonFolderName = 'digital-ocean';
+      platformSpecificFolderName = null;
+      break;
+  }
+
+  return {
+    platformCommonFolderName,
+    platformSpecificFolderName
   }
 }
 
@@ -82,12 +104,12 @@ function getRunCommand(buildType, apiType) {
   }
 }
 
-async function installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderName) {
+async function installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderNames) {
   const spinner = createSpinner(`Building ${projectName}...`).start();
   
   switch (buildType) {
     case buildTypes.FULL_STACK:
-      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${deploymentFolderName} ${apiType} ${dbType}`);
+      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${apiType} ${dbType} ${deploymentFolderNames.platformCommonFolderName} ${deploymentFolderNames.platformSpecificFolderName}`);
       break;
     case buildTypes.ONLY_FRONTEND:
       await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
@@ -103,7 +125,7 @@ async function installServices(projectName, buildType, apiType, dbType, dockerCo
 module.exports = {
   getCLIArgs,
   getDockerComposeFileName,
-  getDeploymentFolderName,
+  getDeploymentFolderNames,
   getRunCommand,
   installServices
 }

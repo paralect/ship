@@ -40,9 +40,9 @@ let deploymentType;
   }
   
   const dockerComposeFileName = utils.getDockerComposeFileName(apiType, dbType);
-  const deploymentFolderName = utils.getDeploymentFolderName(deploymentType, apiType, dbType);
+  const deploymentFolderNames = utils.getDeploymentFolderNames(deploymentType, apiType, dbType);
   
-  await utils.installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderName);
+  await utils.installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderNames);
   
   figlet('Happy coding!', (err, data) => {
     const runCommand = utils.getRunCommand(buildType, apiType);
