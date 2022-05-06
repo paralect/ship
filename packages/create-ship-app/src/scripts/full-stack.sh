@@ -22,7 +22,7 @@ function installService() {
   service="$1"
   service_dir="$2"
 
-  cp -a "ship/$service_dir" "$service"
+  cp -a "ship/$service_dir/." "$service"
 
   if [ "$service" != "deploy" ]; then
     cd "$service"
@@ -52,7 +52,7 @@ done
 
 # Install services from ship monorepo
 
-git clone -b a.yarmolovich/api-dotnet-deployment-test --quiet "https://github.com/paralect/ship"
+git clone --quiet "https://github.com/paralect/ship"
 
 installService "api" "services/$api_dir"
 installService "web" "services/web"
