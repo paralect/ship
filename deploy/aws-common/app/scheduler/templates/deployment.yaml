@@ -19,18 +19,11 @@ spec:
       - name: {{ .Values.service }}
         image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
         imagePullPolicy: Always
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: {{ .Values.port }}
-          initialDelaySeconds: 100
-          periodSeconds: 10
-        ports:
-        - containerPort: {{ .Values.port }}
-          protocol: TCP
         env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: {{ .Values.environment }}
+        {{ if .Values.envVarName }}
+        - name: {{ .Values.envVarName }}
+          value: {{ .Values.envVarValue }}
+        {{ end }}
       nodeSelector:
         eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:

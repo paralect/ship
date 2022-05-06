@@ -59,7 +59,6 @@ const pushToKubernetes = async ({ imageTag, appName, deployConfig }) => {
       --set imagesVersion=${imageTag} \
       --set awsAccountId=${config.AWS.accountId} \
       --set awsRegion=${config.AWS.region} \
-      --set environment=${config.environment}
       -f ${deployDir}/${config.environment}.yaml \
       --timeout 35m \
   `);

@@ -29,8 +29,10 @@ spec:
         - containerPort: {{ .Values.port }}
           protocol: TCP
         env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: {{ .Values.environment }}
+        {{ if .Values.envVarName }}
+        - name: {{ .Values.envVarName }}
+          value: {{ .Values.envVarValue }}
+        {{ end }}
       nodeSelector:
         eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:

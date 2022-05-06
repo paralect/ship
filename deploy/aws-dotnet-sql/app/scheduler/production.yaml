@@ -1,2 +1,4 @@
 nodeGroup: pool-app
 service: scheduler
+envVarName: DOTNET_ENVIRONMENT
+envVarValue: Production
