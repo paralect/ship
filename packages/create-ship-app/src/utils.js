@@ -11,8 +11,8 @@ function getCLIArgs() {
     console.log(`Invalid number of arguments.
 
 Usage:
-ship <project-name>
-ship init
+create-ship-app <project-name>
+create-ship-app init
     `);
     process.exit(1);
   }
