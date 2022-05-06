@@ -29,10 +29,10 @@
     <Content Update="appsettings.Development.json">
       <DependentUpon>appsettings.json</DependentUpon>
     </Content>
-    <Content Update="appsettings.production.json">
+    <Content Update="appsettings.Production.json">
       <DependentUpon>appsettings.json</DependentUpon>
     </Content>
-    <Content Update="appsettings.staging.json">
+    <Content Update="appsettings.Staging.json">
       <DependentUpon>appsettings.json</DependentUpon>
     </Content>
   </ItemGroup>
