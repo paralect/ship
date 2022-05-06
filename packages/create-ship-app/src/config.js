@@ -19,11 +19,6 @@ const deploymentTypes = {
   AWS: 'AWS'
 };
 
-const apiFolders = {
-  [apiTypes.KOA]: 'api-koa',
-  [apiTypes.DOTNET]: 'api-dotnet',
-};
-
 const deploymentFolders = {
   common: {
     [deploymentTypes.AWS]: 'aws-common',
@@ -36,11 +31,16 @@ const deploymentFolders = {
   }
 }
 
+const apiFolders = {
+  [apiTypes.KOA]: 'api-koa',
+  [apiTypes.DOTNET]: 'api-dotnet',
+};
+
 module.exports = {
   buildTypes,
   apiTypes,
   dbTypes,
   deploymentTypes,
-  apiFolders,
   deploymentFolders,
+  apiFolders,
 }

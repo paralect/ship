@@ -8,7 +8,8 @@ function getCLIArgs() {
   const args = process.argv.slice(2);
   
   if (args.length !== 1) {
-    console.log(`Invalid number of arguments.
+    console.log(`
+Invalid number of arguments.
 
 Usage:
 ship <project-name>
@@ -17,7 +18,7 @@ ship init
     process.exit(1);
   }
   
-  return args[0];
+  return args;
 }
 
 function getDockerComposeFileName(apiType, dbType) {
@@ -39,7 +40,7 @@ function getDockerComposeFileName(apiType, dbType) {
 
 function getDeploymentFolderNames(deploymentType, apiType, dbType) {
   const deploymentCommonFolderName = deploymentFolders.common[deploymentType];
-  const deploymentSpecificFolderName = deploymentFolders.specific[`${deploymentType || ''}${apiType || ''}${dbType || ''}`]
+  const deploymentSpecificFolderName = deploymentFolders.specific[`${deploymentType || ''}${apiType || ''}${dbType || ''}`] || '';
 
   return {
     deploymentCommonFolderName,

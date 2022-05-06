@@ -2,7 +2,7 @@ const fs = require('fs');
 const execa = require('execa');
 const List = require('prompt-list');
 
-const config = require('../../../aws-koa/script/src/config');
+const config = require('./config');
 const { execCommand } = require('./util');
 
 const askServiceToDeploy = async () => {
