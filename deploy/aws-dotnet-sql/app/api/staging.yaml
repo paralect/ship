@@ -2,5 +2,3 @@ nodeGroup: pool-app
 service: api
 port: 3001
 domain: ship-api-staging.paralect.net
-envVarName: ASPNETCORE_ENVIRONMENT
-envVarValue: Staging
