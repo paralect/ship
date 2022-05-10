@@ -55,10 +55,13 @@ We believe we could ship great products faster, while maintain decent quality an
 
 ### Deploy
 
-|Name|Description|
-|:---|:----------|
-|[digital-ocean](deploy/digital-ocean)|Digital Ocean deploy scripts for Kubernetes|
-|[aws](deploy/aws)|AWS deploy scripts for Kubernetes|
+|Platform|Name|Description|
+|:-------|:---|:----------|
+|Digital Ocean|[digital-ocean](deploy/digital-ocean)|Digital Ocean deploy scripts for Kubernetes|
+|AWS|[aws-common](deploy/aws-common)|Shared AWS deploy scripts for Kubernetes|
+||[aws-koa](deploy/aws-koa)|AWS deploy scripts for Kubernetes, specific for Koa solution|
+||[aws-dotnet-nosql](deploy/aws-dotnet-nosql)|AWS deploy scripts for Kubernetes, specific for .NET solution with MongoDB database|
+||[aws-dotnet-sql](deploy/aws-dotnet-sql)|AWS deploy scripts for Kubernetes, specific for .NET solution with PostgreSQL database|
 
 ### [Ship UI](https://master--62543f00c4eb91003a7f2a91.chromatic.com/)
 Basic set of easily customizable UI components for instantly applications launch.

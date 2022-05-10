@@ -17,16 +17,14 @@ let deploymentType;
   console.clear();
   console.log(`Hey! Let’s build your ${gradient.pastel('Ship')} 🚀`);
   
-  const args = utils.getCLIArgs();
-  const [firstArg] = args;
+  const [firstArg] = utils.getCLIArgs();
   if (firstArg === 'init') {
     projectName = await buildSteps.askProjectName();
   } else {
     projectName = firstArg;
+    console.log(`Project name: ${projectName}`);
   }
 
-  console.log(`Project name: ${projectName}`);
-  
   buildType = await buildSteps.askBuildType();
   
   if (buildType === buildTypes.ONLY_BACKEND || buildType === buildTypes.FULL_STACK) {
