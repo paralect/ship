@@ -20,9 +20,8 @@ Out of the box support following features:
 
 ### Start application.
 
-In order to start server in the docker container you can use bash file `./bin/start.sh`:
 ```bash
-$ ./bin/start.sh
+docker-compose up --build
 ```
 
 To start the project not in the docker container just run: `npm run dev`. This command will start the application on port `3001` and will automatically restart whenever you change any file in `./src` directory.
