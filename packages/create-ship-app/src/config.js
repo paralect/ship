@@ -21,13 +21,13 @@ const deploymentTypes = {
 
 const deploymentFolders = {
   common: {
-    [deploymentTypes.AWS]: 'aws-common',
+    [deploymentTypes.AWS]: 'aws/common',
     [deploymentTypes.DIGITAL_OCEAN]: 'digital-ocean'
   },
   specific: {
-    [`${deploymentTypes.AWS}${apiTypes.KOA}`]: 'aws-koa',
-    [`${deploymentTypes.AWS}${apiTypes.DOTNET}${dbTypes.NOSQL}`]: 'aws-dotnet-nosql',
-    [`${deploymentTypes.AWS}${apiTypes.DOTNET}${dbTypes.SQL}`]: 'aws-dotnet-sql',
+    [`${deploymentTypes.AWS}${apiTypes.KOA}`]: 'aws/koa',
+    [`${deploymentTypes.AWS}${apiTypes.DOTNET}${dbTypes.NOSQL}`]: 'aws/dotnet-nosql',
+    [`${deploymentTypes.AWS}${apiTypes.DOTNET}${dbTypes.SQL}`]: 'aws/dotnet-sql',
   }
 }
 
