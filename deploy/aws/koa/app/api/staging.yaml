@@ -1,4 +1,0 @@
-nodeGroup: pool-app
-service: api
-port: 3001
-domain: ship-api-staging.paralect.net
