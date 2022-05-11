@@ -10,7 +10,7 @@ spec:
     spec:
       restartPolicy: Never
       imagePullSecrets:
-        - name: regcred
+        - name: paralect # TODO revert to regcred
       containers:
         - name: migrator
           image: {{ .Values.containerRegistry }}-migrator:{{ .Values.imagesVersion }}

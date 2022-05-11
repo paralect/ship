@@ -22,7 +22,7 @@ const deploymentTypes = {
 const deploymentFolders = {
   common: {
     [deploymentTypes.AWS]: 'aws/common',
-    [deploymentTypes.DIGITAL_OCEAN]: 'digital-ocean'
+    [deploymentTypes.DIGITAL_OCEAN]: 'digital-ocean/common'
   },
   specific: {
     [`${deploymentTypes.AWS}${apiTypes.KOA}`]: 'aws/koa',
