@@ -1,5 +1,5 @@
 nodePool: pool-app
-containerRegistry: registry.digitalocean.com/paralect/ship-deploy-test # TODO revert
+containerRegistry: registry.digitalocean.com/paralect/ship
 service: web
 port: 3002
 domain: ship-staging.paralect.net
