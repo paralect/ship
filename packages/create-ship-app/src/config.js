@@ -28,6 +28,9 @@ const deploymentFolders = {
     [`${deploymentTypes.AWS}${apiTypes.KOA}`]: 'aws/koa',
     [`${deploymentTypes.AWS}${apiTypes.DOTNET}${dbTypes.NOSQL}`]: 'aws/dotnet-nosql',
     [`${deploymentTypes.AWS}${apiTypes.DOTNET}${dbTypes.SQL}`]: 'aws/dotnet-sql',
+    [`${deploymentTypes.DIGITAL_OCEAN}${apiTypes.KOA}`]: 'digital-ocean/koa',
+    [`${deploymentTypes.DIGITAL_OCEAN}${apiTypes.DOTNET}${dbTypes.NOSQL}`]: 'digital-ocean/dotnet-nosql',
+    [`${deploymentTypes.DIGITAL_OCEAN}${apiTypes.DOTNET}${dbTypes.SQL}`]: 'digital-ocean/dotnet-sql',
   }
 }
 
