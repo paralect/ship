@@ -17,7 +17,7 @@ const config = {
   home: ENV.HOME,
   
   dockerRegistry: {
-    name: 'registry.digitalocean.com/paralect/ship',
+    name: 'registry.digitalocean.com/paralect/ship-deploy-test', // TODO revert
     username: ENV.DOCKER_AUTH_USERNAME,
     password: ENV.DOCKER_AUTH_PASSWORD,
     
