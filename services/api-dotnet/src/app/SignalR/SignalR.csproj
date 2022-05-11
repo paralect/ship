@@ -21,5 +21,16 @@
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+    <Content Update="appsettings.production.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+    <Content Update="appsettings.staging.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+  </ItemGroup>
 
 </Project>

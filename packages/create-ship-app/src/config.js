@@ -20,9 +20,16 @@ const deploymentTypes = {
 };
 
 const deploymentFolders = {
-  [deploymentTypes.DIGITAL_OCEAN]: 'digital-ocean',
-  [deploymentTypes.AWS]: 'aws',
-};
+  common: {
+    [deploymentTypes.AWS]: 'aws/common',
+    [deploymentTypes.DIGITAL_OCEAN]: 'digital-ocean'
+  },
+  specific: {
+    [`${deploymentTypes.AWS}${apiTypes.KOA}`]: 'aws/koa',
+    [`${deploymentTypes.AWS}${apiTypes.DOTNET}${dbTypes.NOSQL}`]: 'aws/dotnet-nosql',
+    [`${deploymentTypes.AWS}${apiTypes.DOTNET}${dbTypes.SQL}`]: 'aws/dotnet-sql',
+  }
+}
 
 const apiFolders = {
   [apiTypes.KOA]: 'api-koa',
@@ -35,5 +42,5 @@ module.exports = {
   dbTypes,
   deploymentTypes,
   deploymentFolders,
-  apiFolders
+  apiFolders,
 }

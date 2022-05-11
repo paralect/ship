@@ -8,7 +8,8 @@ function getCLIArgs() {
   const args = process.argv.slice(2);
   
   if (args.length !== 1) {
-    console.log(`Invalid number of arguments.
+    console.log(`
+Invalid number of arguments.
 
 Usage:
 create-ship-app <project-name>
@@ -17,7 +18,7 @@ create-ship-app init
     process.exit(1);
   }
   
-  return args[0];
+  return args;
 }
 
 function getDockerComposeFileName(apiType, dbType) {
@@ -35,6 +36,16 @@ function getDockerComposeFileName(apiType, dbType) {
     default:
       return 'docker-compose-koa.yml';
   }
+}
+
+function getDeploymentFolderNames(deploymentType, apiType, dbType) {
+  const deploymentCommonFolderName = deploymentFolders.common[deploymentType];
+  const deploymentSpecificFolderName = deploymentFolders.specific[`${deploymentType || ''}${apiType || ''}${dbType || ''}`] || '';
+
+  return {
+    deploymentCommonFolderName,
+    deploymentSpecificFolderName
+  };
 }
 
 function getRunCommand(buildType, apiType) {
@@ -57,12 +68,12 @@ function getRunCommand(buildType, apiType) {
   }
 }
 
-async function installServices(projectName, buildType, apiType, dbType, deploymentType, dockerComposeFileName) {
+async function installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderNames) {
   const spinner = createSpinner(`Building ${projectName}...`).start();
   
   switch (buildType) {
     case buildTypes.FULL_STACK:
-      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${deploymentFolders[deploymentType]} ${apiType} ${dbType}`);
+      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${apiType} ${dbType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
       break;
     case buildTypes.ONLY_FRONTEND:
       await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
@@ -78,6 +89,7 @@ async function installServices(projectName, buildType, apiType, dbType, deployme
 module.exports = {
   getCLIArgs,
   getDockerComposeFileName,
+  getDeploymentFolderNames,
   getRunCommand,
   installServices
 }

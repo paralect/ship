@@ -47,6 +47,8 @@ IHostBuilder createHostBuilder(string[] args) =>
             services.AddHangfire(config =>
             {
                 var connectionString = dbSettings.ConnectionStrings.Scheduler;
+                
+                // remove the switch, if DB type is known
                 switch (Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT"))
                 {
                     case "DevelopmentNoSql":

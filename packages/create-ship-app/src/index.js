@@ -17,15 +17,14 @@ let deploymentType;
   console.clear();
   console.log(`Hey! Let’s build your ${gradient.pastel('Ship')} 🚀`);
   
-  const args = utils.getCLIArgs();
-  
-  if (args[0] === 'init') {
+  const [firstArg] = utils.getCLIArgs();
+  if (firstArg === 'init') {
     projectName = await buildSteps.askProjectName();
   } else {
-    projectName = args[0];
+    projectName = firstArg;
     console.log(`Project name: ${projectName}`);
   }
-  
+
   buildType = await buildSteps.askBuildType();
   
   if (buildType === buildTypes.ONLY_BACKEND || buildType === buildTypes.FULL_STACK) {
@@ -41,8 +40,9 @@ let deploymentType;
   }
   
   const dockerComposeFileName = utils.getDockerComposeFileName(apiType, dbType);
+  const deploymentFolderNames = utils.getDeploymentFolderNames(deploymentType, apiType, dbType);
   
-  await utils.installServices(projectName, buildType, apiType, dbType, deploymentType, dockerComposeFileName);
+  await utils.installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderNames);
   
   figlet('Happy coding!', (err, data) => {
     const runCommand = utils.getRunCommand(buildType, apiType);
