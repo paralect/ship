@@ -21,9 +21,9 @@ spec:
         - name: {{ .Values.service }}
           image: {{ .Values.containerRegistry }}-{{ .Values.service }}:{{ .Values.imagesVersion }}
           imagePullPolicy: Always
-        env:
-        - name: DOTNET_ENVIRONMENT
-          value: {{ .Values.environment }}
+          env:
+          - name: DOTNET_ENVIRONMENT
+            value: {{ .Values.environment }}
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   strategy:
