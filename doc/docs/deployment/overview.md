@@ -5,16 +5,16 @@ sidebar_position: 1
 # Overview
 
 We use the next primary technologies for deployment:
-* [Docker](https://www.docker.com/)
-* [Kubernetes](https://kubernetes.io/)
-* [Helm](https://helm.sh/)
-* [GitHub Actions](https://github.com/features/actions)
+* [Docker](https://www.docker.com/) for delivering applications inside containers.
+* [Kubernetes](https://kubernetes.io/) for containers orchestration.
+* [Helm](https://helm.sh/) for managing Kubernetes applications.
+* [GitHub Actions](https://github.com/features/actions) for CI/CD.
 
 To use this guide we highly recommend you to check their documentation and be familiar with basics.  
 
 Deployed application is multiple services, wrapped in Docker containers and run inside the Kubernetes cluster.
 
-The Ship consists of 4 services by default: **Web, API, scheduler,** and **migrator**.
+The Ship consists of 4 services by default: **Web**, **API**, **Scheduler** and **Migrator**.
 
 Deployment can be done manually from your local machine or via a CI/CD pipeline.
 
@@ -25,7 +25,7 @@ We have templates of deployment scripts for Digital Ocean and AWS, but you can u
 * Kubernetes cluster, you can create it on [Digital Ocean](https://www.digitalocean.com/) or [AWS](https://aws.amazon.com/).
 * Container registry for your Docker images, mostly cloud providers has it ([Digital Ocean](https://www.digitalocean.com/products/container-registry), [AWS](https://aws.amazon.com/ecr/)).
 * DNS provider account. We recommend [CloudFlare](https://www.cloudflare.com/), for AWS you can use [Route 53](https://aws.amazon.com/route53/).
-* Managed MongoDB. We recommend [MongoDB Atlas](https://www.mongodb.com/atlas/database) or [Digital Ocean](https://www.digitalocean.com/products/managed-databases-mongodb) 
+* Managed MongoDB. We recommend [MongoDB Atlas](https://www.mongodb.com/atlas/database) or [Digital Ocean](https://www.digitalocean.com/products/managed-databases-mongodb)
 
 ## Deployment flow
 
@@ -87,11 +87,25 @@ We use [Rolling Update](https://kubernetes.io/docs/tutorials/kubernetes-basics/u
 We have separate GitHub actions for different environments.
 
 We have 2 separate GitHub Actions for each environment: 
-- Deploy Web service
+- Deploy Web
 - Deploy API, Scheduler and Migrator. Migrator deploys **before** API and Scheduler.
 
 If the Migrator fails, API and Scheduler will be not deployed.
 This approach guarantees us that the API and Scheduler always work with the appropriate database schema.
+
+## Environment variables
+
+Services includes [environment](https://github.com/paralect/ship/blob/master/examples/base/api/src/config/environment) folder that are responsible for different environments variables.
+These values are **public**. Don't upload your source code in public repository or configure [.env](https://www.npmjs.com/package/dotenv) and [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/).
+
+```APP_ENV``` variable in build args responsible for the config file from ```environment``` folder that will be taken during application build.
+
+| APP_ENV       | File          |
+| ------------- | ------------- |
+| development   | development.json  |
+| staging       | staging.json  |
+| production    | production.json  |
+
 
 ## Database setup
 
@@ -113,7 +127,7 @@ After you create the database you will need to add a connection string in the [c
 To make your application work in modern browsers and be secure, you need to configure SSL certificates.
 The easiest way is to use [CloudFlare](https://www.cloudflare.com/), it allows you to set up SSL in most simple way by proxying all traffic through CloudFlare. Use this [guide](https://developers.cloudflare.com/fundamentals/get-started/setup/add-site/).
 
-CloudFlare allows exporting DNS records from other services like [GoDaddy](https://www.godaddy.com/). Also, you can buy domain inside CloudFlare.
+Cloudflare can be used as DNS nameservers for your DNS registrar, such as [GoDaddy](https://www.godaddy.com/). Also, you can buy and register a domain in Cloudflare itself.
 
 If you are deploying in AWS you can use [AWS Certificate Manager](https://aws.amazon.com/ru/certificate-manager/) for SSL.
 
@@ -162,7 +176,6 @@ bash deploy-dependencies.sh
 If you are adding new dependency, you need to create separate folder inside [dependencies](https://github.com/paralect/ship/blob/master/examples/base/deploy/dependencies) folder and configure new Chart.
 Also, you need to add new dependency in [deploy-dependencies.sh](https://github.com/paralect/ship/blob/master/examples/base/deploy/bin/deploy-dependencies.sh) script.
 You can do it following the example from neighboring dependencies.
-
 
 ## Deploy scripts structure
 
