@@ -5,10 +5,10 @@ sidebar_position: 1
 # Overview
 
 We use the next primary technologies for deployment:
-* [Docker](https://www.docker.com/) for delivering applications inside containers.
-* [Kubernetes](https://kubernetes.io/) for containers orchestration.
-* [Helm](https://helm.sh/) for managing Kubernetes applications.
-* [GitHub Actions](https://github.com/features/actions) for CI/CD.
+* [Docker](https://www.docker.com/) for delivering applications inside containers;
+* [Kubernetes](https://kubernetes.io/) for containers orchestration;
+* [Helm](https://helm.sh/) for managing Kubernetes applications;
+* [GitHub Actions](https://github.com/features/actions) for CI/CD;
 
 To use this guide we highly recommend you to check their documentation and be familiar with basics.  
 
@@ -22,10 +22,10 @@ We have templates of deployment scripts for Digital Ocean and AWS, but you can u
 
 ## External services you need
 
-* Kubernetes cluster, you can create it on [Digital Ocean](https://www.digitalocean.com/) or [AWS](https://aws.amazon.com/).
-* Container registry for your Docker images, mostly cloud providers has it ([Digital Ocean](https://www.digitalocean.com/products/container-registry), [AWS](https://aws.amazon.com/ecr/)).
-* DNS provider account. We recommend [CloudFlare](https://www.cloudflare.com/), for AWS you can use [Route 53](https://aws.amazon.com/route53/).
-* Managed MongoDB. We recommend [MongoDB Atlas](https://www.mongodb.com/atlas/database) or [Digital Ocean](https://www.digitalocean.com/products/managed-databases-mongodb)
+* Kubernetes cluster, you can create it on [Digital Ocean](https://www.digitalocean.com/) or [AWS](https://aws.amazon.com/);
+* Container registry for your Docker images, mostly cloud providers has it ([Digital Ocean](https://www.digitalocean.com/products/container-registry), [AWS](https://aws.amazon.com/ecr/));
+* DNS provider account. We recommend [CloudFlare](https://www.cloudflare.com/), for AWS you can use [Route 53](https://aws.amazon.com/route53/);
+* Managed MongoDB. We recommend [MongoDB Atlas](https://www.mongodb.com/atlas/database) or [Digital Ocean](https://www.digitalocean.com/products/managed-databases-mongodb);
 
 ## Deployment flow
 
