@@ -12,5 +12,6 @@
     "accessKeyId": "yourAccessKeyId",
     "secretAccessKey": "yourSecretAccessKey",
     "bucket": "yourBucket"
-  }
+  },
+  "adminKey": "replaceWithSecureApiKey"
 }
