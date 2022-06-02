@@ -57,6 +57,7 @@ const pushToKubernetes = async ({ imageTag, appName, deployConfig }) => {
       --namespace ${config.namespace} --create-namespace \
       --set appname=${appName} \
       --set imagesVersion=${imageTag} \
+      --set nodeGroup=${config.nodeGroup} \
       --set awsAccountId=${config.AWS.accountId} \
       --set awsRegion=${config.AWS.region} \
       -f ${deployDir}/${config.environment}.yaml \

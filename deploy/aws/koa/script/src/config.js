@@ -17,6 +17,8 @@ const config = {
   home: ENV.HOME,
   
   imageTag: ENV.IMAGE_TAG,
+  
+  nodeGroup: 'pool-app',
 
   AWS: {
     clusterName: ENV.CLUSTER_NAME,
