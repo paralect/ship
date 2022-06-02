@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # Introduction
 
+![Introduction](/img/ship.png)
+
 Ship is a framework that will help you build and launch products faster. You can focus on getting things done, not building infrastructure.
 
 Ship uses simple tools and approaches and has built-in support for everything from the frontend to CI/CD automation. Ship was first created in 2015 and since then we keep testing it on real products.
@@ -27,12 +29,7 @@ Ship is written for developers and easy to use and understand. We write document
 The best way to get started with Ship is to use Ship CLI to bootstrap your project.
 
 ```
-npx i create-ship-app
-```
-
-Run command to create your project structure
-```
-npx create-ship-app my-project
+npx create-ship-app init
 ```
 
 This command will create everything you need to develop, launch locally and deploy your product. Usually, complete configuration from start to deployment takes less than 20 minutes.
