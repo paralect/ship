@@ -16,6 +16,8 @@ const config = {
   
   home: ENV.HOME,
   
+  nodePool: 'pool-app',
+  
   dockerRegistry: {
     name: 'registry.digitalocean.com/paralect/ship',
     username: ENV.DOCKER_AUTH_USERNAME,

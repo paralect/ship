@@ -56,6 +56,8 @@ const pushToKubernetes = async ({ imageTag, appName, deployConfig }) => {
       --namespace ${config.namespace} --create-namespace \
       --set appname=${appName} \
       --set imagesVersion=${imageTag} \
+      --set nodePool=${config.nodePool} \
+      --set containerRegistry=${config.dockerRegistry.name} \
       --set environment=${config.environment} \
       -f ${deployDir}/${config.environment}.yaml \
       --timeout 35m \
