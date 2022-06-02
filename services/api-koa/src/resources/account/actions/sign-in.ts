@@ -18,7 +18,6 @@ const schema = Joi.object({
       'string.email': 'Please enter a valid email address',
     }),
   password: Joi.string()
-    .trim()
     .min(6)
     .max(50)
     .required()
@@ -43,14 +42,12 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
   ctx.assertClientError(user, {
     credentials: 'The email or password you have entered is invalid',
-  });
-
-  if (!user) return; // FIXME: should not return here
+  }, 401);
 
   const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
   ctx.assertClientError(isPasswordMatch, {
     credentials: 'The email or password you have entered is invalid',
-  });
+  }, 401);
 
   ctx.assertClientError(user.isEmailVerified, {
     email: 'Please verify your email to sign in',

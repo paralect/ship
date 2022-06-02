@@ -1,0 +1,11 @@
+{
+  "name": "ship",
+  "scripts": {
+    "start": "bash ./bin/start.sh",
+    "bootstrap": "lerna bootstrap"
+  },
+  "devDependencies": {
+    "husky": "7.0.4",
+    "lerna": "4.0.0"
+  }
+}

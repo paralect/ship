@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
 using Api.Sql.Controllers;
-using Api.Views.Models.View.User;
 using Common.DalSql.Entities;
 using Common.DalSql.Filters;
+using Common.Models.View.User;
 using Common.Services.Sql.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

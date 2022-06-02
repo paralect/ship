@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
 using Api.Sql.Security;
-using Api.Views.Models.View;
-using Api.Views.Models.View.User;
 using Common.DalSql;
 using Common.DalSql.Entities;
 using Common.DalSql.Filters;
+using Common.Models.View;
+using Common.Models.View.User;
 using Common.Services.Sql.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

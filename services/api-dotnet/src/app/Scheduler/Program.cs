@@ -43,21 +43,23 @@ IHostBuilder createHostBuilder(string[] args) =>
         .ConfigureServices((context, services) =>
         {
             var dbSettings = context.Configuration.GetSection("Db").Get<DbSettings>();
-            var schedulerSettings = context.Configuration.GetSection("Scheduler").Get<SchedulerSettings>();
 
             services.AddHangfire(config =>
             {
                 var connectionString = dbSettings.ConnectionStrings.Scheduler;
-                switch (schedulerSettings.Storage)
+                
+                // remove the switch, if DB type is known
+                switch (Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT"))
                 {
-                    case HangfireStorage.MongoDb:
+                    case "DevelopmentNoSql":
                         config.ConfigureHangfireWithMongoStorage(connectionString);
                         break;
-                    case HangfireStorage.PostgreSql:
+                    case "DevelopmentSql":
                         config.ConfigureHangfireWithPostgresStorage(connectionString);
                         break;
                     default:
-                        throw new InvalidOperationException(nameof(schedulerSettings.Storage));
+                        config.ConfigureHangfireWithMongoStorage(connectionString);
+                        break;
                 }
             });
 

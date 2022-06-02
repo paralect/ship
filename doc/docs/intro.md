@@ -6,9 +6,9 @@ sidebar_position: 1
 
 ![Introduction](/img/ship.png)
 
-Ship is a framework that will help you build and launch products faster. You can focus on getting things done, not building infrastructure.
+The Ship is a framework that will help you build and launch products faster. You can focus on getting things done, not building infrastructure.
 
-Ship uses simple tools and approaches and has built-in support for everything from the frontend to CI/CD automation. Ship was first created in 2015 and since then we keep testing it on real products.
+Ship uses simple tools and approaches and has built-in support for everything from the frontend to CI/CD automation. The Ship was first created in 2015 and since then we keep testing it on real products.
 
 ## Key principles
 
@@ -16,7 +16,7 @@ Ship uses simple tools and approaches and has built-in support for everything fr
 We use the most simple solutions in every part of the Ship. They are easier to understand, test, and maintain.
 
 #### **Product comes first**
-Our jobs from engineer to CEO only exist because there are customers who use the products we create. We encourage developers to focus on a product more than on technology. Get things done as quickly as possible with Ship.
+Our jobs from engineer to CEO only exist because there are customers who use the products we create. We encourage developers to focus on a product more than on technology. Get things done as quickly as possible with the Ship.
 
 #### **Production ready**
 You can use Ship to create production-ready products. We prefer to use well-tested technologies.
@@ -37,7 +37,7 @@ This command will create everything you need to develop, launch locally and depl
 ## Next steps
 ### Launch your project
 
-We use [lerna](https://github.com/lerna/lerna) to easily install packages in the all services.
+We use [lerna](https://github.com/lerna/lerna) to easily install packages in all services.
 
 ```shell
 # install root level packages
