@@ -54,7 +54,7 @@ git push -u origin main
 
 ## Container registry
 
-You need to create [Container Registry](https://www.digitalocean.com/products/container-registry) for storing Docker images. for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of service during the deployment step.
+You need to create [Container Registry](https://www.digitalocean.com/products/container-registry) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of service during the deployment step.
 
 ![Container Registry creation](/img/deployment/digital-ocean/container-registry-creation.png)
 
