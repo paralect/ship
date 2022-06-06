@@ -7,6 +7,7 @@ import { AppKoa } from 'types';
 
 import publicRoutes from './public';
 import authenticatedRoutes from './authenticated';
+import adminRoutes from './admin';
 
 const defineRoutes = (app: AppKoa) => {
   app.use(attachCustomErrors);
@@ -16,6 +17,7 @@ const defineRoutes = (app: AppKoa) => {
   app.use(tryToAttachUser);
 
   publicRoutes(app);
+  adminRoutes(app);
 
   app.use(auth);
 

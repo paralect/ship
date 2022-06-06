@@ -20,6 +20,16 @@ type ValidatedData = {
   email: string
 };
 
+async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
+  const isExists = await userService.exists({ _id: ctx.request.params?.id });
+  
+  if (!isExists) {
+    ctx.throw(404);
+  }
+
+  await next();
+}
+
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { firstName, lastName, email } = ctx.validatedData;
   const updatedUser = await userService.update({ _id: ctx.request.params?.id }, () => ({ firstName, lastName, email }));
@@ -31,5 +41,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.put('/:id', validate(schema), handler);
+  router.put('/:id', validator, validate(schema), handler);
 };

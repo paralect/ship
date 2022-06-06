@@ -44,6 +44,7 @@
     "joi": "17.4.2",
     "koa": "2.13.4",
     "koa-bodyparser": "4.3.0",
+    "koa-compose": "4.1.0",
     "koa-helmet": "6.1.0",
     "koa-logger": "3.2.1",
     "koa-mount": "4.0.0",
