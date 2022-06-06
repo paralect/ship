@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: 'Configure git'
+      - name: 'Base example update'
         run: |
           git config --global user.email "github-actions"
           git config --global user.name "github-actions@github.com"
