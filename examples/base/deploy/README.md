@@ -1,1 +1,1 @@
-# Deploy scripts for Digital Ocean
+# [Deployment Guide](https://ship.paralect.com/docs/deployment/digital-ocean)
