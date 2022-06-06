@@ -29,8 +29,8 @@ jobs:
           git config --global user.name "github-actions@github.com"
           cd examples
           rm -rf base
-          chmod +x /home/runner/work/autobuild/autobuild/packages/create-ship-app/src/scripts/full-stack.sh
-          bash /home/runner/work/autobuild/autobuild/packages/create-ship-app/src/scripts/full-stack.sh base /home/runner/work/autobuild/autobuild/packages/create-ship-app/src api-koa docker-compose-koa.yml Koa.js MongoDB digital-ocean/common digital-ocean/koa
+          chmod +x /home/runner/work/ship/ship/packages/create-ship-app/src/scripts/full-stack.sh
+          bash /home/runner/work/ship/ship/packages/create-ship-app/src/scripts/full-stack.sh base /home/runner/work/ship/ship/packages/create-ship-app/src api-koa docker-compose-koa.yml Koa.js MongoDB digital-ocean/common digital-ocean/koa
           git add -A
           git commit -m 'update base example'
           git push origin master
