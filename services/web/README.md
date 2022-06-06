@@ -38,7 +38,6 @@ You can deploy Web starter through CDN, but keep in mind that some features of N
 
 You need to set ```APP_ENV``` variable in build args in a place where you deploy application. It is responsible for the config file from ```environment``` folder that will be taken when building your application
 
-
 | APP_ENV       | File          |
 | ------------- | ------------- |
 | development   | development.json  |
