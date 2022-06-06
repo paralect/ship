@@ -10,9 +10,8 @@ Every technological decision is driven by simplicity. We believe that product us
 
 Our technological choices based on the following tools: React, Next.JS Node.JS, MongoDB, Kubernetes, Docker and Koa. Events play crucial role in the Ship architecture. Every database change produces an event. We use events to avoid tight coupling, implement business logic and support denormalization.
 
-
 On a high-level Ship consist of the following parts:
-- `API service` — a service for writing simple REST API ([reference](./api/overview.md)).
+- `API service` — a service for writing simple REST API ([reference](/api/overview.md)).
 - `Frontend service` — a better version of react-create-app optimized for simplicity.
 - `CI/CD automation` — deployment scripts and GitHub actions that deploy an application to the AWS or Digital Ocean Kubernetes cluster.
 
