@@ -44,12 +44,6 @@ echo ".idea" >> .gitignore
 echo "node-modules" >> .gitignore
 echo ".DS_Store" >> .gitignore
 
-# Rename services in docker-compose.yml
-
-for i in docker-compose*; do
-  perl -i -pe"s/ship/$project_name/g" $i
-done
-
 # Download only services and deploy folders from monorepo
 
 git clone --quiet --filter=blob:none --no-checkout --depth 1 --sparse https://github.com/paralect/ship.git
@@ -80,6 +74,12 @@ cp "$cli_dir"/docker-compose/$docker_compose_file_name docker-compose.yml
 if [ "$api_type" == ".NET" -a "$db_type" == "PostgreSQL" ]; then
   cp api/src/docker_postgres_init.sql .
 fi
+
+# Rename services in docker-compose.yml
+
+for i in docker-compose*; do
+  perl -i -pe"s/ship/$project_name/g" $i
+done
 
 # Remove unused folders and files
 
