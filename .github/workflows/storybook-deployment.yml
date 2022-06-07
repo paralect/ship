@@ -7,13 +7,13 @@ on:
       - 'services/web/src/components/**'
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
+      sha:
+        description: The SHA-1 hash referring to the commit to check.
         required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario'
-        required: false
+      ref:
+        description: The head branch associated with the pull request.
+        required: true
+
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
