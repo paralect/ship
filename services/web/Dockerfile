@@ -1,4 +1,4 @@
-FROM node:16.13.1-alpine3.13 as base
+FROM node:16.15.1-alpine3.15 as base
 
 ARG NODE_ENV=production
 ARG APP_ENV

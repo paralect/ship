@@ -1,4 +1,4 @@
-FROM node:16.13.1-alpine3.13
+FROM node:16.15.1-alpine3.15
 
 RUN apk add docker
 
