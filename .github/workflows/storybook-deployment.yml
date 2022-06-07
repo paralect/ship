@@ -5,7 +5,15 @@ on:
     branches: [ master ]
     paths:
       - 'services/web/src/components/**'
-
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario'
+        required: false
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
