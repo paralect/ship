@@ -54,9 +54,9 @@ function getRunCommand(buildType, apiType) {
       return 'npm run dev';
     case buildTypes.ONLY_BACKEND:
       switch (apiType) {
-        case apiType.KOA:
+        case apiTypes.KOA:
           return 'docker-compose up --build';
-        case apiType.DOTNET:
+        case apiTypes.DOTNET:
           return 'dotnet run';
         default:
           return;
