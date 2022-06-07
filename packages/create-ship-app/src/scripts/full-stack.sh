@@ -50,9 +50,16 @@ for i in docker-compose*; do
   perl -i -pe"s/ship/$project_name/g" $i
 done
 
-# Install services from ship monorepo
+# Download only services and deploy folders from monorepo
 
-git clone --quiet "https://github.com/paralect/ship"
+git clone --quiet --filter=blob:none --no-checkout --depth 1 --sparse https://github.com/paralect/ship.git
+cd ship
+git sparse-checkout init --cone
+git sparse-checkout add services deploy
+git checkout
+cd ../
+
+# Install services from ship monorepo
 
 installService "api" "services/$api_dir"
 installService "web" "services/web"
