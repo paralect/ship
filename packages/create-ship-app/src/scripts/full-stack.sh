@@ -58,6 +58,8 @@ if [ ! -z "$platform_specific_dir" ]; then
   installService "deploy" "deploy/$platform_specific_dir"
 fi
 
+cp "ship/.gitignore" "."
+
 rm -rf ship
 
 # Copy docker-compose.yml
