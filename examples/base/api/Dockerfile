@@ -1,4 +1,4 @@
-FROM node:16.13.1-alpine3.13 as base
+FROM node:16.15.1-alpine3.15 as base
 RUN apk add --no-cache python3 py3-pip
 
 ARG NODE_ENV=production

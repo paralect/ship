@@ -90,7 +90,7 @@
     "ts-migrate": "0.1.28"
   },
   "lint-staged": {
-    "*.js": [
+    "*.{js,ts}": [
       "eslint --fix"
     ]
   }
