@@ -41,8 +41,8 @@ cp -a "$cli_dir"/template/. .
 
 touch .gitignore
 echo ".idea" >> .gitignore
-echo "node-modules" >> .gitignore
 echo ".DS_Store" >> .gitignore
+echo "node-modules/" >> .gitignore
 
 # Download only services and deploy folders from monorepo
 
