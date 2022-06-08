@@ -3,6 +3,7 @@ import config from 'config';
 
 const adminAuth = (ctx: AppKoaContext, next: Next) => {
   const key = ctx.header['x-admin-key'];
+
   if (config.adminKey === key) {
     return next();
   }

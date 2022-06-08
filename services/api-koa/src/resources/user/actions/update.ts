@@ -1,8 +1,9 @@
 import Joi from 'joi';
+
+import { Next, AppKoaContext, AppRouter } from 'types';
 import validate from 'middlewares/validate.middleware';
 import userService from 'resources/user/user.service';
-import { securityUtil } from 'utils';
-import { Next, AppKoaContext, AppRouter } from 'types';
+import { User } from 'resources/user/user.types';
 
 const schema = Joi.object({
   firstName: Joi.string()
@@ -19,23 +20,27 @@ type ValidatedData = {
   lastName: string,
   email: string
 };
-
-async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
-  const isExists = await userService.exists({ _id: ctx.request.params?.id });
-  
-  if (!isExists) {
-    ctx.throw(404);
+type Request = {
+  params: {
+    id: string;
   }
+};
+
+async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next) {
+  const isUserExists = await userService.exists({ _id: ctx.request.params.id });
+
+  ctx.assertError(isUserExists, 'User not found');
 
   await next();
 }
 
-async function handler(ctx: AppKoaContext<ValidatedData>) {
+async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
   const { firstName, lastName, email } = ctx.validatedData;
-  const updatedUser = await userService.update({ _id: ctx.request.params?.id }, () => ({ firstName, lastName, email }));
-  if (!updatedUser) {
-    ctx.throw(404);
-  }
+
+  const updatedUser = await userService.update(
+    { _id: ctx.request.params?.id },
+    () => ({ firstName, lastName, email }),
+  ) as User;
 
   ctx.body = userService.getPublic(updatedUser);
 }

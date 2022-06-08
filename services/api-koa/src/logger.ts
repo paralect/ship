@@ -5,6 +5,7 @@ const formatToPrettyJson = winston.format.printf(info => {
   if (typeof info.message.constructor === 'object') {
     info.message = JSON.stringify(info.message, null, 4);
   }
+
   return `${info.level}: ${info.message}`;
 });
 

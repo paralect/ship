@@ -13,7 +13,8 @@ export * from './user.types';
 
 export default {
   service: userService,
-  routes: routeUtil.getRoutes([
+  userService,
+  authenticatedRoutes: routeUtil.getRoutes([
     getCurrent,
     list,
     removeAvatar,

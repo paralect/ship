@@ -1,13 +1,12 @@
-import auth from './middlewares/auth.middleware';
+import { AppKoa } from 'types';
+
 import tryToAttachUser from './middlewares/try-to-attach-user.middleware';
 import extractTokens from './middlewares/extract-tokens.middleware';
 import attachCustomErrors from './middlewares/attach-custom-errors.middleware';
 import routeErrorHandler from './middlewares/route-error-handler.middleware';
-import { AppKoa } from 'types'; 
-
-import publicRoutes from './public';
-import authenticatedRoutes from './authenticated';
-import adminRoutes from './admin';
+import publicRoutes from './public.routes';
+import authenticatedRoutes from './authenticated.routes';
+import adminRoutes from './admin.routes';
 
 const defineRoutes = (app: AppKoa) => {
   app.use(attachCustomErrors);
@@ -18,9 +17,6 @@ const defineRoutes = (app: AppKoa) => {
 
   publicRoutes(app);
   adminRoutes(app);
-
-  app.use(auth);
-
   authenticatedRoutes(app);
 };
 
