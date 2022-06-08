@@ -37,13 +37,6 @@ mkdir "$project_name"
 cd "$project_name"
 cp -a "$cli_dir"/template/. .
 
-# Create .gitignore
-
-touch .gitignore
-echo ".idea" >> .gitignore
-echo ".DS_Store" >> .gitignore
-echo "node-modules/" >> .gitignore
-
 # Download only services and deploy folders from monorepo
 
 git clone --quiet --filter=blob:none --no-checkout --depth 1 --sparse https://github.com/paralect/ship.git
