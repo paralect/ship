@@ -1,8 +1,9 @@
 import Joi from 'joi';
-import validate from 'middlewares/validate.middleware';
-import userService from 'resources/user/user.service';
+
 import config from 'config';
+import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, AppRouter } from 'types';
+import { userService } from 'resources/user';
 
 const schema = Joi.object({
   email: Joi.string()
@@ -29,13 +30,13 @@ async function validator(ctx: AppKoaContext<ValidatedData>) {
 
   const user = await userService.findOne({ resetPasswordToken: token });
 
-  if (user) {
-    ctx.redirect(`${config.webUrl}/reset-password?token=${token}`);
-  } else {
-    ctx.redirect(`${config.webUrl}/expire-token?email=${email}`);
-  }
+  const redirectUrl = user
+    ? `${config.webUrl}/reset-password?token=${token}`
+    : `${config.webUrl}/expire-token?email=${email}`;
+
+  ctx.redirect(redirectUrl);
 }
 
 export default (router: AppRouter) => {
-  router.get('/verify-reset-token', validate(schema), validator);
+  router.get('/verify-reset-token', validateMiddleware(schema), validator);
 };

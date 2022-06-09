@@ -1,5 +1,6 @@
 import { File } from '@koa/multer';
 import aws from 'aws-sdk';
+
 import config from 'config';
 
 const storage = new aws.S3(config.cloudStorage);

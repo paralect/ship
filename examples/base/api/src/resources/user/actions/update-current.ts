@@ -1,8 +1,9 @@
 import Joi from 'joi';
-import validate from 'middlewares/validate.middleware';
-import userService from 'resources/user/user.service';
+
+import { AppKoaContext, Next, AppRouter } from 'types';
 import { securityUtil } from 'utils';
-import { Next, AppKoaContext, AppRouter } from 'types';
+import { validateMiddleware } from 'middlewares';
+import { userService, User } from 'resources/user';
 
 const schema = Joi.object({
   password: Joi.string()
@@ -38,14 +39,11 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const passwordHash = await securityUtil.getHash(password);
 
-  const updatedUser = await userService.update({ _id: user._id }, () => ({ passwordHash }));
-  if (!updatedUser) {
-    ctx.throw(404);
-  }
+  const updatedUser = await userService.update({ _id: user._id }, () => ({ passwordHash })) as User;
 
   ctx.body = userService.getPublic(updatedUser);
 }
 
 export default (router: AppRouter) => {
-  router.post('/current', validate(schema), validator, handler);
+  router.post('/current', validateMiddleware(schema), validator, handler);
 };

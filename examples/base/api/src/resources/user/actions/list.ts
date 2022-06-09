@@ -1,7 +1,8 @@
 import Joi from 'joi';
-import validate from 'middlewares/validate.middleware';
-import userService from 'resources/user/user.service';
+
 import { AppKoaContext, AppRouter } from 'types';
+import { validateMiddleware } from 'middlewares';
+import { userService } from 'resources/user';
 
 const schema = Joi.object({
   page: Joi.number().default(1),
@@ -52,5 +53,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.get('/', validate(schema), handler);
+  router.get('/', validateMiddleware(schema), handler);
 };

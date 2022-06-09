@@ -1,15 +1,14 @@
 import db from 'db';
 import fs from 'fs';
 import path from 'path';
-import _ from 'lodash';
-import { MigrationDocument, Migration } from './migration.types';
 
-import schema from './migration.schema';
+import { MigrationDocument, Migration } from '../types';
+import schema from './migration-version.schema';
 
 const service = db.createService<MigrationDocument>('__migrationVersion', {
   schema,
 });
-const migrationsPath = path.join(__dirname, 'migrations');
+const migrationsPath = path.join(__dirname, '../migrations');
 const id = 'migration_version';
 
 const getMigrationNames = (): string[] => {
@@ -46,20 +45,8 @@ const setNewMigrationVersion = (version: number) => service.atomic.findOneAndUpd
   },
 }, { upsert: true });
 
-const promiseLimit = (documents: unknown[], limit: number, operator: (doc: any) => any): Promise<void> => {
-  const chunks = _.chunk(documents, limit);
-
-  return chunks.reduce((init: any, chunk) => {
-    return init.then(() => {
-      return Promise.all(chunk.map((c) => operator(c)));
-    });
-  }, Promise.resolve());
-};
-
 export default Object.assign(service, {
   getCurrentMigrationVersion,
   getMigrations,
   setNewMigrationVersion,
-  promiseLimit,
 });
-

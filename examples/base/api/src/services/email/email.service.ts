@@ -1,5 +1,7 @@
 import { join } from 'path';
+
 import config from 'config';
+
 import EmailService from './email.helper';
 
 const emailService = new EmailService({
@@ -18,9 +20,7 @@ const sendSignUpWelcome = (to: string, dynamicTemplateData: unknown) => emailSer
   dynamicTemplateData,
 });
 
-const sendForgotPassword = (
-  to: string, dynamicTemplateData: { [key: string]: unknown; },
-) => emailService.sendSendgridTemplate({
+const sendForgotPassword = (to: string, dynamicTemplateData: { [key: string]: unknown; }) => emailService.sendSendgridTemplate({
   to,
   subject: 'Welcome',
   templateId: 'your-template-id',

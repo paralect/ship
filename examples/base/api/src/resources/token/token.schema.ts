@@ -1,5 +1,6 @@
 import Joi from 'joi';
-import { TokenType } from 'resources/token/token.types';
+
+import { TokenType } from './token.types';
 
 const schema = Joi.object({
   _id: Joi.string(),

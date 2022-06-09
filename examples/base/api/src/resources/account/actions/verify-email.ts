@@ -1,9 +1,10 @@
 import Joi from 'joi';
-import validate from 'middlewares/validate.middleware';
-import userService from 'resources/user/user.service';
-import authService from 'services/auth/auth.service';
+
 import config from 'config';
+import { authService } from 'services';
+import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
+import { userService } from 'resources/user';
 
 const schema = Joi.object({
   token: Joi.string()
@@ -23,7 +24,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const user = await userService.findOne({ signupToken: ctx.validatedData.token });
 
   ctx.assertClientError(user, { token: 'Token is invalid' }, 404);
-  
+
   ctx.validatedData.userId = user._id;
   await next();
 }
@@ -44,5 +45,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.get('/verify-email', validate(schema), validator, handler);
+  router.get('/verify-email', validateMiddleware(schema), validator, handler);
 };
