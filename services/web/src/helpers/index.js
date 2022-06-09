@@ -1,7 +1,7 @@
-import copyToClipboardHelper from './copy-to-clipboard.helper';
-import handleErrorHelper from './handle-error.helper';
+import copyToClipboard from './copy-to-clipboard.helper';
+import handleError from './handle-error.helper';
 
 export {
-  copyToClipboardHelper,
-  handleErrorHelper,
+  copyToClipboard,
+  handleError,
 };

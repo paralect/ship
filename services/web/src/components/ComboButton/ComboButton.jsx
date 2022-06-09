@@ -2,7 +2,7 @@ import { memo, useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-import { useOutsideClickHook } from 'hooks';
+import { useOutsideClick } from 'hooks';
 import Button from 'components/Button/Button';
 import { ArrowDownIcon } from 'public/icons';
 
@@ -38,7 +38,7 @@ const ComboButton = ({
 
   const handleButtonClick = () => setIsMenuOpened((prev) => !prev);
 
-  useOutsideClickHook(containerRef, handleOutsideClick);
+  useOutsideClick(containerRef, handleOutsideClick);
 
   return (
     <div ref={containerRef} className={cn(styles.container, styles[size])}>

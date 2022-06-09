@@ -1,9 +1,9 @@
-import useDebounceHook from './use-debounce.hook';
-import useOutsideClickHook from './use-outside-click.hook';
-import useWindowDimensionsHook from './use-window-dimensions.hook';
+import useDebounce from './use-debounce.hook';
+import useOutsideClick from './use-outside-click.hook';
+import useWindowDimensions from './use-window-dimensions.hook';
 
 export {
-  useDebounceHook,
-  useOutsideClickHook,
-  useWindowDimensionsHook,
+  useDebounce,
+  useOutsideClick,
+  useWindowDimensions,
 };

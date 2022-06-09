@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
 
 import * as routes from 'routes';
-import { handleErrorHelper } from 'helpers';
+import { handleError } from 'helpers';
 import { Input, Button } from 'components';
 import { accountApi } from 'resources/account';
 
@@ -35,7 +35,7 @@ const ResetPassword = () => {
 
   const onSubmit = ({ password }) => resetPassword({ password, token }, {
     onSuccess: () => setSubmitted(true),
-    onError: (e) => handleErrorHelper(e),
+    onError: (e) => handleError(e),
   });
 
   if (!token) {

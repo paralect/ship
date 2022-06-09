@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 import cn from 'classnames';
 
 import { Button } from 'components';
-import { handleErrorHelper } from 'helpers';
+import { handleError } from 'helpers';
 import { userApi } from 'resources/user';
 import { AddIcon, PenIcon } from 'public/icons';
 
@@ -14,10 +14,10 @@ const PhotoUpload = () => {
   const { data: currentUser } = userApi.useGetCurrent();
 
   const { mutate: uploadProfilePhoto } = userApi.useUploadProfilePhoto({
-    onError: (err) => handleErrorHelper(err),
+    onError: (err) => handleError(err),
   });
   const { mutate: removeProfilePhoto } = userApi.useRemoveProfilePhoto({
-    onError: (err) => handleErrorHelper(err),
+    onError: (err) => handleError(err),
   });
 
   const isFileSizeCorrect = (file) => {
@@ -45,7 +45,7 @@ const PhotoUpload = () => {
       body.append('file', imageFile, imageFile.name);
 
       await uploadProfilePhoto(body, {
-        onError: (err) => handleErrorHelper(err),
+        onError: (err) => handleError(err),
       });
     }
   };

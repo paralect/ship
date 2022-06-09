@@ -5,7 +5,7 @@ import { useQueryClient } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
 
-import { handleErrorHelper } from 'helpers';
+import { handleError } from 'helpers';
 import { Input, Button } from 'components';
 import { userApi } from 'resources/user';
 
@@ -35,7 +35,7 @@ const Profile = () => {
       queryClient.setQueryData(['currentUser'], data);
       toast.success('Your password have been successfully updated.');
     },
-    onError: (e) => handleErrorHelper(e, setError),
+    onError: (e) => handleError(e, setError),
   });
 
   return (
