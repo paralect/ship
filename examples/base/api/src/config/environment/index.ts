@@ -20,6 +20,7 @@ const base = {
   webUrl: '',
   sendgridApiKey: '',
   redis: 'redis://:@redis:6379',
+  adminKey: '',
 };
 
 const config = configUtil.loadConfig(base, env, __dirname);
