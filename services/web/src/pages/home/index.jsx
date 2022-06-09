@@ -2,7 +2,7 @@ import { useCallback, useLayoutEffect, useState } from 'react';
 import cn from 'classnames';
 import Head from 'next/head';
 
-import { useDebounce } from 'hooks';
+import { useDebounceHook } from 'hooks';
 import { Table, Input, Select, Spinner } from 'components';
 import { userApi } from 'resources/user';
 
@@ -44,7 +44,7 @@ const Home = () => {
 
   const [params, setParams] = useState({});
 
-  const debouncedSearch = useDebounce(search);
+  const debouncedSearch = useDebounceHook(search);
 
   const onPageChange = useCallback((currentPage) => {
     setPage(currentPage);

@@ -5,6 +5,6 @@ import moduleAlias from 'module-alias';
 moduleAlias.addPath(__dirname);
 moduleAlias(); // read aliases from package json
 
-import migrator from 'migrations/migrator';
+import migrator from 'migrator/index';
 
 migrator.exec();

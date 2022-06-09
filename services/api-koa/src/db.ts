@@ -1,7 +1,6 @@
 import config from 'config';
 import { Database, Service, ServiceOptions } from '@paralect/node-mongo';
 
-
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 database.connect();
 

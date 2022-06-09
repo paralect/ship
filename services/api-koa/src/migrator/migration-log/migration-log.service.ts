@@ -1,5 +1,7 @@
 import db from 'db';
+
 import schema from './migration-log.schema';
+
 const service = db.createService('__migrationLog', { schema });
 
 const startMigrationLog = (_id: string, startTime: number, migrationVersion: number) => {

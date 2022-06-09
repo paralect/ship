@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import * as routes from 'routes';
-import { handleError } from 'helpers';
+import { handleErrorHelper } from 'helpers';
 import { Button } from 'components';
 import { accountApi } from 'resources/account';
 
@@ -20,7 +20,7 @@ const ForgotPassword = () => {
 
   const onSubmit = () => resendEmail({ email }, {
     onSuccess: () => setSent(true),
-    onError: (e) => handleError(e),
+    onError: (e) => handleErrorHelper(e),
   });
 
   if (isSent) {

@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { useRouter } from 'next/router';
 
 import * as routes from 'routes';
-import { useOutsideClick } from 'hooks';
+import { useOutsideClickHook } from 'hooks';
 import { Avatar } from 'components';
 import { userApi } from 'resources/user';
 import { accountApi } from 'resources/account';
@@ -31,7 +31,7 @@ const UserMenu = () => {
 
   const handleAvatarClick = () => setIsMenuOpened((prev) => !prev);
 
-  useOutsideClick(avatarRef, handleOutsideClick);
+  useOutsideClickHook(avatarRef, handleOutsideClick);
 
   useEffect(() => {
     setIsMenuOpened(false);

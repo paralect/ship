@@ -1,9 +1,11 @@
-import config from 'config';
-import userService from 'resources/user/user.service';
-import cloudStorageService from 'services/cloud-storage/cloud-storage.service';
-import uploadMiddleware from 'middlewares/upload-file.middleware';
-import { Next, AppKoaContext, AppRouter } from 'types';
+import multer from '@koa/multer';
 
+import config from 'config';
+import { cloudStorageService } from 'services';
+import { Next, AppKoaContext, AppRouter } from 'types';
+import { userService, User } from 'resources/user';
+
+const upload = multer();
 
 const getFileKey = (url: string) => url
   .replace(`https://${config.cloudStorage.bucket}.${config.cloudStorage.endpoint}/`, '');
@@ -29,14 +31,11 @@ async function handler(ctx: AppKoaContext) {
   const fileName = `${user._id}-${Date.now()}-${file.originalname}`;
   const { Location } = await cloudStorageService.uploadPublic(`avatars/${fileName}`, file);
 
-  const updatedUser = await userService.update({ _id: user._id }, () => ({ avatarUrl: Location }));
-  if (!updatedUser) {
-    ctx.throw(404);
-  }
+  const updatedUser = await userService.update({ _id: user._id }, () => ({ avatarUrl: Location })) as User;
 
   ctx.body = userService.getPublic(updatedUser);
 }
 
 export default (router: AppRouter) => {
-  router.post('/upload-photo', uploadMiddleware.single('file'), validator, handler);
+  router.post('/upload-photo', upload.single('file'), validator, handler);
 };

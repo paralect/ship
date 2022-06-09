@@ -1,6 +1,7 @@
-import tokenService from 'resources/token/token.service';
-import cookieHelper from './auth.helper';
 import { AppKoaContext } from 'types';
+import { tokenService } from 'resources/token';
+
+import cookieHelper from './auth.helper';
 
 const setTokens = async (ctx: AppKoaContext, userId: string) => {
   const { accessToken } = await tokenService.createAuthTokens({ userId });

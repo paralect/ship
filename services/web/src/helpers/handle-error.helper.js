@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-export default function handleError(e, setError) {
+export default function handleErrorHelper(e, setError) {
   const { errors: { global, ...errors } } = e.data;
 
   if (global) toast.error(global);

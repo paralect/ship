@@ -1,12 +1,11 @@
 import Joi from 'joi';
-import validate from 'middlewares/validate.middleware';
-import securityUtil from 'utils/security.util';
-import userService from 'resources/user/user.service';
-import emailService from 'services/email/email.service';
-import config from 'config';
-import { User } from 'resources/user';
-import { AppKoaContext, Next, AppRouter } from 'types';
 
+import config from 'config';
+import { securityUtil } from 'utils';
+import { emailService } from 'services';
+import { validateMiddleware } from 'middlewares';
+import { AppKoaContext, Next, AppRouter } from 'types';
+import { userService, User } from 'resources/user';
 
 const schema = Joi.object({
   firstName: Joi.string()
@@ -94,5 +93,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/sign-up', validate(schema), validator, handler);
+  router.post('/sign-up', validateMiddleware(schema), validator, handler);
 };

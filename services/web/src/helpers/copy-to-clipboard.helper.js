@@ -1,4 +1,4 @@
-export default function copyToClipboard(text) {
+export default function copyToClipboardHelper(text) {
   const textarea = document.createElement('textarea');
   textarea.style.position = 'fixed';
   textarea.style.top = '0';

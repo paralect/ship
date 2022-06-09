@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
 
 import * as routes from 'routes';
-import { handleError } from 'helpers';
+import { handleErrorHelper } from 'helpers';
 import { Input, Button, Link, MemoCard } from 'components';
 import { accountApi } from 'resources/account';
 
@@ -23,7 +23,7 @@ const SignIn = () => {
   const { mutate: signIn, isLoading: isSignInLoading } = accountApi.useSignIn();
 
   const onSubmit = (data) => signIn(data, {
-    onError: (e) => handleError(e, setError),
+    onError: (e) => handleErrorHelper(e, setError),
   });
 
   return (

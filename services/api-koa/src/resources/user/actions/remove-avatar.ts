@@ -1,7 +1,7 @@
 import config from 'config';
-import userService from 'resources/user/user.service';
-import cloudStorageService from 'services/cloud-storage/cloud-storage.service';
+import { cloudStorageService } from 'services';
 import { AppKoaContext, Next, AppRouter } from 'types';
+import { userService } from 'resources/user';
 
 const getFileKey = (url: string) => url
   .replace(`https://${config.cloudStorage.bucket}.${config.cloudStorage.endpoint}/`, '');

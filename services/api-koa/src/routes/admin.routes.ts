@@ -2,10 +2,10 @@ import mount from 'koa-mount';
 import compose from 'koa-compose';
 
 import { AppKoa } from 'types';
-import userResource from 'resources/user';
+import { userRoutes } from 'resources/user';
 
 import adminAuth from './middlewares/admin-auth.middleware';
 
 export default (app: AppKoa) => {
-  app.use(mount('/admin/users', compose([adminAuth, userResource.adminRoutes])));
+  app.use(mount('/admin/users', compose([adminAuth, userRoutes.adminRoutes])));
 };

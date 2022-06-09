@@ -6,7 +6,7 @@ import Head from 'next/head';
 
 import config from 'config';
 import * as routes from 'routes';
-import { handleError } from 'helpers';
+import { handleErrorHelper } from 'helpers';
 import { Input, Button, Link } from 'components';
 import { accountApi } from 'resources/account';
 
@@ -42,7 +42,7 @@ const SignUp = () => {
       setRegistered(true);
       setEmail(data.email);
     },
-    onError: (e) => handleError(e, setError),
+    onError: (e) => handleErrorHelper(e, setError),
   });
 
   if (registered) {

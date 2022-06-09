@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 import * as routes from 'routes';
-import { handleError } from 'helpers';
+import { handleErrorHelper } from 'helpers';
 import { Input, Button, Link } from 'components';
 import { accountApi } from 'resources/account';
 
@@ -34,7 +34,7 @@ const ForgotPassword = () => {
 
   const onSubmit = (data) => forgotPassword(data, {
     onSuccess: () => setEmail(data.email),
-    onError: (e) => handleError(e),
+    onError: (e) => handleErrorHelper(e),
   });
 
   if (email) {
