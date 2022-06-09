@@ -3,11 +3,6 @@ import Koa from 'koa';
 import { ParameterizedContext, Request, Next } from 'koa';
 import { User } from 'resources/user';
 
-interface AppKoaRequest<RequestBody = unknown> extends Request {
-  body?: RequestBody;
-  params?: Record<string, string>;
-}
-
 export type AppKoaContextState = {
   user: User;
   accessToken: string;
@@ -17,8 +12,8 @@ export type CustomErrors = {
   [name: string]: string;
 };
 
-export interface AppKoaContext<T = unknown> extends ParameterizedContext<AppKoaContextState> {
-  request: AppKoaRequest<Record<string, string>>;
+export interface AppKoaContext<T = unknown, R = unknown> extends ParameterizedContext<AppKoaContextState> {
+  request: Request & R;
   validatedData: T;
   throwError: (message: string) => never;
   assertError: (condition: unknown, message: string) => asserts condition;
@@ -36,6 +31,6 @@ export type ValidationErrors = {
   [name: string]: string[] | string;
 };
 
-export { 
+export {
   Next,
 };
