@@ -1,6 +1,7 @@
 import db from 'db';
-import securityUtil from 'utils/security.util';
+import { securityUtil } from 'utils';
 import { DATABASE_DOCUMENTS, TOKEN_SECURITY_LENGTH } from 'app.constants';
+
 import schema from './token.schema';
 import { Token, TokenType } from './token.types';
 

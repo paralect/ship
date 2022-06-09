@@ -1,6 +1,6 @@
+import Koa, { ParameterizedContext, Request, Next } from 'koa';
 import Router from '@koa/router';
-import Koa from 'koa';
-import { ParameterizedContext, Request, Next } from 'koa';
+
 import { User } from 'resources/user';
 
 export type AppKoaContextState = {

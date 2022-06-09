@@ -1,10 +1,10 @@
 import Joi from 'joi';
-import validate from 'middlewares/validate.middleware';
-import securityUtil from 'utils/security.util';
-import userService from 'resources/user/user.service';
-import emailService from 'services/email/email.service';
-import { User } from 'resources/user';
+
+import { securityUtil } from 'utils';
+import { emailService } from 'services';
+import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
+import { userService, User } from 'resources/user';
 
 const schema = Joi.object({
   email: Joi.string()
@@ -29,10 +29,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
   const user = await userService.findOne({ email });
 
-  if (!user) {
-    ctx.body = {};
-    return;
-  }
+  if (!user) return ctx.body = {};
 
   ctx.validatedData.user = user;
   await next();
@@ -55,5 +52,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/resend-email', validate(schema), validator, handler);
+  router.post('/resend-email', validateMiddleware(schema), validator, handler);
 };

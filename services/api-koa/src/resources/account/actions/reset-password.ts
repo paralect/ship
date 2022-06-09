@@ -1,9 +1,9 @@
 import Joi from 'joi';
-import validate from 'middlewares/validate.middleware';
-import securityUtil from 'utils/security.util';
-import userService from 'resources/user/user.service';
-import { User } from 'resources/user';
+
+import { securityUtil } from 'utils';
+import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
+import { userService, User } from 'resources/user';
 
 const schema = Joi.object({
   token: Joi.string()
@@ -35,10 +35,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
   const user = await userService.findOne({ resetPasswordToken: token });
 
-  if (!user) {
-    ctx.body = {};
-    return;
-  }
+  if (!user) return ctx.body = {};
 
   ctx.validatedData.user = user;
   await next();
@@ -58,5 +55,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.put('/reset-password', validate(schema), validator, handler);
+  router.put('/reset-password', validateMiddleware(schema), validator, handler);
 };

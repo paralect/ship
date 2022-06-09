@@ -1,6 +1,6 @@
-import { Migration } from 'migrations/migration.types';
-import migrationService from 'migrations/migration.service';
-import userService from 'resources/user/user.service';
+import { promiseUtil } from 'utils';
+import { userService } from 'resources/user';
+import { Migration } from 'migrator/types';
 
 const migration = new Migration(1, 'Example');
 
@@ -15,8 +15,8 @@ migration.migrate = async () => {
       isEmailVerified: false,
     }),
   );
-  
-  await migrationService.promiseLimit(userIds, 50, updateFn);
+
+  await promiseUtil.promiseLimit(userIds, 50, updateFn);
 };
 
 export default migration;

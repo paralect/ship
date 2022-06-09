@@ -1,10 +1,12 @@
 import moment from 'moment';
 import 'moment-duration-format';
-import logger from 'logger';
-import { Migration } from './migration.types';
 
-import migrationLogService from './migrations-log/migration-log.service';
-import migrationService from './migration.service';
+import logger from 'logger';
+
+import { Migration } from './types';
+import migrationLogService from './migration-log/migration-log.service';
+import migrationVersionService from './migration-version/migration-version.service';
+
 interface Duration extends moment.Duration {
   format: (template?: string, precision?: number, settings?: DurationSettings) => string;
 }
@@ -32,7 +34,7 @@ const run = async (migrations: Migration[], curVersion: number) => {
 
   try {
     for (migration of newMigrations) { //eslint-disable-line
-      migrationLogId = migrationService.generateId();
+      migrationLogId = migrationVersionService.generateId();
       const startTime = new Date().getSeconds();
       await migrationLogService.startMigrationLog(migrationLogId, startTime, migration.version); //eslint-disable-line
       logger.info(`Migration #${migration.version} is running: ${migration.description}`);
@@ -42,7 +44,7 @@ const run = async (migrations: Migration[], curVersion: number) => {
       await migration.migrate(); //eslint-disable-line
 
       lastMigrationVersion = migration.version;
-      await migrationService.setNewMigrationVersion(migration.version); //eslint-disable-line
+      await migrationVersionService.setNewMigrationVersion(migration.version); //eslint-disable-line
       const finishTime = new Date().getSeconds();
       const duration = (moment.duration(finishTime - startTime) as Duration)
         .format('h [hrs], m [min], s [sec], S [ms]');
@@ -61,15 +63,15 @@ const run = async (migrations: Migration[], curVersion: number) => {
         await migrationLogService.failMigrationLog(migrationLogId, new Date().getSeconds(), err as Error);
       }
     }
-   
+
     throw err;
   }
 };
 
 const exec = async () => {
   const [migrations, currentVersion] = await Promise.all([
-    migrationService.getMigrations(),
-    migrationService.getCurrentMigrationVersion(),
+    migrationVersionService.getMigrations(),
+    migrationVersionService.getCurrentMigrationVersion(),
   ]);
   await run(migrations, currentVersion);
   process.exit(0);
