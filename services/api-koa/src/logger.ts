@@ -2,7 +2,7 @@ import winston from 'winston';
 import config from 'config';
 
 const formatToPrettyJson = winston.format.printf(info => {
-  if (typeof info.message.constructor === 'object') {
+  if (typeof info.message.constructor === 'object' || typeof info.message.constructor === 'function') {
     info.message = JSON.stringify(info.message, null, 4);
   }
 
