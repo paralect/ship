@@ -1,7 +1,10 @@
+import { createGetInitialProps } from '@mantine/next';
 import { Html, Head, Main, NextScript } from 'next/document';
 
+const getInitialProps = createGetInitialProps();
+
 const Document = () => (
-  <Html>
+  <Html getInitialProps={getInitialProps}>
     <Head>
       <link rel="icon" href="/favicon.ico" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />

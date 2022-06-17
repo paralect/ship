@@ -2,10 +2,11 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
+import { TextInput, Button } from '@mantine/core';
 
 import * as routes from 'routes';
 import { handleError } from 'helpers';
-import { Input, Button, Link, MemoCard } from 'components';
+import { Input, Link, MemoCard } from 'components';
 import { accountApi } from 'resources/account';
 
 import styles from './styles.module.css';
@@ -17,7 +18,7 @@ const schema = yup.object().shape({
 
 const SignIn = () => {
   const {
-    handleSubmit, formState: { errors }, setError, control,
+    register, handleSubmit, formState: { errors }, setError, control,
   } = useForm({ resolver: yupResolver(schema) });
 
   const { mutate: signIn, isLoading: isSignInLoading } = accountApi.useSignIn();
@@ -37,8 +38,15 @@ const SignIn = () => {
           onSubmit={handleSubmit(onSubmit)}
           className={styles.form}
         >
-          <Input
+          {/* <Input
             name="email"
+            label="Email Address"
+            placeholder="Email"
+            control={control}
+            error={errors.email}
+          /> */}
+          <TextInput
+            {...register('email')}
             label="Email Address"
             placeholder="Email"
             control={control}
@@ -53,9 +61,9 @@ const SignIn = () => {
             error={errors.password}
           />
           <Button
-            className={styles.button}
             loading={isSignInLoading}
-            htmlType="submit"
+            type="submit"
+            fullWidth
           >
             Sign in
           </Button>
