@@ -21,7 +21,7 @@ async function handler(ctx: AppKoaContext) {
 
   await Promise.all([
     cloudStorageService.deleteObject(getFileKey(user.avatarUrl || '')),
-    userService.update({ _id: user._id }, () => ({ avatarUrl: null })),
+    userService.updateOne({ _id: user._id }, () => ({ avatarUrl: null })),
   ]);
 
   ctx.body = {};

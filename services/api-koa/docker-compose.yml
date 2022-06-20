@@ -2,8 +2,8 @@ version: '3.6'
 services:
   mongo:
     container_name: ship-mongo
-    image: mongo:4.2
-    command: --replSet rs --bind_ip_all
+    image: mongo:4.4
+    command: --replSet rs --bind_ip_all --keyFile /config/mongo-keyfile --quiet --logpath /dev/null
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
@@ -13,6 +13,7 @@ services:
       - 27017:27017
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./src/config:/config
       - type: volume
         source: mongodb
         target: /data/db

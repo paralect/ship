@@ -11,7 +11,9 @@ const tryToAttachUser = async (ctx: AppKoaContext, next: Next) => {
 
   if (userData && userData.userId) {
     await userService.updateLastRequest(userData.userId);
+
     const user = await userService.findOne({ _id: userData.userId });
+
     if (user) {
       ctx.state.user = user;
     }

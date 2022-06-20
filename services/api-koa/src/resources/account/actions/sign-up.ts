@@ -76,7 +76,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     securityUtil.generateSecureToken(),
   ]);
 
-  const user = await userService.create({
+  const user = await userService.insertOne({
     firstName,
     lastName,
     email,

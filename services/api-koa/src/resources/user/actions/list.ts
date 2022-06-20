@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { SortDirection } from '@paralect/node-mongo';
 
 import { AppKoaContext, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
@@ -17,7 +18,7 @@ type ValidatedData = {
   page: number;
   perPage: number;
   sort: {
-    createdOn: any; // TODO: expose SortDirection from node-mongo and cast here
+    createdOn: SortDirection;
   };
   searchValue: string;
 };

@@ -31,7 +31,10 @@ async function handler(ctx: AppKoaContext) {
   const fileName = `${user._id}-${Date.now()}-${file.originalname}`;
   const { Location } = await cloudStorageService.uploadPublic(`avatars/${fileName}`, file);
 
-  const updatedUser = await userService.update({ _id: user._id }, () => ({ avatarUrl: Location })) as User;
+  const updatedUser = await userService.updateOne(
+    { _id: user._id },
+    () => ({ avatarUrl: Location }),
+  ) as User;
 
   ctx.body = userService.getPublic(updatedUser);
 }

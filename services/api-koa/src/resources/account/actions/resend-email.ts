@@ -41,7 +41,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const resetPasswordToken = await securityUtil.generateSecureToken();
 
   await Promise.all([
-    userService.update({ _id: user._id }, () => ({ resetPasswordToken })),
+    userService.updateOne({ _id: user._id }, () => ({ resetPasswordToken })),
     emailService.sendForgotPassword(user.email, {
       email: user.email,
       resetPasswordToken,
