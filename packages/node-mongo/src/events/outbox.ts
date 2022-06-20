@@ -5,10 +5,12 @@ import {
   BulkWriteOptions,
   CollectionOptions,
 } from 'mongodb';
+
+import { generateId } from '../utils/helpers';
+
 import {
   DbChangeData, IChangePublisher, PublishEventOptions, OutboxEvent, DbChangeType,
-} from './types';
-import { generateId } from './idGenerator';
+} from '../types';
 
 class OutboxService implements IChangePublisher {
   private getOrCreateCollection: <T>(
@@ -72,10 +74,10 @@ class OutboxService implements IChangePublisher {
     option: InsertOneOptions = {},
   ): Promise<OutboxEvent | null> {
     await this.waitForConnection();
+
     const collection = await this.getCollection(collectionName);
-    if (!collection) {
-      return null;
-    }
+
+    if (!collection) return null;
 
     const event: OutboxEvent = {
       _id: generateId(),
@@ -96,10 +98,10 @@ class OutboxService implements IChangePublisher {
     option: BulkWriteOptions = {},
   ): Promise<OutboxEvent[] | null> {
     await this.waitForConnection();
+
     const collection = await this.getCollection(collectionName);
-    if (!collection) {
-      return null;
-    }
+
+    if (!collection) return null;
 
     const events: OutboxEvent[] = data.map((e) => ({
       _id: generateId(),

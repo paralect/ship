@@ -1,26 +1,13 @@
-import { ClientSession } from 'mongodb';
+import {
+  ClientSession, Collection, CollectionOptions, CreateCollectionOptions, MongoClient,
+} from 'mongodb';
+import { ObjectSchema } from 'joi';
 
-export type DbChangeType = 'create' | 'update' | 'remove';
-
-export interface DbChangeData {
-  data: any;
-  diff?: any[];
-
-  entity?: string;
-}
-
-export type InMemoryEvent<T = any, TChange = any> = {
-  name: string;
-  createdOn: string;
-  userId?: string;
-  data: {
-    object: T,
-    diff?: any[],
-    change?: TChange,
-  },
-};
+export type DbChangeType = 'create' | 'update' | 'delete';
 
 export type InMemoryEventHandler = (evt: InMemoryEvent) => Promise<void> | void;
+
+export type OnUpdatedProperties = Array<string | Record<string, unknown>>;
 
 export type PublishEventOptions = {
   session: ClientSession | undefined
@@ -41,10 +28,68 @@ export type IChangePublisher = {
   ) => Promise<void>,
 };
 
-export type OutboxEvent = {
-  _id: string;
-  type: 'create' | 'update' | 'remove';
-  data: any;
-  diff?: any[];
-  createdOn: string;
+export interface DbChangeData<T = any> {
+  doc: T,
+  prevDoc?: T
+}
+
+export type OutboxEvent<T = any> = {
+  _id: string,
+  type: 'create' | 'update' | 'delete',
+  doc: T,
+  prevDoc?: T,
+  createdOn: string
+};
+
+export type InMemoryEvent<T = any> = {
+  doc: T,
+  prevDoc?: T,
+  name: string,
+  createdOn: string
+};
+
+export type IDocument = {
+  _id?: string;
+  updatedOn?: string;
+  deletedOn?: string | null;
+  createdOn?: string;
+};
+
+export type FindResult<T> = {
+  results: T[];
+  pagesCount: number;
+  count: number;
+};
+
+export type QueryDefaultsOptions = {
+  requireDeletedOn?: boolean;
+};
+
+interface IDatabase {
+  getOutboxService: () => IChangePublisher;
+  waitForConnection: () => Promise<void>;
+  getOrCreateCollection: <TCollection>(
+    name: string,
+    opt: {
+      collectionCreateOptions: CreateCollectionOptions;
+      collectionOptions: CollectionOptions;
+    },
+  ) => Promise<Collection<TCollection> | null>;
+
+  getClient: () => Promise<MongoClient | undefined>;
+}
+
+interface ServiceOptions {
+  addCreatedOnField?: boolean;
+  addUpdatedOnField?: boolean;
+  outbox?: boolean;
+  schema?: ObjectSchema<any>;
+  collectionOptions?: CollectionOptions;
+  collectionCreateOptions?: CreateCollectionOptions;
+  requireDeletedOn?: boolean;
+}
+
+export {
+  IDatabase,
+  ServiceOptions,
 };

@@ -7,10 +7,11 @@ import {
   Collection,
   MongoError,
 } from 'mongodb';
-import ServiceOptions from './types/ServiceOptions';
+
+import { ServiceOptions } from './types';
 import Service from './service';
-import logger from './logger';
-import OutboxService from './outboxService';
+import logger from './utils/logger';
+import OutboxService from './events/outbox';
 
 const defaultOptions = {
   useNewUrlParser: true,
