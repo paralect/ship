@@ -6,6 +6,7 @@ import {
   InMemoryEventHandler, OnUpdatedProperties,
 } from '../types';
 import { deepCompare } from '../utils/helpers';
+import logger from '../utils/logger';
 
 class EventBus {
   private _bus: EventEmitter;
@@ -36,7 +37,7 @@ class EventBus {
     this._bus.once(eventName, handler);
   };
 
-  onUpdated = (properties: OnUpdatedProperties, handler: InMemoryEventHandler): void => this.on('updated', (event) => {
+  onUpdated = (entity: string, properties: OnUpdatedProperties, handler: InMemoryEventHandler): void => this.on(`${entity}.updated`, (event) => {
     const isChanged = deepCompare(event.doc, event.prevDoc, properties);
 
     if (isChanged) handler(event);
@@ -63,6 +64,8 @@ class InMemoryPublisher implements IChangePublisher {
       doc: eventData.doc,
       prevDoc: eventData.prevDoc,
     };
+
+    logger.info(`published in-memory event [${name}]`);
 
     this._bus.publish(name, evt);
   }

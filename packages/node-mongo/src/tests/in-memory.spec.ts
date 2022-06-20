@@ -143,12 +143,12 @@ describe('events/in-memory.ts', () => {
       const randomFullNameSpy = chai.spy();
       const expectedFullNameAndSomeFieldSpy = chai.spy();
 
-      eventBus.onUpdated(['fullName'], fullNameSpy);
-      eventBus.onUpdated([{ fullName: 'Expected fullName' }], expectedFullNameSpy);
+      eventBus.onUpdated('users', ['fullName'], fullNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'Expected fullName' }], expectedFullNameSpy);
 
-      eventBus.onUpdated(['firstName'], firstNameSpy);
-      eventBus.onUpdated([{ fullName: 'Random fullName' }], randomFullNameSpy);
-      eventBus.onUpdated([{ fullName: 'Expected fullName' }, 'someField'], expectedFullNameAndSomeFieldSpy);
+      eventBus.onUpdated('users', ['firstName'], firstNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'Random fullName' }], randomFullNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'Expected fullName' }, 'someField'], expectedFullNameAndSomeFieldSpy);
 
       const user = await usersService.insertOne({
         fullName: 'John',
@@ -158,11 +158,11 @@ describe('events/in-memory.ts', () => {
 
       spy.should.have.been.called.at.least(1);
       fullNameSpy.should.have.been.called.at.least(1);
-      // expectedFullNameSpy.should.have.been.called.at.least(1);
+      expectedFullNameSpy.should.have.been.called.at.least(1);
 
-      // firstNameSpy.should.have.been.called.at.least(0);
-      // randomFullNameSpy.should.have.been.called.at.least(0);
-      // expectedFullNameAndSomeFieldSpy.should.have.been.called.at.least(0);
+      firstNameSpy.should.have.been.called.at.least(0);
+      randomFullNameSpy.should.have.been.called.at.least(0);
+      expectedFullNameAndSomeFieldSpy.should.have.been.called.at.least(0);
     });
   });
 });
