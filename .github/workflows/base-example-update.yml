@@ -7,7 +7,6 @@ on:
       - 'services/api-koa/**'
       - 'services/web/**'
       - 'packages/create-ship-app/**'
-      - 'packages/node-mongo/**'
       - 'deploy/digital-ocean/**'
   workflow_dispatch:
     inputs:
