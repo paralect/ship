@@ -3,7 +3,14 @@ services:
   mongo:
     container_name: ship-mongo
     image: mongo:4.4
-    command: --replSet rs --bind_ip_all --keyFile /config/mongo-keyfile --quiet --logpath /dev/null
+    entrypoint:
+      - bash
+      - -c
+      - |
+        chmod 400 /config/mongo-keyfile
+        chown 999:999 /config/mongo-keyfile
+        exec docker-entrypoint.sh $$@
+    command: mongod --replSet rs --bind_ip_all --keyFile config/mongo-keyfile --quiet --logpath /dev/null
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
