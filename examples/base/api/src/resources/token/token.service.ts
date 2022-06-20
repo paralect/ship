@@ -10,7 +10,7 @@ const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, { schema });
 const createToken = async (userId: string, type: TokenType) => {
   const value = await securityUtil.generateSecureToken(TOKEN_SECURITY_LENGTH);
 
-  return service.create({
+  return service.insertOne({
     type, value, userId,
   });
 };
@@ -34,7 +34,7 @@ const findTokenByValue = async (token: string) => {
 };
 
 const removeAuthTokens = async (accessToken: string) => {
-  return service.remove({ value: { $in: [accessToken] } });
+  return service.deleteMany({ value: { $in: [accessToken] } });
 };
 
 export default Object.assign(service, {

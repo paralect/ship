@@ -14,7 +14,8 @@ const schema = Joi.object({
       'string.empty': 'Password is required',
       'string.min': 'Password must be 6-50 characters',
       'string.max': 'Password must be 6-50 characters',
-    }),
+    })
+    .required(),
 });
 
 type ValidatedData = {
@@ -39,7 +40,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const passwordHash = await securityUtil.getHash(password);
 
-  const updatedUser = await userService.update({ _id: user._id }, () => ({ passwordHash })) as User;
+  const updatedUser = await userService.updateOne({ _id: user._id }, () => ({ passwordHash })) as User;
 
   ctx.body = userService.getPublic(updatedUser);
 }

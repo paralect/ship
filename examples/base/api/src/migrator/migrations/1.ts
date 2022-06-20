@@ -9,11 +9,9 @@ migration.migrate = async () => {
     isEmailVerified: true,
   });
 
-  const updateFn = (userId: string) => userService.update(
+  const updateFn = (userId: string) => userService.atomic.updateOne(
     { _id: userId },
-    () => ({
-      isEmailVerified: false,
-    }),
+    { $set: { isEmailVerified: false } },
   );
 
   await promiseUtil.promiseLimit(userIds, 50, updateFn);

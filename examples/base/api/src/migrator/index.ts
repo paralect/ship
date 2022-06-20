@@ -1,5 +1,6 @@
 import moment from 'moment';
 import 'moment-duration-format';
+import { generateId } from '@paralect/node-mongo';
 
 import logger from 'logger';
 
@@ -34,7 +35,7 @@ const run = async (migrations: Migration[], curVersion: number) => {
 
   try {
     for (migration of newMigrations) { //eslint-disable-line
-      migrationLogId = migrationVersionService.generateId();
+      migrationLogId = generateId();
       const startTime = new Date().getSeconds();
       await migrationLogService.startMigrationLog(migrationLogId, startTime, migration.version); //eslint-disable-line
       logger.info(`Migration #${migration.version} is running: ${migration.description}`);

@@ -36,7 +36,7 @@ async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next)
 async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
   const { firstName, lastName, email } = ctx.validatedData;
 
-  const updatedUser = await userService.update(
+  const updatedUser = await userService.updateOne(
     { _id: ctx.request.params?.id },
     () => ({ firstName, lastName, email }),
   ) as User;

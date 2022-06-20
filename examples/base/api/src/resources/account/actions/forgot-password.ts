@@ -41,7 +41,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   if (!resetPasswordToken) {
     resetPasswordToken = await securityUtil.generateSecureToken();
-    await userService.update({ _id: user._id }, () => ({
+    await userService.updateOne({ _id: user._id }, () => ({
       resetPasswordToken,
     }));
   }

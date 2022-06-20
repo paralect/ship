@@ -33,7 +33,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { userId } = ctx.validatedData;
 
   await Promise.all([
-    userService.update({ _id: userId }, () => ({
+    userService.updateOne({ _id: userId }, () => ({
       isEmailVerified: true,
       signupToken: null,
     })),
