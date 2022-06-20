@@ -8,6 +8,8 @@ const schema = Joi.object({
     .required(),
   lastName: Joi.string()
     .required(),
+  fullName: Joi.string()
+    .required(),
   email: Joi.string()
     .email()
     .required(),
