@@ -25,6 +25,7 @@
     "@mantine/next": "^4.2.8",
     "@mantine/notifications": "^4.2.8",
     "@svgr/webpack": "6.2.1",
+    "@tabler/icons": "^1.71.0",
     "axios": "0.26.0",
     "classnames": "2.3.1",
     "dayjs": "^1.11.3",

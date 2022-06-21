@@ -23,7 +23,6 @@ const App = ({ Component, pageProps }) => (
       styles={components}
       withGlobalStyles
       withNormalizeCSS
-      withCSSVariables
     >
       <QueryClientProvider client={queryClient}>
         <PageConfig>

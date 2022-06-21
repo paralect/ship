@@ -1,20 +1,20 @@
+import { memo } from 'react';
 import * as routes from 'routes';
+import {
+  Header as LayoutHeader,
+} from '@mantine/core';
 import { Link } from 'components';
 import { LogoImage } from 'public/images';
 
 import UserMenu from './components/UserMenu';
-import styles from './styles.module.css';
 
 const Header = () => (
-  <header className={styles.header}>
+  <LayoutHeader component="header">
     <Link type="router" href={routes.path.home} withoutUnderline>
       <LogoImage />
     </Link>
-
-    <div className={styles.menu}>
-      <UserMenu />
-    </div>
-  </header>
+    <UserMenu />
+  </LayoutHeader>
 );
 
-export default Header;
+export default memo(Header);

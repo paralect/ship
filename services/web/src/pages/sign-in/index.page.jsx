@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
-import { TextInput, Button } from '@mantine/core';
+import { TextInput, PasswordInput, Button } from '@mantine/core';
 
 import * as routes from 'routes';
 import { handleError } from 'helpers';
@@ -38,30 +38,29 @@ const SignIn = () => {
           onSubmit={handleSubmit(onSubmit)}
           className={styles.form}
         >
-          {/* <Input
-            name="email"
-            label="Email Address"
-            placeholder="Email"
-            control={control}
-            error={errors.email}
-          /> */}
           <TextInput
             {...register('email')}
             label="Email Address"
+            labelProps={{
+              'aria-invalid': errors.email && 'true',
+            }}
             placeholder="Email"
-            control={control}
-            error={errors.email}
+            error={errors?.email?.message}
           />
-          <Input
-            name="password"
-            type="password"
+          <PasswordInput
+            {...register('password')}
             label="Password"
+            labelProps={{
+              'aria-invalid': errors.password && 'true',
+            }}
             placeholder="Password"
-            control={control}
-            error={errors.password}
+            error={errors?.password?.message}
           />
           <Button
             loading={isSignInLoading}
+            loaderProps={{
+              size: 'sm',
+            }}
             type="submit"
             fullWidth
           >
