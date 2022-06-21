@@ -18,20 +18,20 @@ const App = ({ Component, pageProps }) => (
     <Head>
       <title>Ship</title>
     </Head>
-    <MantineProvider
-      theme={shipTheme}
-      styles={components}
-      withGlobalStyles
-      withNormalizeCSS
-    >
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <MantineProvider
+        theme={shipTheme}
+        styles={components}
+        withGlobalStyles
+        withNormalizeCSS
+      >
         <PageConfig>
           <Component {...pageProps} />
         </PageConfig>
         <ReactQueryDevtools position="bottom-right" />
-      </QueryClientProvider>
-      <Toaster />
-    </MantineProvider>
+        <Toaster />
+      </MantineProvider>
+    </QueryClientProvider>
   </>
 );
 
