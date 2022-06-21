@@ -26,7 +26,7 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 ## Setup project
 
-First, initialize your project. Type ```npx create-ship-app init```  in the terminal then choose **Full-Stack** build type and **Digital Ocean** as a cloud service provider.
+First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **Full-Stack** build type and **Digital Ocean** as a cloud service provider.
 
 ![Init project](/img/deployment/digital-ocean/init-project.png)
 
@@ -199,6 +199,23 @@ You can read **[here](https://docs.nginx.com/nginx-ingress-controller/intro/how-
 
 :::
 
+Configure [Helm Values](https://helm.sh/docs/chart_template_guide/values_files/) for ingress-nginx. Need to update `doks.digitalocean.com/node-pool` value to `pool-app`.
+
+```yaml title=deploy/dependecies/ingress-nginx/values/values.yml
+controller:
+  publishService:
+    enabled: true
+  nodeSelector:
+    doks.digitalocean.com/node-pool: pool-app
+
+rbac:
+  create: true
+
+defaultBackend:
+  enabled: false
+
+```
+
 Open `deploy/bin` folder and run the bash script.
 
 ```shell
@@ -239,7 +256,7 @@ Open the **DNS** tab in CloudFlare and create two `A` records for **Web** and **
 
 ![CloudFlare API](/img/deployment/digital-ocean/cloudflare-api.png)
 
-Select the **Proxied** option that will proxy all traffic through Cloudflare
+Select the **Proxied** option that will proxy all traffic through Cloudflare.
 It does a lot of awesome work, you can read more about it [here](https://developers.cloudflare.com/dns/manage-dns-records/reference/proxied-dns-records/).
 In our case we use it for automatic **SSL** certificates generation.
 
