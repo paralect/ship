@@ -7,6 +7,9 @@ import { Footer } from './layout/footer';
 import { Button } from './inputs-and-buttons/button';
 import { TextInput } from './inputs-and-buttons/text-input';
 import { PasswordInput } from './inputs-and-buttons/password-input';
+import { Checkbox } from './inputs-and-buttons/checkbox';
+import { RadioGroup } from './inputs-and-buttons/radio-group';
+import { Switch } from './inputs-and-buttons/switch';
 
 // Navigation
 // Data display
@@ -28,6 +31,9 @@ const components = {
   Button,
   TextInput,
   PasswordInput,
+  Checkbox,
+  RadioGroup,
+  Switch,
   Menu,
   Loader,
 };
