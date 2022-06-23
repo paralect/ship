@@ -3,7 +3,7 @@ import { accountApi } from 'resources/account';
 import { Menu } from '@mantine/core';
 import { NextLink } from '@mantine/next';
 import { IconUserCircle, IconLogout } from '@tabler/icons';
-import MenuToggle from '../MenuToggle/index';
+import MenuToggle from '../MenuToggle';
 
 const UserMenu = () => {
   const { mutate: signOut } = accountApi.useSignOut();
