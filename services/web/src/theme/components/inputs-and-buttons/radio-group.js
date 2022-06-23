@@ -1,4 +1,10 @@
-export const RadioGroup = (theme) => ({
+export const RadioGroup = ({
+  colors,
+  white,
+  other: {
+    transition: { speed, easing },
+  },
+}) => ({
   radioWrapper: {
     label: {
       cursor: 'pointer',
@@ -7,26 +13,26 @@ export const RadioGroup = (theme) => ({
     },
     '&:hover': {
       input: {
-        borderColor: theme.colors.brand[9],
+        borderColor: colors.brand[9],
         '&:checked': {
-          borderColor: theme.colors.brand[7],
+          borderColor: colors.brand[7],
         },
       },
       svg: {
-        color: theme.colors.brand[7],
+        color: colors.brand[7],
       },
     },
   },
   radio: {
     cursor: 'pointer',
-    borderColor: theme.colors.brand[2],
-    transition: 'all 200ms ease-in-out',
+    borderColor: colors.brand[2],
+    transition: `all ${speed.fast} ${easing.easeInOut}`,
     '&:checked': {
-      background: theme.white,
+      background: white,
     },
   },
   icon: {
-    color: theme.colors.brand[9],
-    transition: 'all 200ms ease-in-out',
+    color: colors.brand[9],
+    transition: `all ${speed.smooth} ${easing.easeInBack}`,
   },
 });

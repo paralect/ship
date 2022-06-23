@@ -13,7 +13,7 @@ export const Checkbox = (theme) => ({
   input: {
     cursor: 'pointer',
     borderColor: theme.colors.brand[2],
-    borderRadius: '4px',
+    borderRadius: theme.radius.xs,
   },
   label: {
     cursor: 'pointer',

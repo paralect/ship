@@ -6,6 +6,8 @@ import { useDebounce } from 'hooks';
 import { Table, Input, Select, Spinner } from 'components';
 import { userApi } from 'resources/user';
 
+import { RadioGroup, Radio } from '@mantine/core';
+
 import styles from './styles.module.css';
 
 const selectOptions = [
@@ -81,6 +83,10 @@ const Home = () => {
         <title>Home</title>
       </Head>
       <h2 className={styles.title}>Users</h2>
+      <RadioGroup>
+        <Radio value="react" label="React" />
+        <Radio value="vue" label="Vue" />
+      </RadioGroup>
       <div className={cn({
         [styles.loading]: isListLoading,
       }, styles.container)}
