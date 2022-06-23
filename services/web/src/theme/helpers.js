@@ -20,7 +20,7 @@ export const getInputStyles = (theme) => ({
   label: {
     color: 'inherit',
     transition: 'color 200ms ease-in-out',
-    '&[aria-invalid]': {
+    '&[data-invalid="true"]': {
       color: theme.colors.red[5],
     },
   },

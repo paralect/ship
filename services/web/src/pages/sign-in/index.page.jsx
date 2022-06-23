@@ -42,7 +42,7 @@ const SignIn = () => {
             {...register('email')}
             label="Email Address"
             labelProps={{
-              'aria-invalid': errors.email && 'true',
+              'data-invalid': !!errors.email,
             }}
             placeholder="Email"
             error={errors?.email?.message}
@@ -51,7 +51,7 @@ const SignIn = () => {
             {...register('password')}
             label="Password"
             labelProps={{
-              'aria-invalid': errors.password && 'true',
+              'data-invalid': !!errors.password,
             }}
             placeholder="Password"
             error={errors?.password?.message}
