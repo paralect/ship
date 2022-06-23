@@ -83,10 +83,6 @@ const Home = () => {
         <title>Home</title>
       </Head>
       <h2 className={styles.title}>Users</h2>
-      <RadioGroup>
-        <Radio value="react" label="React" />
-        <Radio value="vue" label="Vue" />
-      </RadioGroup>
       <div className={cn({
         [styles.loading]: isListLoading,
       }, styles.container)}
