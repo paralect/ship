@@ -7,7 +7,7 @@ export type DbChangeType = 'create' | 'update' | 'delete';
 
 export type InMemoryEventHandler = (evt: InMemoryEvent) => Promise<void> | void;
 
-export type OnUpdatedProperties = Array<string | Record<string, unknown>>;
+export type OnUpdatedProperties<T = Record<string, unknown>> = Array<Partial<T> | keyof T>;
 
 export type PublishEventOptions = {
   session: ClientSession | undefined

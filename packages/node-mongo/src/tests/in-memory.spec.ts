@@ -17,6 +17,7 @@ type UserType = {
   _id: string;
   createdOn: string;
   fullName: string;
+  firstName: string;
   deletedOn: string;
 };
 
@@ -141,14 +142,14 @@ describe('events/in-memory.ts', () => {
 
       const firstNameSpy = chai.spy();
       const randomFullNameSpy = chai.spy();
-      const expectedFullNameAndSomeFieldSpy = chai.spy();
+      const expectedFullNameAndFirstNameSpy = chai.spy();
 
-      eventBus.onUpdated('users', ['fullName'], fullNameSpy);
-      eventBus.onUpdated('users', [{ fullName: 'Expected fullName' }], expectedFullNameSpy);
+      eventBus.onUpdated<UserType>('users', ['fullName'], fullNameSpy);
+      eventBus.onUpdated<UserType>('users', [{ fullName: 'Expected fullName' }], expectedFullNameSpy);
 
-      eventBus.onUpdated('users', ['firstName'], firstNameSpy);
-      eventBus.onUpdated('users', [{ fullName: 'Random fullName' }], randomFullNameSpy);
-      eventBus.onUpdated('users', [{ fullName: 'Expected fullName' }, 'someField'], expectedFullNameAndSomeFieldSpy);
+      eventBus.onUpdated<UserType>('users', ['firstName'], firstNameSpy);
+      eventBus.onUpdated<UserType>('users', [{ fullName: 'Random fullName', firstName: '123' }], randomFullNameSpy);
+      eventBus.onUpdated<UserType>('users', [{ fullName: 'Expected fullName' }, 'firstName'], expectedFullNameAndFirstNameSpy);
 
       const user = await usersService.insertOne({
         fullName: 'John',
@@ -162,7 +163,7 @@ describe('events/in-memory.ts', () => {
 
       firstNameSpy.should.have.been.called.at.least(0);
       randomFullNameSpy.should.have.been.called.at.least(0);
-      expectedFullNameAndSomeFieldSpy.should.have.been.called.at.least(0);
+      expectedFullNameAndFirstNameSpy.should.have.been.called.at.least(0);
     });
   });
 });
