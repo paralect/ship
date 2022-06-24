@@ -38,7 +38,7 @@ describe('service.ts', () => {
       fullName: 'John',
     });
 
-    const newUser = await usersService.findOne({ _id: u._id });
+    const newUser = await usersService.findOne({ _id: u._id, her: 123 });
 
     u._id.should.be.equal(newUser?._id);
   });
@@ -146,5 +146,24 @@ describe('service.ts', () => {
 
     (deletedUser === null).should.be.equal(true);
     assert.exists(updatedUser?.deletedOn);
+  });
+
+  it('should return  documents', async () => {
+    const users = [
+      { fullName: 'John' },
+      { fullName: 'John' },
+      { fullName: 'Kobe' },
+    ];
+
+    const createdUsers = await usersService.insertMany(users);
+
+    const usersIds = createdUsers.map((u) => u._id);
+
+    const aggregationResult = await usersService.aggregate([
+      { $match: { _id: { $in: usersIds } } },
+      { $group: { _id: null, count: { $sum: 1 } } },
+    ]);
+
+    aggregationResult[0].count.should.be.equal(users.length);
   });
 });
