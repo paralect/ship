@@ -18,7 +18,7 @@ export const RadioGroup = ({
           borderColor: colors.brand[7],
         },
       },
-      svg: {
+      ['icon']: {
         color: colors.brand[7],
       },
     },

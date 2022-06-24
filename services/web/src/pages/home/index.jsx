@@ -6,8 +6,6 @@ import { useDebounce } from 'hooks';
 import { Table, Input, Select, Spinner } from 'components';
 import { userApi } from 'resources/user';
 
-import { RadioGroup, Radio } from '@mantine/core';
-
 import styles from './styles.module.css';
 
 const selectOptions = [
