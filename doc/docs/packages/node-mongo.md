@@ -1,18 +1,23 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # node-mongo
 
 [![npm version](https://badge.fury.io/js/%40paralect%2Fnode-mongo.svg)](https://badge.fury.io/js/%40paralect%2Fnode-mongo)
 
-Node Mongo is reactive extension to MongoDB API.
+Lightweight reactive extension to official MongoDB [driver](https://www.npmjs.com/package/mongodb) for Node.js.
 
 ## Features
 
-* ️️**Reactive**. Fires events as document stored, updated or deleted from database
-* **Paging**. Implements high level paging API
-* **Schema validation**. Validates your data before save
+* **ObjectId mapping**. Automatically converts `_id` field from the `ObjectId` to a `string`.
+* ️️**Reactive**. Fires events as document created, updated or deleted from database;
+* **Paging**. Implements high level paging API;
+* **CUD operations timestamps**. Automatically sets `createdOn`, `updatedOn`, `deletedOn` timestamps for CUD operations;
+* **Schema validation**. Validates your data before save;
+* **Default queries**. You can add default queries that will be added for all find operations;
+* **Extendable**. API easily extendable, you can add new methods or override existing;
+* **Outbox support**. node-mongo can create collections with `_outbox` postfix that stores all CUD events, it can be used for implementing [transactional outbox](https://microservices.io/patterns/data/transactional-outbox.html) pattern;
 
 ## Installation
 

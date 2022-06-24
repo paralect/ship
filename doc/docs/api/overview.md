@@ -4,7 +4,13 @@ sidebar_position: 1
 
 # Overview
 
-`/services/api` is a source folder for three independent services: 
+:::info
+
+It's the draft version of **API** documentation, the articles contains some deprecated details. This section will be refactored and actualized soon ✨.
+
+:::
+
+`/api` is a source folder for three independent services: 
 - API — REST API, entry file is `/api/src/app.ts`
 - Migrator — small utility that runs MongoDB migrations, entry file is `/api/src/migrator.ts`
 - Scheduler — standalone service, that runs background jobs, entry file is `/api/src/scheduler.ts`
