@@ -38,7 +38,7 @@ describe('service.ts', () => {
       fullName: 'John',
     });
 
-    const newUser = await usersService.findOne({ _id: u._id, her: 123 });
+    const newUser = await usersService.findOne({ _id: u._id });
 
     u._id.should.be.equal(newUser?._id);
   });
@@ -148,7 +148,7 @@ describe('service.ts', () => {
     assert.exists(updatedUser?.deletedOn);
   });
 
-  it('should return  documents', async () => {
+  it('should return sum of documents through aggregation', async () => {
     const users = [
       { fullName: 'John' },
       { fullName: 'John' },

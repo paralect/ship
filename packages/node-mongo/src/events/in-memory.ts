@@ -37,8 +37,6 @@ class EventBus {
     this._bus.once(eventName, handler);
   };
 
-  // Array<string | Record<string, unknown>>
-
   onUpdated = <T = Record<string, unknown>>(entity: string, properties: OnUpdatedProperties<T>, handler: InMemoryEventHandler): void => this.on(`${entity}.updated`, (event) => {
     const isChanged = deepCompare(
       event.doc,
