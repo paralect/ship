@@ -1,8 +1,14 @@
-export const Menu = (theme) => ({
+export const Menu = ({
+  colors,
+  radius,
+  other: {
+    transition: { speed, easing },
+  },
+}) => ({
   body: {
     padding: '6px 0',
-    border: `1px solid ${theme.colors.gray[1]}`,
-    borderRadius: '6px',
+    border: `1px solid ${colors.brand[2]}`,
+    borderRadius: radius.sm,
   },
   item: {
     height: '40px',
@@ -11,12 +17,12 @@ export const Menu = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     lineHeight: '19px',
-    color: theme.colors.brand[9],
+    color: colors.brand[9],
     cursor: 'pointer',
     borderRadius: 0,
-    transition: 'background-color 200ms linear',
+    transition: `background-color ${speed.fast} ${easing.ease}`,
   },
   itemHovered: {
-    backgroundColor: `${theme.colors.brand[0]} !important`,
+    backgroundColor: `${colors.brand[0]} !important`,
   },
 });
