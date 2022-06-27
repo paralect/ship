@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
 
 import { handleError } from 'helpers';
-import { Input, Button } from 'components';
+import { Button, TextInput, PasswordInput } from '@mantine/core';
 import { userApi } from 'resources/user';
 
 import PhotoUpload from './components/FileUpload';
@@ -23,7 +23,10 @@ const Profile = () => {
   const { data: currentUser } = userApi.useGetCurrent();
 
   const {
-    handleSubmit, formState: { errors }, setError, control,
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -51,24 +54,21 @@ const Profile = () => {
             className={styles.form}
             onSubmit={handleSubmit(onSubmit)}
           >
-            <Input
-              name="email"
+            <TextInput
+              {...register('email')}
               label="Email Address"
               defaultValue={currentUser.email}
-              control={control}
               error={errors.email}
               disabled
             />
-            <Input
-              name="password"
-              type="password"
+            <PasswordInput
+              {...register('password')}
               label="Password"
               placeholder="Your password"
-              control={control}
               error={errors.password}
             />
             <Button
-              htmlType="submit"
+              type="submit"
               loading={isUpdateCurrentLoading}
             >
               Update Profile

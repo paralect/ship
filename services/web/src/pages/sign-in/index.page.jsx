@@ -2,10 +2,11 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
+import { TextInput, PasswordInput, Button } from '@mantine/core';
 
 import * as routes from 'routes';
 import { handleError } from 'helpers';
-import { Input, Button, Link, MemoCard } from 'components';
+import { Input, Link, MemoCard } from 'components';
 import { accountApi } from 'resources/account';
 
 import styles from './styles.module.css';
@@ -17,7 +18,7 @@ const schema = yup.object().shape({
 
 const SignIn = () => {
   const {
-    handleSubmit, formState: { errors }, setError, control,
+    register, handleSubmit, formState: { errors }, setError, control,
   } = useForm({ resolver: yupResolver(schema) });
 
   const { mutate: signIn, isLoading: isSignInLoading } = accountApi.useSignIn();
@@ -37,25 +38,31 @@ const SignIn = () => {
           onSubmit={handleSubmit(onSubmit)}
           className={styles.form}
         >
-          <Input
-            name="email"
+          <TextInput
+            {...register('email')}
             label="Email Address"
+            labelProps={{
+              'data-invalid': !!errors.email,
+            }}
             placeholder="Email"
-            control={control}
-            error={errors.email}
+            error={errors?.email?.message}
           />
-          <Input
-            name="password"
-            type="password"
+          <PasswordInput
+            {...register('password')}
             label="Password"
+            labelProps={{
+              'data-invalid': !!errors.password,
+            }}
             placeholder="Password"
-            control={control}
-            error={errors.password}
+            error={errors?.password?.message}
           />
           <Button
-            className={styles.button}
             loading={isSignInLoading}
-            htmlType="submit"
+            loaderProps={{
+              size: 'sm',
+            }}
+            type="submit"
+            fullWidth
           >
             Sign in
           </Button>
