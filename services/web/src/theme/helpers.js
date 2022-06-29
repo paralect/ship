@@ -11,6 +11,7 @@ export const getInputStyles = ({
     padding: '12px 14px',
     border: `1px solid ${colors.brand[2]}`,
     borderRadius: radius.sm,
+    lineHeight: '14px',
   
     '&:hover:not(:focus):not(:focus-within):not(:disabled):not([aria-invalid])': {
       borderColor: colors.brand[5],
