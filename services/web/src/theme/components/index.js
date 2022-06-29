@@ -10,6 +10,9 @@ import { PasswordInput } from './inputs-and-buttons/password-input';
 import { Checkbox } from './inputs-and-buttons/checkbox';
 import { RadioGroup } from './inputs-and-buttons/radio-group';
 import { Switch } from './inputs-and-buttons/switch';
+import { Select } from './inputs-and-buttons/select';
+import { MultiSelect } from './inputs-and-buttons/multiselect';
+import { NativeSelect } from './inputs-and-buttons/native-select';
 
 // Navigation
 // Data display
@@ -35,6 +38,9 @@ const components = {
   Checkbox,
   RadioGroup,
   Switch,
+  Select,
+  MultiSelect,
+  NativeSelect,
   Menu,
   Table,
   Loader,

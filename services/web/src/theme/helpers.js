@@ -5,12 +5,18 @@ export const getInputStyles = ({
     transition: { speed, easing },
   },
 }) => ({
+  rightSection: {
+    '& svg': {
+      transition: `transform ${speed.fast} ${easing.easeInOut}`,
+    },
+  },
   input: {
     height: '40px',
     width: '100%',
     padding: '12px 14px',
     border: `1px solid ${colors.brand[2]}`,
     borderRadius: radius.sm,
+    lineHeight: '14px',
   
     '&:hover:not(:focus):not(:focus-within):not(:disabled):not([aria-invalid])': {
       borderColor: colors.brand[5],
@@ -18,6 +24,9 @@ export const getInputStyles = ({
   
     '&:focus, &:focus-within': {
       borderColor: colors.blue[5],
+      '& + div[class*="rightSection"] svg': {
+        transform: 'rotate(180deg)',
+      },
     },
     '&:disabled': {
       backgroundColor: colors.brand[0],

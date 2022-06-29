@@ -12,5 +12,8 @@ export const PasswordInput = (theme) => ({
       background: 'none',
     },
   },
+  innerInput: {
+    height: '36px',
+  },
   ...getInputStyles(theme),
 });
