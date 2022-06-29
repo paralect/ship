@@ -18,6 +18,7 @@ import { Switch } from './inputs-and-buttons/switch';
 import { Menu } from './overlay/menu';
 
 // Typography
+import { Table } from './typography/table';
 
 // Feedback
 import { Loader } from './feedback/loader';
@@ -35,6 +36,7 @@ const components = {
   RadioGroup,
   Switch,
   Menu,
+  Table,
   Loader,
 };
 

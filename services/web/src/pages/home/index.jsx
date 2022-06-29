@@ -4,6 +4,7 @@ import Head from 'next/head';
 
 import { useDebounce } from 'hooks';
 import { Table, Input, Select, Spinner } from 'components';
+import { Table as MantineTable } from '@mantine/core'
 import { userApi } from 'resources/user';
 
 import styles from './styles.module.css';
@@ -103,15 +104,36 @@ const Home = () => {
           />
         </div>
         {data?.items.length ? (
-          <Table
-            items={data.items}
-            columns={columns}
-            totalCount={data.count}
-            totalPages={data.totalPages}
-            onPageChange={onPageChange}
-            page={page}
-            perPage={10}
-          />
+          // <Table
+          //   items={data.items}
+          //   columns={columns}
+          //   totalCount={data.count}
+          //   totalPages={data.totalPages}
+          //   onPageChange={onPageChange}
+          //   page={page}
+          //   perPage={10}
+          // />
+          <MantineTable
+            horizontalSpacing="lg"
+            verticalSpacing="md"
+          >
+            <thead>
+              <tr>
+                {columns.map(({ title }) => (
+                  <th>{title}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data.items.map(({ firstName, lastName, email }) => (
+                <tr>
+                  <td>{firstName}</td>
+                  <td>{lastName}</td>
+                  <td>{email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </MantineTable>
         ) : (
           <div className={styles.helperContainer}>
             No results found, try to adjust your search.
