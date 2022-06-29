@@ -77,9 +77,10 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   ]);
 
   const user = await userService.insertOne({
+    email,
     firstName,
     lastName,
-    email,
+    fullName: `${firstName} ${lastName}`,
     passwordHash: hash.toString(),
     isEmailVerified: false,
     signupToken,
