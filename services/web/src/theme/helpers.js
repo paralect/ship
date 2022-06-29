@@ -5,6 +5,11 @@ export const getInputStyles = ({
     transition: { speed, easing },
   },
 }) => ({
+  rightSection: {
+    '& svg': {
+      transition: `transform ${speed.fast} ${easing.easeInOut}`,
+    },
+  },
   input: {
     height: '40px',
     width: '100%',
@@ -19,6 +24,9 @@ export const getInputStyles = ({
   
     '&:focus, &:focus-within': {
       borderColor: colors.blue[5],
+      '& + div[class*="rightSection"] svg': {
+        transform: 'rotate(180deg)',
+      },
     },
     '&:disabled': {
       backgroundColor: colors.brand[0],
