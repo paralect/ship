@@ -5,6 +5,7 @@ export type User = {
   deletedOn?: Date;
   firstName: string;
   lastName: string;
+  fullName: string;
   email: string;
   avatarUrl: string | null;
   passwordHash: string;
