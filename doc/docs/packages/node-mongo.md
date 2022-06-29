@@ -12,12 +12,31 @@ Lightweight reactive extension to official MongoDB [driver](https://www.npmjs.co
 
 * **ObjectId mapping**. Automatically converts `_id` field from the `ObjectId` to a `string`.
 * ️️**Reactive**. Fires events as document created, updated or deleted from database;
-* **Paging**. Implements high level paging API;
 * **CUD operations timestamps**. Automatically sets `createdOn`, `updatedOn`, `deletedOn` timestamps for CUD operations;
 * **Schema validation**. Validates your data before save;
+* **Paging**. Implements high level paging API;
 * **Default queries**. You can add default queries that will be added for all find operations;
+* **Soft delete**. By default data doesn't removed, but marked with `deletedOn` field;
 * **Extendable**. API easily extendable, you can add new methods or override existing;
 * **Outbox support**. node-mongo can create collections with `_outbox` postfix that stores all CUD events, it can be used for implementing [transactional outbox](https://microservices.io/patterns/data/transactional-outbox.html) pattern;
+
+The following example shows some of these features:
+
+```typescript
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+
+await userService.updateOne(
+  { _id: '62670b6204f1aab85e5033dc' },
+  (doc) => ({ firstName: 'Mark' }),
+);
+
+eventBus.onUpdated<User>('users', ['firstName', 'lastName'], async (data: InMemoryEvent<User>) => {
+  await userService.atomic.updateOne(
+    { _id: data.doc._id },
+    { $set: { fullName: `${data.doc.firstName} ${data.doc.lastName}` } },
+  );
+});
+```
 
 ## Installation
 
@@ -25,65 +44,178 @@ Lightweight reactive extension to official MongoDB [driver](https://www.npmjs.co
 npm i @paralect/node-mongo
 ```
 
-## Documentation
+## Connect to Database
 
-### Migrate from v2 to v3
+Usually, you need to define a file called `database` that does two things:
+1. Creates database instance and connects to the database;
+2. Exposes factory method `createService` to create different [Services](#Services) to work with MongoDB;
 
-1. Methods `updateOne` and `updateMany` were removed. You should use `update` to perform update of single document, matched by a query. There is no replacement for `updateMany`, normally you should just perform multiple individual updates.
-2. `service.count()` renamed into `service.countDocuments` to match MongoDB driver.
-3. Use `service.atomic.updateMany` instead `service.atomic.update` to match MongoDB.
-4. `service.aggregate()` now returns cursor instead of list of documents. You can add `toArray()`
-5. Service accepts `schema` object instead of `validateSchema` method.
-
-### Connect
-
-Usually, you need to define a file called `database` is does two things:
-1. Creates database instance and connects to the database
-2. Exposed factory method `createService` to create different services to work with MongoDB.
-
-```typescript
-import config from 'config';
+```typescript title=database.ts
 import { Database, Service, ServiceOptions } from '@paralect/node-mongo';
 
 const connectionString = 'mongodb://localhost:27017';
 const dbName = 'home-db';
+
 const database = new Database(connectionString, dbName);
 database.connect();
 
-// Extended service can be used here.
 function createService<T>(collectionName: string, options: ServiceOptions = {}) {
   return new Service<T>(collectionName, database, options);
 }
 
-export default {
-  database,
-  createService,
-};
+export default { createService };
 ```
 
-See [how to add additional functionality to base serivce](#extend)
+## Services
 
+Service it is a collection's wrapper of mongodb driver that adds all node-mongo features.   
+Under the hood it uses collection native methods.
 
-### Schema validation
-```javascript
-const Joi = require('Joi');
+```typescript title=user.service.ts
+import Joi from 'joi';
+import { createService } from 'database';
 
-const userSchema = Joi.object({
-  _id: Joi.string(),
+type User = {
+  _id: string;
+  createdOn?: Date;
+  updatedOn?: Date;
+  deletedOn?: Date;
+  fullName: string;
+}
+
+const schema = Joi.object({
+  _id: Joi.string().required(),
   createdOn: Joi.date(),
   updatedOn: Joi.date(),
   deletedOn: Joi.date(),
-  name: Joi.string(),
-  status: Joi.string().valid('active', 'inactive'),
+  fullName: Joi.string().required(),
 });
 
-// Pass schema object to enable schema validation
-const userService = db.createService('users', { schema: userSchema });
+const service = db.createService<User>('users', { schema });
+
+export default service;
 ```
 
-### Extend
+```typescript title=update-user.ts
+import userService from 'user.service';
 
-The whole idea is to import service and extend it with custom methods:
+await userService.insertOne({ fullName: 'Max' });
+```
+
+## Reactivity
+
+The key feature of the `node-mongo` is that every create, update or delete operation publishes CUD event.
+
+- `${collectionName}.created`
+- `${collectionName}.updated`
+- `${collectionName}.deleted`
+
+Events are used to easily update denormalized data and also to implement complex business logic without tight coupling of different entities.
+
+Most of **[Main API](#main)** publishes events.
+
+**[Atomic API](#atomic)** **do not publish events** and usually used to update denormalized data.
+
+:::tip
+
+Most the time you should be using **[Main API](#main)**.
+
+:::
+
+SDK support two kind of events:
+
+### In-memory events
+
+- Enabled by default;
+- Events can be lost on service failure;  
+- Events are stored in `eventBus` (Node.js EventEmitter instance);
+- For handling this type of events you will use **[Events API](#events)**;
+- Designed for transferring events inside one Node.js process. Events handlers listens node-mongo `eventBus`.
+
+### Transactional events
+
+- Can be enabled by setting `{ outbox: true }` when creating service;
+- Guarantee that every database write will produce an event;
+- Events are stored in special collections with `_outbox` postfix;
+- For handling this type of events you will use `watch` (method for working with Change Streams) on outbox table;
+- Designed for transferring events to messages broker like Kafka. Events handlers should listens message broker events (You need to implement this layer yourself).
+
+:::tip
+
+On start of project we recommend using `in-memory` event, when your application becomes more complex you should migrate to `transactional events`.
+
+:::
+
+## API
+
+### Main
+
+#### `service.updateOne(query, updateFn, options)`
+
+```typescript
+const updatedUser = await usersService.updateOne(
+  { _id: u._id },
+  (doc) => ({ fullName: 'Updated fullname' }),
+);
+```
+
+Updates a single document and returns it. Returns `null` if document was not found or none of the fields have changed.
+
+**Parameters**
+- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
+- updateFn: `(doc: T) => Partial<T>`;  
+Function that accepts current document and returns object containing fields to update.
+- options: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/UpdateOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
+
+**Returns** `Promise<T | null>`.
+
+| Functionality       | Status  |
+| ------------- | --------|
+| [`addQueryDefaults`](#addquerydefaults) and [`validateQuery`](#validatequery) | ✅ |
+| Schema validation |   ✅ |
+| Updates `updatedOn` timestamp if `{ addUpdatedOnField: true }` option was passed when creating service |   ✅ |
+| Fires `${collectionName}.updated` event | ✅ |
+
+### Atomic
+
+#### `service.atomic.updateOne(filter, update, options)`
+
+```typescript
+await userService.atomic.updateOne(
+ { _id: u._id },
+ { $set: { fullName: `${u.firstName} ${u.lastName}` } },
+);
+```
+
+Updates a single document.
+
+**Parameters**
+
+**Returns** 
+
+| Functionality       | Status  |
+| ------------- | --------|
+| [`addQueryDefaults`](#addquerydefaults) and [`validateQuery`](#validatequery) | ❌ |
+| Schema validation |   ❌ |
+| Updates `updatedOn` timestamp if `{ addUpdatedOnField: true }` option was passed when creating service |   ✅ |
+| Fires `${collectionName}.updated` event | ❌ |
+
+
+### Internal
+
+#### addQueryDefaults
+
+#### validateQuery
+
+#### validateSchema
+
+### Events
+
+### Types
+
+#### QueryDefaultsOptions
+
+## Extending API
 
 ```typescript
 import { Service } from '@paralect/node-mongo';
@@ -104,97 +236,3 @@ class CustomService<T> extends Service<T> {
 
 export default CustomService;
 ```
-
-### Query data
-
-```typescript
-// find one document
-const user = await userService.findOne({ name: 'Bob' });
-
-// find many documents with pagination
-const {results, pagesCount, count } = await userService.find(
-  { name: 'Bob' },
-  { page: 1, perPage: 30 },
-);
-```
-
-### Create or update data (and publish CUD events)
-
-The key difference of the `@paralect/node-mongo` sdk is that every create, update or remove operation peforms
-an udpate and also publeshes CUD event. Events are used to easily update denormalized data and also to implement
-complex business logic without tight coupling of different entities.
-
-- Reactive updates (every update publishes event)
-    - [create](#create) — create one or many documents, publishes `document.created` event
-    - [update](#update) — update one document, publishes `document.updated` event
-    - [remove](#remove) — remove document, publishes `document.removed`
-    - [removeSoft](#removeSoft) — set `deleteOn` field and publish `document.removed` event
-
-Atomic udpates **do not publish events** and usually used to update denormalized data. Most the time you should be using reactive updates.
-
-- Atomic updates (events are not published)
-    - `atomic.deleteMany`
-    - `atomic.insertMany`
-    - `atomic.updateMany`
-    - `findOneAndUpdate`
-
-#### create
-
-```typescript
-const users = await userService.create([
-  { name: 'Alex' },
-  { name: 'Bob' },
-]);
-```
-
-#### update
-
-Update using callback function:
-```typescript
-const updatedUser = await userService.update({ _id: '1' }, (doc) => {
-  doc.name = 'Alex';
-});
-```
-
-Update by returning fields you need to update:
-```typescript
-const updatedUser = await userService.update({ _id: '1' }, () => ({ name: 'Alex' }));
-```
-
-### remove
-```typescript
-const removedUser = await userService.remove({ _id: '1' });
-```
-
-### removeSoft
-```typescript
-const removedUser = await userService.removeSoft({ _id: '1' });
-```
-
-### Event handlers
-
-SDK support two kind of events:
-- `in memory events` (published by default), can be lost on service failure, work out of the box.
-- `transactional events` guarantee that every database write will also produce an event. Transactional events can be enabled by setting `{ outbox: true }` when creating service. Transactional events require additonal infrastructure components.
-
-To subscribe to the in memory events you can just do following:
-
-```typescript
-import { inMemoryEventBus, InMemoryEvent } from '@paralect/node-mongo';
-
-type UserCreatedType = InMemoryEvent<any>;
-type UserUpdatedType = InMemoryEvent<any>;
-type UserRemovedType = InMemoryEvent<any>;
-
-inMemoryEventBus.on('user.created', (doc: UserCreatedType) => {});
-
-inMemoryEventBus.on('user.updated', (doc: UserUpdatedType) => {});
-
-inMemoryEventBus.on('user.removed', (doc: UserRemovedType) => {});
-```
-
-## Change Log
-
-This project adheres to [Semantic Versioning](http://semver.org/).
-
-Every release is documented on the Github [Releases](https://github.com/paralect/node-mongo/releases) page.
