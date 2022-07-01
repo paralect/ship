@@ -4,10 +4,10 @@ export enum TokenType {
 
 export type Token = {
   _id: string;
-  createdOn: Date;
-  updatedOn: Date;
+  createdOn?: Date;
+  updatedOn?: Date;
   deletedOn?: Date;
-  type?: TokenType;
-  value?: string;
-  userId: string | null;
+  type: TokenType;
+  value: string;
+  userId: string;
 };
