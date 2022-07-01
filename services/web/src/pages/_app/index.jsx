@@ -11,8 +11,6 @@ import PageConfig from './PageConfig';
 import shipTheme from 'theme/ship-theme';
 import components from 'theme/components';
 
-import 'styles/globals.css';
-
 const App = ({ Component, pageProps }) => (
   <>
     <Head>

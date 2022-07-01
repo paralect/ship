@@ -2,51 +2,66 @@ import { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
+import { Anchor } from '@mantine/core';
 
 import { ToRightIcon } from 'public/icons';
 
 import styles from './Link.module.css';
 
-const sizes = {
-  l: 'l',
-  m: 'm',
-  s: 's',
-};
+const linkStyles = ({ colors }, disabled) => ({
+  color: disabled ? colors.brand[2] : colors.blue[5],
+  display: 'flex',
+  gap: '5px',
+  '&:hover': {
+    color: disabled ? colors.brand[2] : colors.blue[2],
+  },
+});
 
 const Link = ({
-  type, children, href, size, withIcon, disabled,
-  inNewTab, withoutUnderline, className,
+  type,
+  children,
+  href,
+  size,
+  disabled,
+  inNewTab,
+  underline,
+  icon,
+  inherit,
+  align,
 }) => {
   switch (type) {
     case 'router':
       return (
         <NextLink href={href}>
-          <a
-            className={cn({
-              [styles.disabled]: disabled,
-              [styles.withoutUnderline]: withoutUnderline,
-            }, styles[size], styles.link, className)}
+          <Anchor
+            component="a"
+            size={size}
+            inherit={inherit}
+            underline={underline}
+            sx={(theme) => linkStyles(theme, disabled)}
+            align={align}
           >
-            {withIcon && <ToRightIcon className={styles.icon} />}
-            <span className={styles.text}>{children}</span>
-          </a>
+            {icon}
+            {children}
+          </Anchor>
         </NextLink>
       );
 
     case 'url':
       return (
-        <a
+        <Anchor
           href={href}
           target={inNewTab ? '_blank' : '_self'}
           rel="noreferrer"
-          className={cn({
-            [styles.disabled]: disabled,
-            [styles.withoutUnderline]: withoutUnderline,
-          }, styles[size], styles.link, className)}
+          size={size}
+          inherit={inherit}
+          underline={underline}
+          sx={(theme) => linkStyles(theme, disabled)}
+          align={align}
         >
-          {withIcon && <ToRightIcon className={styles.icon} />}
-          <span className={styles.text}>{children}</span>
-        </a>
+          {icon}
+          {children}
+        </Anchor>
       );
     default:
       return null;
@@ -54,26 +69,29 @@ const Link = ({
 };
 
 Link.propTypes = {
-  type: PropTypes.string,
   children: PropTypes.node.isRequired,
+  type: PropTypes.string,
   href: PropTypes.string,
-  size: PropTypes.oneOf(Object.values(sizes)),
-  withIcon: PropTypes.bool,
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
+  align: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
+  icon: PropTypes.node,
   inNewTab: PropTypes.bool,
-  withoutUnderline: PropTypes.bool,
+  underline: PropTypes.bool,
+  inherit: PropTypes.bool,
   disabled: PropTypes.bool,
-  className: PropTypes.string,
+  iconSize: PropTypes.number,
 };
 
 Link.defaultProps = {
   type: 'url',
-  href: null,
-  size: sizes.m,
-  withIcon: false,
+  href: '#',
+  size: 'md',
+  icon: null,
   inNewTab: false,
-  withoutUnderline: false,
+  underline: true,
   disabled: false,
-  className: null,
+  inherit: false,
+  align: 'left',
 };
 
 export default memo(Link);

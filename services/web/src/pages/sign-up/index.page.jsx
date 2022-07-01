@@ -7,10 +7,17 @@ import Head from 'next/head';
 import config from 'config';
 import * as routes from 'routes';
 import { handleError } from 'helpers';
-import { Input, Button, Link } from 'components';
+import { Link } from 'components';
+import {
+  Button,
+  Stack,
+  TextInput,
+  PasswordInput,
+  Group,
+  Title,
+  Text,
+} from '@mantine/core';
 import { accountApi } from 'resources/account';
-
-import styles from './styles.module.css';
 
 const schema = yup.object().shape({
   firstName: yup.string().max(100).required('Field is required.'),
@@ -28,7 +35,10 @@ const SignUp = () => {
   const [signupToken, setSignupToken] = useState();
 
   const {
-    handleSubmit, setError, formState: { errors }, control,
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -51,24 +61,24 @@ const SignUp = () => {
         <Head>
           <title>Sign up</title>
         </Head>
-        <div className={styles.registeredContainer}>
-          <h2>Thanks!</h2>
-          <div className={styles.registeredDescription}>
+        <Stack style={{ width: '450px' }}>
+          <Title order={2}>Thanks!</Title>
+          <Text size="md" sx={({ colors }) => ({ color: colors.brand[5]})}>
             Please follow the instructions from the email to complete a sign up process.
             We sent an email with a confirmation link to
             {' '}
             <b>{email}</b>
-          </div>
+          </Text>
           {signupToken && (
             <div>
               You look like a cool developer.
               {' '}
-              <Link size="l" href={`${config.apiUrl}/account/verify-email?token=${signupToken}`}>
+              <Link size="sm" href={`${config.apiUrl}/account/verify-email?token=${signupToken}`}>
                 Verify email
               </Link>
             </div>
           )}
-        </div>
+        </Stack>
       </>
     );
   }
@@ -78,62 +88,70 @@ const SignUp = () => {
       <Head>
         <title>Sign up</title>
       </Head>
-      <div className={styles.container}>
-        <h2>Sign Up</h2>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className={styles.form}
-        >
-          <Input
-            name="firstName"
-            label="First Name"
-            maxLength={100}
-            placeholder="Your first name"
-            control={control}
-            error={errors.firstName}
-          />
-          <Input
-            name="lastName"
-            label="Last Name"
-            maxLength={100}
-            placeholder="Your last name"
-            control={control}
-            error={errors.lastName}
-          />
-          <Input
-            name="email"
-            label="Email Address"
-            placeholder="Your email"
-            control={control}
-            error={errors.email}
-          />
-          <Input
-            name="password"
-            type="password"
-            label="Password"
-            placeholder="Your password"
-            control={control}
-            error={errors.password}
-          />
-          <Button
-            htmlType="submit"
-            loading={isSignUpLoading}
-            className={styles.button}
-          >
-            Sign Up
-          </Button>
+      <Stack style={{ width: '328px' }}>
+        <Title order={2}>Sign Up</Title>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack>
+            <TextInput
+              {...register('firstName')}
+              label="First Name"
+              maxLength={100}
+              labelProps={{
+                'data-invalid': !!errors.firstName,
+              }}
+              placeholder="Your first name"
+              error={errors?.firstName?.message}
+            />
+            <TextInput
+              {...register('lastName')}
+              label="Last Name"
+              maxLength={100}
+              labelProps={{
+                'data-invalid': !!errors.lastName,
+              }}
+              placeholder="Your last name"
+              error={errors?.lastName?.message}
+            />
+            <TextInput
+              {...register('email')}
+              label="Email Address"
+              labelProps={{
+                'data-invalid': !!errors.email,
+              }}
+              placeholder="Your email"
+              error={errors?.email?.message}
+            />
+            <PasswordInput
+              {...register('password')}
+              type="password"
+              label="Password"
+              labelProps={{
+                'data-invalid': !!errors.password,
+              }}
+              placeholder="Your password"
+              error={errors?.password?.message}
+            />
+            <Button
+              type="submit"
+              loading={isSignUpLoading}
+              fullWidth
+            >
+              Sign Up
+            </Button>
+          </Stack>
         </form>
-        <div className={styles.description}>
+        <Group style={{ fontSize: '14px' }}>
           Have an account?
           <Link
             type="router"
             href={routes.path.signIn}
-            className={styles.link}
+            inherit
+            underline={false}
           >
             Sign In
           </Link>
-        </div>
-      </div>
+        </Group>
+      </Stack>
     </>
   );
 };
