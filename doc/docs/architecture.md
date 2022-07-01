@@ -8,15 +8,20 @@ Every technological decision is driven by simplicity. We believe that product us
 
 ## Overview
 
-Our technological choices based on the following tools: React, Next.JS Node.JS, MongoDB, Kubernetes, Docker and Koa. Events play crucial role in the Ship architecture. Every database change produces an event. We use events to avoid tight coupling, implement business logic and support denormalization.
+Our technological choices based on the following main tools: [Next.js](https://nextjs.org/), [React Query](https://react-query.tanstack.com/), [Mantine UI](https://mantine.dev/), [Koa.js](https://koajs.com/), [Socket.IO](https://socket.io/), [MongoDB](https://www.mongodb.com/), [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/), [GitHub Actions](https://github.com/features/actions) and [TypeScript](https://www.typescriptlang.org/).
+
+Events play crucial role in the Ship architecture. Every database change produces an event. We use events to avoid tight coupling, implement business logic and support denormalization.
 
 On a high-level Ship consist of the following parts:
-- `API service` — a service for writing simple REST API ([reference](/api/overview.md)).
-- `Frontend service` — a better version of react-create-app optimized for simplicity.
-- `CI/CD automation` — deployment scripts and GitHub actions that deploy an application to the AWS or Digital Ocean Kubernetes cluster.
+- [**Web**](/docs/web/overview) — frontend service;
+- [**API**](/docs/api/overview) — backend service;
+- [**Scheduler**](/docs/scheduler.md) - a service that runs background cron jobs;
+- [**Migrator**](/docs/migrator.md) - a service that runs MongoDB migrations;
+- [**Deployment**](/docs/deployment/overview.md) - deployment scripts and GitHub Actions that deploy an application to the AWS or Digital Ocean Kubernetes cluster;
 
-The image below illustrates the main components and key relationships between them: 
-![Ship framework](/img/ship_framework_2.png)
+The image below illustrates the main components and key relationships between them:
+
+![Ship framework](/img/architecture.png)
 
 ## Docker
 
@@ -26,10 +31,6 @@ We use docker to run and deploy services on production and locally. We also use 
 docker-compose up --build
 ```
 
-For simplicity, the command is wrapped into a shell script:
-
-```shell
-./bin/start.sh
-```
+For simplicity, the command is wrapped into a shell script that executes with the `npm start` command.
 
 Take a look at `docker-compose.yml` to see all services.
