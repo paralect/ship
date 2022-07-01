@@ -36,14 +36,18 @@ const getMigrations = (): Migration[] => {
   return migrations;
 };
 
-const setNewMigrationVersion = (version: number) => service.atomic.findOneAndUpdate({ _id: id }, {
-  $set: {
-    version,
-  },
-  $setOnInsert: {
-    _id: id,
-  },
-}, { upsert: true });
+const setNewMigrationVersion = (version: number) =>
+  service.atomic.updateOne(
+    { _id: id },
+    {
+      $set: {
+        version,
+      },
+      $setOnInsert: {
+        _id: id,
+      },
+    }, { upsert: true },
+  );
 
 export default Object.assign(service, {
   getCurrentMigrationVersion,
