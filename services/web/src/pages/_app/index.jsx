@@ -3,10 +3,9 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 
 import queryClient from 'query-client';
-import { Toaster } from 'components';
-
 import PageConfig from './PageConfig';
 import shipTheme from 'theme/ship-theme';
 import components from 'theme/components';
@@ -23,11 +22,12 @@ const App = ({ Component, pageProps }) => (
         withGlobalStyles
         withNormalizeCSS
       >
-        <PageConfig>
-          <Component {...pageProps} />
-        </PageConfig>
+        <NotificationsProvider>
+          <PageConfig>
+            <Component {...pageProps} />
+          </PageConfig>
+        </NotificationsProvider>
         <ReactQueryDevtools position="bottom-right" />
-        <Toaster />
       </MantineProvider>
     </QueryClientProvider>
   </>

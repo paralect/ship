@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { Anchor } from '@mantine/core';
 
-const linkStyles = ({ colors }) => ({
-  color: colors.blue[5],
+const linkStyles = ({ colors }, disabled) => ({
+  color: disabled ? colors.brand[2] : colors.blue[5],
   display: 'flex',
   gap: '5px',
-  pointerEvents: 'none',
+  pointerEvents: disabled ? 'none' : 'initial',
   '&:hover': {
-    color: colors.blue[2],
-  },
-  '&[disabled]': {
-    color: colors.brand[2],
+    color: disabled ? colors.brand[2] : colors.blue[2],
   },
 });
 
@@ -37,9 +34,8 @@ const Link = ({
             size={size}
             inherit={inherit}
             underline={underline}
-            sx={linkStyles}
+            sx={(theme) => linkStyles(theme, disabled)}
             align={align}
-            disabled={disabled}
           >
             {icon}
             {children}
@@ -56,9 +52,8 @@ const Link = ({
           size={size}
           inherit={inherit}
           underline={underline}
-          sx={linkStyles}
+          sx={(theme) => linkStyles(theme, disabled)}
           align={align}
-          disabled={disabled}
         >
           {icon}
           {children}

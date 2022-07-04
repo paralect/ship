@@ -59,8 +59,6 @@ export default {
 
 const Template = ({ ...args }) => <Link {...args}>{args.children}</Link>;
 
-export const Primary = Template.bind({});
-
 export const Icon = Template.bind({});
 Icon.args = {
   icon: <IconUserCircle />,
