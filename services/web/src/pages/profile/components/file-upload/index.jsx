@@ -1,15 +1,16 @@
 import { memo, useState } from 'react';
 import cn from 'classnames';
 
-import { Button } from 'components';
+import { Group, Text, Button } from '@mantine/core';
 import { handleError } from 'helpers';
 import { userApi } from 'resources/user';
 import { AddIcon, PenIcon } from 'public/icons';
 
-import styles from './FileUpload.module.css';
+import { useStyles } from './styles';
 
 const PhotoUpload = () => {
   const [errorMessage, setErrorMessage] = useState(null);
+  const { classes } = useStyles();
 
   const { data: currentUser } = userApi.useGetCurrent();
 
@@ -57,26 +58,26 @@ const PhotoUpload = () => {
 
   return (
     <>
-      <p className={styles.uploadPhotoText}>Profile picture</p>
-      <div className={styles.photoContainer}>
+      <Text weight={500}>Profile picture</Text>
+      <Group align="center">
         <label
-          className={cn(styles.browseButton, {
-            [styles.error]: errorMessage,
+          className={cn(classes.browseButton, {
+            [classes.error]: errorMessage,
           })}
         >
           {currentUser.avatarUrl ? (
             <div
-              className={styles.avatar}
+              className={classes.avatar}
               style={{
                 backgroundImage: `url(${currentUser.avatarUrl}`,
               }}
             >
-              <div className={styles.innerAvatar}>
+              <div className={classes.innerAvatar}>
                 <PenIcon />
               </div>
             </div>
           )
-            : <AddIcon className={styles.addIcon} />}
+            : <AddIcon className={classes.addIcon} />}
           <input
             name="avatarUrl"
             style={{ display: 'none' }}
@@ -84,25 +85,25 @@ const PhotoUpload = () => {
             onChange={handlePhotoUpload}
           />
         </label>
-        <span className={styles.buttonContainer}>
-          <p className={styles.text}>
+        <span className={classes.buttonContainer}>
+          <p className={classes.text}>
             JPG, JPEG or PNG
             Max size = 2MB
           </p>
           {currentUser.avatarUrl && (
             <Button
-              type="text"
-              htmlType="submit"
-              className={styles.removeButton}
+              type="submit"
+              variant="subtle"
+              className={classes.removeButton}
               onClick={handlerPhotoRemove}
-              size="s"
+              size="sm"
             >
               Remove
             </Button>
           )}
         </span>
-      </div>
-      {errorMessage ? <p className={styles.errorMessage}>{errorMessage}</p> : null}
+      </Group>
+      {errorMessage ? <p className={classes.errorMessage}>{errorMessage}</p> : null}
     </>
   );
 };
