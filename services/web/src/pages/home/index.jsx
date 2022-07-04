@@ -1,5 +1,4 @@
 import { useCallback, useLayoutEffect, useState } from 'react';
-import cn from 'classnames';
 import Head from 'next/head';
 import {
   Select,
