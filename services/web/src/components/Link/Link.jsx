@@ -1,19 +1,18 @@
 import { memo } from 'react';
-import cn from 'classnames';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { Anchor } from '@mantine/core';
 
-import { ToRightIcon } from 'public/icons';
-
-import styles from './Link.module.css';
-
-const linkStyles = ({ colors }, disabled) => ({
-  color: disabled ? colors.brand[2] : colors.blue[5],
+const linkStyles = ({ colors }) => ({
+  color: colors.blue[5],
   display: 'flex',
   gap: '5px',
+  pointerEvents: 'none',
   '&:hover': {
-    color: disabled ? colors.brand[2] : colors.blue[2],
+    color: colors.blue[2],
+  },
+  '&[disabled]': {
+    color: colors.brand[2],
   },
 });
 
@@ -38,8 +37,9 @@ const Link = ({
             size={size}
             inherit={inherit}
             underline={underline}
-            sx={(theme) => linkStyles(theme, disabled)}
+            sx={linkStyles}
             align={align}
+            disabled={disabled}
           >
             {icon}
             {children}
@@ -56,8 +56,9 @@ const Link = ({
           size={size}
           inherit={inherit}
           underline={underline}
-          sx={(theme) => linkStyles(theme, disabled)}
+          sx={linkStyles}
           align={align}
+          disabled={disabled}
         >
           {icon}
           {children}
@@ -79,7 +80,6 @@ Link.propTypes = {
   underline: PropTypes.bool,
   inherit: PropTypes.bool,
   disabled: PropTypes.bool,
-  iconSize: PropTypes.number,
 };
 
 Link.defaultProps = {

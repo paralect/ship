@@ -1,4 +1,8 @@
 import Link from './Link';
+import { IconUserCircle } from '@tabler/icons';
+import { MantineProvider } from '@mantine/core';
+import { addDecorator } from '@storybook/react';
+import shipTheme from 'theme/ship-theme';
 
 export default {
   title: 'Components/Link',
@@ -12,11 +16,22 @@ export default {
       control: { type: 'boolean' },
       defaultValue: false,
     },
-    withIcon: {
-      name: 'With icon',
+    underline: {
+      name: 'Underline',
       options: [true, false],
       control: { type: 'boolean' },
       defaultValue: false,
+    },
+    inherit: {
+      name: 'Inherit',
+      options: [true, false],
+      control: { type: 'boolean' },
+      defaultValue: false,
+    },
+    icon: {
+      table: {
+        disable: true,
+      },
     },
     inNewTab: {
       name: 'In new tab',
@@ -26,40 +41,27 @@ export default {
     },
     size: {
       name: 'Size',
-      options: ['s', 'm', 'l'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
       control: {
         type: 'inline-radio',
         labels: {
-          s: 'Small',
-          m: 'Medium',
-          l: 'Large',
+          xs: 'Extra small',
+          sm: 'Small',
+          md: 'Medium',
+          lg: 'Large',
+          xl: 'Extra large',
         },
       },
-      defaultValue: 'm',
-    },
-    className: {
-      table: {
-        disable: true,
-      },
-    },
-    Icon: {
-      table: {
-        disable: true,
-      },
+      defaultValue: 'md',
     },
   },
 };
 
 const Template = ({ ...args }) => <Link {...args}>{args.children}</Link>;
 
-export const Active = Template.bind({});
+export const Primary = Template.bind({});
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
-};
-
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  withIcon: true,
+export const Icon = Template.bind({});
+Icon.args = {
+  icon: <IconUserCircle />,
 };

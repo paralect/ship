@@ -1,6 +1,4 @@
 import { memo, useState } from 'react';
-import cn from 'classnames';
-
 import { Group, Text, Button } from '@mantine/core';
 import { handleError } from 'helpers';
 import { userApi } from 'resources/user';
@@ -10,7 +8,7 @@ import { useStyles } from './styles';
 
 const PhotoUpload = () => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
 
   const { data: currentUser } = userApi.useGetCurrent();
 
@@ -61,7 +59,7 @@ const PhotoUpload = () => {
       <Text weight={500}>Profile picture</Text>
       <Group align="center">
         <label
-          className={cn(classes.browseButton, {
+          className={cx(classes.browseButton, {
             [classes.error]: errorMessage,
           })}
         >
