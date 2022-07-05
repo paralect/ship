@@ -1,12 +1,12 @@
 
-export const SegmentedControl = ({ colors }) => ({
+export const SegmentedControl = ({ colors, radius }) => ({
   root: {
     padding: '3px',
     border: `1px solid ${colors.brand[2]}`,
     backgroundColor: 'transparent',
   },
   control: {
-    borderRadius: '4px !important',
+    borderRadius: `${radius.xs}px !important`,
     '&:not(:first-of-type)': {
       border: 'none',
     }
