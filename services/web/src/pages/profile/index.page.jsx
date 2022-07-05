@@ -6,11 +6,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
 
 import { handleError } from 'helpers';
-import { Button, TextInput, PasswordInput } from '@mantine/core';
+import {
+  Button,
+  TextInput,
+  PasswordInput,
+  Box,
+  Stack,
+  Title,
+} from '@mantine/core';
 import { userApi } from 'resources/user';
 
-import PhotoUpload from './components/FileUpload';
-import styles from './styles.module.css';
+import PhotoUpload from './components/file-upload';
 
 const schema = yup.object().shape({
   email: yup.string().max(64).email('Email format is incorrect.').required('Field is required.'),
@@ -46,36 +52,34 @@ const Profile = () => {
       <Head>
         <title>Profile</title>
       </Head>
-      <div className={styles.uploadContainer}>
-        <span>
-          <h1 className={styles.heading}>Profile</h1>
-          <PhotoUpload />
-          <form
-            className={styles.form}
-            onSubmit={handleSubmit(onSubmit)}
+      <Stack
+        style={{ width: '328px', margin: 'auto', paddingTop: '48px' }}
+        spacing="xl"
+      >
+        <Title order={1}>Profile</Title>
+        <PhotoUpload />
+        <Stack component="form" onSubmit={handleSubmit(onSubmit)} spacing={20}>
+          <TextInput
+            {...register('email')}
+            label="Email Address"
+            defaultValue={currentUser.email}
+            error={errors.email}
+            disabled
+          />
+          <PasswordInput
+            {...register('password')}
+            label="Password"
+            placeholder="Your password"
+            error={errors.password}
+          />
+          <Button
+            type="submit"
+            loading={isUpdateCurrentLoading}
           >
-            <TextInput
-              {...register('email')}
-              label="Email Address"
-              defaultValue={currentUser.email}
-              error={errors.email}
-              disabled
-            />
-            <PasswordInput
-              {...register('password')}
-              label="Password"
-              placeholder="Your password"
-              error={errors.password}
-            />
-            <Button
-              type="submit"
-              loading={isUpdateCurrentLoading}
-            >
-              Update Profile
-            </Button>
-          </form>
-        </span>
-      </div>
+            Update Profile
+          </Button>
+        </Stack>
+      </Stack>
     </>
   );
 };

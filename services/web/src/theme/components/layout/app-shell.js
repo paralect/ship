@@ -4,4 +4,7 @@ export const AppShell = (theme) => ({
     flexDirection: 'column',
     minHeight: '100vh',
   },
+  main: {
+    padding: '32px',
+  },
 });

@@ -7,10 +7,9 @@ import Head from 'next/head';
 
 import * as routes from 'routes';
 import { handleError } from 'helpers';
-import { Input, Button, Link } from 'components';
+import { Link } from 'components';
+import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
 import { accountApi } from 'resources/account';
-
-import styles from './styles.module.css';
 
 const schema = yup.object().shape({
   email: yup.string().max(64).email('Email format is incorrect.').required('Field is required.'),
@@ -27,7 +26,9 @@ const ForgotPassword = () => {
   } = accountApi.useForgotPassword();
 
   const {
-    handleSubmit, formState: { errors }, control,
+    register,
+    handleSubmit,
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -43,19 +44,19 @@ const ForgotPassword = () => {
         <Head>
           <title>Forgot password</title>
         </Head>
-        <div className={styles.container}>
-          <h2>Reset link has been sent</h2>
-          <p className={styles.subheading}>
+        <Stack style={{ width: '328px' }}>
+          <Title order={2}>Reset link has been sent</Title>
+          <Text component="p">
             A link to reset your password has just been sent to
             {' '}
             <b>{email}</b>
             . Please check your email inbox and follow the
             directions to reset your password.
-          </p>
+          </Text>
           <Button onClick={() => router.push(routes.path.signIn)}>
             Back to Sign In
           </Button>
-        </div>
+        </Stack>
       </>
     );
   }
@@ -65,40 +66,43 @@ const ForgotPassword = () => {
       <Head>
         <title>Forgot password</title>
       </Head>
-      <div className={styles.container}>
-        <h2>Forgot Password</h2>
-        <p className={styles.subheading}>
+      <Stack style={{ width: '328px' }}>
+        <Title order={2} style={{ marginBottom: 0 }}>Forgot Password</Title>
+        <Text component="p">
           Please enter your email and we&apos;ll send
           a link to reset your password.
-        </p>
+        </Text>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            name="email"
-            type="email"
-            label="Email address"
-            placeholder="Your email address"
-            control={control}
-            error={errors.email}
-          />
-          <Button
-            htmlType="submit"
-            loading={isForgotPasswordLoading}
-            className={styles.button}
-          >
-            Send reset link
-          </Button>
+          <Stack>
+            <TextInput
+              {...register('email')}
+              type="email"
+              label="Email address"
+              labelProps={{
+                'data-invalid': !!errors.email,
+              }}
+              placeholder="Your email address"
+              error={errors?.email?.message}
+            />
+            <Button
+              type="submit"
+              loading={isForgotPasswordLoading}
+            >
+              Send reset link
+            </Button>
+          </Stack>
         </form>
-        <div className={styles.description}>
+        <Group style={{ fontSize: '14px' }}>
           Have an account?
           <Link
             type="router"
             href={routes.path.signIn}
-            className={styles.signInLink}
+            inherit
           >
             Sign in
           </Link>
-        </div>
-      </div>
+        </Group>
+      </Stack>
     </>
   );
 };
