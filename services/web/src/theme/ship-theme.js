@@ -3,7 +3,7 @@ const shipTheme = {
   colors,
   primaryColor: 'brand',
   primaryShade: {
-    light: 9,
+    light: 5,
     dark: 0,
   },
   radius: {

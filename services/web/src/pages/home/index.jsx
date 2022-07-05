@@ -136,14 +136,14 @@ const Home = () => {
           >
             <thead>
               <tr>
-                {columns.map(({ title }) => (
-                  <th>{title}</th>
+                {columns.map(({ title }, index) => (
+                  <th key={`${title}-${String(index)}`}>{title}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {data.items.map(({ firstName, lastName, email }) => (
-                <tr>
+              {data.items.map(({ firstName, lastName, email, _id }) => (
+                <tr key={_id}>
                   <td>{firstName}</td>
                   <td>{lastName}</td>
                   <td>{email}</td>
