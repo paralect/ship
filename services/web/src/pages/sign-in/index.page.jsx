@@ -80,7 +80,6 @@ const SignIn = () => {
               underline={false}
               size="sm"
               align="center"
-              disabled
             >
               Forgot password?
             </Link>

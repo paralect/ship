@@ -18,13 +18,13 @@ export const getInputStyles = ({
     borderRadius: radius.sm,
     lineHeight: '14px',
   
-    '&:hover:not(:focus):not(:focus-within):not(:disabled):not([aria-invalid])': {
+    '&:hover:not(:disabled):not(:focus):not(:focus-within)': {
       borderColor: colors.brand[5],
     },
   
     '&:focus, &:focus-within': {
       borderColor: colors.blue[5],
-      '& + div[class*="rightSection"] svg': {
+      '& + div[class*="Select-rightSection"] svg': {
         transform: 'rotate(180deg)',
       },
     },
