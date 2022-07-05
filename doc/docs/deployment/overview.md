@@ -13,7 +13,7 @@ We use the next primary technologies for deployment:
 To use this guide we highly recommend you to check their documentation and be familiar with basics.  
 
 Deployed application is multiple services, wrapped in Docker containers and run inside the Kubernetes cluster.  
-Ship consists of 4 services by default: [**Web**](/docs/web/overview), [**API**](/docs/api/overview), [**Scheduler**](/docs/scheduler/overview) and [**Migrator**](/docs/migrator/overview).
+Ship consists of 4 services by default: [**Web**](/docs/web/overview), [**API**](/docs/api/overview), [**Scheduler**](/docs/scheduler.md) and [**Migrator**](/docs/migrator.md).
 
 Deployment can be done manually from your local machine or via a CI/CD pipeline.
 We have templates of deployment scripts for Digital Ocean and AWS, but you can use another cloud providers with minor changes.
@@ -90,7 +90,7 @@ await pushToKubernetes({
 
 We have 2 separate GitHub Actions [workflows](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions) for services: 
 - Deploy [**Web**](/docs/web/overview)
-- Deploy [**API**](/docs/api/overview), [**Scheduler**](/docs/scheduler/overview), and [**Migrator**](/docs/migrator/overview). Migrator deploys **before** API and Scheduler.
+- Deploy [**API**](/docs/api/overview), [**Scheduler**](/docs/scheduler.md), and [**Migrator**](/docs/migrator.md). Migrator deploys **before** API and Scheduler.
 
 If the Migrator fails, API and Scheduler will be not deployed. This approach guarantees us that the API and Scheduler always work with the appropriate database schema.
 

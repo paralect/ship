@@ -82,8 +82,8 @@ In Digital Ocean repositories are created automatically when something is upload
 During deployment process script will automatically create paths to repositories in next format:
 
 * [**API**](/docs/api/overview) - registry.digitalocean.com/oigen43/my-app-api;
-* [**Scheduler**](/docs/scheduler/overview) - registry.digitalocean.com/oigen43/my-app-scheduler;
-* [**Migrator**](/docs/migrator/overview) - registry.digitalocean.com/oigen43/my-app-migrator;
+* [**Scheduler**](/docs/scheduler.md) - registry.digitalocean.com/oigen43/my-app-scheduler;
+* [**Migrator**](/docs/migrator.md) - registry.digitalocean.com/oigen43/my-app-migrator;
 * [**Web**](/docs/web/overview) - registry.digitalocean.com/oigen43/my-app-web;
 
 :::tip

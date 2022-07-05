@@ -1,12 +1,10 @@
 import * as _ from 'lodash';
 import { ObjectId, UpdateFilter } from 'mongodb';
 
-import { OnUpdatedProperties } from '../types';
-
 const deepCompare = (
   data: unknown,
   initialData: unknown,
-  properties: OnUpdatedProperties,
+  properties: Array<string | Record<string, unknown>>,
 ): boolean => {
   let isChanged: boolean | null = null;
 

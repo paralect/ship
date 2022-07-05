@@ -635,12 +635,12 @@ class Service<T extends IDocument> {
   };
 
   aggregate = async (
-    pipeline: IDocument[],
+    pipeline: any[],
     options: AggregateOptions = {},
-  ): Promise<AggregationCursor<IDocument>> => {
+  ): Promise<any[]> => {
     const collection = await this.getCollection();
 
-    return collection.aggregate(pipeline, options);
+    return collection.aggregate(pipeline, options).toArray();
   };
 
   drop = async (recreate = false): Promise<void> => {
@@ -793,6 +793,14 @@ class Service<T extends IDocument> {
       const collection = await this.getCollection();
 
       return collection.findOneAndDelete(filter, options);
+    },
+    aggregate: async (
+      pipeline: any[],
+      options: AggregateOptions = {},
+    ): Promise<AggregationCursor<IDocument>> => {
+      const collection = await this.getCollection();
+
+      return collection.aggregate(pipeline, options);
     },
   };
 
