@@ -24,6 +24,12 @@ cp -a ship/services/$api_dir/. .
 
 rm -rf ship
 
+# Rename services in docker-compose.yml
+
+for i in docker-compose*; do
+  perl -i -pe"s/ship/$project_name/g" $i
+done
+
 # Remove unused folders and files
 
 bash $cli_dir/scripts/cleanup.sh "." $api_type $db_type
@@ -35,5 +41,4 @@ npm install
 git add .
 git commit -m "initial commit"
 git branch -M main
-
 npx husky install

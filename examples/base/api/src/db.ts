@@ -5,9 +5,12 @@ import config from 'config';
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 database.connect();
 
-// Extended service can be used here.
+class CustomService<T> extends Service<T> {
+  // You can add new methods or override existing here
+}
+
 function createService<T>(collectionName: string, options: ServiceOptions = {}) {
-  return new Service<T>(collectionName, database, options);
+  return new CustomService<T>(collectionName, database, options);
 }
 
 export default {

@@ -4,8 +4,8 @@ import schema from './migration-log.schema';
 
 const service = db.createService('__migrationLog', { schema });
 
-const startMigrationLog = (_id: string, startTime: number, migrationVersion: number) => {
-  return service.atomic.findOneAndUpdate(
+const startMigrationLog = (_id: string, startTime: number, migrationVersion: number) =>
+  service.atomic.updateOne(
     { _id },
     {
       $set: {
@@ -19,10 +19,9 @@ const startMigrationLog = (_id: string, startTime: number, migrationVersion: num
     },
     { upsert: true },
   );
-};
 
 const failMigrationLog = (_id: string, finishTime: number, err: Error) =>
-  service.atomic.updateMany(
+  service.atomic.updateOne(
     { _id },
     {
       $set: {
@@ -35,7 +34,7 @@ const failMigrationLog = (_id: string, finishTime: number, err: Error) =>
   );
 
 const finishMigrationLog = (_id: string, finishTime: number, duration: string) =>
-  service.atomic.updateMany(
+  service.atomic.updateOne(
     { _id },
     {
       $set: {
