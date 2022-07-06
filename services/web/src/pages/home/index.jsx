@@ -10,8 +10,8 @@ import {
   Skeleton,
   Table,
 } from '@mantine/core';
+import { useDebouncedValue } from '@mantine/hooks';
 import { IconChevronDown, IconSearch } from '@tabler/icons';
-import { useDebounce } from 'hooks';
 import { userApi } from 'resources/user';
 
 import styles from './styles.module.css';
@@ -52,7 +52,7 @@ const Home = () => {
 
   const [params, setParams] = useState({});
 
-  const debouncedSearch = useDebounce(search);
+  const debouncedSearch = useDebouncedValue(search, 500);
 
   const onPageChange = useCallback((currentPage) => {
     setPage(currentPage);
