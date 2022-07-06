@@ -13,7 +13,7 @@ export const PasswordInput = (theme) => ({
     },
   },
   innerInput: {
-    height: '36px',
+    height: '100%',
   },
   ...getInputStyles(theme),
 });

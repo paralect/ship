@@ -9,12 +9,12 @@ import {
   Grid,
   Skeleton,
   Table,
+  Text,
+  Container,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconChevronDown, IconSearch } from '@tabler/icons';
 import { userApi } from 'resources/user';
-
-import styles from './styles.module.css';
 
 const selectOptions = [
   {
@@ -152,9 +152,11 @@ const Home = () => {
             </tbody>
           </Table>
         ) : (
-          <div className={styles.helperContainer}>
-            No results found, try to adjust your search.
-          </div>
+          <Container p={75}>
+            <Text size="xl" color="grey">
+              No results found, try to adjust your search.
+            </Text>
+          </Container>
         )}
       </Stack>
     </>

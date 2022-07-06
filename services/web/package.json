@@ -62,6 +62,7 @@
     "eslint-plugin-react-hooks": "4.3.0",
     "husky": "7.0.4",
     "lint-staged": "12.3.4",
+    "next-fonts": "1.5.1",
     "style-loader": "3.3.1",
     "stylelint": "14.5.3",
     "stylelint-config-standard": "25.0.0"
