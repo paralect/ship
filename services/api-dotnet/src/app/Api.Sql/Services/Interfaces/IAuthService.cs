@@ -2,6 +2,6 @@
 
 public interface IAuthService
 {
-    Task SetTokensAsync(long userId);
+    Task SetTokenAsync(long userId);
     Task UnsetTokensAsync(long userId);
 }

@@ -22,9 +22,9 @@ public class AuthService : IAuthService
         _httpContext = httpContextAccessor.HttpContext;
     }
 
-    public async Task SetTokensAsync(long userId)
+    public async Task SetTokenAsync(long userId)
     {
-        var (accessToken, refreshToken) = await _tokenService.CreateAuthTokens(userId);
+        var accessToken = await _tokenService.CreateAccessToken(userId);
 
         var domain = new Uri(_appSettings.WebUrl).Host;
 
@@ -34,20 +34,12 @@ public class AuthService : IAuthService
             Expires = accessToken.ExpireAt,
             Domain = domain
         });
-
-        _httpContext.Response.Cookies.Append(Constants.CookieNames.RefreshToken, refreshToken.Value, new CookieOptions
-        {
-            HttpOnly = true,
-            Expires = refreshToken.ExpireAt,
-            Domain = domain
-        });
     }
 
     public async Task UnsetTokensAsync(long userId)
     {
-        await _tokenService.DeleteAuthTokens(userId);
+        await _tokenService.DeleteAccessTokens(userId);
 
         _httpContext.Response.Cookies.Delete(Constants.CookieNames.AccessToken);
-        _httpContext.Response.Cookies.Delete(Constants.CookieNames.RefreshToken);
     }
 }

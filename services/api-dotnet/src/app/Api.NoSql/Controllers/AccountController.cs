@@ -1,7 +1,5 @@
-﻿using Api.NoSql.Security;
-using Api.NoSql.Services.Interfaces;
+﻿using Api.NoSql.Services.Interfaces;
 using AutoMapper;
-using Common;
 using Common.Dal.Repositories;
 using Common.Models.Infrastructure.Email;
 using Common.Models.View.Account;
@@ -19,7 +17,6 @@ namespace Api.NoSql.Controllers
     {
         private readonly IEmailService _emailService;
         private readonly IUserService _userService;
-        private readonly ITokenService _tokenService;
         private readonly IAuthService _authService;
 
         private readonly IWebHostEnvironment _environment;
@@ -29,7 +26,6 @@ namespace Api.NoSql.Controllers
         public AccountController(
             IEmailService emailService,
             IUserService userService,
-            ITokenService tokenService,
             IAuthService authService,
             IWebHostEnvironment environment,
             IOptions<AppSettings> appSettings,
@@ -37,7 +33,6 @@ namespace Api.NoSql.Controllers
         {
             _emailService = emailService;
             _userService = userService;
-            _tokenService = tokenService;
             _authService = authService;
 
             _environment = environment;
@@ -162,23 +157,6 @@ namespace Api.NoSql.Controllers
                     SignUpToken = user.SignupToken
                 });
             }
-
-            return Ok();
-        }
-
-        [Authorize]
-        [HttpPost("refresh-token")]
-        public async Task<IActionResult> RefreshTokenAsync()
-        {
-            var refreshToken = Request.Cookies[Constants.CookieNames.RefreshToken];
-
-            var token = await _tokenService.FindByValueAsync(refreshToken);
-            if (token == null || token.IsExpired())
-            {
-                return Unauthorized();
-            }
-
-            await _authService.SetTokensAsync(token.UserId, token.UserRole);
 
             return Ok();
         }

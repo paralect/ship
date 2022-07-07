@@ -1,7 +1,5 @@
-﻿using Api.Sql.Security;
-using Api.Sql.Services.Interfaces;
+﻿using Api.Sql.Services.Interfaces;
 using AutoMapper;
-using Common;
 using Common.DalSql.Entities;
 using Common.DalSql.Filters;
 using Common.Models.Infrastructure.Email;
@@ -21,7 +19,6 @@ namespace Api.Sql.Controllers
         private readonly IAuthService _authService;
         private readonly IEmailService _emailService;
         private readonly IUserService _userService;
-        private readonly ITokenService _tokenService;
         private readonly IWebHostEnvironment _environment;
         private readonly AppSettings _appSettings;
         private readonly IMapper _mapper;
@@ -30,7 +27,6 @@ namespace Api.Sql.Controllers
             IAuthService authService,
             IEmailService emailService,
             IUserService userService,
-            ITokenService tokenService,
             IWebHostEnvironment environment,
             IOptions<AppSettings> appSettings,
             IMapper mapper)
@@ -38,7 +34,6 @@ namespace Api.Sql.Controllers
             _authService = authService;
             _emailService = emailService;
             _userService = userService;
-            _tokenService = tokenService;
 
             _environment = environment;
             _appSettings = appSettings.Value;
@@ -74,7 +69,7 @@ namespace Api.Sql.Controllers
             }
 
             await _userService.SignInAsync(user.Id);
-            await _authService.SetTokensAsync(user.Id);
+            await _authService.SetTokenAsync(user.Id);
 
             return Ok(_mapper.Map<UserViewModel>(user));
         }
@@ -125,7 +120,7 @@ namespace Api.Sql.Controllers
             }
 
             await _userService.VerifyEmailAsync(user.Id);
-            await _authService.SetTokensAsync(user.Id);
+            await _authService.SetTokenAsync(user.Id);
 
             return Redirect(_appSettings.WebUrl);
         }
@@ -206,33 +201,6 @@ namespace Api.Sql.Controllers
                     SignUpToken = user.SignupToken
                 });
             }
-
-            return Ok();
-        }
-
-        [Authorize]
-        [HttpPost("refresh-token")]
-        public async Task<IActionResult> RefreshTokenAsync()
-        {
-            var tokenValue = Request.Cookies[Constants.CookieNames.RefreshToken];
-
-            var token = await _tokenService.FindOneAsync(new TokenFilter
-            {
-                Value = tokenValue,
-                AsNoTracking = true
-            },
-            x => new Token
-            {
-                UserId = x.UserId,
-                ExpireAt = x.ExpireAt
-            });
-
-            if (token == null || token.IsExpired())
-            {
-                return Unauthorized();
-            }
-
-            await _authService.SetTokensAsync(token.UserId);
 
             return Ok();
         }

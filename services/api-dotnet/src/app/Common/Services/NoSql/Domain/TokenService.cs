@@ -28,7 +28,7 @@ public class TokenService : BaseDocumentService<Token, TokenFilter>, ITokenServi
         return await FindOneAsync(new TokenFilter { Value = value });
     }
 
-    public async Task<(Token accessToken, Token refreshToken)> CreateAuthTokens(string userId, UserRole userRole)
+    public async Task<Token> CreateAccessToken(string userId, UserRole userRole)
     {
         var accessToken = new Token
         {
@@ -39,21 +39,12 @@ public class TokenService : BaseDocumentService<Token, TokenFilter>, ITokenServi
             UserRole = userRole
         };
 
-        var refreshToken = new Token
-        {
-            Type = TokenType.Refresh,
-            ExpireAt = DateTime.UtcNow + TimeSpan.FromHours(_tokenExpirationSettings.RefreshTokenExpiresInHours),
-            Value = SecurityUtils.GenerateSecureToken(Constants.TokenSecurityLength),
-            UserId = userId,
-            UserRole = userRole
-        };
+        await _tokenRepository.InsertAsync(accessToken);
 
-        await _tokenRepository.InsertManyAsync(new List<Token> { accessToken, refreshToken });
-
-        return (accessToken, refreshToken);
+        return accessToken;
     }
 
-    public async Task DeleteAuthTokens(string userId)
+    public async Task DeleteAccessTokens(string userId)
     {
         await _tokenRepository.DeleteManyAsync(new TokenFilter { UserId = userId });
     }
