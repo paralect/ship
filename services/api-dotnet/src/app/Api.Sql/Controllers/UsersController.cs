@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using Api.Sql.Security;
 using Common.DalSql;
 using Common.DalSql.Entities;
 using Common.DalSql.Filters;
@@ -10,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Sql.Controllers
 {
-    [Authorize]
     public class UsersController : BaseController
     {
         private readonly IUserService _userService;

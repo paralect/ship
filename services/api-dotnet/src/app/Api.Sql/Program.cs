@@ -1,4 +1,5 @@
-﻿using Api.Sql.Utils;
+﻿using Api.Sql.Authentication;
+using Api.Sql.Utils;
 using Common;
 using Common.DalSql;
 using Common.MappingsSql;
@@ -7,6 +8,7 @@ using Common.Utils;
 using Common.Validators.Account;
 using FluentValidation.AspNetCore;
 using Hangfire;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.FeatureManagement;
 using Serilog;
@@ -32,7 +34,14 @@ services.AddFeatureManagement();
 services.AddApiControllers();
 services.AddSwagger();
 services.AddHttpContextAccessor();
-services.AddAuthorization();
+services
+    .AddAuthentication(Constants.AuthenticationScheme)
+    .AddScheme<TokenAuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.AuthenticationScheme, _ => { });
+services.AddAuthorization(options =>
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build()
+);
 services.AddAutoMapper(typeof(UserProfile));
 services.AddFluentValidation(config =>
     config.RegisterValidatorsFromAssemblyContaining(typeof(SignInModelValidator))
@@ -57,9 +66,9 @@ if (environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 app.UseRouting();
 app.UseCors(Constants.CorsPolicy.AllowSpecificOrigin);
-app.UseTokenAuthentication();
-app.UseDbContextSaveChanges();
+app.UseAuthentication();
 app.UseAuthorization();
+app.UseDbContextSaveChanges();
 
 app.UseEndpoints(endpoints =>
 {
