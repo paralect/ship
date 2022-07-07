@@ -8,6 +8,7 @@ using Common.Services.Infrastructure.Interfaces;
 using Common.Services.NoSql.Domain.Interfaces;
 using Common.Settings;
 using Common.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -40,6 +41,7 @@ namespace Api.NoSql.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUpAsync([FromBody] SignUpModel model)
         {
@@ -59,6 +61,7 @@ namespace Api.NoSql.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpGet("verify-email")]
         public async Task<IActionResult> VerifyEmailAsync([FromQuery] string token)
         {
@@ -84,6 +87,7 @@ namespace Api.NoSql.Controllers
             return Redirect(_appSettings.WebUrl);
         }
 
+        [AllowAnonymous]
         [HttpPost("sign-in")]
         public async Task<IActionResult> SignInAsync([FromBody] SignInModel model)
         {
@@ -106,6 +110,7 @@ namespace Api.NoSql.Controllers
             return Ok(_mapper.Map<UserViewModel>(user));
         }
 
+        [AllowAnonymous]
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPasswordAsync([FromBody] ForgotPasswordModel model)
         {
@@ -130,6 +135,7 @@ namespace Api.NoSql.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPut("reset-password")]
         public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordModel model)
         {
@@ -144,6 +150,7 @@ namespace Api.NoSql.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost("resend")]
         public async Task<IActionResult> ResendVerificationAsync([FromBody] ResendVerificationModel model)
         {

@@ -11,6 +11,7 @@ public static class Constants
     }
 
     public const int TokenSecurityLength = 32;
+    public const string AuthenticationScheme = "Token";
 
     public static class CookieNames
     {
