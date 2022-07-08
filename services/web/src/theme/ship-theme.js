@@ -1,9 +1,15 @@
 import { colors } from './colors';
 const shipTheme = {
+  fontFamily: 'Inter, sans-serif',
+  fontFamilyMonospace: 'monospace',
+  headings: {
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 600,
+  },
   colors,
   primaryColor: 'brand',
   primaryShade: {
-    light: 9,
+    light: 5,
     dark: 0,
   },
   radius: {

@@ -22,6 +22,9 @@ export const Button = ({
       opacity: '0.7',
     }
   },
+  filled: {
+    backgroundColor: colors.brand[9],
+  },
   outline: {
     borderColor: colors.brand[1],
     color: colors.brand[9],

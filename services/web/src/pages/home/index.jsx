@@ -9,12 +9,12 @@ import {
   Grid,
   Skeleton,
   Table,
+  Text,
+  Container,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconChevronDown, IconSearch } from '@tabler/icons';
 import { userApi } from 'resources/user';
-
-import styles from './styles.module.css';
 
 const selectOptions = [
   {
@@ -52,7 +52,7 @@ const Home = () => {
 
   const [params, setParams] = useState({});
 
-  const debouncedSearch = useDebouncedValue(search, 500);
+  const [debouncedSearch] = useDebouncedValue(search, 500);
 
   const onPageChange = useCallback((currentPage) => {
     setPage(currentPage);
@@ -136,14 +136,14 @@ const Home = () => {
           >
             <thead>
               <tr>
-                {columns.map(({ title }) => (
-                  <th>{title}</th>
+                {columns.map(({ title }, index) => (
+                  <th key={`${title}-${String(index)}`}>{title}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {data.items.map(({ firstName, lastName, email }) => (
-                <tr>
+              {data.items.map(({ firstName, lastName, email, _id }) => (
+                <tr key={_id}>
                   <td>{firstName}</td>
                   <td>{lastName}</td>
                   <td>{email}</td>
@@ -152,9 +152,11 @@ const Home = () => {
             </tbody>
           </Table>
         ) : (
-          <div className={styles.helperContainer}>
-            No results found, try to adjust your search.
-          </div>
+          <Container p={75}>
+            <Text size="xl" color="grey">
+              No results found, try to adjust your search.
+            </Text>
+          </Container>
         )}
       </Stack>
     </>

@@ -13,6 +13,11 @@ export const Table = (theme) => ({
     },
     '& tbody tr td, & thead tr th': {
       borderBottom: `1px solid ${theme.colors.brand[2]}`,
+      backgroundColor: theme.white,
+    },
+    '& thead tr th': {
+      color: theme.colors.brand[5],
+      fontWeight: 500,
     },
   },
 });
