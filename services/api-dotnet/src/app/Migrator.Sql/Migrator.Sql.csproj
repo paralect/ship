@@ -22,21 +22,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="appsettings.Development.json">
-        <DependentUpon>appsettings.json</DependentUpon>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <Content Include="appsettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-      <Content Include="appsettings.production.json">
-        <DependentUpon>appsettings.json</DependentUpon>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="appsettings.staging.json">
+      <Content Include="appsettings.*.json">
         <DependentUpon>appsettings.json</DependentUpon>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>
-
 </Project>

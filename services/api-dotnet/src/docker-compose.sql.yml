@@ -17,7 +17,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=pwd
     ports:
-      - "5433:5432"
+      - "5432:5432"
   redis:
     container_name: ship-redis
     image: redis:5.0.5
