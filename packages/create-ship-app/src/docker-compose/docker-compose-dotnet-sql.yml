@@ -27,6 +27,18 @@ services:
       - ship
     ports:
       - 6379:6379
+  migrator:
+    container_name: ship-migrator
+    build:
+      context: ./api/src
+      dockerfile: app/Migrator.Sql/Dockerfile
+    networks:
+      - ship
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+    depends_on:
+      postgres:
+        condition: service_healthy
   api:
     container_name: ship-api
     build:
@@ -37,8 +49,8 @@ services:
     volumes:
       - ./api/src:/app/src
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrator:
+        condition: service_started
     ports:
       - "3001:3001"
     environment:
@@ -54,8 +66,8 @@ services:
     volumes:
       - ./api/src:/app/src
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrator:
+        condition: service_started
     environment:
       - DOTNET_ENVIRONMENT=DevelopmentSql
   web:

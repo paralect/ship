@@ -28,7 +28,7 @@ services:
     ports:
       - 6379:6379
   migrator:
-    container_name: migrator
+    container_name: ship-migrator
     build:
       context: .
       dockerfile: app/Migrator.Sql/Dockerfile
