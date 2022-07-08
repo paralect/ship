@@ -1,6 +1,4 @@
-const withFonts = require('next-fonts');
-
-module.exports = withFonts({
+module.exports = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -15,4 +13,4 @@ module.exports = withFonts({
   eslint: {
     ignoreDuringBuilds: true,
   },
-});
+};

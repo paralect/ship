@@ -52,7 +52,7 @@ const Home = () => {
 
   const [params, setParams] = useState({});
 
-  const debouncedSearch = useDebouncedValue(search, 500);
+  const [debouncedSearch] = useDebouncedValue(search, 500);
 
   const onPageChange = useCallback((currentPage) => {
     setPage(currentPage);
