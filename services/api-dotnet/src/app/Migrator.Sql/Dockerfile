@@ -3,10 +3,11 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["app/Migrator.Sql/Migrator.Sql.csproj", "Migrator.Sql/"]
+COPY ["app/Migrator.Sql/Migrator.Sql.csproj", "app/Migrator.Sql/"]
+COPY ["app/Common/Common.csproj", "app/Common/"]
 RUN dotnet restore "app/Migrator.Sql/Migrator.Sql.csproj"
 COPY . .
-WORKDIR "/src/Migrator.Sql"
+WORKDIR "/src/app/Migrator.Sql"
 RUN dotnet build "Migrator.Sql.csproj" -c Release -o /app/build
 
 FROM build AS publish
