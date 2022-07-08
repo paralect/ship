@@ -11,6 +11,7 @@ import {
   Table,
   Text,
   Container,
+  Pagination,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconChevronDown, IconSearch } from '@tabler/icons';
@@ -45,6 +46,8 @@ const columns = [
   },
 ];
 
+const PER_PAGE = 5;
+
 const Home = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -72,7 +75,7 @@ const Home = () => {
   }, []);
 
   useLayoutEffect(() => {
-    setParams((prev) => ({ ...prev, page: 1, searchValue: debouncedSearch }));
+    setParams((prev) => ({ ...prev, page: 1, searchValue: debouncedSearch, perPage: PER_PAGE }));
     setPage(1);
   }, [debouncedSearch]);
 
@@ -130,27 +133,40 @@ const Home = () => {
           </>
         )}
         {data?.items.length ? (
-          <Table
-            horizontalSpacing="lg"
-            verticalSpacing="md"
-          >
-            <thead>
-              <tr>
-                {columns.map(({ title }, index) => (
-                  <th key={`${title}-${String(index)}`}>{title}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.items.map(({ firstName, lastName, email, _id }) => (
-                <tr key={_id}>
-                  <td>{firstName}</td>
-                  <td>{lastName}</td>
-                  <td>{email}</td>
+          <>
+            <Table
+              horizontalSpacing="lg"
+              verticalSpacing="md"
+            >
+              <thead>
+                <tr>
+                  {columns.map(({ title }, index) => (
+                    <th key={`${title}-${String(index)}`}>{title}</th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {data.items.map(({ firstName, lastName, email, _id }) => (
+                  <tr key={_id}>
+                    <td>{firstName}</td>
+                    <td>{lastName}</td>
+                    <td>{email}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <Group position="right">
+              <Text size="sm" color="dimmed">
+                Showing <b>1</b> of <b>{PER_PAGE}</b> of <b>{data?.count}</b> results
+              </Text>
+              <Pagination
+                total={Math.ceil(data?.count / PER_PAGE)}
+                page={page}
+                onChange={onPageChange}
+                color="dark"
+              />
+            </Group>
+          </>
         ) : (
           <Container p={75}>
             <Text size="xl" color="grey">
