@@ -22,7 +22,7 @@ const App = ({ Component, pageProps }) => (
         withGlobalStyles
         withNormalizeCSS
       >
-        <NotificationsProvider>
+        <NotificationsProvider autoClose={10000}>
           <PageConfig>
             <Component {...pageProps} />
           </PageConfig>

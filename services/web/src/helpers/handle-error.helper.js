@@ -6,7 +6,6 @@ export default function handleError(e, setError) {
   if (global) {
     showNotification({
       title: 'Error',
-      autoClose: 10000,
       message: global,
       color: 'red',
     });

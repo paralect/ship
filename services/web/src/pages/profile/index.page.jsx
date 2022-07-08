@@ -45,7 +45,6 @@ const Profile = () => {
         title: 'Success',
         message: 'Your password have been successfully updated.',
         color: 'green',
-        autoClose: 5000,
       });
     },
     onError: (e) => handleError(e, setError),
