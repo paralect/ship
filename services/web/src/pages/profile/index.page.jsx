@@ -19,7 +19,6 @@ import { userApi } from 'resources/user';
 import PhotoUpload from './components/file-upload';
 
 const schema = yup.object().shape({
-  // email: yup.string().max(64).email('Email format is incorrect.').required('Field is required.'),
   password: yup.string().matches(/^$|^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
 });
 

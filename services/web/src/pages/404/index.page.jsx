@@ -3,9 +3,12 @@ import Head from 'next/head';
 import router from 'next/router';
 
 import * as routes from 'routes';
-import { Button } from 'components';
-
-import styles from './styles.module.css';
+import {
+  Stack,
+  Title,
+  Text,
+  Button,
+} from '@mantine/core';
 
 const NotFound = () => {
   const handleClick = useCallback(() => {
@@ -17,20 +20,25 @@ const NotFound = () => {
       <Head>
         <title>Page not found</title>
       </Head>
-      <div className={styles.container}>
-        <h2>Oops! The page is not found.</h2>
-        <p className={styles.error}>
+      <Stack style={{ width: '328px' }}>
+        <Title order={2}>Oops! The page is not found.</Title>
+        <Text
+          component="p"
+          sx={(theme) => ({
+            color: theme.colors.brand[5],
+            margin: '20px 0 24px',
+          })}
+        >
           The page you are looking for may have been removed,
           or the link you followed may be broken.
-        </p>
+        </Text>
         <Button
-          type="primary"
-          htmlType="submit"
+          type="submit"
           onClick={handleClick}
         >
           Go to homepage
         </Button>
-      </div>
+      </Stack>
     </>
   );
 };
