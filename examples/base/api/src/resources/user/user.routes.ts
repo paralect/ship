@@ -21,6 +21,7 @@ const privateRoutes = routeUtil.getRoutes([
 const adminRoutes = routeUtil.getRoutes([
   update,
   remove,
+  list,
 ]);
 
 export default {
