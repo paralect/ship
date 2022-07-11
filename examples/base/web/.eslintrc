@@ -6,7 +6,8 @@
   "extends": [
     "airbnb",
     "airbnb/hooks",
-    "next"
+    "next",
+    "next/babel"
   ],
   "parserOptions": {
     "ecmaFeatures": {

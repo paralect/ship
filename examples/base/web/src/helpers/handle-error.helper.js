@@ -1,9 +1,15 @@
-import { toast } from 'react-toastify';
+import { showNotification } from '@mantine/notifications';
 
 export default function handleError(e, setError) {
   const { errors: { global, ...errors } } = e.data;
 
-  if (global) toast.error(global);
+  if (global) {
+    showNotification({
+      title: 'Error',
+      message: global,
+      color: 'red',
+    });
+  }
 
   if (setError) {
     Object.keys(errors).forEach((key) => {

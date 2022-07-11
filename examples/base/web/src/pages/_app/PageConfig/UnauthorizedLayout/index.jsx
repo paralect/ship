@@ -4,21 +4,24 @@ import * as routes from 'routes';
 import { LogoDarkImage } from 'public/images';
 import { Link } from 'components';
 
-import styles from './styles.module.css';
+import { useStyles } from './styles';
 
-const UnauthorizedLayout = ({ children }) => (
-  <div className={styles.wrapper}>
-    <header className={styles.header}>
-      <Link type="router" href={routes.path.home} withoutUnderline>
-        <LogoDarkImage />
-      </Link>
+const UnauthorizedLayout = ({ children }) => {
+  const { classes } = useStyles();
+  return (
+    <div className={classes.wrapper}>
+      <header className={classes.header}>
+        <Link type="router" href={routes.path.home} underline={false}>
+          <LogoDarkImage />
+        </Link>
 
-    </header>
-    <main className={styles.content}>
-      {children}
-    </main>
-  </div>
-);
+      </header>
+      <main className={classes.content}>
+        {children}
+      </main>
+    </div>
+  )
+};
 
 UnauthorizedLayout.propTypes = {
   children: PropTypes.node.isRequired,

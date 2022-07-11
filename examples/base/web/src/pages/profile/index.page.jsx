@@ -1,19 +1,24 @@
 import * as yup from 'yup';
-import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { showNotification } from '@mantine/notifications';
 import Head from 'next/head';
 
 import { handleError } from 'helpers';
-import { Input, Button } from 'components';
+import {
+  Button,
+  TextInput,
+  PasswordInput,
+  Box,
+  Stack,
+  Title,
+} from '@mantine/core';
 import { userApi } from 'resources/user';
 
-import PhotoUpload from './components/FileUpload';
-import styles from './styles.module.css';
+import PhotoUpload from './components/file-upload';
 
 const schema = yup.object().shape({
-  email: yup.string().max(64).email('Email format is incorrect.').required('Field is required.'),
   password: yup.string().matches(/^$|^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
 });
 
@@ -23,7 +28,10 @@ const Profile = () => {
   const { data: currentUser } = userApi.useGetCurrent();
 
   const {
-    handleSubmit, formState: { errors }, setError, control,
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -33,7 +41,11 @@ const Profile = () => {
   const onSubmit = ({ password }) => updateCurrent({ password }, {
     onSuccess: (data) => {
       queryClient.setQueryData(['currentUser'], data);
-      toast.success('Your password have been successfully updated.');
+      showNotification({
+        title: 'Success',
+        message: 'Your password have been successfully updated.',
+        color: 'green',
+      });
     },
     onError: (e) => handleError(e, setError),
   });
@@ -43,39 +55,36 @@ const Profile = () => {
       <Head>
         <title>Profile</title>
       </Head>
-      <div className={styles.uploadContainer}>
-        <span>
-          <h1 className={styles.heading}>Profile</h1>
-          <PhotoUpload />
-          <form
-            className={styles.form}
-            onSubmit={handleSubmit(onSubmit)}
+      <Stack
+        style={{ width: '328px', margin: 'auto', paddingTop: '48px' }}
+        spacing="xl"
+      >
+        <Title order={1}>Profile</Title>
+        <PhotoUpload />
+        <Stack component="form" onSubmit={handleSubmit(onSubmit)} spacing={20}>
+          <TextInput
+            {...register('email')}
+            label="Email Address"
+            defaultValue={currentUser.email}
+            disabled
+          />
+          <PasswordInput
+            {...register('password')}
+            label="Password"
+            placeholder="Your password"
+            labelProps={{
+              'data-invalid': !!errors.password,
+            }}
+            error={errors?.password?.message}
+          />
+          <Button
+            type="submit"
+            loading={isUpdateCurrentLoading}
           >
-            <Input
-              name="email"
-              label="Email Address"
-              defaultValue={currentUser.email}
-              control={control}
-              error={errors.email}
-              disabled
-            />
-            <Input
-              name="password"
-              type="password"
-              label="Password"
-              placeholder="Your password"
-              control={control}
-              error={errors.password}
-            />
-            <Button
-              htmlType="submit"
-              loading={isUpdateCurrentLoading}
-            >
-              Update Profile
-            </Button>
-          </form>
-        </span>
-      </div>
+            Update Profile
+          </Button>
+        </Stack>
+      </Stack>
     </>
   );
 };
