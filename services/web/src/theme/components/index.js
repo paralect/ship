@@ -21,6 +21,7 @@ import { Switch } from './inputs-and-buttons/switch';
 import { Select } from './inputs-and-buttons/select';
 import { MultiSelect } from './inputs-and-buttons/multiselect';
 import { NativeSelect } from './inputs-and-buttons/native-select';
+import { TransferList } from './inputs-and-buttons/transfer-list';
 
 // Navigation
 // Data display
@@ -57,6 +58,7 @@ const components = {
   Select,
   MultiSelect,
   NativeSelect,
+  TransferList,
   Menu,
   Table,
   Loader,
