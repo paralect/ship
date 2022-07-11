@@ -3,6 +3,7 @@ using System.Text.Encodings.Web;
 using Common;
 using Common.DalSql.Filters;
 using Common.DalSql.Interfaces;
+using Common.Enums;
 using Common.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
@@ -41,14 +42,19 @@ public class TokenAuthenticationHandler : AuthenticationHandler<TokenAuthenticat
         }
         
         var token = await _tokenRepository.FindOneAsync(
-            new TokenFilter { Value = accessToken, AsNoTracking = true },
-            x => new
+            new TokenFilter
             {
-                x.UserId,
-                UserRole = x.User.Role
-            }
-        );
-        if (token == null)
+                Value = accessToken,
+                AsNoTracking = true
+            },
+            x => new UserTokenModel
+            {
+                UserId = x.UserId,
+                UserRole = x.User.Role,
+                ExpireAt = x.ExpireAt
+            });
+
+        if (token == null || token.IsExpired())
         {
             return AuthenticateResult.Fail("Token not found");
         }
@@ -63,4 +69,11 @@ public class TokenAuthenticationHandler : AuthenticationHandler<TokenAuthenticat
 
         return AuthenticateResult.Success(ticket);
     }
+}
+
+public class UserTokenModel : IExpirable
+{
+    public long UserId { get; set; }
+    public UserRole UserRole { get; set; }
+    public DateTime ExpireAt { get; set; }
 }

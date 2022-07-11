@@ -41,7 +41,7 @@ public class TokenAuthenticationHandler : AuthenticationHandler<TokenAuthenticat
         }
         
         var token = await _tokenRepository.FindOneAsync(new TokenFilter { Value = accessToken });
-        if (token == null)
+        if (token == null || token.IsExpired())
         {
             return AuthenticateResult.Fail("Token not found");
         }
