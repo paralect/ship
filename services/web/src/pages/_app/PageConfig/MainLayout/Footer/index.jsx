@@ -1,11 +1,11 @@
-import styles from './styles.module.css';
+import { Footer as LayoutFooter } from '@mantine/core'
 
 const Footer = () => {
   const year = new Date().getFullYear();
   return (
-    <footer className={styles.footer}>
+    <LayoutFooter>
       {`Ship ${year} © All rights reserved`}
-    </footer>
+    </LayoutFooter>
   );
 };
 

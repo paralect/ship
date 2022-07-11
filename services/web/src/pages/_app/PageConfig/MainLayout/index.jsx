@@ -1,18 +1,16 @@
 import PropTypes from 'prop-types';
+import { AppShell } from '@mantine/core';
 
 import Header from './Header';
 import Footer from './Footer';
 
-import styles from './styles.module.css';
-
 const MainLayout = ({ children }) => (
-  <div className={styles.wrapper}>
-    <Header />
-    <main className={styles.content}>
-      {children}
-    </main>
-    <Footer />
-  </div>
+  <AppShell
+    header={<Header />}
+    footer={<Footer />}
+  >
+    {children}
+  </AppShell>
 );
 
 MainLayout.propTypes = {

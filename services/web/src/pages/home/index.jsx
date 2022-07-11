@@ -1,20 +1,29 @@
 import { useCallback, useLayoutEffect, useState } from 'react';
-import cn from 'classnames';
 import Head from 'next/head';
-
-import { useDebounce } from 'hooks';
-import { Table, Input, Select, Spinner } from 'components';
+import {
+  Select,
+  TextInput,
+  Group,
+  Title,
+  Stack,
+  Grid,
+  Skeleton,
+  Table,
+  Text,
+  Container,
+  Pagination,
+} from '@mantine/core';
+import { useDebouncedValue } from '@mantine/hooks';
+import { IconChevronDown, IconSearch } from '@tabler/icons';
 import { userApi } from 'resources/user';
-
-import styles from './styles.module.css';
 
 const selectOptions = [
   {
-    value: { createdOn: -1 },
+    value: 'newest',
     label: 'Newest',
   },
   {
-    value: { createdOn: 1 },
+    value: 'oldest',
     label: 'Oldest',
   },
 ];
@@ -37,87 +46,135 @@ const columns = [
   },
 ];
 
+const PER_PAGE = 5;
+
 const Home = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [sort, setSort] = useState(selectOptions[0]);
+  const [sort, setSort] = useState(selectOptions[0].value);
 
   const [params, setParams] = useState({});
 
-  const debouncedSearch = useDebounce(search);
+  const [debouncedSearch] = useDebouncedValue(search, 500);
 
   const onPageChange = useCallback((currentPage) => {
     setPage(currentPage);
     setParams((prev) => ({ ...prev, page: currentPage }));
   }, []);
 
-  const handleSort = useCallback((currentSort) => {
-    setSort(currentSort);
-    setParams((prev) => ({ ...prev, sort: currentSort.value }));
-  }, []);
+  const handleSort = useCallback((value) => {
+    setSort(value);
+    setParams((prev) => ({
+      ...prev,
+      sort: value === 'newest' ? { createdOn: -1 } : { createdOn: 1 },
+    }));
+  }, [setParams]);
 
   const handleSearch = useCallback((event) => {
     setSearch(event.target.value);
   }, []);
 
   useLayoutEffect(() => {
-    setParams((prev) => ({ ...prev, page: 1, searchValue: debouncedSearch }));
+    setParams((prev) => ({ ...prev, page: 1, searchValue: debouncedSearch, perPage: PER_PAGE }));
     setPage(1);
   }, [debouncedSearch]);
 
   const { data, isLoading: isListLoading } = userApi.useList(params);
-
-  if (isListLoading && data === null) {
-    return (
-      <div className={styles.helperContainer}>
-        <Spinner />
-      </div>
-    );
-  }
 
   return (
     <>
       <Head>
         <title>Home</title>
       </Head>
-      <h2 className={styles.title}>Users</h2>
-      <div className={cn({
-        [styles.loading]: isListLoading,
-      }, styles.container)}
-      >
-        <div className={styles.sortBarContainer}>
-          <Input
-            value={search}
-            onChange={handleSearch}
-            placeholder="Search by name or email"
-            className={styles.searchField}
-          />
-          <Select
-            size="s"
-            prefixOfSelected="Sort by:"
-            defaultValue={selectOptions[0]}
-            value={sort}
-            options={selectOptions}
-            onChange={handleSort}
-            className={styles.select}
-          />
-        </div>
-        {data?.items.length ? (
-          <Table
-            items={data.items}
-            columns={columns}
-            totalCount={data.count}
-            totalPages={data.totalPages}
-            onPageChange={onPageChange}
-            page={page}
-            perPage={10}
-          />
-        ) : (
-          <div className={styles.helperContainer}>
-            No results found, try to adjust your search.
-          </div>
+      <Stack spacing="lg">
+        <Title order={2}>Users</Title>
+        <Group position="apart">
+          <Skeleton
+            height={40}
+            radius="sm"
+            visible={isListLoading}
+            width={'auto'}
+            style={{ flexGrow: '0.25' }}
+          >
+            <TextInput
+              value={search}
+              onChange={handleSearch}
+              placeholder="Search by name or email"
+              icon={<IconSearch size={16} />}
+            />
+          </Skeleton>
+          <Skeleton
+            height={40}
+            radius="sm"
+            visible={isListLoading}
+            width={'auto'}
+            style={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
+          >
+            <Select
+              size="sm"
+              data={selectOptions}
+              value={sort}
+              onChange={handleSort}
+              rightSection={<IconChevronDown size={16} />}
+              withinPortal={false}
+            />
+          </Skeleton>
+        </Group>
+        {isListLoading && (
+          <>
+            {[1, 2, 3].map(item => (
+              <Skeleton
+                key={`sklton-${String(item)}`}
+                height={50}
+                radius="sm"
+                mb="sm"
+              />
+            ))}
+          </>
         )}
-      </div>
+        {data?.items.length ? (
+          <>
+            <Table
+              horizontalSpacing="lg"
+              verticalSpacing="md"
+            >
+              <thead>
+                <tr>
+                  {columns.map(({ title }, index) => (
+                    <th key={`${title}-${String(index)}`}>{title}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {data.items.map(({ firstName, lastName, email, _id }) => (
+                  <tr key={_id}>
+                    <td>{firstName}</td>
+                    <td>{lastName}</td>
+                    <td>{email}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <Group position="right">
+              <Text size="sm" color="dimmed">
+                Showing <b>1</b> of <b>{PER_PAGE}</b> of <b>{data?.count}</b> results
+              </Text>
+              <Pagination
+                total={Math.ceil(data?.count / PER_PAGE)}
+                page={page}
+                onChange={onPageChange}
+                color="dark"
+              />
+            </Group>
+          </>
+        ) : (
+          <Container p={75}>
+            <Text size="xl" color="grey">
+              No results found, try to adjust your search.
+            </Text>
+          </Container>
+        )}
+      </Stack>
     </>
   );
 };

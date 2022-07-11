@@ -4,10 +4,13 @@ import { useRouter } from 'next/router';
 
 import * as routes from 'routes';
 import { handleError } from 'helpers';
-import { Button } from 'components';
 import { accountApi } from 'resources/account';
-
-import styles from './styles.module.css';
+import {
+  Stack,
+  Title,
+  Text,
+  Button,
+} from '@mantine/core';
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -29,15 +32,15 @@ const ForgotPassword = () => {
         <Head>
           <title>Password reset link expired</title>
         </Head>
-        <div className={styles.container}>
-          <h2>Reset link has been sent</h2>
-          <div className={styles.description}>
+        <Stack style={{ width: '328px' }}>
+          <Title order={2}>Reset link has been sent</Title>
+          <Text component="p" style={{ fontSize: '14px' }}>
             Reset link sent successfully
-          </div>
+          </Text>
           <Button onClick={() => router.push(routes.path.signIn)}>
             Back to Sign In
           </Button>
-        </div>
+        </Stack>
       </>
     );
   }
@@ -47,21 +50,21 @@ const ForgotPassword = () => {
       <Head>
         <title>Password reset link expired</title>
       </Head>
-      <div className={styles.container}>
-        <h2>Password reset link expired</h2>
-        <p className={styles.subheading}>
+      <Stack style={{ width: '328px' }}>
+        <Title order={2}>Password reset link expired</Title>
+        <Text component="p" mt={0}>
           Sorry, your password reset link has expired. Click the button below to get a new one.
-        </p>
+        </Text>
         <Button
           onClick={onSubmit}
           loading={isResendEmailLoading}
-          className={styles.button}
+          fullWidth
         >
           Resend link to
           {' '}
           {email}
         </Button>
-      </div>
+      </Stack>
     </>
   );
 };

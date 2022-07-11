@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import * as routes from 'routes';
+import { Global } from '@mantine/core';
 import { userApi } from 'resources/user';
 
 import MainLayout from './MainLayout';
@@ -9,6 +10,7 @@ import UnauthorizedLayout from './UnauthorizedLayout';
 import PrivateScope from './PrivateScope';
 
 import 'resources/user/user.handlers';
+import { globalStyles } from 'theme/globalStyles';
 
 const configurations = Object.values(routes.configuration);
 
@@ -46,6 +48,7 @@ const PageConfig = ({ children }) => {
 
   return (
     <Scope>
+      <Global styles={globalStyles} />
       <Layout>
         {children}
       </Layout>
