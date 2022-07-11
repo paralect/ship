@@ -34,7 +34,7 @@ async function handler(ctx: AppKoaContext) {
   const updatedUser = await userService.updateOne(
     { _id: user._id },
     () => ({ avatarUrl: Location }),
-  ) as User;
+  );
 
   ctx.body = userService.getPublic(updatedUser);
 }

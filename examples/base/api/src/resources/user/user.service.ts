@@ -12,8 +12,8 @@ const updateLastRequest = (_id: string) => service.atomic.updateOne(
   { _id },
   {
     $set: {
-      lastRequest: new Date(),
-      updatedOn: new Date(),
+      lastRequest: new Date().toISOString(),
+      updatedOn: new Date().toISOString(),
     },
   },
 );
@@ -24,7 +24,7 @@ const privateFields = [
   'resetPasswordToken',
 ];
 
-const getPublic = (user: User) => _.omit(user, privateFields);
+const getPublic = (user: User | null) => _.omit(user, privateFields);
 
 export default Object.assign(service, {
   updateLastRequest,
