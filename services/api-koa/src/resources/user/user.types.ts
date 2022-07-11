@@ -1,8 +1,8 @@
 export type User = {
   _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date;
+  createdOn?: string;
+  updatedOn?: string;
+  deletedOn?: string;
   firstName: string;
   lastName: string;
   fullName: string;
@@ -12,5 +12,5 @@ export type User = {
   signupToken: string | null;
   resetPasswordToken?: string | null;
   avatarUrl?: string | null;
-  lastRequest?: Date;
+  lastRequest?: string;
 };

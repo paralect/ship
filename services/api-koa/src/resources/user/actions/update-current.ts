@@ -40,7 +40,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const passwordHash = await securityUtil.getHash(password);
 
-  const updatedUser = await userService.updateOne({ _id: user._id }, () => ({ passwordHash })) as User;
+  const updatedUser = await userService.updateOne({ _id: user._id }, () => ({ passwordHash }));
 
   ctx.body = userService.getPublic(updatedUser);
 }
