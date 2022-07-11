@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
+import { ModalsProvider } from '@mantine/modals';
 
 import queryClient from 'query-client';
 import PageConfig from './PageConfig';
@@ -22,11 +23,13 @@ const App = ({ Component, pageProps }) => (
         withGlobalStyles
         withNormalizeCSS
       >
-        <NotificationsProvider autoClose={10000}>
-          <PageConfig>
-            <Component {...pageProps} />
-          </PageConfig>
-        </NotificationsProvider>
+        <ModalsProvider>
+          <NotificationsProvider autoClose={10000}>
+            <PageConfig>
+              <Component {...pageProps} />
+            </PageConfig>
+          </NotificationsProvider>
+        </ModalsProvider>
         <ReactQueryDevtools position="bottom-right" />
       </MantineProvider>
     </QueryClientProvider>
