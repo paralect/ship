@@ -25,6 +25,11 @@ services:
     hostname: redis
     networks:
       - ship
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - 6379:6379
   migrator:
@@ -50,7 +55,9 @@ services:
       - ./api/src:/app/src
     depends_on:
       migrator:
-        condition: service_started
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
     ports:
       - "3001:3001"
     environment:
@@ -67,7 +74,7 @@ services:
       - ./api/src:/app/src
     depends_on:
       migrator:
-        condition: service_started
+        condition: service_completed_successfully
     environment:
       - DOTNET_ENVIRONMENT=DevelopmentSql
   web:
