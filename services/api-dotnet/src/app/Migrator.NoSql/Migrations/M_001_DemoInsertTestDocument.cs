@@ -16,7 +16,6 @@ public class M_001_DemoInsertTestDocument : IMigration
         var updateBuilder = Builders<BsonDocument>.Update;
         
         var collection = database.GetCollection<BsonDocument>("test");
-        var value = DateTime.UtcNow;
 
         collection.InsertOne(new BsonDocument { { "testValue", 123 } });
     }
