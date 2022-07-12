@@ -93,7 +93,7 @@ const deploy = async () => {
       imageTag: `${deployConfig.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
-    
+
     // deploy api to kubernetes and deploy migrator through helm hooks
     await pushToKubernetes({
       imageTag,
