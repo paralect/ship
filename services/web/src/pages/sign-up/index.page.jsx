@@ -96,9 +96,6 @@ const SignUp = () => {
               {...register('firstName')}
               label="First Name"
               maxLength={100}
-              labelProps={{
-                'data-invalid': !!errors.firstName,
-              }}
               placeholder="Your first name"
               error={errors?.firstName?.message}
             />
@@ -106,18 +103,12 @@ const SignUp = () => {
               {...register('lastName')}
               label="Last Name"
               maxLength={100}
-              labelProps={{
-                'data-invalid': !!errors.lastName,
-              }}
               placeholder="Your last name"
               error={errors?.lastName?.message}
             />
             <TextInput
               {...register('email')}
               label="Email Address"
-              labelProps={{
-                'data-invalid': !!errors.email,
-              }}
               placeholder="Your email"
               error={errors?.email?.message}
             />
@@ -125,9 +116,6 @@ const SignUp = () => {
               {...register('password')}
               type="password"
               label="Password"
-              labelProps={{
-                'data-invalid': !!errors.password,
-              }}
               placeholder="Your password"
               error={errors?.password?.message}
             />

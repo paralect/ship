@@ -8,6 +8,17 @@ const MainLayout = ({ children }) => (
   <AppShell
     header={<Header />}
     footer={<Footer />}
+    styles={(theme) => ({
+      root: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        backgroundColor: theme.colors.gray[0],
+      },
+      main: {
+        padding: '32px',
+      },
+    })}
   >
     {children}
   </AppShell>

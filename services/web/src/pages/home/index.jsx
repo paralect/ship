@@ -11,6 +11,7 @@ import {
   Text,
   Container,
   Pagination,
+  Paper,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconChevronDown, IconSearch } from '@tabler/icons';
@@ -91,7 +92,7 @@ const Home = () => {
         <Title order={2}>Users</Title>
         <Group position="apart">
           <Skeleton
-            height={40}
+            height={42}
             radius="sm"
             visible={isListLoading}
             width="auto"
@@ -105,19 +106,21 @@ const Home = () => {
             />
           </Skeleton>
           <Skeleton
-            height={40}
+            height={42}
             radius="sm"
             visible={isListLoading}
             width="auto"
             style={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
           >
             <Select
-              size="sm"
               data={selectOptions}
               value={sort}
               onChange={handleSort}
               rightSection={<IconChevronDown size={16} />}
               withinPortal={false}
+              transition="pop-bottom-right"
+              transitionDuration={210}
+              transitionTimingFunction="ease-out"
             />
           </Skeleton>
         </Group>
@@ -135,27 +138,29 @@ const Home = () => {
         )}
         {data?.items.length ? (
           <>
-            <Table
-              horizontalSpacing="lg"
-              verticalSpacing="md"
-            >
-              <thead>
-                <tr>
-                  {columns.map(({ title }, index) => (
-                    <th key={`${title}-${String(index)}`}>{title}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {data.items.map(({ firstName, lastName, email, _id }) => (
-                  <tr key={_id}>
-                    <td>{firstName}</td>
-                    <td>{lastName}</td>
-                    <td>{email}</td>
+            <Paper radius="sm" withBorder>
+              <Table
+                horizontalSpacing="xl"
+                verticalSpacing="lg"
+              >
+                <thead>
+                  <tr>
+                    {columns.map(({ title }, index) => (
+                      <th key={`${title}-${String(index)}`}>{title}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {data.items.map(({ firstName, lastName, email, _id }) => (
+                    <tr key={_id}>
+                      <td>{firstName}</td>
+                      <td>{lastName}</td>
+                      <td>{email}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Paper>
             <Group position="right">
               <Text size="sm" color="dimmed">
                 Showing
@@ -176,7 +181,7 @@ const Home = () => {
                 total={totalPages}
                 page={page}
                 onChange={onPageChange}
-                color="dark"
+                color="black"
               />
             </Group>
           </>

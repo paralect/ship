@@ -5,35 +5,33 @@ const BROWSE_BTN_SIZE = '88px';
 export const useStyles = createStyles(({
   colors,
   white,
-  other: {
-    transition: { speed, easing },
-  },
+  black,
 }, _params, getRef) => ({
   browseButton: {
     width: BROWSE_BTN_SIZE,
     height: BROWSE_BTN_SIZE,
     borderRadius: '50%',
     backgroundColor: white,
-    border: `1px dashed ${colors.brand[5]}`,
+    border: `1px dashed ${black}`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    transition: `all ${speed.smooth} ${easing.easeInOut}`,
+    transition: 'all 200ms ease-in-out',
     cursor: 'pointer',
 
     '&:hover': {
       [`& .${getRef('addIcon')}`]: {
-        color: colors.brand[5],
-      },
-    },
+        color: colors.gray[5],
+      }
+    }
   },
   error: {
     border: `1px dashed ${colors.red[5]}`,
   },
   addIcon: {
     ref: getRef('addIcon'),
-    color: colors.brand[2],
-    transition: `all ${speed.fast} ${easing.easeInOut}`,
+    color: colors.gray[2],
+    transition: 'all 200ms ease-in-out',
   },
   innerAvatar: {
     ref: getRef('innerAvatar'),
@@ -44,15 +42,15 @@ export const useStyles = createStyles(({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: colors.brand[2],
+    color: colors.gray[2],
     opacity: 0,
-    transition: `all ${speed.smooth} ${easing.easeInOut}`,
+    transition: 'all 300ms ease-in-out',
   },
   text: {
     width: '144px',
     marginLeft: '24px',
     lineHeight: '24px',
-    color: colors.brand[5],
+    color: colors.gray[5],
     wordWrap: 'break-word',
   },
   buttonContainer: {

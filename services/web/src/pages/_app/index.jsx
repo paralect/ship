@@ -8,7 +8,7 @@ import { ModalsProvider } from '@mantine/modals';
 
 import queryClient from 'query-client';
 import shipTheme from 'theme/ship-theme';
-import components from 'theme/components';
+
 import PageConfig from './PageConfig';
 
 const App = ({ Component, pageProps }) => (
@@ -19,7 +19,12 @@ const App = ({ Component, pageProps }) => (
     <QueryClientProvider client={queryClient}>
       <MantineProvider
         theme={shipTheme}
-        styles={components}
+        defaultProps={{
+          Button: { size: 'md' },
+          TextInput: { size: 'md' },
+          PasswordInput: { size: 'md' },
+          Select: { size: 'md' },
+        }}
         withGlobalStyles
         withNormalizeCSS
       >
