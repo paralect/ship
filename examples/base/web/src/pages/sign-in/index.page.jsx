@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
 import { TextInput, PasswordInput, Button, Group, Stack, Title } from '@mantine/core';
-import { NextLink } from '@mantine/next';
 
 import * as routes from 'routes';
 import { handleError } from 'helpers';
@@ -17,7 +16,7 @@ const schema = yup.object().shape({
 
 const SignIn = () => {
   const {
-    register, handleSubmit, formState: { errors }, setError, control,
+    register, handleSubmit, formState: { errors }, setError,
   } = useForm({ resolver: yupResolver(schema) });
 
   const { mutate: signIn, isLoading: isSignInLoading } = accountApi.useSignIn();

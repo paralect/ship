@@ -20,7 +20,7 @@ const UnauthorizedLayout = ({ children }) => {
         {children}
       </main>
     </div>
-  )
+  );
 };
 
 UnauthorizedLayout.propTypes = {

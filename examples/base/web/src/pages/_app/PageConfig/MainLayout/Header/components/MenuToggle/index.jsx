@@ -1,6 +1,6 @@
 import { forwardRef, memo } from 'react';
 import { userApi } from 'resources/user';
-import { Avatar, UnstyledButton } from "@mantine/core";
+import { Avatar, UnstyledButton } from '@mantine/core';
 
 const MenuToggle = forwardRef((props, ref) => {
   const { data: user } = userApi.useGetCurrent();

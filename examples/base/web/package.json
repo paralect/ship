@@ -14,7 +14,7 @@
     "start": "next start -p 3002",
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
-    "precommit": "lint-staged && next lint"
+    "precommit": "lint-staged && next lint --fix"
   },
   "dependencies": {
     "@hookform/resolvers": "2.8.8",
@@ -55,23 +55,13 @@
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "8.4.0",
-    "eslint-plugin-import": "2.25.4",
-    "eslint-plugin-jsx-a11y": "6.5.1",
-    "eslint-plugin-prettier": "4.0.0",
-    "eslint-plugin-react": "7.29.0",
-    "eslint-plugin-react-hooks": "4.3.0",
     "husky": "7.0.4",
     "lint-staged": "12.3.4",
-    "style-loader": "3.3.1",
-    "stylelint": "14.5.3",
-    "stylelint-config-standard": "25.0.0"
+    "style-loader": "3.3.1"
   },
   "lint-staged": {
     "*.{js,jsx}": [
       "eslint --ext js --ext jsx --fix"
-    ],
-    "*.css": [
-      "stylelint --fix"
     ]
   }
 }

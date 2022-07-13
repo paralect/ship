@@ -1,8 +1,6 @@
-import Link from './Link';
 import { IconUserCircle } from '@tabler/icons';
-import { MantineProvider } from '@mantine/core';
-import { addDecorator } from '@storybook/react';
-import shipTheme from 'theme/ship-theme';
+
+import Link from './Link';
 
 export default {
   title: 'Components/Link',

@@ -5,12 +5,12 @@ import * as routes from 'routes';
 import { Global } from '@mantine/core';
 import { userApi } from 'resources/user';
 
+import 'resources/user/user.handlers';
+import { globalStyles } from 'theme/globalStyles';
+
 import MainLayout from './MainLayout';
 import UnauthorizedLayout from './UnauthorizedLayout';
 import PrivateScope from './PrivateScope';
-
-import 'resources/user/user.handlers';
-import { globalStyles } from 'theme/globalStyles';
 
 const configurations = Object.values(routes.configuration);
 

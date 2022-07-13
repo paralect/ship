@@ -7,9 +7,9 @@ import { NotificationsProvider } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
 
 import queryClient from 'query-client';
-import PageConfig from './PageConfig';
 import shipTheme from 'theme/ship-theme';
 import components from 'theme/components';
+import PageConfig from './PageConfig';
 
 const App = ({ Component, pageProps }) => (
   <>

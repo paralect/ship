@@ -28,7 +28,7 @@ const Link = ({
   switch (type) {
     case 'router':
       return (
-        <NextLink href={href}>
+        <NextLink href={href} passHref>
           <Anchor
             component="a"
             size={size}

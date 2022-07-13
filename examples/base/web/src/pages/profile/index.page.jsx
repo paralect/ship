@@ -10,7 +10,6 @@ import {
   Button,
   TextInput,
   PasswordInput,
-  Box,
   Stack,
   Title,
 } from '@mantine/core';

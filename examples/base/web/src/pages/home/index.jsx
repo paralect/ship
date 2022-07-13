@@ -6,7 +6,6 @@ import {
   Group,
   Title,
   Stack,
-  Grid,
   Skeleton,
   Table,
   Text,
@@ -81,6 +80,8 @@ const Home = () => {
 
   const { data, isLoading: isListLoading } = userApi.useList(params);
 
+  const totalPages = Math.ceil(data?.count || 0 / PER_PAGE);
+
   return (
     <>
       <Head>
@@ -93,7 +94,7 @@ const Home = () => {
             height={40}
             radius="sm"
             visible={isListLoading}
-            width={'auto'}
+            width="auto"
             style={{ flexGrow: '0.25' }}
           >
             <TextInput
@@ -107,7 +108,7 @@ const Home = () => {
             height={40}
             radius="sm"
             visible={isListLoading}
-            width={'auto'}
+            width="auto"
             style={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
           >
             <Select
@@ -122,7 +123,7 @@ const Home = () => {
         </Group>
         {isListLoading && (
           <>
-            {[1, 2, 3].map(item => (
+            {[1, 2, 3].map((item) => (
               <Skeleton
                 key={`sklton-${String(item)}`}
                 height={50}
@@ -157,10 +158,22 @@ const Home = () => {
             </Table>
             <Group position="right">
               <Text size="sm" color="dimmed">
-                Showing <b>1</b> of <b>{PER_PAGE}</b> of <b>{data?.count}</b> results
+                Showing
+                {' '}
+                <b>1</b>
+                {' '}
+                of
+                {' '}
+                <b>{PER_PAGE}</b>
+                {' '}
+                of
+                {' '}
+                <b>{data?.count}</b>
+                {' '}
+                results
               </Text>
               <Pagination
-                total={Math.ceil(data?.count / PER_PAGE)}
+                total={totalPages}
                 page={page}
                 onChange={onPageChange}
                 color="dark"

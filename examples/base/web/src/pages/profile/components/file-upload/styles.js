@@ -1,4 +1,4 @@
-import { createStyles } from "@mantine/core";
+import { createStyles } from '@mantine/core';
 
 const BROWSE_BTN_SIZE = '88px';
 
@@ -24,8 +24,8 @@ export const useStyles = createStyles(({
     '&:hover': {
       [`& .${getRef('addIcon')}`]: {
         color: colors.brand[5],
-      }
-    }
+      },
+    },
   },
   error: {
     border: `1px dashed ${colors.red[5]}`,
@@ -81,5 +81,5 @@ export const useStyles = createStyles(({
     [`&:hover .${getRef('innerAvatar')}`]: {
       opacity: 1,
     },
-  }
+  },
 }));
