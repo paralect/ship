@@ -1,4 +1,4 @@
-import { Footer as LayoutFooter } from '@mantine/core'
+import { Footer as LayoutFooter } from '@mantine/core';
 
 const Footer = () => {
   const year = new Date().getFullYear();

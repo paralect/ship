@@ -63,7 +63,7 @@ const SignUp = () => {
         </Head>
         <Stack style={{ width: '450px' }}>
           <Title order={2}>Thanks!</Title>
-          <Text size="md" sx={({ colors }) => ({ color: colors.brand[5]})}>
+          <Text size="md" sx={({ colors }) => ({ color: colors.brand[5] })}>
             Please follow the instructions from the email to complete a sign up process.
             We sent an email with a confirmation link to
             {' '}
