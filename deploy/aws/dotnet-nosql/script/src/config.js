@@ -48,7 +48,7 @@ const deployConfig =  {
     folder: 'scheduler',
   },
   migrator: {
-    dockerRepo: `${config.dockerRegistry.name}-migrator`,
+    dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/migrator`,
     dir: `${rootDir}/api/src`,
     dockerFilePath: `${rootDir}/api/src/app/Migrator.NoSql/Dockerfile`,
   },

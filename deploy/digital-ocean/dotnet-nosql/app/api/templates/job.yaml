@@ -15,6 +15,9 @@ spec:
         - name: migrator
           image: {{ .Values.containerRegistry }}-migrator:{{ .Values.imagesVersion }}
           imagePullPolicy: Always
+          env:
+          - name: DOTNET_ENVIRONMENT
+            value: {{ .Values.environment }}
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   backoffLimit: 0
