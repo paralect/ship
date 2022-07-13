@@ -9,14 +9,15 @@ spec:
   template:
     spec:
       restartPolicy: Never
-      imagePullSecrets:
-        - name: regcred
       containers:
         - name: migrator
-          image: {{ .Values.containerRegistry }}-migrator:{{ .Values.imagesVersion }}
+          image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/migrator:{{ $.Values.imagesVersion }}
           imagePullPolicy: Always
+          env:
+          - name: DOTNET_ENVIRONMENT
+            value: {{ .Values.environment }}
       nodeSelector:
-        doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
+        eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   backoffLimit: 0
   activeDeadlineSeconds: 1800 # 30 minutes max time for migrator to complete the job
   ttlSecondsAfterFinished: 3600 # 1h to check pod logs after migrations finished
