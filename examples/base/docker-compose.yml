@@ -8,7 +8,6 @@ services:
       - -c
       - |
         chmod 400 /config/mongo-keyfile
-        chown 999:999 /config/mongo-keyfile
         exec docker-entrypoint.sh $$@
     command: mongod --replSet rs --bind_ip_all --keyFile config/mongo-keyfile --quiet --logpath /dev/null
     environment:
