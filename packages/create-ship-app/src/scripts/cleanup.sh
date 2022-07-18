@@ -6,9 +6,9 @@ api_dir="$1"
 api_type="$2"
 db_type="$3"
 
-rm $api_dir/src/ApiStarter.sln
-
 if [ "$api_type" == ".NET" ]; then
+  rm $api_dir/src/ApiStarter.sln
+
   if [ "$db_type" == "MongoDB" ]; then
     rm -rf $api_dir/src/app/Api.Sql
     rm -rf $api_dir/src/app/Tests.Sql
