@@ -102,14 +102,21 @@ const deploy = async () => {
   }
   
   if (deployConfig.name === 'api') {
+    // push migrator image to registry
+    await buildAndPushImage({
+      ...config.deploy.migrator,
+      imageTag: `${config.deploy.migrator.dockerRepo}:${imageTag}`,
+      environment: config.environment
+    });
+
     // push api image to registry
     await buildAndPushImage({
       ...deployConfig,
       imageTag: `${deployConfig.dockerRepo}:${imageTag}`,
       environment: config.environment
     });
-  
-    // deploy api to kubernetes
+
+    // deploy api to kubernetes and deploy migrator through helm hooks
     await pushToKubernetes({
       imageTag,
       appName: 'api',

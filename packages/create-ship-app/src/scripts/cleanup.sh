@@ -31,6 +31,7 @@ if [ "$api_type" == ".NET" ]; then
     rm -rf $api_dir/src/app/Api.NoSql
     rm -rf $api_dir/src/app/SignalR
     rm -rf $api_dir/src/app/Tests.NoSql
+    rm -rf $api_dir/src/app/Migrator.NoSql
     rm -rf $api_dir/src/app/Common/Dal
     rm -rf $api_dir/src/app/Common/Mappings
     rm -rf $api_dir/src/app/Common/Services/NoSql
