@@ -46,7 +46,12 @@ const deployConfig =  {
     dir: `${rootDir}/api/src`,
     dockerFilePath: `${rootDir}/api/src/app/Scheduler/Dockerfile`,
     folder: 'scheduler',
-  }
+  },
+  migrator: {
+    dockerRepo: `${config.AWS.accountId}.dkr.ecr.${config.AWS.region}.amazonaws.com/migrator`,
+    dir: `${rootDir}/api/src`,
+    dockerFilePath: `${rootDir}/api/src/app/Migrator.Sql/Dockerfile`,
+  },
 };
 
 Object.keys(deployConfig).forEach(serviceName => {

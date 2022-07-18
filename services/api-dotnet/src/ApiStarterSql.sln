@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler", "app\Scheduler\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "docker-compose.sql", "docker-compose.sql.dcproj", "{DEC14DE9-C47B-45EC-AAF7-5FC2BC287A6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrator.Sql", "app\Migrator.Sql\Migrator.Sql.csproj", "{52E87F4C-A305-46AE-9B8E-8198479CC753}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{DEC14DE9-C47B-45EC-AAF7-5FC2BC287A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC14DE9-C47B-45EC-AAF7-5FC2BC287A6B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{DEC14DE9-C47B-45EC-AAF7-5FC2BC287A6B}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{52E87F4C-A305-46AE-9B8E-8198479CC753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52E87F4C-A305-46AE-9B8E-8198479CC753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52E87F4C-A305-46AE-9B8E-8198479CC753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52E87F4C-A305-46AE-9B8E-8198479CC753}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
