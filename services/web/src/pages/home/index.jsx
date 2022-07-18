@@ -12,9 +12,10 @@ import {
   Container,
   Pagination,
   Paper,
+  UnstyledButton,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
-import { IconChevronDown, IconSearch } from '@tabler/icons';
+import { IconChevronDown, IconSearch, IconX } from '@tabler/icons';
 import { userApi } from 'resources/user';
 
 const selectOptions = [
@@ -81,7 +82,7 @@ const Home = () => {
 
   const { data, isLoading: isListLoading } = userApi.useList(params);
 
-  const totalPages = Math.ceil(data?.count || 0 / PER_PAGE);
+  const totalPages = data?.count ? Math.ceil(data.count / PER_PAGE) : 1;
 
   return (
     <>
@@ -103,6 +104,14 @@ const Home = () => {
               onChange={handleSearch}
               placeholder="Search by name or email"
               icon={<IconSearch size={16} />}
+              rightSection={search ? (
+                <UnstyledButton
+                  onClick={() => setSearch('')}
+                  style={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <IconX color="gray" />
+                </UnstyledButton>
+              ) : null}
             />
           </Skeleton>
           <Skeleton
@@ -161,29 +170,27 @@ const Home = () => {
                 </tbody>
               </Table>
             </Paper>
-            <Group position="right">
-              <Text size="sm" color="dimmed">
-                Showing
-                {' '}
-                <b>1</b>
-                {' '}
-                of
-                {' '}
-                <b>{PER_PAGE}</b>
-                {' '}
-                of
-                {' '}
-                <b>{data?.count}</b>
-                {' '}
-                results
-              </Text>
-              <Pagination
-                total={totalPages}
-                page={page}
-                onChange={onPageChange}
-                color="black"
-              />
-            </Group>
+            {data?.count > PER_PAGE && (
+              <Group position="right">
+                <Text size="sm" color="dimmed">
+                  Showing
+                  {' '}
+                  <b>{PER_PAGE}</b>
+                  {' '}
+                  of
+                  {' '}
+                  <b>{data?.count}</b>
+                  {' '}
+                  results
+                </Text>
+                <Pagination
+                  total={totalPages}
+                  page={page}
+                  onChange={onPageChange}
+                  color="black"
+                />
+              </Group>
+            )}
           </>
         ) : (
           <Container p={75}>
