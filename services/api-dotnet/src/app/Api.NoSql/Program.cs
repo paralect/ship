@@ -66,18 +66,19 @@ if (environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 app.UseRouting();
 app.UseCors(Constants.CorsPolicy.AllowSpecificOrigin);
+
+app.UseHangfireDashboard(appSettings);
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapHealthChecks(Constants.HealthcheckPath, new HealthCheckOptions
-    {
-        AllowCachingResponses = false
-    });
+    endpoints
+        .MapHealthChecks(Constants.HealthcheckPath, new HealthCheckOptions { AllowCachingResponses = false })
+        .AllowAnonymous();
 });
-app.UseHangfireDashboard(appSettings);
 
 try
 {
