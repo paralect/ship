@@ -44,7 +44,7 @@ const ForgotPassword = () => {
         <Head>
           <title>Forgot password</title>
         </Head>
-        <Stack style={{ width: '328px' }}>
+        <Stack sx={{ width: '328px' }}>
           <Title order={2}>Reset link has been sent</Title>
           <Text component="p">
             A link to reset your password has just been sent to
@@ -66,8 +66,8 @@ const ForgotPassword = () => {
       <Head>
         <title>Forgot password</title>
       </Head>
-      <Stack style={{ width: '328px' }}>
-        <Title order={2} style={{ marginBottom: 0 }}>Forgot Password</Title>
+      <Stack sx={{ width: '328px' }}>
+        <Title order={2} sx={{ marginBottom: 0 }}>Forgot Password</Title>
         <Text component="p">
           Please enter your email and we&apos;ll send
           a link to reset your password.
@@ -92,7 +92,7 @@ const ForgotPassword = () => {
             </Button>
           </Stack>
         </form>
-        <Group style={{ fontSize: '14px' }}>
+        <Group sx={{ fontSize: '14px' }}>
           Have an account?
           <Link
             type="router"

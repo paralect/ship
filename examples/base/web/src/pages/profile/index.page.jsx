@@ -55,7 +55,7 @@ const Profile = () => {
         <title>Profile</title>
       </Head>
       <Stack
-        style={{ width: '328px', margin: 'auto', paddingTop: '48px' }}
+        sx={{ width: '328px', margin: 'auto', paddingTop: '48px' }}
         spacing="xl"
       >
         <Title order={1}>Profile</Title>

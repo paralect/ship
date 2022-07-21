@@ -30,7 +30,7 @@ const SignIn = () => {
       <Head>
         <title>Sign in</title>
       </Head>
-      <Stack style={{ width: '328px' }}>
+      <Stack sx={{ width: '328px' }}>
         <Title order={2}>Sign In</Title>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack>
@@ -62,7 +62,7 @@ const SignIn = () => {
             >
               Sign in
             </Button>
-            <Group style={{ fontSize: '14px' }}>
+            <Group sx={{ fontSize: '14px' }}>
               Don’t have an account?
               <Link
                 type="router"

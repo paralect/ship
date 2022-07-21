@@ -95,7 +95,7 @@ const Home = () => {
             radius="sm"
             visible={isListLoading}
             width="auto"
-            style={{ flexGrow: '0.25' }}
+            sx={{ flexGrow: '0.25' }}
           >
             <TextInput
               value={search}
@@ -109,7 +109,7 @@ const Home = () => {
             radius="sm"
             visible={isListLoading}
             width="auto"
-            style={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
+            sx={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
           >
             <Select
               size="sm"

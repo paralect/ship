@@ -97,7 +97,7 @@ const Home = () => {
             radius="sm"
             visible={isListLoading}
             width="auto"
-            style={{ flexGrow: '0.25' }}
+            sx={{ flexGrow: '0.25' }}
           >
             <TextInput
               value={search}
@@ -107,7 +107,7 @@ const Home = () => {
               rightSection={search ? (
                 <UnstyledButton
                   onClick={() => setSearch('')}
-                  style={{ display: 'flex', alignItems: 'center' }}
+                  sx={{ display: 'flex', alignItems: 'center' }}
                 >
                   <IconX color="gray" />
                 </UnstyledButton>
@@ -119,7 +119,7 @@ const Home = () => {
             radius="sm"
             visible={isListLoading}
             width="auto"
-            style={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
+            sx={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
           >
             <Select
               data={selectOptions}

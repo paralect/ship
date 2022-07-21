@@ -61,7 +61,7 @@ const SignUp = () => {
         <Head>
           <title>Sign up</title>
         </Head>
-        <Stack style={{ width: '450px' }}>
+        <Stack sx={{ width: '450px' }}>
           <Title order={2}>Thanks!</Title>
           <Text size="md" sx={({ colors }) => ({ color: colors.gray[5] })}>
             Please follow the instructions from the email to complete a sign up process.
@@ -88,7 +88,7 @@ const SignUp = () => {
       <Head>
         <title>Sign up</title>
       </Head>
-      <Stack style={{ width: '328px' }}>
+      <Stack sx={{ width: '328px' }}>
         <Title order={2}>Sign Up</Title>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack>
@@ -127,7 +127,7 @@ const SignUp = () => {
             </Button>
           </Stack>
         </form>
-        <Group style={{ fontSize: '14px' }}>
+        <Group sx={{ fontSize: '14px' }}>
           Have an account?
           <Link
             type="router"
