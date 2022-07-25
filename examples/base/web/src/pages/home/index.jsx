@@ -11,9 +11,11 @@ import {
   Text,
   Container,
   Pagination,
+  Paper,
+  UnstyledButton,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
-import { IconChevronDown, IconSearch } from '@tabler/icons';
+import { IconChevronDown, IconSearch, IconX } from '@tabler/icons';
 import { userApi } from 'resources/user';
 
 const selectOptions = [
@@ -80,7 +82,7 @@ const Home = () => {
 
   const { data, isLoading: isListLoading } = userApi.useList(params);
 
-  const totalPages = Math.ceil(data?.count || 0 / PER_PAGE);
+  const totalPages = data?.count ? Math.ceil(data.count / PER_PAGE) : 1;
 
   return (
     <>
@@ -91,7 +93,7 @@ const Home = () => {
         <Title order={2}>Users</Title>
         <Group position="apart">
           <Skeleton
-            height={40}
+            height={42}
             radius="sm"
             visible={isListLoading}
             width="auto"
@@ -102,22 +104,32 @@ const Home = () => {
               onChange={handleSearch}
               placeholder="Search by name or email"
               icon={<IconSearch size={16} />}
+              rightSection={search ? (
+                <UnstyledButton
+                  onClick={() => setSearch('')}
+                  sx={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <IconX color="gray" />
+                </UnstyledButton>
+              ) : null}
             />
           </Skeleton>
           <Skeleton
-            height={40}
+            height={42}
             radius="sm"
             visible={isListLoading}
             width="auto"
             sx={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
           >
             <Select
-              size="sm"
               data={selectOptions}
               value={sort}
               onChange={handleSort}
               rightSection={<IconChevronDown size={16} />}
               withinPortal={false}
+              transition="pop-bottom-right"
+              transitionDuration={210}
+              transitionTimingFunction="ease-out"
             />
           </Skeleton>
         </Group>
@@ -135,50 +147,50 @@ const Home = () => {
         )}
         {data?.items.length ? (
           <>
-            <Table
-              horizontalSpacing="lg"
-              verticalSpacing="md"
-            >
-              <thead>
-                <tr>
-                  {columns.map(({ title }, index) => (
-                    <th key={`${title}-${String(index)}`}>{title}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {data.items.map(({ firstName, lastName, email, _id }) => (
-                  <tr key={_id}>
-                    <td>{firstName}</td>
-                    <td>{lastName}</td>
-                    <td>{email}</td>
+            <Paper radius="sm" withBorder>
+              <Table
+                horizontalSpacing="xl"
+                verticalSpacing="lg"
+              >
+                <thead>
+                  <tr>
+                    {columns.map(({ title }, index) => (
+                      <th key={`${title}-${String(index)}`}>{title}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </Table>
-            <Group position="right">
-              <Text size="sm" color="dimmed">
-                Showing
-                {' '}
-                <b>1</b>
-                {' '}
-                of
-                {' '}
-                <b>{PER_PAGE}</b>
-                {' '}
-                of
-                {' '}
-                <b>{data?.count}</b>
-                {' '}
-                results
-              </Text>
-              <Pagination
-                total={totalPages}
-                page={page}
-                onChange={onPageChange}
-                color="dark"
-              />
-            </Group>
+                </thead>
+                <tbody>
+                  {data.items.map(({ firstName, lastName, email, _id }) => (
+                    <tr key={_id}>
+                      <td>{firstName}</td>
+                      <td>{lastName}</td>
+                      <td>{email}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Paper>
+            {data?.count > PER_PAGE && (
+              <Group position="right">
+                <Text size="sm" color="dimmed">
+                  Showing
+                  {' '}
+                  <b>{PER_PAGE}</b>
+                  {' '}
+                  of
+                  {' '}
+                  <b>{data?.count}</b>
+                  {' '}
+                  results
+                </Text>
+                <Pagination
+                  total={totalPages}
+                  page={page}
+                  onChange={onPageChange}
+                  color="black"
+                />
+              </Group>
+            )}
           </>
         ) : (
           <Container p={75}>

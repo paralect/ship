@@ -1,4 +1,3 @@
-import { colors } from './colors';
 const shipTheme = {
   fontFamily: 'Inter, sans-serif',
   fontFamilyMonospace: 'monospace',
@@ -6,19 +5,8 @@ const shipTheme = {
     fontFamily: 'Inter, sans-serif',
     fontWeight: 600,
   },
-  colors,
-  primaryColor: 'brand',
-  primaryShade: {
-    light: 5,
-    dark: 0,
-  },
-  radius: {
-    xs: 4,
-    sm: 6,
-    md: 8,
-    lg: 16,
-    xl: 32,
-  },
+  primaryColor: 'dark',
+  primaryShade: 9,
   other: {
     transition: {
       speed: {

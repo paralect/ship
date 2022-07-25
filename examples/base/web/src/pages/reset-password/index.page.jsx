@@ -90,7 +90,7 @@ const ResetPassword = () => {
           <Button
             type="submit"
             loading={isResetPasswordLoading}
-            loaderProps={{ size: 'sm' }}
+            loaderProps={{ size: 'xs' }}
             fullWidth
           >
             Save New Password

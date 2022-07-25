@@ -5,6 +5,7 @@ const BROWSE_BTN_SIZE = '88px';
 export const useStyles = createStyles(({
   colors,
   white,
+  black,
   other: {
     transition: { speed, easing },
   },
@@ -14,25 +15,25 @@ export const useStyles = createStyles(({
     height: BROWSE_BTN_SIZE,
     borderRadius: '50%',
     backgroundColor: white,
-    border: `1px dashed ${colors.brand[5]}`,
+    border: `1px dashed ${black}`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    transition: `all ${speed.smooth} ${easing.easeInOut}`,
+    transition: `all ${speed.fast} ${easing.easeInOut}`,
     cursor: 'pointer',
 
     '&:hover': {
       [`& .${getRef('addIcon')}`]: {
-        color: colors.brand[5],
-      },
-    },
+        color: colors.gray[5],
+      }
+    }
   },
   error: {
     border: `1px dashed ${colors.red[5]}`,
   },
   addIcon: {
     ref: getRef('addIcon'),
-    color: colors.brand[2],
+    color: colors.gray[2],
     transition: `all ${speed.fast} ${easing.easeInOut}`,
   },
   innerAvatar: {
@@ -44,7 +45,7 @@ export const useStyles = createStyles(({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: colors.brand[2],
+    color: colors.gray[2],
     opacity: 0,
     transition: `all ${speed.smooth} ${easing.easeInOut}`,
   },
@@ -52,7 +53,7 @@ export const useStyles = createStyles(({
     width: '144px',
     marginLeft: '24px',
     lineHeight: '24px',
-    color: colors.brand[5],
+    color: colors.gray[5],
     wordWrap: 'break-word',
   },
   buttonContainer: {

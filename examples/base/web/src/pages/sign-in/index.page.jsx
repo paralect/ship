@@ -37,26 +37,17 @@ const SignIn = () => {
             <TextInput
               {...register('email')}
               label="Email Address"
-              labelProps={{
-                'data-invalid': !!errors.email,
-              }}
               placeholder="Email"
               error={errors?.email?.message}
             />
             <PasswordInput
               {...register('password')}
               label="Password"
-              labelProps={{
-                'data-invalid': !!errors.password,
-              }}
               placeholder="Password"
               error={errors?.password?.message}
             />
             <Button
               loading={isSignInLoading}
-              loaderProps={{
-                size: 'sm',
-              }}
               type="submit"
               fullWidth
             >
