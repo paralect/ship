@@ -11,7 +11,7 @@ redisClient.on('error', err => {
   throw err;
 });
 
-const publish = (roomId: string | string[], eventName: string, ...data: unknown[]) => {
+const publish = (roomId: string | string[], eventName: string, data: unknown) => {
   if (emitter === null) {
     throw new Error('ioEmitter is not initialized.');
   }
@@ -30,7 +30,7 @@ const getUserRoomId = (userId: string) => `user-${userId}`;
 
 export default {
   initClient,
-  publishToUser: (userId: string, eventName: string, ...data: unknown[]): void => {
+  publishToUser: (userId: string, eventName: string, data: unknown): void => {
     const roomId = getUserRoomId(userId);
     publish(roomId, eventName, data);
   },
