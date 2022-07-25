@@ -2,10 +2,10 @@ import http from 'http';
 import { Server } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 
-import config from 'config';
 import logger from 'logger';
 import pubClient from 'redis-client';
 import { tokenService } from 'resources/token';
+import { COOKIES } from 'app.constants';
 
 import socketHelper from './socket.helper';
 
@@ -22,7 +22,7 @@ export default async (server: http.Server) => {
   io.use(async (socket, next) => {
     if (!socket.handshake.headers.cookie) return next(new Error('Cookie not found'));
 
-    const accessToken = socketHelper.getCookie(socket.handshake.headers.cookie, config.accessTokenName);
+    const accessToken = socketHelper.getCookie(socket.handshake.headers.cookie, COOKIES.ACCESS_TOKEN);
     const tokenData = await tokenService.findTokenByValue(accessToken || '');
     if (tokenData) {
       socket.data = {
