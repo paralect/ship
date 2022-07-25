@@ -3,6 +3,7 @@ import { Group, Text, Button } from '@mantine/core';
 import { handleError } from 'helpers';
 import { userApi } from 'resources/user';
 import { AddIcon, PenIcon } from 'public/icons';
+import { Dropzone } from '@mantine/dropzone';
 
 import { useStyles } from './styles';
 
@@ -34,9 +35,7 @@ const PhotoUpload = () => {
     return false;
   };
 
-  const handlePhotoUpload = async (e) => {
-    const imageFile = e.target.files[0];
-
+  const handlePhotoUpload = async ([imageFile]) => {
     setErrorMessage(null);
 
     if (isFileFormatCorrect(imageFile) && isFileSizeCorrect(imageFile) && imageFile) {
@@ -58,31 +57,33 @@ const PhotoUpload = () => {
     <>
       <Text weight={500}>Profile picture</Text>
       <Group align="center">
-        <label
-          className={cx(classes.browseButton, {
-            [classes.error]: errorMessage,
-          })}
+        <Dropzone
+          name="avatarUrl"
+          accept={['image/png', 'image/jpg', 'image/jpeg']}
+          onDrop={handlePhotoUpload}
         >
-          {currentUser.avatarUrl ? (
-            <div
-              className={classes.avatar}
-              style={{
-                backgroundImage: `url(${currentUser.avatarUrl}`,
-              }}
-            >
-              <div className={classes.innerAvatar}>
-                <PenIcon />
+          {() => (
+            <label
+            className={cx(classes.browseButton, {
+              [classes.error]: errorMessage,
+            })}
+          >
+            {currentUser.avatarUrl ? (
+              <div
+                className={classes.avatar}
+                style={{
+                  backgroundImage: `url(${currentUser.avatarUrl}`,
+                }}
+              >
+                <div className={classes.innerAvatar}>
+                  <PenIcon />
+                </div>
               </div>
-            </div>
-          )
-            : <AddIcon className={classes.addIcon} />}
-          <input
-            name="avatarUrl"
-            style={{ display: 'none' }}
-            type="file"
-            onChange={handlePhotoUpload}
-          />
-        </label>
+            )
+              : <AddIcon className={classes.addIcon} />}
+          </label>
+          )}
+        </Dropzone>
         <span className={classes.buttonContainer}>
           <p className={classes.text}>
             JPG, JPEG or PNG
