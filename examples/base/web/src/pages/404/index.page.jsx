@@ -20,7 +20,7 @@ const NotFound = () => {
       <Head>
         <title>Page not found</title>
       </Head>
-      <Stack style={{ width: '328px' }}>
+      <Stack sx={{ width: '328px' }}>
         <Title order={2}>Oops! The page is not found.</Title>
         <Text
           component="p"

@@ -32,9 +32,9 @@ const ForgotPassword = () => {
         <Head>
           <title>Password reset link expired</title>
         </Head>
-        <Stack style={{ width: '328px' }}>
+        <Stack sx={{ width: '328px' }}>
           <Title order={2}>Reset link has been sent</Title>
-          <Text component="p" style={{ fontSize: '14px' }}>
+          <Text component="p" sx={{ fontSize: '14px' }}>
             Reset link sent successfully
           </Text>
           <Button onClick={() => router.push(routes.path.signIn)}>
@@ -50,7 +50,7 @@ const ForgotPassword = () => {
       <Head>
         <title>Password reset link expired</title>
       </Head>
-      <Stack style={{ width: '328px' }}>
+      <Stack sx={{ width: '328px' }}>
         <Title order={2}>Password reset link expired</Title>
         <Text component="p" mt={0}>
           Sorry, your password reset link has expired. Click the button below to get a new one.

@@ -44,7 +44,7 @@ const ResetPassword = () => {
 
   if (!token) {
     return (
-      <Stack style={{ width: '328px' }} spacing="xs">
+      <Stack sx={{ width: '328px' }} spacing="xs">
         <Title order={2} mb={0}>Invalid token</Title>
         <Text component="p" m={0}>Sorry, your token is invalid.</Text>
       </Stack>
@@ -57,7 +57,7 @@ const ResetPassword = () => {
         <Head>
           <title>Reset Password</title>
         </Head>
-        <Stack style={{ width: '328px' }}>
+        <Stack sx={{ width: '328px' }}>
           <Title order={2}>Password has been updated</Title>
           <Text component="p" mt={0}>
             Your password has been updated successfully.
@@ -76,7 +76,7 @@ const ResetPassword = () => {
       <Head>
         <title>Reset Password</title>
       </Head>
-      <Stack style={{ width: '328px' }}>
+      <Stack sx={{ width: '328px' }}>
         <Title order={2}>Reset Password</Title>
         <Text component="p" mt={0}>Please choose your new password</Text>
         <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -90,7 +90,7 @@ const ResetPassword = () => {
           <Button
             type="submit"
             loading={isResetPasswordLoading}
-            loaderProps={{ size: 'sm' }}
+            loaderProps={{ size: 'xs' }}
             fullWidth
           >
             Save New Password

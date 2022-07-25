@@ -10,7 +10,7 @@ const UserMenu = () => {
 
   return (
     <Menu
-      style={{ marginLeft: 'auto' }}
+      sx={{ marginLeft: 'auto' }}
       control={<MenuToggle />}
     >
       <Menu.Item

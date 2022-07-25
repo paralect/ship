@@ -30,39 +30,30 @@ const SignIn = () => {
       <Head>
         <title>Sign in</title>
       </Head>
-      <Stack style={{ width: '328px' }}>
+      <Stack sx={{ width: '328px' }}>
         <Title order={2}>Sign In</Title>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack>
             <TextInput
               {...register('email')}
               label="Email Address"
-              labelProps={{
-                'data-invalid': !!errors.email,
-              }}
               placeholder="Email"
               error={errors?.email?.message}
             />
             <PasswordInput
               {...register('password')}
               label="Password"
-              labelProps={{
-                'data-invalid': !!errors.password,
-              }}
               placeholder="Password"
               error={errors?.password?.message}
             />
             <Button
               loading={isSignInLoading}
-              loaderProps={{
-                size: 'sm',
-              }}
               type="submit"
               fullWidth
             >
               Sign in
             </Button>
-            <Group style={{ fontSize: '14px' }}>
+            <Group sx={{ fontSize: '14px' }}>
               Don’t have an account?
               <Link
                 type="router"
