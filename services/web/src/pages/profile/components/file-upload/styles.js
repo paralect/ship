@@ -6,6 +6,9 @@ export const useStyles = createStyles(({
   colors,
   white,
   black,
+  other: {
+    transition: { speed, easing },
+  },
 }, _params, getRef) => ({
   browseButton: {
     width: BROWSE_BTN_SIZE,
@@ -16,7 +19,7 @@ export const useStyles = createStyles(({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    transition: 'all 200ms ease-in-out',
+    transition: `all ${speed.fast} ${easing.easeInOut}`,
     cursor: 'pointer',
 
     '&:hover': {
@@ -31,7 +34,7 @@ export const useStyles = createStyles(({
   addIcon: {
     ref: getRef('addIcon'),
     color: colors.gray[2],
-    transition: 'all 200ms ease-in-out',
+    transition: `all ${speed.fast} ${easing.easeInOut}`,
   },
   innerAvatar: {
     ref: getRef('innerAvatar'),
@@ -44,7 +47,7 @@ export const useStyles = createStyles(({
     alignItems: 'center',
     color: colors.gray[2],
     opacity: 0,
-    transition: 'all 300ms ease-in-out',
+    transition: `all ${speed.smooth} ${easing.easeInOut}`,
   },
   text: {
     width: '144px',

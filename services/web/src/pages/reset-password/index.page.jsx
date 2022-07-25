@@ -63,7 +63,7 @@ const ResetPassword = () => {
             Your password has been updated successfully.
             You can now use your new password to sign in.
           </Text>
-          <Button onClick={() => router.push(routes.path.signIn)} size="md">
+          <Button onClick={() => router.push(routes.path.signIn)}>
             Back to Sign In
           </Button>
         </Stack>

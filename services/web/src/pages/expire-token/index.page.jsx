@@ -37,7 +37,7 @@ const ForgotPassword = () => {
           <Text component="p" sx={{ fontSize: '14px' }}>
             Reset link sent successfully
           </Text>
-          <Button onClick={() => router.push(routes.path.signIn)} size="md">
+          <Button onClick={() => router.push(routes.path.signIn)}>
             Back to Sign In
           </Button>
         </Stack>
