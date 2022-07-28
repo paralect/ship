@@ -1,8 +1,6 @@
 using Api.NoSql.Controllers;
 using Api.NoSql.Services.Interfaces;
 using AutoMapper;
-using Common;
-using Common.Dal.Documents.Token;
 using Common.Dal.Documents.User;
 using Common.Dal.Repositories;
 using Common.Enums;
@@ -25,7 +23,6 @@ namespace Tests.NoSql
     {
         private readonly Mock<IEmailService> _emailService;
         private readonly Mock<IUserService> _userService;
-        private readonly Mock<ITokenService> _tokenService;
         private readonly Mock<IAuthService> _authService;
         private readonly Mock<IWebHostEnvironment> _environment;
         private readonly Mock<IOptions<AppSettings>> _appSettingsOptions;
@@ -36,7 +33,6 @@ namespace Tests.NoSql
         {
             _emailService = new Mock<IEmailService>();
             _userService = new Mock<IUserService>();
-            _tokenService = new Mock<ITokenService>();
             _authService = new Mock<IAuthService>();
             _environment = new Mock<IWebHostEnvironment>();
             _appSettingsOptions = new Mock<IOptions<AppSettings>>();
@@ -393,62 +389,6 @@ namespace Tests.NoSql
         }
 
         [Fact]
-        public async Task RefreshTokenShouldReturnUnauthorizedWhenTokenIsNotFound()
-        {
-            // Arrange
-            var refreshToken = "refresh token";
-            var contextMock = new Mock<HttpContext>();
-            contextMock.Setup(context => context.Request.Cookies[Constants.CookieNames.RefreshToken])
-                .Returns(refreshToken);
-
-            var controllerContext = new ControllerContext { HttpContext = contextMock.Object };
-
-            _tokenService.Setup(service => service.FindByValueAsync(refreshToken))
-                .ReturnsAsync((Token)null);
-
-            var controller = CreateInstance();
-            controller.ControllerContext = controllerContext;
-
-            // Act
-            var result = await controller.RefreshTokenAsync();
-
-            // Assert
-            Assert.IsType<UnauthorizedResult>(result);
-        }
-
-        [Fact]
-        public async Task RefreshTokenShouldSetToken()
-        {
-            // Arrange
-            var userId = "user id";
-            var userRole = UserRole.User;
-            var refreshToken = "refresh token";
-            var contextMock = new Mock<HttpContext>();
-            contextMock.Setup(context => context.Request.Cookies[Constants.CookieNames.RefreshToken])
-                .Returns(refreshToken);
-
-            var controllerContext = new ControllerContext { HttpContext = contextMock.Object };
-
-            _tokenService.Setup(service => service.FindByValueAsync(refreshToken))
-                .ReturnsAsync(new Token
-                {
-                    UserId = userId,
-                    UserRole = userRole,
-                    ExpireAt = DateTime.UtcNow.AddYears(1)
-                });
-
-            var controller = CreateInstance();
-            controller.ControllerContext = controllerContext;
-
-            // Act
-            var result = await controller.RefreshTokenAsync();
-
-            // Assert
-            _authService.Verify(service => service.SetTokensAsync(userId, userRole), Times.Once);
-            Assert.IsType<OkResult>(result);
-        }
-
-        [Fact]
         public async Task LogoutShouldUnsetTokenAndReturnOk()
         {
             // Arrange
@@ -477,7 +417,6 @@ namespace Tests.NoSql
             return new AccountController(
                 _emailService.Object,
                 _userService.Object,
-                _tokenService.Object,
                 _authService.Object,
                 _environment.Object,
                 _appSettingsOptions.Object,

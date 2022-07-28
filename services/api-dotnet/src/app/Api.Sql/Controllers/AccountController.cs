@@ -1,7 +1,5 @@
-﻿using Api.Sql.Security;
-using Api.Sql.Services.Interfaces;
+﻿using Api.Sql.Services.Interfaces;
 using AutoMapper;
-using Common;
 using Common.DalSql.Entities;
 using Common.DalSql.Filters;
 using Common.Models.Infrastructure.Email;
@@ -11,6 +9,7 @@ using Common.Services.Infrastructure.Interfaces;
 using Common.Services.Sql.Domain.Interfaces;
 using Common.Settings;
 using Common.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -21,7 +20,6 @@ namespace Api.Sql.Controllers
         private readonly IAuthService _authService;
         private readonly IEmailService _emailService;
         private readonly IUserService _userService;
-        private readonly ITokenService _tokenService;
         private readonly IWebHostEnvironment _environment;
         private readonly AppSettings _appSettings;
         private readonly IMapper _mapper;
@@ -30,7 +28,6 @@ namespace Api.Sql.Controllers
             IAuthService authService,
             IEmailService emailService,
             IUserService userService,
-            ITokenService tokenService,
             IWebHostEnvironment environment,
             IOptions<AppSettings> appSettings,
             IMapper mapper)
@@ -38,13 +35,13 @@ namespace Api.Sql.Controllers
             _authService = authService;
             _emailService = emailService;
             _userService = userService;
-            _tokenService = tokenService;
 
             _environment = environment;
             _appSettings = appSettings.Value;
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpPost("sign-in")]
         public async Task<IActionResult> SignInAsync([FromBody] SignInModel model)
         {
@@ -74,11 +71,12 @@ namespace Api.Sql.Controllers
             }
 
             await _userService.SignInAsync(user.Id);
-            await _authService.SetTokensAsync(user.Id);
+            await _authService.SetTokenAsync(user.Id);
 
             return Ok(_mapper.Map<UserViewModel>(user));
         }
 
+        [AllowAnonymous]
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUpAsync([FromBody] SignUpModel model)
         {
@@ -101,6 +99,7 @@ namespace Api.Sql.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpGet("verify-email")]
         public async Task<IActionResult> VerifyEmailAsync([FromQuery] string token)
         {
@@ -125,11 +124,12 @@ namespace Api.Sql.Controllers
             }
 
             await _userService.VerifyEmailAsync(user.Id);
-            await _authService.SetTokensAsync(user.Id);
+            await _authService.SetTokenAsync(user.Id);
 
             return Redirect(_appSettings.WebUrl);
         }
 
+        [AllowAnonymous]
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPasswordAsync([FromBody] ForgotPasswordModel model)
         {
@@ -160,6 +160,7 @@ namespace Api.Sql.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPut("reset-password")]
         public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordModel model)
         {
@@ -183,6 +184,7 @@ namespace Api.Sql.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost("resend")]
         public async Task<IActionResult> ResendVerificationAsync([FromBody] ResendVerificationModel model)
         {
@@ -206,33 +208,6 @@ namespace Api.Sql.Controllers
                     SignUpToken = user.SignupToken
                 });
             }
-
-            return Ok();
-        }
-
-        [Authorize]
-        [HttpPost("refresh-token")]
-        public async Task<IActionResult> RefreshTokenAsync()
-        {
-            var tokenValue = Request.Cookies[Constants.CookieNames.RefreshToken];
-
-            var token = await _tokenService.FindOneAsync(new TokenFilter
-            {
-                Value = tokenValue,
-                AsNoTracking = true
-            },
-            x => new Token
-            {
-                UserId = x.UserId,
-                ExpireAt = x.ExpireAt
-            });
-
-            if (token == null || token.IsExpired())
-            {
-                return Unauthorized();
-            }
-
-            await _authService.SetTokensAsync(token.UserId);
 
             return Ok();
         }

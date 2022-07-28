@@ -27,7 +27,7 @@ public class TokenService : BaseEntityService<Token, TokenFilter>, ITokenService
     {
     }
 
-    public async Task<(Token accessToken, Token refreshToken)> CreateAuthTokens(long userId)
+    public async Task<Token> CreateAccessToken(long userId)
     {
         var accessToken = new Token
         {
@@ -37,20 +37,12 @@ public class TokenService : BaseEntityService<Token, TokenFilter>, ITokenService
             Value = SecurityUtils.GenerateSecureToken(Constants.TokenSecurityLength)
         };
 
-        var refreshToken = new Token
-        {
-            Type = TokenType.Refresh,
-            ExpireAt = DateTime.UtcNow + TimeSpan.FromHours(_tokenExpirationSettings.RefreshTokenExpiresInHours),
-            UserId = userId,
-            Value = SecurityUtils.GenerateSecureToken(Constants.TokenSecurityLength)
-        };
+        await _tokenRepository.InsertAsync(accessToken);
 
-        await _tokenRepository.InsertManyAsync(new List<Token> { accessToken, refreshToken });
-
-        return (accessToken, refreshToken);
+        return accessToken;
     }
 
-    public async Task DeleteAuthTokens(long userId)
+    public async Task DeleteAccessTokens(long userId)
     {
         await _tokenRepository.DeleteManyAsync(new TokenFilter
         {

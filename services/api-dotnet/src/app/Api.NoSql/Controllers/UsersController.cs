@@ -1,15 +1,14 @@
-﻿using Api.NoSql.Security;
-using AutoMapper;
+﻿using AutoMapper;
 using Common.Dal;
 using Common.Dal.Repositories;
 using Common.Models.View;
 using Common.Models.View.User;
 using Common.Services.NoSql.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.NoSql.Controllers
 {
-    [Authorize]
     public class UsersController : BaseController
     {
         private readonly IUserService _userService;
