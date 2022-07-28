@@ -36,7 +36,7 @@ services.AddSwagger();
 services.AddHttpContextAccessor();
 services
     .AddAuthentication(Constants.AuthenticationScheme)
-    .AddScheme<TokenAuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.AuthenticationScheme, _ => { });
+    .AddScheme<TokenAuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.AuthenticationScheme, null);
 services.AddAuthorization(options =>
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
