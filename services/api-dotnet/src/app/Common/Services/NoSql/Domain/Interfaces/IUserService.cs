@@ -14,5 +14,7 @@ public interface IUserService : IDocumentService<User, UserFilter>
     Task UpdateLastRequestAsync(string id);
     Task UpdateResetPasswordTokenAsync(string id, string token);
     Task UpdatePasswordAsync(string id, string newPassword);
+    Task UpdateAvatarAsync(string id, string fileName, Stream file);
+    Task RemoveAvatarAsync(string id);
     Task MarkEmailAsVerifiedAsync(string id);
 }

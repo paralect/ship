@@ -15,17 +15,27 @@ public class UserService : BaseDocumentService<User, UserFilter>, IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IEmailService _emailService;
+    private readonly ICloudStorageService _cloudStorageService;
 
-    public UserService(IUserRepository userRepository,
-        IEmailService emailService) : base(userRepository)
+    public UserService(
+        IUserRepository userRepository,
+        IEmailService emailService,
+        ICloudStorageService cloudStorageService)
+        : base(userRepository)
     {
         _userRepository = userRepository;
         _emailService = emailService;
+        _cloudStorageService = cloudStorageService;
     }
 
     public async Task<User> FindByEmailAsync(string email)
     {
         return await FindOneAsync(new UserFilter { Email = email });
+    }
+
+    public async Task RemoveAvatarAsync(string id)
+    {
+        await _userRepository.UpdateOneAsync(id, u => u.AvatarUrl, null);
     }
 
     public async Task MarkEmailAsVerifiedAsync(string id)
@@ -48,6 +58,16 @@ public class UserService : BaseDocumentService<User, UserFilter>, IUserService
         await _userRepository.UpdateOneAsync(id, Updater<User>
             .Set(u => u.PasswordHash, newPassword.GetHash())
             .Set(u => u.ResetPasswordToken, null));
+    }
+
+    public async Task UpdateAvatarAsync(string id, string fileName, Stream file)
+    {
+        var avatarUrl = await _cloudStorageService.UploadPublicAsync(
+            $"avatars/{id}-{DateTime.UtcNow:s}-{fileName}",
+            file
+        );
+
+        await _userRepository.UpdateOneAsync(id, u => u.AvatarUrl, avatarUrl);
     }
 
     public async Task<User> CreateUserAccountAsync(SignUpModel model)
