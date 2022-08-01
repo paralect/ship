@@ -28,7 +28,7 @@ public class AuthService : IAuthService
     {
         var accessToken = await _tokenService.CreateAccessToken(userId, userRole);
 
-        var domain = new Uri(_appSettings.WebUrl).Host;
+        var domain = _appSettings.CookieDomain ?? new Uri(_appSettings.WebUrl).Host;
 
         _httpContext.Response.Cookies.Append(Constants.CookieNames.AccessToken, accessToken.Value, new CookieOptions
         {
