@@ -40,8 +40,7 @@ namespace Tests.NoSql
 
             _appSettings = new AppSettings
             {
-                WebUrl = "http://test.com",
-                LandingUrl = "http://test-landing.com"
+                WebUrl = "http://test.com"
             };
         }
 
