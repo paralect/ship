@@ -65,7 +65,8 @@ namespace Api.Sql.Controllers
                 Id = x.Id.ToString(),
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Email = x.Email
+                Email = x.Email,
+                AvatarUrl = x.AvatarUrl
             });
 
             return Ok(user);
@@ -90,8 +91,51 @@ namespace Api.Sql.Controllers
                 x.FirstName,
                 x.LastName,
                 x.Email,
-                x.IsEmailVerified
+                x.IsEmailVerified,
+                x.AvatarUrl
             });
+
+            return Ok(user);
+        }
+
+        [HttpPost("upload-photo")]
+        public async Task<IActionResult> UploadAvatarAsync([FromForm] UploadAvatarModel model)
+        {
+            var userId = CurrentUserId!.Value;
+            await using var stream = model.File.OpenReadStream();
+
+            await _userService.UpdateAvatarAsync(userId, model.File.FileName, model.File.OpenReadStream());
+
+            var user = await _userService.FindOneAsync(new UserFilter { Id = userId, AsNoTracking = true },
+                x => new
+                {
+                    userId,
+                    x.FirstName,
+                    x.LastName,
+                    x.Email,
+                    x.IsEmailVerified,
+                    x.AvatarUrl
+                });
+
+            return Ok(user);
+        }
+
+        [HttpDelete("remove-photo")]
+        public async Task<IActionResult> RemoveAvatarAsync()
+        {
+            var userId = CurrentUserId!.Value;
+            await _userService.RemoveAvatarAsync(userId);
+
+            var user = await _userService.FindOneAsync(new UserFilter { Id = userId, AsNoTracking = true },
+                x => new
+                {
+                    userId,
+                    x.FirstName,
+                    x.LastName,
+                    x.Email,
+                    x.IsEmailVerified,
+                    x.AvatarUrl
+                });
 
             return Ok(user);
         }

@@ -26,6 +26,7 @@ namespace Migrator.Sql.Migrations
                     SignupToken = table.Column<string>(type: "text", nullable: false),
                     LastRequest = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ResetPasswordToken = table.Column<string>(type: "text", nullable: true),
+                    AvatarUrl = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
