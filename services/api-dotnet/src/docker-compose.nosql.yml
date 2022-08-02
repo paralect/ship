@@ -90,10 +90,10 @@ services:
     depends_on:
       - "api"
     ports:
-      - "8082:8082"
+      - "3003:3003"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:8082
+      - ASPNETCORE_URLS=http://+:3003
       - WAIT_FOR_HOST=api
       - WAIT_FOR_PORT=3001
   scheduler:

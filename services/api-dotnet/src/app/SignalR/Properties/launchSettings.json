@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:8082",
+      "applicationUrl": "http://localhost:3003",
       "sslPort": 0
     }
   },
@@ -17,7 +17,7 @@
     },
     "ApiStarter": {
       "commandName": "Project",
-      "applicationUrl": "http://localhost:8082",
+      "applicationUrl": "http://localhost:3003",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
