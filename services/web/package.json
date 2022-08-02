@@ -24,6 +24,7 @@
     "@mantine/modals": "4.2.8",
     "@mantine/next": "4.2.8",
     "@mantine/notifications": "4.2.8",
+    "@microsoft/signalr": "6.0.7",
     "@svgr/webpack": "6.2.1",
     "@tabler/icons": "1.71.0",
     "axios": "0.26.0",
