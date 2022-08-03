@@ -5,8 +5,6 @@ using Common.Utils;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 using SignalR.Hubs;
-using SignalR.Mapping;
-using SignalR.Services;
 using SignalR.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,10 +26,9 @@ services.AddCache(cacheSettings);
 services.AddCors(appSettings);
 services.AddHttpContextAccessor();
 services.AddSignalR();
-services.AddHostedService<ChangeStreamBackgroundService>();
-services.AddAutoMapper(typeof(UserProfile));
 services.AddHealthChecks(dbSettings, cacheSettings);
 services.InitializeDb(dbSettings);
+services.AddControllers();
 
 var app = builder.Build();
 
@@ -47,6 +44,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllers();
     endpoints.MapHub<UserHub>(string.Empty);
     endpoints.MapHealthChecks(Constants.HealthcheckPath, new HealthCheckOptions
     {
