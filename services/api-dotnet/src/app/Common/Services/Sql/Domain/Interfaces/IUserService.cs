@@ -12,4 +12,6 @@ public interface IUserService : IEntityService<User, UserFilter>
     Task SignInAsync(long id);
     Task UpdatePasswordAsync(long id, string newPassword);
     Task<string> SetResetPasswordTokenAsync(long id);
+    Task UpdateAvatarAsync(long id, string fileName, Stream file);
+    Task RemoveAvatarAsync(long id);
 }

@@ -26,6 +26,7 @@ var appSettings = services.AddSettings<AppSettings>(configuration, "App");
 var cacheSettings = services.AddSettings<CacheSettings>(configuration, "Cache");
 services.AddSettings<TokenExpirationSettings>(configuration, "TokenExpiration");
 services.AddSettings<EmailSettings>(configuration, "Email");
+services.AddSettings<CloudStorageSettings>(configuration, "CloudStorage");
 
 services.AddDiConfiguration();
 services.AddCache(cacheSettings);

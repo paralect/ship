@@ -4,7 +4,6 @@ using Common.Dal.Repositories;
 using Common.Models.View;
 using Common.Models.View.User;
 using Common.Services.NoSql.Domain.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.NoSql.Controllers
@@ -64,7 +63,42 @@ namespace Api.NoSql.Controllers
                 user.FirstName,
                 user.LastName,
                 user.Email,
-                user.IsEmailVerified
+                user.IsEmailVerified,
+                user.AvatarUrl
+            });
+        }
+
+        [HttpPost("upload-photo")]
+        public async Task<IActionResult> UploadAvatarAsync([FromForm] UploadAvatarModel model)
+        {
+            await _userService.UpdateAvatarAsync(CurrentUserId, model.File.FileName, model.File.OpenReadStream());
+
+            var user = await _userService.FindByIdAsync(CurrentUserId);
+            return Ok(new
+            {
+                CurrentUserId,
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.IsEmailVerified,
+                user.AvatarUrl
+            });
+        }
+
+        [HttpDelete("remove-photo")]
+        public async Task<IActionResult> RemoveCurrentPhoto()
+        {
+            await _userService.RemoveAvatarAsync(CurrentUserId);
+
+            var user = await _userService.FindByIdAsync(CurrentUserId);
+            return Ok(new
+            {
+                CurrentUserId,
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.IsEmailVerified,
+                user.AvatarUrl
             });
         }
     }
