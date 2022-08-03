@@ -17,16 +17,14 @@ Log.Logger = environment.BuildLogger();
 
 var dbSettings = services.AddSettings<DbSettings>(configuration, "Db");
 var appSettings = services.AddSettings<AppSettings>(configuration, "App");
-var cacheSettings = services.AddSettings<CacheSettings>(configuration, "Cache");
 services.AddSettings<TokenExpirationSettings>(configuration, "TokenExpiration");
 services.AddSettings<EmailSettings>(configuration, "Email");
 
 services.AddDiConfiguration();
-services.AddCache(cacheSettings);
 services.AddCors(appSettings);
 services.AddHttpContextAccessor();
 services.AddSignalR();
-services.AddHealthChecks(dbSettings, cacheSettings);
+services.AddHealthChecks(dbSettings);
 services.InitializeDb(dbSettings);
 services.AddControllers();
 
