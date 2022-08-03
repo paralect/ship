@@ -179,11 +179,12 @@ class Service<T extends IDocument> {
 
   find = async (
     query: Filter<T>,
-    options: FindOptions & QueryDefaultsOptions & { page: number; perPage: number } = {
-      perPage: 100, page: 0,
-    },
+    options: FindOptions & QueryDefaultsOptions & { page?: number; perPage?: number } = {},
   ): Promise<FindResult<T>> => {
     const collection = await this.getCollection();
+
+    if (!options.page) options.page = 0;
+    if (!options.perPage) options.perPage = 100;
 
     query = this.addQueryDefaults(query, options);
     this.validateQuery(query, options);
