@@ -9,12 +9,10 @@ namespace Common.Services.Infrastructure.CloudStorage;
 public class CloudStorageService : ICloudStorageService
 {
     private readonly CloudStorageSettings _cloudStorageSettings;
-    private readonly AmazonS3Config _amazonS3Config;
 
     public CloudStorageService(IOptions<CloudStorageSettings> cloudStorageSettings)
     {
         _cloudStorageSettings = cloudStorageSettings.Value;
-        _amazonS3Config = new AmazonS3Config { ServiceURL = $"https://{_cloudStorageSettings.Endpoint}" };
     }
 
     public async Task<string> UploadPublicAsync(string key, Stream fileStream)
@@ -35,6 +33,9 @@ public class CloudStorageService : ICloudStorageService
         return $"https://{request.BucketName}.{_cloudStorageSettings.Endpoint}/{request.Key}";
     }
 
-    private AmazonS3Client InitializeClient() =>
-        new(_cloudStorageSettings.AccessKey, _cloudStorageSettings.Secret, _amazonS3Config);
+    private AmazonS3Client InitializeClient()
+    {
+        var amazonS3Config = new AmazonS3Config { ServiceURL = $"https://{_cloudStorageSettings.Endpoint}" };
+        return new(_cloudStorageSettings.AccessKey, _cloudStorageSettings.Secret, amazonS3Config);
+    }
 }
