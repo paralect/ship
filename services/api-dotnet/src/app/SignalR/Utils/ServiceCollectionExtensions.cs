@@ -1,6 +1,4 @@
 ﻿using Common;
-using Common.Caching;
-using Common.Caching.Interfaces;
 using Common.Dal;
 using Common.Dal.Interfaces;
 using Common.Services.NoSql.Domain.Interfaces;
@@ -62,14 +60,7 @@ internal static class ServiceCollectionExtensions
         });
     }
 
-    public static void AddCache(this IServiceCollection services, CacheSettings cacheSettings)
-    {
-        services.AddStackExchangeRedisCache(options => options.Configuration = cacheSettings.ConnectionString);
-
-        services.AddTransient<ICache, Cache>();
-    }
-
-    public static void AddHealthChecks(this IServiceCollection services, DbSettings dbSettings, CacheSettings cacheSettings)
+    public static void AddHealthChecks(this IServiceCollection services, DbSettings dbSettings)
     {
         var builder = services.AddHealthChecks();
 
@@ -77,10 +68,5 @@ internal static class ServiceCollectionExtensions
             mongodbConnectionString: dbSettings.ConnectionStrings.Api,
             mongoDatabaseName: dbSettings.ApiDatabase
         );
-
-        if (cacheSettings.IsEnabled)
-        {
-            builder.AddRedis(cacheSettings.ConnectionString);
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Api.NoSql.Authentication;
+using Api.NoSql.Services.Interfaces;
 using Api.NoSql.Utils;
 using Common;
 using Common.Dal;
@@ -11,6 +12,7 @@ using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.FeatureManagement;
+using Refit;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,6 +55,8 @@ services.AddHangfire(config =>
     config.ConfigureHangfireWithMongoStorage(dbSettings.ConnectionStrings.Scheduler);
 });
 services.InitializeDb(dbSettings);
+services.AddRefitClient<ISocketService>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(appSettings.WsUrl));
 
 var app = builder.Build();
 

@@ -1,5 +1,7 @@
-﻿using AutoMapper;
+﻿using Api.NoSql.Services.Interfaces;
+using AutoMapper;
 using Common.Dal;
+using Common.Dal.Documents.User;
 using Common.Dal.Repositories;
 using Common.Models.View;
 using Common.Models.View.User;
@@ -10,13 +12,21 @@ namespace Api.NoSql.Controllers
 {
     public class UsersController : BaseController
     {
-        private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly ILogger<UsersController> _logger;
+        private readonly IUserService _userService;
+        private readonly ISocketService _socketService;
 
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(
+            IMapper mapper,
+            ILogger<UsersController> logger,
+            IUserService userService,
+            ISocketService socketService)
         {
-            _userService = userService;
             _mapper = mapper;
+            _logger = logger;
+            _userService = userService;
+            _socketService = socketService;
         }
 
         [HttpGet]
@@ -57,6 +67,9 @@ namespace Api.NoSql.Controllers
             await _userService.UpdatePasswordAsync(CurrentUserId, model.Password);
 
             var user = await _userService.FindByIdAsync(CurrentUserId);
+
+            await NotifyWsServer(user);
+            
             return Ok(new
             {
                 CurrentUserId,
@@ -100,6 +113,27 @@ namespace Api.NoSql.Controllers
                 user.IsEmailVerified,
                 user.AvatarUrl
             });
+        }
+
+        /// <summary>
+        /// An example of WS server usage
+        /// </summary>
+        private async Task NotifyWsServer(User user)
+        {
+            try
+            {
+                await _socketService.UpdateUser(new UserViewModel
+                {
+                    Id = CurrentUserId,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+            }
         }
     }
 }
