@@ -85,6 +85,24 @@ bash $cli_dir/scripts/cleanup.sh "api" $api_type $db_type
 mv deploy/.github/workflows/* .github/workflows
 rm -rf deploy/.github
 
+# Websocket config
+cd web
+
+if [ "$api_type" == "Koa.js" ]
+then
+npm uninstall @microsoft/signalr
+rm src/services/socket.signalr.service.js
+rm src/config/environment/development.dotnet.json
+else
+npm uninstall socket.io-client
+rm src/services/socket.service.js
+mv src/services/socket.signalr.service.js src/services/socket.service.js
+rm src/config/environment/development.json
+mv src/config/environment/development.dotnet.json src/config/environment/development.json
+fi
+
+cd ..
+
 # Install modules and setup husky
 
 npm install
