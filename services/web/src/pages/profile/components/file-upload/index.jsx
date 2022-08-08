@@ -61,6 +61,14 @@ const PhotoUpload = () => {
           name="avatarUrl"
           accept={['image/png', 'image/jpg', 'image/jpeg']}
           onDrop={handlePhotoUpload}
+          styles={() => ({
+            root: {
+              border: 'none',
+              borderRadius: 0,
+              padding: 0,
+              backgroundColor: 'transparent'
+            },
+          })}
         >
           {() => (
             <label
