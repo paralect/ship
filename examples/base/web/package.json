@@ -20,6 +20,7 @@
     "@hookform/resolvers": "2.8.8",
     "@mantine/core": "4.2.8",
     "@mantine/dates": "4.2.8",
+    "@mantine/dropzone": "4.2.8",
     "@mantine/hooks": "4.2.8",
     "@mantine/modals": "4.2.8",
     "@mantine/next": "4.2.8",
