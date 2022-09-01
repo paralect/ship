@@ -2,7 +2,6 @@ import { memo } from 'react';
 import * as routes from 'routes';
 import {
   Header as LayoutHeader,
-  Group,
 } from '@mantine/core';
 import { Link } from 'components';
 import { LogoImage } from 'public/images';

@@ -66,12 +66,11 @@ const PhotoUpload = () => {
               border: 'none',
               borderRadius: 0,
               padding: 0,
-              backgroundColor: 'transparent'
+              backgroundColor: 'transparent',
             },
           })}
         >
-          {() => (
-            <label
+          <label
             className={cx(classes.browseButton, {
               [classes.error]: errorMessage,
             })}
@@ -80,7 +79,7 @@ const PhotoUpload = () => {
               <div
                 className={classes.avatar}
                 style={{
-                  backgroundImage: `url(${currentUser.avatarUrl}`,
+                  backgroundImage: `url(${currentUser.avatarUrl})`,
                 }}
               >
                 <div className={classes.innerAvatar}>
@@ -90,7 +89,6 @@ const PhotoUpload = () => {
             )
               : <AddIcon className={classes.addIcon} />}
           </label>
-          )}
         </Dropzone>
         <span className={classes.buttonContainer}>
           <p className={classes.text}>
