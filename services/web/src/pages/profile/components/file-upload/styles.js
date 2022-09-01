@@ -25,8 +25,8 @@ export const useStyles = createStyles(({
     '&:hover': {
       [`& .${getRef('addIcon')}`]: {
         color: colors.gray[5],
-      }
-    }
+      },
+    },
   },
   error: {
     border: `1px dashed ${colors.red[5]}`,
