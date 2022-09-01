@@ -27,6 +27,20 @@ const shipTheme = {
       },
     },
   },
+  components: {
+    Button: {
+      defaultProps: { size: 'md' },
+    },
+    TextInput: {
+      defaultProps: { size: 'md' },
+    },
+    PasswordInput: {
+      defaultProps: { size: 'md' },
+    },
+    Select: {
+      defaultProps: { size: 'md' },
+    },
+  },
 };
 
 export default shipTheme;

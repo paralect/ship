@@ -11,21 +11,25 @@ const UserMenu = () => {
   return (
     <Menu
       sx={{ marginLeft: 'auto' }}
-      control={<MenuToggle />}
     >
-      <Menu.Item
-        component={NextLink}
-        href="/profile"
-        icon={<IconUserCircle size={16} />}
-      >
-        Profile
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => signOut()}
-        icon={<IconLogout size={16} />}
-      >
-        Logout
-      </Menu.Item>
+      <Menu.Target>
+        <MenuToggle />
+      </Menu.Target>
+      <Menu.Dropdown>
+        <Menu.Item
+          component={NextLink}
+          href="/profile"
+          icon={<IconUserCircle size={16} />}
+        >
+          Profile
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => signOut()}
+          icon={<IconLogout size={16} />}
+        >
+          Logout
+        </Menu.Item>
+      </Menu.Dropdown>
     </Menu>
   );
 };

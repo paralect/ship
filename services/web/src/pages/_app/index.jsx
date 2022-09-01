@@ -19,12 +19,6 @@ const App = ({ Component, pageProps }) => (
     <QueryClientProvider client={queryClient}>
       <MantineProvider
         theme={shipTheme}
-        defaultProps={{
-          Button: { size: 'md' },
-          TextInput: { size: 'md' },
-          PasswordInput: { size: 'md' },
-          Select: { size: 'md' },
-        }}
         withGlobalStyles
         withNormalizeCSS
       >
