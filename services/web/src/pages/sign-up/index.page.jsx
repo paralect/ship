@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
@@ -16,6 +16,7 @@ import {
   Group,
   Title,
   Text,
+  Checkbox,
 } from '@mantine/core';
 import { accountApi } from 'resources/account';
 
@@ -29,10 +30,38 @@ const schema = yup.object().shape({
   ),
 });
 
+const passwordRules = [
+  {
+    title: 'Be a minimum of six characters',
+    done: false,
+  },
+  {
+    title: 'Have at least one letter',
+    done: false,
+  },
+  {
+    title: 'Have at least one number',
+    done: false,
+  },
+];
+
 const SignUp = () => {
   const [email, setEmail] = useState(null);
   const [registered, setRegistered] = useState(false);
   const [signupToken, setSignupToken] = useState();
+
+  const [passwordValue, setPasswordValue] = useState('');
+  const [passwordRulesData, setPasswordRulesData] = useState(passwordRules);
+
+  useEffect(() => {
+    const updatedPasswordRulesData = [...passwordRules];
+
+    updatedPasswordRulesData[0].done = passwordValue.length >= 6;
+    updatedPasswordRulesData[1].done = /[a-z]/.test(passwordValue);
+    updatedPasswordRulesData[2].done = /\d/.test(passwordValue);
+
+    setPasswordRulesData(updatedPasswordRulesData);
+  }, [passwordValue]);
 
   const {
     register,
@@ -116,8 +145,21 @@ const SignUp = () => {
               {...register('password')}
               label="Password"
               placeholder="Your password"
+              onChange={(event) => setPasswordValue(event.currentTarget.value)}
               error={errors?.password?.message}
             />
+            <Text>Password must:</Text>
+            <Group
+              spacing="xs"
+            >
+              {passwordRulesData.map((ruleData) => (
+                <Checkbox
+                  key={ruleData.title}
+                  checked={!!ruleData.done}
+                  label={ruleData.title}
+                />
+              ))}
+            </Group>
             <Button
               type="submit"
               loading={isSignUpLoading}
