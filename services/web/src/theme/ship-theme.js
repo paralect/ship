@@ -32,7 +32,14 @@ const shipTheme = {
       defaultProps: { size: 'md' },
     },
     TextInput: {
-      defaultProps: { size: 'md' },
+      defaultProps: { 
+        size: 'md' 
+      },
+      styles: (theme) => ({
+        invalid: {
+          color: theme.colors.gray[9]
+        },
+      }),
     },
     PasswordInput: {
       defaultProps: { size: 'md' },
