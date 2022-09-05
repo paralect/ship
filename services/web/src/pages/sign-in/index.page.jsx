@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
-import { TextInput, PasswordInput, Button, Group, Stack, Title } from '@mantine/core';
+import { TextInput, PasswordInput, Button, Group, Stack, Title, Center, Grid, Image } from '@mantine/core';
 
 import * as routes from 'routes';
 import { handleError } from 'helpers';
@@ -26,57 +26,70 @@ const SignIn = () => {
   });
 
   return (
-    <>
-      <Head>
-        <title>Sign in</title>
-      </Head>
-      <Stack sx={{ width: '328px' }}>
-        <Title order={2}>Sign In</Title>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack>
-            <TextInput
-              {...register('email')}
-              label="Email Address"
-              placeholder="Email"
-              error={errors?.email?.message}
-            />
-            <PasswordInput
-              {...register('password')}
-              label="Password"
-              placeholder="Password"
-              error={errors?.password?.message}
-            />
-            <Button
-              loading={isSignInLoading}
-              type="submit"
-              fullWidth
-            >
-              Sign in
-            </Button>
-            <Group sx={{ fontSize: '14px' }}>
-              Don’t have an account?
-              <Link
-                type="router"
-                href={routes.path.signUp}
-                underline={false}
-                inherit
-              >
-                Sign up
-              </Link>
-            </Group>
-            <Link
-              href={routes.path.forgotPassword}
-              type="router"
-              underline={false}
-              size="sm"
-              align="center"
-            >
-              Forgot password?
-            </Link>
+    <Grid align="center" style={{ width: '100%', height: '100%' }}>
+      <Grid.Col md={6}>
+        <Image
+          alt="app info"
+          src="../images/ship.png"
+          fit="cover"
+          style={{ width: '100%' }}
+        />
+
+      </Grid.Col>
+      <Grid.Col md={6}>
+        <Center>
+          <Head>
+            <title>Sign in</title>
+          </Head>
+          <Stack sx={{ width: '328px' }}>
+            <Title order={2}>Sign In</Title>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Stack>
+                <TextInput
+                  {...register('email')}
+                  label="Email Address"
+                  placeholder="Email"
+                  error={errors?.email?.message}
+                />
+                <PasswordInput
+                  {...register('password')}
+                  label="Password"
+                  placeholder="Password"
+                  error={errors?.password?.message}
+                />
+                <Button
+                  loading={isSignInLoading}
+                  type="submit"
+                  fullWidth
+                >
+                  Sign in
+                </Button>
+                <Group sx={{ fontSize: '14px' }}>
+                  Don’t have an account?
+                  <Link
+                    type="router"
+                    href={routes.path.signUp}
+                    underline={false}
+                    inherit
+                  >
+                    Sign up
+                  </Link>
+                </Group>
+                <Link
+                  href={routes.path.forgotPassword}
+                  type="router"
+                  underline={false}
+                  size="sm"
+                  align="center"
+                >
+                  Forgot password?
+                </Link>
+              </Stack>
+            </form>
           </Stack>
-        </form>
-      </Stack>
-    </>
+        </Center>
+      </Grid.Col>
+    </Grid>
   );
 };
 

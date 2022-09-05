@@ -11,11 +11,14 @@ import { Link } from 'components';
 import {
   Button,
   Stack,
+  Center,
+  Grid,
   TextInput,
   PasswordInput,
   Group,
   Title,
   Text,
+  Image,
 } from '@mantine/core';
 import { accountApi } from 'resources/account';
 
@@ -84,62 +87,75 @@ const SignUp = () => {
   }
 
   return (
-    <>
-      <Head>
-        <title>Sign up</title>
-      </Head>
-      <Stack sx={{ width: '328px' }}>
-        <Title order={2}>Sign Up</Title>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack>
-            <TextInput
-              {...register('firstName')}
-              label="First Name"
-              maxLength={100}
-              placeholder="Your first name"
-              error={errors?.firstName?.message}
-            />
-            <TextInput
-              {...register('lastName')}
-              label="Last Name"
-              maxLength={100}
-              placeholder="Your last name"
-              error={errors?.lastName?.message}
-            />
-            <TextInput
-              {...register('email')}
-              label="Email Address"
-              placeholder="Your email"
-              error={errors?.email?.message}
-            />
-            <PasswordInput
-              {...register('password')}
-              label="Password"
-              placeholder="Your password"
-              error={errors?.password?.message}
-            />
-            <Button
-              type="submit"
-              loading={isSignUpLoading}
-              fullWidth
-            >
-              Sign Up
-            </Button>
+    <Grid align="center" style={{ width: '100%', height: '100%' }}>
+      <Grid.Col md={6}>
+        <Image
+          alt="app info"
+          src="../images/ship.png"
+          fit="cover"
+          style={{ width: '100%' }}
+        />
+      </Grid.Col>
+      <Grid.Col md={6}>
+        <Center>
+          <Head>
+            <title>Sign up</title>
+          </Head>
+
+          <Stack sx={{ width: '328px' }}>
+            <Title order={2}>Sign Up</Title>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Stack>
+                <TextInput
+                  {...register('firstName')}
+                  label="First Name"
+                  maxLength={100}
+                  placeholder="Your first name"
+                  error={errors?.firstName?.message}
+                />
+                <TextInput
+                  {...register('lastName')}
+                  label="Last Name"
+                  maxLength={100}
+                  placeholder="Your last name"
+                  error={errors?.lastName?.message}
+                />
+                <TextInput
+                  {...register('email')}
+                  label="Email Address"
+                  placeholder="Your email"
+                  error={errors?.email?.message}
+                />
+                <PasswordInput
+                  {...register('password')}
+                  label="Password"
+                  placeholder="Your password"
+                  error={errors?.password?.message}
+                />
+                <Button
+                  type="submit"
+                  loading={isSignUpLoading}
+                  fullWidth
+                >
+                  Sign Up
+                </Button>
+              </Stack>
+            </form>
+            <Group sx={{ fontSize: '14px' }}>
+              Have an account?
+              <Link
+                type="router"
+                href={routes.path.signIn}
+                inherit
+                underline={false}
+              >
+                Sign In
+              </Link>
+            </Group>
           </Stack>
-        </form>
-        <Group sx={{ fontSize: '14px' }}>
-          Have an account?
-          <Link
-            type="router"
-            href={routes.path.signIn}
-            inherit
-            underline={false}
-          >
-            Sign In
-          </Link>
-        </Group>
-      </Stack>
-    </>
+        </Center>
+      </Grid.Col>
+    </Grid>
   );
 };
 
