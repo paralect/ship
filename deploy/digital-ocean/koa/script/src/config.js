@@ -30,24 +30,26 @@ const config = {
 const deployConfig =  {
   api: {
     dockerRepo: `${config.dockerRegistry.name}-api`,
-    dir: `${rootDir}/api`,
+    dir: rootDir,
     folder: 'api',
+    dockerFilePath: `${rootDir}/apps/api/Dockerfile`,
   },
   web: {
     dockerRepo: `${config.dockerRegistry.name}-web`,
-    dir: `${rootDir}/web`,
+    dir: rootDir,
     folder: 'web',
+    dockerFilePath: `${rootDir}/apps/web/Dockerfile.migrator`,
   },
   scheduler: {
     dockerRepo: `${config.dockerRegistry.name}-scheduler`,
-    dir: `${rootDir}/api`,
+    dir: rootDir,
     folder: 'scheduler',
-    dockerFilePath: `${rootDir}/api/Dockerfile.scheduler`,
+    dockerFilePath: `${rootDir}/apps/api/Dockerfile.scheduler`,
   },
   migrator: {
     dockerRepo: `${config.dockerRegistry.name}-migrator`,
-    dir: `${rootDir}/api`,
-    dockerFilePath: `${rootDir}/api/Dockerfile.migrator`,
+    dir: rootDir,
+    dockerFilePath: `${rootDir}/apps/api/Dockerfile.migrator`,
   }
 };
 

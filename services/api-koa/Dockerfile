@@ -6,23 +6,28 @@ ARG APP_ENV
 ENV NODE_ENV=$NODE_ENV
 ENV APP_ENV=$APP_ENV
 
-WORKDIR /app
+WORKDIR /app/apps/api
 EXPOSE 3001
-COPY ["./package*.json", "./.eslintrc.js", "./tsconfig.json", "/app/"]
+COPY ["./package*.json", "/app/"]
+COPY ["./apps/api/package*.json", "./apps/api/.eslintrc.js", "./apps/api/tsconfig.json", "/app/apps/api/"]
 
 # ---- Dependencies ----
 FROM base AS dependencies
 # install node packages
-RUN npm set progress=false && npm config set depth 0
+RUN npm config set depth 0
 RUN npm ci --only=production --quiet
 # copy production node_modules aside
-RUN cp -R node_modules prod_node_modules
+RUN cp -R /app/node_modules /app/prod_node_modules
+
+# Rewrite global node_modules with local ones (if exists)
+# EX: RUN cp -Rf /app/apps/api/node_modules/* /app/prod_node_modules
+
 # install ALL node_modules, including 'devDependencies'
 RUN npm ci --quiet --include=dev
 
 # ---- Build ----
 FROM dependencies AS build
-COPY ./src /app/src
+COPY ./apps/api/src /app/apps/api/src
 RUN npm run build
 
 FROM build AS development
@@ -34,6 +39,6 @@ FROM base AS release
 # copy production node_modules
 COPY --from=dependencies /app/prod_node_modules ./node_modules
 # copy built dist
-COPY --from=build /app/dist ./dist
+COPY --from=build /app/apps/api/dist ./dist
 
 CMD npm start

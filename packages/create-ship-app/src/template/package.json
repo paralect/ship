@@ -1,11 +1,18 @@
 {
   "name": "ship",
   "scripts": {
-    "start": "bash ./bin/start.sh",
-    "bootstrap": "lerna bootstrap"
+    "compose-start": "bash ./bin/start.sh",
+    "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
+    "start": "turbo run dev"
   },
   "devDependencies": {
     "husky": "7.0.4",
-    "lerna": "4.0.0"
-  }
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "turbo": "1.4.5"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }
