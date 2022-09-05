@@ -25,7 +25,7 @@ const NotFound = () => {
         <Text
           component="p"
           sx={(theme) => ({
-            color: theme.colors.brand[5],
+            color: theme.colors.gray[5],
             margin: '20px 0 24px',
           })}
         >
