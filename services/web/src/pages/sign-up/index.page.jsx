@@ -17,6 +17,8 @@ import {
   Title,
   Text,
   Checkbox,
+  SimpleGrid,
+  Tooltip,
 } from '@mantine/core';
 import { accountApi } from 'resources/account';
 
@@ -50,8 +52,20 @@ const SignUp = () => {
   const [registered, setRegistered] = useState(false);
   const [signupToken, setSignupToken] = useState();
 
-  const [passwordValue, setPasswordValue] = useState('');
   const [passwordRulesData, setPasswordRulesData] = useState(passwordRules);
+  const [opened, setOpened] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const passwordValue = watch('password', '');
 
   useEffect(() => {
     const updatedPasswordRulesData = [...passwordRules];
@@ -62,15 +76,6 @@ const SignUp = () => {
 
     setPasswordRulesData(updatedPasswordRulesData);
   }, [passwordValue]);
-
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
 
   const { mutate: signUp, isLoading: isSignUpLoading } = accountApi.useSignUp();
 
@@ -83,6 +88,23 @@ const SignUp = () => {
     },
     onError: (e) => handleError(e, setError),
   });
+
+  const label = (
+    <SimpleGrid
+      cols={1}
+      spacing="xs"
+    >
+      <Text>Password must:</Text>
+      {passwordRulesData.map((ruleData) => (
+        <Checkbox
+          styles={{ label: { color: 'white' } }}
+          key={ruleData.title}
+          checked={!!ruleData.done}
+          label={ruleData.title}
+        />
+      ))}
+    </SimpleGrid>
+  );
 
   if (registered) {
     return (
@@ -141,25 +163,20 @@ const SignUp = () => {
               placeholder="Your email"
               error={errors?.email?.message}
             />
-            <PasswordInput
-              {...register('password')}
-              label="Password"
-              placeholder="Your password"
-              onChange={(event) => setPasswordValue(event.currentTarget.value)}
-              error={errors?.password?.message}
-            />
-            <Text>Password must:</Text>
-            <Group
-              spacing="xs"
+            <Tooltip
+              label={label}
+              withArrow
+              opened={opened}
             >
-              {passwordRulesData.map((ruleData) => (
-                <Checkbox
-                  key={ruleData.title}
-                  checked={!!ruleData.done}
-                  label={ruleData.title}
-                />
-              ))}
-            </Group>
+              <PasswordInput
+                {...register('password')}
+                label="Password"
+                placeholder="Your password"
+                onFocus={() => setOpened(true)}
+                onBlur={() => setOpened(false)}
+                error={errors?.password?.message}
+              />
+            </Tooltip>
             <Button
               type="submit"
               loading={isSignUpLoading}
