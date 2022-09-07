@@ -13,7 +13,6 @@ const UnauthorizedLayout = ({ children }) => {
   return (
     <SimpleGrid
       cols={2}
-      align="center"
       breakpoints={[
         { maxWidth: 'sm', cols: 1, spacing: 'sm' },
       ]}

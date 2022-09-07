@@ -26,7 +26,7 @@ const SignIn = () => {
   });
 
   return (
-    <Center>
+    <>
       <Head>
         <title>Sign in</title>
       </Head>
@@ -76,7 +76,7 @@ const SignIn = () => {
           </Stack>
         </form>
       </Stack>
-    </Center>
+    </>
   );
 };
 

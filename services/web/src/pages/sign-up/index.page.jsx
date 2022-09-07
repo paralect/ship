@@ -86,11 +86,10 @@ const SignUp = () => {
 
   return (
 
-    <Center>
+    <>
       <Head>
         <title>Sign up</title>
       </Head>
-
       <Stack sx={{ width: '328px' }}>
         <Title order={2}>Sign Up</Title>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -142,8 +141,7 @@ const SignUp = () => {
           </Link>
         </Group>
       </Stack>
-    </Center>
-
+    </>
   );
 };
 
