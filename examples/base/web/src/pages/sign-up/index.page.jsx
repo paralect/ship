@@ -11,6 +11,7 @@ import { Link } from 'components';
 import {
   Button,
   Stack,
+  Center,
   TextInput,
   PasswordInput,
   Group,
@@ -135,6 +136,7 @@ const SignUp = () => {
   }
 
   return (
+
     <>
       <Head>
         <title>Sign up</title>
