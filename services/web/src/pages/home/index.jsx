@@ -13,13 +13,13 @@ import {
   Skeleton,
   Text,
   Container,
-  Paper,
   UnstyledButton,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconChevronDown, IconSearch, IconX } from '@tabler/icons';
+
 import { userApi } from 'resources/user';
-import Table from 'components/Table';
+import { Table } from 'components';
 
 const selectOptions = [
   {
