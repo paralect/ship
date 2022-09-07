@@ -1,4 +1,8 @@
-import { useCallback, useLayoutEffect, useState } from 'react';
+import {
+  useCallback,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import Head from 'next/head';
 import {
   Select,
@@ -7,16 +11,15 @@ import {
   Title,
   Stack,
   Skeleton,
-  Table,
   Text,
   Container,
-  Pagination,
-  Paper,
   UnstyledButton,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconChevronDown, IconSearch, IconX } from '@tabler/icons';
+
 import { userApi } from 'resources/user';
+import { Table } from 'components';
 
 const selectOptions = [
   {
@@ -31,40 +34,36 @@ const selectOptions = [
 
 const columns = [
   {
-    width: '33.3%',
-    key: 'firstName',
-    title: 'First Name',
+    accessorKey: 'firstName',
+    header: 'First Name',
+    cell: (info) => info.getValue(),
   },
   {
-    width: '33.3%',
-    key: 'lastName',
-    title: 'Last Name',
+    accessorKey: 'lastName',
+    header: 'Last Name',
+    cell: (info) => info.getValue(),
   },
   {
-    width: '33.4%',
-    key: 'email',
-    title: 'Email',
+    accessorKey: 'email',
+    header: 'Email',
+    cell: (info) => info.getValue(),
   },
 ];
 
 const PER_PAGE = 5;
 
 const Home = () => {
-  const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [sort, setSort] = useState(selectOptions[0].value);
+  const [rowSelection, setRowSelection] = useState({});
+  const [sorting, setSorting] = useState([]);
+  const [sortBy, setSortBy] = useState(selectOptions[0].value);
 
   const [params, setParams] = useState({});
 
   const [debouncedSearch] = useDebouncedValue(search, 500);
 
-  const onPageChange = useCallback((currentPage) => {
-    setPage(currentPage);
-    setParams((prev) => ({ ...prev, page: currentPage }));
-  }, []);
-
   const handleSort = useCallback((value) => {
-    setSort(value);
+    setSortBy(value);
     setParams((prev) => ({
       ...prev,
       sort: value === 'newest' ? { createdOn: -1 } : { createdOn: 1 },
@@ -77,12 +76,9 @@ const Home = () => {
 
   useLayoutEffect(() => {
     setParams((prev) => ({ ...prev, page: 1, searchValue: debouncedSearch, perPage: PER_PAGE }));
-    setPage(1);
   }, [debouncedSearch]);
 
   const { data, isLoading: isListLoading } = userApi.useList(params);
-
-  const totalPages = data?.count ? Math.ceil(data.count / PER_PAGE) : 1;
 
   return (
     <>
@@ -123,7 +119,7 @@ const Home = () => {
           >
             <Select
               data={selectOptions}
-              value={sort}
+              value={sortBy}
               onChange={handleSort}
               rightSection={<IconChevronDown size={16} />}
               withinPortal={false}
@@ -146,52 +142,17 @@ const Home = () => {
           </>
         )}
         {data?.items.length ? (
-          <>
-            <Paper radius="sm" withBorder>
-              <Table
-                horizontalSpacing="xl"
-                verticalSpacing="lg"
-              >
-                <thead>
-                  <tr>
-                    {columns.map(({ title }, index) => (
-                      <th key={`${title}-${String(index)}`}>{title}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.items.map(({ firstName, lastName, email, _id }) => (
-                    <tr key={_id}>
-                      <td>{firstName}</td>
-                      <td>{lastName}</td>
-                      <td>{email}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Paper>
-            {data?.count > PER_PAGE && (
-              <Group position="right">
-                <Text size="sm" color="dimmed">
-                  Showing
-                  {' '}
-                  <b>{PER_PAGE}</b>
-                  {' '}
-                  of
-                  {' '}
-                  <b>{data?.count}</b>
-                  {' '}
-                  results
-                </Text>
-                <Pagination
-                  total={totalPages}
-                  page={page}
-                  onChange={onPageChange}
-                  color="black"
-                />
-              </Group>
-            )}
-          </>
+          <Table
+            columns={columns}
+            data={data.items}
+            dataCount={data.count}
+            rowSelection={rowSelection}
+            setRowSelection={setRowSelection}
+            sorting={sorting}
+            onSortingChange={setSorting}
+            onPageChange={setParams}
+            perPage={PER_PAGE}
+          />
         ) : (
           <Container p={75}>
             <Text size="xl" color="grey">
