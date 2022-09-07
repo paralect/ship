@@ -1,5 +1,5 @@
 import {
-  ClientSession, Collection, CollectionOptions, CreateCollectionOptions, MongoClient,
+  ClientSession, Collection, CollectionOptions, CreateCollectionOptions, Document, MongoClient,
 } from 'mongodb';
 import { ObjectSchema } from 'joi';
 
@@ -48,12 +48,12 @@ export type InMemoryEvent<T = any> = {
   createdOn: Date
 };
 
-export type IDocument = {
-  _id?: string;
+export interface IDocument extends Document {
+  _id: string;
   updatedOn?: Date;
   deletedOn?: Date | null;
   createdOn?: Date;
-};
+}
 
 export type FindResult<T> = {
   results: T[];
@@ -61,14 +61,30 @@ export type FindResult<T> = {
   count: number;
 };
 
-export type QueryDefaultsOptions = {
-  requireDeletedOn?: boolean;
+export type CreateConfig = {
+  validateSchema?: boolean,
+  publishEvents?: boolean,
+};
+
+export type ReadConfig = {
+  skipDeletedOnDocs?: boolean,
+};
+
+export type UpdateConfig = {
+  skipDeletedOnDocs?: boolean,
+  validateSchema?: boolean,
+  publishEvents?: boolean,
+};
+
+export type DeleteConfig = {
+  skipDeletedOnDocs?: boolean,
+  publishEvents?: boolean,
 };
 
 interface IDatabase {
   getOutboxService: () => IChangePublisher;
   waitForConnection: () => Promise<void>;
-  getOrCreateCollection: <TCollection>(
+  getOrCreateCollection: <TCollection extends Document>(
     name: string,
     opt: {
       collectionCreateOptions: CreateCollectionOptions;
@@ -80,13 +96,15 @@ interface IDatabase {
 }
 
 interface ServiceOptions {
-  addCreatedOnField?: boolean;
-  addUpdatedOnField?: boolean;
-  outbox?: boolean;
+  skipDeletedOnDocs?: boolean,
+  validateSchema?: boolean,
+  publishEvents?: boolean,
+  addCreatedOnField?: boolean,
+  addUpdatedOnField?: boolean,
+  outbox?: boolean,
   schema?: ObjectSchema<any>;
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
-  requireDeletedOn?: boolean;
 }
 
 export {

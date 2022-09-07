@@ -4,6 +4,7 @@ import {
   InsertOneOptions,
   BulkWriteOptions,
   CollectionOptions,
+  Document,
 } from 'mongodb';
 
 import { generateId } from '../utils/helpers';
@@ -13,7 +14,7 @@ import {
 } from '../types';
 
 class OutboxService implements IChangePublisher {
-  private getOrCreateCollection: <T>(
+  private getOrCreateCollection: <T extends Document>(
     name: string,
     opt: {
       collectionCreateOptions: CreateCollectionOptions; collectionOptions: CollectionOptions,
@@ -27,7 +28,7 @@ class OutboxService implements IChangePublisher {
   private collectionsMap: { [key: string]: Collection<OutboxEvent> | null } = {};
 
   constructor(
-    getOrCreateCollection: <T>(
+    getOrCreateCollection: <T extends Document>(
       name: string,
       opt: {
         collectionCreateOptions: CreateCollectionOptions;
