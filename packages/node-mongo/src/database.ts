@@ -6,9 +6,10 @@ import {
   CreateCollectionOptions,
   Collection,
   MongoError,
+  Document,
 } from 'mongodb';
 
-import { IDocument, ServiceOptions } from './types';
+import { IDatabase, IDocument, ServiceOptions } from './types';
 import Service from './service';
 import logger from './utils/logger';
 import OutboxService from './events/outbox';
@@ -88,7 +89,7 @@ class Database extends EventEmitter {
   ): Service<T> {
     return new Service<T>(
       collectionName,
-      this,
+      this as IDatabase,
       options,
     );
   }
@@ -107,7 +108,7 @@ class Database extends EventEmitter {
     this.emit('disconnected', error);
   }
 
-  public getOrCreateCollection = async <T extends IDocument>(
+  public getOrCreateCollection = async <T extends Document>(
     name: string,
     opt: {
       collectionCreateOptions?: CreateCollectionOptions;

@@ -763,7 +763,7 @@ class Service<T extends IDocument> {
   };
 
   watch = async (
-    pipeline: IDocument[] | undefined,
+    pipeline: Document[] | undefined,
     options: ChangeStreamOptions = {},
   ): Promise<any> => {
     const collection = await this.getCollection();
