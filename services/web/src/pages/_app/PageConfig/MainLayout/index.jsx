@@ -17,6 +17,7 @@ const MainLayout = ({ children }) => (
       },
       main: {
         padding: '32px',
+        paddingTop: '104px',
       },
     })}
   >

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+import Joi from 'joi';
 import chai from 'chai';
 import spies from 'chai-spies';
 
@@ -16,14 +17,21 @@ const database = new Database(config.mongo.connection, config.mongo.dbName);
 
 type UserType = {
   _id: string;
-  createdOn: string;
+  createdOn?: Date;
+  updatedOn?: Date;
+  deletedOn?: Date | null;
   fullName: string;
-  deletedOn: string;
 };
 
-const usersService = database.createService<UserType>('users', {
-  outbox: false,
+const schema = Joi.object({
+  _id: Joi.string().required(),
+  createdOn: Joi.date(),
+  updatedOn: Joi.date(),
+  deletedOn: Joi.date().allow(null),
+  fullName: Joi.string().required(),
 });
+
+const usersService = database.createService<UserType>('users', { schema });
 
 describe('service.ts', () => {
   before(async () => {

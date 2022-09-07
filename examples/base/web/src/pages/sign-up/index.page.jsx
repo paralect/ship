@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
@@ -11,11 +11,15 @@ import { Link } from 'components';
 import {
   Button,
   Stack,
+  Center,
   TextInput,
   PasswordInput,
   Group,
   Title,
   Text,
+  Checkbox,
+  SimpleGrid,
+  Tooltip,
 } from '@mantine/core';
 import { accountApi } from 'resources/account';
 
@@ -29,19 +33,50 @@ const schema = yup.object().shape({
   ),
 });
 
+const passwordRules = [
+  {
+    title: 'Be a minimum of six characters',
+    done: false,
+  },
+  {
+    title: 'Have at least one letter',
+    done: false,
+  },
+  {
+    title: 'Have at least one number',
+    done: false,
+  },
+];
+
 const SignUp = () => {
   const [email, setEmail] = useState(null);
   const [registered, setRegistered] = useState(false);
   const [signupToken, setSignupToken] = useState();
 
+  const [passwordRulesData, setPasswordRulesData] = useState(passwordRules);
+  const [opened, setOpened] = useState(false);
+
   const {
     register,
     handleSubmit,
     setError,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const passwordValue = watch('password', '');
+
+  useEffect(() => {
+    const updatedPasswordRulesData = [...passwordRules];
+
+    updatedPasswordRulesData[0].done = passwordValue.length >= 6;
+    updatedPasswordRulesData[1].done = /[a-z]/.test(passwordValue);
+    updatedPasswordRulesData[2].done = /\d/.test(passwordValue);
+
+    setPasswordRulesData(updatedPasswordRulesData);
+  }, [passwordValue]);
 
   const { mutate: signUp, isLoading: isSignUpLoading } = accountApi.useSignUp();
 
@@ -54,6 +89,23 @@ const SignUp = () => {
     },
     onError: (e) => handleError(e, setError),
   });
+
+  const label = (
+    <SimpleGrid
+      cols={1}
+      spacing="xs"
+    >
+      <Text>Password must:</Text>
+      {passwordRulesData.map((ruleData) => (
+        <Checkbox
+          styles={{ label: { color: 'white' } }}
+          key={ruleData.title}
+          checked={!!ruleData.done}
+          label={ruleData.title}
+        />
+      ))}
+    </SimpleGrid>
+  );
 
   if (registered) {
     return (
@@ -84,6 +136,7 @@ const SignUp = () => {
   }
 
   return (
+
     <>
       <Head>
         <title>Sign up</title>
@@ -112,12 +165,20 @@ const SignUp = () => {
               placeholder="Your email"
               error={errors?.email?.message}
             />
-            <PasswordInput
-              {...register('password')}
-              label="Password"
-              placeholder="Your password"
-              error={errors?.password?.message}
-            />
+            <Tooltip
+              label={label}
+              withArrow
+              opened={opened}
+            >
+              <PasswordInput
+                {...register('password')}
+                label="Password"
+                placeholder="Your password"
+                onFocus={() => setOpened(true)}
+                onBlur={() => setOpened(false)}
+                error={errors?.password?.message}
+              />
+            </Tooltip>
             <Button
               type="submit"
               loading={isSignUpLoading}

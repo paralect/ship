@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+import Joi from 'joi';
 import chai from 'chai';
 import spies from 'chai-spies';
 import { Filter } from 'mongodb';
@@ -13,13 +14,6 @@ chai.use(spies);
 chai.should();
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
-
-type UserType = {
-  _id: string;
-  createdOn: string;
-  fullName: string;
-  deletedOn: string;
-};
 
 class CustomService<T> extends Service<T> {
   createOrUpdate = async (query: any, updateCallback: (item?: T) => Partial<T>) => {
@@ -43,9 +37,23 @@ function createService<T>(collectionName: string, options: ServiceOptions = {}) 
   return new CustomService<T>(collectionName, database, options);
 }
 
-const usersService = createService<UserType>('users', {
-  outbox: false,
+type UserType = {
+  _id: string;
+  createdOn?: Date;
+  updatedOn?: Date;
+  deletedOn?: Date | null;
+  fullName: string;
+};
+
+const schema = Joi.object({
+  _id: Joi.string().required(),
+  createdOn: Joi.date(),
+  updatedOn: Joi.date(),
+  deletedOn: Joi.date().allow(null),
+  fullName: Joi.string().required(),
 });
+
+const usersService = createService<UserType>('users', { schema });
 
 describe('extending service.ts', () => {
   before(async () => {

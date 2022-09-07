@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
-import { TextInput, PasswordInput, Button, Group, Stack, Title } from '@mantine/core';
+import { TextInput, PasswordInput, Button, Group, Stack, Title, Center } from '@mantine/core';
 
 import * as routes from 'routes';
 import { handleError } from 'helpers';
