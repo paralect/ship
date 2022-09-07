@@ -138,11 +138,11 @@ class Service<T extends IDocument> {
     }
 
     if (!entity.createdOn && this.options.addCreatedOnField) {
-      entity.createdOn = new Date().toISOString();
+      entity.createdOn = new Date();
     }
 
     if (!entity.updatedOn && this.options.addUpdatedOnField) {
-      entity.updatedOn = new Date().toISOString();
+      entity.updatedOn = new Date();
     }
 
     return this.validateSchema(entity);
@@ -335,7 +335,7 @@ class Service<T extends IDocument> {
     }
 
     if (this.options.addUpdatedOnField) {
-      const updatedOnDate = new Date().toISOString();
+      const updatedOnDate = new Date();
 
       updatedFields.updatedOn = updatedOnDate;
       newDoc.updatedOn = updatedOnDate;
@@ -407,7 +407,7 @@ class Service<T extends IDocument> {
     }
 
     if (this.options.addUpdatedOnField) {
-      const updatedOnDate = new Date().toISOString();
+      const updatedOnDate = new Date();
 
       updated.forEach((u) => {
         if (u.isUpdated) {
@@ -470,7 +470,7 @@ class Service<T extends IDocument> {
       return [];
     }
 
-    const deletedOnDate = new Date().toISOString();
+    const deletedOnDate = new Date();
     const deletedDocuments = docs.map((doc) => ({ ...doc, deletedOn: deletedOnDate }));
 
     const deleteSoftWithEvent = async (opts: UpdateOptions): Promise<void> => {
@@ -748,7 +748,7 @@ class Service<T extends IDocument> {
       const collection = await this.getCollection();
 
       if (this.options.addUpdatedOnField) {
-        replacement.updatedOn = new Date().toISOString();
+        replacement.updatedOn = new Date();
       }
 
       return collection.replaceOne(filter, replacement, options);
@@ -782,7 +782,7 @@ class Service<T extends IDocument> {
       const collection = await this.getCollection();
 
       if (this.options.addUpdatedOnField) {
-        replacement.updatedOn = new Date().toISOString();
+        replacement.updatedOn = new Date();
       }
 
       return collection.findOneAndReplace(filter, replacement, options);

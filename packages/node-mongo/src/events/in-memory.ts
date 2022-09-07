@@ -23,7 +23,7 @@ class EventBus {
     };
 
     if (!evtCopy.createdOn) {
-      evtCopy.createdOn = new Date().toISOString();
+      evtCopy.createdOn = new Date();
     }
 
     this._bus.emit(name, evtCopy);
