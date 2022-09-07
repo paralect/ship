@@ -81,7 +81,7 @@ class OutboxService implements IChangePublisher {
 
     const event: OutboxEvent = {
       _id: generateId(),
-      createdOn: new Date().toISOString(),
+      createdOn: new Date(),
       type: changeType,
       ...data,
     };
@@ -105,7 +105,7 @@ class OutboxService implements IChangePublisher {
 
     const events: OutboxEvent[] = data.map((e) => ({
       _id: generateId(),
-      createdOn: new Date().toISOString(),
+      createdOn: new Date(),
       type: changeType,
       ...e,
     }));

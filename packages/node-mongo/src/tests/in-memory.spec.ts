@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import chai from 'chai';
+import Joi from 'joi';
 import spies from 'chai-spies';
 
 import { Database, eventBus } from '../index';
@@ -15,16 +16,23 @@ const database = new Database(config.mongo.connection, config.mongo.dbName);
 
 type UserType = {
   _id: string;
-  createdOn: string;
+  createdOn?: Date;
+  updatedOn?: Date;
+  deletedOn?: Date | null;
   fullName: string;
   firstName: string;
-  deletedOn: string;
 };
 
-const usersService = database.createService<UserType>('users', {
-  outbox: false,
-  addUpdatedOnField: true,
+const schema = Joi.object({
+  _id: Joi.string().required(),
+  createdOn: Joi.date(),
+  updatedOn: Joi.date(),
+  deletedOn: Joi.date().allow(null),
+  firstName: Joi.string(),
+  fullName: Joi.string().required(),
 });
+
+const usersService = database.createService<UserType>('users', { schema });
 
 describe('events/in-memory.ts', () => {
   before(async () => {

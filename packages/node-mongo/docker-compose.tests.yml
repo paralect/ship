@@ -3,7 +3,14 @@ services:
   mongo:
     container_name: mongo
     image: mongo:4.4
-    command: --replSet rs --bind_ip_all --keyFile /mongo-replicator/keyfile --quiet --logpath /dev/null
+    entrypoint:
+      - bash
+      - -c
+      - |
+        chmod 400 /config/keyfile
+        chown 999:999 /config/keyfile
+        exec docker-entrypoint.sh $$@
+    command: mongod --replSet rs --bind_ip_all --keyFile config/keyfile --quiet --logpath /dev/null
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
@@ -13,7 +20,7 @@ services:
       - 27017:27017
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./mongo-replicator:/mongo-replicator
+      - ./mongo-replicator:/config
       - type: volume
         source: mongodb
         target: /data/db

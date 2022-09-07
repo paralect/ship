@@ -42,7 +42,7 @@ const addUpdatedOnField = <T>(update: UpdateFilter<T>): UpdateFilter<T> => {
 
   return {
     ...update,
-    $set: { ...setCommand, updatedOn: new Date().toISOString() },
+    $set: { ...setCommand, updatedOn: new Date() },
   } as unknown as UpdateFilter<T>;
 };
 
