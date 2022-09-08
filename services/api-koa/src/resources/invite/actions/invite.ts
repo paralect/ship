@@ -15,7 +15,7 @@ const schema = Joi.object({
     .min(1)
     .unique()
     .messages({
-      'array.min': 'Please, add at least one email.',
+      'array.min': 'Please, add at least one email',
       'array.unique': 'Duplicated email',
       'string.email': 'Incorrect email format',
     })
@@ -30,12 +30,12 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
   const { results: existingUsers } = await userService.find({ email: { $in: emails } });
   ctx.assertClientError(!existingUsers.length, {
-    emails: `Users with ${existingUsers.map((item) => item.email).join(', ')} emails are already exists`,
+    emails: `Users with ${existingUsers.map((item) => item.email).join(', ')} emails already exist`,
   });
 
   const { results: existingInvites } = await inviteService.find({ email: { $in: emails } });
   ctx.assertClientError(!existingInvites.length, {
-    emails: `Users with ${existingInvites.map((item) => item.email).join(', ')} emails are already invited`
+    emails: `Users with ${existingInvites.map((item) => item.email).join(', ')} emails already invited`,
   })
 
   await next();
@@ -57,12 +57,12 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   await inviteService.insertMany(data);
 
-  await Promise.all(data.map(async (item) => {
-    await emailService.sendInvite(item.email, {
+  await Promise.all(data.map((item) => {
+    emailService.sendInvite(item.email, {
       sender: user.fullName,
       signUpUrl: `${config.webUrl}/sign-up/?token=${item.token}`,
     });
-  }))
+  }));
 
   ctx.body = config.isDev ? data : {};
 }
