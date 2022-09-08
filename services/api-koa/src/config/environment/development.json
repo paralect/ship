@@ -13,5 +13,10 @@
     "secretAccessKey": "yourSecretAccessKey",
     "bucket": "yourBucket"
   },
-  "adminKey": "replaceWithSecureApiKey"
+  "adminKey": "replaceWithSecureApiKey",
+  "google": {
+    "clientId": "clientId",
+    "clientSecret": "clientSecret",
+    "redirectUri": "redirectUri"
+  }
 }

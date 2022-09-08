@@ -84,6 +84,9 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     passwordHash: hash.toString(),
     isEmailVerified: false,
     signupToken,
+    oauth: {
+      google: false,
+    },
   });
 
   await emailService.sendVerifyEmail(user.email, {

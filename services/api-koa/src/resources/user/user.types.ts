@@ -13,4 +13,7 @@ export type User = {
   resetPasswordToken?: string | null;
   avatarUrl?: string | null;
   lastRequest?: Date;
+  oauth?: {
+    google: boolean
+  };
 };
