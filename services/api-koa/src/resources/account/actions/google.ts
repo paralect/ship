@@ -25,6 +25,10 @@ const createUserAccount = async (userData: ValidatedData) => {
 };
 
 const getOAuthUrl = async (ctx: AppKoaContext) => {
+  const isValidCredentials = config.google.clientId || config.google.clientSecret || config.google.redirectUri;
+  ctx.assertClientError(isValidCredentials, {
+    global: 'Setup Google Oauth creadentials on API',
+  });
   ctx.redirect(googleService.oAuthURL);
 };
 
@@ -52,7 +56,7 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
 
   const { isValid, payload } = await googleService.exchangeCodeForToken(code as string);
 
-  ctx.assert(isValid, 404);
+  ctx.assertError(isValid, `Exchange code for token error: ${payload}`);
 
   const user = await ensureAccountCreated(payload as ValidatedData);
 

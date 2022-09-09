@@ -29,8 +29,6 @@ const exchangeCodeForToken = async (code: string) => {
       payload: ticket.getPayload(),
     };
   } catch ({ message, ...rest }) {
-    logger.error(`Exchange code for token error: ${message}`);
-  
     return {
       isValid: false,
       payload: { message },

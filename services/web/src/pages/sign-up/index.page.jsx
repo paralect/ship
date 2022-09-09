@@ -8,7 +8,7 @@ import config from 'config';
 import * as routes from 'routes';
 import { handleError } from 'helpers';
 import { Link } from 'components';
-import { GoogleIcon } from 'public/icons';
+import { IconBrandGoogle } from '@tabler/icons';
 import {
   Button,
   Stack,
@@ -204,7 +204,7 @@ const SignUp = () => {
           label="Or"
           labelPosition="center"
         />
-        <Button component="a" leftIcon={<GoogleIcon />} href={`${config.apiUrl}/account/sign-in/google/auth`}>
+        <Button component="a" leftIcon={<IconBrandGoogle />} href={`${config.apiUrl}/account/sign-in/google/auth`}>
           Continue with Google
         </Button>
 

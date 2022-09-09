@@ -2,7 +2,10 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
-import { TextInput, PasswordInput, Button, Group, Stack, Title, Center } from '@mantine/core';
+import { TextInput, PasswordInput, Button, Group, Stack, Title, Divider } from '@mantine/core';
+
+import config from 'config';
+import { IconBrandGoogle } from '@tabler/icons';
 
 import * as routes from 'routes';
 import { handleError } from 'helpers';
@@ -75,6 +78,13 @@ const SignIn = () => {
             </Link>
           </Stack>
         </form>
+        <Divider
+          label="Or"
+          labelPosition="center"
+        />
+        <Button component="a" leftIcon={<IconBrandGoogle />} href={`${config.apiUrl}/account/sign-in/google/auth`}>
+          Continue with Google
+        </Button>
       </Stack>
     </>
   );

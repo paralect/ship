@@ -18,7 +18,6 @@ import ArchiveIcon from './archive.svg';
 import ShowPasswordIcon from './show-password.svg';
 import HidePasswordIcon from './hide-password.svg';
 import TrashIcon from './trash.svg';
-import GoogleIcon from './google-icon.svg';
 
 import AttachmentIcon from './attachment.svg';
 import CloseSmallIcon from './close-small.svg';
@@ -62,5 +61,4 @@ export {
   AddIcon,
   PenIcon,
   FileUploadIcon,
-  GoogleIcon,
 };
