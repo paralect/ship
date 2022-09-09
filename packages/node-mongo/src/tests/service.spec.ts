@@ -67,6 +67,27 @@ describe('service.ts', () => {
     newUsersIds.should.have.members(userIds);
   });
 
+  // find paging
+  // find options
+  // insert options
+  // exists
+  // countDocuments
+  // distinct
+  // atomicUpdateOne
+  // atomicUpdateMany
+  // replaceOne
+  // deleteOne
+  // deleteMany
+  // deleteSoft
+  // delete options
+  // aggregate
+  // createIndex
+  // createIndexes
+  // dropIndex
+  // dropIndexes
+  // watch
+  // withTransaction
+
   it('should update document', async () => {
     const u = await usersService.insertOne({
       fullName: 'User to update',
@@ -144,9 +165,10 @@ describe('service.ts', () => {
       _id: u._id,
     });
 
-    const updatedUser = await usersService.findOne({
-      _id: u._id,
-    }, { requireDeletedOn: true });
+    const updatedUser = await usersService.findOne(
+      { _id: u._id },
+      {}, { skipDeletedOnDocs: false },
+    );
 
     const deletedUser = await usersService.findOne({
       _id: u._id,

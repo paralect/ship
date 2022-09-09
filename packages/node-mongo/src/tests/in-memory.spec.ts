@@ -21,6 +21,7 @@ type UserType = {
   deletedOn?: Date | null;
   fullName: string;
   firstName: string;
+  lastName: string;
 };
 
 const schema = Joi.object({
@@ -29,6 +30,7 @@ const schema = Joi.object({
   updatedOn: Joi.date(),
   deletedOn: Joi.date().allow(null),
   firstName: Joi.string(),
+  lastName: Joi.string(),
   fullName: Joi.string().required(),
 });
 
@@ -148,30 +150,37 @@ describe('events/in-memory.ts', () => {
       const spy = chai.spy();
       eventBus.on('users.updated', spy);
 
-      const firstNameSpy = chai.spy();
       const randomFullNameSpy = chai.spy();
       const expectedFullNameAndFirstNameSpy = chai.spy();
+      const expectedFullNameAndFirstNameAndLastNameSpy = chai.spy();
 
       eventBus.onUpdated<UserType>('users', ['fullName'], fullNameSpy);
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'Expected fullName' }], expectedFullNameSpy);
+      eventBus.onUpdated<UserType>('users', [{ fullName: 'John Wake' }], expectedFullNameSpy);
 
-      eventBus.onUpdated<UserType>('users', ['firstName'], firstNameSpy);
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'Random fullName', firstName: '123' }], randomFullNameSpy);
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'Expected fullName' }, 'firstName'], expectedFullNameAndFirstNameSpy);
+      eventBus.onUpdated<UserType>('users', [{ fullName: 'Random fullName' }, 'firstName'], randomFullNameSpy);
+      eventBus.onUpdated<UserType>('users', [{ fullName: 'John Wake', firstName: 'John' }], expectedFullNameAndFirstNameSpy);
+      eventBus.onUpdated<UserType>('users', [{ fullName: 'John Wake', firstName: 'John' }, 'lastName'], expectedFullNameAndFirstNameAndLastNameSpy);
 
       const user = await usersService.insertOne({
-        fullName: 'John',
+        fullName: 'Mike',
       });
 
-      await usersService.updateOne({ _id: user._id }, () => ({ fullName: 'Expected fullName' }));
+      await usersService.updateOne({ _id: user._id }, () => ({
+        fullName: 'John Wake',
+        firstName: 'John',
+      }));
 
-      spy.should.have.been.called.at.least(1);
-      fullNameSpy.should.have.been.called.at.least(1);
-      expectedFullNameSpy.should.have.been.called.at.least(1);
+      await usersService.updateOne({ _id: user._id }, () => ({
+        fullName: 'John Wake',
+      }));
 
-      firstNameSpy.should.have.been.called.at.least(0);
-      randomFullNameSpy.should.have.been.called.at.least(0);
-      expectedFullNameAndFirstNameSpy.should.have.been.called.at.least(0);
+      spy.should.have.been.called.exactly(1);
+      fullNameSpy.should.have.been.called.exactly(1);
+      expectedFullNameSpy.should.have.been.called.exactly(1);
+
+      randomFullNameSpy.should.have.been.called.exactly(1);
+      expectedFullNameAndFirstNameSpy.should.have.been.called.exactly(1);
+      expectedFullNameAndFirstNameAndLastNameSpy.should.have.been.called.exactly(1);
     });
   });
 });
