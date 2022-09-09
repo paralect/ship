@@ -9,9 +9,7 @@ const UserMenu = () => {
   const { mutate: signOut } = accountApi.useSignOut();
 
   return (
-    <Menu
-      sx={{ marginLeft: 'auto' }}
-    >
+    <Menu>
       <Menu.Target>
         <MenuToggle />
       </Menu.Target>
