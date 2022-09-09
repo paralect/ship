@@ -1,0 +1,23 @@
+<mjml>
+  <mj-head>
+    <mj-include path="./styles/index.mjml" />
+  </mj-head>
+
+  <mj-body>
+    <mj-include path="./components/header.mjml" />
+
+    <mj-section mj-class="main-section">
+      <mj-column vertical-align="middle" width="100%">
+        <mj-text mj-class="text">
+          {{sender}} has invited you to work in ...!
+        </mj-text>
+
+        <mj-button mj-class="btn" href="{{signUpUrl}}">
+          Accept Invite
+        </mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./components/footer.mjml" />
+  </mj-body>
+</mjml>

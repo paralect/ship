@@ -13,6 +13,13 @@ const emailService = new EmailService({
   },
 });
 
+const sendVerifyEmail = (to: string, dynamicTemplateData: unknown) => emailService.sendTemplate({
+  to,
+  subject: 'Confirm email',
+  template: 'verify-email.html',
+  dynamicTemplateData,
+});
+
 const sendSignUpWelcome = (to: string, dynamicTemplateData: unknown) => emailService.sendTemplate({
   to,
   subject: 'Sign Up',
@@ -20,21 +27,22 @@ const sendSignUpWelcome = (to: string, dynamicTemplateData: unknown) => emailSer
   dynamicTemplateData,
 });
 
-const sendForgotPassword = (to: string, dynamicTemplateData: { [key: string]: unknown; }) => emailService.sendSendgridTemplate({
+const sendForgotPassword = (to: string, dynamicTemplateData: { [key: string]: unknown; }) => emailService.sendTemplate({
   to,
   subject: 'Welcome',
-  templateId: 'your-template-id',
+  template: 'reset-password.html',
   dynamicTemplateData,
 });
 
-const sendInvite = (to: string, dynamicTemplateData: { [key: string]: unknown; }) => emailService.sendSendgridTemplate({
+const sendInvite = (to: string, dynamicTemplateData: { [key: string]: unknown; }) => emailService.sendTemplate({
   to,
   subject: 'Welcome',
-  templateId: 'invite-template-id',
+  template: 'invite.html',
   dynamicTemplateData,
 })
 
 export default {
+  sendVerifyEmail,
   sendSignUpWelcome,
   sendForgotPassword,
   sendInvite,
