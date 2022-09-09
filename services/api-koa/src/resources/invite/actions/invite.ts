@@ -64,7 +64,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     });
   }));
 
-  ctx.body = config.isDev ? data : {};
+  ctx.body = {};
 }
 
 export default (router: AppRouter) => {
