@@ -17,9 +17,12 @@ import { inviteApi } from 'resources/invite';
 import { useStyles } from './styles';
 
 const KEY_CODES = {
+  BACKSPACE: 8,
   ENTER: 13,
   SPACE: 32,
 };
+
+const DEFAULT_ERROR_MESSAGE = 'Invalid or duplicated emails, please check again';
 
 const AddMembersModalForm = ({ onClose }) => {
   const { mutate: inviteMembers, isLoading } = inviteApi.useInviteMembers();
@@ -38,11 +41,18 @@ const AddMembersModalForm = ({ onClose }) => {
 
   const handleKeyDown = useCallback(
     (e) => {
-      if (Object.values(KEY_CODES).includes(e.keyCode) && !!email) {
+      if ([KEY_CODES.ENTER, KEY_CODES.SPACE].includes(e.keyCode) && !!email) {
         e.preventDefault();
 
         setEmail('');
         !emails.includes(email) && setEmails(emails.concat(email));
+
+        return;
+      }
+
+      if (e.keyCode === KEY_CODES.BACKSPACE && !email) {
+        e.preventDefault();
+        setEmails(emails.slice(0, emails.length - 1));
       }
     },
     [emails, email]
@@ -70,13 +80,6 @@ const AddMembersModalForm = ({ onClose }) => {
     [emails]
   );
 
-  const formatError = useCallback(
-    (key, data) => {
-      setError('emails', data);
-    },
-    [setError]
-  );
-
   const handleSubmit = useCallback(
     () => {
       inviteMembers({ emails }, {
@@ -87,7 +90,7 @@ const AddMembersModalForm = ({ onClose }) => {
           });
           onClose();
         },
-        onError: (e) => handleError(e, formatError),
+        onError: (e) => handleError(e, setError),
       })
     }
   );
@@ -98,6 +101,7 @@ const AddMembersModalForm = ({ onClose }) => {
         <Badge
           key={`item-${index}`}
           size="lg"
+          className={cx({ [classes.error]: !!errors.emails?.[index] })}
           rightSection={<IconX className={classes.icon} role="presentation" onClick={() => handleRemoveEmail(index)} color="gray" />}
         >
           {item}
@@ -122,7 +126,7 @@ const AddMembersModalForm = ({ onClose }) => {
           onChange={handleChange}
         />
       </div>
-      <Text className={classes.errorMessage} sx={{ fontSize: '14px' }}>{errors.emails?.message}</Text>
+      {errors.emails && <Text className={classes.errorMessage}>{errors.emails.message || DEFAULT_ERROR_MESSAGE}</Text>}
     </>
   );
 

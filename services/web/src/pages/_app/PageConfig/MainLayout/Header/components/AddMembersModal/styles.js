@@ -22,7 +22,9 @@ export const useStyles = createStyles((
     border: 'none',
   },
   error: {
+    background: '#FFF',
     borderColor: colors.red[6],
+    color: colors.red[6],
   },
   errorMessage: {
     color: colors.red[6],
