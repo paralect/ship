@@ -6,6 +6,7 @@ import {
 import { Link } from 'components';
 import { LogoImage } from 'public/images';
 
+import AddMembersModal from './components/AddMembersModal';
 import UserMenu from './components/UserMenu';
 
 const Header = () => (
@@ -23,6 +24,7 @@ const Header = () => (
     <Link type="router" href={routes.path.home} withoutUnderline>
       <LogoImage />
     </Link>
+    <AddMembersModal />
     <UserMenu />
   </LayoutHeader>
 );
