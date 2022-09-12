@@ -10,4 +10,5 @@ export type Token = {
   type: TokenType;
   value: string;
   userId: string;
+  isShadow: boolean | null;
 };

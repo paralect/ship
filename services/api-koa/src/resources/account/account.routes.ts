@@ -8,6 +8,7 @@ import forgotPassword from './actions/forgot-password';
 import resetPassword from './actions/reset-password';
 import verifyResetToken from './actions/verify-reset-token';
 import resendEmail from './actions/resend-email';
+import shadowLogin from './actions/shadow-login';
 
 const publicRoutes = routeUtil.getRoutes([
   signUp,
@@ -20,6 +21,11 @@ const publicRoutes = routeUtil.getRoutes([
   resendEmail,
 ]);
 
+const adminRoutes = routeUtil.getRoutes([
+  shadowLogin,
+]);
+
 export default {
+  adminRoutes,
   publicRoutes,
 };

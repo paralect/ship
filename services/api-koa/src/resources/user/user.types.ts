@@ -9,6 +9,7 @@ export type User = {
   email: string;
   passwordHash: string;
   isEmailVerified: boolean;
+  isShadow: boolean | null;
   signupToken: string | null;
   resetPasswordToken?: string | null;
   avatarUrl?: string | null;
