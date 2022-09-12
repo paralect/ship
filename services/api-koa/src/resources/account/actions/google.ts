@@ -7,21 +7,7 @@ type ValidatedData = {
   given_name: string;
   family_name: string;
   email: string;
-};
-
-const createUserAccount = async (userData: ValidatedData) => {
-  const user = await userService.insertOne({
-    firstName: userData.given_name,
-    lastName: userData.family_name,
-    fullName: `${userData.given_name} ${userData.family_name}`,
-    email: userData.email,
-    isEmailVerified: true,
-    oauth: {
-      google: true,
-    },
-  });
-
-  return user;
+  picture: string
 };
 
 const getOAuthUrl = async (ctx: AppKoaContext) => {
@@ -32,39 +18,50 @@ const getOAuthUrl = async (ctx: AppKoaContext) => {
   ctx.redirect(googleService.oAuthURL);
 };
 
-const ensureAccountCreated = async (payload: ValidatedData) => {
-  const user = await userService.findOne({ email: payload.email });
-
-  if (user) {
-    if (!user.oauth?.google) {
-      const userChanged = await userService.updateOne(
-        { _id: user._id },
-        (old) => ({ ...old, oauth: { google: true } }),
-      );
-
-      return userChanged;
-    }
-
-    return user;
-  }
-
-  return createUserAccount(payload);
-};
-
 const signinGoogleWithCode = async (ctx: AppKoaContext) => {
   const { code } = ctx.request.query;
 
-  const { isValid, payload } = await googleService.exchangeCodeForToken(code as string);
+  const { isValid, payload } = await googleService.
+    exchangeCodeForToken(code as string) as { isValid: boolean, payload: ValidatedData };
 
   ctx.assertError(isValid, `Exchange code for token error: ${payload}`);
 
-  const user = await ensureAccountCreated(payload as ValidatedData);
+  const  user = await userService.findOne({ email: payload.email });
+  let userChanged;
 
-  if (user){
+  if (user) {
+    if (!user.oauth?.google) {
+      userChanged = await userService.updateOne(
+        { _id: user._id },
+        (old) => ({ ...old, oauth: { google: true } }),
+      );
+    } 
+    const userUpdated = userChanged || user;
     await Promise.all([
-      userService.updateLastRequest(user._id),
-      authService.setTokens(ctx, user._id),
+      userService.updateLastRequest(userUpdated._id),
+      authService.setTokens(ctx, userUpdated._id),
     ]);
+    
+  } else {
+    const newUser = await userService.insertOne({
+      firstName: payload.given_name,
+      lastName: payload.family_name,
+      fullName: `${payload.given_name} ${payload.family_name}`,
+      email: payload.email,
+      isEmailVerified: true,
+      avatarUrl: payload.picture,
+      oauth: {
+        google: true,
+      },
+    });
+
+
+    if (newUser){
+      await Promise.all([
+        userService.updateLastRequest(newUser._id),
+        authService.setTokens(ctx, newUser._id),
+      ]);
+    }
   }
   ctx.redirect(config.webUrl);
 };
