@@ -2,6 +2,6 @@
   "mongo": {
     "dbName": "api-staging"
   },
-  "apiUrl": "https://ship-api-staging.paralect.net",
-  "webUrl": "https://ship-staging.paralect.net"
+  "apiUrl": "https://ship-staging-api.paralect.com",
+  "webUrl": "https://ship-staging.paralect.com"
 }
