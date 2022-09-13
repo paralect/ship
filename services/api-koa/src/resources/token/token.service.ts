@@ -14,7 +14,7 @@ const createToken = async (userId: string, type: TokenType, isShadow?: boolean) 
     type,
     value,
     userId,
-    isShadow,
+    isShadow: isShadow || null,
   });
 };
 

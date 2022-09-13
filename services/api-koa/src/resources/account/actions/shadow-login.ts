@@ -37,7 +37,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   await authService.setTokens(ctx, user._id, true);
 
-  ctx.body = userService.getPublic(user);
+  ctx.redirect(config.webUrl);
 }
 
 export default (router: AppRouter) => {
