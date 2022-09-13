@@ -8,10 +8,10 @@ import config from 'config';
 import * as routes from 'routes';
 import { handleError } from 'helpers';
 import { Link } from 'components';
+import { IconBrandGoogle } from '@tabler/icons';
 import {
   Button,
   Stack,
-  Center,
   TextInput,
   PasswordInput,
   Group,
@@ -20,6 +20,7 @@ import {
   Checkbox,
   SimpleGrid,
   Tooltip,
+  Divider,
 } from '@mantine/core';
 import { accountApi } from 'resources/account';
 
@@ -199,6 +200,14 @@ const SignUp = () => {
             Sign In
           </Link>
         </Group>
+        <Divider
+          label="Or"
+          labelPosition="center"
+        />
+        <Button component="a" leftIcon={<IconBrandGoogle />} href={`${config.apiUrl}/account/sign-in/google/auth`}>
+          Continue with Google
+        </Button>
+
       </Stack>
     </>
   );

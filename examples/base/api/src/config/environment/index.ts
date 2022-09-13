@@ -18,6 +18,11 @@ const base = {
   sendgridApiKey: '',
   redis: 'redis://:@redis:6379',
   adminKey: '',
+  google: {
+    clientId: '',
+    clientSecret: '',
+    redirectUri: '',
+  },
 };
 
 const config = configUtil.loadConfig(base, env, __dirname);
