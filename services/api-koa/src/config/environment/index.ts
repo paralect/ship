@@ -6,22 +6,24 @@ const base = {
   port: process.env.PORT || 3001,
   isDev: env === 'development',
   mongo: {
-    connection: '',
+    connection: process.env.MONGO_CONNECTION || '',
     dbName: '',
-  },
-  cloudStorage: {
-    bucket: '',
-    endpoint: '',
   },
   apiUrl: '',
   webUrl: '',
-  sendgridApiKey: '',
-  redis: 'redis://:@redis:6379',
-  adminKey: '',
+  redis: process.env.REDIS_CONNECTION || 'redis://:super-secured-password@redis-master.redis.svc.cluster.local:6379',
+  sendgridApiKey: process.env.SENDGRID_API_KEY || '',
+  cloudStorage: {
+    endpoint: process.env.CLOUD_STORAGE_ENDPOINT || '',
+    accessKeyId: process.env.CLOUD_STORAGE_ACCESS_KEY_ID || '',
+    secretAccessKey: process.env.CLOUD_STORAGE_SECRET_ACCESS_KEY || '',
+    bucket: process.env.CLOUD_STORAGE_BUCKET || '',
+  },
+  adminKey: process.env.ADMIN_KEY || 'replaceWithSecureApiKey',
   google: {
-    clientId: '',
-    clientSecret: '',
-    redirectUri: '',
+    clientId: process.env.GOOGLE_CLIENT_ID || '',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    redirectUri: process.env.GOOGLE_REDIRECT_URI || '',
   },
 };
 
