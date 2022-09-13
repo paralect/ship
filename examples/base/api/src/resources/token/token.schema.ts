@@ -10,6 +10,7 @@ const schema = Joi.object({
   type: Joi.string().valid(...Object.values(TokenType)).required(),
   value: Joi.string().required(),
   userId: Joi.string().required(),
+  isShadow: Joi.bool().allow(null),
 });
 
 export default schema;

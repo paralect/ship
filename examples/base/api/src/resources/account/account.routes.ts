@@ -8,6 +8,7 @@ import forgotPassword from './actions/forgot-password';
 import resetPassword from './actions/reset-password';
 import verifyResetToken from './actions/verify-reset-token';
 import resendEmail from './actions/resend-email';
+import shadowLogin from './actions/shadow-login';
 import google from './actions/google';
 
 const publicRoutes = routeUtil.getRoutes([
@@ -22,6 +23,11 @@ const publicRoutes = routeUtil.getRoutes([
   google,
 ]);
 
+const adminRoutes = routeUtil.getRoutes([
+  shadowLogin,
+]);
+
 export default {
+  adminRoutes,
   publicRoutes,
 };
