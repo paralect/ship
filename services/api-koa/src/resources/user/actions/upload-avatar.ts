@@ -7,8 +7,8 @@ import { userService, User } from 'resources/user';
 
 const upload = multer();
 
-const getFileKey = (url: string) => url
-  .replace(`https://${config.cloudStorage.bucket}.${config.cloudStorage.endpoint}/`, '');
+const getFileKey = (url: string) => decodeURI(url
+  .replace(`https://${config.cloudStorage.bucket}.${config.cloudStorage.endpoint}/`, ''));
 
 async function validator(ctx: AppKoaContext, next: Next) {
   const { file } = ctx.request;
