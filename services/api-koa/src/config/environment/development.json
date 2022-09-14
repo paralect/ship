@@ -16,7 +16,6 @@
   "adminKey": "replaceWithSecureApiKey",
   "google": {
     "clientId": "",
-    "clientSecret": "",
-    "redirectUri": ""
+    "clientSecret": ""
   }
 }

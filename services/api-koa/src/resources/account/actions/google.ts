@@ -11,7 +11,7 @@ type ValidatedData = {
 };
 
 const getOAuthUrl = async (ctx: AppKoaContext) => {
-  const isValidCredentials = config.google.clientId || config.google.clientSecret || config.google.redirectUri;
+  const isValidCredentials = config.google.clientId || config.google.clientSecret;
   ctx.assertClientError(isValidCredentials, {
     global: 'Setup Google Oauth creadentials on API',
   });

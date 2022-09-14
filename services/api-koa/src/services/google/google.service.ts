@@ -6,7 +6,7 @@ import logger from 'logger';
 const client = new OAuth2Client(
   config.google.clientId,
   config.google.clientSecret,
-  config.google.redirectUri,
+  `${config.apiUrl}/account/sign-in/google`,
 );
 
 const oAuthURL = client.generateAuthUrl({
