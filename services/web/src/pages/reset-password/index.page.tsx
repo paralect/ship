@@ -13,7 +13,7 @@ import {
 import Head from 'next/head';
 import { NextPage } from 'next';
 
-import * as routes from 'routes';
+import { RoutePath } from 'routes';
 import { handleError } from 'helpers';
 import { accountApi } from 'resources/account';
 
@@ -71,7 +71,7 @@ const ResetPassword: NextPage = () => {
             Your password has been updated successfully.
             You can now use your new password to sign in.
           </Text>
-          <Button onClick={() => router.push(routes.path.signIn)}>
+          <Button onClick={() => router.push(RoutePath.SignIn)}>
             Back to Sign In
           </Button>
         </Stack>

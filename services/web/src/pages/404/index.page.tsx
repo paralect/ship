@@ -3,7 +3,7 @@ import Head from 'next/head';
 import router from 'next/router';
 import { NextPage } from 'next';
 
-import * as routes from 'routes';
+import { RoutePath } from 'routes';
 import {
   Stack,
   Title,
@@ -13,7 +13,7 @@ import {
 
 const NotFound: NextPage = () => {
   const handleClick = useCallback(() => {
-    router.push(routes.path.home);
+    router.push(RoutePath.Home);
   }, []);
 
   return (
@@ -21,7 +21,14 @@ const NotFound: NextPage = () => {
       <Head>
         <title>Page not found</title>
       </Head>
-      <Stack sx={{ width: '328px' }}>
+      <Stack sx={{
+        width: '328px',
+        height: '100vh',
+        display: 'flex',
+        margin: 'auto',
+        justifyContent: 'center',
+      }}
+      >
         <Title order={2}>Oops! The page is not found.</Title>
         <Text
           component="p"

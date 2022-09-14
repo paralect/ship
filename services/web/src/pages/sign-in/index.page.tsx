@@ -8,7 +8,7 @@ import { TextInput, PasswordInput, Button, Group, Stack, Title, Divider } from '
 import config from 'config';
 import { IconBrandGoogle } from '@tabler/icons';
 
-import * as routes from 'routes';
+import { RoutePath } from 'routes';
 import { handleError } from 'helpers';
 import { Link } from 'components';
 import { accountApi, SignInVariables } from 'resources/account';
@@ -61,7 +61,7 @@ const SignIn: NextPage = () => {
               Don’t have an account?
               <Link
                 type="router"
-                href={routes.path.signUp}
+                href={RoutePath.SignUp}
                 underline={false}
                 inherit
               >
@@ -69,7 +69,7 @@ const SignIn: NextPage = () => {
               </Link>
             </Group>
             <Link
-              href={routes.path.forgotPassword}
+              href={RoutePath.ForgotPassword}
               type="router"
               underline={false}
               size="sm"

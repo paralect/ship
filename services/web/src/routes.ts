@@ -1,73 +1,67 @@
-export const scope = {
-  PUBLIC: 'public',
-  PRIVATE: 'private',
-  NONE: '',
-};
+export enum ScopeType {
+  PUBLIC = 'PUBLIC',
+  PRIVATE = 'PRIVATE',
+}
 
-export const layout = {
-  MAIN: 'main',
-  UNAUTHORIZED: 'unauthorized',
-  NONE: '',
-};
+export enum LayoutType {
+  MAIN = 'MAIN',
+  UNAUTHORIZED = 'UNAUTHORIZED',
+}
 
-export const path = {
-  home: '/',
-  404: '/404',
-  signIn: '/sign-in',
-  signUp: '/sign-up',
-  forgotPassword: '/forgot-password',
-  resetPassword: '/reset-password',
-  expireToken: '/expire-token',
-  profile: '/profile',
-};
+export enum RoutePath {
+  // Private paths
+  Home = '/',
+  Profile = '/profile',
+
+  // Auth paths
+  SignIn = '/sign-in',
+  SignUp = '/sign-up',
+  ForgotPassword = '/forgot-password',
+  ResetPassword = '/reset-password',
+  ExpireToken = '/expire-token',
+
+  NotFound = '/404',
+}
 
 type RoutesConfiguration = {
-  [key: string]: {
-    path: string;
-    layout?: string;
-    scope?: string;
+  [routePath in RoutePath]: {
+    scope?: ScopeType;
+    layout?: LayoutType;
   };
 };
 
-export const configuration: RoutesConfiguration = {
-  home: {
-    path: path.home,
-    scope: scope.PRIVATE,
-    layout: layout.MAIN,
+export const routesConfiguration: RoutesConfiguration = {
+  // Private routes
+  [RoutePath.Home]: {
+    scope: ScopeType.PRIVATE,
+    layout: LayoutType.MAIN,
   },
-  404: {
-    path: path['404'],
-    scope: scope.NONE,
-    layout: layout.UNAUTHORIZED,
+  [RoutePath.Profile]: {
+    scope: ScopeType.PRIVATE,
+    layout: LayoutType.MAIN,
   },
-  signIn: {
-    path: path.signIn,
-    scope: scope.PUBLIC,
-    layout: layout.UNAUTHORIZED,
+
+  // Auth routes
+  [RoutePath.SignIn]: {
+    scope: ScopeType.PUBLIC,
+    layout: LayoutType.UNAUTHORIZED,
   },
-  signUp: {
-    path: path.signUp,
-    scope: scope.PUBLIC,
-    layout: layout.UNAUTHORIZED,
+  [RoutePath.SignUp]: {
+    scope: ScopeType.PUBLIC,
+    layout: LayoutType.UNAUTHORIZED,
   },
-  forgotPassword: {
-    path: path.forgotPassword,
-    scope: scope.PUBLIC,
-    layout: layout.UNAUTHORIZED,
+  [RoutePath.ForgotPassword]: {
+    scope: ScopeType.PUBLIC,
+    layout: LayoutType.UNAUTHORIZED,
   },
-  resetPassword: {
-    path: path.resetPassword,
-    scope: scope.PUBLIC,
-    layout: layout.UNAUTHORIZED,
+  [RoutePath.ResetPassword]: {
+    scope: ScopeType.PUBLIC,
+    layout: LayoutType.UNAUTHORIZED,
   },
-  expireToken: {
-    path: path.expireToken,
-    scope: scope.PUBLIC,
-    layout: layout.UNAUTHORIZED,
+  [RoutePath.ExpireToken]: {
+    scope: ScopeType.PUBLIC,
+    layout: LayoutType.UNAUTHORIZED,
   },
-  profile: {
-    path: path.profile,
-    scope: scope.PRIVATE,
-    layout: layout.MAIN,
-  },
+
+  [RoutePath.NotFound]: {},
 };

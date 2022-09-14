@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 
-import * as routes from 'routes';
+import { RoutePath } from 'routes';
 import { handleError } from 'helpers';
 import { accountApi } from 'resources/account';
 import {
@@ -38,7 +38,7 @@ const ForgotPassword: NextPage = () => {
           <Text component="p" sx={{ fontSize: '14px' }}>
             Reset link sent successfully
           </Text>
-          <Button onClick={() => router.push(routes.path.signIn)}>
+          <Button onClick={() => router.push(RoutePath.SignIn)}>
             Back to Sign In
           </Button>
         </Stack>

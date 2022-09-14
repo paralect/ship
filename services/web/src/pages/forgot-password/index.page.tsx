@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { NextPage } from 'next';
 
-import * as routes from 'routes';
+import { RoutePath } from 'routes';
 import { handleError } from 'helpers';
 import { Link } from 'components';
 import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
@@ -54,7 +54,7 @@ const ForgotPassword: NextPage = () => {
             . Please check your email inbox and follow the
             directions to reset your password.
           </Text>
-          <Button onClick={() => router.push(routes.path.signIn)}>
+          <Button onClick={() => router.push(RoutePath.SignIn)}>
             Back to Sign In
           </Button>
         </Stack>
@@ -97,7 +97,7 @@ const ForgotPassword: NextPage = () => {
           Have an account?
           <Link
             type="router"
-            href={routes.path.signIn}
+            href={RoutePath.SignIn}
             inherit
           >
             Sign in

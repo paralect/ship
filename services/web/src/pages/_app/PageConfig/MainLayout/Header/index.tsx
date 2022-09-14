@@ -1,5 +1,5 @@
 import { memo, FC } from 'react';
-import * as routes from 'routes';
+import { RoutePath } from 'routes';
 import {
   Header as LayoutHeader,
   Container,
@@ -29,7 +29,7 @@ const Header: FC = () => {
         })}
         fluid
       >
-        <Link type="router" href={routes.path.home} withoutUnderline>
+        <Link type="router" href={RoutePath.Home}>
           <LogoImage />
         </Link>
         <AddMembersModal />

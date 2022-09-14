@@ -6,7 +6,7 @@ import Head from 'next/head';
 import { NextPage } from 'next';
 
 import config from 'config';
-import * as routes from 'routes';
+import { RoutePath } from 'routes';
 import { handleError } from 'helpers';
 import { Link } from 'components';
 import { IconBrandGoogle } from '@tabler/icons';
@@ -194,7 +194,7 @@ const SignUp: NextPage = () => {
           Have an account?
           <Link
             type="router"
-            href={routes.path.signIn}
+            href={RoutePath.SignIn}
             inherit
             underline={false}
           >

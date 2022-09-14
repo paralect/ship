@@ -3,12 +3,13 @@ import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
-import { MantineProvider } from '@mantine/core';
+import { Global, MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
 
 import queryClient from 'query-client';
 import shipTheme from 'theme/ship-theme';
+import { globalStyles } from 'theme/globalStyles';
 
 import PageConfig from './PageConfig';
 
@@ -25,6 +26,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
       >
         <ModalsProvider>
           <NotificationsProvider autoClose={10000}>
+            <Global styles={globalStyles} />
             <PageConfig>
               <Component {...pageProps} />
             </PageConfig>
