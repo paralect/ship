@@ -1,0 +1,18 @@
+name: 'Application deployment'
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'examples/base/api/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_ACCESS_TOKEN }}
+      - name: Update DigitalOcean App Platform
+        run: doctl apps create-deployment ${{ secrets.DO_APP_API_ID }} --wait
