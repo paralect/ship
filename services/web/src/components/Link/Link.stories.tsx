@@ -1,4 +1,5 @@
 import { IconUserCircle } from '@tabler/icons';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Link from './Link';
 
@@ -53,11 +54,16 @@ export default {
       defaultValue: 'md',
     },
   },
-};
+} as ComponentMeta<typeof Link>;
 
-const Template = ({ ...args }) => <Link {...args}>{args.children}</Link>;
+const Template: ComponentStory<typeof Link> = ({ ...args }) => (
+  <Link {...args}>
+    {args.children}
+  </Link>
+);
 
 export const Icon = Template.bind({});
-(Icon as any).args = {
+
+Icon.args = {
   icon: <IconUserCircle />,
 };
