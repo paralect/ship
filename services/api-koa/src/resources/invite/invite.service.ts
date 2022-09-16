@@ -8,4 +8,4 @@ import { Invite } from './invite.types';
 
 const service = db.createService<Invite>(DATABASE_DOCUMENTS.INVITES, { schema });
 
-export default service;
+export default Object.assign(service, {});

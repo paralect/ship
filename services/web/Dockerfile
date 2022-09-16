@@ -10,7 +10,7 @@ WORKDIR /app
 EXPOSE 3002
 COPY ["./package*.json", "/app/"]
 
-RUN npm ci --quiet
+RUN npm ci --quiet --include=dev
 COPY . ./
 
 FROM base AS development
