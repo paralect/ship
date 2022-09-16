@@ -24,7 +24,7 @@ rm -rf ship
 cd web
 
 npm uninstall @microsoft/signalr
-rm src/services/socket.signalr.service.js
+rm src/services/socket.signalr.service.ts
 rm src/config/environment/development.dotnet.json
 
 cd ..

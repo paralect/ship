@@ -91,12 +91,12 @@ cd web
 if [ "$api_type" == "Koa.js" ]
 then
 npm uninstall @microsoft/signalr
-rm src/services/socket.signalr.service.js
+rm src/services/socket.signalr.service.ts
 rm src/config/environment/development.dotnet.json
 else
 npm uninstall socket.io-client
-rm src/services/socket.service.js
-mv src/services/socket.signalr.service.js src/services/socket.service.js
+rm src/services/socket.service.ts
+mv src/services/socket.signalr.service.ts src/services/socket.service.ts
 rm src/config/environment/development.json
 mv src/config/environment/development.dotnet.json src/config/environment/development.json
 fi
