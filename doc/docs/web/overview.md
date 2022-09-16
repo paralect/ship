@@ -8,7 +8,7 @@ Web Starter is what we think an ideal starting point for the most React frontend
 
 - Next.js
 - React Query
-- React Hook Form
+- React Hook Form + Zod
 - Mantine UI + Tabler
 - Typescript
 - Storybook + Chromatic

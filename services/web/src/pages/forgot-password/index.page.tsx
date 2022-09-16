@@ -1,20 +1,24 @@
-import * as yup from 'yup';
+import { z } from 'zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { NextPage } from 'next';
+import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
 
 import { RoutePath } from 'routes';
 import { handleError } from 'helpers';
 import { Link } from 'components';
-import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
-import { accountApi, ForgotPasswordVariables } from 'resources/account';
+import { accountApi } from 'resources/account';
 
-const schema = yup.object().shape({
-  email: yup.string().max(64).email('Email format is incorrect.').required('Field is required.'),
+const schema = z.object({
+  email: z.string({ required_error: 'Field is required.' }).max(64).email('Email format is incorrect.'),
 });
+
+type ForgotPasswordParams = {
+  email: string,
+};
 
 const ForgotPassword: NextPage = () => {
   const router = useRouter();
@@ -24,17 +28,17 @@ const ForgotPassword: NextPage = () => {
   const {
     mutate: forgotPassword,
     isLoading: isForgotPasswordLoading,
-  } = accountApi.useForgotPassword();
+  } = accountApi.useForgotPassword<ForgotPasswordParams>();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ForgotPasswordVariables>({
-    resolver: yupResolver(schema),
+  } = useForm<ForgotPasswordParams>({
+    resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: ForgotPasswordVariables) => forgotPassword(data, {
+  const onSubmit = (data: ForgotPasswordParams) => forgotPassword(data, {
     onSuccess: () => setEmail(data.email),
     onError: (e) => handleError(e),
   });
@@ -83,7 +87,7 @@ const ForgotPassword: NextPage = () => {
                 'data-invalid': !!errors.email,
               }}
               placeholder="Your email address"
-              error={errors?.email?.message}
+              error={errors.email?.message}
             />
             <Button
               type="submit"

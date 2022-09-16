@@ -2,16 +2,21 @@ import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
-
-import { RoutePath } from 'routes';
-import { handleError } from 'helpers';
-import { accountApi } from 'resources/account';
 import {
   Stack,
   Title,
   Text,
   Button,
 } from '@mantine/core';
+
+import { QueryParam } from 'types';
+import { RoutePath } from 'routes';
+import { handleError } from 'helpers';
+import { accountApi } from 'resources/account';
+
+type ForgotPasswordParams = {
+  email: QueryParam,
+};
 
 const ForgotPassword: NextPage = () => {
   const router = useRouter();
@@ -20,9 +25,12 @@ const ForgotPassword: NextPage = () => {
 
   const [isSent, setSent] = useState(false);
 
-  const { mutate: resendEmail, isLoading: isResendEmailLoading } = accountApi.useResendEmail();
+  const {
+    mutate: resendEmail,
+    isLoading: isResendEmailLoading,
+  } = accountApi.useResendEmail<ForgotPasswordParams>();
 
-  const onSubmit = () => resendEmail({ email: email as string }, {
+  const onSubmit = () => resendEmail({ email }, {
     onSuccess: () => setSent(true),
     onError: (e) => handleError(e),
   });

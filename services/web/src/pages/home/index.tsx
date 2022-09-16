@@ -17,9 +17,17 @@ import { useDebouncedValue } from '@mantine/hooks';
 import { IconChevronDown, IconSearch, IconX } from '@tabler/icons';
 import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 
-import { userApi, UsersListParams } from 'resources/user';
 import { Table } from 'components';
-import { UserDto } from 'types';
+import { User, userApi } from 'resources/user';
+
+interface UsersListParams {
+  page?: number;
+  perPage?: number;
+  searchValue?: string;
+  sort?: {
+    createdOn: number;
+  };
+}
 
 const selectOptions: SelectItem[] = [
   {
@@ -32,7 +40,7 @@ const selectOptions: SelectItem[] = [
   },
 ];
 
-const columns: ColumnDef<UserDto>[] = [
+const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'firstName',
     header: 'First Name',
@@ -50,7 +58,7 @@ const columns: ColumnDef<UserDto>[] = [
   },
 ];
 
-const PER_PAGE = 5;
+const PER_PAGE = 1;
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState('');
@@ -93,8 +101,7 @@ const Home: NextPage = () => {
             radius="sm"
             visible={isListLoading}
             width="auto"
-            // @ts-ignore
-            sx={{ flexGrow: '0.25' }}
+            sx={{ flexGrow: 0.25 }}
           >
             <TextInput
               value={search}

@@ -1,21 +1,20 @@
-import { UserDto } from 'types';
-
-export interface UpdateCurrentVariables {
-  email?: string;
-  password?: string;
-}
-
-export interface UsersListParams {
-  page?: number;
-  perPage?: number;
-  searchValue?: string;
-  sort?: {
-    createdOn: number;
+export interface User {
+  _id: string;
+  createdOn?: Date;
+  updatedOn?: Date;
+  deletedOn?: Date | null;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  email: string;
+  passwordHash: string;
+  isEmailVerified: boolean;
+  isShadow: boolean | null;
+  signupToken: string | null;
+  resetPasswordToken?: string | null;
+  avatarUrl?: string | null;
+  lastRequest?: Date;
+  oauth?: {
+    google: boolean
   };
-}
-
-export interface UserListResponse {
-  count: number;
-  items: UserDto[];
-  totalPages: number;
 }

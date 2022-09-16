@@ -1,6 +1,5 @@
 import { useState, memo, useCallback, FC, KeyboardEvent, ChangeEvent } from 'react';
 import { useForm } from 'react-hook-form';
-
 import {
   Badge,
   Button,
@@ -11,7 +10,7 @@ import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons';
 
 import { handleError } from 'helpers';
-import { inviteApi, InviteMembersVariables } from 'resources/invite';
+import { inviteApi } from 'resources/invite';
 
 import { useStyles } from './styles';
 
@@ -22,6 +21,8 @@ enum KeyCodes {
 }
 
 const DEFAULT_ERROR_MESSAGE = 'Invalid or duplicated emails, please check again';
+
+type InviteMembersParams = { emails: string[] };
 
 interface AddMembersModalFormProps {
   onClose: () => void;
@@ -40,7 +41,7 @@ const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
     formState: { errors },
     setError,
     setFocus,
-  } = useForm<InviteMembersVariables>();
+  } = useForm<InviteMembersParams>();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {

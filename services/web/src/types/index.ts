@@ -1,5 +1,1 @@
-import { UserDto } from './dto/user';
-
-export type {
-  UserDto,
-};
+export type QueryParam = string | string[] | undefined;

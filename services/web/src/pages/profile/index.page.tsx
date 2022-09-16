@@ -1,12 +1,10 @@
-import * as yup from 'yup';
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from 'react-query';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { showNotification } from '@mantine/notifications';
 import Head from 'next/head';
 import { NextPage } from 'next';
-
-import { handleError } from 'helpers';
 import {
   Button,
   TextInput,
@@ -14,13 +12,20 @@ import {
   Stack,
   Title,
 } from '@mantine/core';
-import { UpdateCurrentVariables, userApi } from 'resources/user';
+
+import { handleError } from 'helpers';
+import { userApi } from 'resources/user';
 
 import PhotoUpload from './components/file-upload';
 
-const schema = yup.object().shape({
-  password: yup.string().matches(/^$|^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+const schema = z.object({
+  password: z.string().regex(
+    /^$|^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
+    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+  ),
 });
+
+type UpdateCurrentParams = z.infer<typeof schema>;
 
 const Profile: NextPage = () => {
   const queryClient = useQueryClient();
@@ -32,13 +37,16 @@ const Profile: NextPage = () => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<UpdateCurrentVariables>({
-    resolver: yupResolver(schema),
+  } = useForm<UpdateCurrentParams>({
+    resolver: zodResolver(schema),
   });
 
-  const { mutate: updateCurrent, isLoading: isUpdateCurrentLoading } = userApi.useUpdateCurrent();
+  const {
+    mutate: updateCurrent,
+    isLoading: isUpdateCurrentLoading,
+  } = userApi.useUpdateCurrent<UpdateCurrentParams>();
 
-  const onSubmit = ({ password }: UpdateCurrentVariables) => updateCurrent({ password }, {
+  const onSubmit = (submitData: UpdateCurrentParams) => updateCurrent(submitData, {
     onSuccess: (data) => {
       queryClient.setQueryData(['currentUser'], data);
       showNotification({
@@ -61,16 +69,13 @@ const Profile: NextPage = () => {
       >
         <Title order={1}>Profile</Title>
         <PhotoUpload />
-        <Stack
-          // @ts-ignore
-          component="form"
+        <form
+          style={{ display: 'flex', flexDirection: 'column', gap: 'inherit' }}
           onSubmit={handleSubmit(onSubmit)}
-          spacing={20}
         >
           <TextInput
-            {...register('email')}
             label="Email Address"
-            defaultValue={currentUser.email}
+            defaultValue={currentUser?.email}
             disabled
           />
           <PasswordInput
@@ -80,7 +85,7 @@ const Profile: NextPage = () => {
             labelProps={{
               'data-invalid': !!errors.password,
             }}
-            error={errors?.password?.message as string}
+            error={errors.password?.message}
           />
           <Button
             type="submit"
@@ -88,7 +93,7 @@ const Profile: NextPage = () => {
           >
             Update Profile
           </Button>
-        </Stack>
+        </form>
       </Stack>
     </>
   );

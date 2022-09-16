@@ -10,7 +10,4 @@ module.exports = {
   trailingSlash: true,
   pageExtensions: ['page.tsx', 'api.ts'],
   reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };

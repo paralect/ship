@@ -81,7 +81,7 @@ const Table: FC<TableProps> = ({
     pageSize,
   }), [pageIndex, pageSize]);
 
-  const onPageChangeHandler = useCallback((currentPage: number) => {
+  const onPageChangeHandler = useCallback((currentPage: any) => {
     setPagination({ pageIndex: currentPage, pageSize });
 
     if (onPageChange) {
@@ -98,7 +98,6 @@ const Table: FC<TableProps> = ({
       pagination,
     },
     onSortingChange,
-    // @ts-ignore
     onPaginationChange: onPageChangeHandler,
     pageCount: Math.ceil((dataCount || 0) / perPage),
     manualPagination: true,

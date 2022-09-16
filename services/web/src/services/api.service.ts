@@ -72,7 +72,7 @@ class ApiClient {
     );
   }
 
-  get(url: string, params = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
+  get(url: string, params: any = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
     return this._api({
       method: 'get',
       url,
@@ -81,7 +81,7 @@ class ApiClient {
     });
   }
 
-  post(url: string, data = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
+  post(url: string, data: any = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
     return this._api({
       method: 'post',
       url,
@@ -90,7 +90,7 @@ class ApiClient {
     });
   }
 
-  put(url: string, data = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
+  put(url: string, data: any = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
     return this._api({
       method: 'put',
       url,
@@ -99,7 +99,7 @@ class ApiClient {
     });
   }
 
-  delete(url: string, data = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
+  delete(url: string, data: any = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
     return this._api({
       method: 'delete',
       url,
@@ -108,7 +108,7 @@ class ApiClient {
     });
   }
 
-  on(event: string, handler: any) {
+  on(event: string, handler: (...args: any[]) => void) {
     if (this._handlers.has(event)) {
       this._handlers.get(event).add(handler);
     } else {

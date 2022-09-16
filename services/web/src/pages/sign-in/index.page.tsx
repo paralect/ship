@@ -1,31 +1,32 @@
-import * as yup from 'yup';
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { NextPage } from 'next';
-import { TextInput, PasswordInput, Button, Group, Stack, Title, Divider } from '@mantine/core';
+import { TextInput, PasswordInput, Button, Group, Stack, Title, Divider, Alert } from '@mantine/core';
+import { IconBrandGoogle, IconAlertCircle } from '@tabler/icons';
 
 import config from 'config';
-import { IconBrandGoogle } from '@tabler/icons';
-
 import { RoutePath } from 'routes';
 import { handleError } from 'helpers';
 import { Link } from 'components';
-import { accountApi, SignInVariables } from 'resources/account';
+import { accountApi } from 'resources/account';
 
-const schema = yup.object().shape({
-  email: yup.string().email('Email format is incorrect.').required('Field is required.'),
-  password: yup.string().required('Field is required.'),
+const schema = z.object({
+  email: z.string({ required_error: 'Field is required.' }).email('Email format is incorrect.'),
+  password: z.string({ required_error: 'Field is required.' }),
 });
+
+type SignInParams = z.infer<typeof schema> & { credentials?: string };
 
 const SignIn: NextPage = () => {
   const {
     register, handleSubmit, formState: { errors }, setError,
-  } = useForm<SignInVariables>({ resolver: yupResolver(schema) });
+  } = useForm<SignInParams>({ resolver: zodResolver(schema) });
 
-  const { mutate: signIn, isLoading: isSignInLoading } = accountApi.useSignIn();
+  const { mutate: signIn, isLoading: isSignInLoading } = accountApi.useSignIn<SignInParams>();
 
-  const onSubmit = (data: SignInVariables) => signIn(data, {
+  const onSubmit = (data: SignInParams) => signIn(data, {
     onError: (e) => handleError(e, setError),
   });
 
@@ -42,14 +43,19 @@ const SignIn: NextPage = () => {
               {...register('email')}
               label="Email Address"
               placeholder="Email"
-              error={errors?.email?.message}
+              error={errors.email?.message}
             />
             <PasswordInput
               {...register('password')}
               label="Password"
               placeholder="Password"
-              error={errors?.password?.message}
+              error={errors.password?.message}
             />
+            {errors!.credentials && (
+              <Alert icon={<IconAlertCircle size={16} />} color="red">
+                {errors.credentials.message}
+              </Alert>
+            )}
             <Button
               loading={isSignInLoading}
               type="submit"

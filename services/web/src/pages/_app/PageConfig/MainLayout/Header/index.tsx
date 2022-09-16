@@ -16,6 +16,8 @@ import ShadowLoginBanner from './components/ShadowLoginBanner';
 const Header: FC = () => {
   const { data: user } = userApi.useGetCurrent();
 
+  if (!user) return null;
+
   return (
     <LayoutHeader height="72px">
       <Container

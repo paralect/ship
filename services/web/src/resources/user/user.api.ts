@@ -2,25 +2,25 @@ import { useMutation, useQuery } from 'react-query';
 
 import queryClient from 'query-client';
 import { apiService } from 'services';
-import { UserDto } from 'types';
-import { UpdateCurrentVariables, UserListResponse, UsersListParams } from './user.types';
+
+import { User } from './user.types';
 
 export function useGetCurrent() {
   const getCurrent = () => apiService.get('/users/current');
 
-  return useQuery(['currentUser'], getCurrent);
+  return useQuery<User>(['currentUser'], getCurrent);
 }
 
-export function useUpdateCurrent() {
-  const updateCurrent = (data: UpdateCurrentVariables) => apiService.post('/users/current', data);
+export function useUpdateCurrent<T>() {
+  const updateCurrent = (data: T) => apiService.post('/users/current', data);
 
-  return useMutation<UserDto, unknown, UpdateCurrentVariables>(updateCurrent);
+  return useMutation<User, unknown, T>(updateCurrent);
 }
 
-export function useUploadProfilePhoto() {
-  const uploadProfilePhoto = (data: FormData) => apiService.post('/users/upload-photo', data);
+export function useUploadProfilePhoto<T>() {
+  const uploadProfilePhoto = (data: T) => apiService.post('/users/upload-photo', data);
 
-  return useMutation<UserDto, unknown, FormData>(uploadProfilePhoto, {
+  return useMutation<User, unknown, T>(uploadProfilePhoto, {
     onSuccess: (data) => {
       queryClient.setQueryData(['currentUser'], data);
     },
@@ -30,15 +30,21 @@ export function useUploadProfilePhoto() {
 export function useRemoveProfilePhoto() {
   const removeProfilePhoto = () => apiService.delete('/users/remove-photo');
 
-  return useMutation<UserDto>(removeProfilePhoto, {
+  return useMutation<User>(removeProfilePhoto, {
     onSuccess: (data) => {
       queryClient.setQueryData(['currentUser'], data);
     },
   });
 }
 
-export const useList = (params: UsersListParams) => {
+export function useList<T>(params: T) {
   const list = () => apiService.get('/users', params);
 
-  return useQuery<unknown, unknown, UserListResponse>(['users', params], list);
-};
+  interface UserListResponse {
+    count: number;
+    items: User[];
+    totalPages: number;
+  }
+
+  return useQuery<UserListResponse>(['users', params], list);
+}

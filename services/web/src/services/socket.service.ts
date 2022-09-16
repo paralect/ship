@@ -19,11 +19,11 @@ export const emit = (event: string, ...args: any[]) => {
   socket.emit(event, ...args);
 };
 
-export const on = (event: string, callback: any) => {
+export const on = (event: string, callback: (...args: any[]) => void) => {
   socket.on(event, callback);
 };
 
-export const off = (event: string, callback: any) => {
+export const off = (event: string, callback: (...args: any[]) => void) => {
   socket.off(event, callback);
 };
 

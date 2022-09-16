@@ -1,9 +1,12 @@
 import { forwardRef, memo } from 'react';
-import { userApi } from 'resources/user';
 import { Avatar, UnstyledButton } from '@mantine/core';
+
+import { userApi } from 'resources/user';
 
 const MenuToggle = forwardRef<HTMLButtonElement>((props, ref) => {
   const { data: user } = userApi.useGetCurrent();
+
+  if (!user) return null;
 
   return (
     <UnstyledButton ref={ref} {...props}>

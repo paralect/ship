@@ -1,10 +1,9 @@
 import { useMutation } from 'react-query';
 
 import { apiService } from 'services';
-import { InviteMembersVariables } from './invite.types';
 
-export const useInviteMembers = () => {
-  const inviteMembers = (data: InviteMembersVariables) => apiService.post('/invites', data);
+export function useInviteMembers<T>() {
+  const inviteMembers = (data: T) => apiService.post('/invites', data);
 
-  return useMutation<{}, unknown, InviteMembersVariables>(inviteMembers);
-};
+  return useMutation<{}, unknown, T>(inviteMembers);
+}

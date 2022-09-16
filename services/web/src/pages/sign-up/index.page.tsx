@@ -1,14 +1,9 @@
-import * as yup from 'yup';
+import { z } from 'zod';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { NextPage } from 'next';
-
-import config from 'config';
-import { RoutePath } from 'routes';
-import { handleError } from 'helpers';
-import { Link } from 'components';
 import { IconBrandGoogle } from '@tabler/icons';
 import {
   Button,
@@ -23,17 +18,24 @@ import {
   Tooltip,
   Divider,
 } from '@mantine/core';
-import { accountApi, SignUpVariables } from 'resources/account';
 
-const schema = yup.object().shape({
-  firstName: yup.string().max(100).required('Field is required.'),
-  lastName: yup.string().max(100).required('Field is required.'),
-  email: yup.string().max(64).email('Email format is incorrect.').required('Field is required.'),
-  password: yup.string().matches(
+import config from 'config';
+import { RoutePath } from 'routes';
+import { handleError } from 'helpers';
+import { Link } from 'components';
+import { accountApi } from 'resources/account';
+
+const schema = z.object({
+  firstName: z.string({ required_error: 'Field is required.' }).max(100),
+  lastName: z.string({ required_error: 'Field is required.' }).max(100),
+  email: z.string({ required_error: 'Field is required.' }).max(64).email('Email format is incorrect.'),
+  password: z.string().regex(
     /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
     'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
   ),
 });
+
+type SignUpParams = z.infer<typeof schema>;
 
 const passwordRules = [
   {
@@ -64,8 +66,8 @@ const SignUp: NextPage = () => {
     setError,
     watch,
     formState: { errors },
-  } = useForm<SignUpVariables>({
-    resolver: yupResolver(schema),
+  } = useForm<SignUpParams>({
+    resolver: zodResolver(schema),
   });
 
   const passwordValue = watch('password', '');
@@ -80,9 +82,9 @@ const SignUp: NextPage = () => {
     setPasswordRulesData(updatedPasswordRulesData);
   }, [passwordValue]);
 
-  const { mutate: signUp, isLoading: isSignUpLoading } = accountApi.useSignUp();
+  const { mutate: signUp, isLoading: isSignUpLoading } = accountApi.useSignUp<SignUpParams>();
 
-  const onSubmit = (data: SignUpVariables) => signUp(data, {
+  const onSubmit = (data: SignUpParams) => signUp(data, {
     onSuccess: (response: any) => {
       if (response.signupToken) setSignupToken(response.signupToken);
 
@@ -152,20 +154,20 @@ const SignUp: NextPage = () => {
               label="First Name"
               maxLength={100}
               placeholder="Your first name"
-              error={errors?.firstName?.message}
+              error={errors.firstName?.message}
             />
             <TextInput
               {...register('lastName')}
               label="Last Name"
               maxLength={100}
               placeholder="Your last name"
-              error={errors?.lastName?.message}
+              error={errors.lastName?.message}
             />
             <TextInput
               {...register('email')}
               label="Email Address"
               placeholder="Your email"
-              error={errors?.email?.message}
+              error={errors.email?.message}
             />
             <Tooltip
               label={label}
@@ -178,7 +180,7 @@ const SignUp: NextPage = () => {
                 placeholder="Your password"
                 onFocus={() => setOpened(true)}
                 onBlur={() => setOpened(false)}
-                error={errors?.password?.message}
+                error={errors.password?.message}
               />
             </Tooltip>
             <Button

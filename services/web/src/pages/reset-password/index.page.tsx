@@ -1,8 +1,8 @@
-import * as yup from 'yup';
+import { z } from 'zod';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Stack,
   Title,
@@ -13,17 +13,19 @@ import {
 import Head from 'next/head';
 import { NextPage } from 'next';
 
+import { QueryParam } from 'types';
 import { RoutePath } from 'routes';
 import { handleError } from 'helpers';
 import { accountApi } from 'resources/account';
 
-const schema = yup.object().shape({
-  password: yup.string().matches(/^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+const schema = z.object({
+  password: z.string().regex(
+    /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
+    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+  ),
 });
 
-interface ResetPasswordFormValues {
-  password: string;
-}
+type ResetPasswordParams = z.infer<typeof schema>;
 
 const ResetPassword: NextPage = () => {
   const router = useRouter();
@@ -33,18 +35,18 @@ const ResetPassword: NextPage = () => {
 
   const {
     register, handleSubmit, formState: { errors },
-  } = useForm<ResetPasswordFormValues>({
-    resolver: yupResolver(schema),
+  } = useForm<ResetPasswordParams>({
+    resolver: zodResolver(schema),
   });
 
   const {
     mutate: resetPassword,
     isLoading: isResetPasswordLoading,
-  } = accountApi.useResetPassword();
+  } = accountApi.useResetPassword<ResetPasswordParams & { token: QueryParam }>();
 
-  const onSubmit = ({ password }: ResetPasswordFormValues) => resetPassword({
+  const onSubmit = ({ password }: ResetPasswordParams) => resetPassword({
     password,
-    token: token as string,
+    token,
   }, {
     onSuccess: () => setSubmitted(true),
     onError: (e) => handleError(e),
@@ -87,10 +89,8 @@ const ResetPassword: NextPage = () => {
       <Stack sx={{ width: '328px' }}>
         <Title order={2}>Reset Password</Title>
         <Text component="p" mt={0}>Please choose your new password</Text>
-
-        <Stack
-          // @ts-ignore
-          component="form"
+        <form
+          style={{ display: 'flex', flexDirection: 'column', gap: 'inherit' }}
           onSubmit={handleSubmit(onSubmit)}
         >
           <PasswordInput
@@ -98,7 +98,7 @@ const ResetPassword: NextPage = () => {
             type="password"
             label="Password"
             placeholder="Your new password"
-            error={errors?.password?.message as string}
+            error={errors.password?.message}
           />
           <Button
             type="submit"
@@ -108,7 +108,7 @@ const ResetPassword: NextPage = () => {
           >
             Save New Password
           </Button>
-        </Stack>
+        </form>
       </Stack>
     </>
   );

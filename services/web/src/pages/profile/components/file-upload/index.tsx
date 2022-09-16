@@ -1,9 +1,10 @@
 import { memo, useState } from 'react';
 import { Group, Text, Button } from '@mantine/core';
+import { Dropzone, FileWithPath } from '@mantine/dropzone';
+
 import { handleError } from 'helpers';
 import { userApi } from 'resources/user';
 import { AddIcon, PenIcon } from 'public/icons';
-import { Dropzone, FileWithPath } from '@mantine/dropzone';
 
 import { useStyles } from './styles';
 
@@ -13,8 +14,10 @@ const PhotoUpload = () => {
 
   const { data: currentUser } = userApi.useGetCurrent();
 
-  const { mutate: uploadProfilePhoto } = userApi.useUploadProfilePhoto();
+  const { mutate: uploadProfilePhoto } = userApi.useUploadProfilePhoto<FormData>();
   const { mutate: removeProfilePhoto } = userApi.useRemoveProfilePhoto();
+
+  if (!currentUser) return null;
 
   const isFileSizeCorrect = (file: any) => {
     const oneMBinBytes = 1048576;

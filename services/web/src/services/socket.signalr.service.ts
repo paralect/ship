@@ -19,11 +19,11 @@ export const emit = async (event: string, ...args: any[]) => {
   await connection.invoke(event, ...args);
 };
 
-export const on = (event: string, callback: any) => {
+export const on = (event: string, callback: (...args: any[]) => void) => {
   connection.on(event, callback);
 };
 
-export const off = (event: string, callback: any) => {
+export const off = (event: string, callback: (...args: any[]) => void) => {
   connection.off(event, callback);
 };
 
