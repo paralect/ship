@@ -10,4 +10,7 @@ module.exports = {
   trailingSlash: true,
   pageExtensions: ['page.tsx', 'api.ts'],
   reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
