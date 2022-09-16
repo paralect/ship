@@ -58,7 +58,7 @@ const Table: FC<TableProps> = ({
   });
   const isSelectable = !!rowSelection && !!setRowSelection;
 
-  const selectableColumns: ColumnDef<unknown, any>[] = useMemo(() => [{
+  const selectableColumns: ColumnDef<any, unknown>[] = useMemo(() => [{
     id: 'select',
     header: ({ table }) => (
       <Checkbox
