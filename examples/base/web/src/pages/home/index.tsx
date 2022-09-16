@@ -58,7 +58,7 @@ const columns: ColumnDef<User>[] = [
   },
 ];
 
-const PER_PAGE = 1;
+const PER_PAGE = 5;
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState('');
