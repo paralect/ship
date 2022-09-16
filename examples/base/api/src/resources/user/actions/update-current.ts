@@ -3,7 +3,7 @@ import Joi from 'joi';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { securityUtil } from 'utils';
 import { validateMiddleware } from 'middlewares';
-import { userService, User } from 'resources/user';
+import { userService } from 'resources/user';
 
 const schema = Joi.object({
   password: Joi.string()
