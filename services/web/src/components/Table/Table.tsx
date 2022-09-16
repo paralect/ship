@@ -91,7 +91,6 @@ const Table: FC<TableProps> = ({
 
   const table = useReactTable({
     data,
-    // @ts-ignore
     columns: isSelectable ? [...selectableColumns, ...columns] : columns,
     state: {
       rowSelection,
