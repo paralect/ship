@@ -69,9 +69,9 @@ class InMemoryPublisher implements IChangePublisher {
       prevDoc: eventData.prevDoc,
     };
 
-    logger.info(`published in-memory event [${name}]`);
-
     this._bus.publish(name, evt);
+
+    logger.info(`published in-memory event: ${evt}`);
   }
 
   async publishDbChanges(

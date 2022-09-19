@@ -161,6 +161,8 @@ describe('events/in-memory.ts', () => {
       eventBus.onUpdated<UserType>('users', [{ fullName: 'John Wake', firstName: 'John' }], expectedFullNameAndFirstNameSpy);
       eventBus.onUpdated<UserType>('users', [{ fullName: 'John Wake', firstName: 'John' }, 'lastName'], expectedFullNameAndFirstNameAndLastNameSpy);
 
+      // check nested fields google.oauth?
+
       const user = await usersService.insertOne({
         fullName: 'Mike',
       });

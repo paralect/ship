@@ -1,4 +1,3 @@
-import logger from './utils/logger';
 import Database from './database';
 import Service from './service';
 import Outbox from './events/outbox';
@@ -14,7 +13,6 @@ export {
   Outbox,
   eventBus,
   inMemoryPublisher,
-  logger,
 };
 
 export default Database;

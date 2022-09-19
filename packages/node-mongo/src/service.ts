@@ -51,6 +51,8 @@ const transactionOptions: TransactionOptions = {
   writeConcern: { w: 1 },
 };
 
+const isDev = process.env.NODE_ENV === 'development';
+
 class Service<T extends IDocument> {
   private client?: MongoClient;
 
@@ -336,40 +338,6 @@ class Service<T extends IDocument> {
     return validEntities;
   };
 
-  atomicUpdateOne = async (
-    filter: Filter<T>,
-    updateFilter: UpdateFilter<T>,
-    updateOptions: UpdateOptions = {},
-    updateConfig: UpdateConfig = {},
-  ):Promise<UpdateResult> => {
-    const collection = await this.getCollection();
-
-    filter = this.validateReadOperation(filter, updateConfig);
-
-    if (this.options.addUpdatedOnField) {
-      updateFilter = addUpdatedOnField(updateFilter);
-    }
-
-    return collection.updateOne(filter, updateFilter, updateOptions);
-  };
-
-  atomicUpdateMany = async (
-    filter: Filter<T>,
-    updateFilter: UpdateFilter<T>,
-    updateOptions: UpdateOptions = {},
-    updateConfig: UpdateConfig = {},
-  ): Promise<Document | UpdateResult> => {
-    const collection = await this.getCollection();
-
-    filter = this.validateReadOperation(filter, updateConfig);
-
-    if (this.options.addUpdatedOnField) {
-      updateFilter = addUpdatedOnField(updateFilter);
-    }
-
-    return collection.updateMany(filter, updateFilter, updateOptions);
-  };
-
   replaceOne = async (
     filter: Filter<T>,
     replacement: Partial<T>,
@@ -398,7 +366,9 @@ class Service<T extends IDocument> {
     const doc = await this.findOne(filter, {}, updateConfig);
 
     if (!doc) {
-      logger.warn(`Document not found when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      if (isDev) {
+        logger.warn(`Document not found when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
       return null;
     }
 
@@ -410,7 +380,9 @@ class Service<T extends IDocument> {
     const isUpdated = !isEqual(prevDoc, newDoc);
 
     if (!isUpdated) {
-      logger.warn(`Document hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      if (isDev) {
+        logger.warn(`Document hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
       return newDoc;
     }
 
@@ -478,7 +450,9 @@ class Service<T extends IDocument> {
     const documents = await collection.find<T>(filter).toArray();
 
     if (documents.length === 0) {
-      logger.warn(`Documents not found when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      if (isDev) {
+        logger.warn(`Documents not found when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
       return [];
     }
 
@@ -500,7 +474,10 @@ class Service<T extends IDocument> {
     const isUpdated = updated.find((u) => u.isUpdated) !== undefined;
 
     if (!isUpdated) {
-      logger.warn(`Documents hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      if (isDev) {
+        logger.warn(`Documents hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
+
       return updated.map((u) => u.doc);
     }
 
@@ -575,7 +552,10 @@ class Service<T extends IDocument> {
     const doc = await this.findOne(filter, {}, deleteConfig);
 
     if (!doc) {
-      logger.warn(`Document not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      if (isDev) {
+        logger.warn(`Document not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
+
       return null;
     }
 
@@ -619,7 +599,10 @@ class Service<T extends IDocument> {
     const documents = await collection.find<T>(filter).toArray();
 
     if (documents.length === 0) {
-      logger.warn(`Documents not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      if (isDev) {
+        logger.warn(`Documents not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
+
       return [];
     }
 
@@ -663,7 +646,10 @@ class Service<T extends IDocument> {
     const documents = await collection.find<T>(filter).toArray();
 
     if (documents.length === 0) {
-      logger.warn(`Documents not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      if (isDev) {
+        logger.warn(`Documents not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
+
       return [];
     }
 
@@ -704,6 +690,41 @@ class Service<T extends IDocument> {
     }
 
     return deletedDocuments;
+  };
+
+  atomic = {
+    updateOne: async (
+      filter: Filter<T>,
+      updateFilter: UpdateFilter<T>,
+      updateOptions: UpdateOptions = {},
+      updateConfig: UpdateConfig = {},
+    ):Promise<UpdateResult> => {
+      const collection = await this.getCollection();
+
+      filter = this.validateReadOperation(filter, updateConfig);
+
+      if (this.options.addUpdatedOnField) {
+        updateFilter = addUpdatedOnField(updateFilter);
+      }
+
+      return collection.updateOne(filter, updateFilter, updateOptions);
+    },
+    updateMany: async (
+      filter: Filter<T>,
+      updateFilter: UpdateFilter<T>,
+      updateOptions: UpdateOptions = {},
+      updateConfig: UpdateConfig = {},
+    ): Promise<Document | UpdateResult> => {
+      const collection = await this.getCollection();
+
+      filter = this.validateReadOperation(filter, updateConfig);
+
+      if (this.options.addUpdatedOnField) {
+        updateFilter = addUpdatedOnField(updateFilter);
+      }
+
+      return collection.updateMany(filter, updateFilter, updateOptions);
+    },
   };
 
   aggregate = async (
