@@ -64,7 +64,7 @@ async function askDeploymentType() {
     message: 'Choose your cloud service provider to deploy:',
     choices: Object.values(deploymentTypes),
     default() {
-      return deploymentTypes.DIGITAL_OCEAN;
+      return deploymentTypes.DIGITAL_OCEAN_APPS;
     },
   });
   

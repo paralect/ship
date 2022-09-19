@@ -15,6 +15,7 @@ const dbTypes = {
 };
 
 const deploymentTypes = {
+  DIGITAL_OCEAN_APPS: 'Digital Ocean Apps',
   DIGITAL_OCEAN: 'Digital Ocean',
   AWS: 'AWS'
 };
@@ -22,7 +23,8 @@ const deploymentTypes = {
 const deploymentFolders = {
   common: {
     [deploymentTypes.AWS]: 'aws/common',
-    [deploymentTypes.DIGITAL_OCEAN]: 'digital-ocean/common'
+    [deploymentTypes.DIGITAL_OCEAN]: 'digital-ocean/common',
+    [deploymentTypes.DIGITAL_OCEAN_APPS]: 'digital-ocean-apps/common',
   },
   specific: {
     [`${deploymentTypes.AWS}${apiTypes.KOA}`]: 'aws/koa',

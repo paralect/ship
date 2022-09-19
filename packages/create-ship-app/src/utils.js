@@ -68,18 +68,18 @@ function getRunCommand(buildType, apiType) {
   }
 }
 
-async function installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderNames) {
+async function installServices(projectName, buildType, deploymentType, apiType, dbType, dockerComposeFileName, deploymentFolderNames) {
   const spinner = createSpinner(`Building ${projectName}...`).start();
   
   switch (buildType) {
     case buildTypes.FULL_STACK:
-      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${apiType} ${dbType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
+      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${apiType} ${deploymentType} ${dbType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
       break;
     case buildTypes.ONLY_FRONTEND:
-      await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
+      await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName} ${__dirname} ${deploymentType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
       break;
     case buildTypes.ONLY_BACKEND:
-      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${apiType} ${dbType}`);
+      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${apiType} ${deploymentType} ${dbType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
       break;
   }
   
