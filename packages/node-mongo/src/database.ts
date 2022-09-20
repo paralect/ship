@@ -6,7 +6,7 @@ import {
   CreateCollectionOptions,
   Collection,
   MongoError,
-  Document,
+  Document, ClientSession, TransactionOptions,
 } from 'mongodb';
 
 import { IDatabase, IDocument, ServiceOptions } from './types';
@@ -17,6 +17,12 @@ import OutboxService from './events/outbox';
 const defaultOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+};
+
+// add ability to pass transaction options
+const transactionOptions: TransactionOptions = {
+  readConcern: { level: 'local' },
+  writeConcern: { w: 1 },
 };
 
 class Database extends EventEmitter {
@@ -136,6 +142,31 @@ class Database extends EventEmitter {
   public getClient = async (): Promise<MongoClient | undefined> => {
     await this.connectPromise;
     return this.client;
+  };
+
+  public withTransaction = async <TRes = any>(
+    transactionFn: (session: ClientSession) => Promise<TRes>,
+  ): Promise<TRes> => {
+    if (!this.client) {
+      throw new Error('MongoDB client is not connected');
+    }
+
+    const session = this.client.startSession();
+
+    let res: any;
+
+    try {
+      await session.withTransaction(async () => {
+        res = await transactionFn(session);
+      }, transactionOptions);
+    } catch (error: any) {
+      logger.error(error.stack || error);
+      throw error;
+    } finally {
+      await session.endSession();
+    }
+
+    return res as TRes;
   };
 }
 

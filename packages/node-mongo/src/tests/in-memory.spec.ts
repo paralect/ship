@@ -22,6 +22,9 @@ type UserType = {
   fullName: string;
   firstName: string;
   lastName: string;
+  oauth: {
+    google: boolean
+  }
 };
 
 const schema = Joi.object({
@@ -32,6 +35,9 @@ const schema = Joi.object({
   firstName: Joi.string(),
   lastName: Joi.string(),
   fullName: Joi.string().required(),
+  oauth: Joi.object({
+    google: Joi.boolean(),
+  }),
 });
 
 const usersService = database.createService<UserType>('users', { schema });
@@ -153,15 +159,15 @@ describe('events/in-memory.ts', () => {
       const randomFullNameSpy = chai.spy();
       const expectedFullNameAndFirstNameSpy = chai.spy();
       const expectedFullNameAndFirstNameAndLastNameSpy = chai.spy();
+      const nestedFieldSpy = chai.spy();
 
-      eventBus.onUpdated<UserType>('users', ['fullName'], fullNameSpy);
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'John Wake' }], expectedFullNameSpy);
+      eventBus.onUpdated('users', ['fullName'], fullNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'John Wake' }], expectedFullNameSpy);
 
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'Random fullName' }, 'firstName'], randomFullNameSpy);
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'John Wake', firstName: 'John' }], expectedFullNameAndFirstNameSpy);
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'John Wake', firstName: 'John' }, 'lastName'], expectedFullNameAndFirstNameAndLastNameSpy);
-
-      // check nested fields google.oauth?
+      eventBus.onUpdated('users', [{ fullName: 'Random fullName' }, 'firstName'], randomFullNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'John Wake', firstName: 'John' }], expectedFullNameAndFirstNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'John Wake', firstName: 'John' }, 'lastName'], expectedFullNameAndFirstNameAndLastNameSpy);
+      eventBus.onUpdated('users', ['oauth.google'], nestedFieldSpy);
 
       const user = await usersService.insertOne({
         fullName: 'Mike',
@@ -170,6 +176,9 @@ describe('events/in-memory.ts', () => {
       await usersService.updateOne({ _id: user._id }, () => ({
         fullName: 'John Wake',
         firstName: 'John',
+        oauth: {
+          google: true,
+        },
       }));
 
       await usersService.updateOne({ _id: user._id }, () => ({
@@ -180,6 +189,7 @@ describe('events/in-memory.ts', () => {
       fullNameSpy.should.have.been.called.exactly(1);
       expectedFullNameSpy.should.have.been.called.exactly(1);
 
+      nestedFieldSpy.should.have.been.called.exactly(1);
       randomFullNameSpy.should.have.been.called.exactly(1);
       expectedFullNameAndFirstNameSpy.should.have.been.called.exactly(1);
       expectedFullNameAndFirstNameAndLastNameSpy.should.have.been.called.exactly(1);

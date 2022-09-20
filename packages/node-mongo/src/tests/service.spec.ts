@@ -23,6 +23,23 @@ type UserType = {
   fullName: string;
 };
 
+type CompanyType = {
+  _id: string;
+  createdOn?: Date;
+  updatedOn?: Date;
+  deletedOn?: Date | null;
+  fullName: string;
+  users: string[]
+};
+
+const companySchema = Joi.object({
+  _id: Joi.string().required(),
+  createdOn: Joi.date(),
+  updatedOn: Joi.date(),
+  deletedOn: Joi.date().allow(null),
+  users: Joi.array().items(Joi.string()),
+});
+
 const schema = Joi.object({
   _id: Joi.string().required(),
   createdOn: Joi.date(),
@@ -32,6 +49,7 @@ const schema = Joi.object({
 });
 
 const usersService = database.createService<UserType>('users', { schema });
+const companyService = database.createService<CompanyType>('companies', { schema: companySchema });
 
 describe('service.ts', () => {
   before(async () => {
@@ -70,17 +88,13 @@ describe('service.ts', () => {
   // find paging
   // find options
   // insert options
+  // delete options
   // exists
   // countDocuments
   // distinct
   // atomicUpdateOne
   // atomicUpdateMany
   // replaceOne
-  // deleteOne
-  // deleteMany
-  // deleteSoft
-  // delete options
-  // aggregate
   // createIndex
   // createIndexes
   // dropIndex
@@ -195,5 +209,40 @@ describe('service.ts', () => {
     ]);
 
     aggregationResult[0].count.should.be.equal(users.length);
+  });
+
+  it('should commit transaction', async () => {
+    const { user, company } = await database.withTransaction(async (session) => {
+      const createdUser = await usersService.insertOne({ fullName: 'Bahrimchuk' }, { session });
+      const createdCompany = await companyService.insertOne(
+        { users: [createdUser._id] },
+        { session },
+      );
+
+      return { user: createdUser, company: createdCompany };
+    });
+
+    const expectedUser = await usersService.findOne({ _id: user._id });
+    const expectedCompany = await companyService.findOne({ _id: company._id });
+
+    user._id.should.be.equal(expectedUser?._id);
+    company._id.should.be.equal(expectedCompany?._id);
+  });
+
+  it('should rollback transaction', async () => {
+    try {
+      await database.withTransaction(async (session) => {
+        const createdUser = await usersService.insertOne({ fullName: 'Fake Bahrimchuk' }, { session });
+
+        await companyService.insertOne(
+          { users: [createdUser._id], unExistedField: 3 } as any,
+          { session },
+        );
+      });
+    } catch (err) {
+      const user = await usersService.findOne({ fullName: 'Fake Bahrimchuk' });
+
+      (user === null).should.be.equal(true);
+    }
   });
 });

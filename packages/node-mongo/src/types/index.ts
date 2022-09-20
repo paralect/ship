@@ -7,7 +7,7 @@ export type DbChangeType = 'create' | 'update' | 'delete';
 
 export type InMemoryEventHandler = (evt: InMemoryEvent) => Promise<void> | void;
 
-export type OnUpdatedProperties<T = Record<string, unknown>> = Array<Partial<T> | keyof T>;
+export type OnUpdatedProperties = Array<Record<string, unknown> | string>;
 
 export type PublishEventOptions = {
   session: ClientSession | undefined
@@ -93,6 +93,9 @@ interface IDatabase {
   ) => Promise<Collection<TCollection> | null>;
 
   getClient: () => Promise<MongoClient | undefined>;
+  withTransaction: <TRes = any>(
+    transactionFn: (session: ClientSession) => Promise<TRes>,
+  ) => Promise<TRes>,
 }
 
 interface ServiceOptions {

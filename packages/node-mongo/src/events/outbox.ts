@@ -12,6 +12,9 @@ import { generateId } from '../utils/helpers';
 import {
   DbChangeData, IChangePublisher, PublishEventOptions, OutboxEvent, DbChangeType,
 } from '../types';
+import logger from '../utils/logger';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 class OutboxService implements IChangePublisher {
   private getOrCreateCollection: <T extends Document>(
@@ -89,6 +92,10 @@ class OutboxService implements IChangePublisher {
 
     await collection.insertOne(event, option);
 
+    if (isDev) {
+      logger.info(`published outbox event: ${collectionName} ${changeType}`);
+    }
+
     return event;
   }
 
@@ -112,6 +119,10 @@ class OutboxService implements IChangePublisher {
     }));
 
     await collection.insertMany(events, option);
+
+    if (isDev) {
+      logger.info(`published outbox events: ${collectionName} ${changeType}`);
+    }
 
     return events;
   }

@@ -46,11 +46,6 @@ const defaultOptions: ServiceOptions = {
   addUpdatedOnField: true,
 };
 
-const transactionOptions: TransactionOptions = {
-  readConcern: { level: 'local' },
-  writeConcern: { w: 1 },
-};
-
 const isDev = process.env.NODE_ENV === 'development';
 
 class Service<T extends IDocument> {
@@ -288,7 +283,7 @@ class Service<T extends IDocument> {
       };
 
       if (this.options.outbox && !insertOneOptions.session) {
-        await this.withTransaction(((session) => insertOneWithEvent({ session })));
+        await this.db.withTransaction(((session) => insertOneWithEvent({ session })));
       } else {
         await insertOneWithEvent(insertOneOptions);
       }
@@ -327,7 +322,7 @@ class Service<T extends IDocument> {
       };
 
       if (this.options.outbox && !bulkWriteOptions.session) {
-        await this.withTransaction(((session) => insertManyWithEvents({ session })));
+        await this.db.withTransaction(((session) => insertManyWithEvents({ session })));
       } else {
         await insertManyWithEvents(bulkWriteOptions);
       }
@@ -422,7 +417,7 @@ class Service<T extends IDocument> {
       };
 
       if (this.options.outbox && !updateOptions.session) {
-        await this.withTransaction(((session) => updateOneWithEvent({ session })));
+        await this.db.withTransaction(((session) => updateOneWithEvent({ session })));
       } else {
         await updateOneWithEvent(updateOptions);
       }
@@ -531,7 +526,7 @@ class Service<T extends IDocument> {
       };
 
       if (this.options.outbox && !updateOptions.session) {
-        await this.withTransaction(((session) => updateManyWithEvents({ session })));
+        await this.db.withTransaction(((session) => updateManyWithEvents({ session })));
       } else {
         await updateManyWithEvents(updateOptions);
       }
@@ -576,7 +571,7 @@ class Service<T extends IDocument> {
       };
 
       if (this.options.outbox && !deleteOptions.session) {
-        await this.withTransaction(((session) => deleteOneWithEvent({ session })));
+        await this.db.withTransaction(((session) => deleteOneWithEvent({ session })));
       } else {
         await deleteOneWithEvent(deleteOptions);
       }
@@ -623,7 +618,7 @@ class Service<T extends IDocument> {
       };
 
       if (this.options.outbox && !deleteOptions.session) {
-        await this.withTransaction(((session) => deleteManyWithEvents({ session })));
+        await this.db.withTransaction(((session) => deleteManyWithEvents({ session })));
       } else {
         await deleteManyWithEvents(deleteOptions);
       }
@@ -677,7 +672,7 @@ class Service<T extends IDocument> {
       };
 
       if (this.options.outbox && !deleteOptions.session) {
-        await this.withTransaction(((session) => deleteSoftWithEvent({ session })));
+        await this.db.withTransaction(((session) => deleteSoftWithEvent({ session })));
       } else {
         await deleteSoftWithEvent(deleteOptions);
       }
@@ -806,31 +801,6 @@ class Service<T extends IDocument> {
       this.collection = null;
     }
   };
-
-  async withTransaction<TRes = any>(
-    transactionFn: (session: ClientSession) => Promise<TRes>,
-  ): Promise<TRes> {
-    if (!this.client) {
-      throw new Error('MongoDB client is not connected');
-    }
-
-    const session = this.client.startSession();
-
-    let res: any;
-
-    try {
-      await session.withTransaction(async () => {
-        res = await transactionFn(session);
-      }, transactionOptions);
-    } catch (error: any) {
-      logger.error(error.stack || error);
-      throw error;
-    } finally {
-      await session.endSession();
-    }
-
-    return res as TRes;
-  }
 }
 
 export default Service;
