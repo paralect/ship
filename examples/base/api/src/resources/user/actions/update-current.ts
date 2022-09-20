@@ -3,7 +3,7 @@ import Joi from 'joi';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { securityUtil } from 'utils';
 import { validateMiddleware } from 'middlewares';
-import { userService, User } from 'resources/user';
+import { userService } from 'resources/user';
 
 const schema = Joi.object({
   password: Joi.string()
@@ -40,7 +40,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const passwordHash = await securityUtil.getHash(password);
 
-  const updatedUser = await userService.updateOne({ _id: user._id }, () => ({ passwordHash })) as User;
+  const updatedUser = await userService.updateOne({ _id: user._id }, () => ({ passwordHash }));
 
   ctx.body = userService.getPublic(updatedUser);
 }

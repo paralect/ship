@@ -7,6 +7,6 @@ namespace Common.Services.NoSql.Domain.Interfaces;
 public interface ITokenService : IDocumentService<Token, TokenFilter>
 {
     Task<Token> FindByValueAsync(string value);
-    Task<(Token accessToken, Token refreshToken)> CreateAuthTokens(string userId, UserRole userRole);
-    Task DeleteAuthTokens(string userId);
+    Task<Token> CreateAccessToken(string userId, UserRole userRole);
+    Task DeleteAccessTokens(string userId);
 }

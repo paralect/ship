@@ -11,11 +11,11 @@ public static class Constants
     }
 
     public const int TokenSecurityLength = 32;
+    public const string AuthenticationScheme = "Token";
 
     public static class CookieNames
     {
         public const string AccessToken = "access_token";
-        public const string RefreshToken = "refresh_token";
     }
 
     public static class Swagger

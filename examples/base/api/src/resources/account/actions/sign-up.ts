@@ -86,7 +86,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     signupToken,
   });
 
-  await emailService.sendSignUpWelcome(user.email, {
+  await emailService.sendVerifyEmail(user.email, {
     verifyEmailUrl: `${config.apiUrl}/account/verify-email?token=${signupToken}`,
   });
 

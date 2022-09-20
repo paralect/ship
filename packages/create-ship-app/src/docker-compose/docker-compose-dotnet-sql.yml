@@ -25,8 +25,25 @@ services:
     hostname: redis
     networks:
       - ship
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - 6379:6379
+  migrator:
+    container_name: ship-migrator
+    build:
+      context: ./api/src
+      dockerfile: app/Migrator.Sql/Dockerfile
+    networks:
+      - ship
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+    depends_on:
+      postgres:
+        condition: service_healthy
   api:
     container_name: ship-api
     build:
@@ -37,7 +54,9 @@ services:
     volumes:
       - ./api/src:/app/src
     depends_on:
-      postgres:
+      migrator:
+        condition: service_completed_successfully
+      redis:
         condition: service_healthy
     ports:
       - "3001:3001"
@@ -54,8 +73,8 @@ services:
     volumes:
       - ./api/src:/app/src
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
     environment:
       - DOTNET_ENVIRONMENT=DevelopmentSql
   web:

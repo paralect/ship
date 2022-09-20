@@ -1,5 +1,6 @@
 import Joi from 'joi';
 
+import config from 'config';
 import { securityUtil } from 'utils';
 import { emailService } from 'services';
 import { validateMiddleware } from 'middlewares';
@@ -43,8 +44,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   await Promise.all([
     userService.updateOne({ _id: user._id }, () => ({ resetPasswordToken })),
     emailService.sendForgotPassword(user.email, {
-      email: user.email,
-      resetPasswordToken,
+      resetPasswordLink: `${config.webUrl}/reset-password?token=${resetPasswordToken}`
     }),
   ]);
 

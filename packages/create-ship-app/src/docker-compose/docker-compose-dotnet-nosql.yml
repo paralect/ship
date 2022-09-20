@@ -33,6 +33,18 @@ services:
       - ship
     depends_on:
       - mongo
+  migrator:
+    container_name: ship-migrator
+    build:
+      context: ./api/src
+      dockerfile: app/Migrator.NoSql/Dockerfile
+    networks:
+      - ship
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+    depends_on:
+      mongo-replicator:
+        condition: service_completed_successfully
   redis:
     container_name: ship-redis
     image: redis:5.0.5
@@ -40,6 +52,11 @@ services:
     hostname: redis
     networks:
       - ship
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - 6379:6379
   api:
@@ -52,8 +69,10 @@ services:
     volumes:
       - ./api/src:/app/src
     depends_on:
-      - redis
-      - mongo-replicator
+      migrator:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
     ports:
       - "3001:3001"
     environment:
@@ -87,7 +106,8 @@ services:
     volumes:
       - ./api/src:/app/src
     depends_on:
-      - mongo-replicator
+      migrator:
+        condition: service_completed_successfully
     environment:
       - DOTNET_ENVIRONMENT=DevelopmentNoSql
   web:

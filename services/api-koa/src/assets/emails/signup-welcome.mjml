@@ -8,34 +8,36 @@
 
     <mj-section mj-class="main-section">
       <mj-column vertical-align="middle" width="100%">
-        <mj-text mj-class="big-text">
-          Hi, there.
+        <mj-text mj-class="big-text" font-weight="bold">
+          Welcome, {{ userName }}
         </mj-text>
 
         <mj-text mj-class="text">
-          Thanks for checking out Ship, we hope our products can make your routine
-          life a little more enjoyable.
+          We are so happy you have joined our growing community!
         </mj-text>
 
-        <mj-button
-          mj-class="btn"
-          href="{{verifyEmailUrl}}"
-        >
-          Verify Your Email
+        <mj-button mj-class="btn" href="{{actionLink}}">
+          {{actionText}}
         </mj-button>
+
+        <mj-raw>
+          {% if var:videoLink %}
+        </mj-raw>
+
+        <mj-text mj-class="text">
+          And if you are still just checking us out - watch this video to get us know better!
+        </mj-text>
+        <mj-text>
+          <iframe width="560" height="315" src={{videoLink}} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </mj-text>
+
+        <mj-raw>
+          {% endif %}
+        </mj-raw>
+
       </mj-column>
     </mj-section>
 
-    <mj-section mj-class="bottom-section">
-      <mj-column vertical-align="middle" width="70%">
-        <mj-text mj-class="small-text">
-          INTERESTING FACT
-        </mj-text>
-
-        <mj-text mj-class="tiny-text">
-          It took more than three years to build the Titanic.
-        </mj-text>
-      </mj-column>
-    </mj-section>
+    <mj-include path="./components/footer.mjml" />
   </mj-body>
 </mjml>

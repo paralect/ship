@@ -8,15 +8,19 @@ import { User } from './user.types';
 
 const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, { schema });
 
-const updateLastRequest = (_id: string) => service.atomic.updateOne(
-  { _id },
-  {
-    $set: {
-      lastRequest: new Date(),
-      updatedOn: new Date(),
+const updateLastRequest = (_id: string) => {
+  const date = new Date();
+
+  return service.atomic.updateOne(
+    { _id },
+    {
+      $set: {
+        lastRequest: date,
+        updatedOn: date,
+      },
     },
-  },
-);
+  );
+};
 
 const privateFields = [
   'passwordHash',
@@ -24,7 +28,7 @@ const privateFields = [
   'resetPasswordToken',
 ];
 
-const getPublic = (user: User) => _.omit(user, privateFields);
+const getPublic = (user: User | null) => _.omit(user, privateFields);
 
 export default Object.assign(service, {
   updateLastRequest,

@@ -36,18 +36,6 @@ module.exports = {
                         },
                     },
                 },
-                {
-                    loader: 'postcss-loader',
-                    options: {
-                        postcssOptions: {
-                            "plugins": [
-                                "postcss-flexbugs-fixes",
-                                "postcss-nested",
-                                "postcss-preset-env",
-                            ]
-                        },
-                    },
-                },
             ],
         });
 
@@ -68,5 +56,6 @@ module.exports = {
         "@storybook/addon-actions",
         "@storybook/addon-essentials",
         "@storybook/addon-links",
+        "@react-theming/storybook-addon",
     ]
 };

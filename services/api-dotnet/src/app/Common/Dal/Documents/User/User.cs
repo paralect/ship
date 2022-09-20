@@ -17,4 +17,5 @@ public class User : BaseDocument
     [BsonIgnoreIfNull]
     public string ResetPasswordToken { get; set; }
     public DateTime LastRequest { get; set; }
+    public string AvatarUrl { get; set; }
 }

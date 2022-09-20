@@ -13,13 +13,17 @@ namespace Common.Services.Sql.Domain;
 public class UserService : BaseEntityService<User, UserFilter>, IUserService
 {
     private readonly IEmailService _emailService;
+    private readonly ICloudStorageService _cloudStorageService;
     private readonly IUserRepository _userRepository;
 
     public UserService(
         IEmailService emailService,
-        IUserRepository userRepository) : base(userRepository)
+        ICloudStorageService cloudStorageService,
+        IUserRepository userRepository)
+        : base(userRepository)
     {
         _emailService = emailService;
+        _cloudStorageService = cloudStorageService;
         _userRepository = userRepository;
     }
 
@@ -87,6 +91,27 @@ public class UserService : BaseEntityService<User, UserFilter>, IUserService
         }
 
         return user.ResetPasswordToken;
+    }
+
+    public async Task UpdateAvatarAsync(long id, string fileName, Stream file)
+    {
+        var avatarUrl = await _cloudStorageService.UploadPublicAsync(
+            $"avatars/{id}-{DateTime.UtcNow:s}-{fileName}",
+            file
+        );
+
+        await _userRepository.UpdateOneAsync(id, x =>
+        {
+            x.AvatarUrl = avatarUrl;
+        });
+    }
+
+    public async Task RemoveAvatarAsync(long id)
+    {
+        await _userRepository.UpdateOneAsync(id, x =>
+        {
+            x.AvatarUrl = null;
+        });
     }
 
     public async Task UpdatePasswordAsync(long id, string newPassword)

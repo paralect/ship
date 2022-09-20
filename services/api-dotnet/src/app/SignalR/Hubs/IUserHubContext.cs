@@ -1,9 +1,9 @@
-﻿using Common.Dal.Documents.User;
+﻿using Common.Models.View.User;
 
 namespace SignalR.Hubs
 {
     public interface IUserHubContext
     {
-        Task SendUpdateAsync(User user);
+        Task SendUpdateAsync(UserViewModel model);
     }
 }

@@ -1,10 +1,10 @@
 import Joi from 'joi';
 
 import config from 'config';
-import { authService } from 'services';
+import { authService, emailService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
-import { userService } from 'resources/user';
+import { userService, User } from 'resources/user';
 
 const schema = Joi.object({
   token: Joi.string()
@@ -17,7 +17,7 @@ const schema = Joi.object({
 
 type ValidatedData = {
   token: string;
-  userId: string;
+  user: User;
 };
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
@@ -25,21 +25,27 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
   ctx.assertClientError(user, { token: 'Token is invalid' }, 404);
 
-  ctx.validatedData.userId = user._id;
+  ctx.validatedData.user = user;
   await next();
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
-  const { userId } = ctx.validatedData;
+  const { user } = ctx.validatedData;
 
   await Promise.all([
-    userService.updateOne({ _id: userId }, () => ({
+    userService.updateOne({ _id: user._id }, () => ({
       isEmailVerified: true,
       signupToken: null,
     })),
-    userService.updateLastRequest(userId),
-    authService.setTokens(ctx, userId),
+    userService.updateLastRequest(user._id),
+    authService.setTokens(ctx, user._id),
   ]);
+
+  await emailService.sendSignUpWelcome(user.email, {
+    userName: user.fullName,
+    actionLink: `${config.webUrl}/sign-in`,
+    actionText: 'Sign in',
+  });
 
   ctx.redirect(config.webUrl);
 }

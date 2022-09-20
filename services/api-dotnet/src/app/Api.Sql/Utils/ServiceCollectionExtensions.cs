@@ -52,7 +52,7 @@ internal static class ServiceCollectionExtensions
             options.AddPolicy(Constants.CorsPolicy.AllowSpecificOrigin, builder =>
             {
                 builder
-                    .WithOrigins(appSettings.LandingUrl, appSettings.WebUrl)
+                    .WithOrigins(appSettings.WebUrl)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();

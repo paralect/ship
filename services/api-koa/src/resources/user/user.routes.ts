@@ -22,6 +22,7 @@ const adminRoutes = routeUtil.getRoutes([
   list,
   update,
   remove,
+  list,
 ]);
 
 export default {

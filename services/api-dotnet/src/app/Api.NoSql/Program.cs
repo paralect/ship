@@ -1,4 +1,6 @@
-﻿using Api.NoSql.Utils;
+﻿using Api.NoSql.Authentication;
+using Api.NoSql.Services.Interfaces;
+using Api.NoSql.Utils;
 using Common;
 using Common.Dal;
 using Common.Mappings;
@@ -7,9 +9,10 @@ using Common.Utils;
 using Common.Validators.Account;
 using FluentValidation.AspNetCore;
 using Hangfire;
-using Hangfire.Dashboard.BasicAuthorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.FeatureManagement;
+using Refit;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +28,7 @@ var appSettings = services.AddSettings<AppSettings>(configuration, "App");
 var cacheSettings = services.AddSettings<CacheSettings>(configuration, "Cache");
 services.AddSettings<TokenExpirationSettings>(configuration, "TokenExpiration");
 services.AddSettings<EmailSettings>(configuration, "Email");
+services.AddSettings<CloudStorageSettings>(configuration, "CloudStorage");
 
 services.AddDiConfiguration();
 services.AddCache(cacheSettings);
@@ -33,7 +37,14 @@ services.AddFeatureManagement();
 services.AddApiControllers();
 services.AddSwagger();
 services.AddHttpContextAccessor();
-services.AddAuthorization();
+services
+    .AddAuthentication(Constants.AuthenticationScheme)
+    .AddScheme<TokenAuthenticationSchemeOptions, TokenAuthenticationHandler>(Constants.AuthenticationScheme, null);
+services.AddAuthorization(options =>
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build()
+);
 services.AddAutoMapper(typeof(UserProfile));
 services.AddFluentValidation(config =>
     config.RegisterValidatorsFromAssemblyContaining(typeof(SignInModelValidator))
@@ -44,6 +55,8 @@ services.AddHangfire(config =>
     config.ConfigureHangfireWithMongoStorage(dbSettings.ConnectionStrings.Scheduler);
 });
 services.InitializeDb(dbSettings);
+services.AddRefitClient<ISocketService>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(appSettings.WsUrl));
 
 var app = builder.Build();
 
@@ -58,18 +71,19 @@ if (environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 app.UseRouting();
 app.UseCors(Constants.CorsPolicy.AllowSpecificOrigin);
-app.UseTokenAuthentication();
+
+app.UseHangfireDashboard(appSettings);
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapHealthChecks(Constants.HealthcheckPath, new HealthCheckOptions
-    {
-        AllowCachingResponses = false
-    });
+    endpoints
+        .MapHealthChecks(Constants.HealthcheckPath, new HealthCheckOptions { AllowCachingResponses = false })
+        .AllowAnonymous();
 });
-app.UseHangfireDashboard(appSettings);
 
 try
 {

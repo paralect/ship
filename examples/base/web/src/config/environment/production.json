@@ -1,4 +1,5 @@
 {
-  "apiUrl": "https://ship-api.paralect.net",
-  "webUrl": "https://ship.paralect.net"
+  "apiUrl": "https://ship-demo-api.paralect.com",
+  "wsUrl": "https://ship-demo-api.paralect.com",
+  "webUrl": "https://ship-demo.paralect.com"
 }

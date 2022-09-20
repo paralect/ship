@@ -1,7 +1,5 @@
-﻿using Api.NoSql.Security;
-using Api.NoSql.Services.Interfaces;
+﻿using Api.NoSql.Services.Interfaces;
 using AutoMapper;
-using Common;
 using Common.Dal.Repositories;
 using Common.Models.Infrastructure.Email;
 using Common.Models.View.Account;
@@ -10,6 +8,7 @@ using Common.Services.Infrastructure.Interfaces;
 using Common.Services.NoSql.Domain.Interfaces;
 using Common.Settings;
 using Common.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -19,7 +18,6 @@ namespace Api.NoSql.Controllers
     {
         private readonly IEmailService _emailService;
         private readonly IUserService _userService;
-        private readonly ITokenService _tokenService;
         private readonly IAuthService _authService;
 
         private readonly IWebHostEnvironment _environment;
@@ -29,7 +27,6 @@ namespace Api.NoSql.Controllers
         public AccountController(
             IEmailService emailService,
             IUserService userService,
-            ITokenService tokenService,
             IAuthService authService,
             IWebHostEnvironment environment,
             IOptions<AppSettings> appSettings,
@@ -37,7 +34,6 @@ namespace Api.NoSql.Controllers
         {
             _emailService = emailService;
             _userService = userService;
-            _tokenService = tokenService;
             _authService = authService;
 
             _environment = environment;
@@ -45,6 +41,7 @@ namespace Api.NoSql.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUpAsync([FromBody] SignUpModel model)
         {
@@ -64,6 +61,7 @@ namespace Api.NoSql.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpGet("verify-email")]
         public async Task<IActionResult> VerifyEmailAsync([FromQuery] string token)
         {
@@ -89,6 +87,7 @@ namespace Api.NoSql.Controllers
             return Redirect(_appSettings.WebUrl);
         }
 
+        [AllowAnonymous]
         [HttpPost("sign-in")]
         public async Task<IActionResult> SignInAsync([FromBody] SignInModel model)
         {
@@ -111,6 +110,7 @@ namespace Api.NoSql.Controllers
             return Ok(_mapper.Map<UserViewModel>(user));
         }
 
+        [AllowAnonymous]
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPasswordAsync([FromBody] ForgotPasswordModel model)
         {
@@ -135,6 +135,7 @@ namespace Api.NoSql.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPut("reset-password")]
         public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordModel model)
         {
@@ -149,6 +150,7 @@ namespace Api.NoSql.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost("resend")]
         public async Task<IActionResult> ResendVerificationAsync([FromBody] ResendVerificationModel model)
         {
@@ -162,23 +164,6 @@ namespace Api.NoSql.Controllers
                     SignUpToken = user.SignupToken
                 });
             }
-
-            return Ok();
-        }
-
-        [Authorize]
-        [HttpPost("refresh-token")]
-        public async Task<IActionResult> RefreshTokenAsync()
-        {
-            var refreshToken = Request.Cookies[Constants.CookieNames.RefreshToken];
-
-            var token = await _tokenService.FindByValueAsync(refreshToken);
-            if (token == null || token.IsExpired())
-            {
-                return Unauthorized();
-            }
-
-            await _authService.SetTokensAsync(token.UserId, token.UserRole);
 
             return Ok();
         }

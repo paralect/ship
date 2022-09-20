@@ -2,7 +2,6 @@ using System.Linq.Expressions;
 using Api.Sql.Controllers;
 using Api.Sql.Services.Interfaces;
 using AutoMapper;
-using Common;
 using Common.DalSql.Entities;
 using Common.DalSql.Filters;
 using Common.Enums;
@@ -25,7 +24,6 @@ namespace Tests.Sql
     {
         private readonly Mock<IEmailService> _emailService;
         private readonly Mock<IUserService> _userService;
-        private readonly Mock<ITokenService> _tokenService;
         private readonly Mock<IAuthService> _authService;
         private readonly Mock<IWebHostEnvironment> _environment;
         private readonly Mock<IOptions<AppSettings>> _appSettingsOptions;
@@ -36,7 +34,6 @@ namespace Tests.Sql
         {
             _emailService = new Mock<IEmailService>();
             _userService = new Mock<IUserService>();
-            _tokenService = new Mock<ITokenService>();
             _authService = new Mock<IAuthService>();
             _environment = new Mock<IWebHostEnvironment>();
             _appSettingsOptions = new Mock<IOptions<AppSettings>>();
@@ -44,8 +41,7 @@ namespace Tests.Sql
 
             _appSettings = new AppSettings
             {
-                WebUrl = "http://test.com",
-                LandingUrl = "http://test-landing.com"
+                WebUrl = "http://test.com"
             };
         }
 
@@ -154,7 +150,7 @@ namespace Tests.Sql
 
             // Assert
             _userService.Verify(service => service.VerifyEmailAsync(user.Id), Times.Once);
-            _authService.Verify(service => service.SetTokensAsync(user.Id), Times.Once);
+            _authService.Verify(service => service.SetTokenAsync(user.Id), Times.Once);
             Assert.True((result as RedirectResult)?.Url == _appSettings.WebUrl);
         }
 
@@ -264,7 +260,7 @@ namespace Tests.Sql
 
             // Assert
             _userService.Verify(service => service.SignInAsync(userId), Times.Once);
-            _authService.Verify(service => service.SetTokensAsync(userId), Times.Once);
+            _authService.Verify(service => service.SetTokenAsync(userId), Times.Once);
             Assert.IsType<OkObjectResult>(result);
         }
 
@@ -410,63 +406,6 @@ namespace Tests.Sql
         }
 
         [Fact]
-        public async Task RefreshTokenShouldReturnUnauthorizedWhenTokenIsNotFound()
-        {
-            // Arrange
-            var refreshToken = "refresh token";
-            var contextMock = new Mock<HttpContext>();
-            contextMock.Setup(context => context.Request.Cookies[Constants.CookieNames.RefreshToken])
-                .Returns(refreshToken);
-
-            var controllerContext = new ControllerContext { HttpContext = contextMock.Object };
-
-            _tokenService.Setup(service => service.FindOneAsync(
-                    It.Is<TokenFilter>(filter => filter.Value == refreshToken && filter.AsNoTracking)))
-                .ReturnsAsync((Token)null);
-
-            var controller = CreateInstance();
-            controller.ControllerContext = controllerContext;
-
-            // Act
-            var result = await controller.RefreshTokenAsync();
-
-            // Assert
-            Assert.IsType<UnauthorizedResult>(result);
-        }
-
-        [Fact]
-        public async Task RefreshTokenShouldSetToken()
-        {
-            // Arrange
-            var userId = 1;
-            var refreshToken = "refresh token";
-            var contextMock = new Mock<HttpContext>();
-            contextMock.Setup(context => context.Request.Cookies[Constants.CookieNames.RefreshToken])
-                .Returns(refreshToken);
-
-            var controllerContext = new ControllerContext { HttpContext = contextMock.Object };
-
-            _tokenService.Setup(service => service.FindOneAsync(
-                    It.Is<TokenFilter>(filter => filter.Value == refreshToken && filter.AsNoTracking),
-                    It.IsAny<Expression<Func<Token, Token>>>()))
-                .ReturnsAsync(new Token
-                {
-                    UserId = userId,
-                    ExpireAt = DateTime.UtcNow.AddYears(1)
-                });
-
-            var controller = CreateInstance();
-            controller.ControllerContext = controllerContext;
-
-            // Act
-            var result = await controller.RefreshTokenAsync();
-
-            // Assert
-            _authService.Verify(service => service.SetTokensAsync(userId), Times.Once);
-            Assert.IsType<OkResult>(result);
-        }
-
-        [Fact]
         public async Task LogoutShouldUnsetTokenAndReturnOk()
         {
             // Arrange
@@ -496,7 +435,6 @@ namespace Tests.Sql
                 _authService.Object,
                 _emailService.Object,
                 _userService.Object,
-                _tokenService.Object,
                 _environment.Object,
                 _appSettingsOptions.Object,
                 _mapper.Object);

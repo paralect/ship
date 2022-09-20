@@ -1,6 +1,7 @@
-﻿using Api.NoSql.Security;
+﻿using Api.NoSql.Services.Interfaces;
 using AutoMapper;
 using Common.Dal;
+using Common.Dal.Documents.User;
 using Common.Dal.Repositories;
 using Common.Models.View;
 using Common.Models.View.User;
@@ -9,16 +10,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.NoSql.Controllers
 {
-    [Authorize]
     public class UsersController : BaseController
     {
-        private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly ILogger<UsersController> _logger;
+        private readonly IUserService _userService;
+        private readonly ISocketService _socketService;
 
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(
+            IMapper mapper,
+            ILogger<UsersController> logger,
+            IUserService userService,
+            ISocketService socketService)
         {
-            _userService = userService;
             _mapper = mapper;
+            _logger = logger;
+            _userService = userService;
+            _socketService = socketService;
         }
 
         [HttpGet]
@@ -59,14 +67,73 @@ namespace Api.NoSql.Controllers
             await _userService.UpdatePasswordAsync(CurrentUserId, model.Password);
 
             var user = await _userService.FindByIdAsync(CurrentUserId);
+
+            await NotifyWsServer(user);
+            
             return Ok(new
             {
                 CurrentUserId,
                 user.FirstName,
                 user.LastName,
                 user.Email,
-                user.IsEmailVerified
+                user.IsEmailVerified,
+                user.AvatarUrl
             });
+        }
+
+        [HttpPost("upload-photo")]
+        public async Task<IActionResult> UploadAvatarAsync([FromForm] UploadAvatarModel model)
+        {
+            await _userService.UpdateAvatarAsync(CurrentUserId, model.File.FileName, model.File.OpenReadStream());
+
+            var user = await _userService.FindByIdAsync(CurrentUserId);
+            return Ok(new
+            {
+                CurrentUserId,
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.IsEmailVerified,
+                user.AvatarUrl
+            });
+        }
+
+        [HttpDelete("remove-photo")]
+        public async Task<IActionResult> RemoveCurrentPhoto()
+        {
+            await _userService.RemoveAvatarAsync(CurrentUserId);
+
+            var user = await _userService.FindByIdAsync(CurrentUserId);
+            return Ok(new
+            {
+                CurrentUserId,
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.IsEmailVerified,
+                user.AvatarUrl
+            });
+        }
+
+        /// <summary>
+        /// An example of WS server usage
+        /// </summary>
+        private async Task NotifyWsServer(User user)
+        {
+            try
+            {
+                await _socketService.UpdateUser(new UserViewModel
+                {
+                    Id = CurrentUserId,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+            }
         }
     }
 }

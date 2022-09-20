@@ -1,25 +1,21 @@
-﻿using AutoMapper;
-using Common.Dal.Documents.User;
+﻿using Common.Models.View.User;
 using Microsoft.AspNetCore.SignalR;
-using SignalR.Models;
 
 namespace SignalR.Hubs
 {
     public class UserHubContext : IUserHubContext
     {
         private readonly IHubContext<UserHub> _hubContext;
-        private readonly IMapper _mapper;
 
-        public UserHubContext(IHubContext<UserHub> hubContext, IMapper mapper)
+        public UserHubContext(IHubContext<UserHub> hubContext)
         {
             _hubContext = hubContext;
-            _mapper = mapper;
         }
 
-        public async Task SendUpdateAsync(User user)
+        public async Task SendUpdateAsync(UserViewModel model)
         {
-            var groupName = $"user-{user.Id}";
-            await _hubContext.Clients.Group(groupName).SendAsync("user:updated", _mapper.Map<UserViewModel>(user));
+            var groupName = $"user-{model.Id}";
+            await _hubContext.Clients.Group(groupName).SendAsync("user:updated", model);
         }
     }
 }

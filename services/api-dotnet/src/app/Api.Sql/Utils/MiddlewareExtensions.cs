@@ -1,20 +1,9 @@
 ﻿using Api.Sql.Middleware;
-using Common;
 
 namespace Api.Sql.Utils;
 
 public static class MiddlewareExtensions
 {
-    public static IApplicationBuilder UseTokenAuthentication(this IApplicationBuilder builder)
-    {
-        builder.UseWhen(
-            context => !context.Request.Path.Equals(Constants.HealthcheckPath),
-            x => x.UseMiddleware<TokenAuthenticationMiddleware>()
-        );
-
-        return builder;
-    }
-
     /// <summary>
     /// The middleware makes requests to DB, if there are any changes on EF DbContext.
     /// It's still possible to update DB manually from controllers/services - in this case the middleware does nothing

@@ -7,10 +7,11 @@ services:
       - bash
       - -c
       - |
-        chmod 400 /config/mongo-keyfile
-        chown 999:999 /config/mongo-keyfile
+        cp /config/mongo-keyfile /config/keyfile
+        chmod 400 /config/keyfile
+        chown mongodb -R /config/keyfile
         exec docker-entrypoint.sh $$@
-    command: mongod --replSet rs --bind_ip_all --keyFile config/mongo-keyfile --quiet --logpath /dev/null
+    command: mongod --replSet rs --bind_ip_all --keyFile config/keyfile --quiet --logpath /dev/null
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
@@ -20,7 +21,7 @@ services:
       - 27017:27017
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./api/src/config:/config
+      - ./api/src/config/mongo-keyfile:/config/mongo-keyfile
       - type: volume
         source: mongodb
         target: /data/db

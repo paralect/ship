@@ -16,9 +16,13 @@ git sparse-checkout add services/web
 git checkout
 cd ../
 
-cp -a ship/services/web/ .
+cp -a ship/services/web/. .
 
 rm -rf ship
+
+npm uninstall @microsoft/signalr
+rm src/services/socket.signalr.service.ts
+rm src/config/environment/development.dotnet.json
 
 # Install modules and setup husky
 

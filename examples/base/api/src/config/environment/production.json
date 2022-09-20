@@ -1,17 +1,7 @@
 {
   "mongo": {
-    "connection": "mongodb+srv://<username>:<password>@<db>/api-production?retryWrites=true&w=majority",
     "dbName": "api-production"
   },
-  "apiUrl": "https://ship-api.paralect.net",
-  "webUrl": "https://ship.paralect.net",
-  "redis": "redis://:super-secured-password@redis-master.redis.svc.cluster.local:6379",
-  "sendgridApiKey": "",
-  "cloudStorage": {
-    "endpoint": "fra1.digitaloceanspaces.com",
-    "accessKeyId": "yourAccessKeyId",
-    "secretAccessKey": "yourSecretAccessKey",
-    "bucket": "yourBucket"
-  },
-  "adminKey": "replaceWithSecureApiKey"
+  "apiUrl": "https://ship-demo-api.paralect.com",
+  "webUrl": "https://ship-demo.paralect.com"
 }

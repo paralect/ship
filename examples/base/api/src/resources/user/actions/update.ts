@@ -39,7 +39,7 @@ async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
   const updatedUser = await userService.updateOne(
     { _id: ctx.request.params?.id },
     () => ({ firstName, lastName, email }),
-  ) as User;
+  );
 
   ctx.body = userService.getPublic(updatedUser);
 }

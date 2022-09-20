@@ -33,7 +33,7 @@ const getMigrations = (): Migration[] => {
     return require(migrationPath);
   });
 
-  return migrations;
+  return migrations.map((m) => m.default);
 };
 
 const setNewMigrationVersion = (version: number) =>
