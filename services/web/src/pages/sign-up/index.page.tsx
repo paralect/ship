@@ -39,7 +39,7 @@ type SignUpParams = z.infer<typeof schema>;
 
 const passwordRules = [
   {
-    title: 'Be a minimum of six characters',
+    title: 'Be 6-50 characters',
     done: false,
   },
   {
@@ -75,7 +75,7 @@ const SignUp: NextPage = () => {
   useEffect(() => {
     const updatedPasswordRulesData = [...passwordRules];
 
-    updatedPasswordRulesData[0].done = passwordValue.length >= 6;
+    updatedPasswordRulesData[0].done = passwordValue.length >= 6 && passwordValue.length <= 50;
     updatedPasswordRulesData[1].done = /[a-z]/.test(passwordValue);
     updatedPasswordRulesData[2].done = /\d/.test(passwordValue);
 
