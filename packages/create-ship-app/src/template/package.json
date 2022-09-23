@@ -3,12 +3,13 @@
   "scripts": {
     "docker-start": "bash ./bin/start.sh",
     "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
-    "start": "turbo run dev"
+    "turbo-start": "turbo run dev",
+    "start": "bash ./bin/run-all.sh"
   },
   "devDependencies": {
     "husky": "7.0.4",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "turbo": "1.4.5"
   },
   "workspaces": [
