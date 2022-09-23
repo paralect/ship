@@ -112,7 +112,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Paralect, LLC. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Paralect, LLC.`,
       },
       prism: {
         theme: lightCodeTheme,
