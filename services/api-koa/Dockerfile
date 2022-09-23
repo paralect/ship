@@ -20,7 +20,9 @@ RUN npm ci --only=production --quiet
 RUN cp -R /app/node_modules /app/prod_node_modules
 
 # Rewrite global node_modules with local ones (if exists)
-# EX: RUN cp -Rf /app/apps/api/node_modules/* /app/prod_node_modules
+RUN if [ -e /app/apps/api/node_modules ]; then \
+    cp -Rf /app/apps/api/node_modules/* /app/prod_node_modules; \
+    fi
 
 # install ALL node_modules, including 'devDependencies'
 RUN npm ci --quiet --include=dev

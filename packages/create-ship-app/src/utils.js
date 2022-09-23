@@ -71,16 +71,20 @@ function getRunCommand(buildType, apiType) {
 async function installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderNames) {
   const spinner = createSpinner(`Building ${projectName}...`).start();
   
-  switch (buildType) {
-    case buildTypes.FULL_STACK:
-      await exec(`bash ${__dirname}/scripts/full-stack.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${apiType} ${dbType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
-      break;
-    case buildTypes.ONLY_FRONTEND:
-      await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
-      break;
-    case buildTypes.ONLY_BACKEND:
-      await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${apiType} ${dbType}`);
-      break;
+  if (buildType === buildTypes.FULL_STACK && apiType === apiTypes.KOA) {
+    await exec(`bash ${__dirname}/scripts/full-stack-koa.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${apiType} ${dbType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
+  }
+  
+  if (buildType === buildTypes.FULL_STACK && apiType === apiTypes.DOTNET) {
+    await exec(`bash ${__dirname}/scripts/full-stack-net.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${apiType} ${dbType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
+  }
+  
+  if (buildType === buildTypes.ONLY_FRONTEND) {
+    await exec(`bash ${__dirname}/scripts/frontend.sh ${projectName}`);
+  }
+  
+  if (buildType === buildTypes.ONLY_BACKEND) {
+    await exec(`bash ${__dirname}/scripts/backend.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${apiType} ${dbType}`);
   }
   
   spinner.success({ text: 'Done!' });

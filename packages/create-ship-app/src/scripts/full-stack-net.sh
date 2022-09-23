@@ -22,16 +22,12 @@ function installService() {
   service="$1"
   service_dir="$2"
 
-  if [ "$service" == "deploy" ]; then
-    cp -a "ship/$service_dir/." "$service"
-  else
-    cp -a "ship/$service_dir/." "apps/$service"
-  fi
+  cp -a "ship/$service_dir/." "$service"
 
   if [ "$service" != "deploy" ]; then
-    cd "apps/$service"
+    cd "$service"
     rm -rf "${filesToRemove[@]}"
-    cd ../../
+    cd ../
   fi
 }
 
@@ -82,7 +78,7 @@ done
 
 # Remove unused folders and files
 
-bash $cli_dir/scripts/cleanup.sh "apps/api" $api_type $db_type
+bash $cli_dir/scripts/cleanup.sh "api" $api_type $db_type
 
 # Add github actions from deploy service
 
@@ -90,22 +86,22 @@ mv deploy/.github/workflows/* .github/workflows
 rm -rf deploy/.github
 
 # Websocket config
-cd apps/web
+cd web
 
 if [ "$api_type" == "Koa.js" ]
 then
 npm uninstall @microsoft/signalr
-rm src/services/socket.signalr.service.js
+rm src/services/socket.signalr.service.ts
 rm src/config/environment/development.dotnet.json
 else
 npm uninstall socket.io-client
-rm src/services/socket.service.js
-mv src/services/socket.signalr.service.js src/services/socket.service.js
+rm src/services/socket.service.ts
+mv src/services/socket.signalr.service.ts src/services/socket.service.ts
 rm src/config/environment/development.json
 mv src/config/environment/development.dotnet.json src/config/environment/development.json
 fi
 
-cd ../../
+cd ..
 
 # Install modules and setup husky
 
@@ -114,3 +110,6 @@ git init
 git add .
 git commit -m "initial commit"
 git branch -M main
+
+npm run bootstrap
+npx husky install

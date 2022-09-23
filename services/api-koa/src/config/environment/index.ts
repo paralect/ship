@@ -1,10 +1,10 @@
 import { configUtil } from 'utils';
-const env = process.env.APP_ENV || 'development';
+const env = process.env.APP_ENV || 'development-turbo';
 
 const base = {
   env,
   port: process.env.PORT || 3001,
-  isDev: env === 'development',
+  isDev: env === 'development-turbo' || env === 'development-docker',
   mongo: {
     connection: '',
     dbName: '',

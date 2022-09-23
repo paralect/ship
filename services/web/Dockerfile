@@ -17,7 +17,7 @@ COPY ["./apps/web/package*.json", "/app/apps/web/"]
 # EX: COPY ["./packages/ui/package*.json", "/app/packages/ui/"]
 
 RUN npm ci --include=dev --quiet
-# Copy packages (serviece dependency packages)
+# Copy packages (service dependency packages)
 # EX: COPY ./packages/ui ./packages/ui
 # EX: RUN npm --prefix=packages/ui run build
 

@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   mongo:
-    container_name: base-mongo
+    container_name: ship-mongo
     image: mongo:4.4
     entrypoint:
       - bash
@@ -16,7 +16,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
     networks:
-      - base
+      - ship
     ports:
       - 27017:27017
     volumes:
@@ -29,7 +29,7 @@ services:
         source: mongodb-cfg
         target: /data/configdb
   mongo-replicator:
-    container_name: base-mongo-replicator
+    container_name: ship-mongo-replicator
     build: ./apps/api/mongo-replicator
     environment:
       - HOST=mongo
@@ -38,29 +38,29 @@ services:
       - PASSWORD=root
       - REPLICA_SET_NAME=rs
     networks:
-      - base
+      - ship
     depends_on:
       - mongo
   redis:
-    container_name: base-redis
+    container_name: ship-redis
     image: redis:5.0.5
     command: redis-server --appendonly yes
     hostname: redis
     networks:
-      - base
+      - ship
     ports:
       - 6379:6379
   api:
-    container_name: base-api
+    container_name: ship-api
     build:
       context: .
       dockerfile: ./apps/api/Dockerfile
       target: development
       args:
         NODE_ENV: development
-        APP_ENV: development
+        APP_ENV: development-docker
     networks:
-      - base
+      - ship
     volumes:
       - ./apps/api/src:/app/apps/api/src
     ports:
@@ -69,22 +69,22 @@ services:
       - redis
       - mongo-replicator
   migrator:
-    container_name: base-migrator
+    container_name: ship-migrator
     build:
       context: .
       dockerfile: ./apps/api/Dockerfile.migrator
       target: development
       args:
         NODE_ENV: development
-        APP_ENV: development
+        APP_ENV: development-docker
     networks:
-      - base
+      - ship
     volumes:
       - ./apps/api/src:/app/apps/api/src
     depends_on:
       - mongo-replicator
   scheduler:
-    container_name: base-scheduler
+    container_name: ship-scheduler
     build:
       context: .
       dockerfile: ./apps/api/Dockerfile.scheduler
@@ -93,13 +93,13 @@ services:
         NODE_ENV: development
         APP_ENV: development
     networks:
-      - base
+      - ship
     volumes:
       - ./apps/api/src:/app/apps/api/src
     depends_on:
       - mongo-replicator
   web:
-    container_name: base-web
+    container_name: ship-web
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
@@ -111,13 +111,13 @@ services:
       - ./apps/web/src:/app/apps/web/src
       - ./apps/web/public:/app/apps/web/public
     networks:
-      - base
+      - ship
     ports:
       - 3002:3002
 
 networks:
-  base:
-    name: base-network
+  ship:
+    name: ship-network
 
 volumes:
   mongodb:

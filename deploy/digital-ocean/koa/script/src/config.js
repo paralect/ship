@@ -30,38 +30,28 @@ const config = {
 const deployConfig =  {
   api: {
     dockerRepo: `${config.dockerRegistry.name}-api`,
-    dir: rootDir,
+    dockerContextDir: rootDir,
     folder: 'api',
     dockerFilePath: `${rootDir}/apps/api/Dockerfile`,
   },
   web: {
     dockerRepo: `${config.dockerRegistry.name}-web`,
-    dir: rootDir,
+    dockerContextDir: rootDir,
     folder: 'web',
     dockerFilePath: `${rootDir}/apps/web/Dockerfile.migrator`,
   },
   scheduler: {
     dockerRepo: `${config.dockerRegistry.name}-scheduler`,
-    dir: rootDir,
+    dockerContextDir: rootDir,
     folder: 'scheduler',
     dockerFilePath: `${rootDir}/apps/api/Dockerfile.scheduler`,
   },
   migrator: {
     dockerRepo: `${config.dockerRegistry.name}-migrator`,
-    dir: rootDir,
+    dockerContextDir: rootDir,
     dockerFilePath: `${rootDir}/apps/api/Dockerfile.migrator`,
   }
 };
-
-Object.keys(deployConfig).forEach(serviceName => {
-  if (!deployConfig[serviceName].dockerFilePath) {
-    deployConfig[serviceName].dockerFilePath = `${deployConfig[serviceName].dir}/Dockerfile`;
-  }
-  
-  if (!deployConfig[serviceName].dockerContextDir) {
-    deployConfig[serviceName].dockerContextDir = deployConfig[serviceName].dir;
-  }
-});
 
 config.deploy = deployConfig;
 
