@@ -2,28 +2,9 @@
 set -e
 shopt -s dotglob
 
-build_type="$1"
-deployment_type="$2"
-api_dir="$3"
-api_type="$4"
-db_type="$5"
-
-if [ "$deployment_type" != "Digital_Ocean_Apps" ]; then
-    rm -rf .github/workflows/application-api-deployment.yml
-    rm -rf .github/workflows/application-web-deployment.yml
-fi
-
-if [ "$deployment_type" == "Digital_Ocean_Apps" ]; then
-  rm -r deploy
-
-  if [ "$build_type" == "frontend" ]; then
-    rm -rf .github/workflows/application-api-deployment.yml
-  fi
-
-  if [ "$build_type" == "backend" ]; then
-    rm -rf .github/workflows/application-web-deployment.yml
-  fi
-fi
+api_dir="$1"
+api_type="$2"
+db_type="$3"
 
 if [ "$api_type" == ".NET" ]; then
   rm $api_dir/src/ApiStarter.sln

@@ -84,7 +84,11 @@ rm -rf deploy/.github
 
 # Remove unused folders and files
 
-bash $cli_dir/scripts/cleanup.sh "fullstack" $deployment_type "api" $api_type $db_type
+if [ "$deployment_type" == "Digital_Ocean_Apps" ]; then
+  rm -rf deploy
+fi
+
+bash $cli_dir/scripts/cleanup.sh "api" $api_type $db_type
 
 # Websocket config
 cd web
@@ -106,7 +110,7 @@ cd ..
 
 # Install modules and setup husky
 
-# npm install
+npm install
 git init
 git add .
 git commit -m "initial commit"

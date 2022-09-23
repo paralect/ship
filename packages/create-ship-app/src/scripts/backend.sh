@@ -6,30 +6,7 @@ project_name="$1"
 cli_dir="$2"
 api_dir="$3"
 api_type="$4"
-deployment_type="$5"
-db_type="$6"
-platform_common_dir="$7"
-platform_specific_dir="$8"
-
-filesToRemove=(
-  "bin"
-  "docker-compose.yml"
-  ".github"
-  ".husky"
-)
-
-function installService() {
-  service="$1"
-  service_dir="$2"
-
-  cp -a "ship/$service_dir/." "$service"
-
-  if [ "$service" != "deploy" ]; then
-    cd "$service"
-    rm -rf "${filesToRemove[@]}"
-    cd ../
-  fi
-}
+db_type="$5"
 
 mkdir "$project_name"
 cd "$project_name"
@@ -45,15 +22,6 @@ cd ../
 
 cp -a ship/services/$api_dir/. .
 
-if [ ! -z "$platform_common_dir" ]; then
-  installService "deploy" "deploy/$platform_common_dir"
-fi
-if [ ! -z "$platform_specific_dir" ]; then
-  installService "deploy" "deploy/$platform_specific_dir"
-fi
-
-rm -rf ship
-
 # Rename services in docker-compose.yml
 
 for i in docker-compose*; do
@@ -63,11 +31,12 @@ done
 # Add github actions from deploy service
 
 mkdir -p .github/workflows
-mv deploy/.github/workflows/* .github/workflows
+cp ship/deploy/digital-ocean-apps/common/.github/workflows/application-api-deployment.yml .github/workflows
 
 # Remove unused folders and files
+rm -rf ship
 
-bash $cli_dir/scripts/cleanup.sh "backend" $deployment_type "." $api_type $db_type
+bash $cli_dir/scripts/cleanup.sh "." $api_type $db_type
 
 # Install modules and setup husky
 
