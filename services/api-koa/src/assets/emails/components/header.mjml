@@ -2,16 +2,12 @@
   background-color="#ffffff"
   padding-bottom="0px"
   padding-top="0"
+  text-align="center"
 >
-  <mj-column vertical-align="top" width="100%">
-    <mj-text
-      align="center"
-      font-size="30px"
-      font-weight="bold"
-      font-family="Trebuchet MS, Arial, sans-serif"
-      color="#55299a"
-    >
-      Ship
-    </mj-text>
+  <mj-column width="100%">
+    <mj-image
+      width="260"
+      src="http://cdn.mcauto-images-production.sendgrid.net/7d962813157daad2/127a510e-e5ff-4d18-b670-67d7b98f191d/260x123.png"
+    />
   </mj-column>
 </mj-section>

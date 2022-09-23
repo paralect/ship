@@ -8,15 +8,19 @@ import { User } from './user.types';
 
 const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, { schema });
 
-const updateLastRequest = (_id: string) => service.atomic.updateOne(
-  { _id },
-  {
-    $set: {
-      lastRequest: new Date().toISOString(),
-      updatedOn: new Date().toISOString(),
+const updateLastRequest = (_id: string) => {
+  const date = new Date();
+
+  return service.atomic.updateOne(
+    { _id },
+    {
+      $set: {
+        lastRequest: date,
+        updatedOn: date,
+      },
     },
-  },
-);
+  );
+};
 
 const privateFields = [
   'passwordHash',

@@ -3,8 +3,8 @@ import { cloudStorageService } from 'services';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService } from 'resources/user';
 
-const getFileKey = (url: string) => url
-  .replace(`https://${config.cloudStorage.bucket}.${config.cloudStorage.endpoint}/`, '');
+const getFileKey = (url: string) => decodeURI(url
+  .replace(`https://${config.cloudStorage.bucket}.${config.cloudStorage.endpoint}/`, ''));
 
 async function validator(ctx: AppKoaContext, next: Next) {
   const { user } = ctx.state;
@@ -19,12 +19,12 @@ async function validator(ctx: AppKoaContext, next: Next) {
 async function handler(ctx: AppKoaContext) {
   const { user } = ctx.state;
 
-  await Promise.all([
-    cloudStorageService.deleteObject(getFileKey(user.avatarUrl || '')),
+  const [updatedUser] = await Promise.all([
     userService.updateOne({ _id: user._id }, () => ({ avatarUrl: null })),
+    cloudStorageService.deleteObject(getFileKey(user.avatarUrl || '')),
   ]);
 
-  ctx.body = {};
+  ctx.body = userService.getPublic(updatedUser);
 }
 
 export default (router: AppRouter) => {

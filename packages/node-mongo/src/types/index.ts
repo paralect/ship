@@ -38,21 +38,21 @@ export type OutboxEvent<T = any> = {
   type: 'create' | 'update' | 'delete',
   doc: T,
   prevDoc?: T,
-  createdOn: string
+  createdOn: Date
 };
 
 export type InMemoryEvent<T = any> = {
   doc: T,
   prevDoc?: T,
   name: string,
-  createdOn: string
+  createdOn: Date
 };
 
 export type IDocument = {
   _id?: string;
-  updatedOn?: string;
-  deletedOn?: string | null;
-  createdOn?: string;
+  updatedOn?: Date;
+  deletedOn?: Date | null;
+  createdOn?: Date;
 };
 
 export type FindResult<T> = {

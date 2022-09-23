@@ -8,9 +8,9 @@ module.exports = {
     return config;
   },
   trailingSlash: true,
-  pageExtensions: ['page.jsx', 'api.js'],
+  pageExtensions: ['page.tsx', 'api.ts'],
   reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: true,
+  typescript: {
+    ignoreBuildErrors: true,
   },
 };
