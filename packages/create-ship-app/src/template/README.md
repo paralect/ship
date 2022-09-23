@@ -1,6 +1,8 @@
 ## Starting application with Turborepo
 
-### Starting infra
+To run infra and all services -- just run: `npm start` 🚀
+
+### Turborepo: Running infra and services separately
 
 1. Start base infra services in Docker containers:
 
@@ -8,13 +10,17 @@
 npm run infra
 ```
 
-2. Run all apps (`api` and `web`) with Turborepo
+2. Run services (`api` and `web`) with Turborepo
 
 ```bash
-npm start
+npm turbo-start
 ```
 
-### Using Ship without Turborepo
+## Using Ship without Turborepo
+
+To run infra and all services -- just run: `npm run docker-start` 🚀
+
+### Docker: Running infra and services separately
 
 1. Start base infra services in Docker containers:
 
@@ -22,36 +28,13 @@ npm start
 npm run infra
 ```
 
-2. Replace `apps/api/src/config/environment/development.json` with following content:
 
-```json
-{
-  "mongo": {
-    "connection": "mongodb://root:root@mongo/api-development?authSource=admin&replicaSet=rs",
-    "dbName": "api-development"
-  },
-  "apiUrl": "http://localhost:3001",
-  "webUrl": "http://localhost:3002",
-  "redis": "redis://:@redis:6379",
-  "sendgridApiKey": "",
-  "cloudStorage": {
-    "endpoint": "fra1.digitaloceanspaces.com",
-    "accessKeyId": "yourAccessKeyId",
-    "secretAccessKey": "yourSecretAccessKey",
-    "bucket": "yourBucket"
-  },
-  "adminKey": "replaceWithSecureApiKey"
-}
+2. Run services you need:
+
+```bash
+./bin/start.sh api web
 ```
 
-3. Run services you need:
-
-```j```
-
-## Start application
-
-```shell
-npm start
-```
+You can also run infra services separately with `./bin/start.sh` bash script.
 
 ## [Documentation](https://ship.paralect.com/docs/intro)
