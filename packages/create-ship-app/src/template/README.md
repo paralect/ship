@@ -10,13 +10,13 @@ To run infra and all services -- just run: `npm start` 🚀
 npm run infra
 ```
 
-2. Run services (`api` and `web`) with Turborepo
+2. Run services with Turborepo
 
 ```bash
 npm turbo-start
 ```
 
-## Using Ship without Turborepo
+## Using Ship with Docker
 
 To run infra and all services -- just run: `npm run docker-start` 🚀
 

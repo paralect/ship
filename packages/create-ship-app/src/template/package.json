@@ -5,7 +5,7 @@
     "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
     "turbo-start": "turbo run development",
     "start": "bash ./bin/run-all.sh",
-    "hey": "turbo run dev schedule-dev migrate-dev"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "husky": "7.0.4",

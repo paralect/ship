@@ -43,7 +43,7 @@ cp -a "$cli_dir"/template/. .
 
 # Download only services and deploy folders from monorepo
 
-git clone --quiet --filter=blob:none --no-checkout --depth 1 --sparse https://github.com/paralect/ship.git
+git clone -b as_implement-turborepo --quiet --filter=blob:none --no-checkout --depth 1 --sparse https://github.com/paralect/ship.git
 cd ship
 git sparse-checkout init --cone
 git sparse-checkout add services deploy
@@ -101,3 +101,5 @@ git init
 git add .
 git commit -m "initial commit"
 git branch -M main
+
+npx husky install
