@@ -18,7 +18,7 @@ Check out [example](https://github.com/paralect/ship/tree/master/examples/base) 
 
 - Only Frontend - include [**Web**](/docs/web/overview) service;
 - Only Backend - include [**API**](/docs/api/overview), [**Scheduler**](/docs/scheduler.md) and [**Migrator**](/docs/migrator.md) services;
-- Full-Stack - include [**Web**](/docs/web/overview), [**API**](/docs/api/overview), [**Scheduler**](/docs/scheduler.md), [**Migrator**](/docs/migrator.md) and [**Deployment**](/docs/deployment/overview.md) services;
+- Full-Stack - include [**Web**](/docs/web/overview), [**API**](/docs/api/overview), [**Scheduler**](/docs/scheduler.md), [**Migrator**](/docs/migrator.md) and [**Deployment**](/docs/deployment/kubernetes/overview.md) services;
 
 ### API type
 
@@ -28,8 +28,9 @@ Check out [example](https://github.com/paralect/ship/tree/master/examples/base) 
 
 ### Deployment type
 
-- [**Digital Ocean**](/docs/deployment/digital-ocean.md)
-- [**AWS**](/docs/deployment/aws.md)
+- [**Digital Ocean Apps**](/docs/deployment/digital-ocean-apps.md)
+- [**Digital Ocean Kubernetes**](/docs/deployment/kubernetes/digital-ocean.md)
+- [**AWS Kubernetes**](/docs/deployment/kubernetes/aws.md)
 
 ## Usage
 

@@ -17,7 +17,7 @@ On a high-level Ship consist of the following parts:
 - [**API**](/docs/api/overview) — backend service;
 - [**Scheduler**](/docs/scheduler.md) - a service that runs background cron jobs;
 - [**Migrator**](/docs/migrator.md) - a service that runs MongoDB migrations;
-- [**Deployment**](/docs/deployment/overview.md) - deployment scripts and GitHub Actions that deploy an application to the AWS or Digital Ocean Kubernetes cluster;
+- [**Deployment**](/docs/deployment/kubernetes/overview.md) - deployment scripts and GitHub Actions that deploy an application to the AWS or Digital Ocean Kubernetes cluster;
 
 The image below illustrates the main components and key relationships between them:
 
