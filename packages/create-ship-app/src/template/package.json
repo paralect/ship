@@ -4,8 +4,7 @@
     "docker-start": "bash ./bin/start.sh",
     "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
     "turbo-start": "turbo run development",
-    "start": "bash ./bin/run-all.sh",
-    "prepare": "husky install"
+    "start": "bash ./bin/run-all.sh"
   },
   "devDependencies": {
     "husky": "7.0.4",
