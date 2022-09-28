@@ -16,13 +16,11 @@ cd "$project_name"
 git clone --quiet --filter=blob:none --no-checkout --depth 1 --sparse https://github.com/paralect/ship.git
 cd ship
 git sparse-checkout init --cone
-git sparse-checkout add services
+git sparse-checkout add services deploy
 git checkout
 cd ../
 
 cp -a ship/services/$api_dir/. .
-
-rm -rf ship
 
 # Rename services in docker-compose.yml
 
@@ -30,7 +28,13 @@ for i in docker-compose*; do
   perl -i -pe"s/ship/$project_name/g" $i
 done
 
+# Add github actions from deploy service
+
+mkdir -p .github/workflows
+cp ship/deploy/digital-ocean-apps/common/.github/workflows/application-api-deployment.yml .github/workflows
+
 # Remove unused folders and files
+rm -rf ship
 
 bash $cli_dir/scripts/cleanup.sh "." $api_type $db_type
 

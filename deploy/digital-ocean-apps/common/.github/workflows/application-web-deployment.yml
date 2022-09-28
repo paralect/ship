@@ -1,10 +1,10 @@
-name: 'Application api deployment'
+name: 'Application web deployment'
 
 on:
   push:
     branches: [ master ]
     paths:
-      - 'examples/base/api/**'
+      - 'web/**'
   workflow_dispatch:
     inputs:
       logLevel:
@@ -24,4 +24,4 @@ jobs:
         with:
           token: ${{ secrets.DO_ACCESS_TOKEN }}
       - name: Update DigitalOcean App Platform
-        run: doctl apps create-deployment ${{ secrets.DO_APP_API_ID }} --wait
+        run: doctl apps create-deployment ${{ secrets.DO_APP_WEB_ID }} --wait

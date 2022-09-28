@@ -4,14 +4,14 @@ const gradient = require('gradient-string');
 const figlet = require('figlet');
 
 const utils = require('./utils');
-const { buildTypes, apiTypes } = require('./config');
+const { buildTypes, apiTypes, deploymentTypes } = require('./config');
 const buildSteps = require('./build-steps');
 
 let projectName;
 let buildType;
 let apiType;
 let dbType;
-let deploymentType;
+let deploymentType = deploymentTypes.DIGITAL_OCEAN_APPS;
 
 (async () => {
   console.clear();
@@ -42,7 +42,7 @@ let deploymentType;
   const dockerComposeFileName = utils.getDockerComposeFileName(apiType, dbType);
   const deploymentFolderNames = utils.getDeploymentFolderNames(deploymentType, apiType, dbType);
   
-  await utils.installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderNames);
+  await utils.installServices(projectName, buildType, deploymentType.replace(/ /g, '_'), apiType, dbType, dockerComposeFileName, deploymentFolderNames);
   
   figlet('Happy coding!', (err, data) => {
     const runCommand = utils.getRunCommand(buildType, apiType);

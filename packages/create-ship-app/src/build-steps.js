@@ -61,10 +61,10 @@ async function askDeploymentType() {
   const answers = await inquirer.prompt({
     name: 'deploymentType',
     type: 'list',
-    message: 'Choose your cloud service provider to deploy:',
+    message: 'Choose your deployment type:',
     choices: Object.values(deploymentTypes),
     default() {
-      return deploymentTypes.DIGITAL_OCEAN;
+      return deploymentTypes.DIGITAL_OCEAN_APPS;
     },
   });
   

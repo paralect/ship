@@ -12,12 +12,17 @@ cd "$project_name"
 git clone --quiet --filter=blob:none --no-checkout --depth 1 --sparse https://github.com/paralect/ship.git
 cd ship
 git sparse-checkout init --cone
-git sparse-checkout add services/web
+git sparse-checkout add services/web deploy
 git checkout
 cd ../
 
 cp -a ship/services/web/. .
 
+# Add github actions from deploy service
+
+cp ship/deploy/digital-ocean-apps/common/.github/workflows/application-web-deployment.yml .github/workflows
+
+# Remove unused folders and files
 rm -rf ship
 
 npm uninstall @microsoft/signalr

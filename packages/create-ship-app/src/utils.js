@@ -68,7 +68,7 @@ function getRunCommand(buildType, apiType) {
   }
 }
 
-async function installServices(projectName, buildType, apiType, dbType, dockerComposeFileName, deploymentFolderNames) {
+async function installServices(projectName, buildType, deploymentType, apiType, dbType, dockerComposeFileName, deploymentFolderNames) {
   const spinner = createSpinner(`Building ${projectName}...`).start();
   
   if (buildType === buildTypes.FULL_STACK && apiType === apiTypes.KOA) {

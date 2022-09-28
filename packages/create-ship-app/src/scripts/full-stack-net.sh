@@ -7,9 +7,10 @@ cli_dir="$2"
 api_dir="$3"
 docker_compose_file_name="$4"
 api_type="$5"
-db_type="$6"
-platform_common_dir="$7"
-platform_specific_dir="$8"
+deployment_type="$6"
+db_type="$7"
+platform_common_dir="$8"
+platform_specific_dir="$9"
 
 filesToRemove=(
   "bin"
@@ -76,14 +77,18 @@ for i in docker-compose*; do
   perl -i -pe"s/ship/$project_name/g" $i
 done
 
-# Remove unused folders and files
-
-bash $cli_dir/scripts/cleanup.sh "api" $api_type $db_type
-
 # Add github actions from deploy service
 
 mv deploy/.github/workflows/* .github/workflows
 rm -rf deploy/.github
+
+# Remove unused folders and files
+
+if [ "$deployment_type" == "Digital_Ocean_Apps" ]; then
+  rm -rf deploy
+fi
+
+bash $cli_dir/scripts/cleanup.sh "api" $api_type $db_type
 
 # Websocket config
 cd web
