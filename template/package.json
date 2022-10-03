@@ -1,0 +1,19 @@
+{
+  "name": "ship",
+  "scripts": {
+    "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
+    "turbo-start": "turbo run development",
+    "docker": "bash ./bin/start.sh",
+    "start": "bash ./bin/run-all.sh"
+  },
+  "devDependencies": {
+    "husky": "7.0.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "turbo": "1.4.5"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
