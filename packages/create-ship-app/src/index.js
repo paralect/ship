@@ -30,7 +30,7 @@ let deploymentType = deploymentTypes.DIGITAL_OCEAN_APPS;
     dbType = await buildSteps.askDbType();
   }
   
-  deploymentType = await buildSteps.askDeploymentType();
+  deploymentType = await buildSteps.askDeploymentType(apiType);
   
   await utils.installServices(projectName, deploymentType, apiType, dbType);
   

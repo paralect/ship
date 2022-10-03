@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 
-const { buildTypes, apiTypes, dbTypes, deploymentTypes } = require('./config');
+const { apiTypes, dbTypes, deploymentTypes } = require('./config');
 
 async function askProjectName() {
   const answers = await inquirer.prompt({
@@ -43,12 +43,15 @@ async function askDbType() {
   return answers.dbType;
 }
 
-async function askDeploymentType() {
+async function askDeploymentType(apiType) {
   const answers = await inquirer.prompt({
     name: 'deploymentType',
     type: 'list',
     message: 'Choose your deployment type:',
-    choices: Object.values(deploymentTypes),
+    choices: apiType === apiTypes.KOA
+      ? Object.values(deploymentTypes)
+      : Object.values(deploymentTypes).filter((d) => d !== deploymentTypes.DIGITAL_OCEAN_APPS)
+    ,
     default() {
       return deploymentTypes.DIGITAL_OCEAN_APPS;
     },

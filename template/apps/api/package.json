@@ -24,7 +24,7 @@
     "test:lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "dev": "nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json src/app.ts",
     "start": "node dist/src/app.js",
-    "start-all": "///",
+    "start-all": "npm run migrate && npm run start && npm run schedule",
     "migrate-dev": "ts-node ./src/migrator.ts",
     "migrate": "node dist/src/migrator.js",
     "schedule-dev": "nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json ./src/scheduler.ts",

@@ -24,4 +24,4 @@ jobs:
         with:
           token: ${{ secrets.DO_ACCESS_TOKEN }}
       - name: Update DigitalOcean App Platform
-        run: doctl apps create-deployment ${{ secrets.DO_APP_API_ID }} --wait
+        run: doctl apps create-deployment ${{ secrets.DO_API_STAGING_APP_ID }} --wait
