@@ -12,51 +12,44 @@ platform_specific_dir="$7"
 
 # Clone project and create template
 
-git clone -b as_implement-turborepo https://github.com/paralect/ship.git
-cp -a "ship/.net/." "$project_name"
+mkdir "$project_name"
+cd "$project_name"
+
+git clone -b https://github.com/paralect/ship.git
+cp -a ship/.net/. .
 
 # Install services from ship monorepo
 
-cp -a "ship/template/apps/web/." "$project_name/web"
+cp -a ship/template/apps/web/. web
 
 # Install deploy
 
-cp -a "ship/deploy/$platform_common_dir/." "$project_name/deploy"
-cp -a "ship/deploy/$platform_specific_dir/." "$project_name/deploy"
-
-cd "$project_name"
+cp -a "ship/deploy/$platform_common_dir/." "deploy"
+cp -a "ship/deploy/$platform_specific_dir/." "deploy"
 
 mv deploy/.github/workflows/* .github/workflows
 rm -rf deploy/.github
 
-cd ../
-
 # Copy docker-compose.yml
 
-cp "ship/.net/docker-compose/$docker_compose_file_name" "$project_name/docker-compose.yml"
+cp "ship/.net/docker-compose/$docker_compose_file_name" docker-compose.yml
 
 if [ "$api_type" == ".NET" -a "$db_type" == "PostgreSQL" ]; then
-  cp ship/.net/api/src/docker_postgres_init.sql .
+  cp api/src/docker_postgres_init.sql .
 fi
 
 # Rename services in docker-compose.yml
-
-cd "$project_name"
 
 for i in docker-compose*; do
   perl -i -pe"s/ship/$project_name/g" $i
 done
 
-cd ../
-
 # Remove unused folders and files
 
 rm -rf ship
-cd "$project_name"
-
-bash $cli_dir/scripts/cleanup.sh "api" $api_type $db_type
-
 rm -rf docker-compose
+
+bash $cli_dir/scripts/cleanup.sh api $api_type $db_type
 
 # Websocket config
 cd web

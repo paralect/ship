@@ -9,10 +9,11 @@ platform_specific_dir="$4"
 
 # Clone project and create template
 
-git clone https://github.com/paralect/ship.git
-cp -a "ship/template/." "$project_name"
-
+mkdir "$project_name"
 cd "$project_name"
+
+git clone -b https://github.com/paralect/ship.git
+cp -a ship/template/. .
 
 # Rename services in docker-compose.yml
 
@@ -27,27 +28,22 @@ npm uninstall @microsoft/signalr
 rm src/services/socket.signalr.service.ts
 rm src/config/environment/development.dotnet.json
 
-cd ../../../
+cd ../../
 
 # Install deploy
 
 if [ "$deployment_type" == "Digital_Ocean_Apps" ]; then
-  cp -a "ship/deploy/$platform_specific_dir/.github/workflows/." "$project_name/.github/workflows"
-  cp -a "ship/deploy/$platform_specific_dir/Dockerfile" "$project_name/apps/api"
+  cp -a "ship/deploy/$platform_specific_dir/.github/workflows/." ".github/workflows"
+  cp -a "ship/deploy/$platform_specific_dir/Dockerfile" "apps/api"
 else
-  cp -a "ship/deploy/$platform_common_dir/." "$project_name/deploy"
-  cp -a "ship/deploy/$platform_specific_dir/." "$project_name/deploy"
-
-  cd "$project_name"
+  cp -a "ship/deploy/$platform_common_dir/." "deploy"
+  cp -a "ship/deploy/$platform_specific_dir/." "deploy"
 
   mv deploy/.github/workflows/* .github/workflows
   rm -rf deploy/.github
-
-  cd ../
 fi
 
 rm -rf ship
-cd "$project_name"
 
 # Install modules and setup husky
 
