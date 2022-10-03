@@ -12,7 +12,7 @@ platform_specific_dir="$7"
 
 # Clone project and create template
 
-git clone https://github.com/paralect/ship.git
+git clone -b as_implement-turborepo https://github.com/paralect/ship.git
 cp -a "ship/.net/." "$project_name"
 
 # Install services from ship monorepo
@@ -33,7 +33,7 @@ cd ../
 
 # Copy docker-compose.yml
 
-cp "ship/.net/docker-compose/$docker_compose_file_name" docker-compose.yml
+cp "ship/.net/docker-compose/$docker_compose_file_name" "$project_name/docker-compose.yml"
 
 if [ "$api_type" == ".NET" -a "$db_type" == "PostgreSQL" ]; then
   cp ship/.net/api/src/docker_postgres_init.sql .
@@ -49,11 +49,14 @@ done
 
 cd ../
 
-rm -rf ship
-
 # Remove unused folders and files
 
+rm -rf ship
+cd "$project_name"
+
 bash $cli_dir/scripts/cleanup.sh "api" $api_type $db_type
+
+rm -rf docker-compose
 
 # Websocket config
 cd web
