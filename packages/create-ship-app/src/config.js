@@ -1,9 +1,3 @@
-const buildTypes = {
-  FULL_STACK: 'Full-Stack (Frontend, Backend, Deploy)',
-  ONLY_FRONTEND: 'Only Frontend',
-  ONLY_BACKEND: 'Only Backend',
-};
-
 const apiTypes = {
   KOA: 'Koa.js',
   DOTNET: '.NET',
@@ -33,6 +27,7 @@ const deploymentFolders = {
     [`${deploymentTypes.DIGITAL_OCEAN_MANAGED_KUBERNETES}${apiTypes.KOA}`]: 'digital-ocean/koa',
     [`${deploymentTypes.DIGITAL_OCEAN_MANAGED_KUBERNETES}${apiTypes.DOTNET}${dbTypes.NOSQL}`]: 'digital-ocean/dotnet-nosql',
     [`${deploymentTypes.DIGITAL_OCEAN_MANAGED_KUBERNETES}${apiTypes.DOTNET}${dbTypes.SQL}`]: 'digital-ocean/dotnet-sql',
+    [`${deploymentTypes.DIGITAL_OCEAN_APPS}${apiTypes.KOA}`]: 'digital-ocean-apps/koa',
   }
 }
 
@@ -42,7 +37,6 @@ const apiFolders = {
 };
 
 module.exports = {
-  buildTypes,
   apiTypes,
   dbTypes,
   deploymentTypes,

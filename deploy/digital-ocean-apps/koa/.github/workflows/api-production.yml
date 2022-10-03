@@ -2,9 +2,9 @@ name: 'Application api deployment'
 
 on:
   push:
-    branches: [ master ]
+    branches: [ production ]
     paths:
-      - 'template/apps/api/**'
+      - 'apps/api/**'
   workflow_dispatch:
     inputs:
       logLevel:

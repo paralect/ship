@@ -15,20 +15,6 @@ async function askProjectName() {
   return answers.projectName;
 }
 
-async function askBuildType() {
-  const answers = await inquirer.prompt({
-    name: 'buildType',
-    type: 'list',
-    message: 'Choose your build type:',
-    choices: Object.values(buildTypes),
-    default() {
-      return buildTypes.FULL_STACK;
-    },
-  });
-  
-  return answers.buildType;
-}
-
 async function askApiType() {
   const answers = await inquirer.prompt({
     name: 'apiType',
@@ -73,7 +59,6 @@ async function askDeploymentType() {
 
 module.exports = {
   askProjectName,
-  askBuildType,
   askApiType,
   askDbType,
   askDeploymentType,
