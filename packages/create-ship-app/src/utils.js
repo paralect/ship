@@ -2,7 +2,7 @@ const { createSpinner } = require('nanospinner');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-const { apiTypes, dbTypes, apiFolders, deploymentFolders } = require('./config');
+const { apiTypes, dbTypes, deploymentFolders } = require('./config');
 
 function getCLIArgs() {
   const args = process.argv.slice(2);
@@ -55,7 +55,7 @@ async function installServices(projectName, deploymentType, apiType, dbType) {
   if (apiType === apiTypes.DOTNET) {
     const dockerComposeFileName = getDockerComposeFileName(dbType);
     
-    await exec(`bash ${__dirname}/scripts/dot-net.sh ${projectName} ${__dirname} ${apiFolders[apiType]} ${dockerComposeFileName} ${apiType} ${formattedDeploymentType} ${dbType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
+    await exec(`bash ${__dirname}/scripts/dot-net.sh ${projectName} ${__dirname} ${apiType} ${dockerComposeFileName} ${dbType} ${deploymentFolderNames.deploymentCommonFolderName} ${deploymentFolderNames.deploymentSpecificFolderName}`);
   }
   
   spinner.success({ text: 'Done!' });

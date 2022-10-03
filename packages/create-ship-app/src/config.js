@@ -31,15 +31,9 @@ const deploymentFolders = {
   }
 }
 
-const apiFolders = {
-  [apiTypes.KOA]: 'api-koa',
-  [apiTypes.DOTNET]: 'api-dotnet',
-};
-
 module.exports = {
   apiTypes,
   dbTypes,
   deploymentTypes,
   deploymentFolders,
-  apiFolders,
 }

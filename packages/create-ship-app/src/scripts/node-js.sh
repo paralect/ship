@@ -9,7 +9,7 @@ platform_specific_dir="$4"
 
 # Clone project and create template
 
-git clone -b as_implement-turborepo https://github.com/paralect/ship.git
+git clone https://github.com/paralect/ship.git
 cp -a "ship/template/." "$project_name"
 
 cd "$project_name"
@@ -32,7 +32,7 @@ cd ../../../
 # Install deploy
 
 if [ "$deployment_type" == "Digital_Ocean_Apps" ]; then
-  cp -a "ship/deploy/$platform_specific_dir/.github/workflows/*" "$project_name/.github/workflows"
+  cp -a "ship/deploy/$platform_specific_dir/.github/workflows/." "$project_name/.github/workflows"
   cp -a "ship/deploy/$platform_specific_dir/Dockerfile" "$project_name/apps/api"
 else
   cp -a "ship/deploy/$platform_common_dir/." "$project_name/deploy"
