@@ -12,7 +12,7 @@ platform_specific_dir="$4"
 mkdir "$project_name"
 cd "$project_name"
 
-git clone -b https://github.com/paralect/ship.git
+git clone https://github.com/paralect/ship.git
 cp -a ship/template/. .
 
 # Rename services in docker-compose.yml

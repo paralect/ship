@@ -15,7 +15,7 @@ platform_specific_dir="$7"
 mkdir "$project_name"
 cd "$project_name"
 
-git clone -b https://github.com/paralect/ship.git
+git clone https://github.com/paralect/ship.git
 cp -a ship/.net/. .
 
 # Install services from ship monorepo
