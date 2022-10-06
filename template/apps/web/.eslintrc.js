@@ -11,10 +11,11 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
   ],
+  ignorePatterns: ['.eslintrc.js'],
   parserOptions: {
-    project: 'tsconfig.json',
+    project: './tsconfig.json',
     tsconfigRootDir: __dirname,
-    ecmaVersion: 12,
+    ecmaVersion: 13,
     sourceType: 'module',
   },
   rules: {
@@ -22,7 +23,7 @@ module.exports = {
     'import/no-unresolved': [2,
       { ignore: ['public'] },
     ],
-    'react/prop-types': 'error',
+    'react/prop-types': 'off',
     'react/jsx-key': 'off',
     'react/require-default-props': 'off',
     'import/prefer-default-export': 'off',
