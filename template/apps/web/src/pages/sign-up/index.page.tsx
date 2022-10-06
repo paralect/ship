@@ -21,14 +21,14 @@ import {
 
 import config from 'config';
 import { RoutePath } from 'routes';
-import { handleError } from 'helpers';
+import { handleError } from 'utils';
 import { Link } from 'components';
 import { accountApi } from 'resources/account';
 
 const schema = z.object({
-  firstName: z.string({ required_error: 'Field is required.' }).max(100),
-  lastName: z.string({ required_error: 'Field is required.' }).max(100),
-  email: z.string({ required_error: 'Field is required.' }).max(64).email('Email format is incorrect.'),
+  firstName: z.string().min(1, 'Please enter first name').max(100),
+  lastName: z.string().min(1, 'Please enter last name').max(100),
+  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
   password: z.string().regex(
     /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
     'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',

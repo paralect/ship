@@ -41,6 +41,7 @@
     "@socket.io/redis-emitter": "4.1.1",
     "aws-sdk": "2.1080.0",
     "bcryptjs": "2.4.3",
+    "dotenv": "16.0.3",
     "google-auth-library": "8.5.1",
     "handlebars": "4.7.7",
     "joi": "17.4.2",

@@ -32,7 +32,6 @@ export const compareTextWithHash = (text: string, hash: string) => {
   return bcrypt.compare(text, hash);
 };
 
-
 export default {
   generateSecureToken,
   getHash,

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useMemo, useCallback, useState, FC } from 'react';
 import {
   Table as TableContainer,

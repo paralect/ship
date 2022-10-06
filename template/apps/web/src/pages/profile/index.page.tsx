@@ -13,7 +13,7 @@ import {
   Title,
 } from '@mantine/core';
 
-import { handleError } from 'helpers';
+import { handleError } from 'utils';
 import { userApi } from 'resources/user';
 
 import PhotoUpload from './components/file-upload';

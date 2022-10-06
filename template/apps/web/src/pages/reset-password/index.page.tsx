@@ -15,7 +15,7 @@ import { NextPage } from 'next';
 
 import { QueryParam } from 'types';
 import { RoutePath } from 'routes';
-import { handleError } from 'helpers';
+import { handleError } from 'utils';
 import { accountApi } from 'resources/account';
 
 const schema = z.object({

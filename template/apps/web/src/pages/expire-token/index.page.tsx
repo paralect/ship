@@ -11,7 +11,7 @@ import {
 
 import { QueryParam } from 'types';
 import { RoutePath } from 'routes';
-import { handleError } from 'helpers';
+import { handleError } from 'utils';
 import { accountApi } from 'resources/account';
 
 type ForgotPasswordParams = {

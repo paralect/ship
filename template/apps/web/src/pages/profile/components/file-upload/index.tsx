@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 import { Group, Text, Button } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
 
-import { handleError } from 'helpers';
+import { handleError } from 'utils';
 import { userApi } from 'resources/user';
 import { AddIcon, PenIcon } from 'public/icons';
 

@@ -5,6 +5,9 @@ import moduleAlias from 'module-alias';
 moduleAlias.addPath(__dirname);
 moduleAlias(); // read aliases from package json
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import http from 'http';
 import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';

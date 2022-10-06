@@ -9,7 +9,7 @@ import {
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons';
 
-import { handleError } from 'helpers';
+import { handleError } from 'utils';
 import { inviteApi } from 'resources/invite';
 
 import { useStyles } from './styles';

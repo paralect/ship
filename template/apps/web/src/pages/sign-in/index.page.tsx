@@ -8,13 +8,13 @@ import { IconBrandGoogle, IconAlertCircle } from '@tabler/icons';
 
 import config from 'config';
 import { RoutePath } from 'routes';
-import { handleError } from 'helpers';
+import { handleError } from 'utils';
 import { Link } from 'components';
 import { accountApi } from 'resources/account';
 
 const schema = z.object({
-  email: z.string({ required_error: 'Field is required.' }).email('Email format is incorrect.'),
-  password: z.string({ required_error: 'Field is required.' }),
+  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
+  password: z.string().min(1, 'Please enter password'),
 });
 
 type SignInParams = z.infer<typeof schema> & { credentials?: string };

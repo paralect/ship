@@ -1,4 +1,16 @@
-// eslint-disable-next-line import/no-dynamic-require
-const config = require(`./${process.env.NEXT_PUBLIC_APP_ENV || 'development'}.json`);
+import merge from 'lodash/merge';
 
-export default config;
+const env = process.env.NEXT_PUBLIC_APP_ENV || 'development';
+// eslint-disable-next-line import/no-dynamic-require
+const config = require(`./${env}.json`);
+
+const base = {
+  env,
+  port: process.env.PORT || 3002,
+  isDev: env === 'development' || env === 'development-docker',
+  apiUrl: '',
+  wsUrl: '',
+  webUrl: '',
+};
+
+export default merge(base, config);

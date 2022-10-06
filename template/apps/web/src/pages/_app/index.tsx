@@ -26,6 +26,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
       >
         <ModalsProvider>
           <NotificationsProvider autoClose={10000}>
+            {/* @ts-ignore */ }
             <Global styles={globalStyles} />
             <PageConfig>
               <Component {...pageProps} />

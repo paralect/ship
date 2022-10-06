@@ -8,12 +8,12 @@ import { NextPage } from 'next';
 import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
 
 import { RoutePath } from 'routes';
-import { handleError } from 'helpers';
+import { handleError } from 'utils';
 import { Link } from 'components';
 import { accountApi } from 'resources/account';
 
 const schema = z.object({
-  email: z.string({ required_error: 'Field is required.' }).max(64).email('Email format is incorrect.'),
+  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
 });
 
 type ForgotPasswordParams = {
