@@ -36,33 +36,6 @@ We believe we could ship great products faster, while maintain decent quality an
 * Every component is kept is tiny as possible to simplify maintenance and stay up to date with new releases. 
 * Ship is always in a production-ready state. We test every release manually to make sure great developer experience. We use ship to build our products, see more [here](https://www.paralect.com/build-stage).
 
-## Ship components
-
-### Services
-
-|Name|Description|
-|:---|:----------|
-|[api-koa](services/api-koa)|Koa.js backend starter|
-|[api-dotnet](services/api-dotnet)|.NET backend starter|
-|[web](services/web)|Next.js frontend starter|
-
-### Packages
-
-|Name|Description|
-|:---|:----------|
-|[node-mongo](packages/node-mongo)|Reactive extension to MongoDB API|
-|[create-ship-app](packages/create-ship-app)|CLI tool for building Ship|
-
-### Deploy
-
-|Name|Description|
-|:---|:----------|
-|[digital-ocean](deploy/digital-ocean)|Digital Ocean deploy scripts for Kubernetes|
-|[aws](deploy/aws)|AWS deploy scripts for Kubernetes|
-
-### [Ship UI](https://master--62543f00c4eb91003a7f2a91.chromatic.com/)
-Basic set of easily customizable UI components for instantly applications launch.
-
 ## License
 
 Ship is released under the [MIT License](LICENSE).

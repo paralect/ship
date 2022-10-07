@@ -1,0 +1,26 @@
+<mjml>
+  <mj-head>
+    <mj-include path="./styles/index.mjml" />
+  </mj-head>
+
+  <mj-body>
+    <mj-include path="./components/header.mjml" />
+
+    <mj-section mj-class="main-section">
+      <mj-column vertical-align="middle" width="100%">
+        <mj-text mj-class="big-text">
+          You are almost ready to start!
+        </mj-text>
+        <mj-text mj-class="text">
+          Confirm your email address by following the link.
+        </mj-text>
+
+        <mj-button mj-class="btn" href="{{verifyEmailUrl}}">
+          Confirm email address
+        </mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./components/footer.mjml" />
+  </mj-body>
+</mjml>
