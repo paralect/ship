@@ -2,7 +2,6 @@ import { cloneDeep, isEqual } from 'lodash';
 import {
   WithoutId,
   ChangeStreamOptions,
-  ClientSession,
   Collection,
   AggregateOptions,
   BulkWriteOptions,
@@ -15,7 +14,6 @@ import {
   DeleteOptions,
   IndexSpecification,
   OptionalUnlessRequiredId,
-  TransactionOptions,
   UpdateFilter,
   UpdateOptions,
   InsertOneOptions,
@@ -174,8 +172,8 @@ class Service<T extends IDocument> {
 
   findOne = async (
     filter: Filter<T>,
-    findOptions: FindOptions = {},
     readConfig: ReadConfig = {},
+    findOptions: FindOptions = {},
   ): Promise<T | null> => {
     const collection = await this.getCollection();
 
@@ -186,8 +184,8 @@ class Service<T extends IDocument> {
 
   find = async (
     filter: Filter<T>,
-    findOptions: FindOptions = {},
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
+    findOptions: FindOptions = {},
   ): Promise<FindResult<T>> => {
     const collection = await this.getCollection();
     const { page, perPage } = readConfig;
@@ -224,18 +222,18 @@ class Service<T extends IDocument> {
 
   exists = async (
     filter: Filter<T>,
-    findOptions: FindOptions = {},
     readConfig: ReadConfig = {},
+    findOptions: FindOptions = {},
   ): Promise<boolean> => {
-    const doc = await this.findOne(filter, findOptions, readConfig);
+    const doc = await this.findOne(filter, readConfig, findOptions);
 
     return Boolean(doc);
   };
 
   countDocuments = async (
     filter: Filter<T>,
-    countDocumentOptions: CountDocumentsOptions = {},
     readConfig: ReadConfig = {},
+    countDocumentOptions: CountDocumentsOptions = {},
   ): Promise<number> => {
     const collection = await this.getCollection();
 
@@ -247,8 +245,8 @@ class Service<T extends IDocument> {
   distinct = async (
     key: string,
     filter: Filter<T>,
-    distinctOptions: DistinctOptions = {},
     readConfig: ReadConfig = {},
+    distinctOptions: DistinctOptions = {},
   ): Promise<any[]> => {
     const collection = await this.getCollection();
 
@@ -259,8 +257,8 @@ class Service<T extends IDocument> {
 
   insertOne = async (
     object: Partial<T>,
-    insertOneOptions: InsertOneOptions = {},
     createConfig: CreateConfig = {},
+    insertOneOptions: InsertOneOptions = {},
   ): Promise<T> => {
     const collection = await this.getCollection();
 
@@ -296,8 +294,8 @@ class Service<T extends IDocument> {
 
   insertMany = async (
     objects: Partial<T>[],
-    bulkWriteOptions: BulkWriteOptions = {},
     createConfig: CreateConfig = {},
+    bulkWriteOptions: BulkWriteOptions = {},
   ): Promise<T[]> => {
     const collection = await this.getCollection();
 
@@ -336,8 +334,8 @@ class Service<T extends IDocument> {
   replaceOne = async (
     filter: Filter<T>,
     replacement: Partial<T>,
-    replaceOptions: ReplaceOptions = {},
     readConfig: ReadConfig = {},
+    replaceOptions: ReplaceOptions = {},
   ): Promise<UpdateResult | Document> => {
     const collection = await this.getCollection();
 
@@ -353,12 +351,14 @@ class Service<T extends IDocument> {
   updateOne = async (
     filter: Filter<T>,
     updateFn: (doc: T) => Partial<T>,
-    updateOptions: UpdateOptions = {},
     updateConfig: UpdateConfig = {},
+    updateOptions: UpdateOptions = {},
   ): Promise<T | null> => {
     const collection = await this.getCollection();
 
-    const doc = await this.findOne(filter, {}, updateConfig);
+    filter = this.validateReadOperation(filter, updateConfig);
+
+    const doc = await this.findOne(filter, updateConfig);
 
     if (!doc) {
       if (isDev) {
@@ -435,8 +435,8 @@ class Service<T extends IDocument> {
   updateMany = async (
     filter: Filter<T>,
     updateFn: (doc: T) => Partial<T>,
-    updateOptions: UpdateOptions = {},
     updateConfig: UpdateConfig = {},
+    updateOptions: UpdateOptions = {},
   ): Promise<T[]> => {
     const collection = await this.getCollection();
 
@@ -539,12 +539,12 @@ class Service<T extends IDocument> {
 
   deleteOne = async (
     filter: Filter<T>,
-    deleteOptions: DeleteOptions = {},
     deleteConfig: DeleteConfig = {},
+    deleteOptions: DeleteOptions = {},
   ): Promise<T | null> => {
     const collection = await this.getCollection();
 
-    const doc = await this.findOne(filter, {}, deleteConfig);
+    const doc = await this.findOne(filter, deleteConfig);
 
     if (!doc) {
       if (isDev) {
@@ -584,8 +584,8 @@ class Service<T extends IDocument> {
 
   deleteMany = async (
     filter: Filter<T>,
-    deleteOptions: DeleteOptions = {},
     deleteConfig: DeleteConfig = {},
+    deleteOptions: DeleteOptions = {},
   ): Promise<T[]> => {
     const collection = await this.getCollection();
 
@@ -631,8 +631,8 @@ class Service<T extends IDocument> {
 
   deleteSoft = async (
     filter: Filter<T>,
-    deleteOptions: DeleteOptions = {},
     deleteConfig: DeleteConfig = {},
+    deleteOptions: DeleteOptions = {},
   ): Promise<T[]> => {
     const collection = await this.getCollection();
 
@@ -691,8 +691,8 @@ class Service<T extends IDocument> {
     updateOne: async (
       filter: Filter<T>,
       updateFilter: UpdateFilter<T>,
-      updateOptions: UpdateOptions = {},
       updateConfig: UpdateConfig = {},
+      updateOptions: UpdateOptions = {},
     ):Promise<UpdateResult> => {
       const collection = await this.getCollection();
 
@@ -707,8 +707,8 @@ class Service<T extends IDocument> {
     updateMany: async (
       filter: Filter<T>,
       updateFilter: UpdateFilter<T>,
-      updateOptions: UpdateOptions = {},
       updateConfig: UpdateConfig = {},
+      updateOptions: UpdateOptions = {},
     ): Promise<Document | UpdateResult> => {
       const collection = await this.getCollection();
 

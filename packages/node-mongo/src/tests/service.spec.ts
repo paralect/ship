@@ -64,12 +64,17 @@ describe('service.ts', () => {
       fullName: 'John',
     });
 
+    await usersService.insertOne(
+      { fullName: 'John 2' },
+      { publishEvents: false },
+    );
+
     const newUser = await usersService.findOne({ _id: u._id });
 
     u._id.should.be.equal(newUser?._id);
   });
 
-  it('should create and find documents', async () => {
+  it('should create and find all documents', async () => {
     const users = await usersService.insertMany([
       { fullName: 'John' },
       { fullName: 'Kobe' },
@@ -85,22 +90,150 @@ describe('service.ts', () => {
     newUsersIds.should.have.members(userIds);
   });
 
-  // find paging
-  // find options
-  // insert options
-  // delete options
-  // exists
-  // countDocuments
-  // distinct
-  // atomicUpdateOne
-  // atomicUpdateMany
-  // replaceOne
-  // createIndex
-  // createIndexes
-  // dropIndex
-  // dropIndexes
-  // watch
-  // withTransaction
+  it('should check readConfig', async () => {
+    const u = await usersService.insertOne({
+      fullName: 'John',
+    });
+
+    await usersService.deleteSoft({
+      _id: u._id,
+    });
+
+    const notFoundUser = await usersService.findOne({ _id: u._id });
+    const foundUser = await usersService.findOne(
+      { _id: u._id },
+      { skipDeletedOnDocs: false },
+    );
+
+    (notFoundUser === null).should.be.equal(true);
+    foundUser?._id.should.be.equal(u._id);
+  });
+
+  it('should create and find documents with paging', async () => {
+    const users = await usersService.insertMany([
+      { fullName: 'John' },
+      { fullName: 'Kobe' },
+      { fullName: 'John' },
+      { fullName: 'Kobe' },
+      { fullName: 'John' },
+      { fullName: 'Kobe' },
+      { fullName: 'John' },
+      { fullName: 'Kobe' },
+      { fullName: 'John' },
+      { fullName: 'Kobe' },
+    ]);
+
+    const userIds = users.map((u) => u._id);
+    const { results: newUsers, pagesCount, count } = await usersService.find(
+      { _id: { $in: userIds } },
+      { page: 1, perPage: 2 },
+    );
+
+    newUsers?.length.should.be.equal(2);
+    pagesCount?.should.be.equal(5);
+    count?.should.be.equal(10);
+  });
+
+  it('should check that document exists', async () => {
+    const user = await usersService.insertOne( { fullName: 'John' });
+
+    const isUserExists = await usersService.exists({ _id: user._id });
+    const isNotUserExists = await usersService.exists({ _id: 'some-id' });
+
+    isUserExists.should.be.equal(true);
+    isNotUserExists.should.be.equal(false);
+  });
+
+  it('should return documents count', async () => {
+    await usersService.insertMany([
+      { fullName: 'John IM' },
+      { fullName: 'John IM' },
+      { fullName: 'John IM' },
+      { fullName: 'John IM' },
+    ]);
+
+    const usersCount = await usersService.countDocuments({ fullName: 'John IM' });
+
+    usersCount.should.be.equal(4);
+  });
+
+  it('should return users fullNames', async () => {
+    const usersData = [
+      { fullName: 'John IMS 1' },
+      { fullName: 'John IMS 2' },
+      { fullName: 'John IMS 3' },
+      { fullName: 'John IMS 4' },
+    ];
+
+    await usersService.insertMany(usersData);
+
+    const newUsersFullNames = usersData.map((u) => u.fullName);
+
+    const usersFullNames = await usersService.distinct('fullName', {
+      fullName: { $in: newUsersFullNames },
+    });
+
+    usersFullNames.should.have.members(newUsersFullNames);
+  });
+
+  it('should replace document', async () => {
+    const u = await usersService.insertOne({
+      fullName: 'User to replace',
+    });
+
+    const fullNameToUpdate = 'Updated fullname';
+
+    await usersService.replaceOne(
+      { _id: u._id },
+      { fullName: fullNameToUpdate },
+    );
+
+    const updatedUser = await usersService.findOne({ _id: u._id });
+
+    updatedUser?.fullName.should.be.equal(fullNameToUpdate);
+  });
+
+  it('should atomic update document', async () => {
+    const u = await usersService.insertOne({
+      fullName: 'User to update',
+    });
+
+    const fullNameToUpdate = 'Updated fullname';
+
+    await usersService.atomic.updateOne(
+      { _id: u._id },
+      { $set: { fullName: fullNameToUpdate } },
+    );
+
+    const updatedUser = await usersService.findOne({ _id: u._id });
+
+    updatedUser?.fullName.should.be.equal(fullNameToUpdate);
+  });
+
+  it('should atomic update documents', async () => {
+    const users = [
+      { fullName: 'John' },
+      { fullName: 'Kobe' },
+    ];
+
+    const fullNameToUpdate = 'Updated fullname';
+
+    const createdUsers = await usersService.insertMany(users);
+
+    const usersIds = createdUsers.map((u) => u._id);
+
+    await usersService.atomic.updateMany(
+      { _id: { $in: usersIds } },
+      { $set: { fullName: fullNameToUpdate } },
+    );
+
+    const { results: updatedUsers } = await usersService.find({ _id: { $in: usersIds } });
+
+    const expectedFullnames = updatedUsers.map(() => 'Updated fullname');
+    const updatedFullnames = users.map(() => 'Updated fullname');
+
+    expectedFullnames.should.have.members(updatedFullnames);
+  });
 
   it('should update document', async () => {
     const u = await usersService.insertOne({
@@ -181,7 +314,7 @@ describe('service.ts', () => {
 
     const updatedUser = await usersService.findOne(
       { _id: u._id },
-      {}, { skipDeletedOnDocs: false },
+      { skipDeletedOnDocs: false },
     );
 
     const deletedUser = await usersService.findOne({
@@ -211,11 +344,29 @@ describe('service.ts', () => {
     aggregationResult[0].count.should.be.equal(users.length);
   });
 
+  it('should create and delete index', async () => {
+    await usersService.createIndex('fullName');
+
+    await usersService.dropIndex('fullName');
+  });
+
+  it('should create and delete indexex', async () => {
+    await usersService.createIndexes([{ key: { fullName: 1 } }]);
+
+    await usersService.dropIndexes();
+  });
+
+  it('should watch changes', async () => {
+    await usersService.createIndexes([{ key: { fullName: 1 } }]);
+
+    await usersService.dropIndexes();
+  });
+
   it('should commit transaction', async () => {
     const { user, company } = await database.withTransaction(async (session) => {
-      const createdUser = await usersService.insertOne({ fullName: 'Bahrimchuk' }, { session });
+      const createdUser = await usersService.insertOne({ fullName: 'Bahrimchuk' }, {}, { session });
       const createdCompany = await companyService.insertOne(
-        { users: [createdUser._id] },
+        { users: [createdUser._id] }, {},
         { session },
       );
 
@@ -232,11 +383,11 @@ describe('service.ts', () => {
   it('should rollback transaction', async () => {
     try {
       await database.withTransaction(async (session) => {
-        const createdUser = await usersService.insertOne({ fullName: 'Fake Bahrimchuk' }, { session });
+        const createdUser = await usersService.insertOne({ fullName: 'Fake Bahrimchuk' }, {}, { session });
 
         await companyService.insertOne(
           { users: [createdUser._id], unExistedField: 3 } as any,
-          { session },
+          {}, { session },
         );
       });
     } catch (err) {

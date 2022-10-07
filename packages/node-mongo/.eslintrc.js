@@ -1,15 +1,16 @@
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
-  plugins: [
-    "@typescript-eslint"
-  ],
+  plugins: ["@typescript-eslint", "import"],
   extends: [
     "airbnb-typescript/base",
     "plugin:@typescript-eslint/recommended"
   ],
+  env: {
+    node: true,
+  },
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 13,
     sourceType: "module",
     project: "./tsconfig.json",
     // use tsconfig relative to eslintrc file for IDE
