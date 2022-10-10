@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import db from 'db';
 import { DATABASE_DOCUMENTS } from 'app.constants';
 
