@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import chai from 'chai';
-import Joi from 'joi';
+import { z } from 'zod';
 import spies from 'chai-spies';
 
 import { Database, eventBus } from '../index';
@@ -14,33 +14,24 @@ chai.should();
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 
-type UserType = {
-  _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
-  fullName: string;
-  firstName: string;
-  lastName: string;
-  oauth: {
-    google: boolean
-  }
-};
-
-const schema = Joi.object({
-  _id: Joi.string().required(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  deletedOn: Joi.date().allow(null),
-  firstName: Joi.string(),
-  lastName: Joi.string(),
-  fullName: Joi.string().required(),
-  oauth: Joi.object({
-    google: Joi.boolean(),
-  }),
+const schema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  fullName: z.string(),
+  oauth: z.object({
+    google: z.boolean().optional(),
+  }).optional(),
 });
 
-const usersService = database.createService<UserType>('users', { schema });
+type UserType = z.infer<typeof schema>;
+
+const usersService = database.createService<UserType>('users', {
+  schemaValidator: (obj) => schema.parseAsync(obj),
+});
 
 describe('events/in-memory.ts', () => {
   before(async () => {

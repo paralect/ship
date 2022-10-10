@@ -35,13 +35,13 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
         { _id: user._id },
         (old) => ({ ...old, oauth: { google: true } }),
       );
-    } 
+    }
     const userUpdated = userChanged || user;
     await Promise.all([
       userService.updateLastRequest(userUpdated._id),
       authService.setTokens(ctx, userUpdated._id),
     ]);
-    
+
   } else {
     const newUser = await userService.insertOne({
       firstName: payload.given_name,
@@ -56,7 +56,7 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
     });
 
 
-    if (newUser){
+    if (newUser) {
       await Promise.all([
         userService.updateLastRequest(newUser._id),
         authService.setTokens(ctx, newUser._id),
@@ -72,4 +72,3 @@ export default (router: AppRouter) => {
   router.get('/sign-in/google/auth', getOAuthUrl);
   router.get('/sign-in/google', signinGoogleWithCode);
 };
-  

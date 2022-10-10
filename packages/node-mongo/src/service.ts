@@ -37,7 +37,6 @@ import { inMemoryPublisher } from './events/in-memory';
 
 const defaultOptions: ServiceOptions = {
   skipDeletedOnDocs: true,
-  validateSchema: true,
   publishEvents: true,
   outbox: false,
   addCreatedOnField: true,
@@ -93,11 +92,13 @@ class Service<T extends IDocument> {
   }
 
   public validateSchema = async (entity: T | Partial<T>): Promise<T> => {
-    if (this.options.schema) {
-      const { schema } = this.options;
+    if (this.options.schemaValidator) {
+      const { schemaValidator } = this.options;
 
       try {
-        return await schema.validateAsync(entity);
+        const result = await schemaValidator(entity);
+
+        return result;
       } catch (err: any) {
         logger.error(`Schema is not valid for ${this._collectionName} collection: ${err.stack || err}`, entity);
         throw err;
@@ -144,7 +145,7 @@ class Service<T extends IDocument> {
 
     const shouldValidateSchema = typeof createConfig.validateSchema === 'boolean'
       ? createConfig.validateSchema
-      : this.options.validateSchema;
+      : Boolean(this.options.schemaValidator);
 
     if (shouldValidateSchema) {
       entity = await this.validateSchema(entity);
@@ -390,7 +391,7 @@ class Service<T extends IDocument> {
 
     const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
       ? updateConfig.validateSchema
-      : this.options.validateSchema;
+      : Boolean(this.options.schemaValidator);
 
     if (shouldValidateSchema) {
       await this.validateSchema(newDoc);
@@ -489,7 +490,7 @@ class Service<T extends IDocument> {
 
     const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
       ? updateConfig.validateSchema
-      : this.options.validateSchema;
+      : Boolean(this.options.schemaValidator);
 
     if (shouldValidateSchema) {
       await Promise.all((updated.map((u) => this.validateSchema(u.doc))));

@@ -16,7 +16,6 @@ const updateLastRequest = (_id: string) => {
     {
       $set: {
         lastRequest: date,
-        updatedOn: date,
       },
     },
   );

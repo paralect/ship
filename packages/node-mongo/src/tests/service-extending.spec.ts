@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import Joi from 'joi';
+import { z } from 'zod';
 import chai from 'chai';
 import spies from 'chai-spies';
 import 'mocha';
@@ -32,23 +32,19 @@ function createService<T extends IDocument>(collectionName: string, options: Ser
   return new CustomService<T>(collectionName, database, options);
 }
 
-type UserType = {
-  _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
-  fullName: string;
-};
-
-const schema = Joi.object({
-  _id: Joi.string().required(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  deletedOn: Joi.date().allow(null),
-  fullName: Joi.string().required(),
+const schema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  fullName: z.string(),
 });
 
-const usersService = createService<UserType>('users', { schema });
+type UserType = z.infer<typeof schema>;
+
+const usersService = createService<UserType>('users', {
+  schemaValidator: (obj) => schema.parseAsync(obj),
+});
 
 describe('extending service.ts', () => {
   before(async () => {

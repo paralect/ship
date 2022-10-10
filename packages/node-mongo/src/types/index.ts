@@ -1,7 +1,6 @@
 import {
   ClientSession, Collection, CollectionOptions, CreateCollectionOptions, Document, MongoClient,
 } from 'mongodb';
-import { ObjectSchema } from 'joi';
 
 export type DbChangeType = 'create' | 'update' | 'delete';
 
@@ -100,12 +99,11 @@ interface IDatabase {
 
 interface ServiceOptions {
   skipDeletedOnDocs?: boolean,
-  validateSchema?: boolean,
+  schemaValidator?: (obj: any) => Promise<any>,
   publishEvents?: boolean,
   addCreatedOnField?: boolean,
   addUpdatedOnField?: boolean,
   outbox?: boolean,
-  schema?: ObjectSchema<any>;
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
 }

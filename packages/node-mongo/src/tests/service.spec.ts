@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import Joi from 'joi';
+import { z } from 'zod';
 import chai from 'chai';
 import spies from 'chai-spies';
 
@@ -15,41 +15,33 @@ const { assert } = chai;
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 
-type UserType = {
-  _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
-  fullName: string;
-};
-
-type CompanyType = {
-  _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
-  fullName: string;
-  users: string[]
-};
-
-const companySchema = Joi.object({
-  _id: Joi.string().required(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  deletedOn: Joi.date().allow(null),
-  users: Joi.array().items(Joi.string()),
+const companySchema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  users: z.array(z.string()),
 });
 
-const schema = Joi.object({
-  _id: Joi.string().required(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  deletedOn: Joi.date().allow(null),
-  fullName: Joi.string().required(),
+const schema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  fullName: z.string(),
 });
 
-const usersService = database.createService<UserType>('users', { schema });
-const companyService = database.createService<CompanyType>('companies', { schema: companySchema });
+type UserType = z.infer<typeof schema>;
+type CompanyType = z.infer<typeof companySchema>;
+
+
+const usersService = database.createService<UserType>('users', {
+  schemaValidator: (obj) => schema.parseAsync(obj),
+});
+
+const companyService = database.createService<CompanyType>('companies', {
+  schemaValidator: (obj) => companySchema.parseAsync(obj),
+});
 
 describe('service.ts', () => {
   before(async () => {
@@ -344,19 +336,17 @@ describe('service.ts', () => {
     aggregationResult[0].count.should.be.equal(users.length);
   });
 
+  // check index cretion and deletion
+
+  // add indexExists
+
   it('should create and delete index', async () => {
     await usersService.createIndex('fullName');
 
     await usersService.dropIndex('fullName');
   });
 
-  it('should create and delete indexex', async () => {
-    await usersService.createIndexes([{ key: { fullName: 1 } }]);
-
-    await usersService.dropIndexes();
-  });
-
-  it('should watch changes', async () => {
+  it('should create and delete indexes', async () => {
     await usersService.createIndexes([{ key: { fullName: 1 } }]);
 
     await usersService.dropIndexes();
