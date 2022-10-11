@@ -16,6 +16,7 @@ COPY ["./apps/web/package*.json", "/app/apps/web/"]
 # Copy dependencies' package.lock
 # EX: COPY ["./packages/ui/package*.json", "/app/packages/ui/"]
 
+RUN npm pkg delete scripts.prepare
 RUN npm ci --include=dev --quiet
 # Copy packages (service dependency packages)
 # EX: COPY ./packages/ui ./packages/ui

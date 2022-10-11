@@ -15,6 +15,7 @@ COPY ["./apps/api/package*.json", "./apps/api/.eslintrc.js", "./apps/api/tsconfi
 FROM base AS dependencies
 # install node packages
 RUN npm config set depth 0
+RUN npm pkg delete scripts.prepare
 RUN npm ci --only=production --quiet
 # copy production node_modules aside
 RUN cp -R /app/node_modules /app/prod_node_modules
