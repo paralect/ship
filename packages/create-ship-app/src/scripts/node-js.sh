@@ -46,8 +46,7 @@ fi
 rm -rf ship
 
 # Install modules and setup husky
-
-npm ci
+npm ci --ignore-scripts
 git init
 git add .
 git commit -m "initial commit"

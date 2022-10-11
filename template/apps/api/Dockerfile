@@ -6,16 +6,17 @@ ARG APP_ENV
 ENV NODE_ENV=$NODE_ENV
 ENV APP_ENV=$APP_ENV
 
-WORKDIR /app/apps/api
+WORKDIR /app
 EXPOSE 3001
 COPY ["./package*.json", "/app/"]
 COPY ["./apps/api/package*.json", "./apps/api/.eslintrc.js", "./apps/api/tsconfig.json", "/app/apps/api/"]
+RUN npm pkg delete scripts.prepare
 
 # ---- Dependencies ----
 FROM base AS dependencies
+WORKDIR /app/apps/api
 # install node packages
 RUN npm config set depth 0
-RUN npm pkg delete scripts.prepare
 RUN npm ci --only=production --quiet
 # copy production node_modules aside
 RUN cp -R /app/node_modules /app/prod_node_modules
