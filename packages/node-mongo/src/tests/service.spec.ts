@@ -336,20 +336,33 @@ describe('service.ts', () => {
     aggregationResult[0].count.should.be.equal(users.length);
   });
 
-  // check index cretion and deletion
-
-  // add indexExists
-
   it('should create and delete index', async () => {
-    await usersService.createIndex('fullName');
+    const index = await usersService.createIndex({ fullName: 1 }) as string;
 
-    await usersService.dropIndex('fullName');
+    const isIndexExists = await usersService.indexExists(index);
+
+    await usersService.dropIndex(index);
+
+    const isIndexNotExists = await usersService.indexExists('fullName');
+
+    isIndexExists.should.be.equal(true);
+    isIndexNotExists.should.be.equal(false);
   });
 
   it('should create and delete indexes', async () => {
-    await usersService.createIndexes([{ key: { fullName: 1 } }]);
+    const indexes = await usersService.createIndexes([
+      { key: { fullName: 1 } },
+      { key: { createdOn: 1 } },
+    ]) as string[];
+
+    const isIndexesExists = await usersService.indexExists(indexes);
 
     await usersService.dropIndexes();
+
+    const isIndexesNotExists = await usersService.indexExists(indexes);
+
+    isIndexesExists.should.be.equal(true);
+    isIndexesNotExists.should.be.equal(false);
   });
 
   it('should commit transaction', async () => {

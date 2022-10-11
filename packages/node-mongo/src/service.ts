@@ -19,7 +19,7 @@ import {
   InsertOneOptions,
   UpdateResult,
   Document,
-  IndexDescription, DropIndexesOptions, ReplaceOptions, DistinctOptions,
+  IndexDescription, DropIndexesOptions, ReplaceOptions, DistinctOptions, IndexInformationOptions,
 } from 'mongodb';
 
 import {
@@ -730,6 +730,15 @@ class Service<T extends IDocument> {
     const collection = await this.getCollection();
 
     return collection.aggregate(pipeline, options).toArray();
+  };
+
+  indexExists = async (
+    indexes: string | string[],
+    indexInformationOptions: IndexInformationOptions = {},
+  ): Promise<boolean> => {
+    const collection = await this.getCollection();
+
+    return collection.indexExists(indexes, indexInformationOptions);
   };
 
   createIndex = async (
