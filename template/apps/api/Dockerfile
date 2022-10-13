@@ -43,6 +43,6 @@ FROM base AS release
 # copy production node_modules
 COPY --from=dependencies /app/prod_node_modules ./node_modules
 # copy built dist
-COPY --from=build /app/apps/api/dist ./dist
+COPY --from=build /app/apps/api/dist /app/apps/api/dist
 
-CMD npm start
+CMD npm --prefix=apps/api start
