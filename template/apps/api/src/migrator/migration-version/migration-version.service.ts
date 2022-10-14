@@ -2,12 +2,15 @@ import db from 'db';
 import fs from 'fs';
 import path from 'path';
 
-import { MigrationDocument, Migration } from '../types';
 import schema from './migration-version.schema';
+import { MigrationVersion } from './migration-version-types';
 
-const service = db.createService<MigrationDocument>('__migrationVersion', {
-  schema,
+import { Migration } from '../types';
+
+const service = db.createService<MigrationVersion>('__migrationVersion', {
+  schemaValidator: (obj) => schema.parseAsync(obj),
 });
+
 const migrationsPath = path.join(__dirname, '../migrations');
 const id = 'migration_version';
 
@@ -16,7 +19,7 @@ const getMigrationNames = (): string[] => {
 };
 
 const getCurrentMigrationVersion = () => service.findOne({ _id: id })
-  .then((doc: MigrationDocument | null) => {
+  .then((doc: MigrationVersion | null) => {
     if (!doc) {
       return 0;
     }
@@ -46,7 +49,7 @@ const setNewMigrationVersion = (version: number) =>
       $setOnInsert: {
         _id: id,
       },
-    }, { upsert: true },
+    }, {}, { upsert: true },
   );
 
 export default Object.assign(service, {

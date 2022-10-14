@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { securityUtil } from 'utils';
 import { authService } from 'services';
@@ -6,48 +6,28 @@ import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
 
-const schema = Joi.object({
-  email: Joi.string()
-    .email()
-    .trim()
-    .lowercase()
-    .required()
-    .messages({
-      'any.required': 'Email is required',
-      'string.empty': 'Email is required',
-      'string.email': 'Please enter a valid email address',
-    }),
-  password: Joi.string()
-    .min(6)
-    .max(50)
-    .required()
-    .messages({
-      'any.required': 'Password is required',
-      'string.empty': 'Password is required',
-      'string.min': 'Password must be 6-50 characters',
-      'string.max': 'Password must be 6-50 characters',
-    }),
+const schema = z.object({
+  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
+  password: z.string().min(1, 'Please enter password'),
 });
 
-type ValidatedData = {
-  email: string;
-  password: string;
+interface ValidatedData extends z.infer<typeof schema> {
   user: User;
-};
+}
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { email, password } = ctx.validatedData;
 
   const user = await userService.findOne({ email });
 
-  ctx.assertClientError(user, {
-    credentials: 'The email or password you have entered is invalid',
-  }, 401);
+  ctx.assertClientError(user && user.passwordHash, {
+    credentials: 'The email or passwordddd you have entered is invalid',
+  });
 
   const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
   ctx.assertClientError(isPasswordMatch, {
     credentials: 'The email or password you have entered is invalid',
-  }, 401);
+  });
 
   ctx.assertClientError(user.isEmailVerified, {
     email: 'Please verify your email to sign in',

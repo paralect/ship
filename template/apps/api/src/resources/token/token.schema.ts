@@ -1,16 +1,16 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { TokenType } from './token.types';
 
-const schema = Joi.object({
-  _id: Joi.string().required(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  deletedOn: Joi.date().allow(null),
-  type: Joi.string().valid(...Object.values(TokenType)).required(),
-  value: Joi.string().required(),
-  userId: Joi.string().required(),
-  isShadow: Joi.bool().allow(null),
+const schema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  type: z.nativeEnum(TokenType),
+  value: z.string(),
+  userId: z.string(),
+  isShadow: z.boolean().nullable().optional(),
 });
 
 export default schema;

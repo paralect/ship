@@ -3,7 +3,7 @@ import multer from '@koa/multer';
 import config from 'config';
 import { cloudStorageService } from 'services';
 import { Next, AppKoaContext, AppRouter } from 'types';
-import { userService, User } from 'resources/user';
+import { userService } from 'resources/user';
 
 const upload = multer();
 

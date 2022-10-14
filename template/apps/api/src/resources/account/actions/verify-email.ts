@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
 import config from 'config';
 import { authService, emailService } from 'services';
@@ -6,19 +6,13 @@ import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
 
-const schema = Joi.object({
-  token: Joi.string()
-    .required()
-    .messages({
-      'any.required': 'Token is required',
-      'string.empty': 'Token is required',
-    }),
+const schema = z.object({
+  token: z.string().min(1, 'Token is required'),
 });
 
-type ValidatedData = {
-  token: string;
+interface ValidatedData extends z.infer<typeof schema> {
   user: User;
-};
+}
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const user = await userService.findOne({ signupToken: ctx.validatedData.token });

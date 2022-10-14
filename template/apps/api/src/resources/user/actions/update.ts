@@ -1,24 +1,16 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
-import { userService, User } from 'resources/user';
+import { userService } from 'resources/user';
 
-const schema = Joi.object({
-  firstName: Joi.string()
-    .required(),
-  lastName: Joi.string()
-    .required(),
-  email: Joi.string()
-    .email()
-    .required(),
+const schema = z.object({
+  firstName: z.string().min(1, 'Please enter First name').max(100),
+  lastName: z.string().min(1, 'Please enter Last name').max(100),
+  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
 });
 
-type ValidatedData = {
-  firstName: string,
-  lastName: string,
-  email: string
-};
+type ValidatedData = z.infer<typeof schema>;
 type Request = {
   params: {
     id: string;

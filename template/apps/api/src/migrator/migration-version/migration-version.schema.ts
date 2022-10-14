@@ -1,11 +1,11 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
-const schema = Joi.object({
-  _id: Joi.string(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  version: Joi.number()
-    .required(),
+const schema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  version: z.number(),
 });
 
 export default schema;

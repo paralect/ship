@@ -1,26 +1,21 @@
-import Joi from 'joi';
+import { z } from 'zod';
 import { SortDirection } from '@paralect/node-mongo';
 
 import { AppKoaContext, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
 import { userService } from 'resources/user';
 
-const schema = Joi.object({
-  page: Joi.number().default(1),
-  perPage: Joi.number().default(10),
-  sort: Joi.object({}).keys({
-    createdOn: Joi.number(),
+const schema = z.object({
+  page: z.string().transform(Number).default('1'),
+  perPage: z.string().transform(Number).default('10'),
+  sort: z.object({
+    createdOn: z.number(),
   }).default({ createdOn: -1 }),
-  searchValue: Joi.string().allow(null, '').default(''),
+  searchValue: z.string().default(''),
 });
 
-type ValidatedData = {
-  page: number;
-  perPage: number;
-  sort: {
-    createdOn: SortDirection;
-  };
-  searchValue: string;
+type ValidatedData = Omit<z.infer<typeof schema>, 'sort'> & {
+  sort: { [name: string]: SortDirection };
 };
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
@@ -39,11 +34,8 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
         { email: { $regex: regExp } },
       ],
     },
-    {
-      page,
-      perPage,
-      sort,
-    },
+    { page, perPage },
+    { sort },
   );
 
   ctx.body = {

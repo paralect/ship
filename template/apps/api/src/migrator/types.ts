@@ -1,8 +1,3 @@
-export type MigrationDocument = {
-  _id: string;
-  version: number;
-};
-
 export class Migration {
   description?: string;
 

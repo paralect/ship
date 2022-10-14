@@ -1,8 +1,11 @@
 import db from 'db';
 
 import schema from './migration-log.schema';
+import { MigrationLog } from './migration-log.types';
 
-const service = db.createService('__migrationLog', { schema });
+const service = db.createService<MigrationLog>('__migrationLog', {
+  schemaValidator: (obj) => schema.parseAsync(obj),
+});
 
 const startMigrationLog = (_id: string, startTime: number, migrationVersion: number) =>
   service.atomic.updateOne(
@@ -17,7 +20,7 @@ const startMigrationLog = (_id: string, startTime: number, migrationVersion: num
         _id,
       },
     },
-    { upsert: true },
+    {}, { upsert: true },
   );
 
 const failMigrationLog = (_id: string, finishTime: number, err: Error) =>

@@ -1,19 +1,17 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
-const schema = Joi.object({
-  _id: Joi.string(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  startTime: Joi.date()
-    .required(),
-  finishTime: Joi.date(),
-  status: Joi.string()
-    .required(),
-  error: Joi.string(),
-  errorStack: Joi.string(),
-  duration: Joi.string(),
-  migrationVersion: Joi.number()
-    .required(),
+const schema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  startTime: z.number(),
+  finishTime: z.number().optional(),
+  status: z.string(),
+  error: z.string().optional(),
+  errorStack: z.string().optional(),
+  duration: z.string().optional(),
+  migrationVersion: z.number(),
 });
 
 export default schema;

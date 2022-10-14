@@ -1,13 +1,7 @@
 import { AppKoaContext, AppRouter } from 'types';
 
 async function handler(ctx: AppKoaContext) {
-  const data = { ...ctx.state.user };
-
-  if (ctx.state.isShadow) {
-    data.isShadow = true;
-  }
-
-  ctx.body = data;
+  ctx.body = { ...ctx.state.user, isShadow: Boolean(ctx.state.isShadow) };
 }
 
 export default (router: AppRouter) => {

@@ -1,12 +1,13 @@
-import { Schema, ValidationError, ValidationErrorItem } from 'joi';
+import { ZodSchema, ZodError, ZodIssue } from 'zod';
 
 import { AppKoaContext, Next, ValidationErrors } from 'types';
 
-function formatError(joiError: ValidationError): ValidationErrors {
+function formatError(zodError: ZodError): ValidationErrors {
   const errors: ValidationErrors = {};
 
-  joiError.details.forEach((error: ValidationErrorItem) => {
+  zodError.issues.forEach((error: ZodIssue) => {
     const key = error.path.join('.');
+
     if (!errors[key]) {
       errors[key] = [];
     }
@@ -16,26 +17,17 @@ function formatError(joiError: ValidationError): ValidationErrors {
   return errors;
 }
 
-function validate(schema: Schema) {
+function validate(schema: ZodSchema) {
   return async (ctx: AppKoaContext, next: Next) => {
-    const { value, error } = schema.validate(
-      {
-        ...ctx.request.body,
-        ...ctx.query,
-        ...ctx.params,
-      },
-      {
-        abortEarly: false,
-        allowUnknown: true,
-        stripUnknown: {
-          objects: true,
-        },
-      },
-    );
+    const result = await schema.safeParseAsync({
+      ...ctx.request.body,
+      ...ctx.query,
+      ...ctx.params,
+    });
 
-    if (error) ctx.throw(400, { errors: formatError(error) });
+    if (!result.success) ctx.throw(400, { errors: formatError(result.error) });
 
-    ctx.validatedData = value;
+    ctx.validatedData = result.data;
     await next();
   };
 }
