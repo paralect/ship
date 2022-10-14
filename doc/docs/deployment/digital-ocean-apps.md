@@ -6,9 +6,7 @@ sidebar_position: 1
 
 There is a simplified deployment type without Kubernetes. This type is **recommended** for most new applications because it allows you to set up infrastructure faster and doesn't require additional DevOps knowledge from the development team. You can switch to a more complex Kubernetes solution when your application will be at scale.
 
-It's a step-by-step Ship deployment guide. We will use the [Digital Ocean Apps](https://www.digitalocean.com/products/app-platform) and [GitHub Actions](https://github.com/features/actions) for automated deployment. MongoDB Atlas and Redis Cloud for databases deployment, and [Cloudflare](https://www.cloudflare.com/) for DNS and SSL configuration.
-For DNS and SSL configuration [CloudFlare](https://www.cloudflare.com/) will be used.
-For database we will use MongoDB hosted on [Mongo Atlas](https://www.mongodb.com/).
+It's a step-by-step Ship deployment guide. We will use the [Digital Ocean Apps](https://www.digitalocean.com/products/app-platform) and [GitHub Actions](https://github.com/features/actions) for automated deployment. [Mongo Atlas](https://www.mongodb.com/) and [Redis Cloud](https://redis.com/try-free/) for databases deployment, and [Cloudflare](https://www.cloudflare.com/) for DNS and SSL configuration.
 
 You need to create [GitHub](https://github.com/), [Digital Ocean](https://www.digitalocean.com/), [CloudFlare](https://www.cloudflare.com/), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [Redis Cloud](https://redis.com/try-free/) accounts.
 
@@ -116,8 +114,8 @@ Navigate to the Digital Ocean Control Panel and select the **Apps** tab. The `Fu
 
 | APP_ENV       | File          |
 | ------------- | ------------- |
-| development-docker   | development-docker.ts  |
-| development-turbo   | development-turbo.ts  |
+| development   | development.json  |
+| development-docker   | development-docker.json  |
 | staging       | staging.json  |
 | production    | production.json  |
 
