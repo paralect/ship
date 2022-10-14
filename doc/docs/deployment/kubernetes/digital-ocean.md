@@ -26,7 +26,7 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 ## Setup project
 
-First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **Full-Stack** build type and **Digital Ocean** as a cloud service provider.
+First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **Full-Stack** build type and **Digital Ocean Managed Kubernetes** deployment type.
 
 ![Init project](/img/deployment/digital-ocean/init-project.png)
 

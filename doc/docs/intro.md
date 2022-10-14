@@ -6,9 +6,9 @@ sidebar_position: 1
 
 ![Introduction](/img/ship.png)
 
-The **[Ship](https://ship.paralect.com/)** is a Full-Stack Node.js framework that will help you build and launch products faster. You can focus on getting things done, not building infrastructure.
+The **[Ship](https://ship.paralect.com/)** is a Full-Stack Node.js boilerplate that will help you build and launch products faster. You can focus on getting things done, not building infrastructure.
 
-Ship uses simple tools and approaches and has built-in support for everything from the frontend to CI/CD automation. The Ship was first created in 2015 and since then we keep testing it on real products.
+Ship uses simple tools and approaches and has built-in support for everything from the frontend to CI/CD automation. The Ship was first created in 2015 and since then we keep testing it on real products at [**Paralect**](https://www.paralect.com/).
 
 ## Key principles
 
@@ -32,7 +32,7 @@ The best way to get started with Ship is to use **[Ship CLI](./packages/create-s
 npx create-ship-app init
 ```
 
-This command will create everything you need to develop, launch locally and deploy your product. Usually, complete configuration from start to deployment takes less than 20 minutes.
+This command will create everything you need to develop, launch locally and deploy your product.
 
 ## Next steps
 ### Launch your project
@@ -52,8 +52,8 @@ npm start
 
 ### Learn key concepts
 
-Learn about Ship **[architecture](./architecture.md)**  and key components(**[Web](./web/overview.md)**, **[API](./api/overview.md)**, **[Deployment](./deployment/overview.md)**, **[Migrator](./migrator.md)**, **[Scheduler](./scheduler.md)**).
+Learn about Ship **[architecture](./architecture.md)**  and key components(**[Web](./web/overview.md)**, **[API](./api/overview.md)**, **[Deployment](./deployment/kubernetes/overview.md)**, **[Migrator](./migrator.md)**, **[Scheduler](./scheduler.md)**).
 
 ## .NET
 
-There is a .NET version of Ship. Documentation does not cover it, but **[Web](./web/overview.md)** and **[Deployment](./deployment/overview.md)** sections will be useful because they are the same as for Node.js.
+There is a .NET version of Ship. Documentation does not cover it, but **[Web](./web/overview.md)** and **[Deployment](./deployment/kubernetes/overview.md)** sections will be useful because they are the same as for Node.js.
