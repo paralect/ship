@@ -28,9 +28,10 @@ You will have next project structure.
 
 ```shell
 /my-app
+  /apps
+    /web
+    /api
   /.github
-  /web
-  /api
   ...
 ```
 
@@ -99,7 +100,7 @@ Navigate to the Digital Ocean Control Panel and select the **Apps** tab. The `Fu
 1. Select GitHub as a service provider. You might need to grant Digital Ocean access to your GitHub account.
 2. Select the repository with the application.
 3. Select a branch for deployment.
-4. Select the source directory if the code is in a subfolder. For the `Full-Stack` build type, it's the `/web` and `/api` folders.
+4. Select the source directory if the code is in a subfolder.It should `apps/web` for web application and `apps/api` for api.
 5. Turn off the Autodeploy option. The Ship uses GitHub Actions for CI due to the poor support of monorepos in the Digital Ocean Apps
 
 ![Create app screen](/img/deployment/digital-ocean-apps/do-create-app.png)
@@ -135,7 +136,7 @@ Verify everything is correct and create a new resource.
 After the application creation, you'll land on the application dashboard page. On dashboard, you can see application status, check runtime logs, track deployment status, and manage application settings.
 
 ### App Spec
-Digital Ocean sets the path to Dockerfiles to the root by default. For the `Full-Stack` build type, you will need to change it manually.
+Digital Ocean sets the path to Dockerfiles to the root by default. You will need to change it manually.
 Navigate to Settings, expand the App spec tab and change `dockerfile_path` in the editor.
 
 ![Create app review](/img/deployment/digital-ocean-apps/do-settings-app-spec.png)
