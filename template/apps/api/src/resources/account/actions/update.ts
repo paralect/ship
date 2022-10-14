@@ -38,5 +38,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/current', validateMiddleware(schema), validator, handler);
+  router.put('/', validateMiddleware(schema), validator, handler);
 };

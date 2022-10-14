@@ -7,16 +7,16 @@ import {
 import { Link } from 'components';
 import { LogoImage } from 'public/images';
 
-import { userApi } from 'resources/user';
+import { accountApi } from 'resources/account';
 
 import AddMembersModal from './components/AddMembersModal';
 import UserMenu from './components/UserMenu';
 import ShadowLoginBanner from './components/ShadowLoginBanner';
 
 const Header: FC = () => {
-  const { data: user } = userApi.useGetCurrent();
+  const { data: account } = accountApi.useGet();
 
-  if (!user) return null;
+  if (!account) return null;
 
   return (
     <LayoutHeader height="72px">
@@ -37,7 +37,7 @@ const Header: FC = () => {
         <AddMembersModal />
         <UserMenu />
       </Container>
-      {user.isShadow && <ShadowLoginBanner />}
+      {account.isShadow && <ShadowLoginBanner />}
     </LayoutHeader>
   );
 };

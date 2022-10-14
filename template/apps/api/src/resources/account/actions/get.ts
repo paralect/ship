@@ -5,5 +5,5 @@ async function handler(ctx: AppKoaContext) {
 }
 
 export default (router: AppRouter) => {
-  router.get('/current', handler);
+  router.get('/', handler);
 };

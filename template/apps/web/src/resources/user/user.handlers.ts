@@ -5,16 +5,16 @@ import { User } from './user.types';
 
 apiService.on('error', (error: any) => {
   if (error.status === 401) {
-    queryClient.setQueryData(['currentUser'], null);
+    queryClient.setQueryData(['account'], null);
   }
 });
 
 socketService.on('connect', () => {
-  const currentUser = queryClient.getQueryData(['currentUser']) as User;
+  const account = queryClient.getQueryData(['account']) as User;
 
-  socketService.emit('subscribe', `user-${currentUser._id}`);
+  socketService.emit('subscribe', `user-${account._id}`);
 });
 
 socketService.on('user:updated', (data: User) => {
-  queryClient.setQueryData(['currentUser'], data);
+  queryClient.setQueryData(['account'], data);
 });

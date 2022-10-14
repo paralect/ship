@@ -40,5 +40,5 @@ async function handler(ctx: AppKoaContext) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/upload-photo', upload.single('file'), validator, handler);
+  router.post('/avatar', upload.single('file'), validator, handler);
 };

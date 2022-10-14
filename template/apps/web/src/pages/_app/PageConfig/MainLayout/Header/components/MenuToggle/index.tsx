@@ -1,18 +1,18 @@
 import { forwardRef, memo } from 'react';
 import { Avatar, UnstyledButton } from '@mantine/core';
 
-import { userApi } from 'resources/user';
+import { accountApi } from 'resources/account';
 
 const MenuToggle = forwardRef<HTMLButtonElement>((props, ref) => {
-  const { data: user } = userApi.useGetCurrent();
+  const { data: account } = accountApi.useGet();
 
-  if (!user) return null;
+  if (!account) return null;
 
   return (
     <UnstyledButton ref={ref} {...props}>
       <Avatar color="gray" radius="xl">
-        {user.firstName.charAt(0)}
-        {user.lastName.charAt(0)}
+        {account.firstName.charAt(0)}
+        {account.lastName.charAt(0)}
       </Avatar>
     </UnstyledButton>
   );

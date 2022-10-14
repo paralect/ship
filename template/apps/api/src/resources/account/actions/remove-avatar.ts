@@ -28,5 +28,5 @@ async function handler(ctx: AppKoaContext) {
 }
 
 export default (router: AppRouter) => {
-  router.delete('/remove-photo', validator, handler);
+  router.delete('/avatar', validator, handler);
 };

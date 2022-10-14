@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 
 import { handleError } from 'utils';
-import { userApi } from 'resources/user';
+import { accountApi } from 'resources/account';
 
 import PhotoUpload from './components/file-upload';
 
@@ -25,28 +25,28 @@ const schema = z.object({
   ),
 });
 
-type UpdateCurrentParams = z.infer<typeof schema>;
+type UpdateParams = z.infer<typeof schema>;
 
 const Profile: NextPage = () => {
   const queryClient = useQueryClient();
 
-  const { data: currentUser } = userApi.useGetCurrent();
+  const { data: account } = accountApi.useGet();
 
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<UpdateCurrentParams>({
+  } = useForm<UpdateParams>({
     resolver: zodResolver(schema),
   });
 
   const {
     mutate: updateCurrent,
-    isLoading: isUpdateCurrentLoading,
-  } = userApi.useUpdateCurrent<UpdateCurrentParams>();
+    isLoading: isUpdateLoading,
+  } = accountApi.useUpdate<UpdateParams>();
 
-  const onSubmit = (submitData: UpdateCurrentParams) => updateCurrent(submitData, {
+  const onSubmit = (submitData: UpdateParams) => updateCurrent(submitData, {
     onSuccess: (data) => {
       queryClient.setQueryData(['currentUser'], data);
       showNotification({
@@ -75,7 +75,7 @@ const Profile: NextPage = () => {
         >
           <TextInput
             label="Email Address"
-            defaultValue={currentUser?.email}
+            defaultValue={account?.email}
             disabled
           />
           <PasswordInput
@@ -89,7 +89,7 @@ const Profile: NextPage = () => {
           />
           <Button
             type="submit"
-            loading={isUpdateCurrentLoading}
+            loading={isUpdateLoading}
           >
             Update Profile
           </Button>
