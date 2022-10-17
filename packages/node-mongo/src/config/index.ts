@@ -24,7 +24,7 @@ export const load = (): Config => {
 
   let localConfig = { default: {} };
   try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line import/extensions
     localConfig = require('./local');
     resultConfig = _.merge(resultConfig, localConfig.default);
   // eslint-disable-next-line no-empty

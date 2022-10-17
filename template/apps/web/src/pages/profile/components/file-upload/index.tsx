@@ -3,7 +3,7 @@ import { Group, Text, Button } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
 
 import { handleError } from 'utils';
-import { userApi } from 'resources/user';
+import { accountApi } from 'resources/account';
 import { AddIcon, PenIcon } from 'public/icons';
 
 import { useStyles } from './styles';
@@ -12,12 +12,12 @@ const PhotoUpload = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { classes, cx } = useStyles();
 
-  const { data: currentUser } = userApi.useGetCurrent();
+  const { data: account } = accountApi.useGet();
 
-  const { mutate: uploadProfilePhoto } = userApi.useUploadProfilePhoto<FormData>();
-  const { mutate: removeProfilePhoto } = userApi.useRemoveProfilePhoto();
+  const { mutate: uploadProfilePhoto } = accountApi.useUploadAvatar<FormData>();
+  const { mutate: removeProfilePhoto } = accountApi.useRemoveAvatar();
 
-  if (!currentUser) return null;
+  if (!account) return null;
 
   const isFileSizeCorrect = (file: any) => {
     const oneMBinBytes = 1048576;
@@ -74,11 +74,11 @@ const PhotoUpload = () => {
               [classes.error]: errorMessage,
             })}
           >
-            {currentUser.avatarUrl ? (
+            {account.avatarUrl ? (
               <div
                 className={classes.avatar}
                 style={{
-                  backgroundImage: `url(${currentUser.avatarUrl})`,
+                  backgroundImage: `url(${account.avatarUrl})`,
                 }}
               >
                 <div className={classes.innerAvatar}>
@@ -93,7 +93,7 @@ const PhotoUpload = () => {
             JPG, JPEG or PNG
             Max size = 2MB
           </p>
-          {currentUser.avatarUrl && (
+          {account.avatarUrl && (
             <Button
               type="submit"
               variant="subtle"

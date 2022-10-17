@@ -26,8 +26,8 @@ import { Link } from 'components';
 import { accountApi } from 'resources/account';
 
 const schema = z.object({
-  firstName: z.string().min(1, 'Please enter first name').max(100),
-  lastName: z.string().min(1, 'Please enter last name').max(100),
+  firstName: z.string().min(1, 'Please enter First name').max(100),
+  lastName: z.string().min(1, 'Please enter Last name').max(100),
   email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
   password: z.string().regex(
     /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,

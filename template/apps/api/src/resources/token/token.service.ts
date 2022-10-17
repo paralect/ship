@@ -5,7 +5,9 @@ import { DATABASE_DOCUMENTS, TOKEN_SECURITY_LENGTH } from 'app.constants';
 import schema from './token.schema';
 import { Token, TokenType } from './token.types';
 
-const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, { schema });
+const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, {
+  schemaValidator: (obj) => schema.parseAsync(obj),
+});
 
 const createToken = async (userId: string, type: TokenType, isShadow?: boolean) => {
   const value = await securityUtil.generateSecureToken(TOKEN_SECURITY_LENGTH);

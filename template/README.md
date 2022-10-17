@@ -30,7 +30,6 @@ To run infra and all services -- just run: `npm run docker` 🚀
 npm run infra
 ```
 
-
 2. Run services you need:
 
 ```bash

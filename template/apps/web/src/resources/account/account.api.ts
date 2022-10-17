@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 import queryClient from 'query-client';
 import { apiService } from 'services';
@@ -9,7 +9,7 @@ export function useSignIn<T>() {
 
   return useMutation<User, unknown, T>(signIn, {
     onSuccess: (data) => {
-      queryClient.setQueryData(['currentUser'], data);
+      queryClient.setQueryData(['account'], data);
     },
   });
 }
@@ -19,7 +19,7 @@ export function useSignOut() {
 
   return useMutation(signOut, {
     onSuccess: () => {
-      queryClient.setQueryData(['currentUser'], null);
+      queryClient.setQueryData(['account'], null);
     },
   });
 }
@@ -50,4 +50,36 @@ export function useResendEmail<T>() {
   const resendEmail = (data: T) => apiService.post('/account/resend-email', data);
 
   return useMutation<{}, unknown, T>(resendEmail);
+}
+
+export function useGet() {
+  const get = () => apiService.get('/account');
+
+  return useQuery<User>(['account'], get);
+}
+
+export function useUpdate<T>() {
+  const update = (data: T) => apiService.put('/account', data);
+
+  return useMutation<User, unknown, T>(update);
+}
+
+export function useUploadAvatar<T>() {
+  const uploadAvatar = (data: T) => apiService.post('/account/avatar', data);
+
+  return useMutation<User, unknown, T>(uploadAvatar, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(['account'], data);
+    },
+  });
+}
+
+export function useRemoveAvatar() {
+  const removeAvatar = () => apiService.delete('/account/avatar');
+
+  return useMutation<User>(removeAvatar, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(['account'], data);
+    },
+  });
 }

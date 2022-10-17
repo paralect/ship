@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import Joi from 'joi';
+import { z } from 'zod';
 import chai from 'chai';
 import spies from 'chai-spies';
-import { Filter } from 'mongodb';
 import 'mocha';
 
 import {
   Database, eventBus, Service, ServiceOptions,
 } from '../index';
+import { IDocument } from '../types';
 import config from '../config';
 
 chai.use(spies);
@@ -15,7 +15,7 @@ chai.should();
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 
-class CustomService<T> extends Service<T> {
+class CustomService<T extends IDocument> extends Service<T> {
   createOrUpdate = async (query: any, updateCallback: (item?: T) => Partial<T>) => {
     const docExists = await this.exists(query);
 
@@ -26,34 +26,25 @@ class CustomService<T> extends Service<T> {
 
     return this.updateOne(query, (doc) => updateCallback(doc));
   };
-
-  addQueryDefaults = (
-    query: any = {},
-    options: any = {},
-  ): Filter<T> => ({ ...query, fullName: 'Max' });
 }
 
-function createService<T>(collectionName: string, options: ServiceOptions = {}) {
+function createService<T extends IDocument>(collectionName: string, options: ServiceOptions = {}) {
   return new CustomService<T>(collectionName, database, options);
 }
 
-type UserType = {
-  _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
-  fullName: string;
-};
-
-const schema = Joi.object({
-  _id: Joi.string().required(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  deletedOn: Joi.date().allow(null),
-  fullName: Joi.string().required(),
+const schema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  fullName: z.string(),
 });
 
-const usersService = createService<UserType>('users', { schema });
+type UserType = z.infer<typeof schema>;
+
+const usersService = createService<UserType>('users', {
+  schemaValidator: (obj) => schema.parseAsync(obj),
+});
 
 describe('extending service.ts', () => {
   before(async () => {
@@ -89,25 +80,5 @@ describe('extending service.ts', () => {
     );
 
     spy.should.have.been.called.at.least(1);
-  });
-
-  it('should return null because addQueryDefaults returns only records with fullName Max', async () => {
-    const user = await usersService.insertOne({
-      fullName: 'John',
-    });
-
-    const someUser = await usersService.findOne({ _id: user._id });
-
-    (someUser === null).should.be.equal(true);
-  });
-
-  it('should return user because addQueryDefaults returns only records with fullName Max', async () => {
-    const user = await usersService.insertOne({
-      fullName: 'Max',
-    });
-
-    const someUser = await usersService.findOne({ _id: user._id });
-
-    user._id.should.be.equal(someUser?._id);
   });
 });

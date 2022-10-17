@@ -22,12 +22,12 @@
     "build:email": "npm run copy-assets && mjml dist/src/assets/emails/*.mjml -o dist/src/assets/emails/dist/",
     "test": "run-s test:**",
     "test:lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "dev": "nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json src/app.ts",
+    "dev": "NODE_ENV=development APP_ENV=development nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json src/app.ts",
     "start": "node dist/src/app.js",
     "start-all": "npm run migrate && npm run start && npm run schedule",
-    "migrate-dev": "ts-node ./src/migrator.ts",
+    "migrate-dev": "NODE_ENV=development APP_ENV=development ts-node ./src/migrator.ts",
     "migrate": "node dist/src/migrator.js",
-    "schedule-dev": "nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json ./src/scheduler.ts",
+    "schedule-dev": "NODE_ENV=development APP_ENV=development nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json ./src/scheduler.ts",
     "schedule": "node dist/src/scheduler.js",
     "precommit": "lint-staged"
   },
@@ -35,7 +35,7 @@
     "@koa/cors": "3.1.0",
     "@koa/multer": "3.0.0",
     "@koa/router": "10.1.1",
-    "@paralect/node-mongo": "3.0.4",
+    "@paralect/node-mongo": "3.1.0",
     "@sendgrid/mail": "7.6.1",
     "@socket.io/redis-adapter": "7.2.0",
     "@socket.io/redis-emitter": "4.1.1",
@@ -44,7 +44,6 @@
     "dotenv": "16.0.3",
     "google-auth-library": "8.5.1",
     "handlebars": "4.7.7",
-    "joi": "17.4.2",
     "koa": "2.13.4",
     "koa-bodyparser": "4.3.0",
     "koa-compose": "4.1.0",
@@ -64,7 +63,8 @@
     "redis": "4.0.6",
     "socket.io": "4.5.2",
     "ts-node": "10.7.0",
-    "winston": "3.6.0"
+    "winston": "3.6.0",
+    "zod": "3.19.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",

@@ -4,6 +4,7 @@ import {
   InsertOneOptions,
   BulkWriteOptions,
   CollectionOptions,
+  Document,
 } from 'mongodb';
 
 import { generateId } from '../utils/helpers';
@@ -11,9 +12,12 @@ import { generateId } from '../utils/helpers';
 import {
   DbChangeData, IChangePublisher, PublishEventOptions, OutboxEvent, DbChangeType,
 } from '../types';
+import logger from '../utils/logger';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 class OutboxService implements IChangePublisher {
-  private getOrCreateCollection: <T>(
+  private getOrCreateCollection: <T extends Document>(
     name: string,
     opt: {
       collectionCreateOptions: CreateCollectionOptions; collectionOptions: CollectionOptions,
@@ -27,7 +31,7 @@ class OutboxService implements IChangePublisher {
   private collectionsMap: { [key: string]: Collection<OutboxEvent> | null } = {};
 
   constructor(
-    getOrCreateCollection: <T>(
+    getOrCreateCollection: <T extends Document>(
       name: string,
       opt: {
         collectionCreateOptions: CreateCollectionOptions;
@@ -88,6 +92,10 @@ class OutboxService implements IChangePublisher {
 
     await collection.insertOne(event, option);
 
+    if (isDev) {
+      logger.info(`published outbox event: ${collectionName} ${changeType}`);
+    }
+
     return event;
   }
 
@@ -111,6 +119,10 @@ class OutboxService implements IChangePublisher {
     }));
 
     await collection.insertMany(events, option);
+
+    if (isDev) {
+      logger.info(`published outbox events: ${collectionName} ${changeType}`);
+    }
 
     return events;
   }

@@ -5,31 +5,25 @@ const deepCompare = (
   data: unknown,
   initialData: unknown,
   properties: Array<string | Record<string, unknown>>,
-): boolean => {
-  let isChanged: boolean | null = null;
+): boolean => properties.some((prop) => {
+  let isChanged;
 
-  _.forEach(properties, (prop) => {
-    if (isChanged === false) return;
+  if (typeof prop === 'string') {
+    const value = _.get(data, prop);
+    const initialValue = _.get(initialData, prop);
 
-    if (typeof prop === 'string') {
-      const value = _.get(data, prop);
-      const initialValue = _.get(initialData, prop);
+    isChanged = !_.isEqual(value, initialValue);
+  } else {
+    isChanged = Object.keys(prop).every((p) => {
+      const value = _.get(data, p);
+      const initialValue = _.get(initialData, p);
 
-      isChanged = !_.isEqual(value, initialValue);
-    } else {
-      Object.keys(prop).forEach((p) => {
-        if (isChanged === false) return;
+      return _.isEqual(value, prop[p]) && !_.isEqual(initialValue, prop[p]);
+    });
+  }
 
-        const value = _.get(data, p);
-        const initialValue = _.get(initialData, p);
-
-        isChanged = _.isEqual(value, prop[p]) && !_.isEqual(initialValue, prop[p]);
-      });
-    }
-  });
-
-  return Boolean(isChanged);
-};
+  return isChanged;
+});
 
 const generateId = (): string => {
   const objectId = new ObjectId();

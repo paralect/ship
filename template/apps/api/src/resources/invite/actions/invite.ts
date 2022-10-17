@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
 import config from 'config';
 import { AppKoaContext, AppRouter, Next } from 'types';
@@ -9,21 +9,12 @@ import { emailService } from 'services';
 import { inviteService } from 'resources/invite';
 import { userService } from 'resources/user';
 
-const schema = Joi.object({
-  emails: Joi.array()
-    .items(Joi.string().email())
-    .min(1)
-    .unique()
-    .messages({
-      'array.min': 'Please, add at least one email',
-      'array.unique': 'Duplicated email',
-      'string.email': 'Incorrect email format',
-    })
+const schema = z.object({
+  emails: z.array(z.string().email())
+    .min(1, 'Please, add at least one email'),
 });
 
-type ValidatedData = {
-  emails: string[];
-};
+type ValidatedData = z.infer<typeof schema>;
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { emails } = ctx.validatedData;
@@ -36,7 +27,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { results: existingInvites } = await inviteService.find({ email: { $in: emails } });
   ctx.assertClientError(!existingInvites.length, {
     emails: `Users with ${existingInvites.map((item) => item.email).join(', ')} emails already invited`,
-  })
+  });
 
   await next();
 }
@@ -52,7 +43,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
       email,
       token,
       invitedBy: user._id,
-    }
+    };
   }));
 
   await inviteService.insertMany(data);

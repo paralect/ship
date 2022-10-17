@@ -1,20 +1,5 @@
-export type User = {
-  _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
-  firstName: string;
-  lastName: string;
-  fullName: string;
-  email: string;
-  passwordHash: string;
-  isEmailVerified: boolean;
-  isShadow: boolean | null;
-  signupToken: string | null;
-  resetPasswordToken?: string | null;
-  avatarUrl?: string | null;
-  lastRequest?: Date;
-  oauth?: {
-    google: boolean
-  };
-};
+import { z } from 'zod';
+
+import schema from './user.schema';
+
+export type User = z.infer<typeof schema>;

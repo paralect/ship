@@ -1,23 +1,23 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
-const schema = Joi.object({
-  _id: Joi.string().required(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  deletedOn: Joi.date().allow(null),
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-  fullName: Joi.string().required(),
-  email: Joi.string().email().required(),
-  passwordHash: Joi.string().allow(null),
-  signupToken: Joi.string().allow(null),
-  resetPasswordToken: Joi.string().allow(null),
-  isEmailVerified: Joi.boolean().required().default(false),
-  avatarUrl: Joi.string().allow(null),
-  lastRequest: Joi.date(),
-  oauth: Joi.object().keys({
-    google: Joi.boolean().default(false),
-  }),
-});
+const schema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  firstName: z.string(),
+  lastName: z.string(),
+  fullName: z.string(),
+  email: z.string().email(),
+  passwordHash: z.string().nullable().optional(),
+  signupToken: z.string().nullable().optional(),
+  resetPasswordToken: z.string().nullable().optional(),
+  isEmailVerified: z.boolean().default(false),
+  avatarUrl: z.string().nullable().optional(),
+  lastRequest: z.date().optional(),
+  oauth: z.object({
+    google: z.boolean().default(false),
+  }).optional(),
+}).strict();
 
 export default schema;

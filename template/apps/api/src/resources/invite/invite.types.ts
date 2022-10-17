@@ -1,9 +1,5 @@
-export type Invite = {
-  _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
-  email: string;
-  token: string;
-  invitedBy: string;
-};
+import { z } from 'zod';
+
+import schema from './invite.schema';
+
+export type Invite = z.infer<typeof schema>;

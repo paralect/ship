@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
 import config from 'config';
 import { securityUtil } from 'utils';
@@ -7,50 +7,19 @@ import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
 
-const schema = Joi.object({
-  firstName: Joi.string()
-    .trim()
-    .required()
-    .messages({
-      'any.required': 'First name is required',
-      'string.empty': 'First name is required',
-    }),
-  lastName: Joi.string()
-    .trim()
-    .required()
-    .messages({
-      'any.required': 'Last name is required',
-      'string.empty': 'Last name is required',
-    }),
-  email: Joi.string()
-    .email()
-    .trim()
-    .lowercase()
-    .required()
-    .messages({
-      'any.required': 'Email is required',
-      'string.empty': 'Email is required',
-      'string.email': 'Please enter a valid email address',
-    }),
-  password: Joi.string()
-    .min(6)
-    .max(50)
-    .required()
-    .messages({
-      'any.required': 'Password is required',
-      'string.empty': 'Password is required',
-      'string.min': 'Password must be 6-50 characters',
-      'string.max': 'Password must be 6-50 characters',
-    }),
+const schema = z.object({
+  firstName: z.string().min(1, 'Please enter First name').max(100),
+  lastName: z.string().min(1, 'Please enter Last name').max(100),
+  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
+  password: z.string().regex(
+    /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
+    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+  ),
 });
 
-type ValidatedData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
+interface ValidatedData extends z.infer<typeof schema> {
   user: User;
-};
+}
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { email } = ctx.validatedData;

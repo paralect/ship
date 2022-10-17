@@ -16,7 +16,7 @@ const tryToAttachUser = async (ctx: AppKoaContext, next: Next) => {
       await userService.updateLastRequest(userData.userId);
 
       ctx.state.user = user;
-      ctx.state.isShadow = userData.isShadow;
+      ctx.state.isShadow = userData.isShadow || false;
     }
   }
 

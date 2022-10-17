@@ -2,7 +2,7 @@ import { FC, Fragment, ReactElement } from 'react';
 import { useRouter } from 'next/router';
 
 import { routesConfiguration, ScopeType, LayoutType, RoutePath } from 'routes';
-import { userApi } from 'resources/user';
+import { accountApi } from 'resources/account';
 
 import 'resources/user/user.handlers';
 
@@ -26,20 +26,20 @@ interface PageConfigProps {
 
 const PageConfig: FC<PageConfigProps> = ({ children }) => {
   const { route, push } = useRouter();
-  const { data: currentUser, isLoading: isCurrentUserLoading } = userApi.useGetCurrent();
+  const { data: account, isLoading: isAccountLoading } = accountApi.useGet();
 
-  if (isCurrentUserLoading) return null;
+  if (isAccountLoading) return null;
 
   const { scope, layout } = routesConfiguration[route as RoutePath] || {};
   const Scope = scope ? scopeToComponent[scope] : Fragment;
   const Layout = layout ? layoutToComponent[layout] : Fragment;
 
-  if (scope === ScopeType.PRIVATE && !currentUser) {
+  if (scope === ScopeType.PRIVATE && !account) {
     push(RoutePath.SignIn);
     return null;
   }
 
-  if (scope === ScopeType.PUBLIC && currentUser) {
+  if (scope === ScopeType.PUBLIC && account) {
     push(RoutePath.Home);
     return null;
   }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import chai from 'chai';
-import Joi from 'joi';
+import { z } from 'zod';
 import spies from 'chai-spies';
 
 import { Database, eventBus } from '../index';
@@ -14,25 +14,24 @@ chai.should();
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 
-type UserType = {
-  _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
-  fullName: string;
-  firstName: string;
-};
-
-const schema = Joi.object({
-  _id: Joi.string().required(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  deletedOn: Joi.date().allow(null),
-  firstName: Joi.string(),
-  fullName: Joi.string().required(),
+const schema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  fullName: z.string(),
+  oauth: z.object({
+    google: z.boolean().optional(),
+  }).optional(),
 });
 
-const usersService = database.createService<UserType>('users', { schema });
+type UserType = z.infer<typeof schema>;
+
+const usersService = database.createService<UserType>('users', {
+  schemaValidator: (obj) => schema.parseAsync(obj),
+});
 
 describe('events/in-memory.ts', () => {
   before(async () => {
@@ -148,30 +147,43 @@ describe('events/in-memory.ts', () => {
       const spy = chai.spy();
       eventBus.on('users.updated', spy);
 
-      const firstNameSpy = chai.spy();
       const randomFullNameSpy = chai.spy();
       const expectedFullNameAndFirstNameSpy = chai.spy();
+      const expectedFullNameAndFirstNameAndLastNameSpy = chai.spy();
+      const nestedFieldSpy = chai.spy();
 
-      eventBus.onUpdated<UserType>('users', ['fullName'], fullNameSpy);
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'Expected fullName' }], expectedFullNameSpy);
+      eventBus.onUpdated('users', ['fullName'], fullNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'John Wake' }], expectedFullNameSpy);
 
-      eventBus.onUpdated<UserType>('users', ['firstName'], firstNameSpy);
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'Random fullName', firstName: '123' }], randomFullNameSpy);
-      eventBus.onUpdated<UserType>('users', [{ fullName: 'Expected fullName' }, 'firstName'], expectedFullNameAndFirstNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'Random fullName' }, 'firstName'], randomFullNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'John Wake', firstName: 'John' }], expectedFullNameAndFirstNameSpy);
+      eventBus.onUpdated('users', [{ fullName: 'John Wake', firstName: 'John' }, 'lastName'], expectedFullNameAndFirstNameAndLastNameSpy);
+      eventBus.onUpdated('users', ['oauth.google'], nestedFieldSpy);
 
       const user = await usersService.insertOne({
-        fullName: 'John',
+        fullName: 'Mike',
       });
 
-      await usersService.updateOne({ _id: user._id }, () => ({ fullName: 'Expected fullName' }));
+      await usersService.updateOne({ _id: user._id }, () => ({
+        fullName: 'John Wake',
+        firstName: 'John',
+        oauth: {
+          google: true,
+        },
+      }));
 
-      spy.should.have.been.called.at.least(1);
-      fullNameSpy.should.have.been.called.at.least(1);
-      expectedFullNameSpy.should.have.been.called.at.least(1);
+      await usersService.updateOne({ _id: user._id }, () => ({
+        fullName: 'John Wake',
+      }));
 
-      firstNameSpy.should.have.been.called.at.least(0);
-      randomFullNameSpy.should.have.been.called.at.least(0);
-      expectedFullNameAndFirstNameSpy.should.have.been.called.at.least(0);
+      spy.should.have.been.called.exactly(1);
+      fullNameSpy.should.have.been.called.exactly(1);
+      expectedFullNameSpy.should.have.been.called.exactly(1);
+
+      nestedFieldSpy.should.have.been.called.exactly(1);
+      randomFullNameSpy.should.have.been.called.exactly(1);
+      expectedFullNameAndFirstNameSpy.should.have.been.called.exactly(1);
+      expectedFullNameAndFirstNameAndLastNameSpy.should.have.been.called.exactly(1);
     });
   });
 });

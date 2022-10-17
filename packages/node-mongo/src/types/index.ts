@@ -1,13 +1,12 @@
 import {
-  ClientSession, Collection, CollectionOptions, CreateCollectionOptions, MongoClient,
+  ClientSession, Collection, CollectionOptions, CreateCollectionOptions, Document, MongoClient,
 } from 'mongodb';
-import { ObjectSchema } from 'joi';
 
 export type DbChangeType = 'create' | 'update' | 'delete';
 
 export type InMemoryEventHandler = (evt: InMemoryEvent) => Promise<void> | void;
 
-export type OnUpdatedProperties<T = Record<string, unknown>> = Array<Partial<T> | keyof T>;
+export type OnUpdatedProperties = Array<Record<string, unknown> | string>;
 
 export type PublishEventOptions = {
   session: ClientSession | undefined
@@ -48,12 +47,12 @@ export type InMemoryEvent<T = any> = {
   createdOn: Date
 };
 
-export type IDocument = {
-  _id?: string;
+export interface IDocument extends Document {
+  _id: string;
   updatedOn?: Date;
   deletedOn?: Date | null;
   createdOn?: Date;
-};
+}
 
 export type FindResult<T> = {
   results: T[];
@@ -61,14 +60,30 @@ export type FindResult<T> = {
   count: number;
 };
 
-export type QueryDefaultsOptions = {
-  requireDeletedOn?: boolean;
+export type CreateConfig = {
+  validateSchema?: boolean,
+  publishEvents?: boolean,
+};
+
+export type ReadConfig = {
+  skipDeletedOnDocs?: boolean,
+};
+
+export type UpdateConfig = {
+  skipDeletedOnDocs?: boolean,
+  validateSchema?: boolean,
+  publishEvents?: boolean,
+};
+
+export type DeleteConfig = {
+  skipDeletedOnDocs?: boolean,
+  publishEvents?: boolean,
 };
 
 interface IDatabase {
   getOutboxService: () => IChangePublisher;
   waitForConnection: () => Promise<void>;
-  getOrCreateCollection: <TCollection>(
+  getOrCreateCollection: <TCollection extends Document>(
     name: string,
     opt: {
       collectionCreateOptions: CreateCollectionOptions;
@@ -77,16 +92,20 @@ interface IDatabase {
   ) => Promise<Collection<TCollection> | null>;
 
   getClient: () => Promise<MongoClient | undefined>;
+  withTransaction: <TRes = any>(
+    transactionFn: (session: ClientSession) => Promise<TRes>,
+  ) => Promise<TRes>,
 }
 
 interface ServiceOptions {
-  addCreatedOnField?: boolean;
-  addUpdatedOnField?: boolean;
-  outbox?: boolean;
-  schema?: ObjectSchema<any>;
+  skipDeletedOnDocs?: boolean,
+  schemaValidator?: (obj: any) => Promise<any>,
+  publishEvents?: boolean,
+  addCreatedOnField?: boolean,
+  addUpdatedOnField?: boolean,
+  outbox?: boolean,
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
-  requireDeletedOn?: boolean;
 }
 
 export {

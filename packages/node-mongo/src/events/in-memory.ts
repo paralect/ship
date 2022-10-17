@@ -8,6 +8,8 @@ import {
 import { deepCompare } from '../utils/helpers';
 import logger from '../utils/logger';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 class EventBus {
   private _bus: EventEmitter;
 
@@ -37,7 +39,7 @@ class EventBus {
     this._bus.once(eventName, handler);
   };
 
-  onUpdated = <T = Record<string, unknown>>(entity: string, properties: OnUpdatedProperties<T>, handler: InMemoryEventHandler): void => this.on(`${entity}.updated`, (event) => {
+  onUpdated = (entity: string, properties: OnUpdatedProperties, handler: InMemoryEventHandler): void => this.on(`${entity}.updated`, (event) => {
     const isChanged = deepCompare(
       event.doc,
       event.prevDoc,
@@ -69,9 +71,11 @@ class InMemoryPublisher implements IChangePublisher {
       prevDoc: eventData.prevDoc,
     };
 
-    logger.info(`published in-memory event [${name}]`);
-
     this._bus.publish(name, evt);
+
+    if (isDev) {
+      logger.info(`published in-memory event: ${name}`);
+    }
   }
 
   async publishDbChanges(
