@@ -6,7 +6,7 @@ sidebar_position: 3
 
 It's a step-by-step Ship deployment guide. We will use [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks) and [MongoDB](https://www.mongodb.com), [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com) for DNS and SSL configuration.
 
-You need to create [GitHub](https://github.com), [AWS](https://aws.amazon.com) accounts and install the next tools on your machine before starting:
+You need to create [GitHub](https://github.com) and [AWS](https://aws.amazon.com) accounts and install the next tools on your machine before starting:
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster (We recommend installing it via [Docker Desktop](https://www.docker.com/products/docker-desktop));
 * [kubectx](https://github.com/ahmetb/kubectx) - CLI tool for easier switching between Kubernetes contexts;
@@ -37,7 +37,7 @@ First, initialize your project. Type ```npx create-ship-app init``` in the termi
 
 ![Init project](/img/deployment/aws/init-project.png)
 
-You will have next project structure.
+You will have the next project structure.
 
 ```shell
 /my-app
@@ -49,7 +49,7 @@ You will have next project structure.
   ...
 ```
 
-Create GitHub private repository and upload source code.
+Create GitHub private repository and upload the source code.
 
 ![Private repo](/img/deployment/aws/private-repo.png)
 
@@ -62,7 +62,7 @@ git push -u origin main
 
 ## AWS Regions
 
-AWS has the concept of a Region, which is a physical location around the world where AWS cluster data centers. Also, each group of logical data centers calls Availability Zone (AZ). AZs give customers the ability to operate production applications and databases that are more highly available, fault tolerant, and scalable than would be possible from a single data center
+AWS has the concept of a Region, which is a physical location around the world where AWS clusters data centers. Also, each group of logical data centers calls Availability Zone (AZ). AZs give customers the ability to operate production applications and databases that are more highly available, fault-tolerant, and scalable than would be possible from a single data center
 
 Now you need to select an AWS region for future use of the services. You can read more about selecting a region for your workloads here: [What to Consider when Selecting a Region for your Workloads](https://aws.amazon.com/blogs/architecture/what-to-consider-when-selecting-a-region-for-your-workloads/)
 
@@ -70,11 +70,11 @@ For this deployment guide, we will use the **us-east-1** region.
 
 ## Container registry
 
-You need to create [private repositories](https://console.aws.amazon.com/ecr/repositories) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of service during the deployment step.
+You need to create [private repositories](https://console.aws.amazon.com/ecr/repositories) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of the service during the deployment step.
 
-Now we should to create a repository for each service.
+Now we should create a repository for each service.
 
-For Ship, we need to create repositories for next services:
+For Ship, we need to create repositories for the next services:
 * [**API**](/docs/api/overview) - api
 * [**Scheduler**](/docs/scheduler.md) - scheduler
 * [**Migrator**](/docs/migrator.md) - migrator
@@ -91,8 +91,8 @@ You should create a private repository for each service manually.
 After creation, you should have the following 4 services in ECR
 ![Container Registry creation](/img/deployment/aws/container-registry-created.png)
 
-Docker images for each service are stored in separate repository.
-During deployment process script will automatically create paths to repositories in next format:
+Docker images for each service are stored in a separate repository.
+During the deployment process script will automatically create paths to repositories in next format:
 
 * [**API**](/docs/api/overview) - 402167441269.dkr.ecr.us-east-1.amazonaws.com/api;
 * [**Scheduler**](/docs/scheduler.md) - r402167441269.dkr.ecr.us-east-1.amazonaws.com/scheduler;
@@ -120,7 +120,7 @@ Images for all environments will be uploaded to the same repository for each ser
 
 Now let's create [EKS](https://aws.amazon.com/eks) cluster.
 
-At the first step, we need to set the cluster name. A common practice is to use the project name for it. Also, you can add an environment prefix if you have separate clusters for each environment: `my-app-staging`, `my-app-production`.
+In the first step, we need to set the cluster name. A common practice is to use the project name for it. Also, you can add an environment prefix if you have separate clusters for each environment: `my-app-staging`, and `my-app-production`.
 We can leave other parameters by default.
 
 ![Cluster Creation](/img/deployment/aws/cluster-creation.png)
@@ -129,7 +129,7 @@ After creation, you need to wait a bit until the cluster status becomes **Active
 
 ![Cluster Created](/img/deployment/aws/cluster-active-state.png)
 
-After cluster creation you should attach [EC2](https://aws.amazon.com/ec2) instances to the cluster. You can do it by clicking on the **Add Node Group** button on **Compute** tab.
+After cluster creation, you should attach [EC2](https://aws.amazon.com/ec2) instances to the cluster. You can do it by clicking on the **Add Node Group** button on the **Compute** tab.
 
 ![Add Node Group](/img/deployment/aws/cluster-computing.png)
 
@@ -141,8 +141,8 @@ AWS recommends creating at least 2 nodes t3.medium instance type for the product
 
 ![Node Group Instance Configuration](/img/deployment/aws/node-group-instance-configuration.png)
 
-Now you need to configure node group in deployment script that we created on second screenshot.  
-Need to update `nodeGroup` value to `pool-app`.
+Now you need to configure the node group in the deployment script that we created on the second screenshot.  
+Need to update the `nodeGroup` value to `pool-app`.
 
 ```javascript title=deploy/script/src/config.js
 const config = {
@@ -154,7 +154,7 @@ const config = {
 
 Before working with the cluster, you need to [configure the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 
-For accessing cluster we need to run following command:
+For accessing the cluster we need to run the following command:
 
 ```shell
 aws eks update-kubeconfig --region us-east-1 --name my-app
@@ -162,7 +162,7 @@ aws eks update-kubeconfig --region us-east-1 --name my-app
 Where **us-east-1** is the cluster region and **my-app** is the cluster name.
 
 If everything is ok you will be able to switch to your cluster.
-Type `kubectx` in the terminal and select your cluster. 
+Type `kubectx` in the terminal and select your cluster.
 
 ![Kubectx](/img/deployment/aws/kubectx.png)
 
@@ -195,7 +195,7 @@ You can read **[here](https://docs.nginx.com/nginx-ingress-controller/intro/how-
 
 :::
 
-Configure [Helm Values](https://helm.sh/docs/chart_template_guide/values_files/) for ingress-nginx and redis. Need to update `eks.amazonaws.com/nodegroup` value to `pool-app`.
+Configure [Helm Values](https://helm.sh/docs/chart_template_guide/values_files/) for ingress-nginx and redis. Need to update the `eks.amazonaws.com/nodegroup` value to `pool-app`.
 
 ```yaml title=deploy/dependecies/ingress-nginx/values/values.yml
 controller:
@@ -242,13 +242,13 @@ ingress-nginx-controller             LoadBalancer   10.100.220.127   a71ee1af9a5
 
 :::tip
 
-It take some time  while **ingress-nginx** will configure everything and provide `EXTERNAL-IP`.
+It takes some time while **ingress-nginx** will configure everything and provide `EXTERNAL-IP`.
 
 :::
 
-We are using CloudFlare for setting DNS records. You can [register](https://developers.cloudflare.com/registrar/get-started/register-domain/) a domain in CloudFlare or [transfer](https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare/) it from another service.
+We are using Cloudflare for setting DNS records. You can [register](https://developers.cloudflare.com/registrar/get-started/register-domain/) a domain in Cloudflare or [transfer](https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare/) it from another service.
 
-Open the **DNS** tab in CloudFlare and create two `CNAME` records for **Web** and **API** that points Load Balancer external IP.
+Open the **DNS** tab in Cloudflare and create two `CNAME` records for **Web** and **API** that point to Load Balancer external IP.
 
 ![CloudFlare Web](/img/deployment/aws/cloudflare-web.png)
 
@@ -256,7 +256,7 @@ Open the **DNS** tab in CloudFlare and create two `CNAME` records for **Web** an
 
 Select the **Proxied** option that will proxy all traffic through Cloudflare.
 It does a lot of awesome work, you can read more about it [here](https://developers.cloudflare.com/dns/manage-dns-records/reference/proxied-dns-records/).
-In our case we use it for automatic **SSL** certificates generation.
+In our case, we use it for automatic **SSL** certificate generation.
 
 :::tip
 
@@ -265,7 +265,7 @@ If you are deploying on a staging/demo environment add the corresponding postfix
 
 :::
 
-Now add your domains in helm templates and code. In example, we are deploying on **production** environment, if you are deploying on **staging** you will need to update `staging.yaml` and `staging.json` files.
+Now add your domains in helm templates and code. For example, we are deploying on a **production** environment, if you are deploying on **staging** you will need to update `staging.yaml` and `staging.json` files.
 
 ```yaml title=deploy/app/api/production.yaml
 service: api
@@ -297,9 +297,9 @@ domain: my-app.paralect.com
 
 ## CI/CD Preparation
 
-Before setup CI/CD you need to create a separate user in AWS IAM with the certain permissions, let create this user
+Before setup CI/CD you need to create a separate user in AWS IAM with certain permissions, let's create this user
 
-First of all, we need to create policy for our user, move to [IAM dashboard](https://console.aws.amazon.com/iamv2/home#/home). Open the **Policies** page in sidebar and click **Create policy**. After choose **JSON** tab and insert following config:
+First of all, we need to create a policy for our user and move to [IAM dashboard](https://console.aws.amazon.com/iamv2/home#/home). Open the **Policies** page in the sidebar and click **Create policy**. After choosing the **JSON** tab, insert the following config:
 
 ```json
 {
@@ -329,39 +329,39 @@ First of all, we need to create policy for our user, move to [IAM dashboard](htt
     ]
 }
 ```
-Here's what we gotta get at first step
+Here's what we gotta get at the first step
 
 ![Policy Configuration](/img/deployment/aws/policy-config.png)
 
-At second step you can optionally add tags to your policy.
+In the second step, you can optionally add tags to your policy.
 
-And at the last step you need to give your policy a name and review summary.
+And at the last step, you need to give your policy a name and review summary.
 
 ![Policy Review](/img/deployment/aws/policy-review.png)
 
-Now we need to create a user, open **Users** page in sidebar and click **Add user**. After that you need to give your user a name and select **Access key - Programmatic access** as an access type.
+Now we need to create a user, open the **Users** page in the sidebar and click **Add user**. After that, you need to give your user a name and select **Access key - Programmatic access** as an access type.
 
 ![User Creating](/img/deployment/aws/user-creating.png)
 
-At the next step you need to attach your policy to the user. Click **Attach existing policies directly** and select policy, which we created recently.
+In the next step, you need to attach your policy to the user. Click **Attach existing policies directly** and select the policy, which we created recently.
 
 ![User Policy](/img/deployment/aws/user-policy.png)
 
-At next step you can optionally add tags to your user.
+At the next step, you can optionally add tags to your user.
 
 The fourth step is to review your user and click **Create user**.
 
-After that you will see your **Access key ID** and **Secret access key**. You need to save them, because you will not be able to see them again.
+After that, you will see your **Access key ID** and **Secret access key**. You need to save them because you will not be able to see them again.
 
 ![User Credentials](/img/deployment/aws/user-credentials.png)
 
-Now we need to give EKS permissions for our user. Use the following command to attach user to kubernetes masters group:
+Now we need to give EKS permissions to our user. Use the following command to attach the user to kubernetes masters group:
 
 ```shell
 eksctl create iamidentitymapping --cluster my-app --arn arn:aws:iam::402167441269:user/cicd --group system:masters --username cicd
 ```
 
-In **--arn** parameter you need to specify your user ARN, which you can find in IAM dashboard.
+In the **--arn** parameter you need to specify your user ARN, which you can find in the IAM dashboard.
 
 
 ## CI/CD
@@ -375,7 +375,7 @@ Committing to the **main** branch will trigger a deployment in the **staging** e
 
 :::
 
-To check required Secrets you can open workflows in the `.github` folder at root of your project.  
+To check required Secrets you can open workflows in the `.github` folder at the root of your project.
 
 To automate deployment to the **production** environment you need to create `AWS_ACCESS_KEY`, `AWS_SECRET_ACCESS_KEY`, `AWS_ACCOUNT_ID`, `AWS_REGION` and `CLUSTER_NAME_PRODUCTION`  secrets for `api-production.yml` and `web-production.yml` workflows.
 
@@ -383,7 +383,7 @@ To automate deployment to the **production** environment you need to create `AWS
 
 ![CI/CD user credentials](/img/deployment/aws/cicd-credentials.png)
 
-`AWS_ACCOUNT_ID` you can get from the user menu in the upper right corner in the AWS Management Console
+`AWS_ACCOUNT_ID` you can get from the user menu in the upper right corner of the AWS Management Console
 
 ![Account ID location](/img/deployment/aws/account-id.png)
 
@@ -449,4 +449,3 @@ node index
   api
   web
 ```
-
