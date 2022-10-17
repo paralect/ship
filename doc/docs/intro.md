@@ -37,18 +37,8 @@ This command will create everything you need to develop, launch locally and depl
 ## Next steps
 ### Launch your project
 
-We use [lerna](https://github.com/lerna/lerna) to easily install packages in all services.
-
-```shell
-# install root level packages
-npm i
-
-# install dependencies in all services
-npm run bootstrap 
-
-# launch project
-npm start
-```
+We use [Turborepo](https://turborepo.org/docs) for managing monorepo.
+To run infra and all services -- just run: `npm start` 🚀
 
 ### Learn key concepts
 
