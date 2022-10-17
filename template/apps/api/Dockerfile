@@ -45,4 +45,4 @@ COPY --from=dependencies /app/prod_node_modules ./node_modules
 # copy built dist
 COPY --from=build /app/apps/api/dist /app/apps/api/dist
 
-CMD npm --prefix=apps/api start
+CMD npm run --prefix=apps/api run-all
