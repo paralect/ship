@@ -11,6 +11,6 @@ const schema = z.object({
   value: z.string(),
   userId: z.string(),
   isShadow: z.boolean().nullable().optional(),
-});
+}).strict();
 
 export default schema;

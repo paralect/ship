@@ -18,6 +18,6 @@ const schema = z.object({
   oauth: z.object({
     google: z.boolean().default(false),
   }).optional(),
-});
+}).strict();
 
 export default schema;

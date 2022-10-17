@@ -8,6 +8,6 @@ const schema = z.object({
   token: z.string(),
   email: z.string().email(),
   invitedBy: z.string(),
-});
+}).strict();
 
 export default schema;
