@@ -6,7 +6,7 @@ sidebar_position: 1
 
 [![npm version](https://badge.fury.io/js/%40paralect%2Fnode-mongo.svg)](https://badge.fury.io/js/%40paralect%2Fnode-mongo)
 
-Lightweight reactive extension to official MongoDB [driver](https://mongodb.github.io/node-mongodb-native/4.10/) for Node.js.
+Lightweight reactive extension to official Node.js MongoDB [driver](https://mongodb.github.io/node-mongodb-native/4.10/).
 
 ## Features
 
@@ -18,7 +18,7 @@ Lightweight reactive extension to official MongoDB [driver](https://mongodb.gith
 * **Soft delete**. By default, documents don't remove from the collection, but are marked with the `deletedOn` field;
 * **Extendable**. API is easily extendable, you can add new methods or override existing ones;
 * **Outbox support**. node-mongo can create collections with `_outbox` postfix that stores all CUD events for implementing the [transactional outbox](about:blank) pattern;
-* 
+
 The following example shows some of these features:
 
 ```typescript
