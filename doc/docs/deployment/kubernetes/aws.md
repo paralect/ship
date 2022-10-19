@@ -33,7 +33,7 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 ## Setup project
 
-First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **Full-Stack** build type and **AWS EKS** as a cloud service provider.
+First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **Full-Stack** build type and **AWS EKS** deployment type.
 
 ![Init project](/img/deployment/aws/init-project.png)
 
@@ -62,11 +62,17 @@ git push -u origin main
 
 ## AWS Regions
 
-AWS has the concept of a Region, which is a physical location around the world where AWS clusters data centers. Also, each group of logical data centers calls Availability Zone (AZ). AZs give customers the ability to operate production applications and databases that are more highly available, fault-tolerant, and scalable than would be possible from a single data center
+AWS Regions are physical locations of AWS clusters data centers. Each group of logical data centers calls Availability Zone (AZ). AZs allow the operation of production applications and databases that are more highly available, fault-tolerant, and scalable.
 
-Now you need to select an AWS region for future use of the services. You can read more about selecting a region for your workloads here: [What to Consider when Selecting a Region for your Workloads](https://aws.amazon.com/blogs/architecture/what-to-consider-when-selecting-a-region-for-your-workloads/)
+Now you need to select an AWS region for future use of the services. You can read more about region selection for your workloads here: [What to Consider when Selecting a Region for your Workloads](https://aws.amazon.com/blogs/architecture/what-to-consider-when-selecting-a-region-for-your-workloads/).
 
-For this deployment guide, we will use the **us-east-1** region.
+For this deployment guide, we will use the **us-east-1**.
+
+:::tip
+
+Usually, you have to create AWS resources in a single region. If you don't see created resources, you may need to switch to the appropriate AWS region.
+
+:::
 
 ## Container registry
 
@@ -137,7 +143,7 @@ Set the node group name and select the only Node IAM role from the list.
 
 ![Node Group Configuration](/img/deployment/aws/node-group-configuration.png)
 
-AWS recommends creating at least 2 nodes t3.medium instance type for the production environment.
+AWS recommends creating at least 2 nodes **t3.medium** instance type for the production environment.
 
 ![Node Group Instance Configuration](/img/deployment/aws/node-group-instance-configuration.png)
 
@@ -297,7 +303,7 @@ domain: my-app.paralect.com
 
 ## CI/CD Preparation
 
-Before setup CI/CD you need to create a separate user in AWS IAM with certain permissions, let's create this user
+Before setup CI/CD you need to create a separate user in AWS IAM with certain permissions, let's create this user.
 
 First of all, we need to create a policy for our user and move to [IAM dashboard](https://console.aws.amazon.com/iamv2/home#/home). Open the **Policies** page in the sidebar and click **Create policy**. After choosing the **JSON** tab, insert the following config:
 
@@ -329,7 +335,6 @@ First of all, we need to create a policy for our user and move to [IAM dashboard
     ]
 }
 ```
-Here's what we gotta get at the first step
 
 ![Policy Configuration](/img/deployment/aws/policy-config.png)
 
@@ -379,17 +384,17 @@ To check required Secrets you can open workflows in the `.github` folder at the 
 
 To automate deployment to the **production** environment you need to create `AWS_ACCESS_KEY`, `AWS_SECRET_ACCESS_KEY`, `AWS_ACCOUNT_ID`, `AWS_REGION` and `CLUSTER_NAME_PRODUCTION`  secrets for `api-production.yml` and `web-production.yml` workflows.
 
-`AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY` you can get information about secrets from the downloaded credentials file when creating a user for CI/CD
+`AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY` you can get information about secrets from the downloaded credentials file when creating a user for CI/CD.
 
 ![CI/CD user credentials](/img/deployment/aws/cicd-credentials.png)
 
-`AWS_ACCOUNT_ID` you can get from the user menu in the upper right corner of the AWS Management Console
+`AWS_ACCOUNT_ID` you can get from the user menu in the upper right corner of the AWS Management Console.
 
 ![Account ID location](/img/deployment/aws/account-id.png)
 
-`AWS_REGION` and `CLUSTER_NAME_PRODUCTION` you set according to your project, for this guide we use `us-east-1` and `my-app` respectively
+`AWS_REGION` and `CLUSTER_NAME_PRODUCTION` you set according to your project, for this guide we use `us-east-1` and `my-app` respectively.
 
-After adding all the secrets, you should have the same secrets as in the following screenshot
+After adding all the secrets, you should have the same secrets as in the following screenshot.
 
 ![GitHub secrets](/img/deployment/aws/gh-secrets.png)
 
