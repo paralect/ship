@@ -34,7 +34,6 @@ cd ../../
 
 if [ "$deployment_type" == "Digital_Ocean_Apps" ]; then
   cp -a "ship/deploy/$platform_specific_dir/.github/workflows/." ".github/workflows"
-  cp -a "ship/deploy/$platform_specific_dir/Dockerfile" "apps/api"
 else
   cp -a "ship/deploy/$platform_common_dir/." "deploy"
   cp -a "ship/deploy/$platform_specific_dir/." "deploy"
