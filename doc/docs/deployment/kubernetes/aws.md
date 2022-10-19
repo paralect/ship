@@ -4,9 +4,9 @@ sidebar_position: 3
 
 # AWS
 
-It's a step-by-step Ship deployment guide. We will use [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks) and [MongoDB](https://www.mongodb.com), [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com) for DNS and SSL configuration.
+It's a step-by-step Ship deployment guide. We will use [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks), [Mongo Atlas](https://www.mongodb.com/), [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com) for DNS and SSL configuration.
 
-You need to create [GitHub](https://github.com) and [AWS](https://aws.amazon.com) accounts and install the next tools on your machine before starting:
+You need to create [GitHub](https://github.com), [AWS](https://aws.amazon.com), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [CloudFlare](https://www.cloudflare.com/) accounts and install the next tools on your machine before starting:
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster (We recommend installing it via [Docker Desktop](https://www.docker.com/products/docker-desktop));
 * [kubectx](https://github.com/ahmetb/kubectx) - CLI tool for easier switching between Kubernetes contexts;
@@ -299,7 +299,47 @@ domain: my-app.paralect.com
 }
 ```
 
-## Database
+## MongoDB Atlas
+
+Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account and create a new database.
+
+### Database creation
+
+1. Select the appropriate type. Dedicated for a production environment, shared for staging/demo.
+2. Select provider and region. We recommend selecting the same or closest region to the AWS EKS cluster.
+3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M10 or higher.
+4. Enter cluster name
+
+![Mongo cluster](/img/deployment/aws/mongo-create.png)
+
+### Security and connection
+
+After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
+
+![Mongo setup authentication](/img/deployment/aws/mongo-create-password.png)
+
+Add IP addresses list, which should have access to your cluster. Add 0.0.0.0/0 IP address to allow anyone with credentials to connect.
+
+![Mongo setup ip white list](/img/deployment/aws/mongo-create-ip-list.png)
+
+After database creation, go to the dashboard page and get the URI connection string by pressing the `connect` button.
+
+![Mongo dashboard](/img/deployment/aws/mongo-dashboard.png)
+
+Select `Connect your application` option. Choose driver and mongo version, and copy connection string. Don't forget to replace `<password>` with your credentials.
+
+![Mongo connect dialog](/img/deployment/aws/mongo-connection-string.png)
+
+Now add this connection string to API config files. If you are deploying on a **production** environment, you will need to update `production.json` file.
+
+```json title=api/src/config/environment/production.json
+{
+  "mongo": {
+    "dbName": "api-production",
+    "connection": "mongodb+srv://admin:<password>@ship.gxhfngj.mongodb.net/?retryWrites=true&w=majority"
+  },
+}
+```
 
 ## CI/CD Preparation
 
