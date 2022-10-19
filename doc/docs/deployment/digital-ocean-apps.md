@@ -121,8 +121,7 @@ Navigate to the Digital Ocean Control Panel and select the **Apps** tab. The `Fu
 
 2. Add other environment variables.
 
-Variables, added in `Global` section will be available to all resources within application, while ones added in `ship` section will be available only for that resource.
-Adding `MONGO_CONNECTION` in global section allows you to use it later if you decide to set up migrator/scheduler resources
+Variables, added in the `Global` section will be available to all resources within the application, while ones added in the `ship` section will be available only for that resource. Adding `MONGO_CONNECTION` in the global section allows you to use it later if you decide to set up migrator/scheduler resources
 
 ![Create app environment variables](/img/deployment/digital-ocean-apps/do-create-app-step-3.png)
 
@@ -196,40 +195,39 @@ Done! Application deployed and can be accessed by provided domain.
 
 ![Deployed application](/img/deployment/digital-ocean-apps/deployed-application.png)
 
-## (Optional) Set up migrator and scheduler
+## Set up migrator and scheduler(Optional)
 
-Digital Ocean Apps allows to setup additinal resources within one application, which can serve as a background workers and jobs, scheduler to run before/after deployment process
+Digital Ocean Apps allows configuring additional resources within one application, which can serve as background workers and jobs, and a scheduler to run before/after the deployment process.
 
-Navigate to you digital ocean application. **Make sure to select application with API server**, open `Create` dropdown menu in top-right corner and select `Create Resources From Source Code` option
+Navigate to your Digital Ocean application. **Make sure to select the application with API server**, open a `Create` dropdown menu in the top-right corner, and select the `Create Resources From Source Code` option.
 
 ![Do create resource](/img/deployment/digital-ocean-apps/do-create-resource.png)
 
-1. Select project repository (as in initial setup), add path to source directory, disable autodeploy and press `Next`
+1. Select a project repository, add a path to the source directory, disable auto-deploy, and press `Next`.
 
 ![Create resource screen](/img/deployment/digital-ocean-apps/do-resource-form.png)
 
-2. Delete resource without Dockerfile and edit new resource by clicking on pencil icon
+2. Delete a resource without Dockerfile and edit second by clicking on the pencil icon.
 
 ![Create app resources](/img/deployment/digital-ocean-apps/do-create-resource-step-2.png)
 
-3. In the edit resouce form, select `Resource Type` - `Job`, `Before every deploy`, change the name of the resource (not required, but might be usefull later).
-Press save and go back to resources screen
+3. In the edit resource form, select `Resource Type` - `Job`, `Before every deploy`, and change the name of the resource (not required, but might be useful later). Press save and go back to the resources screen.
 
 ![Edit resource screen](/img/deployment/digital-ocean-apps/do-resource-type.png)
 
-4. Select `Add Additional Resource from Source` option below the list of added resources, repeat steps 1-2 and navigate to edit form for new resource
+4. Select the `Add Additional Resource from Source` option below the list of added resources, repeat steps 1-2, and navigate to the edit form for a new resource.
 
 5. Select `Resource Type` - `Worker`, save changes and go back.
 
 ![Edit resource screen](/img/deployment/digital-ocean-apps/do-resource-type-2.png)
 
-6. Proceed with the next steps, add environment variables if needed, verify new monthly cost of the application and create resources.
+6. Proceed with the next steps, add environment variables if needed, verify a new monthly cost of the application and create resources.
 
-You can find created resources in `overview` tab
+You can find created resources in the `overview` tab.
 
 ![Resources overview screen](/img/deployment/digital-ocean-apps/do-resources-overview.png)
 
-7. Navigate to Application Spec `(settings tab)`. Change `dockerfile_path` variable to files with migrator and scheduler. Migrator is placed in `jobs` section. You can also find it by name of the resource. Scheduler is placed in `workers` section
+7. Navigate to Application Spec `(settings tab)`. Change the `dockerfile_path` variable to files with migrator and scheduler. Migrator is placed in the `jobs` section. You can also find it by name of the resource. The scheduler is placed in the `workers` section.
 
 ![Migrator spec screen](/img/deployment/digital-ocean-apps/do-migrator-app-spec.png)
 
