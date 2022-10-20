@@ -15,7 +15,7 @@
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
     "ts-lint": "tsc --noEmit --incremental --watch",
-    "precommit": "lint-staged && next lint --fix && npm run ts-lint"
+    "precommit": "lint-staged && next lint --fix"
   },
   "dependencies": {
     "@hookform/resolvers": "2.9.7",
