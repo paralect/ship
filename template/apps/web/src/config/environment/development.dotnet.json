@@ -1,5 +1,15 @@
 {
   "apiUrl": "http://localhost:3001",
   "wsUrl": "http://localhost:3003",
-  "webUrl": "http://localhost:3002"
+  "webUrl": "http://localhost:3002",
+  "subscriptions": {
+    "starter": {
+      "month": "price_1LvIwjDgd1tzhAXhGwvrRWai",
+      "year": "price_1LvIwjDgd1tzhAXhEaS9AsE3"
+    },
+    "pro": {
+      "month": "price_1LvIxzDgd1tzhAXhlVkSJAN8",
+      "year": "price_1LvIxzDgd1tzhAXhWO9IMklL"
+    }
+  }
 }

@@ -25,6 +25,8 @@ const base = {
     clientId: process.env.GOOGLE_CLIENT_ID || '',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
   },
+  STRIPE_API_KEY: process.env.STRIPE_API_KEY || '',
+  STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET || '',
 };
 
 const config = configUtil.loadConfig(base, env, __dirname);

@@ -9,6 +9,7 @@ const schema = z.object({
   lastName: z.string(),
   fullName: z.string(),
   email: z.string().email(),
+  stripeId: z.string().optional().nullable(),
   passwordHash: z.string().nullable().optional(),
   signupToken: z.string().nullable().optional(),
   resetPasswordToken: z.string().nullable().optional(),

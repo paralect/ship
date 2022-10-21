@@ -23,6 +23,19 @@ const updateLastRequest = (_id: string) => {
   );
 };
 
+const attachStripeCustomerId = (data: any) => {
+  service.atomic.updateOne(
+    {
+      email: data.email,
+    },
+    {
+      $set: {
+        stripeId: data.id,
+      },
+    },
+  );
+};
+
 const privateFields = [
   'passwordHash',
   'signupToken',
@@ -34,4 +47,5 @@ const getPublic = (user: User | null) => _.omit(user, privateFields);
 export default Object.assign(service, {
   updateLastRequest,
   getPublic,
+  attachStripeCustomerId,
 });

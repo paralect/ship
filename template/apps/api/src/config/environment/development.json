@@ -17,5 +17,7 @@
   "google": {
     "clientId": "",
     "clientSecret": ""
-  }
+  },
+  "STRIPE_API_KEY": "configure in local.ts file",
+  "STRIPE_WEBHOOK_SECRET": "configure in local.ts file"
 }

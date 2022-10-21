@@ -20,6 +20,8 @@ import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-tabl
 import { Table } from 'components';
 import { User, userApi } from 'resources/user';
 
+import SubscriptionPurchasedModal from './components/subscription-purchased-modal';
+
 interface UsersListParams {
   page?: number;
   perPage?: number;
@@ -169,6 +171,8 @@ const Home: NextPage = () => {
           </Container>
         )}
       </Stack>
+
+      <SubscriptionPurchasedModal />
     </>
   );
 };

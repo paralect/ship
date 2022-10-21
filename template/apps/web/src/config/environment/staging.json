@@ -1,5 +1,15 @@
 {
   "apiUrl": "https://ship-staging-api.paralect.com",
   "wsUrl": "https://ship-staging-api.paralect.com",
-  "webUrl": "https://ship-staging.paralect.com"
+  "webUrl": "https://ship-staging.paralect.com",
+  "subscriptions": {
+    "starter": {
+      "month": "replace_with_price_id",
+      "year": "replace_with_price_id"
+    },
+    "pro": {
+      "month": "replace_with_price_id",
+      "year": "replace_with_price_id"
+    }
+  }
 }
