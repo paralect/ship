@@ -3,11 +3,11 @@ import { createStyles } from '@mantine/core';
 export const useStyles = createStyles((theme) => ({
   card: {
     flex: '1 1',
-    borderColor: theme.colors.gray[4]
+    borderColor: theme.colors.gray[4],
   },
   active: {
     border: 'none',
-    background: `linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), ${theme.colors.gray[4]}`,
+    background: theme.colors.gray[1],
   },
   icon: {
     color: theme.colors.blue[6],
@@ -23,5 +23,5 @@ export const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.green[9],
     borderRadius: '50%',
     color: theme.white,
-  }
+  },
 }));

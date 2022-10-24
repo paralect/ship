@@ -11,6 +11,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
+import ReactMarkdown from 'react-markdown';
 import { IconCheck } from '@tabler/icons';
 
 import { subscriptionApi } from 'resources/subscription';
@@ -101,14 +102,14 @@ const PlanItem: FC<PlanItemPropTypes> = (props) => {
       >
         <IconCheck size={14} className={classes.icon} />
         <Space w={8} />
-        <span dangerouslySetInnerHTML={{ __html: item }} />
+        <ReactMarkdown components={{ p: 'div' }}>{item}</ReactMarkdown>
       </Container>
     )),
     [classes.icon, plan.features],
   );
 
   return (
-    <MediaQuery smallerThan="sm" styles={{ flex: '1 1 100%' }}>
+    <MediaQuery smallerThan="sm" styles={{ flex: '1 1 100%', minWidth: '100%' }}>
       <Card
         withBorder
         radius="sm"

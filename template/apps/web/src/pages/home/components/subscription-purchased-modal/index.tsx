@@ -8,6 +8,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
+import ReactMarkdown from 'react-markdown';
 import { IconCheck } from '@tabler/icons';
 
 import * as routes from 'routes';
@@ -52,7 +53,7 @@ const SubscriptionPurchasedModal = () => {
       >
         <IconCheck size={14} className={classes.icon} />
         <Space w={8} />
-        <span dangerouslySetInnerHTML={{ __html: item }} />
+        <ReactMarkdown components={{ p: 'div' }}>{item}</ReactMarkdown>
       </Container>
     )),
     [activeSubscriptionPlan, classes.icon],

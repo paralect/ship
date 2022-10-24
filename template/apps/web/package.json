@@ -38,6 +38,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.34.2",
+    "react-markdown": "8.0.3",
     "react-query": "3.39.2",
     "socket.io-client": "4.5.2",
     "zod": "3.19.1"

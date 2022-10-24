@@ -5,5 +5,5 @@ export * from './subscription.types';
 
 export {
   subscriptionApi,
-  subscriptionConstants
+  subscriptionConstants,
 };
