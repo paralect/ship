@@ -191,7 +191,7 @@ On the project start, we recommend using `in-memory` events. When your applicati
 
 :::
 
-## API
+## Service API
 
 ### `find`
 
@@ -221,7 +221,7 @@ Pass `page` and `perPage` params to get a paginated result. Otherwise, all docum
 
 **Parameters**
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
-- readConfig: [ReadConfig](#readconfig) `& { page?: number; perPage?: number }`;
+- readConfig: [`ReadConfig`](#readconfig) `& { page?: number; perPage?: number }`;
 - findOptions: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/FindOptions.html);
 
 **Returns** `Promise<FindResult<T>>`.
@@ -261,12 +261,12 @@ updateOne: (
 ```
 
 ```typescript
-const updatedUserWithEvent = await usersService.updateOne(
+const updatedUserWithEvent = await userService.updateOne(
   { _id: u._id },
   (doc) => ({ fullName: 'Updated fullname' }),
 );
 
-const updatedUser = await usersService.updateOne(
+const updatedUser = await userService.updateOne(
   { _id: u._id },
   (doc) => ({ fullName: 'Updated fullname' }),
   { publishEvents: false }
@@ -276,565 +276,644 @@ const updatedUser = await usersService.updateOne(
 Updates a single document and returns it. Returns `null` if document was not found.
 
 **Parameters**
-- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - updateFn: `(doc: T) => Partial<T>`;  
   Function that accepts current document and returns object containing fields to update.
-- options: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/UpdateOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
+- updateConfig: [`UpdateConfig`](#updateconfig);
+- updateOptions: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/UpdateOptions.html);
 
 **Returns** `Promise<T | null>`.
 
-| Functionality       | Status  |
-| ------------- | --------|
-| [`addQueryDefaults`](#addquerydefaults) and [`validateQuery`](#validatequery) | ✅ |
-| Schema validation |   ✅ |
-| Updates `updatedOn` timestamp if `{ addUpdatedOnField: true }` option was passed when creating service |   ✅ |
-| Fires `${collectionName}.updated` event | ✅ |
-
-#### `service.cursor(query, options)`
+### `updateMany`
 
 ```typescript
-const usersCursor = await usersService.cursor(
-  { status: 'active' },
-);
+updateMany: (
+  filter: Filter<T>,
+  updateFn: (doc: T) => Partial<T>,
+  updateConfig: UpdateConfig = {},
+  updateOptions: UpdateOptions = {},
+): Promise<T[]>
 ```
 
-Uses MongoDB find() method and returns cursor (pointer, and using this pointer we can access the document)
-
-**Parameters**
-- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/FindOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
-
-**Returns** `Promise<FindCursor<T>>`.
-
-#### `service.exists(query, options)`
-
 ```typescript
-const isUserExists = await usersService.exists(
-  { email: 'example@gmail.com' },
-);
-```
-
-Fetches the first document that matches the filter. Returns ***true*** if document exists, otherwise ***false***
-
-**Parameters**
-- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/FindOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
-
-**Returns** `Promise<boolean>`.
-
-#### `service.countDocuments(query, options)`
-
-```typescript
-const documentsCount = await usersService.countDocuments(
-  { status: 'active' },
-);
-```
-
-Returns the count of documents that match the query for a collection.
-
-**Parameters**
-- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`CountDocumentsOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/CountDocumentsOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
-
-**Returns** `Promise<number>`.
-
-#### `service.insertOne(object, options)`
-***(:question: What returns? :question:)***
-
-```typescript
-const ? = await usersService.insertOne(
-  {
-    firstName: 'Peter',
-    lastName: 'Parker',
-  },
-);
-```
-
-Inserts a single document into a collection.
-
-**Parameters**
-- object: `Partial<T>`;
-- options: [`InsertOneOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/InsertOneOptions.html);
-
-**Returns** `Promise<T>`.
-
-#### `service.insertMany(objects, options)`
-***(:question: What returns? :question:)***
-
-```typescript
-const ? = await usersService.insertMany(
-  {
-    firstName: 'Peter',
-    lastName: 'Parker',
-  },
-  {
-    firstName: 'Tony',
-    lastName: 'Stark',
-  },
-);
-```
-
-Inserts multiple documents into a collection.
-
-**Parameters**
-- query: `Partial<T>`;
-- options: [`BulkWriteOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/BulkWriteOptions.html);
-
-**Returns** `Promise<T[]>`.
-
-#### `service.updateMany(query, updateFn, options)`
-
-```typescript
-const updatedUsers = await usersService.updateMany(
+const updatedUsers = await userService.updateMany(
   { status: 'active' },
   (doc) => ({ isEmailVerified: true }),
 );
 ```
 
-Updates multiple documents and returns array with them. Returns empty array if documents was not found.
+Updates multiple documents that match the query. Returns array with updated documents.
 
 **Parameters**
-- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
 - updateFn: `(doc: T) => Partial<T>`;  
   Function that accepts current document and returns object containing fields to update.
-- options: [`BulkWriteOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/BulkWriteOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
+- updateConfig: [`UpdateConfig`](#updateconfig);
+- updateOptions: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/UpdateOptions.html);
 
 **Returns** `Promise<T[]>`.
 
-#### `service.deleteSoft(query, options)`
+### `insertOne`
 
 ```typescript
-const deletedUsers = await usersService.deleteSoft(
+insertOne: (
+  object: Partial<T>,
+  createConfig: CreateConfig = {},
+  insertOneOptions: InsertOneOptions = {},
+): Promise<T>
+```
+
+```typescript
+const user = await userService.insertOne({
+  fullName: 'John',
+});
+```
+
+Inserts a single document into a collection and returns it.
+
+**Parameters**
+- object: `Partial<T>`;
+- createConfig: [`CreateConfig`](#createconfig);
+- insertOneOptions: [`InsertOneOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/InsertOneOptions.html);
+
+**Returns** `Promise<T>`.
+
+### `insertMany`
+
+```typescript
+insertMany: (
+  objects: Partial<T>[],
+  createConfig: CreateConfig = {},
+  bulkWriteOptions: BulkWriteOptions = {},
+): Promise<T[]>
+```
+
+```typescript
+const users = await userService.insertMany([
+  { fullName: 'John' },
+  { fullName: 'Kobe' },
+]);
+```
+
+Inserts multiple documents into a collection and returns them.
+
+**Parameters**
+- objects: `Partial<T>[]`;
+- createConfig: [`CreateConfig`](#createconfig);
+- bulkWriteOptions: [`BulkWriteOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/BulkWriteOptions.html);
+
+**Returns** `Promise<T[]>`.
+
+### `deleteSoft`
+
+```typescript
+deleteSoft: (
+  filter: Filter<T>,
+  deleteConfig: DeleteConfig = {},
+  deleteOptions: DeleteOptions = {},
+): Promise<T[]>
+```
+
+```typescript
+const deletedUsers = await userService.deleteSoft(
   { status: 'deactivated' },
 );
 ```
 
-Delete multiple documents that match the query. Returns array with deleted documents.
+Adds `deletedOn` field to the documents that match the query and returns them.
 
 **Parameters**
-- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/UpdateOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
+- deleteConfig: [`DeleteConfig`](#deleteconfig);
+- deleteOptions: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/DeleteOptions.html);
 
 **Returns** `Promise<T[]>`.
 
-#### `service.deleteOne(query, options)`
+### `deleteOne`
 
 ```typescript
-const deletedUser = await usersService.deleteOne(
+deleteOne: (
+  filter: Filter<T>,
+  deleteConfig: DeleteConfig = {},
+  deleteOptions: DeleteOptions = {},
+): Promise<T | null>
+```
+
+```typescript
+const deletedUser = await userService.deleteOne(
   { _id: u._id },
 );
 ```
 
-Delete the first document that matches the filter. Returns `null` if document was not found.
+Deletes a single document and returns it. Returns `null` if document was not found.
 
 **Parameters**
-- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/DeleteOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
+- deleteConfig: [`DeleteConfig`](#deleteconfig);
+- deleteOptions: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/DeleteOptions.html);
 
 **Returns** `Promise<T | null>`.
 
-#### `service.deleteMany(query, options)`
+### `deleteMany`
 
 ```typescript
-const deletedUser = await usersService.deleteMany(
+deleteMany: (
+  filter: Filter<T>,
+  deleteConfig: DeleteConfig = {},
+  deleteOptions: DeleteOptions = {},
+): Promise<T[]>
+```
+
+```typescript
+const deletedUsers = await userService.deleteMany(
   { status: 'deactivated' },
 );
 ```
 
-Delete multiple documents that match the query. Returns array with deleted documents.
+Deletes multiple documents that match the query. Returns array with deleted documents.
 
 **Parameters**
-- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/DeleteOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
+- deleteConfig: [`DeleteConfig`](#deleteconfig);
+- deleteOptions: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/DeleteOptions.html);
 
 **Returns** `Promise<T[]>`.
 
-#### `service.createIndex(indexSpec, options)`
+### `replaceOne`
 
 ```typescript
-usersService.createIndex(
-  { firstName: 1, lastName: -1 },
+replaceOne: (
+  filter: Filter<T>,
+  replacement: Partial<T>,
+  readConfig: ReadConfig = {},
+  replaceOptions: ReplaceOptions = {},
+): Promise<UpdateResult | Document>
+```
+
+```typescript
+await usersService.replaceOne(
+  { _id: u._id },
+  { fullName: fullNameToUpdate },
 );
 ```
 
-Creates indexes on collections.
+Replaces a single document within the collection based on the filter. **Doesn't validate schema or publish events**.
 
 **Parameters**
-- indexSpec: [`IndexSpecification`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#IndexSpecification);
-- options: [`CreateIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/CreateIndexesOptions.html);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
+- replacement: `Partial<T>`;
+- readConfig: [`ReadConfig`](#readconfig);
+- replaceOptions: [`ReplaceOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/ReplaceOptions.html);
 
-**Returns** `Promise<string | void>`.
+**Returns** `Promise<`[UpdateResult](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/UpdateResult.html) `|` [Document](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/Document.html)`>`.
 
-#### `service.createIndexes(indexSpecs, options)`
+### `atomic.updateOne`
 
 ```typescript
-usersService.createIndexes([
-  { firstName: 1, lastName: -1 },
-  { zip: 1 },
-]);
+updateOne: (
+  filter: Filter<T>,
+  updateFilter: UpdateFilter<T>,
+  readConfig: ReadConfig = {},
+  updateOptions: UpdateOptions = {},
+): Promise<UpdateResult>
 ```
 
-Creates one or more indexes on a collection.
+```typescript
+await userService.atomic.updateOne(
+  { _id: u._id },
+  { $set: { fullName: `${u.firstName} ${u.lastName}` } },
+);
+```
+
+Updates a single document. **Doesn't validate schema or publish events**.
 
 **Parameters**
-- indexSpecs: [`IndexDescription[]`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#IndexSpecification);
-- options: [`CreateIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/CreateIndexesOptions.html);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
+- updateFilter: [`UpdateFilter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#UpdateFilter);
+- readConfig: [`ReadConfig`](#readconfig);
+- updateOptions: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/UpdateOptions.html);
 
-**Returns** `Promise<string[] | void>`.
+**Returns** `Promise<`[UpdateResult](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/UpdateResult.html)`>`.
 
-#### `service.dropIndex(indexName, options)`
+### `atomic.updateMany`
 
 ```typescript
-usersService.dropIndex({ firstName: 1, lastName: -1 });
+updateMany: (
+  filter: Filter<T>,
+  updateFilter: UpdateFilter<T>,
+  readConfig: ReadConfig = {},
+  updateOptions: UpdateOptions = {},
+): Promise<Document | UpdateResult>
 ```
 
-Drops or removes the specified index from a collection.
+```typescript
+await userService.atomic.updateMany(
+  { firstName: { $exists: true }, lastName: { $exists: true } },
+  { $set: { fullName: `${u.firstName} ${u.lastName}` } },
+);
+```
+
+Updates all documents that match the specified filter. **Doesn't validate schema or publish events**.
 
 **Parameters**
-- indexName: `string`;
-- options: [`DropIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#DropIndexesOptions);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
+- updateFilter: [`UpdateFilter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#UpdateFilter);
+- readConfig: [`ReadConfig`](#readconfig);
+- updateOptions: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/UpdateOptions.html);
 
-**Returns** `Promise<void | IDocument>`.
+**Returns** `Promise<`[UpdateResult](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/UpdateResult.html) `|` [Document](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/Document.html)`>`.
 
-#### `service.dropIndexes(options)`
-
-Drop all but the _id index from a collection:
-
-```typescript
-usersService.dropIndexes();
-```
-
-Drop specified indexes from a collection:
+### `exists`
 
 ```typescript
-usersService.dropIndexes([{ firstName: 1, lastName: -1 }, { zip: 1 }]);
+exists(
+  filter: Filter<T>,
+  readConfig: ReadConfig = {},
+  findOptions: FindOptions = {},
+): Promise<boolean>
 ```
+
+```typescript
+const isUserExists = await userService.exists(
+  { email: 'example@gmail.com' },
+);
+```
+
+Returns ***true*** if document exists, otherwise ***false***.
 
 **Parameters**
-- options: [`DropIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#DropIndexesOptions);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
+- readConfig: [`ReadConfig`](#readconfig);
+- findOptions: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/FindOptions.html);
 
-**Returns** `Promise<void | IDocument>`.
+**Returns** `Promise<boolean>`.
 
-#### `service.watch(pipeline, options)`
+### `countDocuments`
 
 ```typescript
-const watchCursor = usersService.watch();
+countDocuments(
+  filter: Filter<T>,
+  readConfig: ReadConfig = {},
+  countDocumentOptions: CountDocumentsOptions = {},
+): Promise<boolean>
 ```
 
-Opens a change stream cursor on the collection.
+```typescript
+const documentsCount = await userService.countDocuments(
+  { status: 'active' },
+);
+```
+
+Returns amount of documents that matches the query.
 
 **Parameters**
-- pipeline: `IDocument[] | undefined`;
-- options: [`ChangeStreamOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/ChangeStreamOptions.html);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
+- readConfig: [`ReadConfig`](#readconfig);
+- countDocumentOptions: [`CountDocumentsOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CountDocumentsOptions.html);
 
-**Returns** `Promise<any>`.
+**Returns** `Promise<number>`.
 
-#### `service.distinct(key, query, options)`
+### `distinct`
 
 ```typescript
-const stateList = usersService.distinct('states');
+distinct(
+  key: string,
+  filter: Filter<T>,
+  readConfig: ReadConfig = {},
+  distinctOptions: DistinctOptions = {},
+): Promise<any[]>
 ```
 
-Finds the distinct values for a specified field across a single collection or view and returns the results in an array.
+```typescript
+const statesList = await userService.distinct('states');
+```
+
+Returns distinct values for a specified field across a single collection or view and returns the results in an array.
 
 **Parameters**
 - key: `string`;
-- query: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/FindOptions.html) & [`QueryDefaultsOptions`](#querydefaultsoptions);
+- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
+- readConfig: [`ReadConfig`](#readconfig);
+- distinctOptions: [`DistinctOptions`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#DistinctOptions);
 
-**Returns** `Promise<any>`.
+**Returns** `Promise<any[]>`.
 
-#### `service.aggregate(pipeline, options)`
+### `aggregate`
 
 ```typescript
-const sortedActiveUsers = usersService.aggregate([
+aggregate: (
+  pipeline: any[],
+  options: AggregateOptions = {},
+): Promise<any[]>
+```
+
+```typescript
+const sortedActiveUsers = await userService.aggregate([
   { $match: { status: "active" } },
   { $sort: { firstName: -1, lastName: -1 } }
 ]);
 ```
 
-Calculates aggregate values for the data in a collection. Returns array with aggregation result documents.
+Executes an aggregation framework pipeline and returns array with aggregation result of documents.
 
 **Parameters**
 - pipeline: `any[]`;
-- options: [`AggregateOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/AggregateOptions.html);
+- options: [`AggregateOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/AggregateOptions.html);
 
 **Returns** `Promise<any[]>`.
 
-#### `service.drop(recreate = false)`
+### `watch`
 
 ```typescript
-usersService.drop();
+watch: (
+  pipeline: Document[] | undefined,
+  options: ChangeStreamOptions = {},
+): Promise<any>
+```
+
+```typescript
+const watchCursor = userService.watch();
+```
+
+Creates a new Change Stream, watching for new changes and returns a cursor.
+
+**Parameters**
+- pipeline: `Document[] | undefined`;
+- options: [`ChangeStreamOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/ChangeStreamOptions.html);
+
+**Returns** `Promise<any>`.
+
+### `drop`
+
+```typescript
+drop: (
+  recreate: boolean = false,
+): Promise<void>
+```
+
+```typescript
+await userService.drop();
 ```
 
 Removes a collection from the database. The method also removes any indexes associated with the dropped collection.
 
 **Parameters**
 - recreate: `boolean`;
+  Should create collection after deletion.
 
 **Returns** `Promise<void>`.
 
-### Atomic
-
-#### `service.atomic.updateOne(filter, update, options)`
+### `indexExists`
 
 ```typescript
-await userService.atomic.updateOne(
- { _id: u._id },
- { $set: { fullName: `${u.firstName} ${u.lastName}` } },
-);
+indexExists: (
+  indexes: string | string[],
+  indexInformationOptions: IndexInformationOptions = {},
+): Promise<boolean>
 ```
 
-Updates a single document.
-
-**Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- update: [`UpdateFilter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#UpdateFilter) | `Partial<T>`,
-- options: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/UpdateOptions.html);
-
-**Returns**  `Promise<UpdateResult>`.
-
-| Functionality       | Status  |
-| ------------- | --------|
-| [`addQueryDefaults`](#addquerydefaults) and [`validateQuery`](#validatequery) | ❌ |
-| Schema validation |   ❌ |
-| Updates `updatedOn` timestamp if `{ addUpdatedOnField: true }` option was passed when creating service |   ✅ |
-| Fires `${collectionName}.updated` event | ❌ |
-
-#### `service.atomic.findOne(filter, options)`
-
 ```typescript
-const user = await userService.atomic.findOne(
- { _id: u._id },
-);
+const isIndexExists = await usersService.indexExists(index);
 ```
 
-Fetches the first document that matches the filter. Returns `null` if document was not found.
+Checks if one or more indexes exist on the collection, fails on first non-existing index.
 
 **Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/FindOptions.html);
+- indexes: `string | string[]`;
+- indexInformationOptions: [`IndexInformationOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/IndexInformationOptions.html);
 
-**Returns**  `Promise<T | null>`.
+**Returns** `Promise<string | void>`.
 
-#### `service.atomic.find(filter, options)`
+### `createIndex`
 
 ```typescript
-const userCursor = await userService.atomic.find(
- { status: 'active' },
-);
+createIndex: (
+  indexSpec: IndexSpecification,
+  options: CreateIndexesOptions = {},
+): Promise<string | void>
 ```
 
-Selects documents in a collection and returns a cursor to the selected documents.
-
-**Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/FindOptions.html);
-
-**Returns**  `Promise<FindCursor<T>>`.
-
-#### `service.atomic.insertOne(doc, options)`
-
 ```typescript
-await userService.atomic.insertOne(
- {
-   firstName: 'Peter',
-   lastName: 'Parker'
- },
-);
+await usersService.createIndex({ fullName: 1 });
 ```
 
-Inserts a single document into a collection.
+Creates collection index.
 
 **Parameters**
-- doc: `Partial<T>`;
-- options: [`InsertOneOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/InsertOneOptions.html);
+- indexSpec: [`IndexSpecification`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#IndexSpecification);
+- options: [`CreateIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CreateIndexesOptions.html);
 
-**Returns**  `Promise<T>`.
+**Returns** `Promise<string | void>`.
 
-#### `service.atomic.insertMany(docs, options)`
+### `createIndexes`
 
 ```typescript
-await userService.atomic.insertMany([
- {
-   firstName: 'Peter',
-   lastName: 'Parker',
- },
- {
-   firstName: 'Tony',
-   lastName: 'Stark',
- },
+createIndexes: (
+  indexSpecs: IndexDescription[],
+  options: CreateIndexesOptions = {},
+): Promise<string[] | void>
+```
+
+```typescript
+await usersService.createIndexes([
+  { key: { fullName: 1 } },
+  { key: { createdOn: 1 } },
 ]);
 ```
 
-Inserts multiple documents into a collection.
+Creates one or more indexes on a collection.
 
 **Parameters**
-- docs: `Partial<T>[]`;
-- options: [`BulkWriteOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/BulkWriteOptions.html);
+- indexSpecs: [`IndexDescription[]`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#IndexSpecification);
+- options: [`CreateIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CreateIndexesOptions.html);
 
-**Returns**  `Promise<T[]>`.
+**Returns** `Promise<string[] | void>`.
 
-#### `service.atomic.updateMany(filter, update, options)`
+### `dropIndex`
 
 ```typescript
-await userService.atomic.updateMany(
- {
-   firstName: { $exists: true },
-   lastName: { $exists: true },
- },
- { $set: { fullName: `${u.firstName} ${u.lastName}` } },
-);
+dropIndex: (
+  indexName: string,
+  options: DropIndexesOptions = {},
+): Promise<void | Document>
 ```
 
-Updates all documents that match the specified filter for a collection.
+```typescript
+await userService.dropIndex({ firstName: 1, lastName: -1 });
+```
+
+Removes the specified index from a collection.
 
 **Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- update: [`UpdateFilter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#UpdateFilter) | `Partial<T>`,
-- options: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/UpdateOptions.html);
+- indexName: `string`;
+- options: [`DropIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#DropIndexesOptions);
 
-**Returns**  `Promise<IDocument | UpdateResult>`.
+**Returns** `Promise<void | Document>`.
 
-#### `service.atomic.deleteOne(filter, options)`
+### `dropIndexes`
 
 ```typescript
-await userService.atomic.deleteOne({
-  _id: u._id,
+dropIndexes: (
+  options: DropIndexesOptions = {},
+): Promise<void | Document>
+```
+
+Removes all but the `_id` index from a collection.
+
+```typescript
+await userService.dropIndexes();
+```
+
+**Parameters**
+- options: [`DropIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#DropIndexesOptions);
+
+**Returns** `Promise<void | Document>`.
+
+## Events API
+
+### `eventBus.on`
+
+```typescript
+on: (
+  eventName: string,
+  handler: InMemoryEventHandler,
+): void
+```
+
+```typescript
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+
+const collectionName = 'users';
+
+eventBus.on(`${collectionName}.created`, (data: InMemoryEvent<User>) => {
+  try {
+    const user = data.doc;
+
+    console.log('user created', user);
+  } catch (err) {
+    logger.error(`${USERS}.created handler error: ${err}`);
+  }
+});
+
+eventBus.on(`${collectionName}.updated`, (data: InMemoryEvent<User>) => {});
+
+eventBus.on(`${collectionName}.deleted`, (data: InMemoryEvent<User>) => {});
+```
+
+In-memory events handler that listens for a CUD events.
+
+**Parameters**
+- eventName: `string`;  
+  Events names to listen.  
+  Valid format: `${collectionName}.created`, `${collectionName}.updated`, `${collectionName}.deleted`.
+- handler: [`InMemoryEventHandler`](#inmemoryeventhandler);
+
+**Returns** `void`.
+
+### `eventBus.once`
+
+```typescript
+once: (
+  eventName: string,
+  handler: InMemoryEventHandler,
+): void
+```
+
+```typescript
+eventBus.once(`${USERS}.updated`, (data: InMemoryEvent<User>) => {
+  try {
+    const user = data.doc;
+
+    console.log('user updated', user);
+  } catch (err) {
+    logger.error(`${USERS}.updated handler error: ${err}`);
+  }
 });
 ```
 
-Removes a single document from a collection.
+In-memory events handler that listens for a CUD events. **It will be called only once**.
 
 **Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/DeleteOptions.html);
+- eventName: `string`;  
+  Events names to listen.  
+  Valid format: `${collectionName}.created`, `${collectionName}.updated`, `${collectionName}.deleted`.
+- handler: [`InMemoryEventHandler`](#inmemoryeventhandler);
 
-**Returns**  `Promise<DeleteResult>`.
+**Returns** `void`.
 
-#### `service.atomic.deleteMany(filter, options)`
+### `eventBus.onUpdated`
 
 ```typescript
-await userService.atomic.deleteMany({
-  status: 'deactivated',
+onUpdated: (
+  entity: string,
+  properties: OnUpdatedProperties,
+  handler: InMemoryEventHandler,
+): void
+```
+
+```typescript
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+
+eventBus.onUpdated('users', ['firstName', 'lastName'], async (data: InMemoryEvent<User>) => {
+  try {
+    await userService.atomic.updateOne(
+      { _id: data.doc._id },
+      { $set: { fullName: `${data.doc.firstName} ${data.doc.lastName}` } },
+    );
+  } catch (err) {
+    console.log(`users onUpdated ['firstName', 'lastName'] handler error: ${err}`);
+  }
+});
+
+eventBus.onUpdated('users', [{ fullName: 'John Wake', firstName: 'John' }, 'lastName'], () => {});
+
+eventBus.onUpdated('users', ['oauth.google'], () => {});
+```
+
+In-memory events handler that listens for specific fields updates. It will be called when one of the provided `properties` updates.  
+
+**Parameters**
+- entity: `string`;  
+  Collection name for events listening.
+- properties: [`OnUpdatedProperties`](#onupdatedproperties);  
+  Properties whose update will trigger the event.
+- handler: [`InMemoryEventHandler`](#inmemoryeventhandler);
+
+**Returns** `void`.
+
+## Transactions API
+
+### `withTransaction`
+
+```typescript
+withTransaction: <TRes = any>(
+  transactionFn: (session: ClientSession) => Promise<TRes>,
+): Promise<TRes>
+```
+
+Runs callbacks and automatically commits or rollbacks transaction.
+
+```typescript
+import db from 'db';
+
+const { user, company } = await db.withTransaction(async (session) => {
+  const createdUser = await usersService.insertOne({ fullName: 'Bahrimchuk' }, {}, { session });
+  const createdCompany = await companyService.insertOne(
+    { users: [createdUser._id] }, {},
+    { session },
+  );
+
+  return { user: createdUser, company: createdCompany };
 });
 ```
 
-Removes all documents that match the filter from a collection.
-
 **Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/DeleteOptions.html);
+- transactionFn: `(session: ClientSession) => Promise<TRes>`;  
+  Function that accepts a client session and manages some business logic. Must return a `Promise`.
 
-**Returns**  `Promise<DeleteResult>`.
+**Returns** `Promise<TRes>`.
 
-#### `service.atomic.replaceOne(filter, replacement, options)`
-
-```typescript
-await userService.atomic.replaceOne({
-  firstName: 'Peter',
-  lastName: 'Parker',
-}, {
-  fullName: 'Peter Parker',
-});
-```
-
-Replaces a single document within the collection based on the filter.
-
-**Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- replacement: [`WithoutId<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#WithoutId);
-- options: [`ReplaceOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/ReplaceOptions.html);
-
-**Returns**  `Promise<UpdateResult | IDocument>`.
-
-#### `service.atomic.bulkWrite(operations, options)`
-
-```typescript
-await userService.atomic.bulkWrite([
-      { insertOne: { document: { _id: 1, firstName: 'Peter', lastName: 'Parker' } } },
-      { deleteOne: { filter : { _id: 2 } } },
-]);
-```
-
-Performs multiple write operations with controls for order of execution.
-
-**Parameters**
-- operations: [`AnyBulkWriteOperation<T>[]`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#AnyBulkWriteOperation);
-- options: [`BulkWriteOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/BulkWriteOptions.html);
-
-**Returns**  `Promise<BulkWriteResult>`.
-
-#### `service.atomic.findOneAndUpdate(filter, update, options)`
-
-```typescript
-await userService.atomic.findOneAndUpdate(
-  { _id: u._id },
-  { $set: { status: 'active' } },
-);
-```
-
-Updates a single document based on the filter and sort criteria.
-
-**Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- update: [`UpdateFilter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#UpdateFilter),
-- options: [`FindOneAndUpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/FindOneAndUpdateOptions.html);
-
-**Returns**  `Promise<ModifyResult<T>>`.
-
-#### `service.atomic.findOneAndReplace(filter, replacement, options)`
-
-```typescript
-await userService.atomic.findOneAndReplace(
-  { firstName: 'Peter', lastName: 'Parker' },
-  { fullName: 'Peter Parker' },
-);
-```
-
-Updates a single document based on the filter and sort criteria.
-
-**Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- replacement: [`WithoutId<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#WithoutId),
-- options: [`FindOneAndReplaceOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/FindOneAndReplaceOptions.html);
-
-**Returns**  `Promise<ModifyResult<T>>`.
-
-#### `service.atomic.findOneAndDelete(filter, options)`
-
-```typescript
-const deletedUser = await userService.atomic.findOneAndDelete({
-  _id: u._id,
-});
-```
-
-Deletes a single document based on the filter and sort criteria, returning the deleted document.
-
-**Parameters**
-- filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- options: [`FindOneAndDeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/FindOneAndDeleteOptions.html);
-
-**Returns**  `Promise<ModifyResult<T>>`.
-
-#### `service.atomic.aggregate(pipeline, options)`
-
-```typescript
-await userService.atomic.aggregate([
-  { $match: { status: "active" } },
-  { $sort: { firstName: -1, lastName: -1 } }
-]);
-```
-
-Calculates aggregate values for the data in a collection.
-
-**Parameters**
-- pipeline: `any[]`;
-- options: [`AggregateOptions`](https://mongodb.github.io/node-mongodb-native/4.7/interfaces/AggregateOptions.html);
-
-**Returns**  `Promise<AggregationCursor<IDocument>>`.
-
-## Options
+## Options and Types
 
 ### `ServiceOptions`
 
@@ -900,6 +979,26 @@ type DeleteConfig = {
   skipDeletedOnDocs?: boolean,
   publishEvents?: boolean,
 };
+```
+
+### `InMemoryEvent`
+```typescript
+type InMemoryEvent<T = any> = {
+  doc: T,
+  prevDoc?: T,
+  name: string,
+  createdOn: Date
+};
+```
+
+### `InMemoryEventHandler`
+```typescript
+type InMemoryEventHandler = (evt: InMemoryEvent) => Promise<void> | void;
+```
+
+### `OnUpdatedProperties`
+```typescript
+type OnUpdatedProperties = Array<Record<string, unknown> | string>;
 ```
 
 ## Extending API
