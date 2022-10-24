@@ -692,12 +692,12 @@ class Service<T extends IDocument> {
     updateOne: async (
       filter: Filter<T>,
       updateFilter: UpdateFilter<T>,
-      updateConfig: UpdateConfig = {},
+      readConfig: ReadConfig = {},
       updateOptions: UpdateOptions = {},
     ):Promise<UpdateResult> => {
       const collection = await this.getCollection();
 
-      filter = this.validateReadOperation(filter, updateConfig);
+      filter = this.validateReadOperation(filter, readConfig);
 
       if (this.options.addUpdatedOnField) {
         updateFilter = addUpdatedOnField(updateFilter);
@@ -708,12 +708,12 @@ class Service<T extends IDocument> {
     updateMany: async (
       filter: Filter<T>,
       updateFilter: UpdateFilter<T>,
-      updateConfig: UpdateConfig = {},
+      readConfig: ReadConfig = {},
       updateOptions: UpdateOptions = {},
     ): Promise<Document | UpdateResult> => {
       const collection = await this.getCollection();
 
-      filter = this.validateReadOperation(filter, updateConfig);
+      filter = this.validateReadOperation(filter, readConfig);
 
       if (this.options.addUpdatedOnField) {
         updateFilter = addUpdatedOnField(updateFilter);
