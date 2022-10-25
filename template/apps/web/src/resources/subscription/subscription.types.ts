@@ -8,3 +8,11 @@ export interface Subscription {
   endDate: Date,
   cancelAtPeriodEnd: boolean,
 }
+
+export interface Payment {
+  id: string,
+  product: string,
+  amount: number,
+  status: string,
+  date: string,
+}

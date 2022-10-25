@@ -16,7 +16,7 @@ import { IconCheck } from '@tabler/icons';
 
 import { subscriptionApi } from 'resources/subscription';
 
-import type { SubscriptionItemType } from 'pages/subscription-plans/subscription-list';
+import type { SubscriptionItemType } from 'pages/pricing-plans/subscription-list';
 import type { Subscription, subscriptionConstants } from 'resources/subscription';
 
 import { useStyles } from './styles';

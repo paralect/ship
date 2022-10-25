@@ -1,6 +1,4 @@
-import { useState, useCallback } from 'react';
-import Head from 'next/head';
-import { NextPage } from 'next';
+import { FC, useState, useCallback } from 'react';
 import {
   Badge,
   Group,
@@ -8,18 +6,16 @@ import {
   Space,
   Stack,
   Text,
-  Title,
 } from '@mantine/core';
 
 import { subscriptionApi, subscriptionConstants } from 'resources/subscription';
+import { subscriptionItems } from 'pages/pricing-plans/subscription-list';
+import type { SubscriptionItemType } from 'pages/pricing-plans/subscription-list';
 
-import PlanItem from './components/plan-item';
-import UpgradeModal from './components/upgrade-modal';
+import PlanItem from '../plan-item';
+import UpgradeModal from '../upgrade-modal';
 
-import { subscriptionItems } from './subscription-list';
-import type { SubscriptionItemType } from './subscription-list';
-
-const SubscriptionPlans: NextPage = () => {
+const Plans: FC = () => {
   const { data: currentSubscription } = subscriptionApi.useGetCurrent();
 
   const [interval, setInterval] = useState(subscriptionConstants.Intervals.Year);
@@ -39,14 +35,10 @@ const SubscriptionPlans: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Pricing plans</title>
-      </Head>
       <Stack
         align="center"
         sx={{ maxWidth: '1280px', margin: '0 auto' }}
       >
-        <Title align="center">Pricing plans</Title>
         <Text size="sm">
           <Badge color="orange" sx={{ marginRight: '8px' }}>Save up to 15%</Badge>
           with yearly subscription
@@ -88,4 +80,4 @@ const SubscriptionPlans: NextPage = () => {
   );
 };
 
-export default SubscriptionPlans;
+export default Plans;

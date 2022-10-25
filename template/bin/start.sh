@@ -8,4 +8,4 @@ echo 'You can start services independently'
 echo $Green'./bin/start.sh api migrator scheduler web'
 
 echo $Color_Off
-docker-compose up --build "$@"
+docker compose up --build "$@"
