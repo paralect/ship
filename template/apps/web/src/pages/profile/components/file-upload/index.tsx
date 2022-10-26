@@ -1,10 +1,10 @@
 import { memo, useState } from 'react';
 import { Group, Text, Button } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
+import { IconPencil, IconPlus } from '@tabler/icons';
 
 import { handleError } from 'utils';
 import { accountApi } from 'resources/account';
-import { AddIcon, PenIcon } from 'public/icons';
 
 import { useStyles } from './styles';
 
@@ -82,10 +82,10 @@ const PhotoUpload = () => {
                 }}
               >
                 <div className={classes.innerAvatar}>
-                  <PenIcon />
+                  <IconPencil />
                 </div>
               </div>
-            ) : <AddIcon className={classes.addIcon} />}
+            ) : <IconPlus className={classes.addIcon} />}
           </label>
         </Dropzone>
         <span className={classes.buttonContainer}>
