@@ -4,6 +4,7 @@ import get from './actions/get';
 import update from './actions/update';
 import uploadAvatar from './actions/upload-avatar';
 import removeAvatar from './actions/remove-avatar';
+import getPaymentInformation from './actions/get-payment-information';
 import signUp from './actions/sign-up';
 import signIn from './actions/sign-in';
 import signOut from './actions/sign-out';
@@ -32,6 +33,7 @@ const privateRoutes = routeUtil.getRoutes([
   update,
   uploadAvatar,
   removeAvatar,
+  getPaymentInformation,
 ]);
 
 const adminRoutes = routeUtil.getRoutes([

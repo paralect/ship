@@ -1,4 +1,6 @@
 import { AppKoaContext, AppRouter } from 'types';
+
+import stripe from 'services/stripe/stripe.service';
 import { subscriptionService } from 'resources/subscription';
 
 async function handler(ctx: AppKoaContext) {
@@ -6,7 +8,22 @@ async function handler(ctx: AppKoaContext) {
 
   if (user.stripeId) {
     const subscription = await subscriptionService.findOne({ customer: user.stripeId });
-    ctx.body = subscription;
+
+    const product = await stripe.products.retrieve(subscription?.productId as string);
+    const pendingInvoice = await stripe.invoices.retrieveUpcoming({
+      subscription: subscription?.subscriptionId as string,
+    });
+
+    ctx.body = {
+      ...subscription,
+      product,
+      pendingInvoice: {
+        subtotal: pendingInvoice.subtotal,
+        tax: pendingInvoice.tax,
+        total: pendingInvoice.total,
+        status: pendingInvoice.status,
+      },
+    };
 
     return;
   }

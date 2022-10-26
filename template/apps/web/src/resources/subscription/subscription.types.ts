@@ -1,18 +1,25 @@
+interface Product {
+  name: string,
+  images: string[]
+}
+
+interface Invoice {
+  subtotal: number,
+  tax: number | null,
+  total: number,
+  status: string,
+  created: number,
+}
+
 export interface Subscription {
   _id: string;
   subscriptionId: string,
   priceId: string,
   customer: string,
   status: string,
-  startDate: Date,
-  endDate: Date,
+  startDate: number,
+  endDate: number,
   cancelAtPeriodEnd: boolean,
-}
-
-export interface Payment {
-  id: string,
-  product: string,
-  amount: number,
-  status: string,
-  date: string,
+  product?: Product,
+  pendingInvoice?: Invoice,
 }

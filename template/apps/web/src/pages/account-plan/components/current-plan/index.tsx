@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import dayjs from 'dayjs';
 
 import {
   Button,
@@ -10,15 +11,21 @@ import {
 } from '@mantine/core';
 import { Table } from 'components';
 
+import { subscriptionApi } from 'resources/subscription';
+import { accountApi } from 'resources/account';
+
 import type { ColumnDef } from '@tanstack/react-table';
-import type { Payment } from 'resources/subscription';
+import type { PaymentHistoryItem } from 'resources/payment';
 
 import { useStyles } from './styles';
 
 const CurrentPlan: FC = () => {
   const { classes } = useStyles();
 
-  const columns: ColumnDef<Payment>[] = [
+  const { data: currentSubscription } = subscriptionApi.useGetCurrent();
+  const { data: paymentInformation } = accountApi.useGetPaymentInformation();
+
+  const columns: ColumnDef<PaymentHistoryItem>[] = [
     {
       accessorKey: 'date',
       header: 'Date',
@@ -59,12 +66,19 @@ const CurrentPlan: FC = () => {
       >
         <Container sx={{ flex: '1 1' }} px={0}>
           <Text size="lg" weight={600}>Current plan</Text>
-          <Title order={1}>Starter</Title>
+          <Title order={1}>{currentSubscription?.product?.name}</Title>
         </Container>
         <Container sx={{ flex: '2 1' }} px={0}>
           <Text size="lg" weight={600}>Next payment</Text>
-          <Title sx={{ display: 'inline' }} order={1}>$45.00</Title>
-          <Text color="grey" sx={{ marginLeft: '8px' }} component="span">on Oct 11, 2022</Text>
+          <Title sx={{ display: 'inline' }} order={1}>
+            $
+            {(currentSubscription?.pendingInvoice?.total || 0) / 100}
+          </Title>
+          <Text color="grey" sx={{ marginLeft: '8px' }} component="span">
+            on
+            {' '}
+            {dayjs((currentSubscription?.endDate || 0) * 1000).format('MMM DD, YYYY')}
+          </Text>
         </Container>
       </Group>
 
@@ -73,7 +87,12 @@ const CurrentPlan: FC = () => {
       >
         <Container sx={{ flex: '1 1' }} px={0}>
           <Text size="md" weight={600}>Payment method</Text>
-          <Text color="grey">Bank of America ****1234</Text>
+          <Text color="grey">
+            {paymentInformation?.card.brand}
+            {' '}
+            ****
+            {paymentInformation?.card.last4}
+          </Text>
         </Container>
         <Container sx={{ flex: '2 1' }} px={0}>
           <Button
