@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState, useMemo } from 'react';
 import dayjs from 'dayjs';
 
 import {
@@ -9,7 +9,7 @@ import {
   Title,
   Stack,
 } from '@mantine/core';
-import { Table } from 'components';
+import { Table, PaymentCard } from 'components';
 
 import { subscriptionApi } from 'resources/subscription';
 import { accountApi } from 'resources/account';
@@ -24,6 +24,8 @@ const CurrentPlan: FC = () => {
 
   const { data: currentSubscription } = subscriptionApi.useGetCurrent();
   const { data: paymentInformation } = accountApi.useGetPaymentInformation();
+
+  const [isPaymentCardModalOpened, setIsPaymentCardModalOpened] = useState(false);
 
   const columns: ColumnDef<PaymentHistoryItem>[] = [
     {
@@ -59,6 +61,30 @@ const CurrentPlan: FC = () => {
     count: 1,
   };
 
+  const paymentMethodForm = useMemo(() => {
+    if (isPaymentCardModalOpened) {
+      return (
+        <PaymentCard
+          onCancel={() => setIsPaymentCardModalOpened(false)}
+        />
+      );
+    }
+
+    return (
+      <Button
+        variant="outline"
+        sx={(theme) => ({
+          maxWidth: '250px',
+          color: theme.colors.blue[6],
+          borderColor: theme.colors.blue[6],
+        })}
+        onClick={() => setIsPaymentCardModalOpened(!isPaymentCardModalOpened)}
+      >
+        Change payment method
+      </Button>
+    );
+  }, [setIsPaymentCardModalOpened, isPaymentCardModalOpened]);
+
   return (
     <>
       <Group
@@ -72,7 +98,7 @@ const CurrentPlan: FC = () => {
           <Text size="lg" weight={600}>Next payment</Text>
           <Title sx={{ display: 'inline' }} order={1}>
             $
-            {(currentSubscription?.pendingInvoice?.total || 0) / 100}
+            {(currentSubscription?.pendingInvoice?.amountDue || 0) / 100}
           </Title>
           <Text color="grey" sx={{ marginLeft: '8px' }} component="span">
             on
@@ -95,16 +121,7 @@ const CurrentPlan: FC = () => {
           </Text>
         </Container>
         <Container sx={{ flex: '2 1' }} px={0}>
-          <Button
-            variant="outline"
-            sx={(theme) => ({
-              maxWidth: '250px',
-              color: theme.colors.blue[6],
-              borderColor: theme.colors.blue[6],
-            })}
-          >
-            Change payment method
-          </Button>
+          {paymentMethodForm}
         </Container>
       </Group>
 

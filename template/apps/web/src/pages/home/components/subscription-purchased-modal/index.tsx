@@ -11,7 +11,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import { IconCheck } from '@tabler/icons';
 
-import * as routes from 'routes';
+import { RoutePath } from 'routes';
 import { subscriptionItems, SubscriptionItemType } from 'pages/pricing-plans/subscription-list';
 
 import { useStyles } from './styles';
@@ -25,7 +25,7 @@ const SubscriptionPurchasedModal = () => {
 
   const onClose = useCallback(() => {
     setOpened(false);
-    router.replace(routes.RoutePath.Home, undefined, { shallow: true });
+    router.replace(RoutePath.Home, undefined, { shallow: true });
   }, [router]);
 
   useEffect(() => {

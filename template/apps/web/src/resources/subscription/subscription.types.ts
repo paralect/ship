@@ -7,6 +7,7 @@ interface Invoice {
   subtotal: number,
   tax: number | null,
   total: number,
+  amountDue: number,
   status: string,
   created: number,
 }

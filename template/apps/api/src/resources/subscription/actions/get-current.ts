@@ -21,6 +21,7 @@ async function handler(ctx: AppKoaContext) {
         subtotal: pendingInvoice.subtotal,
         tax: pendingInvoice.tax,
         total: pendingInvoice.total,
+        amountDue: pendingInvoice.amount_due,
         status: pendingInvoice.status,
       },
     };

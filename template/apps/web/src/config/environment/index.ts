@@ -11,6 +11,7 @@ const base = {
   apiUrl: '',
   wsUrl: '',
   webUrl: '',
+  stripePublicKey: process.env.STRIPE_PUBLIC_KEY,
 };
 
 export default merge(base, config);
