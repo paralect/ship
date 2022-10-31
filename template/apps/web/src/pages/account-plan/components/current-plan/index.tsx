@@ -67,7 +67,7 @@ const CurrentPlan: FC = () => {
           <Text color="grey" sx={{ marginLeft: '8px' }} component="span">
             on
             {' '}
-            {dayjs((currentSubscription?.endDate || 0) * 1000).format('MMM DD, YYYY')}
+            {dayjs((currentSubscription?.currentPeriodEndDate || 0) * 1000).format('MMM DD, YYYY')}
           </Text>
         </Container>
       </Group>
