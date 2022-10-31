@@ -32,3 +32,4 @@ yarn-error.log*
 storybook-static
 
 .env
+.env.local

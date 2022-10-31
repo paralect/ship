@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import { memo, FC } from 'react';
-import { accountApi } from 'resources/account';
 import { Menu } from '@mantine/core';
-import { NextLink } from '@mantine/next';
 import { IconUserCircle, IconLogout } from '@tabler/icons';
+
+import { accountApi } from 'resources/account';
 
 import MenuToggle from '../MenuToggle';
 
@@ -16,7 +17,7 @@ const UserMenu: FC = () => {
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Item
-          component={NextLink}
+          component={Link}
           href="/profile"
           icon={<IconUserCircle size={16} />}
         >

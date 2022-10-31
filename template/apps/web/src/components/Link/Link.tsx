@@ -34,7 +34,6 @@ const Link: FC<LinkProps> = ({
       return (
         <NextLink href={href} passHref>
           <Anchor
-            component="a"
             size={size}
             inherit={inherit}
             underline={underline}
