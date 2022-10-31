@@ -38,6 +38,7 @@ interface TableProps {
   sorting?: SortingState;
   onSortingChange?: OnChangeFn<SortingState>;
   onPageChange?: (value: Record<string, any>) => void;
+  page?: number;
   perPage: number;
 }
 
@@ -52,10 +53,11 @@ const Table: FC<TableProps> = ({
   sorting,
   onSortingChange,
   onPageChange,
+  page,
   perPage,
 }) => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: 1,
+    pageIndex: page || 1,
     pageSize: perPage,
   });
   const isSelectable = !!rowSelection && !!setRowSelection;

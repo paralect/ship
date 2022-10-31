@@ -19,6 +19,12 @@ interface Card {
   last4: string,
 }
 
+export enum PaymentStatuses {
+  SUCCEEDED = 'succeeded',
+  PENDING = 'pending',
+  FAILED = 'failed',
+}
+
 export interface CustomerPaymentInformation {
   balance: number,
   billingDetails: BillingDetails,
@@ -27,8 +33,9 @@ export interface CustomerPaymentInformation {
 
 export interface PaymentHistoryItem {
   id: string,
-  product: string,
+  description: string,
   amount: number,
-  status: string,
-  date: string,
+  status: PaymentStatuses,
+  receipt_url: string,
+  created: number,
 }

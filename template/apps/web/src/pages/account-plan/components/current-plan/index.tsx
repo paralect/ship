@@ -7,15 +7,13 @@ import {
   Group,
   Text,
   Title,
-  Stack,
 } from '@mantine/core';
-import { Table, PaymentCard } from 'components';
+import { PaymentCard } from 'components';
 
 import { subscriptionApi } from 'resources/subscription';
 import { accountApi } from 'resources/account';
 
-import type { ColumnDef } from '@tanstack/react-table';
-import type { PaymentHistoryItem } from 'resources/payment';
+import PaymentHistory from '../payment-history';
 
 import { useStyles } from './styles';
 
@@ -26,40 +24,6 @@ const CurrentPlan: FC = () => {
   const { data: paymentInformation } = accountApi.useGetPaymentInformation();
 
   const [isPaymentCardModalOpened, setIsPaymentCardModalOpened] = useState(false);
-
-  const columns: ColumnDef<PaymentHistoryItem>[] = [
-    {
-      accessorKey: 'date',
-      header: 'Date',
-      cell: (info) => info.getValue(),
-    },
-    {
-      accessorKey: 'product',
-      header: 'Plan name',
-      cell: (info) => info.getValue(),
-    },
-    {
-      accessorKey: 'amount',
-      header: 'Amount',
-      cell: (info) => info.getValue(),
-    },
-    {
-      accessorKey: 'status',
-      header: 'Payment status',
-      cell: (info) => info.getValue(),
-    },
-  ];
-
-  const data = {
-    items: [{
-      id: '1',
-      product: 'pro',
-      amount: 9900,
-      status: 'paid',
-      date: '11 10 2011',
-    }],
-    count: 1,
-  };
 
   const paymentMethodForm = useMemo(() => {
     if (isPaymentCardModalOpened) {
@@ -129,16 +93,7 @@ const CurrentPlan: FC = () => {
         grow
         className={classes.section}
       >
-        <Stack sx={{ flex: '1 1' }}>
-          <Text size="md" weight={600}>Payment history</Text>
-
-          <Table
-            columns={columns}
-            data={data.items}
-            dataCount={data.count}
-            perPage={2}
-          />
-        </Stack>
+        <PaymentHistory />
       </Group>
     </>
   );
