@@ -1,7 +1,9 @@
 import { AppKoaContext, AppRouter } from 'types';
 
+import { userService } from 'resources/user';
+
 async function handler(ctx: AppKoaContext) {
-  ctx.body = { ...ctx.state.user, isShadow: Boolean(ctx.state.isShadow) };
+  ctx.body = { ...userService.getPublic(ctx.state.user), isShadow: Boolean(ctx.state.isShadow) };
 }
 
 export default (router: AppRouter) => {

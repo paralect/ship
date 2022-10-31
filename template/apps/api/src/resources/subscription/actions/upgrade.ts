@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import stripe from 'services/stripe/stripe.service';
 
-import { subscriptionService } from 'resources/subscription';
-
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, AppRouter } from 'types';
 
@@ -18,9 +16,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
   const { priceId } = ctx.validatedData;
 
-  const currentSubscription = await subscriptionService.findOne({ customer: user.stripeId || undefined });
-
-  if (!currentSubscription) {
+  if (!user.subscription) {
     ctx.status = 400;
     ctx.message = 'Subscription does not exist';
 
@@ -28,7 +24,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   }
 
   if (priceId === 'price_0') {
-    await stripe.subscriptions.del(currentSubscription.subscriptionId, {
+    await stripe.subscriptions.del(user.subscription.subscriptionId, {
       prorate: true,
     });
 
@@ -36,14 +32,14 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     return;
   }
 
-  const subscriptionDetails = await stripe.subscriptions.retrieve(currentSubscription.subscriptionId);
+  const subscriptionDetails = await stripe.subscriptions.retrieve(user.subscription.subscriptionId);
 
   const items = [{
     id: subscriptionDetails.items.data[0].id,
     price: priceId,
   }];
 
-  await stripe.subscriptions.update(currentSubscription.subscriptionId, {
+  await stripe.subscriptions.update(user.subscription.subscriptionId, {
     proration_behavior: 'always_invoice',
     cancel_at_period_end: false,
     items,

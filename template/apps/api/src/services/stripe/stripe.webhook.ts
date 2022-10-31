@@ -1,7 +1,6 @@
 import Stripe from 'stripe';
 
 import { userService, userHelper } from 'resources/user';
-import { subscriptionService } from 'resources/subscription';
 
 export default function (event: Stripe.Event) {
   switch (event.type) {
@@ -12,9 +11,9 @@ export default function (event: Stripe.Event) {
       userHelper.updateDefaultPaymentMethod(event.data.object);
       return;
     case 'customer.subscription.updated':
-      subscriptionService.updateSubscription(event.data.object);
+      userService.updateSubscription(event.data.object);
       return;
     case 'customer.subscription.deleted':
-      subscriptionService.deleteSubscription(event.data.object);
+      userService.deleteSubscription(event.data.object);
   }
 }

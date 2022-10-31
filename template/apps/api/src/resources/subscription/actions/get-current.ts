@@ -1,21 +1,18 @@
 import { AppKoaContext, AppRouter } from 'types';
 
 import stripe from 'services/stripe/stripe.service';
-import { subscriptionService } from 'resources/subscription';
 
 async function handler(ctx: AppKoaContext) {
   const { user } = ctx.state;
 
-  if (user.stripeId) {
-    const subscription = await subscriptionService.findOne({ customer: user.stripeId });
-
-    const product = await stripe.products.retrieve(subscription?.productId as string);
+  if (user.subscription) {
+    const product = await stripe.products.retrieve(user.subscription.productId);
     const pendingInvoice = await stripe.invoices.retrieveUpcoming({
-      subscription: subscription?.subscriptionId as string,
+      subscription: user.subscription?.subscriptionId,
     });
 
     ctx.body = {
-      ...subscription,
+      ...user.subscription,
       product,
       pendingInvoice: {
         subtotal: pendingInvoice.subtotal,
