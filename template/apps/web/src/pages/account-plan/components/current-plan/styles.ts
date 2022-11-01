@@ -5,4 +5,7 @@ export const useStyles = createStyles((theme) => ({
     padding: '32px 0',
     borderBottom: `1px solid ${theme.colors.gray[4]}`,
   },
+  hidden: {
+    display: 'none',
+  },
 }));

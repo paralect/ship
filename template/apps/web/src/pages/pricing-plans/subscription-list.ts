@@ -24,8 +24,8 @@ export const subscriptionItems: SubscriptionItemType[] = [
       'Onboarding',
       'Unlimited Growthflags',
       'Unlimited A/B tests',
-      '**Up to 3** product users',
-      '**Up to 2K** MAU',
+      'Up to 3 product users',
+      'Up to 2K MAU',
     ],
   },
   {
@@ -42,8 +42,8 @@ export const subscriptionItems: SubscriptionItemType[] = [
       'Onboarding',
       'Unlimited Growthflags',
       'Unlimited A/B tests',
-      '**Up to 10** product users',
-      '**Up to 10K** MAU',
+      'Up to 10 product users',
+      'Up to 10K MAU',
     ],
   },
   {
@@ -60,8 +60,8 @@ export const subscriptionItems: SubscriptionItemType[] = [
       'Onboarding',
       'Unlimited Growthflags',
       'Unlimited A/B tests',
-      '**Unlimited** product users',
-      '**Up to 100K** MAU',
+      'Unlimited product users',
+      'Up to 100K MAU',
     ],
   },
 ];

@@ -18,8 +18,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const session = await stripeService.checkout.sessions.create({
     mode: 'subscription',
-    customer: user.stripeId || undefined,
-    customer_email: user.stripeId ? undefined : user.email,
+    customer: user.stripeId as string,
     line_items: [{
       quantity: 1,
       price: priceId,
@@ -28,11 +27,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     cancel_url: config.webUrl,
   });
 
-  if (!session.url) {
-    ctx.status = 503;
-
-    return null;
-  }
+  ctx.assertClientError(session.url, { global: 'Unable to retrieve session url' }, 503);
 
   ctx.body = { checkoutLink: session.url };
 }

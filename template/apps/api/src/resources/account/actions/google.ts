@@ -1,4 +1,6 @@
 import config from 'config';
+import db from 'db';
+
 import { userService } from 'resources/user';
 import { googleService, authService, stripeService } from 'services';
 import { AppRouter, AppKoaContext } from 'types';
@@ -43,27 +45,34 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
     ]);
 
   } else {
-    const newUser = await userService.insertOne({
-      firstName: payload.given_name,
-      lastName: payload.family_name,
-      fullName: `${payload.given_name} ${payload.family_name}`,
-      email: payload.email,
-      isEmailVerified: true,
-      avatarUrl: payload.picture,
-      oauth: {
-        google: true,
-      },
+    await db.database.withTransaction(async (session) => {
+      const newUser = await userService.insertOne(
+        {
+          firstName: payload.given_name,
+          lastName: payload.family_name,
+          fullName: `${payload.given_name} ${payload.family_name}`,
+          email: payload.email,
+          isEmailVerified: true,
+          avatarUrl: payload.picture,
+          oauth: {
+            google: true,
+          },
+        },
+        {},
+        { session },
+      );
+  
+  
+      if (newUser) {
+        await stripeService.createAndAttachStripeAccount(newUser, session);
+
+        await Promise.all([
+          userService.updateLastRequest(newUser._id),
+          authService.setTokens(ctx, newUser._id),
+        ]);
+  
+      }
     });
-
-
-    if (newUser) {
-      await Promise.all([
-        userService.updateLastRequest(newUser._id),
-        authService.setTokens(ctx, newUser._id),
-      ]);
-
-      stripeService.createAndAttachStripeAccount(newUser);
-    }
   }
   ctx.redirect(config.webUrl);
 };

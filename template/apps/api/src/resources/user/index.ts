@@ -1,5 +1,4 @@
 import userService from './user.service';
-import userHelper from './user.helper';
 import userSchema from './user.schema';
 import userRoutes from './user.routes';
 
@@ -10,6 +9,5 @@ export * from './user.types';
 export {
   userSchema,
   userService,
-  userHelper,
   userRoutes,
 };

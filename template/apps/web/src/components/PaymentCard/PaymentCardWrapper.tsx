@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useLayoutEffect } from 'react';
 import config from 'config';
 
 import {
@@ -13,17 +13,28 @@ import PaymentCard, { PaymentCardPropTypes } from './PaymentCard';
 
 const stripePromise = loadStripe(config.stripePublicKey);
 const StripeElementProvider: FC<PaymentCardPropTypes> = (props) => {
-  const { data: paymentIntent, isFetched } = paymentApi.useSetupPaymentIntent();
+  const { onCancel } = props;
+  const { data: paymentIntent, isFetched, isError } = paymentApi.useSetupPaymentIntent();
+
+  useLayoutEffect(() => {
+    if (isError) {
+      onCancel();
+    }
+  }, [isError, onCancel]);
 
   if (!isFetched) {
     return <Loader />;
+  }
+
+  if (!paymentIntent?.clientSecret) {
+    return null;
   }
 
   return (
     <StripeProvider
       stripe={stripePromise}
       options={{
-        clientSecret: paymentIntent.clientSecret,
+        clientSecret: paymentIntent?.clientSecret,
       }}
     >
       <PaymentCard {...props} />

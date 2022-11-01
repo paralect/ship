@@ -1,21 +1,20 @@
+import { AppKoaContext, AppRouter, Next } from 'types';
+
 import { stripeService } from 'services';
 
-import { AppKoaContext, AppRouter } from 'types';
+async function validator(ctx: AppKoaContext, next: Next) {
+  const { user } = ctx.state;
+
+  ctx.assertClientError(user.stripeId, { global: 'Customer does not have a stripe account' }, 500);
+
+  await next();
+}
 
 async function handler(ctx: AppKoaContext) {
   const { user } = ctx.state;
 
-  if (!user.stripeId) {
-    // TODO: Create stripe user during registration?
-
-    ctx.status = 400;
-    ctx.message = 'Customer does not have stripe account';
-
-    return;
-  }
-
   const setupIntent = await stripeService.setupIntents.create({
-    customer: user.stripeId,
+    customer: user.stripeId || undefined,
     payment_method_types: ['card'],
   });
 
@@ -23,5 +22,5 @@ async function handler(ctx: AppKoaContext) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/create-setup-intent', handler);
+  router.post('/create-setup-intent', validator, handler);
 };

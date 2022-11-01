@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { stripeService } from 'services';
 
-import { AppKoaContext, AppRouter } from 'types';
+import { AppKoaContext, AppRouter, Next } from 'types';
 import { validateMiddleware } from 'middlewares';
 
 const schema = z.object({
@@ -11,20 +11,20 @@ const schema = z.object({
 
 type ValidatedData = z.infer<typeof schema>;
 
+async function validator(ctx: AppKoaContext, next: Next) {
+  const { user } = ctx.state;
+
+  ctx.assertClientError(user.stripeId, { global: 'Customer does not have a stripe account' }, 500);
+
+  await next();
+}
+
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { page, perPage } = ctx.validatedData;
   const { user } = ctx.state;
 
-  if (!user.stripeId) {
-    // TODO: Create stripe user during registration?
-
-    ctx.body = [];
-
-    return;
-  }
-
   const results = [];
-  for await (const charge of stripeService.charges.list({ limit: 100, customer: user.stripeId })) {
+  for await (const charge of stripeService.charges.list({ limit: 100, customer: user.stripeId || undefined })) {
     results.push(charge);
   }
 
@@ -36,5 +36,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.get('/get-history', validateMiddleware(schema), handler);
+  router.get('/get-history', validateMiddleware(schema), validator, handler);
 };

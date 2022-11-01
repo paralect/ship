@@ -1,18 +1,19 @@
 import { stripeService } from 'services';
 
-import { AppKoaContext, AppRouter } from 'types';
+import { AppKoaContext, AppRouter, Next } from 'types';
+
+async function validator(ctx: AppKoaContext, next: Next) {
+  const { user } = ctx.state;
+
+  ctx.assertClientError(user.subscription, { global: 'Subscription does not exist' }, 400);
+
+  await next();
+}
 
 async function handler(ctx: AppKoaContext) {
   const { user } = ctx.state;
 
-  if (!user.subscription) {
-    ctx.status = 400;
-    ctx.message = 'Subscription does not exist';
-
-    return;
-  }
-
-  await stripeService.subscriptions.update(user.subscription.subscriptionId, {
+  await stripeService.subscriptions.update(user.subscription?.subscriptionId as string, {
     cancel_at_period_end: true,
   });
 
@@ -20,5 +21,5 @@ async function handler(ctx: AppKoaContext) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/cancel-subscription', handler);
+  router.post('/cancel-subscription', validator, handler);
 };

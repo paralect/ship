@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { stripeService } from 'services';
+import { AppKoaContext, AppRouter, Next } from 'types';
 
+import { stripeService } from 'services';
 import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, AppRouter } from 'types';
 
 const schema = z.object({
   priceId: z.string()
@@ -12,19 +12,22 @@ const schema = z.object({
 
 type ValidatedData = z.infer<typeof schema>;
 
+async function validator(ctx: AppKoaContext, next: Next) {
+  const { user } = ctx.state;
+
+  ctx.assertClientError(user.subscription, { global: 'Customer does not have a stripe account' }, 400);
+
+  await next();
+}
+
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
   const { priceId } = ctx.validatedData;
 
-  if (!user.subscription) {
-    ctx.status = 400;
-    ctx.message = 'Subscription does not exist';
-
-    return;
-  }
+  const subscriptionId = user.subscription?.subscriptionId as string;
 
   if (priceId === 'price_0') {
-    await stripeService.subscriptions.del(user.subscription.subscriptionId, {
+    await stripeService.subscriptions.del(subscriptionId, {
       prorate: true,
     });
 
@@ -32,14 +35,14 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     return;
   }
 
-  const subscriptionDetails = await stripeService.subscriptions.retrieve(user.subscription.subscriptionId);
+  const subscriptionDetails = await stripeService.subscriptions.retrieve(subscriptionId);
 
   const items = [{
     id: subscriptionDetails.items.data[0].id,
     price: priceId,
   }];
 
-  await stripeService.subscriptions.update(user.subscription.subscriptionId, {
+  await stripeService.subscriptions.update(subscriptionId, {
     proration_behavior: 'always_invoice',
     cancel_at_period_end: false,
     items,
@@ -49,5 +52,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/upgrade', validateMiddleware(schema), handler);
+  router.post('/upgrade', validateMiddleware(schema), validator, handler);
 };

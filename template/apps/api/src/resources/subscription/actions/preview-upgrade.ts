@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { stripeService } from 'services';
+import { AppKoaContext, AppRouter, Next } from 'types';
 
+import { stripeService } from 'services';
 import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, AppRouter } from 'types';
 
 const schema = z.object({
   priceId: z.string()
@@ -12,18 +12,19 @@ const schema = z.object({
 
 type ValidatedData = z.infer<typeof schema>;
 
+async function validator(ctx: AppKoaContext, next: Next) {
+  const { user } = ctx.state;
+
+  ctx.assertClientError(user.subscription, { global: 'Subscription does not exist' }, 400);
+
+  await next();
+}
+
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
   const { priceId } = ctx.validatedData;
 
-  if (!user.subscription) {
-    ctx.status = 400;
-    ctx.message = 'Subscription does not exist';
-
-    return;
-  }
-
-  const subscriptionDetails = await stripeService.subscriptions.retrieve(user.subscription.subscriptionId);
+  const subscriptionDetails = await stripeService.subscriptions.retrieve(user.subscription?.subscriptionId as string);
 
   let items: any;
 
@@ -32,7 +33,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
       id: subscriptionDetails.items.data[0].id,
       price_data: {
         currency: 'USD',
-        product: user.subscription.productId,
+        product: user.subscription?.productId,
         recurring: {
           interval: subscriptionDetails.items.data[0].price.recurring?.interval,
           interval_count: 1,
@@ -49,7 +50,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const invoice = await stripeService.invoices.retrieveUpcoming({
     customer: user.stripeId || undefined,
-    subscription: user.subscription.subscriptionId,
+    subscription: user.subscription?.subscriptionId,
     subscription_items: items,
     subscription_proration_behavior: 'always_invoice',
   });
@@ -58,5 +59,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.get('/preview-upgrade', validateMiddleware(schema), handler);
+  router.get('/preview-upgrade', validateMiddleware(schema), validator, handler);
 };

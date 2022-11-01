@@ -11,7 +11,6 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import ReactMarkdown from 'react-markdown';
 import { IconCheck } from '@tabler/icons';
 
 import { subscriptionApi } from 'resources/subscription';
@@ -102,7 +101,7 @@ const PlanItem: FC<PlanItemPropTypes> = (props) => {
       >
         <IconCheck size={14} className={classes.icon} />
         <Space w={8} />
-        <ReactMarkdown components={{ p: 'div' }}>{item}</ReactMarkdown>
+        <Text>{item}</Text>
       </Container>
     )),
     [classes.icon, plan.features],

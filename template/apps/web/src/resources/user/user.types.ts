@@ -1,3 +1,5 @@
+import { Subscription } from 'resources/subscription';
+
 export interface User {
   _id: string;
   createdOn?: Date;
@@ -13,6 +15,7 @@ export interface User {
   signupToken: string | null;
   resetPasswordToken?: string | null;
   avatarUrl?: string | null;
+  subscription: Subscription;
   lastRequest?: Date;
   oauth?: {
     google: boolean

@@ -5,10 +5,11 @@ import logger from 'logger';
 
 import { userService } from 'resources/user';
 import type { User } from 'resources/user';
+import type { ClientSession } from '@paralect/node-mongo';
 
-const stripe = new Stripe(config.STRIPE_API_KEY, { typescript: true, apiVersion: '2022-08-01' });
+const stripe = new Stripe(config.stripe.apiKey, { typescript: true, apiVersion: '2022-08-01' });
 
-const createAndAttachStripeAccount = async (user: User): Promise<void> => {
+const createAndAttachStripeAccount = async (user: User, session?: ClientSession): Promise<void> => {
   try {
     const customer = await stripe.customers.create({
       email: user.email,
@@ -22,13 +23,16 @@ const createAndAttachStripeAccount = async (user: User): Promise<void> => {
           stripeId: customer.id,
         },
       },
+      {},
+      { session },
     );
   } catch (error) {
     logger.error(`Error creating stripe account for user ${user._id}`, error);
+    throw error;
   }
 };
 
-export default Object.assign({}, {
+export default {
   ...stripe,
   createAndAttachStripeAccount,
-});
+};

@@ -4,10 +4,10 @@ import { apiService } from 'services';
 
 import type { Subscription } from './subscription.types';
 
-export function useGetCurrent() {
+export function useGetDetails() {
   const getCurrent = () => apiService.get('subscriptions/current');
 
-  return useQuery<Subscription>(['currentSubscription'], getCurrent);
+  return useQuery<Subscription>(['subscriptionDetails'], getCurrent);
 }
 
 export function useSubscribe<T>() {

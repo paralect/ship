@@ -8,7 +8,8 @@ import {
   Text,
 } from '@mantine/core';
 
-import { subscriptionApi, subscriptionConstants } from 'resources/subscription';
+import { accountApi } from 'resources/account';
+import { subscriptionConstants } from 'resources/subscription';
 import { subscriptionItems } from 'pages/pricing-plans/subscription-list';
 import type { SubscriptionItemType } from 'pages/pricing-plans/subscription-list';
 
@@ -16,7 +17,7 @@ import PlanItem from '../plan-item';
 import UpgradeModal from '../upgrade-modal';
 
 const Plans: FC = () => {
-  const { data: currentSubscription } = subscriptionApi.useGetCurrent();
+  const { data: account } = accountApi.useGet();
 
   const [interval, setInterval] = useState(subscriptionConstants.Intervals.Year);
   const [selectedUpgradePlan, setSelectedUpgradePlan] = useState();
@@ -24,7 +25,7 @@ const Plans: FC = () => {
   const renderItems = () => subscriptionItems.map((item: SubscriptionItemType) => (
     <PlanItem
       key={item.priceId[interval]}
-      currentSubscription={currentSubscription}
+      currentSubscription={account?.subscription}
       interval={interval}
       onPreviewUpgrade={setSelectedUpgradePlan}
       plan={item}

@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 
 import { apiService } from 'services';
+import { handleError } from 'utils';
 
 import type { CustomerPaymentInformation, PaymentHistoryItem } from './payment.types';
 
@@ -25,5 +26,7 @@ export function useGetPaymentHistory<T>(params: T) {
 export function useSetupPaymentIntent() {
   const setupPaymentIntent = () => apiService.post('payments/create-setup-intent');
 
-  return useQuery(['paymentIntent'], setupPaymentIntent);
+  return useQuery(['paymentIntent'], setupPaymentIntent, {
+    onError: handleError,
+  });
 }
