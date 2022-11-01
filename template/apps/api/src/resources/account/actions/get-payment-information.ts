@@ -19,10 +19,12 @@ async function handler(ctx: AppKoaContext) {
       return;
     }
 
+    const card = paymentInformation.invoice_settings.default_payment_method?.card;
+
     ctx.body = {
       balance: paymentInformation.balance,
       billingDetails: paymentInformation.invoice_settings.default_payment_method?.billing_details,
-      card: _.pick(paymentInformation.invoice_settings.default_payment_method?.card, publicCardFields),
+      card: card && _.pick(card, publicCardFields),
     };
 
     return;

@@ -54,40 +54,44 @@ const CurrentPlan: FC = () => {
       <Group
         className={classes.section}
       >
-        <Container sx={{ flex: '1 1' }} px={0}>
+        <Container sx={{ flex: '1 1', margin: 0 }} px={0}>
           <Text size="lg" weight={600}>Current plan</Text>
-          <Title order={1}>{currentSubscription?.product?.name}</Title>
+          <Title order={1}>{currentSubscription?.product?.name || 'Basic'}</Title>
         </Container>
-        <Container sx={{ flex: '2 1' }} px={0}>
-          <Text size="lg" weight={600}>Next payment</Text>
-          <Title sx={{ display: 'inline' }} order={1}>
-            $
-            {(currentSubscription?.pendingInvoice?.amountDue || 0) / 100}
-          </Title>
-          <Text color="grey" sx={{ marginLeft: '8px' }} component="span">
-            on
-            {' '}
-            {dayjs((currentSubscription?.currentPeriodEndDate || 0) * 1000).format('MMM DD, YYYY')}
-          </Text>
-        </Container>
+        {currentSubscription && (
+          <Container sx={{ flex: '2 1' }} px={0}>
+            <Text size="lg" weight={600}>Next payment</Text>
+            <Title sx={{ display: 'inline' }} order={1}>
+              $
+              {(currentSubscription?.pendingInvoice?.amountDue || 0) / 100}
+            </Title>
+            <Text color="grey" sx={{ marginLeft: '8px' }} component="span">
+              on
+              {' '}
+              {dayjs((currentSubscription?.currentPeriodEndDate || 0) * 1000).format('MMM DD, YYYY')}
+            </Text>
+          </Container>
+        )}
       </Group>
 
-      <Group
-        className={classes.section}
-      >
-        <Container sx={{ flex: '1 1' }} px={0}>
-          <Text size="md" weight={600}>Payment method</Text>
-          <Text color="grey">
-            {paymentInformation?.card.brand}
-            {' '}
-            ****
-            {paymentInformation?.card.last4}
-          </Text>
-        </Container>
-        <Container sx={{ flex: '2 1' }} px={0}>
-          {paymentMethodForm}
-        </Container>
-      </Group>
+      {paymentInformation?.card && (
+        <Group
+          className={classes.section}
+        >
+          <Container sx={{ flex: '1 1' }} px={0}>
+            <Text size="md" weight={600}>Payment method</Text>
+            <Text color="grey">
+              {paymentInformation?.card.brand}
+              {' '}
+              ****
+              {paymentInformation?.card.last4}
+            </Text>
+          </Container>
+          <Container sx={{ flex: '2 1' }} px={0}>
+            {paymentMethodForm}
+          </Container>
+        </Group>
+      )}
 
       <Group
         grow

@@ -83,6 +83,10 @@ const PaymentHistory: FC = () => {
       ));
     }
 
+    if (!paymentHistory?.data.length) {
+      return <Text>Payment history is empty</Text>;
+    }
+
     return (
       <Table
         columns={columns}
