@@ -1,6 +1,7 @@
 import { AppKoa } from 'types';
 
 import tryToAttachUser from './middlewares/try-to-attach-user.middleware';
+import createStripeUserIfNotExists from './middlewares/createStripeUserIfNotExists.middleware';
 import extractTokens from './middlewares/extract-tokens.middleware';
 import attachCustomErrors from './middlewares/attach-custom-errors.middleware';
 import routeErrorHandler from './middlewares/route-error-handler.middleware';
@@ -11,11 +12,13 @@ import adminRoutes from './admin.routes';
 const defineRoutes = (app: AppKoa) => {
   app.use(attachCustomErrors);
   app.use(routeErrorHandler);
-
   app.use(extractTokens);
   app.use(tryToAttachUser);
-
+  
   publicRoutes(app);
+
+  app.use(createStripeUserIfNotExists);
+
   privateRoutes(app);
   adminRoutes(app);
 };
