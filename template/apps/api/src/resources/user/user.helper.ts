@@ -1,11 +1,16 @@
 import logger from 'logger';
 import stripe from 'services/stripe/stripe.service';
 
-const updateDefaultPaymentMethod = async (data: any) => {
+type PaymentMethodType = {
+  customer: string,
+  paymentMethod: string,
+};
+
+const updateDefaultPaymentMethod = async (data: PaymentMethodType) => {
   try {
     await stripe.customers.update(data.customer, {
       invoice_settings: {
-        default_payment_method: data.payment_method,
+        default_payment_method: data.paymentMethod,
       },
     });
   } catch (error) {

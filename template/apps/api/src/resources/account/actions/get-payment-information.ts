@@ -10,17 +10,19 @@ async function handler(ctx: AppKoaContext) {
   const { user } = ctx.state;
 
   if (user.stripeId) {
-    // TODO: Check what info will be stored in
-    // those fields when customer updates his card
-    // using our application
     const paymentInformation: any = await stripe.customers.retrieve(user.stripeId, {
-      expand: ['invoice_settings.default_payment_method', 'default_source'],
+      expand: ['invoice_settings.default_payment_method'],
     });
+
+    if (!paymentInformation) {
+      ctx.body = null;
+      return;
+    }
 
     ctx.body = {
       balance: paymentInformation.balance,
-      billingDetails: paymentInformation.invoice_settings.default_payment_method.billing_details,
-      card: _.pick(paymentInformation.invoice_settings.default_payment_method.card, publicCardFields),
+      billingDetails: paymentInformation.invoice_settings.default_payment_method?.billing_details,
+      card: _.pick(paymentInformation.invoice_settings.default_payment_method?.card, publicCardFields),
     };
 
     return;
