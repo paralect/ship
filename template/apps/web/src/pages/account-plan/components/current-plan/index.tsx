@@ -11,7 +11,7 @@ import {
 import { PaymentCard } from 'components';
 
 import { subscriptionApi } from 'resources/subscription';
-import { accountApi } from 'resources/account';
+import { paymentApi } from 'resources/payment';
 
 import PaymentHistory from '../payment-history';
 
@@ -21,7 +21,7 @@ const CurrentPlan: FC = () => {
   const { classes } = useStyles();
 
   const { data: currentSubscription } = subscriptionApi.useGetCurrent();
-  const { data: paymentInformation } = accountApi.useGetPaymentInformation();
+  const { data: paymentInformation } = paymentApi.useGetPaymentInformation();
 
   const [isPaymentCardModalOpened, setIsPaymentCardModalOpened] = useState(false);
 

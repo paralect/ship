@@ -4,7 +4,6 @@ import queryClient from 'query-client';
 import { apiService } from 'services';
 
 import type { User } from 'resources/user';
-import type { CustomerPaymentInformation } from 'resources/payment';
 
 export function useSignIn<T>() {
   const signIn = (data: T) => apiService.post('/account/sign-in', data);
@@ -84,10 +83,4 @@ export function useRemoveAvatar() {
       queryClient.setQueryData(['account'], data);
     },
   });
-}
-
-export function useGetPaymentInformation() {
-  const getPaymentInformation = () => apiService.get('/account/payment-information');
-
-  return useQuery<CustomerPaymentInformation>(['paymentInformation'], getPaymentInformation);
 }
