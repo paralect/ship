@@ -1,5 +1,5 @@
 import logger from 'logger';
-import stripe from 'services/stripe/stripe.service';
+import { stripeService } from 'services';
 
 type PaymentMethodType = {
   customer: string,
@@ -8,7 +8,7 @@ type PaymentMethodType = {
 
 const updateDefaultPaymentMethod = async (data: PaymentMethodType) => {
   try {
-    await stripe.customers.update(data.customer, {
+    await stripeService.customers.update(data.customer, {
       invoice_settings: {
         default_payment_method: data.paymentMethod,
       },

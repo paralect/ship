@@ -1,6 +1,6 @@
 import config from 'config';
 import { z } from 'zod';
-import stripe from 'services/stripe/stripe.service';
+import { stripeService } from 'services';
 
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, AppRouter } from 'types';
@@ -16,7 +16,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
   const { priceId } = ctx.validatedData;
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await stripeService.checkout.sessions.create({
     mode: 'subscription',
     customer: user.stripeId || undefined,
     customer_email: user.stripeId ? undefined : user.email,

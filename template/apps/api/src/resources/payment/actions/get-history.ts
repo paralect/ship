@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import stripe from 'services/stripe/stripe.service';
+import { stripeService } from 'services';
 
 import { AppKoaContext, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
@@ -24,7 +24,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   }
 
   const results = [];
-  for await (const charge of stripe.charges.list({ limit: 100, customer: user.stripeId })) {
+  for await (const charge of stripeService.charges.list({ limit: 100, customer: user.stripeId })) {
     results.push(charge);
   }
 

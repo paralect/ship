@@ -1,9 +1,10 @@
 import { z } from 'zod';
-
 import config from 'config';
-import { authService, emailService } from 'services';
-import { validateMiddleware } from 'middlewares';
+
 import { AppKoaContext, Next, AppRouter } from 'types';
+
+import { validateMiddleware } from 'middlewares';
+import { authService, emailService, stripeService } from 'services';
 import { userService, User } from 'resources/user';
 
 const schema = z.object({
@@ -40,6 +41,8 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     actionLink: `${config.webUrl}/sign-in`,
     actionText: 'Sign in',
   });
+
+  stripeService.createAndAttachStripeAccount(user);
 
   ctx.redirect(config.webUrl);
 }

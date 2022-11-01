@@ -5,9 +5,6 @@ import { subscriptionHelper } from 'resources/subscription';
 
 export default function (event: Stripe.Event) {
   switch (event.type) {
-    case 'customer.created':
-      userService.attachStripeCustomerId(event.data.object);
-      return;
     case 'setup_intent.succeeded':
       const setupIntent = event.data.object as Stripe.SetupIntent;
       userHelper.updateDefaultPaymentMethod({

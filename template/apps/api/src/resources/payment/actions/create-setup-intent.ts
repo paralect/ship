@@ -1,4 +1,4 @@
-import stripe from 'services/stripe/stripe.service';
+import { stripeService } from 'services';
 
 import { AppKoaContext, AppRouter } from 'types';
 
@@ -14,7 +14,7 @@ async function handler(ctx: AppKoaContext) {
     return;
   }
 
-  const setupIntent = await stripe.setupIntents.create({
+  const setupIntent = await stripeService.setupIntents.create({
     customer: user.stripeId,
     payment_method_types: ['card'],
   });

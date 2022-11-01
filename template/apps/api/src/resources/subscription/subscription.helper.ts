@@ -1,5 +1,5 @@
 import logger from 'logger';
-import stripe from 'services/stripe/stripe.service';
+import { stripeService } from 'services';
 
 import { userService } from 'resources/user';
 
@@ -13,7 +13,7 @@ const updateSubscriptionPaymentMethod = async (data: PaymentMethodType) => {
     const user = await userService.findOne({ stripeId: data.customer });
 
     if (user?.subscription?.subscriptionId) {
-      await stripe.subscriptions.update(user?.subscription?.subscriptionId, {
+      await stripeService.subscriptions.update(user?.subscription?.subscriptionId, {
         default_payment_method: data.paymentMethod,
       });
     }

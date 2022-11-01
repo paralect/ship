@@ -1,6 +1,6 @@
 import config from 'config';
 import { userService } from 'resources/user';
-import { googleService, authService } from 'services';
+import { googleService, authService, stripeService } from 'services';
 import { AppRouter, AppKoaContext } from 'types';
 
 type ValidatedData = {
@@ -61,6 +61,8 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
         userService.updateLastRequest(newUser._id),
         authService.setTokens(ctx, newUser._id),
       ]);
+
+      stripeService.createAndAttachStripeAccount(newUser);
     }
   }
   ctx.redirect(config.webUrl);

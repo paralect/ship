@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import stripe from 'services/stripe/stripe.service';
+import { stripeService } from 'services';
 
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, AppRouter } from 'types';
@@ -23,7 +23,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     return;
   }
 
-  const subscriptionDetails = await stripe.subscriptions.retrieve(user.subscription.subscriptionId);
+  const subscriptionDetails = await stripeService.subscriptions.retrieve(user.subscription.subscriptionId);
 
   let items: any;
 
@@ -47,7 +47,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     }];
   }
 
-  const invoice = await stripe.invoices.retrieveUpcoming({
+  const invoice = await stripeService.invoices.retrieveUpcoming({
     customer: user.stripeId || undefined,
     subscription: user.subscription.subscriptionId,
     subscription_items: items,

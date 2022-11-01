@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import { AppKoaContext, AppRouter } from 'types';
 
-import stripe from 'services/stripe/stripe.service';
+import { stripeService } from 'services';
 
 const publicCardFields = ['brand', 'exp_month', 'exp_year', 'last4'];
 
@@ -10,7 +10,7 @@ async function handler(ctx: AppKoaContext) {
   const { user } = ctx.state;
 
   if (user.stripeId) {
-    const paymentInformation: any = await stripe.customers.retrieve(user.stripeId, {
+    const paymentInformation: any = await stripeService.customers.retrieve(user.stripeId, {
       expand: ['invoice_settings.default_payment_method'],
     });
 

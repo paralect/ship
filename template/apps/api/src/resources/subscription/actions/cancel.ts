@@ -1,4 +1,4 @@
-import stripe from 'services/stripe/stripe.service';
+import { stripeService } from 'services';
 
 import { AppKoaContext, AppRouter } from 'types';
 
@@ -12,7 +12,7 @@ async function handler(ctx: AppKoaContext) {
     return;
   }
 
-  await stripe.subscriptions.update(user.subscription.subscriptionId, {
+  await stripeService.subscriptions.update(user.subscription.subscriptionId, {
     cancel_at_period_end: true,
   });
 
