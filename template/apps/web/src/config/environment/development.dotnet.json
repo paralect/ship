@@ -2,14 +2,15 @@
   "apiUrl": "http://localhost:3001",
   "wsUrl": "http://localhost:3003",
   "webUrl": "http://localhost:3002",
+  "stripePublicKey": "pk_test_51Lp7VnIqrmVCYktKsZAzKncNrvpo4Zsf4hVFKF7jyML3kUnuLZfDSIoNCUWWC4IVNLY6ywmCEYRFT5yUgpR9wSWp000JmvSmOU",
   "subscriptions": {
     "starter": {
-      "month": "price_1LvIwjDgd1tzhAXhGwvrRWai",
-      "year": "price_1LvIwjDgd1tzhAXhEaS9AsE3"
+      "month": "price_1LzJTsIqrmVCYktKPgcqPAcH",
+      "year": "price_1LzJTsIqrmVCYktKGDEjrfLH"
     },
     "pro": {
-      "month": "price_1LvIxzDgd1tzhAXhlVkSJAN8",
-      "year": "price_1LvIxzDgd1tzhAXhWO9IMklL"
+      "month": "price_1LzJUWIqrmVCYktKQ512rEai",
+      "year": "price_1LzJUWIqrmVCYktK2pU6Cr72"
     }
   }
 }
