@@ -28,5 +28,5 @@ async function handler(ctx: AppKoaContext) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/webhook', handler);
+  router.post('/stripe', handler);
 };
