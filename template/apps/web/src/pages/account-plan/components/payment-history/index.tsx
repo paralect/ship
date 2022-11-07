@@ -1,5 +1,6 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useEffect, useCallback, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
+import queryClient from 'query-client';
 
 import {
   Badge,
@@ -10,16 +11,11 @@ import {
 import { Table, Link } from 'components';
 import { IconExternalLink } from '@tabler/icons';
 
-import { paymentApi, PaymentHistoryItem, PaymentStatuses } from 'resources/payment';
+import { paymentApi, PaymentHistoryItem, PaymentStatuses, StripePagination } from 'resources/payment';
 
 import type { ColumnDef } from '@tanstack/react-table';
 
 const PER_PAGE = 5;
-
-interface PaymentHistoryParams {
-  page?: number;
-  perPage?: number;
-}
 
 const badgeColorMap = {
   [PaymentStatuses.SUCCEEDED]: 'green',
@@ -28,12 +24,18 @@ const badgeColorMap = {
 };
 
 const PaymentHistory: FC = () => {
-  const [params, setParams] = useState<PaymentHistoryParams>({ page: 1, perPage: PER_PAGE });
+  const [params, setParams] = useState<StripePagination>({ page: 1, perPage: PER_PAGE });
 
   const {
     data: paymentHistory,
     isFetching,
+    remove,
   } = paymentApi.useGetPaymentHistory(params);
+
+  useEffect(() => () => {
+    remove();
+    queryClient.removeQueries('paymentHistoryCursorId');
+  }, [remove]);
 
   const columns: ColumnDef<PaymentHistoryItem>[] = useMemo(() => [
     {
@@ -89,9 +91,10 @@ const PaymentHistory: FC = () => {
 
     return (
       <Table
+        isStripeTable
         columns={columns}
         data={paymentHistory?.data || []}
-        dataCount={paymentHistory?.count}
+        hasMore={paymentHistory?.hasMore}
         page={params.page}
         perPage={PER_PAGE}
         onPageChange={setParams}

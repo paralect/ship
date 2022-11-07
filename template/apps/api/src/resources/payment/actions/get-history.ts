@@ -4,8 +4,19 @@ import { stripeService } from 'services';
 import { AppKoaContext, AppRouter, Next } from 'types';
 import { validateMiddleware } from 'middlewares';
 
+enum PageDirections {
+  BACK = 'back',
+  FORWARD = 'forward',
+}
+
+const stripeDirectionMap = {
+  [PageDirections.BACK]: 'ending_before',
+  [PageDirections.FORWARD]: 'starting_after',
+};
+
 const schema = z.object({
-  page: z.string().transform(Number).default('1'),
+  cursorId: z.string().optional(),
+  direction: z.enum([PageDirections.BACK, PageDirections.FORWARD]).default(PageDirections.FORWARD),
   perPage: z.string().transform(Number).default('5'),
 });
 
@@ -20,18 +31,20 @@ async function validator(ctx: AppKoaContext, next: Next) {
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
-  const { page, perPage } = ctx.validatedData;
+  const { direction, perPage, cursorId } = ctx.validatedData;
   const { user } = ctx.state;
 
-  const results = [];
-  for await (const charge of stripeService.charges.list({ limit: 100, customer: user.stripeId || undefined })) {
-    results.push(charge);
-  }
+  const charges = await stripeService.charges.list({
+    limit: perPage,
+    customer: user.stripeId as string,
+    [stripeDirectionMap[direction]]: cursorId,
+  });
 
   ctx.body = {
-    data: results.slice((page - 1) * perPage, page * perPage),
-    count: results.length,
-    totalPages: Math.ceil(results.length / perPage) || 1,
+    data: charges.data,
+    hasMore: direction === PageDirections.FORWARD ? charges.has_more : true,
+    firstItemId: charges.data[0]?.id,
+    lastItemId: charges.data[charges.data.length - 1]?.id,
   };
 }
 

@@ -2,6 +2,7 @@
 
 import { useMemo, useCallback, useState, FC } from 'react';
 import {
+  Button,
   Table as TableContainer,
   Checkbox,
   Pagination,
@@ -9,6 +10,7 @@ import {
   Text,
   Paper,
 } from '@mantine/core';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
 import {
   ColumnDef,
   flexRender,
@@ -22,8 +24,12 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
+import { StripePageDirections } from 'resources/payment';
+
 import Thead from './thead';
 import Tbody from './tbody';
+
+import { useStyles } from './styles';
 
 type SpacingSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -38,8 +44,10 @@ interface TableProps {
   sorting?: SortingState;
   onSortingChange?: OnChangeFn<SortingState>;
   onPageChange?: (value: Record<string, any>) => void;
-  page?: number;
   perPage: number;
+  page?: number;
+  hasMore?: boolean;
+  isStripeTable?: boolean;
 }
 
 const Table: FC<TableProps> = ({
@@ -55,7 +63,11 @@ const Table: FC<TableProps> = ({
   onPageChange,
   page,
   perPage,
+  hasMore,
+  isStripeTable,
 }) => {
+  const { classes } = useStyles();
+
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: page || 1,
     pageSize: perPage,
@@ -86,11 +98,11 @@ const Table: FC<TableProps> = ({
     pageSize,
   }), [pageIndex, pageSize]);
 
-  const onPageChangeHandler = useCallback((currentPage: any) => {
+  const onPageChangeHandler = useCallback((currentPage: any, direction?: string) => {
     setPagination({ pageIndex: currentPage, pageSize });
 
     if (onPageChange) {
-      onPageChange((prev: Record<string, any>) => ({ ...prev, page: currentPage }));
+      onPageChange((prev: Record<string, any>) => ({ ...prev, page: currentPage, direction }));
     }
   }, [onPageChange, pageSize]);
 
@@ -104,12 +116,48 @@ const Table: FC<TableProps> = ({
     },
     onSortingChange,
     onPaginationChange: onPageChangeHandler,
-    pageCount: Math.ceil((dataCount || 0) / perPage),
+    pageCount: dataCount ? Math.ceil((dataCount || 0) / perPage) : -1,
     manualPagination: true,
     onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
+
+  const renderPagination = useCallback(() => {
+    const { pageIndex } = table.getState().pagination;
+
+    if (isStripeTable) {
+      return (
+        <>
+          <Button
+            className={classes.paginationButton}
+            variant="white"
+            disabled={pageIndex === 1}
+            onClick={() => onPageChangeHandler(pageIndex - 1, StripePageDirections.BACK)}
+          >
+            <IconChevronLeft />
+          </Button>
+          <Button
+            className={classes.paginationButton}
+            variant="white"
+            disabled={!hasMore}
+            onClick={() => onPageChangeHandler(pageIndex + 1, StripePageDirections.FORWARD)}
+          >
+            <IconChevronRight />
+          </Button>
+        </>
+      )
+    }
+
+    return (
+      <Pagination
+        total={table.getPageCount()}
+        page={pageIndex}
+        onChange={onPageChangeHandler}
+        color="black"
+      />
+    )
+  }, [hasMore, isStripeTable, onPageChangeHandler]);
 
   return (
     <>
@@ -130,23 +178,20 @@ const Table: FC<TableProps> = ({
         </TableContainer>
       </Paper>
       <Group position="right">
-        <Text size="sm" color="dimmed">
-          Showing
-          {' '}
-          <b>{table.getRowModel().rows.length}</b>
-          {' '}
-          of
-          {' '}
-          <b>{dataCount}</b>
-          {' '}
-          results
-        </Text>
-        <Pagination
-          total={table.getPageCount()}
-          page={table.getState().pagination.pageIndex}
-          onChange={onPageChangeHandler}
-          color="black"
-        />
+        {dataCount && (
+          <Text size="sm" color="dimmed">
+            Showing
+            {' '}
+            <b>{table.getRowModel().rows.length}</b>
+            {' '}
+            of
+            {' '}
+            <b>{dataCount}</b>
+            {' '}
+            results
+          </Text>
+        )}
+        {renderPagination()}
       </Group>
     </>
   );

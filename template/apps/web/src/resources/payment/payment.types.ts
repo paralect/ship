@@ -25,6 +25,17 @@ export enum PaymentStatuses {
   FAILED = 'failed',
 }
 
+export enum StripePageDirections {
+  BACK = 'back',
+  FORWARD = 'forward',
+}
+
+export type StripePagination = {
+  page?: number,
+  perPage?: number
+  direction?: StripePageDirections,
+};
+
 export interface CustomerPaymentInformation {
   balance: number,
   billingDetails: BillingDetails,
