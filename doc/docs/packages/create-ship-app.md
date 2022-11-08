@@ -6,19 +6,12 @@ sidebar_position: 2
 
 [![npm version](https://badge.fury.io/js/create-ship-app.svg)](https://badge.fury.io/js/create-ship-app)
 
-Simple CLI tool for bootstrapping Ship applications. Downloads actual versions of packages and services from Ship [monorepo](https://github.com/paralect/ship) and configures them to run.
+Simple CLI tool for bootstrapping Ship applications.  
+Downloads actual template from Ship [monorepo](https://github.com/paralect/ship) and configures it to run.
 
 ![Init project](/img/deployment/digital-ocean/init-project.png)
 
-Check out [example](https://github.com/paralect/ship/tree/master/examples/base) of the built Ship application.
-
 ## Build options
-
-### Build type
-
-- Only Frontend - includes [**Web**](/docs/web/overview) service;
-- Only Backend - includes [**API**](/docs/api/overview), [**Scheduler**](/docs/scheduler.md) and [**Migrator**](/docs/migrator.md) services;
-- Full-Stack - includes [**Web**](/docs/web/overview), [**API**](/docs/api/overview), [**Scheduler**](/docs/scheduler.md), [**Migrator**](/docs/migrator.md) and [**Deployment**](/docs/deployment/kubernetes/overview.md) services;
 
 ### API type
 

@@ -26,6 +26,7 @@ You need to set ```APP_ENV``` variable in build args in a place where you deploy
 | APP_ENV       | File          |
 | ------------- | ------------- |
 | development   | development.json  |
+| development-docker   | development-docker.json  |
 | staging       | staging.json  |
 | production    | production.json  |
 
