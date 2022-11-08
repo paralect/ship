@@ -108,6 +108,7 @@ Services include [environment](https://github.com/paralect/ship/blob/master/exam
 | APP_ENV       | File          |
 | ------------- | ------------- |
 | development   | development.json  |
+| development-docker   | development-docker.json  |
 | staging       | staging.json  |
 | production    | production.json  |
 

@@ -8,7 +8,7 @@ Every technological decision is driven by simplicity. We believe that product us
 
 ## Overview
 
-Our technological choices based on the following main tools: [Next.js](https://nextjs.org/), [React Query](https://react-query.tanstack.com/), [Mantine UI](https://mantine.dev/), [Koa.js](https://koajs.com/), [Socket.IO](https://socket.io/), [MongoDB](https://www.mongodb.com/), [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/), [GitHub Actions](https://github.com/features/actions) and [TypeScript](https://www.typescriptlang.org/).
+Our technological choices based on the following main tools: [Next.js](https://nextjs.org/), [React Query](https://react-query.tanstack.com/), [Mantine UI](https://mantine.dev/), [Koa.js](https://koajs.com/), [Socket.IO](https://socket.io/), [MongoDB](https://www.mongodb.com/), [Turborepo](https://turbo.build/repo/docs), [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/), [GitHub Actions](https://github.com/features/actions) and [TypeScript](https://www.typescriptlang.org/).
 
 Events play crucial role in the Ship architecture. Every database change produces an event. We use events to avoid tight coupling, implement business logic and support denormalization.
 
@@ -23,14 +23,40 @@ The image below illustrates the main components and key relationships between th
 
 ![Ship framework](/img/architecture.png)
 
-## Docker
+## Starting application with Turborepo
 
-We use docker to run and deploy services on production and locally. We also use docker-compose to describe all services in a development environment. Because of this, you can start a project easily on any machine by running this command: 
+To run infra and all services -- just run: `npm start` 🚀
 
-```shell
-docker-compose up --build
+### Turborepo: Running infra and services separately
+
+1. Start base infra services in Docker containers:
+
+```bash
+npm run infra
 ```
 
-For simplicity, the command is wrapped into a shell script that executes with the `npm start` command.
+2. Run services with Turborepo
 
-Take a look at `docker-compose.yml` to see all services.
+```bash
+npm turbo-start
+```
+
+## Using Ship with Docker
+
+To run infra and all services -- just run: `npm run docker` 🚀
+
+### Docker: Running infra and services separately
+
+1. Start base infra services in Docker containers:
+
+```bash
+npm run infra
+```
+
+2. Run services you need:
+
+```bash
+./bin/start.sh api web
+```
+
+You can also run infra services separately with `./bin/start.sh` bash script.
