@@ -5,7 +5,7 @@ import { stripeService } from 'services';
 async function validator(ctx: AppKoaContext, next: Next) {
   const { user } = ctx.state;
 
-  ctx.assertClientError(user.stripeId, { global: 'Customer does not have a stripe account' }, 500);
+  ctx.assertError(user.stripeId, 'Customer does not have a stripe account');
 
   await next();
 }

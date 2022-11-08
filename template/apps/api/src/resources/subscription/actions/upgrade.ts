@@ -15,7 +15,7 @@ type ValidatedData = z.infer<typeof schema>;
 async function validator(ctx: AppKoaContext, next: Next) {
   const { user } = ctx.state;
 
-  ctx.assertClientError(user.subscription, { global: 'Customer does not have a stripe account' }, 400);
+  ctx.assertError(user.stripeId, 'Customer does not have a stripe account');
 
   await next();
 }

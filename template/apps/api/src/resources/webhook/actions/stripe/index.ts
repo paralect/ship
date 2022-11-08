@@ -14,7 +14,7 @@ interface ValidatedData {
 async function validator(ctx: AppKoaContext, next: Next) {
   const signature = ctx.request.header['stripe-signature'];
 
-  ctx.assertClientError(signature, { signature: 'Stripe signature header is missing' }, 403);
+  ctx.assertError(signature, 'Stripe signature header is missing');
 
   try {
     const event = stripeService.webhooks.constructEvent(ctx.request.rawBody, signature, config.stripe.webhookSecret);
@@ -23,9 +23,7 @@ async function validator(ctx: AppKoaContext, next: Next) {
       event,
     };
   } catch (err: any) {
-    ctx.status = 400;
-    ctx.message = `Webhook Error: ${err.message}`;
-    return null;
+    ctx.throwError(`Webhook Error: ${err.message}`);
   }
 
   await next();

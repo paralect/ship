@@ -62,16 +62,11 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
         { session },
       );
   
-  
-      if (newUser) {
-        await stripeService.createAndAttachStripeAccount(newUser, session);
-
-        await Promise.all([
-          userService.updateLastRequest(newUser._id),
-          authService.setTokens(ctx, newUser._id),
-        ]);
-  
-      }
+      await stripeService.createAndAttachStripeAccount(newUser, session);
+      await Promise.all([
+        userService.updateLastRequest(newUser._id),
+        authService.setTokens(ctx, newUser._id),
+      ]);
     });
   }
   ctx.redirect(config.webUrl);
