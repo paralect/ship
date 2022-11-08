@@ -2,7 +2,8 @@ import { useMutation, useQuery } from 'react-query';
 
 import queryClient from 'query-client';
 import { apiService } from 'services';
-import { User } from 'resources/user';
+
+import type { User } from 'resources/user';
 
 export function useSignIn<T>() {
   const signIn = (data: T) => apiService.post('/account/sign-in', data);

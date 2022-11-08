@@ -1,5 +1,16 @@
 {
   "apiUrl": "https://ship-demo-api.paralect.com",
   "wsUrl": "https://ship-demo-api.paralect.com",
-  "webUrl": "https://ship-demo.paralect.com"
+  "webUrl": "https://ship-demo.paralect.com",
+  "stripePublicKey": "pk_test_51Lp7VnIqrmVCYktKsZAzKncNrvpo4Zsf4hVFKF7jyML3kUnuLZfDSIoNCUWWC4IVNLY6ywmCEYRFT5yUgpR9wSWp000JmvSmOU",
+  "subscriptions": {
+    "starter": {
+      "month": "price_1LzJTsIqrmVCYktKPgcqPAcH",
+      "year": "price_1LzJTsIqrmVCYktKGDEjrfLH"
+    },
+    "pro": {
+      "month": "price_1LzJUWIqrmVCYktKQ512rEai",
+      "year": "price_1LzJUWIqrmVCYktK2pU6Cr72"
+    }
+  }
 }

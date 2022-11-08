@@ -12,6 +12,7 @@ type CellData = {
 };
 
 interface TheadProps {
+  isSortable: boolean,
   headerGroups: HeaderGroup<CellData>[];
   flexRender: (
     template: ColumnDefTemplate<HeaderContext<CellData, any>> | undefined,
@@ -19,7 +20,7 @@ interface TheadProps {
   ) => ReactNode;
 }
 
-const Thead: FC<TheadProps> = ({ headerGroups, flexRender }) => (
+const Thead: FC<TheadProps> = ({ isSortable, headerGroups, flexRender }) => (
   <thead>
     {headerGroups.map((headerGroup) => (
       <tr key={headerGroup.id}>
@@ -47,7 +48,7 @@ const Thead: FC<TheadProps> = ({ headerGroups, flexRender }) => (
                     header.getContext(),
                   )
                 }
-                {header.id !== 'select' && ({
+                {isSortable && header.id !== 'select' && ({
                   false: <IconArrowsSort size={16} />,
                   asc: <IconSortAscending size={16} />,
                   desc: <IconSortDescending size={16} />,

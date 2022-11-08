@@ -25,6 +25,10 @@ const base = {
     clientId: process.env.GOOGLE_CLIENT_ID || '',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
   },
+  stripe: {
+    apiKey: process.env.STRIPE_API_KEY || '',
+    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
+  },
 };
 
 const config = configUtil.loadConfig(base, env, __dirname);

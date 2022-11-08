@@ -11,10 +11,9 @@ import adminRoutes from './admin.routes';
 const defineRoutes = (app: AppKoa) => {
   app.use(attachCustomErrors);
   app.use(routeErrorHandler);
-
   app.use(extractTokens);
   app.use(tryToAttachUser);
-
+  
   publicRoutes(app);
   privateRoutes(app);
   adminRoutes(app);
