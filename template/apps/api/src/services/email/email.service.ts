@@ -39,7 +39,7 @@ const sendInvite = (to: string, dynamicTemplateData: { [key: string]: unknown; }
   subject: 'Welcome',
   template: 'invite.html',
   dynamicTemplateData,
-})
+});
 
 export default {
   sendVerifyEmail,
