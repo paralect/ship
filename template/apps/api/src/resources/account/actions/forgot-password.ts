@@ -36,11 +36,13 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     }));
   }
 
+  const resetPasswordUrl =
+    `${config.apiUrl}/account/verify-reset-token?token=${resetPasswordToken}&email=${encodeURIComponent(user.email)}`;
   await emailService.sendForgotPassword(
     user.email,
     {
       firstName: user.firstName,
-      resetPasswordUrl: `${config.apiUrl}/account/verify-reset-token?token=${resetPasswordToken}&email=${user.email}`,
+      resetPasswordUrl,
     },
   );
 
