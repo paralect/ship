@@ -7,8 +7,8 @@ const shipTheme: MantineThemeOverride = {
     fontFamily: 'Inter, sans-serif',
     fontWeight: 600,
   },
-  primaryColor: 'dark',
-  primaryShade: 9,
+  primaryColor: 'blue',
+  primaryShade: 6,
   other: {
     transition: {
       speed: {
