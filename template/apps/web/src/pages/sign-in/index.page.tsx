@@ -64,7 +64,7 @@ const SignIn: NextPage = () => {
                 href={RoutePath.ForgotPassword}
                 type="router"
                 underline={false}
-                size="sm"
+                size="md"
                 align="center"
               >
                 Forgot password?
@@ -90,7 +90,7 @@ const SignIn: NextPage = () => {
           >
             Continue with Google
           </Button>
-          <Group sx={{ fontSize: '14px', justifyContent: 'center' }} spacing={12}>
+          <Group sx={{ fontSize: '16px', justifyContent: 'center' }} spacing={12}>
             Don’t have an account?
             <Link
               type="router"

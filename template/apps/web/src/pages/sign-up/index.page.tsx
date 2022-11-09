@@ -198,7 +198,7 @@ const SignUp: NextPage = () => {
           <Button component="a" leftIcon={<IconBrandGoogle />} href={`${config.apiUrl}/account/sign-in/google/auth`}>
             Continue with Google
           </Button>
-          <Group sx={{ fontSize: '14px', justifyContent: 'center' }} spacing={12}>
+          <Group sx={{ fontSize: '16px', justifyContent: 'center' }} spacing={12}>
             Have an account?
             <Link
               type="router"
