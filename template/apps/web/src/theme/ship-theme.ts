@@ -33,12 +33,24 @@ const shipTheme: MantineThemeOverride = {
   components: {
     Button: {
       defaultProps: { size: 'lg' },
+      styles: () => ({
+        label: {
+          fontWeight: 500,
+        },
+      }),
     },
     TextInput: {
       defaultProps: {
-        size: 'md',
+        size: 'lg',
       },
       styles: (theme: MantineTheme) => ({
+        input: {
+          fontSize: '16px',
+
+          '&::placeholder': {
+            color: '#6d747b',
+          },
+        },
         invalid: {
           color: theme.colors.gray[9],
         },
@@ -49,8 +61,17 @@ const shipTheme: MantineThemeOverride = {
       }),
     },
     PasswordInput: {
-      defaultProps: { size: 'md' },
+      defaultProps: { size: 'lg' },
       styles: () => ({
+        root: {
+          input: {
+            fontSize: '16px !important',
+
+            '&::placeholder': {
+              color: '#6d747b',
+            },
+          },
+        },
         label: {
           fontSize: '18px',
           fontWeight: 600,

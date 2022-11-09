@@ -147,27 +147,27 @@ const SignUp: NextPage = () => {
       </Head>
       <Stack sx={{ width: '408px' }} spacing={20}>
         <Stack spacing={34}>
-          <Title order={2}>Sign Up</Title>
+          <Title order={1}>Sign Up</Title>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={20}>
               <TextInput
                 {...register('firstName')}
                 label="First Name"
                 maxLength={100}
-                placeholder="Your first name"
+                placeholder="First Name"
                 error={errors.firstName?.message}
               />
               <TextInput
                 {...register('lastName')}
                 label="Last Name"
                 maxLength={100}
-                placeholder="Your last name"
+                placeholder="Last Name"
                 error={errors.lastName?.message}
               />
               <TextInput
                 {...register('email')}
                 label="Email Address"
-                placeholder="Your email"
+                placeholder="Email Address"
                 error={errors.email?.message}
               />
               <Tooltip
@@ -178,7 +178,7 @@ const SignUp: NextPage = () => {
                 <PasswordInput
                   {...register('password')}
                   label="Password"
-                  placeholder="Your password"
+                  placeholder="Enter password"
                   onFocus={() => setOpened(true)}
                   onBlur={() => setOpened(false)}
                   error={errors.password?.message}

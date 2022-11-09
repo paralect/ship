@@ -40,19 +40,19 @@ const SignIn: NextPage = () => {
       </Head>
       <Stack sx={{ width: '408px' }} spacing={20}>
         <Stack spacing={34}>
-          <Title order={2}>Sign In</Title>
+          <Title order={1}>Sign In</Title>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={20}>
               <TextInput
                 {...register('email')}
                 label="Email Address"
-                placeholder="Email"
+                placeholder="Email Address"
                 error={errors.email?.message}
               />
               <PasswordInput
                 {...register('password')}
                 label="Password"
-                placeholder="Password"
+                placeholder="Enter password"
                 error={errors.password?.message}
               />
               {errors!.credentials && (
