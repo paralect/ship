@@ -5,6 +5,8 @@ import { userService } from 'resources/user';
 import { googleService, authService, stripeService } from 'services';
 import { AppRouter, AppKoaContext } from 'types';
 
+import type { User } from 'resources/user';
+
 type ValidatedData = {
   given_name: string;
   family_name: string;
@@ -45,8 +47,10 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
     ]);
 
   } else {
+    let newUser: User | undefined;
+
     await db.database.withTransaction(async (session) => {
-      const newUser = await userService.insertOne(
+      newUser = await userService.insertOne(
         {
           firstName: payload.given_name,
           lastName: payload.family_name,
@@ -63,11 +67,14 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
       );
   
       await stripeService.createAndAttachStripeAccount(newUser, session);
+    });
+
+    if (newUser) {
       await Promise.all([
         userService.updateLastRequest(newUser._id),
         authService.setTokens(ctx, newUser._id),
       ]);
-    });
+    }
   }
   ctx.redirect(config.webUrl);
 };
