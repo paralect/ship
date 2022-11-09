@@ -40,13 +40,12 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     );
 
     await stripeService.createAndAttachStripeAccount(user, session);
-
-    await Promise.all([
-      userService.updateLastRequest(user._id),
-      authService.setTokens(ctx, user._id),
-    ]);
-
   });
+
+  await Promise.all([
+    userService.updateLastRequest(user._id),
+    authService.setTokens(ctx, user._id),
+  ]);
 
   await emailService.sendSignUpWelcome(user.email, {
     userName: user.fullName,
