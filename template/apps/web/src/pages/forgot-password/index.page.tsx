@@ -104,6 +104,7 @@ const ForgotPassword: NextPage = () => {
             type="router"
             href={RoutePath.SignIn}
             inherit
+            underline={false}
           >
             Sign in
           </Link>

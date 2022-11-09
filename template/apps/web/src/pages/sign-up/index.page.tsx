@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { NextPage } from 'next';
-import { IconBrandGoogle } from '@tabler/icons';
 import {
   Button,
   Stack,
@@ -17,6 +16,8 @@ import {
   SimpleGrid,
   Tooltip,
 } from '@mantine/core';
+
+import { GoogleIcon } from 'public/icons';
 
 import config from 'config';
 import { RoutePath } from 'routes';
@@ -195,7 +196,12 @@ const SignUp: NextPage = () => {
           </form>
         </Stack>
         <Stack spacing={34}>
-          <Button component="a" leftIcon={<IconBrandGoogle />} href={`${config.apiUrl}/account/sign-in/google/auth`}>
+          <Button
+            component="a"
+            leftIcon={<GoogleIcon />}
+            href={`${config.apiUrl}/account/sign-in/google/auth`}
+            variant="outline"
+          >
             Continue with Google
           </Button>
           <Group sx={{ fontSize: '16px', justifyContent: 'center' }} spacing={12}>
