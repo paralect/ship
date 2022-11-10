@@ -53,6 +53,10 @@ const shipTheme: MantineThemeOverride = {
         },
         invalid: {
           color: theme.colors.gray[9],
+
+          '&, &:focus-within': {
+            borderColor: theme.colors.red[6],
+          },
         },
         label: {
           fontSize: '18px',
@@ -62,7 +66,7 @@ const shipTheme: MantineThemeOverride = {
     },
     PasswordInput: {
       defaultProps: { size: 'lg' },
-      styles: () => ({
+      styles: (theme: MantineTheme) => ({
         root: {
           input: {
             fontSize: '16px !important',
@@ -75,6 +79,13 @@ const shipTheme: MantineThemeOverride = {
         label: {
           fontSize: '18px',
           fontWeight: 600,
+        },
+        invalid: {
+          input: {
+            '&::placeholder': {
+              color: theme.colors.red[6],
+            },
+          },
         },
       }),
     },
