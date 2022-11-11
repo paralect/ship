@@ -21,13 +21,13 @@ const UserMenu: FC = () => {
           href="/profile"
           icon={<IconUserCircle size={16} />}
         >
-          Profile
+          Profile settings
         </Menu.Item>
         <Menu.Item
           onClick={() => signOut()}
           icon={<IconLogout size={16} />}
         >
-          Logout
+          Log out
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>
