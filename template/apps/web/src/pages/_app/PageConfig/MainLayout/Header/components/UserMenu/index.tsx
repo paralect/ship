@@ -15,7 +15,14 @@ const UserMenu: FC = () => {
       <Menu.Target>
         <MenuToggle />
       </Menu.Target>
-      <Menu.Dropdown>
+      <Menu.Dropdown
+        sx={(theme) => ({
+          boxShadow: 'none',
+          border: `1px solid ${theme.colors.gray[4]}`,
+          right: '30px !important',
+          left: 'unset !important',
+        })}
+      >
         <Menu.Item
           component={Link}
           href="/profile"

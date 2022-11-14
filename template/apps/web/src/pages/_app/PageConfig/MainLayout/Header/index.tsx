@@ -9,7 +9,6 @@ import { LogoImage } from 'public/images';
 
 import { accountApi } from 'resources/account';
 
-import AddMembersModal from './components/AddMembersModal';
 import UserMenu from './components/UserMenu';
 import ShadowLoginBanner from './components/ShadowLoginBanner';
 
@@ -29,13 +28,13 @@ const Header: FC = () => {
           alignItems: 'center',
           flex: '1 1 auto',
           borderBottom: `1px solid ${theme.colors.gray[4]}`,
+          justifyContent: 'space-between',
         })}
         fluid
       >
         <Link type="router" href={RoutePath.Home}>
           <LogoImage />
         </Link>
-        <AddMembersModal />
         <UserMenu />
       </Container>
       {account.isShadow && <ShadowLoginBanner />}

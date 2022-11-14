@@ -40,6 +40,8 @@ const Thead: FC<TheadProps> = ({ isSortable, headerGroups, flexRender }) => (
                   display: 'flex',
                   justifyContent: 'space-between',
                   lineHeight: '16px',
+                  fontWeight: '600',
+                  fontSize: '14px',
                 }}
               >
                 {

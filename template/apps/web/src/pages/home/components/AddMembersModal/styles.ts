@@ -4,6 +4,7 @@ export const useStyles = createStyles((
   { colors },
 ) => ({
   form: {
+    flexDirection: 'column',
     margin: '8px 0 0',
   },
   actions: {
@@ -11,15 +12,17 @@ export const useStyles = createStyles((
     justifyContent: 'flex-end',
     alignItems: 'center',
     gap: '16px',
-    marginTop: '16px',
+    marginTop: '32px',
   },
   textareaWrapper: {
     minHeight: '144px',
     border: `1px solid ${colors.gray[3]}`,
+    borderRadius: '4px',
     cursor: 'text',
   },
   textarea: {
     border: 'none',
+    fontSize: '14px',
   },
   error: {
     background: '#FFF',
@@ -44,5 +47,6 @@ export const useStyles = createStyles((
   icon: {
     display: 'flex',
     cursor: 'pointer',
+    stroke: colors.blue[6],
   },
 }));

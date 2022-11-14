@@ -14,13 +14,15 @@ import {
   SelectItem,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
-import { IconChevronDown, IconSearch, IconX } from '@tabler/icons';
-import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
+import { IconSearch, IconX, IconSelector } from '@tabler/icons';
+import { ColumnDef, RowSelectionState } from '@tanstack/react-table';
 
 import { Table } from 'components';
+
 import { User, userApi } from 'resources/user';
 
 import SubscriptionPurchasedModal from './components/subscription-purchased-modal';
+import AddMembersModal from './components/AddMembersModal';
 
 interface UsersListParams {
   page?: number;
@@ -65,7 +67,6 @@ const PER_PAGE = 5;
 const Home: NextPage = () => {
   const [search, setSearch] = useState('');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [sorting, setSorting] = useState<SortingState>([]);
   const [sortBy, setSortBy] = useState(selectOptions[0].value);
 
   const [params, setParams] = useState<UsersListParams>({});
@@ -97,59 +98,67 @@ const Home: NextPage = () => {
       </Head>
       <Stack spacing="lg">
         <Title order={2}>Users</Title>
-        <Group position="apart">
-          <Skeleton
-            height={42}
-            radius="sm"
-            visible={isListLoading}
-            width="auto"
-            sx={{ flexGrow: 0.25 }}
-          >
-            <TextInput
-              value={search}
-              onChange={handleSearch}
-              placeholder="Search by name or email"
-              icon={<IconSearch size={16} />}
-              rightSection={search ? (
-                <UnstyledButton
-                  onClick={() => setSearch('')}
-                  sx={{ display: 'flex', alignItems: 'center' }}
-                >
-                  <IconX color="gray" />
-                </UnstyledButton>
-              ) : null}
-            />
-          </Skeleton>
-          <Skeleton
-            height={42}
-            radius="sm"
-            visible={isListLoading}
-            width="auto"
-            sx={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
-          >
-            <Select
-              data={selectOptions}
-              value={sortBy}
-              onChange={handleSort}
-              rightSection={<IconChevronDown size={16} />}
-              withinPortal={false}
-              transition="pop-bottom-right"
-              transitionDuration={210}
-              transitionTimingFunction="ease-out"
-            />
-          </Skeleton>
+        <Group noWrap position="apart">
+          <Group noWrap>
+            <Skeleton
+              height={42}
+              radius="sm"
+              visible={isListLoading}
+              width="auto"
+              sx={{ flexGrow: 0.25 }}
+            >
+              <TextInput
+                size="md"
+                value={search}
+                onChange={handleSearch}
+                placeholder="Search by name or email"
+                icon={<IconSearch size={16} />}
+                rightSection={search ? (
+                  <UnstyledButton
+                    onClick={() => setSearch('')}
+                    sx={{ display: 'flex', alignItems: 'center' }}
+                  >
+                    <IconX color="gray" />
+                  </UnstyledButton>
+                ) : null}
+                sx={{ width: '350px' }}
+              />
+            </Skeleton>
+            <Skeleton
+              height={42}
+              radius="sm"
+              visible={isListLoading}
+              width="auto"
+              sx={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
+            >
+              <Select
+                size="md"
+                data={selectOptions}
+                value={sortBy}
+                onChange={handleSort}
+                rightSection={<IconSelector size={16} />}
+                withinPortal={false}
+                transition="pop-bottom-right"
+                transitionDuration={210}
+                transitionTimingFunction="ease-out"
+                sx={{ width: '200px' }}
+              />
+            </Skeleton>
+          </Group>
+
+          <AddMembersModal />
         </Group>
         {isListLoading && (
-        <>
-          {[1, 2, 3].map((item) => (
-            <Skeleton
-              key={`sklton-${String(item)}`}
-              height={50}
-              radius="sm"
-              mb="sm"
-            />
-          ))}
-        </>
+          <>
+            {[1, 2, 3].map((item) => (
+              <Skeleton
+                key={`sklton-${String(item)}`}
+                height={50}
+                radius="sm"
+                mb="sm"
+              />
+            ))}
+          </>
         )}
         {data?.items.length ? (
           <Table
@@ -158,8 +167,6 @@ const Home: NextPage = () => {
             dataCount={data.count}
             rowSelection={rowSelection}
             setRowSelection={setRowSelection}
-            sorting={sorting}
-            onSortingChange={setSorting}
             onPageChange={setParams}
             perPage={PER_PAGE}
           />
