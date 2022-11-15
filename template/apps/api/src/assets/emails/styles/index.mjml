@@ -2,12 +2,11 @@
   <mj-class
     name="big-text"
     align="center"
-    font-weight="bold"
     font-family="Trebuchet MS, Arial, sans-serif"
-    color="#3b1d6c"
-    font-size="30px"
-    padding-left="25px"
-    padding-right="25px"
+    color="#212529"
+    font-size="22px"
+    font-weight="600"
+    padding-bottom="12px"
   />
 
   <mj-class
@@ -15,37 +14,17 @@
     align="center"
     color="#000"
     font-size="18px"
-    font-family="Century Gothic, Arial, sans-serif"
-    padding-left="25px"
-    padding-right="25px"
+    font-family="Roboto, sans-serif"
+    font-style="normal"
     line-height="26px"
-  />
-
-  <mj-class
-    name="small-text"
-    align="center"
-    font-weight="bold"
-    font-family="Trebuchet MS, Arial, sans-serif"
-    color="#3b1d6c"
-    font-size="15px"
-    padding-left="25px"
-    padding-right="25px"
-  />
-
-  <mj-class
-    name="tiny-text"
-    align="center"
-    color="#000"
-    font-size="15px"
-    font-family="Verdana, Arial, sans-serif"
-    line-height="20px"
   />
 
   <mj-class
     name="btn"
     align="center"
-    font-size="22px"
-    background-color="#4c258b"
+    font-size="18px"
+    background-color="#228BE6"
+    height="50px"
     border-radius="4px"
     color="#fff"
     font-family="open Sans Helvetica, Arial, sans-serif"
@@ -53,25 +32,33 @@
 
   <mj-class
     name="main-section"
-    background-color="#cccccc"
-    vertical-align="top"
-    padding-bottom="20px"
-    padding-top="0"
-  />
-
-  <mj-class
-    name="main-section-image"
-    background-color="#cccccc"
-    vertical-align="top"
-    padding-bottom="0"
-    padding-top="0"
-  />
-
-  <mj-class
-    name="bottom-section"
     background-color="#ffffff"
     vertical-align="top"
-    padding-bottom="20px"
-    padding-top="20px"
+    padding="48px"
+  />
+
+  <mj-class
+    name="wrapper"
+    background-color="#fafbfb"
+    vertical-align="top"
+  />
+
+  <mj-class
+    name="footer-info"
+    font-size="12px"
+    font-weight="400"
+    color="#6D747B"
+    align="center"
+    padding-bottom="48px"
+    line-height="130%"
+  />
+
+  <mj-class
+    name="footer-action"
+    background-color="transparent"
+    align="center"
+    color="#228BE6"
+    font-size="12px"
+    font-weight="400"
   />
 </mj-attributes>
