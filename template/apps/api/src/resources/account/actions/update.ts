@@ -14,25 +14,31 @@ const schema = z.object({
   ),
 });
 
-type ValidatedData = z.infer<typeof schema>;
+interface ValidatedData extends z.infer<typeof schema> {
+  passwordHash?: string | null;
+}
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { user } = ctx.state;
   const { password } = ctx.validatedData;
 
-  const isPasswordMatch = password && await securityUtil.compareTextWithHash(password, user.passwordHash || '');
-  ctx.assertClientError(!isPasswordMatch, {
-    password: 'The new password should be different from the previous one',
-  });
+  if (password) {
+    const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash || '');
+    ctx.assertClientError(!isPasswordMatch, {
+      password: 'The new password should be different from the previous one',
+    });
+
+    ctx.validatedData.passwordHash = await securityUtil.getHash(password);
+  } else {
+    ctx.validatedData.passwordHash = user.passwordHash;
+  }
 
   await next();
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
-  const { firstName, lastName, password } = ctx.validatedData;
-
-  const passwordHash = await securityUtil.getHash(password);
+  const { firstName, lastName, passwordHash } = ctx.validatedData;
 
   const updatedUser = await userService.updateOne({
     _id: user._id,
