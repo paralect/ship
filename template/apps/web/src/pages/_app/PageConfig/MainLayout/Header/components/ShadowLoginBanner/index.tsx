@@ -1,6 +1,6 @@
 import { Paper } from '@mantine/core';
 
-const ShadowLoginBanner = () => (
+const ShadowLoginBanner = ({ email }: { email: string }) => (
   <Paper
     shadow="md"
     sx={(theme) => ({
@@ -8,11 +8,15 @@ const ShadowLoginBanner = () => (
       justifyContent: 'center',
       alignItems: 'center',
       height: '32px',
-      fontWeight: 'bold',
-      color: theme.colors.red[6],
+      fontWeight: 600,
+      color: theme.white,
+      backgroundColor: theme.colors.dark[4],
+      borderRadius: 0,
     })}
   >
-    Shadow login mode
+    You currently under the shadow login as &apos;
+    {email}
+    &apos;
   </Paper>
 );
 

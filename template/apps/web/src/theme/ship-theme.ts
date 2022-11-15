@@ -47,8 +47,8 @@ const shipTheme: MantineThemeOverride = {
         input: {
           fontSize: '16px',
 
-          '&::placeholder': {
-            color: '#6d747b',
+          '&::placeholder, &:disabled, &:disabled::placeholder': {
+            color: '#6d747b !important',
           },
         },
         invalid: {

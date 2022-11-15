@@ -19,6 +19,7 @@ const Header: FC = () => {
 
   return (
     <LayoutHeader height="72px">
+      {account.isShadow && <ShadowLoginBanner email={account.email} />}
       <Container
         sx={(theme) => ({
           minHeight: '72px',
@@ -37,7 +38,6 @@ const Header: FC = () => {
         </Link>
         <UserMenu />
       </Container>
-      {account.isShadow && <ShadowLoginBanner />}
     </LayoutHeader>
   );
 };
