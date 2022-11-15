@@ -47,6 +47,5 @@ export const useStyles = createStyles((
   icon: {
     display: 'flex',
     cursor: 'pointer',
-    stroke: colors.blue[6],
   },
 }));

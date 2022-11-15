@@ -23,12 +23,12 @@ const Header: FC = () => {
         sx={(theme) => ({
           minHeight: '72px',
           padding: '0 32px',
-          backgroundColor: theme.white,
           display: 'flex',
-          alignItems: 'center',
           flex: '1 1 auto',
-          borderBottom: `1px solid ${theme.colors.gray[4]}`,
+          alignItems: 'center',
           justifyContent: 'space-between',
+          backgroundColor: theme.white,
+          borderBottom: `1px solid ${theme.colors.gray[4]}`,
         })}
         fluid
       >

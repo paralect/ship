@@ -109,7 +109,7 @@ const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
           size="md"
           className={cx({ [classes.error]: !!errors.emails?.[index] })}
           sx={{ fontWeight: 600 }}
-          rightSection={<IconX className={classes.icon} size={16} role="presentation" onClick={() => handleRemoveEmail(index)} color="gray" />}
+          rightSection={<IconX className={classes.icon} size={16} role="presentation" onClick={() => handleRemoveEmail(index)} color="blue" />}
         >
           {item}
         </Badge>

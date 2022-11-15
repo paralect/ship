@@ -12,12 +12,13 @@
           Verify your account
         </mj-text>
         <mj-text mj-class="text" color="#6D747B" padding-bottom="34px">
-            You are almost ready to start! <br />
-            Click the button below to verify your account.
+          You are almost ready to start!
+          <br />
+          Click the button below to verify your account.
         </mj-text>
 
         <mj-button mj-class="btn" href="{{verifyEmailUrl}}">
-            Verify Email
+          Verify Email
         </mj-button>
       </mj-column>
     </mj-section>

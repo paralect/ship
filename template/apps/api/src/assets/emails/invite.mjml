@@ -18,7 +18,8 @@
         </mj-button>
 
         <mj-text mj-class="text" color="#6D747B" padding-top="58px">
-          If you did not expect this email, <br />
+          If you did not expect this email,
+          <br />
           you can safely ignore it.
         </mj-text>
       </mj-column>

@@ -17,10 +17,10 @@ const UserMenu: FC = () => {
       </Menu.Target>
       <Menu.Dropdown
         sx={(theme) => ({
-          boxShadow: 'none',
-          border: `1px solid ${theme.colors.gray[4]}`,
-          right: '30px !important',
           left: 'unset !important',
+          right: '30px !important',
+          boxShadow: 'unset !important',
+          border: `1px solid ${theme.colors.gray[4]}`,
         })}
       >
         <Menu.Item
