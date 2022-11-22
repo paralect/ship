@@ -1,14 +1,15 @@
 import { MantineTheme, MantineThemeOverride } from '@mantine/core';
 
 const shipTheme: MantineThemeOverride = {
-  fontFamily: 'Inter, sans-serif',
+  fontFamily: 'Roboto, sans-serif',
   fontFamilyMonospace: 'monospace',
   headings: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'Roboto, sans-serif',
     fontWeight: 600,
   },
-  primaryColor: 'dark',
-  primaryShade: 9,
+  lineHeight: 1.45,
+  primaryColor: 'blue',
+  primaryShade: 6,
   other: {
     transition: {
       speed: {
@@ -31,20 +32,62 @@ const shipTheme: MantineThemeOverride = {
   },
   components: {
     Button: {
-      defaultProps: { size: 'md' },
+      defaultProps: { size: 'lg' },
+      styles: () => ({
+        label: {
+          fontWeight: 500,
+        },
+      }),
     },
     TextInput: {
       defaultProps: {
-        size: 'md',
+        size: 'lg',
       },
       styles: (theme: MantineTheme) => ({
+        input: {
+          fontSize: '16px',
+
+          '&::placeholder, &:disabled, &:disabled::placeholder': {
+            color: '#6d747b !important',
+          },
+        },
         invalid: {
           color: theme.colors.gray[9],
+
+          '&, &:focus-within': {
+            borderColor: theme.colors.red[6],
+          },
+        },
+        label: {
+          fontSize: '18px',
+          fontWeight: 600,
         },
       }),
     },
     PasswordInput: {
-      defaultProps: { size: 'md' },
+      defaultProps: { size: 'lg' },
+      styles: (theme: MantineTheme) => ({
+        root: {
+          input: {
+            fontSize: '16px !important',
+
+            '&::placeholder': {
+              color: '#6d747b',
+            },
+          },
+        },
+        label: {
+          fontSize: '18px',
+          fontWeight: 600,
+        },
+        invalid: {
+          input: {
+            '&::placeholder': {
+              color: theme.colors.red[6],
+            },
+          },
+        },
+      }),
     },
     Select: {
       defaultProps: { size: 'md' },

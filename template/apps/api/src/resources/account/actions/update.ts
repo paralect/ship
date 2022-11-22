@@ -6,33 +6,47 @@ import { validateMiddleware } from 'middlewares';
 import { userService } from 'resources/user';
 
 const schema = z.object({
+  firstName: z.string().min(1, 'Please enter First name').max(100),
+  lastName: z.string().min(1, 'Please enter Last name').max(100),
   password: z.string().regex(
     /^$|^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
     'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
   ),
 });
 
-type ValidatedData = z.infer<typeof schema>;
+interface ValidatedData extends z.infer<typeof schema> {
+  passwordHash?: string | null;
+}
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { user } = ctx.state;
   const { password } = ctx.validatedData;
 
-  const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash || '');
-  ctx.assertClientError(!isPasswordMatch, {
-    password: 'The new password should be different from the previous one',
-  });
+  if (password) {
+    const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash || '');
+    ctx.assertClientError(!isPasswordMatch, {
+      password: 'The new password should be different from the previous one',
+    });
+
+    ctx.validatedData.passwordHash = await securityUtil.getHash(password);
+  } else {
+    ctx.validatedData.passwordHash = user.passwordHash;
+  }
 
   await next();
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
-  const { password } = ctx.validatedData;
+  const { firstName, lastName, passwordHash } = ctx.validatedData;
 
-  const passwordHash = await securityUtil.getHash(password);
-
-  const updatedUser = await userService.updateOne({ _id: user._id }, () => ({ passwordHash }));
+  const updatedUser = await userService.updateOne({
+    _id: user._id,
+  }, () => ({
+    firstName,
+    lastName,
+    passwordHash,
+  }));
 
   ctx.body = userService.getPublic(updatedUser);
 }

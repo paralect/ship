@@ -82,6 +82,15 @@ const Table: FC<TableProps> = ({
         checked={table.getIsAllRowsSelected()}
         indeterminate={table.getIsSomeRowsSelected()}
         onChange={table.getToggleAllRowsSelectedHandler()}
+        sx={(theme) => ({
+          ...(table.getIsSomeRowsSelected() && {
+            '& .mantine-Checkbox-input': {
+              backgroundColor: theme.colors.blue[6],
+              border: 'none',
+            }
+          }),
+          color: theme.white,
+        })}
       />
     ),
     cell: ({ row }) => (

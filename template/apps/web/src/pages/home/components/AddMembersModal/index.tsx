@@ -1,9 +1,5 @@
 import { useState, useCallback, memo, FC } from 'react';
-
-import {
-  Button,
-  Modal,
-} from '@mantine/core';
+import { Button, Modal, Text } from '@mantine/core';
 
 import AddMembersModalForm from './form';
 
@@ -18,20 +14,20 @@ const AddMembersModal: FC = () => {
   return (
     <>
       <Button
+        size="sm"
         sx={{
           marginLeft: 'auto',
-          marginRight: '32px',
         }}
         onClick={handleToggleModal}
       >
         + Add team members
       </Button>
       <Modal
-        withCloseButton={false}
         closeOnClickOutside={false}
         opened={isOpened}
-        title="Invite your team"
+        title={<Text weight={600}>Invite your team</Text>}
         onClose={handleToggleModal}
+        centered
       >
         <AddMembersModalForm onClose={handleToggleModal} />
       </Modal>

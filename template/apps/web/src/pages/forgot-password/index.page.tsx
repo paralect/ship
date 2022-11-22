@@ -10,6 +10,7 @@ import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
 import { RoutePath } from 'routes';
 import { handleError } from 'utils';
 import { Link } from 'components';
+
 import { accountApi } from 'resources/account';
 
 const schema = z.object({
@@ -71,14 +72,14 @@ const ForgotPassword: NextPage = () => {
       <Head>
         <title>Forgot password</title>
       </Head>
-      <Stack sx={{ width: '328px' }}>
-        <Title order={2} sx={{ marginBottom: 0 }}>Forgot Password</Title>
-        <Text component="p">
+      <Stack sx={{ width: '408px', fontSize: '18px' }} spacing={34}>
+        <Title order={1} sx={{ marginBottom: 0 }}>Forgot Password</Title>
+        <Text component="p" m={0}>
           Please enter your email and we&apos;ll send
           a link to reset your password.
         </Text>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack>
+          <Stack spacing={34}>
             <TextInput
               {...register('email')}
               type="email"
@@ -97,12 +98,13 @@ const ForgotPassword: NextPage = () => {
             </Button>
           </Stack>
         </form>
-        <Group sx={{ fontSize: '14px' }}>
+        <Group sx={{ fontSize: '16px', justifyContent: 'center' }}>
           Have an account?
           <Link
             type="router"
             href={RoutePath.SignIn}
             inherit
+            underline={false}
           >
             Sign in
           </Link>

@@ -50,7 +50,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   await Promise.all(data.map((item) => {
     emailService.sendInvite(item.email, {
-      sender: user.fullName,
+      companyName: 'Ship',
       signUpUrl: `${config.webUrl}/sign-up/?token=${item.token}`,
     });
   }));

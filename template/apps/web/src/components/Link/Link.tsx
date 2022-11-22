@@ -32,7 +32,7 @@ const Link: FC<LinkProps> = ({
   switch (type) {
     case 'router':
       return (
-        <NextLink href={href} passHref>
+        <NextLink href={href} passHref style={{ textDecoration: underline ? 'underline' : 'none' }}>
           <Anchor
             size={size}
             inherit={inherit}

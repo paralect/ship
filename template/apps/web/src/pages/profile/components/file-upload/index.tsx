@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Group, Text, Button } from '@mantine/core';
+import { Group, Text, Button, Stack, MantineTheme } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
 import { IconPencil, IconPlus } from '@tabler/icons';
 
@@ -54,58 +54,61 @@ const PhotoUpload = () => {
 
   return (
     <>
-      <Text weight={500}>Profile picture</Text>
-      <Group align="center">
-        <Dropzone
-          name="avatarUrl"
-          accept={['image/png', 'image/jpg', 'image/jpeg']}
-          onDrop={handlePhotoUpload}
-          styles={() => ({
-            root: {
-              border: 'none',
-              borderRadius: 0,
-              padding: 0,
-              backgroundColor: 'transparent',
-            },
-          })}
-        >
-          <label
-            className={cx(classes.browseButton, {
-              [classes.error]: errorMessage,
-            })}
-          >
-            {account.avatarUrl ? (
-              <div
-                className={classes.avatar}
-                style={{
-                  backgroundImage: `url(${account.avatarUrl})`,
-                }}
-              >
-                <div className={classes.innerAvatar}>
-                  <IconPencil />
-                </div>
-              </div>
-            ) : <IconPlus className={classes.addIcon} />}
-          </label>
-        </Dropzone>
-        <span className={classes.buttonContainer}>
-          <p className={classes.text}>
-            JPG, JPEG or PNG
-            Max size = 2MB
-          </p>
-          {account.avatarUrl && (
-            <Button
-              type="submit"
-              variant="subtle"
-              className={classes.removeButton}
-              onClick={handlerPhotoRemove}
-              size="sm"
+      <Stack>
+        <Group align="flex-start" spacing={32}>
+          <Stack align="center" spacing={10}>
+            <Dropzone
+              name="avatarUrl"
+              accept={['image/png', 'image/jpg', 'image/jpeg']}
+              onDrop={handlePhotoUpload}
+              styles={() => ({
+                root: {
+                  border: 'none',
+                  borderRadius: 0,
+                  padding: 0,
+                  backgroundColor: 'transparent',
+                },
+              })}
             >
-              Remove
-            </Button>
-          )}
-        </span>
-      </Group>
+              <label
+                className={cx(classes.browseButton, {
+                  [classes.error]: errorMessage,
+                })}
+              >
+                {account.avatarUrl ? (
+                  <div
+                    className={classes.avatar}
+                    style={{
+                      backgroundImage: `url(${account.avatarUrl})`,
+                    }}
+                  >
+                    <div className={classes.innerAvatar}>
+                      <IconPencil />
+                    </div>
+                  </div>
+                ) : <IconPlus className={classes.addIcon} />}
+              </label>
+            </Dropzone>
+            {account.avatarUrl && (
+              <Button
+                type="submit"
+                variant="subtle"
+                onClick={handlerPhotoRemove}
+                size="sm"
+              >
+                Remove
+              </Button>
+            )}
+          </Stack>
+          <Stack spacing={4} pt={6}>
+            <Text weight={600} size="lg">Profile picture</Text>
+            <Text className={classes.text}>
+              JPG, JPEG or PNG
+              Max size = 2MB
+            </Text>
+          </Stack>
+        </Group>
+      </Stack>
       {!!errorMessage && <p className={classes.errorMessage}>{errorMessage}</p>}
     </>
   );

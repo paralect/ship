@@ -15,19 +15,26 @@ const UserMenu: FC = () => {
       <Menu.Target>
         <MenuToggle />
       </Menu.Target>
-      <Menu.Dropdown>
+      <Menu.Dropdown
+        sx={(theme) => ({
+          left: 'unset !important',
+          right: '30px !important',
+          boxShadow: 'unset !important',
+          border: `1px solid ${theme.colors.gray[4]}`,
+        })}
+      >
         <Menu.Item
           component={Link}
           href="/profile"
           icon={<IconUserCircle size={16} />}
         >
-          Profile
+          Profile settings
         </Menu.Item>
         <Menu.Item
           onClick={() => signOut()}
           icon={<IconLogout size={16} />}
         >
-          Logout
+          Log out
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>

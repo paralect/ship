@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { NextPage } from 'next';
-import { IconBrandGoogle } from '@tabler/icons';
 import {
   Button,
   Stack,
@@ -16,13 +15,15 @@ import {
   Checkbox,
   SimpleGrid,
   Tooltip,
-  Divider,
 } from '@mantine/core';
+
+import { GoogleIcon } from 'public/icons';
 
 import config from 'config';
 import { RoutePath } from 'routes';
 import { handleError } from 'utils';
 import { Link } from 'components';
+
 import { accountApi } from 'resources/account';
 
 const schema = z.object({
@@ -140,77 +141,81 @@ const SignUp: NextPage = () => {
   }
 
   return (
-
     <>
       <Head>
         <title>Sign up</title>
       </Head>
-      <Stack sx={{ width: '328px' }}>
-        <Title order={2}>Sign Up</Title>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack>
-            <TextInput
-              {...register('firstName')}
-              label="First Name"
-              maxLength={100}
-              placeholder="Your first name"
-              error={errors.firstName?.message}
-            />
-            <TextInput
-              {...register('lastName')}
-              label="Last Name"
-              maxLength={100}
-              placeholder="Your last name"
-              error={errors.lastName?.message}
-            />
-            <TextInput
-              {...register('email')}
-              label="Email Address"
-              placeholder="Your email"
-              error={errors.email?.message}
-            />
-            <Tooltip
-              label={label}
-              withArrow
-              opened={opened}
-            >
-              <PasswordInput
-                {...register('password')}
-                label="Password"
-                placeholder="Your password"
-                onFocus={() => setOpened(true)}
-                onBlur={() => setOpened(false)}
-                error={errors.password?.message}
+      <Stack sx={{ width: '408px' }} spacing={20}>
+        <Stack spacing={34}>
+          <Title order={1}>Sign Up</Title>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={20}>
+              <TextInput
+                {...register('firstName')}
+                label="First Name"
+                maxLength={100}
+                placeholder="First Name"
+                error={errors.firstName?.message}
               />
-            </Tooltip>
+              <TextInput
+                {...register('lastName')}
+                label="Last Name"
+                maxLength={100}
+                placeholder="Last Name"
+                error={errors.lastName?.message}
+              />
+              <TextInput
+                {...register('email')}
+                label="Email Address"
+                placeholder="Email Address"
+                error={errors.email?.message}
+              />
+              <Tooltip
+                label={label}
+                withArrow
+                opened={opened}
+              >
+                <PasswordInput
+                  {...register('password')}
+                  label="Password"
+                  placeholder="Enter password"
+                  onFocus={() => setOpened(true)}
+                  onBlur={() => setOpened(false)}
+                  error={errors.password?.message}
+                />
+              </Tooltip>
+            </Stack>
             <Button
               type="submit"
               loading={isSignUpLoading}
               fullWidth
+              mt={34}
             >
               Sign Up
             </Button>
-          </Stack>
-        </form>
-        <Group sx={{ fontSize: '14px' }}>
-          Have an account?
-          <Link
-            type="router"
-            href={RoutePath.SignIn}
-            inherit
-            underline={false}
+          </form>
+        </Stack>
+        <Stack spacing={34}>
+          <Button
+            component="a"
+            leftIcon={<GoogleIcon />}
+            href={`${config.apiUrl}/account/sign-in/google/auth`}
+            variant="outline"
           >
-            Sign In
-          </Link>
-        </Group>
-        <Divider
-          label="Or"
-          labelPosition="center"
-        />
-        <Button component="a" leftIcon={<IconBrandGoogle />} href={`${config.apiUrl}/account/sign-in/google/auth`}>
-          Continue with Google
-        </Button>
-
+            Continue with Google
+          </Button>
+          <Group sx={{ fontSize: '16px', justifyContent: 'center' }} spacing={12}>
+            Have an account?
+            <Link
+              type="router"
+              href={RoutePath.SignIn}
+              inherit
+              underline={false}
+            >
+              Sign In
+            </Link>
+          </Group>
+        </Stack>
       </Stack>
     </>
   );

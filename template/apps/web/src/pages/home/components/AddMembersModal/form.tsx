@@ -5,6 +5,7 @@ import {
   Button,
   Text,
   TextInput,
+  useMantineTheme,
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons';
@@ -29,6 +30,8 @@ interface AddMembersModalFormProps {
 }
 
 const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
+  const { primaryColor } = useMantineTheme();
+
   const { mutate: inviteMembers, isLoading } = inviteApi.useInviteMembers();
   const { classes, cx } = useStyles();
 
@@ -106,9 +109,10 @@ const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
       {emails.map((item, index) => (
         <Badge
           key={item}
-          size="lg"
+          size="md"
           className={cx({ [classes.error]: !!errors.emails?.[index] })}
-          rightSection={<IconX className={classes.icon} role="presentation" onClick={() => handleRemoveEmail(index)} color="gray" />}
+          sx={{ fontWeight: 600 }}
+          rightSection={<IconX className={classes.icon} size={16} role="presentation" onClick={() => handleRemoveEmail(index)} color={primaryColor} />}
         >
           {item}
         </Badge>
@@ -143,13 +147,16 @@ const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
   return (
     <>
       <Text className={classes.helpText}>
-        You may add one or multiple emails, please make sure to separate multiple emails by space.
+        You may add one or multiple emails,
+        {' '}
+        <br />
+        please make sure to separate multiple emails by space.
       </Text>
       <form className={classes.form} onSubmit={submit(handleSubmit)}>
         {renderTextarea()}
         <div className={classes.actions}>
-          <Button variant="subtle" disabled={isLoading} onClick={onClose}>Cancel</Button>
-          <Button disabled={isLoading} type="submit">Submit</Button>
+          <Button size="sm" variant="subtle" disabled={isLoading} onClick={onClose}>Cancel</Button>
+          <Button size="sm" disabled={isLoading} type="submit">Submit</Button>
         </div>
       </form>
     </>
