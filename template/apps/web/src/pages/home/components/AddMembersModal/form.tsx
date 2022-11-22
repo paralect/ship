@@ -5,6 +5,7 @@ import {
   Button,
   Text,
   TextInput,
+  useMantineTheme,
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons';
@@ -29,6 +30,8 @@ interface AddMembersModalFormProps {
 }
 
 const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
+  const { primaryColor } = useMantineTheme();
+
   const { mutate: inviteMembers, isLoading } = inviteApi.useInviteMembers();
   const { classes, cx } = useStyles();
 
@@ -109,7 +112,7 @@ const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
           size="md"
           className={cx({ [classes.error]: !!errors.emails?.[index] })}
           sx={{ fontWeight: 600 }}
-          rightSection={<IconX className={classes.icon} size={16} role="presentation" onClick={() => handleRemoveEmail(index)} color="blue" />}
+          rightSection={<IconX className={classes.icon} size={16} role="presentation" onClick={() => handleRemoveEmail(index)} color={primaryColor} />}
         >
           {item}
         </Badge>
