@@ -1,9 +1,10 @@
 import { FC, memo } from 'react';
 import { Title, Text, Stack, TextInput, Divider, Button, useMantineTheme, CopyButton, ActionIcon } from '@mantine/core';
 
+import { CopyIcon } from 'public/icons';
+
 import { AddMembersForm, Link } from 'components';
 
-import { CopyIcon } from 'public/icons';
 import { useStyles } from './styles';
 
 interface InvitesFormProps {

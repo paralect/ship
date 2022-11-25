@@ -15,6 +15,8 @@ export interface User {
   signupToken: string | null;
   resetPasswordToken?: string | null;
   isOnboardingFinished: boolean;
+  role?: string;
+  goal?: string;
   avatarUrl?: string | null;
   subscription: Subscription;
   lastRequest?: Date;
