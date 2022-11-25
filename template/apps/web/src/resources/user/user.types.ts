@@ -14,6 +14,7 @@ export interface User {
   isShadow: boolean | null;
   signupToken: string | null;
   resetPasswordToken?: string | null;
+  isOnboardingFinished: boolean;
   avatarUrl?: string | null;
   subscription: Subscription;
   lastRequest?: Date;

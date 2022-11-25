@@ -1,9 +1,4 @@
-import Link from './Link/Link';
-import Table from './Table/Table';
-import PaymentCard from './PaymentCard/PaymentCardWrapper';
-
-export {
-  Link,
-  Table,
-  PaymentCard,
-};
+export { default as Link } from './Link/Link';
+export { default as Table } from './Table/Table';
+export { default as PaymentCard } from './PaymentCard/PaymentCardWrapper';
+export { default as AddMembersForm } from './AddMembersForm';

@@ -16,6 +16,9 @@ const schema = z.object({
   signupToken: z.string().nullable().optional(),
   resetPasswordToken: z.string().nullable().optional(),
   isEmailVerified: z.boolean().default(false),
+  isOnboardingFinished: z.boolean().default(false),
+  role: z.string().nullable().optional(),
+  goal: z.string().nullable().optional(),
   avatarUrl: z.string().nullable().optional(),
   lastRequest: z.date().optional(),
   oauth: z.object({

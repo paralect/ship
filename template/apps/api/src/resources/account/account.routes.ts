@@ -14,6 +14,7 @@ import verifyResetToken from './actions/verify-reset-token';
 import resendEmail from './actions/resend-email';
 import shadowLogin from './actions/shadow-login';
 import google from './actions/google';
+import finishOnboarding from './actions/finish-onboarding';
 
 const publicRoutes = routeUtil.getRoutes([
   signUp,
@@ -32,6 +33,7 @@ const privateRoutes = routeUtil.getRoutes([
   update,
   uploadAvatar,
   removeAvatar,
+  finishOnboarding,
 ]);
 
 const adminRoutes = routeUtil.getRoutes([

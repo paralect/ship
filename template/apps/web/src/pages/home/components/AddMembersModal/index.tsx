@@ -1,7 +1,7 @@
 import { useState, useCallback, memo, FC } from 'react';
 import { Button, Modal, Text } from '@mantine/core';
 
-import AddMembersModalForm from './form';
+import { AddMembersForm } from 'components';
 
 const AddMembersModal: FC = () => {
   const [isOpened, setIsOpened] = useState(false);
@@ -29,7 +29,17 @@ const AddMembersModal: FC = () => {
         onClose={handleToggleModal}
         centered
       >
-        <AddMembersModalForm onClose={handleToggleModal} />
+        <AddMembersForm
+          onClose={handleToggleModal}
+          description={(
+            <>
+              You may add one or multiple emails,
+              {' '}
+              <br />
+              please make sure to separate multiple emails by space.
+            </>
+          )}
+        />
       </Modal>
     </>
   );
