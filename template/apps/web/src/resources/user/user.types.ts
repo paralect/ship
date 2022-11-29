@@ -1,4 +1,4 @@
-import { Subscription } from 'resources/subscription';
+import { subscriptionTypes } from 'resources/subscription';
 
 export interface User {
   _id: string;
@@ -15,7 +15,7 @@ export interface User {
   signupToken: string | null;
   resetPasswordToken?: string | null;
   avatarUrl?: string | null;
-  subscription: Subscription;
+  subscription: subscriptionTypes.Subscription;
   lastRequest?: Date;
   oauth?: {
     google: boolean

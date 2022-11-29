@@ -13,18 +13,15 @@ import {
 } from '@mantine/core';
 import { IconCheck } from '@tabler/icons';
 
-import { subscriptionApi } from 'resources/subscription';
-
-import type { SubscriptionItemType } from 'pages/pricing-plans/subscription-list';
-import type { Subscription, subscriptionConstants } from 'resources/subscription';
+import { subscriptionApi, subscriptionTypes } from 'resources/subscription';
 
 import { useStyles } from './styles';
 
 type PlanItemPropTypes = {
-  interval: subscriptionConstants.Intervals
-  plan: SubscriptionItemType,
+  interval: subscriptionTypes.Intervals
+  plan: subscriptionTypes.ItemType,
   onPreviewUpgrade: Function,
-  currentSubscription?: Subscription
+  currentSubscription?: subscriptionTypes.Subscription
 };
 
 const PlanItem: FC<PlanItemPropTypes> = (props) => {

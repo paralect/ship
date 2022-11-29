@@ -1,15 +1,8 @@
 import config from 'config';
 
-import { subscriptionConstants } from 'resources/subscription';
+import { Intervals, ItemType } from './subscription.types';
 
-export type SubscriptionItemType = {
-  priceId: Record<subscriptionConstants.Intervals, string>,
-  title: string,
-  price: Record<subscriptionConstants.Intervals, number>,
-  features: string[],
-};
-
-export const subscriptionItems: SubscriptionItemType[] = [
+export const items: ItemType[] = [
   {
     priceId: {
       month: 'price_0',
@@ -17,8 +10,8 @@ export const subscriptionItems: SubscriptionItemType[] = [
     },
     title: 'Basic',
     price: {
-      [subscriptionConstants.Intervals.Month]: 0,
-      [subscriptionConstants.Intervals.Year]: 0,
+      [Intervals.Month]: 0,
+      [Intervals.Year]: 0,
     },
     features: [
       'Onboarding',
@@ -35,8 +28,8 @@ export const subscriptionItems: SubscriptionItemType[] = [
     },
     title: 'Starter',
     price: {
-      [subscriptionConstants.Intervals.Month]: 45,
-      [subscriptionConstants.Intervals.Year]: 459,
+      [Intervals.Month]: 45,
+      [Intervals.Year]: 459,
     },
     features: [
       'Onboarding',
@@ -53,8 +46,8 @@ export const subscriptionItems: SubscriptionItemType[] = [
     },
     title: 'Pro',
     price: {
-      [subscriptionConstants.Intervals.Month]: 99,
-      [subscriptionConstants.Intervals.Year]: 1010,
+      [Intervals.Month]: 99,
+      [Intervals.Year]: 1010,
     },
     features: [
       'Onboarding',

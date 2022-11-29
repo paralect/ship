@@ -9,8 +9,11 @@ import type { ClientSession } from '@paralect/node-mongo';
 
 const stripe = new Stripe(config.stripe.apiKey, { typescript: true, apiVersion: '2022-08-01' });
 
-const createAndAttachStripeAccount = async (user: User, session?: ClientSession): Promise<void> => {
+const createAndAttachStripeAccount = async (user: User, session?: ClientSession): Promise<void | null> => {
   try {
+
+    if (!config.stripe.apiKey) return null;
+
     const customer = await stripe.customers.create({
       email: user.email,
       name: user.fullName,

@@ -8,11 +8,11 @@ import {
   Tabs,
   Title,
 } from '@mantine/core';
-import SubscriptionPlans from 'pages/pricing-plans/components/plans';
-
 import { showNotification } from '@mantine/notifications';
+
 import { RoutePath } from 'routes';
 
+import SubscriptionPlans from './components/pricing-plans/components/plans';
 import CurrentPlan from './components/current-plan';
 
 const getNotificationMessage = (paymentIntentStatus: string) => {
@@ -66,11 +66,11 @@ const AccountPlan: NextPage = () => {
             <Tabs.Tab color="blue" value="plans">Plans</Tabs.Tab>
           </Tabs.List>
 
-          <Tabs.Panel sx={{ marginTop: '32px' }} value="billing">
+          <Tabs.Panel sx={{ margin: '32px 0' }} value="billing">
             <CurrentPlan />
           </Tabs.Panel>
 
-          <Tabs.Panel sx={{ marginTop: '32px' }} value="plans">
+          <Tabs.Panel sx={{ margin: '32px 0' }} value="plans">
             <SubscriptionPlans />
           </Tabs.Panel>
         </Tabs>

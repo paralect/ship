@@ -11,20 +11,21 @@ import {
 import { Table, Link } from 'components';
 import { IconExternalLink } from '@tabler/icons';
 
-import { paymentApi, PaymentHistoryItem, PaymentStatuses, StripePagination } from 'resources/payment';
+import { paymentApi, paymentTypes } from 'resources/payment';
 
 import type { ColumnDef } from '@tanstack/react-table';
 
 const PER_PAGE = 5;
 
 const badgeColorMap = {
-  [PaymentStatuses.SUCCEEDED]: 'green',
-  [PaymentStatuses.FAILED]: 'red',
-  [PaymentStatuses.PENDING]: 'orange',
+  [paymentTypes.Status.SUCCEEDED]: 'green',
+  [paymentTypes.Status.FAILED]: 'red',
+  [paymentTypes.Status.PENDING]: 'orange',
 };
 
 const PaymentHistory: FC = () => {
-  const [params, setParams] = useState<StripePagination>({ page: 1, perPage: PER_PAGE });
+  const [params, setParams] = useState<paymentTypes.StripePagination
+  >({ page: 1, perPage: PER_PAGE });
 
   const {
     data: paymentHistory,
@@ -37,7 +38,7 @@ const PaymentHistory: FC = () => {
     queryClient.removeQueries('paymentHistoryCursorId');
   }, [remove]);
 
-  const columns: ColumnDef<PaymentHistoryItem>[] = useMemo(() => [
+  const columns: ColumnDef<paymentTypes.HistoryItem>[] = useMemo(() => [
     {
       accessorKey: 'created',
       header: 'Date',
@@ -57,7 +58,7 @@ const PaymentHistory: FC = () => {
       accessorKey: 'status',
       header: 'Payment status',
       cell: (info) => (
-        <Badge color={badgeColorMap[info.getValue() as PaymentStatuses]}>
+        <Badge color={badgeColorMap[info.getValue() as paymentTypes.Status]}>
           {info.getValue() as string}
         </Badge>
       ),

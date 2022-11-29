@@ -9,9 +9,7 @@ import {
 } from '@mantine/core';
 
 import { accountApi } from 'resources/account';
-import { subscriptionConstants } from 'resources/subscription';
-import { subscriptionItems } from 'pages/pricing-plans/subscription-list';
-import type { SubscriptionItemType } from 'pages/pricing-plans/subscription-list';
+import { subscriptionTypes, subscriptionConstants } from 'resources/subscription';
 
 import PlanItem from '../plan-item';
 import UpgradeModal from '../upgrade-modal';
@@ -19,18 +17,20 @@ import UpgradeModal from '../upgrade-modal';
 const Plans: FC = () => {
   const { data: account } = accountApi.useGet();
 
-  const [interval, setInterval] = useState(subscriptionConstants.Intervals.Year);
+  const [interval, setInterval] = useState(subscriptionTypes.Intervals.Year);
   const [selectedUpgradePlan, setSelectedUpgradePlan] = useState();
 
-  const renderItems = () => subscriptionItems.map((item: SubscriptionItemType) => (
-    <PlanItem
-      key={item.priceId[interval]}
-      currentSubscription={account?.subscription}
-      interval={interval}
-      onPreviewUpgrade={setSelectedUpgradePlan}
-      plan={item}
-    />
-  ));
+  const renderItems = () => subscriptionConstants.items.map(
+    (item: subscriptionTypes.ItemType) => (
+      <PlanItem
+        key={item.priceId[interval]}
+        currentSubscription={account?.subscription}
+        interval={interval}
+        onPreviewUpgrade={setSelectedUpgradePlan}
+        plan={item}
+      />
+    ),
+  );
 
   const onClosePreview = useCallback(() => setSelectedUpgradePlan(undefined), []);
 
@@ -50,10 +50,10 @@ const Plans: FC = () => {
           size="md"
           value={interval}
           data={[
-            { label: 'Yearly', value: subscriptionConstants.Intervals.Year },
-            { label: 'Monthly', value: subscriptionConstants.Intervals.Month },
+            { label: 'Yearly', value: subscriptionTypes.Intervals.Year },
+            { label: 'Monthly', value: subscriptionTypes.Intervals.Month },
           ]}
-          onChange={(value: subscriptionConstants.Intervals) => setInterval(value)}
+          onChange={(value: subscriptionTypes.Intervals) => setInterval(value)}
         />
       </Stack>
 

@@ -19,7 +19,7 @@ import { ColumnDef, RowSelectionState } from '@tanstack/react-table';
 
 import { Table } from 'components';
 
-import { User, userApi } from 'resources/user';
+import { userTypes, userApi } from 'resources/user';
 
 import SubscriptionPurchasedModal from './components/subscription-purchased-modal';
 import AddMembersModal from './components/AddMembersModal';
@@ -44,7 +44,7 @@ const selectOptions: SelectItem[] = [
   },
 ];
 
-const columns: ColumnDef<User>[] = [
+const columns: ColumnDef<userTypes.User>[] = [
   {
     accessorKey: 'firstName',
     header: 'First Name',

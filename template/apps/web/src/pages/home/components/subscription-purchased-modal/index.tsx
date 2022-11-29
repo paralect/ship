@@ -11,7 +11,7 @@ import {
 import { IconCheck } from '@tabler/icons';
 
 import { RoutePath } from 'routes';
-import { subscriptionItems, SubscriptionItemType } from 'pages/pricing-plans/subscription-list';
+import { subscriptionTypes, subscriptionConstants } from 'resources/subscription';
 
 import { useStyles } from './styles';
 
@@ -20,7 +20,9 @@ const SubscriptionPurchasedModal = () => {
   const router = useRouter();
 
   const [opened, setOpened] = useState(false);
-  const [activeSubscriptionPlan, setActiveSubscriptionPlan] = useState<SubscriptionItemType>();
+  const [
+    activeSubscriptionPlan, setActiveSubscriptionPlan,
+  ] = useState<subscriptionTypes.ItemType>();
 
   const onClose = useCallback(() => {
     setOpened(false);
@@ -30,7 +32,7 @@ const SubscriptionPurchasedModal = () => {
   useEffect(() => {
     if (router.query.subscriptionPlan) {
       setOpened(true);
-      setActiveSubscriptionPlan(subscriptionItems.find(
+      setActiveSubscriptionPlan(subscriptionConstants.items.find(
         (item) => Object.values(item.priceId).includes(router.query.subscriptionPlan as string),
       ));
     }

@@ -19,7 +19,7 @@ interface Card {
   last4: string,
 }
 
-export enum PaymentStatuses {
+export enum Status {
   SUCCEEDED = 'succeeded',
   PENDING = 'pending',
   FAILED = 'failed',
@@ -42,11 +42,11 @@ export interface CustomerPaymentInformation {
   card: Card,
 }
 
-export interface PaymentHistoryItem {
+export interface HistoryItem {
   id: string,
   description: string,
   amount: number,
-  status: PaymentStatuses,
+  status: Status,
   receipt_url: string,
   created: number,
 }

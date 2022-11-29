@@ -24,7 +24,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import { StripePageDirections } from 'resources/payment';
+import { paymentTypes } from 'resources/payment';
 
 import Thead from './thead';
 import Tbody from './tbody';
@@ -142,7 +142,7 @@ const Table: FC<TableProps> = ({
             className={classes.paginationButton}
             variant="white"
             disabled={pageIndex === 1}
-            onClick={() => onPageChangeHandler(pageIndex - 1, StripePageDirections.BACK)}
+            onClick={() => onPageChangeHandler(pageIndex - 1, paymentTypes.StripePageDirections.BACK)}
           >
             <IconChevronLeft />
           </Button>
@@ -150,7 +150,7 @@ const Table: FC<TableProps> = ({
             className={classes.paginationButton}
             variant="white"
             disabled={!hasMore}
-            onClick={() => onPageChangeHandler(pageIndex + 1, StripePageDirections.FORWARD)}
+            onClick={() => onPageChangeHandler(pageIndex + 1, paymentTypes.StripePageDirections.FORWARD)}
           >
             <IconChevronRight />
           </Button>

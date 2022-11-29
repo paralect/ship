@@ -1,7 +1,7 @@
 import * as paymentApi from './payment.api';
-
-export * from './payment.types';
+import * as paymentTypes from './payment.types';
 
 export {
   paymentApi,
+  paymentTypes,
 };

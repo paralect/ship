@@ -1,9 +1,7 @@
 import * as userApi from './user.api';
-import * as userConstants from './user.enums';
-
-export * from './user.types';
+import * as userTypes from './user.types';
 
 export {
   userApi,
-  userConstants,
+  userTypes,
 };

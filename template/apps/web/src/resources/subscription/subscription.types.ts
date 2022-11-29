@@ -24,3 +24,15 @@ export interface Subscription {
   product?: Product,
   pendingInvoice?: Invoice,
 }
+
+export enum Intervals {
+  Month = 'month',
+  Year = 'year',
+}
+
+export type ItemType = {
+  priceId: Record<Intervals, string>,
+  title: string,
+  price: Record<Intervals, number>,
+  features: string[],
+};
