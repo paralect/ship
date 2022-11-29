@@ -1,15 +1,16 @@
 import { FC, memo, useCallback, useMemo, useState } from 'react';
-import { useRouter } from 'next/router';
 import { Group, Stack, Stepper } from '@mantine/core';
 
 import { ShipLightImage } from 'public/images';
 
 import { accountApi } from 'resources/account';
 
-import { GOALS, ROLES } from 'resources/account/account.constants';
+import queryClient from 'query-client';
 
 import CheckboxForm from './components/CheckboxForm';
 import InvitesForm from './components/InvitesForm';
+
+import { GOALS, ROLES } from './constants';
 
 import { useStyles } from './styles';
 
@@ -26,8 +27,6 @@ type OnboardingData = {
 
 const OnboardingForm: FC = () => {
   const { classes } = useStyles();
-
-  const router = useRouter();
 
   const [step, setStep] = useState(0);
   const [data, setData] = useState<OnboardingData>({
@@ -75,12 +74,13 @@ const OnboardingForm: FC = () => {
   }, [step]);
 
   const onFinish = useCallback(() => {
-    finishOnboarding(data, {
-      onSuccess: () => {
-        router.reload();
-      },
-    });
-  }, [data, finishOnboarding, router]);
+    console.log(data);
+    // finishOnboarding(data, {
+    //   onSuccess: () => {
+    //     queryClient.invalidateQueries('account');
+    //   },
+    // });
+  }, [data, finishOnboarding]);
 
   const FormStep = formSteps[step];
 

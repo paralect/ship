@@ -1,7 +1,20 @@
+// import { FC, memo, useCallback } from 'react';
 import { FC, memo, useState } from 'react';
-import { Chip, Stack, Button, Title, Text, useMantineTheme } from '@mantine/core';
+// import { z } from 'zod';
+// import { Stack, Button, Title, Text, Radio, useMantineTheme } from '@mantine/core';
+import { Stack, Button, Title, Text, Chip, useMantineTheme } from '@mantine/core';
 
+// import { useForm } from 'react-hook-form';
+// import { zodResolver } from '@hookform/resolvers/zod';
 import { useStyles } from './styles';
+
+// const schema = z.object({
+//   value: z.string(),
+// });
+//
+// type CheckboxFormParams = {
+//   value: string;
+// };
 
 interface CheckboxFormProps {
   name: string;
@@ -26,6 +39,17 @@ const CheckboxForm: FC<CheckboxFormProps> = ({
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
 
+  // const {
+  //   register,
+  //   handleSubmit: submit,
+  //   formState: { errors },
+  //   setError,
+  //   clearErrors,
+  // } = useForm<CheckboxFormParams>({
+  //   resolver: zodResolver(schema),
+  //   shouldFocusError: false,
+  // });
+
   const handleSubmit = () => {
     if (!value) {
       setError('Please choose a value');
@@ -37,6 +61,20 @@ const CheckboxForm: FC<CheckboxFormProps> = ({
 
     onSubmit(name, value);
   };
+
+  // const handleSubmit = useCallback((data: CheckboxFormParams) => {
+  //   if (!data.value) {
+  //     setError('value', {
+  //       message: 'Please choose a value',
+  //     });
+  //
+  //     return;
+  //   }
+  //
+  //   clearErrors('value');
+  //
+  //   onSubmit(name, data.value);
+  // }, [clearErrors, name, onSubmit, setError]);
 
   return (
     <Stack spacing={32}>
@@ -57,6 +95,22 @@ const CheckboxForm: FC<CheckboxFormProps> = ({
               <Chip className={classes.chip} value={option}>{option}</Chip>
             ))}
           </Chip.Group>
+          {/* /!* @ts-ignore *!/ */}
+          {/* <Radio.Group {...register('value')}> */}
+          {/*  {options.map((option) => ( */}
+          {/*    <Radio */}
+          {/*      key={option} */}
+          {/*      value={option} */}
+          {/*      label={option} */}
+          {/*    /> */}
+          {/*  ))} */}
+          {/* </Radio.Group> */}
+
+          {/* {!!errors?.value && ( */}
+          {/*  <Text color="red"> */}
+          {/*    {errors.value.message} */}
+          {/*  </Text> */}
+          {/* )} */}
 
           {error && (
             <Text color="red">
@@ -66,6 +120,7 @@ const CheckboxForm: FC<CheckboxFormProps> = ({
         </Stack>
 
         <Stack>
+          {/* <Button onClick={submit(handleSubmit)}>Next step</Button> */}
           <Button onClick={handleSubmit}>Next step</Button>
           <Button variant="subtle" onClick={onSkip}>Skip</Button>
         </Stack>

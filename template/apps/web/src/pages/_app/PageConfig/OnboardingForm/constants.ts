@@ -1,4 +1,4 @@
-export const GOALS: string[] = [
+export const GOALS = [
   'Start my pet project',
   'Build product MVP in 1 month',
   'Launch big project with my team',
@@ -7,7 +7,7 @@ export const GOALS: string[] = [
   'Other',
 ];
 
-export const ROLES: string[] = [
+export const ROLES = [
   'Web designer',
   'Product designer',
   'Developer',

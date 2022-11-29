@@ -27,8 +27,14 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     _id: user._id,
   }, (old) => {
     old.isOnboardingFinished = true;
-    old.role = role;
-    old.goal = goal;
+
+    if (role) {
+      old.role = role;
+    }
+
+    if (goal) {
+      old.goal = goal;
+    }
 
     return old;
   });
