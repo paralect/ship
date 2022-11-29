@@ -17,7 +17,7 @@ We encourage developers to share production-ready solutions and help to business
 ## Quick Start
 
 ```shell
-npx create-ship-app init
+npx create-ship-app@latest init
 ```
 
 ## [Documentation](https://ship.paralect.com/docs/intro)
