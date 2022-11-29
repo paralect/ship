@@ -1,21 +1,22 @@
-// import { Database } from '@paralect/node-mongo';
-//
-// import config from '../../../config';
+import { Database } from '@paralect/node-mongo';
+
+import config from 'config';
 // import { DATABASE_DOCUMENTS } from 'app.constants';
 //
 // import { User, userSchema } from 'resources/user';
 
 // const database = new Database(config.mongo.connection, config.mongo.dbName);
-//
+
 // const userService = database.createService<User>(DATABASE_DOCUMENTS.USERS, {
 //   schemaValidator: (obj) => userSchema.parseAsync(obj),
 // });
 
 describe('User service', () => {
-  // beforeAll(async () => {
-  //   await database.connect();
-  // });
-  //
+  beforeAll(async () => {
+    // await database.connect();
+    console.log(config.port);
+  });
+
   // beforeEach(async () => {
   //   await userService.deleteMany({});
   // });

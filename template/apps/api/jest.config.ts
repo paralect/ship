@@ -1,18 +1,27 @@
-import type { Config } from '@jest/types';
+import type { JestConfigWithTsJest } from 'ts-jest';
 
-const config: Config.InitialOptions = {
+import { pathsToModuleNameMapper } from 'ts-jest';
+
+// const { compilerOptions } = require('./tsconfig.json');
+
+const config: JestConfigWithTsJest = {
+  // preset: '@shelf/jest-mongodb',
+  // preset: 'ts-jest',
   verbose: true,
   testEnvironment: 'node',
-  roots: [
-    '<rootDir>/src',
-  ],
   testMatch: [
-    '**/__tests__/**/*.+(ts|tsx|js)',
-    '**/?(*.)+(spec|test).+(ts|tsx|js)',
+    '**/?(*.)+(spec).+(ts)',
   ],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(ts)$': 'ts-jest',
   },
+  // 'moduleNameMapper': {
+  //   '(.*)': '<rootDir>/src/$1',
+  // },
+  roots: ['<rootDir>'],
+  modulePaths: ['src'], // <-- This will be set to 'baseUrl' value
+  moduleNameMapper: pathsToModuleNameMapper({ '*': ['*'] }),
+  moduleDirectories: ['node_modules', '.'],
 };
 
 export default config;
