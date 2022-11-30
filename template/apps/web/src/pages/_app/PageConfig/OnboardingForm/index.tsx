@@ -74,12 +74,11 @@ const OnboardingForm: FC = () => {
   }, [step]);
 
   const onFinish = useCallback(() => {
-    console.log(data);
-    // finishOnboarding(data, {
-    //   onSuccess: () => {
-    //     queryClient.invalidateQueries('account');
-    //   },
-    // });
+    finishOnboarding(data, {
+      onSuccess: () => {
+        queryClient.invalidateQueries('account');
+      },
+    });
   }, [data, finishOnboarding]);
 
   const FormStep = formSteps[step];
