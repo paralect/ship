@@ -1,4 +1,6 @@
 import type { JestConfigWithTsJest } from 'ts-jest';
+// import { defaults as tsjPreset } from 'ts-jest/presets';
+// const { defaults: tsjPreset } = require('ts-jest/presets');
 
 import { pathsToModuleNameMapper } from 'ts-jest';
 
@@ -15,6 +17,14 @@ const config: JestConfigWithTsJest = {
   transform: {
     '^.+\\.(ts)$': 'ts-jest',
   },
+  coverageDirectory: './coverage',
+  resetMocks: true,
+  clearMocks: true,
+  watchPathIgnorePatterns: ['globalConfig'],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    'src/**/*.ts',
+  ],
   // 'moduleNameMapper': {
   //   '(.*)': '<rootDir>/src/$1',
   // },
@@ -22,6 +32,7 @@ const config: JestConfigWithTsJest = {
   modulePaths: ['src'], // <-- This will be set to 'baseUrl' value
   // moduleNameMapper: pathsToModuleNameMapper({ '*': ['*'] }),
   moduleDirectories: ['node_modules'],
+  testTimeout: 30000,
 };
 
 export default config;
