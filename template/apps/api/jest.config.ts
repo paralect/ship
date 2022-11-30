@@ -5,7 +5,7 @@ import { pathsToModuleNameMapper } from 'ts-jest';
 // const { compilerOptions } = require('./tsconfig.json');
 
 const config: JestConfigWithTsJest = {
-  // preset: '@shelf/jest-mongodb',
+  preset: '@shelf/jest-mongodb',
   // preset: 'ts-jest',
   verbose: true,
   testEnvironment: 'node',
@@ -20,8 +20,8 @@ const config: JestConfigWithTsJest = {
   // },
   roots: ['<rootDir>'],
   modulePaths: ['src'], // <-- This will be set to 'baseUrl' value
-  moduleNameMapper: pathsToModuleNameMapper({ '*': ['*'] }),
-  moduleDirectories: ['node_modules', '.'],
+  // moduleNameMapper: pathsToModuleNameMapper({ '*': ['*'] }),
+  moduleDirectories: ['node_modules'],
 };
 
 export default config;

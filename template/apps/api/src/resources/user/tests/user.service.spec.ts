@@ -1,11 +1,15 @@
 import { Database } from '@paralect/node-mongo';
 
 import config from 'config';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+// const config = require('config');
+
 // import { DATABASE_DOCUMENTS } from 'app.constants';
 //
 // import { User, userSchema } from 'resources/user';
 
-// const database = new Database(config.mongo.connection, config.mongo.dbName);
+const database = new Database(config.mongo.connection, config.mongo.dbName);
 
 // const userService = database.createService<User>(DATABASE_DOCUMENTS.USERS, {
 //   schemaValidator: (obj) => userSchema.parseAsync(obj),
@@ -13,8 +17,9 @@ import config from 'config';
 
 describe('User service', () => {
   beforeAll(async () => {
-    // await database.connect();
-    console.log(config.port);
+    await database.connect();
+    // console.log(config.apiUrl);
+    // console.log(database.);
   });
 
   // beforeEach(async () => {
@@ -69,7 +74,7 @@ describe('User service', () => {
     // });
   });
 
-  // afterAll(async () => {
-  //   await database.close();
-  // });
+  afterAll(async () => {
+    await database.close();
+  });
 });
