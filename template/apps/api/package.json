@@ -20,6 +20,7 @@
     "build": "run-s build:**",
     "build:tcs": "tsc",
     "build:email": "npm run copy-assets && mjml dist/src/assets/emails/*.mjml -o dist/src/assets/emails/dist/",
+    "tests": "jest --runInBand -c ./jest.config.ts --collectCoverage false",
     "test": "run-s test:**",
     "test:lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "test:unit": "jest --runInBand -c ./jest.config.ts --collectCoverage false",
