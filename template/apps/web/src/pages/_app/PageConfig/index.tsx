@@ -9,6 +9,7 @@ import 'resources/user/user.handlers';
 import MainLayout from './MainLayout';
 import UnauthorizedLayout from './UnauthorizedLayout';
 import PrivateScope from './PrivateScope';
+import OnboardingForm from './OnboardingForm';
 
 const layoutToComponent = {
   [LayoutType.MAIN]: MainLayout,
@@ -42,6 +43,10 @@ const PageConfig: FC<PageConfigProps> = ({ children }) => {
   if (scope === ScopeType.PUBLIC && account) {
     push(RoutePath.Home);
     return null;
+  }
+
+  if (account && !account.isOnboardingFinished) {
+    return <OnboardingForm />;
   }
 
   return (

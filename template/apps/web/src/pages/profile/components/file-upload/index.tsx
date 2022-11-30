@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Group, Text, Button, Stack, MantineTheme } from '@mantine/core';
+import { Group, Text, Button, Stack } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
 import { IconPencil, IconPlus } from '@tabler/icons';
 

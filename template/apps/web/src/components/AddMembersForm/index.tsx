@@ -1,4 +1,4 @@
-import { useState, memo, useCallback, FC, KeyboardEvent, ChangeEvent } from 'react';
+import { useState, memo, useCallback, FC, KeyboardEvent, ChangeEvent, ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Badge,
@@ -10,8 +10,9 @@ import {
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons';
 
-import { handleError } from 'utils';
 import { inviteApi } from 'resources/invite';
+
+import { handleError } from 'utils';
 
 import { useStyles } from './styles';
 
@@ -25,11 +26,25 @@ const DEFAULT_ERROR_MESSAGE = 'Invalid or duplicated emails, please check again'
 
 type InviteMembersParams = { emails: string[] };
 
-interface AddMembersModalFormProps {
-  onClose: () => void;
+interface AddMembersFormProps {
+  onClose?: () => void;
+  onSubmit?: () => void;
+  isModal?: boolean;
+  placeholder?: string;
+  buttonFullWidth?: boolean;
+  description?: string | ReactNode | null;
+  buttonTitle?: string;
 }
 
-const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
+const AddMembersForm: FC<AddMembersFormProps> = ({
+  onClose,
+  onSubmit,
+  placeholder,
+  description = null,
+  isModal = false,
+  buttonFullWidth = false,
+  buttonTitle = 'Submit',
+}) => {
   const { primaryColor } = useMantineTheme();
 
   const { mutate: inviteMembers, isLoading } = inviteApi.useInviteMembers();
@@ -98,11 +113,18 @@ const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
           color: 'green',
           message: 'Your invitations have been successfully sent.',
         });
-        onClose();
+
+        if (onClose) {
+          onClose();
+        }
+
+        if (onSubmit) {
+          onSubmit();
+        }
       },
       onError: (e: any) => handleError(e, setError),
     });
-  }, [emails, inviteMembers, onClose, setError]);
+  }, [emails, inviteMembers, onClose, onSubmit, setError]);
 
   const renderEmailList = () => (
     <div className={classes.emails}>
@@ -132,6 +154,7 @@ const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
           {...register('emails')}
           value={email}
           classNames={{ input: classes.textarea }}
+          placeholder={placeholder}
           onKeyDown={handleKeyDown}
           onChange={handleChange}
         />
@@ -146,21 +169,29 @@ const AddMembersModalForm: FC<AddMembersModalFormProps> = ({ onClose }) => {
 
   return (
     <>
-      <Text className={classes.helpText}>
-        You may add one or multiple emails,
-        {' '}
-        <br />
-        please make sure to separate multiple emails by space.
-      </Text>
+      {description && (
+        <Text className={classes.helpText}>
+          {description}
+        </Text>
+      )}
       <form className={classes.form} onSubmit={submit(handleSubmit)}>
         {renderTextarea()}
         <div className={classes.actions}>
-          <Button size="sm" variant="subtle" disabled={isLoading} onClick={onClose}>Cancel</Button>
-          <Button size="sm" disabled={isLoading} type="submit">Submit</Button>
+          {isModal && (
+            <Button size="sm" variant="subtle" disabled={isLoading} onClick={onClose}>Cancel</Button>
+          )}
+          <Button
+            fullWidth={buttonFullWidth}
+            disabled={isLoading}
+            type="submit"
+            {...(isModal && { size: 'sm' })}
+          >
+            {buttonTitle}
+          </Button>
         </div>
       </form>
     </>
   );
 };
 
-export default memo(AddMembersModalForm);
+export default memo(AddMembersForm);

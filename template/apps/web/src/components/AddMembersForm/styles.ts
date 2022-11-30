@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((
-  { colors },
+  { colors, white },
 ) => ({
   form: {
     flexDirection: 'column',
@@ -19,6 +19,7 @@ export const useStyles = createStyles((
     border: `1px solid ${colors.gray[3]}`,
     borderRadius: '4px',
     cursor: 'text',
+    background: white,
   },
   textarea: {
     border: 'none',
