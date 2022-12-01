@@ -29,7 +29,7 @@ Ship is written for developers and easy to use and understand. We write document
 The best way to get started with Ship is to use **[Ship CLI](./packages/create-ship-app.md)** to bootstrap your project.
 
 ```shell
-npx create-ship-app init
+npx create-ship-app@latest init
 ```
 
 This command will create everything you need to develop, launch locally and deploy your product.
