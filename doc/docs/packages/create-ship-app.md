@@ -28,11 +28,11 @@ Downloads actual template from Ship [monorepo](https://github.com/paralect/ship)
 ## Usage
 
 ```shell
-npx create-ship-app init
+npx create-ship-app@latest init
 ```
 
 or
 
 ```shell
-npx create-ship-app my-project
+npx create-ship-app@latest my-project
 ```
