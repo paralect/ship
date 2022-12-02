@@ -14,7 +14,7 @@ const AddMembersModal: FC = () => {
   return (
     <>
       <Button
-        size="sm"
+        size="md"
         sx={{
           marginLeft: 'auto',
         }}
@@ -23,22 +23,24 @@ const AddMembersModal: FC = () => {
         + Add team members
       </Button>
       <Modal
-        closeOnClickOutside={false}
+        size={600}
         opened={isOpened}
-        title={<Text weight={600}>Invite your team</Text>}
+        title={<Text size={24} weight={600}>Invite your team</Text>}
         onClose={handleToggleModal}
+        closeOnClickOutside={false}
         centered
       >
         <AddMembersForm
           onClose={handleToggleModal}
           description={(
-            <>
+            <Text size={16}>
               You may add one or multiple emails,
               {' '}
               <br />
               please make sure to separate multiple emails by space.
-            </>
+            </Text>
           )}
+          isModal
         />
       </Modal>
     </>

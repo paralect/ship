@@ -2,7 +2,7 @@ import { useState, memo, useCallback, FC, KeyboardEvent, ChangeEvent, ReactNode 
 import { useForm } from 'react-hook-form';
 import {
   Badge,
-  Button,
+  Button, Group, Stack,
   Text,
   TextInput,
   useMantineTheme,
@@ -127,11 +127,11 @@ const AddMembersForm: FC<AddMembersFormProps> = ({
   }, [emails, inviteMembers, onClose, onSubmit, setError]);
 
   const renderEmailList = () => (
-    <div className={classes.emails}>
+    <Group spacing={4} p={8} align="flex-start">
       {emails.map((item, index) => (
         <Badge
           key={item}
-          size="md"
+          size="lg"
           className={cx({ [classes.error]: !!errors.emails?.[index] })}
           sx={{ fontWeight: 600 }}
           rightSection={<IconX className={classes.icon} size={16} role="presentation" onClick={() => handleRemoveEmail(index)} color={primaryColor} />}
@@ -139,7 +139,7 @@ const AddMembersForm: FC<AddMembersFormProps> = ({
           {item}
         </Badge>
       ))}
-    </div>
+    </Group>
   );
 
   const renderTextarea = () => (
@@ -154,7 +154,7 @@ const AddMembersForm: FC<AddMembersFormProps> = ({
           {...register('emails')}
           value={email}
           classNames={{ input: classes.textarea }}
-          placeholder={placeholder}
+          placeholder={!emails.length ? placeholder : ''}
           onKeyDown={handleKeyDown}
           onChange={handleChange}
         />
@@ -168,7 +168,7 @@ const AddMembersForm: FC<AddMembersFormProps> = ({
   );
 
   return (
-    <>
+    <Stack>
       {description && (
         <Text className={classes.helpText}>
           {description}
@@ -178,19 +178,19 @@ const AddMembersForm: FC<AddMembersFormProps> = ({
         {renderTextarea()}
         <div className={classes.actions}>
           {isModal && (
-            <Button size="sm" variant="subtle" disabled={isLoading} onClick={onClose}>Cancel</Button>
+            <Button size="md" variant="subtle" disabled={isLoading} onClick={onClose}>Cancel</Button>
           )}
           <Button
             fullWidth={buttonFullWidth}
             disabled={isLoading}
             type="submit"
-            {...(isModal && { size: 'sm' })}
+            {...(isModal && { size: 'md' })}
           >
             {buttonTitle}
           </Button>
         </div>
       </form>
-    </>
+    </Stack>
   );
 };
 
