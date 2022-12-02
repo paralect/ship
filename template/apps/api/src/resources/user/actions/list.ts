@@ -9,8 +9,8 @@ const schema = z.object({
   page: z.string().transform(Number).default('1'),
   perPage: z.string().transform(Number).default('10'),
   sort: z.object({
-    createdOn: z.number(),
-  }).default({ createdOn: -1 }),
+    createdOn: z.string(),
+  }).default({ createdOn: 'desc' }),
   searchValue: z.string().default(''),
 });
 

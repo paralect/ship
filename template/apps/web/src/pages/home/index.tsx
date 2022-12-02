@@ -15,7 +15,7 @@ import {
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconSearch, IconX, IconSelector } from '@tabler/icons';
-import { ColumnDef, RowSelectionState } from '@tanstack/react-table';
+import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 
 import { Table } from 'components';
 
@@ -29,7 +29,7 @@ interface UsersListParams {
   perPage?: number;
   searchValue?: string;
   sort?: {
-    createdOn: number;
+    createdOn: 'asc' | 'desc';
   };
 }
 
@@ -67,6 +67,7 @@ const PER_PAGE = 5;
 const Home: NextPage = () => {
   const [search, setSearch] = useState('');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [sorting, setSorting] = useState<SortingState>([]);
   const [sortBy, setSortBy] = useState(selectOptions[0].value);
 
   const [params, setParams] = useState<UsersListParams>({});
@@ -77,7 +78,7 @@ const Home: NextPage = () => {
     setSortBy(value);
     setParams((prev) => ({
       ...prev,
-      sort: value === 'newest' ? { createdOn: -1 } : { createdOn: 1 },
+      sort: value === 'newest' ? { createdOn: 'desc' } : { createdOn: 'asc' },
     }));
   }, []);
 
@@ -167,6 +168,8 @@ const Home: NextPage = () => {
             dataCount={data.count}
             rowSelection={rowSelection}
             setRowSelection={setRowSelection}
+            sorting={sorting}
+            onSortingChange={setSorting}
             onPageChange={setParams}
             perPage={PER_PAGE}
           />
