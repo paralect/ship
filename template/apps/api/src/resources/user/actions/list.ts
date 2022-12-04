@@ -11,6 +11,12 @@ const schema = z.object({
   sort: z.object({
     createdOn: z.string(),
   }).default({ createdOn: 'desc' }),
+  filter: z.object({
+    createdOn: z.object({
+      sinceDate: z.string(),
+      dueDate: z.string(),
+    }).nullable().default(null),
+  }).nullable().default(null),
   searchValue: z.string().default(''),
 });
 
@@ -20,7 +26,7 @@ type ValidatedData = Omit<z.infer<typeof schema>, 'sort'> & {
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const {
-    perPage, page, sort, searchValue,
+    perPage, page, sort, searchValue, filter,
   } = ctx.validatedData;
 
   const validatedSearch = searchValue.split('\\').join('\\\\').split('.').join('\\.');
@@ -28,10 +34,21 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const users = await userService.find(
     {
-      $or: [
-        { firstName: { $regex: regExp } },
-        { lastName: { $regex: regExp } },
-        { email: { $regex: regExp } },
+      $and: [
+        {
+          $or: [
+            { firstName: { $regex: regExp } },
+            { lastName: { $regex: regExp } },
+            { email: { $regex: regExp } },
+            { createdOn: {} },
+          ],
+        },
+        filter?.createdOn ? {
+          createdOn: {
+            $gte: new Date(filter.createdOn.sinceDate as string),
+            $lt: new Date(filter.createdOn.dueDate as string),
+          },
+        } : {},
       ],
     },
     { page, perPage },

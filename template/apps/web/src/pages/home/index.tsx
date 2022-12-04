@@ -21,6 +21,7 @@ import { Table } from 'components';
 
 import { userTypes, userApi } from 'resources/user';
 
+import { DateRangePicker, DateRangePickerValue } from '@mantine/dates';
 import SubscriptionPurchasedModal from './components/subscription-purchased-modal';
 import AddMembersModal from './components/AddMembersModal';
 
@@ -30,6 +31,12 @@ interface UsersListParams {
   searchValue?: string;
   sort?: {
     createdOn: 'asc' | 'desc';
+  };
+  filter?: {
+    createdOn?: {
+      sinceDate: Date | null;
+      dueDate: Date | null;
+    };
   };
 }
 
@@ -69,6 +76,7 @@ const Home: NextPage = () => {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [sortBy, setSortBy] = useState(selectOptions[0].value);
+  const [filterDate, setFilterDate] = useState<DateRangePickerValue>();
 
   const [params, setParams] = useState<UsersListParams>({});
 
@@ -84,6 +92,24 @@ const Home: NextPage = () => {
 
   const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+  }, []);
+
+  const handleFilter = useCallback(([sinceDate, dueDate]: DateRangePickerValue) => {
+    setFilterDate([sinceDate, dueDate]);
+
+    if (!sinceDate) {
+      setParams((prev) => ({
+        ...prev,
+        filter: {},
+      }));
+    }
+
+    if (dueDate) {
+      setParams((prev) => ({
+        ...prev,
+        filter: { createdOn: { sinceDate, dueDate } },
+      }));
+    }
   }, []);
 
   useLayoutEffect(() => {
@@ -125,6 +151,7 @@ const Home: NextPage = () => {
                 sx={{ width: '350px' }}
               />
             </Skeleton>
+
             <Skeleton
               height={42}
               radius="sm"
@@ -143,6 +170,21 @@ const Home: NextPage = () => {
                 transitionDuration={210}
                 transitionTimingFunction="ease-out"
                 sx={{ width: '200px' }}
+              />
+            </Skeleton>
+
+            <Skeleton
+              height={42}
+              radius="sm"
+              visible={isListLoading}
+              width="auto"
+              style={{ overflow: 'unset' }}
+            >
+              <DateRangePicker
+                size="md"
+                placeholder="Pick date"
+                value={filterDate}
+                onChange={handleFilter}
               />
             </Skeleton>
           </Group>
