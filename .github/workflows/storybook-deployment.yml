@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'services/web/src/components/**'
+      - 'template/apps/web/src/components/**'
   workflow_dispatch:
     inputs:
       sha:
@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Go to the storybook direc
         run: |
-          cd services/web
+          cd template/apps/web
           npm i
       - name: Publish to Chromatic
         uses: chromaui/action@v1
@@ -29,4 +29,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: services/web
-          
+
