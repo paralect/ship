@@ -23,7 +23,7 @@ export const useStyles = createStyles((
   },
   textarea: {
     border: 'none',
-    fontSize: '14px',
+    fontSize: '16px',
   },
   error: {
     background: '#FFF',
@@ -37,13 +37,6 @@ export const useStyles = createStyles((
   helpText: {
     color: colors.gray[8],
     fontSize: '14px',
-  },
-  emails: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: '4px',
-    padding: '8px',
   },
   icon: {
     display: 'flex',

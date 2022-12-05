@@ -15,12 +15,13 @@ import {
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconSearch, IconX, IconSelector } from '@tabler/icons';
-import { ColumnDef, RowSelectionState } from '@tanstack/react-table';
+import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 
 import { Table } from 'components';
 
 import { userTypes, userApi } from 'resources/user';
 
+import { DateRangePicker, DateRangePickerValue } from '@mantine/dates';
 import SubscriptionPurchasedModal from './components/subscription-purchased-modal';
 import AddMembersModal from './components/AddMembersModal';
 
@@ -29,7 +30,13 @@ interface UsersListParams {
   perPage?: number;
   searchValue?: string;
   sort?: {
-    createdOn: number;
+    createdOn: 'asc' | 'desc';
+  };
+  filter?: {
+    createdOn?: {
+      sinceDate: Date | null;
+      dueDate: Date | null;
+    };
   };
 }
 
@@ -67,7 +74,9 @@ const PER_PAGE = 5;
 const Home: NextPage = () => {
   const [search, setSearch] = useState('');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [sorting, setSorting] = useState<SortingState>([]);
   const [sortBy, setSortBy] = useState(selectOptions[0].value);
+  const [filterDate, setFilterDate] = useState<DateRangePickerValue>();
 
   const [params, setParams] = useState<UsersListParams>({});
 
@@ -77,12 +86,30 @@ const Home: NextPage = () => {
     setSortBy(value);
     setParams((prev) => ({
       ...prev,
-      sort: value === 'newest' ? { createdOn: -1 } : { createdOn: 1 },
+      sort: value === 'newest' ? { createdOn: 'desc' } : { createdOn: 'asc' },
     }));
   }, []);
 
   const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+  }, []);
+
+  const handleFilter = useCallback(([sinceDate, dueDate]: DateRangePickerValue) => {
+    setFilterDate([sinceDate, dueDate]);
+
+    if (!sinceDate) {
+      setParams((prev) => ({
+        ...prev,
+        filter: {},
+      }));
+    }
+
+    if (dueDate) {
+      setParams((prev) => ({
+        ...prev,
+        filter: { createdOn: { sinceDate, dueDate } },
+      }));
+    }
   }, []);
 
   useLayoutEffect(() => {
@@ -124,6 +151,7 @@ const Home: NextPage = () => {
                 sx={{ width: '350px' }}
               />
             </Skeleton>
+
             <Skeleton
               height={42}
               radius="sm"
@@ -142,6 +170,21 @@ const Home: NextPage = () => {
                 transitionDuration={210}
                 transitionTimingFunction="ease-out"
                 sx={{ width: '200px' }}
+              />
+            </Skeleton>
+
+            <Skeleton
+              height={42}
+              radius="sm"
+              visible={isListLoading}
+              width="auto"
+              style={{ overflow: 'unset' }}
+            >
+              <DateRangePicker
+                size="md"
+                placeholder="Pick date"
+                value={filterDate}
+                onChange={handleFilter}
               />
             </Skeleton>
           </Group>
@@ -167,6 +210,8 @@ const Home: NextPage = () => {
             dataCount={data.count}
             rowSelection={rowSelection}
             setRowSelection={setRowSelection}
+            sorting={sorting}
+            onSortingChange={setSorting}
             onPageChange={setParams}
             perPage={PER_PAGE}
           />
