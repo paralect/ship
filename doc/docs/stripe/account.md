@@ -10,7 +10,7 @@ Navigate to the `Developers` tab [link](https://dashboard.stripe.com/test/develo
 Here you can find two keys - public and secret.
 
 Public key is required by the client-side stripe library (for example - a payment form to purchase a product or add a card for later use).
-(Shipe uses client-side stripe library to display add card form)
+(Ship uses client-side stripe library to display add card form)
 
 Secret key is used to interract with stripe using application's server.
 
