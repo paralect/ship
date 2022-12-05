@@ -1,4 +1,4 @@
-name: Api testing
+name: run-tests
 
 on:
   pull_request:
@@ -18,5 +18,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm install
+      - run: cd template && npm install
       - run: npm test

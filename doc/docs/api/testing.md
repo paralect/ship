@@ -6,15 +6,30 @@ sidebar_position: 7
 
 ## Overview
 
-**Tests** are functions that make it possible to check the correctness of the behavior of the developed functionality.
+In Ship testing settled through [Jest](https://jestjs.io/) framework and [MongoDB memory server](https://github.com/nodkz/mongodb-memory-server#available-options) with possibility running them in CI/CD pipeline. MongoDB's memory server allows connecting to the MongoDB server and running integration tests isolated.
 
-In Ship tests are set up with **Jest** testing framework, `ts-jest` preset for possibility to test Typescript applications. For testing Mongodb functionality with Jest MongoDB In-Memory Server and `jest-mongodb` preset are used. Every `MongoMemoryServer` instance creates and starts a fresh MongoDB server on some free port. MongoDB In-Memory Server allows us to connect to the MongoDB server and run integration tests isolated from each other.
+Tests should be placed in the `tests` directory specified for each resource from the `resources` folder and have next naming format `user.service.spec.ts`.
 
-Tests should be in the `tests` directory specified for each resource from `resources` folder. Test files also should include resource name and testing entity e.x. `user.service.spec.ts`.
+```markdown title=my-app/apps/api/src/resources/user/tests/user.service.spec.ts
+resources/
+  user/
+    tests/
+      user.service.spec.ts
+```
 
-You can use `npm test` command to run all tests and linter checks or `npm run test:unit` command to run only Jest tests.
+Run tests and linter.
 
-## Examples
+```shell
+npm run test
+```
+
+Run only tests.
+
+```shell
+npm run test:unit
+```
+
+## Example
 
 ```typescript
 import { Database } from '@paralect/node-mongo';
@@ -50,3 +65,39 @@ describe('User service', () => {
   });
 });
 ```
+
+## GitHub Actions
+
+By default, tests run for each pull request to the `main` branch through the `run-tests.yml` workflow.
+
+```yaml title='run-tests.yml'
+name: run-tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test api using jest
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm install
+      - run: npm test
+```
+
+:::tip
+
+To set up pull request rejection if tests failed visit `Settings > Branches` tab in your repository. Then add the branch [protection rule](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule
+) "Require status checks to pass before merging".
+
+:::
