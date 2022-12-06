@@ -6,6 +6,8 @@ import { accountApi } from 'resources/account';
 
 import 'resources/user/user.handlers';
 
+import analyticsService from 'services/analytics.service';
+import environmentConfig from 'config';
 import MainLayout from './MainLayout';
 import UnauthorizedLayout from './UnauthorizedLayout';
 import PrivateScope from './PrivateScope';
@@ -27,7 +29,15 @@ interface PageConfigProps {
 
 const PageConfig: FC<PageConfigProps> = ({ children }) => {
   const { route, push } = useRouter();
-  const { data: account, isLoading: isAccountLoading } = accountApi.useGet();
+  const { data: account, isLoading: isAccountLoading } = accountApi.useGet({
+    onSettled: () => {
+      if (!environmentConfig?.mixpanel?.apiKey) return null;
+
+      analyticsService.init();
+
+      analyticsService.setUser(account);
+    },
+  });
 
   if (isAccountLoading) return null;
 

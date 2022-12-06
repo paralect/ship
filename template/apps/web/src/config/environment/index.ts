@@ -22,6 +22,9 @@ const base = {
       year: 'price_1LvIxzDgd1tzhAXhWO9IMklL',
     },
   },
+  mixpanel: {
+    apiKey: process.env.NEXT_PUBLIC_MIXPANEL_API_KEY,
+  },
 };
 
 export default merge(base, config);
