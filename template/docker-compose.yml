@@ -28,6 +28,7 @@ services:
       - type: volume
         source: mongodb-cfg
         target: /data/configdb
+  # needed to create a replica set to be able to use transactions
   mongo-replicator:
     container_name: ship-mongo-replicator
     image: mongo:4.4
