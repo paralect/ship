@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import config from 'config';
 import { securityUtil } from 'utils';
-import { emailService } from 'services';
+import { analyticsService, emailService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
@@ -53,6 +53,11 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     passwordHash: hash.toString(),
     isEmailVerified: false,
     signupToken,
+  });
+
+  analyticsService.track('New user created', {
+    firstName,
+    lastName,
   });
 
   await emailService.sendVerifyEmail(user.email, {
