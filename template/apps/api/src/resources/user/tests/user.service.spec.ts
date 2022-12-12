@@ -37,23 +37,6 @@ describe('User service', () => {
     expect(insertedUser).not.toBeNull();
   });
 
-  it('should create user with provided data', async () => {
-    const mockUser = {
-      _id: '123asdqwer',
-      firstName: 'John',
-      lastName: 'Smith',
-      fullName: 'John Smith',
-      email: 'smith@example.com',
-      isEmailVerified: false,
-    };
-
-    await userService.insertOne(mockUser);
-
-    const insertedUser = await userService.findOne({ _id: mockUser._id });
-
-    expect(mockUser).toEqual(insertedUser);
-  });
-
   afterAll(async () => {
     await database.close();
   });
