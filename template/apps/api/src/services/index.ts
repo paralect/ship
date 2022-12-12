@@ -4,6 +4,7 @@ import cloudStorageService from './cloud-storage/cloud-storage.service';
 import emailService from './email/email.service';
 import stripeService from './stripe/stripe.service';
 import socketService from './socket/socket.service';
+import analyticsService from './analytics.service';
 
 export {
   authService,
@@ -12,4 +13,5 @@ export {
   emailService,
   socketService,
   stripeService,
+  analyticsService,
 };

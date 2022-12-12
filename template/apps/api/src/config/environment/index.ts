@@ -29,6 +29,9 @@ const base = {
     apiKey: process.env.STRIPE_API_KEY || '',
     webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
   },
+  mixpanel: {
+    apiKey: process.env.MIXPANEL_API_KEY || '',
+  },
 };
 
 const config = configUtil.loadConfig(base, env, __dirname);
