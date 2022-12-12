@@ -15,5 +15,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Test api using jest
         uses: actions/setup-node@v3
-      - run: cd template && npm install
+      - run: cd template && npm install --ignore-scripts
       - run: npm test
