@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'apps/api'
 
 jobs:
   test:
@@ -18,5 +20,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm install
-      - run: npm test
+      - run: npm install --ignore-scripts
+      - run: cd apps/api && npm run test
