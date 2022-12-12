@@ -18,6 +18,11 @@ WORKDIR /app/apps/api
 # install node packages
 RUN npm ci --include=dev --quiet
 
+# Rewrite global node_modules with local ones (if exists)
+RUN if [ -e /app/apps/api/node_modules ]; then \
+    cp -Rf /app/apps/api/node_modules/* /app/node_modules; \
+    fi
+
 # ---- Build ----
 FROM dependencies AS build
 COPY ./apps/api/src /app/apps/api/src
