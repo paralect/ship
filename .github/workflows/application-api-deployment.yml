@@ -18,6 +18,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
     steps:
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
