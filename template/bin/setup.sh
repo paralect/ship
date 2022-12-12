@@ -12,9 +12,9 @@ for i in $(seq 1 20); do
   echo "Replication attempt"
 
   if [[ $USERNAME ]]; then
-    mongo $HOST:$PORT --authenticationDatabase "admin" -u $USERNAME -p $PASSWORD --quiet --eval "$command" && break
+    mongo "$HOST":"$PORT" --authenticationDatabase "admin" -u "$USERNAME" -p "$PASSWORD" --quiet --eval "$command" && break
   else
-    mongo $HOST:$PORT --quiet --eval "$command" && break
+    mongo "$HOST":"$PORT" --quiet --eval "$command" && break
   fi
 
   sleep 2

@@ -15,7 +15,7 @@ npm run infra
 2. Run services with Turborepo
 
 ```bash
-npm turbo-start
+npm run turbo-start
 ```
 
 ## Using Ship with Docker

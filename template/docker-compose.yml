@@ -30,7 +30,15 @@ services:
         target: /data/configdb
   mongo-replicator:
     container_name: ship-mongo-replicator
-    build: ./apps/api/mongo-replicator
+    image: mongo:4.4
+    entrypoint:
+      - bash
+      - -c
+      - |
+        chmod +x /setup.sh
+        bash /setup.sh
+    volumes:
+      - ./bin/setup.sh:/setup.sh
     environment:
       - HOST=mongo
       - PORT=27017
