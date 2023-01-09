@@ -38,7 +38,7 @@ const deployConfig =  {
     dockerRepo: `${config.dockerRegistry.name}-web`,
     dockerContextDir: rootDir,
     folder: 'web',
-    dockerFilePath: `${rootDir}/apps/web/Dockerfile.migrator`,
+    dockerFilePath: `${rootDir}/apps/web/Dockerfile`,
   },
   scheduler: {
     dockerRepo: `${config.dockerRegistry.name}-scheduler`,
