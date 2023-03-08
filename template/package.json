@@ -11,7 +11,7 @@
     "husky": "7.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "turbo": "1.4.5"
+    "turbo": "1.8.3"
   },
   "optionalDependencies": {
     "@next/swc-android-arm64": "12.1.0",
@@ -39,9 +39,5 @@
     "turbo-windows-32": "1.4.0",
     "turbo-windows-64": "1.4.0",
     "turbo-windows-arm64": "1.4.0"
-  },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  }
 }
