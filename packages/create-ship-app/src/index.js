@@ -15,7 +15,7 @@ let deploymentType = deploymentTypes.DIGITAL_OCEAN_APPS;
 (async () => {
   console.clear();
   console.log(`Hey! Let’s build your ${gradient.pastel('Ship')} 🚀`);
-  
+
   const [firstArg] = utils.getCLIArgs();
   if (firstArg === 'init') {
     projectName = await buildSteps.askProjectName();
@@ -23,20 +23,20 @@ let deploymentType = deploymentTypes.DIGITAL_OCEAN_APPS;
     projectName = firstArg;
     console.log(`Project name: ${projectName}`);
   }
-  
+
   apiType = await buildSteps.askApiType();
-  
+
   if (apiType === apiTypes.DOTNET) {
     dbType = await buildSteps.askDbType();
   }
-  
+
   deploymentType = await buildSteps.askDeploymentType(apiType);
-  
+
   await utils.installServices(projectName, deploymentType, apiType, dbType);
-  
+
   figlet('Happy coding!', (err, data) => {
     console.log(gradient.pastel.multiline(data) + '\n');
-    console.log(`Run application: cd ${projectName} && npm start`);
+    console.log(`Run application: cd ${projectName} && pnpm start`);
     process.exit(0);
   });
 })();
