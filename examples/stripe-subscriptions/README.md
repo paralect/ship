@@ -1,4 +1,4 @@
-# [Documentation](https://ship.paralect.com/docs/intro)
+# [Documentation for example](https://ship.paralect.com/docs/examples/stripe-subscriptions/overview)
 
 ## Starting application with Turborepo
 
