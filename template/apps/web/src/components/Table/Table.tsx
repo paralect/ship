@@ -1,8 +1,5 @@
-/* eslint-disable */
-
 import { useMemo, useCallback, useState, FC } from 'react';
 import {
-  Button,
   Table as TableContainer,
   Checkbox,
   Pagination,
@@ -10,7 +7,6 @@ import {
   Text,
   Paper,
 } from '@mantine/core';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
 import {
   ColumnDef,
   flexRender,
@@ -24,12 +20,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import { paymentTypes } from 'resources/payment';
-
 import Thead from './thead';
 import Tbody from './tbody';
-
-import { useStyles } from './styles';
 
 type SpacingSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -46,8 +38,6 @@ interface TableProps {
   onPageChange?: (value: Record<string, any>) => void;
   perPage: number;
   page?: number;
-  hasMore?: boolean;
-  isStripeTable?: boolean;
 }
 
 const Table: FC<TableProps> = ({
@@ -63,11 +53,7 @@ const Table: FC<TableProps> = ({
   onPageChange,
   page,
   perPage,
-  hasMore,
-  isStripeTable,
 }) => {
-  const { classes } = useStyles();
-
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: page || 1,
     pageSize: perPage,
@@ -87,7 +73,7 @@ const Table: FC<TableProps> = ({
             '& .mantine-Checkbox-input': {
               backgroundColor: theme.colors.blue[6],
               border: 'none',
-            }
+            },
           }),
           color: theme.white,
         })}
@@ -133,30 +119,8 @@ const Table: FC<TableProps> = ({
   });
 
   const renderPagination = useCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const { pageIndex } = table.getState().pagination;
-
-    if (isStripeTable) {
-      return (
-        <>
-          <Button
-            className={classes.paginationButton}
-            variant="white"
-            disabled={pageIndex === 1}
-            onClick={() => onPageChangeHandler(pageIndex - 1, paymentTypes.StripePageDirections.BACK)}
-          >
-            <IconChevronLeft />
-          </Button>
-          <Button
-            className={classes.paginationButton}
-            variant="white"
-            disabled={!hasMore}
-            onClick={() => onPageChangeHandler(pageIndex + 1, paymentTypes.StripePageDirections.FORWARD)}
-          >
-            <IconChevronRight />
-          </Button>
-        </>
-      )
-    }
 
     return (
       <Pagination
@@ -165,8 +129,8 @@ const Table: FC<TableProps> = ({
         onChange={onPageChangeHandler}
         color="black"
       />
-    )
-  }, [hasMore, isStripeTable, onPageChangeHandler]);
+    );
+  }, [onPageChangeHandler, table]);
 
   return (
     <>
