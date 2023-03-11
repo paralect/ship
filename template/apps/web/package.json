@@ -54,6 +54,7 @@
     "@storybook/builder-webpack5": "6.5.10",
     "@storybook/manager-webpack5": "6.5.10",
     "@storybook/react": "6.5.10",
+    "@types/mixpanel-browser": "2.38.1",
     "@types/node": "18.7.15",
     "@types/qs": "6.9.7",
     "@types/react": "18.0.18",

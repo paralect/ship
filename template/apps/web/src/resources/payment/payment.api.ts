@@ -7,7 +7,7 @@ import { handleError } from 'utils';
 import { StripePageDirections } from './payment.types';
 import type {
   CustomerPaymentInformation,
-  PaymentHistoryItem,
+  HistoryItem,
   StripePagination,
 } from './payment.types';
 
@@ -31,7 +31,7 @@ export function useGetPaymentHistory(params: StripePagination) {
   );
 
   type PaymentHistory = {
-    data: PaymentHistoryItem[],
+    data: HistoryItem[],
     count: number,
     totalPages: number,
 
