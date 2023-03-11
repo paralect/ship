@@ -17,9 +17,5 @@
   "google": {
     "clientId": "",
     "clientSecret": ""
-  },
-  "stripe": {
-    "apiKey": "",
-    "webhookSecret": ""
   }
 }

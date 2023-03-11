@@ -25,10 +25,6 @@ const base = {
     clientId: process.env.GOOGLE_CLIENT_ID || '',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
   },
-  stripe: {
-    apiKey: process.env.STRIPE_API_KEY || '',
-    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
-  },
   mixpanel: {
     apiKey: process.env.MIXPANEL_API_KEY || '',
   },
