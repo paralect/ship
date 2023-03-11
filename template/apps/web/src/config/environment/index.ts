@@ -11,19 +11,8 @@ const base = {
   apiUrl: '',
   wsUrl: '',
   webUrl: '',
-  stripePublicKey: process.env.STRIPE_PUBLIC_KEY || 'pk_test_51JiFOKDgd1tzhAXh9m0JJEEeWFonDJjOqZU2NY3xoCodVWIiE7Kh11ZIrpeE9dyCeuqmbr5k5n1uascna1wsbfwp00JC9h97kx',
-  subscriptions: {
-    starter: {
-      month: 'price_1LvIwjDgd1tzhAXhGwvrRWai',
-      year: 'price_1LvIwjDgd1tzhAXhEaS9AsE3',
-    },
-    pro: {
-      month: 'price_1LvIxzDgd1tzhAXhlVkSJAN8',
-      year: 'price_1LvIxzDgd1tzhAXhWO9IMklL',
-    },
-  },
   mixpanel: {
-    apiKey: process.env.NEXT_PUBLIC_MIXPANEL_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_MIXPANEL_API_KEY || '',
   },
 };
 

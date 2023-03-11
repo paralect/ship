@@ -1,0 +1,30 @@
+<mjml>
+  <mj-head>
+    <mj-include path="./styles/index.mjml" />
+  </mj-head>
+
+  <mj-body mj-class="wrapper">
+    <mj-include path="./components/header.mjml" />
+
+    <mj-section mj-class="main-section">
+      <mj-column vertical-align="middle" width="100%">
+        <mj-text mj-class="big-text">Hi!</mj-text>
+        <mj-text mj-class="text" padding-bottom="34px">
+            You’ve been invited to the {{companyName}}!
+        </mj-text>
+
+        <mj-button mj-class="btn" href="{{signUpUrl}}">
+          Accept Invite
+        </mj-button>
+
+        <mj-text mj-class="text" color="#6D747B" padding-top="58px">
+          If you did not expect this email,
+          <br />
+          you can safely ignore it.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./components/footer.mjml" />
+  </mj-body>
+</mjml>

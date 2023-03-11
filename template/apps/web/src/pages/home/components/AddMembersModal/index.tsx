@@ -2,14 +2,14 @@ import { useState, useCallback, memo, FC } from 'react';
 import { Button, Modal, Text } from '@mantine/core';
 
 import { AddMembersForm } from 'components';
-import mixpanel from 'mixpanel-browser';
+import { analyticsService } from 'services';
 
 const AddMembersModal: FC = () => {
   const [isOpened, setIsOpened] = useState(false);
 
   const handleToggleModal = useCallback(
     () => {
-      mixpanel.track('Button "Add team members" clicked');
+      analyticsService.track('Button "Add team members" clicked');
       setIsOpened(!isOpened);
     },
     [isOpened],

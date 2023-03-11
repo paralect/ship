@@ -22,7 +22,6 @@ import { Table } from 'components';
 import { userTypes, userApi } from 'resources/user';
 
 import { DateRangePicker, DateRangePickerValue } from '@mantine/dates';
-import SubscriptionPurchasedModal from './components/subscription-purchased-modal';
 import AddMembersModal from './components/AddMembersModal';
 
 interface UsersListParams {
@@ -223,8 +222,6 @@ const Home: NextPage = () => {
           </Container>
         )}
       </Stack>
-
-      <SubscriptionPurchasedModal />
     </>
   );
 };

@@ -1,0 +1,43 @@
+<mjml>
+  <mj-head>
+    <mj-include path="./styles/index.mjml" />
+  </mj-head>
+
+  <mj-body mj-class="wrapper">
+    <mj-include path="./components/header.mjml" />
+
+    <mj-section mj-class="main-section">
+      <mj-column vertical-align="middle" width="100%">
+        <mj-text mj-class="big-text">
+          Welcome, {{userName}}!
+        </mj-text>
+
+        <mj-text mj-class="text" color="#6D747B" padding-bottom="34px">
+          We are so happy you have joined our growing community!
+        </mj-text>
+
+        <mj-button mj-class="btn" href="{{actionLink}}">
+          {{actionText}}
+        </mj-button>
+
+        <mj-raw>
+          {% if var:videoLink %}
+        </mj-raw>
+
+        <mj-text mj-class="text" padding-top="54px" padding-bottom="12px">
+          And if you are still just checking us out - watch this video to get us know better!
+        </mj-text>
+        <mj-text>
+          <iframe width="361" height="201" src={{videoLink}} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </mj-text>
+
+        <mj-raw>
+          {% endif %}
+        </mj-raw>
+
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./components/footer.mjml" />
+  </mj-body>
+</mjml>

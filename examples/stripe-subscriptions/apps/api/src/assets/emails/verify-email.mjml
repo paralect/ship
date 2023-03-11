@@ -1,0 +1,28 @@
+<mjml>
+  <mj-head>
+    <mj-include path="./styles/index.mjml" />
+  </mj-head>
+
+  <mj-body mj-class="wrapper">
+    <mj-include path="./components/header.mjml" />
+
+    <mj-section mj-class="main-section">
+      <mj-column vertical-align="middle" width="100%">
+        <mj-text mj-class="big-text">
+          Verify your account
+        </mj-text>
+        <mj-text mj-class="text" color="#6D747B" padding-bottom="34px">
+          You are almost ready to start!
+          <br />
+          Click the button below to verify your account.
+        </mj-text>
+
+        <mj-button mj-class="btn" href="{{verifyEmailUrl}}">
+          Verify Email
+        </mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./components/footer.mjml" />
+  </mj-body>
+</mjml>

@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-import subscriptionSchema from 'resources/subscription/subscription.schema';
-
 const schema = z.object({
   _id: z.string(),
   createdOn: z.date().optional(),
@@ -11,7 +9,6 @@ const schema = z.object({
   lastName: z.string(),
   fullName: z.string(),
   email: z.string().email(),
-  stripeId: z.string().optional().nullable(),
   passwordHash: z.string().nullable().optional(),
   signupToken: z.string().nullable().optional(),
   resetPasswordToken: z.string().nullable().optional(),
@@ -24,7 +21,6 @@ const schema = z.object({
   oauth: z.object({
     google: z.boolean().default(false),
   }).optional(),
-  subscription: subscriptionSchema.optional().nullable(),
 }).strict();
 
 export default schema;
