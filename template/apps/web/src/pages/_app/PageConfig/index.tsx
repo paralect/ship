@@ -4,9 +4,10 @@ import { useRouter } from 'next/router';
 import { routesConfiguration, ScopeType, LayoutType, RoutePath } from 'routes';
 import { accountApi } from 'resources/account';
 
+import { analyticsService } from 'services';
+
 import 'resources/user/user.handlers';
 
-import analyticsService from 'services/analytics.service';
 import environmentConfig from 'config';
 import MainLayout from './MainLayout';
 import UnauthorizedLayout from './UnauthorizedLayout';

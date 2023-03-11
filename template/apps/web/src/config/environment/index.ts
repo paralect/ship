@@ -12,7 +12,7 @@ const base = {
   wsUrl: '',
   webUrl: '',
   mixpanel: {
-    apiKey: process.env.NEXT_PUBLIC_MIXPANEL_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_MIXPANEL_API_KEY || '',
   },
 };
 
