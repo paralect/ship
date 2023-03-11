@@ -53,7 +53,7 @@ export function useResendEmail<T>() {
   return useMutation<{}, unknown, T>(resendEmail);
 }
 
-export function useGet(options : {}) {
+export function useGet(options? : {}) {
   const get = () => apiService.get('/account');
 
   return useQuery<userTypes.User>(['account'], get, options);

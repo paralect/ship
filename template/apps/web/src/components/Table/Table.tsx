@@ -181,6 +181,7 @@ const Table: FC<TableProps> = ({
             flexRender={flexRender}
           />
           <Tbody
+            isSelectable={isSelectable}
             rows={table.getRowModel().rows}
             flexRender={flexRender}
           />

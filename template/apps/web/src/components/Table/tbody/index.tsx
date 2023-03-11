@@ -7,6 +7,7 @@ type RowData = {
 };
 
 interface TbodyProps {
+  isSelectable: boolean,
   rows: Row<RowData>[];
   flexRender: (
     template: ColumnDefTemplate<CellContext<RowData, any>> | undefined,
@@ -14,7 +15,7 @@ interface TbodyProps {
   ) => ReactNode;
 }
 
-const Tbody: FC<TbodyProps> = ({ rows, flexRender }) => {
+const Tbody: FC<TbodyProps> = ({ isSelectable, rows, flexRender }) => {
   const { colors } = useMantineTheme();
 
   return (
@@ -23,7 +24,7 @@ const Tbody: FC<TbodyProps> = ({ rows, flexRender }) => {
         <tr
           key={row.id}
           style={{
-            ...(row.getIsSelected() && {
+            ...(isSelectable && row.getIsSelected() && {
               backgroundColor: colors.blue[0],
             }),
             fontWeight: '400',
