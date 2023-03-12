@@ -16,11 +16,13 @@ const base = {
   sendgridApiKey: process.env.SENDGRID_API_KEY || '',
   cloudStorage: {
     endpoint: process.env.CLOUD_STORAGE_ENDPOINT || '',
-    accessKeyId: process.env.CLOUD_STORAGE_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.CLOUD_STORAGE_SECRET_ACCESS_KEY || '',
+    credentials: {
+      accessKeyId: process.env.CLOUD_STORAGE_ACCESS_KEY_ID || '',
+      secretAccessKey: process.env.CLOUD_STORAGE_SECRET_ACCESS_KEY || '',
+    },
     bucket: process.env.CLOUD_STORAGE_BUCKET || '',
   },
-  adminKey: process.env.ADMIN_KEY || 'replaceWithSecureApiKey',
+  adminKey: process.env.ADMIN_KEY || '',
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID || '',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',

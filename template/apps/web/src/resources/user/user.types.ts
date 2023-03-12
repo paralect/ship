@@ -1,5 +1,3 @@
-import { subscriptionTypes } from 'resources/subscription';
-
 export interface User {
   _id: string;
   createdOn?: Date;
@@ -18,7 +16,6 @@ export interface User {
   role?: string;
   goal?: string;
   avatarUrl?: string | null;
-  subscription: subscriptionTypes.Subscription;
   lastRequest?: Date;
   oauth?: {
     google: boolean

@@ -14,14 +14,14 @@ import {
   SelectItem,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
-import { IconSearch, IconX, IconSelector } from '@tabler/icons';
+import { IconSearch, IconX, IconSelector } from '@tabler/icons-react';
 import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 
 import { Table } from 'components';
 
 import { userTypes, userApi } from 'resources/user';
 
-import { DateRangePicker, DateRangePickerValue } from '@mantine/dates';
+import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
 import AddMembersModal from './components/AddMembersModal';
 
 interface UsersListParams {
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [sortBy, setSortBy] = useState(selectOptions[0].value);
-  const [filterDate, setFilterDate] = useState<DateRangePickerValue>();
+  const [filterDate, setFilterDate] = useState<DatesRangeValue>();
 
   const [params, setParams] = useState<UsersListParams>({});
 
@@ -93,7 +93,7 @@ const Home: NextPage = () => {
     setSearch(event.target.value);
   }, []);
 
-  const handleFilter = useCallback(([sinceDate, dueDate]: DateRangePickerValue) => {
+  const handleFilter = useCallback(([sinceDate, dueDate]: DatesRangeValue) => {
     setFilterDate([sinceDate, dueDate]);
 
     if (!sinceDate) {
@@ -165,9 +165,11 @@ const Home: NextPage = () => {
                 onChange={handleSort}
                 rightSection={<IconSelector size={16} />}
                 withinPortal={false}
-                transition="pop-bottom-right"
-                transitionDuration={210}
-                transitionTimingFunction="ease-out"
+                transitionProps={{
+                  transition: 'pop-bottom-right',
+                  duration: 210,
+                  timingFunction: 'ease-out',
+                }}
                 sx={{ width: '200px' }}
               />
             </Skeleton>
@@ -179,7 +181,8 @@ const Home: NextPage = () => {
               width="auto"
               style={{ overflow: 'unset' }}
             >
-              <DateRangePicker
+              <DatePickerInput
+                type="range"
                 size="md"
                 placeholder="Pick date"
                 value={filterDate}

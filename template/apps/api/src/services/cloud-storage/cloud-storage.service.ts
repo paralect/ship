@@ -1,13 +1,29 @@
-import { File } from '@koa/multer';
-import aws from 'aws-sdk';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { Upload } from '@aws-sdk/lib-storage';
+import {
+  S3Client,
+  GetObjectCommand,
+  CopyObjectCommand,
+  DeleteObjectCommand,
+} from '@aws-sdk/client-s3';
+
+import {
+  type GetObjectOutput,
+  type CopyObjectOutput,
+  type DeleteObjectOutput,
+  type CompleteMultipartUploadOutput,
+} from '@aws-sdk/client-s3';
+import { type File } from '@koa/multer';
 
 import config from 'config';
 
-const storage = new aws.S3(config.cloudStorage);
+import * as helpers from './cloud-storage.helper';
+
+const client = new S3Client(config.cloudStorage);
 const Bucket = config.cloudStorage.bucket;
 
-function upload(fileName: string, file: File) {
-  const uploadParameters = {
+const upload = (fileName: string, file: File): Promise<CompleteMultipartUploadOutput> => {
+  const params = {
     Bucket,
     ContentType: file.mimetype,
     Body: file.buffer,
@@ -15,11 +31,16 @@ function upload(fileName: string, file: File) {
     ACL: 'private',
   };
 
-  return storage.upload(uploadParameters).promise();
-}
+  const multipartUpload = new Upload({
+    client,
+    params,
+  });
 
-function uploadPublic(fileName: string, file: File) {
-  const uploadParameters = {
+  return multipartUpload.done();
+};
+
+const uploadPublic = (fileName: string, file: File): Promise<CompleteMultipartUploadOutput> => {
+  const params = {
     Bucket,
     ContentType: file.mimetype,
     Body: file.buffer,
@@ -27,48 +48,53 @@ function uploadPublic(fileName: string, file: File) {
     ACL: 'public-read',
   };
 
-  return storage.upload(uploadParameters).promise();
-}
+  const multipartUpload = new Upload({
+    client,
+    params,
+  });
 
-function getSignedDownloadUrl(fileName: string) {
-  const params = {
+  return multipartUpload.done();
+};
+
+const getSignedDownloadUrl = (fileName: string): Promise<string> => {
+  const command = new GetObjectCommand({
     Bucket,
     Key: fileName,
-    Expires: 1800,
-  };
+  });
 
-  return storage.getSignedUrl('getObject', params);
-}
+  return getSignedUrl(client, command, { expiresIn: 1800 });
+};
 
-function getObject(fileName: string) {
-  const downloadParameters = {
+const getObject = (fileName: string): Promise<GetObjectOutput> => {
+  const command = new GetObjectCommand({
     Bucket,
     Key: fileName,
-  };
+  });
 
-  return storage.getObject(downloadParameters).promise();
-}
+  return client.send(command);
+};
 
-function copyObject(filePath: string, copyFilePath: string) {
-  const parameters = {
+const copyObject = (filePath: string, copyFilePath: string): Promise<CopyObjectOutput> => {
+  const command = new CopyObjectCommand({
     Bucket,
     CopySource: encodeURI(`${Bucket}/${copyFilePath}`),
     Key: filePath,
-  };
+  });
 
-  return storage.copyObject(parameters).promise();
-}
+  return client.send(command);
+};
 
-function deleteObject(fileName: string) {
-  const parameters = {
+const deleteObject = (fileName: string): Promise<DeleteObjectOutput> => {
+  const command = new DeleteObjectCommand( {
     Bucket,
     Key: fileName,
-  };
+  });
 
-  return storage.deleteObject(parameters).promise();
-}
+  return client.send(command);
+};
 
 export default {
+  helpers,
   upload,
   uploadPublic,
   getObject,

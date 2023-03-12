@@ -8,7 +8,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { IconX } from '@tabler/icons';
+import { IconX } from '@tabler/icons-react';
 
 import { inviteApi } from 'resources/invite';
 

@@ -1,6 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import qs from 'qs';
 
 import config from 'config';
 
@@ -52,6 +51,7 @@ class ApiClient {
       (response: AxiosResponse) => response.data,
       (error) => {
         if (axios.isCancel(error)) {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
           throw error;
         }
         // Axios Network Error & Timeout error dont have 'response' field
@@ -123,5 +123,4 @@ export default new ApiClient({
   baseURL: config.apiUrl,
   withCredentials: true,
   responseType: 'json',
-  paramsSerializer: (params: any) => qs.stringify(params, { arrayFormat: 'brackets' }),
 });

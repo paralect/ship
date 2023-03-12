@@ -6,7 +6,7 @@ const Footer: FC = () => {
 
   return (
     <LayoutFooter
-      height=""
+      height="40px"
       sx={(theme) => ({
         marginTop: 'auto',
         padding: '12px 0',

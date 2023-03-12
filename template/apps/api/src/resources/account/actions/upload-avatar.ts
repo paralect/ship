@@ -1,14 +1,10 @@
 import multer from '@koa/multer';
 
-import config from 'config';
 import { cloudStorageService } from 'services';
 import { Next, AppKoaContext, AppRouter } from 'types';
 import { userService } from 'resources/user';
 
 const upload = multer();
-
-const getFileKey = (url: string) => decodeURI(url
-  .replace(`https://${config.cloudStorage.bucket}.${config.cloudStorage.endpoint}/`, ''));
 
 async function validator(ctx: AppKoaContext, next: Next) {
   const { file } = ctx.request;
@@ -25,7 +21,9 @@ async function handler(ctx: AppKoaContext) {
   const { file } = ctx.request;
 
   if (user.avatarUrl) {
-    await cloudStorageService.deleteObject(getFileKey(user.avatarUrl));
+    const fileKey = cloudStorageService.helpers.getFileKey(user.avatarUrl);
+
+    await cloudStorageService.deleteObject(fileKey);
   }
 
   const fileName = `${user._id}-${Date.now()}-${file.originalname}`;
