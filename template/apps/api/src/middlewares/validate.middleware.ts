@@ -20,7 +20,7 @@ function formatError(zodError: ZodError): ValidationErrors {
 function validate(schema: ZodSchema) {
   return async (ctx: AppKoaContext, next: Next) => {
     const result = await schema.safeParseAsync({
-      ...ctx.request.body,
+      ...ctx.request.body as object,
       ...ctx.query,
       ...ctx.params,
     });
