@@ -7,6 +7,7 @@ module.exports = {
 
     return config;
   },
+  output: 'standalone',
   trailingSlash: true,
   pageExtensions: ['page.tsx', 'api.ts'],
   reactStrictMode: true,
