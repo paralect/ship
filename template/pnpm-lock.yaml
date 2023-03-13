@@ -127,7 +127,6 @@ importers:
       redis: 4.0.6
       socket.io: 4.5.2
       socket.io-adapter: ~2.4.0
-      stripe: 10.14.0
       ts-jest: 29.0.3
       ts-node: 10.7.0
       typescript: 4.8.4
@@ -166,7 +165,6 @@ importers:
       redis: 4.0.6
       socket.io: 4.5.2
       socket.io-adapter: 2.4.0
-      stripe: 10.14.0
       ts-node: 10.7.0_2cznuqqlnikrcghzospa5ibs3e
       winston: 3.6.0
       zod: 3.19.1
@@ -221,11 +219,10 @@ importers:
       '@storybook/builder-webpack5': 6.5.10
       '@storybook/manager-webpack5': 6.5.10
       '@storybook/react': 6.5.10
-      '@stripe/react-stripe-js': 1.14.0
-      '@stripe/stripe-js': 1.42.0
       '@svgr/webpack': 6.3.1
       '@tabler/icons': 1.92.0
       '@tanstack/react-table': 8.5.13
+      '@types/mixpanel-browser': 2.38.1
       '@types/node': 18.7.15
       '@types/qs': 6.9.7
       '@types/react': 18.0.18
@@ -264,8 +261,6 @@ importers:
       '@mantine/next': 5.9.4_vmmiwu5sz7h4eylg2p7gnu4u4y
       '@mantine/notifications': 5.9.4_akxvflpdc4qclfp7ngtfppkada
       '@microsoft/signalr': 6.0.8
-      '@stripe/react-stripe-js': 1.14.0_6nr2xug6y4biiuh7urbys4ixky
-      '@stripe/stripe-js': 1.42.0
       '@svgr/webpack': 6.3.1
       '@tabler/icons': 1.92.0_biqbaboplfbrettd7655fr4n2y
       '@tanstack/react-table': 8.5.13_biqbaboplfbrettd7655fr4n2y
@@ -290,6 +285,7 @@ importers:
       '@storybook/builder-webpack5': 6.5.10_n63bh6sd3mpbfpl2vuk6qtxm3y
       '@storybook/manager-webpack5': 6.5.10_n63bh6sd3mpbfpl2vuk6qtxm3y
       '@storybook/react': 6.5.10_jnfhsngwtulgcrpaci4whgwqwe
+      '@types/mixpanel-browser': 2.38.1
       '@types/node': 18.7.15
       '@types/qs': 6.9.7
       '@types/react': 18.0.18
@@ -6656,23 +6652,6 @@ packages:
       resolve-from: 5.0.0
     dev: true
 
-  /@stripe/react-stripe-js/1.14.0_6nr2xug6y4biiuh7urbys4ixky:
-    resolution: {integrity: sha512-T8VEqZxnXOVvzu32oydTr0wR3Qa51d/gd8+cQvX3wpheunSNxlJ9R+W7oJ6dAo6LHhot35gwzZu+MR85FbVlmw==}
-    peerDependencies:
-      '@stripe/stripe-js': ^1.42.0
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@stripe/stripe-js': 1.42.0
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /@stripe/stripe-js/1.42.0:
-    resolution: {integrity: sha512-ZaQpZo5PRv/mN6157OywMW4fc7FIS+eI/tS12I1gU9MdvnL8fzFktuAU/g9FyUOL22E4t9hF1tsfLQAZcQDokQ==}
-    dev: false
-
   /@svgr/babel-plugin-add-jsx-attribute/6.5.1_@babel+core@7.21.0:
     resolution: {integrity: sha512-9PYGcXrAxitycIjRmZB+Q0JaN07GZIWaTBIGQzfaZv+qr1n8X1XUEJ5rZ/vx6OVD9RRYlrNnXWExQXcmZeD/BQ==}
     engines: {node: '>=10'}
@@ -7173,6 +7152,10 @@ packages:
 
   /@types/minimatch/5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
+    dev: true
+
+  /@types/mixpanel-browser/2.38.1:
+    resolution: {integrity: sha512-XzQbwgiOPsFXUQnjz3vSwcwrvJDbQ35bCiwa/1VXGrHvU1ti9+eqO1GY91DShzkEzKkkEEkxfNshS5dbBZqd7w==}
     dev: true
 
   /@types/module-alias/2.0.1:
@@ -17784,14 +17767,6 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
     dev: true
-
-  /stripe/10.14.0:
-    resolution: {integrity: sha512-cXqUdZvrU20KElhLjzw/kW5t2SLLUENqeEftaiQXLogkUdNHyz/L12S4WHmQ8h0KHHFhxO39I7Q9GkJO1MMzzw==}
-    engines: {node: ^8.1 || >=10.*}
-    dependencies:
-      '@types/node': 18.7.15
-      qs: 6.11.0
-    dev: false
 
   /strnum/1.0.5:
     resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
