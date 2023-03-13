@@ -79,22 +79,9 @@ importers:
       '@socket.io/redis-adapter': 8.1.0
       '@socket.io/redis-emitter': 5.1.0
       '@types/bcryptjs': 2.4.2
-<<<<<<< Updated upstream
       '@types/jest': 29.4.0
       '@types/koa': 2.13.5
       '@types/koa-bodyparser': 4.3.10
-=======
-<<<<<<< Updated upstream
-      '@types/jest': 29.2.3
-      '@types/koa': 2.13.4
-      '@types/koa-bodyparser': 4.3.7
-=======
-      '@types/jest': 29.4.0
-      '@types/koa': 2.13.5
-      '@types/koa-bodyparser': 4.3.10
->>>>>>> Stashed changes
-      '@types/koa-compose': 3.2.5
->>>>>>> Stashed changes
       '@types/koa-helmet': 6.0.4
       '@types/koa-logger': 3.1.2
       '@types/koa-mount': 4.0.2
@@ -138,37 +125,10 @@ importers:
       nodemon: 2.0.21
       npm: 9.6.1
       npm-run-all: 4.1.5
-<<<<<<< Updated upstream
-      psl: 1.9.0
-      redis: 4.6.5
-      socket.io: 4.6.1
-      socket.io-adapter: ~2.4.0
-=======
-<<<<<<< Updated upstream
-      psl: 1.8.0
-      redis: 4.0.6
-      socket.io: 4.5.2
-      socket.io-adapter: ~2.4.0
-      ts-jest: 29.0.3
-      ts-node: 10.7.0
-      typescript: 4.8.4
-      winston: 3.6.0
-      zod: 3.19.1
-    dependencies:
-      '@koa/cors': 3.1.0
-      '@koa/multer': 3.0.0_multer@1.4.4
-      '@koa/router': 10.1.1
-      '@paralect/node-mongo': 3.1.1
-      '@sendgrid/mail': 7.6.1
-      '@socket.io/redis-adapter': 7.2.0
-      '@socket.io/redis-emitter': 4.1.1
-      aws-sdk: 2.1080.0
-=======
       psl: 1.9.0
       redis: 4.6.5
       socket.io: 4.6.1
       socket.io-adapter: 2.5.2
->>>>>>> Stashed changes
       ts-jest: 29.0.5
       ts-node: 10.9.1
       typescript: 4.9.5
@@ -183,14 +143,8 @@ importers:
       '@koa/router': 12.0.0
       '@paralect/node-mongo': 3.1.2
       '@sendgrid/mail': 7.7.0
-<<<<<<< Updated upstream
-      '@socket.io/redis-adapter': 8.1.0_socket.io-adapter@2.4.0
-      '@socket.io/redis-emitter': 5.1.0
-=======
       '@socket.io/redis-adapter': 8.1.0_socket.io-adapter@2.5.2
       '@socket.io/redis-emitter': 5.1.0
->>>>>>> Stashed changes
->>>>>>> Stashed changes
       bcryptjs: 2.4.3
       dotenv: 16.0.3
       google-auth-library: 8.7.0
@@ -208,31 +162,6 @@ importers:
       module-alias: 2.2.2
       moment: 2.29.4
       moment-duration-format: 2.3.2
-<<<<<<< Updated upstream
-      multer: 1.4.5-lts.1
-      node-schedule: 2.1.1
-      nodemon: 2.0.21
-      npm: 9.6.1
-      psl: 1.9.0
-      redis: 4.6.5
-      socket.io: 4.6.1
-      socket.io-adapter: 2.4.0
-      ts-node: 10.9.1_r2vohjtqb453xa4ljp4dw3sqb4
-      winston: 3.8.2
-      zod: 3.21.4
-=======
-<<<<<<< Updated upstream
-      multer: 1.4.4
-      node-schedule: 2.1.0
-      nodemon: 2.0.15
-      psl: 1.8.0
-      redis: 4.0.6
-      socket.io: 4.5.2
-      socket.io-adapter: 2.4.0
-      ts-node: 10.7.0_2cznuqqlnikrcghzospa5ibs3e
-      winston: 3.6.0
-      zod: 3.19.1
-=======
       multer: 1.4.5-lts.1
       node-schedule: 2.1.1
       nodemon: 2.0.21
@@ -244,27 +173,12 @@ importers:
       ts-node: 10.9.1_r2vohjtqb453xa4ljp4dw3sqb4
       winston: 3.8.2
       zod: 3.21.4
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     devDependencies:
       '@shelf/jest-mongodb': 4.1.7_oonux7uclaclycahvr65nxweaq
       '@types/bcryptjs': 2.4.2
-<<<<<<< Updated upstream
       '@types/jest': 29.4.0
       '@types/koa': 2.13.5
       '@types/koa-bodyparser': 4.3.10
-=======
-<<<<<<< Updated upstream
-      '@types/jest': 29.2.3
-      '@types/koa': 2.13.4
-      '@types/koa-bodyparser': 4.3.7
-=======
-      '@types/jest': 29.4.0
-      '@types/koa': 2.13.5
-      '@types/koa-bodyparser': 4.3.10
->>>>>>> Stashed changes
-      '@types/koa-compose': 3.2.5
->>>>>>> Stashed changes
       '@types/koa-helmet': 6.0.4
       '@types/koa-logger': 3.1.2
       '@types/koa-mount': 4.0.2
@@ -5103,38 +5017,16 @@ packages:
     resolution: {integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==}
     dev: false
 
-<<<<<<< Updated upstream
-  /@socket.io/redis-adapter/8.1.0_socket.io-adapter@2.4.0:
-    resolution: {integrity: sha512-8nGMKcQ+DWpgefxA/Pi25aLajVilRPKwu29mZXu5cT+WGVYItcCkfMr4RsMmyYXUyJf00mN+7WinVLihmJwpXA==}
-=======
-<<<<<<< Updated upstream
-  /@socket.io/redis-adapter/7.2.0:
-    resolution: {integrity: sha512-/r6oF6Myz0K9uatB/pfCi0BhKg/KRMh1OokrqcjlNz6aq40WiXdFLRbHJQuwGHq/KvB+D6141K+IynbVxZGvhw==}
-=======
   /@socket.io/redis-adapter/8.1.0_socket.io-adapter@2.5.2:
     resolution: {integrity: sha512-8nGMKcQ+DWpgefxA/Pi25aLajVilRPKwu29mZXu5cT+WGVYItcCkfMr4RsMmyYXUyJf00mN+7WinVLihmJwpXA==}
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     engines: {node: '>=10.0.0'}
     peerDependencies:
       socket.io-adapter: ^2.4.0
     dependencies:
       debug: 4.3.4
-<<<<<<< Updated upstream
-      notepack.io: 3.0.1
-      socket.io-adapter: 2.4.0
-      uid2: 1.0.0
-=======
-<<<<<<< Updated upstream
-      notepack.io: 2.2.0
-      socket.io-adapter: 2.4.0
-      uid2: 0.0.3
-=======
       notepack.io: 3.0.1
       socket.io-adapter: 2.5.2
       uid2: 1.0.0
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -17684,57 +17576,6 @@ packages:
       - supports-color
     dev: true
 
-<<<<<<< Updated upstream
-  /snyk-config/5.1.0:
-    resolution: {integrity: sha512-wqVMxUGqjjHX+MJrz0WHa/pJTDWU17aRv6cnI/6i7cq93J3TkkJZ8sjgvwCgP8cWX5wTHIlRuMV+IAd59K4X/g==}
-    dependencies:
-      async: 3.2.4
-      debug: 4.3.4
-      lodash.merge: 4.6.2
-      minimist: 1.2.8
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /snyk-nodejs-lockfile-parser/1.48.0:
-    resolution: {integrity: sha512-kq4gVwL5V0SUatDxyyzbptKkaX4Ew9N3ZDNR5r7sqBRparY+U+xGuYBhTaJdweBUD+jkvs7rKO1JV1h0Z8c2ew==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      '@snyk/dep-graph': 2.5.0
-      '@snyk/graphlib': 2.1.9-patch.3
-      '@yarnpkg/core': 2.4.0
-      '@yarnpkg/lockfile': 1.1.0
-      event-loop-spinner: 2.2.0
-      js-yaml: 4.1.0
-      lodash.clonedeep: 4.5.0
-      lodash.flatmap: 4.5.0
-      lodash.isempty: 4.4.0
-      lodash.topairs: 4.3.0
-      micromatch: 4.0.5
-      semver: 7.3.8
-      snyk-config: 5.1.0
-      tslib: 1.14.1
-      uuid: 8.3.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-  /socket.io-adapter/2.4.0:
-    resolution: {integrity: sha512-W4N+o69rkMEGVuk2D/cvca3uYsvGlMwsySWV447y99gUPghxq42BxqLNMndb+a1mm/5/7NeXVQS7RLa2XyXvYg==}
-    dev: false
-
-<<<<<<< Updated upstream
-  /socket.io-adapter/2.5.2:
-    resolution: {integrity: sha512-87C3LO/NOMc+eMcpcxUBebGjkpMDkNBS9tf7KJqcDsmL936EChtVva71Dw2q4tQcuVC+hAUy4an2NO/sYXmwRA==}
-=======
-  /socket.io-client/4.5.2:
-    resolution: {integrity: sha512-naqYfFu7CLDiQ1B7AlLhRXKX3gdeaIMfgigwavDzgJoIUYulc1qHH5+2XflTsXTPY7BlPH5rppJyUjhjrKQKLg==}
-    engines: {node: '>=10.0.0'}
-=======
   /snyk-config/5.1.0:
     resolution: {integrity: sha512-wqVMxUGqjjHX+MJrz0WHa/pJTDWU17aRv6cnI/6i7cq93J3TkkJZ8sjgvwCgP8cWX5wTHIlRuMV+IAd59K4X/g==}
     dependencies:
@@ -17772,8 +17613,6 @@ packages:
 
   /socket.io-adapter/2.5.2:
     resolution: {integrity: sha512-87C3LO/NOMc+eMcpcxUBebGjkpMDkNBS9tf7KJqcDsmL936EChtVva71Dw2q4tQcuVC+hAUy4an2NO/sYXmwRA==}
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     dependencies:
       ws: 8.11.0
     transitivePeerDependencies:
