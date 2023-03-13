@@ -1,43 +1,54 @@
-import { createStyles } from '@mantine/core';
+import { createStyles, getStylesRef } from '@mantine/core';
 
 const BROWSE_BTN_SIZE = '88px';
 
 export const useStyles = createStyles(({
   colors,
-  white,
   primaryColor,
   other: {
     transition: { speed, easing },
   },
-}, _params, getRef) => ({
+}) => ({
+  dropzoneRoot: {
+    border: 'none',
+    borderRadius: 0,
+    padding: 0,
+    backgroundColor: 'transparent',
+
+    [`&:hover .${getStylesRef('addIcon')}`]: {
+      color: colors.gray[5],
+    },
+
+    [`&:hover .${getStylesRef('browseButton')}`]: {
+      border: `1px dashed ${colors.gray[5]}`,
+    },
+
+    [`&:hover .${getStylesRef('innerAvatar')}`]: {
+      opacity: 1,
+    },
+  },
   browseButton: {
+    ref: getStylesRef('browseButton'),
     width: BROWSE_BTN_SIZE,
     height: BROWSE_BTN_SIZE,
     borderRadius: '50%',
-    backgroundColor: white,
     border: `1px dashed ${colors[primaryColor][6]}`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     transition: `all ${speed.fast} ${easing.easeInOut}`,
     cursor: 'pointer',
-
-    '&:hover': {
-      [`& .${getRef('addIcon')}`]: {
-        color: colors.gray[5],
-      },
-    },
   },
   error: {
     border: `1px dashed ${colors.red[5]}`,
   },
   addIcon: {
-    ref: getRef('addIcon'),
+    ref: getStylesRef('addIcon'),
     color: colors[primaryColor][6],
     transition: `all ${speed.fast} ${easing.easeInOut}`,
   },
   innerAvatar: {
-    ref: getRef('innerAvatar'),
+    ref: getStylesRef('innerAvatar'),
     width: BROWSE_BTN_SIZE,
     height: BROWSE_BTN_SIZE,
     borderRadius: '50%',
@@ -72,11 +83,5 @@ export const useStyles = createStyles(({
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     borderRadius: '50%',
-    '&:hover': {
-      borderColor: '#10101099',
-    },
-    [`&:hover .${getRef('innerAvatar')}`]: {
-      opacity: 1,
-    },
   },
 }));

@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 import { Group, Text, Button, Stack } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
-import { IconPencil, IconPlus } from '@tabler/icons';
+import { IconPencil, IconPlus } from '@tabler/icons-react';
 
 import { handleError } from 'utils';
 import { accountApi } from 'resources/account';
@@ -61,14 +61,9 @@ const PhotoUpload = () => {
               name="avatarUrl"
               accept={['image/png', 'image/jpg', 'image/jpeg']}
               onDrop={handlePhotoUpload}
-              styles={() => ({
-                root: {
-                  border: 'none',
-                  borderRadius: 0,
-                  padding: 0,
-                  backgroundColor: 'transparent',
-                },
-              })}
+              classNames={{
+                root: classes.dropzoneRoot,
+              }}
             >
               <label
                 className={cx(classes.browseButton, {

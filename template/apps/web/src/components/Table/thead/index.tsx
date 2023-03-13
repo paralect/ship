@@ -4,7 +4,7 @@ import {
   IconSortAscending,
   IconSortDescending,
   IconArrowsSort,
-} from '@tabler/icons';
+} from '@tabler/icons-react';
 import { ColumnDefTemplate, HeaderContext, HeaderGroup } from '@tanstack/react-table';
 
 type CellData = {

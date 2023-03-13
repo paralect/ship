@@ -1,4 +1,4 @@
-import { IconUserCircle } from '@tabler/icons';
+import { IconUserCircle } from '@tabler/icons-react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Link from './Link';

@@ -1,7 +1,6 @@
 import { OAuth2Client } from 'google-auth-library';
 
 import config from 'config';
-import logger from 'logger';
 
 const client = new OAuth2Client(
   config.google.clientId,
@@ -14,16 +13,16 @@ const oAuthURL = client.generateAuthUrl({
   scope: ['email', 'profile'],
   include_granted_scopes: true,
 });
-  
+
 const exchangeCodeForToken = async (code: string) => {
   try {
     const { tokens } = await client.getToken(code);
-  
+
     const ticket = await client.verifyIdToken({
       idToken: tokens.id_token || '',
       audience: config.google.clientId,
     });
-  
+
     return {
       isValid: true,
       payload: ticket.getPayload(),
@@ -41,4 +40,4 @@ export default {
   oAuthURL,
   exchangeCodeForToken,
 };
-  
+

@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 import { Global, MantineProvider } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
+import { Notifications } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
 
 import queryClient from 'query-client';
@@ -25,13 +25,12 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
         withNormalizeCSS
       >
         <ModalsProvider>
-          <NotificationsProvider autoClose={10000}>
-            {/* @ts-ignore */ }
-            <Global styles={globalStyles} />
-            <PageConfig>
-              <Component {...pageProps} />
-            </PageConfig>
-          </NotificationsProvider>
+          <Global styles={globalStyles} />
+          <Notifications autoClose={10000} />
+
+          <PageConfig>
+            <Component {...pageProps} />
+          </PageConfig>
         </ModalsProvider>
         <ReactQueryDevtools position="bottom-right" />
       </MantineProvider>
