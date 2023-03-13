@@ -104,7 +104,6 @@ importers:
       eslint-plugin-import: 2.27.5
       google-auth-library: 8.7.0
       handlebars: 4.7.7
-      i: 0.3.7
       jest: 29.5.0
       koa: 2.14.1
       koa-bodyparser: 4.3.0
@@ -150,7 +149,6 @@ importers:
       dotenv: 16.0.3
       google-auth-library: 8.7.0
       handlebars: 4.7.7
-      i: 0.3.7
       koa: 2.14.1
       koa-bodyparser: 4.3.0
       koa-compose: 4.1.0
@@ -12303,11 +12301,6 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dev: true
-
-  /i/0.3.7:
-    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==}
-    engines: {node: '>=0.4'}
-    dev: false
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
