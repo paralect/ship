@@ -26,6 +26,7 @@ const AddMembersModal: FC = () => {
       >
         + Add team members
       </Button>
+
       <Modal
         size={600}
         opened={isOpened}

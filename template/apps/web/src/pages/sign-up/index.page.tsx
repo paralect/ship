@@ -105,7 +105,7 @@ const SignUp: NextPage = () => {
         <Checkbox
           styles={{ label: { color: 'white' } }}
           key={ruleData.title}
-          checked={!!ruleData.done}
+          checked={ruleData.done}
           label={ruleData.title}
         />
       ))}

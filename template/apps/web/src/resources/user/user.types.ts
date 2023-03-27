@@ -2,6 +2,7 @@ export interface User {
   _id: string;
   createdOn?: Date;
   updatedOn?: Date;
+  lastRequest?: Date;
   deletedOn?: Date | null;
   firstName: string;
   lastName: string;
@@ -12,11 +13,8 @@ export interface User {
   isShadow: boolean | null;
   signupToken: string | null;
   resetPasswordToken?: string | null;
-  isOnboardingFinished: boolean;
   role?: string;
-  goal?: string;
   avatarUrl?: string | null;
-  lastRequest?: Date;
   oauth?: {
     google: boolean
   };
