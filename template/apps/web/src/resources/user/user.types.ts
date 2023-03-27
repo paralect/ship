@@ -13,7 +13,6 @@ export interface User {
   isShadow: boolean | null;
   signupToken: string | null;
   resetPasswordToken?: string | null;
-  role?: string;
   avatarUrl?: string | null;
   oauth?: {
     google: boolean

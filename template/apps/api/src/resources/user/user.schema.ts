@@ -14,7 +14,6 @@ const schema = z.object({
   signupToken: z.string().nullable().optional(),
   resetPasswordToken: z.string().nullable().optional(),
   isEmailVerified: z.boolean().default(false),
-  role: z.string().optional(),
   avatarUrl: z.string().nullable().optional(),
   oauth: z.object({
     google: z.boolean().default(false),

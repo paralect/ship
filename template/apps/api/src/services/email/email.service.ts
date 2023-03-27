@@ -34,16 +34,8 @@ const sendForgotPassword = (to: string, dynamicTemplateData: { [key: string]: un
   dynamicTemplateData,
 });
 
-const sendInvite = (to: string, dynamicTemplateData: { [key: string]: unknown; }) => emailService.sendTemplate({
-  to,
-  subject: 'Welcome',
-  template: 'invite.html',
-  dynamicTemplateData,
-});
-
 export default {
   sendVerifyEmail,
   sendSignUpWelcome,
   sendForgotPassword,
-  sendInvite,
 };

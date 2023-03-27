@@ -16,7 +16,7 @@ import {
 import { handleError } from 'utils';
 import { accountApi } from 'resources/account';
 
-import PhotoUpload from './components/file-upload';
+import PhotoUpload from './components/PhotoUpload';
 
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),

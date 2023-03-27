@@ -22,7 +22,6 @@ import { Table } from 'components';
 import { userTypes, userApi } from 'resources/user';
 
 import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
-import AddMembersModal from './components/AddMembersModal';
 
 interface UsersListParams {
   page?: number;
@@ -191,7 +190,6 @@ const Home: NextPage = () => {
             </Skeleton>
           </Group>
 
-          <AddMembersModal />
         </Group>
         {isListLoading && (
           <>

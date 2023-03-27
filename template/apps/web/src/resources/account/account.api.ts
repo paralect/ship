@@ -84,9 +84,3 @@ export function useRemoveAvatar() {
     },
   });
 }
-
-export function useFinishOnboarding<T>() {
-  const finishOnboarding = (data: T) => apiService.post('/account/finish-onboarding', data);
-
-  return useMutation<{}, unknown, T>(finishOnboarding);
-}
