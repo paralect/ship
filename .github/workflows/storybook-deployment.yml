@@ -1,7 +1,7 @@
 name: 'Storybook deployment'
 
 on:
-  push:
+#  push:
 #    branches: [ master ]
 #    paths:
 #      - 'template/apps/web/src/components/**'
