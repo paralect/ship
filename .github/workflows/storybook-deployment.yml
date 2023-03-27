@@ -2,9 +2,9 @@ name: 'Storybook deployment'
 
 on:
   push:
-    branches: [ master ]
-    paths:
-      - 'template/apps/web/src/components/**'
+#    branches: [ master ]
+#    paths:
+#      - 'template/apps/web/src/components/**'
   workflow_dispatch:
     inputs:
       sha:
