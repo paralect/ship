@@ -25,7 +25,7 @@ COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 
 RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
-    pnpm install --frozen-lockfile --filter ./apps/web
+    pnpm install --no-frozen-lockfile --filter ./apps/web
 
 # Build the project
 COPY --from=builder /app/out/full/ .
