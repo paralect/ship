@@ -33,6 +33,7 @@ COPY turbo.json turbo.json
 
 ENV NODE_ENV=$NODE_ENV
 ENV APP_ENV=$APP_ENV
+ENV NEXT_PUBLIC_APP_ENV=$APP_ENV
 
 RUN pnpm turbo run build --filter=web...
 
