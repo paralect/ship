@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   webpack(config) {
     config.module.rules.push({
@@ -10,6 +12,10 @@ module.exports = {
   output: 'standalone',
   trailingSlash: true,
   pageExtensions: ['page.tsx', 'api.ts'],
+  experimental: {
+    // this includes files from the monorepo base two directories up
+    outputFileTracingRoot: path.join(__dirname, '../../'),
+  },
   reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: true,
