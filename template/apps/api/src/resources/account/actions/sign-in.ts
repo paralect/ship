@@ -49,7 +49,29 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  docsUtil.registerDocs(schema);
+  docsUtil.registerDocs({
+    private: false,
+    tags: ['account'],
+    method: 'post',
+    path: '/account/sign-in',
+    summary: 'Sign in',
+    request: {
+      body: { content: { 'application/json': { schema } } },
+    },
+    responses: {
+      // 200: {
+      //   description: 'Object with user data.',
+      //   content: {
+      //     'application/json': {
+      //       schema: UserSchema,
+      //     },
+      //   },
+      // },
+      // 204: {
+      //   description: 'No content - successful operation',
+      // },
+    },
+  });
 
   router.post('/sign-in', validateMiddleware(schema), validator, handler);
 };

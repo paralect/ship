@@ -4,10 +4,11 @@ import { SortDirection } from '@paralect/node-mongo';
 import { AppKoaContext, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
 import { userService } from 'resources/user';
+import { docsUtil } from 'utils';
 
 const schema = z.object({
-  page: z.string().transform(Number).default('1'),
-  perPage: z.string().transform(Number).default('10'),
+  page: z.string().transform(Number).default('1').openapi({ type: 'string' }),
+  perPage: z.string().transform(Number).default('10').openapi({ type: 'string' }),
   sort: z.object({
     createdOn: z.string(),
   }).default({ createdOn: 'desc' }),
@@ -63,5 +64,18 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
+  docsUtil.registerDocs({
+    private: true,
+    tags: ['users'],
+    method: 'get',
+    path: '/users/',
+    summary: 'List of users',
+    description: 'Get all users in database paginated',
+    request: {
+      query: schema,
+    },
+    responses: {},
+  });
+
   router.get('/', validateMiddleware(schema), handler);
 };

@@ -30,6 +30,28 @@ const base = {
   mixpanel: {
     apiKey: process.env.MIXPANEL_API_KEY || '',
   },
+  docs: {
+    info: {
+      title: 'API',
+      description: 'This is the my API for public',
+      version: '1.0.0',
+      license: {
+        name: 'MIT',
+        url: 'https://opensource.org/license/mit/',
+      },
+      contact: {
+        name: 'API Support',
+        url: 'https://www.example.com/support',
+        email: 'support@example.com',
+      },
+    },
+    servers: [
+      {
+        url: 'https://example.com/v1',
+        description: 'Development server',
+      },
+    ],
+  },
 };
 
 const config = configUtil.loadConfig(base, env, __dirname);

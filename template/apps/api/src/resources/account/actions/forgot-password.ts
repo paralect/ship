@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import config from 'config';
-import { securityUtil } from 'utils';
+import { docsUtil, securityUtil } from 'utils';
 import { emailService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
@@ -50,5 +50,17 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
+  docsUtil.registerDocs({
+    private: false,
+    tags: ['account'],
+    method: 'post',
+    path: '/account/forgot-password',
+    summary: 'Forgot password',
+    request: {
+      body: { content: { 'application/json': { schema } } },
+    },
+    responses: {},
+  });
+
   router.post('/forgot-password', validateMiddleware(schema), validator, handler);
 };

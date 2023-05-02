@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { securityUtil } from 'utils';
+import { docsUtil, securityUtil } from 'utils';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
@@ -42,5 +42,18 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
+  docsUtil.registerDocs({
+    private: false,
+    tags: ['account'],
+    method: 'put',
+    path: '/account/reset-password',
+    summary: 'Reset password',
+    description: 'Just reset users password',
+    request: {
+      body: { content: { 'application/json': { schema } } },
+    },
+    responses: {},
+  });
+
   router.put('/reset-password', validateMiddleware(schema), validator, handler);
 };

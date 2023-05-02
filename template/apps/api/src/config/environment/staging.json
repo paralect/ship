@@ -3,5 +3,27 @@
     "dbName": "api-staging"
   },
   "apiUrl": "https://ship-staging-api.paralect.com",
-  "webUrl": "https://ship-staging.paralect.com"
+  "webUrl": "https://ship-staging.paralect.com",
+  "docs": {
+    "info": {
+      "title": "My API",
+      "description": "This is the my API for public",
+      "version": "1.0.0",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/license/mit/"
+      },
+      "contact": {
+        "name": "API Support",
+        "url": "https://www.example.com/support",
+        "email": "support@example.com"
+      }
+    },
+    "servers": [
+      {
+        "url": "https://staging.gigantic-server.com/v1",
+        "description": "Staging server"
+      }
+    ]
+  }
 }

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { AppKoaContext, Next, AppRouter } from 'types';
-import { securityUtil } from 'utils';
+import { docsUtil, securityUtil } from 'utils';
 import { validateMiddleware } from 'middlewares';
 import { userService } from 'resources/user';
 
@@ -52,5 +52,17 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
+  docsUtil.registerDocs({
+    private: true,
+    tags: ['account'],
+    method: 'put',
+    path: '/account/',
+    summary: 'Update user profile',
+    request: {
+      body: { content: { 'application/json': { schema } } },
+    },
+    responses: {},
+  });
+
   router.put('/', validateMiddleware(schema), validator, handler);
 };

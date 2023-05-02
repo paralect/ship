@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import config from 'config';
-import { securityUtil } from 'utils';
+import { docsUtil, securityUtil } from 'utils';
 import { analyticsService, emailService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
@@ -68,5 +68,29 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
+  docsUtil.registerDocs({
+    private: false,
+    tags: ['account'],
+    method: 'post',
+    path: '/account/sign-up',
+    summary: 'Sign up',
+    request: {
+      body: { content: { 'application/json': { schema } } },
+    },
+    responses: {
+      // 200: {
+      //   description: 'Object with user data.',
+      //   content: {
+      //     'application/json': {
+      //       schema: UserSchema,
+      //     },
+      //   },
+      // },
+      // 204: {
+      //   description: 'No content - successful operation',
+      // },
+    },
+  });
+
   router.post('/sign-up', validateMiddleware(schema), validator, handler);
 };

@@ -6,6 +6,7 @@ import { AppKoaContext, Next, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
 import { authService, emailService } from 'services';
 import { userService, User } from 'resources/user';
+import { docsUtil } from 'utils';
 
 const schema = z.object({
   token: z.string().min(1, 'Token is required'),
@@ -50,5 +51,21 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
+  docsUtil.registerDocs({
+    private: false,
+    tags: ['account'],
+    method: 'get',
+    path: '/account/verify-email',
+    summary: 'Verify email',
+    request: {
+      query: schema,
+    },
+    responses: {
+      302: {
+        description: 'Redirect to web app',
+      },
+    },
+  });
+
   router.get('/verify-email', validateMiddleware(schema), validator, handler);
 };
