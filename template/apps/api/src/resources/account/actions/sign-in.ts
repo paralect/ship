@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { securityUtil } from 'utils';
+import { securityUtil, docsUtil } from 'utils';
 import { authService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
@@ -49,5 +49,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
+  docsUtil.registerDocs(schema);
+
   router.post('/sign-in', validateMiddleware(schema), validator, handler);
 };
