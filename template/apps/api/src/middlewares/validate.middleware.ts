@@ -11,6 +11,7 @@ function formatError(zodError: ZodError): ValidationErrors {
     if (!errors[key]) {
       errors[key] = [];
     }
+
     (errors[key] as string[]).push(error.message);
   });
 
@@ -25,9 +26,10 @@ function validate(schema: ZodSchema) {
       ...ctx.params,
     });
 
-    if (!result.success) ctx.throw(400, { errors: formatError(result.error) });
+    if (!result.success) ctx.throw(400, { clientErrors: formatError(result.error) });
 
     ctx.validatedData = result.data;
+
     await next();
   };
 }
