@@ -68,6 +68,10 @@ Here we also added details inside `responses` property to let api user know what
 
 For query, it will look like that:
 ```typescript
+const schema = z.object({
+  token: z.string().min(1, 'Token is required'),
+});
+
 export default (router: AppRouter) => {
   docsUtil.registerDocs({
     private: false,
