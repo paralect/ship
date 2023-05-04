@@ -1,6 +1,3 @@
-# Reference: https://medium.com/coding-spark/a-digitalocean-configuration-to-deploy-pnpm-based-backend-applications-f6d407a27206
-# TODO: Remove dev deps from prod build
-
 # BUILDER - Stage 1
 FROM node:alpine AS builder
 WORKDIR /app
