@@ -93,8 +93,7 @@ export default (router: AppRouter) => {
 };
 ```
 
-Also, there is option to make endpoint secure. Just make `private` property `true` and it will add JWT authorisation to this endpoint. 
-
+Also, there is an option to make the endpoint secure. Just set the `private` property to `true`, and it will add JWT authorization to this endpoint.
 ## How it works
 When you're calling `registerDocs` function, we add config in Registry. You can register docs in any part of application.
 This config is written with this [standard](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject) in mind.
