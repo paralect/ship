@@ -20,6 +20,7 @@ const base = {
       accessKeyId: process.env.CLOUD_STORAGE_ACCESS_KEY_ID || '',
       secretAccessKey: process.env.CLOUD_STORAGE_SECRET_ACCESS_KEY || '',
     },
+    region: process.env.CLOUD_STORAGE_REGION || '',
     bucket: process.env.CLOUD_STORAGE_BUCKET || '',
   },
   adminKey: process.env.ADMIN_KEY || '',
