@@ -14,12 +14,12 @@ type ValidatedData = {
 const getOAuthUrl = async (ctx: AppKoaContext) => {
   const isValidCredentials = config.google.clientId || config.google.clientSecret;
   ctx.assertClientError(isValidCredentials, {
-    global: 'Setup Google Oauth creadentials on API',
+    global: 'Setup Google Oauth credentials on API',
   });
   ctx.redirect(googleService.oAuthURL);
 };
 
-const signinGoogleWithCode = async (ctx: AppKoaContext) => {
+const signInGoogleWithCode = async (ctx: AppKoaContext) => {
   const { code } = ctx.request.query;
 
   const { isValid, payload } = await googleService.
@@ -63,6 +63,7 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
       ]);
     }
   }
+
   ctx.redirect(config.webUrl);
 };
 
@@ -70,5 +71,5 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
 
 export default (router: AppRouter) => {
   router.get('/sign-in/google/auth', getOAuthUrl);
-  router.get('/sign-in/google', signinGoogleWithCode);
+  router.get('/sign-in/google', signInGoogleWithCode);
 };

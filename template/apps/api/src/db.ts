@@ -3,6 +3,7 @@ import { Database, Service, ServiceOptions, IDocument } from '@paralect/node-mon
 import config from 'config';
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
+
 database.connect();
 
 class CustomService<T extends IDocument> extends Service<T> {

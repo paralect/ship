@@ -1,4 +1,4 @@
-// allows require modules relative to /src folder
+// allows to require modules relative to /src folder
 // for example: require('lib/mongo/idGenerator')
 // all options can be found here: https://gist.github.com/branneman/8048520
 import moduleAlias from 'module-alias';
@@ -44,16 +44,17 @@ const initKoa = () => {
 };
 
 const app = initKoa();
+
 (async () => {
   const server = http.createServer(app.callback());
+
   await Promise.all([
     ioEmitter.initClient(),
     socketService(server),
   ]);
 
-  const message = `Api server listening on ${config.port}, in ${config.env} mode and ${process.env.APP_ENV} env`;
   server.listen(config.port, () => {
-    logger.info(message);
+    logger.info(`API server is listening on ${config.port}, in ${config.env} mode and ${process.env.APP_ENV} env`);
   });
 })();
 

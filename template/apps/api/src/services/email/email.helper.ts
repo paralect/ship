@@ -11,6 +11,7 @@ const render = async (templatePath: string, templateParams: unknown) => {
 };
 
 type From = { email: string, name: string };
+
 class MailService {
   apiKey: string;
 

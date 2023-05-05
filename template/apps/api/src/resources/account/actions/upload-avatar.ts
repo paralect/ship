@@ -9,9 +9,7 @@ const upload = multer();
 async function validator(ctx: AppKoaContext, next: Next) {
   const { file } = ctx.request;
 
-  ctx.assertClientError(file, {
-    global: 'File cannot be empty',
-  });
+  ctx.assertClientError(file, { global: 'File cannot be empty' });
 
   await next();
 }

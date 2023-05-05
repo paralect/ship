@@ -19,9 +19,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
   const user = await userService.findOne({ _id: id });
 
-  ctx.assertClientError(user, {
-    id: 'User does not exist',
-  });
+  ctx.assertClientError(user, { id: 'User does not exist' });
 
   ctx.validatedData.user = user;
   await next();

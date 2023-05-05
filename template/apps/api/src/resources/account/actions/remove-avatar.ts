@@ -5,9 +5,7 @@ import { userService } from 'resources/user';
 async function validator(ctx: AppKoaContext, next: Next) {
   const { user } = ctx.state;
 
-  ctx.assertClientError(user.avatarUrl, {
-    global: 'You don\'t have avatar',
-  });
+  ctx.assertClientError(user.avatarUrl, { global: 'You don\'t have avatar' });
 
   await next();
 }

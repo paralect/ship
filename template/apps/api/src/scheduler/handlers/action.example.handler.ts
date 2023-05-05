@@ -1,5 +1,7 @@
 import cron from 'scheduler/cron';
 
+import logger from 'logger';
+
 const schedule = {
   development: 'cron:every-minute',
   'development-docker': 'cron:every-minute',
@@ -10,6 +12,6 @@ const schedule = {
 cron.on(schedule[process.env.APP_ENV], async () => {
   try {
   } catch (error) {
-    console.error(error);
+    logger.error(error);
   }
 });

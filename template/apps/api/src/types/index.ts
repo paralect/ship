@@ -24,7 +24,7 @@ export interface AppKoaContext<T = unknown, R = unknown> extends ParameterizedCo
 
 export class AppRouter extends Router<AppKoaContextState, AppKoaContext> {}
 
-export class AppKoa extends Koa<AppKoaContextState, AppKoaContext<unknown>> {}
+export class AppKoa extends Koa<AppKoaContextState, AppKoaContext> {}
 
 export type AppRouterMiddleware = Router.Middleware<AppKoaContextState, AppKoaContext>;
 
