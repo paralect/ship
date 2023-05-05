@@ -173,7 +173,7 @@ Once domain is confirmed, application can be accessed by new address.
 
 You can find two github actions in the `.github/workflows` folder, responsible for triggering deployment when you push changes in your repository. If you chose frontend or backend on the initialization step, you'll have one github workflow for the selected application type.
 
-These actions require a Digital Ocean access token and application ID. Respectively these are `DO_ACCESS_TOKEN` and `DO_STAGING_API_ID`/`DO_STAGING_WEB_ID`/`DO_PRODUCTION_API_ID`/`DO_PRODUCTION_WEB_ID`.
+These actions require a Digital Ocean access token and application ID. Respectively these are `DO_ACCESS_TOKEN` and `DO_API_STAGING_APP_ID`/`DO_WEB_STAGING_APP_ID`/`DO_API_PRODUCTION_APP_ID`/`DO_WEB_PRODUCTION_APP_ID`.
 
 Navigate to digital ocean and open the **API** tab on the left sidebar.
 Click **Generate new token** and choose name and expiration period, and leave checkboxes as they are.
@@ -184,7 +184,7 @@ You'll see generated token in the list. Do not forget to copy the value and stor
 
 ![Do access token copy](/img/deployment/digital-ocean-apps/do-access-token-copy.png)
 
-Next, navigate to the **Apps** tab in the left sidebar and open your Digital Ccean application. You can find the id of your application id in the browser address bar.
+Next, navigate to the **Apps** tab in the left sidebar and open your Digital Ocean application. You can find the id of your application id in the browser address bar.
 
 ![Do application id](/img/deployment/digital-ocean-apps/do-application-id.png)
 
@@ -198,7 +198,7 @@ Done! Application deployed and can be accessed by provided domain.
 
 ![Deployed application](/img/deployment/digital-ocean-apps/deployed-application.png)
 
-## Set up migrator and scheduler(Optional)
+## Set up migrator and scheduler (Optional)
 
 Digital Ocean Apps allows configuring additional resources within one application, which can serve as background workers and jobs, and a scheduler to run before/after the deployment process.
 
