@@ -8,8 +8,8 @@ moduleAlias(); // read aliases from package json
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import { docsUtil } from 'utils';
-docsUtil.initClient();
+import { docsService } from 'services';
+docsService.initClient();
 
 import http from 'http';
 import cors from '@koa/cors';

@@ -1,15 +1,13 @@
 import { z } from 'zod';
 
 import config from 'config';
-import { docsUtil, securityUtil } from 'utils';
-import { emailService } from 'services';
+import { securityUtil } from 'utils';
+import { emailService, docsService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
-
-const schema = z.object({
-  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
-});
+import { schema } from './schema';
+import docConfig from './doc';
 
 interface ValidatedData extends z.infer<typeof schema> {
   user: User;
@@ -50,17 +48,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  docsUtil.registerDocs({
-    private: false,
-    tags: ['account'],
-    method: 'post',
-    path: '/account/forgot-password',
-    summary: 'Forgot password',
-    request: {
-      body: { content: { 'application/json': { schema } } },
-    },
-    responses: {},
-  });
+  docsService.registerDocs(docConfig);
 
   router.post('/forgot-password', validateMiddleware(schema), validator, handler);
 };

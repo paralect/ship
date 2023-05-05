@@ -1,21 +1,13 @@
 import { z } from 'zod';
 
 import config from 'config';
-import { docsUtil, securityUtil } from 'utils';
-import { analyticsService, emailService } from 'services';
+import { securityUtil } from 'utils';
+import { analyticsService, emailService, docsService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
-
-const schema = z.object({
-  firstName: z.string().min(1, 'Please enter First name').max(100),
-  lastName: z.string().min(1, 'Please enter Last name').max(100),
-  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
-  password: z.string().regex(
-    /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
-    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
-  ),
-});
+import { schema } from './schema';
+import docConfig from './doc';
 
 interface ValidatedData extends z.infer<typeof schema> {
   user: User;
@@ -68,29 +60,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  docsUtil.registerDocs({
-    private: false,
-    tags: ['account'],
-    method: 'post',
-    path: '/account/sign-up',
-    summary: 'Sign up',
-    request: {
-      body: { content: { 'application/json': { schema } } },
-    },
-    responses: {
-      // 200: {
-      //   description: 'Object with user data.',
-      //   content: {
-      //     'application/json': {
-      //       schema: UserSchema,
-      //     },
-      //   },
-      // },
-      // 204: {
-      //   description: 'No content - successful operation',
-      // },
-    },
-  });
+  docsService.registerDocs(docConfig);
 
   router.post('/sign-up', validateMiddleware(schema), validator, handler);
 };

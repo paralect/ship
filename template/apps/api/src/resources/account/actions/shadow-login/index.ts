@@ -5,10 +5,7 @@ import { authService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
-
-const schema = z.object({
-  id: z.string().min(1, 'Id is required'),
-});
+import { schema } from './schema';
 
 interface ValidatedData extends z.infer<typeof schema> {
   user: User;

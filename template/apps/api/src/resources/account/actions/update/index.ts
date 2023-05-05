@@ -1,18 +1,12 @@
 import { z } from 'zod';
 
 import { AppKoaContext, Next, AppRouter } from 'types';
-import { docsUtil, securityUtil } from 'utils';
+import { securityUtil } from 'utils';
+import { docsService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { userService } from 'resources/user';
-
-const schema = z.object({
-  firstName: z.string().min(1, 'Please enter First name').max(100),
-  lastName: z.string().min(1, 'Please enter Last name').max(100),
-  password: z.string().regex(
-    /^$|^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
-    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
-  ),
-});
+import docConfig from './doc';
+import { schema } from './schema';
 
 interface ValidatedData extends z.infer<typeof schema> {
   passwordHash?: string | null;
@@ -52,17 +46,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  docsUtil.registerDocs({
-    private: true,
-    tags: ['account'],
-    method: 'put',
-    path: '/account/',
-    summary: 'Update user profile',
-    request: {
-      body: { content: { 'application/json': { schema } } },
-    },
-    responses: {},
-  });
+  docsService.registerDocs(docConfig);
 
   router.put('/', validateMiddleware(schema), validator, handler);
 };

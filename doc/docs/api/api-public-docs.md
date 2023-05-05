@@ -8,10 +8,10 @@ sidebar_position: 6
 Keeping your public API up to date can be a cumbersome task that requires manually updating files. Our solution eliminates this hassle by allowing you to document your code itself, so you can focus on development without worrying about API updates.
 
 ## Usage
-Just add `docsUtil.registerDocs` in your code. For example  
+Just add `docsService.registerDocs` in your code. For example  
 ```typescript
 export default (router: AppRouter) => {
-  docsUtil.registerDocs({
+  docsService.registerDocs({
     private: false,
     tags: ['account'],
     method: 'post',
@@ -44,7 +44,7 @@ const schema = z.object({
 });
 
 export default (router: AppRouter) => {
-  docsUtil.registerDocs({
+  docsService.registerDocs({
     private: false,
     tags: ['account'],
     method: 'post',
@@ -73,7 +73,7 @@ const schema = z.object({
 });
 
 export default (router: AppRouter) => {
-  docsUtil.registerDocs({
+  docsService.registerDocs({
     private: false,
     tags: ['account'],
     method: 'get',
@@ -97,6 +97,6 @@ Also, there is an option to make the endpoint secure. Just set the `private` pro
 ## How it works
 When you're calling `registerDocs` function, we add config in Registry. You can register docs in any part of application.
 This config is written with this [standard](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject) in mind.
-This registry contains all actions that gathered inside API. To retrieve these docs in open api format, you can call `docsUtil.getDocs` function.
+This registry contains all actions that gathered inside API. To retrieve these docs in open api format, you can call `docsService.getDocs` function.
 
 For advanced usage cases, you can reference to this [documentation](https://github.com/asteasolutions/zod-to-openapi)

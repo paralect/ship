@@ -5,6 +5,9 @@ import moduleAlias from 'module-alias';
 moduleAlias.addPath(__dirname);
 moduleAlias(); // read aliases from package json
 
+import { docsService } from 'services';
+docsService.initClient();
+
 import migrator from 'migrator/index';
 
 migrator.exec();

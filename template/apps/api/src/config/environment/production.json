@@ -3,27 +3,5 @@
     "dbName": "api-production"
   },
   "apiUrl": "https://ship-demo-api.paralect.com",
-  "webUrl": "https://ship-demo.paralect.com",
-  "docs": {
-    "info": {
-      "title": "My API",
-      "description": "This is the my API for public",
-      "version": "1.0.0",
-      "license": {
-        "name": "MIT",
-        "url": "https://opensource.org/license/mit/"
-      },
-      "contact": {
-        "name": "API Support",
-        "url": "https://www.example.com/support",
-        "email": "support@example.com"
-      }
-    },
-    "servers": [
-      {
-        "url": "https://api.gigantic-server.com/v1",
-        "description": "Production server"
-      }
-    ]
-  }
+  "webUrl": "https://ship-demo.paralect.com"
 }

@@ -1,21 +1,18 @@
 import { z } from 'zod';
 
-import { securityUtil, docsUtil } from 'utils';
-import { authService } from 'services';
+import { securityUtil } from 'utils';
+import { authService, docsService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
-
-const schema = z.object({
-  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
-  password: z.string().min(1, 'Please enter password'),
-});
+import docConfig from './doc';
+import { schema } from './schema';
 
 interface ValidatedData extends z.infer<typeof schema> {
   user: User;
 }
 
-async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
+export async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { email, password } = ctx.validatedData;
 
   const user = await userService.findOne({ email });
@@ -49,29 +46,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  docsUtil.registerDocs({
-    private: false,
-    tags: ['account'],
-    method: 'post',
-    path: '/account/sign-in',
-    summary: 'Sign in',
-    request: {
-      body: { content: { 'application/json': { schema } } },
-    },
-    responses: {
-      // 200: {
-      //   description: 'Object with user data.',
-      //   content: {
-      //     'application/json': {
-      //       schema: UserSchema,
-      //     },
-      //   },
-      // },
-      // 204: {
-      //   description: 'No content - successful operation',
-      // },
-    },
-  });
+  docsService.registerDocs(docConfig);
 
   router.post('/sign-in', validateMiddleware(schema), validator, handler);
 };

@@ -1,8 +1,8 @@
 import { AppKoaContext, AppRouter } from 'types';
-import { docsUtil } from 'utils';
+import { docsService } from 'services';
 
 async function handler(ctx: AppKoaContext) {
-  ctx.body = docsUtil.getDocs();
+  ctx.body = docsService.getDocs();
   ctx.status = 200;
 }
 
