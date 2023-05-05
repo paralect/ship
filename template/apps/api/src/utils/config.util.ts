@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import path from 'path';
 import fs from 'fs';
 
@@ -28,7 +28,7 @@ function loadAndMerge<T>(currentConfig: T, mergeConfigPath: string, currentDir: 
 /**
  * 1. Merge current config with ${env}.json file
  * 2. When env=test, merge test-local.ts
- * 3. Otherwise merge local.ts if exists
+ * 3. Otherwise, merge local.ts if exists
  */
 function loadConfig<T>(currentConfig: T, env: string, currentDir: string): T {
   let mergedConfig = loadAndMerge<T>(currentConfig, `./${env}.json`, currentDir);

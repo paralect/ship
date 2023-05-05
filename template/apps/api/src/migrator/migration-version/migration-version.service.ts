@@ -5,17 +5,17 @@ import path from 'path';
 import schema from './migration-version.schema';
 import { MigrationVersion } from './migration-version-types';
 
-import { Migration } from '../types';
+import { Migration } from 'migrator/types';
 
 const service = db.createService<MigrationVersion>('__migrationVersion', {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 
-const migrationsPath = path.join(__dirname, '../migrations');
+const migrationPaths = path.join(__dirname, '../migrations');
 const id = 'migration_version';
 
 const getMigrationNames = (): string[] => {
-  return fs.readdirSync(migrationsPath).filter(file => !file.endsWith('.js.map'));
+  return fs.readdirSync(migrationPaths).filter(file => !file.endsWith('.js.map'));
 };
 
 const getCurrentMigrationVersion = () => service.findOne({ _id: id })
@@ -32,7 +32,7 @@ const getMigrations = (): Migration[] => {
 
   const names = getMigrationNames();
   migrations = names.map((name: string) => {
-    const migrationPath = path.join(migrationsPath, name);
+    const migrationPath = path.join(migrationPaths, name);
     return require(migrationPath);
   });
 

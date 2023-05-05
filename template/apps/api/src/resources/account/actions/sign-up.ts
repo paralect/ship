@@ -25,6 +25,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { email } = ctx.validatedData;
 
   const isUserExists = await userService.exists({ email });
+
   ctx.assertClientError(!isUserExists, {
     email: 'User with this email is already registered',
   });

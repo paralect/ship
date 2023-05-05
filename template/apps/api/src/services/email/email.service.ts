@@ -9,7 +9,7 @@ const emailService = new EmailService({
   templatesDir: join(__dirname, '../../assets/emails/dist'),
   from: {
     email: 'notifications@ship.com',
-    name: 'SHIP',
+    name: 'Ship',
   },
 });
 
