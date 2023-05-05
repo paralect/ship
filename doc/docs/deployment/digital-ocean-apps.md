@@ -139,6 +139,9 @@ After the application creation, you'll land on the application dashboard page. O
 Digital Ocean sets the path to Dockerfiles to the root by default. You will need to change it manually.
 Navigate to Settings, expand the App spec tab and change `dockerfile_path` in the editor.
 
+To deploy your application in a monorepo, it's essential to modify the `source_dir` parameter to the root directory.
+This adjustment is necessary to ensure the correct configuration and operation of the applications within the monorepo.
+
 ![Create app review](/img/deployment/digital-ocean-apps/do-settings-app-spec.png)
 
 ## Cloudflare
