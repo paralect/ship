@@ -1,6 +1,7 @@
 import { resourceName } from '../../constants';
 import { schema } from './schema';
 import { RouteExtendedConfig } from 'services/docs.service';
+import { PaginatedUserPublicSchema } from '../../schemas/paginatedUserPublic.schema';
 
 const config: RouteExtendedConfig = {
   private: true,
@@ -11,7 +12,16 @@ const config: RouteExtendedConfig = {
   request: {
     query: schema,
   },
-  responses: {},
+  responses: {
+    200: {
+      description: 'List with users',
+      content: {
+        'application/json': {
+          schema: PaginatedUserPublicSchema,
+        },
+      },
+    },
+  },
 };
 
 export default config;

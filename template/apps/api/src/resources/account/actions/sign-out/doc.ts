@@ -1,5 +1,6 @@
 import { resourceName } from '../../constants';
 import { RouteExtendedConfig } from 'services/docs.service';
+import { EmptySchema } from 'schemas/empty.schema';
 
 const config: RouteExtendedConfig = {
   private: false,
@@ -11,6 +12,11 @@ const config: RouteExtendedConfig = {
   responses: {
     200: {
       description: 'Removed all auth metadata.',
+      content: {
+        'application/json': {
+          schema: EmptySchema,
+        },
+      },
     },
   },
 };

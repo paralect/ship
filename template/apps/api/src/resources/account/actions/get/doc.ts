@@ -11,7 +11,7 @@ const config: RouteExtendedConfig = {
   request: {},
   responses: {
     200: {
-      description: 'Empty data',
+      description: 'Account Data',
       content: {
         'application/json': {
           schema: GetAccountSchema,

@@ -1,6 +1,7 @@
 import { resourceName } from '../../constants';
 import { schema } from './schema';
 import { RouteExtendedConfig } from 'services/docs.service';
+import { EmptySchema } from 'schemas/empty.schema';
 
 const config: RouteExtendedConfig = {
   private: false,
@@ -11,7 +12,16 @@ const config: RouteExtendedConfig = {
   request: {
     body: { content: { 'application/json': { schema } } },
   },
-  responses: {},
+  responses: {
+    200: {
+      description: 'Empty data',
+      content: {
+        'application/json': {
+          schema: EmptySchema,
+        },
+      },
+    },
+  },
 };
 
 export default config;
