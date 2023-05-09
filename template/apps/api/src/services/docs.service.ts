@@ -27,26 +27,38 @@ const initClient = () => {
   registry = new OpenAPIRegistry();
 };
 
+type AuthType = 'bearerAuth' | 'cookieAuth';
 export interface RouteExtendedConfig extends Omit<RouteConfig, 'security'> {
   private: boolean,
+  authType?: AuthType
 }
 const registerDocs = (config: RouteExtendedConfig): void => {
   if (!registry) {
     throw Error('OpenAPIRegistry is not initialized');
   }
 
-  let bearerAuth;
+  const authStrategy: AuthType = config.authType || 'bearerAuth';
   if (config.private) {
-    bearerAuth = registry.registerComponent('securitySchemes', 'bearerAuth', {
-      type: 'http',
-      scheme: 'bearer',
-      bearerFormat: 'JWT',
-    });
+    if (authStrategy === 'bearerAuth') {
+      registry.registerComponent('securitySchemes', 'bearerAuth', {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      });
+    }
+
+    if (authStrategy === 'cookieAuth') {
+      registry.registerComponent('securitySchemes', 'cookieAuth', {
+        type: 'apiKey',
+        in: 'cookie',
+        name: 'JSESSIONID',
+      });
+    }
   }
 
   registry.registerPath({
     ...omit(config, 'private'),
-    ...(bearerAuth ? { security: [{ [bearerAuth.name]: [] }] } : {}),
+    ...(config.private ? { security: [{ [authStrategy]: [] }] } : {}),
   });
 };
 
