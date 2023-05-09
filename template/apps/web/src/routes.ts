@@ -21,6 +21,8 @@ export enum RoutePath {
   ExpireToken = '/expire-token',
 
   NotFound = '/404',
+
+  Docs = '/docs',
 }
 
 type RoutesConfiguration = {
@@ -64,4 +66,6 @@ export const routesConfiguration: RoutesConfiguration = {
   },
 
   [RoutePath.NotFound]: {},
+
+  [RoutePath.Docs]: {},
 };
