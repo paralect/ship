@@ -23,7 +23,7 @@ const updateLastRequest = (_id: string) => {
   );
 };
 
-const privateFields = [
+export const privateFields = [
   'passwordHash',
   'signupToken',
   'resetPasswordToken',

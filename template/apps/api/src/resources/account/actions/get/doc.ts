@@ -1,5 +1,6 @@
 import { resourceName } from '../../constants';
 import { RouteExtendedConfig } from 'services/docs.service';
+import { GetAccountSchema } from '../../schemas/getAccount.schema';
 
 const config: RouteExtendedConfig = {
   private: true,
@@ -8,7 +9,16 @@ const config: RouteExtendedConfig = {
   path: `/${resourceName}/`,
   summary: 'Get current user',
   request: {},
-  responses: {},
+  responses: {
+    200: {
+      description: 'Empty data',
+      content: {
+        'application/json': {
+          schema: GetAccountSchema,
+        },
+      },
+    },
+  },
 };
 
 export default config;

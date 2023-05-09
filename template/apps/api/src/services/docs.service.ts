@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { AnyZodObject, z } from 'zod';
 import { omit, capitalize } from 'lodash';
 import { default as projectConfig } from 'config';
 import { OpenAPIGenerator, OpenAPIRegistry, RouteConfig, extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
@@ -50,6 +50,14 @@ const registerDocs = (config: RouteExtendedConfig): void => {
   });
 };
 
+const registerSchema = (name: string, schema: AnyZodObject): AnyZodObject => {
+  if (!registry) {
+    throw Error('OpenAPIRegistry is not initialized');
+  }
+
+  return registry.register(name, schema);
+};
+
 const getDocs = () => {
   if (!registry) {
     throw Error('OpenAPIRegistry is not initialized');
@@ -63,5 +71,6 @@ const getDocs = () => {
 export default {
   initClient,
   registerDocs,
+  registerSchema,
   getDocs,
 };
