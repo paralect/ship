@@ -1,4 +1,4 @@
-import { resourceName } from '../../constants';
+import { resourceName } from 'resources/account/constants';
 import { schema } from './schema';
 import { RouteExtendedConfig } from 'services/docs.service';
 import { EmptySchema } from 'schemas/empty.schema';

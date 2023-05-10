@@ -1,4 +1,4 @@
-import { resourceName } from '../../constants';
+import { resourceName } from 'resources/user/constants';
 import { schema } from './schema';
 import { RouteExtendedConfig } from 'services/docs.service';
 import { PaginatedUserPublicSchema } from '../../schemas/paginatedUserPublic.schema';

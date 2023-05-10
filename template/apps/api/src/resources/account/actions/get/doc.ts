@@ -1,4 +1,4 @@
-import { resourceName } from '../../constants';
+import { resourceName } from 'resources/account/constants';
 import { RouteExtendedConfig } from 'services/docs.service';
 import { GetAccountSchema } from '../../schemas/getAccount.schema';
 

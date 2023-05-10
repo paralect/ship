@@ -1,4 +1,4 @@
-import { resourceName } from '../../constants';
+import { resourceName } from 'resources/account/constants';
 import { schema } from './schema';
 import { RouteExtendedConfig } from 'services/docs.service';
 
@@ -9,7 +9,7 @@ const config: RouteExtendedConfig = {
   path: `/${resourceName}/verify-email`,
   summary: 'Verify email',
   request: {
-    body: { content: { 'application/json': { schema } } },
+    query: schema,
   },
   responses: {
     302: {
