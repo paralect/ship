@@ -17,10 +17,11 @@ import { QueryParam } from 'types';
 import { RoutePath } from 'routes';
 import { handleError } from 'utils';
 import { accountApi } from 'resources/account';
+import { PASSWORD_REGEXP } from '../../constants';
 
 const schema = z.object({
   password: z.string().regex(
-    /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
+    PASSWORD_REGEXP,
     'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
   ),
 });

@@ -9,8 +9,11 @@ const COOKIES = {
 
 const TOKEN_SECURITY_LENGTH = 32;
 
+const PASSWORD_REGEXP = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d\W]{6,}$/g;
+
 export {
   DATABASE_DOCUMENTS,
   COOKIES,
   TOKEN_SECURITY_LENGTH,
+  PASSWORD_REGEXP,
 };
