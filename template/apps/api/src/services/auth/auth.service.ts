@@ -16,6 +16,7 @@ const setTokens = async (ctx: AppKoaContext, userId: string, isShadow?: boolean)
 
 const unsetTokens = async (ctx: AppKoaContext) => {
   await tokenService.removeAuthTokens(ctx.state.accessToken);
+
   cookieHelper.unsetTokenCookies(ctx);
 };
 

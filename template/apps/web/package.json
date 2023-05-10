@@ -1,13 +1,9 @@
 {
   "name": "web",
   "version": "1.0.0",
+  "description": "Next.js web",
   "author": "Paralect",
   "license": "MIT",
-  "keywords": [
-    "react",
-    "next",
-    "paralect"
-  ],
   "scripts": {
     "build": "next build",
     "dev": "next dev -p 3002",

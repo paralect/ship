@@ -18,6 +18,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
   if (password) {
     const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash || '');
+
     ctx.assertClientError(!isPasswordMatch, {
       password: 'The new password should be different from the previous one',
     });
@@ -34,13 +35,16 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.state;
   const { firstName, lastName, passwordHash } = ctx.validatedData;
 
-  const updatedUser = await userService.updateOne({
-    _id: user._id,
-  }, () => ({
-    firstName,
-    lastName,
-    passwordHash,
-  }));
+  const updatedUser = await userService.updateOne(
+    {
+      _id: user._id,
+    },
+    () => ({
+      firstName,
+      lastName,
+      passwordHash,
+    }),
+  );
 
   ctx.body = userService.getPublic(updatedUser);
 }

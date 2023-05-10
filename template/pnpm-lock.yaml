@@ -200,9 +200,6 @@ importers:
       socket.io:
         specifier: 4.6.1
         version: 4.6.1
-      socket.io-adapter:
-        specifier: 2.5.2
-        version: 2.5.2
       ts-node:
         specifier: 10.9.1
         version: 10.9.1(@types/node@18.15.1)(typescript@4.9.5)

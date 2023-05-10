@@ -10,7 +10,6 @@ module.exports = {
     return config;
   },
   output: 'standalone',
-  trailingSlash: true,
   pageExtensions: ['page.tsx', 'api.ts'],
   experimental: {
     // this includes files from the monorepo base two directories up

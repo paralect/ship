@@ -6,6 +6,7 @@ import logger from 'logger';
 
 let emitter: Emitter | null = null;
 const redisClient = createClient({ url: config.redis });
+
 redisClient.on('error', err => {
   logger.error(`ioEmitter() => Redis error: ${err.stack || err}`);
   throw err;
@@ -30,8 +31,10 @@ const getUserRoomId = (userId: string) => `user-${userId}`;
 
 export default {
   initClient,
+  publish,
   publishToUser: (userId: string, eventName: string, data: unknown): void => {
     const roomId = getUserRoomId(userId);
+
     publish(roomId, eventName, data);
   },
 };

@@ -2,10 +2,7 @@ import { z } from 'zod';
 
 const schema = z.object({
   _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  lastRequest: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+
   firstName: z.string(),
   lastName: z.string(),
   fullName: z.string(),
@@ -18,6 +15,11 @@ const schema = z.object({
   oauth: z.object({
     google: z.boolean().default(false),
   }).optional(),
+
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  lastRequest: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
 }).strict();
 
 export default schema;

@@ -3,10 +3,11 @@ import { userService } from 'resources/user';
 import { tokenService } from 'resources/token';
 
 const tryToAttachUser = async (ctx: AppKoaContext, next: Next) => {
+  const accessToken = ctx.state.accessToken;
   let userData;
 
-  if (ctx.state.accessToken) {
-    userData = await tokenService.findTokenByValue(ctx.state.accessToken);
+  if (accessToken) {
+    userData = await tokenService.findTokenByValue(accessToken);
   }
 
   if (userData && userData.userId) {

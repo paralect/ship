@@ -1,0 +1,19 @@
+{
+  "name": "ship",
+  "version": "0.0.0",
+  "author": "Paralect",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "devDependencies": {
+    "husky": "8.0.0",
+    "lint-staged": "10.1.7"
+  }
+}

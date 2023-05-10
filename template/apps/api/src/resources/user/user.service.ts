@@ -11,13 +11,11 @@ const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, {
 });
 
 const updateLastRequest = (_id: string) => {
-  const date = new Date();
-
   return service.atomic.updateOne(
     { _id },
     {
       $set: {
-        lastRequest: date,
+        lastRequest: new Date(),
       },
     },
   );

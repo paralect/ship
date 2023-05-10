@@ -8,6 +8,14 @@ import { userService, User } from 'resources/user';
 import docConfig from './doc';
 import { schema } from './schema';
 
+const schema = z.object({
+  token: z.string().min(1, 'Token is required'),
+  password: z.string().regex(
+    /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d\W]{6,}$/g,
+    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+  ),
+});
+
 interface ValidatedData extends z.infer<typeof schema> {
   user: User;
 }

@@ -1,54 +1,47 @@
+# BUILDER - Stage 1
 FROM node:alpine AS builder
-RUN apk update && apk add --no-cache python3 py3-pip libc6-compat
 WORKDIR /app
-
-ARG NODE_ENV=production
-ARG APP_ENV
-
-ENV SERVICE_PATH=apps/api
-
-# Install package manager
-RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
-    npm install --global --no-update-notifier --no-fund turbo pnpm
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+RUN npm install --global --no-update-notifier --no-fund turbo@1.8.6
 COPY . .
-RUN pnpm turbo prune --scope=api --docker
+RUN turbo prune --scope=api --docker
 
-# Get all dependencies and install
-FROM builder AS installer
+# INSTALLER - Stage 2
+FROM node:alpine AS installer
 WORKDIR /app
-
-# We need it to install dev dependencies such as TS
-ENV NODE_ENV=development
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+RUN npm install --global --no-update-notifier --no-fund pnpm@^8.0.0
 
 # First install the dependencies (as they change less often)
-COPY .gitignore .gitignore
-COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+RUN pnpm fetch
+
+# Build the project and its dependencies
 COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
-
-RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
-    pnpm install --no-frozen-lockfile --filter ./${SERVICE_PATH}
-
-# Build the project
 COPY --from=builder /app/out/full/ .
-COPY turbo.json turbo.json
+RUN pnpm install -r --offline --ignore-scripts
+COPY --from=builder /app/out/full/turbo.json ./turbo.json
 
-ENV NODE_ENV=$NODE_ENV
-ENV APP_ENV=$APP_ENV
+# DEVELOPMENT - Stage 3
+FROM installer AS development
+CMD pnpm turbo run api#schedule-dev --scope=api
 
+# APP_BUILDER - Stage 4
+FROM installer AS app_builder
 RUN pnpm turbo run build --filter=api...
 
-FROM installer AS development
-CMD turbo run api#schedule-dev --scope=api
-
+# RUNNER - Stage 5
 FROM node:alpine AS runner
 WORKDIR /app
 
-# # Don't run production as root
+# Don't run production as root
 RUN addgroup --system --gid 1001 app
 RUN adduser --system --uid 1001 app
 USER app
-COPY --from=installer /app .
+
+COPY --from=app_builder /app .
 
 EXPOSE 3001
 

@@ -1,45 +1,42 @@
+# BUILDER - Stage 1
 FROM node:alpine AS builder
+WORKDIR /app
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat
-WORKDIR /app
-
-ARG NODE_ENV=production
-ARG APP_ENV
-
-RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
-    npm install --global --no-update-notifier --no-fund turbo pnpm
+RUN npm install --global --no-update-notifier --no-fund turbo@1.8.6
 COPY . .
-RUN pnpm turbo prune --scope=web --docker
+RUN turbo prune --scope=web --docker
 
-# Add lockfile and package.json's of isolated subworkspace
-FROM builder AS installer
+# INSTALLER - Stage 2
+FROM node:alpine AS installer
 WORKDIR /app
-
-# We need it to install dev dependencies such as TS
-ENV NODE_ENV=development
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+RUN npm install --global --no-update-notifier --no-fund pnpm@^8.0.0
 
 # First install the dependencies (as they change less often)
-COPY .gitignore .gitignore
-COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+RUN pnpm fetch
+
+# Build the project and its dependencies
 COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
-
-RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
-    pnpm install --no-frozen-lockfile --filter ./apps/web
-
-# Build the project
 COPY --from=builder /app/out/full/ .
-COPY turbo.json turbo.json
+RUN pnpm install -r --offline --ignore-scripts
+COPY --from=builder /app/out/full/turbo.json ./turbo.json
 
-ENV NODE_ENV=$NODE_ENV
-ENV APP_ENV=$APP_ENV
+# DEVELOPMENT - Stage 3
+FROM installer AS development
+CMD pnpm turbo run dev --scope=web
+
+# APP_BUILDER - Stage 4
+FROM installer AS app_builder
+
+ARG APP_ENV
 ENV NEXT_PUBLIC_APP_ENV=$APP_ENV
 
 RUN pnpm turbo run build --filter=web...
 
-FROM installer AS development
-CMD turbo run dev --scope=web
-
+# RUNNER - Stage 5
 FROM node:alpine AS runner
 WORKDIR /app
 
@@ -48,16 +45,15 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
-COPY --from=installer /app/apps/web/next.config.js .
-COPY --from=installer /app/apps/web/package.json .
+COPY --from=app_builder /app/apps/web/next.config.js .
+COPY --from=app_builder /app/apps/web/package.json .
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
-COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+COPY --from=app_builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=app_builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=app_builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 
-ENV PORT=3002
-EXPOSE $PORT
+EXPOSE 3002
 
 CMD ["node", "apps/web/server.js"]
