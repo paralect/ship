@@ -18,7 +18,7 @@ const base = {
   cloudStorage: {
     endpoint: process.env.CLOUD_STORAGE_ENDPOINT || '',
     bucket: process.env.CLOUD_STORAGE_BUCKET || '',
-    region: process.env.CLOUD_STORAGE_REGION || '',
+    region: process.env.CLOUD_STORAGE_REGION || 'us-east-1',
     credentials: {
       accessKeyId: process.env.CLOUD_STORAGE_ACCESS_KEY_ID || '',
       secretAccessKey: process.env.CLOUD_STORAGE_SECRET_ACCESS_KEY || '',
