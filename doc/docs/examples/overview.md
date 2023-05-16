@@ -16,4 +16,4 @@ The example section in the Ship documentation provides developers with a set of 
 ## List of examples
 
 - **[Stripe subscriptions](docs/examples/stripe-subscriptions/overview.md)**
-- **[Public docs](docs/examples/public-docs/overview.md)**
+- **[Public docs](docs/examples/api-public-docs/overview.md)**
