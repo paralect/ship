@@ -1,0 +1,9 @@
+{
+  "mongo": {
+    "connection": "mongodb://root:root@localhost:27017/api-development?authSource=admin&replicaSet=rs&tls=false&directConnection=true",
+    "dbName": "api-development"
+  },
+  "apiUrl": "http://localhost:3001",
+  "webUrl": "http://localhost:3002",
+  "redis": "redis://:@localhost:6379"
+}

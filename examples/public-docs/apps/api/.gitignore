@@ -1,0 +1,12 @@
+node_modules
+src/config/environment/local.ts
+src/assets/emails/dist/*
+!src/assets/emails/dist
+!src/assets/emails/dist/.gitkeep
+.DS_Store
+npm-debug.log
+.idea
+.vscode
+./dist
+
+.env

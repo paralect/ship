@@ -1,0 +1,13 @@
+<mj-section
+  background-color="#fafbfb"
+  padding-bottom="48px"
+  padding-top="48px"
+  text-align="center"
+>
+  <mj-column width="100%">
+    <mj-image
+      width="260"
+      src="https://ship-assets.fra1.cdn.digitaloceanspaces.com/Logo.svg"
+    />
+  </mj-column>
+</mj-section>
