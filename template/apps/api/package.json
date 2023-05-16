@@ -32,7 +32,6 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@asteasolutions/zod-to-openapi": "4.6.0",
     "@aws-sdk/client-s3": "3.289.0",
     "@aws-sdk/lib-storage": "3.289.0",
     "@aws-sdk/s3-request-presigner": "3.289.0",
