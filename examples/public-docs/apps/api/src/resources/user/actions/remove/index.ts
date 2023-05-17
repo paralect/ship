@@ -1,5 +1,5 @@
 import { AppKoaContext, AppRouter, Next } from 'types';
-import { userService } from 'resources/user';
+import { userService } from 'resources/user/index';
 
 type ValidatedData = never;
 type Request = {
