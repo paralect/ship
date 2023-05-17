@@ -235,3 +235,58 @@ You can find created resources in the `overview` tab.
 ![Migrator spec screen](/img/deployment/digital-ocean-apps/do-migrator-app-spec.png)
 
 ![Scheduler spec screen](/img/deployment/digital-ocean-apps/do-scheduler-app-spec.png)
+
+## Logging (optional)
+### Build-in
+
+Digital Ocean has built-in logs in raw format. It will gather all data that your apps will produce.
+In order to view them, follow these steps:
+
+1. Log in to your Digital Ocean account.
+2. Click on the Apps tab in the left-hand navigation menu.
+3. Click on the name of the app you want to view the logs for.
+4. Click on the Runtime Logs tab in the app dashboard.
+5. You will see a list of logs for different components of your app. Click on the component you want to view the logs for.
+6. You can filter the logs by time, severity, and component. Use the drop-down menus provided to select your filter criteria.
+7. You can also search for specific keywords in the logs by using the search bar at the top of the page.
+
+![Runtime built in logs screen](/img/deployment/digital-ocean-apps/do-runtime-built-in-logs.png)
+
+### Integrations
+
+Currently, Digital Ocean Apps supports only 3 integrations: [PaperTrail](https://marketplace.digitalocean.com/add-ons/papertrail), [Logtail](https://marketplace.digitalocean.com/add-ons/logtail) and [Datadog](https://www.datadoghq.com/).
+You can find detailed instructions on how to set up these logs at this [link](https://docs.digitalocean.com/products/app-platform/how-to/forward-logs/).
+
+### Example Integration Logtail
+
+To configure Logtail follow these steps:
+1. Create account on Logtail
+2. Open Sources on the left sidebar.
+3. Create new source by clicking "Connect source" button
+
+![Logs Integrations logtail sources](/img/deployment/digital-ocean-apps/do-logs-logtail-sources.png)
+
+4. Select HTTP source and specify name for this connection
+
+![Logs Integrations Logtail connect](/img/deployment/digital-ocean-apps/do-logs-logtail-connect-source.png)
+
+5. Copy source token
+
+![Logs Integrations Logtail token](/img/deployment/digital-ocean-apps/do-logs-logtail-token.png)
+
+6. Open Digital Ocean Apps
+7. Select Settings tab for your application
+
+![Logs Integrations Settings](/img/deployment/digital-ocean-apps/do-app-logs-settings.png)
+
+8. Select Log Forwarding and then press "Add Destination"
+
+![Logs Forwarding](/img/deployment/digital-ocean-apps/do-logs-log-forwarding.png)
+
+9. Fill information with token that we retrieved from Logtail
+
+![Logs Create Log Forward](/img/deployment/digital-ocean-apps/do-create-log-forward.png)
+
+10. That's it! In couple minutes your app will send the latest logs to Logtail
+
+![Logs Logtail Final View](/img/deployment/digital-ocean-apps/do-logs-logtail-final-view.png)
