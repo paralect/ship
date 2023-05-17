@@ -1,7 +1,7 @@
 import { AppKoaContext, AppRouter } from 'types';
-
 import { userService } from 'resources/user';
 import { docsService } from 'services';
+
 import docConfig from './doc';
 
 async function handler(ctx: AppKoaContext) {

@@ -1,6 +1,6 @@
 import { resourceName } from 'resources/account/constants';
+import { GetAccountSchema } from 'resources/account/schemas/getAccount.schema';
 import { RouteExtendedConfig } from 'services/docs.service';
-import { GetAccountSchema } from '../../schemas/getAccount.schema';
 
 const config: RouteExtendedConfig = {
   private: true,

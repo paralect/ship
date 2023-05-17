@@ -1,6 +1,7 @@
-import schema from '../user.schema';
 import { docsService } from 'services';
 import { z } from 'zod';
+
+import schema from '../user.schema';
 
 export const PaginatedUserPublicSchema = docsService.registerSchema(
   'PaginatedUserPublic', 

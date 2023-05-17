@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
 import { userService } from 'resources/user';
+
 import { schema } from './schema';
 
 type ValidatedData = z.infer<typeof schema>;

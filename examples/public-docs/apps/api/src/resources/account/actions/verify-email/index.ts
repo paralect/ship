@@ -7,6 +7,7 @@ import { validateMiddleware } from 'middlewares';
 import { authService, emailService } from 'services';
 import { userService, User } from 'resources/user';
 import { docsService } from 'services';
+
 import { schema } from './schema';
 import docConfig from './doc';
 

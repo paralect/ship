@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PASSWORD_REGEXP } from '../../../../app.constants';
+import { PASSWORD_REGEXP } from 'app.constants';
 
 export const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),

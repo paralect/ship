@@ -5,6 +5,7 @@ import { securityUtil } from 'utils';
 import { docsService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { userService } from 'resources/user';
+
 import docConfig from './doc';
 import { schema } from './schema';
 

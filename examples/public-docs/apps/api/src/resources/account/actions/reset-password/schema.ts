@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PASSWORD_REGEXP } from '../../../../app.constants';
+import { PASSWORD_REGEXP } from 'app.constants';
 
 export const schema = z.object({
   token: z.string().min(1, 'Token is required'),

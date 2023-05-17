@@ -5,6 +5,7 @@ import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, AppRouter } from 'types';
 import { User, userService } from 'resources/user';
 import { docsService } from 'services';
+
 import { schema } from './schema';
 import docConfig from './doc';
 

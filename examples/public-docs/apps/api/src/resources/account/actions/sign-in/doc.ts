@@ -1,7 +1,8 @@
 import { resourceName } from 'resources/account/constants';
-import { schema } from './schema';
 import { RouteExtendedConfig } from 'services/docs.service';
-import { UserPublicSchema } from '../../../user/schemas/userPublic.schema';
+import { UserPublicSchema } from 'resources/user/schemas/userPublic.schema';
+
+import { schema } from './schema';
 
 const config: RouteExtendedConfig = {
   private: false,

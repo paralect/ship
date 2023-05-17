@@ -1,7 +1,8 @@
 import { resourceName } from 'resources/user/constants';
-import { schema } from './schema';
+import { PaginatedUserPublicSchema } from 'resources/user/schemas/paginatedUserPublic.schema';
 import { RouteExtendedConfig } from 'services/docs.service';
-import { PaginatedUserPublicSchema } from '../../schemas/paginatedUserPublic.schema';
+
+import { schema } from './schema';
 
 const config: RouteExtendedConfig = {
   private: true,

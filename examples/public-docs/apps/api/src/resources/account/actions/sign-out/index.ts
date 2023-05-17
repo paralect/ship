@@ -1,5 +1,6 @@
 import { authService, docsService } from 'services';
 import { AppKoaContext, AppRouter } from 'types';
+
 import docConfig from './doc';
 
 const handler = async (ctx: AppKoaContext) => {

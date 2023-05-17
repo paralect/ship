@@ -1,4 +1,4 @@
-import { UserPublicSchema } from '../../user/schemas/userPublic.schema';
+import { UserPublicSchema } from 'resources/user/schemas/userPublic.schema';
 import { z } from 'zod';
 import { docsService } from 'services';
 
