@@ -5,6 +5,7 @@ import { authService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { userService, User } from 'resources/user';
+import rateLimitMiddleware from 'middlewares/rateLimit.middleware';
 
 const schema = z.object({
   email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
@@ -50,5 +51,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/sign-in', validateMiddleware(schema), validator, handler);
+  router.post('/sign-in', rateLimitMiddleware, validateMiddleware(schema), validator, handler);
 };
