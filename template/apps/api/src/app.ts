@@ -5,8 +5,7 @@ import moduleAlias from 'module-alias';
 moduleAlias.addPath(__dirname);
 moduleAlias(); // read aliases from package json
 
-import * as dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config';
 
 import http from 'http';
 import cors from '@koa/cors';
@@ -53,8 +52,8 @@ const app = initKoa();
     socketService(server),
   ]);
 
-  server.listen(config.port, () => {
-    logger.info(`API server is listening on ${config.port}, in ${config.env} mode and ${process.env.APP_ENV} env`);
+  server.listen(config.PORT, () => {
+    logger.info(`API server is listening on ${config.PORT}, in ${config.APP_ENV} environment`);
   });
 })();
 

@@ -3,9 +3,9 @@ import { OAuth2Client } from 'google-auth-library';
 import config from 'config';
 
 const client = new OAuth2Client(
-  config.google.clientId,
-  config.google.clientSecret,
-  `${config.apiUrl}/account/sign-in/google`,
+  config.GOOGLE_CLIENT_ID,
+  config.GOOGLE_CLIENT_SECRET,
+  `${config.API_URL}/account/sign-in/google`,
 );
 
 const oAuthURL = client.generateAuthUrl({
@@ -20,7 +20,7 @@ const exchangeCodeForToken = async (code: string) => {
 
     const ticket = await client.verifyIdToken({
       idToken: tokens.id_token || '',
-      audience: config.google.clientId,
+      audience: config.GOOGLE_CLIENT_ID,
     });
 
     return {

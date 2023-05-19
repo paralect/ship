@@ -20,8 +20,8 @@ async function validator(ctx: AppKoaContext<ValidatedData>) {
   const user = await userService.findOne({ resetPasswordToken: token });
 
   const redirectUrl = user
-    ? `${config.webUrl}/reset-password?token=${token}`
-    : `${config.webUrl}/expire-token?email=${email}`;
+    ? `${config.WEB_URL}/reset-password?token=${token}`
+    : `${config.WEB_URL}/expire-token?email=${email}`;
 
   ctx.redirect(redirectUrl);
 }

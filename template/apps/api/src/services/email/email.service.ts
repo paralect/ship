@@ -5,7 +5,7 @@ import config from 'config';
 import EmailService from './email.helper';
 
 const emailService = new EmailService({
-  apiKey: config.sendgridApiKey,
+  apiKey: config.SENDGRID_API_KEY ?? '',
   templatesDir: join(__dirname, '../../assets/emails/dist'),
   from: {
     email: 'notifications@ship.com',

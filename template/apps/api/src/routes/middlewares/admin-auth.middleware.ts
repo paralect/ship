@@ -4,7 +4,7 @@ import { AppKoaContext, Next } from 'types';
 const adminAuth = (ctx: AppKoaContext, next: Next) => {
   const adminKey = ctx.header['x-admin-key'];
 
-  if (config.adminKey === adminKey) {
+  if (config.ADMIN_KEY === adminKey) {
     return next();
   }
 
