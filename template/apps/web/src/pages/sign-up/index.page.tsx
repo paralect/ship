@@ -131,7 +131,7 @@ const SignUp: NextPage = () => {
             <div>
               You look like a cool developer.
               {' '}
-              <Link size="sm" href={`${config.apiUrl}/account/verify-email?token=${signupToken}`}>
+              <Link size="sm" href={`${config.API_URL}/account/verify-email?token=${signupToken}`}>
                 Verify email
               </Link>
             </div>
@@ -200,7 +200,7 @@ const SignUp: NextPage = () => {
           <Button
             component="a"
             leftIcon={<GoogleIcon />}
-            href={`${config.apiUrl}/account/sign-in/google/auth`}
+            href={`${config.API_URL}/account/sign-in/google/auth`}
             variant="outline"
           >
             Continue with Google

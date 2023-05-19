@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 import config from 'config';
 
-const socket = io(config.wsUrl, {
+const socket = io(config.WS_URL, {
   transports: ['websocket'],
   autoConnect: false,
 });
