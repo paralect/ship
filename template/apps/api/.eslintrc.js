@@ -26,7 +26,11 @@ module.exports = {
         '**/*.builder.{js,ts}',
       ],
     }],
-    'max-len': ['warn', { code: 120 }],
+    'max-len': ['warn', {
+      code: 120,
+      ignoreStrings: true,
+      ignoreUrls: true,
+    }],
   },
   settings: {
     "import/resolver": {

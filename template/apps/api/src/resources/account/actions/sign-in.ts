@@ -1,11 +1,12 @@
 import { z } from 'zod';
 
+import { userService, User } from 'resources/user';
+
+import { validateMiddleware, rateLimitMiddleware } from 'middlewares';
 import { securityUtil } from 'utils';
 import { authService } from 'services';
-import { validateMiddleware } from 'middlewares';
+
 import { AppKoaContext, Next, AppRouter } from 'types';
-import { userService, User } from 'resources/user';
-import rateLimitMiddleware from 'middlewares/rateLimit.middleware';
 
 const schema = z.object({
   email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),

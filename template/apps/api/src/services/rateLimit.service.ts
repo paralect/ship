@@ -1,29 +1,19 @@
 import rateLimit from 'koa-ratelimit';
-// import { RedisClientType as Redis } from 'redis';
-// import redis from 'redis-client';
 
-const rateLimiter = (duration: number, limit: number): any => {
+import { AppKoaContextState } from 'types';
+
+import type { ParameterizedContext } from 'koa';
+
+const rateLimiter = (limitDuration: number, requestsPerDuration: number): ReturnType<typeof rateLimit> => {
   const errorMessage = 'Looks like you are moving too fast. Retry again in one minute. Please reach out to support with questions.';
 
-  const driver: {
-    driver: 'memory' | 'redis',
-    db: Map<any, any>;
-  } = {
+  return rateLimit({
     driver: 'memory',
     db: new Map(),
-  };
-
-  return rateLimit({
-    ...driver,
-    duration,
+    duration: limitDuration,
+    max: requestsPerDuration,
+    id: (ctx: ParameterizedContext<AppKoaContextState>) => ctx.state?.user?._id || ctx.ip,
     errorMessage,
-    id: (ctx) => ctx.state?.user?._id || ctx.ip,
-    headers: {
-      remaining: 'Rate-Limit-Remaining',
-      reset: 'Rate-Limit-Reset',
-      total: 'Rate-Limit-Total',
-    },
-    max: limit,
     disableHeader: false,
     throw: true,
   });

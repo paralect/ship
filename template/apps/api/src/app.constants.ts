@@ -9,13 +9,8 @@ const COOKIES = {
 
 const TOKEN_SECURITY_LENGTH = 32;
 
-const RATE_LIMIT = {
-  MINUTE: 60,
-};
-
 export {
   DATABASE_DOCUMENTS,
   COOKIES,
   TOKEN_SECURITY_LENGTH,
-  RATE_LIMIT,
 };
