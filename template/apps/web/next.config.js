@@ -1,6 +1,12 @@
-const path = require('path');
+const dotenv = require('dotenv-flow');
+
+const dotenvConfig = dotenv.config({
+  node_env: process.env.NEXT_PUBLIC_APP_ENV,
+  silent: true,
+});
 
 module.exports = {
+  env: dotenvConfig.parsed,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -11,10 +17,6 @@ module.exports = {
   },
   output: 'standalone',
   pageExtensions: ['page.tsx', 'api.ts'],
-  experimental: {
-    // this includes files from the monorepo base two directories up
-    outputFileTracingRoot: path.join(__dirname, '../../'),
-  },
   reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: true,

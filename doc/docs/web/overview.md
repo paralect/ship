@@ -15,19 +15,19 @@ Web Starter is what we think an ideal starting point for the most React frontend
 
 ## Start application.
 
-Run ```npm run dev``` that will start the application with ```development.json``` config.
+Run ```npm run dev``` that will start the application with ```.env.development``` config.
 
 You also can start the app using Dockerfile.
 
 ### Important notes
 
-You need to set ```APP_ENV``` variable in build args in a place where you deploy application. It is responsible for the config file from ```environment``` folder that will be taken when building your application
+You need to set ```APP_ENV``` variable in build args in a place where you deploy application.
+It is responsible for the config file from ```config``` folder that will be taken when building your application
 
-| APP_ENV       | File          |
-| ------------- | ------------- |
-| development   | development.json  |
-| development-docker   | development-docker.json  |
-| staging       | staging.json  |
-| production    | production.json  |
+| APP_ENV       | File              |
+| ------------- |-------------------|
+| development   | .env.development  |
+| staging       | .env.staging      |
+| production    | .env.production   |
 
 ## [React Typescript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup/)

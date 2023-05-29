@@ -110,16 +110,29 @@ Navigate to the Digital Ocean Control Panel and select the **Apps** tab. The `Fu
 ![Create app resources](/img/deployment/digital-ocean-apps/do-create-app-step-2.png)
 
 ### Environment variables
-1. Add `APP_ENV` responsible for the config file from the environment folder that will be used when building your application.
+The ```APP_ENV``` environment variable is typically set based on the environment in which the application is running.
+Its value corresponds to the specific environment, such as "development", "staging" or "production".
+This variable helps the application identify its current environment and load the corresponding configuration.
 
-| APP_ENV       | File          |
-| ------------- | ------------- |
-| development   | development.json  |
-| development-docker   | development-docker.json  |
-| staging       | staging.json  |
-| production    | production.json  |
+For the web application, by setting the environment variable ```APP_ENV```,
+the application can determine the environment in which it is running and download the appropriate configuration file:
 
-2. Add other environment variables.
+| APP_ENV       | File              |
+| ------------- |-------------------|
+| development   | .env.development  |
+| staging       | .env.staging      |
+| production    | .env.production   |
+
+These files should contain specific configuration variables required for each environment.
+
+In contrast, the API utilizes a single `.env` file that houses its environment-specific configuration.
+This file typically contains variables like API keys, secrets, or other sensitive information.
+To ensure security, it's crucial to add the `.env` file to the `.gitignore` file,
+preventing it from being tracked and committed to the repository.
+
+So just specify the environment variables that will contain the values of your secrets.
+For example, if you have a secret named `API_KEY`,
+create an environment variable named `API_KEY` and set the value of the corresponding secret for it
 
 Variables, added in the `Global` section will be available to all resources within the application, while ones added in the `ship` section will be available only for that resource. Adding `MONGO_CONNECTION` in the global section allows you to use it later if you decide to set up migrator/scheduler resources
 

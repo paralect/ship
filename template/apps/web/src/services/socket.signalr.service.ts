@@ -3,7 +3,7 @@ import { HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import config from 'config';
 
 const connection = new HubConnectionBuilder()
-  .withUrl(config.wsUrl)
+  .withUrl(config.WS_URL)
   .withAutomaticReconnect()
   .build();
 

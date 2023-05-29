@@ -42,11 +42,11 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   await emailService.sendSignUpWelcome(user.email, {
     userName: user.fullName,
-    actionLink: `${config.webUrl}/sign-in`,
+    actionLink: `${config.WEB_URL}/sign-in`,
     actionText: 'Sign in',
   });
 
-  ctx.redirect(config.webUrl);
+  ctx.redirect(config.WEB_URL);
 }
 
 export default (router: AppRouter) => {

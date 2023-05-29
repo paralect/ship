@@ -4,7 +4,6 @@ import logger from 'logger';
 
 const schedule = {
   development: 'cron:every-minute',
-  'development-docker': 'cron:every-minute',
   staging: 'cron:every-minute',
   production: 'cron:every-hour',
 };

@@ -102,22 +102,39 @@ We have [**separate**](https://github.com/paralect/ship/tree/master/examples/bas
 
 ## Environment variables
 
-Services include [environment](https://github.com/paralect/ship/blob/master/examples/base/api/src/config/environment) folders that are responsible for different environment variables. We store them in a more convenient JSON format.
-```APP_ENV``` environment variable is responsible for the config file from ```environment``` folder that will be taken.
+When deploying "Ship" to Kubernetes, it's essential to consider the configuration needs of different environments. 
+By separating the environment-specific settings into dedicated files,
+you can easily manage and deploy the application across environments.
 
-| APP_ENV       | File          |
-| ------------- | ------------- |
-| development   | development.json  |
-| development-docker   | development-docker.json  |
-| staging       | staging.json  |
-| production    | production.json  |
+The ```APP_ENV``` environment variable is typically set based on the environment in which the application is running.
+Its value corresponds to the specific environment, such as "development", "staging" or "production".
+This variable helps the application identify its current environment and load the corresponding configuration.
 
-:::caution
+For the web application, by setting the environment variable ```APP_ENV```,
+the application can determine the environment in which it is running and download the appropriate configuration file:
 
-These values are **public**.  
-Don't upload your source code to a public repository or configure [**.env**](https://www.npmjs.com/package/dotenv) and [**Kubernetes Secrets**](https://kubernetes.io/docs/concepts/configuration/secret/).
+| APP_ENV       | File              |
+| ------------- |-------------------|
+| development   | .env.development  |
+| staging       | .env.staging      |
+| production    | .env.production   |
 
-:::
+These files should contain specific configuration variables required for each environment.
+
+In contrast, the API utilizes a single `.env` file that houses its environment-specific configuration.
+This file typically contains variables like API keys, secrets, or other sensitive information.
+To ensure security, it's crucial to add the `.env` file to the `.gitignore` file, 
+preventing it from being tracked and committed to the repository.
+
+When deploying to Kubernetes, 
+you'll need to include the appropriate environment-specific configuration files in your deployment manifests. 
+Kubernetes offers [**ConfigMaps**](https://kubernetes.io/docs/concepts/configuration/configmap/) and [**Secrets**](https://kubernetes.io/docs/concepts/configuration/secret/)
+for managing such configurations. 
+
+**ConfigMaps** are suitable for non-sensitive data,
+while **Secrets** are recommended for sensitive information like API keys or database connection string. 
+Ensure that you create **ConfigMaps** or **Secrets** in your Kubernetes cluster
+corresponding to the environment-specific files mentioned earlier.
 
 ## Database setup
 

@@ -5,6 +5,8 @@ import moduleAlias from 'module-alias';
 moduleAlias.addPath(__dirname);
 moduleAlias(); // read aliases from package json
 
+import 'dotenv/config';
+
 import migrator from 'migrator/index';
 
 migrator.exec();

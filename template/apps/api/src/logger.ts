@@ -50,4 +50,4 @@ const createConsoleLogger = (isDev: boolean) => {
   return logger;
 };
 
-export default createConsoleLogger(config.isDev);
+export default createConsoleLogger(config.IS_DEV);

@@ -5,7 +5,7 @@ import config from 'config';
 import logger from 'logger';
 
 let emitter: Emitter | null = null;
-const redisClient = createClient({ url: config.redis });
+const redisClient = createClient({ url: config.REDIS_URI });
 
 redisClient.on('error', err => {
   logger.error(`ioEmitter() => Redis error: ${err.stack || err}`);

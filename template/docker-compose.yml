@@ -67,7 +67,7 @@ services:
       target: development
       args:
         NODE_ENV: development
-        APP_ENV: development-docker
+        APP_ENV: development
     networks:
       - ship
     volumes:
@@ -85,7 +85,7 @@ services:
       target: development
       args:
         NODE_ENV: development
-        APP_ENV: development-docker
+        APP_ENV: development
     networks:
       - ship
     volumes:
