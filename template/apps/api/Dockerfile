@@ -21,7 +21,7 @@ RUN pnpm fetch
 # Build the project and its dependencies
 COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=builder /app/out/full/ .
-RUN pnpm install -r --offline --ignore-scripts
+RUN pnpm install -r --prefer-offline --ignore-scripts
 COPY --from=builder /app/out/full/turbo.json ./turbo.json
 
 # DEVELOPMENT - Stage 3
