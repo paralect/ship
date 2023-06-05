@@ -26,7 +26,6 @@ cd apps/web
 
 npm uninstall @microsoft/signalr
 rm src/services/socket.signalr.service.ts
-rm src/config/environment
 
 cd ../../
 
