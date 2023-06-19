@@ -18,7 +18,8 @@
     },
     "development": {
       "dependsOn": ["api#migrate-dev", "api#schedule-dev", "dev"],
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "precommit": {
       "outputs": []

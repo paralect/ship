@@ -1,0 +1,26 @@
+{
+  "name": "mailer",
+  "version": "0.0.1",
+  "workspaces": [
+    ".react-email"
+  ],
+  "scripts": {
+    "dev": "email dev --port 3003",
+    "export": "email export"
+  },
+  "dependencies": {
+    "@react-email/components": "0.0.7",
+    "react-email": "1.9.4"
+  },
+  "devDependencies": {
+    "@types/node": "20.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "35.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "7.32.2",
+    "typescript": "*"
+  }
+}
