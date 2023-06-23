@@ -13,11 +13,14 @@
     "api#schedule-dev": {
       "cache": false
     },
+    "mailer#dev": {
+      "cache": false
+    },
     "dev": {
       "cache": false
     },
     "development": {
-      "dependsOn": ["api#migrate-dev", "api#schedule-dev", "dev"],
+      "dependsOn": ["api#migrate-dev", "api#schedule-dev", "mailer#dev", "dev"],
       "cache": false,
       "persistent": true
     },

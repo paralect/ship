@@ -1,6 +1,9 @@
 {
   "name": "mailer",
   "version": "0.0.1",
+  "description": "Mailer based on React Email",
+  "author": "Paralect",
+  "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "workspaces": [

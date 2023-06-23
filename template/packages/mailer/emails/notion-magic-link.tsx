@@ -15,10 +15,6 @@ export interface NotionMagicLinkEmailProps {
   loginCode?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : '';
-
 export const NotionMagicLinkEmail = ({
   loginCode = 'sparo-ndigo-amurt-secan',
 }: NotionMagicLinkEmailProps) => (
@@ -66,7 +62,7 @@ export const NotionMagicLinkEmail = ({
           account.
         </Text>
         <Img
-          src={`${baseUrl}/static/notion-logo.png`}
+          src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png"
           width="32"
           height="32"
           alt="Notion's Logo"
