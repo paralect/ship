@@ -11,7 +11,7 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-interface PlaidVerifyIdentityEmailProps {
+export interface PlaidVerifyIdentityEmailProps {
   validationCode?: string;
 }
 
@@ -42,10 +42,12 @@ export const PlaidVerifyIdentityEmail = ({
         </Section>
         <Text style={paragraph}>Not expecting this email?</Text>
         <Text style={paragraph}>
-          Contact{' '}
+          Contact
+          {' '}
           <Link href="mailto:login@plaid.com" style={link}>
             login@plaid.com
-          </Link>{' '}
+          </Link>
+          {' '}
           if you did not request this code.
         </Text>
       </Container>

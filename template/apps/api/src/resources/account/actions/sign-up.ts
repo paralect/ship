@@ -61,9 +61,9 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     lastName,
   });
 
-  await emailService.sendVerifyEmail(user.email, {
-    verifyEmailUrl: `${config.API_URL}/account/verify-email?token=${signupToken}`,
-  });
+  // await emailService.sendVerifyEmail(user.email, {
+  //   verifyEmailUrl: `${config.API_URL}/account/verify-email?token=${signupToken}`,
+  // });
 
   ctx.body = config.IS_DEV ? { signupToken } : {};
 }

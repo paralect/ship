@@ -11,7 +11,7 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-interface NotionMagicLinkEmailProps {
+export interface NotionMagicLinkEmailProps {
   loginCode?: string;
 }
 
@@ -52,6 +52,7 @@ export const NotionMagicLinkEmail = ({
           }}
         >
           If you didn&apos;t try to login, you can safely ignore this email.
+          7. Test test test
         </Text>
         <Text
           style={{
@@ -74,11 +75,11 @@ export const NotionMagicLinkEmail = ({
           <Link
             href="https://notion.so"
             target="_blank"
-            style={{ ...link, color: '#898989' }}
+            style={{ ...link, color: '#000' }}
           >
             Notion.so
           </Link>
-          , the all-in-one-workspace
+          , the all-in-one-workspaces
           <br />
           for your notes, tasks, wikis, and databases.
         </Text>
