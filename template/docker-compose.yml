@@ -72,6 +72,7 @@ services:
       - ship
     volumes:
       - ./apps/api/src:/app/apps/api/src
+      - mailer-volume:/app/packages/mailer
     ports:
       - 3001:3001
     depends_on:
@@ -123,7 +124,23 @@ services:
       - ship
     ports:
       - 3002:3002
-
+  mailer:
+    container_name: ship-mailer
+    build:
+      context: .
+      dockerfile: ./packages/mailer/Dockerfile
+      target: development
+      args:
+        NODE_ENV: development
+        APP_ENV: development
+    volumes:
+      - mailer-volume:/app/packages/mailer/dist
+      - ./packages/mailer/emails:/app/packages/mailer/emails
+      - ./packages/mailer/src:/app/packages/mailer/src
+    networks:
+      - ship
+    ports:
+      - 3003:3003
 networks:
   ship:
     name: ship-network
@@ -131,3 +148,4 @@ networks:
 volumes:
   mongodb:
   mongodb-cfg:
+  mailer-volume:

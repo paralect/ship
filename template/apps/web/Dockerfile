@@ -1,14 +1,14 @@
 # BUILDER - Stage 1
-FROM node:alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat
-RUN npm install --global --no-update-notifier --no-fund turbo@1.8.6
+RUN npm install --global --no-update-notifier --no-fund turbo@1.10.3
 COPY . .
 RUN turbo prune --scope=web --docker
 
 # INSTALLER - Stage 2
-FROM node:alpine AS installer
+FROM node:18-alpine AS installer
 WORKDIR /app
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat
@@ -37,7 +37,7 @@ ENV NEXT_PUBLIC_APP_ENV=$APP_ENV
 RUN pnpm turbo run build --filter=web...
 
 # RUNNER - Stage 5
-FROM node:alpine AS runner
+FROM node:18-alpine AS runner
 WORKDIR /app
 
 # Don't run production as root

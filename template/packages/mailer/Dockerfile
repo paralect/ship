@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apk update && apk add --no-cache libc6-compat
 RUN npm install --global --no-update-notifier --no-fund turbo@1.10.3
 COPY . .
-RUN turbo prune --scope=api --docker
+RUN turbo prune --scope=mailer --docker
 
 # INSTALLER - Stage 2
 FROM node:18-alpine AS installer
@@ -26,11 +26,11 @@ COPY --from=builder /app/out/full/turbo.json ./turbo.json
 
 # DEVELOPMENT - Stage 3
 FROM installer AS development
-CMD pnpm turbo run api#schedule-dev --scope=api
+CMD pnpm turbo run dev --scope=mailer
 
 # APP_BUILDER - Stage 4
 FROM installer AS app_builder
-RUN pnpm turbo run build --filter=api...
+RUN pnpm turbo run build --filter=mailer...
 
 # RUNNER - Stage 5
 FROM node:18-alpine AS runner
@@ -45,4 +45,4 @@ COPY --from=app_builder /app .
 
 EXPOSE 3001
 
-CMD ["node", "apps/api/dist/src/scheduler.js"]
+CMD ["node", "packages/mailer/dist/index.js"]
