@@ -1,6 +1,4 @@
 import { z } from 'zod';
-import sendgrid from '@sendgrid/mail';
-import { renderEmailHtml, Template } from 'mailer';
 
 import { User, userService } from 'resources/user';
 
@@ -9,11 +7,6 @@ import { securityUtil } from 'utils';
 import { authService } from 'services';
 
 import { AppKoaContext, AppRouter, Next } from 'types';
-
-import config from 'config';
-
-
-sendgrid.setApiKey(config.SENDGRID_API_KEY ?? '');
 
 const schema = z.object({
   email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
@@ -54,23 +47,6 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     userService.updateLastRequest(user._id),
     authService.setTokens(ctx, user._id),
   ]);
-
-  const emailHtml = await renderEmailHtml({
-    template: Template.SIGN_UP_WELCOME,
-    params: {
-      loginCode: '111-111-111',
-    },
-  });
-
-  await sendgrid.send({
-    from: {
-      email: 'test@ship.com',
-      name: 'React email test',
-    },
-    to: 'e.chaban@paralect.com',
-    subject: 'React email',
-    html: emailHtml,
-  });
 
   ctx.body = userService.getPublic(user);
 }

@@ -1,5 +1,6 @@
 import Koa, { ParameterizedContext, Request, Next } from 'koa';
 import Router from '@koa/router';
+export { Template } from 'mailer';
 
 import { User } from 'resources/user';
 

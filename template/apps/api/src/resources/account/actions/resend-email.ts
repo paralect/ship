@@ -4,7 +4,7 @@ import config from 'config';
 import { securityUtil } from 'utils';
 import { emailService } from 'services';
 import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, Next, AppRouter } from 'types';
+import { AppKoaContext, Next, AppRouter, Template } from 'types';
 import { userService, User } from 'resources/user';
 
 const schema = z.object({
@@ -33,8 +33,14 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   await Promise.all([
     userService.updateOne({ _id: user._id }, () => ({ resetPasswordToken })),
-    emailService.sendForgotPassword(user.email, {
-      resetPasswordLink: `${config.WEB_URL}/reset-password?token=${resetPasswordToken}`,
+    emailService.sendTemplate<Template.RESET_PASSWORD>({
+      to: user.email,
+      subject: 'Password Reset Request for Ship',
+      template: Template.RESET_PASSWORD,
+      params: {
+        firstName: user.firstName,
+        href: `${config.WEB_URL}/reset-password?token=${resetPasswordToken}`,
+      },
     }),
   ]);
 

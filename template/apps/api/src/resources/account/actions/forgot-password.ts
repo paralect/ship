@@ -4,7 +4,7 @@ import config from 'config';
 import { securityUtil } from 'utils';
 import { emailService } from 'services';
 import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, Next, AppRouter } from 'types';
+import { AppKoaContext, Next, AppRouter, Template } from 'types';
 import { userService, User } from 'resources/user';
 
 const schema = z.object({
@@ -38,13 +38,16 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const resetPasswordUrl =
     `${config.API_URL}/account/verify-reset-token?token=${resetPasswordToken}&email=${encodeURIComponent(user.email)}`;
-  await emailService.sendForgotPassword(
-    user.email,
-    {
+
+  await emailService.sendTemplate<Template.RESET_PASSWORD>({
+    to: user.email,
+    subject: 'Password Reset Request for Ship',
+    template: Template.RESET_PASSWORD,
+    params: {
       firstName: user.firstName,
-      resetPasswordUrl,
+      href: resetPasswordUrl,
     },
-  );
+  });
 
   ctx.body = {};
 }
