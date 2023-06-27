@@ -1,5 +1,5 @@
 {
-  "include": ["src", "emails", "tsup.config.ts"],
+  "include": ["src", "emails", "tsup.config.ts", "tailwind.config.js"],
   "exclude": [".react-email", "dist", "build", "node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
