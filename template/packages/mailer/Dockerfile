@@ -1,0 +1,48 @@
+# BUILDER - Stage 1
+FROM node:18-alpine AS builder
+WORKDIR /app
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+RUN npm install --global --no-update-notifier --no-fund turbo@1.10.3
+COPY . .
+RUN turbo prune --scope=mailer --docker
+
+# INSTALLER - Stage 2
+FROM node:18-alpine AS installer
+WORKDIR /app
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+RUN npm install --global --no-update-notifier --no-fund pnpm@^8.0.0
+
+# First install the dependencies (as they change less often)
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+RUN pnpm fetch
+
+# Build the project and its dependencies
+COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY --from=builder /app/out/full/ .
+RUN pnpm install -r --prefer-offline --ignore-scripts
+COPY --from=builder /app/out/full/turbo.json ./turbo.json
+
+# DEVELOPMENT - Stage 3
+FROM installer AS development
+CMD pnpm turbo run dev --scope=mailer
+
+# APP_BUILDER - Stage 4
+FROM installer AS app_builder
+RUN pnpm turbo run build --filter=mailer...
+
+# RUNNER - Stage 5
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+# Don't run production as root
+RUN addgroup --system --gid 1001 app
+RUN adduser --system --uid 1001 app
+USER app
+
+COPY --from=app_builder /app .
+
+EXPOSE 3001
+
+CMD ["node", "packages/mailer/dist/index.js"]

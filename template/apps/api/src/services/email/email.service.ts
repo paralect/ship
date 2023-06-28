@@ -1,41 +1,52 @@
-import { join } from 'path';
-
 import config from 'config';
+import sendgrid from '@sendgrid/mail';
+import { renderEmailHtml, Template } from 'mailer';
 
-import EmailService from './email.helper';
+import { From, EmailServiceConstructorProps, SendTemplateParams, SendSendgridTemplateParams } from './email.types';
 
-const emailService = new EmailService({
-  apiKey: config.SENDGRID_API_KEY ?? '',
-  templatesDir: join(__dirname, '../../assets/emails/dist'),
+class EmailService {
+  apiKey: string | undefined;
+
+  from: From;
+
+  constructor({ apiKey, from }: EmailServiceConstructorProps) {
+    this.apiKey = apiKey;
+    this.from = from;
+
+    if (apiKey) sendgrid.setApiKey(apiKey);
+  }
+
+  async sendTemplate<T extends Template>({ to, subject, template, params }: SendTemplateParams<T>) {
+    if (!this.apiKey) return null;
+
+    const html = await renderEmailHtml({ template, params });
+
+    return sendgrid.send({
+      from: this.from,
+      to,
+      subject,
+      html,
+    });
+  }
+
+  async sendSendgridTemplate({ to, subject, templateId, dynamicTemplateData }: SendSendgridTemplateParams) {
+    if (!this.apiKey) return null;
+
+    return sendgrid.send({
+      from: this.from,
+      to,
+      subject,
+      templateId,
+      dynamicTemplateData,
+    });
+  }
+}
+
+
+export default new EmailService({
+  apiKey: config.SENDGRID_API_KEY,
   from: {
     email: 'notifications@ship.com',
     name: 'Ship',
   },
 });
-
-const sendVerifyEmail = (to: string, dynamicTemplateData: unknown) => emailService.sendTemplate({
-  to,
-  subject: 'Confirm email',
-  template: 'verify-email.html',
-  dynamicTemplateData,
-});
-
-const sendSignUpWelcome = (to: string, dynamicTemplateData: unknown) => emailService.sendTemplate({
-  to,
-  subject: 'Sign Up',
-  template: 'signup-welcome.html',
-  dynamicTemplateData,
-});
-
-const sendForgotPassword = (to: string, dynamicTemplateData: { [key: string]: unknown; }) => emailService.sendTemplate({
-  to,
-  subject: 'Welcome',
-  template: 'reset-password.html',
-  dynamicTemplateData,
-});
-
-export default {
-  sendVerifyEmail,
-  sendSignUpWelcome,
-  sendForgotPassword,
-};

@@ -4,7 +4,7 @@ import config from 'config';
 import { securityUtil } from 'utils';
 import { analyticsService, emailService } from 'services';
 import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, Next, AppRouter } from 'types';
+import { AppKoaContext, Next, AppRouter, Template } from 'types';
 import { userService, User } from 'resources/user';
 
 const schema = z.object({
@@ -61,8 +61,14 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     lastName,
   });
 
-  await emailService.sendVerifyEmail(user.email, {
-    verifyEmailUrl: `${config.API_URL}/account/verify-email?token=${signupToken}`,
+  await emailService.sendTemplate<Template.VERIFY_EMAIL>({
+    to: user.email,
+    subject: 'Please Confirm Your Email Address for Ship',
+    template: Template.VERIFY_EMAIL,
+    params: {
+      firstName: user.firstName,
+      href: `${config.API_URL}/account/verify-email?token=${signupToken}`,
+    },
   });
 
   ctx.body = config.IS_DEV ? { signupToken } : {};

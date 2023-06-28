@@ -1,0 +1,42 @@
+{
+  "name": "mailer",
+  "version": "0.0.1",
+  "description": "Mailer based on React Email",
+  "author": "Paralect",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "workspaces": [
+    ".react-email"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "email dev --port 3003 & tsup --watch",
+    "export": "email export",
+    "clean": "rm -rf dist",
+    "ts-lint": "tsc --noEmit --incremental --watch",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "@react-email/components": "0.0.7",
+    "@react-email/render": "0.0.7",
+    "react": "18.2.0",
+    "react-email": "1.9.4",
+    "tsup": "7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.3.1",
+    "@types/react": "18.2.13",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "17.0.0",
+    "lint-staged": "*",
+    "typescript": "*"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext ts --ext tsx --fix"
+    ]
+  }
+}

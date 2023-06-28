@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import config from 'config';
 
-import { AppKoaContext, Next, AppRouter } from 'types';
+import { AppKoaContext, Next, AppRouter, Template } from 'types';
 
 import { validateMiddleware } from 'middlewares';
 import { authService, emailService } from 'services';
@@ -40,10 +40,14 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     authService.setTokens(ctx, user._id),
   ]);
 
-  await emailService.sendSignUpWelcome(user.email, {
-    userName: user.fullName,
-    actionLink: `${config.WEB_URL}/sign-in`,
-    actionText: 'Sign in',
+  await emailService.sendTemplate<Template.SIGN_UP_WELCOME>({
+    to: user.email,
+    subject: 'Welcome to Ship Community!',
+    template: Template.SIGN_UP_WELCOME,
+    params: {
+      firstName: user.firstName,
+      href: `${config.WEB_URL}/sign-in`,
+    },
   });
 
   ctx.redirect(config.WEB_URL);
