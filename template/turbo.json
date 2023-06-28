@@ -7,22 +7,24 @@
       "dependsOn": ["^build"],
       "env": ["NEXT_PUBLIC_API_HOST"]
     },
+    "mailer#build": {
+      "cache": false
+    },
     "api#migrate-dev": {
+      "dependsOn": ["mailer#build"],
       "cache": false
     },
     "api#schedule-dev": {
-      "cache": false
-    },
-    "mailer#dev": {
+      "dependsOn": ["mailer#build"],
       "cache": false
     },
     "dev": {
+      "dependsOn": ["mailer#build"],
       "cache": false
     },
     "development": {
-      "dependsOn": ["api#migrate-dev", "api#schedule-dev", "mailer#dev", "dev"],
-      "cache": false,
-      "persistent": true
+      "dependsOn": ["api#migrate-dev", "api#schedule-dev", "dev"],
+      "cache": false
     },
     "precommit": {
       "outputs": []
