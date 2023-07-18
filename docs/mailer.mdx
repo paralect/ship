@@ -72,32 +72,24 @@ export default VerifyEmail;
 ```typescript my-app/packages/mailer/src/template.ts
 import { ResetPassword, ResetPasswordProps } from 'emails/reset-password';
 import { SignUpWelcome, SignUpWelcomeProps } from 'emails/sign-up-welcome';
-// highlight-start
 import { VerifyEmail, VerifyEmailProps } from 'emails/verify-email';
-// highlight-end
 
 export enum Template {
   RESET_PASSWORD,
   SIGN_UP_WELCOME,
-  // highlight-start
   VERIFY_EMAIL,
-  // highlight-end
 }
 
 export const EmailComponent = {
   [Template.RESET_PASSWORD]: ResetPassword,
-  [Template.SIGN_UP_WELCOME]: SignUpWelcome, 
-  // highlight-start
+  [Template.SIGN_UP_WELCOME]: SignUpWelcome,
   [Template.VERIFY_EMAIL]: VerifyEmail,
-  // highlight-end
 };
 
 export type TemplateProps = {
   [Template.RESET_PASSWORD]: ResetPasswordProps;
   [Template.SIGN_UP_WELCOME]: SignUpWelcomeProps;
-  // highlight-start
   [Template.VERIFY_EMAIL]: VerifyEmailProps;
-  // highlight-end
 };
 
 ```
@@ -112,7 +104,7 @@ When you change the email template, you need to rebuild the API to see the chang
 
 To use the **Mailer** package within the API, the necessary services and types need to be imported:
 
-```typescript 
+```typescript
 import { Template } from 'types';
 import { emailService } from 'services';
 ```
