@@ -1,0 +1,122 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Ship",
+  "logo": "/logo.png",
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#ECCBFF",
+    "light": "#ECCBFF",
+    "dark": "#ECCBFF"
+  },
+ "modeToggle": {
+    "default": "dark",
+    "isHidden": true
+  },
+  "topbarCtaButton": {
+    "type": "github",
+    "url": "https://github.com/paralect/ship"
+  },
+  "topbarLinks": [
+    {
+      "name": "What's Ship?",
+      "url": "https://ship.paralect.com//#product-platform"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Twitter",
+      "icon": "twitter",
+      "url": "https://twitter.com/paralect"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": ["introduction"]
+    },
+    {
+      "group": "Ship Components",
+      "pages": [
+        "architecture",
+        {
+          "group": "API", 
+          "pages": [
+            "api-reference/overview",
+            "api-reference/api-limitations",
+            "api-reference/using-events",
+            "api-reference/data-schema",
+            "api-reference/data-service",
+            "api-reference/api-action",
+            "api-reference/api-action-validator",
+            "api-reference/event-handler",
+            "api-reference/events",
+            "api-reference/testing",
+            "api-reference/workflow"
+          ]
+        },
+        "migrator", 
+        "scheduler",
+        "mailer",
+        {
+          "group": "Web", 
+          "pages": ["web/overview"]
+        },
+        {
+          "group": "Deployment", 
+          "pages": [
+            "deployment/digital-ocean-apps",
+            {
+              "group": "Kubernetes", 
+              "pages": [
+                "deployment/kubernetes/overview",
+                "deployment/kubernetes/digital-ocean",
+                "deployment/kubernetes/aws  "
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Packages", 
+          "pages": [
+            "packages/node-mongo",
+            "packages/create-ship-app"
+          ]
+        },
+        "retool",
+        {
+          "group": "Examples", 
+          "pages": [
+            "examples/overview",
+            {
+              "group": "Stripe subscriptions",
+              "pages": [
+                "examples/stripe-subscriptions/overview",
+                "examples/stripe-subscriptions/account",
+                {
+                  "group": "API", 
+                  "pages": [
+                    "examples/stripe-subscriptions/api/overview",
+                    "examples/stripe-subscriptions/api/subscriptions",
+                    "examples/stripe-subscriptions/api/payments"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "API Public Docs",
+              "pages": [
+                "examples/api-public-docs/overview",
+                "examples/api-public-docs/usage",
+                "examples/api-public-docs/how-it-works"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/paralect",
+    "github": "https://github.com/paralect/ship"
+  }
+}
