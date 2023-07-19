@@ -2,7 +2,7 @@
 title: "Migrator"
 ---
 
-As the application grows your database schema also will evolve. The problem is pretty common. When you add some feature that influences a database schema(adding, removing, or replacing some fields) you will have to update already existing documents to the latest schema version. Otherwise working with old documents will be impossible, because you will struggle with errors when you will rely on an updated field in your code. So you will run migrations where you will resolve code and schema mismatching.
+As the application grows your database schema also will evolve. The problem is pretty common: when you add some feature that influences a database schema(adding, removing, or replacing some fields) you will have to update already existing documents to the latest schema version. Otherwise working with old documents will be impossible, because you will struggle with errors when you will rely on an updated field in your code. So you will run migrations where you will resolve code and schema mismatching.
 
 Migrator is a service that runs MongoDB migrations, handles versioning, and keeps logs for every migration. It performs changes/migrations to current database data, to match new schema or new requirements. Those changes are stored in the `migrator/migrations` folder.
 
