@@ -1,4 +1,5 @@
 const dotenv = require('dotenv-flow');
+const { join } = require('path');
 
 const dotenvConfig = dotenv.config({
   node_env: process.env.NEXT_PUBLIC_APP_ENV,
@@ -16,6 +17,10 @@ module.exports = {
     return config;
   },
   output: 'standalone',
+  experimental: {
+    // this includes files from the monorepo base two directories up
+    outputFileTracingRoot: join(__dirname, '../../'),
+  },
   pageExtensions: ['page.tsx', 'api.ts'],
   reactStrictMode: true,
   typescript: {
