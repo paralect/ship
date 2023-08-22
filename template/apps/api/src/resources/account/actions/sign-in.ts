@@ -1,17 +1,18 @@
 import { z } from 'zod';
 
 import { User, userService } from 'resources/user';
-import { accountConstants } from 'resources/account';
 
 import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
 import { securityUtil } from 'utils';
 import { authService } from 'services';
 
+import { emailRegex, passwordRegex } from 'resources/account/account.constants';
+
 import { AppKoaContext, AppRouter, Next } from 'types';
 
 const schema = z.object({
-  email: z.string().regex(accountConstants.emailRegex, 'Email format is incorrect.'),
-  password: z.string().regex(accountConstants.passwordRegex, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+  email: z.string().regex(emailRegex, 'Email format is incorrect.'),
+  password: z.string().regex(passwordRegex, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {

@@ -3,12 +3,13 @@ import { z } from 'zod';
 import { AppKoaContext, Next, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
 import { userService } from 'resources/user';
-import { accountConstants } from 'resources/account';
+
+import { emailRegex } from 'resources/account/account.constants';
 
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),
   lastName: z.string().min(1, 'Please enter Last name').max(100),
-  email: z.string().regex(accountConstants.emailRegex, 'Email format is incorrect.'),
+  email: z.string().regex(emailRegex, 'Email format is incorrect.'),
 });
 
 type ValidatedData = z.infer<typeof schema>;

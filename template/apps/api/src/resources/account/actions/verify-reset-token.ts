@@ -4,10 +4,10 @@ import config from 'config';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, AppRouter } from 'types';
 import { User, userService } from 'resources/user';
-import { accountConstants } from 'resources/account';
+import { emailRegex } from 'resources/account/account.constants';
 
 const schema = z.object({
-  email: z.string().regex(accountConstants.emailRegex, 'Email format is incorrect.'),
+  email: z.string().regex(emailRegex, 'Email format is incorrect.'),
   token: z.string().min(1, 'Token is required'),
 });
 
