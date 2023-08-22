@@ -6,9 +6,10 @@ import { emailService } from 'services';
 import { validateMiddleware } from 'middlewares';
 import { AppKoaContext, Next, AppRouter, Template } from 'types';
 import { userService, User } from 'resources/user';
+import { accountConstants } from 'resources/account';
 
 const schema = z.object({
-  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
+  email: z.string().regex(accountConstants.emailRegex, 'Email format is incorrect.'),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {

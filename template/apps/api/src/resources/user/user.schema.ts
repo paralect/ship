@@ -6,7 +6,7 @@ const schema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   fullName: z.string(),
-  email: z.string().email(),
+  email: z.string(),
   passwordHash: z.string().nullable().optional(),
   signupToken: z.string().nullable().optional(),
   resetPasswordToken: z.string().nullable().optional(),
