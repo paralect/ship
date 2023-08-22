@@ -11,10 +11,10 @@ import { RoutePath } from 'routes';
 import { handleError } from 'utils';
 import { Link } from 'components';
 
-import { accountApi } from 'resources/account';
+import { accountApi, accountConstants } from 'resources/account';
 
 const schema = z.object({
-  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
+  email: z.string().regex(accountConstants.emailRegex, 'Email format is incorrect.'),
 });
 
 type ForgotPasswordParams = {
