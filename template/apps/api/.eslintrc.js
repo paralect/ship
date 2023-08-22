@@ -30,6 +30,7 @@ module.exports = {
       code: 120,
       ignoreStrings: true,
       ignoreUrls: true,
+      ignoreTemplateLiterals: true,
     }],
   },
   settings: {
