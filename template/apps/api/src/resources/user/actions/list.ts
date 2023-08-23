@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { SortDirection } from '@paralect/node-mongo';
 
 import { AppKoaContext, AppRouter } from 'types';
 import { validateMiddleware } from 'middlewares';
@@ -9,7 +8,7 @@ const schema = z.object({
   page: z.string().transform(Number).default('1'),
   perPage: z.string().transform(Number).default('10'),
   sort: z.object({
-    createdOn: z.string(),
+    createdOn: z.enum(['asc', 'desc']),
   }).default({ createdOn: 'desc' }),
   filter: z.object({
     createdOn: z.object({
@@ -20,9 +19,7 @@ const schema = z.object({
   searchValue: z.string().default(''),
 });
 
-type ValidatedData = Omit<z.infer<typeof schema>, 'sort'> & {
-  sort: { [name: string]: SortDirection };
-};
+type ValidatedData = z.infer<typeof schema>;
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const {

@@ -32,13 +32,13 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   if (!resetPasswordToken) {
     resetPasswordToken = await securityUtil.generateSecureToken();
+
     await userService.updateOne({ _id: user._id }, () => ({
       resetPasswordToken,
     }));
   }
 
-  const resetPasswordUrl =
-    `${config.API_URL}/account/verify-reset-token?token=${resetPasswordToken}&email=${encodeURIComponent(user.email)}`;
+  const resetPasswordUrl = `${config.API_URL}/account/verify-reset-token?token=${resetPasswordToken}&email=${encodeURIComponent(user.email)}`;
 
   await emailService.sendTemplate<Template.RESET_PASSWORD>({
     to: user.email,
