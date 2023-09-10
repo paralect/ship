@@ -107,7 +107,7 @@ Repository name`402167441269.dkr.ecr.us-east-1.amazonaws.com/api` consists of 5 
 * `dkr.ecr` - AWS service.
 * `amazonaws.com` - AWS domain.
 * `api` - service name.
-</Tip>  
+</Tip>
 
 <Tip>
 Images for all environments will be uploaded to the same repository for each service.
@@ -138,7 +138,7 @@ AWS recommends creating at least 2 nodes **t3.medium** instance type for the pro
 
 ![Node Group Instance Configuration](/images/aws/node-group-instance-configuration.png)
 
-Now you need to configure the node group in the deployment script that we created on the second screenshot.  
+Now you need to configure the node group in the deployment script that we created on the second screenshot.
 Need to update the `nodeGroup` value to `pool-app`.
 
 ```javascript deploy/script/src/config.js
@@ -398,7 +398,7 @@ In the **--arn** parameter you need to specify your user ARN, which you can find
 To automate deployment through GitHub Actions you need to configure [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) inside workflow files.
 
 <Tip>
-The deployment will be triggered on each commit.  
+The deployment will be triggered on each commit.
 Committing to the **main** branch will trigger a deployment in the **staging** environment, and committing to the **production** branch will trigger a deployment in the **production** environment.
 </Tip>
 
@@ -438,7 +438,7 @@ If something went wrong you can check the workflows logs on GitHub and use [**ku
 
 ## Manual deployment
 
-To deploy services in the cluster manually you need to set cluster authorization credentials inside the **config**.  
+To deploy services in the cluster manually you need to set cluster authorization credentials inside the **config**.
 Set `environment` and `namespace` to `production/staging` and set your AWS credentials into config.
 
 ```javascript deploy/src/config.js
