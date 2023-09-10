@@ -11,7 +11,7 @@ async function askProjectName() {
       return 'ship';
     },
   });
-  
+
   return answers.projectName;
 }
 
@@ -25,7 +25,7 @@ async function askApiType() {
       return apiTypes.KOA;
     },
   });
-  
+
   return answers.apiType;
 }
 
@@ -39,7 +39,7 @@ async function askDbType() {
       return dbTypes.NOSQL;
     },
   });
-  
+
   return answers.dbType;
 }
 
@@ -50,13 +50,14 @@ async function askDeploymentType(apiType) {
     message: 'Choose your deployment type:',
     choices: apiType === apiTypes.KOA
       ? Object.values(deploymentTypes)
-      : Object.values(deploymentTypes).filter((d) => d !== deploymentTypes.DIGITAL_OCEAN_APPS)
+      : Object.values(deploymentTypes)
+            .filter((d) => ![deploymentTypes.DIGITAL_OCEAN_APPS, deploymentTypes.RENDER].includes(d))
     ,
     default() {
       return deploymentTypes.DIGITAL_OCEAN_APPS;
     },
   });
-  
+
   return answers.deploymentType;
 }
 
