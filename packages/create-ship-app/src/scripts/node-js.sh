@@ -33,7 +33,15 @@ cd ../../
 
 if [ "$deployment_type" == "Digital_Ocean_Apps" ]; then
   cp -a "ship/deploy/$platform_specific_dir/.github/workflows/." ".github/workflows"
-else
+fi
+
+if [ "$deployment_type" == "Render" ]; then
+  cp "ship/deploy/$platform_specific_dir/render.yaml" "."
+
+  perl -i -pe"s/ship/$project_name/g" render.yaml
+fi
+
+if [ "$deployment_type" == "Digital_Ocean_Managed_Kubernetes" ] || [ "$deployment_type" == "AWS_EKS" ]; then
   cp -a "ship/deploy/$platform_common_dir/." "deploy"
   cp -a "ship/deploy/$platform_specific_dir/." "deploy"
 

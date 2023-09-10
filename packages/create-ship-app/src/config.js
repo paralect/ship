@@ -10,6 +10,7 @@ const dbTypes = {
 
 const deploymentTypes = {
   DIGITAL_OCEAN_APPS: 'Digital Ocean Apps',
+  RENDER: 'Render',
   DIGITAL_OCEAN_MANAGED_KUBERNETES: 'Digital Ocean Managed Kubernetes',
   AWS_EKS: 'AWS EKS'
 };
@@ -19,6 +20,7 @@ const deploymentFolders = {
     [deploymentTypes.AWS_EKS]: 'aws/common',
     [deploymentTypes.DIGITAL_OCEAN_MANAGED_KUBERNETES]: 'digital-ocean/common',
     [deploymentTypes.DIGITAL_OCEAN_APPS]: 'digital-ocean-apps/common',
+    [deploymentTypes.RENDER]: 'render/common',
   },
   specific: {
     [`${deploymentTypes.AWS_EKS}${apiTypes.KOA}`]: 'aws/koa',
@@ -28,6 +30,7 @@ const deploymentFolders = {
     [`${deploymentTypes.DIGITAL_OCEAN_MANAGED_KUBERNETES}${apiTypes.DOTNET}${dbTypes.NOSQL}`]: 'digital-ocean/dotnet-nosql',
     [`${deploymentTypes.DIGITAL_OCEAN_MANAGED_KUBERNETES}${apiTypes.DOTNET}${dbTypes.SQL}`]: 'digital-ocean/dotnet-sql',
     [`${deploymentTypes.DIGITAL_OCEAN_APPS}${apiTypes.KOA}`]: 'digital-ocean-apps/koa',
+    [`${deploymentTypes.RENDER}${apiTypes.KOA}`]: 'render/koa',
   }
 }
 
