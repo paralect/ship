@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 
-const { apiTypes, dbTypes, deploymentTypes } = require('./config');
+const { deploymentTypes } = require('./config');
 
 async function askProjectName() {
   const answers = await inquirer.prompt({
@@ -15,44 +15,12 @@ async function askProjectName() {
   return answers.projectName;
 }
 
-async function askApiType() {
-  const answers = await inquirer.prompt({
-    name: 'apiType',
-    type: 'list',
-    message: 'Choose your API type:',
-    choices: Object.values(apiTypes),
-    default() {
-      return apiTypes.KOA;
-    },
-  });
-
-  return answers.apiType;
-}
-
-async function askDbType() {
-  const answers = await inquirer.prompt({
-    name: 'dbType',
-    type: 'list',
-    message: 'Choose your DB type:',
-    choices: Object.values(dbTypes),
-    default() {
-      return dbTypes.NOSQL;
-    },
-  });
-
-  return answers.dbType;
-}
-
-async function askDeploymentType(apiType) {
+async function askDeploymentType() {
   const answers = await inquirer.prompt({
     name: 'deploymentType',
     type: 'list',
     message: 'Choose your deployment type:',
-    choices: apiType === apiTypes.KOA
-      ? Object.values(deploymentTypes)
-      : Object.values(deploymentTypes)
-            .filter((d) => ![deploymentTypes.DIGITAL_OCEAN_APPS, deploymentTypes.RENDER].includes(d))
-    ,
+    choices: Object.values(deploymentTypes),
     default() {
       return deploymentTypes.DIGITAL_OCEAN_APPS;
     },
@@ -63,7 +31,5 @@ async function askDeploymentType(apiType) {
 
 module.exports = {
   askProjectName,
-  askApiType,
-  askDbType,
   askDeploymentType,
 }
