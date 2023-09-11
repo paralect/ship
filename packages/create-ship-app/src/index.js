@@ -4,12 +4,10 @@ const gradient = require('gradient-string');
 const figlet = require('figlet');
 
 const utils = require('./utils');
-const { apiTypes, deploymentTypes } = require('./config');
+const { deploymentTypes } = require('./config');
 const buildSteps = require('./build-steps');
 
 let projectName;
-let apiType;
-let dbType;
 let deploymentType = deploymentTypes.DIGITAL_OCEAN_APPS;
 
 (async () => {
@@ -17,6 +15,7 @@ let deploymentType = deploymentTypes.DIGITAL_OCEAN_APPS;
   console.log(`Hey! Let’s build your ${gradient.pastel('Ship')} 🚀`);
 
   const [firstArg] = utils.getCLIArgs();
+
   if (firstArg === 'init') {
     projectName = await buildSteps.askProjectName();
   } else {
@@ -24,15 +23,9 @@ let deploymentType = deploymentTypes.DIGITAL_OCEAN_APPS;
     console.log(`Project name: ${projectName}`);
   }
 
-  apiType = await buildSteps.askApiType();
+  deploymentType = await buildSteps.askDeploymentType();
 
-  if (apiType === apiTypes.DOTNET) {
-    dbType = await buildSteps.askDbType();
-  }
-
-  deploymentType = await buildSteps.askDeploymentType(apiType);
-
-  await utils.installServices(projectName, deploymentType, apiType, dbType);
+  await utils.installServices(projectName, deploymentType);
 
   figlet('Happy coding!', (err, data) => {
     console.log(gradient.pastel.multiline(data) + '\n');

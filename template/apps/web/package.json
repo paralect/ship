@@ -22,7 +22,6 @@
     "@mantine/modals": "6.0.1",
     "@mantine/next": "6.0.1",
     "@mantine/notifications": "6.0.1",
-    "@microsoft/signalr": "7.0.3",
     "@svgr/webpack": "6.5.1",
     "@tabler/icons-react": "2.10.0",
     "@tanstack/react-table": "8.7.9",

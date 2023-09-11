@@ -21,14 +21,6 @@ for i in docker-compose*; do
   perl -i -pe"s/ship/$project_name/g" $i
 done
 
-# Websocket config
-cd apps/web
-
-npm uninstall @microsoft/signalr
-rm src/services/socket.signalr.service.ts
-
-cd ../../
-
 # Install deploy
 
 if [ "$deployment_type" == "Digital_Ocean_Apps" ]; then
