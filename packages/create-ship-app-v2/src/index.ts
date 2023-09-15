@@ -40,7 +40,7 @@ An deployment type for the application.
 const run = async (): Promise<void> => {
   const conf = new Conf({ projectName: 'create-ship-app' });
 
-  // console.clear();
+  console.clear();
   console.log(`Hey! Let’s build your ${gradient.pastel('Ship')} 🚀`);
   console.log();
 
