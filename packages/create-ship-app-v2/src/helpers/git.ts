@@ -1,6 +1,6 @@
-import { execSync } from 'child_process';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
 
 const isInGitRepository = (): boolean => {
   try {
@@ -8,7 +8,6 @@ const isInGitRepository = (): boolean => {
 
     return true;
   } catch (_) {
-    console.log('Something went wrong. Error code: IIGR');
     // ignore error
   }
 

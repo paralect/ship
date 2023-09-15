@@ -1,6 +1,6 @@
-import { execSync } from 'child_process';
-import dns from 'dns';
 import url from 'url';
+import dns from 'dns';
+import { execSync } from 'child_process';
 
 const getProxy = (): string | undefined => {
   if (process.env.https_proxy) {

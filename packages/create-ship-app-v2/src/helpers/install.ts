@@ -1,24 +1,13 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { yellow } from 'picocolors';
 import spawn from 'cross-spawn';
-import type { PackageManager } from '../types';
+
+import type { PackageManager } from 'types';
 
 interface InstallArgs {
-  /**
-   * Indicate whether to install packages using npm, pnpm or Yarn.
-   */
   packageManager: PackageManager
-  /**
-   * Indicate whether there is an active Internet connection.
-   */
   isOnline: boolean
 }
 
-/**
- * Spawn a package manager installation with either Yarn or NPM.
- *
- * @returns A Promise that resolves once the installation is finished.
- */
 export const install = (
   root: string,
   { packageManager, isOnline }: InstallArgs,

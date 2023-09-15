@@ -1,7 +1,8 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { DEPLOYMENT } from '../enums';
-import { replaceTextInFile } from '../helpers/common';
+
+import { replaceTextInFile } from 'helpers';
+import { DEPLOYMENT } from 'types';
 
 type DeploymentInstallerOptions = {
   projectRoot: string;

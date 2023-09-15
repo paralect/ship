@@ -1,20 +1,15 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import got from 'got';
-import tar from 'tar';
-import { Stream } from 'stream';
+import { createWriteStream, promises as fs } from 'fs';
 import { promisify } from 'util';
 import path, { join } from 'path';
+import { Stream } from 'stream';
 import { tmpdir } from 'os';
-import { createWriteStream, promises as fs } from 'fs';
-import config from '../config';
+import got from 'got';
+import tar from 'tar';
+
+import config from 'config';
+import { RepoInfo } from 'types';
 
 const pipeline = promisify(Stream.pipeline);
-
-export type RepoInfo = {
-  username: string
-  name: string
-  branch: string
-};
 
 export async function getRepoInfo(url: URL): Promise<RepoInfo | undefined> {
   const [, username, name] = url.pathname.split('/');

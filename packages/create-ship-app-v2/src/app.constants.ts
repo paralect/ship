@@ -8,3 +8,6 @@ export const HAPPY_CODING_TEXT = `  _   _                                       
 
 export const TEMPLATE_PATH = '/template';
 export const TEMP_DIR_NAME = 'my-ship-app';
+
+export const REPO_URL = new URL('https://github.com/paralect/ship');
+export const REPO_ISSUES_URL = `${REPO_URL.href}/issues`;

@@ -5,20 +5,20 @@ import gradient from 'gradient-string';
 import path from 'path';
 import { promises as fs } from 'fs';
 
-import { downloadAndExtractRepo, getRepoInfo, RepoInfo } from './helpers/source-repository';
-import { makeDir } from './helpers/make-dir';
-import { tryGitInit } from './helpers/git';
-import { isFolderEmpty } from './helpers/is-folder-empty';
-import { isWriteable } from './helpers/is-writeable';
-import type { PackageManager } from './types';
+import { RepoInfo, PackageManager, DEPLOYMENT } from 'types';
+import { deploymentInstaller } from 'installers';
+import {
+  downloadAndExtractRepo,
+  makeDir,
+  tryGitInit,
+  isFolderEmpty,
+  isWriteable,
+  getRepoInfo,
+  isErrorLike,
+  replaceTextInFile,
+} from 'helpers';
 
-import { DEPLOYMENT } from './enums';
-import { isErrorLike, replaceTextInFile } from './helpers/common';
-import { HAPPY_CODING_TEXT, TEMPLATE_PATH } from './constants/common';
-import { deploymentInstaller } from './installers/deployment';
-
-const repoUrl: URL = new URL('https://github.com/paralect/ship');
-const issuesURL = `${repoUrl.href}/issues`;
+import { HAPPY_CODING_TEXT, REPO_ISSUES_URL, REPO_URL, TEMPLATE_PATH } from 'app.constants';
 
 export class DownloadError extends Error {}
 
@@ -33,10 +33,10 @@ export const createApp = async ({
   packageManager?: PackageManager
   deployment: DEPLOYMENT
 }): Promise<void> => {
-  const repoInfo: RepoInfo | undefined = await getRepoInfo(repoUrl);
+  const repoInfo: RepoInfo | undefined = await getRepoInfo(REPO_URL);
 
   if (!repoInfo) {
-    console.error(`Repository with template not found, try again or report the issue here: ${cyan(issuesURL)}`);
+    console.error(`Repository with template not found, try again or report the issue here: ${cyan(REPO_ISSUES_URL)}`);
 
     process.exit(1);
   }

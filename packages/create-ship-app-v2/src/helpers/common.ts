@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
-import config from '../config';
-import { TEMP_DIR_NAME } from '../constants/common';
+
+import config from 'config';
+import { TEMP_DIR_NAME } from 'app.constants';
 
 export const onPromptState = (state: any) => {
   if (state.aborted) {

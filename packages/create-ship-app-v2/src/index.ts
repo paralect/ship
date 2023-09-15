@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint-disable import/no-extraneous-dependencies */
+
 import { cyan, green, red, yellow, bold, blue, gray } from 'picocolors';
 import gradient from 'gradient-string';
 import Commander from 'commander';
@@ -9,15 +9,13 @@ import prompts from 'prompts';
 import checkForUpdate from 'update-check';
 import fs from 'fs';
 
+import { onPromptState, handleSigTerm, getDefaultProjectName, validateNpmName, isFolderEmpty } from 'helpers';
+import { DEPLOYMENT } from 'types';
 import config from 'config';
 
 import { createApp, DownloadError } from './create-app';
-import { validateNpmName } from './helpers/validate-pkg';
-import packageJson from '../package.json';
-import { DEPLOYMENT } from './enums';
-import { isFolderEmpty } from './helpers/is-folder-empty';
 
-import { onPromptState, handleSigTerm, getDefaultProjectName } from './helpers/common';
+import packageJson from '../package.json';
 
 let projectPath = getDefaultProjectName();
 
