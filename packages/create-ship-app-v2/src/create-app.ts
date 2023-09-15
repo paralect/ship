@@ -4,7 +4,7 @@ import retry from 'async-retry';
 import { cyan, green } from 'picocolors';
 import gradient from 'gradient-string';
 
-import { RepoInfo, PackageManager, DEPLOYMENT } from 'types';
+import { RepoInfo, PackageManager, Deployment } from 'types';
 import { deploymentInstaller } from 'installers';
 import {
   downloadAndExtractRepo,
@@ -31,7 +31,7 @@ export const createApp = async ({
   projectName: string
   appPath: string
   packageManager?: PackageManager
-  deployment: DEPLOYMENT
+  deployment: Deployment
 }): Promise<void> => {
   const repoInfo: RepoInfo | undefined = await getRepoInfo(REPO_URL);
 

@@ -10,8 +10,9 @@ import checkForUpdate from 'update-check';
 import fs from 'fs';
 
 import { onPromptState, handleSigTerm, getDefaultProjectName, validateNpmName, isFolderEmpty } from 'helpers';
-import { DEPLOYMENT } from 'types';
+import { Deployment } from 'types';
 import config from 'config';
+import { DEPLOYMENT_SHORTCUTS } from 'app.constants';
 
 import { createApp, DownloadError } from './create-app';
 
@@ -28,10 +29,16 @@ const program = new Commander.Command(packageJson.name)
   .usage(`${green('<project-directory>')} [options]`)
   .action((name) => { projectPath = name; })
   .option(
-    '-d, --deployment [name]',
+    '-d, --deployment <type>',
     `
 
 An deployment type for the application.
+
+Available deployment options:
+  do-apps            Digital Ocean Apps
+  render             Render
+  do-kubernetes      Digital Ocean Managed Kubernetes
+  aws-eks            AWS EKS
 `,
   )
   .allowUnknownOption()
@@ -114,22 +121,32 @@ const run = async (): Promise<void> => {
     process.exit(1);
   }
 
-  const preferences: Partial<Record<string, string | DEPLOYMENT>> = conf.get('preferences') || {};
+  const preferences: Partial<Record<string, string | Deployment>> = conf.get('preferences') || {};
+
+  if (program.deployment) {
+    const chosenDeployment = DEPLOYMENT_SHORTCUTS[program.deployment as keyof typeof DEPLOYMENT_SHORTCUTS];
+
+    if (chosenDeployment) {
+      program.deployment = chosenDeployment;
+
+      console.log(`${green('✔')} ${bold(`What ${blue('deployment type')} would you like to use?`)} ${gray('›')} ${green(chosenDeployment)}`);
+    } else {
+      program.deployment = undefined;
+    }
+  }
 
   if (typeof program.deployment !== 'string' || !program.deployment.length) {
-    const styledDeploymentType = blue('deployment type');
-
     const { deployment } = await prompts({
       onState: onPromptState,
       type: 'select',
       name: 'deployment',
-      message: `What ${styledDeploymentType} would you like to use?`,
+      message: `What ${blue('deployment type')} would you like to use?`,
       initial: 0,
       choices: [
-        { title: DEPLOYMENT.DIGITAL_OCEAN_APPS, value: DEPLOYMENT.DIGITAL_OCEAN_APPS },
-        { title: DEPLOYMENT.RENDER, value: DEPLOYMENT.RENDER },
-        { title: DEPLOYMENT.DIGITAL_OCEAN_KUBERNETES, value: DEPLOYMENT.DIGITAL_OCEAN_KUBERNETES },
-        { title: DEPLOYMENT.AWS_KUBERNETES, value: DEPLOYMENT.AWS_KUBERNETES },
+        { title: Deployment.DIGITAL_OCEAN_APPS, value: Deployment.DIGITAL_OCEAN_APPS },
+        { title: Deployment.RENDER, value: Deployment.RENDER },
+        { title: Deployment.DIGITAL_OCEAN_KUBERNETES, value: Deployment.DIGITAL_OCEAN_KUBERNETES },
+        { title: Deployment.AWS_KUBERNETES, value: Deployment.AWS_KUBERNETES },
       ],
     });
 

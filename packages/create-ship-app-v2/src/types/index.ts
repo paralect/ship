@@ -6,7 +6,7 @@ export type RepoInfo = {
   branch: string
 };
 
-export enum DEPLOYMENT {
+export enum Deployment {
   DIGITAL_OCEAN_APPS = 'Digital Ocean Apps',
   RENDER = 'Render',
   DIGITAL_OCEAN_KUBERNETES = 'Digital Ocean Managed Kubernetes',

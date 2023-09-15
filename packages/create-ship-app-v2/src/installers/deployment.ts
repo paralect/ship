@@ -2,7 +2,7 @@ import path from 'path';
 import { promises as fs } from 'fs';
 
 import { replaceTextInFile } from 'helpers';
-import { DEPLOYMENT } from 'types';
+import { Deployment } from 'types';
 
 type DeploymentInstallerOptions = {
   projectRoot: string;
@@ -10,14 +10,14 @@ type DeploymentInstallerOptions = {
   projectName: string;
 };
 
-export const deploymentInstaller = async (deployment: DEPLOYMENT, options: DeploymentInstallerOptions) => {
+export const deploymentInstaller = async (deployment: Deployment, options: DeploymentInstallerOptions) => {
   const { projectRoot, repoName, projectName } = options;
 
   const templatePath = path.join(projectRoot, repoName, 'deploy');
 
   try {
     switch (deployment) {
-      case DEPLOYMENT.DIGITAL_OCEAN_APPS: {
+      case Deployment.DIGITAL_OCEAN_APPS: {
         const workflowsSrc = path.join(templatePath, 'digital-ocean-apps/koa/.github/workflows');
         const workflowsDest = path.join(projectRoot, '.github/workflows');
 
@@ -25,7 +25,7 @@ export const deploymentInstaller = async (deployment: DEPLOYMENT, options: Deplo
         break;
       }
 
-      case DEPLOYMENT.RENDER: {
+      case Deployment.RENDER: {
         const renderSrc = path.join(templatePath, 'render/koa/render.yaml');
         const renderDest = path.join(projectRoot, 'render.yaml');
 
@@ -35,7 +35,7 @@ export const deploymentInstaller = async (deployment: DEPLOYMENT, options: Deplo
         break;
       }
 
-      case DEPLOYMENT.DIGITAL_OCEAN_KUBERNETES: {
+      case Deployment.DIGITAL_OCEAN_KUBERNETES: {
         const workflowsSrc = path.join(templatePath, 'aws/.github/workflows');
         const workflowsDest = path.join(projectRoot, '.github/workflows');
 
@@ -48,7 +48,7 @@ export const deploymentInstaller = async (deployment: DEPLOYMENT, options: Deplo
         break;
       }
 
-      case DEPLOYMENT.AWS_KUBERNETES: {
+      case Deployment.AWS_KUBERNETES: {
         const workflowsSrc = path.join(templatePath, 'digital-ocean/.github/workflows');
         const workflowsDest = path.join(projectRoot, '.github/workflows');
 
