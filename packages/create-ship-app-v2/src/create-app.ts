@@ -1,9 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
+import { promises as fs } from 'fs';
+import path from 'path';
 import retry from 'async-retry';
 import { cyan, green } from 'picocolors';
 import gradient from 'gradient-string';
-import path from 'path';
-import { promises as fs } from 'fs';
 
 import { RepoInfo, PackageManager, DEPLOYMENT } from 'types';
 import { deploymentInstaller } from 'installers';
@@ -16,6 +15,7 @@ import {
   getRepoInfo,
   isErrorLike,
   replaceTextInFile,
+  install,
 } from 'helpers';
 
 import { HAPPY_CODING_TEXT, REPO_ISSUES_URL, REPO_URL, TEMPLATE_PATH } from 'app.constants';
@@ -65,9 +65,6 @@ export const createApp = async ({
 
   process.chdir(root);
 
-  console.log('Downloading repository from GitHub...');
-  console.log();
-
   try {
     await retry(() => downloadAndExtractRepo(root, repoInfo), { retries: 3 });
   } catch (reason) {
@@ -86,16 +83,14 @@ export const createApp = async ({
     projectName,
   });
 
-  // await fs.rm(path.join(root, repoInfo.name), { recursive: true });
+  await fs.rm(path.join(root, repoInfo.name), { recursive: true });
 
-  // console.log('Installing packages. This might take a couple of minutes.');
-  // console.log();
+  console.log('Installing packages. This might take a couple of minutes.');
+  console.log();
 
-  // const isOnline = await getOnline();
+  await install(root, { packageManager });
 
-  // await install(root, { packageManager, isOnline });
-
-  // console.log();
+  console.log();
 
   if (tryGitInit(root)) {
     console.log('Initialized a git repository.');

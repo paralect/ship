@@ -203,6 +203,7 @@ run()
   .catch(async (reason) => {
     console.log();
     console.log('Aborting installation.');
+
     if (reason.command) {
       console.log(`  ${cyan(reason.command)} has failed.`);
     } else {

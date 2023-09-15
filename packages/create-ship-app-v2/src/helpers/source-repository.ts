@@ -37,6 +37,9 @@ export async function downloadAndExtractRepo(
   { username, name, branch }: RepoInfo,
 ) {
   if (!config.IS_DEV) {
+    console.log('Downloading repository from GitHub...');
+    console.log();
+
     const tempFile = await downloadTar(`https://codeload.github.com/${username}/${name}/tar.gz/${branch}`);
 
     await tar.x({
@@ -52,6 +55,9 @@ export async function downloadAndExtractRepo(
 
     await fs.unlink(tempFile);
   } else {
+    console.log('[DEV] Copying local repository...');
+    console.log();
+
     const localProjectRoot = path.join(__dirname, '../../..');
     const destPath = path.join(root, name);
 
