@@ -125,7 +125,7 @@ const Table: FC<TableProps> = ({
     return (
       <Pagination
         total={table.getPageCount()}
-        page={pageIndex}
+        value={pageIndex}
         onChange={onPageChangeHandler}
         color="black"
       />
