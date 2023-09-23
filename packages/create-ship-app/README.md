@@ -56,7 +56,7 @@ We believe we could ship great products faster, while maintain decent quality an
 
 ## License
 
-Ship is released under the [MIT License](LICENSE).
+Ship is released under the [MIT License](https://github.com/paralect/ship/blob/master/LICENSE).
 
 ## Contributing
 
