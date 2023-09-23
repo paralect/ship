@@ -77,6 +77,10 @@ export const createApp = async ({
 
   await replaceTextInFile(path.join(root, 'docker-compose.yml'), 'ship', projectName);
 
+  const apiPath = path.join(root, 'apps/api');
+
+  await fs.cp(path.join(apiPath, '.env.example'), path.join(apiPath, '.env'));
+
   await deploymentInstaller(deployment, {
     projectRoot: root,
     repoName: repoInfo.name,
