@@ -18,16 +18,14 @@ We encourage developers to share production-ready solutions and help business sh
 ## Features
 
 - Full-stack boilerplate tested on production projects 🔥
-- Customizable UI [components library](https://www.figma.com/file/YLBUCEZk3TRFFMm357eKTb/Ship.Mantine?node-id=0%3A1&t=kVlMWcr786hQ1Baz-1) 🧱
+- Customizable UI 🧱
 - Email/password and Google Oauth authentication 🔐
-- [Stripe](https://stripe.com/) payments and subscriptions 🤑
-- User invites and onboarding 🙋
 - Multiple environments support 📝
 - Reactive MongoDB [configuration](https://ship.paralect.com/docs/packages/node-mongo) with CUD events publishing 🍃
 - [Kubernetes](https://ship.paralect.com/docs/deployment/kubernetes/overview) and [DO Apps](https://ship.paralect.com/docs/deployment/digital-ocean-apps) deployment for AWS and Digital Ocean platforms ☁
 - Turborepo packages sharing 🏎
 - Files upload to cloud storage 🗃
-- Sendgrid and handlebars + mjml emails 📧
+- Sendgrid and React Email emails 📧
 - Websockets 🔌
 - Database [migrations](https://ship.paralect.com/docs/migrator) 🌖
 - [CRON jobs](https://ship.paralect.com/docs/scheduler) ⏰

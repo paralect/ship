@@ -24,7 +24,7 @@ We encourage developers to share production-ready solutions and help business sh
 - [Kubernetes](https://ship.paralect.com/docs/deployment/kubernetes/overview) and [DO Apps](https://ship.paralect.com/docs/deployment/digital-ocean-apps) deployment for AWS and Digital Ocean platforms ☁
 - Turborepo packages sharing 🏎
 - Files upload to cloud storage 🗃
-- Sendgrid and handlebars + mjml emails 📧
+- Sendgrid and React Email emails 📧
 - Websockets 🔌
 - Database [migrations](https://ship.paralect.com/docs/migrator) 🌖
 - [CRON jobs](https://ship.paralect.com/docs/scheduler) ⏰
