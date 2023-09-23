@@ -39,3 +39,28 @@ We encourage developers to share production-ready solutions and help business sh
 
 ```shell
 npx create-ship-app@latest init
+```
+
+## [Documentation](https://ship.paralect.com/docs/intro)
+
+## Why Ship?
+
+Shipping is crucial part of any new product. The quicker you ship, the more time you have to validate your hypotheses. The quicker you validate your idea, the sooner you know if you're building what people want.
+
+In the rush, developers often ignore quality. Backups, monitoring, proper data validation and many other things seems not so important in the beginning. Sometimes you're lucky, sometimes not.
+
+We believe we could ship great products faster, while maintain decent quality and have a plan for scaling when hypotheses where right.
+
+## Core concepts
+
+* We automatically build ship out of the number of smaller components. Our ultimate goal is too keep only parts your need for your product development.
+* Every component is kept is tiny as possible to simplify maintenance and stay up to date with new releases.
+* Ship is always in a production-ready state. We test every release manually to make sure great developer experience. We use ship to build our products, see more [here](https://www.paralect.com/build-stage).
+
+## License
+
+Ship is released under the [MIT License](LICENSE).
+
+## Contributing
+
+Join us and share something developers need 👌.
