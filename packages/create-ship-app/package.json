@@ -15,7 +15,7 @@
     "directory": "packages/create-ship-app"
   },
   "bin": {
-    "create-next-app": "./dist/index.js"
+    "create-ship-app": "./dist/index.js"
   },
   "files": [
     "dist"

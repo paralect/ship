@@ -1,84 +1,41 @@
-# Create Next App
 
-The easiest way to get started with Next.js is by using `create-next-app`. This CLI tool enables you to quickly start building a new Next.js application, with everything set up for you. You can create a new app using the default Next.js template, or by using one of the [official Next.js examples](https://github.com/vercel/next.js/tree/canary/examples). To get started, use the following command:
+![Ship](https://github.com/paralect/ship/blob/master/ship.png)
 
-### Interactive
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-You can create a new project interactively by running:
+[![Watch on GitHub](https://img.shields.io/github/watchers/paralect/ship.svg?style=social&label=Watch)](https://github.com/paralect/ship/watchers)
+[![Star on GitHub](https://img.shields.io/github/stars/paralect/ship.svg?style=social&label=Stars)](https://github.com/paralect/ship/stargazers)
+[![Follow](https://img.shields.io/twitter/follow/paralect.svg?style=social&label=Follow)](https://twitter.com/paralect)
+[![Tweet](https://img.shields.io/twitter/url/https/github.com/paralect/ship.svg?style=social)](https://twitter.com/intent/tweet?text=I%2)
 
-```bash
-npx create-next-app@latest
-# or
-yarn create next-app
-# or
-pnpm create next-app
-# or
-bunx create-next-app
-```
+The [Ship](https://ship.paralect.com) is a toolkit for makers to **ship** better products faster 🚀.
 
-You will be asked for the name of your project, and then whether you want to
-create a TypeScript project:
+It is based on several open-source components, resulting from years of hard work [Paralect](https://www.paralect.com) team. We carefully select, document, and share our production-ready knowledge with you. Our technological choices are based on the following main tools: [Next.js](https://nextjs.org/), [React Query](https://react-query.tanstack.com/), [React Hook Form](https://react-hook-form.com/), [Mantine UI](https://mantine.dev/), [Koa.js](https://koajs.com/), [Socket.IO](https://socket.io/), [MongoDB](https://www.mongodb.com/), [Turborepo](https://turbo.build/repo/docs), [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/), [GitHub Actions](https://github.com/features/actions) and [TypeScript](https://www.typescriptlang.org/).
 
-```bash
-✔ Would you like to use TypeScript? … No / Yes
-```
+We encourage developers to share production-ready solutions and help business ship something people need as quickly as possible.
 
-Select **Yes** to install the necessary types/dependencies and create a new TS project.
+## Features
 
-### Non-interactive
+- Full-stack boilerplate tested on production projects 🔥
+- Customizable UI [components library](https://www.figma.com/file/YLBUCEZk3TRFFMm357eKTb/Ship.Mantine?node-id=0%3A1&t=kVlMWcr786hQ1Baz-1) 🧱
+- Email/password and Google Oauth authentication 🔐
+- [Stripe](https://stripe.com/) payments and subscriptions 🤑
+- User invites and onboarding 🙋
+- Multiple environments support 📝
+- Reactive MongoDB [configuration](https://ship.paralect.com/docs/packages/node-mongo) with CUD events publishing 🍃
+- [Kubernetes](https://ship.paralect.com/docs/deployment/kubernetes/overview) and [DO Apps](https://ship.paralect.com/docs/deployment/digital-ocean-apps) deployment for AWS and Digital Ocean platforms ☁
+- Turborepo packages sharing 🏎
+- Files upload to cloud storage 🗃
+- Sendgrid and handlebars + mjml emails 📧
+- Websockets 🔌
+- Database [migrations](https://ship.paralect.com/docs/migrator) 🌖
+- [CRON jobs](https://ship.paralect.com/docs/scheduler) ⏰
+- Logging and monitoring 📈
+- Code linting and testing ⚙️
+- CI/CD 🤖
 
-You can also pass command line arguments to set up a new project
-non-interactively. See `create-next-app --help`:
+## Quick Start
 
-```bash
-create-next-app <project-directory> [options]
-
-Options:
-  -V, --version                      output the version number
-  --ts, --typescript
-
-    Initialize as a TypeScript project. (default)
-
-  --js, --javascript
-
-    Initialize as a JavaScript project.
-
-  --use-npm
-
-    Explicitly tell the CLI to bootstrap the app using npm
-
-  --use-pnpm
-
-    Explicitly tell the CLI to bootstrap the app using pnpm
-
-  --use-yarn
-
-    Explicitly tell the CLI to bootstrap the app using Yarn
-
-  --use-bun
-
-    Explicitly tell the CLI to bootstrap the app using Bun
-
-  -e, --example [name]|[github-url]
-
-    An example to bootstrap the app with. You can use an example name
-    from the official Next.js repo or a GitHub URL. The URL can use
-    any branch and/or subdirectory
-
-  --example-path <path-to-example>
-
-    In a rare case, your GitHub URL might contain a branch name with
-    a slash (e.g. bug/fix-1) and the path to the example (e.g. foo/bar).
-    In this case, you must specify the path to the example separately:
-    --example-path foo/bar
-```
-
-### Why use Create Next App?
-
-`create-next-app` allows you to create a new Next.js app within seconds. It is officially maintained by the creators of Next.js, and includes a number of benefits:
-
-- **Interactive Experience**: Running `npx create-next-app@latest` (with no arguments) launches an interactive experience that guides you through setting up a project.
-- **Zero Dependencies**: Initializing a project is as quick as one second. Create Next App has zero dependencies.
-- **Offline Support**: Create Next App will automatically detect if you're offline and bootstrap your project using your local package cache.
-- **Support for Examples**: Create Next App can bootstrap your application using an example from the Next.js examples collection (e.g. `npx create-next-app --example api-routes`).
-- **Tested**: The package is part of the Next.js monorepo and tested using the same integration test suite as Next.js itself, ensuring it works as expected with every release.
+```shell
+npx create-ship-app@latest init
