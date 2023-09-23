@@ -111,7 +111,7 @@ const run = async (): Promise<void> => {
   const appName = path.basename(root);
   let folderExists = fs.existsSync(root);
 
-  if (folderExists && config.USE_TEMP_DIR && config.REMOVE_TEMP_DIR) {
+  if (folderExists && config.USE_TEMP_DIR && config.CLEANUP_TEMP_DIR) {
     fs.rmSync(root, { recursive: true });
 
     folderExists = fs.existsSync(root);

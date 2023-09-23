@@ -36,7 +36,7 @@ export async function downloadAndExtractRepo(
   root: string,
   { username, name, branch }: RepoInfo,
 ) {
-  if (!config.IS_DEV) {
+  if (!config.USE_LOCAL_REPO) {
     console.log('Downloading repository from GitHub...');
     console.log();
 

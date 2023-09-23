@@ -43,7 +43,7 @@ export const getDefaultProjectName = () => {
     name = `${TEMP_DIR_NAME}-${new Date().getTime()}`;
   }
 
-  if (config.USE_TEMP_DIR && config.REMOVE_TEMP_DIR) {
+  if (config.USE_TEMP_DIR && config.CLEANUP_TEMP_DIR) {
     name = TEMP_DIR_NAME;
   }
 
