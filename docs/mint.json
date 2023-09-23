@@ -71,7 +71,7 @@
               "pages": [
                 "deployment/kubernetes/overview",
                 "deployment/kubernetes/digital-ocean",
-                "deployment/kubernetes/aws  "
+                "deployment/kubernetes/aws"
               ]
             }
           ]
