@@ -1,4 +1,3 @@
-
 ![Ship](https://github.com/paralect/ship/blob/master/ship.png)
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE)
