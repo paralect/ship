@@ -76,7 +76,7 @@ promiseLimit(documents: unknown[], limit: number, operator: (doc: any) => any)
 
 ## How it deploys and runs
 
-The main idea behind the ship's Migrator is to run it **before** **[API](api/overview)** and **[Scheduler](scheduler)** deployment.
+The main idea behind the ship's Migrator is to run it **before** **[API](api-reference/overview)** and **[Scheduler](scheduler)** deployment.
 Therefore, if any migration fails, then the API or Scheduler updates will not be applied. And they will always work with an up-to-date schema.
 
 More on **[Kubernetes](deployment/kubernetes/overview#deployment-flow)** and **[DO Apps](deployment/digital-ocean-apps#set-up-migrator-and-scheduleroptional)** deployment.

@@ -8,9 +8,9 @@ We use the next primary technologies for deployment:
 * [Helm](https://helm.sh/) for managing Kubernetes applications;
 * [GitHub Actions](https://github.com/features/actions) for CI/CD deployment;
 
-To use this guide we highly recommend you to check their documentation and be familiar with basics.  
+To use this guide we highly recommend you to check their documentation and be familiar with basics.
 
-Deployed application is multiple services, wrapped in Docker containers and run inside the Kubernetes cluster.  
+Deployed application is multiple services, wrapped in Docker containers and run inside the Kubernetes cluster.
 Ship consists of 4 services by default: [**Web**](/web/overview), [**API**](/api-reference/overview), [**Scheduler**](/scheduler) and [**Migrator**](/migrator).
 
 Deployment can be done manually from your local machine or via a CI/CD pipeline.
@@ -85,9 +85,9 @@ await pushToKubernetes({
 
 ```
 
-We have 2 separate GitHub Actions [workflows](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions) for services: 
+We have 2 separate GitHub Actions [workflows](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions) for services:
 - Deploy [**Web**](/web/overview)
-- Deploy [**API**](/api/overview), [**Scheduler**](/scheduler), and [**Migrator**](/migrator). Migrator deploys **before** API and Scheduler.
+- Deploy [**API**](/api-reference/overview), [**Scheduler**](/scheduler), and [**Migrator**](/migrator). Migrator deploys **before** API and Scheduler.
 
 If the Migrator fails, API and Scheduler will be not deployed. This approach guarantees us that the API and Scheduler always work with the appropriate database schema.
 
@@ -97,7 +97,7 @@ We have [**separate**](https://github.com/paralect/ship/tree/master/examples/bas
 
 ## Environment variables
 
-When deploying "Ship" to Kubernetes, it's essential to consider the configuration needs of different environments. 
+When deploying "Ship" to Kubernetes, it's essential to consider the configuration needs of different environments.
 By separating the environment-specific settings into dedicated files,
 you can easily manage and deploy the application across environments.
 
@@ -118,16 +118,16 @@ These files should contain specific configuration variables required for each en
 
 In contrast, the API utilizes a single `.env` file that houses its environment-specific configuration.
 This file typically contains variables like API keys, secrets, or other sensitive information.
-To ensure security, it's crucial to add the `.env` file to the `.gitignore` file, 
+To ensure security, it's crucial to add the `.env` file to the `.gitignore` file,
 preventing it from being tracked and committed to the repository.
 
-When deploying to Kubernetes, 
-you'll need to include the appropriate environment-specific configuration files in your deployment manifests. 
+When deploying to Kubernetes,
+you'll need to include the appropriate environment-specific configuration files in your deployment manifests.
 Kubernetes offers [**ConfigMaps**](https://kubernetes.io/docs/concepts/configuration/configmap/) and [**Secrets**](https://kubernetes.io/docs/concepts/configuration/secret/)
-for managing such configurations. 
+for managing such configurations.
 
 **ConfigMaps** are suitable for non-sensitive data,
-while **Secrets** are recommended for sensitive information like API keys or database connection string. 
+while **Secrets** are recommended for sensitive information like API keys or database connection string.
 Ensure that you create **ConfigMaps** or **Secrets** in your Kubernetes cluster
 corresponding to the environment-specific files mentioned earlier.
 
@@ -158,7 +158,7 @@ If you are deploying in AWS you can use [AWS Certificate Manager](https://aws.am
 
 ## Services
 
-Services are parts of your application packaged as Helm Charts.  
+Services are parts of your application packaged as Helm Charts.
 
 |Service|Description|Kubernetes Resource|
 |:---|:---|:---|

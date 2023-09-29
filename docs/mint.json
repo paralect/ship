@@ -4,9 +4,9 @@
   "logo": "/logo.png",
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#ECCBFF",
+    "primary": "#9166A9",
     "light": "#ECCBFF",
-    "dark": "#ECCBFF"
+    "dark": "#9166A9"
   },
  "modeToggle": {
     "default": "dark",
@@ -19,7 +19,15 @@
   "topbarLinks": [
     {
       "name": "What's Ship?",
-      "url": "https://ship.paralect.com//#product-platform"
+      "url": "https://ship.paralect.com/#product-platform"
+    },
+    {
+      "name": "Showcase",
+      "url": "https://ship.paralect.com/#showcase"
+    },
+    {
+      "name": "Contributors",
+      "url": "https://ship.paralect.com/#contributors"
     }
   ],
   "anchors": [
