@@ -292,7 +292,7 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 
 1. Select the appropriate type. Dedicated for a production environment, shared for staging/demo.
 2. Select provider and region. We recommend selecting the same or closest region to the AWS EKS cluster.
-3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M10 or higher.
+3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M2 or higher.
 4. Enter cluster name
 
 ![Mongo cluster](/images/aws/mongo-create.png)
@@ -300,6 +300,8 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 ### Security and connection
 
 After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
+
+P.S. - Please note that the generated password starts with a letter, if not, regenerate the password. (otherwise, DigitalOcean can incorrectly parse mongoURI)
 
 ![Mongo setup authentication](/images/aws/mongo-create-password.png)
 
