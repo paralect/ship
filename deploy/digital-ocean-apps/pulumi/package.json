@@ -1,0 +1,29 @@
+{
+  "name": "ship-iac-do-apps",
+  "version": "1.0.0",
+  "description": "Ship Infrastructure as Code tool based on Pulumi for Digital Ocean Apps",
+  "author": "Paralect",
+  "license": "MIT",
+  "main": "index.ts",
+  "scripts": {
+    "ts-lint": "tsc --noEmit --incremental --watch",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "@pulumi/digitalocean": "4.22.0",
+    "dotenv": "16.3.1",
+    "zod": "3.21.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.50.0",
+    "eslint": "8.2.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "17.0.0",
+    "lint-staged": "13.2.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix"
+    ]
+  }
+}

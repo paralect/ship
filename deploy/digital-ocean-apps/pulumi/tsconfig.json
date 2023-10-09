@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "rootDir": ".",
+        "target": "es2017",
+        "lib": ["es6"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+    },
+    "include": [
+        "src/**/*",
+        "index.ts",
+        "app.constants.ts"
+    ],
+    "exclude": ["node_modules"]
+}
