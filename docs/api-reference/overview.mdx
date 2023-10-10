@@ -7,7 +7,7 @@ It's the draft version of **API** documentation, the articles contains some depr
 </Note>
 
 
-`/api` is a source folder for three independent services: 
+`/api` is a source folder for three independent services:
 - API — REST API, entry file is `/api/src/app.ts`
 - Migrator — small utility that runs MongoDB migrations, entry file is `/api/src/migrator.ts`
 - Scheduler — standalone service, that runs background jobs, entry file is `/api/src/scheduler.ts`
@@ -15,7 +15,7 @@ It's the draft version of **API** documentation, the articles contains some depr
 
 ## What is resource?
 
-From the outside world, the resource is a set of REST API endpoints that allow managing a particular business entity (e.x. user). Inside, the resource includes methods to work with the database, business logic, database data, request validation, events and event handlers. Most of the time, a resource has 1 on 1 mapping to the database entity. The resource describes how you can work with any given entity. E.x. User API needs to create new users, edit an existing user, list all users. 
+From the outside world, the resource is a set of REST API endpoints that allow managing a particular business entity (e.x. user). Inside, the resource includes methods to work with the database, business logic, database data, request validation, events and event handlers. Most of the time, a resource has 1 on 1 mapping to the database entity. The resource describes how you can work with any given entity. E.x. User API needs to create new users, edit an existing user, list all users.
 
 ## Resource components
 
@@ -31,4 +31,4 @@ A resource represents on REST endpoint and most of the time one database table o
 
 Here is the resource structure example:
 
-![Resource structure](/images/api_resource_structure.png)
+![Resource structure](/images/api-resource-structure.png)
