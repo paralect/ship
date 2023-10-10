@@ -73,6 +73,7 @@
           "group": "Deployment",
           "pages": [
             "deployment/digital-ocean-apps",
+            "deployment/digital-ocean-apps-iac",
             "deployment/render",
             {
               "group": "Kubernetes",
