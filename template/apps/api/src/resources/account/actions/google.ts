@@ -12,7 +12,7 @@ type ValidatedData = {
 };
 
 const getOAuthUrl = async (ctx: AppKoaContext) => {
-  const isValidCredentials = config.GOOGLE_CLIENT_ID || config.GOOGLE_CLIENT_SECRET;
+  const isValidCredentials = config.GOOGLE_CLIENT_ID && config.GOOGLE_CLIENT_SECRET;
 
   ctx.assertClientError(isValidCredentials, {
     global: 'Setup Google Oauth credentials on API',
@@ -29,7 +29,7 @@ const signInGoogleWithCode = async (ctx: AppKoaContext) => {
 
   ctx.assertError(isValid, `Exchange code for token error: ${payload}`);
 
-  const  user = await userService.findOne({ email: payload.email });
+  const user = await userService.findOne({ email: payload.email });
   let userChanged;
 
   if (user) {
