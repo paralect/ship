@@ -22,6 +22,18 @@ export const deploymentInstaller = async (deployment: Deployment, options: Deplo
         const workflowsDest = path.join(projectRoot, '.github/workflows');
 
         await fs.cp(workflowsSrc, workflowsDest, { recursive: true });
+
+        const iacSrc = path.join(templatePath, 'digital-ocean-apps/pulumi');
+        const iacDest = path.join(projectRoot, 'deploy');
+
+        await fs.cp(iacSrc, iacDest, { recursive: true });
+
+        const pulumiYamlPath = path.join(iacDest, 'Pulumi.yaml');
+        await replaceTextInFile(pulumiYamlPath, repoName, projectName);
+
+        const envExamplePath = path.join(iacDest, '.env.example');
+        await replaceTextInFile(envExamplePath, repoName, projectName);
+
         break;
       }
 

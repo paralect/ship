@@ -113,7 +113,7 @@ export const spacesBucket = new digitalocean.SpacesBucket(config.PROJECT_NAME, {
 
 export const project = new digitalocean.Project(config.PROJECT_NAME, {
   name: config.PROJECT_NAME,
-  description: 'A project based on Ship',
+  description: 'A project based on Ship (ship.paralect.com)',
   purpose: 'Web Application',
   resources: [
     apiApp.appUrn,
