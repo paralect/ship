@@ -1,7 +1,3 @@
----
-sidebar_position: 1
----
-
 # node-mongo
 
 [![npm version](https://badge.fury.io/js/%40paralect%2Fnode-mongo.svg)](https://badge.fury.io/js/%40paralect%2Fnode-mongo)
@@ -181,11 +177,7 @@ SDK support two type of events:
 - For handling these events type you will use `watch` (method for working with Change Streams) on the outbox table;
 - Designed for transferring events to messages broker like Kafka. Events handlers should listen to message broker events (You need to implement this layer yourself).
 
-:::tip
-
 On the project start, we recommend using `in-memory` events. When your application becomes tougher you should migrate to `transactional` events.
-
-:::
 
 ## Service API
 
