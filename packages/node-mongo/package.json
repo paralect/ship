@@ -1,6 +1,6 @@
 {
   "name": "@paralect/node-mongo",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "author": "Paralect",
   "description": "Reactive MongoDB wrapper for Node.JS",
   "private": false,
@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "4.17.21",
-    "mongodb": "4.10.0"
+    "mongodb": "6.1.0"
   },
   "devDependencies": {
     "@types/chai": "4.2.16",
@@ -45,6 +45,6 @@
     "zod": "3.19.1"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16.16.0"
   }
 }

@@ -2,7 +2,7 @@ version: '3.6'
 services:
   mongo:
     container_name: ship-mongo
-    image: mongo:4.4
+    image: mongo:6.0
     entrypoint:
       - bash
       - -c
@@ -28,10 +28,10 @@ services:
       - type: volume
         source: mongodb-cfg
         target: /data/configdb
-  # mongo-replicator creates a replica set for transactions support
+  # mongo-replicator creates a replica set for transaction support
   mongo-replicator:
     container_name: ship-mongo-replicator
-    image: mongo:4.4
+    image: mongo:6.0
     entrypoint:
       - bash
       - -c

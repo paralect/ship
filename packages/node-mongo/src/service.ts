@@ -499,7 +499,7 @@ class Service<T extends IDocument> {
     const updatedDocuments = updated.filter((u) => u.isUpdated);
     const bulkWriteQuery = updatedDocuments.map(
       (u): { updateOne: UpdateOneModel<T> } => {
-        const filterQuery = { _id: u.doc._id } as Partial<T>;
+        const filterQuery = { _id: u.doc._id } as Filter<T>;
 
         return {
           updateOne: {
@@ -779,7 +779,7 @@ class Service<T extends IDocument> {
 
   dropIndexes = async (
     options: DropIndexesOptions = {},
-  ): Promise<void | Document> => {
+  ): Promise<boolean | void> => {
     const collection = await this.getCollection();
 
     return collection.dropIndexes(options)

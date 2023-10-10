@@ -14,12 +14,7 @@ import Service from './service';
 import logger from './utils/logger';
 import OutboxService from './events/outbox';
 
-const defaultOptions = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
-// add ability to pass transaction options
+// add the ability to pass transaction options
 const transactionOptions: TransactionOptions = {
   readConcern: { level: 'local' },
   writeConcern: { w: 1 },
@@ -42,15 +37,12 @@ class Database extends EventEmitter {
 
   private client?: MongoClient;
 
-  constructor(url: string, dbName?: string, options?: MongoClientOptions) {
+  constructor(url: string, dbName?: string, options: MongoClientOptions = {}) {
     super();
 
     this.url = url;
     this.dbName = dbName;
-    this.options = {
-      ...defaultOptions,
-      ...options,
-    };
+    this.options = options;
 
     this.connectPromise = new Promise((res) => { this.connectPromiseResolve = res; });
     this.outboxService = new OutboxService(this.getOrCreateCollection, this.waitForConnection);
