@@ -1,70 +1,51 @@
-import { cloneDeep, isArray } from 'lodash';
-import { diff } from 'deep-diff';
+import { cloneDeep, isEqual } from 'lodash';
 import {
+  WithoutId,
   ChangeStreamOptions,
-  ClientSession,
   Collection,
   AggregateOptions,
   BulkWriteOptions,
   Filter,
   FindOptions,
+  UpdateOneModel,
+  CountDocumentsOptions,
   CreateIndexesOptions,
   MongoClient,
+  DeleteOptions,
   IndexSpecification,
   OptionalUnlessRequiredId,
-  TransactionOptions,
   UpdateFilter,
-  FindOneAndUpdateOptions,
   UpdateOptions,
+  InsertOneOptions,
+  UpdateResult,
+  Document,
+  IndexDescription, DropIndexesOptions, ReplaceOptions, DistinctOptions, IndexInformationOptions,
 } from 'mongodb';
 
-import logger from './logger';
-import ServiceOptions from './types/ServiceOptions';
-import { generateId } from './idGenerator';
-import inMemoryPublisher from './dbChangePublisher';
-import IDatabase from './types/IDatabase';
-import { DbChangeData, IChangePublisher } from './types';
+import {
+  IDocument,
+  FindResult,
+  IChangePublisher,
+  IDatabase,
+  ServiceOptions,
+  ReadConfig, CreateConfig, UpdateConfig, DeleteConfig,
+} from './types';
+
+import logger from './utils/logger';
+import { addUpdatedOnField, generateId } from './utils/helpers';
+import { inMemoryPublisher } from './events/in-memory';
 
 const defaultOptions: ServiceOptions = {
+  skipDeletedOnDocs: true,
+  publishEvents: true,
+  outbox: false,
   addCreatedOnField: true,
   addUpdatedOnField: true,
-  outbox: false,
-  requireDeletedOn: true,
 };
 
-const transactionOptions: TransactionOptions = {
-  readConcern: { level: 'local' },
-  writeConcern: { w: 1 },
-};
+const isDev = process.env.NODE_ENV === 'development';
 
-export type Document = {
-  _id?: string;
-  updatedOn?: string;
-  deletedOn?: string | null;
-  createdOn?: string;
-};
-
-export type FindResult<T> = {
-  /**
-   * Array of documents returned by query
-   */
-  results: T[];
-  pagesCount: number;
-  count: number;
-};
-
-type GeneralRequestOptions = {
-  session?: ClientSession;
-  doNotAddDeletedOn?: boolean;
-};
-
-type ExtendedFindOptions = FindOptions & {
-  doNotAddDeletedOn?: boolean;
-  page: number;
-  perPage: number;
-};
-
-class Service<T extends Document> {
+class Service<T extends IDocument> {
   private client?: MongoClient;
 
   private collection: Collection<T> | null;
@@ -82,7 +63,7 @@ class Service<T extends Document> {
   constructor(
     collectionName: string,
     db: IDatabase,
-    options: ServiceOptions = { },
+    options: ServiceOptions = {},
   ) {
     this._collectionName = collectionName;
     this.db = db;
@@ -91,11 +72,13 @@ class Service<T extends Document> {
       ...options,
     };
     this.waitForConnection = db.waitForConnection;
+
     if (this.options.outbox) {
       this.changePublisher = db.getOutboxService();
     } else {
       this.changePublisher = inMemoryPublisher;
     }
+
     this.collection = null;
 
     this.db.getClient()
@@ -104,15 +87,18 @@ class Service<T extends Document> {
       });
   }
 
-  public get collectionName() : string {
+  public get collectionName(): string {
     return this._collectionName;
   }
 
   public validateSchema = async (entity: T | Partial<T>): Promise<T> => {
-    if (this.options.schema) {
-      const { schema } = this.options;
+    if (this.options.schemaValidator) {
+      const { schemaValidator } = this.options;
+
       try {
-        return await schema.validateAsync(entity);
+        const result = await schemaValidator(entity);
+
+        return result;
       } catch (err: any) {
         logger.error(`Schema is not valid for ${this._collectionName} collection: ${err.stack || err}`, entity);
         throw err;
@@ -122,38 +108,61 @@ class Service<T extends Document> {
     return entity as T;
   };
 
-  protected addQueryDefaults = <H extends { doNotAddDeletedOn?: boolean }>(
-    query: Filter<T>, options: H,
+  protected validateReadOperation = (
+    query: Filter<T>,
+    readConfig: ReadConfig,
   ): Filter<T> => {
-    if (!query) {
-      throw new Error(`MongoDB service query for [${this.collectionName}] collection must be defined`);
-    }
-    if (query.deletedOn) {
-      return query;
-    }
-    if (!this.options.requireDeletedOn) {
-      return query;
-    }
-    if (options.doNotAddDeletedOn) {
-      return query;
+    const shouldSkipDeletedDocs = typeof readConfig.skipDeletedOnDocs === 'boolean'
+      ? readConfig.skipDeletedOnDocs
+      : this.options.skipDeletedOnDocs;
+
+    if (!query.deletedOn && shouldSkipDeletedDocs) {
+      return { ...query, deletedOn: { $exists: false } };
     }
 
-    return { ...query, deletedOn: { $exists: false } };
+    return query;
   };
 
-  protected validateQuery = (query: any, options: GeneralRequestOptions) => {
-    // A hook to add query validation
-    // Often used to check if some required keys are always in the query
-    // e.x. companyId or workspaceId
+  protected validateCreateOperation = async (
+    object: Partial<T>,
+    createConfig: CreateConfig,
+  ): Promise<T> => {
+    let entity = object;
+
+    if (!entity._id) {
+      entity._id = generateId();
+    }
+
+    const timestamp = new Date();
+
+    if (!entity.createdOn && this.options.addCreatedOnField) {
+      entity.createdOn = timestamp;
+    }
+
+    if (!entity.updatedOn && this.options.addUpdatedOnField) {
+      entity.updatedOn = timestamp;
+    }
+
+    const shouldValidateSchema = typeof createConfig.validateSchema === 'boolean'
+      ? createConfig.validateSchema
+      : Boolean(this.options.schemaValidator);
+
+    if (shouldValidateSchema) {
+      entity = await this.validateSchema(entity);
+    }
+
+    return entity as T;
   };
 
   protected getCollection = async (): Promise<Collection<T>> => {
     await this.waitForConnection();
+
     if (!this.collection) {
       this.collection = await this.db.getOrCreateCollection<T>(this.collectionName, {
         collectionCreateOptions: this.options.collectionCreateOptions || {},
         collectionOptions: this.options.collectionOptions || {},
       });
+
       if (!this.collection) {
         throw new Error(`Mongo collection ${this._collectionName} is not initialized.`);
       }
@@ -163,55 +172,46 @@ class Service<T extends Document> {
   };
 
   findOne = async (
-    query: Filter<T> = { },
-    options: GeneralRequestOptions = {},
+    filter: Filter<T>,
+    readConfig: ReadConfig = {},
+    findOptions: FindOptions = {},
   ): Promise<T | null> => {
     const collection = await this.getCollection();
 
-    query = this.addQueryDefaults(query, options);
-    this.validateQuery(query, options);
+    filter = this.validateReadOperation(filter, readConfig);
 
-    return collection.findOne<T>(query);
-  };
-
-  findAll = async (
-    query: Filter<T>,
-    options: FindOptions<T>,
-  ): Promise<T[]> => {
-    const collection = await this.getCollection();
-    return collection.find<T>(query, options).toArray();
+    return collection.findOne<T>(filter, findOptions);
   };
 
   find = async (
-    query: Filter<T> = {},
-    options: ExtendedFindOptions = { perPage: 100, page: 0 },
+    filter: Filter<T>,
+    readConfig: ReadConfig & { page?: number; perPage?: number } = {},
+    findOptions: FindOptions = {},
   ): Promise<FindResult<T>> => {
     const collection = await this.getCollection();
+    const { page, perPage } = readConfig;
+    const hasPaging = !!page && !!perPage;
 
-    query = this.addQueryDefaults(query, options);
-    this.validateQuery(query, options);
+    filter = this.validateReadOperation(filter, readConfig);
 
-    const {
-      page,
-      perPage,
-      ...opts
-    } = options;
+    if (!hasPaging) {
+      const results = await collection.find<T>(filter, findOptions).toArray();
 
-    const findOptions: Record<string, unknown> = {
-      page,
-      perPage,
-      ...opts,
-    };
-    const hasPaging = page > 0;
-    if (hasPaging) {
-      findOptions.skip = (page - 1) * perPage;
-      findOptions.limit = perPage;
+      return {
+        pagesCount: 1,
+        results,
+        count: results.length,
+      };
     }
 
-    const results = await collection
-      .find<T>(query, findOptions)
-      .toArray();
-    const count = await collection.countDocuments(query);
+    findOptions.skip = (page - 1) * perPage;
+    findOptions.limit = perPage;
+
+    const [results, count] = await Promise.all([
+      collection.find<T>(filter, findOptions).toArray(),
+      collection.countDocuments(filter),
+    ]);
+
     const pagesCount = Math.ceil(count / perPage) || 1;
 
     return {
@@ -221,312 +221,585 @@ class Service<T extends Document> {
     };
   };
 
-  cursor = async (
-    query: Filter<T>, opt: FindOptions<T extends T ? T : T> = {},
-  ): Promise<any> => {
-    const collection = await this.getCollection();
+  exists = async (
+    filter: Filter<T>,
+    readConfig: ReadConfig = {},
+    findOptions: FindOptions = {},
+  ): Promise<boolean> => {
+    const doc = await this.findOne(filter, readConfig, findOptions);
 
-    return collection.find<T>(query, opt);
-  };
-
-  exists = async (query: Filter<T>, options: GeneralRequestOptions = {}): Promise<boolean> => {
-    const doc = await this.findOne(query, options);
-    query = this.addQueryDefaults(query, options);
-    this.validateQuery(query, options);
-
-    return !!doc;
+    return Boolean(doc);
   };
 
   countDocuments = async (
-    query: Filter<T>, options: GeneralRequestOptions = {},
+    filter: Filter<T>,
+    readConfig: ReadConfig = {},
+    countDocumentOptions: CountDocumentsOptions = {},
   ): Promise<number> => {
     const collection = await this.getCollection();
-    query = this.addQueryDefaults(query, options);
-    this.validateQuery(query, options);
 
-    return collection.countDocuments(query);
+    filter = this.validateReadOperation(filter, readConfig);
+
+    return collection.countDocuments(filter, countDocumentOptions);
   };
 
-  async create(object: Partial<T>, options?: GeneralRequestOptions): Promise<T>;
-  async create(objects: Partial<T>[], options?: GeneralRequestOptions): Promise<T[]>;
-  async create(
-    objects: Partial<T>[] | Partial<T>,
-    options: GeneralRequestOptions = {},
-  ): Promise<T[] | T> {
+  distinct = async (
+    key: string,
+    filter: Filter<T>,
+    readConfig: ReadConfig = {},
+    distinctOptions: DistinctOptions = {},
+  ): Promise<any[]> => {
     const collection = await this.getCollection();
 
-    if (!this.client) {
-      throw new Error('MongoDB client is not connected');
-    }
+    filter = this.validateReadOperation(filter, readConfig);
 
-    const isCreateMany = isArray(objects);
-    let entities: Partial<T>[] = [];
-    if (isCreateMany) {
-      entities = objects as Partial<T>[];
+    return collection.distinct(key, filter, distinctOptions);
+  };
+
+  insertOne = async (
+    object: Partial<T>,
+    createConfig: CreateConfig = {},
+    insertOneOptions: InsertOneOptions = {},
+  ): Promise<T> => {
+    const collection = await this.getCollection();
+
+    const validEntity = await this.validateCreateOperation(object, createConfig);
+
+    const shouldPublishEvents = typeof createConfig.publishEvents === 'boolean'
+      ? createConfig.publishEvents
+      : this.options.publishEvents;
+
+    if (shouldPublishEvents) {
+      const insertOneWithEvent = async (opts: InsertOneOptions): Promise<void> => {
+        await collection.insertOne(validEntity as OptionalUnlessRequiredId<T>, opts);
+
+        return this.changePublisher.publishDbChange(
+          this._collectionName,
+          'create',
+          { doc: validEntity },
+          { session: opts.session },
+        );
+      };
+
+      if (this.options.outbox && !insertOneOptions.session) {
+        await this.db.withTransaction(((session) => insertOneWithEvent({ session })));
+      } else {
+        await insertOneWithEvent(insertOneOptions);
+      }
     } else {
-      entities = [objects as Partial<T>];
-    }
-    if (entities.length === 0) {
-      return [];
+      await collection.insertOne(validEntity as OptionalUnlessRequiredId<T>, insertOneOptions);
     }
 
-    const validEntities = await Promise.all(entities.map(async (item: Partial<T>) => {
-      const entity = item;
-      if (!entity._id) {
-        entity._id = generateId();
+    return validEntity;
+  };
+
+  insertMany = async (
+    objects: Partial<T>[],
+    createConfig: CreateConfig = {},
+    bulkWriteOptions: BulkWriteOptions = {},
+  ): Promise<T[]> => {
+    const collection = await this.getCollection();
+
+    const validEntities = await Promise.all(objects.map(
+      (o) => this.validateCreateOperation(o, createConfig),
+    ));
+
+    const shouldPublishEvents = typeof createConfig.publishEvents === 'boolean'
+      ? createConfig.publishEvents
+      : this.options.publishEvents;
+
+    if (shouldPublishEvents) {
+      const insertManyWithEvents = async (opts: BulkWriteOptions): Promise<void> => {
+        await collection.insertMany(validEntities as OptionalUnlessRequiredId<T>[], opts);
+
+        return this.changePublisher.publishDbChanges(
+          this._collectionName,
+          'create',
+          validEntities.map((e) => ({ doc: e })),
+          { session: opts.session },
+        );
+      };
+
+      if (this.options.outbox && !bulkWriteOptions.session) {
+        await this.db.withTransaction(((session) => insertManyWithEvents({ session })));
+      } else {
+        await insertManyWithEvents(bulkWriteOptions);
       }
-
-      if (!entity.createdOn && this.options.addCreatedOnField) {
-        entity.createdOn = new Date().toISOString();
-      }
-      if (!entity.updatedOn && this.options.addUpdatedOnField) {
-        entity.updatedOn = new Date().toISOString();
-      }
-
-      return this.validateSchema(entity);
-    }));
-
-    const transactionCreate = async (session: ClientSession): Promise<void> => {
-      if (!isArray(validEntities)) { // ts bug
-        return;
-      }
-
-      await this.changePublisher.publishDbChanges(this._collectionName, 'create', validEntities.map((e) => ({
-        data: e,
-      })), { session });
-
-      await collection.insertMany(
-        validEntities as OptionalUnlessRequiredId<T>[],
-        { session },
-      );
-    };
-
-    if (options?.session) {
-      await transactionCreate(options.session);
     } else {
-      await this.withTransaction(async (session) => {
-        await transactionCreate(session);
-      });
+      await collection.insertMany(validEntities as OptionalUnlessRequiredId<T>[], bulkWriteOptions);
     }
 
-    return isCreateMany ? entities as T[] : entities[0] as T;
-  }
+    return validEntities;
+  };
 
-  update = async (
-    query: Filter<T>,
-    updateFn: (doc: T) => void | Partial<T>,
-    options?: GeneralRequestOptions,
+  replaceOne = async (
+    filter: Filter<T>,
+    replacement: Partial<T>,
+    readConfig: ReadConfig = {},
+    replaceOptions: ReplaceOptions = {},
+  ): Promise<UpdateResult | Document> => {
+    const collection = await this.getCollection();
+
+    filter = this.validateReadOperation(filter, readConfig);
+
+    if (this.options.addUpdatedOnField) {
+      replacement.updatedOn = new Date();
+    }
+
+    return collection.replaceOne(filter, replacement as WithoutId<T>, replaceOptions);
+  };
+
+  updateOne = async (
+    filter: Filter<T>,
+    updateFn: (doc: T) => Partial<T>,
+    updateConfig: UpdateConfig = {},
+    updateOptions: UpdateOptions = {},
   ): Promise<T | null> => {
     const collection = await this.getCollection();
-    if (!this.client) {
-      return null;
-    }
 
-    const doc = await this.findOne(query, options);
+    filter = this.validateReadOperation(filter, updateConfig);
+
+    const doc = await this.findOne(filter, updateConfig);
+
     if (!doc) {
-      logger.warn(`Document not found when updating ${this._collectionName} collection. Request query — ${JSON.stringify(query)}`);
+      if (isDev) {
+        logger.warn(`Document not found when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
       return null;
     }
 
     const prevDoc = cloneDeep(doc);
-    if (this.options.addUpdatedOnField) {
-      doc.updatedOn = new Date().toISOString();
-    }
 
-    // Update function can return full document for update or partial
-    const mbUpdatedDoc = await updateFn(doc);
-    let updatedDoc: T = doc as T;
-    if (mbUpdatedDoc) {
-      updatedDoc = {
-        ...updatedDoc,
-        ...mbUpdatedDoc,
-      };
-    }
-    const validatedDoc = await this.validateSchema(updatedDoc);
+    const updatedFields = await updateFn(doc);
 
-    let isUpdated = false;
+    const newDoc = { ...doc, ...updatedFields };
+    const isUpdated = !isEqual(prevDoc, newDoc);
 
-    const transactionUpdate = async (session: ClientSession) => {
-      const updateResult = await collection.updateOne({
-        _id: validatedDoc._id,
-      } as Filter<T>, { $set: validatedDoc }, { session });
-      isUpdated = updateResult.modifiedCount === 1;
-
-      if (isUpdated) {
-        const change: DbChangeData = {
-          data: {
-            ...validatedDoc,
-          },
-          diff: diff(prevDoc, validatedDoc),
-        };
-        await this.changePublisher.publishDbChange(this._collectionName, 'update', change, { session });
+    if (!isUpdated) {
+      if (isDev) {
+        logger.warn(`Document hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
       }
-    };
-
-    if (options?.session) {
-      await transactionUpdate(options.session);
-    } else {
-      await this.withTransaction(async (session) => {
-        await transactionUpdate(session);
-      });
+      return newDoc;
     }
 
-    return isUpdated ? validatedDoc : null;
-  };
+    if (this.options.addUpdatedOnField) {
+      const updatedOnDate = new Date();
 
-  /**
-   * Set deletedOn field and send removed event
-   */
-  removeSoft = async (query: Filter<T>, options: GeneralRequestOptions = {}): Promise<T[]> => {
-    const collection = await this.getCollection();
-    query = this.addQueryDefaults(query, options);
-    this.validateQuery(query, options);
-    if (!this.client) {
-      return [];
+      updatedFields.updatedOn = updatedOnDate;
+      newDoc.updatedOn = updatedOnDate;
     }
 
-    const docs = await collection.find<T>(query).toArray();
+    const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
+      ? updateConfig.validateSchema
+      : Boolean(this.options.schemaValidator);
 
-    if (docs.length === 0) {
-      return [];
+    if (shouldValidateSchema) {
+      await this.validateSchema(newDoc);
     }
 
-    const transactionRemoveSoft = async (session: ClientSession) => {
-      const dbChanges = docs.map((doc: any) => ({
-        entity: this._collectionName,
-        data: doc,
-      }));
+    const shouldPublishEvents = typeof updateConfig.publishEvents === 'boolean'
+      ? updateConfig.publishEvents
+      : this.options.publishEvents;
 
-      await this.changePublisher.publishDbChanges(this._collectionName, 'remove', dbChanges, { session });
+    if (shouldPublishEvents) {
+      const updateOneWithEvent = async (opts: UpdateOptions): Promise<void> => {
+        await collection.updateOne(
+          { _id: doc._id } as Filter<T>,
+          { $set: updatedFields } as UpdateFilter<T>,
+          opts,
+        );
 
-      const uq: any = {
-        $set: {
-          deletedOn: new Date().toISOString(),
-        },
+        return this.changePublisher.publishDbChange(
+          this._collectionName,
+          'update',
+          { doc: newDoc, prevDoc },
+          { session: opts.session },
+        );
       };
 
-      await collection.updateMany(
-        query,
-        uq,
-        { session },
-      );
-    };
-
-    if (options?.session) {
-      await transactionRemoveSoft(options.session);
+      if (this.options.outbox && !updateOptions.session) {
+        await this.db.withTransaction(((session) => updateOneWithEvent({ session })));
+      } else {
+        await updateOneWithEvent(updateOptions);
+      }
     } else {
-      await this.withTransaction(async (session) => {
-        await transactionRemoveSoft(session);
-      });
+      await collection.updateOne(
+        { _id: doc._id } as Filter<T>,
+        { $set: updatedFields } as UpdateFilter<T>,
+        updateOptions,
+      );
     }
 
-    return docs;
+    return newDoc;
   };
 
-  remove = async (
-    query: Filter<T>,
-    options: GeneralRequestOptions = {},
+  updateMany = async (
+    filter: Filter<T>,
+    updateFn: (doc: T) => Partial<T>,
+    updateConfig: UpdateConfig = {},
+    updateOptions: UpdateOptions = {},
   ): Promise<T[]> => {
     const collection = await this.getCollection();
-    this.validateQuery(query, options);
-    if (!this.client) {
+
+    filter = this.validateReadOperation(filter, updateConfig);
+
+    const documents = await collection.find<T>(filter).toArray();
+
+    if (documents.length === 0) {
+      if (isDev) {
+        logger.warn(`Documents not found when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
       return [];
     }
 
-    const docs = await collection.find<T>(query).toArray();
+    const updated = await Promise.all(
+      documents.map(async (doc: T) => {
+        const prevDoc = cloneDeep(doc);
+        const updatedFields = await updateFn(doc);
+        const newDoc = { ...doc, ...updatedFields };
 
-    if (docs.length === 0) {
-      return [];
+        return {
+          doc: newDoc,
+          prevDoc,
+          updatedFields,
+          isUpdated: !isEqual(prevDoc, newDoc),
+        };
+      }),
+    );
+
+    const isUpdated = updated.find((u) => u.isUpdated) !== undefined;
+
+    if (!isUpdated) {
+      if (isDev) {
+        logger.warn(`Documents hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
+
+      return updated.map((u) => u.doc);
     }
 
-    const transactionRemove = async (session: ClientSession) => {
-      const changes = docs.map((doc: any) => ({
-        type: 'remove',
-        entity: this._collectionName,
-        data: doc,
-      }));
-      await this.changePublisher.publishDbChanges(this._collectionName, 'remove', changes, { session });
-      await collection.deleteMany(query, { session });
-    };
+    if (this.options.addUpdatedOnField) {
+      const updatedOnDate = new Date();
 
-    if (options?.session) {
-      await transactionRemove(options.session);
-    } else {
-      await this.withTransaction(async (session) => {
-        await transactionRemove(session);
+      updated.forEach((u) => {
+        if (u.isUpdated) {
+          u.doc.updatedOn = updatedOnDate;
+          u.updatedFields.updatedOn = updatedOnDate;
+        }
       });
     }
 
-    return docs;
+    const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
+      ? updateConfig.validateSchema
+      : Boolean(this.options.schemaValidator);
+
+    if (shouldValidateSchema) {
+      await Promise.all((updated.map((u) => this.validateSchema(u.doc))));
+    }
+
+    const updatedDocuments = updated.filter((u) => u.isUpdated);
+    const bulkWriteQuery = updatedDocuments.map(
+      (u): { updateOne: UpdateOneModel<T> } => {
+        const filterQuery = { _id: u.doc._id } as Partial<T>;
+
+        return {
+          updateOne: {
+            filter: filterQuery,
+            update: { $set: u.updatedFields } as UpdateFilter<T>,
+          },
+        };
+      },
+    );
+
+    const shouldPublishEvents = typeof updateConfig.publishEvents === 'boolean'
+      ? updateConfig.publishEvents
+      : this.options.publishEvents;
+
+    if (shouldPublishEvents) {
+      const updateManyWithEvents = async (opts: UpdateOptions): Promise<void> => {
+        await collection.bulkWrite(bulkWriteQuery, updateOptions);
+
+        return this.changePublisher.publishDbChanges(
+          this._collectionName,
+          'update',
+          updatedDocuments.map((u) => ({ doc: u.doc, prevDoc: u.prevDoc })),
+          { session: opts.session },
+        );
+      };
+
+      if (this.options.outbox && !updateOptions.session) {
+        await this.db.withTransaction(((session) => updateManyWithEvents({ session })));
+      } else {
+        await updateManyWithEvents(updateOptions);
+      }
+    } else {
+      await collection.bulkWrite(bulkWriteQuery, updateOptions);
+    }
+
+    return updated.map((u) => u.doc);
   };
 
-  ensureIndex = async (
-    index: IndexSpecification,
+  deleteOne = async (
+    filter: Filter<T>,
+    deleteConfig: DeleteConfig = {},
+    deleteOptions: DeleteOptions = {},
+  ): Promise<T | null> => {
+    const collection = await this.getCollection();
+
+    const doc = await this.findOne(filter, deleteConfig);
+
+    if (!doc) {
+      if (isDev) {
+        logger.warn(`Document not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
+
+      return null;
+    }
+
+    const shouldPublishEvents = typeof deleteConfig.publishEvents === 'boolean'
+      ? deleteConfig.publishEvents
+      : this.options.publishEvents;
+
+    if (shouldPublishEvents) {
+      const deleteOneWithEvent = async (opts: DeleteOptions): Promise<void> => {
+        await collection.deleteOne(filter, opts);
+
+        return this.changePublisher.publishDbChange(
+          this._collectionName,
+          'delete',
+          { doc },
+          { session: opts.session },
+        );
+      };
+
+      if (this.options.outbox && !deleteOptions.session) {
+        await this.db.withTransaction(((session) => deleteOneWithEvent({ session })));
+      } else {
+        await deleteOneWithEvent(deleteOptions);
+      }
+    } else {
+      await collection.deleteOne(filter, deleteOptions);
+    }
+
+    return doc;
+  };
+
+  deleteMany = async (
+    filter: Filter<T>,
+    deleteConfig: DeleteConfig = {},
+    deleteOptions: DeleteOptions = {},
+  ): Promise<T[]> => {
+    const collection = await this.getCollection();
+
+    filter = this.validateReadOperation(filter, deleteConfig);
+
+    const documents = await collection.find<T>(filter).toArray();
+
+    if (documents.length === 0) {
+      if (isDev) {
+        logger.warn(`Documents not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
+
+      return [];
+    }
+
+    const shouldPublishEvents = typeof deleteConfig.publishEvents === 'boolean'
+      ? deleteConfig.publishEvents
+      : this.options.publishEvents;
+
+    if (shouldPublishEvents) {
+      const deleteManyWithEvents = async (opts: DeleteOptions): Promise<void> => {
+        await collection.deleteMany(filter, opts);
+
+        return this.changePublisher.publishDbChanges(
+          this._collectionName,
+          'delete',
+          documents.map((doc) => ({ doc })),
+          { session: opts.session },
+        );
+      };
+
+      if (this.options.outbox && !deleteOptions.session) {
+        await this.db.withTransaction(((session) => deleteManyWithEvents({ session })));
+      } else {
+        await deleteManyWithEvents(deleteOptions);
+      }
+    } else {
+      await collection.deleteMany(filter, deleteOptions);
+    }
+
+    return documents;
+  };
+
+  deleteSoft = async (
+    filter: Filter<T>,
+    deleteConfig: DeleteConfig = {},
+    deleteOptions: DeleteOptions = {},
+  ): Promise<T[]> => {
+    const collection = await this.getCollection();
+
+    filter = this.validateReadOperation(filter, deleteConfig);
+
+    const documents = await collection.find<T>(filter).toArray();
+
+    if (documents.length === 0) {
+      if (isDev) {
+        logger.warn(`Documents not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+      }
+
+      return [];
+    }
+
+    const deletedOnDate = new Date();
+    const deletedDocuments = documents.map((doc) => ({ ...doc, deletedOn: deletedOnDate }));
+
+    const shouldPublishEvents = typeof deleteConfig.publishEvents === 'boolean'
+      ? deleteConfig.publishEvents
+      : this.options.publishEvents;
+
+    if (shouldPublishEvents) {
+      const deleteSoftWithEvent = async (opts: UpdateOptions): Promise<void> => {
+        await collection.updateMany(
+          filter,
+          { $set: { deletedOn: deletedOnDate } } as unknown as UpdateFilter<T>,
+          opts,
+        );
+
+        return this.changePublisher.publishDbChanges(
+          this._collectionName,
+          'delete',
+          deletedDocuments.map((doc) => ({ doc })),
+          { session: opts.session },
+        );
+      };
+
+      if (this.options.outbox && !deleteOptions.session) {
+        await this.db.withTransaction(((session) => deleteSoftWithEvent({ session })));
+      } else {
+        await deleteSoftWithEvent(deleteOptions);
+      }
+    } else {
+      await collection.updateMany(
+        filter,
+        { $set: { deletedOn: deletedOnDate } } as unknown as UpdateFilter<T>,
+        deleteOptions,
+      );
+    }
+
+    return deletedDocuments;
+  };
+
+  atomic = {
+    updateOne: async (
+      filter: Filter<T>,
+      updateFilter: UpdateFilter<T>,
+      readConfig: ReadConfig = {},
+      updateOptions: UpdateOptions = {},
+    ):Promise<UpdateResult> => {
+      const collection = await this.getCollection();
+
+      filter = this.validateReadOperation(filter, readConfig);
+
+      if (this.options.addUpdatedOnField) {
+        updateFilter = addUpdatedOnField(updateFilter);
+      }
+
+      return collection.updateOne(filter, updateFilter, updateOptions);
+    },
+    updateMany: async (
+      filter: Filter<T>,
+      updateFilter: UpdateFilter<T>,
+      readConfig: ReadConfig = {},
+      updateOptions: UpdateOptions = {},
+    ): Promise<Document | UpdateResult> => {
+      const collection = await this.getCollection();
+
+      filter = this.validateReadOperation(filter, readConfig);
+
+      if (this.options.addUpdatedOnField) {
+        updateFilter = addUpdatedOnField(updateFilter);
+      }
+
+      return collection.updateMany(filter, updateFilter, updateOptions);
+    },
+  };
+
+  aggregate = async (
+    pipeline: any[],
+    options: AggregateOptions = {},
+  ): Promise<any[]> => {
+    const collection = await this.getCollection();
+
+    return collection.aggregate(pipeline, options).toArray();
+  };
+
+  indexExists = async (
+    indexes: string | string[],
+    indexInformationOptions: IndexInformationOptions = {},
+  ): Promise<boolean> => {
+    const collection = await this.getCollection();
+
+    return collection.indexExists(indexes, indexInformationOptions);
+  };
+
+  createIndex = async (
+    indexSpec: IndexSpecification,
     options: CreateIndexesOptions = {},
   ): Promise<string | void> => {
     const collection = await this.getCollection();
 
-    return collection.createIndex(index, options)
+    return collection.createIndex(indexSpec, options)
       .catch((err: any) => {
         logger.info(err, { collection: this.collectionName });
       });
   };
 
-  createIndex = async (
-    index: IndexSpecification,
+  createIndexes = async (
+    indexSpecs: IndexDescription[],
     options: CreateIndexesOptions = {},
-  ): Promise<string | void> => this.ensureIndex(index, options);
-
-  dropIndexes = async (
-    options: TransactionOptions = {},
-  ): Promise<void | Document> => {
+  ): Promise<string[] | void> => {
     const collection = await this.getCollection();
 
-    return collection.dropIndexes(options)
+    return collection.createIndexes(indexSpecs, options)
       .catch((err: any) => {
-        logger.info(err);
+        logger.info(err, { collection: this.collectionName });
       });
   };
 
   dropIndex = async (
     indexName: string,
-    options: TransactionOptions = {},
+    options: DropIndexesOptions = {},
   ): Promise<void | Document> => {
     const collection = await this.getCollection();
 
     return collection.dropIndex(indexName, options)
       .catch((err: any) => {
-        logger.info(err);
+        logger.info(err, { collection: this.collectionName });
+      });
+  };
+
+  dropIndexes = async (
+    options: DropIndexesOptions = {},
+  ): Promise<void | Document> => {
+    const collection = await this.getCollection();
+
+    return collection.dropIndexes(options)
+      .catch((err: any) => {
+        logger.info(err, { collection: this.collectionName });
       });
   };
 
   watch = async (
-    pipeline: any[] | undefined,
-    options?: ChangeStreamOptions & { session: ClientSession },
+    pipeline: Document[] | undefined,
+    options: ChangeStreamOptions = {},
   ): Promise<any> => {
     const collection = await this.getCollection();
 
     return collection.watch(pipeline, options);
   };
 
-  distinct = async (
-    key: string, query: Filter<T>,
-    options: GeneralRequestOptions = {},
-  ): Promise<any> => {
+  drop = async (recreate = false): Promise<void> => {
     const collection = await this.getCollection();
-    query = this.addQueryDefaults(query, options);
-    this.validateQuery(query, options);
 
-    return collection.distinct(key, query);
-  };
-
-  aggregate = async (query: any[], options?: AggregateOptions): Promise<any> => {
-    const collection = await this.getCollection();
-    return collection.aggregate(query, options);
-  };
-
-  dropCollection = async (recreate = false): Promise<void> => {
-    const collection = await this.getCollection();
     await collection.drop();
 
     if (recreate) {
@@ -538,83 +811,6 @@ class Service<T extends Document> {
       this.collection = null;
     }
   };
-
-  atomic = {
-    deleteMany: async (
-      query: Filter<T>,
-      options: GeneralRequestOptions = {},
-    ): Promise<any> => {
-      const collection = await this.getCollection();
-      this.validateQuery(query, options);
-
-      return collection.deleteMany(query);
-    },
-    insertMany: async (
-      doc: OptionalUnlessRequiredId<T>[], options: BulkWriteOptions = {},
-    ): Promise<any> => {
-      const collection = await this.getCollection();
-
-      return collection.insertMany(doc, options);
-    },
-    updateMany: async (
-      query: Filter<T>,
-      update: Partial<T> | UpdateFilter<T>,
-      options: UpdateOptions & GeneralRequestOptions = {},
-    ): Promise<any> => {
-      options.doNotAddDeletedOn = true;
-      const collection = await this.getCollection();
-      query = this.addQueryDefaults(query, options);
-      this.validateQuery(query, options);
-
-      return collection.updateMany(query, update);
-    },
-    findOneAndUpdate: async (
-      query: Filter<T>,
-      update: T | UpdateFilter<T>,
-      options: FindOneAndUpdateOptions & GeneralRequestOptions = {},
-    ): Promise<any> => {
-      options.doNotAddDeletedOn = true;
-      const collection = await this.getCollection();
-      query = this.addQueryDefaults(query, options);
-      this.validateQuery(query, options);
-
-      let result = null;
-      try {
-        result = await collection.findOneAndUpdate(query, update);
-      } catch (err: any) {
-        logger.error(`${this.collectionName}, findOneAndUpdate() error: ${err.stack || err}`, { query, update, options });
-        throw err;
-      }
-
-      return result;
-    },
-  };
-
-  generateId = (): string => generateId();
-
-  async withTransaction<TRes = any>(
-    transactionFn: (session: ClientSession) => Promise<TRes>,
-  ): Promise<TRes> {
-    if (!this.client) {
-      throw new Error('MongoDB client is not connected');
-    }
-
-    const session = this.client.startSession();
-
-    let res: any;
-    try {
-      await session.withTransaction(async () => {
-        res = await transactionFn(session);
-      }, transactionOptions);
-    } catch (error: any) {
-      logger.error(error.stack || error);
-      throw error;
-    } finally {
-      await session.endSession();
-    }
-
-    return res as TRes;
-  }
 }
 
 export default Service;

@@ -1,0 +1,73 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "Next.js web",
+  "author": "Paralect",
+  "license": "MIT",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev -p 3002",
+    "start": "next start -p 3002",
+    "storybook": "start-storybook -p 6007",
+    "build-storybook": "build-storybook",
+    "ts-lint": "tsc --noEmit --incremental --watch",
+    "precommit": "lint-staged && next lint --fix"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "2.9.11",
+    "@mantine/core": "6.0.1",
+    "@mantine/dates": "6.0.1",
+    "@mantine/dropzone": "6.0.1",
+    "@mantine/hooks": "6.0.1",
+    "@mantine/modals": "6.0.1",
+    "@mantine/next": "6.0.1",
+    "@mantine/notifications": "6.0.1",
+    "@svgr/webpack": "6.5.1",
+    "@tabler/icons-react": "2.10.0",
+    "@tanstack/react-table": "8.7.9",
+    "axios": "1.3.4",
+    "dayjs": "1.11.7",
+    "dotenv-flow": "3.2.0",
+    "lodash": "4.17.21",
+    "mixpanel-browser": "2.45.0",
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "7.43.5",
+    "react-query": "3.39.3",
+    "socket.io-client": "4.6.1",
+    "zod": "3.21.4"
+  },
+  "devDependencies": {
+    "@babel/core": "7.21.0",
+    "@react-theming/storybook-addon": "1.1.10",
+    "@storybook/addon-actions": "6.5.16",
+    "@storybook/addon-essentials": "6.5.16",
+    "@storybook/addon-links": "6.5.16",
+    "@storybook/builder-webpack5": "6.5.16",
+    "@storybook/manager-webpack5": "6.5.16",
+    "@storybook/react": "6.5.16",
+    "@types/mixpanel-browser": "2.38.1",
+    "@types/node": "18.15.1",
+    "@types/qs": "6.9.7",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "@typescript-eslint/eslint-plugin": "5.54.1",
+    "@typescript-eslint/parser": "5.54.1",
+    "babel-loader": "9.1.2",
+    "chromatic": "6.17.1",
+    "css-loader": "6.7.3",
+    "eslint": "8.36.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "17.0.0",
+    "eslint-config-next": "13.2.4",
+    "lint-staged": "13.2.0",
+    "style-loader": "3.3.1",
+    "typescript": "4.9.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext ts --ext tsx --fix"
+    ]
+  }
+}

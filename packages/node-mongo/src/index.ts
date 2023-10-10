@@ -1,26 +1,18 @@
-import { ClientSession } from 'mongodb';
-import { InMemoryEvent } from './types';
-
 import Database from './database';
 import Service from './service';
-import { generateId } from './idGenerator';
-import inMemoryEventBus from './inMemoryEventBus';
-import ServiceOptions from './types/ServiceOptions';
+import Outbox from './events/outbox';
+import { eventBus, inMemoryPublisher } from './events/in-memory';
+
+export * from 'mongodb';
+export * from './types';
+export * from './utils/helpers';
 
 export {
   Database,
   Service,
-  generateId,
-};
-
-export {
-  ClientSession,
-  ServiceOptions,
-};
-
-export {
-  inMemoryEventBus,
-  InMemoryEvent,
+  Outbox,
+  eventBus,
+  inMemoryPublisher,
 };
 
 export default Database;

@@ -1,0 +1,10 @@
+# React Email
+.react-email/.next
+.react-email/.vscode
+.react-email/emails
+.react-email/node_modules
+.react-email/public
+
+/node_modules
+/dist
+/out

@@ -1,0 +1,41 @@
+FROM node:16.15.1-alpine3.15 as base
+RUN apk add --no-cache python3 py3-pip
+
+ARG NODE_ENV=production
+ARG APP_ENV
+ENV NODE_ENV=$NODE_ENV
+ENV APP_ENV=$APP_ENV
+
+WORKDIR /app
+COPY ["./package*.json", "/app/"]
+COPY ["./apps/api/package*.json", "./apps/api/.eslintrc.js", "./apps/api/tsconfig.json", "/app/apps/api/"]
+RUN npm pkg delete scripts.prepare
+
+# ---- Dependencies ----
+FROM base AS dependencies
+WORKDIR /app/apps/api
+# install node packages
+RUN npm ci --include=dev --quiet
+
+# Rewrite global node_modules with local ones (if exists)
+RUN if [ -e /app/apps/api/node_modules ]; then \
+    cp -Rf /app/apps/api/node_modules/* /app/node_modules; \
+    fi
+
+# ---- Build ----
+FROM dependencies AS build
+COPY ./apps/api/src /app/apps/api/src
+RUN npm run build
+
+FROM build AS development
+CMD npm run schedule-dev
+
+#
+# ---- Release ----
+FROM base AS release
+# copy production node_modules
+COPY --from=dependencies /app/node_modules ./node_modules
+# copy built dist
+COPY --from=build /app/apps/api/dist /app/apps/api/dist
+
+CMD npm --prefix=apps/api run schedule

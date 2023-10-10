@@ -1,0 +1,27 @@
+name: 'Application api deployment'
+
+on:
+  push:
+    branches: [ production ]
+    paths:
+      - 'apps/api/**'
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario'
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_ACCESS_TOKEN }}
+      - name: Update DigitalOcean App Platform
+        run: doctl apps create-deployment ${{ secrets.DO_API_PRODUCTION_APP_ID }} --wait

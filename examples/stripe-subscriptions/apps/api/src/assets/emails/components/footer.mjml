@@ -1,0 +1,20 @@
+<mj-section
+  background-color="#fafbfb"
+  padding-bottom="48px"
+  padding-top="48px"
+  text-align="center"
+>
+  <mj-column width="100%">
+    <mj-text mj-class="footer-info">
+      Copyright© Company name
+      <br/>
+      Company address
+      <br/>
+      City, State, ZIP
+    </mj-text>
+
+    <mj-button mj-class="footer-action">
+      Unsubscribe preferences
+    </mj-button>
+  </mj-column>
+</mj-section>

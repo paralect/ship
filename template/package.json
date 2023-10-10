@@ -1,0 +1,35 @@
+{
+  "name": "ship",
+  "scripts": {
+    "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
+    "turbo-start": "turbo run development --filter=\"./apps/*\" --filter=\"./packages/*\" --filter=\"!react-email-client\" ",
+    "docker": "bash ./bin/start.sh",
+    "start": "bash ./bin/run-all.sh",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "8.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "turbo": "1.10.3"
+  },
+  "optionalDependencies": {
+    "@next/swc-android-arm64": "13.2.4",
+    "@next/swc-darwin-arm64": "13.2.4",
+    "@next/swc-darwin-x64": "13.2.4",
+    "@next/swc-linux-arm-gnueabihf": "13.2.4",
+    "@next/swc-linux-arm64-gnu": "13.2.4",
+    "@next/swc-linux-arm64-musl": "13.2.4",
+    "@next/swc-linux-x64-gnu": "13.2.4",
+    "@next/swc-linux-x64-musl": "13.2.4",
+    "@next/swc-win32-arm64-msvc": "13.2.4",
+    "@next/swc-win32-ia32-msvc": "13.2.4",
+    "@next/swc-win32-x64-msvc": "13.2.4",
+    "turbo-darwin-64": "1.10.3",
+    "turbo-darwin-arm64": "1.10.3",
+    "turbo-linux-64": "1.10.3",
+    "turbo-linux-arm64": "1.10.3",
+    "turbo-windows-64": "1.10.3",
+    "turbo-windows-arm64": "1.10.3"
+  }
+}

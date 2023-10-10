@@ -1,0 +1,192 @@
+---
+title: "Render"
+---
+
+There is a simplified type of deployment where you can try to deploy Ship for free using [Render](https://render.com).
+This type allows you to set up infrastructure faster and doesn't require additional DevOps knowledge from the development team.
+You can switch to a more complex Kubernetes solution when your application will be at scale.
+
+It's a step-by-step Ship deployment guide. We will use the [Render](https://render.com), [Mongo Atlas](https://www.mongodb.com/) and [Redis Cloud](https://redis.com/try-free/) for databases deployment and [Cloudflare](https://www.cloudflare.com/) **(optional)** for DNS and SSL configuration.
+
+You need to create [GitHub](https://github.com/), [Render](https://render.com), [CloudFlare](https://www.cloudflare.com/), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [Redis Cloud](https://redis.com/try-free/) accounts.
+
+Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) if you already haven't.
+
+## Setup project
+
+First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose desired build type and **Render** as a cloud service provider.
+
+![Init project](/images/init-project-koa-render.png)
+
+You will have next project structure.
+
+```shell
+/my-app
+  /apps
+    /web
+    /api
+  /.github
+  ...
+```
+
+Create GitHub private repository and upload source code.
+
+![Private repo](/images/private-repo.png)
+
+
+```shell
+cd my-app
+git remote add origin https://github.com/Oigen43/my-app.git
+git branch -M main
+git push -u origin main
+```
+
+## MongoDB Atlas
+
+Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account and create a new database.
+
+### Database creation
+
+1. Select the appropriate type. Dedicated for a production environment, shared for staging/demo.
+2. Select provider and region. We recommend selecting the same or closest region to the DO application.
+3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M10 or higher.
+4. Enter cluster name
+
+![Mongo cluster](/images/mongo-create.png)
+
+### Security and connection
+
+After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
+
+![Mongo setup authentication](/images/mongo-create-password.png)
+
+Add IP addresses list, which should have access to your cluster. Add 0.0.0.0/0 IP address to allow anyone with credentials to connect.
+
+![Mongo setup ip white list](/images/mongo-create-ip-list.png)
+
+After database creation, go to the dashboard page and get the URI connection string by pressing the `connect` button.
+
+![Mongo dashboard](/images/mongo-dashboard.png)
+
+Select `Connect your application` option. Choose driver and mongo version, and copy connection string. Don't forget to replace `<password>` with your credentials.
+
+![Mongo connect dialog](/images/mongo-connection-string.png)
+
+Save this value. It will be needed later when creating the app in Digital Ocean.
+
+
+## Redis Cloud
+
+Navigate to [Redis Cloud](https://redis.com/try-free/) and create an account. Select cloud provider and region, then press `Let's start free` to finish database creation.
+
+![Redis create database](/images/redis-creation.png)
+
+
+Open database settings and get the database public endpoint and password.
+
+![Redis public endpoint](/images/redis-public-endpoint.png)
+![Redis password](/images/redis-password.png)
+
+Form Redis connection string using public endpoint and password `redis://:<password@<public-endpoint>`. Save this value. It will be needed later when creating the app in Digital Ocean.
+
+
+## Render
+
+Navigate to the [Render Dashboard Panel](https://dashboard.render.com/) and select the **Blueprints** tab.
+
+The `Full-Stack` build type requires 2 applications. First for [Web](/web/overview) and second for [API](/api-reference/overview), [Migrator (TBD)](https://github.com/docs/migrator.md), and [Scheduler (TBD)](https://github.com/docs/scheduler.md) services.
+
+![Render Blueprints Tab](/images/render-blueprints.png)
+
+<Tip>
+Ship provides an easy way to deploy your applications using [Infrastructure as Code (IaC)](https://render.com/docs/infrastructure-as-code).
+
+You can learn more about [Blueprint Specification here](https://render.com/docs/blueprint-spec).
+Review your `render.yaml` file in the application root directory and make some corrections if necessary.
+</Tip>
+
+Click on the **New Blueprint Instance** button and **connect** the appropriate repository with Ship.
+
+![Create a Blueprint instance](/images/render-create-blueprint-instance.png)
+
+Specify a name for your Blueprint instance, select a branch, and review the changes to apply them.
+**Apply** changes if you are satisfied with everything.
+
+![Review Blueprint Creation](/images/render-review-blueprint-creation.png)
+
+### Environment variables
+The ```APP_ENV``` environment variable is typically set based on the environment in which the application is running.
+Its value corresponds to the specific environment, such as "development", "staging" or "production".
+This variable helps the application identify its current environment and load the corresponding configuration.
+
+For the web application, by setting the environment variable ```APP_ENV```,
+the application can determine the environment in which it is running and download the appropriate configuration file:
+
+| APP_ENV       | File              |
+| ------------- |-------------------|
+| development   | .env.development  |
+| staging       | .env.staging      |
+| production    | .env.production   |
+
+These files should contain specific configuration variables required for each environment.
+
+In contrast, the API utilizes a single `.env` file that houses its environment-specific configuration.
+This file typically contains variables like API keys, secrets, or other sensitive information.
+To ensure security, it's crucial to add the `.env` file to the `.gitignore` file,
+preventing it from being tracked and committed to the repository.
+
+So just specify the environment variables that will contain the values of your secrets.
+For example, if you have a secret named `API_KEY`,
+create an environment variable named `API_KEY` and set the value of the corresponding secret for it
+
+
+Now navigate to **Dashboard**, select your instance of *Web Service* and select the **Environment** tab in the sidebar.
+
+Here you need to pass only one variable - ```APP_ENV```.
+Make sure that your web application has up-to-date environment data in the repository.
+
+![Configuration Web Environments](/images/render-web-env.png)
+
+In the same way, specify the necessary environments in the *API Service* instance.
+
+## Cloudflare
+
+<Note>
+    Render provides an initial URL of the form `*.onrender.com` to all deployed services.
+    ``onrender.com`` is a [public suffix domain](https://publicsuffix.org/) as it’s a shared domain across
+    all Render services - and is done so in order to protect users from being able to read each other’s cookies.
+
+    Ship uses cookies to store tokens on the front-end side.
+    Therefore, you need a different domain to successfully deploy the application.
+
+    If you don't have a personal domain, you can use free solutions for educational purposes, such as
+    [free-domain](https://github.com/Olivr/free-domain) repository.
+</Note>
+
+Navigate to your Render application and open the `Settings` tab,
+scroll down to the `Custom Domains` section and click the `Add Custom Domain` button.
+
+![Render Custom Domains](/images/render-custom-domains.png)
+
+Type your desired domain and click the `Save` button.
+
+After adding a new custom domain, you need to add a `CNAME` record in your DNS provider.
+Copy this alias for your app and move on.
+
+![Render new domain](/images/render-custom-domains-created.png)
+
+Navigate to [CloudFlare](https://dash.cloudflare.com/) and sign in to account.
+
+1. Go to `DNS` tab and create a new record.
+2. Click `Add record`. Select type `CNAME`,
+enter domain name (must be the same you entered in Render settings) and paste alias into `target` field.
+Make sure `Proxy status` toggle enabled.
+3. Save changes
+
+![Cloudflare DNS](/images/cloudflare-create-dns-render.png)
+
+Now go back to Custom Domains Settings and click the `Verify` button.
+It usually takes about 5 minutes for Render to confirm your domain and issue a certificate and start using your new domain.
+Once the domain is confirmed, application can be accessed by new address.
+
+Now make sure you have up-to-date environments in your API and Web applications.

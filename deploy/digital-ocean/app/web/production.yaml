@@ -1,5 +1,0 @@
-nodePool: pool-app
-containerRegistry: registry.digitalocean.com/paralect/ship
-service: web
-port: 3002
-domain: ship.paralect.net

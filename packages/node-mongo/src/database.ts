@@ -6,15 +6,23 @@ import {
   CreateCollectionOptions,
   Collection,
   MongoError,
+  Document, ClientSession, TransactionOptions,
 } from 'mongodb';
-import ServiceOptions from './types/ServiceOptions';
+
+import { IDatabase, IDocument, ServiceOptions } from './types';
 import Service from './service';
-import logger from './logger';
-import OutboxService from './outboxService';
+import logger from './utils/logger';
+import OutboxService from './events/outbox';
 
 const defaultOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+};
+
+// add ability to pass transaction options
+const transactionOptions: TransactionOptions = {
+  readConcern: { level: 'local' },
+  writeConcern: { w: 1 },
 };
 
 class Database extends EventEmitter {
@@ -81,10 +89,13 @@ class Database extends EventEmitter {
     await this.client.close();
   };
 
-  createService<T>(collectionName: string, options?: ServiceOptions | undefined): Service<T> {
+  createService<T extends IDocument>(
+    collectionName: string,
+    options?: ServiceOptions | undefined,
+  ): Service<T> {
     return new Service<T>(
       collectionName,
-      this,
+      this as IDatabase,
       options,
     );
   }
@@ -103,7 +114,7 @@ class Database extends EventEmitter {
     this.emit('disconnected', error);
   }
 
-  public getOrCreateCollection = async <T>(
+  public getOrCreateCollection = async <T extends Document>(
     name: string,
     opt: {
       collectionCreateOptions?: CreateCollectionOptions;
@@ -131,6 +142,31 @@ class Database extends EventEmitter {
   public getClient = async (): Promise<MongoClient | undefined> => {
     await this.connectPromise;
     return this.client;
+  };
+
+  public withTransaction = async <TRes = any>(
+    transactionFn: (session: ClientSession) => Promise<TRes>,
+  ): Promise<TRes> => {
+    if (!this.client) {
+      throw new Error('MongoDB client is not connected');
+    }
+
+    const session = this.client.startSession();
+
+    let res: any;
+
+    try {
+      await session.withTransaction(async () => {
+        res = await transactionFn(session);
+      }, transactionOptions);
+    } catch (error: any) {
+      logger.error(error.stack || error);
+      throw error;
+    } finally {
+      await session.endSession();
+    }
+
+    return res as TRes;
   };
 }
 

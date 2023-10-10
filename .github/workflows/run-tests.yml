@@ -1,0 +1,21 @@
+name: run-tests
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'template/apps/api'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test api using jest
+        uses: actions/setup-node@v3
+      - run: cd template && npm install --ignore-scripts
+      - run: cd template/apps/api && npm run test

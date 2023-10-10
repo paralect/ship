@@ -1,0 +1,3 @@
+service: web
+port: 3002
+domain: ship.paralect.net

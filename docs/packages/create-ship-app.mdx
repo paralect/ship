@@ -1,0 +1,31 @@
+---
+title: "create-ship-app"
+---
+
+[![npm version](https://badge.fury.io/js/create-ship-app.svg)](https://badge.fury.io/js/create-ship-app)
+
+Simple CLI tool for bootstrapping Ship applications.
+Downloads actual template from Ship [monorepo](https://github.com/paralect/ship) and configures it to run.
+
+![Init project](/images/init-project.png)
+
+## Build options
+
+### Deployment type
+
+- [**Digital Ocean Apps**](/deployment/digital-ocean-apps)
+- [**Render**](/deployment/render)
+- [**Digital Ocean Managed Kubernetes**](/deployment/kubernetes/digital-ocean)
+- [**AWS EKS**](/deployment/kubernetes/aws)
+
+## Usage
+
+```shell
+npx create-ship-app@latest init
+```
+
+or
+
+```shell
+npx create-ship-app@latest my-project
+```
