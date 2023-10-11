@@ -35,7 +35,7 @@ export const deploymentInstaller = async (deployment: Deployment, options: Deplo
         break;
       }
 
-      case Deployment.DIGITAL_OCEAN_KUBERNETES: {
+      case Deployment.AWS_KUBERNETES: {
         const workflowsSrc = path.join(templatePath, 'aws/.github/workflows');
         const workflowsDest = path.join(projectRoot, '.github/workflows');
 
@@ -48,7 +48,7 @@ export const deploymentInstaller = async (deployment: Deployment, options: Deplo
         break;
       }
 
-      case Deployment.AWS_KUBERNETES: {
+      case Deployment.DIGITAL_OCEAN_KUBERNETES: {
         const workflowsSrc = path.join(templatePath, 'digital-ocean/.github/workflows');
         const workflowsDest = path.join(projectRoot, '.github/workflows');
 
