@@ -1,23 +1,14 @@
 ---
-title: "Digital Ocean Apps"
+title: "Digital Ocean Apps (IaC)"
 ---
 
 There is a simplified deployment type without Kubernetes. This type is **recommended** for most new applications because it allows you to set up infrastructure faster and doesn't require additional DevOps knowledge from the development team. You can switch to a more complex Kubernetes solution when your application will be at scale.
 
-<Tip>
-    Explore our method of deploying Ship to DigitalOcean Apps using [Infrastructure as Code](https://www.pulumi.com/what-is/what-is-infrastructure-as-code/).
-    For a detailed guide, check out our [documentation on this approach](/deployment/digital-ocean-apps-iac).
-</Tip>
-
-It's a step-by-step Ship deployment guide. We will use the [Digital Ocean Apps](https://www.digitalocean.com/products/app-platform) and [GitHub Actions](https://github.com/features/actions) for automated deployment. [Mongo Atlas](https://www.mongodb.com/) and [Redis Cloud](https://redis.com/try-free/) for databases deployment, and [Cloudflare](https://www.cloudflare.com/) for DNS and SSL configuration.
+It's a step-by-step Ship deployment guide. We will use the [Digital Ocean Apps](https://www.digitalocean.com/products/app-platform) and [GitHub Actions](https://github.com/features/actions) for automated deployment. [Mongo Atlas](https://www.mongodb.com/) and [Redis Cloud](https://redis.com/try-free/) for databases deployment, [Cloudflare](https://www.cloudflare.com/) for DNS and SSL configuration and [Pulumi](https://www.pulumi.com/) for Infrastructure as Code
 
 You need to create [GitHub](https://github.com/), [Digital Ocean](https://www.digitalocean.com/), [CloudFlare](https://www.cloudflare.com/), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [Redis Cloud](https://redis.com/try-free/) accounts.
 
 Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) if you already haven't.
-
-<Note>
-[Migrator](/migrator) and [Scheduler](/scheduler) will run in a Docker container for API. Unlike [Kubernetes](https://github.com/docs/deployment/kubernetes/digital-ocean.md), where separate containers are used for them.
-</Note>
 
 
 ## Setup project
@@ -26,10 +17,11 @@ First, initialize your project. Type ```npx create-ship-app init``` in the termi
 
 ![Init project](/images/init-project.png)
 
-You will have next project structure.
+You will have the next project structure.
 
 ```shell
 /my-app
+  /deploy
   /apps
     /web
     /api
@@ -97,29 +89,7 @@ Open database settings and get the database public endpoint and password.
 
 Form Redis connection string using public endpoint and password `redis://:<password@<public-endpoint>`. Save this value. It will be needed later when creating the app in Digital Ocean.
 
-
-## Digital Ocean
-
-Navigate to the Digital Ocean Control Panel and select the **Apps** tab. The `Full-Stack` build type requires 2 applications. First for [Web](/web/overview) and second for [API](/api-reference/overview), [Migrator](https://github.com/docs/migrator.md), and [Scheduler](https://github.com/docs/scheduler.md) services.
-
-
-### Initial step
-1. Select GitHub as a service provider. You might need to grant Digital Ocean access to your GitHub account.
-2. Select the repository with the application.
-3. Select a branch for deployment.
-4. Select the source directory if the code is in a subfolder.It should `apps/web` for web application and `apps/api` for api.
-5. Turn off the Autodeploy option. The Ship uses GitHub Actions for CI due to the poor support of monorepos in the Digital Ocean Apps
-
-![Create app screen](/images/do-create-app.png)
-
-### Resources setup
-1. Delete duplicated resources without dockerfile if you have one.
-2. Select desired plan. For staging/demo environments, sufficiently selecting a basic plan for 5$. For production, you might consider selecting a more expensive plan.
-
-![Create app resources](/images/do-create-app-step-2.png)
-
-
-### Environment variables
+## Environment variables
 The ```APP_ENV``` environment variable is typically set based on the environment in which the application is running.
 Its value corresponds to the specific environment, such as "development", "staging" or "production".
 This variable helps the application identify its current environment and load the corresponding configuration.
@@ -142,45 +112,127 @@ preventing it from being tracked and committed to the repository.
 
 So just specify the environment variables that will contain the values of your secrets.
 For example, if you have a secret named `API_KEY`,
-create an environment variable named `API_KEY` and set the value of the corresponding secret for it
+create an environment variable named `API_KEY` and set the value of the corresponding secret for it.
 
-Variables, added in the `Global` section will be available to all resources within the application, while ones added in the `ship` section will be available only for that resource. Adding `MONGO_CONNECTION` in the global section allows you to use it later if you decide to set up migrator/scheduler resources
+## Digital Ocean via Pulumi
 
-![Create app environment variables](/images/do-create-app-step-3.png)
+[Pulumi](https://www.pulumi.com/) is an open-source [Infrastructure as Code (IaC)](https://www.pulumi.com/what-is/what-is-infrastructure-as-code/) platform that allows developers to define and provision cloud infrastructure using familiar programming languages. <br/>
+Instead of using domain-specific languages or YAML templates, Pulumi leverages existing languages like TypeScript, Python, Go, and C#.
 
+Go to the `/deploy` directory at the root of your project and proceed to the next steps:
 
-### Application name and hosted region
-* [**Optional**] Select desired application name and/or region for your application
+<Steps>
+    <Step title="Pulumi CLI">
+        Ensure you have [Pulumi CLI](https://www.pulumi.com/docs/get-started/install/) installed. <br/>
+        After installing, verify everything is in working order by running the pulumi CLI:
+        ```shell
+        pulumi version
+        ```
+    </Step>
+    <Step title="Pulumi Login">
+        [Login in pulumi](https://www.pulumi.com/docs/cli/commands/pulumi_login/) for managing your stacks:
+        ```shell
+        pulumi login --local
+        ```
+    </Step>
+    <Step title="DigitalOcean Tokens and Keys">
+        Create your [Personal Access Token](https://docs.digitalocean.com/reference/api/create-personal-access-token/) and [Access Keys](https://docs.digitalocean.com/products/spaces/how-to/manage-access/#access-keys) for DigitalOcean
+    </Step>
+    <Step title="Configuring Tokens and Keys">
+        Add DigitalOcean Personal Access Token and Access Keys to your configuration file: `.zshrc` or `.bashrc`
 
-![Create app host](/images/do-create-app-step-4.png)
+        First you’ll need to enter the `.zshrc` or `.bashrc` file in editing mode:
 
+        <CodeGroup>
+            ```shell .zshrc
+            vi ~/.zshrc
+            ```
 
-### Review
-Verify everything is correct and create a new resource.
+            ```shell .bashrc
+            vi ~/.bashrc
+            ```
+        </CodeGroup>
 
-After the application creation, you'll land on the application dashboard page. On dashboard, you can see application status, check runtime logs, track deployment status, and manage application settings.
+        Insert the following variables at the end of the configuration file:
 
-### App Spec
-Digital Ocean sets the path to Dockerfiles to the root by default. You will need to change it manually.
-Navigate to Settings, expand the App spec tab and change `dockerfile_path` in the editor.
+        ```shell
+        # DigitalOcean start
+        export DIGITALOCEAN_TOKEN=dop_v1_...
+        export SPACES_ACCESS_KEY_ID=DO...
+        export SPACES_SECRET_ACCESS_KEY=...
+        # DigitalOcean end
+        ```
 
-To deploy your application in a monorepo, it's essential to modify the `source_dir` parameter to the root directory.
-This adjustment is necessary to ensure the correct configuration and operation of the applications within the monorepo.
+        To reflect the changes in the bash, either exit and launch the terminal again.
 
-![Create app review](/images/do-settings-app-spec.png)
+        Or use the command:
+        <CodeGroup>
+            ```shell .zshrc
+            source ~/.zshrc
+            ```
+
+            ```shell .bashrc
+            source ~/.bashrc
+            ```
+        </CodeGroup>
+    </Step>
+    <Step title="GitHub apps">
+        Grant DigitalOcean access to your GitHub repository using [this link](https://cloud.digitalocean.com/apps/github/install).
+    </Step>
+    <Step title="Stack initialization">
+        Initialize your stack using the command:
+        ```shell
+        pulumi stack init organization/{project-name}/{environment}
+        ```
+        Substitute `{project-name}` with the actual name of your project and make sure to update it in `Pulumi.yaml` file. <br/>
+        Replace `{environment}` with the desired environment: `staging` or `production` values are allowed.
+    </Step>
+    <Step title="App environments">
+        Duplicate the `.env.example` file to create a new environment-specific file using the command:
+        <CodeGroup>
+            ```shell staging
+            cp .env.example .env.staging
+            ```
+
+            ```shell production
+            cp .env.example .env.production
+            ```
+        </CodeGroup>
+
+        Populate the new file with the necessary environment variables.
+
+        <Info>
+            Ensure that you set the necessary variables in your web application.
+            Edit the .env files accordingly and remember to push these changes to your remote repository.
+        </Info>
+    </Step>
+    <Step title="Installing dependencies">
+        Install the required dependencies using the command:
+        ```shell
+        npm i
+        ```
+    </Step>
+    <Step title="Resources creating">
+        To create the resources in the initialized stack, execute the command:
+        ```shell
+        pulumi up
+        ```
+    </Step>
+</Steps>
+
+Finally, you will observe the following output:
+
+![Pulumi Preview](/images/do-apps-iac-preview.png)
+
+Review the planned resource creation and proceed with the resource update.
+This process may take a few minutes to complete.
 
 ## Cloudflare
 
-Navigate to your Digital ocean application and open `Settings` tab. Select `Domains` row to open domain settings and click `Add domain` button
+Navigate to your Digital Ocean application and open `Settings` tab.
+Navigate to `Domains` row to open domain settings and copy starter domain of application.
 
-![Digital Ocean domains](/images/do-domains.png)
-
-Type your desired domain and select option `You manage your domain`
-
-In the bottom section you'll be asked to copy CNAME alias of your digital ocean application name to record in your dns provider.
-Copy that alias and leave the form (do no close it or submit).
-
-![Digital Ocean new domain](/images/do-new-domain.png)
+![Digital Ocean domains](/images/do-apps-iac-domains.png)
 
 Navigate to [CloudFlare](https://dash.cloudflare.com/) and sign into account.
 
@@ -197,24 +249,16 @@ Once domain is confirmed, application can be accessed by new address.
 
 ## GitHub Actions
 
-You can find two github actions in the `.github/workflows` folder, responsible for triggering deployment when you push changes in your repository. If you chose frontend or backend on the initialization step, you'll have one github workflow for the selected application type.
+You can find two GitHub actions in the `.github/workflows` folder, responsible for triggering deployment when you push changes in your repository. If you chose frontend or backend on the initialization step, you'll have one github workflow for the selected application type.
 
-These actions require a Digital Ocean access token and application ID. Respectively these are `DO_ACCESS_TOKEN` and `DO_API_STAGING_APP_ID`/`DO_WEB_STAGING_APP_ID`/`DO_API_PRODUCTION_APP_ID`/`DO_WEB_PRODUCTION_APP_ID`.
-
-Navigate to digital ocean and open the **API** tab on the left sidebar.
-Click **Generate new token** and choose name and expiration period, and leave checkboxes as they are.
-
-![Do access token create](/images/do-access-token-create.png)
-
-You'll see generated token in the list. Do not forget to copy the value and store it in a safe place. You won't be able to copy value after leaving the page.
-
-![Do access token copy](/images/do-access-token-copy.png)
+These actions require a [Digital Ocean Personal Access Token](https://docs.digitalocean.com/reference/api/create-personal-access-token/) and application ID.
+Respectively these are `DO_ACCESS_TOKEN` and `DO_API_STAGING_APP_ID`/`DO_WEB_STAGING_APP_ID`/`DO_API_PRODUCTION_APP_ID`/`DO_WEB_PRODUCTION_APP_ID`.
 
 Next, navigate to the **Apps** tab in the left sidebar and open your Digital Ocean application. You can find the id of your application id in the browser address bar.
 
 ![Do application id](/images/do-application-id.png)
 
-Now you can add theese keys to your github repository's secrets.
+Now you can add these keys to your GitHub repository's secrets.
 
 Navigate to the GitHub repository page, and open the **Settings** tab and these values. You have to be repository **admin** or **owner** to open this tab.
 
@@ -223,46 +267,6 @@ Navigate to the GitHub repository page, and open the **Settings** tab and these 
 Done! Application deployed and can be accessed by provided domain.
 
 ![Deployed application](/images/deployed-application.png)
-
-## Set up migrator and scheduler (Optional)
-
-Digital Ocean Apps allows configuring additional resources within one application, which can serve as background workers and jobs, and a scheduler to run before/after the deployment process.
-
-Navigate to your Digital Ocean application. **Make sure to select the application with API server**, open a `Create` dropdown menu in the top-right corner, and select the `Create Resources From Source Code` option.
-
-![Do create resource](/images/do-create-resource.png)
-
-1. Select a project repository, add a path to the source directory, disable auto-deploy, and press `Next`.
-
-![Create resource screen](/images/do-resource-form.png)
-
-2. Delete a resource without Dockerfile and edit second by clicking on the pencil icon.
-
-![Create app resources](/images/do-create-resource-step-2.png)
-
-3. In the edit resource form, select `Resource Type` - `Job`, `Before every deploy`, and change the name of the resource (not required, but might be useful later). Press save and go back to the resources screen.
-
-![Edit resource screen](/images/do-resource-type.png)
-
-4. Select the `Add Additional Resource from Source` option below the list of added resources, repeat steps 1-2, and navigate to the edit form for a new resource.
-
-5. Select `Resource Type` - `Worker`, save changes and go back.
-
-![Edit resource screen](/images/do-resource-type-2.png)
-
-6. Proceed with the next steps, add environment variables if needed, verify a new monthly cost of the application and create resources.
-
-You can find created resources in the `overview` tab.
-
-![Resources overview screen](/images/do-resources-overview.png)
-
-
-7. Navigate to Application Spec `(settings tab)`. Change the `dockerfile_path` variable to files with migrator and scheduler. Migrator is placed in the `jobs` section. You can also find it by name of the resource. The scheduler is placed in the `workers` section.
-
-![Migrator spec screen](/images/do-migrator-app-spec.png)
-
-![Scheduler spec screen](/images/do-scheduler-app-spec.png)
-
 
 ## Logging (optional)
 ### Build-in
