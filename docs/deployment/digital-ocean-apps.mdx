@@ -61,7 +61,10 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 
 After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
 
-P.S. - Please note that the generated password starts with a letter, if not, regenerate the password. (otherwise, DigitalOcean can incorrectly parse mongoURI)
+<Warning>
+Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password. 
+Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
+</Warning>
 
 ![Mongo setup authentication](/images/mongo-create-password.png)
 
@@ -101,7 +104,7 @@ Navigate to the Digital Ocean Control Panel and select the **Apps** tab. The `Fu
 
 
 ### Initial step
-1. Select GitHub as a service provider. You might need to grant Digital Ocean access to your GitHub account/organization.
+1. Select GitHub as a service provider. You might need to grant Digital Ocean access to your GitHub account or organization.
 2. Select the repository with the application.
 3. Select a branch for deployment.
 4. Select the source directory if the code is in a subfolder.It should `apps/web` for web application and `apps/api` for api.
@@ -201,7 +204,8 @@ You can find two github actions in the `.github/workflows` folder, responsible f
 These actions require a Digital Ocean access token and application ID. Respectively these are `DO_ACCESS_TOKEN` and `DO_API_STAGING_APP_ID`/`DO_WEB_STAGING_APP_ID`/`DO_API_PRODUCTION_APP_ID`/`DO_WEB_PRODUCTION_APP_ID`.
 
 Navigate to digital ocean and open the **API** tab on the left sidebar.
-Click **Generate new token** and choose name and expiration period also choose read and write options for scopes.
+Click **Generate new token**, select a name and set the expiration period.
+Also, pick both **read** and **write** permissions for the scope.
 
 ![Do access token create](/images/do-access-token-create.png)
 

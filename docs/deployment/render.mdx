@@ -58,7 +58,10 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 
 After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
 
-P.S. - Please note that the generated password starts with a letter, if not, regenerate the password. (otherwise, DigitalOcean can incorrectly parse mongoURI)
+<Warning>
+Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password. 
+Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
+</Warning>
 
 ![Mongo setup authentication](/images/mongo-create-password.png)
 
