@@ -1,11 +1,9 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "baseBranch": "origin/main",
   "pipeline": {
     "build": {
       "outputs": ["dist/**", ".next/**", "public/dist/**"],
-      "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_API_HOST"]
+      "dependsOn": ["^build"]
     },
     "mailer#build": {
       "cache": false
@@ -15,7 +13,7 @@
       "cache": false
     },
     "api#schedule-dev": {
-      "dependsOn": ["mailer#build"],
+      "dependsOn": ["mailer#build", "api#migrate-dev"],
       "cache": false
     },
     "dev": {
