@@ -3,24 +3,21 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Stack,
-  Title,
-  Text,
-  Button,
-  PasswordInput,
-} from '@mantine/core';
+import { Stack, Title, Text, Button, PasswordInput } from '@mantine/core';
 import Head from 'next/head';
 import { NextPage } from 'next';
 
 import { QueryParam } from 'types';
-import { RoutePath } from 'routes';
-import { handleError } from 'utils';
+import { PASSWORD_REGEX } from 'app-constants';
+
 import { accountApi } from 'resources/account';
+
+import { handleError } from 'utils';
+import { RoutePath } from 'routes';
 
 const schema = z.object({
   password: z.string().regex(
-    /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
+    PASSWORD_REGEX,
     'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
   ),
 });

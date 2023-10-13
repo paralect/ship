@@ -40,7 +40,7 @@ interface TableProps {
   page?: number;
 }
 
-const Table: FC<TableProps> = ({
+const Index: FC<TableProps> = ({
   data,
   dataCount,
   columns,
@@ -171,4 +171,4 @@ const Table: FC<TableProps> = ({
   );
 };
 
-export default Table;
+export default Index;

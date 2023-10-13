@@ -1,10 +1,6 @@
 import { FC, ReactElement } from 'react';
 
-import {
-  SimpleGrid,
-  Image,
-  MediaQuery,
-} from '@mantine/core';
+import { SimpleGrid, Image, MediaQuery } from '@mantine/core';
 
 import { useStyles } from './styles';
 
@@ -14,6 +10,7 @@ interface UnauthorizedLayoutProps {
 
 const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => {
   const { classes } = useStyles();
+
   return (
     <SimpleGrid
       cols={2}
@@ -26,8 +23,8 @@ const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => {
         styles={{ display: 'none' }}
       >
         <Image
-          alt="app info"
-          src="../images/ship.svg"
+          alt="App Info"
+          src="/images/ship.svg"
           height="100vh"
         />
       </MediaQuery>

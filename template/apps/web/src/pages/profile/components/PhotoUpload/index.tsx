@@ -3,8 +3,9 @@ import { Group, Text, Button, Stack } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
 import { IconPencil, IconPlus } from '@tabler/icons-react';
 
-import { handleError } from 'utils';
 import { accountApi } from 'resources/account';
+
+import { handleError } from 'utils';
 
 import { useStyles } from './styles';
 

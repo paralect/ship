@@ -328,6 +328,9 @@ importers:
       '@tanstack/react-table':
         specifier: 8.7.9
         version: 8.7.9(react-dom@18.2.0)(react@18.2.0)
+      app-constants:
+        specifier: workspace:*
+        version: link:../../packages/app-constants
       axios:
         specifier: 1.3.4
         version: 1.3.4
@@ -358,9 +361,15 @@ importers:
       react-query:
         specifier: 3.39.3
         version: 3.39.3(react-dom@18.2.0)(react@18.2.0)
+      schemas:
+        specifier: workspace:*
+        version: link:../../packages/schemas
       socket.io-client:
         specifier: 4.6.1
         version: 4.6.1
+      types:
+        specifier: workspace:*
+        version: link:../../packages/types
       zod:
         specifier: 3.21.4
         version: 3.21.4

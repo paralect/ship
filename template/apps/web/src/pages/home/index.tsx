@@ -16,12 +16,13 @@ import {
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconSearch, IconX, IconSelector } from '@tabler/icons-react';
 import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
+import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
+
+import { User } from 'types';
+
+import { userApi } from 'resources/user';
 
 import { Table } from 'components';
-
-import { userTypes, userApi } from 'resources/user';
-
-import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
 
 interface UsersListParams {
   page?: number;
@@ -49,7 +50,7 @@ const selectOptions: SelectItem[] = [
   },
 ];
 
-const columns: ColumnDef<userTypes.User>[] = [
+const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'firstName',
     header: 'First Name',

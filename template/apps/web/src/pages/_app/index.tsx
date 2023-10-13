@@ -8,8 +8,8 @@ import { Notifications } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
 
 import queryClient from 'query-client';
-import shipTheme from 'theme/ship-theme';
-import { globalStyles } from 'theme/globalStyles';
+import mainTheme from 'theme/main-theme';
+import { globalStyles } from 'theme/global-styles';
 
 import PageConfig from './PageConfig';
 
@@ -20,7 +20,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
     </Head>
     <QueryClientProvider client={queryClient}>
       <MantineProvider
-        theme={shipTheme}
+        theme={mainTheme}
         withGlobalStyles
         withNormalizeCSS
       >

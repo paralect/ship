@@ -5,16 +5,11 @@ import { useQueryClient } from 'react-query';
 import { showNotification } from '@mantine/notifications';
 import Head from 'next/head';
 import { NextPage } from 'next';
-import {
-  Button,
-  TextInput,
-  PasswordInput,
-  Stack,
-  Title,
-} from '@mantine/core';
+import { Button, TextInput, PasswordInput, Stack, Title } from '@mantine/core';
+
+import { accountApi } from 'resources/account';
 
 import { handleError } from 'utils';
-import { accountApi } from 'resources/account';
 
 import PhotoUpload from './components/PhotoUpload';
 

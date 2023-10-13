@@ -11,6 +11,7 @@ export const userSchema = dbSchema.extend({
   passwordHash: z.string().nullable().optional(),
 
   isEmailVerified: z.boolean().default(false),
+  isShadow: z.boolean().optional().nullable(),
 
   signupToken: z.string().nullable().optional(),
   resetPasswordToken: z.string().nullable().optional(),

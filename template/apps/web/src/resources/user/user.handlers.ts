@@ -1,7 +1,7 @@
 import queryClient from 'query-client';
 import { apiService, socketService } from 'services';
 
-import { User } from './user.types';
+import { User } from 'types';
 
 apiService.on('error', (error: any) => {
   if (error.status === 401) {
