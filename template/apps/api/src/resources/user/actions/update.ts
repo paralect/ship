@@ -1,15 +1,16 @@
 import { z } from 'zod';
 
 import { AppKoaContext, Next, AppRouter } from 'types';
-import { validateMiddleware } from 'middlewares';
+import { EMAIL_REGEX } from 'app-constants';
+
 import { userService } from 'resources/user';
 
-import { emailRegex } from 'resources/account/account.constants';
+import { validateMiddleware } from 'middlewares';
 
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),
   lastName: z.string().min(1, 'Please enter Last name').max(100),
-  email: z.string().regex(emailRegex, 'Email format is incorrect.'),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
 });
 
 type ValidatedData = z.infer<typeof schema>;

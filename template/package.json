@@ -4,8 +4,7 @@
     "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
     "turbo-start": "turbo run development --filter=\"./apps/*\" --filter=\"./packages/*\" --filter=\"!react-email-client\" ",
     "docker": "bash ./bin/start.sh",
-    "start": "bash ./bin/run-all.sh",
-    "prepare": "husky install"
+    "start": "bash ./bin/run-all.sh"
   },
   "devDependencies": {
     "husky": "8.0.3",

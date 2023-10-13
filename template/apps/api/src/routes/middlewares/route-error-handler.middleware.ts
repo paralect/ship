@@ -1,5 +1,6 @@
-import logger from 'logger';
 import { AppKoaContext, Next } from 'types';
+
+import logger from 'logger';
 
 const routeErrorHandler = async (ctx: AppKoaContext, next: Next) => {
   try {

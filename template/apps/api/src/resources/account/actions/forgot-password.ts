@@ -1,15 +1,18 @@
 import { z } from 'zod';
 
-import config from 'config';
-import { securityUtil } from 'utils';
-import { emailService } from 'services';
+import { AppKoaContext, Next, AppRouter, Template, User } from 'types';
+import { EMAIL_REGEX } from 'app-constants';
+
+import { userService } from 'resources/user';
+
 import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, Next, AppRouter, Template } from 'types';
-import { userService, User } from 'resources/user';
-import { emailRegex } from 'resources/account/account.constants';
+import { emailService } from 'services';
+import { securityUtil } from 'utils';
+
+import config from 'config';
 
 const schema = z.object({
-  email: z.string().regex(emailRegex, 'Email format is incorrect.'),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {

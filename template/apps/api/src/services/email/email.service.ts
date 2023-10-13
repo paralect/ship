@@ -1,5 +1,6 @@
 import config from 'config';
 import sendgrid from '@sendgrid/mail';
+
 import { renderEmailHtml, Template } from 'mailer';
 
 import { From, EmailServiceConstructorProps, SendTemplateParams, SendSendgridTemplateParams } from './email.types';

@@ -8,6 +8,7 @@ moduleAlias(); // read aliases from package json
 import 'dotenv/config';
 
 import logger from 'logger';
+
 import 'scheduler/cron';
 import 'scheduler/handlers/action.example.handler';
 

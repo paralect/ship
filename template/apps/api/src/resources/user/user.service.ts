@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
-import db from 'db';
-import { DATABASE_DOCUMENTS } from 'app.constants';
+import { User } from 'types';
+import { userSchema } from 'schemas';
+import { DATABASE_DOCUMENTS } from 'app-constants';
 
-import schema from './user.schema';
-import { User } from './user.types';
+import db from 'db';
 
 const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, {
-  schemaValidator: (obj) => schema.parseAsync(obj),
+  schemaValidator: (obj) => userSchema.parseAsync(obj),
 });
 
 const updateLastRequest = (_id: string) => {

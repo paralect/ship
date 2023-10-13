@@ -1,6 +1,7 @@
 import mount from 'koa-mount';
 
 import { AppKoa, AppRouter } from 'types';
+
 import { accountRoutes } from 'resources/account';
 
 const healthCheckRouter = new AppRouter();

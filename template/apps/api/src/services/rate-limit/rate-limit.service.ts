@@ -1,8 +1,7 @@
 import rateLimit from 'koa-ratelimit';
+import { ParameterizedContext } from 'koa';
 
 import { AppKoaContextState } from 'types';
-
-import type { ParameterizedContext } from 'koa';
 
 const rateLimiter = (limitDuration: number, requestsPerDuration: number): ReturnType<typeof rateLimit> => {
   const errorMessage = 'Looks like you are moving too fast. Retry again in one minute. Please reach out to support with questions.';

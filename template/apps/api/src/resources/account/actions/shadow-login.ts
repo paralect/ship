@@ -1,13 +1,16 @@
 import { z } from 'zod';
 
-import config from 'config';
-import { authService } from 'services';
+import { AppKoaContext, Next, AppRouter, User } from 'types';
+
+import { userService } from 'resources/user';
+
 import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, Next, AppRouter } from 'types';
-import { userService, User } from 'resources/user';
+import { authService } from 'services';
+
+import config from 'config';
 
 const schema = z.object({
-  id: z.string().min(1, 'Id is required'),
+  id: z.string().min(1, 'User ID is required'),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {
