@@ -26,23 +26,22 @@ COPY --from=builder /app/out/full/turbo.json ./turbo.json
 
 # DEVELOPMENT - Stage 3
 FROM installer AS development
-CMD pnpm turbo run api#migrate-dev --scope=api
+CMD pnpm turbo run dev --scope=api
 
-# APP_BUILDER - Stage 4
-FROM installer AS app_builder
-RUN pnpm turbo run build --filter=api...
-
-# RUNNER - Stage 5
+# RUNNER - Stage 4
 FROM node:18-alpine AS runner
 WORKDIR /app
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+RUN npm install --global --no-update-notifier --no-fund ts-node@10.9.1
 
 # Don't run production as root
 RUN addgroup --system --gid 1001 app
 RUN adduser --system --uid 1001 app
 USER app
 
-COPY --from=app_builder /app .
+COPY --from=installer /app .
 
 EXPOSE 3001
 
-CMD ["node", "apps/api/dist/src/migrator.js"]
+CMD ["ts-node", "apps/api/src/migrator.ts"]

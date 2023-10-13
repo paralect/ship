@@ -31,7 +31,6 @@
     "app-constants": "workspace:*",
     "bcryptjs": "2.4.3",
     "dotenv": "16.0.3",
-    "enums": "workspace:*",
     "google-auth-library": "8.7.0",
     "koa": "2.14.1",
     "koa-bodyparser": "4.3.0",
