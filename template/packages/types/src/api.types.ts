@@ -1,8 +1,9 @@
 import Koa, { ParameterizedContext, Request, Next } from 'koa';
 import Router from '@koa/router';
-export { Template } from 'mailer';
 
-import { User } from 'resources/user';
+import { Template } from 'mailer';
+
+import { User } from './user.types';
 
 export type AppKoaContextState = {
   user: User;
@@ -33,6 +34,4 @@ export type ValidationErrors = {
   [name: string]: string[] | string;
 };
 
-export {
-  Next,
-};
+export { Next, Template };

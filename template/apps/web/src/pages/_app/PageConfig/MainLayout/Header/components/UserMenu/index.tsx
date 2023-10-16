@@ -3,8 +3,9 @@ import { memo, FC } from 'react';
 import { Menu } from '@mantine/core';
 import { IconUserCircle, IconLogout } from '@tabler/icons-react';
 
-import { RoutePath } from 'routes';
 import { accountApi } from 'resources/account';
+
+import { RoutePath } from 'routes';
 
 import MenuToggle from '../MenuToggle';
 

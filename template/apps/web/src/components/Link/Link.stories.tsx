@@ -1,7 +1,7 @@
 import { IconUserCircle } from '@tabler/icons-react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Link from './Link';
+import Link from './index';
 
 export default {
   title: 'Components/Link',

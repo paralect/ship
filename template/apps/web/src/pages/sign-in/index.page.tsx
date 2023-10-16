@@ -6,17 +6,20 @@ import { NextPage } from 'next';
 import { TextInput, PasswordInput, Button, Group, Stack, Title, Alert } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 
-import { GoogleIcon } from 'public/icons';
+import { EMAIL_REGEX } from 'app-constants';
+
+import { accountApi } from 'resources/account';
+
+import { Link } from 'components';
+import { handleError } from 'utils';
+import { RoutePath } from 'routes';
 
 import config from 'config';
-import { RoutePath } from 'routes';
-import { handleError } from 'utils';
-import { Link } from 'components';
 
-import { accountApi, accountConstants } from 'resources/account';
+import { GoogleIcon } from 'public/icons';
 
 const schema = z.object({
-  email: z.string().regex(accountConstants.emailRegex, 'Email format is incorrect.'),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
   password: z.string().min(1, 'Please enter password'),
 });
 

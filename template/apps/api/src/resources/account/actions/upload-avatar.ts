@@ -1,8 +1,10 @@
 import multer from '@koa/multer';
 
-import { cloudStorageService } from 'services';
 import { Next, AppKoaContext, AppRouter } from 'types';
+
 import { userService } from 'resources/user';
+
+import { cloudStorageService } from 'services';
 
 const upload = multer();
 

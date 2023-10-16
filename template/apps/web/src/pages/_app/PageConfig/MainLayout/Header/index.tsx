@@ -1,13 +1,12 @@
 import { memo, FC } from 'react';
-import { RoutePath } from 'routes';
-import {
-  Header as LayoutHeader,
-  Container,
-} from '@mantine/core';
-import { Link } from 'components';
-import { LogoImage } from 'public/images';
+import { Header as LayoutHeader, Container } from '@mantine/core';
 
 import { accountApi } from 'resources/account';
+
+import { Link } from 'components';
+import { RoutePath } from 'routes';
+
+import { LogoImage } from 'public/images';
 
 import UserMenu from './components/UserMenu';
 import ShadowLoginBanner from './components/ShadowLoginBanner';

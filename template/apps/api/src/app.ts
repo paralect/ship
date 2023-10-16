@@ -14,12 +14,14 @@ import helmet from 'koa-helmet';
 import qs from 'koa-qs';
 import requestLogger from 'koa-logger';
 
-import logger from 'logger';
-import config from 'config';
+import { AppKoa } from 'types';
+
 import { socketService } from 'services';
+
+import config from 'config';
+import logger from 'logger';
 import routes from 'routes';
 import ioEmitter from 'io-emitter';
-import { AppKoa } from 'types';
 
 const initKoa = () => {
   const app = new AppKoa();

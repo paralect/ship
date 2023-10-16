@@ -1,6 +1,6 @@
-import { ResetPassword, ResetPasswordProps } from 'emails/reset-password';
-import { SignUpWelcome, SignUpWelcomeProps } from 'emails/sign-up-welcome';
-import { VerifyEmail, VerifyEmailProps } from 'emails/verify-email';
+import { ResetPassword, ResetPasswordProps } from '../emails/reset-password';
+import { SignUpWelcome, SignUpWelcomeProps } from '../emails/sign-up-welcome';
+import { VerifyEmail, VerifyEmailProps } from '../emails/verify-email';
 
 export enum Template {
   RESET_PASSWORD,

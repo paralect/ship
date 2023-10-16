@@ -1,13 +1,16 @@
 import { z } from 'zod';
 
-import config from 'config';
+import { AppKoaContext, AppRouter, User } from 'types';
+import { EMAIL_REGEX } from 'app-constants';
+
+import { userService } from 'resources/user';
+
 import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, AppRouter } from 'types';
-import { User, userService } from 'resources/user';
-import { emailRegex } from 'resources/account/account.constants';
+
+import config from 'config';
 
 const schema = z.object({
-  email: z.string().regex(emailRegex, 'Email format is incorrect.'),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
   token: z.string().min(1, 'Token is required'),
 });
 

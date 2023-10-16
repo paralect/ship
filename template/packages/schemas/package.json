@@ -1,0 +1,24 @@
+{
+  "name": "schemas",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "ts-lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "enums": "workspace:*",
+    "zod": "*"
+  },
+  "devDependencies": {
+    "eslint": "*",
+    "lint-staged": "*",
+    "typescript": "*"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext ts --ext tsx --fix"
+    ]
+  }
+}

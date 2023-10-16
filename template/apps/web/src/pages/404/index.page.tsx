@@ -2,14 +2,9 @@ import { useCallback } from 'react';
 import Head from 'next/head';
 import router from 'next/router';
 import { NextPage } from 'next';
+import { Stack, Title, Text, Button } from '@mantine/core';
 
 import { RoutePath } from 'routes';
-import {
-  Stack,
-  Title,
-  Text,
-  Button,
-} from '@mantine/core';
 
 const NotFound: NextPage = () => {
   const handleClick = useCallback(() => {

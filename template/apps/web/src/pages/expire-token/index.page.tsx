@@ -2,17 +2,14 @@ import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
-import {
-  Stack,
-  Title,
-  Text,
-  Button,
-} from '@mantine/core';
+import { Stack, Title, Text, Button } from '@mantine/core';
 
 import { QueryParam } from 'types';
-import { RoutePath } from 'routes';
-import { handleError } from 'utils';
+
 import { accountApi } from 'resources/account';
+
+import { handleError } from 'utils';
+import { RoutePath } from 'routes';
 
 type ForgotPasswordParams = {
   email: QueryParam,

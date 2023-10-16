@@ -2,16 +2,17 @@ import _ from 'lodash';
 import { z } from 'zod';
 
 import { AppKoaContext, Next, AppRouter } from 'types';
-import { securityUtil } from 'utils';
-import { validateMiddleware } from 'middlewares';
+import { PASSWORD_REGEX } from 'app-constants';
+
 import { userService } from 'resources/user';
 
-import { passwordRegex } from 'resources/account/account.constants';
+import { validateMiddleware } from 'middlewares';
+import { securityUtil } from 'utils';
 
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100).optional(),
   lastName: z.string().min(1, 'Please enter Last name').max(100).optional(),
-  password: z.string().regex(passwordRegex, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).').optional(),
+  password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).').optional(),
 }).strict();
 
 interface ValidatedData extends z.infer<typeof schema> {

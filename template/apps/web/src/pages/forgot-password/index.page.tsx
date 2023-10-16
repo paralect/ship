@@ -7,14 +7,16 @@ import Head from 'next/head';
 import { NextPage } from 'next';
 import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
 
-import { RoutePath } from 'routes';
-import { handleError } from 'utils';
-import { Link } from 'components';
+import { EMAIL_REGEX } from 'app-constants';
 
-import { accountApi, accountConstants } from 'resources/account';
+import { Link } from 'components';
+import { handleError } from 'utils';
+import { RoutePath } from 'routes';
+
+import { accountApi } from 'resources/account';
 
 const schema = z.object({
-  email: z.string().regex(accountConstants.emailRegex, 'Email format is incorrect.'),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
 });
 
 type ForgotPasswordParams = {

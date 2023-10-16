@@ -1,16 +1,17 @@
 import psl from 'psl';
 import url from 'url';
 
-import config from 'config';
-import { COOKIES } from 'app.constants';
 import { AppKoaContext } from 'types';
+import { COOKIES } from 'app-constants';
+
+import config from 'config';
 
 export const setTokenCookies = ({
   ctx,
   accessToken,
 }: { ctx: AppKoaContext, accessToken: string }) => {
   const parsedUrl = url.parse(config.WEB_URL);
-  
+
   if (!parsedUrl.hostname) {
     return;
   }

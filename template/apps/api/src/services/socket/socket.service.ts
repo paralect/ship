@@ -3,9 +3,11 @@ import { Server } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import pubClient from 'redis-client';
 
-import logger from 'logger';
-import { COOKIES } from 'app.constants';
+import { COOKIES } from 'app-constants';
+
 import { tokenService } from 'resources/token';
+
+import logger from 'logger';
 
 import socketHelper from './socket.helper';
 

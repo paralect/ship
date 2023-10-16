@@ -1,12 +1,13 @@
-import db from 'db';
-import { securityUtil } from 'utils';
-import { DATABASE_DOCUMENTS, TOKEN_SECURITY_LENGTH } from 'app.constants';
+import { Token, TokenType } from 'types';
+import { tokenSchema } from 'schemas';
+import { DATABASE_DOCUMENTS, TOKEN_SECURITY_LENGTH } from 'app-constants';
 
-import schema from './token.schema';
-import { Token, TokenType } from './token.types';
+import { securityUtil } from 'utils';
+
+import db from 'db';
 
 const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, {
-  schemaValidator: (obj) => schema.parseAsync(obj),
+  schemaValidator: (obj) => tokenSchema.parseAsync(obj),
 });
 
 const createToken = async (userId: string, type: TokenType, isShadow?: boolean) => {

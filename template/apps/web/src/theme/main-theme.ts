@@ -1,6 +1,6 @@
 import { MantineTheme, MantineThemeOverride } from '@mantine/core';
 
-const shipTheme: MantineThemeOverride = {
+const mainTheme: MantineThemeOverride = {
   fontFamily: 'Roboto, sans-serif',
   fontFamilyMonospace: 'monospace',
   headings: {
@@ -102,4 +102,4 @@ const shipTheme: MantineThemeOverride = {
   },
 };
 
-export default shipTheme;
+export default mainTheme;

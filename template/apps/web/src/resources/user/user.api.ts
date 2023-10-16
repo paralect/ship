@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 
-import { apiService } from 'services';
+import { User } from 'types';
 
-import { User } from './user.types';
+import { apiService } from 'services';
 
 export function useList<T>(params: T) {
   const list = () => apiService.get('/users', params);
