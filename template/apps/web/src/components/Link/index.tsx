@@ -17,7 +17,7 @@ interface LinkProps {
   disabled?: boolean;
 }
 
-const Index: FC<LinkProps> = ({
+const Link: FC<LinkProps> = ({
   type = 'url',
   children,
   href = '#',
@@ -67,4 +67,4 @@ const Index: FC<LinkProps> = ({
   }
 };
 
-export default memo(Index);
+export default memo(Link);
