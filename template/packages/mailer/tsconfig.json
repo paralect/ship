@@ -3,9 +3,6 @@
   "exclude": [".react-email", "dist", "build", "node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "emails/*": ["./emails/*"]
-    },
     "lib": [
       "dom",
       "dom.iterable",

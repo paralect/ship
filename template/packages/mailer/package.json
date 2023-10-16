@@ -4,14 +4,13 @@
   "description": "Mailer based on React Email",
   "author": "Paralect",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
   "workspaces": [
     ".react-email"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "email dev --port 3003 & tsup --watch",
+    "dev": "email dev --port 3003",
     "export": "email export",
     "clean": "rm -rf dist",
     "ts-lint": "tsc --noEmit --incremental --watch",
@@ -21,8 +20,7 @@
     "@react-email/components": "0.0.7",
     "@react-email/render": "0.0.7",
     "react": "18.2.0",
-    "react-email": "1.9.4",
-    "tsup": "7.0.0"
+    "react-email": "1.9.4"
   },
   "devDependencies": {
     "@types/node": "20.3.1",
