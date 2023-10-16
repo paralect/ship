@@ -13,7 +13,7 @@
     "dev": "email dev --port 3003",
     "export": "email export",
     "clean": "rm -rf dist",
-    "ts-lint": "tsc --noEmit --incremental --watch",
+    "ts-lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "precommit": "lint-staged"
   },
   "dependencies": {
