@@ -12,6 +12,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     'import/prefer-default-export': 'off',
     'object-curly-newline': 'off',
+    'max-classes-per-file': 'off',
     'max-len': ['warn', {
       code: 120,
       ignoreStrings: true,
