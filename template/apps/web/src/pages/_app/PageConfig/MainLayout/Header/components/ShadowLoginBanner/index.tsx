@@ -1,18 +1,15 @@
 import { Paper } from '@mantine/core';
 
+import classes from './ShadowLoginBanner.module.css';
+
 const ShadowLoginBanner = ({ email }: { email: string }) => (
   <Paper
+    className={classes.banner}
     shadow="md"
-    sx={(theme) => ({
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '32px',
-      fontWeight: 600,
-      color: theme.white,
-      backgroundColor: theme.colors.dark[4],
-      borderRadius: 0,
-    })}
+    h={32}
+    fw={600}
+    c="white"
+    bg="dark.4"
   >
     You currently under the shadow login as &apos;
     {email}
