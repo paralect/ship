@@ -1,13 +1,15 @@
-import { MantineTheme, MantineThemeOverride } from '@mantine/core';
+import { Button, Image, PasswordInput, Select, TextInput, createTheme } from '@mantine/core';
 
-const mainTheme: MantineThemeOverride = {
+const mainTheme = createTheme({
   fontFamily: 'Roboto, sans-serif',
   fontFamilyMonospace: 'monospace',
   headings: {
     fontFamily: 'Roboto, sans-serif',
-    fontWeight: 600,
+    fontWeight: '600',
   },
-  lineHeight: 1.45,
+  lineHeights: {
+    md: '1.45',
+  },
   primaryColor: 'blue',
   primaryShade: 6,
   other: {
@@ -31,75 +33,77 @@ const mainTheme: MantineThemeOverride = {
     },
   },
   components: {
-    Button: {
-      defaultProps: { size: 'lg' },
-      styles: () => ({
-        label: {
-          fontWeight: 500,
-        },
-      }),
-    },
-    TextInput: {
+    Button: Button.extend({
       defaultProps: {
         size: 'lg',
       },
-      styles: (theme: MantineTheme) => ({
-        input: {
-          fontSize: '16px',
-
-          '&::placeholder, &:disabled, &:disabled::placeholder': {
-            color: '#6d747b !important',
-          },
-        },
-        invalid: {
-          color: theme.colors.gray[9],
-
-          '&, &:focus-within': {
-            borderColor: theme.colors.red[6],
-          },
-        },
+      styles: {
         label: {
-          fontSize: '18px',
+          fontWeight: 500,
+        },
+      },
+    }),
+    TextInput: TextInput.extend({
+      defaultProps: {
+        size: 'lg',
+      },
+      styles: {
+        input: {
+          fontSize: 16,
+
+          // '&::placeholder, &:disabled, &:disabled::placeholder': {
+          //   color: '#6d747b !important',
+          // },
+        },
+        // invalid: {
+        //   color: theme.colors.gray[9],
+
+        //             '&, &:focus-within': {
+        //               borderColor: theme.colors.red[6],
+        //             },
+        // },
+        label: {
+          fontSize: 18,
           fontWeight: 600,
         },
-      }),
-    },
-    PasswordInput: {
-      defaultProps: { size: 'lg' },
-      styles: (theme: MantineTheme) => ({
-        root: {
-          input: {
+      },
+    }),
+    PasswordInput: PasswordInput.extend({
+      defaultProps: {
+        size: 'lg',
+        styles: {
+          innerInput: {
             fontSize: '16px !important',
 
-            '&::placeholder': {
-              color: '#6d747b',
-            },
+            // '&::placeholder': {
+            //   color: '#6d747b',
+            // },
           },
-        },
-        label: {
-          fontSize: '18px',
-          fontWeight: 600,
-        },
-        invalid: {
-          input: {
-            '&::placeholder': {
-              color: theme.colors.red[6],
-            },
+          label: {
+            fontSize: 18,
+            fontWeight: 600,
           },
+          // invalid: {
+          //   input: {
+          //     '&::placeholder': {
+          //       color: theme.colors.red[6],
+          //     },
+          //   },
+          // },
         },
-      }),
-    },
-    Select: {
+      },
+    }),
+    Select: Select.extend({
       defaultProps: { size: 'md' },
-    },
-    Image: {
-      styles: () => ({
-        image: {
+    }),
+    Image: Image.extend({
+      styles: {
+        root: {
           objectPosition: 'left !important',
         },
-      }),
-    },
+      },
+    }),
   },
-};
+});
 
 export default mainTheme;
