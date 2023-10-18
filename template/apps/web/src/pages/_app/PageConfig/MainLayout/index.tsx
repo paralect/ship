@@ -10,8 +10,8 @@ interface MainLayoutProps {
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => (
   <AppShell
-    header={<Header />}
-    footer={<Footer />}
+    header={{ height: 72 }}
+    footer={{ height: 40 }}
     styles={(theme) => ({
       root: {
         display: 'flex',
@@ -25,7 +25,13 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => (
       },
     })}
   >
-    {children}
+    <Header />
+
+    <AppShell.Main>
+      {children}
+    </AppShell.Main>
+
+    <Footer />
   </AppShell>
 );
 
