@@ -26,6 +26,7 @@ const Header: FC = () => {
         mih={72}
         px={32}
         py={0}
+        display="flex"
         fluid
       >
         <Link type="router" href={RoutePath.Home}>

@@ -7,9 +7,10 @@ const ShadowLoginBanner = ({ email }: { email: string }) => (
     className={classes.banner}
     shadow="md"
     h={32}
+    bg="dark.4"
+    display="flex"
     fw={600}
     c="white"
-    bg="dark.4"
   >
     You currently under the shadow login as &apos;
     {email}

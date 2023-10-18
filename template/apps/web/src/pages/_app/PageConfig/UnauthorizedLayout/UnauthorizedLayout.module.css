@@ -13,12 +13,6 @@
   justify-content: center;
 }
 
-.header {
-  min-height: 72px;
-  display: flex;
-  align-items: center;
-}
-
 /* TODO: we can't use css-variables, but we should use mantine breakpoints here */
 @media screen and (max-width: 600px) {
   .image {
