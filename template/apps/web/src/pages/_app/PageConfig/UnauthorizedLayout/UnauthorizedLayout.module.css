@@ -13,8 +13,11 @@
   justify-content: center;
 }
 
-/* TODO: we can't use css-variables, but we should use mantine breakpoints here */
-@media screen and (max-width: 600px) {
+/* TODO: we can't use css-variables, but we should use mantine breakpoints here
+https://github.com/mantinedev/next-pages-template/blob/master/components/Welcome/Welcome.module.css
+$mantine-breakpoint-sm should work, but need check
+*/
+@media (max-width: 600px) {
   .image {
     display: none;
   }

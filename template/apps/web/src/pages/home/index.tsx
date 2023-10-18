@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import Head from 'next/head';
 import { NextPage } from 'next';
 import {
@@ -11,18 +11,20 @@ import {
   Text,
   Container,
   UnstyledButton,
-  SelectItem,
+  Flex,
 } from '@mantine/core';
-import { useDebouncedValue } from '@mantine/hooks';
+import { useDebouncedValue, useInputState } from '@mantine/hooks';
 import { IconSearch, IconX, IconSelector } from '@tabler/icons-react';
-import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
+import { RowSelectionState, SortingState } from '@tanstack/react-table';
 import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
-
-import { User } from 'types';
 
 import { userApi } from 'resources/user';
 
 import { Table } from 'components';
+
+import { PER_PAGE, columns, selectOptions } from './constants';
+
+import classes from './home.module.css';
 
 interface UsersListParams {
   page?: number;
@@ -39,39 +41,8 @@ interface UsersListParams {
   };
 }
 
-const selectOptions: SelectItem[] = [
-  {
-    value: 'newest',
-    label: 'Newest',
-  },
-  {
-    value: 'oldest',
-    label: 'Oldest',
-  },
-];
-
-const columns: ColumnDef<User>[] = [
-  {
-    accessorKey: 'firstName',
-    header: 'First Name',
-    cell: (info) => info.getValue(),
-  },
-  {
-    accessorKey: 'lastName',
-    header: 'Last Name',
-    cell: (info) => info.getValue(),
-  },
-  {
-    accessorKey: 'email',
-    header: 'Email',
-    cell: (info) => info.getValue(),
-  },
-];
-
-const PER_PAGE = 5;
-
 const Home: NextPage = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useInputState('');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [sortBy, setSortBy] = useState(selectOptions[0].value);
@@ -87,10 +58,6 @@ const Home: NextPage = () => {
       ...prev,
       sort: value === 'newest' ? { createdOn: 'desc' } : { createdOn: 'asc' },
     }));
-  }, []);
-
-  const handleSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
   }, []);
 
   const handleFilter = useCallback(([sinceDate, dueDate]: DatesRangeValue) => {
@@ -122,55 +89,61 @@ const Home: NextPage = () => {
       <Head>
         <title>Home</title>
       </Head>
-      <Stack spacing="lg">
+      <Stack gap="lg">
         <Title order={2}>Users</Title>
-        <Group noWrap position="apart">
-          <Group noWrap>
+
+        <Group wrap="nowrap" justify="space-between">
+          <Group wrap="nowrap">
             <Skeleton
+              className={classes.inputSkeleton}
               height={42}
               radius="sm"
               visible={isListLoading}
               width="auto"
-              sx={{ flexGrow: 0.25 }}
             >
               <TextInput
+                w={350}
                 size="md"
                 value={search}
-                onChange={handleSearch}
+                onChange={setSearch}
                 placeholder="Search by name or email"
-                icon={<IconSearch size={16} />}
+                leftSection={<IconSearch size={16} />}
                 rightSection={search ? (
                   <UnstyledButton
+                    component={Flex}
+                    display="flex"
+                    align="center"
                     onClick={() => setSearch('')}
-                    sx={{ display: 'flex', alignItems: 'center' }}
                   >
                     <IconX color="gray" />
                   </UnstyledButton>
                 ) : null}
-                sx={{ width: '350px' }}
               />
             </Skeleton>
 
             <Skeleton
+              width="auto"
               height={42}
               radius="sm"
               visible={isListLoading}
-              width="auto"
-              sx={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
+            // TODO: define overflow style depending on component prop
+            // sx={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
             >
               <Select
+                w={200}
                 size="md"
                 data={selectOptions}
                 value={sortBy}
                 onChange={handleSort}
                 rightSection={<IconSelector size={16} />}
-                withinPortal={false}
-                transitionProps={{
-                  transition: 'pop-bottom-right',
-                  duration: 210,
-                  timingFunction: 'ease-out',
+                comboboxProps={{
+                  withinPortal: false,
+                  transitionProps: {
+                    transition: 'pop-bottom-right',
+                    duration: 210,
+                    timingFunction: 'ease-out',
+                  },
                 }}
-                sx={{ width: '200px' }}
               />
             </Skeleton>
 
@@ -190,8 +163,8 @@ const Home: NextPage = () => {
               />
             </Skeleton>
           </Group>
-
         </Group>
+
         {isListLoading && (
           <>
             {[1, 2, 3].map((item) => (
@@ -204,6 +177,7 @@ const Home: NextPage = () => {
             ))}
           </>
         )}
+
         {data?.items.length ? (
           <Table
             columns={columns}
@@ -218,7 +192,7 @@ const Home: NextPage = () => {
           />
         ) : (
           <Container p={75}>
-            <Text size="xl" color="grey">
+            <Text size="xl" c="gray">
               No results found, try to adjust your search.
             </Text>
           </Container>
