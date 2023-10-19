@@ -7,6 +7,8 @@ import {
 } from '@tabler/icons-react';
 import { ColumnDefTemplate, HeaderContext, HeaderGroup } from '@tanstack/react-table';
 
+import classes from './thead.module.css';
+
 type CellData = {
   [key: string]: string | Function | boolean | Record<string, any>;
 };
@@ -34,15 +36,13 @@ const Thead: FC<TheadProps> = ({ isSortable, headerGroups, flexRender }) => (
           >
             {!header.isPlaceholder && (
               <UnstyledButton
+                className={classes.headerButton}
+                w="100%"
+                display="flex"
+                lh="16px"
+                fw={600}
+                fz={14}
                 onClick={header.column.getToggleSortingHandler()}
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  lineHeight: '16px',
-                  fontWeight: '600',
-                  fontSize: '14px',
-                }}
               >
                 {
                   flexRender(
