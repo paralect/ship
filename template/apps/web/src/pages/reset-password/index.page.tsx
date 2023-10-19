@@ -7,13 +7,15 @@ import { Stack, Title, Text, Button, PasswordInput } from '@mantine/core';
 import Head from 'next/head';
 import { NextPage } from 'next';
 
-import { QueryParam } from 'types';
-import { PASSWORD_REGEX } from 'app-constants';
-
 import { accountApi } from 'resources/account';
 
 import { handleError } from 'utils';
 import { RoutePath } from 'routes';
+
+import { QueryParam } from 'types';
+import { PASSWORD_REGEX } from 'app-constants';
+
+import classes from './reset-password.module.css';
 
 const schema = z.object({
   password: z.string().regex(
@@ -51,9 +53,9 @@ const ResetPassword: NextPage = () => {
 
   if (!token) {
     return (
-      <Stack sx={{ width: '328px' }} spacing="xs">
+      <Stack w={328} gap="xs">
         <Title order={2} mb={0}>Invalid token</Title>
-        <Text component="p" m={0}>Sorry, your token is invalid.</Text>
+        <Text m={0}>Sorry, your token is invalid.</Text>
       </Stack>
     );
   }
@@ -64,12 +66,14 @@ const ResetPassword: NextPage = () => {
         <Head>
           <title>Reset Password</title>
         </Head>
-        <Stack sx={{ width: '328px' }}>
+        <Stack w={328}>
           <Title order={2}>Password has been updated</Title>
-          <Text component="p" mt={0}>
+
+          <Text mt={0}>
             Your password has been updated successfully.
             You can now use your new password to sign in.
           </Text>
+
           <Button onClick={() => router.push(RoutePath.SignIn)}>
             Back to Sign In
           </Button>
@@ -83,11 +87,11 @@ const ResetPassword: NextPage = () => {
       <Head>
         <title>Reset Password</title>
       </Head>
-      <Stack sx={{ width: '328px' }}>
+      <Stack w={328}>
         <Title order={2}>Reset Password</Title>
-        <Text component="p" mt={0}>Please choose your new password</Text>
+        <Text mt={0}>Please choose your new password</Text>
         <form
-          style={{ display: 'flex', flexDirection: 'column', gap: 'inherit' }}
+          className={classes.form}
           onSubmit={handleSubmit(onSubmit)}
         >
           <PasswordInput
@@ -97,6 +101,7 @@ const ResetPassword: NextPage = () => {
             placeholder="Your new password"
             error={errors.password?.message}
           />
+
           <Button
             type="submit"
             loading={isResetPasswordLoading}
