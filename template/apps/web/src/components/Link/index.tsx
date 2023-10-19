@@ -1,8 +1,9 @@
 import { FC, memo, ReactNode } from 'react';
 import NextLink from 'next/link';
 import { Anchor } from '@mantine/core';
+import cx from 'clsx';
 
-import styles from './styles';
+import classes from './Link.module.css';
 
 interface LinkProps {
   children: ReactNode;
@@ -32,13 +33,19 @@ const Link: FC<LinkProps> = ({
   switch (type) {
     case 'router':
       return (
-        <NextLink href={href} passHref style={{ textDecoration: underline ? 'underline' : 'none' }}>
+        <NextLink
+          className={cx({ [classes.nextLinkUnderlineNone]: !underline })}
+          href={href}
+          passHref
+        >
           <Anchor
+            className={cx(classes.link, {
+              [classes.disabled]: disabled,
+            })}
             size={size}
             inherit={inherit}
-            underline={underline}
-            sx={(theme) => styles(theme, disabled)}
-            align={align}
+            underline={underline ? 'always' : 'never'}
+            ta={align}
           >
             {icon}
             {children}
@@ -49,14 +56,16 @@ const Link: FC<LinkProps> = ({
     case 'url':
       return (
         <Anchor
+          className={cx(classes.link, {
+            [classes.disabled]: disabled,
+          })}
           href={href}
           target={inNewTab ? '_blank' : '_self'}
           rel="noreferrer"
           size={size}
           inherit={inherit}
-          underline={underline}
-          sx={(theme) => styles(theme, disabled)}
-          align={align}
+          underline={underline ? 'always' : 'never'}
+          ta={align}
         >
           {icon}
           {children}
