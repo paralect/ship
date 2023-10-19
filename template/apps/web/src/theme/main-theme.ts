@@ -1,4 +1,6 @@
-import { Button, Image, PasswordInput, Select, TextInput, createTheme } from '@mantine/core';
+import { createTheme } from '@mantine/core';
+
+import components from './components';
 
 const mainTheme = createTheme({
   fontFamily: 'Roboto, sans-serif',
@@ -32,78 +34,7 @@ const mainTheme = createTheme({
       },
     },
   },
-  components: {
-    Button: Button.extend({
-      defaultProps: {
-        size: 'lg',
-      },
-      styles: {
-        label: {
-          fontWeight: 500,
-        },
-      },
-    }),
-    TextInput: TextInput.extend({
-      defaultProps: {
-        size: 'lg',
-      },
-      styles: {
-        input: {
-          fontSize: 16,
-
-          // '&::placeholder, &:disabled, &:disabled::placeholder': {
-          //   color: '#6d747b !important',
-          // },
-        },
-        // invalid: {
-        //   color: theme.colors.gray[9],
-
-        //             '&, &:focus-within': {
-        //               borderColor: theme.colors.red[6],
-        //             },
-        // },
-        label: {
-          fontSize: 18,
-          fontWeight: 600,
-        },
-      },
-    }),
-    PasswordInput: PasswordInput.extend({
-      defaultProps: {
-        size: 'lg',
-        styles: {
-          innerInput: {
-            fontSize: '16px !important',
-
-            // '&::placeholder': {
-            //   color: '#6d747b',
-            // },
-          },
-          label: {
-            fontSize: 18,
-            fontWeight: 600,
-          },
-          // invalid: {
-          //   input: {
-          //     '&::placeholder': {
-          //       color: theme.colors.red[6],
-          //     },
-          //   },
-          // },
-        },
-      },
-    }),
-    Select: Select.extend({
-      defaultProps: { size: 'md' },
-    }),
-    Image: Image.extend({
-      styles: {
-        root: {
-          objectPosition: 'left !important',
-        },
-      },
-    }),
-  },
+  components,
 });
 
 export default mainTheme;
