@@ -1,27 +1,13 @@
 import { TextInput } from '@mantine/core';
 
+import classes from './TextInput.module.css';
+
 export default TextInput.extend({
   defaultProps: {
     size: 'lg',
   },
-  styles: {
-    input: {
-      fontSize: 16,
-
-      // '&::placeholder, &:disabled, &:disabled::placeholder': {
-      //   color: '#6d747b !important',
-      // },
-    },
-    // invalid: {
-    //   color: theme.colors.gray[9],
-
-    //             '&, &:focus-within': {
-    //               borderColor: theme.colors.red[6],
-    //             },
-    // },
-    label: {
-      fontSize: 18,
-      fontWeight: 600,
-    },
+  classNames: {
+    input: classes.input,
+    label: classes.label,
   },
 });

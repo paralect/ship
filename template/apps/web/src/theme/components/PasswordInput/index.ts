@@ -1,27 +1,13 @@
 import { PasswordInput } from '@mantine/core';
 
+import classes from './PasswordInput.module.css';
+
 export default PasswordInput.extend({
   defaultProps: {
     size: 'lg',
-    styles: {
-      innerInput: {
-        fontSize: '16px !important',
-
-        // '&::placeholder': {
-        //   color: '#6d747b',
-        // },
-      },
-      label: {
-        fontSize: 18,
-        fontWeight: 600,
-      },
-      // invalid: {
-      //   input: {
-      //     '&::placeholder': {
-      //       color: theme.colors.red[6],
-      //     },
-      //   },
-      // },
-    },
+  },
+  classNames: {
+    innerInput: classes.innerInput,
+    label: classes.label,
   },
 });

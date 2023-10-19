@@ -1,12 +1,12 @@
 import { Button } from '@mantine/core';
 
+import classes from './Button.module.css';
+
 export default Button.extend({
   defaultProps: {
     size: 'lg',
   },
-  styles: {
-    label: {
-      fontWeight: 500,
-    },
+  classNames: {
+    label: classes.label,
   },
 });
