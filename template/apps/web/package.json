@@ -27,6 +27,7 @@
     "@tanstack/react-table": "8.7.9",
     "app-constants": "workspace:*",
     "axios": "1.3.4",
+    "clsx": "2.0.0",
     "dayjs": "1.11.7",
     "dotenv-flow": "3.2.0",
     "lodash": "4.17.21",

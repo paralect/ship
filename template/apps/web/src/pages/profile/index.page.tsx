@@ -13,6 +13,8 @@ import { handleError } from 'utils';
 
 import PhotoUpload from './components/PhotoUpload';
 
+import classes from './profile.module.css';
+
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),
   lastName: z.string().min(1, 'Please enter Last name').max(100),
@@ -65,16 +67,19 @@ const Profile: NextPage = () => {
         <title>Profile</title>
       </Head>
       <Stack
-        sx={{ width: '408px', margin: 'auto', paddingTop: '48px' }}
-        spacing={32}
+        w={408}
+        m="auto"
+        pt={48}
+        gap={32}
       >
         <Title order={1}>Profile</Title>
         <PhotoUpload />
+
         <form
-          style={{ display: 'flex', flexDirection: 'column', gap: '34px' }}
+          className={classes.form}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <Stack spacing={20}>
+          <Stack gap={20}>
             <TextInput
               {...register('firstName')}
               label="First Name"
@@ -84,6 +89,7 @@ const Profile: NextPage = () => {
               }}
               error={errors.firstName?.message}
             />
+
             <TextInput
               {...register('lastName')}
               label="Last Name"
@@ -93,11 +99,13 @@ const Profile: NextPage = () => {
               }}
               error={errors.lastName?.message}
             />
+
             <TextInput
               label="Email Address"
               defaultValue={account?.email}
               disabled
             />
+
             <PasswordInput
               {...register('password')}
               label="Password"
@@ -108,6 +116,7 @@ const Profile: NextPage = () => {
               error={errors.password?.message}
             />
           </Stack>
+
           <Button
             type="submit"
             loading={isUpdateLoading}
