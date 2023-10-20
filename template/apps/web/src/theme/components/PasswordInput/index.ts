@@ -1,4 +1,5 @@
 import { PasswordInput } from '@mantine/core';
+import cx from 'clsx';
 
 import classes from './PasswordInput.module.css';
 
@@ -6,8 +7,11 @@ export default PasswordInput.extend({
   defaultProps: {
     size: 'lg',
   },
-  classNames: {
-    innerInput: classes.innerInput,
+  classNames: (_, props) => ({
+    innerInput: cx(classes.innerInput, {
+      [classes.inputInputError]: props.error,
+    }),
     label: classes.label,
-  },
+    input: cx({ [classes.inputError]: props.error }),
+  }),
 });

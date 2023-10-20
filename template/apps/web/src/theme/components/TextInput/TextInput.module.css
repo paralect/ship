@@ -4,7 +4,16 @@
   &::placeholder,
   &:disabled,
   &:disabled::placeholder {
-    color: '#6d747b !important',
+    color: '#6d747b !important';
+  }
+}
+
+.inputError {
+  color: var(--mantine-color-gray-9);
+
+  &,
+  &:focus-within {
+    border-color: var(--mantine-color-red-6);
   }
 }
 
@@ -12,12 +21,3 @@
   font-size: 18px;
   font-weight: 600;
 }
-
-
-/* invalid: {
-  color: theme.colors.gray[9],
-
-            '&, &:focus-within': {
-              borderColor: theme.colors.red[6],
-            },
-}, */

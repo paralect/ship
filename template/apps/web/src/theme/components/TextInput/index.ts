@@ -1,4 +1,5 @@
 import { TextInput } from '@mantine/core';
+import cx from 'clsx';
 
 import classes from './TextInput.module.css';
 
@@ -6,8 +7,10 @@ export default TextInput.extend({
   defaultProps: {
     size: 'lg',
   },
-  classNames: {
-    input: classes.input,
+  classNames: (_, props) => ({
+    input: cx(classes.input, {
+      [classes.inputError]: props.error,
+    }),
     label: classes.label,
-  },
+  }),
 });
