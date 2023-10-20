@@ -126,8 +126,6 @@ const Home: NextPage = () => {
               height={42}
               radius="sm"
               visible={isListLoading}
-            // TODO: define overflow style depending on component prop
-            // sx={{ overflow: !isListLoading ? 'initial' : 'overflow' }}
             >
               <Select
                 w={200}
@@ -148,11 +146,11 @@ const Home: NextPage = () => {
             </Skeleton>
 
             <Skeleton
+              className={classes.datePickerSkeleton}
               height={42}
               radius="sm"
               visible={isListLoading}
               width="auto"
-              style={{ overflow: 'unset' }}
             >
               <DatePickerInput
                 type="range"

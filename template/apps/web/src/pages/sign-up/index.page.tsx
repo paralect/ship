@@ -122,7 +122,7 @@ const SignUp: NextPage = () => {
         <Stack w={450}>
           <Title order={2}>Thanks!</Title>
 
-          <Text size="md" c="gray.5">
+          <Text size="md" c="gray.6">
             Please follow the instructions from the email to complete a sign up process.
             We sent an email with a confirmation link to
             {' '}
@@ -130,13 +130,12 @@ const SignUp: NextPage = () => {
           </Text>
 
           {signupToken && (
-            <div>
-              You look like a cool developer.
-              {' '}
+            <Stack gap={0}>
+              <Text>You look like a cool developer.</Text>
               <Link size="sm" href={`${config.API_URL}/account/verify-email?token=${signupToken}`}>
                 Verify email
               </Link>
-            </div>
+            </Stack>
           )}
         </Stack>
       </>
