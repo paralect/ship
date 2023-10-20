@@ -18,7 +18,6 @@
 }
 
 .browseButton {
-  /* ref: getStylesRef('browseButton'), */
   width: 88px;
   height: 88px;
   border-radius: 50%;
@@ -35,13 +34,11 @@
 }
 
 .addIcon {
-  /* ref: getStylesRef('addIcon'), */
   color: var(--mantine-color-blue-6);
   transition: all var(--mantine-transition-speed-fast) var(--mantine-transition-easing-easeInOut);
 }
 
 .innerAvatar {
-  /* ref: getStylesRef('innerAvatar'), */
   width: 88px;
   height: 88px;
   border-radius: 50%;
