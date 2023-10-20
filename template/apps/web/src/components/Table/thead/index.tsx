@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { UnstyledButton } from '@mantine/core';
+import { Table, UnstyledButton } from '@mantine/core';
 import {
   IconSortAscending,
   IconSortDescending,
@@ -23,11 +23,11 @@ interface TheadProps {
 }
 
 const Thead: FC<TheadProps> = ({ isSortable, headerGroups, flexRender }) => (
-  <thead>
+  <Table.Thead>
     {headerGroups.map((headerGroup) => (
-      <tr key={headerGroup.id}>
+      <Table.Tr key={headerGroup.id}>
         {headerGroup.headers.map((header) => (
-          <th
+          <Table.Th
             key={header.id}
             colSpan={header.colSpan}
             style={{
@@ -57,11 +57,11 @@ const Thead: FC<TheadProps> = ({ isSortable, headerGroups, flexRender }) => (
                 }[String(header.column.getIsSorted())] ?? null)}
               </UnstyledButton>
             )}
-          </th>
+          </Table.Th>
         ))}
-      </tr>
+      </Table.Tr>
     ))}
-  </thead>
+  </Table.Thead>
 );
 
 export default Thead;
