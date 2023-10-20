@@ -17,7 +17,7 @@ const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => (
       className={classes.image}
       alt="App Info"
       src="/images/ship.svg"
-      height="100vh"
+      h="100vh"
     />
 
     <div className={classes.wrapper}>
