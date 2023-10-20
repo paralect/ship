@@ -1,6 +1,6 @@
 import { FC, ReactElement } from 'react';
 
-import { SimpleGrid, Image } from '@mantine/core';
+import { SimpleGrid, Image, Center } from '@mantine/core';
 
 import classes from './UnauthorizedLayout.module.css';
 
@@ -20,11 +20,9 @@ const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => (
       h="100vh"
     />
 
-    <div className={classes.wrapper}>
-      <main className={classes.content}>
-        {children}
-      </main>
-    </div>
+    <Center px={32} w="100%" h="100vh" component="main">
+      {children}
+    </Center>
   </SimpleGrid>
 );
 
