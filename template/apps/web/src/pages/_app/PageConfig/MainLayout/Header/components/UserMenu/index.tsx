@@ -27,6 +27,7 @@ const UserMenu: FC = () => {
         >
           Profile settings
         </Menu.Item>
+
         <Menu.Item
           onClick={() => signOut()}
           leftSection={<IconLogout size={16} />}

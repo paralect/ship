@@ -10,6 +10,8 @@ import { handleError } from 'utils';
 
 import classes from './PhotoUpload.module.css';
 
+const ONE_MB_IN_BYTES = 1048576;
+
 const PhotoUpload = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -21,8 +23,7 @@ const PhotoUpload = () => {
   if (!account) return null;
 
   const isFileSizeCorrect = (file: any) => {
-    const oneMBinBytes = 1048576;
-    if ((file.size / oneMBinBytes) > 2) {
+    if ((file.size / ONE_MB_IN_BYTES) > 2) {
       setErrorMessage('Sorry, you cannot upload a file larger than 2 MB.');
       return false;
     }
