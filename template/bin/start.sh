@@ -5,7 +5,8 @@ Green='\033[0;32m'
 Color_Off='\033[0m'
 
 echo 'You can start services independently'
-echo $Green'./bin/start.sh api migrator scheduler web mailer'
 
-echo $Color_Off
+printf "${Green}./bin/start.sh api migrator scheduler web mailer"
+printf "${Color_Off}\n"
+
 docker-compose up --build "$@"
