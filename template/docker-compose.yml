@@ -36,10 +36,12 @@ services:
       - bash
       - -c
       - |
+        cd /scripts
         chmod +x /setup.sh
         bash /setup.sh
     volumes:
       - ./bin/setup.sh:/setup.sh
+      - ./bin:/scripts
     environment:
       - HOST=mongo
       - PORT=27017
