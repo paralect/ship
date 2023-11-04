@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react';
 
 import { SimpleGrid, Image, Center } from '@mantine/core';
 
-import classes from './UnauthorizedLayout.module.css';
+import classes from './index.module.css';
 
 interface UnauthorizedLayoutProps {
   children: ReactElement;

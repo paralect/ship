@@ -13,7 +13,7 @@ import { handleError } from 'utils';
 
 import PhotoUpload from './components/PhotoUpload';
 
-import classes from './profile.module.css';
+import classes from './index.module.css';
 
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),

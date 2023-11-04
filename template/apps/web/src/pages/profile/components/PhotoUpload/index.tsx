@@ -8,7 +8,7 @@ import { accountApi } from 'resources/account';
 
 import { handleError } from 'utils';
 
-import classes from './PhotoUpload.module.css';
+import classes from './index.module.css';
 
 const ONE_MB_IN_BYTES = 1048576;
 

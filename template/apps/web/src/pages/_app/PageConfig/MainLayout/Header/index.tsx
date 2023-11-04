@@ -11,7 +11,7 @@ import { LogoImage } from 'public/images';
 import UserMenu from './components/UserMenu';
 import ShadowLoginBanner from './components/ShadowLoginBanner';
 
-import classes from './Header.module.css';
+import classes from './index.module.css';
 
 const Header: FC = () => {
   const { data: account } = accountApi.useGet();

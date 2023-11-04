@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { AppShellFooter as LayoutFooter } from '@mantine/core';
 
-import classes from './Footer.module.css';
+import classes from './index.module.css';
 
 const Footer: FC = () => {
   const year = new Date().getFullYear();

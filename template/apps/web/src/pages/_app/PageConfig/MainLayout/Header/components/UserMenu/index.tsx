@@ -9,7 +9,7 @@ import { RoutePath } from 'routes';
 
 import MenuToggle from '../MenuToggle';
 
-import classes from './UserMenu.module.css';
+import classes from './index.module.css';
 
 const UserMenu: FC = () => {
   const { mutate: signOut } = accountApi.useSignOut();

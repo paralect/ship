@@ -24,7 +24,7 @@ import { Table } from 'components';
 
 import { PER_PAGE, columns, selectOptions } from './constants';
 
-import classes from './home.module.css';
+import classes from './index.module.css';
 
 interface UsersListParams {
   page?: number;

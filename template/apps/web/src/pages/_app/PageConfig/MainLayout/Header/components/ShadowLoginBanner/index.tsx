@@ -1,6 +1,6 @@
 import { Paper } from '@mantine/core';
 
-import classes from './ShadowLoginBanner.module.css';
+import classes from './index.module.css';
 
 const ShadowLoginBanner = ({ email }: { email: string }) => (
   <Paper

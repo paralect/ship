@@ -15,7 +15,7 @@ import { RoutePath } from 'routes';
 import { QueryParam } from 'types';
 import { PASSWORD_REGEX } from 'app-constants';
 
-import classes from './reset-password.module.css';
+import classes from './index.module.css';
 
 const schema = z.object({
   password: z.string().regex(
