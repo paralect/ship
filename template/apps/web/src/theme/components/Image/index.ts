@@ -1,6 +1,6 @@
 import { Image } from '@mantine/core';
 
-import classes from './Image.module.css';
+import classes from './index.module.css';
 
 export default Image.extend({
   classNames: {

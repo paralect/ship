@@ -1,7 +1,7 @@
 import { TextInput } from '@mantine/core';
 import cx from 'clsx';
 
-import classes from './TextInput.module.css';
+import classes from './index.module.css';
 
 export default TextInput.extend({
   defaultProps: {

@@ -1,7 +1,7 @@
 import { PasswordInput } from '@mantine/core';
 import cx from 'clsx';
 
-import classes from './PasswordInput.module.css';
+import classes from './index.module.css';
 
 export default PasswordInput.extend({
   defaultProps: {
