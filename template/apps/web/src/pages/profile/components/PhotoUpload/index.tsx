@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Group, Text, Button, Stack } from '@mantine/core';
+import { Group, Text, Button, Stack, BackgroundImage, Center } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
 import { IconPencil, IconPlus } from '@tabler/icons-react';
 import cx from 'clsx';
@@ -73,16 +73,22 @@ const PhotoUpload = () => {
                 })}
               >
                 {account.avatarUrl ? (
-                  <div
+                  <BackgroundImage
                     className={classes.avatar}
-                    style={{
-                      backgroundImage: `url(${account.avatarUrl})`,
-                    }}
+                    w={88}
+                    h={88}
+                    src={account.avatarUrl}
                   >
-                    <div className={classes.innerAvatar}>
+                    <Center
+                      className={classes.innerAvatar}
+                      w="100%"
+                      h="100%"
+                      bg="#10101099"
+                      c="gray.2"
+                    >
                       <IconPencil />
-                    </div>
-                  </div>
+                    </Center>
+                  </BackgroundImage>
                 ) : <IconPlus className={classes.addIcon} />}
               </label>
             </Dropzone>

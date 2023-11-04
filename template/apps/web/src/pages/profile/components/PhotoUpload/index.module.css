@@ -39,15 +39,8 @@
 }
 
 .innerAvatar {
-  width: 88px;
-  height: 88px;
   border-radius: 50%;
-  background-color: #10101099;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--mantine-color-gray-2);
   opacity: 0;
   transition: all 300ms ease-in-out;
 }
@@ -72,8 +65,6 @@
 }
 
 .avatar {
-  width: 88px;
-  height: 88px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
