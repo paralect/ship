@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { CellContext, ColumnDefTemplate, Row } from '@tanstack/react-table';
-import { useMantineTheme } from '@mantine/core';
+import { Table, useMantineTheme } from '@mantine/core';
 
 type RowData = {
   [key: string]: string | number | boolean | Record<string, any>;
@@ -19,9 +19,9 @@ const Tbody: FC<TbodyProps> = ({ isSelectable, rows, flexRender }) => {
   const { colors } = useMantineTheme();
 
   return (
-    <tbody>
+    <Table.Tbody>
       {rows.map((row) => (
-        <tr
+        <Table.Tr
           key={row.id}
           style={{
             ...(isSelectable && row.getIsSelected() && {
@@ -31,13 +31,13 @@ const Tbody: FC<TbodyProps> = ({ isSelectable, rows, flexRender }) => {
           }}
         >
           {row.getVisibleCells().map((cell) => (
-            <td key={cell.id}>
+            <Table.Td key={cell.id}>
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </td>
+            </Table.Td>
           ))}
-        </tr>
+        </Table.Tr>
       ))}
-    </tbody>
+    </Table.Tbody>
   );
 };
 

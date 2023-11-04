@@ -17,15 +17,14 @@ import {
   Tooltip,
 } from '@mantine/core';
 
-import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
-
 import { accountApi } from 'resources/account';
 
+import config from 'config';
 import { Link } from 'components';
 import { handleError } from 'utils';
 import { RoutePath } from 'routes';
 
-import config from 'config';
+import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
 
 import { GoogleIcon } from 'public/icons';
 
@@ -102,6 +101,7 @@ const SignUp: NextPage = () => {
       p={4}
     >
       <Text>Password must:</Text>
+
       {passwordRulesData.map((ruleData) => (
         <Checkbox
           styles={{ label: { color: 'white' } }}
@@ -119,22 +119,23 @@ const SignUp: NextPage = () => {
         <Head>
           <title>Sign up</title>
         </Head>
-        <Stack sx={{ width: '450px' }}>
+        <Stack w={450}>
           <Title order={2}>Thanks!</Title>
-          <Text size="md" sx={({ colors }) => ({ color: colors.gray[5] })}>
+
+          <Text size="md" c="gray.6">
             Please follow the instructions from the email to complete a sign up process.
             We sent an email with a confirmation link to
             {' '}
             <b>{email}</b>
           </Text>
+
           {signupToken && (
-            <div>
-              You look like a cool developer.
-              {' '}
+            <Stack gap={0}>
+              <Text>You look like a cool developer.</Text>
               <Link size="sm" href={`${config.API_URL}/account/verify-email?token=${signupToken}`}>
                 Verify email
               </Link>
-            </div>
+            </Stack>
           )}
         </Stack>
       </>
@@ -146,11 +147,12 @@ const SignUp: NextPage = () => {
       <Head>
         <title>Sign up</title>
       </Head>
-      <Stack sx={{ width: '408px' }} spacing={20}>
-        <Stack spacing={34}>
+      <Stack w={408} gap={20}>
+        <Stack gap={34}>
           <Title order={1}>Sign Up</Title>
+
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={20}>
+            <Stack gap={20}>
               <TextInput
                 {...register('firstName')}
                 label="First Name"
@@ -158,6 +160,7 @@ const SignUp: NextPage = () => {
                 placeholder="First Name"
                 error={errors.firstName?.message}
               />
+
               <TextInput
                 {...register('lastName')}
                 label="Last Name"
@@ -165,12 +168,14 @@ const SignUp: NextPage = () => {
                 placeholder="Last Name"
                 error={errors.lastName?.message}
               />
+
               <TextInput
                 {...register('email')}
                 label="Email Address"
                 placeholder="Email Address"
                 error={errors.email?.message}
               />
+
               <Tooltip
                 label={label}
                 withArrow
@@ -186,6 +191,7 @@ const SignUp: NextPage = () => {
                 />
               </Tooltip>
             </Stack>
+
             <Button
               type="submit"
               loading={isSignUpLoading}
@@ -196,16 +202,18 @@ const SignUp: NextPage = () => {
             </Button>
           </form>
         </Stack>
-        <Stack spacing={34}>
+
+        <Stack gap={34}>
           <Button
             component="a"
-            leftIcon={<GoogleIcon />}
+            leftSection={<GoogleIcon />}
             href={`${config.API_URL}/account/sign-in/google/auth`}
             variant="outline"
           >
             Continue with Google
           </Button>
-          <Group sx={{ fontSize: '16px', justifyContent: 'center' }} spacing={12}>
+
+          <Group fz={16} justify="center" gap={12}>
             Have an account?
             <Link
               type="router"

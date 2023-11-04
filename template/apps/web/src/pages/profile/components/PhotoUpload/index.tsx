@@ -1,17 +1,19 @@
 import { memo, useState } from 'react';
-import { Group, Text, Button, Stack } from '@mantine/core';
+import { Group, Text, Button, Stack, BackgroundImage, Center } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
 import { IconPencil, IconPlus } from '@tabler/icons-react';
+import cx from 'clsx';
 
 import { accountApi } from 'resources/account';
 
 import { handleError } from 'utils';
 
-import { useStyles } from './styles';
+import classes from './index.module.css';
+
+const ONE_MB_IN_BYTES = 1048576;
 
 const PhotoUpload = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { classes, cx } = useStyles();
 
   const { data: account } = accountApi.useGet();
 
@@ -21,8 +23,7 @@ const PhotoUpload = () => {
   if (!account) return null;
 
   const isFileSizeCorrect = (file: any) => {
-    const oneMBinBytes = 1048576;
-    if ((file.size / oneMBinBytes) > 2) {
+    if ((file.size / ONE_MB_IN_BYTES) > 2) {
       setErrorMessage('Sorry, you cannot upload a file larger than 2 MB.');
       return false;
     }
@@ -56,8 +57,8 @@ const PhotoUpload = () => {
   return (
     <>
       <Stack>
-        <Group align="flex-start" spacing={32}>
-          <Stack align="center" spacing={10}>
+        <Group align="flex-start" gap={32}>
+          <Stack align="center" gap={10}>
             <Dropzone
               name="avatarUrl"
               accept={['image/png', 'image/jpg', 'image/jpeg']}
@@ -72,19 +73,26 @@ const PhotoUpload = () => {
                 })}
               >
                 {account.avatarUrl ? (
-                  <div
+                  <BackgroundImage
                     className={classes.avatar}
-                    style={{
-                      backgroundImage: `url(${account.avatarUrl})`,
-                    }}
+                    w={88}
+                    h={88}
+                    src={account.avatarUrl}
                   >
-                    <div className={classes.innerAvatar}>
+                    <Center
+                      className={classes.innerAvatar}
+                      w="100%"
+                      h="100%"
+                      bg="#10101099"
+                      c="gray.2"
+                    >
                       <IconPencil />
-                    </div>
-                  </div>
+                    </Center>
+                  </BackgroundImage>
                 ) : <IconPlus className={classes.addIcon} />}
               </label>
             </Dropzone>
+
             {account.avatarUrl && (
               <Button
                 type="submit"
@@ -96,8 +104,10 @@ const PhotoUpload = () => {
               </Button>
             )}
           </Stack>
-          <Stack spacing={4} pt={6}>
-            <Text weight={600} size="lg">Profile picture</Text>
+
+          <Stack gap={4} pt={6}>
+            <Text fw={600} size="lg">Profile picture</Text>
+
             <Text className={classes.text}>
               JPG, JPEG or PNG
               Max size = 2MB

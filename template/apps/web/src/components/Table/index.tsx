@@ -68,15 +68,6 @@ const Table: FC<TableProps> = ({
         checked={table.getIsAllRowsSelected()}
         indeterminate={table.getIsSomeRowsSelected()}
         onChange={table.getToggleAllRowsSelectedHandler()}
-        sx={(theme) => ({
-          ...(table.getIsSomeRowsSelected() && {
-            '& .mantine-Checkbox-input': {
-              backgroundColor: theme.colors.blue[6],
-              border: 'none',
-            },
-          }),
-          color: theme.white,
-        })}
       />
     ),
     cell: ({ row }) => (
@@ -151,9 +142,10 @@ const Table: FC<TableProps> = ({
           />
         </TableContainer>
       </Paper>
-      <Group position="right">
+
+      <Group justify="flex-end">
         {dataCount && (
-          <Text size="sm" color="dimmed">
+          <Text size="sm" c="gray.6">
             Showing
             {' '}
             <b>{table.getRowModel().rows.length}</b>
