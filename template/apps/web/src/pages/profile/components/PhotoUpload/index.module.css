@@ -25,7 +25,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all var(--mantine-transition-speed-fast) var(--mantine-transition-easing-easeInOut);
+  transition: all 200ms ease-in-out;
   cursor: pointer;
 }
 
@@ -35,7 +35,7 @@
 
 .addIcon {
   color: var(--mantine-color-blue-6);
-  transition: all var(--mantine-transition-speed-fast) var(--mantine-transition-easing-easeInOut);
+  transition: all 200ms ease-in-out;
 }
 
 .innerAvatar {
@@ -49,7 +49,7 @@
   align-items: center;
   color: var(--mantine-color-gray-2);
   opacity: 0;
-  transition: all var(--mantine-transition-speed-smooth) var(--mantine-transition-easing-easeInOut);
+  transition: all 300ms ease-in-out;
 }
 
 .text {
