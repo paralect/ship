@@ -1,0 +1,9 @@
+---
+title: "Routing"
+---
+
+## Overview
+
+Routing in app is presented by [NextJS pages router](https://nextjs.org/docs/pages). Every route should have it own scope and layout specified in `routes.ts` file in `routesConfiguration` object, that handled by `PageConfig` component in `_app` folder that wraps every page.
+
+Every file that represents page route must have `.page.tsx` postfix and every NextJS API route or middleware must must have `.api.ts` postfix. You can change this in `next.config.js`

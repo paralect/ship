@@ -1,0 +1,39 @@
+---
+title: "Calling API"
+---
+
+## Overview
+
+In Ship we are using [React-Query](https://tanstack.com/query/v3/docs/react/overview) and own wrapper around axios as data-fetching tools. All queries are located in `/resources` folder with the corresponding sub-folder for each resource. React-Query provides convinient way for accessing your data, so for each endpoint in our API we have corresponding React hook.
+
+When fetching data with **apiService** you don't need to specify full URL (base URL for API will be taken from `API_URL` env variable) and explicitly specify where should be placed data in your request body or query parameters. Since in `GET` requests body is meaningless, all your data will be passed as request parameters, in other request methods all your data will be placed in request's body.
+
+## Examples
+
+```typescript
+//  resources/account/account.api.ts
+export function useUpdate<T>() {
+  const update = (data: T) => apiService.put("/account", data);
+
+  return useMutation<User, unknown, T>(update);
+}
+
+//  resources/user/user.api.ts
+export function useList<T>(params: T) {
+  const list = () => apiService.get("/users", params);
+
+  interface UserListResponse {
+    count: number;
+    items: User[];
+    totalPages: number;
+  }
+
+  return useQuery<UserListResponse>(["users", params], list);
+}
+
+//  in Component or Page
+const { mutate: update, isLoading: isUpdateLoading } =
+  accountApi.useUpdate<UpdateParams>();
+
+const { data, isLoading: isListLoading } = userApi.useList(params);
+```
