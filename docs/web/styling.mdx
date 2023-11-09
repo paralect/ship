@@ -5,3 +5,56 @@ title: "Styling"
 Styling is essential part of every web application, so we tried to make it as fact and convenient as possible, with the help of [Mantine UI](https://mantine.dev/) library. It provides huge variety of customizable components and hooks.
 
 Mantine's [theme object](https://mantine.dev/theming/theme-object/) makes it possible to build your own design system on top of library.
+
+## Examples
+
+```tsx
+import { Button, Center, Container, Image, Stack, Text } from "@mantine/core";
+
+const PaymentSuccess: NextPage = () => {
+  const handleClick = useCallback(() => {
+    console.log("Hello");
+  }, []);
+
+  return (
+    <Center>
+      <Container
+        m="32px 0 0"
+        p="md"
+        bg="white"
+        maw={480}
+        w="100%"
+      >
+        <Stack spacing={32} align="center">
+          <Image
+            src="../images/payment_error.png"
+            alt="payment error"
+            height={48}
+            width={48}
+          />
+          <Stack spacing="sm" align="center">
+            <Text weight={600} size="lg">
+              Payment Failed
+            </Text>
+            <Text weight={400} size="sm" color="black.3">
+              Sorry, your payment failed.
+              <br />
+              Would you like to try again?
+            </Text>
+          </Stack>
+          <Button
+            h={40}
+            w={186}
+            size="xs"
+            bg="blue.5"
+            radius={8}
+            onClick={handleClick}
+          >
+            Back to Cart
+          </Button>
+        </Stack>
+      </Container>
+    </Center>
+  );
+};
+```

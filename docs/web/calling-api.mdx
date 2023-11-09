@@ -4,7 +4,34 @@ title: "Calling API"
 
 ## Overview
 
-In Ship we are using [React-Query](https://tanstack.com/query/v3/docs/react/overview) and own wrapper around axios as data-fetching tools. All queries are located in `/resources` folder with the corresponding sub-folder for each resource. React-Query provides convinient way for accessing your data, so for each endpoint in our API we have corresponding React hook.
+In Ship we are using [React-Query](https://tanstack.com/query/v3/docs/react/overview) and own wrapper around axios as data-fetching tools. All queries are located in `/resources` folder with the corresponding sub-folder for each resource. React-Query provides convenient way for accessing your data, so for each endpoint in our API we have corresponding React hook. For each entity we have number of hooks that represent all possible endpoints available at your api with that entity. We recommend naming all your resource hooks the same as the corresponding API action.
+
+```typescript
+// On API side
+// resources/account/actions/sign-in.ts
+async function handler(ctx: AppKoaContext<ValidatedData>) {
+  // handler here
+}
+export default (router: AppRouter) => {
+  router.post("/sign-in", handler);
+};
+
+// On Web side
+// resources/account/account.api.ts
+export function useSignIn<T>() {
+  const signIn = (data: T) => apiService.post("/account/sign-in", data);
+
+  return useMutation<User, unknown, T>(signIn, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(["account"], data);
+    },
+  });
+}
+```
+
+To avoid situations when you're casting response into type that don't really represent real response, we suggest using some common types (also schemes, enums, and constants) across api and web part of application. All such data should be place under top-level `/packages` folder.
+
+### APIService
 
 When fetching data with **apiService** you don't need to specify full URL (base URL for API will be taken from `API_URL` env variable) and explicitly specify where should be placed data in your request body or query parameters. Since in `GET` requests body is meaningless, all your data will be passed as request parameters, in other request methods all your data will be placed in request's body.
 

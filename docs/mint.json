@@ -71,7 +71,8 @@
             "web/overview",
             "web/routing",
             "web/calling-api",
-            "web/styling"
+            "web/styling",
+            "web/forms"
           ]
         },
         {
