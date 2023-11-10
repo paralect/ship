@@ -71,6 +71,7 @@
             "web/overview",
             "web/routing",
             "web/calling-api",
+            "web/entity-handlers",
             "web/styling",
             "web/forms",
             "web/services",

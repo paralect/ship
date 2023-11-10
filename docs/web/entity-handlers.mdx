@@ -1,0 +1,27 @@
+---
+title: Entity handlers
+---
+
+## Overview
+
+Entity handlers are responsible for handling entity events and performing actions based on those events.
+
+## Examples
+
+```typescript
+// src/resources/user/user.handlers.ts
+
+import queryClient from 'query-client';
+import { apiService, socketService } from 'services';
+import { User } from 'types';
+
+socketService.on('connect', () => {
+  const account = queryClient.getQueryData(['account']) as User;
+
+  socketService.emit('subscribe', `user-${account._id}`);
+});
+
+socketService.on('user:updated', (data: User) => {
+  queryClient.setQueryData(['account'], data);
+});
+```
