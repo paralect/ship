@@ -13,6 +13,7 @@ To make process of building and handling forms easier, we're using [react-hook-f
 ```typescript
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from 'zod'
 
 const schema = z.object({
   firstName: z.string().min(1, "Please enter First name").max(100),
@@ -30,3 +31,51 @@ const Page = () => {
   // your code here
 };
 ```
+
+### Error handling
+
+For handling form errors we wrote `handler-error.util.ts` utility function. It will parse error messages and set to error state according form fields, or show global notification on page if the error is global.
+
+#### Usage
+
+```tsx
+import { handleError } from 'utils';
+import { accountApi } from 'resources/account';
+import { useForm } from 'react-hook-form';
+import { TextInput } from '@mantine/core'
+import { z } from 'zod'
+
+const schema = z.object({
+  // your schema
+})
+
+type FormParams = z.infer<typeof schema>;
+
+const Page: NextPage = () => {
+  const { mutate: signUp } = accountApi.useSignUp();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<FormParams>({
+    resolver: zodResolver(schema),
+  });
+  
+  const onSubmit = (data: FormParams) => signUp(data, {
+    onError: (e) => handleError(e, setError),
+  //                    ^
+  // setting onError field of form action to handle errors
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <TextInput 
+        {...register('name')} 
+        error={errors.password?.message}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+````
