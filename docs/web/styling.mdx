@@ -4,7 +4,52 @@ title: "Styling"
 
 Styling is essential part of every web application, so we tried to make it as fact and convenient as possible, with the help of [Mantine UI](https://mantine.dev/) library. It provides huge variety of customizable components and hooks.
 
-Mantine's [theme object](https://mantine.dev/theming/theme-object/) makes it possible to build your own design system on top of library.
+
+## Theme
+
+Mantine's [theme object](https://mantine.dev/theming/theme-object/) makes it possible to build your own design system on top of library. It allows you to extend existing mantine's component with your own styles.
+```typescript
+// src/theme/components/PasswordInput/index.ts
+import { PasswordInput } from '@mantine/core';
+import cx from 'clsx';
+import classes from './index.module.css';
+
+export default PasswordInput.extend({
+  defaultProps: {
+    size: 'lg',
+  },
+  classNames: (_, props) => ({
+    innerInput: cx(classes.innerInput, {
+      [classes.innerInputError]: props.error,
+    }),
+    label: classes.label,
+    input: cx({
+      [classes.inputError]: props.error,
+    }),
+  }),
+});
+
+// src/theme/main-theme.ts
+import { createTheme } from '@mantine/core';
+import * as components from './components';
+
+const mainTheme = createTheme({
+  fontFamily: 'Roboto, sans-serif',
+  fontFamilyMonospace: 'monospace',
+  headings: {
+    fontFamily: 'Roboto, sans-serif',
+    fontWeight: '600',
+  },
+  lineHeights: {
+    md: '1.45',
+  },
+  primaryColor: 'blue',
+  primaryShade: 6,
+  components,
+});
+
+export default mainTheme;
+```
 
 ## Examples
 
