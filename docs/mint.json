@@ -73,7 +73,8 @@
             "web/calling-api",
             "web/styling",
             "web/forms",
-            "web/services"
+            "web/services",
+            "web/env"
           ]
         },
         {
