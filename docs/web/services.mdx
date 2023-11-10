@@ -1,0 +1,19 @@
+---
+title: Services
+---
+
+## Overview
+
+Service is object, class or function that handles specific functionality or data manipulation within application. In our case those are `api.service`, `socket.service`, `analytics.service`. It's also can be set of functions needed to work with some third party APIs or services collecting app metrics. You are free to add any other services.
+
+#### API Service
+
+Api Service is represented by `ApiClient` object that wraps axios client for better error handling and easier configuration.
+
+#### Socket Service
+
+Socket Service is a set of functions needed to handle websocket connection.
+
+#### Analytics Service
+
+Analytics Service is a set of functionality that help working with third party analytics systems. We are using [Mixpanel](https://mixpanel.com/), but you are free to use any other analytics platform.
