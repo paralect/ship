@@ -4,6 +4,108 @@ title: "Routing"
 
 ## Overview
 
-Routing in app is presented by [NextJS pages router](https://nextjs.org/docs/pages). Every route should have it own scope and layout specified in `routes.ts` file in `routesConfiguration` object, that handled by `PageConfig` component in `_app` folder that wraps every page.
+Routing in app is presented by [NextJS pages router](https://nextjs.org/docs/pages). Every route should have it own scope and layout specified in `src/routes.ts` file in `routesConfiguration` object, that handled by `PageConfig` component in `_app` folder that wraps every page.
 
+```typescript
+//  src/routes.ts
+export enum ScopeType {
+  PUBLIC = 'PUBLIC',
+  PRIVATE = 'PRIVATE',
+}
+
+export enum LayoutType {
+  MAIN = 'MAIN',
+  UNAUTHORIZED = 'UNAUTHORIZED',
+}
+
+export enum RoutePath {
+  // Private paths
+  Home = '/',
+  Profile = '/profile',
+
+  // Auth paths
+  SignIn = '/sign-in',
+  SignUp = '/sign-up',
+
+  NotFound = '/404',
+}
+
+type RoutesConfiguration = {
+  [routePath in RoutePath]: {
+    scope?: ScopeType;
+    layout?: LayoutType;
+  };
+};
+
+export const routesConfiguration: RoutesConfiguration = {
+  // Private routes
+  [RoutePath.Home]: {
+    scope: ScopeType.PRIVATE,
+    layout: LayoutType.MAIN,
+  },
+  [RoutePath.Profile]: {
+    scope: ScopeType.PRIVATE,
+    layout: LayoutType.MAIN,
+  },
+
+  // Auth routes
+  [RoutePath.SignIn]: {
+    scope: ScopeType.PUBLIC,
+    layout: LayoutType.UNAUTHORIZED,
+  },
+  [RoutePath.SignUp]: {
+    scope: ScopeType.PUBLIC,
+    layout: LayoutType.UNAUTHORIZED,
+  }
+
+  [RoutePath.NotFound]: {},
+};
+```
+We recommend to stick with this routes declaration structure since `PageConfig` relates on it. Below is possible logic implementation beyond `PageConfig`.
+
+```tsx
+// pages/_app/PageConfig/index.tsx
+import { routesConfiguration, ScopeType, LayoutType, RoutePath } from 'routes';
+
+const layoutToComponent = {
+  [LayoutType.MAIN]: MainLayout,
+  [LayoutType.UNAUTHORIZED]: UnauthorizedLayout,
+};
+
+const scopeToComponent = {
+  [ScopeType.PUBLIC]: Fragment,
+  [ScopeType.PRIVATE]: PrivateScope,
+};
+
+const PageConfig: FC = ({ children }) => {
+  const { route, push } = useRouter();
+  const { data: account, isLoading: isAccountLoading } = accountApi.useGet();
+
+  if (isAccountLoading) return null;
+
+  const { scope, layout } = routesConfiguration[route as RoutePath] || {};
+  const Scope = scope ? scopeToComponent[scope] : Fragment;
+  const Layout = layout ? layoutToComponent[layout] : Fragment;
+
+  if (scope === ScopeType.PRIVATE && !account) {
+    push(RoutePath.SignIn);
+    return null;
+  }
+
+  if (scope === ScopeType.PUBLIC && account) {
+    push(RoutePath.Home);
+    return null;
+  }
+
+  return (
+    <Scope>
+      <Layout>
+        {children}
+      </Layout>
+    </Scope>
+  );
+};
+```
+<Note>
 Every file that represents page route must have `.page.tsx` postfix and every NextJS API route or middleware must must have `.api.ts` postfix. You can change this in `next.config.js`
+</Note>
