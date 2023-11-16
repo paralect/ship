@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { User } from 'types';
 
@@ -13,5 +13,8 @@ export function useList<T>(params: T) {
     totalPages: number;
   }
 
-  return useQuery<UserListResponse>(['users', params], list);
+  return useQuery<UserListResponse>({
+    queryKey: ['users', params],
+    queryFn: list,
+  });
 }

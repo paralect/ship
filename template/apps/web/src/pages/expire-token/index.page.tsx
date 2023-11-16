@@ -24,7 +24,7 @@ const ForgotPassword: NextPage = () => {
 
   const {
     mutate: resendEmail,
-    isLoading: isResendEmailLoading,
+    isPending: isResendEmailPending,
   } = accountApi.useResendEmail<ForgotPasswordParams>();
 
   const onSubmit = () => resendEmail({ email }, {
@@ -63,7 +63,7 @@ const ForgotPassword: NextPage = () => {
         </Text>
 
         <Button
-          loading={isResendEmailLoading}
+          loading={isResendEmailPending}
           fullWidth
           onClick={onSubmit}
         >

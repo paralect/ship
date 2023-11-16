@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { showNotification } from '@mantine/notifications';
 import Head from 'next/head';
 import { NextPage } from 'next';
@@ -46,7 +46,7 @@ const Profile: NextPage = () => {
 
   const {
     mutate: updateCurrent,
-    isLoading: isUpdateLoading,
+    isPending: isUpdatePending,
   } = accountApi.useUpdate<UpdateParams>();
 
   const onSubmit = (submitData: UpdateParams) => updateCurrent(submitData, {
@@ -119,7 +119,7 @@ const Profile: NextPage = () => {
 
           <Button
             type="submit"
-            loading={isUpdateLoading}
+            loading={isUpdatePending}
           >
             Update Profile
           </Button>

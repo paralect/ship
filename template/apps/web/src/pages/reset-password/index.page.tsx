@@ -40,7 +40,7 @@ const ResetPassword: NextPage = () => {
 
   const {
     mutate: resetPassword,
-    isLoading: isResetPasswordLoading,
+    isPending: isResetPasswordLoading,
   } = accountApi.useResetPassword<ResetPasswordParams & { token: QueryParam }>();
 
   const onSubmit = ({ password }: ResetPasswordParams) => resetPassword({

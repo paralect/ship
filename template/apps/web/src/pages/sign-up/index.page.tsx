@@ -82,7 +82,7 @@ const SignUp: NextPage = () => {
     setPasswordRulesData(updatedPasswordRulesData);
   }, [passwordValue]);
 
-  const { mutate: signUp, isLoading: isSignUpLoading } = accountApi.useSignUp<SignUpParams>();
+  const { mutate: signUp, isPending: isSignUpPending } = accountApi.useSignUp<SignUpParams>();
 
   const onSubmit = (data: SignUpParams) => signUp(data, {
     onSuccess: (response: any) => {
@@ -194,7 +194,7 @@ const SignUp: NextPage = () => {
 
             <Button
               type="submit"
-              loading={isSignUpLoading}
+              loading={isSignUpPending}
               fullWidth
               mt={34}
             >
