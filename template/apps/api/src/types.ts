@@ -3,7 +3,9 @@ import Router from '@koa/router';
 
 import { Template } from 'mailer';
 
-import { User } from './user.types';
+import { User } from 'app-types';
+
+export * from 'app-types';
 
 export type AppKoaContextState = {
   user: User;

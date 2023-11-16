@@ -52,7 +52,7 @@
     "redis": "4.6.5",
     "schemas": "workspace:*",
     "socket.io": "4.6.1",
-    "types": "workspace:*",
+    "app-types": "npm:types",
     "winston": "3.8.2",
     "zod": "3.21.4"
   },
