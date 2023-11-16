@@ -57,7 +57,7 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 
 1. Select the appropriate type. Dedicated for a production environment, shared for staging/demo.
 2. Select provider and region. We recommend selecting the same or closest region to the DO application.
-3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M10 or higher.
+3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M2 or higher.
 4. Enter cluster name
 
 ![Mongo cluster](/images/mongo-create.png)
@@ -65,6 +65,11 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 ### Security and connection
 
 After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
+
+<Warning>
+Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password. 
+Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
+</Warning>
 
 ![Mongo setup authentication](/images/mongo-create-password.png)
 
@@ -104,7 +109,7 @@ Navigate to the Digital Ocean Control Panel and select the **Apps** tab. The `Fu
 
 
 ### Initial step
-1. Select GitHub as a service provider. You might need to grant Digital Ocean access to your GitHub account.
+1. Select GitHub as a service provider. You might need to grant Digital Ocean access to your GitHub account or organization.
 2. Select the repository with the application.
 3. Select a branch for deployment.
 4. Select the source directory if the code is in a subfolder.It should `apps/web` for web application and `apps/api` for api.
@@ -171,6 +176,8 @@ This adjustment is necessary to ensure the correct configuration and operation o
 
 ## Cloudflare
 
+Before this step you need to register a domain name, usually we already have it if not, look: [Register a new domain](https://developers.cloudflare.com/registrar/get-started/register-domain) 
+
 Navigate to your Digital ocean application and open `Settings` tab. Select `Domains` row to open domain settings and click `Add domain` button
 
 ![Digital Ocean domains](/images/do-domains.png)
@@ -202,7 +209,8 @@ You can find two github actions in the `.github/workflows` folder, responsible f
 These actions require a Digital Ocean access token and application ID. Respectively these are `DO_ACCESS_TOKEN` and `DO_API_STAGING_APP_ID`/`DO_WEB_STAGING_APP_ID`/`DO_API_PRODUCTION_APP_ID`/`DO_WEB_PRODUCTION_APP_ID`.
 
 Navigate to digital ocean and open the **API** tab on the left sidebar.
-Click **Generate new token** and choose name and expiration period, and leave checkboxes as they are.
+Click **Generate new token**, select a name and set the expiration period.
+Also, pick both **read** and **write** permissions for the scope.
 
 ![Do access token create](/images/do-access-token-create.png)
 

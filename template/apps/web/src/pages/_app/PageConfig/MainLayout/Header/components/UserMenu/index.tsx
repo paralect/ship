@@ -3,10 +3,13 @@ import { memo, FC } from 'react';
 import { Menu } from '@mantine/core';
 import { IconUserCircle, IconLogout } from '@tabler/icons-react';
 
-import { RoutePath } from 'routes';
 import { accountApi } from 'resources/account';
 
+import { RoutePath } from 'routes';
+
 import MenuToggle from '../MenuToggle';
+
+import classes from './index.module.css';
 
 const UserMenu: FC = () => {
   const { mutate: signOut } = accountApi.useSignOut();
@@ -16,24 +19,18 @@ const UserMenu: FC = () => {
       <Menu.Target>
         <MenuToggle />
       </Menu.Target>
-      <Menu.Dropdown
-        sx={(theme) => ({
-          left: 'unset !important',
-          right: '30px !important',
-          boxShadow: 'unset !important',
-          border: `1px solid ${theme.colors.gray[4]}`,
-        })}
-      >
+      <Menu.Dropdown className={classes.dropdown}>
         <Menu.Item
           component={Link}
           href={RoutePath.Profile}
-          icon={<IconUserCircle size={16} />}
+          leftSection={<IconUserCircle size={16} />}
         >
           Profile settings
         </Menu.Item>
+
         <Menu.Item
           onClick={() => signOut()}
-          icon={<IconLogout size={16} />}
+          leftSection={<IconLogout size={16} />}
         >
           Log out
         </Menu.Item>

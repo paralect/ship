@@ -1,5 +1,6 @@
-import { authService } from 'services';
 import { AppKoaContext, AppRouter } from 'types';
+
+import { authService } from 'services';
 
 const handler = async (ctx: AppKoaContext) => {
   await authService.unsetTokens(ctx);

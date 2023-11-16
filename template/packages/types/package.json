@@ -1,0 +1,30 @@
+{
+  "name": "types",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "ts-lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "@koa/router": "*",
+    "enums": "workspace:*",
+    "koa": "*",
+    "mailer": "workspace:*",
+    "schemas": "workspace:*",
+    "zod": "*"
+  },
+  "devDependencies": {
+    "@types/koa": "*",
+    "@types/koa__router": "*",
+    "eslint": "*",
+    "lint-staged": "*",
+    "typescript": "*"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext ts --ext tsx --fix"
+    ]
+  }
+}

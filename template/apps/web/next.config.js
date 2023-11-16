@@ -29,4 +29,5 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  transpilePackages: ['types', 'schemas', 'app-constants'],
 };

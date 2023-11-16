@@ -1,0 +1,72 @@
+.dropzoneRoot {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background-color: transparent;
+
+  &:hover .addIcon {
+    color: var(--mantine-color-gray-5);
+  }
+
+  &:hover .browseButton {
+    border: 1px dashed var(--mantine-color-gray-5);
+  }
+
+  &:hover .innerAvatar {
+    opacity: 1;
+  }
+}
+
+.browseButton {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 1px dashed var(--mantine-color-blue-6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+}
+
+.error {
+  border: 1px dashed var(--mantine-color-red-5);
+}
+
+.addIcon {
+  color: var(--mantine-color-blue-6);
+  transition: all 200ms ease-in-out;
+}
+
+.innerAvatar {
+  border-radius: 50%;
+
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+
+.text {
+  width: 144px;
+  line-height: 24px;
+  color: var(--mantine-color-gray-6);
+  word-wrap: break-word;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+}
+
+.errorMessage {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--mantine-color-red-5);
+}
+
+.avatar {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}

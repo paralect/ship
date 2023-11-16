@@ -1,8 +1,10 @@
 import { z } from 'zod';
 
 import { AppKoaContext, AppRouter } from 'types';
-import { validateMiddleware } from 'middlewares';
+
 import { userService } from 'resources/user';
+
+import { validateMiddleware } from 'middlewares';
 
 const schema = z.object({
   page: z.string().transform(Number).default('1'),

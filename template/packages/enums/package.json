@@ -1,0 +1,20 @@
+{
+  "name": "enums",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "ts-lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "precommit": "lint-staged"
+  },
+  "devDependencies": {
+    "lint-staged": "*",
+    "typescript": "*",
+    "eslint": "*"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext ts --ext tsx --fix"
+    ]
+  }
+}

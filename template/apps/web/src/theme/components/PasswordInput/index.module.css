@@ -1,0 +1,18 @@
+.innerInput {
+  font-size: '16px !important';
+
+  &::placeholder {
+    color: '#6d747b';
+  }
+}
+
+.innerInputError {
+  &::placeholder {
+    color: var(--mantine-color-red-6);
+  }
+}
+
+.label {
+  font-size: 18px;
+  font-weight: 600;
+}

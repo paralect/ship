@@ -1,4 +1,5 @@
 import winston from 'winston';
+
 import config from 'config';
 
 const formatToPrettyJson = winston.format.printf(info => {

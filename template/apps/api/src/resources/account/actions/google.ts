@@ -1,8 +1,10 @@
-import config from 'config';
+import { AppRouter, AppKoaContext } from 'types';
 
 import { userService } from 'resources/user';
+
 import { googleService, authService } from 'services';
-import { AppRouter, AppKoaContext } from 'types';
+
+import config from 'config';
 
 type ValidatedData = {
   given_name: string;

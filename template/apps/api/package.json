@@ -9,12 +9,12 @@
     "test": "run-s test:**",
     "test:lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "test:unit": "jest --runInBand -c ./jest.config.ts --collectCoverage false",
-    "dev": "NODE_ENV=development APP_ENV=development nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json src/app.ts",
-    "start": "node dist/src/app.js",
-    "migrate-dev": "NODE_ENV=development APP_ENV=development ts-node ./src/migrator.ts",
-    "migrate": "node dist/src/migrator.js",
-    "schedule-dev": "NODE_ENV=development APP_ENV=development nodemon --watch src -e ts,tsx --exec ts-node --project tsconfig.json ./src/scheduler.ts",
-    "schedule": "node dist/src/scheduler.js",
+    "dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only src/app.ts",
+    "start": "ts-node src/app.ts",
+    "migrate-dev": "NODE_ENV=development APP_ENV=development ts-node src/migrator.ts",
+    "migrate": "ts-node src/migrator.ts",
+    "schedule-dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only src/scheduler.ts",
+    "schedule": "ts-node src/scheduler.ts",
     "precommit": "lint-staged"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "@sendgrid/mail": "7.7.0",
     "@socket.io/redis-adapter": "8.1.0",
     "@socket.io/redis-emitter": "5.1.0",
+    "app-constants": "workspace:*",
     "bcryptjs": "2.4.3",
     "dotenv": "16.0.3",
     "google-auth-library": "8.7.0",
@@ -49,7 +50,9 @@
     "npm": "9.6.1",
     "psl": "1.9.0",
     "redis": "4.6.5",
+    "schemas": "workspace:*",
     "socket.io": "4.6.1",
+    "types": "workspace:*",
     "winston": "3.8.2",
     "zod": "3.21.4"
   },
@@ -86,6 +89,7 @@
     "npm-run-all": "4.1.5",
     "ts-jest": "29.0.5",
     "ts-node": "10.9.1",
+    "ts-node-dev": "2.0.0",
     "typescript": "4.9.5"
   },
   "lint-staged": {

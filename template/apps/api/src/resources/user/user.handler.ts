@@ -1,10 +1,11 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
+import { User } from 'types';
+import { DATABASE_DOCUMENTS } from 'app-constants';
+
 import logger from 'logger';
 import ioEmitter from 'io-emitter';
-import { DATABASE_DOCUMENTS } from 'app.constants';
 
-import { User } from './user.types';
 import { userService } from './index';
 
 const { USERS } = DATABASE_DOCUMENTS;

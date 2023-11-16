@@ -7,14 +7,16 @@ import Head from 'next/head';
 import { NextPage } from 'next';
 import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
 
-import { RoutePath } from 'routes';
-import { handleError } from 'utils';
-import { Link } from 'components';
+import { accountApi } from 'resources/account';
 
-import { accountApi, accountConstants } from 'resources/account';
+import { Link } from 'components';
+import { handleError } from 'utils';
+import { RoutePath } from 'routes';
+
+import { EMAIL_REGEX } from 'app-constants';
 
 const schema = z.object({
-  email: z.string().regex(accountConstants.emailRegex, 'Email format is incorrect.'),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
 });
 
 type ForgotPasswordParams = {
@@ -50,15 +52,17 @@ const ForgotPassword: NextPage = () => {
         <Head>
           <title>Forgot password</title>
         </Head>
-        <Stack sx={{ width: '328px' }}>
+        <Stack w={328}>
           <Title order={2}>Reset link has been sent</Title>
-          <Text component="p">
+
+          <Text>
             A link to reset your password has just been sent to
             {' '}
             <b>{email}</b>
             . Please check your email inbox and follow the
             directions to reset your password.
           </Text>
+
           <Button onClick={() => router.push(RoutePath.SignIn)}>
             Back to Sign In
           </Button>
@@ -72,14 +76,15 @@ const ForgotPassword: NextPage = () => {
       <Head>
         <title>Forgot password</title>
       </Head>
-      <Stack sx={{ width: '408px', fontSize: '18px' }} spacing={34}>
-        <Title order={1} sx={{ marginBottom: 0 }}>Forgot Password</Title>
-        <Text component="p" m={0}>
-          Please enter your email and we&apos;ll send
-          a link to reset your password.
+      <Stack w={408} fz={18} gap={34}>
+        <Title order={1} mb={0}>Forgot Password</Title>
+
+        <Text m={0}>
+          Please enter your email and we&apos;ll send a link to reset your password.
         </Text>
+
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack spacing={34}>
+          <Stack gap={34}>
             <TextInput
               {...register('email')}
               type="email"
@@ -90,6 +95,7 @@ const ForgotPassword: NextPage = () => {
               placeholder="Your email address"
               error={errors.email?.message}
             />
+
             <Button
               type="submit"
               loading={isForgotPasswordLoading}
@@ -98,7 +104,8 @@ const ForgotPassword: NextPage = () => {
             </Button>
           </Stack>
         </form>
-        <Group sx={{ fontSize: '16px', justifyContent: 'center' }}>
+
+        <Group fz={16} justify="center">
           Have an account?
           <Link
             type="router"

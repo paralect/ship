@@ -6,17 +6,19 @@ import { NextPage } from 'next';
 import { TextInput, PasswordInput, Button, Group, Stack, Title, Alert } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 
-import { GoogleIcon } from 'public/icons';
+import { accountApi } from 'resources/account';
 
 import config from 'config';
-import { RoutePath } from 'routes';
 import { handleError } from 'utils';
+import { RoutePath } from 'routes';
 import { Link } from 'components';
 
-import { accountApi, accountConstants } from 'resources/account';
+import { EMAIL_REGEX } from 'app-constants';
+
+import { GoogleIcon } from 'public/icons';
 
 const schema = z.object({
-  email: z.string().regex(accountConstants.emailRegex, 'Email format is incorrect.'),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
   password: z.string().min(1, 'Please enter password'),
 });
 
@@ -38,28 +40,32 @@ const SignIn: NextPage = () => {
       <Head>
         <title>Sign in</title>
       </Head>
-      <Stack sx={{ width: '408px' }} spacing={20}>
-        <Stack spacing={34}>
+      <Stack w={408} gap={20}>
+        <Stack gap={34}>
           <Title order={1}>Sign In</Title>
+
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={20}>
+            <Stack gap={20}>
               <TextInput
                 {...register('email')}
                 label="Email Address"
                 placeholder="Email Address"
                 error={errors.email?.message}
               />
+
               <PasswordInput
                 {...register('password')}
                 label="Password"
                 placeholder="Enter password"
                 error={errors.password?.message}
               />
+
               {errors!.credentials && (
                 <Alert icon={<IconAlertCircle size={16} />} color="red">
                   {errors.credentials.message}
                 </Alert>
               )}
+
               <Link
                 href={RoutePath.ForgotPassword}
                 type="router"
@@ -70,6 +76,7 @@ const SignIn: NextPage = () => {
                 Forgot password?
               </Link>
             </Stack>
+
             <Button
               loading={isSignInLoading}
               type="submit"
@@ -81,16 +88,17 @@ const SignIn: NextPage = () => {
           </form>
         </Stack>
 
-        <Stack spacing={34}>
+        <Stack gap={34}>
           <Button
             component="a"
-            leftIcon={<GoogleIcon />}
+            leftSection={<GoogleIcon />}
             href={`${config.API_URL}/account/sign-in/google/auth`}
             variant="outline"
           >
             Continue with Google
           </Button>
-          <Group sx={{ fontSize: '16px', justifyContent: 'center' }} spacing={12}>
+
+          <Group fz={16} justify="center" gap={12}>
             Don’t have an account?
             <Link
               type="router"

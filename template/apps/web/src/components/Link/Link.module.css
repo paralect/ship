@@ -1,0 +1,26 @@
+.link {
+  display: flex;
+  gap: 5px;
+
+  color: var(--mantine-color-blue-5);
+
+  pointer-events: initial;
+
+  &:hover {
+    color: var(--mantine-color-blue-2);
+  }
+}
+
+.disabled {
+  color: var(--mantine-color-gray-2);
+
+  pointer-events: none;
+
+  &:hover {
+    color: var(--mantine-color-gray-2);
+  }
+}
+
+.nextLinkUnderlineNone {
+  text-decoration: none;
+}

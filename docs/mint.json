@@ -128,5 +128,10 @@
   "footerSocials": {
     "twitter": "https://twitter.com/paralect",
     "github": "https://github.com/paralect/ship"
+  },
+  "analytics": {
+    "posthog": {
+      "apiKey": "phc_r8CwY7CdUdM2qJtLaLlSyA1HuvG4fZJ26jBI7ZRkirF"
+    }
   }
 }
