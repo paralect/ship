@@ -5,6 +5,7 @@ on:
     branches: [ master ]
     paths:
       - 'template/apps/api/**'
+      - 'template/packages/**'
   workflow_dispatch:
 
 jobs:
