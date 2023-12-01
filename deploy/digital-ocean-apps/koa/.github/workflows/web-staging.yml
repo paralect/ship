@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'apps/web/**'
+      - 'packages/**'
   workflow_dispatch:
     inputs:
       logLevel:
