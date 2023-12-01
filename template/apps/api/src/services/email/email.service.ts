@@ -17,7 +17,13 @@ class EmailService {
     if (apiKey) sendgrid.setApiKey(apiKey);
   }
 
-  async sendTemplate<T extends Template>({ to, subject, template, params }: SendTemplateParams<T>) {
+  async sendTemplate<T extends Template>({
+    to,
+    subject,
+    template,
+    params,
+    attachments,
+  }: SendTemplateParams<T>) {
     if (!this.apiKey) return null;
 
     const html = await renderEmailHtml({ template, params });
@@ -27,10 +33,17 @@ class EmailService {
       to,
       subject,
       html,
+      attachments,
     });
   }
 
-  async sendSendgridTemplate({ to, subject, templateId, dynamicTemplateData }: SendSendgridTemplateParams) {
+  async sendSendgridTemplate({
+    to,
+    subject,
+    templateId,
+    dynamicTemplateData,
+    attachments,
+  }: SendSendgridTemplateParams) {
     if (!this.apiKey) return null;
 
     return sendgrid.send({
@@ -39,6 +52,7 @@ class EmailService {
       subject,
       templateId,
       dynamicTemplateData,
+      attachments,
     });
   }
 }
