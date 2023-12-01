@@ -8,7 +8,6 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@koa/router": "*",
     "enums": "workspace:*",
     "koa": "*",
     "mailer": "workspace:*",
@@ -16,8 +15,6 @@
     "zod": "*"
   },
   "devDependencies": {
-    "@types/koa": "*",
-    "@types/koa__router": "*",
     "eslint": "*",
     "lint-staged": "*",
     "typescript": "*"
