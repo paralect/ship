@@ -54,7 +54,7 @@ const Profile: NextPage = () => {
 
   const onSubmit = (submitData: UpdateParams) => updateCurrent(submitData, {
     onSuccess: (data) => {
-      queryClient.setQueryData(['currentUser'], data);
+      queryClient.setQueryData(['account'], data);
       showNotification({
         title: 'Success',
         message: 'Your profile has been successfully updated.',
