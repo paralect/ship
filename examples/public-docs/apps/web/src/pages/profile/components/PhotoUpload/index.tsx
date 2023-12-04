@@ -41,7 +41,7 @@ const PhotoUpload = () => {
       const body = new FormData();
       body.append('file', imageFile, imageFile.name);
 
-      await uploadProfilePhoto(body, {
+      uploadProfilePhoto(body, {
         onError: (err) => handleError(err),
       });
     }
@@ -49,7 +49,7 @@ const PhotoUpload = () => {
 
   const handlerPhotoRemove = async () => {
     setErrorMessage(null);
-    await removeProfilePhoto();
+    removeProfilePhoto();
   };
 
   return (
