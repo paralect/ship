@@ -26,6 +26,7 @@
     "@tabler/icons-react": "2.10.0",
     "@tanstack/react-table": "8.7.9",
     "app-constants": "workspace:*",
+    "app-types": "npm:types",
     "axios": "1.3.4",
     "clsx": "2.0.0",
     "dayjs": "1.11.7",
@@ -39,7 +40,6 @@
     "react-query": "3.39.3",
     "schemas": "workspace:*",
     "socket.io-client": "4.6.1",
-    "types": "workspace:*",
     "zod": "3.21.4"
   },
   "devDependencies": {

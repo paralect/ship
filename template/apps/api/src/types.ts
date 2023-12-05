@@ -3,7 +3,9 @@ import Router from '@koa/router';
 
 import { Template } from 'mailer';
 
-import { User } from './user.types';
+import { User } from 'app-types';
+
+export * from 'app-types';
 
 export type AppKoaContextState = {
   user: User;
@@ -14,7 +16,7 @@ export type AppKoaContextState = {
 export type CustomErrors = {
   [name: string]: string;
 };
-
+ 
 export interface AppKoaContext<T = unknown, R = unknown> extends ParameterizedContext<AppKoaContextState> {
   request: Request & R;
   validatedData: T;
