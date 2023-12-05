@@ -45,13 +45,13 @@ const Profile: NextPage = () => {
   });
 
   const {
-    mutate: updateCurrent,
+    mutate: updateAccount,
     isLoading: isUpdateLoading,
   } = accountApi.useUpdate<UpdateParams>();
 
-  const onSubmit = (submitData: UpdateParams) => updateCurrent(submitData, {
+  const onSubmit = (submitData: UpdateParams) => updateAccount(submitData, {
     onSuccess: (data) => {
-      queryClient.setQueryData(['currentUser'], data);
+      queryClient.setQueryData(['account'], data);
       showNotification({
         title: 'Success',
         message: 'Your profile has been successfully updated.',
