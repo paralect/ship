@@ -328,6 +328,9 @@ importers:
       app-constants:
         specifier: workspace:*
         version: link:../../packages/app-constants
+      app-types:
+        specifier: npm:types
+        version: link:../../packages/types
       axios:
         specifier: 1.3.4
         version: 1.3.4
@@ -367,9 +370,6 @@ importers:
       socket.io-client:
         specifier: 4.6.1
         version: 4.6.1
-      types:
-        specifier: workspace:*
-        version: link:../../packages/types
       zod:
         specifier: 3.21.4
         version: 3.21.4
