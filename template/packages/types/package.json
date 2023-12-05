@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "enums": "workspace:*",
-    "koa": "*",
     "mailer": "workspace:*",
     "schemas": "workspace:*",
     "zod": "*"
