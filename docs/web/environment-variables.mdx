@@ -1,0 +1,100 @@
+---
+title: Environment Variables
+---
+
+## Overview
+
+We use different environment variables for different stages like developing, testing, and when the app is live.
+
+This is done by using special files that have environments in them.
+
+### How the App Chooses the Right Environment Variables File
+The app knows which file to use based on a special environment variable called `APP_ENV`.
+
+If `APP_ENV` is set to **staging**, the app will use the variables from the staging file.
+
+<Card title="Development Stage" icon="code" iconType="light" color="#F96F5D">
+    In this stage, we work on making the app and adding new things.
+
+    The app uses a file named `.env.development` which has special environment variables just for people who are building the app.
+</Card>
+
+<Card title="Testing Stage (Staging)" icon="bug" iconType="light" color="#ca8b04">
+    Here, we test the app to make sure it's ready to go live.
+
+    We use the `.env.staging` file which has variables that help us test everything properly.
+</Card>
+
+<Card title="Live Stage (Production)" icon="industry-windows" iconType="light" color="#02C39A">
+    In the Production, the app is all done and people can use it.
+
+    App uses a file named `.env.production` which has environment variables for the app when it's being used by everyone.
+</Card>
+
+### Environment Variables Schema Validation
+We use [Zod](https://zod.dev/) to check that our config is correct and in the right format.
+This is important to make sure the app works without any problems.
+
+This setup is found in the `src/config/index.ts` file.
+
+<Tip>
+To prefix any variables intended for client-side exposure with `NEXT_PUBLIC_`.
+</Tip>
+
+When we add new environment variables to .env files, we need to make sure they match what we set up in the `Zod` schema.
+
+## Adding a New Variable
+
+Here's how to add a new environment variable to the application:
+
+<Steps>
+    <Step title="Identify the Environment Stages">
+        Determine the environment stages where the new variable will be used.
+
+        Refer to the following table for file associations:
+
+        | APP_ENV     | File             |
+        |-------------|------------------|
+        | development | .env.development |
+        | staging     | .env.staging     |
+        | production  | .env.production  |
+    </Step>
+
+    <Step title="Update `.env` Files">
+        Add the new variable to the respective `.env` files. For client-side variables, prefix them with `NEXT_PUBLIC_`.
+
+        ```bash
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_TYooMQauvdEDq54NiTphI7jx
+        ```
+    </Step>
+
+    <Step title="Modify the Schema in `src/config/index.ts`">
+        Update the schema in the `config/index.ts` file to include the new variable.
+        This step is crucial for schema validation.
+
+        ```typescript config/index.ts
+        const schema = z.object({
+            ...
+            STRIPE_PUBLISHABLE_KEY: z.string(),
+        });
+        ```
+    </Step>
+
+    <Step title="Update the Configuration Object">
+        Add the new variable to the configuration object within the same file (`config/index.ts`), ensuring it matches the schema.
+
+        ```typescript config/index.ts
+        const processEnv = {
+            ...
+            STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+        };
+        ```
+    </Step>
+</Steps>
+
+<Warning>
+    All the environment variables we use in the front-end part of our app can be seen by everyone.
+    So, don't put any secret stuff like passwords or private keys there.
+
+    Keep those safe and only on the server side! 🛡️✨
+</Warning>

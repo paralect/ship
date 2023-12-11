@@ -1,0 +1,59 @@
+---
+title: Services
+---
+
+## Overview
+
+Services in our application are specific functionalities or data manipulations handled by objects, classes, or functions.
+You can add any service as needed for third-party API integrations or app metrics collection.
+
+### API Service
+**Description:**
+The API Service, represented by the `ApiClient` class, enhances axios client for better error handling and easier configuration.
+
+**Example Usage:**
+```typescript
+import { apiService } from 'services';
+
+// Making a GET request
+const data = await apiService.get('/users', { sort: { createdOn: 'desc' } });
+```
+
+### Socket Service
+**Description:**
+Socket Service provides functions for managing websocket connections, including connecting, disconnecting, and handling events.
+
+**Example Usage:**
+```tsx
+import { socketService } from 'services';
+
+// Listening for an event
+socketService.on('user:updated', (data: User) => {
+  queryClient.setQueryData(['account'], data);
+});
+
+// In React component
+const onCardUpdated = () => {
+  console.log('Card updated')
+};
+
+useEffect(() => {
+  socketService.on('card:updated', onCardUpdated);
+
+  return () => {
+    socketService.off('card:updated', onCardUpdated);
+  };
+}, []);
+```
+
+### Analytics Service
+**Description:**
+Analytics Service offers a set of functionalities for working with third-party analytics systems like Mixpanel. It can be adapted to other platforms as needed.
+
+**Example Usage:**
+```typescript
+import { analyticsService } from 'services';
+
+// Tracking an event
+analyticsService.track('New user created', { firstName, lastName });
+```

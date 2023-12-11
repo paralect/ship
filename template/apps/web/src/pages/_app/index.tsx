@@ -9,7 +9,7 @@ import { ModalsProvider } from '@mantine/modals';
 import '@mantine/core/styles.css';
 
 import queryClient from 'query-client';
-import mainTheme from 'theme/main-theme';
+import theme from 'theme';
 
 import PageConfig from './PageConfig';
 
@@ -19,9 +19,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
       <title>Ship</title>
     </Head>
     <QueryClientProvider client={queryClient}>
-      <MantineProvider
-        theme={mainTheme}
-      >
+      <MantineProvider theme={theme}>
         <ModalsProvider>
           <Notifications autoClose={10000} />
 

@@ -67,7 +67,15 @@
         "mailer",
         {
           "group": "Web",
-          "pages": ["web/overview"]
+          "pages": [
+            "web/overview",
+            "web/styling",
+            "web/routing",
+            "web/calling-api",
+            "web/forms",
+            "web/services",
+            "web/environment-variables"
+          ]
         },
         {
           "group": "Deployment",
