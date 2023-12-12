@@ -1,4 +1,4 @@
-import { QueryClient } from 'react-query';
+import { QueryClient, keepPreviousData } from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -6,7 +6,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       retry: false,
-      keepPreviousData: true,
+      placeholderData: keepPreviousData,
     },
   },
 });

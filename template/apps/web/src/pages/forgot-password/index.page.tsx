@@ -30,7 +30,7 @@ const ForgotPassword: NextPage = () => {
 
   const {
     mutate: forgotPassword,
-    isLoading: isForgotPasswordLoading,
+    isPending: isForgotPasswordPending,
   } = accountApi.useForgotPassword<ForgotPasswordParams>();
 
   const {
@@ -98,7 +98,7 @@ const ForgotPassword: NextPage = () => {
 
             <Button
               type="submit"
-              loading={isForgotPasswordLoading}
+              loading={isForgotPasswordPending}
             >
               Send reset link
             </Button>

@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from 'react-query';
 import { showNotification } from '@mantine/notifications';
 import Head from 'next/head';
 import { NextPage } from 'next';
@@ -10,6 +9,7 @@ import { Button, TextInput, PasswordInput, Stack, Title } from '@mantine/core';
 import { accountApi } from 'resources/account';
 
 import { handleError } from 'utils';
+import queryClient from 'query-client';
 
 import PhotoUpload from './components/PhotoUpload';
 
@@ -27,8 +27,6 @@ const schema = z.object({
 type UpdateParams = z.infer<typeof schema>;
 
 const Profile: NextPage = () => {
-  const queryClient = useQueryClient();
-
   const { data: account } = accountApi.useGet();
 
   const {
@@ -46,7 +44,7 @@ const Profile: NextPage = () => {
 
   const {
     mutate: updateAccount,
-    isLoading: isUpdateLoading,
+    isPending: isUpdatePending,
   } = accountApi.useUpdate<UpdateParams>();
 
   const onSubmit = (submitData: UpdateParams) => updateAccount(submitData, {
@@ -119,7 +117,7 @@ const Profile: NextPage = () => {
 
           <Button
             type="submit"
-            loading={isUpdateLoading}
+            loading={isUpdatePending}
           >
             Update Profile
           </Button>

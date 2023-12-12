@@ -29,7 +29,7 @@ const SignIn: NextPage = () => {
     register, handleSubmit, formState: { errors }, setError,
   } = useForm<SignInParams>({ resolver: zodResolver(schema) });
 
-  const { mutate: signIn, isLoading: isSignInLoading } = accountApi.useSignIn<SignInParams>();
+  const { mutate: signIn, isPending: isSignInPending } = accountApi.useSignIn<SignInParams>();
 
   const onSubmit = (data: SignInParams) => signIn(data, {
     onError: (e) => handleError(e, setError),
@@ -78,7 +78,7 @@ const SignIn: NextPage = () => {
             </Stack>
 
             <Button
-              loading={isSignInLoading}
+              loading={isSignInPending}
               type="submit"
               fullWidth
               mt={34}

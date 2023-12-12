@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
@@ -28,7 +28,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
             <Component {...pageProps} />
           </PageConfig>
         </ModalsProvider>
-        <ReactQueryDevtools position="bottom-right" />
+        <ReactQueryDevtools buttonPosition="bottom-right" />
       </MantineProvider>
     </QueryClientProvider>
   </>

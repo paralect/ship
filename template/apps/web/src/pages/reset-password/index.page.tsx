@@ -40,7 +40,7 @@ const ResetPassword: NextPage = () => {
 
   const {
     mutate: resetPassword,
-    isLoading: isResetPasswordLoading,
+    isPending: isResetPasswordPending,
   } = accountApi.useResetPassword<ResetPasswordParams & { token: QueryParam }>();
 
   const onSubmit = ({ password }: ResetPasswordParams) => resetPassword({
@@ -104,7 +104,7 @@ const ResetPassword: NextPage = () => {
 
           <Button
             type="submit"
-            loading={isResetPasswordLoading}
+            loading={isResetPasswordPending}
             loaderProps={{ size: 'xs' }}
             fullWidth
           >
