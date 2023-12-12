@@ -7,6 +7,7 @@ import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 
 import queryClient from 'query-client';
 import theme from 'theme';
