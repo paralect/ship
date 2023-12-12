@@ -1,0 +1,65 @@
+---
+title: "Routing"
+---
+
+Our application's routing is powered by [Next.js Pages router](https://nextjs.org/docs/pages), which is a standard for handling routes in Next.js applications.
+
+## Configuration in `routes.ts`
+
+Each route in our application is configured in the `routes.ts` file, located in the root of the `routes` directory.
+This file defines the structure and access levels of all routes using the `routesConfiguration` object.
+
+### Scope and Layout Types
+
+Routes are categorized into two scope types and layout types:
+
+1. **Scope Types**:
+- `PUBLIC`: Routes accessible without user authentication.
+- `PRIVATE`: Routes requiring user authentication.
+
+2. **Layout Types**:
+- `MAIN`: Main layout for authenticated users.
+- `UNAUTHORIZED`: Layout for non-authenticated users or authentication pages.
+
+### Route Configuration Example
+
+Here's an example of how a private and a public route are configured:
+
+- Private Route (Requires authentication):
+```tsx src/routes.ts
+[RoutePath.Profile]: {
+  scope: ScopeType.PRIVATE,
+  layout: LayoutType.MAIN,
+}
+```
+
+- Public Route (Accessible without authentication):
+```tsx src/routes.ts
+[RoutePath.ForgotPassword]: {
+  scope: ScopeType.PUBLIC,
+  layout: LayoutType.UNAUTHORIZED,
+},
+```
+
+## Page Configuration
+
+The PageConfig (`/pages/_app/PageConfig/index.tsx` file) plays a crucial role in applying these configurations.
+It uses the route configuration from `routes.ts` to determine the appropriate scope and layout for each page.
+
+### How It Works
+
+- The `PageConfig` component, using the Next.js router, matches the current route against the `routesConfiguration`.
+- Based on the route, it applies the designated scope and layout.
+- For private routes, it redirects unauthenticated users to the sign-in page.
+- Conversely, for public routes, authenticated users are redirected to the home page.
+
+## Naming Conventions for Route Files
+
+- **Page Routes**: Each file representing a page route should have the `.page.tsx` postfix.
+- **API Routes/Middleware**: Files for Next.js API routes or middleware should have the `.api.ts` postfix.
+
+<Note>
+These conventions can be modified in `next.config.js` if needed.
+</Note>
+
+By following this structure, our application maintains a clear, manageable, and scalable routing system.

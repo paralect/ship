@@ -1,0 +1,119 @@
+---
+title: Forms
+---
+
+## Overview
+
+We use the [react-hook-form](https://react-hook-form.com/) library along with [@hookform/resolvers](https://www.npmjs.com/package/@hookform/resolvers) to simplify the process of creating and managing forms.
+This setup allows for the quick development of robust forms.
+
+### Form Schema
+
+With [@hookform/resolvers](https://www.npmjs.com/package/@hookform/resolvers), you can validate your forms using a Zod schema.
+Just write the schema and use it as a resolver in the `useForm` hook.
+This approach not only validates your forms but also helps in creating perfectly typed forms by inferring types from the schema.
+
+Example of setting up a form with Zod schema:
+```tsx
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+// Define your schema
+const schema = z.object({
+  firstName: z.string().min(1, 'Please enter First name').max(100),
+  lastName: z.string().min(1, 'Please enter Last name').max(100),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+});
+
+// Infer type from schema
+type FormParams = z.infer<typeof schema>;
+
+const Page = () => {
+  const { register, handleSubmit } = useForm<FormParams>({
+    resolver: zodResolver(schema),
+  });
+
+  // Form handling code here
+};
+```
+
+### Error Handling
+For error handling in forms, we use the `handle-error.util.ts` utility function.
+This function parses error messages, sets them to the form fields' error states, or displays a global notification for general errors.
+
+Usage:
+```tsx
+import { useForm } from 'react-hook-form';
+import { handleError } from 'utils';
+
+const Page: NextPage = () => {
+  const { setError } = useForm();
+
+  // Submit function
+  const onSubmit = (data: SignUpParams) => signUp(data, {
+    onError: (e) => handleError(e, setError),
+  });
+}
+```
+
+#### Form usage
+
+Here is an example of how you can create a form:
+
+```tsx
+import { handleError } from 'utils';
+import { accountApi } from 'resources/account';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+// Define your schema
+const schema = z.object({
+  // Schema details here
+});
+
+// Infer type from schema
+type SignUpParams = z.infer<typeof schema>;
+
+const Page: NextPage = () => {
+  const { mutate: signUp, isLoading: isSignUpLoading } = accountApi.useSignUp();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<SignUpParams>({
+    resolver: zodResolver(schema),
+  });
+
+  // Submit function
+  const onSubmit = (data: SignUpParams) => signUp(data, {
+    onSuccess: (data) => {
+      // Handle success response
+      queryClient.setQueryData(['account'], data);
+    },
+    onError: (e) => handleError(e, setError),
+  });
+
+  // Form rendering
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <TextInput
+        {...register('name')}
+        error={errors.name?.message}
+      />
+
+      <Button
+        type="submit"
+        loading={isSignUpLoading}
+      >
+        Submit
+      </Button>
+    </form>
+  );
+};
+```
+
+By following these guidelines, you can effectively build and manage forms in our application,
+ensuring a smooth user experience and robust form handling.

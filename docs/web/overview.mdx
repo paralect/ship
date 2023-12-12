@@ -2,30 +2,30 @@
 title: "Overview"
 ---
 
-Web Starter is what we think an ideal starting point for the most React frontend applications. It is based on the following primary technologies:
+Web Starter is our starting point for React front-end applications.
+It's crafted using a selection of advanced technologies and tools, making it a robust and efficient foundation for development.
 
-- Next.js
-- React Query
-- React Hook Form + Zod
-- Mantine UI + Tabler
-- Typescript
-- Storybook + Chromatic
+The core technologies include:
 
-## Start application.
+- [Next.js](https://nextjs.org/): A React framework that supports features like server-side rendering, static site generation and routing.
+- [TanStack Query](https://tanstack.com/query): A library for managing data fetching, caching, and updating in React apps.
+- [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/): Efficient form management and schema validation tools.
+- [Mantine UI](https://mantine.dev/) + [Tabler](https://tabler-icons.io/): UI components and icons for responsive and accessible web interfaces.
+- [Typescript](https://www.typescriptlang.org/): JavaScript with syntax for types, enhancing scalability and maintainability.
+- [Storybook](https://storybook.js.org/) + [Chromatic](https://www.chromatic.com/): UI development tools for building and testing components.
 
-Run ```npm run dev``` that will start the application with ```.env.development``` config.
+## Web Starter Documentation Sections
 
-You also can start the app using Dockerfile.
+Explore the following sections for detailed information on different aspects of the Web Starter:
 
-### Important notes
+- [Styling](/web/styling): Focuses on the styling approach used in the application, detailing how to work with Mantine UI to create visually appealing interfaces.
+- [Routing](/web/routing): Covers the routing mechanism within the application, explaining how to organize navigation flow.
+- [Calling API](/web/calling-api): Dedicated to API interactions, this section explains how to effectively make requests to back-end services, manage responses, and handle errors using the provided API service utilities.
+- [Forms](/web/forms): Discusses form management, highlighting the integration of React Hook Form and Zod for efficient form creation, validation, and handling user inputs.
+- [Services](/web/services): Describes the various service layers used in the application, such as the API, socket, and analytics services, providing examples of how to implement and utilize these services for different functionalities.
+- [Environment Variables](/web/environment-variables): Guides on managing environment-specific configurations, explaining the use of different `.env` files for development, staging, and production environments, and the importance of securing sensitive data.
 
-You need to set ```APP_ENV``` variable in build args in a place where you deploy application.
-It is responsible for the config file from ```config``` folder that will be taken when building your application
+## React TypeScript Cheatsheet
 
-| APP_ENV       | File              |
-| ------------- |-------------------|
-| development   | .env.development  |
-| staging       | .env.staging      |
-| production    | .env.production   |
-
-## [React Typescript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup/)
+For a detailed guide on using React with TypeScript,
+visit the [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup/).

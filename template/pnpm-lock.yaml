@@ -641,9 +641,6 @@ importers:
       enums:
         specifier: workspace:*
         version: link:../enums
-      koa:
-        specifier: '*'
-        version: 2.14.1
       mailer:
         specifier: workspace:*
         version: link:../mailer

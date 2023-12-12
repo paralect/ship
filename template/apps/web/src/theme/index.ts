@@ -2,7 +2,7 @@ import { createTheme } from '@mantine/core';
 
 import * as components from './components';
 
-const mainTheme = createTheme({
+const theme = createTheme({
   fontFamily: 'Roboto, sans-serif',
   fontFamilyMonospace: 'monospace',
   headings: {
@@ -17,4 +17,4 @@ const mainTheme = createTheme({
   components,
 });
 
-export default mainTheme;
+export default theme;

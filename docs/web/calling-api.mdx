@@ -1,0 +1,51 @@
+---
+title: "Calling API"
+---
+
+## Overview
+
+Ship uses [TanStack Query](https://tanstack.com/query/latest) with our own axios library wrapper.
+All queries are located in the `/resources` folder, organized into sub-folders for each resource.
+
+TanStack Query helps easily fetch, cache, and update data.
+Each API endpoint has a related React hook using TanStack Query.
+
+When getting data with **apiService** in `services/api.service.ts`, no need to add the full endpoint URL.
+The axios instance already has the base URL set.
+
+If you need to make a request to a new endpoint, for example, for a `project` resource,
+you need to add a new hook to `/resources/project/project.api.ts`
+
+## Examples
+
+```typescript resources/account/account.api.ts
+export function useUpdate<T>() {
+  const update = (data: T) => apiService.put("/account", data);
+
+  return useMutation<User, unknown, T>(update);
+}
+```
+
+```typescript resources/user/user.api.ts
+export function useList<T>(params: T) {
+  const list = () => apiService.get("/users", params);
+
+  interface UserListResponse {
+    count: number;
+    items: User[];
+    totalPages: number;
+  }
+
+  return useQuery<UserListResponse>(["users", params], list);
+}
+```
+
+```typescript pages/profile/index.page.tsx
+type UpdateParams = z.infer<typeof accountUpdateSchema>;
+
+const { mutate: update, isLoading: isUpdateLoading } = accountApi.useUpdate<UpdateParams>();
+```
+
+```typescript pages/home/index.tsx
+const { data: users, isLoading: isUsersLoading } = userApi.useList(params);
+```
