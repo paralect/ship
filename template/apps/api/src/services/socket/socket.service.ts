@@ -6,7 +6,7 @@ import { COOKIES } from 'app-constants';
 
 import { tokenService } from 'resources/token';
 
-import pubClient from 'redis-client';
+import pubClient, { redisErrorHandler } from 'redis-client';
 import logger from 'logger';
 
 import socketHelper from './socket.helper';
@@ -15,6 +15,8 @@ export default async (server: http.Server) => {
   const io = new Server(server);
 
   const subClient = pubClient.duplicate();
+
+  subClient.on('error', redisErrorHandler);
 
   await Promise.all([pubClient.connect(), subClient.connect()]);
   logger.info('Socket.io server has been connected.');

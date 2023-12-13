@@ -10,21 +10,23 @@ const client = createClient({
     connectTimeout: 30_000,
     reconnectStrategy: (retries) => {
       const maxDelay = 5_000;
-      const baseDelay = 50;
+      const baseDelay = 1_000;
 
       return Math.min(baseDelay * Math.pow(2, retries), maxDelay);
     },
   },
 });
 
-client.on('error', err => {
-  const errorMessage = `redisClient => Redis error: ${err.stack || err}`;
+export const redisErrorHandler = (error: Error) => {
+  const errorMessage = `[Redis Client] ${error.stack || error}`;
 
   if (config.REDIS_ERRORS_POLICY === 'throw') {
-    throw Error(errorMessage);
+    throw new Error(errorMessage);
   } else {
     logger.error(errorMessage);
   }
-});
+};
+
+client.on('error', redisErrorHandler);
 
 export default client;
