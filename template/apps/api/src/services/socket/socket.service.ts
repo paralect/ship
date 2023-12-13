@@ -1,12 +1,12 @@
 import http from 'http';
 import { Server } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
-import pubClient from 'redis-client';
 
 import { COOKIES } from 'app-constants';
 
 import { tokenService } from 'resources/token';
 
+import pubClient from 'redis-client';
 import logger from 'logger';
 
 import socketHelper from './socket.helper';
@@ -17,7 +17,7 @@ export default async (server: http.Server) => {
   const subClient = pubClient.duplicate();
 
   await Promise.all([pubClient.connect(), subClient.connect()]);
-  logger.info('Socket.io server has been connected');
+  logger.info('Socket.io server has been connected.');
 
   io.adapter(createAdapter(pubClient, subClient));
 
