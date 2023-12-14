@@ -16,10 +16,11 @@ export default async (server: http.Server) => {
 
   const subClient = pubClient.duplicate();
 
-  subClient.on('error', redisErrorHandler);
-
   await Promise.all([pubClient.connect(), subClient.connect()]);
+
   logger.info('Socket.io server has been connected.');
+
+  subClient.on('error', redisErrorHandler);
 
   io.adapter(createAdapter(pubClient, subClient));
 

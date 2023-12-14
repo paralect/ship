@@ -20,9 +20,9 @@ const publish = (roomId: string | string[], eventName: string, data: unknown) =>
 const initClient = async () => {
   const subClient = redisClient.duplicate();
 
-  subClient.on('error', redisErrorHandler);
-
   await subClient.connect();
+
+  subClient.on('error', redisErrorHandler);
 
   emitter = new Emitter(subClient);
 };
