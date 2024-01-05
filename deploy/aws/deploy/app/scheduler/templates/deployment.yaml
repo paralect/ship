@@ -19,27 +19,9 @@ spec:
       - name: {{ .Values.service }}
         image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
         imagePullPolicy: Always
-        env:
-          - name: MONGO_URI
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: MONGO_URI
-          - name: MONGO_DB_NAME
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: MONGO_DB_NAME
-          - name: API_URL
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: API_URL
-          - name: WEB_URL
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: WEB_URL
+        envFrom:
+          - secretRef:
+              name: ship-secrets
       nodeSelector:
         eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:
