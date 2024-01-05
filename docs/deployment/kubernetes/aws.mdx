@@ -302,7 +302,7 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
 
 <Warning>
-Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password. 
+Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password.
 Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
 </Warning>
 
@@ -374,7 +374,7 @@ And at the last step, you need to give your policy a name and review summary.
 
 ![Policy Review](/images/aws/policy-review.png)
 
-Now we need to create a user, open the **Users** page in the sidebar and click **Add user**. After that, you need to give your user a name and select **Access key - Programmatic access** as an access type.
+Now we need to create a user, open the **Users** page in the sidebar and click **Add user**.
 
 ![User Creating](/images/aws/user-creating.png)
 
@@ -386,7 +386,15 @@ At the next step, you can optionally add tags to your user.
 
 The fourth step is to review your user and click **Create user**.
 
-After that, you will see your **Access key ID** and **Secret access key**. You need to save them because you will not be able to see them again.
+Once you're done, you'll see a list of users. Find yours and click **Create access key**.
+
+![User Access Key](/images/aws/user-access-key.png)
+
+Then, pick **Application running on an AWS compute service** as the use case. You can also add a tag if needed.
+
+![User Access Key](/images/aws/user-access-key-type.png)
+
+After that, you'll get your Access Key ID and Secret Access Key. Remember to save them because you won't see them again.
 
 ![User Credentials](/images/aws/user-credentials.png)
 
@@ -397,6 +405,121 @@ eksctl create iamidentitymapping --cluster my-app --arn arn:aws:iam::40216744126
 ```
 
 In the **--arn** parameter you need to specify your user ARN, which you can find in the IAM dashboard.
+
+## Secrets
+
+To begin, create a namespace according to your deployment environment:
+
+```shell
+kubectl create namespace production
+```
+
+Then, add secrets using the following command. Remember to customize my-secrets with your preferred secret name:
+
+```shell
+kubectl create -n production secret generic ship-secrets --from-literal=MONGO_URI='mongo_uri' --from-literal=MONGO_DB_NAME=mongo_db_name --from-literal=API_URL=api_url --from-literal=WEB_URL=web_url
+```
+
+Replace variables with your values and **ship-secrets** with your preferred secret name.
+
+After that, navigate to deployment.yaml, job.yaml files in api folder and deployment.yaml file in scheduler folder and update the secret names in the env section:
+
+```yaml deploy/app/api/template/deployment.yaml
+        imagePullPolicy: Always
+        env:
+          - name: MONGO_URI
+            valueFrom:
+              secretKeyRef:
+                name: ship-secrets
+                key: MONGO_URI
+          - name: MONGO_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ship-secrets
+                key: MONGO_DB_NAME
+          - name: API_URL
+            valueFrom:
+              secretKeyRef:
+                name: ship-secrets
+                key: API_URL
+          - name: WEB_URL
+            valueFrom:
+              secretKeyRef:
+                name: ship-secrets
+                key: WEB_URL
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.port }}
+          initialDelaySeconds: 100
+          periodSeconds: 10
+```
+
+```yaml deploy/app/api/template/job.yaml
+        imagePullPolicy: Always
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: ship-secrets
+                  key: MONGO_URI
+            - name: MONGO_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: ship-secrets
+                  key: MONGO_DB_NAME
+            - name: API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ship-secrets
+                  key: API_URL
+            - name: WEB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ship-secrets
+                  key: WEB_URL
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
+```
+
+```yaml deploy/app/scheduler/template/deployment.yaml
+        imagePullPolicy: Always
+        env:
+          - name: MONGO_URI
+            valueFrom:
+              secretKeyRef:
+                name: ship-secrets
+                key: MONGO_URI
+          - name: MONGO_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ship-secrets
+                key: MONGO_DB_NAME
+          - name: API_URL
+            valueFrom:
+              secretKeyRef:
+                name: ship-secrets
+                key: API_URL
+          - name: WEB_URL
+            valueFrom:
+              secretKeyRef:
+                name: ship-secrets
+                key: WEB_URL
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
+```
+
+Make sure the names of the secrets are the same everywhere in your setup to keep everything consistent.
+
+## Port
+
+To configure the web application to use port 3002, add the line **ENV PORT=3002** to the web Dockerfile:
+
+```Dockerfile apps/web/Dockerfile
+ENV PORT=3002
+
+CMD ["node", "apps/web/server.js"]
+```
 
 ## CI/CD
 
