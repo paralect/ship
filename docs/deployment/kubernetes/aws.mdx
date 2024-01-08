@@ -31,7 +31,7 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 ## Setup project
 
-First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **Full-Stack** build type and **AWS EKS** deployment type.
+First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **AWS EKS** deployment type.
 
 ![Init project](/images/init-project-aws.png)
 
@@ -270,20 +270,6 @@ port: 3002
 domain: my-app.paralect.com
 ```
 
-```json api/src/config/environment/production.json
-{
-  "apiUrl": "https://my-app-api.paralect.com",
-  "webUrl": "https://my-app.paralect.com",
-}
-```
-
-```json web/src/config/environment/production.json
-{
-  "apiUrl": "https://my-app-api.paralect.com",
-  "webUrl": "https://my-app.paralect.com",
-}
-```
-
 ## MongoDB Atlas
 
 Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account and create a new database.
@@ -320,16 +306,7 @@ Select `Connect your application` option. Choose driver and mongo version, and c
 
 ![Mongo connect dialog](/images/aws/mongo-connection-string.png)
 
-Now add this connection string to API config files. If you are deploying on a **production** environment, you will need to update `production.json` file.
-
-```json api/src/config/environment/production.json
-{
-  "mongo": {
-    "dbName": "api-production",
-    "connection": "mongodb+srv://admin:<password>@ship.gxhfngj.mongodb.net/?retryWrites=true&w=majority"
-  },
-}
-```
+Now save this string, you will need it later.
 
 ## CI/CD Preparation
 
@@ -408,105 +385,34 @@ In the **--arn** parameter you need to specify your user ARN, which you can find
 
 ## Secrets
 
-To begin, create a namespace according to your deployment environment:
+To deploy api, you need to set up environment variables.
+
+Open `deploy/bin` folder and run the bash script. Follow instructions in terminal.
+You will need to set up **secret name**, **stage** (staging, production) and necessary environment variables (**MONGO_URI**, **MONGO_DB_NAME**, **API_URL**, **WEB_URL**).
+Also, you can add your custom variables in the end.
 
 ```shell
-kubectl create namespace production
+bash deploy-secrets.sh
 ```
-
-Then, add secrets using the following command. Remember to customize my-secrets with your preferred secret name:
-
-```shell
-kubectl create -n production secret generic ship-secrets --from-literal=MONGO_URI='mongo_uri' --from-literal=MONGO_DB_NAME=mongo_db_name --from-literal=API_URL=api_url --from-literal=WEB_URL=web_url
-```
-
-Replace variables with your values and **ship-secrets** with your preferred secret name.
 
 After that, navigate to deployment.yaml, job.yaml files in api folder and deployment.yaml file in scheduler folder and update the secret names in the env section:
 
 ```yaml deploy/app/api/template/deployment.yaml
-        imagePullPolicy: Always
-        env:
-          - name: MONGO_URI
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: MONGO_URI
-          - name: MONGO_DB_NAME
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: MONGO_DB_NAME
-          - name: API_URL
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: API_URL
-          - name: WEB_URL
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: WEB_URL
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: {{ .Values.port }}
-          initialDelaySeconds: 100
-          periodSeconds: 10
+        envFrom:
+          - secretRef:
+              name: secret_name
 ```
 
 ```yaml deploy/app/api/template/job.yaml
-        imagePullPolicy: Always
-          env:
-            - name: MONGO_URI
-              valueFrom:
-                secretKeyRef:
-                  name: ship-secrets
-                  key: MONGO_URI
-            - name: MONGO_DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: ship-secrets
-                  key: MONGO_DB_NAME
-            - name: API_URL
-              valueFrom:
-                secretKeyRef:
-                  name: ship-secrets
-                  key: API_URL
-            - name: WEB_URL
-              valueFrom:
-                secretKeyRef:
-                  name: ship-secrets
-                  key: WEB_URL
-      nodeSelector:
-        eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
+        envFrom:
+          - secretRef:
+             name: secret_name
 ```
 
 ```yaml deploy/app/scheduler/template/deployment.yaml
-        imagePullPolicy: Always
-        env:
-          - name: MONGO_URI
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: MONGO_URI
-          - name: MONGO_DB_NAME
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: MONGO_DB_NAME
-          - name: API_URL
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: API_URL
-          - name: WEB_URL
-            valueFrom:
-              secretKeyRef:
-                name: ship-secrets
-                key: WEB_URL
-      nodeSelector:
-        eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
+       envFrom:
+          - secretRef:
+              name: secret_name
 ```
 
 Make sure the names of the secrets are the same everywhere in your setup to keep everything consistent.

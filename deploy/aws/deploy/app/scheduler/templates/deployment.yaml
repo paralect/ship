@@ -21,7 +21,7 @@ spec:
         imagePullPolicy: Always
         envFrom:
           - secretRef:
-              name: ship-secrets
+              name: secret_name
       nodeSelector:
         eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:
