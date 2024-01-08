@@ -387,35 +387,11 @@ In the **--arn** parameter you need to specify your user ARN, which you can find
 
 To deploy api, you need to set up environment variables.
 
-Open `deploy/bin` folder and run the bash script. Follow instructions in terminal.
-You will need to set up **secret name**, **stage** (staging, production) and necessary environment variables (**MONGO_URI**, **MONGO_DB_NAME**, **API_URL**, **WEB_URL**).
-Also, you can add your custom variables in the end.
+Open `deploy/bin` folder, run the bash script and follow instructions in the terminal.
 
 ```shell
 bash deploy-secrets.sh
 ```
-
-After that, navigate to deployment.yaml, job.yaml files in api folder and deployment.yaml file in scheduler folder and update the secret names in the env section:
-
-```yaml deploy/app/api/template/deployment.yaml
-        envFrom:
-          - secretRef:
-              name: secret_name
-```
-
-```yaml deploy/app/api/template/job.yaml
-        envFrom:
-          - secretRef:
-             name: secret_name
-```
-
-```yaml deploy/app/scheduler/template/deployment.yaml
-       envFrom:
-          - secretRef:
-              name: secret_name
-```
-
-Make sure the names of the secrets are the same everywhere in your setup to keep everything consistent.
 
 ## Port
 

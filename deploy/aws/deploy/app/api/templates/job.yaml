@@ -15,7 +15,7 @@ spec:
           imagePullPolicy: Always
           envFrom:
             - secretRef:
-                name: secret_name
+                name: api-{{ .Values.environment }}-secret
       nodeSelector:
         eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   backoffLimit: 0
