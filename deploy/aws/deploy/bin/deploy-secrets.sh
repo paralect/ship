@@ -1,5 +1,7 @@
 #!/bin/bash
 
+read -p "What stage? (staging, production) " stage
+
 declare -a envs
 
 while true; do
