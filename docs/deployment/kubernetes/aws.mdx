@@ -11,6 +11,7 @@ You need to create [GitHub](https://github.com), [AWS](https://aws.amazon.com), 
 * [helm](https://helm.sh/docs/intro/install) - CLI tool for managing Kubernetes deployments;
 * [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - CLI tool for managing AWS resources;
 * [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html) - CLI tool for managing EKS clusters;
+* [jq](https://jqlang.github.io/jq/) - command-line JSON processor used to manipulate JSON data;
 
 Try the next commands to ensure that everything is installed correctly:
 
@@ -383,15 +384,45 @@ eksctl create iamidentitymapping --cluster my-app --arn arn:aws:iam::40216744126
 
 In the **--arn** parameter you need to specify your user ARN, which you can find in the IAM dashboard.
 
-## Secrets
+## Environment variables
 
-To deploy api, you need to set up environment variables.
+For the API deployment, you need to set up environment variables using Kubernetes secrets and configMaps.
 
-Open `deploy/bin` folder, run the bash script and follow instructions in the terminal.
+<Info>
+  **Secrets** in Kubernetes are used to store sensitive information, such as passwords, API tokens, and keys.
+  They are encoded in Base64 format to provide a level of security.
+  These can be mounted into containers as data volumes or used as environment variables.
+
+  **ConfigMaps** in Kubernetes are used to store configuration data in key-value pairs, such as environment variables, command-line arguments, or configuration files.
+  They help decouple configuration from containerized applications.
+</Info>
+
+Before deploying the app, make sure all necessary variables from the API config are set. Here are the default required variables:
+* **MONGO_URI** (requires encoding)
+* **MONGO_DB_NAME**
+* **API_URL**
+* **WEB_URL**
+
+Open `deploy/bin` folder and run the bash script.
+Enter the stage name. Then, you'll be asked for variable name, its value, and whether it should be encoded.
+Repeat this process as required to create all the essential variables.
+
+<Note>
+  If you pick that variable should be encoded, it will be stored as a secret in Kubernetes.
+  Otherwise, it gets stored in a configMap.
+</Note>
 
 ```shell
 bash deploy-secrets.sh
 ```
+
+The script works for initially creating secrets and configMaps, as well as for updates.
+When updating, you only need to input the variables that require changes, not all of them.
+
+<Warning>
+  After updating variables, initiate a new deployment.
+  Pods cache variable values during startup, requiring a refresh for changes to apply.
+</Warning>
 
 ## Port
 
