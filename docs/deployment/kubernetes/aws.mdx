@@ -2,6 +2,9 @@
 title: "AWS"
 ---
 
+import SecretsSection from '/snippets/kubernetes-deploy-envs-section.mdx';
+import PortSection from '/snippets/kubernetes-deploy-port-section.mdx';
+
 It's a step-by-step Ship deployment guide. We will use [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks), [Mongo Atlas](https://www.mongodb.com/), [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com) for DNS and SSL configuration.
 
 You need to create [GitHub](https://github.com), [AWS](https://aws.amazon.com), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [CloudFlare](https://www.cloudflare.com/) accounts and install the next tools on your machine before starting:
@@ -384,71 +387,9 @@ eksctl create iamidentitymapping --cluster my-app --arn arn:aws:iam::40216744126
 
 In the **--arn** parameter you need to specify your user ARN, which you can find in the IAM dashboard.
 
-## Environment variables
+<SecretsSection/>
 
-### API
-
-For the API deployment, you need to set up environment variables using Kubernetes secrets and configMaps.
-
-<Info>
-  **Secrets** in Kubernetes are used to store sensitive information, such as passwords, API tokens, and keys.
-  They are encoded in Base64 format to provide a level of security.
-  These can be mounted into containers as data volumes or used as environment variables.
-
-  **ConfigMaps** in Kubernetes are used to store configuration data in key-value pairs, such as environment variables, command-line arguments, or configuration files.
-  They help decouple configuration from containerized applications.
-</Info>
-
-Before deploying the app, make sure all necessary variables from the API config are set. Here are the default required variables:
-* **MONGO_URI** (requires encoding)
-* **MONGO_DB_NAME**
-* **API_URL**
-* **WEB_URL**
-
-Open `deploy/bin` folder and run the bash script.
-Enter the stage name. Then, you'll be asked for variable name, its value, and whether it should be encoded.
-Repeat this process as required to create all the essential variables.
-
-<Note>
-  If you pick that variable should be encoded, it will be stored as a secret in Kubernetes.
-  Otherwise, it gets stored in a configMap.
-</Note>
-
-```shell
-bash deploy-secrets.sh
-```
-
-The script works for initially creating secrets and configMaps, as well as for updates.
-When updating, you only need to input the variables that require changes, not all of them.
-
-<Warning>
-  After updating variables, initiate a new deployment.
-  Pods cache variable values during startup, requiring a refresh for changes to apply.
-</Warning>
-
-### WEB
-
-To modify environment variables in web, access the `.env.staging` or `.env.production` file:
-
-```plaintext apps/web/.env.production
-NEXT_PUBLIC_API_URL=https://my-app-api.paralect.com
-NEXT_PUBLIC_WS_URL=https://my-app-api.paralect.com
-NEXT_PUBLIC_WEB_URL=https://my-app.paralect.com
-```
-
-<Warning>
-  Avoid storing sensitive information in web environment files as they are not secure.
-</Warning>
-
-## Port
-
-To configure the web application to use port 3002, add the line **ENV PORT=3002** to the web Dockerfile:
-
-```Dockerfile apps/web/Dockerfile
-ENV PORT=3002
-
-CMD ["node", "apps/web/server.js"]
-```
+<PortSection/>
 
 ## CI/CD
 

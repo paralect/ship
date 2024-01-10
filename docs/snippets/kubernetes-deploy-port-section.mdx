@@ -1,0 +1,9 @@
+## Port
+
+To configure the web application to use port 3002, add the line **ENV PORT=3002** to the web Dockerfile:
+
+```Dockerfile apps/web/Dockerfile
+ENV PORT=3002
+
+CMD ["node", "apps/web/server.js"]
+```
