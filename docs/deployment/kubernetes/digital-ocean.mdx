@@ -9,6 +9,7 @@ You need to create [GitHub](https://github.com/), [CloudFlare](https://www.cloud
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster (We recommend installing it via [Docker Desktop](https://www.docker.com/products/docker-desktop/));
 - [helm](https://helm.sh/docs/intro/install/) - CLI tool for managing Kubernetes deployments;
 - [kubectx](https://github.com/ahmetb/kubectx) - CLI tool for easier switching between Kubernetes contexts;
+- [jq](https://jqlang.github.io/jq/) - command-line JSON processor used to manipulate JSON data;
 
 Try the next commands to ensure that everything is installed correctly:
 
@@ -24,7 +25,7 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 ## Setup project
 
-First, initialize your project. Type `npx create-ship-app init` in the terminal then choose **Full-Stack** build type and **Digital Ocean Managed Kubernetes** deployment type.
+First, initialize your project. Type `npx create-ship-app init` in the terminal then choose **Digital Ocean Managed Kubernetes** deployment type.
 
 ![Init project](/images/init-project.png)
 
@@ -60,7 +61,7 @@ After some time, you will get registry endpoint.
 
 ![Container Registry creation](/images/container-registry-created.png)
 
-Now you should configure the deployment script to point Container Registry.  
+Now you should configure the deployment script to point Container Registry.
 Need to update `dockerRegistry.name` value to `registry.digitalocean.com/oigen43/my-app`.
 
 ```javascript deploy/script/src/config.js
@@ -98,7 +99,7 @@ We recommend you to create a cluster in the region where your end-users are loca
 
 ![Cluster Region](/images/cluster-region.png)
 
-Set Node pool name and configure Nodes.  
+Set Node pool name and configure Nodes.
 Digital Ocean recommends creating at least 2 nodes for the production environment.
 
 ![Cluster Capacity](/images/cluster-capacity.png)
@@ -107,7 +108,7 @@ The last step is to set a cluster name. A common practice is to use the project 
 
 ![Cluster Price](/images/cluster-price.png)
 
-Now you need to configure node pool in deployment script that we created on second screenshot.  
+Now you need to configure node pool in deployment script that we created on second screenshot.
 Need to update `nodePool` value to `pool-app`.
 
 ```javascript deploy/script/src/config.js
@@ -148,7 +149,7 @@ You need to add information about the new cluster to your config.
 Find `.kube/config` file on your machine, and add `cluster`, `context` and `user` values from the downloaded config to it.
 
 If everything is ok you will be able to switch to your cluster.
-Type `kubectx` in the terminal and select your cluster.  
+Type `kubectx` in the terminal and select your cluster.
 Then try to get information about installed pods in the cluster. Type `kubectl get pods -A` in the terminal.
 
 If you did all steps correctly you will see the next info in a terminal.
@@ -260,7 +261,7 @@ In our case we use it for automatic **SSL** certificates generation.
   postfix in the domain. **Example**: ```my-app-staging```
 </Tip>
 
-Now add your domains in helm templates and code. In example, we are deploying on **production** environment, if you are deploying on **staging** you will need to update `staging.yaml` and `staging.json` files.
+Now add your domains in helm templates. In example, we are deploying on **production** environment, if you are deploying on **staging** you will need to update `staging.yaml` file.
 
 ```yaml deploy/app/api/production.yaml
 service: api
@@ -272,20 +273,6 @@ domain: my-app-api.paralect.net
 service: web
 port: 3002
 domain: my-app.paralect.net
-```
-
-```json api/src/config/environment/production.json
-{
-  "apiUrl": "https://my-app-api.paralect.net",
-  "webUrl": "https://my-app.paralect.net"
-}
-```
-
-```json web/src/config/environment/production.json
-{
-  "apiUrl": "https://my-app-api.paralect.net",
-  "webUrl": "https://my-app.paralect.net"
-}
 ```
 
 ## Database
@@ -311,18 +298,75 @@ After some time database cluster will be created. Copy connection string and add
   connection string.
 </Warning>
 
-```json api/src/config/environment/production.json
-{
-  "mongo": {
-    "connection": "mongodb+srv://doadmin:<your-password>@my-app-88deb5f6.mongo.ondigitalocean.com/api-production?tls=true&authSource=admin&replicaSet=my-app",
-    "dbName": "api-production"
-  }
-}
-```
-
 MongoDB cluster is open to all incoming connections by default, which is not secure. We need to select sources that will be allowed to connect to the database. Open the **Settings** tab, and select your k8s cluster. If you want to connect to the database from your machine also add your IP to **Trusted Sources**.
 
 ![Trusted sources](/images/mongodb-trusted-sources.png)
+
+## Environment variables
+
+### API
+
+For the API deployment, you need to set up environment variables using Kubernetes secrets and configMaps.
+
+<Info>
+  **Secrets** in Kubernetes are used to store sensitive information, such as passwords, API tokens, and keys.
+  They are encoded in Base64 format to provide a level of security.
+  These can be mounted into containers as data volumes or used as environment variables.
+
+  **ConfigMaps** in Kubernetes are used to store configuration data in key-value pairs, such as environment variables, command-line arguments, or configuration files.
+  They help decouple configuration from containerized applications.
+</Info>
+
+Before deploying the app, make sure all necessary variables from the API config are set. Here are the default required variables:
+* **MONGO_URI** (requires encoding)
+* **MONGO_DB_NAME**
+* **API_URL**
+* **WEB_URL**
+
+Open `deploy/bin` folder and run the bash script.
+Enter the stage name. Then, you'll be asked for variable name, its value, and whether it should be encoded.
+Repeat this process as required to create all the essential variables.
+
+<Note>
+  If you pick that variable should be encoded, it will be stored as a secret in Kubernetes.
+  Otherwise, it gets stored in a configMap.
+</Note>
+
+```shell
+bash deploy-secrets.sh
+```
+
+The script works for initially creating secrets and configMaps, as well as for updates.
+When updating, you only need to input the variables that require changes, not all of them.
+
+<Warning>
+  After updating variables, initiate a new deployment.
+  Pods cache variable values during startup, requiring a refresh for changes to apply.
+</Warning>
+
+### WEB
+
+To modify environment variables in web, access the `.env.staging` or `.env.production` file:
+
+```plaintext apps/web/.env.production
+NEXT_PUBLIC_API_URL=https://my-app-api.paralect.com
+NEXT_PUBLIC_WS_URL=https://my-app-api.paralect.com
+NEXT_PUBLIC_WEB_URL=https://my-app.paralect.com
+```
+
+<Warning>
+  Avoid storing sensitive information in web environment files as they are not secure.
+</Warning>
+
+## Port
+
+To configure the web application to use port 3002, add the line **ENV PORT=3002** to the web Dockerfile:
+
+```Dockerfile apps/web/Dockerfile
+ENV PORT=3002
+
+CMD ["node", "apps/web/server.js"]
+```
 
 ## CI/CD
 
@@ -335,7 +379,7 @@ To automate deployment through Github Actions you need to configure [Github Secr
   **production** environment.
 </Tip>
 
-To check required Secrets you can open workflows in the `.github` folder at root of your project.  
+To check required Secrets you can open workflows in the `.github` folder at root of your project.
 To automate deployment to the **production** environment you need to create `DIGITAL_OCEAN_TOKEN` and `KUBE_CONFIG_PRODUCTION` secrets for `api-production.yml` and `web-production.yml` workflows.
 
 `DIGITAL_OCEAN_TOKEN`
@@ -369,7 +413,7 @@ Done! Application deployed and can be accessed by provided domain.
 
 ## Manual deployment
 
-To deploy services in the cluster manually you need to set cluster authorization credentials inside the **config**.  
+To deploy services in the cluster manually you need to set cluster authorization credentials inside the **config**.
 Set `environment` and `namespace` to `production/staging` and set your Personal Access Token in `dockerRegistry.username` and `dockerRegistry.password`.
 
 ```javascript deploy/src/config.js

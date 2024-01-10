@@ -21,6 +21,11 @@ spec:
         - name: {{ .Values.service }}
           image: {{ .Values.containerRegistry }}-{{ .Values.service }}:{{ .Values.imagesVersion }}
           imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: api-{{ .Values.environment }}-configmap
+            - secretRef:
+                name: api-{{ .Values.environment }}-secret
           livenessProbe:
             httpGet:
               path: /health
