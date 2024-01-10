@@ -386,6 +386,8 @@ In the **--arn** parameter you need to specify your user ARN, which you can find
 
 ## Environment variables
 
+### API
+
 For the API deployment, you need to set up environment variables using Kubernetes secrets and configMaps.
 
 <Info>
@@ -422,6 +424,20 @@ When updating, you only need to input the variables that require changes, not al
 <Warning>
   After updating variables, initiate a new deployment.
   Pods cache variable values during startup, requiring a refresh for changes to apply.
+</Warning>
+
+### WEB
+
+To modify environment variables in web, access the `.env.staging` or `.env.production` file:
+
+```plaintext apps/web/.env.production
+NEXT_PUBLIC_API_URL=https://my-app-api.paralect.com
+NEXT_PUBLIC_WS_URL=https://my-app-api.paralect.com
+NEXT_PUBLIC_WEB_URL=https://my-app.paralect.com
+```
+
+<Warning>
+  Avoid storing sensitive information in web environment files as they are not secure.
 </Warning>
 
 ## Port
