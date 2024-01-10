@@ -2,6 +2,9 @@
 title: "AWS"
 ---
 
+import SecretsSection from '/snippets/kubernetes-deploy-envs-section.mdx';
+import PortSection from '/snippets/kubernetes-deploy-port-section.mdx';
+
 It's a step-by-step Ship deployment guide. We will use [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks), [Mongo Atlas](https://www.mongodb.com/), [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com) for DNS and SSL configuration.
 
 You need to create [GitHub](https://github.com), [AWS](https://aws.amazon.com), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [CloudFlare](https://www.cloudflare.com/) accounts and install the next tools on your machine before starting:
@@ -11,6 +14,7 @@ You need to create [GitHub](https://github.com), [AWS](https://aws.amazon.com), 
 * [helm](https://helm.sh/docs/intro/install) - CLI tool for managing Kubernetes deployments;
 * [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - CLI tool for managing AWS resources;
 * [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html) - CLI tool for managing EKS clusters;
+* [jq](https://jqlang.github.io/jq/) - command-line JSON processor used to manipulate JSON data;
 
 Try the next commands to ensure that everything is installed correctly:
 
@@ -31,7 +35,7 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 ## Setup project
 
-First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **Full-Stack** build type and **AWS EKS** deployment type.
+First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **AWS EKS** deployment type.
 
 ![Init project](/images/init-project-aws.png)
 
@@ -270,20 +274,6 @@ port: 3002
 domain: my-app.paralect.com
 ```
 
-```json api/src/config/environment/production.json
-{
-  "apiUrl": "https://my-app-api.paralect.com",
-  "webUrl": "https://my-app.paralect.com",
-}
-```
-
-```json web/src/config/environment/production.json
-{
-  "apiUrl": "https://my-app-api.paralect.com",
-  "webUrl": "https://my-app.paralect.com",
-}
-```
-
 ## MongoDB Atlas
 
 Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account and create a new database.
@@ -302,7 +292,7 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
 
 <Warning>
-Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password. 
+Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password.
 Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
 </Warning>
 
@@ -320,16 +310,7 @@ Select `Connect your application` option. Choose driver and mongo version, and c
 
 ![Mongo connect dialog](/images/aws/mongo-connection-string.png)
 
-Now add this connection string to API config files. If you are deploying on a **production** environment, you will need to update `production.json` file.
-
-```json api/src/config/environment/production.json
-{
-  "mongo": {
-    "dbName": "api-production",
-    "connection": "mongodb+srv://admin:<password>@ship.gxhfngj.mongodb.net/?retryWrites=true&w=majority"
-  },
-}
-```
+Now save this string, you will need it later.
 
 ## CI/CD Preparation
 
@@ -374,7 +355,7 @@ And at the last step, you need to give your policy a name and review summary.
 
 ![Policy Review](/images/aws/policy-review.png)
 
-Now we need to create a user, open the **Users** page in the sidebar and click **Add user**. After that, you need to give your user a name and select **Access key - Programmatic access** as an access type.
+Now we need to create a user, open the **Users** page in the sidebar and click **Add user**.
 
 ![User Creating](/images/aws/user-creating.png)
 
@@ -386,7 +367,15 @@ At the next step, you can optionally add tags to your user.
 
 The fourth step is to review your user and click **Create user**.
 
-After that, you will see your **Access key ID** and **Secret access key**. You need to save them because you will not be able to see them again.
+Once you're done, you'll see a list of users. Find yours and click **Create access key**.
+
+![User Access Key](/images/aws/user-access-key.png)
+
+Then, pick **Application running on an AWS compute service** as the use case. You can also add a tag if needed.
+
+![User Access Key](/images/aws/user-access-key-type.png)
+
+After that, you'll get your Access Key ID and Secret Access Key. Remember to save them because you won't see them again.
 
 ![User Credentials](/images/aws/user-credentials.png)
 
@@ -397,6 +386,10 @@ eksctl create iamidentitymapping --cluster my-app --arn arn:aws:iam::40216744126
 ```
 
 In the **--arn** parameter you need to specify your user ARN, which you can find in the IAM dashboard.
+
+<SecretsSection/>
+
+<PortSection/>
 
 ## CI/CD
 

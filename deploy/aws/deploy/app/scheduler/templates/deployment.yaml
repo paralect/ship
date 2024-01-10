@@ -19,6 +19,11 @@ spec:
       - name: {{ .Values.service }}
         image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
         imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: api-{{ .Values.environment }}-configmap
+          - secretRef:
+              name: api-{{ .Values.environment }}-secret
       nodeSelector:
         eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:

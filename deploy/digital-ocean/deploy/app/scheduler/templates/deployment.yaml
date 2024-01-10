@@ -15,6 +15,11 @@ spec:
         app: {{ .Values.service }}
     spec:
       restartPolicy: Always
+      envFrom:
+        - configMapRef:
+            name: api-{{ .Values.environment }}-configmap
+        - secretRef:
+            name: api-{{ .Values.environment }}-secret
       imagePullSecrets:
         - name: regcred
       containers:

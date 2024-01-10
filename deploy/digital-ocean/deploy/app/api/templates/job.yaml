@@ -15,6 +15,11 @@ spec:
         - name: migrator
           image: {{ .Values.containerRegistry }}-migrator:{{ .Values.imagesVersion }}
           imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: api-{{ .Values.environment }}-configmap
+            - secretRef:
+                name: api-{{ .Values.environment }}-secret
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   backoffLimit: 0
