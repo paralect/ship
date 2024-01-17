@@ -28,8 +28,5 @@ yarn-error.log*
 # vercel
 .vercel
 
-# storybook
-storybook-static
-
 .env
 .env.local
