@@ -62,6 +62,12 @@
             "api-reference/workflow"
           ]
         },
+        {
+          "group": "Package sharing",
+          "pages": [
+            "package-sharing/overview"
+          ]
+        },
         "migrator",
         "scheduler",
         "mailer",
