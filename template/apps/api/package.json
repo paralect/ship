@@ -29,6 +29,7 @@
     "@socket.io/redis-adapter": "8.1.0",
     "@socket.io/redis-emitter": "5.1.0",
     "app-constants": "workspace:*",
+    "app-types": "workspace:*",
     "bcryptjs": "2.4.3",
     "dotenv": "16.0.3",
     "google-auth-library": "8.7.0",
@@ -52,7 +53,6 @@
     "redis": "4.6.5",
     "schemas": "workspace:*",
     "socket.io": "4.6.1",
-    "app-types": "npm:types",
     "winston": "3.8.2",
     "zod": "3.21.4"
   },
