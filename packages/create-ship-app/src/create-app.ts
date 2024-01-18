@@ -17,6 +17,7 @@ import {
   replaceTextInFile,
   install,
 } from 'helpers';
+import config from 'config';
 
 import { HAPPY_CODING_TEXT, REPO_ISSUES_URL, REPO_URL, TEMPLATE_PATH } from 'app.constants';
 
@@ -92,7 +93,15 @@ export const createApp = async ({
   console.log('Installing packages. This might take a couple of minutes.');
   console.log();
 
+  const startInstallationTime = performance.now();
+
   await install(root, { packageManager });
+
+  const endInstallationTime = performance.now();
+
+  if (config.PNPM_SILENT) {
+    console.log(`Done in ${Number((endInstallationTime - startInstallationTime) / 1000).toFixed(1)}s`);
+  }
 
   console.log();
 

@@ -5,6 +5,8 @@ import { exec } from 'child_process';
 
 import type { PackageManager } from 'types';
 
+import config from 'config';
+
 import prompts from 'prompts';
 import * as process from 'process';
 import { getOnline } from './is-online';
@@ -20,7 +22,7 @@ export const install = async (
   root: string,
   { packageManager }: InstallArgs,
 ): Promise<void> => {
-  let isPnpmInstalled = false;
+  let isPnpmInstalled: boolean;
 
   try {
     const { stdout } = await execAsync('pnpm --version');
@@ -58,6 +60,10 @@ export const install = async (
   return new Promise((resolve, reject) => {
     const args: string[] = ['install', '--prefer-frozen-lockfile', '--ignore-scripts'];
     const command = packageManager;
+
+    if (config.PNPM_SILENT) {
+      args.push('--silent');
+    }
 
     if (!isOnline) {
       console.log(yellow('You appear to be offline.'));
