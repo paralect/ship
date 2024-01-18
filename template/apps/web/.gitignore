@@ -30,3 +30,6 @@ yarn-error.log*
 
 .env
 .env.local
+
+#storybook
+storybook-static

@@ -10,6 +10,7 @@ module.exports = {
     'next',
     'airbnb',
     'airbnb-typescript',
+    'plugin:storybook/recommended'
   ],
   ignorePatterns: ['.eslintrc.js'],
   parserOptions: {
