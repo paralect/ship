@@ -1,8 +1,8 @@
-name: 'Application web deployment'
+name: 'Production application Web deployment'
 
 on:
   push:
-    branches: [ main ]
+    branches: [ production ]
     paths:
       - 'apps/web/**'
       - 'packages/**'
@@ -25,4 +25,4 @@ jobs:
         with:
           token: ${{ secrets.DO_ACCESS_TOKEN }}
       - name: Update DigitalOcean App Platform
-        run: doctl apps create-deployment ${{ secrets.DO_WEB_STAGING_APP_ID }} --wait
+        run: doctl apps create-deployment ${{ secrets.DO_WEB_PRODUCTION_APP_ID }} --wait

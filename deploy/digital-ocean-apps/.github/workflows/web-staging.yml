@@ -1,10 +1,10 @@
-name: 'Application api deployment'
+name: 'Staging application Web deployment'
 
 on:
   push:
     branches: [ main ]
     paths:
-      - 'apps/api/**'
+      - 'apps/web/**'
       - 'packages/**'
   workflow_dispatch:
     inputs:
@@ -25,4 +25,4 @@ jobs:
         with:
           token: ${{ secrets.DO_ACCESS_TOKEN }}
       - name: Update DigitalOcean App Platform
-        run: doctl apps create-deployment ${{ secrets.DO_API_STAGING_APP_ID }} --wait
+        run: doctl apps create-deployment ${{ secrets.DO_WEB_STAGING_APP_ID }} --wait

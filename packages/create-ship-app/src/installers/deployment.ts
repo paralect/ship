@@ -18,7 +18,7 @@ export const deploymentInstaller = async (deployment: Deployment, options: Deplo
   try {
     switch (deployment) {
       case Deployment.DIGITAL_OCEAN_APPS: {
-        const workflowsSrc = path.join(templatePath, 'digital-ocean-apps/koa/.github/workflows');
+        const workflowsSrc = path.join(templatePath, 'digital-ocean-apps/.github/workflows');
         const workflowsDest = path.join(projectRoot, '.github/workflows');
 
         await fs.cp(workflowsSrc, workflowsDest, { recursive: true });
@@ -38,7 +38,7 @@ export const deploymentInstaller = async (deployment: Deployment, options: Deplo
       }
 
       case Deployment.RENDER: {
-        const renderSrc = path.join(templatePath, 'render/koa/render.yaml');
+        const renderSrc = path.join(templatePath, 'render/render.yaml');
         const renderDest = path.join(projectRoot, 'render.yaml');
 
         await fs.rename(renderSrc, renderDest);

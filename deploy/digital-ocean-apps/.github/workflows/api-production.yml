@@ -1,4 +1,4 @@
-name: 'Application api deployment'
+name: 'Production application API deployment'
 
 on:
   push:
