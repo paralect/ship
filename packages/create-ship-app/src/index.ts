@@ -53,6 +53,10 @@ const run = async (): Promise<void> => {
 
   projectPath = projectPath.trim();
 
+  if (projectPath === 'init') {
+    projectPath = '';
+  }
+
   if (!projectPath) {
     const res = await prompts({
       onState: onPromptState,
