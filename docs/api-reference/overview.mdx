@@ -19,11 +19,22 @@ A resource represents on REST endpoint and most of the time one database table o
 - [A data service](./data-service). Typically this service is used to access databases. For simplicity, we mix the data access layer with the domain operations associated with a given entity.
 - [Event handlers](./event-handler). Event handlers include any updates that come as a reaction to what happens outside the boundaries of any given entity.
 - [Workflows](./workflow). They are essentially updates that require multiple resources to work together. E.x. User Signup is usually a workflow, as it requires to a) create user b) create company 3) create authentication token.
-- [Data schema](./data-schema). We use [Joi](https://joi.dev/api/?v=17.6.0) to define database schemas and validate them in runtime. (we’ve used [JSON Schema](https://json-schema.org/) in the past).
+- [Data schema](/package-sharing/schemas). We use [Zod](https://zod.dev/) to define database schemas and validate them in runtime. (we’ve used [Joi](https://joi.dev/) in the past).
 - Type definitions. If typescript is used for the project.
+
+The data schemas and type definitions can be found in the `packages` folder. Check out the ["Package sharing" section](/package-sharing/overview) for more information on data sharing.
 
 ## Example stucture
 
 Here is the resource structure example:
 
-![Resource structure](/images/api-resource-structure.png)
+```shell
+/resource
+  /actions
+    get.ts
+    create.ts
+    ...
+  index.ts
+  resource.service.ts
+  resource.routes.ts
+```

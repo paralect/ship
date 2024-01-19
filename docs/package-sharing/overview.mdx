@@ -1,0 +1,35 @@
+---
+title: "Overview"
+---
+
+Ship is monorepo, so it lets you share your code across applications to minimize duplications and reduce errors.
+All shared code are inside **packages/** folder.
+
+By default, packages include app-constants, app-types, enums, schemas and mailer. Learn more about the **mailer**  package [here](/mailer).
+
+```shell
+/packages
+  /app-constants
+  /app-types
+  /enums
+  /mailer
+  /schemas
+```
+
+## Installation
+
+We've included all essential packages in your apps.
+If you want to add more packages, head to the `package.json` file, and in the dependencies section, add to **dependencies** package name with value "workspace:*".
+
+```json apps/web/package.json
+"dependencies": {
+    "app-constants": "workspace:*",
+    "app-types": "workspace:*",
+    "schemas": "workspace:*",
+  },
+```
+<Tip>
+  The **enums** package comes with **app-types**, so no separate import is needed.
+</Tip>
+
+You can read more about **package sharing**  in [Turborepo documentation](https://turbo.build/repo/docs/handbook/sharing-code/internal-packages).

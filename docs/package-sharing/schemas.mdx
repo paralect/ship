@@ -1,0 +1,82 @@
+---
+title: "Schemas"
+---
+
+## Overview
+
+Schemas package contains **data schemas** for the applications, including resource schemas.
+
+**Data schema** — is a Zod schema that defines shape of the entity. It must strictly define all fields. Resource schema is defined in entity.schema file e.x. `user.schema`.
+
+```typescript
+import { z } from 'zod';
+
+import dbSchema from './db.schema';
+
+const schema = dbSchema.extend({
+  firstName: z.string(),
+  lastName: z.string(),
+  fullName: z.string(),
+
+  email: z.string(),
+  passwordHash: z.string().nullable().optional(),
+
+  isEmailVerified: z.boolean().default(false),
+  isShadow: z.boolean().optional().nullable(),
+
+  signupToken: z.string().nullable().optional(),
+  resetPasswordToken: z.string().nullable().optional(),
+
+  avatarUrl: z.string().nullable().optional(),
+  oauth: z.object({
+    google: z.boolean().default(false),
+  }).optional(),
+
+  lastRequest: z.date().optional(),
+}).strict();
+
+export default schema;
+```
+
+## Validation
+
+Zod schemas simplify form validation in react-hook-form:
+
+```tsx
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
+
+const schema = z.object({
+  firstName: z.string().min(1, 'Please enter First name').max(100),
+  lastName: z.string().min(1, 'Please enter Last name').max(100),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+});
+
+type SignUpParams = z.infer<typeof schema>
+
+const SignUp = () => {
+    const methods = useForm<SignUpParams>({
+        resolver: zodResolver(schema),
+    });
+
+    return (
+        //your code here
+    )
+}
+
+export default SignUp;
+```
+
+Additionally, data can be validated using the `saveParse` method:
+```typescript
+const parsed = zodSchema.saveParse(data);
+
+if (!parsed.success) {
+    throw new Error('Invalid data');
+}
+```
+For more details on Zod, check the [documentation](https://zod.dev/).
