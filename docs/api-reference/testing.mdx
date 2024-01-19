@@ -8,7 +8,7 @@ In Ship testing settled through [Jest](https://jestjs.io/) framework and [MongoD
 
 Tests should be placed in the `tests` directory specified for each resource from the `resources` folder and have next naming format `user.service.spec.ts`.
 
-```markdown title=my-app/apps/api/src/resources/user/tests/user.service.spec.ts
+```markdown apps/api/src/resources/user/tests/user.service.spec.ts
 resources/
   user/
     tests/
@@ -18,13 +18,13 @@ resources/
 Run tests and linter.
 
 ```shell
-npm run test
+pnpm run test
 ```
 
 Run only tests.
 
 ```shell
-npm run test:unit
+pnpm run test:unit
 ```
 
 ## Example
@@ -32,10 +32,10 @@ npm run test:unit
 ```typescript
 import { Database } from '@paralect/node-mongo';
 
-import { DATABASE_DOCUMENTS } from 'app.constants';
+import { DATABASE_DOCUMENTS } from 'app-constants';
 
-import { User } from 'resources/user/user.types';
-import userSchema from 'resources/user/user.schema';
+import { User } from 'types';
+import { userSchema } from 'schemas';
 
 const database = new Database(process.env.MONGO_URL as string);
 
@@ -50,7 +50,7 @@ describe('User service', () => {
 
   it('should insert doc to collection', async () => {
     const mockUser = { _id: '12q', name: 'John' };
-    
+
     await userService.insertOne(mockUser);
 
     const insertedUser = await userService.findOne({ _id: mockUser._id });
@@ -68,7 +68,7 @@ describe('User service', () => {
 
 By default, tests run for each pull request to the `main` branch through the `run-tests.yml` workflow.
 
-```yaml title='run-tests.yml'
+```yaml .github/workflows/run-tests.yml
 name: run-tests
 
 on:
