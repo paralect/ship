@@ -10,22 +10,16 @@ title: "API action validator"
 ## Examples
 
 ```typescript
-import Joi from 'joi';
+import { z } from 'zod';
+
 import validate from 'middlewares/validate.middleware';
-import userService from 'resources/user/user.service';
 import { securityUtil } from 'utils';
+
+import { PASSWORD_REGEX } from 'app-constants';
 import { Next, AppKoaContext, AppRouter } from 'types';
 
-const schema = Joi.object({
-  password: Joi.string()
-    .min(6)
-    .max(50)
-    .messages({
-      'any.required': 'Password is required',
-      'string.empty': 'Password is required',
-      'string.min': 'Password must be 6-50 characters',
-      'string.max': 'Password must be 6-50 characters',
-    }),
+const schema = z.object({
+  password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
 });
 
 type ValidatedData = {
