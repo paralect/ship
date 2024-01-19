@@ -52,7 +52,6 @@
             "api-reference/overview",
             "api-reference/api-limitations",
             "api-reference/using-events",
-            "api-reference/data-schema",
             "api-reference/data-service",
             "api-reference/api-action",
             "api-reference/api-action-validator",
@@ -65,7 +64,8 @@
         {
           "group": "Package sharing",
           "pages": [
-            "package-sharing/overview"
+            "package-sharing/overview",
+            "package-sharing/schemas"
           ]
         },
         "migrator",
