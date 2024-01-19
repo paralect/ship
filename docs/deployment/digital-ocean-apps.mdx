@@ -67,7 +67,7 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
 
 <Warning>
-Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password. 
+Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password.
 Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
 </Warning>
 
@@ -176,7 +176,7 @@ This adjustment is necessary to ensure the correct configuration and operation o
 
 ## Cloudflare
 
-Before this step you need to register a domain name, usually we already have it if not, look: [Register a new domain](https://developers.cloudflare.com/registrar/get-started/register-domain) 
+Before this step you need to register a domain name, usually we already have it if not, look: [Register a new domain](https://developers.cloudflare.com/registrar/get-started/register-domain)
 
 Navigate to your Digital ocean application and open `Settings` tab. Select `Domains` row to open domain settings and click `Add domain` button
 
@@ -222,7 +222,7 @@ Next, navigate to the **Apps** tab in the left sidebar and open your Digital Oce
 
 ![Do application id](/images/do-application-id.png)
 
-Now you can add theese keys to your github repository's secrets.
+Now you can add these keys to your github repository's secrets.
 
 Navigate to the GitHub repository page, and open the **Settings** tab and these values. You have to be repository **admin** or **owner** to open this tab.
 
@@ -265,12 +265,17 @@ You can find created resources in the `overview` tab.
 ![Resources overview screen](/images/do-resources-overview.png)
 
 
-7. Navigate to Application Spec `(settings tab)`. Change the `dockerfile_path` variable to files with migrator and scheduler. Migrator is placed in the `jobs` section. You can also find it by name of the resource. The scheduler is placed in the `workers` section.
+7. Navigate to Application Spec `(settings tab)`. Change the `dockerfile_path` variable to files with migrator and scheduler.
+Migrator is placed in the `jobs` section. You can also find it by name of the resource. The scheduler is placed in the `workers` section.
+
+<Note>
+To deploy your application in a monorepo, it’s essential to modify the `source_dir` parameter to the root directory.
+This adjustment is necessary to ensure the correct configuration and operation of the applications within the monorepo.
+</Note>
 
 ![Migrator spec screen](/images/do-migrator-app-spec.png)
 
 ![Scheduler spec screen](/images/do-scheduler-app-spec.png)
-
 
 ## Logging (optional)
 ### Build-in
