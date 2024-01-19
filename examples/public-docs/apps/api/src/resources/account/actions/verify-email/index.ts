@@ -18,7 +18,11 @@ interface ValidatedData extends z.infer<typeof schema> {
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const user = await userService.findOne({ signupToken: ctx.validatedData.token });
 
-  ctx.assertClientError(user, { token: 'Token is invalid' }, 404);
+  if (!user) {
+    ctx.redirect(`${config.WEB_URL}/sign-in`);
+
+    return;
+  }
 
   ctx.validatedData.user = user;
   await next();
