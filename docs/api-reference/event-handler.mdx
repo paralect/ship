@@ -5,7 +5,44 @@ title: "Event handler"
 
 ## Overview
 
-**Event handler** — is a simple function that receives event as an argument and performs required logic. All event handlers should be stored in the /handlers folder within resource. Handler name should include event name e.x. `user.created.handler.ts`. That helps find all places were event is used. Direct database updates of the current resource entity are allowed within handler. 
+**Event handler** — is a simple function that receives event as an argument and performs required logic. All event handlers should be stored in the /handlers folder within resource. Handler name should include event name e.x. `user.created.handler.ts`. That helps find all places were event is used. Direct database updates of the current resource entity are allowed within handler.
 
 
 ## Examples
+
+```ts
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+
+import ioEmitter from 'io-emitter';
+
+import { DATABASE_DOCUMENTS } from 'app-constants';
+import { Document } from 'types';
+
+const { DOCUMENTS } = DATABASE_DOCUMENTS;
+
+eventBus.on(`${DOCUMENTS}.created`, (data: InMemoryEvent<Document>) => {
+    try {
+        const document = data.doc;
+
+        ioEmitter.publishToUser(document.userId, 'document:created', document);
+    } catch (error) {
+      logger.error(`${DOCUMENTS}.created handler error: ${error}`);
+    }
+})
+```
+
+```ts
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+
+import { DATABASE_DOCUMENTS } from 'app-constants';
+import { User } from 'types';
+
+const { USERS } = DATABASE_DOCUMENTS;
+
+eventBus.onUpdated(USERS, ['firstName', 'lastName'], (data: InMemoryEvent<User>) => {
+    const user = data.doc;
+    const fullName = user.lastName ? `${user.firstName} ${user.lastName}` : user.firstName;
+
+    console.log(`User fullName was updated: ${fullName}`)
+})
+```
