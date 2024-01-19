@@ -10,7 +10,7 @@ Some of these tasks may include:
 - Clearing logs from databases;
 
 Here is where **Scheduler** comes in. It allows you to schedule jobs (arbitrary functions) for execution at specific dates, with optional recurrence rules.
-Scheduler service shares the same code base with **[API](/api-reference/overview)** and located in the [`scheduler`](https://github.com/paralect/ship/tree/master/template/apps/api/src/scheduler) folder.  
+Scheduler service shares the same code base with **[API](/api-reference/overview)** and located in the [`scheduler`](https://github.com/paralect/ship/tree/master/template/apps/api/src/scheduler) folder.
 
 It runs and deploys as a standalone service with its own Dockerfile. This workflow allows time-consuming tasks not to interfere with the server processing requests.
 
@@ -35,17 +35,7 @@ The cron jobs part is responsible for waiting some moment and emitting more spec
 
 **Cron format**
 
-```markdown
-*    *    *    *    *    *
-┬    ┬    ┬    ┬    ┬    ┬
-│    │    │    │    │    │
-│    │    │    │    │    └ day of the week (0 - 7) (0 or 7 is Sun)
-│    │    │    │    └───── month (1 - 12)
-│    │    │    └────────── day of the month (1 - 31)
-│    │    └─────────────── hour (0 - 23)
-│    └──────────────────── minute (0 - 59)
-└───────────────────────── second (0 - 59, OPTIONAL)
-```
+![Cron format](/images/cron-format.png)
 
 ## Handlers
 
@@ -65,4 +55,4 @@ cron.on('cron:every-hour', async () => {
 });
 ```
 
-The handlers part is responsible for listening to events from Cron jobs and running some handlers. Wrap handlers with try/catch to prevent a server from stopping or rebooting and create error logs.   
+The handlers part is responsible for listening to events from Cron jobs and running some handlers. Wrap handlers with try/catch to prevent a server from stopping or rebooting and create error logs.
