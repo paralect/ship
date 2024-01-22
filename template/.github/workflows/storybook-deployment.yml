@@ -35,4 +35,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          #  https://www.chromatic.com/docs/github-actions/#:~:text=Project%20token%20secret&text=On%20GitHub%2C%20go%20to%20the,project%20token%20as%20the%20Secret.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
