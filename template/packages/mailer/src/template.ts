@@ -3,9 +3,9 @@ import { SignUpWelcome, SignUpWelcomeProps } from '../emails/sign-up-welcome';
 import { VerifyEmail, VerifyEmailProps } from '../emails/verify-email';
 
 export enum Template {
-  RESET_PASSWORD,
-  SIGN_UP_WELCOME,
-  VERIFY_EMAIL,
+  RESET_PASSWORD = 'RESET_PASSWORD',
+  SIGN_UP_WELCOME = 'SIGN_UP_WELCOME',
+  VERIFY_EMAIL = 'VERIFY_EMAIL',
 }
 
 export const EmailComponent = {

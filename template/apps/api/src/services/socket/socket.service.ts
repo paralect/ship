@@ -18,7 +18,7 @@ export default async (server: http.Server) => {
 
   await Promise.all([pubClient.connect(), subClient.connect()]);
 
-  logger.info('Socket.io server has been connected.');
+  logger.info('[Socket.io] Server has been connected.');
 
   subClient.on('error', redisErrorHandler);
 

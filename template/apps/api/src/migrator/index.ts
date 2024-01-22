@@ -24,7 +24,7 @@ const run = async (migrations: Migration[], curVersion: number) => {
     .sort((a: Migration, b: Migration) => a.version - b.version);
 
   if (!newMigrations.length) {
-    logger.info(`No new migrations found, stopping the process.
+    logger.info(`[Migrator] No new migrations found, stopping the process.
       Current database version is ${curVersion}`);
     return;
   }
@@ -38,7 +38,7 @@ const run = async (migrations: Migration[], curVersion: number) => {
       migrationLogId = generateId();
       const startTime = new Date().getSeconds();
       await migrationLogService.startMigrationLog(migrationLogId, startTime, migration.version); //eslint-disable-line
-      logger.info(`Migration #${migration.version} is running: ${migration.description}`);
+      logger.info(`[Migrator] Migration #${migration.version} is running: ${migration.description}`);
       if (!migration.migrate) {
         throw new Error('migrate function is not defined for the migration');
       }
@@ -51,14 +51,14 @@ const run = async (migrations: Migration[], curVersion: number) => {
         .format('h [hrs], m [min], s [sec], S [ms]');
 
       await migrationLogService.finishMigrationLog(migrationLogId, finishTime, duration); //eslint-disable-line
-      logger.info(`Database has been updated to the version #${migration.version}`);
-      logger.info(`Time of migration #${migration.version}: ${duration}`);
+      logger.info(`[Migrator] Database has been updated to the version #${migration.version}`);
+      logger.info(`[Migrator] Time of migration #${migration.version}: ${duration}`);
     }
-    logger.info(`All migrations has been finished, stopping the process.
+    logger.info(`[Migrator] All migrations has been finished, stopping the process.
       Current database version is: ${lastMigrationVersion}`);
   } catch (err) {
     if (migration) {
-      logger.error(`Failed to update migration to version ${migration.version}`);
+      logger.error(`[Migrator] Failed to update migration to version ${migration.version}`);
       logger.error(err);
       if (migrationLogId) {
         await migrationLogService.failMigrationLog(migrationLogId, new Date().getSeconds(), err as Error);

@@ -46,7 +46,7 @@ const createConsoleLogger = (isDev: boolean) => {
     format: getFormat(isDev),
   });
 
-  logger.debug('[logger] Configured console based logger');
+  logger.debug('[Logger] Configured console based logger');
 
   return logger;
 };
