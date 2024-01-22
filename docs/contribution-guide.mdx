@@ -11,6 +11,13 @@ Thank you for showing interest for contributing to Ship. Here you can find all n
 - **Give feedback and suggest improvements** - make [an issue](https://github.com/paralect/ship/issues) about bugs that you've found or suggest improvement.
 - **Share Ship** - share Ship link with everyone how can be interested.
 
+## How to open pull request
+1. Fork [project](https://github.com/paralect/ship).
+2. Set up project locally.
+3. Create new branch out of `master` branch with name that describes your changes.
+4. Make changes and create commit.
+5. Create pull request.
+
 ## Documentation
 
 We use [Mintlify](https://mintlify.com/) for creating documentation. It is in `docs/` folder.
@@ -37,3 +44,47 @@ pnpm run docs
 ```
 
 Documentation will be opened on [http://localhost:3000](http://localhost:3000) if it's unused.
+
+## Ship template structure
+
+Template of project are in `template/` folder. It contains all necessary files and folder for project.
+Let's describe folders:
+
+- **.github** - contains scripts for github actions
+- **.husky** - contains script that will run before commit and check for eslint errors
+- **.vscode** - VS Code settings
+- **apps** - contains [API](/api-reference/overview.mdx) and [WEB](/web/overview.mdx)
+- **bin** - contains scripts for setting up and starting project
+- **packages** - contains packages with shared code. More about it in our [documentation](/package-sharing/overview.mdx)
+
+### How to run Ship template
+
+1. Go to `template` folder:
+```shell
+cd template
+```
+
+2. Open `apps/api` and copy **.env.example** file with name .env
+
+3. Install dependencies
+
+```shell
+pnpm i
+```
+
+4. Set up and start project
+
+```shell
+pnpm run start
+```
+
+**API** will work on 3001 port, **WEB** - 3002 port and **Mailer** - 3003.
+
+### Deployment
+
+Ship can be deployed on 4 platforms: **AWS**, **Digital Ocean Kubernetes**, **Digital Ocean Apps** and **Render**.
+Setting for deployments are in `deploy` folder in appropriate folders.
+
+During installing a project via `npx create-ship-app` user can choose deployment type and setting from an appropriate folder will be added to theirs project in `deploy` folder.
+
+To check deployment you need to create new project via `npx create-ship-app` command and try to deploy app in your environment with [deployment instructions](/deployment).
