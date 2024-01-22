@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     "next.config.js",
-    "postcss.config.js"
+    "postcss.config.js",
+    ".storybook/*"
   ],
   "exclude": ["node_modules"],
 }

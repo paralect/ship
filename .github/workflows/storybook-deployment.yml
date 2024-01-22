@@ -1,0 +1,31 @@
+name: 'Storybook deployment'
+
+on:
+#  push:
+#    branches: [ master ]
+#    paths:
+#      - 'template/apps/web/src/components/**'
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: The SHA-1 hash referring to the commit to check.
+        required: true
+      ref:
+        description: The head branch associated with the pull request.
+        required: true
+
+jobs:
+  chromatic-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Go to the storybook direc
+        run: |
+          cd template/apps/web
+          npm i --ignore-scripts
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: services/web

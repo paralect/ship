@@ -10,8 +10,9 @@ module.exports = {
     'next',
     'airbnb',
     'airbnb-typescript',
+    'plugin:storybook/recommended'
   ],
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', '!.storybook'],
   parserOptions: {
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
