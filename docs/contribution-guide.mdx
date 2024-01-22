@@ -12,7 +12,7 @@ Thank you for interest in contributing to Ship. Here, you'll find all the necess
 - **Share Ship** - share Ship link with everyone how can be interested.
 
 ## How to open pull request
-1. Fork the [project](https://github.com/paralect/ship).
+1. Fork the [project](https://github.com/paralect/ship/fork).
 2. Set up the project locally.
 3. Create a new branch from the `master` branch, using a name that describes your changes.
 4. Implement your changes and create a commit.
@@ -28,7 +28,7 @@ Once you've implemented the necessary changes, please reattach the "To Review" t
 
 ## Documentation
 
-We use [Mintlify](https://mintlify.com/) for documentation, located in the `docs/` folder.
+We use [Mintlify](https://mintlify.com/) for documentation, located in the `/docs` folder.
 
 The docs are written in [MDX](https://mdxjs.com/) format. Check out the [Github Markdown Guide](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 and [Mintlify documentation](https://mintlify.com/docs/quickstart) to become familiar with this syntax.
@@ -55,7 +55,7 @@ Documentation will be opened on [http://localhost:3000](http://localhost:3000) i
 
 ## Ship template structure
 
-The project template is in the `template/` folder and includes all necessary files and folders.
+The project template is in the `/template` folder and includes all necessary files and folders.
 
 Let's explore the structure:
 
@@ -68,12 +68,12 @@ Let's explore the structure:
 
 ### How to run Ship template
 
-1. Navigate to the `template` folder:
+1. Navigate to the `/template` folder:
 ```shell
 cd template
 ```
 
-2. In `apps/api`, copy the **.env.example** file with the name **.env**.
+2. In `/apps/api`, copy the **.env.example** file with the name **.env**.
 
 3. Install dependencies:
 
@@ -91,8 +91,8 @@ The **API** will work on port 3001, **WEB** on port 3002, and **Mailer** on port
 
 ### Deployment
 
-Ship can be deployed on four platforms: **AWS**, **Digital Ocean Kubernetes**, **Digital Ocean Apps**, and **Render**. Deployment settings are in the `deploy` folder within the respective folders.
+Ship can be deployed on four platforms: **AWS**, **Digital Ocean Kubernetes**, **Digital Ocean Apps**, and **Render**. Deployment settings are in the `/deploy` folder within the respective folders.
 
-When installing a project via `npx create-ship-app`, users can choose the deployment type, and the appropriate settings from the respective folder will be added to their project in the `deploy` folder.
+When installing a project via `npx create-ship-app`, users can choose the deployment type, and the appropriate settings from the respective folder will be added to their project in the `/deploy` folder.
 
 To check deployment, create a new project via `npx create-ship-app` and attempt to deploy the app in your environment using the  [deployment instructions](/deployment).
