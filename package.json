@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "docs": "cd docs && mintlify dev"
   },
   "lint-staged": {
     "**/*.{js,ts,tsx}": [
