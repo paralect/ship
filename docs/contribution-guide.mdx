@@ -1,0 +1,39 @@
+---
+title: "Contribution guide"
+---
+
+Thank you for showing interest for contributing to Ship. Here you can find all necessary information for that.
+
+## Ways to contribute
+
+- **Fix Ship docs** – fixing bad wording, examples, incomplete or missing information.
+- **Fix Ship template** - fixing bugs and improving current code.
+- **Give feedback and suggest improvements** - make [an issue](https://github.com/paralect/ship/issues) about bugs that you've found or suggest improvement.
+- **Share Ship** - share Ship link with everyone how can be interested.
+
+## Documentation
+
+We use [Mintlify](https://mintlify.com/) for creating documentation. It is in `docs/` folder.
+
+The docs are written in [MDX](https://mdxjs.com/) format. See [Github Markdown Guide](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+and [Mintlify documentation](https://mintlify.com/docs/quickstart) to get known with this syntax.
+
+### How to run documentation
+
+1. Install Mintlify globally.
+
+<Warning>
+  Node.js version should be 19.00.0 or higher.
+</Warning>
+
+```shell
+pnpm i -g mintlify
+```
+
+2. Execute the following command in project root directory:
+
+```shell
+pnpm run docs
+```
+
+Documentation will be opened on [http://localhost:3000](http://localhost:3000) if it's unused.

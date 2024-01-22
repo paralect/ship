@@ -107,6 +107,7 @@
           ]
         },
         "retool",
+        "contribution-guide",
         {
           "group": "Examples",
           "pages": [
