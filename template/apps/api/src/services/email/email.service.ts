@@ -3,6 +3,8 @@ import sendgrid from '@sendgrid/mail';
 
 import { renderEmailHtml, Template } from 'mailer';
 
+import logger from 'logger';
+
 import { From, EmailServiceConstructorProps, SendTemplateParams, SendSendgridTemplateParams } from './email.types';
 
 class EmailService {
@@ -24,7 +26,10 @@ class EmailService {
     params,
     attachments,
   }: SendTemplateParams<T>) {
-    if (!this.apiKey) return null;
+    if (!this.apiKey) {
+      logger.error('[Sendgrid] API key is not provided');
+      return null;
+    }
 
     const html = await renderEmailHtml({ template, params });
 
@@ -34,6 +39,9 @@ class EmailService {
       subject,
       html,
       attachments,
+    }).then(() => {
+      logger.debug(`[Sendgrid] Sent email to ${to}.`);
+      logger.debug({ subject, template, params });
     });
   }
 
@@ -44,7 +52,10 @@ class EmailService {
     dynamicTemplateData,
     attachments,
   }: SendSendgridTemplateParams) {
-    if (!this.apiKey) return null;
+    if (!this.apiKey) {
+      logger.error('[Sendgrid] API key is not provided');
+      return null;
+    }
 
     return sendgrid.send({
       from: this.from,
@@ -53,6 +64,9 @@ class EmailService {
       templateId,
       dynamicTemplateData,
       attachments,
+    }).then(() => {
+      logger.debug(`[Sendgrid] Sent email to ${to}.`);
+      logger.debug({ subject, templateId, dynamicTemplateData });
     });
   }
 }

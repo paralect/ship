@@ -12,4 +12,4 @@ import logger from 'logger';
 import 'scheduler/cron';
 import 'scheduler/handlers/action.example.handler';
 
-logger.info('Scheduler has started');
+logger.info('[Scheduler] Server has been started');

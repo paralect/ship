@@ -9,7 +9,7 @@ const mixpanel = config.MIXPANEL_API_KEY
 
 const track = (event: string, data = {}) => {
   if (!mixpanel) {
-    logger.error('The analytics service was not initialized');
+    logger.error('[Mixpanel] The analytics service was not initialized');
     return;
   }
 

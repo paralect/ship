@@ -7,12 +7,13 @@ let emitter: Emitter | null = null;
 
 const publish = (roomId: string | string[], eventName: string, data: unknown) => {
   if (emitter === null) {
-    redisErrorHandler(new Error('ioEmitter is not initialized.'));
+    redisErrorHandler(new Error('[Socket.IO] Emitter is not initialized.'));
 
     return;
   }
 
-  logger.debug(`published io event [${eventName}] to ${roomId}, the data is: ${JSON.stringify(data)}`);
+  logger.debug(`[Socket.IO] Published [${eventName}] event to ${roomId}, the data is:`);
+  logger.debug(data);
 
   emitter.to(roomId).emit(eventName, data);
 };
