@@ -30,6 +30,7 @@
     "@socket.io/redis-emitter": "5.1.0",
     "app-constants": "workspace:*",
     "app-types": "workspace:*",
+    "agenda": "5.0.0",
     "bcryptjs": "2.4.3",
     "dotenv": "16.0.3",
     "google-auth-library": "8.7.0",
