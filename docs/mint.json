@@ -40,7 +40,7 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction"]
+      "pages": ["introduction", "contribution-guide"]
     },
     {
       "group": "Ship Components",

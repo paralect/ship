@@ -1,0 +1,108 @@
+---
+title: "Contribution Guide"
+---
+
+Thank you for interest in contributing to Ship. Here, you'll find all the necessary information to get started.
+
+## Ways to contribute
+
+- **Fix Ship docs** – fixing issues like bad wording, incomplete information, or missing examples in the documentation.
+- **Fix Ship template** - contribute to resolving bugs and enhancing the existing code in current template.
+- **Give feedback and suggest improvements** - report bugs through [issues](https://github.com/paralect/ship/issues) or suggest improvements.
+- **Share Ship** - share Ship link with everyone how can be interested.
+
+## How to open pull request
+1. Fork the [project](https://github.com/paralect/ship/fork).
+2. Set up the project locally.
+3. Create a new branch from the `master` branch, using a name that describes your changes.
+4. Implement your changes and create a commit.
+5. Open a pull request.
+6. Attach 3 labels:
+  - "To Review" - indicates that the task is ready for review.
+  - Functionality type - specify a type (Feature, Bug, or Improvement).
+  - Edit location - specify the area of modification (docs, create-ship-app, node-mongo or template).
+
+Your pull request will be checked by our team. If everything is well, it will be merged to `master` branch.
+If there are suggestions, we'll leave comments and label it "Changes Requested". You'll get an email to let you know.
+Once you've implemented the necessary changes, please reattach the "To Review" tag.
+
+## Documentation
+
+We use [Mintlify](https://mintlify.com/) for documentation, located in the `/docs` folder.
+
+The docs are written in [MDX](https://mdxjs.com/) format. Check out the [Github Markdown Guide](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+and [Mintlify documentation](https://mintlify.com/docs/quickstart) to become familiar with this syntax.
+
+### How to run documentation
+
+1. Install Mintlify globally.
+
+<Warning>
+  Ensure that your Node.js version is 19.00.0 or higher.
+</Warning>
+
+```shell
+pnpm i -g mintlify
+```
+
+2. Execute the following command in the project's root directory:
+
+```shell
+pnpm run docs
+```
+
+Documentation will be opened on [http://localhost:3000](http://localhost:3000) if it's not in use.
+
+## Packages
+
+Within the `/package` folder, you'll find two essential packages: `create-ship-app` and `node-mongo`.
+
+**create-ship-app** is simple CLI tool for bootstrapping Ship applications. Downloads actual template from Ship monorepo and configures it to run.
+Learn more in the [documentation](/packages/create-ship-app.mdx).
+
+**node-mongo** is lightweight reactive extension to official Node.js MongoDB [driver](https://mongodb.github.io/node-mongodb-native/4.10/).
+It's used in the Ship template, and you can find details in the [documentation](/packages/node-mongo.mdx).
+
+## Ship template structure
+
+The project template is in the `/template` folder and includes all necessary files and folders.
+
+Let's explore the structure:
+
+- **.github** - contains scripts for Github actions.
+- **.husky** - contains a script that runs before committing and checks for ESLint errors.
+- **.vscode** - VS Code settings.
+- **apps** - contains [API](/api-reference/overview.mdx) and [WEB](/web/overview.mdx).
+- **bin** - contains scripts for setting up and starting the project.
+- **packages** - contains packages with shared code. Find more details about package sharing in our [documentation](/package-sharing/overview.mdx).
+
+### How to run Ship template
+
+1. Navigate to the `/template` folder:
+```shell
+cd template
+```
+
+2. In `/apps/api`, copy the **.env.example** file with the name **.env**.
+
+3. Install dependencies:
+
+```shell
+pnpm i
+```
+
+4. Set up and start project
+
+```shell
+pnpm run start
+```
+
+The **API** will work on port 3001, **WEB** on port 3002, and **Mailer** on port 3003.
+
+### Deployment
+
+Ship can be deployed on four platforms: **AWS**, **Digital Ocean Kubernetes**, **Digital Ocean Apps**, and **Render**. Deployment settings are in the `/deploy` folder within the respective folders.
+
+When installing a project via `npx create-ship-app`, users can choose the deployment type, and the appropriate settings from the respective folder will be added to their project in the `/deploy` folder.
+
+To check deployment, create a new project via `npx create-ship-app` and attempt to deploy the app in your environment using the  [deployment instructions](/deployment).
