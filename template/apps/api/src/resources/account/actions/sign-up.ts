@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { AppKoaContext, Next, AppRouter, Template, User } from 'types';
+import { AppKoaContext, Next, AppRouter, Template } from 'types';
 import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
 
 import { userService } from 'resources/user';
@@ -18,9 +18,7 @@ const schema = z.object({
   password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
 });
 
-interface ValidatedData extends z.infer<typeof schema> {
-  user: User;
-}
+type ValidatedData = z.infer<typeof schema>;
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { email } = ctx.validatedData;

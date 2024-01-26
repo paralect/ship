@@ -6,44 +6,96 @@ title: "API action validator"
 
 **API action validator** — is an array of functions (think middlewares) that is used to make sure that data sent by client is valid.
 
-
 ## Examples
 
 ```typescript
 import { z } from 'zod';
 
-import validate from 'middlewares/validate.middleware';
-import { securityUtil } from 'utils';
+import { AppKoaContext, Next } from 'types';
+import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
 
-import { PASSWORD_REGEX } from 'app-constants';
-import { Next, AppKoaContext, AppRouter } from 'types';
+import { userService } from 'resources/user';
+
+import { validateMiddleware } from 'middlewares';
 
 const schema = z.object({
-  password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+  firstName: z.string().min(1, 'Please enter fist name.').max(100),
+  lastName: z.string().min(1, 'Please enter last name.').max(100),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  password: z.string().regex(PASSWORD_REGEX, 'The password format is incorrect'),
 });
 
-type ValidatedData = {
-  password: string;
-};
+type ValidatedData = z.infer<typeof schema>;
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
-  const { user } = ctx.state;
-  const { password } = ctx.validatedData;
+  const { email } = ctx.validatedData;
 
-  const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
-  ctx.assertClientError(!isPasswordMatch, {
-    password: 'The new password should be different from the previous one',
+  const isUserExists = await userService.exists({ email });
+
+  ctx.assertClientError(!isUserExists, {
+    email: 'User with this email is already registered',
   });
 
   await next();
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
-  // action code
+  // ...action code
 }
 
 export default (router: AppRouter) => {
-  router.post('/current', validate(schema), validator, handler);
+  router.post('/sign-up', validateMiddleware(schema), validator, handler);
 };
+```
 
+To pass data from the `validator` to the `handler`, utilize the `ctx.validatedData` object:
+
+``` typescript
+import { z } from 'zod';
+
+import { AppKoaContext, AppRouter, Next, User } from 'types';
+import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
+
+import { userService } from 'resources/user';
+
+import { validateMiddleware } from 'middlewares';
+import { securityUtil } from 'utils';
+
+const schema = z.object({
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  password: z.string().regex(PASSWORD_REGEX, 'The password format is incorrect'),
+});
+
+interface ValidatedData extends z.infer<typeof schema> {
+  user: User;
+}
+
+async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
+  const { email, password } = ctx.validatedData;
+
+  const user = await userService.findOne({ email });
+
+  ctx.assertClientError(user && user.passwordHash, {
+    credentials: 'The email or password you have entered is invalid',
+  });
+
+  const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
+
+  ctx.assertClientError(isPasswordMatch, {
+    credentials: 'The email or password you have entered is invalid',
+  });
+
+  ctx.validatedData.user = user;
+  await next();
+}
+
+async function handler(ctx: AppKoaContext<ValidatedData>) {
+  const { user } = ctx.validatedData;
+
+  // ...action code
+}
+
+export default (router: AppRouter) => {
+  router.post('/sign-in', validateMiddleware(schema), validator, handler);
+};
 ```
