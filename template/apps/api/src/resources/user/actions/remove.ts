@@ -20,7 +20,7 @@ async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next)
 async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
   await userService.deleteSoft({ _id: ctx.request.params.id });
 
-  ctx.body = {};
+  ctx.status = 204;
 }
 
 export default (router: AppRouter) => {

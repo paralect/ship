@@ -70,7 +70,12 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     },
   });
 
-  ctx.body = config.IS_DEV ? { signupToken } : {};
+  if (config.IS_DEV) {
+    ctx.body = { signupToken };
+    return;
+  }
+
+  ctx.status = 204;
 }
 
 export default (router: AppRouter) => {

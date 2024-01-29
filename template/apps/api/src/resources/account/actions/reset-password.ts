@@ -22,7 +22,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
   const user = await userService.findOne({ resetPasswordToken: token });
 
-  if (!user) return ctx.body = {};
+  if (!user) return ctx.status = 204;
 
   ctx.validatedData.user = user;
   await next();
@@ -38,7 +38,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     resetPasswordToken: null,
   }));
 
-  ctx.body = {};
+  ctx.status = 204;
 }
 
 export default (router: AppRouter) => {

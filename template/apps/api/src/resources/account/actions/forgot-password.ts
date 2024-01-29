@@ -22,7 +22,7 @@ interface ValidatedData extends z.infer<typeof schema> {
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const user = await userService.findOne({ email: ctx.validatedData.email });
 
-  if (!user) return ctx.body = {};
+  if (!user) return ctx.status = 204;
 
   ctx.validatedData.user = user;
   await next();
@@ -53,7 +53,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     },
   });
 
-  ctx.body = {};
+  ctx.status = 204;
 }
 
 export default (router: AppRouter) => {

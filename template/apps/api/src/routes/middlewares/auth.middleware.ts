@@ -6,7 +6,6 @@ const auth = (ctx: AppKoaContext, next: Next) => {
   }
 
   ctx.status = 401;
-  ctx.body = {};
 
   return null;
 };
