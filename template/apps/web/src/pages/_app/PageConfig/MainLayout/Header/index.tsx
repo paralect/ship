@@ -1,9 +1,9 @@
 import { memo, FC } from 'react';
-import { AppShellHeader as LayoutHeader, Container } from '@mantine/core';
+import { Anchor, AppShellHeader as LayoutHeader, Container } from '@mantine/core';
+import Link from 'next/link';
 
 import { accountApi } from 'resources/account';
 
-import { Link } from 'components';
 import { RoutePath } from 'routes';
 
 import { LogoImage } from 'public/images';
@@ -29,9 +29,12 @@ const Header: FC = () => {
         display="flex"
         fluid
       >
-        <Link type="router" href={RoutePath.Home}>
+        <Anchor
+          component={Link}
+          href={RoutePath.Home}
+        >
           <LogoImage />
-        </Link>
+        </Anchor>
         <UserMenu />
       </Container>
     </LayoutHeader>

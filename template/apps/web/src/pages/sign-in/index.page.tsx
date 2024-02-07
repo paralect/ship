@@ -1,17 +1,17 @@
+import { NextPage } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
+import { TextInput, PasswordInput, Button, Group, Stack, Title, Alert, Anchor } from '@mantine/core';
+import { IconAlertCircle } from '@tabler/icons-react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Head from 'next/head';
-import { NextPage } from 'next';
-import { TextInput, PasswordInput, Button, Group, Stack, Title, Alert } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons-react';
 
 import { accountApi } from 'resources/account';
 
-import config from 'config';
 import { handleError } from 'utils';
 import { RoutePath } from 'routes';
-import { Link } from 'components';
+import config from 'config';
 
 import { EMAIL_REGEX } from 'app-constants';
 
@@ -26,7 +26,10 @@ type SignInParams = z.infer<typeof schema> & { credentials?: string };
 
 const SignIn: NextPage = () => {
   const {
-    register, handleSubmit, formState: { errors }, setError,
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
   } = useForm<SignInParams>({ resolver: zodResolver(schema) });
 
   const { mutate: signIn, isPending: isSignInPending } = accountApi.useSignIn<SignInParams>();
@@ -40,8 +43,9 @@ const SignIn: NextPage = () => {
       <Head>
         <title>Sign in</title>
       </Head>
-      <Stack w={408} gap={20}>
-        <Stack gap={34}>
+
+      <Stack w={400} gap={20}>
+        <Stack gap={32}>
           <Title order={1}>Sign In</Title>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -49,7 +53,7 @@ const SignIn: NextPage = () => {
               <TextInput
                 {...register('email')}
                 label="Email Address"
-                placeholder="Email Address"
+                placeholder="Enter email address"
                 error={errors.email?.message}
               />
 
@@ -60,54 +64,49 @@ const SignIn: NextPage = () => {
                 error={errors.password?.message}
               />
 
-              {errors!.credentials && (
+              {errors.credentials && (
                 <Alert icon={<IconAlertCircle size={16} />} color="red">
                   {errors.credentials.message}
                 </Alert>
               )}
 
-              <Link
+              <Anchor
+                component={Link}
                 href={RoutePath.ForgotPassword}
-                type="router"
-                underline={false}
-                size="md"
-                align="center"
               >
                 Forgot password?
-              </Link>
+              </Anchor>
             </Stack>
 
             <Button
-              loading={isSignInPending}
               type="submit"
+              loading={isSignInPending}
               fullWidth
-              mt={34}
+              mt={32}
             >
               Sign in
             </Button>
           </form>
         </Stack>
 
-        <Stack gap={34}>
+        <Stack gap={32}>
           <Button
             component="a"
+            variant="outline"
             leftSection={<GoogleIcon />}
             href={`${config.API_URL}/account/sign-in/google/auth`}
-            variant="outline"
           >
             Continue with Google
           </Button>
 
-          <Group fz={16} justify="center" gap={12}>
+          <Group justify="center" gap={12}>
             Don’t have an account?
-            <Link
-              type="router"
+            <Anchor
+              component={Link}
               href={RoutePath.SignUp}
-              underline={false}
-              inherit
             >
               Sign up
-            </Link>
+            </Anchor>
           </Group>
         </Stack>
       </Stack>

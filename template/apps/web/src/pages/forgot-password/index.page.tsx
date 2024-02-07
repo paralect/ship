@@ -5,15 +5,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { NextPage } from 'next';
-import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
+import { Anchor, Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
 
 import { accountApi } from 'resources/account';
 
-import { Link } from 'components';
 import { handleError } from 'utils';
 import { RoutePath } from 'routes';
 
 import { EMAIL_REGEX } from 'app-constants';
+import Link from 'next/link';
 
 const schema = z.object({
   email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
@@ -58,7 +58,7 @@ const ForgotPassword: NextPage = () => {
           <Text>
             A link to reset your password has just been sent to
             {' '}
-            <b>{email}</b>
+            <Text fw={600} span>{email}</Text>
             . Please check your email inbox and follow the
             directions to reset your password.
           </Text>
@@ -76,8 +76,9 @@ const ForgotPassword: NextPage = () => {
       <Head>
         <title>Forgot password</title>
       </Head>
-      <Stack w={408} fz={18} gap={34}>
-        <Title order={1} mb={0}>Forgot Password</Title>
+
+      <Stack w={400} fz={18} gap={24}>
+        <Title order={1}>Forgot Password</Title>
 
         <Text m={0}>
           Please enter your email and we&apos;ll send a link to reset your password.
@@ -89,10 +90,7 @@ const ForgotPassword: NextPage = () => {
               {...register('email')}
               type="email"
               label="Email address"
-              labelProps={{
-                'data-invalid': !!errors.email,
-              }}
-              placeholder="Your email address"
+              placeholder="Enter your email address"
               error={errors.email?.message}
             />
 
@@ -105,16 +103,14 @@ const ForgotPassword: NextPage = () => {
           </Stack>
         </form>
 
-        <Group fz={16} justify="center">
+        <Group justify="center">
           Have an account?
-          <Link
-            type="router"
+          <Anchor
+            component={Link}
             href={RoutePath.SignIn}
-            inherit
-            underline={false}
           >
             Sign in
-          </Link>
+          </Anchor>
         </Group>
       </Stack>
     </>

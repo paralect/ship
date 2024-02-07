@@ -5,12 +5,11 @@ import classes from './index.module.css';
 
 export default TextInput.extend({
   defaultProps: {
-    size: 'lg',
+    size: 'md',
   },
   classNames: (_, props) => ({
-    input: cx(classes.input, {
-      [classes.inputError]: props.error,
+    label: cx({
+      [classes.error]: props.error,
     }),
-    label: classes.label,
   }),
 });

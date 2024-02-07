@@ -9,11 +9,7 @@ const theme = createTheme({
     fontFamily: 'Roboto, sans-serif',
     fontWeight: '600',
   },
-  lineHeights: {
-    md: '1.45',
-  },
-  primaryColor: 'blue',
-  primaryShade: 6,
+  primaryColor: 'dark',
   components,
 });
 

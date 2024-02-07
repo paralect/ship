@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { useState } from 'react';
+import { z } from 'zod';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,8 +15,6 @@ import { RoutePath } from 'routes';
 import { QueryParam } from 'types';
 import { PASSWORD_REGEX } from 'app-constants';
 
-import classes from './index.module.css';
-
 const schema = z.object({
   password: z.string().regex(
     PASSWORD_REGEX,
@@ -27,34 +25,38 @@ const schema = z.object({
 type ResetPasswordParams = z.infer<typeof schema>;
 
 const ResetPassword: NextPage = () => {
+  const [isSubmitted, setSubmitted] = useState(false);
   const router = useRouter();
 
   const { token } = router.query;
-  const [isSubmitted, setSubmitted] = useState(false);
 
   const {
-    register, handleSubmit, formState: { errors },
-  } = useForm<ResetPasswordParams>({
-    resolver: zodResolver(schema),
-  });
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ResetPasswordParams>({ resolver: zodResolver(schema) });
 
   const {
     mutate: resetPassword,
     isPending: isResetPasswordPending,
   } = accountApi.useResetPassword<ResetPasswordParams & { token: QueryParam }>();
 
-  const onSubmit = ({ password }: ResetPasswordParams) => resetPassword({
-    password,
-    token,
-  }, {
-    onSuccess: () => setSubmitted(true),
-    onError: (e) => handleError(e),
-  });
+  const onSubmit = ({ password }: ResetPasswordParams) => resetPassword(
+    {
+      password,
+      token,
+    },
+    {
+      onSuccess: () => setSubmitted(true),
+      onError: (e) => handleError(e),
+    },
+  );
 
   if (!token) {
     return (
       <Stack w={328} gap="xs">
         <Title order={2} mb={0}>Invalid token</Title>
+
         <Text m={0}>Sorry, your token is invalid.</Text>
       </Stack>
     );
@@ -66,6 +68,7 @@ const ResetPassword: NextPage = () => {
         <Head>
           <title>Reset Password</title>
         </Head>
+
         <Stack w={328}>
           <Title order={2}>Password has been updated</Title>
 
@@ -87,29 +90,27 @@ const ResetPassword: NextPage = () => {
       <Head>
         <title>Reset Password</title>
       </Head>
+
       <Stack w={328}>
         <Title order={2}>Reset Password</Title>
         <Text mt={0}>Please choose your new password</Text>
-        <form
-          className={classes.form}
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <PasswordInput
-            {...register('password')}
-            type="password"
-            label="Password"
-            placeholder="Your new password"
-            error={errors.password?.message}
-          />
 
-          <Button
-            type="submit"
-            loading={isResetPasswordPending}
-            loaderProps={{ size: 'xs' }}
-            fullWidth
-          >
-            Save New Password
-          </Button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack gap={20}>
+            <PasswordInput
+              {...register('password')}
+              label="Password"
+              placeholder="Enter your new password"
+              error={errors.password?.message}
+            />
+
+            <Button
+              type="submit"
+              loading={isResetPasswordPending}
+            >
+              Save New Password
+            </Button>
+          </Stack>
         </form>
       </Stack>
     </>

@@ -5,15 +5,11 @@ import classes from './index.module.css';
 
 export default PasswordInput.extend({
   defaultProps: {
-    size: 'lg',
+    size: 'md',
   },
   classNames: (_, props) => ({
-    innerInput: cx(classes.innerInput, {
-      [classes.innerInputError]: props.error,
-    }),
-    label: classes.label,
-    input: cx({
-      [classes.inputError]: props.error,
+    label: cx({
+      [classes.error]: props.error,
     }),
   }),
 });
