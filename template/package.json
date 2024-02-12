@@ -5,7 +5,7 @@
     "turbo-start": "turbo run development --filter=\"./apps/*\" --filter=\"./packages/*\" --filter=\"!react-email-client\" ",
     "docker": "bash ./bin/start.sh",
     "start": "bash ./bin/run-all.sh",
-    "prepare": "husky install"
+    "prepare": "cd .. husky install"
   },
   "devDependencies": {
     "husky": "8.0.3",
@@ -14,17 +14,6 @@
     "turbo": "1.11.1"
   },
   "optionalDependencies": {
-    "@next/swc-android-arm64": "14.1.0",
-    "@next/swc-darwin-arm64": "14.1.0",
-    "@next/swc-darwin-x64": "14.1.0",
-    "@next/swc-linux-arm-gnueabihf": "14.1.0",
-    "@next/swc-linux-arm64-gnu": "14.1.0",
-    "@next/swc-linux-arm64-musl": "14.1.0",
-    "@next/swc-linux-x64-gnu": "14.1.0",
-    "@next/swc-linux-x64-musl": "14.1.0",
-    "@next/swc-win32-arm64-msvc": "14.1.0",
-    "@next/swc-win32-ia32-msvc": "14.1.0",
-    "@next/swc-win32-x64-msvc": "14.1.0",
     "turbo-darwin-64": "1.11.1",
     "turbo-darwin-arm64": "1.11.1",
     "turbo-linux-64": "1.11.1",

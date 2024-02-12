@@ -10,8 +10,7 @@ import {
   Skeleton,
   Text,
   Container,
-  UnstyledButton,
-  Flex,
+  ActionIcon,
 } from '@mantine/core';
 import { useDebouncedValue, useInputState } from '@mantine/hooks';
 import { IconSearch, IconX, IconSelector } from '@tabler/icons-react';
@@ -45,14 +44,13 @@ const Home: NextPage = () => {
   const [search, setSearch] = useInputState('');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [sortBy, setSortBy] = useState(selectOptions[0].value);
+  const [sortBy, setSortBy] = useState<string | null>(selectOptions[0].value);
   const [filterDate, setFilterDate] = useState<DatesRangeValue>();
 
   const [params, setParams] = useState<UsersListParams>({});
 
   const [debouncedSearch] = useDebouncedValue(search, 500);
-
-  const handleSort = useCallback((value: string) => {
+  const handleSort = useCallback((value: string | null) => {
     setSortBy(value);
     setParams((prev) => ({
       ...prev,
@@ -108,16 +106,14 @@ const Home: NextPage = () => {
                 onChange={setSearch}
                 placeholder="Search by name or email"
                 leftSection={<IconSearch size={16} />}
-                rightSection={search ? (
-                  <UnstyledButton
-                    component={Flex}
-                    display="flex"
-                    align="center"
+                rightSection={search && (
+                  <ActionIcon
+                    variant="transparent"
                     onClick={() => setSearch('')}
                   >
-                    <IconX color="gray" />
-                  </UnstyledButton>
-                ) : null}
+                    <IconX color="gray" stroke={1} />
+                  </ActionIcon>
+                )}
               />
             </Skeleton>
 
