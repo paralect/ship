@@ -1,4 +1,4 @@
-name: Build Web
+name: Build Template Web
 
 on:
   pull_request:
