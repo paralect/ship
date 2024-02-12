@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'template/apps/web/**'
+  workflow_dispatch:
 
 jobs:
   build:
