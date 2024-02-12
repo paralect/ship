@@ -65,7 +65,7 @@ const SignIn: NextPage = () => {
               />
 
               {errors.credentials && (
-                <Alert icon={<IconAlertCircle size={16} />} color="red">
+                <Alert icon={<IconAlertCircle />} color="red">
                   {errors.credentials.message}
                 </Alert>
               )}

@@ -1,4 +1,4 @@
-import { forwardRef, memo } from 'react';
+import { forwardRef } from 'react';
 import { Avatar, UnstyledButton, useMantineTheme } from '@mantine/core';
 
 import { accountApi } from 'resources/account';
@@ -20,4 +20,4 @@ const MenuToggle = forwardRef<HTMLButtonElement>((props, ref) => {
   );
 });
 
-export default memo(MenuToggle);
+export default MenuToggle;

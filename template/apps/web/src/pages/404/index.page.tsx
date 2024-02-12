@@ -12,10 +12,10 @@ const NotFound: NextPage = () => (
     </Head>
 
     <Stack
-      w={328}
       h="100vh"
-      m="auto"
+      w={328}
       justify="center"
+      m="auto"
     >
       <Title order={2}>Oops! The page is not found.</Title>
 

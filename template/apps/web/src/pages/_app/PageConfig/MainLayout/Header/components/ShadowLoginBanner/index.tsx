@@ -1,21 +1,18 @@
-import { Paper } from '@mantine/core';
+import { FC } from 'react';
+import { Center, Text } from '@mantine/core';
 
-import classes from './index.module.css';
+interface ShadowLoginBannerProps {
+  email: string;
+}
 
-const ShadowLoginBanner = ({ email }: { email: string }) => (
-  <Paper
-    className={classes.banner}
-    shadow="md"
-    h={32}
-    bg="dark.4"
-    display="flex"
-    fw={600}
-    c="white"
-  >
-    You currently under the shadow login as &apos;
-    {email}
-    &apos;
-  </Paper>
+const ShadowLoginBanner: FC<ShadowLoginBannerProps> = ({ email }) => (
+  <Center h={40} bg="gray.3">
+    <Text>
+      You currently under the shadow login as
+      {' '}
+      <Text fw={600} span>{email}</Text>
+    </Text>
+  </Center>
 );
 
 export default ShadowLoginBanner;
