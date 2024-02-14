@@ -16,7 +16,7 @@ migration.migrate = async () => {
     { $set: { isEmailVerified: false } },
   );
 
-  await promiseUtil.promiseLimit(userIds, 50, updateFn);
+  await promiseUtil.promiseLimit<string>(userIds, 50, updateFn);
 };
 
 export default migration;
