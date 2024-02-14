@@ -1,17 +1,28 @@
 import React, { FC, ReactNode } from 'react';
-import { Body, Container, Html, Preview, Section, Tailwind } from '@react-email/components';
+import { Body, Container, Html, Preview, Section, Tailwind, TailwindProps } from '@react-email/components';
 
 import Head from './components/head';
 import Header from './components/header';
 import BodyFooter from './components/body-footer';
 import MainFooter from './components/main-footer';
 
-import config from '../tailwind.config';
-
 interface LayoutProps {
   children: ReactNode;
   previewText?: string;
 }
+
+const tailwindConfig: TailwindProps['config'] = {
+  theme: {
+    fontFamily: {
+      sans: ['Roboto', 'sans-serif'],
+    },
+    extend: {
+      colors: {
+        background: '#efeef1',
+      },
+    },
+  },
+};
 
 const Layout:FC<LayoutProps> = ({ children, previewText }) => (
   <Html>
@@ -19,7 +30,7 @@ const Layout:FC<LayoutProps> = ({ children, previewText }) => (
 
     {previewText && <Preview>{previewText}</Preview>}
 
-    <Tailwind config={config}>
+    <Tailwind config={tailwindConfig}>
       <Body className="bg-background py-8">
         <Container className="mx-auto rounded-md bg-white">
           <Header />
