@@ -28,7 +28,7 @@ const getFormat = (isDev: boolean) => {
 };
 
 const createConsoleLogger = (isDev: boolean) => {
-  const transports: any[] = [
+  const transports: winston.transport[] = [
     new winston.transports.Console({
       level: isDev ? 'debug' : 'info',
       stderrLevels: [

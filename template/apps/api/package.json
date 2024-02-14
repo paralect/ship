@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "test": "run-s test:**",
-    "test:lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "test:lint": "tsc --noEmit && eslint \"**/*.ts\" --fix",
     "test:unit": "jest --runInBand -c ./jest.config.ts --collectCoverage false",
     "dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only src/app.ts",
     "start": "ts-node src/app.ts",
