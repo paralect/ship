@@ -20,7 +20,8 @@
   },
   "include": [
     "src/**/*",
-    "src/**/*.json"
+    "src/**/*.json",
+    ".eslintrc.js"
   ],
   "ts-node": { "transpileOnly": true },
   "exclude": []

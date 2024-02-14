@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "import"],
+  plugins: ["@typescript-eslint", "import", "tsc"],
   extends: [
     "airbnb-typescript/base",
     "plugin:@typescript-eslint/recommended",
@@ -17,6 +17,9 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    'tsc/config': [2, {
+      configFile: 'tsconfig.json'
+    }],
     'arrow-body-style': 0,
     'no-underscore-dangle': 0,
     'function-paren-newline': 1,

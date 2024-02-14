@@ -45,17 +45,16 @@
   "devDependencies": {
     "@babel/core": "7.21.0",
     "@storybook/addon-essentials": "7.6.9",
-    "@storybook/addon-styling-webpack": "0.0.6",
-    "@storybook/preview-api": "7.6.9",
     "@storybook/addon-interactions": "7.6.9",
     "@storybook/addon-links": "7.6.9",
     "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/addon-styling-webpack": "0.0.6",
     "@storybook/blocks": "7.6.9",
     "@storybook/builder-webpack5": "7.6.10",
     "@storybook/nextjs": "7.6.9",
+    "@storybook/preview-api": "7.6.9",
     "@storybook/react": "7.6.9",
     "@storybook/test": "7.6.9",
-    "storybook-dark-mode": "3.0.3",
     "@tanstack/eslint-plugin-query": "5.12.1",
     "@tanstack/react-query-devtools": "5.13.5",
     "@types/mixpanel-browser": "2.38.1",
@@ -72,17 +71,19 @@
     "eslint-config-airbnb-typescript": "17.0.0",
     "eslint-config-next": "13.2.4",
     "eslint-plugin-storybook": "0.6.15",
+    "eslint-plugin-tsc": "2.0.0",
     "lint-staged": "13.2.0",
     "postcss": "8.4.19",
     "postcss-preset-mantine": "1.9.0",
     "postcss-simple-vars": "7.0.1",
     "storybook": "7.6.9",
+    "storybook-dark-mode": "3.0.3",
     "style-loader": "3.3.1",
     "typescript": "4.9.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --ext ts --ext tsx --fix"
+      "eslint --fix"
     ]
   }
 }

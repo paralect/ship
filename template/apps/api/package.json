@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "test": "run-s test:**",
-    "test:lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "test:lint": "tsc --noEmit && eslint \"**/*.ts\" --fix",
     "test:unit": "jest --runInBand -c ./jest.config.ts --collectCoverage false",
     "dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only src/app.ts",
     "start": "ts-node src/app.ts",
@@ -66,7 +66,6 @@
     "@types/koa-helmet": "6.0.4",
     "@types/koa-logger": "3.1.2",
     "@types/koa-mount": "4.0.2",
-    "@types/koa-qs": "2.0.0",
     "@types/koa-ratelimit": "5.0.0",
     "@types/koa__cors": "3.3.1",
     "@types/koa__multer": "2.0.4",
@@ -82,6 +81,7 @@
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-airbnb-typescript": "17.0.0",
     "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-tsc": "2.0.0",
     "jest": "29.5.0",
     "lint-staged": "13.2.0",
     "mongodb-memory-server": "8.12.0",
@@ -93,7 +93,7 @@
     "typescript": "4.9.5"
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.ts": [
       "eslint --fix"
     ]
   }
