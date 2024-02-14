@@ -83,7 +83,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --ext ts --ext tsx --fix"
+      "eslint --fix"
     ]
   }
 }
