@@ -16,4 +16,4 @@ jobs:
   lint:
     uses: ./.github/workflows/linter.template.yml
     with:
-      dir: apps/api
+      dir: template/apps/api
