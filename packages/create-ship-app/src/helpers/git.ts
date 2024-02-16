@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
+import { PackageManager } from '../types';
 
 const isInGitRepository = (): boolean => {
   try {
@@ -34,7 +35,14 @@ const isDefaultBranchSet = (): boolean => {
   return false;
 };
 
-export const tryGitInit = (root: string): boolean => {
+type TryGitInitOptions = {
+  packageManager?: PackageManager
+};
+
+export const tryGitInit = (
+  root: string,
+  { packageManager }: TryGitInitOptions,
+): boolean => {
   let didInit = false;
 
   try {
@@ -52,6 +60,8 @@ export const tryGitInit = (root: string): boolean => {
 
     execSync('git add -A', { stdio: 'ignore' });
     execSync('git commit -m "init"', { stdio: 'ignore' });
+
+    execSync(`${packageManager} run prepare`);
 
     return true;
   } catch (e) {
