@@ -1,20 +1,10 @@
 {
   "name": "ship",
-  "version": "0.0.0",
-  "author": "Paralect",
+  "version": "1.0.0",
+  "keywords": ["ship", "next", "koa"],
+  "author": "Ship Team <ship@paralect.com>",
   "license": "MIT",
   "scripts": {
-    "prepare": "husky install",
-    "lint-staged": "lint-staged",
     "docs": "cd docs && mintlify dev"
-  },
-  "lint-staged": {
-    "**/*.{js,ts,tsx}": [
-      "eslint --fix"
-    ]
-  },
-  "devDependencies": {
-    "husky": "8.0.0",
-    "lint-staged": "10.1.7"
   }
 }

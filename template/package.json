@@ -5,10 +5,10 @@
     "turbo-start": "turbo run development --filter=\"./apps/*\" --filter=\"./packages/*\" --filter=\"!react-email-client\" ",
     "docker": "bash ./bin/start.sh",
     "start": "bash ./bin/run-all.sh",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky template/.husky"
   },
   "devDependencies": {
-    "husky": "8.0.3",
+    "husky": "9.0.11",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "turbo": "1.11.1"
