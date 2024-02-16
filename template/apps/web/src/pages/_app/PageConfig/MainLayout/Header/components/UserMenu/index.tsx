@@ -1,5 +1,5 @@
+import { FC } from 'react';
 import Link from 'next/link';
-import { memo, FC } from 'react';
 import { Menu } from '@mantine/core';
 import { IconUserCircle, IconLogout } from '@tabler/icons-react';
 
@@ -9,17 +9,16 @@ import { RoutePath } from 'routes';
 
 import MenuToggle from '../MenuToggle';
 
-import classes from './index.module.css';
-
 const UserMenu: FC = () => {
   const { mutate: signOut } = accountApi.useSignOut();
 
   return (
-    <Menu>
+    <Menu position="bottom-end">
       <Menu.Target>
         <MenuToggle />
       </Menu.Target>
-      <Menu.Dropdown className={classes.dropdown}>
+
+      <Menu.Dropdown>
         <Menu.Item
           component={Link}
           href={RoutePath.Profile}
@@ -39,4 +38,4 @@ const UserMenu: FC = () => {
   );
 };
 
-export default memo(UserMenu);
+export default UserMenu;

@@ -4,9 +4,10 @@ import classes from './index.module.css';
 
 export default Button.extend({
   defaultProps: {
-    size: 'lg',
+    size: 'md',
   },
   classNames: {
+    root: classes.root,
     label: classes.label,
   },
 });

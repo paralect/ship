@@ -38,6 +38,7 @@ const ForgotPassword: NextPage = () => {
         <Head>
           <title>Password reset link expired</title>
         </Head>
+
         <Stack w={328}>
           <Title order={2}>Reset link has been sent</Title>
           <Text fz={14}>Reset link sent successfully</Text>
@@ -55,6 +56,7 @@ const ForgotPassword: NextPage = () => {
       <Head>
         <title>Password reset link expired</title>
       </Head>
+
       <Stack w={328}>
         <Title order={2}>Password reset link expired</Title>
 
@@ -64,7 +66,6 @@ const ForgotPassword: NextPage = () => {
 
         <Button
           loading={isResendEmailPending}
-          fullWidth
           onClick={onSubmit}
         >
           Resend link to

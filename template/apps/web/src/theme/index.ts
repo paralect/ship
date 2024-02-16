@@ -1,19 +1,19 @@
-import { createTheme } from '@mantine/core';
+import { createTheme, DEFAULT_THEME } from '@mantine/core';
+
+import { Inter } from 'next/font/google';
 
 import * as components from './components';
 
+const inter = Inter({ subsets: ['latin'] });
+
 const theme = createTheme({
-  fontFamily: 'Roboto, sans-serif',
-  fontFamilyMonospace: 'monospace',
+  fontFamily: inter.style.fontFamily,
+  fontFamilyMonospace: 'Monaco, Courier, monospace',
   headings: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: `${inter.style.fontFamily}, ${DEFAULT_THEME.fontFamily}`,
     fontWeight: '600',
   },
-  lineHeights: {
-    md: '1.45',
-  },
-  primaryColor: 'blue',
-  primaryShade: 6,
+  primaryColor: 'dark',
   components,
 });
 

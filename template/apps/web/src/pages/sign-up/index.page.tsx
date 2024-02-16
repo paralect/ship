@@ -1,28 +1,17 @@
 import { z } from 'zod';
 import { useState, useEffect } from 'react';
+import { NextPage } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
+import { Button, Stack, TextInput, PasswordInput, Group, Title, Text, Checkbox, SimpleGrid, Tooltip, Anchor } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Head from 'next/head';
-import { NextPage } from 'next';
-import {
-  Button,
-  Stack,
-  TextInput,
-  PasswordInput,
-  Group,
-  Title,
-  Text,
-  Checkbox,
-  SimpleGrid,
-  Tooltip,
-} from '@mantine/core';
 
 import { accountApi } from 'resources/account';
 
-import config from 'config';
-import { Link } from 'components';
 import { handleError } from 'utils';
 import { RoutePath } from 'routes';
+import config from 'config';
 
 import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
 
@@ -53,9 +42,9 @@ const passwordRules = [
 ];
 
 const SignUp: NextPage = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState<string | null>(null);
+  const [signupToken, setSignupToken] = useState<string | null>(null);
   const [registered, setRegistered] = useState(false);
-  const [signupToken, setSignupToken] = useState();
 
   const [passwordRulesData, setPasswordRulesData] = useState(passwordRules);
   const [opened, setOpened] = useState(false);
@@ -66,9 +55,7 @@ const SignUp: NextPage = () => {
     setError,
     watch,
     formState: { errors },
-  } = useForm<SignUpParams>({
-    resolver: zodResolver(schema),
-  });
+  } = useForm<SignUpParams>({ resolver: zodResolver(schema) });
 
   const passwordValue = watch('password', '');
 
@@ -95,19 +82,16 @@ const SignUp: NextPage = () => {
   });
 
   const label = (
-    <SimpleGrid
-      cols={1}
-      spacing="xs"
-      p={4}
-    >
+    <SimpleGrid cols={1} spacing="xs" p={4}>
       <Text>Password must:</Text>
 
       {passwordRulesData.map((ruleData) => (
         <Checkbox
-          styles={{ label: { color: 'white' } }}
           key={ruleData.title}
-          checked={ruleData.done}
           label={ruleData.title}
+          checked={ruleData.done}
+          color="white"
+          iconColor="dark"
         />
       ))}
     </SimpleGrid>
@@ -119,6 +103,7 @@ const SignUp: NextPage = () => {
         <Head>
           <title>Sign up</title>
         </Head>
+
         <Stack w={450}>
           <Title order={2}>Thanks!</Title>
 
@@ -132,9 +117,13 @@ const SignUp: NextPage = () => {
           {signupToken && (
             <Stack gap={0}>
               <Text>You look like a cool developer.</Text>
-              <Link size="sm" href={`${config.API_URL}/account/verify-email?token=${signupToken}`}>
+              <Anchor
+                size="sm"
+                href={`${config.API_URL}/account/verify-email?token=${signupToken}`}
+                target="_blank"
+              >
                 Verify email
-              </Link>
+              </Anchor>
             </Stack>
           )}
         </Stack>
@@ -147,8 +136,9 @@ const SignUp: NextPage = () => {
       <Head>
         <title>Sign up</title>
       </Head>
-      <Stack w={408} gap={20}>
-        <Stack gap={34}>
+
+      <Stack w={400} gap={20}>
+        <Stack gap={32}>
           <Title order={1}>Sign Up</Title>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -157,7 +147,7 @@ const SignUp: NextPage = () => {
                 {...register('firstName')}
                 label="First Name"
                 maxLength={100}
-                placeholder="First Name"
+                placeholder="Enter first Name"
                 error={errors.firstName?.message}
               />
 
@@ -165,21 +155,21 @@ const SignUp: NextPage = () => {
                 {...register('lastName')}
                 label="Last Name"
                 maxLength={100}
-                placeholder="Last Name"
+                placeholder="Enter last Name"
                 error={errors.lastName?.message}
               />
 
               <TextInput
                 {...register('email')}
                 label="Email Address"
-                placeholder="Email Address"
+                placeholder="Enter email Address"
                 error={errors.email?.message}
               />
 
               <Tooltip
                 label={label}
-                withArrow
                 opened={opened}
+                withArrow
               >
                 <PasswordInput
                   {...register('password')}
@@ -196,14 +186,14 @@ const SignUp: NextPage = () => {
               type="submit"
               loading={isSignUpPending}
               fullWidth
-              mt={34}
+              mt={32}
             >
               Sign Up
             </Button>
           </form>
         </Stack>
 
-        <Stack gap={34}>
+        <Stack gap={32}>
           <Button
             component="a"
             leftSection={<GoogleIcon />}
@@ -213,16 +203,11 @@ const SignUp: NextPage = () => {
             Continue with Google
           </Button>
 
-          <Group fz={16} justify="center" gap={12}>
+          <Group justify="center" gap={12}>
             Have an account?
-            <Link
-              type="router"
-              href={RoutePath.SignIn}
-              inherit
-              underline={false}
-            >
+            <Anchor component={Link} href={RoutePath.SignIn}>
               Sign In
-            </Link>
+            </Anchor>
           </Group>
         </Stack>
       </Stack>

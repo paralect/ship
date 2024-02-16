@@ -21,7 +21,7 @@
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  border: 1px dashed var(--mantine-color-blue-6);
+  border: 1px dashed var(--mantine-primary-color-filled);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +34,7 @@
 }
 
 .addIcon {
-  color: var(--mantine-color-blue-6);
+  color: var(--mantine-primary-color-filled);
   transition: all 200ms ease-in-out;
 }
 

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import pickBy from 'lodash/pickBy';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { showNotification } from '@mantine/notifications';
@@ -13,15 +14,15 @@ import queryClient from 'query-client';
 
 import PhotoUpload from './components/PhotoUpload';
 
-import classes from './index.module.css';
-
 const schema = z.object({
-  firstName: z.string().min(1, 'Please enter First name').max(100),
-  lastName: z.string().min(1, 'Please enter Last name').max(100),
-  password: z.string().regex(
+  firstName: z.string().trim().min(1, 'Please enter First name').max(100)
+    .optional(),
+  lastName: z.string().trim().min(1, 'Please enter Last name').max(100)
+    .optional(),
+  password: z.string().trim().regex(
     /^$|^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
     'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
-  ),
+  ).optional(),
 });
 
 type UpdateParams = z.infer<typeof schema>;
@@ -33,12 +34,15 @@ const Profile: NextPage = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    setValue,
+    reset,
+    formState: { errors, isDirty },
   } = useForm<UpdateParams>({
     resolver: zodResolver(schema),
     defaultValues: {
       firstName: account?.firstName,
       lastName: account?.lastName,
+      password: '',
     },
   });
 
@@ -47,7 +51,7 @@ const Profile: NextPage = () => {
     isPending: isUpdatePending,
   } = accountApi.useUpdate<UpdateParams>();
 
-  const onSubmit = (submitData: UpdateParams) => updateAccount(submitData, {
+  const onSubmit = (submitData: UpdateParams) => updateAccount(pickBy(submitData), {
     onSuccess: (data) => {
       queryClient.setQueryData(['account'], data);
       showNotification({
@@ -55,6 +59,9 @@ const Profile: NextPage = () => {
         message: 'Your profile has been successfully updated.',
         color: 'green',
       });
+
+      reset(data, { keepDirtyValues: true });
+      setValue('password', '');
     },
     onError: (e) => handleError(e, setError),
   });
@@ -64,6 +71,7 @@ const Profile: NextPage = () => {
       <Head>
         <title>Profile</title>
       </Head>
+
       <Stack
         w={408}
         m="auto"
@@ -71,56 +79,48 @@ const Profile: NextPage = () => {
         gap={32}
       >
         <Title order={1}>Profile</Title>
+
         <PhotoUpload />
 
-        <form
-          className={classes.form}
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <Stack gap={20}>
-            <TextInput
-              {...register('firstName')}
-              label="First Name"
-              placeholder="First Name"
-              labelProps={{
-                'data-invalid': !!errors.firstName,
-              }}
-              error={errors.firstName?.message}
-            />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack gap={32}>
+            <Stack gap={20}>
+              <TextInput
+                {...register('firstName')}
+                label="Enter first name"
+                placeholder="First Name"
+                error={errors.firstName?.message}
+              />
 
-            <TextInput
-              {...register('lastName')}
-              label="Last Name"
-              placeholder="Last Name"
-              labelProps={{
-                'data-invalid': !!errors.lastName,
-              }}
-              error={errors.lastName?.message}
-            />
+              <TextInput
+                {...register('lastName')}
+                label="Last Name"
+                placeholder="Enter last name"
+                error={errors.lastName?.message}
+              />
 
-            <TextInput
-              label="Email Address"
-              defaultValue={account?.email}
-              disabled
-            />
+              <TextInput
+                label="Email Address"
+                value={account?.email}
+                disabled
+              />
 
-            <PasswordInput
-              {...register('password')}
-              label="Password"
-              placeholder="Enter password"
-              labelProps={{
-                'data-invalid': !!errors.password,
-              }}
-              error={errors.password?.message}
-            />
+              <PasswordInput
+                {...register('password')}
+                label="Password"
+                placeholder="Enter password"
+                error={errors.password?.message}
+              />
+            </Stack>
+
+            <Button
+              type="submit"
+              loading={isUpdatePending}
+              disabled={!isDirty}
+            >
+              Update Profile
+            </Button>
           </Stack>
-
-          <Button
-            type="submit"
-            loading={isUpdatePending}
-          >
-            Update Profile
-          </Button>
         </form>
       </Stack>
     </>
