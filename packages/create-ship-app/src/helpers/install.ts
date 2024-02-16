@@ -1,14 +1,15 @@
 import { cyan, yellow } from 'picocolors';
 import spawn from 'cross-spawn';
 import * as util from 'util';
+import prompts from 'prompts';
 import { exec } from 'child_process';
 
 import type { PackageManager } from 'types';
 
+import { preCommitHooksInstaller } from 'installers';
+
 import config from 'config';
 
-import prompts from 'prompts';
-import * as process from 'process';
 import { getOnline } from './is-online';
 import { onPromptState } from './common';
 
@@ -56,6 +57,8 @@ export const install = async (
   }
 
   const isOnline = await getOnline();
+
+  preCommitHooksInstaller(root);
 
   return new Promise((resolve, reject) => {
     const args: string[] = ['install', '--prefer-frozen-lockfile', '--ignore-scripts'];

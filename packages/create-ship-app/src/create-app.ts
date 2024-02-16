@@ -3,8 +3,6 @@ import path from 'path';
 import retry from 'async-retry';
 import { cyan, green } from 'picocolors';
 import gradient from 'gradient-string';
-import * as util from 'util';
-import { exec } from 'child_process';
 
 import { RepoInfo, PackageManager, Deployment } from 'types';
 import { deploymentInstaller } from 'installers';
@@ -22,8 +20,6 @@ import {
 import config from 'config';
 
 import { HAPPY_CODING_TEXT, REPO_ISSUES_URL, REPO_URL, TEMPLATE_PATH } from 'app.constants';
-
-const execAsync = util.promisify(exec);
 
 export class DownloadError extends Error {}
 
@@ -109,11 +105,9 @@ export const createApp = async ({
 
   console.log();
 
-  if (tryGitInit(root)) {
+  if (tryGitInit(root, { packageManager })) {
     console.log('Initialized a git repository.');
     console.log();
-
-    await execAsync('npm pkg set scripts.prepare="husky"');
   } else {
     console.log('Did not initialize the git repository.');
     console.log();

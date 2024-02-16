@@ -1,1 +1,2 @@
+cd template
 npx turbo run precommit --concurrency=1
