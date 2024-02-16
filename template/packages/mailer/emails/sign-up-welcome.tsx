@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Text } from '@react-email/components';
 
 import Layout from './_layout';
-import Button from './components/button';
+import Button from './_components/button';
 
 export interface SignUpWelcomeProps {
   firstName: string;
