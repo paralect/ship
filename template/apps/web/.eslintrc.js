@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'tsc'],
   env: {
     browser: true,
     es2021: true,
@@ -20,6 +20,9 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'tsc/config': [2, {
+      configFile: 'tsconfig.json'
+    }],
     // solve problem with public folder
     'import/no-unresolved': [2,
       { ignore: ['public'] },

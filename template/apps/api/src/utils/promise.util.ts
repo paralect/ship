@@ -1,12 +1,18 @@
 import _ from 'lodash';
 
-const promiseLimit = (documents: unknown[], limit: number, operator: (doc: any) => any): Promise<void> => {
+const promiseLimit = <T>(
+  documents: T[],
+  limit: number,
+  operator: (document: T) => Promise<unknown>,
+): Promise<void> => {
   const chunks = _.chunk(documents, limit);
 
-  return chunks.reduce((init: any, chunk) => {
-    return init.then(() => {
-      return Promise.all(chunk.map((c) => operator(c)));
-    });
+  return chunks.reduce<Promise<void>>(async (previousPromise, chunk) => {
+    await previousPromise;
+
+    const operations = chunk.map(operator);
+
+    await Promise.all(operations);
   }, Promise.resolve());
 };
 

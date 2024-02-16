@@ -1,0 +1,27 @@
+name: Build Template Web
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'template/apps/web/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build
+        uses: docker/build-push-action@v5
+        with:
+          build-args: |
+            "APP_ENV=staging"
+          context: ./template
+          file: ./template/apps/web/Dockerfile
+          push: false
+          tags: ship-web:${{ github.sha }}

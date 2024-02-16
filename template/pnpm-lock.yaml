@@ -181,9 +181,6 @@ importers:
       '@types/koa-mount':
         specifier: 4.0.2
         version: 4.0.2
-      '@types/koa-qs':
-        specifier: 2.0.0
-        version: 2.0.0
       '@types/koa-ratelimit':
         specifier: 5.0.0
         version: 5.0.0
@@ -229,6 +226,9 @@ importers:
       eslint-plugin-import:
         specifier: 2.27.5
         version: 2.27.5(@typescript-eslint/parser@5.54.1)(eslint@8.36.0)
+      eslint-plugin-tsc:
+        specifier: 2.0.0
+        version: 2.0.0
       jest:
         specifier: 29.5.0
         version: 29.5.0(@types/node@18.15.1)(ts-node@10.9.1)
@@ -509,8 +509,8 @@ importers:
         specifier: 20.3.1
         version: 20.3.1
       '@types/react':
-        specifier: 18.2.13
-        version: 18.2.13
+        specifier: 18.2.55
+        version: 18.2.55
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.50.0
         version: 5.54.1(@typescript-eslint/parser@5.54.1)(eslint@8.36.0)(typescript@4.9.5)
@@ -8664,12 +8664,6 @@ packages:
       '@types/koa': 2.13.5
     dev: true
 
-  /@types/koa-qs@2.0.0:
-    resolution: {integrity: sha512-cBfbUvW70JsU2FCgUCFOoretdvayGzRJ2vEyNQbnZ7vb2pZ/QA+gcNzE6nVxxCcrcnRtGB7tXIRHqHPXS51utA==}
-    dependencies:
-      '@types/koa': 2.13.5
-    dev: true
-
   /@types/koa-ratelimit@5.0.0:
     resolution: {integrity: sha512-eaWWUu/mTDgjGvisSSYSr7Go7ryVw2jIcNz7iuNKbXXEQJqsGMWTJ3oBbeX0mACmPxZbp8/9DKAMWPzyTrNlcw==}
     dependencies:
@@ -8804,7 +8798,7 @@ packages:
   /@types/react-dom@18.0.9:
     resolution: {integrity: sha512-qnVvHxASt/H7i+XG1U1xMiY5t+IHcPGUK7TDMDzom08xa7e86eCeKOiLZezwCKVxJn6NEiiy2ekgX8aQssjIKg==}
     dependencies:
-      '@types/react': 18.2.13
+      '@types/react': 18.2.55
     dev: true
 
   /@types/react-dom@18.2.19:
@@ -8819,14 +8813,6 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
-
-  /@types/react@18.2.13:
-    resolution: {integrity: sha512-vJ+zElvi/Zn9cVXB5slX2xL8PZodPCwPRDpittQdw43JR2AJ5k3vKdgJJyneV/cYgIbLQUwXa9JVDvUZXGba+Q==}
-    dependencies:
-      '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.2
-      csstype: 3.1.1
-    dev: true
 
   /@types/react@18.2.55:
     resolution: {integrity: sha512-Y2Tz5P4yz23brwm2d7jNon39qoAtMMmalOQv6+fEFt1mT+FcM3D841wDpoUvFXhaYenuROCy3FZYqdTjM7qVyA==}
@@ -12499,6 +12485,13 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - typescript
+    dev: true
+
+  /eslint-plugin-tsc@2.0.0:
+    resolution: {integrity: sha512-we7n063HSoWDpXjuqgplrYxfWnlVgq7GXteEjxtc/Ve6C0BjGQyoNGjApSVspyru1cckAM9ASwPnSU8Y0OTwTA==}
+    engines: {node: '>=12', npm: '>=6'}
+    dependencies:
+      typescript-service: 2.0.3
     dev: true
 
   /eslint-plugin-unused-imports@2.0.0(eslint@8.36.0):
@@ -19784,6 +19777,13 @@ packages:
 
   /typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
+
+  /typescript-service@2.0.3:
+    resolution: {integrity: sha512-FzRlqRp965UBzGvGwc6rbeko84jLILZrHf++I4cN8usZUB7F8Lh8/WDiCOUvy2l5os+jBWEz4fbYkkj1DhYJcw==}
+    engines: {node: '>=6', npm: '>=3'}
+    dependencies:
+      tslib: 1.14.1
+    dev: true
 
   /typescript@4.9.3:
     resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
