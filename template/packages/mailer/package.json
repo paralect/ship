@@ -36,5 +36,8 @@
     "*.{ts,tsx}": [
       "eslint --ext ts --ext tsx --fix"
     ]
+  },
+  "engines": {
+    "node": ">=20.1.0"
   }
 }
