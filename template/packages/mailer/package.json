@@ -17,16 +17,16 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@react-email/components": "0.0.7",
-    "@react-email/render": "0.0.7",
-    "react": "18.2.0",
-    "react-email": "1.9.4"
+    "@react-email/components": "0.0.14",
+    "@react-email/render": "0.0.12",
+    "react": "*",
+    "react-email": "2.0.0"
   },
   "devDependencies": {
     "@types/node": "20.3.1",
-    "@types/react": "18.2.55",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "eslint": "^8.0.1",
+    "@types/react": "*",
+    "@typescript-eslint/eslint-plugin": "5.50.0",
+    "eslint": "8.56.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "17.0.0",
     "lint-staged": "*",
@@ -36,5 +36,8 @@
     "*.{ts,tsx}": [
       "eslint --ext ts --ext tsx --fix"
     ]
+  },
+  "engines": {
+    "node": ">=20.1.0"
   }
 }

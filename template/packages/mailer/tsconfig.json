@@ -1,6 +1,6 @@
 {
-  "include": ["src", "emails", "tsup.config.ts", "tailwind.config.js"],
-  "exclude": [".react-email", "dist", "build", "node_modules"],
+  "include": ["src", "emails"],
+  "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
     "lib": [
