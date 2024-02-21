@@ -1,24 +1,19 @@
-import { createClient } from 'redis';
+import { Redis } from 'ioredis';
 
 import config from 'config';
 import logger from 'logger';
 
-const client = createClient({
-  url: config.REDIS_URI,
-  pingInterval: 1_000,
-  socket: {
-    connectTimeout: 30_000,
-    reconnectStrategy: (retries) => {
-      const maxDelay = 5_000;
-      const baseDelay = 1_000;
+const client = new Redis(config.REDIS_URI as string, {
+  lazyConnect: true,
+  retryStrategy: (times) => {
+    if (times > 20) return;
 
-      return Math.min(baseDelay * Math.pow(2, retries), maxDelay);
-    },
+    return Math.max(Math.min(Math.exp(times), 15_000), 1_000);
   },
 });
 
 export const redisErrorHandler = (error: Error) => {
-  const errorMessage = `[Redis Client] ${error.stack || error}`;
+  const errorMessage = `[Redis] ${error.stack || error}`;
 
   if (config.REDIS_ERRORS_POLICY === 'throw') {
     throw new Error(errorMessage);
@@ -28,5 +23,7 @@ export const redisErrorHandler = (error: Error) => {
 };
 
 client.on('error', redisErrorHandler);
+
+client.on('connect', () => logger.info('[Redis] Connection established successfully.'));
 
 export default client;
