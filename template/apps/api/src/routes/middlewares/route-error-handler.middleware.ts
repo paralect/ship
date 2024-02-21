@@ -1,6 +1,9 @@
 import { AppKoaContext, Next, ValidationErrors } from 'types';
 
+import { userService } from 'resources/user';
+
 import logger from 'logger';
+import config from 'config';
 
 interface CustomError extends Error {
   status?: number;
@@ -18,7 +21,18 @@ const routeErrorHandler = async (ctx: AppKoaContext, next: Next) => {
       const serverError = { global: typedError.message || 'Unknown error' };
 
       const errors = clientError || serverError;
-      logger.error(errors);
+
+      let loggerMetadata = {};
+
+      if (!config.IS_DEV) {
+        loggerMetadata = {
+          requestBody: ctx.request.body,
+          requestQuery: ctx.request.query,
+          user: userService.getPublic(ctx.state.user),
+        };
+      }
+
+      logger.error(JSON.stringify(errors, null, 4), loggerMetadata);
 
       if (serverError && process.env.APP_ENV === 'production') {
         serverError.global = 'Something went wrong';

@@ -12,7 +12,7 @@ import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
 import qs from 'koa-qs';
-import requestLogger from 'koa-logger';
+import koaLogger from 'koa-logger';
 
 import { AppKoa } from 'types';
 
@@ -41,7 +41,13 @@ const initKoa = () => {
       ctx.throw(422, 'Unable to parse request JSON.');
     },
   }));
-  app.use(requestLogger());
+  app.use(koaLogger({
+    transporter: (message, args) => {
+      const [, method, endpoint, status, time, length] = args;
+
+      logger.http(message.trim(), { method, endpoint, status, time, length });
+    },
+  }));
 
   routes(app);
 
@@ -66,7 +72,7 @@ const app = initKoa();
   await Promise.all(connections);
 
   server.listen(config.PORT, () => {
-    logger.info(`API server is listening on ${config.PORT}, in ${config.APP_ENV} environment`);
+    logger.info(`API server is listening on ${config.PORT} in ${config.APP_ENV} environment`);
   });
 })();
 
