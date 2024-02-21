@@ -11,18 +11,16 @@ import logger from 'logger';
 
 import socketHelper from './socket.helper';
 
-export default async (server: http.Server) => {
+export default (server: http.Server) => {
   const io = new Server(server);
 
   const subClient = pubClient.duplicate();
 
-  await Promise.all([pubClient.connect(), subClient.connect()]);
-
-  logger.info('[Socket.io] Server has been connected.');
-
   subClient.on('error', redisErrorHandler);
 
   io.adapter(createAdapter(pubClient, subClient));
+
+  logger.info('[Socket.io] Server initialized successfully.');
 
   io.use(async (socket, next) => {
     if (!socket.handshake.headers.cookie) return next(new Error('Cookie not found'));
