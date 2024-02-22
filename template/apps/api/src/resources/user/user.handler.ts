@@ -14,7 +14,7 @@ eventBus.on(`${USERS}.updated`, (data: InMemoryEvent<User>) => {
   try {
     const user = data.doc;
 
-    ioEmitter.publishToUser(user._id, 'user:updated', user);
+    ioEmitter.publishToUser(user._id, 'user:updated', userService.getPublic(user));
   } catch (err) {
     logger.error(`${USERS}.updated handler error: ${err}`);
   }
