@@ -192,7 +192,7 @@ Now we need to install our dependencies in the cluster.
 | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [ingress-nginx](https://github.com/kubernetes/ingress-nginx)                                      | Ingress controller for Kubernetes using Nginx as a reverse proxy and load balancer                                                                                                           |
 | [redis](https://github.com/bitnami/charts/tree/main/bitnami/redis)                              | Open source, advanced key-value store. Redis needed for API service                                                                                                                          |
-| [regcred](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/dependencies/regcred) | Bash script for creating Kubernetes [Secret](https://kubernetes.io/docs/concepts/configuration/secret/). Secret needs for authorizing in Container Registry when pulling images from cluster |
+| [regcred](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/deploy/dependencies/regcred/bin/create-docker-regcred.sh) | Bash script for creating Kubernetes [Secret](https://kubernetes.io/docs/concepts/configuration/secret/). Secret needs for authorizing in Container Registry when pulling images from cluster |
 
 <Tip>
   You can read

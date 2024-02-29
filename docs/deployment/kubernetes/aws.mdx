@@ -379,10 +379,10 @@ After that, you'll get your Access Key ID and Secret Access Key. Remember to sav
 
 ![User Credentials](/images/aws/user-credentials.png)
 
-Now we need to give EKS permissions to our user. Use the following command to attach the user to kubernetes mains group:
+Now we need to give EKS permissions to our user. Use the following command to attach the user to kubernetes masters group:
 
 ```shell
-eksctl create iamidentitymapping --cluster my-app --arn arn:aws:iam::402167441269:user/cicd --group system:mains --username cicd
+eksctl create iamidentitymapping --cluster my-app --arn arn:aws:iam::402167441269:user/cicd --group system:masters --username cicd
 ```
 
 In the **--arn** parameter you need to specify your user ARN, which you can find in the IAM dashboard.
