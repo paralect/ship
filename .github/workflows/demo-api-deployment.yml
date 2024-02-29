@@ -1,8 +1,9 @@
-name: 'Application api deployment'
+name: 'Demo API deployment'
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     paths:
       - 'template/apps/api/**'
   workflow_dispatch:
