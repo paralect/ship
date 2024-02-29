@@ -36,7 +36,7 @@ Script passes the image tag to deployment command, so Kubernetes knows which ima
 imageTag = `${branch}.${commitSHA}`;
 ```
 
-Then script grabs all resources templates([Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/), [Service](https://kubernetes.io/docs/concepts/services-networking/service/), etc) from the [templates](https://github.com/paralect/ship/blob/master/examples/base/deploy/app/api/templates) folder for services that are deploying, packages them as [Helm Chart](https://helm.sh/docs/topics/charts/), and creates [Helm Release](https://helm.sh/docs/intro/using_helm/#three-big-concepts) that installs all that resources in the cluster. During the release, Kubernetes will download a new Docker image from registry and use it to create a new version of the service in the cluster.
+Then script grabs all resources templates([Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/), [Service](https://kubernetes.io/docs/concepts/services-networking/service/), etc) from the [templates](https://github.com/paralect/ship/blob/main/examples/base/deploy/app/api/templates) folder for services that are deploying, packages them as [Helm Chart](https://helm.sh/docs/topics/charts/), and creates [Helm Release](https://helm.sh/docs/intro/using_helm/#three-big-concepts) that installs all that resources in the cluster. During the release, Kubernetes will download a new Docker image from registry and use it to create a new version of the service in the cluster.
 
 <Tip>
 We use [**Blue-Green**](https://martinfowler.com/bliki/BlueGreenDeployment.html) deployment through [**Rolling Update**](https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/).
@@ -92,7 +92,7 @@ We have 2 separate GitHub Actions [workflows](https://docs.github.com/en/actions
 If the Migrator fails, API and Scheduler will be not deployed. This approach guarantees us that the API and Scheduler always work with the appropriate database schema.
 
 <Tip>
-We have [**separate**](https://github.com/paralect/ship/tree/master/examples/base/.github/workflows) GitHub Actions workflows for different environments.
+We have [**separate**](https://github.com/paralect/ship/tree/main/examples/base/.github/workflows) GitHub Actions workflows for different environments.
 </Tip>
 
 ## Environment variables
@@ -135,7 +135,7 @@ corresponding to the environment-specific files mentioned earlier.
 
 We recommend avoiding self-managed database solutions and use cloud service like [MongoDB Atlas](https://www.mongodb.com/atlas/database) that provides managed database. It handles many quite complex things: database deployment, backups, scaling, and security.
 
-After you create the database you will need to add a connection string in the [config](https://github.com/paralect/ship/blob/master/examples/base/api/src/config/environment/production.json).
+After you create the database you will need to add a connection string in the [config](https://github.com/paralect/ship/blob/main/examples/base/api/src/config/environment/production.json).
 
 ```json config/environment/production.json
   {
@@ -162,12 +162,12 @@ Services are parts of your application packaged as Helm Charts.
 
 |Service|Description|Kubernetes Resource|
 |:---|:---|:---|
-|[**Web**](https://github.com/paralect/ship/blob/master/examples/base/web)|Next.js server that serves static files and API endpoints|Pod|
-|[**API**](https://github.com/paralect/ship/blob/master/examples/base/api)|Backend server|Pod|
-|[**Scheduler**](https://github.com/paralect/ship/blob/master/examples/base/api/src/scheduler)|Service that runs cron jobs|Pod|
-|[**Migrator**](https://github.com/paralect/ship/blob/master/examples/base/api/src/migrations)|Service that migrates database schema. It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
+|[**Web**](https://github.com/paralect/ship/blob/main/examples/base/web)|Next.js server that serves static files and API endpoints|Pod|
+|[**API**](https://github.com/paralect/ship/blob/main/examples/base/api)|Backend server|Pod|
+|[**Scheduler**](https://github.com/paralect/ship/blob/main/examples/base/api/src/scheduler)|Service that runs cron jobs|Pod|
+|[**Migrator**](https://github.com/paralect/ship/blob/main/examples/base/api/src/migrations)|Service that migrates database schema. It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
 
-To deploy services in the cluster manually you need to set cluster authorization credentials inside [config](https://github.com/paralect/ship/blob/master/examples/base/deploy/script/src/config.js) and run deployment [script](https://github.com/paralect/ship/blob/master/examples/base/deploy/script/src/index.js).
+To deploy services in the cluster manually you need to set cluster authorization credentials inside [config](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src/config.js) and run deployment [script](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src/index.js).
 
 ```shell deploy/script/src
 node index
@@ -178,10 +178,10 @@ node index
 ```
 
 When you will configure GitHub Secrets in your repo, GitHub Actions will automatically deploy your services on push in the repo.
-You can check the required secrets inside [workflow](https://github.com/paralect/ship/tree/master/examples/base/.github/workflows) files.
+You can check the required secrets inside [workflow](https://github.com/paralect/ship/tree/main/examples/base/.github/workflows) files.
 
 <Tip>
-If you are adding new service, you need to configure it in [**app**](https://github.com/paralect/ship/blob/master/examples/base/deploy/app) and [**script**](https://github.com/paralect/ship/blob/master/examples/base/deploy/script/src) folders.
+If you are adding new service, you need to configure it in [**app**](https://github.com/paralect/ship/blob/main/examples/base/deploy/app) and [**script**](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src) folders.
 You can do it following the example from neighboring services.
 </Tip>
 
@@ -192,18 +192,18 @@ Dependencies are third-party services packaged as Helm Charts and bash scripts t
 |Dependency|Description|
 |:---|:---|
 |[ingress-nginx](https://github.com/kubernetes/ingress-nginx)|Ingress controller for Kubernetes using Nginx as a reverse proxy and load balancer|
-|[redis](https://github.com/bitnami/charts/tree/master/bitnami/redis)|Open source, advanced key-value store|
-|[regcred](https://github.com/paralect/ship/blob/master/deploy/digital-ocean/dependencies/regcred)|Bash script for creating Kubernetes [Secret](https://kubernetes.io/docs/concepts/configuration/secret/). Secret needs for authorizing in Container Registry when pulling images from cluster. Required only for Digital Ocean clusters|
+|[redis](https://github.com/bitnami/charts/tree/main/bitnami/redis)|Open source, advanced key-value store|
+|[regcred](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/dependencies/regcred)|Bash script for creating Kubernetes [Secret](https://kubernetes.io/docs/concepts/configuration/secret/). Secret needs for authorizing in Container Registry when pulling images from cluster. Required only for Digital Ocean clusters|
 
-To deploy dependencies in cluster, you need to run [deploy-dependencies.sh](https://github.com/paralect/ship/blob/master/examples/base/deploy/bin/deploy-dependencies.sh) script.
+To deploy dependencies in cluster, you need to run [deploy-dependencies.sh](https://github.com/paralect/ship/blob/main/examples/base/deploy/bin/deploy-dependencies.sh) script.
 
 ```shell deploy/bin
 bash deploy-dependencies.sh
 ```
 
 <Tip>
-If you are adding new dependency, you need to create separate folder inside [**dependencies**](https://github.com/paralect/ship/blob/master/examples/base/deploy/dependencies) folder and configure new Chart.
-Also, you need to add new dependency in [**deploy-dependencies.sh**](https://github.com/paralect/ship/blob/master/examples/base/deploy/bin/deploy-dependencies.sh) script.
+If you are adding new dependency, you need to create separate folder inside [**dependencies**](https://github.com/paralect/ship/blob/main/examples/base/deploy/dependencies) folder and configure new Chart.
+Also, you need to add new dependency in [**deploy-dependencies.sh**](https://github.com/paralect/ship/blob/main/examples/base/deploy/bin/deploy-dependencies.sh) script.
 You can do it following the example from neighboring dependencies.
 </Tip>
 
@@ -211,8 +211,8 @@ You can do it following the example from neighboring dependencies.
 
 |Folder|Description|
 |:---|:---|
-|[.github](https://github.com/paralect/ship/blob/master/deploy/digital-ocean/.github/workflows)|GitHub Actions CI/CD pipelines for automated deployment on push in repo|
-|[app](https://github.com/paralect/ship/blob/master/deploy/digital-ocean/app)|Helm charts for services|
-|[bin](https://github.com/paralect/ship/blob/master/deploy/digital-ocean/bin)|Utils scripts|
-|[dependencies](https://github.com/paralect/ship/blob/master/deploy/digital-ocean/dependencies)|Helm charts for dependencies|
-|[script](https://github.com/paralect/ship/blob/master/deploy/digital-ocean/script)|Deployment script|
+|[.github](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/.github/workflows)|GitHub Actions CI/CD pipelines for automated deployment on push in repo|
+|[app](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/app)|Helm charts for services|
+|[bin](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/bin)|Utils scripts|
+|[dependencies](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/dependencies)|Helm charts for dependencies|
+|[script](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/script)|Deployment script|

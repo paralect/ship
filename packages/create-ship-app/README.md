@@ -1,4 +1,4 @@
-![Ship](https://github.com/paralect/ship/blob/master/ship.png)
+![Ship](https://github.com/paralect/ship/blob/main/ship.png)
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
@@ -56,7 +56,7 @@ We believe we could ship great products faster, while maintain decent quality an
 
 ## License
 
-Ship is released under the [MIT License](https://github.com/paralect/ship/blob/master/LICENSE).
+Ship is released under the [MIT License](https://github.com/paralect/ship/blob/main/LICENSE).
 
 ## Contributing
 

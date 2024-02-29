@@ -2,7 +2,7 @@ name: 'Application web deployment'
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - 'template/apps/web/**'
   workflow_dispatch:

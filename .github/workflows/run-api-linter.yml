@@ -3,7 +3,7 @@ name: Lint API Template
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - 'template/apps/api/**'
   workflow_dispatch:
