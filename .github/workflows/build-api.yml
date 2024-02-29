@@ -3,7 +3,7 @@ name: Build Template API
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - 'template/apps/api/**'
   workflow_dispatch:

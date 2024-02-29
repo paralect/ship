@@ -5,7 +5,7 @@ title: "Retool"
 ## Installation guideline
 1. Create an account at [Retool](https://login.retool.com/auth/signup) or request an invite to the existing project. At the moment Retool doesn't allow users to have multiple projects. So keep in mind that it's impossible to use one account on different projects.
 
-2. Import prebuilt applications from retool [folder](https://github.com/paralect/ship/tree/master/services/api-koa/src/config/retool) in Ship. Open `Apps` > ` Create New` > `From JSON` and choose needed.
+2. Import prebuilt applications from retool [folder](https://github.com/paralect/ship/tree/main/template/apps/api/src/config/retool) in Ship. Open `Apps` > ` Create New` > `From JSON` and choose needed.
 
 <video
    controls
@@ -42,7 +42,7 @@ To connect [**API**](/api-reference/overview) service:
 1. Select `REST API` resource
 2. Give a name to the resource
 3. Write `Base URL` of your server. For local development you need to [tunnel the traffic](#tunnel-http-traffic).
-4. Add `x-admin-key` header. The value for `x-admin-key` is stored [here](https://github.com/paralect/ship/blob/master/services/api-koa/src/config/environment/staging.json) as `adminKey`.
+4. Add `x-admin-key` header. The value for `x-admin-key` is stored in config environments as `adminKey`.
 
 <video
     controls
@@ -55,7 +55,7 @@ To connect **MongoDB** service:
 1. Select `MongoDB` resource
 2. Give a name to the resource
 3. Select `Use a database connection string`. For local development you need to [tunnel the traffic](#tunnel-mongo-traffic).
-4. Write `Connection String` of your database.  The value for `Connection String` is stored [here](https://github.com/paralect/ship/blob/master/services/api-koa/src/config/environment/staging.json) as `mongo.connection`.
+4. Write `Connection String` of your database.  The value for `Connection String` is stored in config environments as `mongo.connection`.
 
 <video
     controls

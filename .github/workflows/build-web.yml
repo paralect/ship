@@ -3,7 +3,7 @@ name: Build Template Web
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - 'template/apps/web/**'
   workflow_dispatch:

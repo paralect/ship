@@ -3,7 +3,7 @@ name: run-tests
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - 'template/apps/api'
 
