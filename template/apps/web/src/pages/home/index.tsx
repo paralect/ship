@@ -15,30 +15,30 @@ import {
 import { useDebouncedValue, useInputState } from '@mantine/hooks';
 import { IconSearch, IconX, IconSelector } from '@tabler/icons-react';
 import { RowSelectionState, SortingState } from '@tanstack/react-table';
-import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
+import { DatePickerInput, DatesRangeValue, DateValue } from '@mantine/dates';
 
 import { userApi } from 'resources/user';
 
 import { Table } from 'components';
 
+import { ListParams, SortOrder } from 'types';
+
 import { PER_PAGE, columns, selectOptions } from './constants';
 
 import classes from './index.module.css';
 
-interface UsersListParams {
-  page?: number;
-  perPage?: number;
-  searchValue?: string;
-  sort?: {
-    createdOn: 'asc' | 'desc';
+type FilterParams = {
+  createdOn?: {
+    startDate: DateValue;
+    endDate: DateValue;
   };
-  filter?: {
-    createdOn?: {
-      sinceDate: Date | null;
-      dueDate: Date | null;
-    };
-  };
-}
+};
+
+type SortParams = {
+  createdOn?: SortOrder;
+};
+
+type UsersListParams = ListParams<FilterParams, SortParams>;
 
 const Home: NextPage = () => {
   const [search, setSearch] = useInputState('');
@@ -58,20 +58,20 @@ const Home: NextPage = () => {
     }));
   }, []);
 
-  const handleFilter = useCallback(([sinceDate, dueDate]: DatesRangeValue) => {
-    setFilterDate([sinceDate, dueDate]);
+  const handleFilter = useCallback(([startDate, endDate]: DatesRangeValue) => {
+    setFilterDate([startDate, endDate]);
 
-    if (!sinceDate) {
+    if (!startDate) {
       setParams((prev) => ({
         ...prev,
         filter: {},
       }));
     }
 
-    if (dueDate) {
+    if (endDate) {
       setParams((prev) => ({
         ...prev,
-        filter: { createdOn: { sinceDate, dueDate } },
+        filter: { createdOn: { startDate, endDate } },
       }));
     }
   }, []);
@@ -80,13 +80,14 @@ const Home: NextPage = () => {
     setParams((prev) => ({ ...prev, page: 1, searchValue: debouncedSearch, perPage: PER_PAGE }));
   }, [debouncedSearch]);
 
-  const { data, isLoading: isListLoading } = userApi.useList(params);
+  const { data: users, isLoading: isUserListLoading } = userApi.useList(params);
 
   return (
     <>
       <Head>
         <title>Home</title>
       </Head>
+
       <Stack gap="lg">
         <Title order={2}>Users</Title>
 
@@ -96,7 +97,7 @@ const Home: NextPage = () => {
               className={classes.inputSkeleton}
               height={42}
               radius="sm"
-              visible={isListLoading}
+              visible={isUserListLoading}
               width="auto"
             >
               <TextInput
@@ -121,7 +122,7 @@ const Home: NextPage = () => {
               width="auto"
               height={42}
               radius="sm"
-              visible={isListLoading}
+              visible={isUserListLoading}
             >
               <Select
                 w={200}
@@ -145,7 +146,7 @@ const Home: NextPage = () => {
               className={classes.datePickerSkeleton}
               height={42}
               radius="sm"
-              visible={isListLoading}
+              visible={isUserListLoading}
               width="auto"
             >
               <DatePickerInput
@@ -159,7 +160,7 @@ const Home: NextPage = () => {
           </Group>
         </Group>
 
-        {isListLoading && (
+        {isUserListLoading && (
           <>
             {[1, 2, 3].map((item) => (
               <Skeleton
@@ -172,11 +173,11 @@ const Home: NextPage = () => {
           </>
         )}
 
-        {data?.items.length ? (
+        {users?.results.length ? (
           <Table
             columns={columns}
-            data={data.items}
-            dataCount={data.count}
+            data={users.results}
+            dataCount={users.count}
             rowSelection={rowSelection}
             setRowSelection={setRowSelection}
             sorting={sorting}
