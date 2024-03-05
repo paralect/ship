@@ -19,8 +19,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - .dev/mongo/config/keyfile:/config/keyfile
-      - .dev/mongo/configdb:/data/configdb
-      - .dev/mongo/db:/data/db
+      - type: volume
+        source: mongodb
+        target: /data/db
+      - type: volume
+        source: mongodb-cfg
+        target: /data/configdb
   # mongo-replicator creates a replica set for transaction support
   mongo-replicator:
     container_name: ship-mongo-replicator
@@ -141,4 +145,6 @@ networks:
     name: ship-network
 
 volumes:
+  mongodb:
+  mongodb-cfg:
   mailer-volume:
