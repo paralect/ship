@@ -1,6 +1,7 @@
 .idea
 .turbo
 .DS_Store
+.dev
 /node_modules
 dist
 coverage
