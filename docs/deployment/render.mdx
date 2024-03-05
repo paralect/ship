@@ -59,7 +59,7 @@ Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account
 After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
 
 <Warning>
-Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password. 
+Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password.
 Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
 </Warning>
 
@@ -79,6 +79,11 @@ Select `Connect your application` option. Choose driver and mongo version, and c
 
 Save this value. It will be needed later when creating the app in Digital Ocean.
 
+<Tip>
+Before moving to production, it's crucial to set up [MongoDB backup methods](https://www.mongodb.com/docs/manual/core/backups).
+
+This ensures that you can reliably restore your data in the event of unforeseen circumstances.
+</Tip>
 
 ## Redis Cloud
 
