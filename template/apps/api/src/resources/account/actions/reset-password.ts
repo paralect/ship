@@ -10,7 +10,10 @@ import { securityUtil } from 'utils';
 
 const schema = z.object({
   token: z.string().min(1, 'Token is required'),
-  password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+  password: z.string().regex(
+    PASSWORD_REGEX,
+    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+  ),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {
