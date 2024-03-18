@@ -34,7 +34,7 @@ const routeErrorHandler = async (ctx: AppKoaContext, next: Next) => {
 
       logger.error(JSON.stringify(errors, null, 4), loggerMetadata);
 
-      if (serverError && process.env.APP_ENV === 'production') {
+      if (serverError && config.APP_ENV === 'production') {
         serverError.global = 'Something went wrong';
       }
 
