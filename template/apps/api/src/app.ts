@@ -25,8 +25,6 @@ import routes from 'routes';
 import redisClient, { redisErrorHandler } from 'redis-client';
 import ioEmitter from 'io-emitter';
 
-import db from 'db';
-
 const initKoa = () => {
   const app = new AppKoa();
 
@@ -58,18 +56,13 @@ const app = initKoa();
 
 (async () => {
   const server = http.createServer(app.callback());
-  const connections = [];
-
-  connections.push(db.connect());
 
   if (config.REDIS_URI) {
-    connections.push(redisClient.connect().then(() => {
+    await redisClient.connect().then(() => {
       ioEmitter.initClient();
       socketService(server);
-    }).catch(redisErrorHandler));
+    }).catch(redisErrorHandler);
   }
-
-  await Promise.all(connections);
 
   server.listen(config.PORT, () => {
     logger.info(`API server is listening on ${config.PORT} in ${config.APP_ENV} environment`);

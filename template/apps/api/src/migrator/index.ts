@@ -71,8 +71,6 @@ const run = async (migrations: Migration[], curVersion: number) => {
 };
 
 const exec = async () => {
-  await db.connect();
-
   const [migrations, currentVersion] = await Promise.all([
     migrationVersionService.getMigrations(),
     migrationVersionService.getCurrentMigrationVersion(),
