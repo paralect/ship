@@ -12,6 +12,8 @@ import { accountApi } from 'resources/account';
 import { handleError } from 'utils';
 import queryClient from 'query-client';
 
+import { PASSWORD_REGEX } from 'app-constants';
+
 import PhotoUpload from './components/PhotoUpload';
 
 const schema = z.object({
@@ -20,7 +22,7 @@ const schema = z.object({
   lastName: z.string().trim().min(1, 'Please enter Last name').max(100)
     .optional(),
   password: z.string().trim().regex(
-    /^$|^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
+    PASSWORD_REGEX,
     'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
   ).optional(),
 });

@@ -21,7 +21,10 @@ const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),
   lastName: z.string().min(1, 'Please enter Last name').max(100),
   email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+  password: z.string().regex(
+    PASSWORD_REGEX,
+    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+  ),
 });
 
 type SignUpParams = z.infer<typeof schema>;
