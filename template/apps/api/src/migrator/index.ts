@@ -3,6 +3,7 @@ import 'moment-duration-format';
 import { generateId } from '@paralect/node-mongo';
 
 import logger from 'logger';
+import db from 'db';
 
 import { Migration } from './types';
 import migrationLogService from './migration-log/migration-log.service';
@@ -70,6 +71,8 @@ const run = async (migrations: Migration[], curVersion: number) => {
 };
 
 const exec = async () => {
+  await db.connect();
+
   const [migrations, currentVersion] = await Promise.all([
     migrationVersionService.getMigrations(),
     migrationVersionService.getCurrentMigrationVersion(),

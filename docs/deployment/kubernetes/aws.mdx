@@ -312,6 +312,12 @@ Select `Connect your application` option. Choose driver and mongo version, and c
 
 Now save this string, you will need it later.
 
+<Tip>
+Before moving to production, it's crucial to set up [MongoDB backup methods](https://www.mongodb.com/docs/manual/core/backups).
+
+This ensures that you can reliably restore your data in the event of unforeseen circumstances.
+</Tip>
+
 ## CI/CD Preparation
 
 Before setup CI/CD you need to create a separate user in AWS IAM with certain permissions, let's create this user.
