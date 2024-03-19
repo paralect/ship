@@ -1,3 +1,5 @@
+const { resolve } = require("path");
+
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
@@ -18,7 +20,7 @@ module.exports = {
   },
   rules: {
     'tsc/config': [2, {
-      configFile: 'tsconfig.json'
+      configFile: resolve(__dirname, './tsconfig.json')
     }],
     'arrow-body-style': 0,
     'no-underscore-dangle': 0,
