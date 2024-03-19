@@ -2,7 +2,7 @@
   "name": "ship",
   "scripts": {
     "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
-    "turbo-start": "turbo run development --filter=\"./apps/*\" --filter=\"./packages/*\" --filter=\"!react-email-client\" ",
+    "turbo-start": "turbo run development",
     "docker": "bash ./bin/start.sh",
     "start": "bash ./bin/run-all.sh",
     "prepare": "cd .. && husky template/.husky"
@@ -20,5 +20,8 @@
     "turbo-linux-arm64": "1.11.1",
     "turbo-windows-64": "1.11.1",
     "turbo-windows-arm64": "1.11.1"
+  },
+  "engines": {
+    "node": ">=20.11.1"
   }
 }

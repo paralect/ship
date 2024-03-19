@@ -23,7 +23,7 @@
     "react-email": "2.0.0"
   },
   "devDependencies": {
-    "@types/node": "20.3.1",
+    "@types/node": "20.11.1",
     "@types/react": "*",
     "@typescript-eslint/eslint-plugin": "5.50.0",
     "eslint": "8.56.0",
@@ -36,8 +36,5 @@
     "*.{ts,tsx}": [
       "eslint --ext ts --ext tsx --fix"
     ]
-  },
-  "engines": {
-    "node": ">=20.1.0"
   }
 }
