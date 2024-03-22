@@ -3,6 +3,7 @@ import { Database, Service, ServiceOptions, IDocument } from '@paralect/node-mon
 import config from 'config';
 
 const database = new Database(config.MONGO_URI, config.MONGO_DB_NAME);
+database.connect();
 
 class CustomService<T extends IDocument> extends Service<T> {
   // You can add new methods or override existing here
