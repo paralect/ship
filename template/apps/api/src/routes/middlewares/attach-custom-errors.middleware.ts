@@ -13,9 +13,6 @@ const formatError = (customError: CustomErrors): ValidationErrors => {
 };
 
 const attachCustomErrors = async (ctx: AppKoaContext<{ db: number }>, next: Next) => {
-  const db = 1;
-
-  ctx.validatedData.db = db;
   ctx.throwError = (message, status = 400) => ctx.throw(status, { message });
   ctx.assertError = (condition, message, status = 400) => ctx.assert(condition, status, { message });
 
