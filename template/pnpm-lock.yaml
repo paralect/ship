@@ -430,7 +430,7 @@ importers:
         version: 20.11.1
       eslint:
         specifier: '*'
-        version: 8.36.0
+        version: 8.56.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -448,7 +448,7 @@ importers:
         version: link:../tsconfig
       typescript:
         specifier: '*'
-        version: 4.9.5
+        version: 5.2.2
 
   packages/app-types:
     dependencies:
@@ -470,7 +470,7 @@ importers:
         version: 20.11.1
       eslint:
         specifier: '*'
-        version: 8.36.0
+        version: 8.56.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -488,7 +488,7 @@ importers:
         version: link:../tsconfig
       typescript:
         specifier: '*'
-        version: 4.9.5
+        version: 5.2.2
 
   packages/enums:
     devDependencies:
@@ -497,7 +497,7 @@ importers:
         version: 20.11.1
       eslint:
         specifier: '*'
-        version: 8.36.0
+        version: 8.56.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -515,7 +515,7 @@ importers:
         version: link:../tsconfig
       typescript:
         specifier: '*'
-        version: 4.9.5
+        version: 5.2.2
 
   packages/eslint-config-custom:
     devDependencies:
@@ -591,7 +591,7 @@ importers:
         version: link:../tsconfig
       typescript:
         specifier: '*'
-        version: 4.9.5
+        version: 5.2.2
 
   packages/prettier-config-custom: {}
 
@@ -609,7 +609,7 @@ importers:
         version: 20.11.1
       eslint:
         specifier: '*'
-        version: 8.36.0
+        version: 8.56.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -627,7 +627,7 @@ importers:
         version: link:../tsconfig
       typescript:
         specifier: '*'
-        version: 4.9.5
+        version: 5.2.2
 
   packages/tsconfig: {}
 
