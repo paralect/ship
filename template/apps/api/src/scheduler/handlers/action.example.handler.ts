@@ -1,8 +1,8 @@
-import logger from 'logger';
-
 import cron from 'scheduler/cron';
 
 import config from 'config';
+
+import logger from 'logger';
 
 const schedule = {
   development: 'cron:every-minute',

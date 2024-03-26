@@ -1,8 +1,9 @@
 import sendgrid from '@sendgrid/mail';
-import logger from 'logger';
 import { renderEmailHtml, Template } from 'mailer';
 
 import config from 'config';
+
+import logger from 'logger';
 
 import { EmailServiceConstructorProps, From, SendSendgridTemplateParams, SendTemplateParams } from './email.types';
 

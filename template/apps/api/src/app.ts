@@ -1,28 +1,31 @@
-// allows to require modules relative to /src folder
-// for example: require('lib/mongo/idGenerator')
-// all options can be found here: https://gist.github.com/branneman/8048520
+/* eslint-disable simple-import-sort/imports, import/newline-after-import, import/first */
+// Allows requiring modules relative to /src folder,
+// For example, require('lib/mongo/idGenerator')
+// All options can be found here: https://gist.github.com/branneman/8048520
+import moduleAlias from 'module-alias';
+moduleAlias.addPath(__dirname);
+moduleAlias(); // read aliases from package json
+
+import 'dotenv/config';
+
 import cors from '@koa/cors';
 import http from 'http';
-import ioEmitter from 'io-emitter';
 import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
 import koaLogger from 'koa-logger';
 import qs from 'koa-qs';
-import logger from 'logger';
-import moduleAlias from 'module-alias'; // read aliases from package json
-import redisClient, { redisErrorHandler } from 'redis-client';
 
 import { socketService } from 'services';
 import routes from 'routes';
 
 import config from 'config';
 
+import ioEmitter from 'io-emitter';
+import redisClient, { redisErrorHandler } from 'redis-client';
+
+import logger from 'logger';
+
 import { AppKoa } from 'types';
-
-import 'dotenv/config';
-
-moduleAlias.addPath(__dirname);
-moduleAlias();
 
 const initKoa = () => {
   const app = new AppKoa();

@@ -1,8 +1,8 @@
-import logger from 'logger';
-
 import { userService } from 'resources/user';
 
 import config from 'config';
+
+import logger from 'logger';
 
 import { AppKoaContext, Next, ValidationErrors } from 'types';
 

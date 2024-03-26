@@ -1,6 +1,7 @@
 import { generateId } from '@paralect/node-mongo';
-import logger from 'logger';
 import moment from 'moment';
+
+import logger from 'logger';
 
 import migrationLogService from './migration-log/migration-log.service';
 import migrationVersionService from './migration-version/migration-version.service';

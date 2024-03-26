@@ -87,7 +87,7 @@
     "ts-node": "10.9.1",
     "ts-node-dev": "2.0.0",
     "tsconfig": "workspace:*",
-    "typescript": "5.3.3"
+    "typescript": "5.2.2"
   },
   "lint-staged": {
     "*.ts": [

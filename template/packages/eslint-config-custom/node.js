@@ -117,6 +117,10 @@ module.exports = {
           'error',
           {
             groups: [
+              // Allows requiring modules relative to /src folder
+              ['^module-alias'],
+              // App environment variables
+              ['^\\dotenv/config'],
               // Third-party libraries and frameworks
               ['^@?\\w'],
               // Particular business entities
@@ -128,7 +132,9 @@ module.exports = {
               // App config file
               ['^config'],
               // App core modules
-              ['^db'],
+              ['^db', '^io-emitter', '^redis-client'],
+              // Logger instance
+              ['^logger'],
               // Internal packages
               ['^app-constants', '^schemas', '^types'],
               // Relative imports
