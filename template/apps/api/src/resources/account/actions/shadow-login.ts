@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-import { AppKoaContext, Next, AppRouter, User } from 'types';
-
 import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
 import { authService } from 'services';
 
 import config from 'config';
+
+import { AppKoaContext, AppRouter, Next, User } from 'types';
 
 const schema = z.object({
   id: z.string().min(1, 'User ID is required'),

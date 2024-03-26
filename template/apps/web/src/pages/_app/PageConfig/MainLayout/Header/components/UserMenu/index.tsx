@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import { Menu } from '@mantine/core';
-import { IconUserCircle, IconLogout } from '@tabler/icons-react';
+import { IconLogout, IconUserCircle } from '@tabler/icons-react';
 
 import { accountApi } from 'resources/account';
 
@@ -19,18 +19,11 @@ const UserMenu: FC = () => {
       </Menu.Target>
 
       <Menu.Dropdown>
-        <Menu.Item
-          component={Link}
-          href={RoutePath.Profile}
-          leftSection={<IconUserCircle size={16} />}
-        >
+        <Menu.Item component={Link} href={RoutePath.Profile} leftSection={<IconUserCircle size={16} />}>
           Profile settings
         </Menu.Item>
 
-        <Menu.Item
-          onClick={() => signOut()}
-          leftSection={<IconLogout size={16} />}
-        >
+        <Menu.Item onClick={() => signOut()} leftSection={<IconLogout size={16} />}>
           Log out
         </Menu.Item>
       </Menu.Dropdown>

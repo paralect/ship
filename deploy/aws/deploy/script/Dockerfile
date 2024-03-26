@@ -44,4 +44,4 @@ RUN npm i --prefix ./deploy/script --progress=false --no-audit --production
 
 ADD ./ ./
 
-CMD node ./deploy/script/src/index.js
+CMD node ./deploy/script/src/node.js

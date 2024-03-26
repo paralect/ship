@@ -1,20 +1,21 @@
-import { FC } from 'react';
-import Head from 'next/head';
+import React, { FC } from 'react';
 import { AppProps } from 'next/app';
+import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
+import { Notifications } from '@mantine/notifications';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+import theme from 'theme';
+
+import queryClient from 'query-client';
+
+import PageConfig from './PageConfig';
 
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/notifications/styles.css';
-
-import queryClient from 'query-client';
-import theme from 'theme';
-
-import PageConfig from './PageConfig';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => (
   <>

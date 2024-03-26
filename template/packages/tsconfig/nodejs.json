@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node.js",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "lib": ["es2023"],
+    "module": "node16",
+    "target": "es2022",
+
+    "allowSyntheticDefaultImports": true,
+    "useUnknownInCatchVariables": true
+  },
+  "ts-node": { "transpileOnly": true }
+}

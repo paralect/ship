@@ -1,14 +1,20 @@
-import { S3Client, GetObjectCommand, CopyObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { Upload } from '@aws-sdk/lib-storage';
-
-import type { File } from '@koa/multer';
-import type {
+import {
+  CompleteMultipartUploadCommandOutput,
+  CopyObjectCommand,
+  CopyObjectCommandOutput,
+  DeleteObjectCommand,
+  DeleteObjectCommandOutput,
+  GetObjectCommand,
   GetObjectOutput,
-  CopyObjectOutput,
-  DeleteObjectOutput,
-  CompleteMultipartUploadOutput,
+  S3Client,
 } from '@aws-sdk/client-s3';
+import { PutObjectCommandInput } from '@aws-sdk/client-s3/dist-types/commands/PutObjectCommand';
+import { Upload } from '@aws-sdk/lib-storage';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import type { File } from '@koa/multer';
+import { ToCamelCase } from 'app-types';
+
+import { caseUtil } from 'utils';
 
 import config from 'config';
 
@@ -23,11 +29,13 @@ const client = new S3Client({
     secretAccessKey: config.CLOUD_STORAGE_SECRET_ACCESS_KEY ?? '',
   },
 });
-const Bucket = config.CLOUD_STORAGE_BUCKET;
+const bucket = config.CLOUD_STORAGE_BUCKET;
 
-const upload = (fileName: string, file: File): Promise<CompleteMultipartUploadOutput> => {
-  const params = {
-    Bucket,
+type UploadOutput = ToCamelCase<CompleteMultipartUploadCommandOutput>;
+
+const upload = async (fileName: string, file: File): Promise<UploadOutput> => {
+  const params: PutObjectCommandInput = {
+    Bucket: bucket,
     ContentType: file.mimetype,
     Body: file.buffer,
     Key: fileName,
@@ -39,12 +47,12 @@ const upload = (fileName: string, file: File): Promise<CompleteMultipartUploadOu
     params,
   });
 
-  return multipartUpload.done();
+  return multipartUpload.done().then((value) => caseUtil.toCamelCase<UploadOutput>(value));
 };
 
-const uploadPublic = (fileName: string, file: File): Promise<CompleteMultipartUploadOutput> => {
-  const params = {
-    Bucket,
+const uploadPublic = async (fileName: string, file: File): Promise<UploadOutput> => {
+  const params: PutObjectCommandInput = {
+    Bucket: bucket,
     ContentType: file.mimetype,
     Body: file.buffer,
     Key: fileName,
@@ -56,12 +64,12 @@ const uploadPublic = (fileName: string, file: File): Promise<CompleteMultipartUp
     params,
   });
 
-  return multipartUpload.done();
+  return multipartUpload.done().then((value) => caseUtil.toCamelCase<UploadOutput>(value));
 };
 
 const getSignedDownloadUrl = (fileName: string): Promise<string> => {
   const command = new GetObjectCommand({
-    Bucket,
+    Bucket: bucket,
     Key: fileName,
   });
 
@@ -70,38 +78,41 @@ const getSignedDownloadUrl = (fileName: string): Promise<string> => {
 
 const getObject = (fileName: string): Promise<GetObjectOutput> => {
   const command = new GetObjectCommand({
-    Bucket,
+    Bucket: bucket,
     Key: fileName,
   });
 
   return client.send(command);
 };
 
-const copyObject = (filePath: string, copyFilePath: string): Promise<CopyObjectOutput> => {
+type CopyOutput = ToCamelCase<CopyObjectCommandOutput>;
+
+const copyObject = async (filePath: string, copyFilePath: string): Promise<CopyOutput> => {
   const command = new CopyObjectCommand({
-    Bucket,
-    CopySource: encodeURI(`${Bucket}/${copyFilePath}`),
+    Bucket: bucket,
+    CopySource: encodeURI(`${bucket}/${copyFilePath}`),
     Key: filePath,
   });
 
-  return client.send(command);
+  return client.send(command).then((value) => caseUtil.toCamelCase<CopyOutput>(value));
 };
 
-const deleteObject = (fileName: string): Promise<DeleteObjectOutput> => {
-  const command = new DeleteObjectCommand( {
-    Bucket,
+type DeleteOutput = ToCamelCase<DeleteObjectCommandOutput>;
+
+const deleteObject = async (fileName: string): Promise<DeleteOutput> => {
+  const command = new DeleteObjectCommand({
+    Bucket: bucket,
     Key: fileName,
   });
 
-  return client.send(command);
+  return client.send(command).then((value) => caseUtil.toCamelCase<DeleteOutput>(value));
 };
 
-export default {
-  helpers,
+export default Object.assign(helpers, {
   upload,
   uploadPublic,
   getObject,
   copyObject,
   deleteObject,
   getSignedDownloadUrl,
-};
+});

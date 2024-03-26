@@ -1,9 +1,9 @@
 import React, { FC, ReactNode } from 'react';
 import { Body, Container, Html, Preview, Section, Tailwind, TailwindProps } from '@react-email/components';
 
+import BodyFooter from './_components/body-footer';
 import Head from './_components/head';
 import Header from './_components/header';
-import BodyFooter from './_components/body-footer';
 import MainFooter from './_components/main-footer';
 
 interface LayoutProps {
@@ -24,7 +24,7 @@ const tailwindConfig: TailwindProps['config'] = {
   },
 };
 
-const Layout:FC<LayoutProps> = ({ children, previewText }) => (
+const Layout: FC<LayoutProps> = ({ children, previewText }) => (
   <Html>
     <Head />
 

@@ -1,13 +1,12 @@
-import http from 'http';
-import { Server } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
-
-import { COOKIES } from 'app-constants';
+import http from 'http';
+import logger from 'logger';
+import pubClient, { redisErrorHandler } from 'redis-client';
+import { Server } from 'socket.io';
 
 import { tokenService } from 'resources/token';
 
-import pubClient, { redisErrorHandler } from 'redis-client';
-import logger from 'logger';
+import { COOKIES } from 'app-constants';
 
 import socketHelper from './socket.helper';
 

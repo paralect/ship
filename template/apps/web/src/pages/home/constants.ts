@@ -1,5 +1,5 @@
-import { ColumnDef } from '@tanstack/react-table';
 import { ComboboxItem } from '@mantine/core';
+import { ColumnDef } from '@tanstack/react-table';
 
 import { User } from 'types';
 

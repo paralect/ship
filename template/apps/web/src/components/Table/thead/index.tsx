@@ -1,24 +1,20 @@
-import { FC, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Table, UnstyledButton } from '@mantine/core';
-import {
-  IconSortAscending,
-  IconSortDescending,
-  IconArrowsSort,
-} from '@tabler/icons-react';
+import { IconArrowsSort, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import { ColumnDefTemplate, HeaderContext, HeaderGroup } from '@tanstack/react-table';
 
 import classes from './thead.module.css';
 
 type CellData = {
-  [key: string]: string | Function | boolean | Record<string, any>;
+  [key: string]: string | boolean | Record<string, any>;
 };
 
 interface TheadProps {
-  isSortable: boolean,
+  isSortable: boolean;
   headerGroups: HeaderGroup<CellData>[];
   flexRender: (
     template: ColumnDefTemplate<HeaderContext<CellData, any>> | undefined,
-    context: HeaderContext<CellData, any>
+    context: HeaderContext<CellData, any>,
   ) => ReactNode;
 }
 
@@ -44,17 +40,15 @@ const Thead: FC<TheadProps> = ({ isSortable, headerGroups, flexRender }) => (
                 fz={14}
                 onClick={header.column.getToggleSortingHandler()}
               >
-                {
-                  flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )
-                }
-                {isSortable && header.id !== 'select' && ({
-                  false: <IconArrowsSort size={16} />,
-                  asc: <IconSortAscending size={16} />,
-                  desc: <IconSortDescending size={16} />,
-                }[String(header.column.getIsSorted())] ?? null)}
+                {flexRender(header.column.columnDef.header, header.getContext())}
+                {isSortable &&
+                  header.id !== 'select' &&
+                  ({
+                    false: <IconArrowsSort size={16} />,
+                    asc: <IconSortAscending size={16} />,
+                    desc: <IconSortDescending size={16} />,
+                  }[String(header.column.getIsSorted())] ??
+                    null)}
               </UnstyledButton>
             )}
           </Table.Th>

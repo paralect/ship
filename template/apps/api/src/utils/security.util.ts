@@ -1,5 +1,5 @@
-import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 /**
  * @desc Generates random string, useful for creating secure tokens
@@ -18,9 +18,7 @@ export const generateSecureToken = async (tokenLength = 48) => {
  * @param text {string} - a text to produce hash from
  * @return {Promise} - a hash from input text
  */
-export const getHash = (text: string) => {
-  return bcrypt.hash(text, 10);
-};
+export const getHash = (text: string) => bcrypt.hash(text, 10);
 
 /**
  * @desc Compares if text and hash are equal
@@ -29,9 +27,7 @@ export const getHash = (text: string) => {
  * @param hash {string} - a hash to compare with text
  * @return {Promise} - are hash and text equal
  */
-export const compareTextWithHash = (text: string, hash: string) => {
-  return bcrypt.compare(text, hash);
-};
+export const compareTextWithHash = (text: string, hash: string) => bcrypt.compare(text, hash);
 
 export default {
   generateSecureToken,

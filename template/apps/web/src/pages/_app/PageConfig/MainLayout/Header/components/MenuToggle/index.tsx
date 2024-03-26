@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { Avatar, UnstyledButton, useMantineTheme } from '@mantine/core';
 
 import { accountApi } from 'resources/account';
@@ -19,5 +19,7 @@ const MenuToggle = forwardRef<HTMLButtonElement>((props, ref) => {
     </UnstyledButton>
   );
 });
+
+MenuToggle.displayName = 'MenuToggle';
 
 export default MenuToggle;

@@ -4,9 +4,7 @@ const config: JestConfigWithTsJest = {
   preset: '@shelf/jest-mongodb',
   verbose: true,
   testEnvironment: 'node',
-  testMatch: [
-    '**/?(*.)+(spec.ts)',
-  ],
+  testMatch: ['**/?(*.)+(spec.ts)'],
   transform: {
     '^.+\\.(ts)$': 'ts-jest',
   },

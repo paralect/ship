@@ -18,9 +18,9 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.289.0",
-    "@aws-sdk/lib-storage": "3.289.0",
-    "@aws-sdk/s3-request-presigner": "3.289.0",
+    "@aws-sdk/client-s3": "3.540.0",
+    "@aws-sdk/lib-storage": "3.540.0",
+    "@aws-sdk/s3-request-presigner": "3.540.0",
     "@koa/cors": "4.0.0",
     "@koa/multer": "3.0.2",
     "@koa/router": "12.0.0",
@@ -75,22 +75,19 @@
     "@types/node": "20.11.1",
     "@types/node-schedule": "2.1.0",
     "@types/psl": "1.1.0",
-    "@typescript-eslint/eslint-plugin": "5.54.1",
-    "@typescript-eslint/parser": "5.54.1",
-    "eslint": "8.36.0",
-    "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-airbnb-typescript": "17.0.0",
-    "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-tsc": "2.0.0",
+    "eslint": "8.56.0",
+    "eslint-config-custom": "workspace:*",
     "jest": "29.5.0",
     "lint-staged": "13.2.0",
     "mongodb-memory-server": "8.12.0",
-    "nodemon": "3.0.1",
     "npm-run-all": "4.1.5",
+    "prettier": "3.2.5",
+    "prettier-config-custom": "workspace:*",
     "ts-jest": "29.0.5",
     "ts-node": "10.9.1",
     "ts-node-dev": "2.0.0",
-    "typescript": "4.9.5"
+    "tsconfig": "workspace:*",
+    "typescript": "5.3.3"
   },
   "lint-staged": {
     "*.ts": [

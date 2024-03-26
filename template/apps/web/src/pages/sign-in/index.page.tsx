@@ -1,21 +1,22 @@
-import { NextPage } from 'next';
+import React, { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { TextInput, PasswordInput, Button, Group, Stack, Title, Alert, Anchor } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons-react';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { Alert, Anchor, Button, Group, PasswordInput, Stack, TextInput, Title } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { IconAlertCircle } from '@tabler/icons-react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { accountApi } from 'resources/account';
 
+import { GoogleIcon } from 'public/icons';
+
 import { handleError } from 'utils';
+
 import { RoutePath } from 'routes';
 import config from 'config';
 
 import { EMAIL_REGEX } from 'app-constants';
-
-import { GoogleIcon } from 'public/icons';
 
 const schema = z.object({
   email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
@@ -34,9 +35,10 @@ const SignIn: NextPage = () => {
 
   const { mutate: signIn, isPending: isSignInPending } = accountApi.useSignIn<SignInParams>();
 
-  const onSubmit = (data: SignInParams) => signIn(data, {
-    onError: (e) => handleError(e, setError),
-  });
+  const onSubmit = (data: SignInParams) =>
+    signIn(data, {
+      onError: (e) => handleError(e, setError),
+    });
 
   return (
     <>
@@ -70,20 +72,12 @@ const SignIn: NextPage = () => {
                 </Alert>
               )}
 
-              <Anchor
-                component={Link}
-                href={RoutePath.ForgotPassword}
-              >
+              <Anchor component={Link} href={RoutePath.ForgotPassword}>
                 Forgot password?
               </Anchor>
             </Stack>
 
-            <Button
-              type="submit"
-              loading={isSignInPending}
-              fullWidth
-              mt={32}
-            >
+            <Button type="submit" loading={isSignInPending} fullWidth mt={32}>
               Sign in
             </Button>
           </form>
@@ -101,10 +95,7 @@ const SignIn: NextPage = () => {
 
           <Group justify="center" gap={12}>
             Don’t have an account?
-            <Anchor
-              component={Link}
-              href={RoutePath.SignUp}
-            >
+            <Anchor component={Link} href={RoutePath.SignUp}>
               Sign up
             </Anchor>
           </Group>

@@ -1,12 +1,11 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
-
-import { User } from 'types';
-import { DATABASE_DOCUMENTS } from 'app-constants';
-
-import logger from 'logger';
 import ioEmitter from 'io-emitter';
+import logger from 'logger';
 
-import { userService } from './index';
+import { DATABASE_DOCUMENTS } from 'app-constants';
+import { User } from 'types';
+
+import userService from './user.service';
 
 const { USERS } = DATABASE_DOCUMENTS;
 
@@ -25,10 +24,7 @@ eventBus.onUpdated(USERS, ['firstName', 'lastName'], async (data: InMemoryEvent<
     const user = data.doc;
     const fullName = user.lastName ? `${user.firstName} ${user.lastName}` : user.firstName;
 
-    await userService.atomic.updateOne(
-      { _id: user._id },
-      { $set: { fullName } },
-    );
+    await userService.atomic.updateOne({ _id: user._id }, { $set: { fullName } });
   } catch (err) {
     logger.error(`${USERS} onUpdated ['firstName', 'lastName'] handler error: ${err}`);
   }

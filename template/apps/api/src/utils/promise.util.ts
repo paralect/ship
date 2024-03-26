@@ -1,10 +1,6 @@
 import _ from 'lodash';
 
-const promiseLimit = <T>(
-  documents: T[],
-  limit: number,
-  operator: (document: T) => Promise<unknown>,
-): Promise<void> => {
+const promiseLimit = <T>(documents: T[], limit: number, operator: (document: T) => Promise<unknown>): Promise<void> => {
   const chunks = _.chunk(documents, limit);
 
   return chunks.reduce<Promise<void>>(async (previousPromise, chunk) => {

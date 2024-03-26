@@ -1,8 +1,5 @@
 import { z } from 'zod';
 
-import { AppKoaContext, Next, AppRouter, Template, User } from 'types';
-import { EMAIL_REGEX } from 'app-constants';
-
 import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
@@ -10,6 +7,9 @@ import { emailService } from 'services';
 import { securityUtil } from 'utils';
 
 import config from 'config';
+
+import { EMAIL_REGEX } from 'app-constants';
+import { AppKoaContext, AppRouter, Next, Template, User } from 'types';
 
 const schema = z.object({
   email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
@@ -24,7 +24,10 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
   const user = await userService.findOne({ email });
 
-  if (!user) return ctx.status = 204;
+  if (!user) {
+    ctx.status = 204;
+    return;
+  }
 
   ctx.validatedData.user = user;
   await next();

@@ -1,13 +1,12 @@
-import moment from 'moment';
-import 'moment-duration-format';
 import { generateId } from '@paralect/node-mongo';
-
 import logger from 'logger';
-import db from 'db';
+import moment from 'moment';
 
-import { Migration } from './types';
 import migrationLogService from './migration-log/migration-log.service';
 import migrationVersionService from './migration-version/migration-version.service';
+import { Migration } from './types';
+
+import 'moment-duration-format';
 
 interface Duration extends moment.Duration {
   format: (template?: string, precision?: number, settings?: DurationSettings) => string;
@@ -21,7 +20,8 @@ interface DurationSettings {
 }
 
 const run = async (migrations: Migration[], curVersion: number) => {
-  const newMigrations = migrations.filter((migration: Migration) => migration.version > curVersion)
+  const newMigrations = migrations
+    .filter((migration: Migration) => migration.version > curVersion)
     .sort((a: Migration, b: Migration) => a.version - b.version);
 
   if (!newMigrations.length) {
@@ -35,7 +35,8 @@ const run = async (migrations: Migration[], curVersion: number) => {
   let lastMigrationVersion;
 
   try {
-    for (migration of newMigrations) { //eslint-disable-line
+    for (migration of newMigrations) {
+      //eslint-disable-line
       migrationLogId = generateId();
       const startTime = new Date().getSeconds();
       await migrationLogService.startMigrationLog(migrationLogId, startTime, migration.version); //eslint-disable-line
@@ -48,8 +49,9 @@ const run = async (migrations: Migration[], curVersion: number) => {
       lastMigrationVersion = migration.version;
       await migrationVersionService.setNewMigrationVersion(migration.version); //eslint-disable-line
       const finishTime = new Date().getSeconds();
-      const duration = (moment.duration(finishTime - startTime) as Duration)
-        .format('h [hrs], m [min], s [sec], S [ms]');
+      const duration = (moment.duration(finishTime - startTime) as Duration).format(
+        'h [hrs], m [min], s [sec], S [ms]',
+      );
 
       await migrationLogService.finishMigrationLog(migrationLogId, finishTime, duration); //eslint-disable-line
       logger.info(`[Migrator] Database has been updated to the version #${migration.version}`);

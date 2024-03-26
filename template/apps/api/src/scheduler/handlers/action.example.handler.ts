@@ -1,6 +1,7 @@
+import logger from 'logger';
+
 import cron from 'scheduler/cron';
 
-import logger from 'logger';
 import config from 'config';
 
 const schedule = {
@@ -11,6 +12,7 @@ const schedule = {
 
 cron.on(schedule[config.APP_ENV], async () => {
   try {
+    // Scheduler logic
   } catch (error) {
     logger.error(error);
   }

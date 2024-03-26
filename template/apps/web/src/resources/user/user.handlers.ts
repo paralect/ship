@@ -1,5 +1,6 @@
-import queryClient from 'query-client';
 import { apiService, socketService } from 'services';
+
+import queryClient from 'query-client';
 
 import { User } from 'types';
 

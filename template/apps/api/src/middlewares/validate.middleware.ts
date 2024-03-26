@@ -1,4 +1,4 @@
-import { ZodSchema, ZodError, ZodIssue } from 'zod';
+import { ZodError, ZodIssue, ZodSchema } from 'zod';
 
 import { AppKoaContext, Next, ValidationErrors } from 'types';
 
@@ -20,7 +20,7 @@ const formatError = (zodError: ZodError): ValidationErrors => {
 
 const validate = (schema: ZodSchema) => async (ctx: AppKoaContext, next: Next) => {
   const result = await schema.safeParseAsync({
-    ...ctx.request.body as object,
+    ...(ctx.request.body as object),
     ...ctx.query,
     ...ctx.params,
   });

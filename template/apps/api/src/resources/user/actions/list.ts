@@ -1,22 +1,24 @@
 import { z } from 'zod';
 
-import { AppKoaContext, AppRouter, NestedKeys, User } from 'types';
-
 import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
-
 import { stringUtil } from 'utils';
 
 import { paginationSchema } from 'schemas';
+import { AppKoaContext, AppRouter, NestedKeys, User } from 'types';
 
 const schema = paginationSchema.extend({
-  filter: z.object({
-    createdOn: z.object({
-      startDate: z.coerce.date().optional(),
-      endDate: z.coerce.date().optional(),
-    }).optional(),
-  }).optional(),
+  filter: z
+    .object({
+      createdOn: z
+        .object({
+          startDate: z.coerce.date().optional(),
+          endDate: z.coerce.date().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
 type ValidatedData = z.infer<typeof schema>;
@@ -44,8 +46,8 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
       filterOptions.push({
         createdOn: {
-          ...(startDate && ({ $gte: startDate })),
-          ...(endDate && ({ $lt: endDate })),
+          ...(startDate && { $gte: startDate }),
+          ...(endDate && { $lt: endDate }),
         },
       });
     }

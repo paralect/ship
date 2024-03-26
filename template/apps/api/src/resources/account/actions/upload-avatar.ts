@@ -1,10 +1,10 @@
 import multer from '@koa/multer';
 
-import { Next, AppKoaContext, AppRouter } from 'types';
-
 import { userService } from 'resources/user';
 
 import { cloudStorageService } from 'services';
+
+import { AppKoaContext, AppRouter, Next } from 'types';
 
 const upload = multer();
 
@@ -21,20 +21,15 @@ async function handler(ctx: AppKoaContext) {
   const { file } = ctx.request;
 
   if (user.avatarUrl) {
-    const fileKey = cloudStorageService.helpers.getFileKey(user.avatarUrl);
+    const fileKey = cloudStorageService.getFileKey(user.avatarUrl);
 
     await cloudStorageService.deleteObject(fileKey);
   }
 
   const fileName = `${user._id}-${Date.now()}-${file.originalname}`;
-  const { Location } = await cloudStorageService.uploadPublic(`avatars/${fileName}`, file);
+  const { location: avatarUrl } = await cloudStorageService.uploadPublic(`avatars/${fileName}`, file);
 
-  const updatedUser = await userService.updateOne(
-    { _id: user._id },
-    () => ({ avatarUrl: Location }),
-  );
-
-  ctx.body = userService.getPublic(updatedUser);
+  ctx.body = await userService.updateOne({ _id: user._id }, () => ({ avatarUrl })).then(userService.getPublic);
 }
 
 export default (router: AppRouter) => {

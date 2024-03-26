@@ -6,6 +6,7 @@ const dotenvConfig = dotenv.config({
   silent: true,
 });
 
+/** @type {import('next').NextConfig} */
 module.exports = {
   env: dotenvConfig.parsed,
   webpack(config) {
@@ -16,18 +17,12 @@ module.exports = {
 
     return config;
   },
+  reactStrictMode: true,
   output: 'standalone',
   experimental: {
     // this includes files from the monorepo base two directories up
     outputFileTracingRoot: join(__dirname, '../../'),
   },
   pageExtensions: ['page.tsx', 'api.ts'],
-  reactStrictMode: true,
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  transpilePackages: ['types', 'schemas', 'app-constants'],
+  transpilePackages: ['app-constants', 'schemas', 'types'],
 };

@@ -1,7 +1,4 @@
+import * as configUtil from './config.util';
 import handleError from './handle-error.util';
-import configUtil from './config.util';
 
-export {
-  handleError,
-  configUtil,
-};
+export { configUtil, handleError };

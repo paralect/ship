@@ -1,7 +1,6 @@
 import { Emitter } from '@socket.io/redis-emitter';
-
-import redisClient, { redisErrorHandler } from 'redis-client';
 import logger from 'logger';
+import redisClient, { redisErrorHandler } from 'redis-client';
 
 let emitter: Emitter | null = null;
 

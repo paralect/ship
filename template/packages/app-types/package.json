@@ -1,10 +1,10 @@
 {
   "name": "app-types",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "ts-lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "ts-lint": "tsc --noEmit && eslint \"**/*.ts\" --quiet --fix",
     "precommit": "lint-staged"
   },
   "dependencies": {
@@ -14,13 +14,18 @@
     "zod": "*"
   },
   "devDependencies": {
+    "@types/node": "*",
     "eslint": "*",
+    "eslint-config-custom": "workspace:*",
     "lint-staged": "*",
+    "prettier": "*",
+    "prettier-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "*"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --ext ts --ext tsx --fix"
+    "*.ts": [
+      "eslint --fix"
     ]
   }
 }
