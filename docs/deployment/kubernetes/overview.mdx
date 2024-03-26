@@ -45,7 +45,7 @@ We use [**Blue-Green**](https://martinfowler.com/bliki/BlueGreenDeployment.html)
 
 This is the main part of the deployment script.
 
-```javascript deploy/script/src/node.js
+```javascript deploy/script/src/index.js
 const buildAndPushImage = async ({ dockerFilePath, dockerRepo, dockerContextDir, imageTag, environment }) => {
   await execCommand(`docker build \
     --build-arg APP_ENV=${environment} \
@@ -156,7 +156,7 @@ Services are parts of your application packaged as Helm Charts.
 |[**Scheduler**](https://github.com/paralect/ship/blob/main/template/apps/api/src/scheduler)|Service that runs cron jobs|Pod|
 |[**Migrator**](https://github.com/paralect/ship/blob/main/template/apps/api/src/migrator)|Service that migrates database schema. It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
 
-To deploy services in the cluster manually you need to set cluster authorization credentials inside [config](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src/config.js) and run deployment [script](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src/node.js).
+To deploy services in the cluster manually you need to set cluster authorization credentials inside [config](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src/config.js) and run deployment [script](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src/index.js).
 
 ```shell deploy/script/src
 node index
