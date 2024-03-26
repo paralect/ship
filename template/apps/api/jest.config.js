@@ -1,6 +1,5 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
-
-const config: JestConfigWithTsJest = {
+/** @type {import('jest').Config} */
+const config = {
   preset: '@shelf/jest-mongodb',
   verbose: true,
   testEnvironment: 'node',
@@ -15,4 +14,4 @@ const config: JestConfigWithTsJest = {
   testTimeout: 10000,
 };
 
-export default config;
+module.exports = config;
