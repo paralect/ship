@@ -10,5 +10,6 @@
 
     "allowSyntheticDefaultImports": true,
     "useUnknownInCatchVariables": true
-  }
+  },
+  "ts-node": { "transpileOnly": true }
 }
