@@ -4,8 +4,6 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import config from 'config';
 
 export class ApiError extends Error {
-  __proto__: ApiError;
-
   data: any;
 
   status: number;
@@ -14,7 +12,6 @@ export class ApiError extends Error {
     super(`${status} ${statusText}`);
 
     this.constructor = ApiError;
-    this.__proto__ = ApiError.prototype; // eslint-disable-line no-proto
 
     this.name = this.constructor.name;
     this.data = data;
@@ -29,11 +26,8 @@ export class ApiError extends Error {
     return this.stack;
   }
 }
-const throwApiError = ({
-  status,
-  statusText,
-  data,
-}: any) => {
+
+const throwApiError = ({ status, statusText, data }: any) => {
   console.error(`API Error: ${status} ${statusText}`, data); //eslint-disable-line
   throw new ApiError(data, status, statusText);
 };

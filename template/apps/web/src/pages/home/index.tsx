@@ -1,21 +1,11 @@
-import { useCallback, useLayoutEffect, useState } from 'react';
-import Head from 'next/head';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { NextPage } from 'next';
-import {
-  Select,
-  TextInput,
-  Group,
-  Title,
-  Stack,
-  Skeleton,
-  Text,
-  Container,
-  ActionIcon,
-} from '@mantine/core';
-import { useDebouncedValue, useInputState } from '@mantine/hooks';
-import { IconSearch, IconX, IconSelector } from '@tabler/icons-react';
-import { RowSelectionState, SortingState } from '@tanstack/react-table';
+import Head from 'next/head';
+import { ActionIcon, Container, Group, Select, Skeleton, Stack, Text, TextInput, Title } from '@mantine/core';
 import { DatePickerInput, DatesRangeValue, DateValue } from '@mantine/dates';
+import { useDebouncedValue, useInputState } from '@mantine/hooks';
+import { IconSearch, IconSelector, IconX } from '@tabler/icons-react';
+import { RowSelectionState, SortingState } from '@tanstack/react-table';
 
 import { userApi } from 'resources/user';
 
@@ -23,7 +13,7 @@ import { Table } from 'components';
 
 import { ListParams, SortOrder } from 'types';
 
-import { PER_PAGE, columns, selectOptions } from './constants';
+import { columns, PER_PAGE, selectOptions } from './constants';
 
 import classes from './index.module.css';
 
@@ -107,23 +97,17 @@ const Home: NextPage = () => {
                 onChange={setSearch}
                 placeholder="Search by name or email"
                 leftSection={<IconSearch size={16} />}
-                rightSection={search && (
-                  <ActionIcon
-                    variant="transparent"
-                    onClick={() => setSearch('')}
-                  >
-                    <IconX color="gray" stroke={1} />
-                  </ActionIcon>
-                )}
+                rightSection={
+                  search && (
+                    <ActionIcon variant="transparent" onClick={() => setSearch('')}>
+                      <IconX color="gray" stroke={1} />
+                    </ActionIcon>
+                  )
+                }
               />
             </Skeleton>
 
-            <Skeleton
-              width="auto"
-              height={42}
-              radius="sm"
-              visible={isUserListLoading}
-            >
+            <Skeleton width="auto" height={42} radius="sm" visible={isUserListLoading}>
               <Select
                 w={200}
                 size="md"
@@ -163,12 +147,7 @@ const Home: NextPage = () => {
         {isUserListLoading && (
           <>
             {[1, 2, 3].map((item) => (
-              <Skeleton
-                key={`sklton-${String(item)}`}
-                height={50}
-                radius="sm"
-                mb="sm"
-              />
+              <Skeleton key={`sklton-${String(item)}`} height={50} radius="sm" mb="sm" />
             ))}
           </>
         )}

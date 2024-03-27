@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-import { AppKoaContext, AppRouter, User } from 'types';
-import { EMAIL_REGEX } from 'app-constants';
-
 import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
 
 import config from 'config';
+
+import { EMAIL_REGEX } from 'app-constants';
+import { AppKoaContext, AppRouter, User } from 'types';
 
 const schema = z.object({
   email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),

@@ -1,33 +1,50 @@
-import { z } from 'zod';
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Button, Stack, TextInput, PasswordInput, Group, Title, Text, Checkbox, SimpleGrid, Tooltip, Anchor } from '@mantine/core';
-import { useForm } from 'react-hook-form';
+import {
+  Anchor,
+  Button,
+  Checkbox,
+  Group,
+  PasswordInput,
+  SimpleGrid,
+  Stack,
+  Text,
+  TextInput,
+  Title,
+  Tooltip,
+} from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { accountApi } from 'resources/account';
 
+import { GoogleIcon } from 'public/icons';
+
 import { handleError } from 'utils';
+
 import { RoutePath } from 'routes';
 import config from 'config';
 
 import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
 
-import { GoogleIcon } from 'public/icons';
-
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),
   lastName: z.string().min(1, 'Please enter Last name').max(100),
   email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z.string().regex(
-    PASSWORD_REGEX,
-    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
-  ),
+  password: z
+    .string()
+    .regex(
+      PASSWORD_REGEX,
+      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+    ),
 });
 
 type SignUpParams = z.infer<typeof schema>;
+
+type SignUpResponse = { signupToken?: string };
 
 const passwordRules = [
   {
@@ -74,28 +91,23 @@ const SignUp: NextPage = () => {
 
   const { mutate: signUp, isPending: isSignUpPending } = accountApi.useSignUp<SignUpParams>();
 
-  const onSubmit = (data: SignUpParams) => signUp(data, {
-    onSuccess: (response: any) => {
-      if (response.signupToken) setSignupToken(response.signupToken);
+  const onSubmit = (data: SignUpParams) =>
+    signUp(data, {
+      onSuccess: (response: SignUpResponse) => {
+        if (response.signupToken) setSignupToken(response.signupToken);
 
-      setRegistered(true);
-      setEmail(data.email);
-    },
-    onError: (e) => handleError(e, setError),
-  });
+        setRegistered(true);
+        setEmail(data.email);
+      },
+      onError: (e) => handleError(e, setError),
+    });
 
   const label = (
     <SimpleGrid cols={1} spacing="xs" p={4}>
       <Text>Password must:</Text>
 
       {passwordRulesData.map((ruleData) => (
-        <Checkbox
-          key={ruleData.title}
-          label={ruleData.title}
-          checked={ruleData.done}
-          color="white"
-          iconColor="dark"
-        />
+        <Checkbox key={ruleData.title} label={ruleData.title} checked={ruleData.done} color="white" iconColor="dark" />
       ))}
     </SimpleGrid>
   );
@@ -111,20 +123,14 @@ const SignUp: NextPage = () => {
           <Title order={2}>Thanks!</Title>
 
           <Text size="md" c="gray.6">
-            Please follow the instructions from the email to complete a sign up process.
-            We sent an email with a confirmation link to
-            {' '}
-            <b>{email}</b>
+            Please follow the instructions from the email to complete a sign up process. We sent an email with a
+            confirmation link to <b>{email}</b>
           </Text>
 
           {signupToken && (
             <Stack gap={0}>
               <Text>You look like a cool developer.</Text>
-              <Anchor
-                size="sm"
-                href={`${config.API_URL}/account/verify-email?token=${signupToken}`}
-                target="_blank"
-              >
+              <Anchor size="sm" href={`${config.API_URL}/account/verify-email?token=${signupToken}`} target="_blank">
                 Verify email
               </Anchor>
             </Stack>
@@ -169,11 +175,7 @@ const SignUp: NextPage = () => {
                 error={errors.email?.message}
               />
 
-              <Tooltip
-                label={label}
-                opened={opened}
-                withArrow
-              >
+              <Tooltip label={label} opened={opened} withArrow>
                 <PasswordInput
                   {...register('password')}
                   label="Password"
@@ -185,12 +187,7 @@ const SignUp: NextPage = () => {
               </Tooltip>
             </Stack>
 
-            <Button
-              type="submit"
-              loading={isSignUpPending}
-              fullWidth
-              mt={32}
-            >
+            <Button type="submit" loading={isSignUpPending} fullWidth mt={32}>
               Sign Up
             </Button>
           </form>

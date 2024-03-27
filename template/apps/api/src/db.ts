@@ -1,4 +1,4 @@
-import { Database, Service, ServiceOptions, IDocument } from '@paralect/node-mongo';
+import { Database, IDocument, Service, ServiceOptions } from '@paralect/node-mongo';
 
 import config from 'config';
 

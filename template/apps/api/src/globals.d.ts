@@ -1,4 +1,4 @@
-/* eslint-disable no-var */
+/* eslint-disable no-var, vars-on-top */
 import type { Logger } from 'winston';
 
 declare global {

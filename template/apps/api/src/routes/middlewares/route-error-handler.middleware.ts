@@ -1,9 +1,10 @@
-import { AppKoaContext, Next, ValidationErrors } from 'types';
-
 import { userService } from 'resources/user';
 
-import logger from 'logger';
 import config from 'config';
+
+import logger from 'logger';
+
+import { AppKoaContext, Next, ValidationErrors } from 'types';
 
 interface CustomError extends Error {
   status?: number;

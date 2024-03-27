@@ -1,10 +1,10 @@
+import { tokenService } from 'resources/token';
+import { userService } from 'resources/user';
+
 import { AppKoaContext, Next } from 'types';
 
-import { userService } from 'resources/user';
-import { tokenService } from 'resources/token';
-
 const tryToAttachUser = async (ctx: AppKoaContext, next: Next) => {
-  const accessToken = ctx.state.accessToken;
+  const { accessToken } = ctx.state;
   let userData;
 
   if (accessToken) {

@@ -16,11 +16,11 @@ const ColorSchemeWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     channel.on(DARK_MODE_EVENT_NAME, handleColorScheme);
     return () => channel.off(DARK_MODE_EVENT_NAME, handleColorScheme);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [channel]);
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{ children }</>;
+  return <>{children}</>;
 };
 
 export const decorators = [

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head as ReactEmailHead, Font } from '@react-email/components';
+import { Font, Head as ReactEmailHead } from '@react-email/components';
 
 const Head = () => (
   <ReactEmailHead>

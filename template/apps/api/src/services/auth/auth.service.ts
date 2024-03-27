@@ -1,5 +1,6 @@
-import { AppKoaContext } from 'types';
 import { tokenService } from 'resources/token';
+
+import { AppKoaContext } from 'types';
 
 import cookieHelper from './auth.helper';
 

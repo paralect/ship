@@ -1,6 +1,5 @@
-import { createTheme, DEFAULT_THEME } from '@mantine/core';
-
 import { Inter } from 'next/font/google';
+import { createTheme, DEFAULT_THEME } from '@mantine/core';
 
 import * as components from './components';
 

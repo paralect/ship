@@ -1,5 +1,5 @@
-import { memo, useState } from 'react';
-import { Group, Text, Button, Stack, BackgroundImage, Center } from '@mantine/core';
+import React, { memo, useState } from 'react';
+import { BackgroundImage, Button, Center, Group, Stack, Text } from '@mantine/core';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
 import { IconPencil, IconPlus } from '@tabler/icons-react';
 import cx from 'clsx';
@@ -22,8 +22,8 @@ const PhotoUpload = () => {
 
   if (!account) return null;
 
-  const isFileSizeCorrect = (file: any) => {
-    if ((file.size / ONE_MB_IN_BYTES) > 2) {
+  const isFileSizeCorrect = (file: FileWithPath) => {
+    if (file.size / ONE_MB_IN_BYTES > 2) {
       setErrorMessage('Sorry, you cannot upload a file larger than 2 MB.');
       return false;
     }
@@ -68,50 +68,36 @@ const PhotoUpload = () => {
               }}
             >
               <label
+                htmlFor="input"
                 className={cx(classes.browseButton, {
                   [classes.error]: errorMessage,
                 })}
               >
                 {account.avatarUrl ? (
-                  <BackgroundImage
-                    className={classes.avatar}
-                    w={88}
-                    h={88}
-                    src={account.avatarUrl}
-                  >
-                    <Center
-                      className={classes.innerAvatar}
-                      w="100%"
-                      h="100%"
-                      bg="#10101099"
-                      c="gray.2"
-                    >
+                  <BackgroundImage className={classes.avatar} w={88} h={88} src={account.avatarUrl}>
+                    <Center className={classes.innerAvatar} w="100%" h="100%" bg="#10101099" c="gray.2">
                       <IconPencil />
                     </Center>
                   </BackgroundImage>
-                ) : <IconPlus className={classes.addIcon} />}
+                ) : (
+                  <IconPlus className={classes.addIcon} />
+                )}
               </label>
             </Dropzone>
 
             {account.avatarUrl && (
-              <Button
-                type="submit"
-                variant="subtle"
-                onClick={handlerPhotoRemove}
-                size="sm"
-              >
+              <Button type="submit" variant="subtle" onClick={handlerPhotoRemove} size="sm">
                 Remove
               </Button>
             )}
           </Stack>
 
           <Stack gap={4} pt={6}>
-            <Text fw={600} size="lg">Profile picture</Text>
-
-            <Text className={classes.text}>
-              JPG, JPEG or PNG
-              Max size = 2MB
+            <Text fw={600} size="lg">
+              Profile picture
             </Text>
+
+            <Text className={classes.text}>JPG, JPEG or PNG Max size = 2MB</Text>
           </Stack>
         </Group>
       </Stack>

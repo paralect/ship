@@ -1,19 +1,15 @@
 {
   "name": "mailer",
-  "version": "0.0.1",
-  "description": "Mailer based on React Email",
+  "version": "0.0.0",
+  "description": "Ship Mailer based on React Email",
   "author": "Paralect",
   "license": "MIT",
   "main": "./src/index.tsx",
   "types": "./src/index.tsx",
-  "workspaces": [
-    ".react-email"
-  ],
   "scripts": {
     "dev": "email dev --port 3003",
     "export": "email export",
-    "clean": "rm -rf dist",
-    "ts-lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "ts-lint": "tsc --noEmit && eslint \"**/*.{ts,tsx}\" --quiet --fix",
     "precommit": "lint-staged"
   },
   "dependencies": {
@@ -23,21 +19,19 @@
     "react-email": "2.0.0"
   },
   "devDependencies": {
-    "@types/node": "20.3.1",
+    "@types/node": "*",
     "@types/react": "*",
-    "@typescript-eslint/eslint-plugin": "5.50.0",
-    "eslint": "8.56.0",
-    "eslint-config-airbnb": "19.0.4",
-    "eslint-config-airbnb-typescript": "17.0.0",
+    "eslint": "*",
+    "eslint-config-custom": "workspace:*",
     "lint-staged": "*",
+    "prettier": "*",
+    "prettier-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "*"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --ext ts --ext tsx --fix"
+      "eslint --fix"
     ]
-  },
-  "engines": {
-    "node": ">=20.1.0"
   }
 }

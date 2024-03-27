@@ -1,17 +1,17 @@
-import { FC, ReactNode } from 'react';
-import { CellContext, ColumnDefTemplate, Row } from '@tanstack/react-table';
+import React, { FC, ReactNode } from 'react';
 import { Table, useMantineTheme } from '@mantine/core';
+import { CellContext, ColumnDefTemplate, Row } from '@tanstack/react-table';
 
 type RowData = {
   [key: string]: string | number | boolean | Record<string, any>;
 };
 
 interface TbodyProps {
-  isSelectable: boolean,
+  isSelectable: boolean;
   rows: Row<RowData>[];
   flexRender: (
     template: ColumnDefTemplate<CellContext<RowData, any>> | undefined,
-    context: CellContext<RowData, any>
+    context: CellContext<RowData, any>,
   ) => ReactNode;
 }
 
@@ -24,16 +24,15 @@ const Tbody: FC<TbodyProps> = ({ isSelectable, rows, flexRender }) => {
         <Table.Tr
           key={row.id}
           style={{
-            ...(isSelectable && row.getIsSelected() && {
-              backgroundColor: colors.blue[0],
-            }),
+            ...(isSelectable &&
+              row.getIsSelected() && {
+                backgroundColor: colors.blue[0],
+              }),
             fontWeight: '400',
           }}
         >
           {row.getVisibleCells().map((cell) => (
-            <Table.Td key={cell.id}>
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </Table.Td>
+            <Table.Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Table.Td>
           ))}
         </Table.Tr>
       ))}

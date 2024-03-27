@@ -1,28 +1,9 @@
 {
+  "extends": "tsconfig/nodejs.json",
   "compilerOptions": {
-    "baseUrl": "src",
     "rootDir": ".",
-    "target": "es2017",
-    "lib": ["es6"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "paths": { "*": ["*"] },
-    "sourceMap": true,
-    "outDir": "dist",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "useUnknownInCatchVariables": true,
-    "skipLibCheck": true,
-    "jsx": "react-jsx",
-    "resolveJsonModule": true
+    "baseUrl": "src",
+    "jsx": "react" // for using Mailer
   },
-  "include": [
-    "src/**/*",
-    "src/**/*.json",
-    ".eslintrc.js"
-  ],
-  "ts-node": { "transpileOnly": true },
-  "exclude": []
+  "include": ["**/*.ts", "**/*.json"]
 }

@@ -1,20 +1,8 @@
 {
-  "include": ["src", "emails"],
-  "exclude": ["dist", "build", "node_modules"],
+  "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "jsx": "react",
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "target": "ESNext",
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true
-  }
+    "jsx": "preserve"
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.json"]
 }

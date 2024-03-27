@@ -1,9 +1,6 @@
 import { ZodSchema } from 'zod';
 
-const validateConfig = <T>(
-  schema: ZodSchema,
-  processEnv: Record<keyof T, string | undefined>,
-): T => {
+export const validateConfig = <T>(schema: ZodSchema, processEnv: Record<keyof T, string | undefined>): T => {
   const parsed = schema.safeParse(processEnv);
 
   if (!parsed.success) {
@@ -14,8 +11,4 @@ const validateConfig = <T>(
   }
 
   return parsed.data;
-};
-
-export default {
-  validateConfig,
 };

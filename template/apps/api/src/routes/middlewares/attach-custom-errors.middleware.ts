@@ -1,14 +1,12 @@
 import _ from 'lodash';
 
-import { ValidationErrors, AppKoaContext, Next, CustomErrors } from 'types';
+import { AppKoaContext, CustomErrors, Next, ValidationErrors } from 'types';
 
 const formatError = (customError: CustomErrors): ValidationErrors => {
   const errors: ValidationErrors = {};
 
   Object.keys(customError).forEach((key) => {
-    errors[key] = _.isArray(customError[key])
-      ? customError[key]
-      : [customError[key]];
+    errors[key] = _.isArray(customError[key]) ? customError[key] : [customError[key]];
   });
 
   return errors;

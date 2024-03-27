@@ -1,7 +1,27 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/dist
+
+# edtiors
 .idea
-.turbo
+.vscode
+
+# misc
 .DS_Store
 .dev
-/node_modules
-dist
-coverage
+.turbo
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# typescript
+*.tsbuildinfo

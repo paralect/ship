@@ -6,7 +6,9 @@ export const paginationSchema = z.object({
 
   searchValue: z.string().optional(),
 
-  sort: z.object({
-    createdOn: z.enum(['asc', 'desc']).default('asc'),
-  }).default({}),
+  sort: z
+    .object({
+      createdOn: z.enum(['asc', 'desc']).default('asc'),
+    })
+    .default({}),
 });

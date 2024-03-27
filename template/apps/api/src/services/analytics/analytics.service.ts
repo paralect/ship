@@ -1,11 +1,10 @@
 import Mixpanel from 'mixpanel';
 
 import config from 'config';
+
 import logger from 'logger';
 
-const mixpanel = config.MIXPANEL_API_KEY
-  ? Mixpanel.init(config.MIXPANEL_API_KEY, { debug: config.IS_DEV })
-  : null;
+const mixpanel = config.MIXPANEL_API_KEY ? Mixpanel.init(config.MIXPANEL_API_KEY, { debug: config.IS_DEV }) : null;
 
 const track = (event: string, data = {}) => {
   if (!mixpanel) {

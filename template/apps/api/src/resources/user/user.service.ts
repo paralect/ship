@@ -1,17 +1,17 @@
 import _ from 'lodash';
 
-import { User } from 'types';
-import { userSchema } from 'schemas';
-import { DATABASE_DOCUMENTS } from 'app-constants';
-
 import db from 'db';
+
+import { DATABASE_DOCUMENTS } from 'app-constants';
+import { userSchema } from 'schemas';
+import { User } from 'types';
 
 const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, {
   schemaValidator: (obj) => userSchema.parseAsync(obj),
 });
 
-const updateLastRequest = (_id: string) => {
-  return service.atomic.updateOne(
+const updateLastRequest = (_id: string) =>
+  service.atomic.updateOne(
     { _id },
     {
       $set: {
@@ -19,13 +19,8 @@ const updateLastRequest = (_id: string) => {
       },
     },
   );
-};
 
-const privateFields = [
-  'passwordHash',
-  'signupToken',
-  'resetPasswordToken',
-];
+const privateFields = ['passwordHash', 'signupToken', 'resetPasswordToken'];
 
 const getPublic = (user: User | null) => _.omit(user, privateFields);
 

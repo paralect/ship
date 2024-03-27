@@ -1,6 +1,6 @@
 {
   "name": "schemas",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
@@ -12,13 +12,18 @@
     "zod": "*"
   },
   "devDependencies": {
+    "@types/node": "*",
     "eslint": "*",
+    "eslint-config-custom": "workspace:*",
     "lint-staged": "*",
+    "prettier": "*",
+    "prettier-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "*"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --ext ts --ext tsx --fix"
+    "*.ts": [
+      "eslint --fix"
     ]
   }
 }

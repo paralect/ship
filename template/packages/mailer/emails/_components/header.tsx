@@ -7,12 +7,7 @@ const Header = () => (
   <>
     <Row className="p-6">
       <Column align="center">
-        <Img
-          src={logoURL}
-          width="88"
-          height="44"
-          alt="Ship"
-        />
+        <Img src={logoURL} width="88" height="44" alt="Ship" />
       </Column>
     </Row>
 

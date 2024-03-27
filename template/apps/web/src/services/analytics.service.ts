@@ -1,5 +1,6 @@
-import config from 'config';
 import mixpanel from 'mixpanel-browser';
+
+import config from 'config';
 
 import { User } from 'types';
 
