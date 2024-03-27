@@ -12,7 +12,7 @@ const formatError = (customError: CustomErrors): ValidationErrors => {
   return errors;
 };
 
-const attachCustomErrors = async (ctx: AppKoaContext<{ db: number }>, next: Next) => {
+const attachCustomErrors = async (ctx: AppKoaContext, next: Next) => {
   ctx.throwError = (message, status = 400) => ctx.throw(status, { message });
   ctx.assertError = (condition, message, status = 400) => ctx.assert(condition, status, { message });
 
