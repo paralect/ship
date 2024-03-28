@@ -17,7 +17,7 @@ import { RoutePath } from 'routes';
 import { EMAIL_REGEX } from 'app-constants';
 
 const schema = z.object({
-  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
 });
 
 type ForgotPasswordParams = {

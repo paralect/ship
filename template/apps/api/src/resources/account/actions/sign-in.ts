@@ -10,7 +10,7 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
 import { AppKoaContext, AppRouter, Next, User } from 'types';
 
 const schema = z.object({
-  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
   password: z
     .string()
     .regex(

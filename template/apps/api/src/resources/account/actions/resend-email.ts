@@ -12,7 +12,7 @@ import { EMAIL_REGEX } from 'app-constants';
 import { AppKoaContext, AppRouter, Next, Template, User } from 'types';
 
 const schema = z.object({
-  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {

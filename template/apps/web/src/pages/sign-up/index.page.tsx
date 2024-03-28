@@ -33,7 +33,7 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),
   lastName: z.string().min(1, 'Please enter Last name').max(100),
-  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
   password: z
     .string()
     .regex(
@@ -77,7 +77,7 @@ const SignUp: NextPage = () => {
     formState: { errors },
   } = useForm<SignUpParams>({ resolver: zodResolver(schema) });
 
-  const passwordValue = watch('password', '');
+  const passwordValue = watch('password', '').trim();
 
   useEffect(() => {
     const updatedPasswordRulesData = [...passwordRules];
