@@ -36,7 +36,6 @@ const schema = z.object({
   email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
   password: z
     .string()
-    .trim()
     .regex(
       PASSWORD_REGEX,
       'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
@@ -78,7 +77,7 @@ const SignUp: NextPage = () => {
     formState: { errors },
   } = useForm<SignUpParams>({ resolver: zodResolver(schema) });
 
-  const passwordValue = watch('password', '');
+  const passwordValue = watch('password', '').trim();
 
   useEffect(() => {
     const updatedPasswordRulesData = [...passwordRules];
