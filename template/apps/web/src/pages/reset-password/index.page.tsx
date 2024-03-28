@@ -19,6 +19,7 @@ import { QueryParam } from 'types';
 const schema = z.object({
   password: z
     .string()
+    .trim()
     .regex(
       PASSWORD_REGEX,
       'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
