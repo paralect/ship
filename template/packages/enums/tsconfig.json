@@ -2,7 +2,8 @@
   "extends": "tsconfig/nodejs.json",
   "compilerOptions": {
     "rootDir": ".",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "lib": ["es6"],
   },
   "include": ["**/*.ts", "**/*.json"]
 }

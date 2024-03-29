@@ -1,36 +1,31 @@
 import { securityUtil } from 'utils';
 
-import db from 'db';
+import config from 'config';
 
-import { DATABASE_DOCUMENTS, TOKEN_SECURITY_LENGTH } from 'app-constants';
-import { tokenSchema } from 'schemas';
-import { Token, TokenType } from 'types';
-
-const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, {
-  schemaValidator: (obj) => tokenSchema.parseAsync(obj),
-});
+import { TOKEN_SECURITY_EXPIRES_IN } from 'app-constants';
+import { TokenType } from 'types';
 
 const createToken = async (userId: string, type: TokenType, isShadow?: boolean) => {
-  const value = await securityUtil.generateSecureToken(TOKEN_SECURITY_LENGTH);
-
-  return service.insertOne({
-    type,
-    value,
+  const payload = {
+    tokenType: type,
     userId,
     isShadow: isShadow || null,
-  });
+  }
+  const accessToken = await securityUtil.generateJwtToken(payload, config.JWT_SECRET, TOKEN_SECURITY_EXPIRES_IN);
+
+  return accessToken
 };
 
 const createAuthTokens = async ({ userId, isShadow }: { userId: string; isShadow?: boolean }) => {
   const accessTokenEntity = await createToken(userId, TokenType.ACCESS, isShadow);
 
   return {
-    accessToken: accessTokenEntity.value,
+    accessToken: accessTokenEntity,
   };
 };
 
 const findTokenByValue = async (token: string) => {
-  const tokenEntity = await service.findOne({ value: token });
+  const tokenEntity = await securityUtil.verifyJwtToken(token, config.JWT_SECRET);
 
   return (
     tokenEntity && {
@@ -40,10 +35,7 @@ const findTokenByValue = async (token: string) => {
   );
 };
 
-const removeAuthTokens = async (accessToken: string) => service.deleteMany({ value: { $in: [accessToken] } });
-
-export default Object.assign(service, {
+export default {
   createAuthTokens,
   findTokenByValue,
-  removeAuthTokens,
-});
+};

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "baseUrl": "src",
+    "lib": ["es6"],
     "jsx": "react" // for using Mailer
   },
   "include": ["**/*.ts", "**/*.json"]

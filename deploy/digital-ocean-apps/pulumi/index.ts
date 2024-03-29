@@ -51,6 +51,12 @@ export const apiApp = new digitalocean.App(API_NAME, {
         type: 'GENERAL',
         value: `https://${config.WEB_URL}`,
       },
+      // {
+      //   key: 'JWT_SECRET',
+      //   scope: 'RUN_AND_BUILD_TIME',
+      //   type: 'GENERAL',
+      //   value: config.JWT_SECRET,
+      // },
     ],
     services: [{
       name: API_NAME,

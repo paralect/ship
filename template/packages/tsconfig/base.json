@@ -4,6 +4,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "lib": ["es6"],
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true
