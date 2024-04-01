@@ -9,7 +9,6 @@ const execCommand = async (command, options = {}) => {
 
   const commandName = commandParts.shift();
   const commandArguments = commandParts;
-  console.log('command', command);
 
   return execa(commandName, commandArguments, { stdio: 'inherit', ...options });
 };
