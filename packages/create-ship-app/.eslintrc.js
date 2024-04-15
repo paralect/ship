@@ -17,6 +17,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'object-curly-newline': 'off',
     'no-console': 'off',
+    'no-plusplus': 'off',
     'max-len': ['warn', {
       code: 120,
       ignoreStrings: true,

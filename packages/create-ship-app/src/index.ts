@@ -49,6 +49,7 @@ Available deployment options:
   .parse(process.argv);
 
 const run = async (): Promise<void> => {
+  // rawArgs = ['pathToNode', 'pathToExecutableFile', ...];
   const isCommandCreateResource = rawArgs.length === 5 && rawArgs[2] === 'create' && rawArgs[3] === 'resource';
 
   if (isCommandCreateResource) {

@@ -1,3 +1,5 @@
+import pluralize from 'pluralize';
+
 const capitalizeFirstLetter = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 export const serviceContent = (name: string) => `import _ from 'lodash';
@@ -8,7 +10,8 @@ import { DATABASE_DOCUMENTS } from 'app-constants';
 import { ${name}Schema } from 'schemas';
 import { ${capitalizeFirstLetter(name)} } from 'types';
 
-const service = db.createService<${capitalizeFirstLetter(name)}>(DATABASE_DOCUMENTS.${name.toUpperCase()}S, {
+const service = db.createService<${capitalizeFirstLetter(name)}>(DATABASE_DOCUMENTS.${pluralize
+  .plural(name.toUpperCase())}, {
   schemaValidator: (obj) => ${name}Schema.parseAsync(obj),
 });
 

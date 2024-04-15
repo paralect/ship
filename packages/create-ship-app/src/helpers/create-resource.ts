@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import pluralize from 'pluralize';
 
 import {
   actionCreateContent,
@@ -34,7 +35,7 @@ const createFile = (filePath: string, content = '') => {
 const modifyPublicRoutes = (name: string) => {
   const filePath = path.join(process.cwd(), 'apps', 'api', 'src', 'routes', 'public.routes.ts');
   const importStatement = `import { ${name}Routes } from 'resources/${name}';\n`;
-  const routeUseStatement = `  app.use(mount('/${name}s', ${name}Routes.publicRoutes));`;
+  const routeUseStatement = `  app.use(mount('/${pluralize.plural(name)}', ${name}Routes.publicRoutes));`;
 
   try {
     let data = fs.readFileSync(filePath, 'utf8');
@@ -51,7 +52,6 @@ const modifyPublicRoutes = (name: string) => {
       let insertIndex = exportDefaultIndex;
 
       while (insertIndex < lines.length && !lines[insertIndex].trim().startsWith('}')) {
-        // eslint-disable-next-line no-plusplus
         insertIndex++;
       }
 
@@ -61,9 +61,9 @@ const modifyPublicRoutes = (name: string) => {
     data = lines.join('\n');
 
     fs.writeFileSync(filePath, data, 'utf8');
-    console.log('File has been updated successfully.');
+    console.log('File public.routes.ts has been updated successfully.');
   } catch (err) {
-    console.error('Failed to update the file:', err);
+    console.error('Failed to update the public.routes.ts file:', err);
   }
 };
 
@@ -81,11 +81,32 @@ const addToPackageIndex = (directory: string, name: string, type: string) => {
   }
 };
 
+const updateApiConstants = (name: string) => {
+  const filePath = path.join(process.cwd(), 'packages', 'app-constants', 'src', 'api.constants.ts');
+  const content = fs.readFileSync(filePath, 'utf8').split('\n');
+
+  const dbIndex = content.findIndex((line) => line.includes('DATABASE_DOCUMENTS'));
+
+  if (dbIndex !== -1) {
+    const entryLine = `${' '.repeat(2)}${pluralize.plural(name.toUpperCase())}: '${pluralize.plural(name)}',`;
+
+    content.splice(dbIndex + 1, 0, entryLine);
+
+    fs.writeFileSync(filePath, content.join('\n'), 'utf8');
+
+    console.log('Document added to DATABASE_DOCUMENTS successfully.');
+  } else {
+    console.error('DATABASE_DOCUMENTS not found in api.constants.ts');
+  }
+};
+
 export const createResource = async (name: string) => {
   const cwd = process.cwd();
   const baseDir = path.join(cwd, 'apps', 'api', 'src', 'resources', name);
   const schemasDir = path.join(cwd, 'packages', 'schemas', 'src');
   const appTypesDir = path.join(cwd, 'packages', 'app-types', 'src');
+
+  updateApiConstants(name);
 
   createDirectory(baseDir);
   createDirectory(path.join(baseDir, 'actions'));

@@ -23,7 +23,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --onSuccess \"node dist/index.js\"",
-    "dev:create-resource": "tsup --onSuccess \"node dist/index.js create resource test\"",
+    "dev:create-resource": "tsup --onSuccess \"node dist/index.js create resource fly\"",
     "precommit": "lint-staged"
   },
   "devDependencies": {
@@ -31,6 +31,7 @@
     "@types/cross-spawn": "6.0.0",
     "@types/gradient-string": "1.1.2",
     "@types/node": "20.2.5",
+    "@types/pluralize": "^0.0.33",
     "@types/prompts": "2.0.1",
     "@types/tar": "6.1.5",
     "@types/validate-npm-package-name": "3.0.0",
@@ -47,6 +48,7 @@
     "gradient-string": "2.0.2",
     "lint-staged": "14.0.1",
     "picocolors": "1.0.0",
+    "pluralize": "^8.0.0",
     "prompts": "2.1.0",
     "tar": "6.1.15",
     "tsup": "7.2.0",
