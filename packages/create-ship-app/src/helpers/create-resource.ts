@@ -46,12 +46,15 @@ const modifyPublicRoutes = (name: string) => {
     }
 
     const exportDefaultIndex = lines.findIndex((line) => line.trim().startsWith('export default'));
+
     if (exportDefaultIndex > -1) {
       let insertIndex = exportDefaultIndex;
+
       while (insertIndex < lines.length && !lines[insertIndex].trim().startsWith('}')) {
         // eslint-disable-next-line no-plusplus
         insertIndex++;
       }
+
       lines.splice(insertIndex - 1, 0, routeUseStatement);
     }
 
@@ -67,9 +70,11 @@ const modifyPublicRoutes = (name: string) => {
 const addToPackageIndex = (directory: string, name: string, type: string) => {
   const indexPath = path.join(directory, 'index.ts');
   const exportLine = `export * from './${name}.${type}';\n`;
+
   if (fs.existsSync(indexPath)) {
     const data = fs.readFileSync(indexPath, 'utf8');
     const newData = exportLine + data;
+
     fs.writeFileSync(indexPath, newData);
   } else {
     fs.writeFileSync(indexPath, exportLine);
