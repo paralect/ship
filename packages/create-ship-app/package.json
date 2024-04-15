@@ -23,6 +23,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --onSuccess \"node dist/index.js\"",
+    "dev:create-resource": "tsup --onSuccess \"node dist/index.js create resource test\"",
     "precommit": "lint-staged"
   },
   "devDependencies": {

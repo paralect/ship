@@ -9,7 +9,7 @@ import prompts from 'prompts';
 import checkForUpdate from 'update-check';
 import fs from 'fs';
 
-import { onPromptState, handleSigTerm, getDefaultProjectName, validateNpmName, isFolderEmpty } from 'helpers';
+import { onPromptState, handleSigTerm, getDefaultProjectName, validateNpmName, isFolderEmpty, createResource } from 'helpers';
 import { Deployment } from 'types';
 import config from 'config';
 import { DEPLOYMENT_SHORTCUTS } from 'app.constants';
@@ -19,6 +19,7 @@ import { createApp, DownloadError } from './create-app';
 import packageJson from '../package.json';
 
 let projectPath = getDefaultProjectName();
+let rawArgs: string[] = [];
 
 process.on('SIGINT', handleSigTerm);
 process.on('SIGTERM', handleSigTerm);
@@ -27,7 +28,10 @@ const program = new Commander.Command(packageJson.name)
   .version(packageJson.version)
   .arguments('<project-directory>')
   .usage(`${green('<project-directory>')} [options]`)
-  .action((name) => { projectPath = name; })
+  .action((name, options) => {
+    rawArgs = options.rawArgs;
+    projectPath = name;
+  })
   .option(
     '-d, --deployment <type>',
     `
@@ -45,6 +49,16 @@ Available deployment options:
   .parse(process.argv);
 
 const run = async (): Promise<void> => {
+  const isCommandCreateResource = rawArgs.length === 5 && rawArgs[2] === 'create' && rawArgs[3] === 'resource';
+
+  if (isCommandCreateResource) {
+    await createResource(rawArgs[4]);
+
+    console.log(`Resource ${rawArgs[4]} created successfully.`);
+
+    return;
+  }
+
   const conf = new Conf({ projectName: 'create-ship-app' });
 
   console.clear();
