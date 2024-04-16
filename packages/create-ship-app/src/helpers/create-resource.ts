@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import pluralize from 'pluralize';
 
+import config from 'config';
+
 import {
   actionCreateContent,
   actionGetContent,
@@ -32,10 +34,11 @@ const createFile = (filePath: string, content = '') => {
   }
 };
 
-const modifyPublicRoutes = (name: string) => {
-  const filePath = path.join(process.cwd(), 'apps', 'api', 'src', 'routes', 'public.routes.ts');
+const modifyPrivateRoutes = (name: string, cwd: string) => {
+  const filePath = path.join(cwd, 'apps', 'api', 'src', 'routes', 'private.routes.ts');
   const importStatement = `import { ${name}Routes } from 'resources/${name}';\n`;
-  const routeUseStatement = `  app.use(mount('/${pluralize.plural(name)}', ${name}Routes.publicRoutes));`;
+  const routeUseStatement = `  app.use(mount('/${pluralize
+    .plural(name)}', compose([auth, ${name}Routes.privateRoutes])));`;
 
   try {
     let data = fs.readFileSync(filePath, 'utf8');
@@ -61,9 +64,9 @@ const modifyPublicRoutes = (name: string) => {
     data = lines.join('\n');
 
     fs.writeFileSync(filePath, data, 'utf8');
-    console.log('File public.routes.ts has been updated successfully.');
+    console.log('File private.routes.ts has been updated successfully.');
   } catch (err) {
-    console.error('Failed to update the public.routes.ts file:', err);
+    console.error('Failed to update the private.routes.ts file:', err);
   }
 };
 
@@ -81,8 +84,8 @@ const addToPackageIndex = (directory: string, name: string, type: string) => {
   }
 };
 
-const updateApiConstants = (name: string) => {
-  const filePath = path.join(process.cwd(), 'packages', 'app-constants', 'src', 'api.constants.ts');
+const updateApiConstants = (name: string, cwd: string) => {
+  const filePath = path.join(cwd, 'packages', 'app-constants', 'src', 'api.constants.ts');
   const content = fs.readFileSync(filePath, 'utf8').split('\n');
 
   const dbIndex = content.findIndex((line) => line.includes('DATABASE_DOCUMENTS'));
@@ -101,12 +104,14 @@ const updateApiConstants = (name: string) => {
 };
 
 export const createResource = async (name: string) => {
-  const cwd = process.cwd();
+  let cwd = process.cwd();
+  cwd = config.USE_LOCAL_REPO ? path.join(cwd, '..', '..', 'template') : cwd;
+
   const baseDir = path.join(cwd, 'apps', 'api', 'src', 'resources', name);
   const schemasDir = path.join(cwd, 'packages', 'schemas', 'src');
   const appTypesDir = path.join(cwd, 'packages', 'app-types', 'src');
 
-  updateApiConstants(name);
+  updateApiConstants(name, cwd);
 
   createDirectory(baseDir);
   createDirectory(path.join(baseDir, 'actions'));
@@ -131,5 +136,5 @@ export const createResource = async (name: string) => {
   addToPackageIndex(schemasDir, name, 'schema');
   addToPackageIndex(appTypesDir, name, 'types');
 
-  modifyPublicRoutes(name);
+  modifyPrivateRoutes(name, cwd);
 };

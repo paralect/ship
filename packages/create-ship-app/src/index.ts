@@ -53,7 +53,7 @@ const run = async (): Promise<void> => {
   const isCommandCreateResource = rawArgs.length === 5 && rawArgs[2] === 'create' && rawArgs[3] === 'resource';
 
   if (isCommandCreateResource) {
-    await createResource(rawArgs[4]);
+    await createResource(rawArgs[4].toLowerCase());
 
     console.log(`Resource ${rawArgs[4]} created successfully.`);
 
