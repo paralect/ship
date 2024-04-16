@@ -16,7 +16,7 @@ import {
   typeContent,
 } from './resources-templates';
 
-import { lint } from './lint';
+import { lintDir } from './lintDir';
 
 const createDirectory = (dirPath: string) => {
   if (!fs.existsSync(dirPath)) {
@@ -107,16 +107,19 @@ const updateApiConstants = (name: string, cwd: string) => {
 
 export const createResource = async (name: string) => {
   let cwd = process.cwd();
-  cwd = config.USE_LOCAL_REPO ? path.join(cwd, '..', '..', 'template') : cwd;
 
-  const baseDir = path.join(cwd, 'apps', 'api', 'src', 'resources', name);
+  if (config.USE_LOCAL_REPO) {
+    cwd = path.join(cwd, '..', '..', 'template');
+  }
+
+  const apiResourcesDir = path.join(cwd, 'apps', 'api', 'src', 'resources', name);
   const schemasDir = path.join(cwd, 'packages', 'schemas', 'src');
   const appTypesDir = path.join(cwd, 'packages', 'app-types', 'src');
 
   updateApiConstants(name, cwd);
 
-  createDirectory(baseDir);
-  createDirectory(path.join(baseDir, 'actions'));
+  createDirectory(apiResourcesDir);
+  createDirectory(path.join(apiResourcesDir, 'actions'));
 
   const files = [
     { path: 'index.ts', content: indexContent(name) },
@@ -129,7 +132,7 @@ export const createResource = async (name: string) => {
   ];
 
   files.forEach(({ path: filePath, content }) => {
-    createFile(path.join(baseDir, filePath), content);
+    createFile(path.join(apiResourcesDir, filePath), content);
   });
 
   createFile(path.join(schemasDir, `${name}.schema.ts`), schemaContent(name));
@@ -140,5 +143,5 @@ export const createResource = async (name: string) => {
 
   modifyPrivateRoutes(name, cwd);
 
-  await lint(cwd);
+  await lintDir(cwd);
 };
