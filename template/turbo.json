@@ -21,6 +21,9 @@
     },
     "precommit": {
       "outputs": []
+    },
+    "test:eslint": {
+      "outputs": []
     }
   }
 }

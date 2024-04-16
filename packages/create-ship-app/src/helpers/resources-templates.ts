@@ -2,9 +2,7 @@ import pluralize from 'pluralize';
 
 const capitalizeFirstLetter = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-export const serviceContent = (name: string) => `import _ from 'lodash';
-
-import db from 'db';
+export const serviceContent = (name: string) => `import db from 'db';
 
 import { DATABASE_DOCUMENTS } from 'app-constants';
 import { ${name}Schema } from 'schemas';
@@ -93,8 +91,7 @@ export default (router: AppRouter) => {
 };
 `;
 
-export const actionUpdateContent = (name: string) => `import _ from 'lodash';
-import { z } from 'zod';
+export const actionUpdateContent = (name: string) => `import { z } from 'zod';
 
 import { ${name}Service } from 'resources/${name}';
 
@@ -159,7 +156,7 @@ async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next)
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
-  const { id } = ctx.state;
+  const { id } = ctx.request.params;
   
   await ${name}Service.deleteSoft({ _id: id });
 

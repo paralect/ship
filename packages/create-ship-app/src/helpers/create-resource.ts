@@ -16,6 +16,8 @@ import {
   typeContent,
 } from './resources-templates';
 
+import { lint } from './lint';
+
 const createDirectory = (dirPath: string) => {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
@@ -137,4 +139,6 @@ export const createResource = async (name: string) => {
   addToPackageIndex(appTypesDir, name, 'types');
 
   modifyPrivateRoutes(name, cwd);
+
+  await lint(cwd);
 };
