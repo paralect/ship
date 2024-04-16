@@ -2,6 +2,10 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 
+import config from 'config';
+
+import { TOKEN_SECURITY_EXPIRES_IN } from 'app-constants';
+
 /**
  * @desc Generates random string, useful for creating secure tokens
  *
@@ -42,8 +46,12 @@ type PayloadType = {
   userId: string,
   isShadow: boolean | null,
 }
-export const generateJwtToken = async (payload: PayloadType, secret: string, expiresIn: string) => {
+export const generateJwtToken = async (payload: PayloadType) => {
+  const secret = config.JWT_SECRET;
+  const expiresIn = TOKEN_SECURITY_EXPIRES_IN;
+
   const token = jwt.sign(payload, secret, { expiresIn });
+
   return token;
 };
 
@@ -53,11 +61,14 @@ export const generateJwtToken = async (payload: PayloadType, secret: string, exp
  * @param token {string} - JWT token to verify
  * @return {object | null} - Decoded payload or null if verification fails
  */
-export const verifyJwtToken = async (token: string, secret: string) => {
+export const verifyJwtToken = async (token: string) => {
   try {
+    const secret = config.JWT_SECRET;
     const decoded = jwt.verify(token, secret);
+
     return decoded;
   } catch (error) {
+
     return null; // Token verification failed
   }
 };

@@ -15,9 +15,7 @@ if [ ! -f "$KEYFILE" ]; then
 fi
 
 API_ENV_FILE="apps/api/.env"
-if grep -q "JWT_SECRET=" "$API_ENV_FILE"; then
-    echo "JWT_SECRET already exists in $API_ENV_FILE."
-else
+if ! grep -q "^JWT_SECRET=" "$API_ENV_FILE"; then
     echo "JWT_SECRET does not exist in $API_ENV_FILE. Generating now..."
 
     JWT_SECRET=$(openssl rand -hex 32)
