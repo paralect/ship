@@ -4,7 +4,8 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "ts-lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "test:tsc": "tsc --noEmit",
+    "test:eslint": "eslint \"**/*.ts\" --fix",
     "precommit": "lint-staged"
   },
   "dependencies": {

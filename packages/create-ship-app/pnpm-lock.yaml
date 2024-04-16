@@ -17,6 +17,9 @@ devDependencies:
   '@types/node':
     specifier: 20.2.5
     version: 20.2.5
+  '@types/pluralize':
+    specifier: 0.0.33
+    version: 0.0.33
   '@types/prompts':
     specifier: 2.0.1
     version: 2.0.1
@@ -65,6 +68,9 @@ devDependencies:
   picocolors:
     specifier: 1.0.0
     version: 1.0.0
+  pluralize:
+    specifier: 8.0.0
+    version: 8.0.0
   prompts:
     specifier: 2.1.0
     version: 2.1.0
@@ -460,6 +466,10 @@ packages:
 
   /@types/node@20.2.5:
     resolution: {integrity: sha512-JJulVEQXmiY9Px5axXHeYGLSjhkZEnD+MDPDGbCbIAbMslkKwmygtZFy1X6s/075Yo94sf8GuSlFfPzysQrWZQ==}
+    dev: true
+
+  /@types/pluralize@0.0.33:
+    resolution: {integrity: sha512-JOqsl+ZoCpP4e8TDke9W79FDcSgPAR0l6pixx2JHkhnRjvShyYiAYw2LVsnA7K08Y6DeOnaU6ujmENO4os/cYg==}
     dev: true
 
   /@types/prompts@2.0.1:
@@ -2666,6 +2676,11 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       find-up: 3.0.0
+    dev: true
+
+  /pluralize@8.0.0:
+    resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
+    engines: {node: '>=4'}
     dev: true
 
   /postcss-load-config@4.0.1:
