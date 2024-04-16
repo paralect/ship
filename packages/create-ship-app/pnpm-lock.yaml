@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 devDependencies:
   '@types/async-retry':
     specifier: 1.4.5
@@ -14,7 +18,7 @@ devDependencies:
     specifier: 20.2.5
     version: 20.2.5
   '@types/pluralize':
-    specifier: ^0.0.33
+    specifier: 0.0.33
     version: 0.0.33
   '@types/prompts':
     specifier: 2.0.1
@@ -65,7 +69,7 @@ devDependencies:
     specifier: 1.0.0
     version: 1.0.0
   pluralize:
-    specifier: ^8.0.0
+    specifier: 8.0.0
     version: 8.0.0
   prompts:
     specifier: 2.1.0
@@ -3398,7 +3402,3 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
