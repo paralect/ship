@@ -12,7 +12,7 @@ FROM node:18-alpine AS installer
 WORKDIR /app
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat
-RUN npm install --global --no-update-notifier --no-fund pnpm@^8.0.0
+RUN npm install --global --no-update-notifier --no-fund pnpm@8.15.7
 
 # First install the dependencies (as they change less often)
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
