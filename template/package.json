@@ -22,6 +22,8 @@
     "turbo-windows-arm64": "1.11.1"
   },
   "engines": {
-    "node": ">=20.11.1"
+    "node": ">= 20.11.1",
+    "yarn": "please-use-pnpm",
+    "pnpm": ">= 8.15.7"
   }
 }
