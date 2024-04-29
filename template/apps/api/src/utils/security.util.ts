@@ -46,13 +46,12 @@ type PayloadType = {
   userId: string,
   isShadow: boolean | null,
 }
+
 export const generateJwtToken = async (payload: PayloadType) => {
   const secret = config.JWT_SECRET;
   const expiresIn = TOKEN_SECURITY_EXPIRES_IN;
 
-  const token = jwt.sign(payload, secret, { expiresIn });
-
-  return token;
+  return jwt.sign(payload, secret, { expiresIn });
 };
 
 /**
