@@ -185,3 +185,37 @@ import { ${name}Schema } from 'schemas';
 
 export type ${capitalizeFirstLetter(name)} = z.infer<typeof ${name}Schema>;
 `;
+
+export const webApiIndexContent = (name: string) => `import * as ${name}Api from './${name}.api';
+
+export { ${name}Api };
+`;
+
+export const webResourceContent = (name: string) => `import { useMutation, useQuery } from '@tanstack/react-query';
+
+import { apiService } from 'services';
+
+import { ${capitalizeFirstLetter(name)} } from 'types';
+
+export const useCreate = <T>() =>
+  useMutation<${capitalizeFirstLetter(name)}, unknown, T>({
+    mutationFn: (data: T) => apiService.post('/${pluralize(name)}', data),
+  });
+
+export const useGet = (${name}Id: string, options = {}) =>
+  useQuery<${capitalizeFirstLetter(name)}>({
+    queryKey: ['${name}'],
+    queryFn: () => apiService.get(\`/${pluralize(name)}/\${${name}Id}\`),
+    ...options,
+  });
+
+export const useUpdate = <T>(${name}Id: string) =>
+  useMutation<${capitalizeFirstLetter(name)}, unknown, T>({
+    mutationFn: (data: T) => apiService.put(\`/${pluralize(name)}/\${${name}Id}\`, data),
+  });
+
+export const useDelete = () =>
+  useMutation({
+    mutationFn: (${name}Id: string) => apiService.delete(\`/${pluralize(name)}/\${${name}Id}\`),
+  });
+  `;

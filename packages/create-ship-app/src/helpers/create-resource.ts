@@ -14,6 +14,8 @@ import {
   schemaContent,
   serviceContent,
   typeContent,
+  webApiIndexContent,
+  webResourceContent,
 } from './resources-templates';
 
 import { lintDir } from './lintDir';
@@ -112,27 +114,30 @@ export const createResource = async (name: string) => {
     cwd = path.join(cwd, '..', '..', 'template');
   }
 
-  const apiResourcesDir = path.join(cwd, 'apps', 'api', 'src', 'resources', name);
+  const resourcesDir = (resource: string) => path.join(cwd, 'apps', resource, 'src', 'resources', name);
   const schemasDir = path.join(cwd, 'packages', 'schemas', 'src');
   const appTypesDir = path.join(cwd, 'packages', 'app-types', 'src');
 
   updateApiConstants(name, cwd);
 
-  createDirectory(apiResourcesDir);
-  createDirectory(path.join(apiResourcesDir, 'actions'));
+  createDirectory(resourcesDir('api'));
+  createDirectory(resourcesDir('web'));
+  createDirectory(path.join(resourcesDir('api'), 'actions'));
 
   const files = [
-    { path: 'index.ts', content: indexContent(name) },
-    { path: `${name}.service.ts`, content: serviceContent(name) },
-    { path: `${name}.routes.ts`, content: routesContent() },
-    { path: 'actions/create.ts', content: actionCreateContent(name) },
-    { path: 'actions/get.ts', content: actionGetContent(name) },
-    { path: 'actions/update.ts', content: actionUpdateContent(name) },
-    { path: 'actions/remove.ts', content: actionRemoveContent(name) },
+    { path: 'index.ts', content: indexContent(name), resource: 'api' },
+    { path: `${name}.service.ts`, content: serviceContent(name), resource: 'api' },
+    { path: `${name}.routes.ts`, content: routesContent(), resource: 'api' },
+    { path: 'actions/create.ts', content: actionCreateContent(name), resource: 'api' },
+    { path: 'actions/get.ts', content: actionGetContent(name), resource: 'api' },
+    { path: 'actions/update.ts', content: actionUpdateContent(name), resource: 'api' },
+    { path: 'actions/remove.ts', content: actionRemoveContent(name), resource: 'api' },
+    { path: 'index.ts', content: webApiIndexContent(name), resource: 'web' },
+    { path: `${name}.api.ts`, content: webResourceContent(name), resource: 'web' },
   ];
 
-  files.forEach(({ path: filePath, content }) => {
-    createFile(path.join(apiResourcesDir, filePath), content);
+  files.forEach(({ path: filePath, content, resource }) => {
+    createFile(path.join(resourcesDir(resource), filePath), content);
   });
 
   createFile(path.join(schemasDir, `${name}.schema.ts`), schemaContent(name));
