@@ -68,7 +68,8 @@ export const verifyJwtToken = async (token: string) => {
     return decoded;
   } catch (error) {
 
-    return null; // Token verification failed
+    logger.debug(`Token verification failed with error: ${error}`);
+    return null;
   }
 };
 
