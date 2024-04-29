@@ -12,6 +12,8 @@ export const connect = async () => {
 };
 
 export const disconnect = () => {
+  if (!socket.connected) return;
+
   socket.disconnect();
 };
 
