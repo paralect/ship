@@ -3,7 +3,7 @@ import url from 'url';
 
 import config from 'config';
 
-import { COOKIES } from 'app-constants';
+import { COOKIES, TOKEN_SECURITY_EXPIRES_IN } from 'app-constants';
 import { AppKoaContext } from 'types';
 
 export const setTokenCookies = ({ ctx, accessToken }: { ctx: AppKoaContext; accessToken: string }) => {
@@ -19,7 +19,7 @@ export const setTokenCookies = ({ ctx, accessToken }: { ctx: AppKoaContext; acce
   ctx.cookies.set(COOKIES.ACCESS_TOKEN, accessToken, {
     httpOnly: true,
     domain: cookiesDomain,
-    expires: new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000), // 10 years
+    expires: new Date(Date.now() + TOKEN_SECURITY_EXPIRES_IN * 1000), // seconds to miliseconds 
   });
 };
 

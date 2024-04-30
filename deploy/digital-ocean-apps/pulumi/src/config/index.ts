@@ -18,6 +18,7 @@ const schema = z.object({
   REDIS_URI: z.string(),
   API_URL: z.string(),
   WEB_URL: z.string(),
+  JWT_SECRET: z.string(),
 
   SENDGRID_API_KEY: z.string().optional(),
   ADMIN_KEY: z.string().optional(),

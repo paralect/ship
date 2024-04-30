@@ -14,6 +14,17 @@ if [ ! -f "$KEYFILE" ]; then
     echo "MongoDB keyfile generated."
 fi
 
+API_ENV_FILE="apps/api/.env"
+if ! grep -q "^JWT_SECRET=" "$API_ENV_FILE"; then
+    echo "JWT_SECRET does not exist in $API_ENV_FILE. Generating now..."
+
+    JWT_SECRET=$(openssl rand -hex 32)
+
+    echo "JWT_SECRET=$JWT_SECRET" >> "$API_ENV_FILE"
+
+    echo "JWT_SECRET generated and saved to $API_ENV_FILE."
+fi
+
 export DOCKER_CLIENT_TIMEOUT=600
 export COMPOSE_HTTP_TIMEOUT=600
 Green='\033[0;32m'

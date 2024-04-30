@@ -2,7 +2,7 @@ import { securityUtil } from 'utils';
 
 import db from 'db';
 
-import { DATABASE_DOCUMENTS, TOKEN_SECURITY_LENGTH } from 'app-constants';
+import { DATABASE_DOCUMENTS } from 'app-constants';
 import { tokenSchema } from 'schemas';
 import { Token, TokenType } from 'types';
 
@@ -11,7 +11,12 @@ const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, {
 });
 
 const createToken = async (userId: string, type: TokenType, isShadow?: boolean) => {
-  const value = await securityUtil.generateSecureToken(TOKEN_SECURITY_LENGTH);
+  const payload = {
+    tokenType: type,
+    userId,
+    isShadow: isShadow || null,
+  }
+  const value = await securityUtil.generateJwtToken(payload);
 
   return service.insertOne({
     type,
@@ -30,7 +35,7 @@ const createAuthTokens = async ({ userId, isShadow }: { userId: string; isShadow
 };
 
 const findTokenByValue = async (token: string) => {
-  const tokenEntity = await service.findOne({ value: token });
+  const tokenEntity = await securityUtil.verifyJwtToken(token);
 
   return (
     tokenEntity && {
