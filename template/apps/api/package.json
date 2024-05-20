@@ -62,6 +62,7 @@
     "@shelf/jest-mongodb": "4.2.0",
     "@types/bcryptjs": "2.4.2",
     "@types/jest": "29.5.12",
+    "@types/jsonwebtoken": "9.0.6",
     "@types/koa": "2.13.5",
     "@types/koa-bodyparser": "4.3.10",
     "@types/koa-compose": "3.2.5",
