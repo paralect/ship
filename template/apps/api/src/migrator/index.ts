@@ -1,5 +1,6 @@
 import { generateId } from '@paralect/node-mongo';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import durationPlugin from 'dayjs/plugin/duration';
 
 import logger from 'logger';
 
@@ -7,18 +8,7 @@ import migrationLogService from './migration-log/migration-log.service';
 import migrationVersionService from './migration-version/migration-version.service';
 import { Migration } from './types';
 
-import 'moment-duration-format';
-
-interface Duration extends moment.Duration {
-  format: (template?: string, precision?: number, settings?: DurationSettings) => string;
-}
-
-interface DurationSettings {
-  forceLength: boolean;
-  precision: number;
-  template: string;
-  trim: boolean | 'left' | 'right';
-}
+dayjs.extend(durationPlugin);
 
 const run = async (migrations: Migration[], curVersion: number) => {
   const newMigrations = migrations
@@ -39,8 +29,8 @@ const run = async (migrations: Migration[], curVersion: number) => {
     for (migration of newMigrations) {
       //eslint-disable-line
       migrationLogId = generateId();
-      const startTime = new Date().getSeconds();
-      await migrationLogService.startMigrationLog(migrationLogId, startTime, migration.version); //eslint-disable-line
+      const startTime = dayjs();
+      await migrationLogService.startMigrationLog(migrationLogId, startTime.get('seconds'), migration.version); //eslint-disable-line
       logger.info(`[Migrator] Migration #${migration.version} is running: ${migration.description}`);
       if (!migration.migrate) {
         throw new Error('migrate function is not defined for the migration');
@@ -49,12 +39,10 @@ const run = async (migrations: Migration[], curVersion: number) => {
 
       lastMigrationVersion = migration.version;
       await migrationVersionService.setNewMigrationVersion(migration.version); //eslint-disable-line
-      const finishTime = new Date().getSeconds();
-      const duration = (moment.duration(finishTime - startTime) as Duration).format(
-        'h [hrs], m [min], s [sec], S [ms]',
-      );
+      const finishTime = dayjs();
+      const duration = dayjs.duration(finishTime.diff(startTime)).format('H [hrs], m [min], s [sec], SSS [ms]');
 
-      await migrationLogService.finishMigrationLog(migrationLogId, finishTime, duration); //eslint-disable-line
+      await migrationLogService.finishMigrationLog(migrationLogId, finishTime.get('seconds'), duration); //eslint-disable-line
       logger.info(`[Migrator] Database has been updated to the version #${migration.version}`);
       logger.info(`[Migrator] Time of migration #${migration.version}: ${duration}`);
     }
