@@ -10,7 +10,6 @@ export interface EmailServiceConstructorProps {
 interface Attachment {
   content: string;
   filename: string;
-  type?: string;
 }
 
 export interface SendTemplateParams<T extends Template> {
@@ -18,13 +17,5 @@ export interface SendTemplateParams<T extends Template> {
   subject: string;
   template: T;
   params: TemplateProps[T];
-  attachments?: Attachment[];
-}
-
-export interface SendSendgridTemplateParams {
-  to: string;
-  subject: string;
-  templateId: string;
-  dynamicTemplateData: { [key: string]: unknown };
   attachments?: Attachment[];
 }

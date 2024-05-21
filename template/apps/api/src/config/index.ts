@@ -17,7 +17,7 @@ const schema = z.object({
   JWT_SECRET: z.string(),
   REDIS_URI: z.string().optional(),
   REDIS_ERRORS_POLICY: z.enum(['throw', 'log']).default('log'),
-  SENDGRID_API_KEY: z.string().optional(),
+  RESEND_API_KEY: z.string().optional(),
   ADMIN_KEY: z.string().optional(),
   MIXPANEL_API_KEY: z.string().optional(),
   CLOUD_STORAGE_ENDPOINT: z.string().optional(),
