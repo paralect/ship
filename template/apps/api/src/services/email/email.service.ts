@@ -50,7 +50,7 @@ class EmailService {
 export default new EmailService({
   apiKey: config.RESEND_API_KEY,
   from: {
-    email: 'notifications@ship.com',
+    email: 'no-reply@ship.paralect.com',
     name: 'Ship',
   },
 });
