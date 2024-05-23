@@ -7,9 +7,9 @@ import logger from 'logger';
 
 import { EmailServiceConstructorProps, From, SendTemplateParams } from './email.types';
 
-let resend: Resend;
-
 class EmailService {
+  resend?: Resend;
+
   apiKey: string | undefined;
 
   from: From;
@@ -18,20 +18,18 @@ class EmailService {
     this.apiKey = apiKey;
     this.from = from;
 
-    if (apiKey) {
-      resend = new Resend(apiKey);
-    }
+    if (apiKey) this.resend = new Resend(apiKey);
   }
 
   async sendTemplate<T extends Template>({ to, subject, template, params, attachments }: SendTemplateParams<T>) {
-    if (!this.apiKey) {
+    if (!this.resend) {
       logger.error('[Resend] API key is not provided');
       return null;
     }
 
     const html = await renderEmailHtml({ template, params });
 
-    return resend.emails
+    return this.resend.emails
       .send({
         from: `${this.from.name} <${this.from.email}>`,
         to,
