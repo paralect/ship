@@ -24,6 +24,9 @@ class EmailService {
   async sendTemplate<T extends Template>({ to, subject, template, params, attachments }: SendTemplateParams<T>) {
     if (!this.resend) {
       logger.error('[Resend] API key is not provided');
+      logger.debug('[Resend] Email data:');
+      logger.debug({ subject, template, params });
+
       return null;
     }
 
