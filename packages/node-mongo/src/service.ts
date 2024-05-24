@@ -91,7 +91,7 @@ class Service<T extends IDocument> {
     return this._collectionName;
   }
 
-  public validateSchema = async (entity: T | Partial<T>): Promise<T> => {
+  public validateSchema = async <U = T>(entity: U | Partial<U>): Promise<U | Partial<U>> => {
     if (this.options.schemaValidator) {
       const { schemaValidator } = this.options;
 
@@ -105,13 +105,13 @@ class Service<T extends IDocument> {
       }
     }
 
-    return entity as T;
+    return entity;
   };
 
-  protected validateReadOperation = (
-    query: Filter<T>,
+  protected validateReadOperation = <U = T>(
+    query: Filter<U>,
     readConfig: ReadConfig,
-  ): Filter<T> => {
+  ): Filter<U> => {
     const shouldSkipDeletedDocs = typeof readConfig.skipDeletedOnDocs === 'boolean'
       ? readConfig.skipDeletedOnDocs
       : this.options.skipDeletedOnDocs;
@@ -123,8 +123,8 @@ class Service<T extends IDocument> {
     return query;
   };
 
-  protected validateCreateOperation = async <U = T>(
-    object: Partial<T>,
+  protected validateCreateOperation = async <U extends T = T>(
+    object: Partial<U>,
     createConfig: CreateConfig,
   ): Promise<U> => {
     let entity = object;
@@ -154,7 +154,7 @@ class Service<T extends IDocument> {
     return entity as U;
   };
 
-  protected getCollection = async (): Promise<Collection<T>> => {
+  protected getCollection = async <U extends T = T>(): Promise<Collection<U>> => {
     await this.waitForConnection();
 
     if (!this.collection) {
@@ -168,27 +168,27 @@ class Service<T extends IDocument> {
       }
     }
 
-    return this.collection;
+    return this.collection as unknown as Collection<U>;
   };
 
-  findOne = async <U = T>(
-    filter: Filter<T>,
+  findOne = async <U extends T = T>(
+    filter: Filter<U>,
     readConfig: ReadConfig = {},
     findOptions: FindOptions = {},
   ): Promise<U | null> => {
-    const collection = await this.getCollection();
+    const collection = await this.getCollection<U>();
 
     filter = this.validateReadOperation(filter, readConfig);
 
     return collection.findOne<U>(filter, findOptions);
   };
 
-  find = async <U extends Document = T>(
-    filter: Filter<T>,
+  find = async <U extends T = T>(
+    filter: Filter<U>,
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
     findOptions: FindOptions = {},
   ): Promise<FindResult<U>> => {
-    const collection = await this.getCollection();
+    const collection = await this.getCollection<U>();
     const { page, perPage } = readConfig;
     const hasPaging = !!page && !!perPage;
 
@@ -256,12 +256,12 @@ class Service<T extends IDocument> {
     return collection.distinct(key, filter, distinctOptions);
   };
 
-  insertOne = async <U = T>(
-    object: Partial<T>,
+  insertOne = async <U extends T = T>(
+    object: Partial<U>,
     createConfig: CreateConfig = {},
     insertOneOptions: InsertOneOptions = {},
   ): Promise<U> => {
-    const collection = await this.getCollection();
+    const collection = await this.getCollection<U>();
 
     const validEntity = await this.validateCreateOperation<U>(object, createConfig);
 
@@ -271,7 +271,7 @@ class Service<T extends IDocument> {
 
     if (shouldPublishEvents) {
       const insertOneWithEvent = async (opts: InsertOneOptions): Promise<void> => {
-        await collection.insertOne(validEntity as OptionalUnlessRequiredId<T>, opts);
+        await collection.insertOne(validEntity as OptionalUnlessRequiredId<U>, opts);
 
         return this.changePublisher.publishDbChange(
           this._collectionName,
@@ -287,18 +287,18 @@ class Service<T extends IDocument> {
         await insertOneWithEvent(insertOneOptions);
       }
     } else {
-      await collection.insertOne(validEntity as OptionalUnlessRequiredId<T>, insertOneOptions);
+      await collection.insertOne(validEntity as OptionalUnlessRequiredId<U>, insertOneOptions);
     }
 
     return validEntity;
   };
 
-  insertMany = async <U = T>(
-    objects: Partial<T>[],
+  insertMany = async <U extends T = T>(
+    objects: Partial<U>[],
     createConfig: CreateConfig = {},
     bulkWriteOptions: BulkWriteOptions = {},
   ): Promise<U[]> => {
-    const collection = await this.getCollection();
+    const collection = await this.getCollection<U>();
 
     const validEntities = await Promise.all(objects.map(
       (o) => this.validateCreateOperation<U>(o, createConfig),
@@ -310,7 +310,7 @@ class Service<T extends IDocument> {
 
     if (shouldPublishEvents) {
       const insertManyWithEvents = async (opts: BulkWriteOptions): Promise<void> => {
-        await collection.insertMany(validEntities as OptionalUnlessRequiredId<T>[], opts);
+        await collection.insertMany(validEntities as OptionalUnlessRequiredId<U>[], opts);
 
         return this.changePublisher.publishDbChanges(
           this._collectionName,
@@ -326,7 +326,7 @@ class Service<T extends IDocument> {
         await insertManyWithEvents(bulkWriteOptions);
       }
     } else {
-      await collection.insertMany(validEntities as OptionalUnlessRequiredId<T>[], bulkWriteOptions);
+      await collection.insertMany(validEntities as OptionalUnlessRequiredId<U>[], bulkWriteOptions);
     }
 
     return validEntities;
@@ -349,17 +349,17 @@ class Service<T extends IDocument> {
     return collection.replaceOne(filter, replacement as WithoutId<T>, replaceOptions);
   };
 
-  updateOne = async <U = T>(
-    filter: Filter<T>,
-    updateFn: (doc: T) => Partial<T>,
+  updateOne = async <U extends T = T>(
+    filter: Filter<U>,
+    updateFn: (doc: U) => Partial<U>,
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
   ): Promise<U | null> => {
-    const collection = await this.getCollection();
+    const collection = await this.getCollection<U>();
 
     filter = this.validateReadOperation(filter, updateConfig);
 
-    const doc = await this.findOne(filter, updateConfig);
+    const doc = await this.findOne<U>(filter, updateConfig);
 
     if (!doc) {
       if (isDev) {
@@ -379,7 +379,7 @@ class Service<T extends IDocument> {
       if (isDev) {
         logger.warn(`Document hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
       }
-      return newDoc as U;
+      return newDoc;
     }
 
     if (this.options.addUpdatedOnField) {
@@ -404,8 +404,8 @@ class Service<T extends IDocument> {
     if (shouldPublishEvents) {
       const updateOneWithEvent = async (opts: UpdateOptions): Promise<void> => {
         await collection.updateOne(
-          { _id: doc._id } as Filter<T>,
-          { $set: updatedFields } as UpdateFilter<T>,
+          { _id: doc._id } as Filter<U>,
+          { $set: updatedFields } as UpdateFilter<U>,
           opts,
         );
 
@@ -424,26 +424,26 @@ class Service<T extends IDocument> {
       }
     } else {
       await collection.updateOne(
-        { _id: doc._id } as Filter<T>,
-        { $set: updatedFields } as UpdateFilter<T>,
+        { _id: doc._id } as Filter<U>,
+        { $set: updatedFields } as UpdateFilter<U>,
         updateOptions,
       );
     }
 
-    return newDoc as U;
+    return newDoc;
   };
 
-  updateMany = async <U = T>(
-    filter: Filter<T>,
-    updateFn: (doc: T) => Partial<T>,
+  updateMany = async <U extends T = T>(
+    filter: Filter<U>,
+    updateFn: (doc: U) => Partial<U>,
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
   ): Promise<U[]> => {
-    const collection = await this.getCollection();
+    const collection = await this.getCollection<U>();
 
     filter = this.validateReadOperation(filter, updateConfig);
 
-    const documents = await collection.find<T>(filter).toArray();
+    const documents = await collection.find<U>(filter).toArray();
 
     if (documents.length === 0) {
       if (isDev) {
@@ -453,7 +453,7 @@ class Service<T extends IDocument> {
     }
 
     const updated = await Promise.all(
-      documents.map(async (doc: T) => {
+      documents.map(async (doc) => {
         const prevDoc = cloneDeep(doc);
         const updatedFields = await updateFn(doc);
         const newDoc = { ...doc, ...updatedFields };
@@ -474,7 +474,7 @@ class Service<T extends IDocument> {
         logger.warn(`Documents hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
       }
 
-      return updated.map((u) => u.doc) as U[];
+      return updated.map((u) => u.doc);
     }
 
     if (this.options.addUpdatedOnField) {
@@ -498,13 +498,13 @@ class Service<T extends IDocument> {
 
     const updatedDocuments = updated.filter((u) => u.isUpdated);
     const bulkWriteQuery = updatedDocuments.map(
-      (u): { updateOne: UpdateOneModel<T> } => {
-        const filterQuery = { _id: u.doc._id } as Filter<T>;
+      (u): { updateOne: UpdateOneModel<U> } => {
+        const filterQuery = { _id: u.doc._id } as Filter<U>;
 
         return {
           updateOne: {
             filter: filterQuery,
-            update: { $set: u.updatedFields } as UpdateFilter<T>,
+            update: { $set: u.updatedFields } as UpdateFilter<U>,
           },
         };
       },
@@ -535,15 +535,15 @@ class Service<T extends IDocument> {
       await collection.bulkWrite(bulkWriteQuery, updateOptions);
     }
 
-    return updated.map((u) => u.doc) as U[];
+    return updated.map((u) => u.doc);
   };
 
-  deleteOne = async <U = T>(
-    filter: Filter<T>,
+  deleteOne = async <U extends T = T>(
+    filter: Filter<U>,
     deleteConfig: DeleteConfig = {},
     deleteOptions: DeleteOptions = {},
   ): Promise<U | null> => {
-    const collection = await this.getCollection();
+    const collection = await this.getCollection<U>();
 
     const doc = await this.findOne<U>(filter, deleteConfig);
 
@@ -583,12 +583,12 @@ class Service<T extends IDocument> {
     return doc;
   };
 
-  deleteMany = async <U extends Document = T>(
-    filter: Filter<T>,
+  deleteMany = async <U extends T = T>(
+    filter: Filter<U>,
     deleteConfig: DeleteConfig = {},
     deleteOptions: DeleteOptions = {},
   ): Promise<U[]> => {
-    const collection = await this.getCollection();
+    const collection = await this.getCollection<U>();
 
     filter = this.validateReadOperation(filter, deleteConfig);
 
@@ -630,12 +630,12 @@ class Service<T extends IDocument> {
     return documents;
   };
 
-  deleteSoft = async <U extends Document = T>(
-    filter: Filter<T>,
+  deleteSoft = async <U extends T = T>(
+    filter: Filter<U>,
     deleteConfig: DeleteConfig = {},
     deleteOptions: DeleteOptions = {},
   ): Promise<U[]> => {
-    const collection = await this.getCollection();
+    const collection = await this.getCollection<U>();
 
     filter = this.validateReadOperation(filter, deleteConfig);
 
@@ -660,7 +660,7 @@ class Service<T extends IDocument> {
       const deleteSoftWithEvent = async (opts: UpdateOptions): Promise<void> => {
         await collection.updateMany(
           filter,
-          { $set: { deletedOn: deletedOnDate } } as unknown as UpdateFilter<T>,
+          { $set: { deletedOn: deletedOnDate } } as UpdateFilter<U>,
           opts,
         );
 
@@ -680,7 +680,7 @@ class Service<T extends IDocument> {
     } else {
       await collection.updateMany(
         filter,
-        { $set: { deletedOn: deletedOnDate } } as unknown as UpdateFilter<T>,
+        { $set: { deletedOn: deletedOnDate } } as UpdateFilter<U>,
         deleteOptions,
       );
     }
