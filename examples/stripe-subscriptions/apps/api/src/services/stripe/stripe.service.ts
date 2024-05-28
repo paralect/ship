@@ -1,18 +1,22 @@
-import config from 'config';
-
+import { ClientSession } from '@paralect/node-mongo';
+import { User } from 'app-types';
 import Stripe from 'stripe';
-import logger from 'logger';
 
 import { userService } from 'resources/user';
-import type { User } from 'resources/user';
-import type { ClientSession } from '@paralect/node-mongo';
 
-const stripe = new Stripe(config.stripe.apiKey, { typescript: true, apiVersion: '2022-08-01' });
+import config from 'config';
+
+import logger from 'logger';
+
+const stripe = new Stripe(config.STRIPE_SECRET_KEY, {
+  apiVersion: '2024-04-10',
+});
 
 const createAndAttachStripeAccount = async (user: User, session?: ClientSession): Promise<void | null> => {
   try {
-
-    if (!config.stripe.apiKey) return null;
+    if (!config.STRIPE_SECRET_KEY) {
+      logger.error('[Stripe] API key is not provided');
+    }
 
     const customer = await stripe.customers.create({
       email: user.email,

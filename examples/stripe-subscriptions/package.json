@@ -5,43 +5,25 @@
     "turbo-start": "turbo run development",
     "docker": "bash ./bin/start.sh",
     "start": "bash ./bin/run-all.sh",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
-    "husky": "7.0.4",
+    "husky": "9.0.11",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "turbo": "1.4.5"
+    "turbo": "1.11.1"
   },
   "optionalDependencies": {
-    "@next/swc-android-arm64": "12.1.0",
-    "@next/swc-darwin-arm64": "12.1.0",
-    "@next/swc-darwin-x64": "12.1.0",
-    "@next/swc-linux-arm-gnueabihf": "12.1.0",
-    "@next/swc-linux-arm64-gnu": "12.1.0",
-    "@next/swc-linux-arm64-musl": "12.1.0",
-    "@next/swc-linux-x64-gnu": "12.1.0",
-    "@next/swc-linux-x64-musl": "12.1.0",
-    "@next/swc-win32-arm64-msvc": "12.1.0",
-    "@next/swc-win32-ia32-msvc": "12.1.0",
-    "@next/swc-win32-x64-msvc": "12.1.0",
-    "turbo-android-arm64": "1.4.0",
-    "turbo-darwin-64": "1.4.0",
-    "turbo-darwin-arm64": "1.4.0",
-    "turbo-freebsd-64": "1.4.0",
-    "turbo-freebsd-arm64": "1.4.0",
-    "turbo-linux-32": "1.4.0",
-    "turbo-linux-64": "1.4.0",
-    "turbo-linux-arm": "1.4.0",
-    "turbo-linux-arm64": "1.4.0",
-    "turbo-linux-mips64le": "1.4.0",
-    "turbo-linux-ppc64le": "1.4.0",
-    "turbo-windows-32": "1.4.0",
-    "turbo-windows-64": "1.4.0",
-    "turbo-windows-arm64": "1.4.0"
+    "turbo-darwin-64": "1.11.1",
+    "turbo-darwin-arm64": "1.11.1",
+    "turbo-linux-64": "1.11.1",
+    "turbo-linux-arm64": "1.11.1",
+    "turbo-windows-64": "1.11.1",
+    "turbo-windows-arm64": "1.11.1"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  "engines": {
+    "node": ">= 20.11.1",
+    "yarn": "please-use-pnpm",
+    "pnpm": ">= 8.15.7 <= 9.0.5"
+  }
 }

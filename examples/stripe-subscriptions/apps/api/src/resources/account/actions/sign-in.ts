@@ -1,14 +1,22 @@
 import { z } from 'zod';
 
-import { securityUtil } from 'utils';
+import { userService } from 'resources/user';
+
+import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
 import { authService } from 'services';
-import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, Next, AppRouter } from 'types';
-import { userService, User } from 'resources/user';
+import { securityUtil } from 'utils';
+
+import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
+import { AppKoaContext, AppRouter, Next, User } from 'types';
 
 const schema = z.object({
-  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
-  password: z.string().min(1, 'Please enter password'),
+  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  password: z
+    .string()
+    .regex(
+      PASSWORD_REGEX,
+      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+    ),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {
@@ -25,6 +33,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   });
 
   const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
+
   ctx.assertClientError(isPasswordMatch, {
     credentials: 'The email or password you have entered is invalid',
   });
@@ -40,14 +49,11 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.validatedData;
 
-  await Promise.all([
-    userService.updateLastRequest(user._id),
-    authService.setTokens(ctx, user._id),
-  ]);
+  await Promise.all([userService.updateLastRequest(user._id), authService.setTokens(ctx, user._id)]);
 
   ctx.body = userService.getPublic(user);
 }
 
 export default (router: AppRouter) => {
-  router.post('/sign-in', validateMiddleware(schema), validator, handler);
+  router.post('/sign-in', rateLimitMiddleware, validateMiddleware(schema), validator, handler);
 };

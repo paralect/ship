@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 import config from 'config';
 
-const socket = io(config.wsUrl, {
+const socket = io(config.WS_URL, {
   transports: ['websocket'],
   autoConnect: false,
 });
@@ -12,6 +12,8 @@ export const connect = async () => {
 };
 
 export const disconnect = () => {
+  if (!socket.connected) return;
+
   socket.disconnect();
 };
 

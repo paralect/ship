@@ -1,17 +1,11 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { apiService } from 'services';
 
-import { User } from './user.types';
+import { ListResult, User } from 'types';
 
-export function useList<T>(params: T) {
-  const list = () => apiService.get('/users', params);
-
-  interface UserListResponse {
-    count: number;
-    items: User[];
-    totalPages: number;
-  }
-
-  return useQuery<UserListResponse>(['users', params], list);
-}
+export const useList = <T>(params: T) =>
+  useQuery<ListResult<User>>({
+    queryKey: ['users', params],
+    queryFn: () => apiService.get('/users', params),
+  });

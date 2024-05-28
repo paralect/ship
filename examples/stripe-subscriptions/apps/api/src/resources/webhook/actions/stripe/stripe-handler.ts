@@ -1,11 +1,14 @@
-import logger from 'logger';
+import Stripe from 'stripe';
 
-import { stripeService } from 'services';
 import { userService } from 'resources/user';
 
+import { stripeService } from 'services';
+
+import logger from 'logger';
+
 type PaymentMethodType = {
-  customer: string,
-  paymentMethod: string,
+  customer: string;
+  paymentMethod: string;
 };
 
 const updateCustomerDefaultPaymentMethod = async (data: PaymentMethodType) => {
@@ -34,13 +37,21 @@ const updateSubscriptionPaymentMethod = async (data: PaymentMethodType) => {
   }
 };
 
-const updateUserSubscription = async (data: any) => {
+const updateUserSubscription = async (
+  data: Stripe.Subscription & {
+    plan: {
+      id: string;
+      product: string;
+      interval: string;
+    };
+  },
+) => {
   const subscription = {
     subscriptionId: data.id,
     priceId: data.plan.id,
-    productId: data.plan.product,
+    productId: data.plan?.product,
     status: data.status,
-    interval: data.plan.interval,
+    interval: data.plan?.interval,
     currentPeriodStartDate: data.current_period_start,
     currentPeriodEndDate: data.current_period_end,
     cancelAtPeriodEnd: data.cancel_at_period_end,
@@ -48,7 +59,7 @@ const updateUserSubscription = async (data: any) => {
 
   return userService.atomic.updateOne(
     {
-      stripeId: data.customer,
+      stripeId: data.customer as string,
     },
     {
       $set: {
@@ -58,10 +69,10 @@ const updateUserSubscription = async (data: any) => {
   );
 };
 
-const deleteUserSubscription = async (data: any) => {
-  return userService.atomic.updateOne(
+const deleteUserSubscription = async (data: Stripe.Subscription) =>
+  userService.atomic.updateOne(
     {
-      stripeId: data.customer,
+      stripeId: data.customer as string,
     },
     {
       $unset: {
@@ -69,7 +80,6 @@ const deleteUserSubscription = async (data: any) => {
       },
     },
   );
-};
 
 export default {
   updateCustomerDefaultPaymentMethod,

@@ -1,39 +1,34 @@
-import { useQuery, useMutation } from 'react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { Subscription } from 'app-types';
 
 import { apiService } from 'services';
 
-import type { Subscription } from './subscription.types';
+export const useGetDetails = () =>
+  useQuery<Subscription>({
+    queryKey: ['subscriptionDetails'],
+    queryFn: () => apiService.get('subscriptions/current'),
+  });
 
-export function useGetDetails() {
-  const getCurrent = () => apiService.get('subscriptions/current');
-
-  return useQuery<Subscription>(['subscriptionDetails'], getCurrent);
-}
-
-export function useSubscribe<T>() {
-  const subscribe = (data: T) => apiService.post('subscriptions/subscribe', data);
-
-  return useMutation(subscribe, {
+export const useSubscribe = <T>() =>
+  useMutation<Subscription & { checkoutLink: string }, unknown, T>({
+    mutationFn: (data: T) => apiService.post('subscriptions/subscribe', data),
     onSuccess: (data) => {
       window.location.href = data.checkoutLink;
     },
   });
-}
 
-export function useCancelSubscription() {
-  const cancel = (subscriptionId: string) => apiService.post('subscriptions/cancel', { subscriptionId });
+export const useCancelSubscription = <T>() =>
+  useMutation({
+    mutationFn: (data: T) => apiService.post('subscriptions/cancel', data),
+  });
 
-  return useMutation(cancel);
-}
+export const usePreviewUpgradeSubscription = (priceId: string) =>
+  useQuery({
+    queryKey: ['previewUpgrade', priceId],
+    queryFn: () => apiService.get('subscriptions/preview-upgrade', { priceId }),
+  });
 
-export function usePreviewUpgradeSubscription(priceId: string) {
-  const preview = () => apiService.get('subscriptions/preview-upgrade', { priceId });
-
-  return useQuery(['previewUpgrade'], preview);
-}
-
-export function useUpgradeSubscription<T>() {
-  const upgrade = (data: T) => apiService.post('subscriptions/upgrade', data);
-
-  return useMutation(upgrade);
-}
+export const useUpgradeSubscription = <T>() =>
+  useMutation<Subscription, unknown, T>({
+    mutationFn: (data: T) => apiService.post('subscriptions/upgrade', data),
+  });

@@ -1,92 +1,76 @@
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-import queryClient from 'query-client';
 import { apiService } from 'services';
 
-import { userTypes } from 'resources/user';
+import queryClient from 'query-client';
 
-export function useSignIn<T>() {
-  const signIn = (data: T) => apiService.post('/account/sign-in', data);
+import { User } from 'types';
 
-  return useMutation<userTypes.User, unknown, T>(signIn, {
+export const useSignIn = <T>() =>
+  useMutation<User, unknown, T>({
+    mutationFn: (data: T) => apiService.post('/account/sign-in', data),
     onSuccess: (data) => {
       queryClient.setQueryData(['account'], data);
     },
   });
-}
 
-export function useSignOut() {
-  const signOut = () => apiService.post('/account/sign-out');
-
-  return useMutation(signOut, {
+export const useSignOut = () =>
+  useMutation({
+    mutationFn: () => apiService.post('/account/sign-out'),
     onSuccess: () => {
       queryClient.setQueryData(['account'], null);
     },
   });
-}
 
-export function useSignUp<T>() {
-  const signUp = (data: T) => apiService.post('/account/sign-up', data);
-
+export const useSignUp = <T>() => {
   interface SignUpResponse {
     signupToken: string;
   }
 
-  return useMutation<SignUpResponse, unknown, T>(signUp);
-}
+  return useMutation<SignUpResponse, unknown, T>({
+    mutationFn: (data: T) => apiService.post('/account/sign-up', data),
+  });
+};
 
-export function useForgotPassword<T>() {
-  const forgotPassword = (data: T) => apiService.post('/account/forgot-password', data);
+export const useForgotPassword = <T>() =>
+  useMutation<void, unknown, T>({
+    mutationFn: (data: T) => apiService.post('/account/forgot-password', data),
+  });
 
-  return useMutation<{}, unknown, T>(forgotPassword);
-}
+export const useResetPassword = <T>() =>
+  useMutation<void, unknown, T>({
+    mutationFn: (data: T) => apiService.put('/account/reset-password', data),
+  });
 
-export function useResetPassword<T>() {
-  const resetPassword = (data: T) => apiService.put('/account/reset-password', data);
+export const useResendEmail = <T>() =>
+  useMutation<null, unknown, T>({
+    mutationFn: (data: T) => apiService.post('/account/resend-email', data),
+  });
 
-  return useMutation<{}, unknown, T>(resetPassword);
-}
+export const useGet = (options = {}) =>
+  useQuery<User>({
+    queryKey: ['account'],
+    queryFn: () => apiService.get('/account'),
+    ...options,
+  });
 
-export function useResendEmail<T>() {
-  const resendEmail = (data: T) => apiService.post('/account/resend-email', data);
+export const useUpdate = <T>() =>
+  useMutation<User, unknown, T>({
+    mutationFn: (data: T) => apiService.put('/account', data),
+  });
 
-  return useMutation<{}, unknown, T>(resendEmail);
-}
-
-export function useGet(options? : {}) {
-  const get = () => apiService.get('/account');
-
-  return useQuery<userTypes.User>(['account'], get, options);
-}
-
-export function useUpdate<T>() {
-  const update = (data: T) => apiService.put('/account', data);
-
-  return useMutation<userTypes.User, unknown, T>(update);
-}
-
-export function useUploadAvatar<T>() {
-  const uploadAvatar = (data: T) => apiService.post('/account/avatar', data);
-
-  return useMutation<userTypes.User, unknown, T>(uploadAvatar, {
+export const useUploadAvatar = <T>() =>
+  useMutation<User, unknown, T>({
+    mutationFn: (data: T) => apiService.post('/account/avatar', data),
     onSuccess: (data) => {
       queryClient.setQueryData(['account'], data);
     },
   });
-}
 
-export function useRemoveAvatar() {
-  const removeAvatar = () => apiService.delete('/account/avatar');
-
-  return useMutation<userTypes.User>(removeAvatar, {
+export const useRemoveAvatar = () =>
+  useMutation<User>({
+    mutationFn: () => apiService.delete('/account/avatar'),
     onSuccess: (data) => {
       queryClient.setQueryData(['account'], data);
     },
   });
-}
-
-export function useFinishOnboarding<T>() {
-  const finishOnboarding = (data: T) => apiService.post('/account/finish-onboarding', data);
-
-  return useMutation<{}, unknown, T>(finishOnboarding);
-}

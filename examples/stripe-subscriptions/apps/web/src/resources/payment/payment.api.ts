@@ -1,59 +1,45 @@
-import { useQuery } from 'react-query';
-import queryClient from 'query-client';
+import { useQuery } from '@tanstack/react-query';
+import { CustomerPaymentInformation, HistoryItem, StripePageDirections, StripePagination } from 'app-types';
 
 import { apiService } from 'services';
-import { handleError } from 'utils';
 
-import { StripePageDirections } from './payment.types';
-import type {
-  CustomerPaymentInformation,
-  HistoryItem,
-  StripePagination,
-} from './payment.types';
+import queryClient from 'query-client';
 
-export function useGetPaymentInformation() {
-  const getPaymentInformation = () => apiService.get('/payments/payment-information');
+export const useGetPaymentInformation = () =>
+  useQuery<CustomerPaymentInformation>({
+    queryKey: ['paymentInformation'],
+    queryFn: () => apiService.get('/payments/payment-information'),
+  });
 
-  return useQuery<CustomerPaymentInformation>(['paymentInformation'], getPaymentInformation);
-}
+export const useGetPaymentHistory = (params: StripePagination) => {
+  const { data: cursorIds } = useQuery<Record<string, string> | undefined>({
+    queryKey: ['paymentHistoryCursorId'],
+    queryFn: () => queryClient.getQueryData(['paymentHistoryCursorId']) ?? {},
+  });
 
-export function useGetPaymentHistory(params: StripePagination) {
-  const cursorIds: Record<string, any> | undefined = queryClient.getQueryData('paymentHistoryCursorId');
-
-  const getPaymentHistory = () => apiService.get(
-    'payments/get-history',
-    {
+  const getPaymentHistory = () =>
+    apiService.get('payments/get-history', {
       ...params,
-      cursorId: params.direction === StripePageDirections.FORWARD
-        ? cursorIds?.lastItemId
-        : cursorIds?.firstItemId,
-    },
-  );
+      cursorId: params.direction === StripePageDirections.FORWARD ? cursorIds?.lastItemId : cursorIds?.firstItemId,
+    });
 
-  type PaymentHistory = {
-    data: HistoryItem[],
-    count: number,
-    totalPages: number,
-
-    hasMore: boolean,
-    firstItemId: string | null,
-    lastItemId: string | null,
-  };
-
-  return useQuery<PaymentHistory>(['paymentHistory', params], getPaymentHistory, {
-    onSuccess: (results: PaymentHistory) => {
-      queryClient.setQueryData('paymentHistoryCursorId', {
-        firstItemId: results.firstItemId,
-        lastItemId: results.lastItemId,
-      });
-    },
+  const { data, isFetching } = useQuery<{
+    data: HistoryItem[];
+    count: number;
+    totalPages: number;
+    hasMore: boolean;
+    firstItemId: string | null;
+    lastItemId: string | null;
+  }>({
+    queryKey: ['paymentHistory', params],
+    queryFn: getPaymentHistory,
   });
-}
 
-export function useSetupPaymentIntent() {
-  const setupPaymentIntent = () => apiService.post('payments/create-setup-intent');
+  return { data, isFetching };
+};
 
-  return useQuery(['paymentIntent'], setupPaymentIntent, {
-    onError: handleError,
+export const useSetupPaymentIntent = () =>
+  useQuery<{ clientSecret: string }>({
+    queryKey: ['paymentIntent'],
+    queryFn: () => apiService.post('payments/create-setup-intent'),
   });
-}

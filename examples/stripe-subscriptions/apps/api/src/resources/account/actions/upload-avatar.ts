@@ -1,21 +1,17 @@
 import multer from '@koa/multer';
 
-import config from 'config';
-import { cloudStorageService } from 'services';
-import { Next, AppKoaContext, AppRouter } from 'types';
 import { userService } from 'resources/user';
 
-const upload = multer();
+import { cloudStorageService } from 'services';
 
-const getFileKey = (url: string) => decodeURI(url
-  .replace(`https://${config.cloudStorage.bucket}.${config.cloudStorage.endpoint}/`, ''));
+import { AppKoaContext, AppRouter, Next } from 'types';
+
+const upload = multer();
 
 async function validator(ctx: AppKoaContext, next: Next) {
   const { file } = ctx.request;
 
-  ctx.assertClientError(file, {
-    global: 'File cannot be empty',
-  });
+  ctx.assertClientError(file, { global: 'File cannot be empty' });
 
   await next();
 }
@@ -25,18 +21,15 @@ async function handler(ctx: AppKoaContext) {
   const { file } = ctx.request;
 
   if (user.avatarUrl) {
-    await cloudStorageService.deleteObject(getFileKey(user.avatarUrl));
+    const fileKey = cloudStorageService.getFileKey(user.avatarUrl);
+
+    await cloudStorageService.deleteObject(fileKey);
   }
 
   const fileName = `${user._id}-${Date.now()}-${file.originalname}`;
-  const { Location } = await cloudStorageService.uploadPublic(`avatars/${fileName}`, file);
+  const { location: avatarUrl } = await cloudStorageService.uploadPublic(`avatars/${fileName}`, file);
 
-  const updatedUser = await userService.updateOne(
-    { _id: user._id },
-    () => ({ avatarUrl: Location }),
-  );
-
-  ctx.body = userService.getPublic(updatedUser);
+  ctx.body = await userService.updateOne({ _id: user._id }, () => ({ avatarUrl })).then(userService.getPublic);
 }
 
 export default (router: AppRouter) => {

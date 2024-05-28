@@ -1,13 +1,12 @@
 import { z } from 'zod';
+
+import { validateMiddleware } from 'middlewares';
+import { stripeService } from 'services';
+
 import { AppKoaContext, AppRouter, Next } from 'types';
 
-import { stripeService } from 'services';
-import { validateMiddleware } from 'middlewares';
-
 const schema = z.object({
-  priceId: z.string()
-    .min(1, 'Price id is required')
-    .startsWith('price_', 'Incorrect price id'),
+  priceId: z.string().min(1, 'Price id is required').startsWith('price_', 'Incorrect price id'),
 });
 
 type ValidatedData = z.infer<typeof schema>;
@@ -26,26 +25,30 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const subscriptionDetails = await stripeService.subscriptions.retrieve(user.subscription?.subscriptionId as string);
 
-  let items: any;
+  let items: object[];
 
   if (priceId === 'price_0') {
-    items = [{
-      id: subscriptionDetails.items.data[0].id,
-      price_data: {
-        currency: 'USD',
-        product: user.subscription?.productId,
-        recurring: {
-          interval: subscriptionDetails.items.data[0].price.recurring?.interval,
-          interval_count: 1,
+    items = [
+      {
+        id: subscriptionDetails.items.data[0].id,
+        price_data: {
+          currency: 'USD',
+          product: user.subscription?.productId,
+          recurring: {
+            interval: subscriptionDetails.items.data[0].price.recurring?.interval,
+            interval_count: 1,
+          },
+          unit_amount: 0,
         },
-        unit_amount: 0,
       },
-    }];
+    ];
   } else {
-    items = [{
-      id: subscriptionDetails.items.data[0].id,
-      price: priceId,
-    }];
+    items = [
+      {
+        id: subscriptionDetails.items.data[0].id,
+        price: priceId,
+      },
+    ];
   }
 
   const invoice = await stripeService.invoices.retrieveUpcoming({
