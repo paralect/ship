@@ -1,4 +1,4 @@
-import { COOKIES } from 'app.constants';
+import { COOKIES } from 'app-constants';
 import { AppKoaContext, Next } from 'types';
 
 const storeTokenToState = async (ctx: AppKoaContext, next: Next) => {

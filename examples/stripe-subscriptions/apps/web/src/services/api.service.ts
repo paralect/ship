@@ -1,12 +1,9 @@
 // eslint-disable-next-line max-classes-per-file
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import qs from 'qs';
 
 import config from 'config';
 
 export class ApiError extends Error {
-  __proto__: ApiError;
-
   data: any;
 
   status: number;
@@ -15,7 +12,6 @@ export class ApiError extends Error {
     super(`${status} ${statusText}`);
 
     this.constructor = ApiError;
-    this.__proto__ = ApiError.prototype; // eslint-disable-line no-proto
 
     this.name = this.constructor.name;
     this.data = data;
@@ -30,11 +26,8 @@ export class ApiError extends Error {
     return this.stack;
   }
 }
-const throwApiError = ({
-  status,
-  statusText,
-  data,
-}: any) => {
+
+const throwApiError = ({ status, statusText, data }: any) => {
   console.error(`API Error: ${status} ${statusText}`, data); //eslint-disable-line
   throw new ApiError(data, status, statusText);
 };
@@ -52,6 +45,7 @@ class ApiClient {
       (response: AxiosResponse) => response.data,
       (error) => {
         if (axios.isCancel(error)) {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
           throw error;
         }
         // Axios Network Error & Timeout error dont have 'response' field
@@ -120,8 +114,7 @@ class ApiClient {
 }
 
 export default new ApiClient({
-  baseURL: config.apiUrl,
+  baseURL: config.API_URL,
   withCredentials: true,
   responseType: 'json',
-  paramsSerializer: (params: any) => qs.stringify(params, { arrayFormat: 'brackets' }),
 });

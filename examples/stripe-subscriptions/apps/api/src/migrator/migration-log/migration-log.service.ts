@@ -20,7 +20,8 @@ const startMigrationLog = (_id: string, startTime: number, migrationVersion: num
         _id,
       },
     },
-    {}, { upsert: true },
+    {},
+    { upsert: true },
   );
 
 const failMigrationLog = (_id: string, finishTime: number, err: Error) =>

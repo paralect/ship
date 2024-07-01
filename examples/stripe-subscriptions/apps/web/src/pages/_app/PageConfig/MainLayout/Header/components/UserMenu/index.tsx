@@ -1,10 +1,11 @@
+import React, { FC } from 'react';
 import Link from 'next/link';
-import { memo, FC } from 'react';
 import { Menu } from '@mantine/core';
-import { IconUserCircle, IconLogout, IconReceipt } from '@tabler/icons';
+import { IconLogout, IconReceipt, IconUserCircle } from '@tabler/icons-react';
+
+import { accountApi } from 'resources/account';
 
 import { RoutePath } from 'routes';
-import { accountApi } from 'resources/account';
 
 import MenuToggle from '../MenuToggle';
 
@@ -12,36 +13,21 @@ const UserMenu: FC = () => {
   const { mutate: signOut } = accountApi.useSignOut();
 
   return (
-    <Menu>
+    <Menu position="bottom-end">
       <Menu.Target>
         <MenuToggle />
       </Menu.Target>
-      <Menu.Dropdown
-        sx={(theme) => ({
-          left: 'unset !important',
-          right: '30px !important',
-          boxShadow: 'unset !important',
-          border: `1px solid ${theme.colors.gray[4]}`,
-        })}
-      >
-        <Menu.Item
-          component={Link}
-          href={RoutePath.Profile}
-          icon={<IconUserCircle size={16} />}
-        >
+
+      <Menu.Dropdown>
+        <Menu.Item component={Link} href={RoutePath.Profile} leftSection={<IconUserCircle size={16} />}>
           Profile settings
         </Menu.Item>
-        <Menu.Item
-          component={Link}
-          href={RoutePath.AccountPlan}
-          icon={<IconReceipt size={16} />}
-        >
+
+        <Menu.Item component={Link} href={RoutePath.AccountPlan} leftSection={<IconReceipt size={16} />}>
           Account plan
         </Menu.Item>
-        <Menu.Item
-          onClick={() => signOut()}
-          icon={<IconLogout size={16} />}
-        >
+
+        <Menu.Item onClick={() => signOut()} leftSection={<IconLogout size={16} />}>
           Log out
         </Menu.Item>
       </Menu.Dropdown>
@@ -49,4 +35,4 @@ const UserMenu: FC = () => {
   );
 };
 
-export default memo(UserMenu);
+export default UserMenu;

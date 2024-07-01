@@ -2,7 +2,9 @@ import { showNotification } from '@mantine/notifications';
 import { UseFormSetError } from 'react-hook-form';
 
 export default function handleError(e: any, setError?: UseFormSetError<any>) {
-  const { errors: { global, ...errors } } = e.data;
+  const {
+    errors: { global, ...errors },
+  } = e.data;
 
   if (global) {
     showNotification({

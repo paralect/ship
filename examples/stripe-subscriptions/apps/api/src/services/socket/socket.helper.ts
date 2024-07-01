@@ -1,4 +1,4 @@
-function getCookie(cookieString: string, name: string) {
+const getCookie = (cookieString: string, name: string) => {
   const value = `; ${cookieString}`;
   const parts = value.split(`; ${name}=`);
   if (parts && parts.length === 2) {
@@ -11,9 +11,9 @@ function getCookie(cookieString: string, name: string) {
   }
 
   return null;
-}
+};
 
-function checkAccessToRoom(roomId: string, data: { userId: string }) {
+const checkAccessToRoom = (roomId: string, data: { userId: string }) => {
   const [roomType, ...rest] = roomId.split('-');
   const id = rest.join('-');
 
@@ -23,7 +23,7 @@ function checkAccessToRoom(roomId: string, data: { userId: string }) {
     default:
       return false;
   }
-}
+};
 
 export default {
   getCookie,

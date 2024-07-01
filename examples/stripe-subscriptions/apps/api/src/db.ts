@@ -1,8 +1,8 @@
-import { Database, Service, ServiceOptions, IDocument } from '@paralect/node-mongo';
+import { Database, IDocument, Service, ServiceOptions } from '@paralect/node-mongo';
 
 import config from 'config';
 
-const database = new Database(config.mongo.connection, config.mongo.dbName);
+const database = new Database(config.MONGO_URI, config.MONGO_DB_NAME);
 database.connect();
 
 class CustomService<T extends IDocument> extends Service<T> {
@@ -13,7 +13,7 @@ function createService<T extends IDocument>(collectionName: string, options: Ser
   return new CustomService<T>(collectionName, database, options);
 }
 
-export default {
+export default Object.assign(database, {
   database,
   createService,
-};
+});

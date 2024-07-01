@@ -1,15 +1,9 @@
-import { FC, useState, useCallback } from 'react';
-import {
-  Badge,
-  Group,
-  SegmentedControl,
-  Space,
-  Stack,
-  Text,
-} from '@mantine/core';
+import React, { FC, useCallback, useState } from 'react';
+import { Badge, Box, Group, SegmentedControl, Space, Stack } from '@mantine/core';
+import { Intervals, ItemType, Subscription } from 'app-types';
 
 import { accountApi } from 'resources/account';
-import { subscriptionTypes, subscriptionConstants } from 'resources/subscription';
+import { subscriptionConstants } from 'resources/subscription';
 
 import PlanItem from '../plan-item';
 import UpgradeModal from '../upgrade-modal';
@@ -17,66 +11,49 @@ import UpgradeModal from '../upgrade-modal';
 const Plans: FC = () => {
   const { data: account } = accountApi.useGet();
 
-  const [interval, setInterval] = useState(subscriptionTypes.Intervals.Year);
-  const [selectedUpgradePlan, setSelectedUpgradePlan] = useState();
+  const [interval, setInterval] = useState(Intervals.YEAR);
+  const [selectedUpgradePlan, setSelectedUpgradePlan] = useState<{ priceId: string; title: string }>();
 
-  const renderItems = () => subscriptionConstants.items.map(
-    (item: subscriptionTypes.ItemType) => (
+  const renderItems = () =>
+    subscriptionConstants.items.map((item: ItemType) => (
       <PlanItem
         key={item.priceId[interval]}
-        currentSubscription={account?.subscription}
+        currentSubscription={account?.subscription as Subscription | undefined}
         interval={interval}
         onPreviewUpgrade={setSelectedUpgradePlan}
         plan={item}
       />
-    ),
-  );
+    ));
 
   const onClosePreview = useCallback(() => setSelectedUpgradePlan(undefined), []);
 
   return (
     <>
-      <Stack
-        align="center"
-        sx={{ maxWidth: '1280px', margin: '0 auto' }}
-      >
-        <Text size="sm">
-          <Badge color="orange" sx={{ marginRight: '8px' }}>Save up to 15%</Badge>
+      <Stack align="center">
+        <Box size="sm">
+          <Badge color="orange">Save up to 15%</Badge>
           with yearly subscription
-        </Text>
+        </Box>
         <Space h={16} />
 
         <SegmentedControl
           size="md"
           value={interval}
           data={[
-            { label: 'Yearly', value: subscriptionTypes.Intervals.Year },
-            { label: 'Monthly', value: subscriptionTypes.Intervals.Month },
+            { label: 'Yearly', value: Intervals.YEAR },
+            { label: 'Monthly', value: Intervals.MONTH },
           ]}
-          onChange={(value: subscriptionTypes.Intervals) => setInterval(value)}
+          onChange={(value) => setInterval(value as Intervals)}
         />
       </Stack>
 
       <Space h={48} />
 
-      <Group
-        grow
-        position="center"
-        sx={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          alignItems: 'stretch',
-        }}
-      >
+      <Group grow align="stretch" m="0 auto" maw="1280px">
         {renderItems()}
       </Group>
 
-      {selectedUpgradePlan && (
-        <UpgradeModal
-          plan={selectedUpgradePlan}
-          onClose={onClosePreview}
-        />
-      )}
+      {selectedUpgradePlan && <UpgradeModal plan={selectedUpgradePlan} onClose={onClosePreview} />}
     </>
   );
 };

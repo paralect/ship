@@ -1,19 +1,14 @@
-import { useEffect } from 'react';
-import Head from 'next/head';
+import React, { useEffect } from 'react';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-
-import {
-  Stack,
-  Tabs,
-  Title,
-} from '@mantine/core';
+import { Stack, Tabs, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 
 import { RoutePath } from 'routes';
 
-import SubscriptionPlans from './components/pricing-plans/components/plans';
 import CurrentPlan from './components/current-plan';
+import SubscriptionPlans from './components/pricing-plans';
 
 const getNotificationMessage = (paymentIntentStatus: string) => {
   switch (paymentIntentStatus) {
@@ -37,7 +32,7 @@ const getNotificationMessage = (paymentIntentStatus: string) => {
   }
 };
 
-const AccountPlan: NextPage = () => {
+const Plan: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
@@ -52,25 +47,23 @@ const AccountPlan: NextPage = () => {
       <Head>
         <title>Account plan</title>
       </Head>
-      <Stack
-        sx={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          alignItems: 'stretch',
-        }}
-      >
+      <Stack m="auto" align="stretch">
         <Title>Account Plan</Title>
         <Tabs defaultValue="billing">
           <Tabs.List grow>
-            <Tabs.Tab color="blue" value="billing">Billing</Tabs.Tab>
-            <Tabs.Tab color="blue" value="plans">Plans</Tabs.Tab>
+            <Tabs.Tab color="blue" value="billing">
+              Billing
+            </Tabs.Tab>
+            <Tabs.Tab color="blue" value="plans">
+              Plans
+            </Tabs.Tab>
           </Tabs.List>
 
-          <Tabs.Panel sx={{ margin: '32px 0' }} value="billing">
+          <Tabs.Panel mt={32} value="billing">
             <CurrentPlan />
           </Tabs.Panel>
 
-          <Tabs.Panel sx={{ margin: '32px 0' }} value="plans">
+          <Tabs.Panel mt={32} value="plans">
             <SubscriptionPlans />
           </Tabs.Panel>
         </Tabs>
@@ -79,4 +72,4 @@ const AccountPlan: NextPage = () => {
   );
 };
 
-export default AccountPlan;
+export default Plan;

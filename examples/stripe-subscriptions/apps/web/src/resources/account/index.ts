@@ -1,5 +1,3 @@
 import * as accountApi from './account.api';
 
-export {
-  accountApi,
-};
+export { accountApi };

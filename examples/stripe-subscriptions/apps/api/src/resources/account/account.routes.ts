@@ -1,20 +1,19 @@
 import { routeUtil } from 'utils';
 
+import forgotPassword from './actions/forgot-password';
 import get from './actions/get';
-import update from './actions/update';
-import uploadAvatar from './actions/upload-avatar';
+import google from './actions/google';
 import removeAvatar from './actions/remove-avatar';
-import signUp from './actions/sign-up';
+import resendEmail from './actions/resend-email';
+import resetPassword from './actions/reset-password';
+import shadowLogin from './actions/shadow-login';
 import signIn from './actions/sign-in';
 import signOut from './actions/sign-out';
+import signUp from './actions/sign-up';
+import update from './actions/update';
+import uploadAvatar from './actions/upload-avatar';
 import verifyEmail from './actions/verify-email';
-import forgotPassword from './actions/forgot-password';
-import resetPassword from './actions/reset-password';
 import verifyResetToken from './actions/verify-reset-token';
-import resendEmail from './actions/resend-email';
-import shadowLogin from './actions/shadow-login';
-import google from './actions/google';
-import finishOnboarding from './actions/finish-onboarding';
 
 const publicRoutes = routeUtil.getRoutes([
   signUp,
@@ -28,17 +27,9 @@ const publicRoutes = routeUtil.getRoutes([
   google,
 ]);
 
-const privateRoutes = routeUtil.getRoutes([
-  get,
-  update,
-  uploadAvatar,
-  removeAvatar,
-  finishOnboarding,
-]);
+const privateRoutes = routeUtil.getRoutes([get, update, uploadAvatar, removeAvatar]);
 
-const adminRoutes = routeUtil.getRoutes([
-  shadowLogin,
-]);
+const adminRoutes = routeUtil.getRoutes([shadowLogin]);
 
 export default {
   publicRoutes,

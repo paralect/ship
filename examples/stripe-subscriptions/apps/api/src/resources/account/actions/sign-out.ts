@@ -1,10 +1,11 @@
 import { authService } from 'services';
+
 import { AppKoaContext, AppRouter } from 'types';
 
 const handler = async (ctx: AppKoaContext) => {
   await authService.unsetTokens(ctx);
 
-  ctx.body = {};
+  ctx.status = 204;
 };
 
 export default (router: AppRouter) => {

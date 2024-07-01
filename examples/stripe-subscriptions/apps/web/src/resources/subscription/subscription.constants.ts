@@ -1,8 +1,8 @@
+import { Intervals } from 'app-types';
+
 import config from 'config';
 
-import { Intervals, ItemType } from './subscription.types';
-
-export const items: ItemType[] = [
+export const items = [
   {
     priceId: {
       month: 'price_0',
@@ -10,44 +10,32 @@ export const items: ItemType[] = [
     },
     title: 'Basic',
     price: {
-      [Intervals.Month]: 0,
-      [Intervals.Year]: 0,
+      [Intervals.MONTH]: 0,
+      [Intervals.YEAR]: 0,
     },
-    features: [
-      'Onboarding',
-      'Unlimited Growthflags',
-      'Unlimited A/B tests',
-      'Up to 3 product users',
-      'Up to 2K MAU',
-    ],
+    features: ['Onboarding', 'Unlimited Growthflags', 'Unlimited A/B tests', 'Up to 3 product users', 'Up to 2K MAU'],
   },
   {
     priceId: {
-      month: config.subscriptions.starter.month,
-      year: config.subscriptions.starter.year,
+      month: config.SUBSCRIPTION_STARTER_MONTH,
+      year: config.SUBSCRIPTION_STARTER_YEAR,
     },
     title: 'Starter',
     price: {
-      [Intervals.Month]: 45,
-      [Intervals.Year]: 459,
+      [Intervals.MONTH]: 45,
+      [Intervals.YEAR]: 459,
     },
-    features: [
-      'Onboarding',
-      'Unlimited Growthflags',
-      'Unlimited A/B tests',
-      'Up to 10 product users',
-      'Up to 10K MAU',
-    ],
+    features: ['Onboarding', 'Unlimited Growthflags', 'Unlimited A/B tests', 'Up to 10 product users', 'Up to 10K MAU'],
   },
   {
     priceId: {
-      month: config.subscriptions.pro.month,
-      year: config.subscriptions.pro.year,
+      month: config.SUBSCRIPTION_PRO_MONTH,
+      year: config.SUBSCRIPTION_PRO_YEAR,
     },
     title: 'Pro',
     price: {
-      [Intervals.Month]: 99,
-      [Intervals.Year]: 1010,
+      [Intervals.MONTH]: 99,
+      [Intervals.YEAR]: 1010,
     },
     features: [
       'Onboarding',

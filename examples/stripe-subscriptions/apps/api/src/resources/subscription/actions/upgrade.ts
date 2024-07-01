@@ -1,13 +1,12 @@
 import { z } from 'zod';
+
+import { validateMiddleware } from 'middlewares';
+import { stripeService } from 'services';
+
 import { AppKoaContext, AppRouter, Next } from 'types';
 
-import { stripeService } from 'services';
-import { validateMiddleware } from 'middlewares';
-
 const schema = z.object({
-  priceId: z.string()
-    .min(1, 'Price id is required')
-    .startsWith('price_', 'Incorrect price id'),
+  priceId: z.string().min(1, 'Price id is required').startsWith('price_', 'Incorrect price id'),
 });
 
 type ValidatedData = z.infer<typeof schema>;
@@ -27,7 +26,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const subscriptionId = user.subscription?.subscriptionId as string;
 
   if (priceId === 'price_0') {
-    await stripeService.subscriptions.del(subscriptionId, {
+    await stripeService.subscriptions.deleteDiscount(subscriptionId, {
       prorate: true,
     });
 
@@ -37,10 +36,12 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const subscriptionDetails = await stripeService.subscriptions.retrieve(subscriptionId);
 
-  const items = [{
-    id: subscriptionDetails.items.data[0].id,
-    price: priceId,
-  }];
+  const items = [
+    {
+      id: subscriptionDetails.items.data[0].id,
+      price: priceId,
+    },
+  ];
 
   await stripeService.subscriptions.update(subscriptionId, {
     proration_behavior: 'always_invoice',

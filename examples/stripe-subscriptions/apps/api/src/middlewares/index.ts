@@ -1,5 +1,4 @@
+import rateLimitMiddleware from './rateLimit.middleware';
 import validateMiddleware from './validate.middleware';
 
-export {
-  validateMiddleware,
-};
+export { rateLimitMiddleware, validateMiddleware };

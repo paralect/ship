@@ -1,0 +1,8 @@
+.root {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--mantine-color-gray-4)
+}
+
+.hidden {
+    display: none;
+}

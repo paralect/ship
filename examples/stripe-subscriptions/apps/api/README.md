@@ -26,14 +26,12 @@ docker-compose up --build
 
 To start the project not in the docker container just run: `npm run dev`. This command will start the application on port `3001` and will automatically restart whenever you change any file in `./src` directory.
 
-
 ### Important notes
 
-You need to set ```APP_ENV``` variable in build args in a place where you deploy application. It is responsible for the config file from ```environment``` folder that will be taken when building your application
+You need to set `APP_ENV` variable in build args in a place where you deploy application. It is responsible for the config file from `environment` folder that will be taken when building your application
 
-
-| APP_ENV       | File          |
-| ------------- | ------------- |
-| development   | development.json  |
-| staging       | staging.json  |
-| production    | production.json  |
+| APP_ENV     | File             |
+| ----------- | ---------------- |
+| development | development.json |
+| staging     | staging.json     |
+| production  | production.json  |

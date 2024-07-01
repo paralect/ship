@@ -4,6 +4,7 @@ export type RegisterRouteFunc = (router: AppRouter) => void;
 
 const getRoutes = (routeFunctions: RegisterRouteFunc[]): AppRouterMiddleware => {
   const router = new AppRouter();
+
   routeFunctions.forEach((func: RegisterRouteFunc) => {
     func(router);
   });

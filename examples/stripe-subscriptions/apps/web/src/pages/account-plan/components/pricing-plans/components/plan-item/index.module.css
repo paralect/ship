@@ -1,0 +1,16 @@
+.list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+}
+
+.card {
+    flex: 1 1;
+    border-color: var(--mantine-color-gray-4);
+} 
+
+.active {
+    background: var(--mantine-color-gray-1);
+}

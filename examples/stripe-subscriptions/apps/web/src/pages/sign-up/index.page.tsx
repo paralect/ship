@@ -1,42 +1,50 @@
-import { z } from 'zod';
-import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
 import {
+  Anchor,
   Button,
-  Stack,
-  TextInput,
-  PasswordInput,
-  Group,
-  Title,
-  Text,
   Checkbox,
+  Group,
+  PasswordInput,
   SimpleGrid,
+  Stack,
+  Text,
+  TextInput,
+  Title,
   Tooltip,
 } from '@mantine/core';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+import { accountApi } from 'resources/account';
 
 import { GoogleIcon } from 'public/icons';
 
-import config from 'config';
-import { RoutePath } from 'routes';
 import { handleError } from 'utils';
-import { Link } from 'components';
 
-import { accountApi } from 'resources/account';
+import { RoutePath } from 'routes';
+import config from 'config';
+
+import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
 
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),
   lastName: z.string().min(1, 'Please enter Last name').max(100),
-  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
-  password: z.string().regex(
-    /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
-    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
-  ),
+  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  password: z
+    .string()
+    .regex(
+      PASSWORD_REGEX,
+      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+    ),
 });
 
 type SignUpParams = z.infer<typeof schema>;
+
+type SignUpResponse = { signupToken?: string };
 
 const passwordRules = [
   {
@@ -54,9 +62,9 @@ const passwordRules = [
 ];
 
 const SignUp: NextPage = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState<string | null>(null);
+  const [signupToken, setSignupToken] = useState<string | null>(null);
   const [registered, setRegistered] = useState(false);
-  const [signupToken, setSignupToken] = useState();
 
   const [passwordRulesData, setPasswordRulesData] = useState(passwordRules);
   const [opened, setOpened] = useState(false);
@@ -67,47 +75,39 @@ const SignUp: NextPage = () => {
     setError,
     watch,
     formState: { errors },
-  } = useForm<SignUpParams>({
-    resolver: zodResolver(schema),
-  });
+  } = useForm<SignUpParams>({ resolver: zodResolver(schema) });
 
-  const passwordValue = watch('password', '');
+  const passwordValue = watch('password', '').trim();
 
   useEffect(() => {
     const updatedPasswordRulesData = [...passwordRules];
 
     updatedPasswordRulesData[0].done = passwordValue.length >= 6 && passwordValue.length <= 50;
-    updatedPasswordRulesData[1].done = /[a-z]/.test(passwordValue);
+    updatedPasswordRulesData[1].done = /[a-zA-Z]/.test(passwordValue);
     updatedPasswordRulesData[2].done = /\d/.test(passwordValue);
 
     setPasswordRulesData(updatedPasswordRulesData);
   }, [passwordValue]);
 
-  const { mutate: signUp, isLoading: isSignUpLoading } = accountApi.useSignUp<SignUpParams>();
+  const { mutate: signUp, isPending: isSignUpPending } = accountApi.useSignUp<SignUpParams>();
 
-  const onSubmit = (data: SignUpParams) => signUp(data, {
-    onSuccess: (response: any) => {
-      if (response.signupToken) setSignupToken(response.signupToken);
+  const onSubmit = (data: SignUpParams) =>
+    signUp(data, {
+      onSuccess: (response: SignUpResponse) => {
+        if (response.signupToken) setSignupToken(response.signupToken);
 
-      setRegistered(true);
-      setEmail(data.email);
-    },
-    onError: (e) => handleError(e, setError),
-  });
+        setRegistered(true);
+        setEmail(data.email);
+      },
+      onError: (e) => handleError(e, setError),
+    });
 
   const label = (
-    <SimpleGrid
-      cols={1}
-      spacing="xs"
-    >
+    <SimpleGrid cols={1} spacing="xs" p={4}>
       <Text>Password must:</Text>
+
       {passwordRulesData.map((ruleData) => (
-        <Checkbox
-          styles={{ label: { color: 'white' } }}
-          key={ruleData.title}
-          checked={!!ruleData.done}
-          label={ruleData.title}
-        />
+        <Checkbox key={ruleData.title} label={ruleData.title} checked={ruleData.done} color="white" iconColor="dark" />
       ))}
     </SimpleGrid>
   );
@@ -118,22 +118,22 @@ const SignUp: NextPage = () => {
         <Head>
           <title>Sign up</title>
         </Head>
-        <Stack sx={{ width: '450px' }}>
+
+        <Stack w={450}>
           <Title order={2}>Thanks!</Title>
-          <Text size="md" sx={({ colors }) => ({ color: colors.gray[5] })}>
-            Please follow the instructions from the email to complete a sign up process.
-            We sent an email with a confirmation link to
-            {' '}
-            <b>{email}</b>
+
+          <Text size="md" c="gray.6">
+            Please follow the instructions from the email to complete a sign up process. We sent an email with a
+            confirmation link to <b>{email}</b>
           </Text>
+
           {signupToken && (
-            <div>
-              You look like a cool developer.
-              {' '}
-              <Link size="sm" href={`${config.apiUrl}/account/verify-email?token=${signupToken}`}>
+            <Stack gap={0}>
+              <Text>You look like a cool developer.</Text>
+              <Anchor size="sm" href={`${config.API_URL}/account/verify-email?token=${signupToken}`} target="_blank">
                 Verify email
-              </Link>
-            </div>
+              </Anchor>
+            </Stack>
           )}
         </Stack>
       </>
@@ -145,36 +145,37 @@ const SignUp: NextPage = () => {
       <Head>
         <title>Sign up</title>
       </Head>
-      <Stack sx={{ width: '408px' }} spacing={20}>
-        <Stack spacing={34}>
+
+      <Stack w={400} gap={20}>
+        <Stack gap={32}>
           <Title order={1}>Sign Up</Title>
+
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={20}>
+            <Stack gap={20}>
               <TextInput
                 {...register('firstName')}
                 label="First Name"
                 maxLength={100}
-                placeholder="First Name"
+                placeholder="Enter first Name"
                 error={errors.firstName?.message}
               />
+
               <TextInput
                 {...register('lastName')}
                 label="Last Name"
                 maxLength={100}
-                placeholder="Last Name"
+                placeholder="Enter last Name"
                 error={errors.lastName?.message}
               />
+
               <TextInput
                 {...register('email')}
                 label="Email Address"
-                placeholder="Email Address"
+                placeholder="Enter email Address"
                 error={errors.email?.message}
               />
-              <Tooltip
-                label={label}
-                withArrow
-                opened={opened}
-              >
+
+              <Tooltip label={label} opened={opened} withArrow>
                 <PasswordInput
                   {...register('password')}
                   label="Password"
@@ -185,35 +186,28 @@ const SignUp: NextPage = () => {
                 />
               </Tooltip>
             </Stack>
-            <Button
-              type="submit"
-              loading={isSignUpLoading}
-              fullWidth
-              mt={34}
-            >
+
+            <Button type="submit" loading={isSignUpPending} fullWidth mt={32}>
               Sign Up
             </Button>
           </form>
         </Stack>
-        <Stack spacing={34}>
+
+        <Stack gap={32}>
           <Button
             component="a"
-            leftIcon={<GoogleIcon />}
-            href={`${config.apiUrl}/account/sign-in/google/auth`}
+            leftSection={<GoogleIcon />}
+            href={`${config.API_URL}/account/sign-in/google/auth`}
             variant="outline"
           >
             Continue with Google
           </Button>
-          <Group sx={{ fontSize: '16px', justifyContent: 'center' }} spacing={12}>
+
+          <Group justify="center" gap={12}>
             Have an account?
-            <Link
-              type="router"
-              href={RoutePath.SignIn}
-              inherit
-              underline={false}
-            >
+            <Anchor component={Link} href={RoutePath.SignIn}>
               Sign In
-            </Link>
+            </Anchor>
           </Group>
         </Stack>
       </Stack>

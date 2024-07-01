@@ -1,89 +1,69 @@
-import { FC, useEffect, useCallback, useMemo, useState } from 'react';
-import dayjs from 'dayjs';
-import queryClient from 'query-client';
-
-import {
-  Badge,
-  Text,
-  Stack,
-  Skeleton,
-} from '@mantine/core';
-import { Table, Link } from 'components';
-import { IconExternalLink } from '@tabler/icons';
-
-import { paymentApi, paymentTypes } from 'resources/payment';
-
+import React, { FC, useCallback, useState } from 'react';
+import Link from 'next/link';
+import { Badge, Skeleton, Stack, Text } from '@mantine/core';
+import { IconExternalLink } from '@tabler/icons-react';
 import type { ColumnDef } from '@tanstack/react-table';
+import { HistoryItem, Status, StripePagination } from 'app-types';
+import dayjs from 'dayjs';
+
+import { paymentApi } from 'resources/payment';
+
+import { Table } from 'components';
 
 const PER_PAGE = 5;
 
 const badgeColorMap = {
-  [paymentTypes.Status.SUCCEEDED]: 'green',
-  [paymentTypes.Status.FAILED]: 'red',
-  [paymentTypes.Status.PENDING]: 'orange',
+  [Status.SUCCEEDED]: 'green',
+  [Status.FAILED]: 'red',
+  [Status.PENDING]: 'orange',
 };
 
+const PaymentStatusBadge: FC<{ status: Status }> = ({ status }) => (
+  <Badge color={badgeColorMap[status]}>{status}</Badge>
+);
+
+const ReceiptLink = ({ href, target }: { href: string; target?: string }) => (
+  <Link href={href} target={target}>
+    <IconExternalLink />
+  </Link>
+);
+
+const columns: ColumnDef<HistoryItem>[] = [
+  {
+    accessorKey: 'created',
+    header: 'Date',
+    cell: (info) => dayjs((info.getValue() as number) * 1000).format('DD/MM/YYYY'),
+  },
+  {
+    accessorKey: 'description',
+    header: 'Description',
+    cell: (info) => info.getValue(),
+  },
+  {
+    accessorKey: 'amount',
+    header: 'Amount',
+    cell: (info) => `$${((info.getValue() as number) || 0) / 100}`,
+  },
+  {
+    accessorKey: 'status',
+    header: 'Payment status',
+    cell: (info) => <PaymentStatusBadge status={info.getValue() as Status} />,
+  },
+  {
+    accessorKey: 'receipt_url',
+    header: 'Receipt',
+    cell: (info) => <ReceiptLink href={info.getValue() as string} target="_blank" />,
+  },
+];
+
 const PaymentHistory: FC = () => {
-  const [params, setParams] = useState<paymentTypes.StripePagination
-  >({ page: 1, perPage: PER_PAGE });
+  const [params, setParams] = useState<StripePagination>({ page: 1, perPage: PER_PAGE });
 
-  const {
-    data: paymentHistory,
-    isFetching,
-    remove,
-  } = paymentApi.useGetPaymentHistory(params);
-
-  useEffect(() => () => {
-    remove();
-    queryClient.removeQueries('paymentHistoryCursorId');
-  }, [remove]);
-
-  const columns: ColumnDef<paymentTypes.HistoryItem>[] = useMemo(() => [
-    {
-      accessorKey: 'created',
-      header: 'Date',
-      cell: (info) => dayjs(info.getValue() as number * 1000).format('DD/MM/YYYY'),
-    },
-    {
-      accessorKey: 'description',
-      header: 'Description',
-      cell: (info) => info.getValue(),
-    },
-    {
-      accessorKey: 'amount',
-      header: 'Amount',
-      cell: (info) => `$${(info.getValue() as number || 0) / 100}`,
-    },
-    {
-      accessorKey: 'status',
-      header: 'Payment status',
-      cell: (info) => (
-        <Badge color={badgeColorMap[info.getValue() as paymentTypes.Status]}>
-          {info.getValue() as string}
-        </Badge>
-      ),
-    },
-    {
-      accessorKey: 'receipt_url',
-      header: 'Receipt',
-      cell: (info) => (
-        <Link href={info.getValue() as string} inNewTab>
-          <IconExternalLink />
-        </Link>
-      ),
-    },
-  ], []);
+  const { data: paymentHistory, isFetching } = paymentApi.useGetPaymentHistory(params);
 
   const renderTable = useCallback(() => {
     if (isFetching) {
-      return [1, 2, 3, 4, 5].map((item) => (
-        <Skeleton
-          key={`sklton-${String(item)}`}
-          height={50}
-          radius="sm"
-          mb="sm"
-        />
-      ));
+      return [1, 2, 3, 4, 5].map((item) => <Skeleton key={`sklton-${String(item)}`} height={50} radius="sm" mb="sm" />);
     }
 
     if (!paymentHistory?.data.length) {
@@ -92,23 +72,21 @@ const PaymentHistory: FC = () => {
 
     return (
       <Table
-        isStripeTable
         columns={columns}
         data={paymentHistory?.data || []}
-        hasMore={paymentHistory?.hasMore}
         page={params.page}
         perPage={PER_PAGE}
         onPageChange={setParams}
       />
     );
-  }, [isFetching, columns, paymentHistory, params.page]);
-
+  }, [isFetching, paymentHistory, params.page]);
   return (
-    <Stack sx={{ flex: '1 1' }}>
-      <Text size="md" weight={600}>Payment history</Text>
+    <Stack flex="1 1">
+      <Text size="md" w={600}>
+        Payment history
+      </Text>
       {renderTable()}
     </Stack>
   );
 };
-
 export default PaymentHistory;

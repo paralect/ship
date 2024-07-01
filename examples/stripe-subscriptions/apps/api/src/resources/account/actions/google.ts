@@ -1,63 +1,61 @@
+import { userService } from 'resources/user';
+
+import { authService, googleService, stripeService } from 'services';
+
 import config from 'config';
+
 import db from 'db';
 
-import { userService } from 'resources/user';
-import { googleService, authService, stripeService } from 'services';
-import { AppRouter, AppKoaContext } from 'types';
-
-import type { User } from 'resources/user';
-
-type ValidatedData = {
-  given_name: string;
-  family_name: string;
-  email: string;
-  picture: string
-};
+import { AppKoaContext, AppRouter, User } from 'types';
 
 const getOAuthUrl = async (ctx: AppKoaContext) => {
-  const isValidCredentials = config.google.clientId || config.google.clientSecret;
-  ctx.assertClientError(isValidCredentials, {
-    global: 'Setup Google Oauth creadentials on API',
+  const areCredentialsExist = config.GOOGLE_CLIENT_ID && config.GOOGLE_CLIENT_SECRET;
+
+  ctx.assertClientError(areCredentialsExist, {
+    global: 'Setup Google OAuth credentials on API',
   });
+
   ctx.redirect(googleService.oAuthURL);
 };
 
-const signinGoogleWithCode = async (ctx: AppKoaContext) => {
+const signInGoogleWithCode = async (ctx: AppKoaContext) => {
   const { code } = ctx.request.query;
 
-  const { isValid, payload } = await googleService.
-    exchangeCodeForToken(code as string) as { isValid: boolean, payload: ValidatedData };
+  const { isValid, payload } = await googleService.exchangeCodeForToken(code);
 
-  ctx.assertError(isValid, `Exchange code for token error: ${payload}`);
+  ctx.assertError(isValid && payload && !(payload instanceof Error), `Exchange code for token error: ${payload}`);
 
-  const  user = await userService.findOne({ email: payload.email });
+  const user = await userService.findOne({ email: payload.email });
   let userChanged;
 
   if (user) {
     if (!user.oauth?.google) {
-      userChanged = await userService.updateOne(
-        { _id: user._id },
-        (old) => ({ ...old, oauth: { google: true } }),
-      );
+      userChanged = await userService.updateOne({ _id: user._id }, (old) => ({
+        ...old,
+        oauth: { google: true },
+      }));
     }
-    const userUpdated = userChanged || user;
-    await Promise.all([
-      userService.updateLastRequest(userUpdated._id),
-      authService.setTokens(ctx, userUpdated._id),
-    ]);
 
+    const userUpdated = userChanged || user;
+
+    await Promise.all([userService.updateLastRequest(userUpdated._id), authService.setTokens(ctx, userUpdated._id)]);
   } else {
     let newUser: User | undefined;
+
+    const { givenName: firstName, familyName, email, picture: avatarUrl } = payload;
+
+    const lastName = familyName || '';
+    const fullName = lastName ? `${firstName} ${lastName}` : firstName;
 
     await db.database.withTransaction(async (session) => {
       newUser = await userService.insertOne(
         {
-          firstName: payload.given_name,
-          lastName: payload.family_name,
-          fullName: `${payload.given_name} ${payload.family_name}`,
-          email: payload.email,
+          firstName,
+          lastName,
+          fullName,
+          email,
           isEmailVerified: true,
-          avatarUrl: payload.picture,
+          avatarUrl,
           oauth: {
             google: true,
           },
@@ -65,23 +63,19 @@ const signinGoogleWithCode = async (ctx: AppKoaContext) => {
         {},
         { session },
       );
-  
+
       await stripeService.createAndAttachStripeAccount(newUser, session);
     });
 
     if (newUser) {
-      await Promise.all([
-        userService.updateLastRequest(newUser._id),
-        authService.setTokens(ctx, newUser._id),
-      ]);
+      await Promise.all([userService.updateLastRequest(newUser._id), authService.setTokens(ctx, newUser._id)]);
     }
   }
-  ctx.redirect(config.webUrl);
+
+  ctx.redirect(config.WEB_URL);
 };
-
-
 
 export default (router: AppRouter) => {
   router.get('/sign-in/google/auth', getOAuthUrl);
-  router.get('/sign-in/google', signinGoogleWithCode);
+  router.get('/sign-in/google', signInGoogleWithCode);
 };

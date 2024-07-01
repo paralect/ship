@@ -1,16 +1,15 @@
-import { memo, FC } from 'react';
-import { RoutePath } from 'routes';
-import {
-  Header as LayoutHeader,
-  Container,
-} from '@mantine/core';
-import { Link } from 'components';
-import { LogoImage } from 'public/images';
+import React, { FC, memo } from 'react';
+import Link from 'next/link';
+import { Anchor, AppShell, Group } from '@mantine/core';
 
 import { accountApi } from 'resources/account';
 
-import UserMenu from './components/UserMenu';
+import { LogoImage } from 'public/images';
+
+import { RoutePath } from 'routes';
+
 import ShadowLoginBanner from './components/ShadowLoginBanner';
+import UserMenu from './components/UserMenu';
 
 const Header: FC = () => {
   const { data: account } = accountApi.useGet();
@@ -18,27 +17,17 @@ const Header: FC = () => {
   if (!account) return null;
 
   return (
-    <LayoutHeader height="72px">
+    <AppShell.Header>
       {account.isShadow && <ShadowLoginBanner email={account.email} />}
-      <Container
-        sx={(theme) => ({
-          minHeight: '72px',
-          padding: '0 32px',
-          display: 'flex',
-          flex: '1 1 auto',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          backgroundColor: theme.white,
-          borderBottom: `1px solid ${theme.colors.gray[4]}`,
-        })}
-        fluid
-      >
-        <Link type="router" href={RoutePath.Home}>
+
+      <Group h={72} px={32} py={0} justify="space-between" bg="white">
+        <Anchor component={Link} href={RoutePath.Home}>
           <LogoImage />
-        </Link>
+        </Anchor>
+
         <UserMenu />
-      </Container>
-    </LayoutHeader>
+      </Group>
+    </AppShell.Header>
   );
 };
 

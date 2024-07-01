@@ -1,62 +1,69 @@
-import { z } from 'zod';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Stack,
-  Title,
-  Text,
-  Button,
-  PasswordInput,
-} from '@mantine/core';
-import Head from 'next/head';
+import React, { useState } from 'react';
 import { NextPage } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { Button, PasswordInput, Stack, Text, Title } from '@mantine/core';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { QueryParam } from 'types';
-import { RoutePath } from 'routes';
-import { handleError } from 'utils';
 import { accountApi } from 'resources/account';
 
+import { handleError } from 'utils';
+
+import { RoutePath } from 'routes';
+
+import { PASSWORD_REGEX } from 'app-constants';
+import { QueryParam } from 'types';
+
 const schema = z.object({
-  password: z.string().regex(
-    /^(?=.*[a-z])(?=.*\d)[A-Za-z\d\W]{6,}$/g,
-    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
-  ),
+  password: z
+    .string()
+    .regex(
+      PASSWORD_REGEX,
+      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+    ),
 });
 
-type ResetPasswordParams = z.infer<typeof schema>;
+interface ResetPasswordParams extends z.infer<typeof schema> {
+  token: QueryParam;
+}
 
 const ResetPassword: NextPage = () => {
+  const [isSubmitted, setSubmitted] = useState(false);
   const router = useRouter();
 
   const { token } = router.query;
-  const [isSubmitted, setSubmitted] = useState(false);
 
   const {
-    register, handleSubmit, formState: { errors },
-  } = useForm<ResetPasswordParams>({
-    resolver: zodResolver(schema),
-  });
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Omit<ResetPasswordParams, 'token'>>({ resolver: zodResolver(schema) });
 
-  const {
-    mutate: resetPassword,
-    isLoading: isResetPasswordLoading,
-  } = accountApi.useResetPassword<ResetPasswordParams & { token: QueryParam }>();
+  const { mutate: resetPassword, isPending: isResetPasswordPending } =
+    accountApi.useResetPassword<ResetPasswordParams>();
 
-  const onSubmit = ({ password }: ResetPasswordParams) => resetPassword({
-    password,
-    token,
-  }, {
-    onSuccess: () => setSubmitted(true),
-    onError: (e) => handleError(e),
-  });
+  const onSubmit = ({ password }: Omit<ResetPasswordParams, 'token'>) =>
+    resetPassword(
+      {
+        password,
+        token,
+      },
+      {
+        onSuccess: () => setSubmitted(true),
+        onError: (e) => handleError(e),
+      },
+    );
 
   if (!token) {
     return (
-      <Stack sx={{ width: '328px' }} spacing="xs">
-        <Title order={2} mb={0}>Invalid token</Title>
-        <Text component="p" m={0}>Sorry, your token is invalid.</Text>
+      <Stack w={328} gap="xs">
+        <Title order={2} mb={0}>
+          Invalid token
+        </Title>
+
+        <Text m={0}>Sorry, your token is invalid.</Text>
       </Stack>
     );
   }
@@ -67,15 +74,13 @@ const ResetPassword: NextPage = () => {
         <Head>
           <title>Reset Password</title>
         </Head>
-        <Stack sx={{ width: '328px' }}>
+
+        <Stack w={328}>
           <Title order={2}>Password has been updated</Title>
-          <Text component="p" mt={0}>
-            Your password has been updated successfully.
-            You can now use your new password to sign in.
-          </Text>
-          <Button onClick={() => router.push(RoutePath.SignIn)}>
-            Back to Sign In
-          </Button>
+
+          <Text mt={0}>Your password has been updated successfully. You can now use your new password to sign in.</Text>
+
+          <Button onClick={() => router.push(RoutePath.SignIn)}>Back to Sign In</Button>
         </Stack>
       </>
     );
@@ -86,28 +91,24 @@ const ResetPassword: NextPage = () => {
       <Head>
         <title>Reset Password</title>
       </Head>
-      <Stack sx={{ width: '328px' }}>
+
+      <Stack w={328}>
         <Title order={2}>Reset Password</Title>
-        <Text component="p" mt={0}>Please choose your new password</Text>
-        <form
-          style={{ display: 'flex', flexDirection: 'column', gap: 'inherit' }}
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <PasswordInput
-            {...register('password')}
-            type="password"
-            label="Password"
-            placeholder="Your new password"
-            error={errors.password?.message}
-          />
-          <Button
-            type="submit"
-            loading={isResetPasswordLoading}
-            loaderProps={{ size: 'xs' }}
-            fullWidth
-          >
-            Save New Password
-          </Button>
+        <Text mt={0}>Please choose your new password</Text>
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack gap={20}>
+            <PasswordInput
+              {...register('password')}
+              label="Password"
+              placeholder="Enter your new password"
+              error={errors.password?.message}
+            />
+
+            <Button type="submit" loading={isResetPasswordPending}>
+              Save New Password
+            </Button>
+          </Stack>
         </form>
       </Stack>
     </>

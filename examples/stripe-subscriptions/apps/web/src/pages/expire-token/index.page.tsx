@@ -1,21 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { NextPage } from 'next';
-import {
-  Stack,
-  Title,
-  Text,
-  Button,
-} from '@mantine/core';
+import { Button, Stack, Text, Title } from '@mantine/core';
 
-import { QueryParam } from 'types';
-import { RoutePath } from 'routes';
-import { handleError } from 'utils';
 import { accountApi } from 'resources/account';
 
+import { handleError } from 'utils';
+
+import { RoutePath } from 'routes';
+
+import { QueryParam } from 'types';
+
 type ForgotPasswordParams = {
-  email: QueryParam,
+  email: QueryParam;
 };
 
 const ForgotPassword: NextPage = () => {
@@ -25,15 +23,16 @@ const ForgotPassword: NextPage = () => {
 
   const [isSent, setSent] = useState(false);
 
-  const {
-    mutate: resendEmail,
-    isLoading: isResendEmailLoading,
-  } = accountApi.useResendEmail<ForgotPasswordParams>();
+  const { mutate: resendEmail, isPending: isResendEmailPending } = accountApi.useResendEmail<ForgotPasswordParams>();
 
-  const onSubmit = () => resendEmail({ email }, {
-    onSuccess: () => setSent(true),
-    onError: (e) => handleError(e),
-  });
+  const onSubmit = () =>
+    resendEmail(
+      { email },
+      {
+        onSuccess: () => setSent(true),
+        onError: (e) => handleError(e),
+      },
+    );
 
   if (isSent) {
     return (
@@ -41,14 +40,12 @@ const ForgotPassword: NextPage = () => {
         <Head>
           <title>Password reset link expired</title>
         </Head>
-        <Stack sx={{ width: '328px' }}>
+
+        <Stack w={328}>
           <Title order={2}>Reset link has been sent</Title>
-          <Text component="p" sx={{ fontSize: '14px' }}>
-            Reset link sent successfully
-          </Text>
-          <Button onClick={() => router.push(RoutePath.SignIn)}>
-            Back to Sign In
-          </Button>
+          <Text fz={14}>Reset link sent successfully</Text>
+
+          <Button onClick={() => router.push(RoutePath.SignIn)}>Back to Sign In</Button>
         </Stack>
       </>
     );
@@ -59,19 +56,14 @@ const ForgotPassword: NextPage = () => {
       <Head>
         <title>Password reset link expired</title>
       </Head>
-      <Stack sx={{ width: '328px' }}>
+
+      <Stack w={328}>
         <Title order={2}>Password reset link expired</Title>
-        <Text component="p" mt={0}>
-          Sorry, your password reset link has expired. Click the button below to get a new one.
-        </Text>
-        <Button
-          onClick={onSubmit}
-          loading={isResendEmailLoading}
-          fullWidth
-        >
-          Resend link to
-          {' '}
-          {email}
+
+        <Text mt={0}>Sorry, your password reset link has expired. Click the button below to get a new one.</Text>
+
+        <Button loading={isResendEmailPending} onClick={onSubmit}>
+          Resend link to {email}
         </Button>
       </Stack>
     </>

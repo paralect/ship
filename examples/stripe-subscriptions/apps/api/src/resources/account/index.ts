@@ -1,5 +1,3 @@
 import accountRoutes from './account.routes';
 
-export {
-  accountRoutes,
-};
+export { accountRoutes };

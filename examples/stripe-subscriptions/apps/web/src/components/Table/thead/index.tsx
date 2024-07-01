@@ -1,31 +1,29 @@
-import { FC, ReactNode } from 'react';
-import { UnstyledButton } from '@mantine/core';
-import {
-  IconSortAscending,
-  IconSortDescending,
-  IconArrowsSort,
-} from '@tabler/icons';
+import React, { FC, ReactNode } from 'react';
+import { Table, UnstyledButton } from '@mantine/core';
+import { IconArrowsSort, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import { ColumnDefTemplate, HeaderContext, HeaderGroup } from '@tanstack/react-table';
 
+import classes from './thead.module.css';
+
 type CellData = {
-  [key: string]: string | Function | boolean | Record<string, any>;
+  [key: string]: string | boolean | Record<string, any>;
 };
 
 interface TheadProps {
-  isSortable: boolean,
+  isSortable: boolean;
   headerGroups: HeaderGroup<CellData>[];
   flexRender: (
     template: ColumnDefTemplate<HeaderContext<CellData, any>> | undefined,
-    context: HeaderContext<CellData, any>
+    context: HeaderContext<CellData, any>,
   ) => ReactNode;
 }
 
 const Thead: FC<TheadProps> = ({ isSortable, headerGroups, flexRender }) => (
-  <thead>
+  <Table.Thead>
     {headerGroups.map((headerGroup) => (
-      <tr key={headerGroup.id}>
+      <Table.Tr key={headerGroup.id}>
         {headerGroup.headers.map((header) => (
-          <th
+          <Table.Th
             key={header.id}
             colSpan={header.colSpan}
             style={{
@@ -34,34 +32,30 @@ const Thead: FC<TheadProps> = ({ isSortable, headerGroups, flexRender }) => (
           >
             {!header.isPlaceholder && (
               <UnstyledButton
+                className={classes.headerButton}
+                w="100%"
+                display="flex"
+                lh="16px"
+                fw={600}
+                fz={14}
                 onClick={header.column.getToggleSortingHandler()}
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  lineHeight: '16px',
-                  fontWeight: '600',
-                  fontSize: '14px',
-                }}
               >
-                {
-                  flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )
-                }
-                {isSortable && header.id !== 'select' && ({
-                  false: <IconArrowsSort size={16} />,
-                  asc: <IconSortAscending size={16} />,
-                  desc: <IconSortDescending size={16} />,
-                }[String(header.column.getIsSorted())] ?? null)}
+                {flexRender(header.column.columnDef.header, header.getContext())}
+                {isSortable &&
+                  header.id !== 'select' &&
+                  ({
+                    false: <IconArrowsSort size={16} />,
+                    asc: <IconSortAscending size={16} />,
+                    desc: <IconSortDescending size={16} />,
+                  }[String(header.column.getIsSorted())] ??
+                    null)}
               </UnstyledButton>
             )}
-          </th>
+          </Table.Th>
         ))}
-      </tr>
+      </Table.Tr>
     ))}
-  </thead>
+  </Table.Thead>
 );
 
 export default Thead;

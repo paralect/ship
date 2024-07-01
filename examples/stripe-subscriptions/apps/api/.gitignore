@@ -1,11 +1,28 @@
-node_modules
-src/config/environment/local.ts
-src/assets/emails/dist/*
-!src/assets/emails/dist/.gitkeep
-.DS_Store
-npm-debug.log
-.idea
-.vscode
-./dist
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
+# testing
+/coverage
+
+# production
+/dist
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
 .env
+.env.*
+!.env.example
+
+# typescript
+*.tsbuildinfo

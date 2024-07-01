@@ -1,12 +1,15 @@
 import { z } from 'zod';
-import db from 'db';
-import config from 'config';
 
-import { AppKoaContext, Next, AppRouter } from 'types';
+import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
 import { authService, emailService, stripeService } from 'services';
-import { userService, User } from 'resources/user';
+
+import config from 'config';
+
+import db from 'db';
+
+import { AppKoaContext, AppRouter, Next, Template, User } from 'types';
 
 const schema = z.object({
   token: z.string().min(1, 'Token is required'),
@@ -46,18 +49,19 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     await stripeService.createAndAttachStripeAccount(user, session);
   });
 
-  await Promise.all([
-    userService.updateLastRequest(user._id),
-    authService.setTokens(ctx, user._id),
-  ]);
+  await Promise.all([userService.updateLastRequest(user._id), authService.setTokens(ctx, user._id)]);
 
-  await emailService.sendSignUpWelcome(user.email, {
-    userName: user.fullName,
-    actionLink: `${config.webUrl}/sign-in`,
-    actionText: 'Sign in',
+  await emailService.sendTemplate<Template.SIGN_UP_WELCOME>({
+    to: user.email,
+    subject: 'Welcome to Ship Community!',
+    template: Template.SIGN_UP_WELCOME,
+    params: {
+      firstName: user.firstName,
+      href: `${config.WEB_URL}/sign-in`,
+    },
   });
 
-  ctx.redirect(config.webUrl);
+  ctx.redirect(config.WEB_URL);
 }
 
 export default (router: AppRouter) => {

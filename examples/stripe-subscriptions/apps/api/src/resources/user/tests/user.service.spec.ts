@@ -1,9 +1,8 @@
 import { Database } from '@paralect/node-mongo';
 
-import { DATABASE_DOCUMENTS } from 'app.constants';
-
-import { User } from 'resources/user/user.types';
-import userSchema from 'resources/user/user.schema';
+import { DATABASE_DOCUMENTS } from 'app-constants';
+import { userSchema } from 'schemas';
+import { User } from 'types';
 
 const database = new Database(process.env.MONGO_URL as string);
 

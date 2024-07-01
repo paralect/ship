@@ -1,9 +1,10 @@
-import mount from 'koa-mount';
 import compose from 'koa-compose';
+import mount from 'koa-mount';
 
-import { AppKoa } from 'types';
 import { accountRoutes } from 'resources/account';
 import { userRoutes } from 'resources/user';
+
+import { AppKoa } from 'types';
 
 import adminAuth from './middlewares/admin-auth.middleware';
 

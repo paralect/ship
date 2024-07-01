@@ -1,35 +1,24 @@
-import { FC, useCallback, useMemo, memo } from 'react';
+import React, { FC, memo, useCallback, useMemo } from 'react';
+import { Badge, Button, Card, Container, Space, Stack, Text, Title } from '@mantine/core';
+import { IconCheck } from '@tabler/icons-react';
+import { Intervals, ItemType, Subscription } from 'app-types';
+import cx from 'clsx';
 
-import {
-  Badge,
-  Button,
-  Card,
-  Container,
-  MediaQuery,
-  Space,
-  Stack,
-  Text,
-  Title,
-} from '@mantine/core';
-import { IconCheck } from '@tabler/icons';
+import { subscriptionApi } from 'resources/subscription';
 
-import { subscriptionApi, subscriptionTypes } from 'resources/subscription';
-
-import { useStyles } from './styles';
+import classes from './index.module.css';
 
 type PlanItemPropTypes = {
-  interval: subscriptionTypes.Intervals
-  plan: subscriptionTypes.ItemType,
-  onPreviewUpgrade: Function,
-  currentSubscription?: subscriptionTypes.Subscription
+  interval: Intervals;
+  plan: ItemType;
+  onPreviewUpgrade: (props: { priceId: string; title: string }) => void;
+  currentSubscription?: Subscription;
 };
 
 const PlanItem: FC<PlanItemPropTypes> = (props) => {
-  const { classes, cx } = useStyles();
-
   const { interval, plan, onPreviewUpgrade, currentSubscription } = props;
 
-  const subscribeMutation = subscriptionApi.useSubscribe();
+  const { mutate: updatePlan } = subscriptionApi.useSubscribe();
 
   const isCurrentSubscription = useMemo(() => {
     if (!currentSubscription) {
@@ -46,118 +35,80 @@ const PlanItem: FC<PlanItemPropTypes> = (props) => {
       return;
     }
 
-    subscribeMutation.mutate({ priceId: plan.priceId[interval], interval });
-  }, [
-    currentSubscription,
-    subscribeMutation,
-    plan.priceId,
-    interval,
-    onPreviewUpgrade,
-    plan.title,
-  ]);
+    updatePlan({ priceId: plan.priceId[interval], interval });
+  }, [currentSubscription, updatePlan, plan.priceId, plan.title, interval, onPreviewUpgrade]);
 
   const priceText = useMemo(() => {
     if (plan.price[interval]) {
       return (
         <>
-          <Text sx={{ display: 'inline', fontSize: '48px' }} weight="600">
-            $
-            {plan.price[interval]}
+          <Text style={{ fontSize: '48px', display: 'inline' }} w="600">
+            ${plan.price[interval]}
           </Text>
-          <Text
-            sx={(theme) => ({
-              display: 'inline',
-              color: theme.colors.dark[3],
-            })}
-            size="xs"
-          >
-            /
-            {' '}
-            {interval}
+          <Text style={{ display: 'inline', color: 'var(--mantine-color-dark-3)' }} size="xs">
+            / {interval}
           </Text>
         </>
       );
     }
 
-    return <Text sx={{ fontSize: '48px' }} weight="600">Free</Text>;
+    return (
+      <Text style={{ fontSize: '48px' }} w="600">
+        Free
+      </Text>
+    );
   }, [interval, plan.price]);
 
   const renderFeatureList = useCallback(
-    () => plan.features.map((item, index) => (
-      <Container
-        // eslint-disable-next-line react/no-array-index-key
-        key={index}
-        fluid
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          width: '100%',
-          padding: 0,
-        }}
-      >
-        <IconCheck size={14} className={classes.icon} />
-        <Space w={8} />
-        <Text>{item}</Text>
-      </Container>
-    )),
-    [classes.icon, plan.features],
+    () =>
+      plan.features.map((item) => (
+        <Container
+          key={item}
+          fluid
+          classNames={{
+            root: classes.list,
+          }}
+        >
+          <IconCheck size={14} color="var(--mantine-color-blue-6)" />
+          <Space w={8} />
+          <Text>{item}</Text>
+        </Container>
+      )),
+    [plan.features],
   );
 
   return (
-    <MediaQuery smallerThan="sm" styles={{ flex: '1 1 100%', minWidth: '100%' }}>
-      <Card
-        withBorder
-        radius="sm"
-        p={32}
-        className={cx(classes.card, {
-          [classes.active]: isCurrentSubscription,
-        })}
-      >
-        <Container
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Title order={3}>{plan.title}</Title>
-          {isCurrentSubscription && (
-            <Badge
-              size="lg"
-              sx={(theme) => ({
-                backgroundColor: theme.colors.blue[6],
-                color: theme.white,
-              })}
-            >
-              Current plan
-            </Badge>
-          )}
-        </Container>
-
-        <Space h={24} />
-        {priceText}
-        <Space h={40} />
-
-        <Stack>
-          {renderFeatureList()}
-        </Stack>
-
-        <Space h={64} />
-
-        {!isCurrentSubscription && (
-          <Button
-            sx={(theme) => ({ backgroundColor: theme.colors.blue[6] })}
-            fullWidth
-            onClick={onClick}
-          >
-            Get
-            {' '}
-            {plan.title}
-          </Button>
+    <Card
+      withBorder
+      radius="sm"
+      p={32}
+      className={cx(classes.card, {
+        [classes.active]: isCurrentSubscription,
+      })}
+    >
+      <Container style={{ justifyContent: 'space-between', alignItems: 'center', display: 'flex' }}>
+        <Title order={3}>{plan.title}</Title>
+        {isCurrentSubscription && (
+          <Badge size="lg" style={{ backgroundColor: 'var(--mantine-color-blue-6)', color: 'white' }}>
+            Current plan
+          </Badge>
         )}
-      </Card>
-    </MediaQuery>
+      </Container>
+
+      <Space h={24} />
+      {priceText}
+      <Space h={40} />
+
+      <Stack>{renderFeatureList()}</Stack>
+
+      <Space h={64} />
+
+      {!isCurrentSubscription && (
+        <Button style={{ backgroundColor: 'var(--mantine-color-blue-6)' }} fullWidth onClick={onClick}>
+          Get {plan.title}
+        </Button>
+      )}
+    </Card>
   );
 };
 

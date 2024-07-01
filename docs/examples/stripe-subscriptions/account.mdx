@@ -1,5 +1,5 @@
 ---
-title: "Stripe account"
+title: 'Stripe account'
 ---
 
 ## Api keys
@@ -23,8 +23,11 @@ Webhooks allow stripe to communicate with your server by sending plain POST requ
 Start creating a new webhook by clicking on the `+ Add endpoint` button.
 Type URL of the endpoint, responsible for listening for the stripe events (Default ship URL is `HTTPS://<server_url>/webhook/stripe`).
 Add events that you want to listen to. Ship listens for the following events -
+
 - `setup_intent.succeeded`
   Triggers when a customer adds a new card using stripe form on the web application.
+- `customer.subscription.create`
+  Triggers when a customer's subscription created
 - `payment_method.attached`
   Triggers when a customer adds a new card during the payment process on stripe checkout page
 - `customer.subscription.updated`

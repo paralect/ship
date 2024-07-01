@@ -1,14 +1,18 @@
 import { z } from 'zod';
 
-import config from 'config';
-import { securityUtil } from 'utils';
-import { emailService } from 'services';
+import { userService } from 'resources/user';
+
 import { validateMiddleware } from 'middlewares';
-import { AppKoaContext, Next, AppRouter } from 'types';
-import { userService, User } from 'resources/user';
+import { emailService } from 'services';
+import { securityUtil } from 'utils';
+
+import config from 'config';
+
+import { EMAIL_REGEX } from 'app-constants';
+import { AppKoaContext, AppRouter, Next, Template, User } from 'types';
 
 const schema = z.object({
-  email: z.string().min(1, 'Please enter email').email('Email format is incorrect.'),
+  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {
@@ -18,7 +22,10 @@ interface ValidatedData extends z.infer<typeof schema> {
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const user = await userService.findOne({ email: ctx.validatedData.email });
 
-  if (!user) return ctx.body = {};
+  if (!user) {
+    ctx.status = 204;
+    return;
+  }
 
   ctx.validatedData.user = user;
   await next();
@@ -31,22 +38,25 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   if (!resetPasswordToken) {
     resetPasswordToken = await securityUtil.generateSecureToken();
+
     await userService.updateOne({ _id: user._id }, () => ({
       resetPasswordToken,
     }));
   }
 
-  const resetPasswordUrl =
-    `${config.apiUrl}/account/verify-reset-token?token=${resetPasswordToken}&email=${encodeURIComponent(user.email)}`;
-  await emailService.sendForgotPassword(
-    user.email,
-    {
-      firstName: user.firstName,
-      resetPasswordUrl,
-    },
-  );
+  const resetPasswordUrl = `${config.API_URL}/account/verify-reset-token?token=${resetPasswordToken}&email=${encodeURIComponent(user.email)}`;
 
-  ctx.body = {};
+  await emailService.sendTemplate<Template.RESET_PASSWORD>({
+    to: user.email,
+    subject: 'Password Reset Request for Ship',
+    template: Template.RESET_PASSWORD,
+    params: {
+      firstName: user.firstName,
+      href: resetPasswordUrl,
+    },
+  });
+
+  ctx.status = 204;
 }
 
 export default (router: AppRouter) => {

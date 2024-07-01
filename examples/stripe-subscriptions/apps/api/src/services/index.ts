@@ -1,17 +1,19 @@
+import analyticsService from './analytics/analytics.service';
 import authService from './auth/auth.service';
-import googleService from './google/google.service';
 import cloudStorageService from './cloud-storage/cloud-storage.service';
 import emailService from './email/email.service';
-import stripeService from './stripe/stripe.service';
+import googleService from './google/google.service';
+import rateLimitService from './rate-limit/rate-limit.service';
 import socketService from './socket/socket.service';
-import analyticsService from './analytics.service';
+import stripeService from './stripe/stripe.service';
 
 export {
+  analyticsService,
   authService,
-  googleService,
   cloudStorageService,
   emailService,
+  googleService,
+  rateLimitService,
   socketService,
   stripeService,
-  analyticsService,
 };

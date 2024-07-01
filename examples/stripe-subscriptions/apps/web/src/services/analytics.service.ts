@@ -1,12 +1,14 @@
-import environmentConfig from 'config';
 import mixpanel from 'mixpanel-browser';
-import { User } from 'resources/user/user.types';
 
-const init = () => {
-  mixpanel.init(environmentConfig.mixpanel.apiKey, { debug: process.env.NEXT_PUBLIC_APP_ENV === 'development' });
+import config from 'config';
+
+import { User } from 'types';
+
+export const init = () => {
+  mixpanel.init(config.MIXPANEL_API_KEY ?? '', { debug: config.IS_DEV });
 };
 
-const setUser = (user: User | undefined) => {
+export const setUser = (user: User | undefined) => {
   mixpanel.identify(user?._id);
 
   if (user) {
@@ -17,12 +19,10 @@ const setUser = (user: User | undefined) => {
   }
 };
 
-const track = (event: string, data = {}) => {
-  mixpanel.track(event, data);
-};
-
-export default {
-  init,
-  setUser,
-  track,
+export const track = (event: string, data = {}) => {
+  try {
+    mixpanel.track(event, data);
+  } catch (e) {
+    console.error(e); //eslint-disable-line
+  }
 };

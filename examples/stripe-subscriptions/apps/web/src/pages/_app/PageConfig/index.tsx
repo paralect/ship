@@ -1,17 +1,18 @@
-import { FC, Fragment, ReactElement } from 'react';
+import React, { FC, Fragment, ReactElement } from 'react';
 import { useRouter } from 'next/router';
 
-import { routesConfiguration, ScopeType, LayoutType, RoutePath } from 'routes';
 import { accountApi } from 'resources/account';
 
-import 'resources/user/user.handlers';
+import { analyticsService } from 'services';
 
-import analyticsService from 'services/analytics.service';
-import environmentConfig from 'config';
+import { LayoutType, RoutePath, routesConfiguration, ScopeType } from 'routes';
+import config from 'config';
+
 import MainLayout from './MainLayout';
-import UnauthorizedLayout from './UnauthorizedLayout';
 import PrivateScope from './PrivateScope';
-import OnboardingForm from './OnboardingForm';
+import UnauthorizedLayout from './UnauthorizedLayout';
+
+import 'resources/user/user.handlers';
 
 const layoutToComponent = {
   [LayoutType.MAIN]: MainLayout,
@@ -31,7 +32,7 @@ const PageConfig: FC<PageConfigProps> = ({ children }) => {
   const { route, push } = useRouter();
   const { data: account, isLoading: isAccountLoading } = accountApi.useGet({
     onSettled: () => {
-      if (!environmentConfig?.mixpanel?.apiKey) return null;
+      if (!config.MIXPANEL_API_KEY) return;
 
       analyticsService.init();
 
@@ -55,15 +56,9 @@ const PageConfig: FC<PageConfigProps> = ({ children }) => {
     return null;
   }
 
-  if (account && !account.isOnboardingFinished) {
-    return <OnboardingForm />;
-  }
-
   return (
     <Scope>
-      <Layout>
-        {children}
-      </Layout>
+      <Layout>{children}</Layout>
     </Scope>
   );
 };
