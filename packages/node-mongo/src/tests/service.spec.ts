@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { z } from 'zod';
 import chai from 'chai';
 import spies from 'chai-spies';
@@ -23,20 +24,35 @@ const companySchema = z.object({
   users: z.array(z.string()),
 });
 
-const schema = z.object({
+enum UserRoles {
+  ADMIN = 'admin',
+  MANAGER = 'manager',
+  MEMBER = 'member',
+}
+
+enum AdminPermissions {
+  READ = 'read',
+  WRITE = 'write',
+  EDIT = 'edit',
+}
+
+const userSchema = z.object({
   _id: z.string(),
   createdOn: z.date().optional(),
   updatedOn: z.date().optional(),
   deletedOn: z.date().optional().nullable(),
   fullName: z.string(),
+  role: z.nativeEnum(UserRoles).default(UserRoles.MEMBER),
+  permissions: z.array(z.nativeEnum(AdminPermissions)).optional(),
+  subscriptionId: z.string().optional(),
 });
 
-type UserType = z.infer<typeof schema>;
+type UserType = Omit<z.infer<typeof userSchema>, 'permissions'>;
+type AdminType = Omit<z.infer<typeof userSchema>, 'subscriptionId'>;
 type CompanyType = z.infer<typeof companySchema>;
 
-
 const usersService = database.createService<UserType>('users', {
-  schemaValidator: (obj) => schema.parseAsync(obj),
+  schemaValidator: (obj) => userSchema.parseAsync(obj),
 });
 
 const companyService = database.createService<CompanyType>('companies', {
@@ -398,5 +414,215 @@ describe('service.ts', () => {
 
       (user === null).should.be.equal(true);
     }
+  });
+
+  it('should throw a ts error if you pass an object that is not suitable for a generic type when creating a document', async () => {
+    // should throw ts error because admin doesn't have subscriptionId field
+    await usersService.insertOne<AdminType>({ 
+      fullName: 'Fake Bahrimchuk',
+      role: UserRoles.ADMIN,
+      //@ts-expect-error
+      subscriptionId: 'fakeId',
+    });
+
+    // should throw ts error because member doesn't have permissions field
+    await usersService.insertOne<UserType>({ 
+      fullName: 'Fake Bahrimchuk',
+      //@ts-expect-error
+      permissions: [AdminPermissions.WRITE],
+    });
+  });
+
+  it('should throw a ts error if you pass an array of objects that is not suitable for a generic type when creating documents', async () => {
+    // should throw ts error because admin doesn't have subscriptionId field
+    await usersService.insertMany<AdminType>([
+      { 
+        fullName: 'Fake Bahrimchuk',
+        role: UserRoles.ADMIN,
+        //@ts-expect-error
+        subscriptionId: 'fakeId',
+      },
+    ]);
+
+    // should throw ts error because member doesn't have permissions field
+    await usersService.insertMany<UserType>([
+      { 
+        fullName: 'Fake Bahrimchuk',
+        //@ts-expect-error
+        permissions: [AdminPermissions.WRITE],
+      },
+    ]);
+  });
+
+  it('should throw a ts error if you pass an object that is not suitable for a generic type when updating a document', async () => {
+    const createdAdmin = await usersService.insertOne<AdminType>({ 
+      fullName: 'Admin to update',
+      role: UserRoles.ADMIN,
+      permissions: [AdminPermissions.READ],
+    });
+
+    const createdMember = await usersService.insertOne<UserType>({ 
+      fullName: 'Member to update',
+    });
+
+    // should throw ts error because admin doesn't have subscriptionId field
+    await usersService.updateOne<AdminType>(
+      {  _id: createdAdmin._id },
+      //@ts-expect-error
+      () => ({
+        subscriptionId: 'fakeId',
+      }),
+    );
+
+    // should throw ts error because member doesn't have permissions field
+    await usersService.updateOne<UserType>(
+      { _id: createdMember._id },
+      //@ts-expect-error
+      () => ({
+        permissions: [AdminPermissions.WRITE],
+      }),
+    );
+  });
+
+  it('should throw a ts error if you pass an object that is not suitable for a generic type when updating documents', async () => {
+    const createdAdmin = await usersService.insertOne<AdminType>({ 
+      fullName: 'Admin to updated',
+      role: UserRoles.ADMIN,
+      permissions: [AdminPermissions.READ],
+    });
+
+    const createdMember = await usersService.insertOne<UserType>({ 
+      fullName: 'Member to update',
+    });
+
+    // should throw ts error because admin doesn't have subscriptionId field
+    await usersService.updateMany<AdminType>(
+      { _id: createdAdmin._id },
+      //@ts-expect-error
+      () => ({
+        subscriptionId: 'fakeId',
+      }),
+    );
+
+    // should throw ts error because member doesn't have permissions field
+    await usersService.updateMany<UserType>(
+      { _id: createdMember._id },
+      //@ts-expect-error
+      () => ({
+        permissions: [AdminPermissions.WRITE],
+      }),
+    );
+  });
+
+  it('should throw a ts error if you try to pick a field that does not exist in generic type when finding a document', async () => {
+    const createdAdmin = await usersService.insertOne<AdminType>({ 
+      fullName: 'Fake Bahrimchuk',
+      role: UserRoles.ADMIN,
+      permissions: [AdminPermissions.READ],
+    });
+    
+    const admin = await usersService.findOne<AdminType>({ 
+      _id: createdAdmin._id,
+    });
+
+    const createdMember = await usersService.insertOne<UserType>({ 
+      fullName: 'Fake Bahrimchuk',
+    });
+    
+    const member = await usersService.findOne<UserType>({ 
+      _id: createdMember._id,
+    });
+
+    // should throw ts error because admin doesn't have subscriptionId field
+    //@ts-expect-error
+    admin?.subscriptionId?.should.to.be.undefined;
+
+    // should throw ts error because member doesn't have permissions field
+    //@ts-expect-error
+    member?.permissions?.should.to.be.undefined;
+  });
+
+  it('should throw a ts error if you try to pick a field that does not exist in generic type when finding documents', async () => {
+    const createdAdmin = await usersService.insertOne<AdminType>({ 
+      fullName: 'Fake Bahrimchuk',
+      role: UserRoles.ADMIN,
+      permissions: [AdminPermissions.READ],
+    });
+    
+    const admins = await usersService.find<AdminType>({ 
+      _id: createdAdmin._id,
+    });
+
+    const createdMember = await usersService.insertOne<UserType>({ 
+      fullName: 'Fake Bahrimchuk',
+    });
+    
+    const members = await usersService.find<UserType>({ 
+      _id: createdMember._id,
+    });
+
+    // should throw ts error because admin doesn't have subscriptionId field
+    //@ts-expect-error
+    admins.results[0]?.subscriptionId?.should.to.be.undefined;
+
+    // should throw ts error because member doesn't have permissions field
+    //@ts-expect-error
+    members.results[0]?.permissions?.should.to.be.undefined;
+  });
+
+  it('should throw a ts error if you pass an object that is not suitable for a generic type when deleting a document', async () => {
+    const createdAdmin = await usersService.insertOne<AdminType>({ 
+      fullName: 'Admin to delete',
+      role: UserRoles.ADMIN,
+      permissions: [AdminPermissions.READ],
+    });
+
+    const deletedAdmin = await usersService.deleteOne<AdminType>(
+      { _id: createdAdmin._id },
+    );
+
+    const createdMember = await usersService.insertOne<UserType>({ 
+      fullName: 'Member to delete',
+    });
+
+    const deletedMember = await usersService.deleteOne<UserType>(
+      { _id: createdMember._id },
+    );
+
+    // should throw ts error because admin doesn't have subscriptionId field
+    //@ts-expect-error
+    deletedAdmin?.subscriptionId?.should.to.be.undefined;
+
+    // should throw ts error because member doesn't have permissions field
+    //@ts-expect-error
+    deletedMember?.permissions?.should.to.be.undefined;
+  });
+
+  it('should throw a ts error if you pass an object that is not suitable for a generic type when deleting documents', async () => {
+    const createdAdmin = await usersService.insertOne<AdminType>({ 
+      fullName: 'Admin to delete',
+      role: UserRoles.ADMIN,
+      permissions: [AdminPermissions.READ],
+    });
+
+    const deletedAdmins = await usersService.deleteMany<AdminType>(
+      { _id: createdAdmin._id },
+    );
+
+    const createdMember = await usersService.insertOne<UserType>({ 
+      fullName: 'Member to delete',
+    });
+
+    const deletedMembers = await usersService.deleteMany<UserType>(
+      { _id: createdMember._id },
+    );
+
+    // should throw ts error because admin doesn't have subscriptionId field
+    //@ts-expect-error
+    deletedAdmins[0]?.subscriptionId?.should.to.be.undefined;
+
+    // should throw ts error because member doesn't have permissions field
+    //@ts-expect-error
+    deletedMembers[0]?.permissions?.should.to.be.undefined;
   });
 });
