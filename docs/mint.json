@@ -35,6 +35,11 @@
       "name": "Twitter",
       "icon": "twitter",
       "url": "https://twitter.com/paralect_ship"
+    },
+    {
+      "name": "Discord",
+      "icon": "discord",
+      "url": "https://discord.gg/zNWEatRWqx"
     }
   ],
   "navigation": [
