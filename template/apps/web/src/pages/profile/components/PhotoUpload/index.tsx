@@ -101,6 +101,7 @@ const PhotoUpload = () => {
           </Stack>
         </Group>
       </Stack>
+
       {!!errorMessage && <p className={classes.errorMessage}>{errorMessage}</p>}
     </>
   );

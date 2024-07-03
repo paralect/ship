@@ -78,7 +78,9 @@ const ResetPassword: NextPage = () => {
         <Stack w={328}>
           <Title order={2}>Password has been updated</Title>
 
-          <Text mt={0}>Your password has been updated successfully. You can now use your new password to sign in.</Text>
+          <Text mt={0}>
+            Your password has been updated successfully. You can now use your new password to sign in.
+          </Text>
 
           <Button onClick={() => router.push(RoutePath.SignIn)}>Back to Sign In</Button>
         </Stack>
