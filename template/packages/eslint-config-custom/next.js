@@ -1,5 +1,3 @@
-const nodejsConfig = require('./node');
-
 module.exports = {
   extends: ['next/core-web-vitals', 'plugin:react/recommended', './node.js'],
   env: {
@@ -30,15 +28,6 @@ module.exports = {
 
     // @TODO fix all 'any' types in web app
     '@typescript-eslint/no-explicit-any': 'off',
-
-    '@typescript-eslint/naming-convention': nodejsConfig.rules['@typescript-eslint/naming-convention'].map((rule) => {
-      // for React components
-      if (['variable', 'parameter', 'enumMember'].includes(rule.selector)) {
-        rule.format.push('PascalCase');
-      }
-
-      return rule;
-    }),
   },
   overrides: [
     // Allow require() syntax in .config.js files

@@ -53,55 +53,6 @@ module.exports = {
       },
     ],
 
-    '@typescript-eslint/naming-convention': [
-      'error',
-      {
-        selector: 'default',
-        format: ['camelCase'],
-        leadingUnderscore: 'allow',
-      },
-      {
-        selector: 'variable',
-        format: [
-          'camelCase',
-          'UPPER_CASE', // for constants
-        ],
-        leadingUnderscore: 'allow',
-      },
-      {
-        selector: 'function',
-        format: ['camelCase'],
-      },
-      {
-        selector: 'parameter',
-        format: ['camelCase'],
-        leadingUnderscore: 'allow',
-      },
-      {
-        selector: 'typeLike',
-        format: ['PascalCase'],
-      },
-      {
-        selector: 'objectLiteralProperty',
-        format: null, // to allow the use of a case that an external library uses
-      },
-      {
-        selector: 'import',
-        format: null, // to allow the use of a case that an external library uses
-      },
-      {
-        selector: 'typeProperty',
-        format: [
-          'camelCase',
-          'UPPER_CASE', // for constants
-        ],
-      },
-      {
-        selector: 'enumMember',
-        format: ['UPPER_CASE'],
-      },
-    ],
-
     '@typescript-eslint/no-explicit-any': 'error',
 
     // Enable some rules for async JS
