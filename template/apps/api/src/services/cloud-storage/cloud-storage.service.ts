@@ -12,11 +12,12 @@ import { PutObjectCommandInput } from '@aws-sdk/client-s3/dist-types/commands/Pu
 import { Upload } from '@aws-sdk/lib-storage';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import type { File } from '@koa/multer';
-import { ToCamelCase } from 'app-types';
 
 import { caseUtil } from 'utils';
 
 import config from 'config';
+
+import { ToCamelCase } from 'types';
 
 import * as helpers from './cloud-storage.helper';
 
