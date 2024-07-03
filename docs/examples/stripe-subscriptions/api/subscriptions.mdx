@@ -16,7 +16,7 @@ Returns `checkoutLink` url with checkout form.
 
 Stripe call snippet -
 
-```
+```typescript
   const session = await stripeService.checkout.sessions.create({
     mode: 'subscription',
     customer: user.stripeId,
@@ -48,7 +48,7 @@ Cancels prolongation of a customer’s subscription. The customer will not be ch
 
 Stripe call snippet -
 
-```
+```typescript
   stripeService.subscriptions.update(user.subscription?.subscriptionId as string, {
       cancel_at_period_end: true,
   });
@@ -75,7 +75,7 @@ Body params -
 
 Stripe call snippet -
 
-```
+```typescript
   const subscriptionDetails = await stripeService.subscriptions.retrieve(subscriptionId);
 
   const items = [{
@@ -108,7 +108,7 @@ Returns detailes subscription information along with pending invoice
 
 Stripe call snippet -
 
-```
+```typescript
   const product = await stripeService.products.retrieve(user.subscription?.productId);
 ```
 
@@ -118,7 +118,7 @@ Stripe call snippet -
 
 More information about products - [link](https://stripe.com/docs/api/products)
 
-```
+```typescript
   const pendingInvoice = await stripeService.invoices.retrieveUpcoming({
     subscription: user.subscription?.subscriptionId,
   });
@@ -144,7 +144,7 @@ Returns invoice with payment details
 
 Code snippet -
 
-```
+```typescript
   if (priceId === 'price_0') {
     items = [{
       id: subscriptionDetails.items.data[0].id,
