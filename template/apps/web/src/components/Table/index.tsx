@@ -1,140 +1,117 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
-import { Checkbox, Group, Pagination, Paper, Table as TableContainer, Text } from '@mantine/core';
+import React, { ComponentType, useEffect, useMemo, useState } from 'react';
+import { Paper, Stack, Table as TableContainer, TableProps as TableContainerProps } from '@mantine/core';
+import { useSetState } from '@mantine/hooks';
 import {
   ColumnDef,
-  flexRender,
   getCoreRowModel,
   getSortedRowModel,
-  OnChangeFn,
   PaginationState,
   RowData,
-  RowSelectionState,
+  SortDirection,
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
 
-import Tbody from './tbody';
-import Thead from './thead';
+import { TableContext } from 'contexts';
 
-type SpacingSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+import TableEmptyState from './EmptyState';
+import TableLoadingState from './LoadingState';
+import Pagination from './Pagination';
+import Tbody from './Tbody';
+import Thead from './Thead';
 
-interface TableProps {
-  data: RowData[];
-  dataCount?: number;
-  columns: ColumnDef<any>[];
-  horizontalSpacing?: SpacingSizes;
-  verticalSpacing?: SpacingSizes;
-  rowSelection?: RowSelectionState;
-  setRowSelection?: OnChangeFn<RowSelectionState>;
-  sorting?: SortingState;
-  onSortingChange?: OnChangeFn<SortingState>;
-  onPageChange?: (value: Record<string, any>) => void;
-  perPage: number;
+type SortingFieldsState = Record<string, SortDirection>;
+
+interface TableProps<T> {
+  data?: T[];
+  totalCount?: number;
+  columns: ColumnDef<T>[];
+  pageCount?: number;
   page?: number;
+  perPage?: number;
+  isLoading?: boolean;
+  onSortingChange?: (sort: SortingFieldsState) => void;
+  onPageChange?: (page: number) => void;
+  onRowClick?: (value: T) => void;
+  tableContainerProps?: TableContainerProps;
+  EmptyState?: ComponentType;
+  LoadingState?: ComponentType;
 }
 
-const selectableColumns: ColumnDef<unknown, any>[] = [
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllRowsSelected()}
-        indeterminate={table.getIsSomeRowsSelected()}
-        onChange={table.getToggleAllRowsSelectedHandler()}
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        indeterminate={row.getIsSomeSelected()}
-        onChange={row.getToggleSelectedHandler()}
-      />
-    ),
-  },
-];
-
-const Table: FC<TableProps> = ({
-  data,
-  dataCount,
+const Table = <T extends RowData>({
+  data = [],
+  totalCount = 0,
   columns,
-  horizontalSpacing = 'xl',
-  verticalSpacing = 'lg',
-  rowSelection,
-  setRowSelection,
-  sorting,
+  pageCount,
+  page = 1,
+  perPage = 10,
+  isLoading,
   onSortingChange,
   onPageChange,
-  page,
-  perPage,
-}) => {
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: page || 1,
+  onRowClick,
+  tableContainerProps,
+  EmptyState = TableEmptyState,
+  LoadingState = TableLoadingState,
+}: TableProps<T>) => {
+  const [pagination, setPagination] = useSetState<PaginationState>({
+    pageIndex: (page && page - 1) || 0,
     pageSize: perPage,
   });
-  const isSelectable = !!rowSelection && !!setRowSelection;
-  const isSortable = useMemo(() => !!onSortingChange, [onSortingChange]);
-
-  const pagination = useMemo(
-    () => ({
-      pageIndex,
-      pageSize,
-    }),
-    [pageIndex, pageSize],
-  );
-
-  const onPageChangeHandler = useCallback(
-    (currentPage: any, direction?: string) => {
-      setPagination({ pageIndex: currentPage, pageSize });
-
-      if (onPageChange) {
-        onPageChange((prev: Record<string, any>) => ({ ...prev, page: currentPage, direction }));
-      }
-    },
-    [onPageChange, pageSize],
-  );
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
     data,
-    columns: isSelectable ? [...selectableColumns, ...columns] : columns,
+    // disable column sorting by default
+    columns: columns.map((c) => ({ ...c, enableSorting: c.enableSorting || false, size: 0 })),
     state: {
-      rowSelection,
-      sorting,
       pagination,
+      sorting,
     },
-    onSortingChange,
-    onPaginationChange: onPageChangeHandler,
-    pageCount: dataCount ? Math.ceil((dataCount || 0) / perPage) : -1,
+    onPaginationChange: setPagination,
+    pageCount: pageCount || (totalCount ? Math.ceil((totalCount || 0) / perPage) : -1),
     manualPagination: true,
-    onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
+    manualSorting: true,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
 
-  const renderPagination = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    const { pageIndex } = table.getState().pagination;
+  useEffect(() => {
+    if (onSortingChange) {
+      onSortingChange(
+        sorting.reduce<SortingFieldsState>((acc, value) => {
+          acc[value.id] = value.desc ? 'desc' : 'asc';
 
-    return <Pagination total={table.getPageCount()} value={pageIndex} onChange={onPageChangeHandler} color="black" />;
-  }, [onPageChangeHandler, table]);
+          return acc;
+        }, {}),
+      );
+    }
+  }, [sorting]);
+
+  useEffect(() => {
+    if (onPageChange) onPageChange(pagination.pageIndex + 1);
+  }, [pagination]);
 
   return (
-    <>
-      <Paper radius="sm" withBorder>
-        <TableContainer horizontalSpacing={horizontalSpacing} verticalSpacing={verticalSpacing}>
-          <Thead isSortable={isSortable} headerGroups={table.getHeaderGroups()} flexRender={flexRender} />
-          <Tbody isSelectable={isSelectable} rows={table.getRowModel().rows} flexRender={flexRender} />
-        </TableContainer>
-      </Paper>
+    <TableContext.Provider value={useMemo(() => table, [table])}>
+      {isLoading && <LoadingState />}
 
-      <Group justify="flex-end">
-        {dataCount && (
-          <Text size="sm" c="gray.6">
-            Showing <b>{table.getRowModel().rows.length}</b> of <b>{dataCount}</b> results
-          </Text>
-        )}
-        {renderPagination()}
-      </Group>
-    </>
+      {!isLoading &&
+        (totalCount > 0 ? (
+          <Stack gap="lg">
+            <Paper radius="md" withBorder>
+              <TableContainer horizontalSpacing="xl" verticalSpacing="lg" {...tableContainerProps}>
+                <Thead />
+                <Tbody onRowClick={onRowClick} />
+              </TableContainer>
+            </Paper>
+
+            <Pagination totalCount={totalCount} />
+          </Stack>
+        ) : (
+          <EmptyState />
+        ))}
+    </TableContext.Provider>
   );
 };
 

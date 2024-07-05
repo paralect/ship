@@ -5,7 +5,7 @@ title: "Styling"
 Ship aims for efficiency and convenience in styling by leveraging the [Mantine UI](https://v6.mantine.dev/) library.
 Mantine UI offers a wide range of customizable components and hooks that facilitate the creation of visually appealing and functional interfaces.
 
-### Theme Configuration (`theme/index.ts`)
+### Theme Configuration (`theme/index.tsx`)
 
 Our application's design system is built on top of Mantine's [theme object](https://v6.mantine.dev/theming/theme-object/).
 The theme object allows us to define global style properties that can be applied consistently across web application.
@@ -18,7 +18,7 @@ Here's an example of how we extend the Mantine `Button` component:
 
 - We set the default button size to 'large' (`lg`).
 
-``` typescript theme/components/Button.index.ts
+``` typescript theme/components/Button.index.tsx
 import { Button } from '@mantine/core';
 
 import classes from './index.module.css';
@@ -34,7 +34,7 @@ export default Button.extend({
 ```
 
 - Custom class names are applied for additional styling, defined in our `index.module.css`.
-``` typescript theme/components/Button.index.ts
+``` typescript theme/components/Button.index.tsx
 .label {
   font-weight: 500;
 }

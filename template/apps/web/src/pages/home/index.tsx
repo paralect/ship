@@ -1,185 +1,96 @@
-import React, { useCallback, useLayoutEffect, useState } from 'react';
+import React from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { ActionIcon, Container, Group, Select, Skeleton, Stack, Text, TextInput, Title } from '@mantine/core';
-import { DatePickerInput, DatesRangeValue, DateValue } from '@mantine/dates';
-import { useDebouncedValue, useInputState, useSetState } from '@mantine/hooks';
-import { IconSearch, IconSelector, IconX } from '@tabler/icons-react';
-import { RowSelectionState, SortingState } from '@tanstack/react-table';
+import { Stack, Title } from '@mantine/core';
+import { useSetState } from '@mantine/hooks';
+import { showNotification } from '@mantine/notifications';
+import { ColumnDef, SortDirection } from '@tanstack/react-table';
+import { User } from 'app-types';
+import { pick } from 'lodash';
 
-import { userApi } from 'resources/user';
+import { userApi, UsersListParams, UsersListSortParams } from 'resources/user';
 
 import { Table } from 'components';
 
-import { ListParams, SortOrder } from 'types';
+import Filters from './components/Filters';
 
-import { columns, DEFAULT_PAGE, PER_PAGE, selectOptions } from './constants';
+const DEFAULT_PAGE = 1;
+const PER_PAGE = 10;
+const EXTERNAL_SORT_FIELDS: Array<keyof UsersListSortParams> = ['createdOn'];
 
-import classes from './index.module.css';
-
-type FilterParams = {
-  createdOn?: {
-    startDate: DateValue;
-    endDate: DateValue;
-  };
-};
-
-type SortParams = {
-  createdOn?: SortOrder;
-};
-
-type UsersListParams = ListParams<FilterParams, SortParams>;
-
-const DEFAULT_PARAMS = {
+const DEFAULT_PARAMS: UsersListParams = {
   page: DEFAULT_PAGE,
   searchValue: '',
   perPage: PER_PAGE,
   sort: {
     createdOn: 'desc',
-  } as SortParams,
+  },
 };
 
-const Home: NextPage = () => {
-  const [search, setSearch] = useInputState('');
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [sortBy, setSortBy] = useState<string | null>(selectOptions[0].value);
-  const [filterDate, setFilterDate] = useState<DatesRangeValue>();
+const COLUMNS: ColumnDef<User>[] = [
+  {
+    accessorKey: 'firstName',
+    header: 'First Name',
+    cell: (info) => info.getValue(),
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'lastName',
+    header: 'Last Name',
+    cell: (info) => info.getValue(),
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email',
+    cell: (info) => info.getValue(),
+  },
+];
 
+const Home: NextPage = () => {
   const [params, setParams] = useSetState<UsersListParams>(DEFAULT_PARAMS);
 
-  const [debouncedSearch] = useDebouncedValue(search, 500);
+  const { data: users, isLoading: isUserLostLoading } = userApi.useList(params);
 
-  const handleSort = useCallback((value: string | null) => {
-    setSortBy(value);
+  const onSortingChange = (sort: Record<string, SortDirection>) => {
+    setParams((prev) => {
+      const combinedSort = { ...pick(prev.sort, EXTERNAL_SORT_FIELDS), ...sort };
 
-    setParams({
-      sort: { createdOn: value === 'newest' ? 'desc' : 'asc' },
+      return { sort: combinedSort };
     });
-  }, []);
+  };
 
-  const handleFilter = useCallback(([startDate, endDate]: DatesRangeValue) => {
-    setFilterDate([startDate, endDate]);
-
-    if (!startDate) {
-      setParams({ filter: undefined });
-    }
-
-    if (endDate) {
-      setParams({
-        filter: {
-          createdOn: { startDate, endDate },
-        },
-      });
-    }
-  }, []);
-
-  useLayoutEffect(() => {
-    setParams({ searchValue: debouncedSearch });
-  }, [debouncedSearch]);
-
-  const { data: users, isLoading: isUserListLoading } = userApi.useList(params);
+  const onRowClick = (user: User) => {
+    showNotification({
+      title: 'Success',
+      message: `You clicked on the row for the user with the email address ${user.email}.`,
+      color: 'green',
+    });
+  };
 
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Users</title>
       </Head>
 
       <Stack gap="lg">
         <Title order={2}>Users</Title>
 
-        <Group wrap="nowrap" justify="space-between">
-          <Group wrap="nowrap">
-            <Skeleton
-              className={classes.inputSkeleton}
-              height={42}
-              radius="sm"
-              visible={isUserListLoading}
-              width="auto"
-            >
-              <TextInput
-                w={350}
-                size="md"
-                value={search}
-                onChange={setSearch}
-                placeholder="Search by name or email"
-                leftSection={<IconSearch size={16} />}
-                rightSection={
-                  search && (
-                    <ActionIcon variant="transparent" onClick={() => setSearch('')}>
-                      <IconX color="gray" stroke={1} />
-                    </ActionIcon>
-                  )
-                }
-              />
-            </Skeleton>
+        <Filters setParams={setParams} />
 
-            <Skeleton width="auto" height={42} radius="sm" visible={isUserListLoading}>
-              <Select
-                w={200}
-                size="md"
-                data={selectOptions}
-                value={sortBy}
-                onChange={handleSort}
-                allowDeselect={false}
-                rightSection={<IconSelector size={16} />}
-                comboboxProps={{
-                  withinPortal: false,
-                  transitionProps: {
-                    transition: 'fade',
-                    duration: 120,
-                    timingFunction: 'ease-out',
-                  },
-                }}
-              />
-            </Skeleton>
-
-            <Skeleton
-              className={classes.datePickerSkeleton}
-              height={42}
-              radius="sm"
-              visible={isUserListLoading}
-              width="auto"
-            >
-              <DatePickerInput
-                type="range"
-                size="md"
-                placeholder="Pick date"
-                value={filterDate}
-                onChange={handleFilter}
-              />
-            </Skeleton>
-          </Group>
-        </Group>
-
-        {isUserListLoading && (
-          <>
-            {[1, 2, 3].map((item) => (
-              <Skeleton key={`sklton-${String(item)}`} height={50} radius="sm" mb="sm" />
-            ))}
-          </>
-        )}
-
-        {users?.results.length ? (
-          <Table
-            columns={columns}
-            data={users.results}
-            dataCount={users.count}
-            rowSelection={rowSelection}
-            setRowSelection={setRowSelection}
-            sorting={sorting}
-            onSortingChange={setSorting}
-            onPageChange={setParams}
-            perPage={PER_PAGE}
-          />
-        ) : (
-          <Container p={75}>
-            <Text size="xl" c="gray">
-              No results found, try to adjust your search.
-            </Text>
-          </Container>
-        )}
+        <Table<User>
+          data={users?.results}
+          totalCount={users?.count}
+          pageCount={users?.pagesCount}
+          page={DEFAULT_PAGE}
+          perPage={PER_PAGE}
+          columns={COLUMNS}
+          isLoading={isUserLostLoading}
+          onPageChange={(page) => setParams({ page })}
+          onSortingChange={onSortingChange}
+          onRowClick={onRowClick}
+        />
       </Stack>
     </>
   );
