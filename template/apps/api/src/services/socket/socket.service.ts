@@ -27,7 +27,7 @@ export default (server: http.Server) => {
     if (!socket.handshake.headers.cookie) return next(new Error('Cookie not found'));
 
     const accessToken = socketHelper.getCookie(socket.handshake.headers.cookie, COOKIES.ACCESS_TOKEN);
-    const tokenData = await tokenService.findTokenByValue(accessToken || '');
+    const tokenData = await tokenService.findTokenByValue(accessToken);
 
     if (tokenData) {
       socket.data = {

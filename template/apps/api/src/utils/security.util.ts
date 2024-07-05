@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 import config from 'config';
 
@@ -41,13 +41,8 @@ export const compareTextWithHash = (text: string, hash: string) => bcrypt.compar
  * @param expiresIn {string | number} - Expiry time for the token
  * @return {string} - JWT token
  */
-type PayloadType = {
-  tokenType: string,
-  userId: string,
-  isShadow: boolean | null,
-}
 
-export const generateJwtToken = async (payload: PayloadType) => {
+export const generateJwtToken = async <T extends object>(payload: T) => {
   const secret = config.JWT_SECRET;
   const expiresIn = TOKEN_SECURITY_EXPIRES_IN;
 
@@ -60,14 +55,12 @@ export const generateJwtToken = async (payload: PayloadType) => {
  * @param token {string} - JWT token to verify
  * @return {object | null} - Decoded payload or null if verification fails
  */
-export const verifyJwtToken = async (token: string) => {
+export const verifyJwtToken = async <T extends JwtPayload>(token: string): Promise<(T & JwtPayload) | null> => {
   try {
     const secret = config.JWT_SECRET;
-    const decoded = jwt.verify(token, secret);
 
-    return decoded;
+    return jwt.verify(token, secret) as T;
   } catch (error) {
-
     logger.debug(`Token verification failed with error: ${error}`);
     return null;
   }
