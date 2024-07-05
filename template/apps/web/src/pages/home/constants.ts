@@ -3,6 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { User } from 'types';
 
+export const DEFAULT_PAGE = 1;
 export const PER_PAGE = 5;
 
 export const columns: ColumnDef<User>[] = [

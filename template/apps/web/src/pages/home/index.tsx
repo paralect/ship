@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { ActionIcon, Container, Group, Select, Skeleton, Stack, Text, TextInput, Title } from '@mantine/core';
 import { DatePickerInput, DatesRangeValue, DateValue } from '@mantine/dates';
-import { useDebouncedValue, useInputState } from '@mantine/hooks';
+import { useDebouncedValue, useInputState, useSetState } from '@mantine/hooks';
 import { IconSearch, IconSelector, IconX } from '@tabler/icons-react';
 import { RowSelectionState, SortingState } from '@tanstack/react-table';
 
@@ -13,7 +13,7 @@ import { Table } from 'components';
 
 import { ListParams, SortOrder } from 'types';
 
-import { columns, PER_PAGE, selectOptions } from './constants';
+import { columns, DEFAULT_PAGE, PER_PAGE, selectOptions } from './constants';
 
 import classes from './index.module.css';
 
@@ -30,6 +30,15 @@ type SortParams = {
 
 type UsersListParams = ListParams<FilterParams, SortParams>;
 
+const DEFAULT_PARAMS = {
+  page: DEFAULT_PAGE,
+  searchValue: '',
+  perPage: PER_PAGE,
+  sort: {
+    createdOn: 'desc',
+  } as SortParams,
+};
+
 const Home: NextPage = () => {
   const [search, setSearch] = useInputState('');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -37,37 +46,36 @@ const Home: NextPage = () => {
   const [sortBy, setSortBy] = useState<string | null>(selectOptions[0].value);
   const [filterDate, setFilterDate] = useState<DatesRangeValue>();
 
-  const [params, setParams] = useState<UsersListParams>({});
+  const [params, setParams] = useSetState<UsersListParams>(DEFAULT_PARAMS);
 
   const [debouncedSearch] = useDebouncedValue(search, 500);
+
   const handleSort = useCallback((value: string | null) => {
     setSortBy(value);
-    setParams((prev) => ({
-      ...prev,
-      sort: value === 'newest' ? { createdOn: 'desc' } : { createdOn: 'asc' },
-    }));
+
+    setParams({
+      sort: { createdOn: value === 'newest' ? 'desc' : 'asc' },
+    });
   }, []);
 
   const handleFilter = useCallback(([startDate, endDate]: DatesRangeValue) => {
     setFilterDate([startDate, endDate]);
 
     if (!startDate) {
-      setParams((prev) => ({
-        ...prev,
-        filter: {},
-      }));
+      setParams({ filter: undefined });
     }
 
     if (endDate) {
-      setParams((prev) => ({
-        ...prev,
-        filter: { createdOn: { startDate, endDate } },
-      }));
+      setParams({
+        filter: {
+          createdOn: { startDate, endDate },
+        },
+      });
     }
   }, []);
 
   useLayoutEffect(() => {
-    setParams((prev) => ({ ...prev, page: 1, searchValue: debouncedSearch, perPage: PER_PAGE }));
+    setParams({ searchValue: debouncedSearch });
   }, [debouncedSearch]);
 
   const { data: users, isLoading: isUserListLoading } = userApi.useList(params);
@@ -114,12 +122,13 @@ const Home: NextPage = () => {
                 data={selectOptions}
                 value={sortBy}
                 onChange={handleSort}
+                allowDeselect={false}
                 rightSection={<IconSelector size={16} />}
                 comboboxProps={{
                   withinPortal: false,
                   transitionProps: {
-                    transition: 'pop-bottom-right',
-                    duration: 210,
+                    transition: 'fade',
+                    duration: 120,
                     timingFunction: 'ease-out',
                   },
                 }}
