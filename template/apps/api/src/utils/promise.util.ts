@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
 const promiseLimit = <T>(
-  documents: T[],
-  limit: number,
-  operator: (document: T) => Promise<unknown>
+    documents: T[],
+    limit: number,
+    operator: (document: T) => Promise<unknown>
 ): Promise<void> => {
   const chunks = _.chunk(documents, limit);
 
@@ -17,30 +17,34 @@ const promiseLimit = <T>(
 };
 
 const promiseQueue = async <T>(
-  documents: T[],
-  limit: number,
-  operator: (document: T) => Promise<void>,
+    documents: T[],
+    limit: number,
+    operator: (document: T) => Promise<void>,
 ): Promise<void> => {
   let activePromises = 0;
-  const queue: (() => Promise<void>)[] = [];
+  let currentIndex = 0;
 
   const runNext = async () => {
-    if (!queue.length || activePromises >= limit) return;
+    if (currentIndex >= documents.length || activePromises >= limit) {
+      return;
+    }
 
     activePromises += 1;
-    const task = queue.shift();
+    const task = operator(documents[currentIndex += 1]);
 
-    if (!task) return;
+    task.finally(() => {
+      activePromises -= 1;
+      runNext();
+    });
 
-    await task();
-    activePromises -= 1;
-
-    await runNext();
+    if (activePromises < limit) {
+      runNext();
+    }
   };
 
-  documents.forEach((document) => queue.push(() => operator(document)));
+  runNext();
 
-  await Promise.all(Array.from({ length: limit }).map(runNext));
+  await Promise.all(Array.from({ length: Math.min(limit, documents.length) }, runNext));
 };
 
 export default {
