@@ -5,6 +5,7 @@ interface EmptyStateProps extends CenterProps {
   text?: string;
   textProps?: TextProps;
 }
+
 const EmptyState: FC<EmptyStateProps> = ({ text, textProps, ...rest }) => (
   <Center py={100} {...rest}>
     <Text w="fit-content" size="xl" c="gray" {...textProps}>

@@ -9,7 +9,7 @@ interface LoadingStateProps extends StackProps {
 const LoadingState: FC<LoadingStateProps> = ({ rowsCount = 3, skeletonProps, ...rest }) => (
   <Stack gap="md" {...rest}>
     {Array.from(Array(rowsCount).keys()).map((i) => (
-      <Skeleton key={i} height={60} radius="sm" {...skeletonProps} />
+      <Skeleton key={i} h={60} radius="sm" {...skeletonProps} />
     ))}
   </Stack>
 );
