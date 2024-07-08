@@ -41,7 +41,7 @@ interface TableProps<T> {
 
 const Table = <T extends RowData>({
   data = [],
-  totalCount = 0,
+  totalCount = data?.length || 0,
   columns,
   pageCount,
   page = 1,
