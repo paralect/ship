@@ -1,10 +1,11 @@
 import React from 'react';
 import { Table } from '@mantine/core';
 import { flexRender, RowData } from '@tanstack/react-table';
+import cx from 'clsx';
 
 import { useTableContext } from 'contexts';
 
-import styles from './index.module.css';
+import classes from './index.module.css';
 
 interface TbodyProps<T> {
   onRowClick?: (value: T) => void;
@@ -20,7 +21,13 @@ const Tbody = <T extends RowData>({ onRowClick }: TbodyProps<T>) => {
   return (
     <Table.Tbody>
       {rows.map((row) => (
-        <Table.Tr key={row.id} onClick={() => onRowClick && onRowClick(row.original)} classNames={{ tr: styles.tr }}>
+        <Table.Tr
+          key={row.id}
+          onClick={() => onRowClick && onRowClick(row.original)}
+          className={cx({
+            [classes.tr]: !!onRowClick,
+          })}
+        >
           {row.getVisibleCells().map((cell) => (
             <Table.Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Table.Td>
           ))}

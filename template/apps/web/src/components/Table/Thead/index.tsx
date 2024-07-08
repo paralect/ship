@@ -5,7 +5,7 @@ import { flexRender, SortDirection } from '@tanstack/react-table';
 
 import { useTableContext } from 'contexts';
 
-import styles from './index.module.css';
+import classes from './index.module.css';
 
 interface SortIconProps {
   state: false | SortDirection;
@@ -48,7 +48,7 @@ const Thead = () => {
               <Table.Th key={header.id} colSpan={header.colSpan} style={{ width: columnWidth }}>
                 {!header.isPlaceholder &&
                   (isSortable ? (
-                    <UnstyledButton onClick={header.column.getToggleSortingHandler()} className={styles.headerButton}>
+                    <UnstyledButton onClick={header.column.getToggleSortingHandler()} className={classes.headerButton}>
                       {headerContent}
 
                       <SortIcon state={header.column.getIsSorted()} />
