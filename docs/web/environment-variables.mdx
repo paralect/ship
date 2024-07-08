@@ -35,7 +35,7 @@ If `APP_ENV` is set to **staging**, the app will use the variables from the stag
 We use [Zod](https://zod.dev/) to check that our config is correct and in the right format.
 This is important to make sure the app works without any problems.
 
-This setup is found in the `src/config/index.tsx` file.
+This setup is found in the `src/config/index.ts` file.
 
 <Tip>
 To prefix any variables intended for client-side exposure with `NEXT_PUBLIC_`.
@@ -68,11 +68,11 @@ Here's how to add a new environment variable to the application:
         ```
     </Step>
 
-    <Step title="Modify the Schema in `src/config/index.tsx`">
-        Update the schema in the `config/index.tsx` file to include the new variable.
+    <Step title="Modify the Schema in `src/config/index.ts`">
+        Update the schema in the `config/index.ts` file to include the new variable.
         This step is crucial for schema validation.
 
-        ```typescript config/index.tsx
+        ```typescript config/index.ts
         const schema = z.object({
             ...
             STRIPE_PUBLISHABLE_KEY: z.string(),
@@ -81,9 +81,9 @@ Here's how to add a new environment variable to the application:
     </Step>
 
     <Step title="Update the Configuration Object">
-        Add the new variable to the configuration object within the same file (`config/index.tsx`), ensuring it matches the schema.
+        Add the new variable to the configuration object within the same file (`config/index.ts`), ensuring it matches the schema.
 
-        ```typescript config/index.tsx
+        ```typescript config/index.ts
         const processEnv = {
             ...
             STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
