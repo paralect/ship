@@ -1,10 +1,25 @@
 import { showNotification } from '@mantine/notifications';
-import { UseFormSetError } from 'react-hook-form';
+import { FieldValues, Path, UseFormSetError } from 'react-hook-form';
 
-export default function handleError(e: any, setError?: UseFormSetError<any>) {
-  const {
-    errors: { global, ...errors },
-  } = e.data;
+import { ApiError } from 'types';
+
+type ValidationErrors = {
+  [name: string]: string[] | string;
+};
+
+interface ErrorData {
+  errors?: ValidationErrors;
+}
+
+export const handleApiError = <TFieldValues extends FieldValues>(
+  e: ApiError,
+  setError?: UseFormSetError<TFieldValues>,
+) => {
+  const data = e.data as ErrorData;
+
+  if (!data?.errors) return;
+
+  const { global, ...errors } = data.errors;
 
   if (global) {
     showNotification({
@@ -16,9 +31,13 @@ export default function handleError(e: any, setError?: UseFormSetError<any>) {
 
   if (setError) {
     Object.keys(errors).forEach((key) => {
-      const message = errors[key].join(' ');
+      let message = errors[key];
 
-      setError(key, { message }, { shouldFocus: true });
+      if (Array.isArray(message)) {
+        message = message.join(' ');
+      }
+
+      setError(key as Path<TFieldValues>, { message }, { shouldFocus: true });
     });
   }
-}
+};

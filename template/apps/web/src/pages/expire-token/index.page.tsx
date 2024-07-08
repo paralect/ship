@@ -6,7 +6,7 @@ import { Button, Stack, Text, Title } from '@mantine/core';
 
 import { accountApi } from 'resources/account';
 
-import { handleError } from 'utils';
+import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
 
@@ -30,7 +30,7 @@ const ForgotPassword: NextPage = () => {
       { email },
       {
         onSuccess: () => setSent(true),
-        onError: (e) => handleError(e),
+        onError: (e) => handleApiError(e),
       },
     );
 

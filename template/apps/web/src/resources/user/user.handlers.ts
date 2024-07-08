@@ -4,18 +4,18 @@ import queryClient from 'query-client';
 
 import { User } from 'types';
 
-apiService.on('error', (error: any) => {
+apiService.on('error', (error) => {
   if (error.status === 401) {
-    queryClient.setQueryData(['account'], null);
+    queryClient.setQueryData<User | null>(['account'], null);
   }
 });
 
 socketService.on('connect', () => {
-  const account = queryClient.getQueryData(['account']) as User;
+  const account = queryClient.getQueryData<User | null>(['account']);
 
-  socketService.emit('subscribe', `user-${account._id}`);
+  if (account) socketService.emit('subscribe', `user-${account._id}`);
 });
 
-socketService.on('user:updated', (data: User) => {
-  queryClient.setQueryData(['account'], data);
+socketService.on('user:updated', (user) => {
+  queryClient.setQueryData<User | null>(['account'], user);
 });

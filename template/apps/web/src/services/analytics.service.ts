@@ -23,6 +23,6 @@ export const track = (event: string, data = {}) => {
   try {
     mixpanel.track(event, data);
   } catch (e) {
-    console.error(e); //eslint-disable-line
+    console.error(e);
   }
 };
