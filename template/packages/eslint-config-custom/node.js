@@ -1,7 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'airbnb', 'airbnb-typescript', 'prettier'],
-  plugins: ['@typescript-eslint', 'import', 'simple-import-sort'],
+  plugins: ['@typescript-eslint', 'import', 'simple-import-sort', 'no-relative-import-paths'],
   ignorePatterns: ['.eslintrc.js'],
   parserOptions: {
     project: './tsconfig.json',
@@ -16,6 +16,33 @@ module.exports = {
       'error',
       {
         allow: ['warn', 'error'],
+      },
+    ],
+
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['app-types'],
+            message: "Please use import from 'types' module instead.",
+          },
+          {
+            group: ['pages/*'],
+            message:
+              "Imports from the 'pages' folder are not allowed. If you need to use a file in multiple places, please move it to the sharable folder.",
+          },
+        ],
+      },
+    ],
+
+    'no-relative-import-paths/no-relative-import-paths': [
+      'warn',
+      {
+        allowSameFolder: true,
+        allowedDepth: 1,
+        rootDir: './src',
+        prefix: '',
       },
     ],
 
@@ -103,6 +130,12 @@ module.exports = {
             ],
           },
         ],
+      },
+    },
+    {
+      files: ['**/types.ts'],
+      rules: {
+        'no-restricted-imports': 'off',
       },
     },
   ],
