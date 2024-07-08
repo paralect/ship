@@ -44,7 +44,7 @@ const PhotoUpload = () => {
       body.append('file', imageFile, imageFile.name);
 
       uploadProfilePhoto(body, {
-        onError: (err) => handleApiError(err),
+        onError: (e) => handleApiError(e),
       });
     }
   };

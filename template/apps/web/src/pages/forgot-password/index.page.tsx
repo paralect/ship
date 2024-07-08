@@ -35,6 +35,7 @@ const ForgotPassword: NextPage = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<ForgotPasswordParams>({
     resolver: zodResolver(schema),
@@ -43,7 +44,7 @@ const ForgotPassword: NextPage = () => {
   const onSubmit = (data: ForgotPasswordParams) =>
     forgotPassword(data, {
       onSuccess: () => setEmail(data.email),
-      onError: (e) => handleApiError(e),
+      onError: (e) => handleApiError(e, setError),
     });
 
   if (email) {
