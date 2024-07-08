@@ -6,7 +6,7 @@ import { DATABASE_DOCUMENTS } from 'app-constants';
 import { tokenSchema } from 'schemas';
 import { Token, TokenType } from 'types';
 
-type TokenPayload = Pick<Token, 'userId' | 'isShadow'> & { tokenType: Token['type'] };
+type TokenPayload = Pick<Token, 'userId' | 'isShadow'> & { tokenType: TokenType };
 
 const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, {
   schemaValidator: (obj) => tokenSchema.parseAsync(obj),
@@ -47,7 +47,7 @@ const findTokenByValue = async (token?: string | null): Promise<TokenPayload | n
   return tokenEntity;
 };
 
-const removeAuthTokens = async (accessToken: string) => service.deleteMany({ value: { $in: [accessToken] } });
+const removeAuthTokens = async (accessToken: string) => service.deleteMany({ value: accessToken });
 
 export default Object.assign(service, {
   createAuthTokens,
