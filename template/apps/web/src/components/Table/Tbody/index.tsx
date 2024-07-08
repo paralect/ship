@@ -11,7 +11,7 @@ interface TbodyProps<T> {
 }
 
 const Tbody = <T extends RowData>({ onRowClick }: TbodyProps<T>) => {
-  const table = useTableContext();
+  const table = useTableContext<T>();
 
   if (!table) return null;
 

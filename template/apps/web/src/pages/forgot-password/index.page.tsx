@@ -10,7 +10,7 @@ import { z } from 'zod';
 
 import { accountApi } from 'resources/account';
 
-import { handleError } from 'utils';
+import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
 
@@ -43,7 +43,7 @@ const ForgotPassword: NextPage = () => {
   const onSubmit = (data: ForgotPasswordParams) =>
     forgotPassword(data, {
       onSuccess: () => setEmail(data.email),
-      onError: (e) => handleError(e),
+      onError: (e) => handleApiError(e),
     });
 
   if (email) {

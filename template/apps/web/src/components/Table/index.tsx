@@ -9,6 +9,7 @@ import {
   RowData,
   SortDirection,
   SortingState,
+  Table as TanstackTable,
   useReactTable,
 } from '@tanstack/react-table';
 
@@ -59,9 +60,9 @@ const Table = <T extends RowData>({
   });
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const table = useReactTable({
+  const table = useReactTable<T>({
     data,
-    // disable column sorting by default
+    // disable column sorting and reset size by default.
     columns: columns.map((c) => ({ ...c, enableSorting: c.enableSorting || false, size: 0 })),
     state: {
       pagination,
@@ -93,7 +94,7 @@ const Table = <T extends RowData>({
   }, [pagination]);
 
   return (
-    <TableContext.Provider value={useMemo(() => table, [table])}>
+    <TableContext.Provider value={useMemo(() => table as TanstackTable<T | unknown>, [table])}>
       {isLoading && <LoadingState />}
 
       {!isLoading &&
@@ -102,7 +103,7 @@ const Table = <T extends RowData>({
             <Paper radius="md" withBorder>
               <TableContainer horizontalSpacing="xl" verticalSpacing="lg" {...tableContainerProps}>
                 <Thead />
-                <Tbody onRowClick={onRowClick} />
+                <Tbody<T> onRowClick={onRowClick} />
               </TableContainer>
             </Paper>
 

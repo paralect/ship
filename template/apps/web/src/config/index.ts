@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { configUtil } from 'utils';
+import { validateConfig } from 'utils/config.util';
 
 /**
  * Specify your client-side environment variables schema here.
@@ -30,6 +30,6 @@ const processEnv = {
   MIXPANEL_API_KEY: process.env.NEXT_PUBLIC_MIXPANEL_API_KEY,
 } as Record<keyof Config, string | undefined>;
 
-const config = configUtil.validateConfig<Config>(schema, processEnv);
+const config = validateConfig<Config>(schema, processEnv);
 
 export default config;

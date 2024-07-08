@@ -12,12 +12,18 @@ module.exports = {
     node: true,
   },
   rules: {
-    'no-console': 'warn',
+    'no-console': [
+      'error',
+      {
+        allow: ['warn', 'error'],
+      },
+    ],
 
     // Too strict
     'no-param-reassign': 'off',
     'max-classes-per-file': 'off',
     'no-underscore-dangle': 'off',
+    'class-methods-use-this': 'off',
 
     // @TODO fix in /apps/api/src/migrator/migration-version/migration-version.service.ts
     'import/no-dynamic-require': 'off',

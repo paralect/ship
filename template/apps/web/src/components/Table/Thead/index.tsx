@@ -26,9 +26,7 @@ const SortIcon: FC<SortIconProps> = ({ state }) => {
   }
 };
 
-interface TheadProps {}
-
-const Thead: FC<TheadProps> = () => {
+const Thead = () => {
   const table = useTableContext();
 
   if (!table) return null;

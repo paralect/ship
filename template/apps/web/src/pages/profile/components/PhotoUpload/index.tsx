@@ -6,7 +6,7 @@ import cx from 'clsx';
 
 import { accountApi } from 'resources/account';
 
-import { handleError } from 'utils';
+import { handleApiError } from 'utils';
 
 import classes from './index.module.css';
 
@@ -44,7 +44,7 @@ const PhotoUpload = () => {
       body.append('file', imageFile, imageFile.name);
 
       uploadProfilePhoto(body, {
-        onError: (err) => handleError(err),
+        onError: (err) => handleApiError(err),
       });
     }
   };

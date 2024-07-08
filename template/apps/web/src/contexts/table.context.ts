@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table } from '@tanstack/react-table';
+import { RowData, Table } from '@tanstack/react-table';
 
-export const TableContext = React.createContext<Table<any> | undefined>(undefined);
+export const TableContext = React.createContext<Table<unknown> | undefined>(undefined);
 
-export const useTableContext = () => React.useContext(TableContext);
+export const useTableContext = <T extends RowData>() => React.useContext(TableContext) as Table<T>;

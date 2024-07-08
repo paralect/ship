@@ -26,9 +26,6 @@ module.exports = {
         namedComponents: 'arrow-function',
       },
     ],
-
-    // @TODO fix all 'any' types in web app
-    '@typescript-eslint/no-explicit-any': 'off',
   },
   overrides: [
     // Allow require() syntax in .config.js files
