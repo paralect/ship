@@ -5,12 +5,13 @@ import { Stack, Title } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { ColumnDef, SortDirection } from '@tanstack/react-table';
-import { User } from 'app-types';
 import { pick } from 'lodash';
 
 import { userApi, UsersListParams, UsersListSortParams } from 'resources/user';
 
 import { Table } from 'components';
+
+import { User } from 'types';
 
 import Filters from './components/Filters';
 

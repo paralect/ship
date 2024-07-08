@@ -1,7 +1,8 @@
-import { User } from 'app-types';
 import io from 'socket.io-client';
 
 import config from 'config';
+
+import { User } from 'types';
 
 const socket = io(config.WS_URL, {
   transports: ['websocket'],

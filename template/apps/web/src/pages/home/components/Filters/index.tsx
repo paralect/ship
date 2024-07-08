@@ -3,6 +3,7 @@ import { ActionIcon, ComboboxItem, Group, Select, TextInput } from '@mantine/cor
 import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
 import { useDebouncedValue, useInputState, useSetState } from '@mantine/hooks';
 import { IconSearch, IconSelector, IconX } from '@tabler/icons-react';
+import { set } from 'lodash';
 
 import { UsersListParams } from 'resources/user';
 
@@ -31,12 +32,7 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
   const handleSort = (value: string | null) => {
     setSortBy(value);
 
-    setParams((old) => ({
-      sort: {
-        ...old.sort,
-        createdOn: value === 'newest' ? 'desc' : 'asc',
-      },
-    }));
+    setParams((old) => set(old, 'sort.createdOn', value === 'newest' ? 'desc' : 'asc'));
   };
 
   const handleFilter = ([startDate, endDate]: DatesRangeValue) => {
