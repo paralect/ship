@@ -9,6 +9,8 @@ module.exports = {
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react-hooks/exhaustive-deps': 'off',
+
     'react/jsx-filename-extension': [
       'warn',
       {
@@ -17,7 +19,6 @@ module.exports = {
     ],
 
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
 
     'react/function-component-definition': [
       'error',
@@ -25,9 +26,6 @@ module.exports = {
         namedComponents: 'arrow-function',
       },
     ],
-
-    // @TODO fix all 'any' types in web app
-    '@typescript-eslint/no-explicit-any': 'off',
   },
   overrides: [
     // Allow require() syntax in .config.js files
@@ -54,7 +52,7 @@ module.exports = {
               // Static files
               ['^public'],
               // Internal app modules
-              ['^services', '^theme', '^utils'],
+              ['^contexts', '^services', '^theme', '^utils'],
               // Other app modules
               [
                 '^routes', // App pages structure

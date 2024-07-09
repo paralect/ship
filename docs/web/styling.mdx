@@ -18,7 +18,7 @@ Here's an example of how we extend the Mantine `Button` component:
 
 - We set the default button size to 'large' (`lg`).
 
-``` typescript theme/components/Button.index.ts
+``` typescript theme/components/index.ts
 import { Button } from '@mantine/core';
 
 import classes from './index.module.css';
@@ -34,7 +34,7 @@ export default Button.extend({
 ```
 
 - Custom class names are applied for additional styling, defined in our `index.module.css`.
-``` typescript theme/components/Button.index.ts
+``` typescript theme/components/index.ts
 .label {
   font-weight: 500;
 }

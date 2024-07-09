@@ -1,7 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'airbnb', 'airbnb-typescript', 'prettier'],
-  plugins: ['@typescript-eslint', 'import', 'simple-import-sort'],
+  plugins: ['@typescript-eslint', 'import', 'simple-import-sort', 'no-relative-import-paths'],
   ignorePatterns: ['.eslintrc.js'],
   parserOptions: {
     project: './tsconfig.json',
@@ -12,12 +12,40 @@ module.exports = {
     node: true,
   },
   rules: {
-    'no-console': 'warn',
+    'no-console': [
+      'error',
+      {
+        allow: ['warn', 'error'],
+      },
+    ],
+
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['app-types'],
+            message: "Please use import from 'types' module instead.",
+          },
+        ],
+      },
+    ],
+
+    'no-relative-import-paths/no-relative-import-paths': [
+      'warn',
+      {
+        allowSameFolder: true,
+        allowedDepth: 1,
+        rootDir: './src',
+        prefix: '',
+      },
+    ],
 
     // Too strict
     'no-param-reassign': 'off',
     'max-classes-per-file': 'off',
     'no-underscore-dangle': 'off',
+    'class-methods-use-this': 'off',
 
     // @TODO fix in /apps/api/src/migrator/migration-version/migration-version.service.ts
     'import/no-dynamic-require': 'off',
@@ -97,6 +125,12 @@ module.exports = {
             ],
           },
         ],
+      },
+    },
+    {
+      files: ['**/types.ts'],
+      rules: {
+        'no-restricted-imports': 'off',
       },
     },
   ],

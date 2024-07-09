@@ -9,7 +9,7 @@ import { z } from 'zod';
 
 import { accountApi } from 'resources/account';
 
-import { handleError } from 'utils';
+import { handleApiError } from 'utils';
 
 import queryClient from 'query-client';
 
@@ -65,7 +65,7 @@ const Profile: NextPage = () => {
         reset(data, { keepDirtyValues: true });
         setValue('password', '');
       },
-      onError: (e) => handleError(e, setError),
+      onError: (e) => handleApiError(e, setError),
     });
 
   return (

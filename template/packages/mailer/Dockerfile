@@ -44,4 +44,4 @@ COPY --from=installer /app .
 
 EXPOSE 3003
 
-CMD ["ts-node", "packages/mailer/src/index.ts"]
+CMD ["ts-node", "packages/mailer/src/index.tsx"]

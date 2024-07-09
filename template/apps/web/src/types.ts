@@ -1,4 +1,5 @@
 export * from 'app-types';
+export type { ApiError } from 'services/api.service';
 
 export type QueryParam = string | string[] | undefined;
 

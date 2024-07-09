@@ -1,14 +1,21 @@
-// eslint-disable-next-line max-classes-per-file
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import config from 'config';
 
+type ApiErrorHandler = (error: ApiError) => void;
+
+type EventHandler = ApiErrorHandler;
+
+interface EventHandlers {
+  error: ApiErrorHandler;
+}
+
 export class ApiError extends Error {
-  data: any;
+  data: unknown;
 
   status: number;
 
-  constructor(data: any, status = 500, statusText = 'Internal Server Error') {
+  constructor(data: unknown, status = 500, statusText = 'Internal Server Error') {
     super(`${status} ${statusText}`);
 
     this.constructor = ApiError;
@@ -18,7 +25,7 @@ export class ApiError extends Error {
     this.status = status;
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, this.constructor);
+      Error.captureStackTrace(this, ApiError);
     }
   }
 
@@ -27,46 +34,54 @@ export class ApiError extends Error {
   }
 }
 
-const throwApiError = ({ status, statusText, data }: any) => {
-  console.error(`API Error: ${status} ${statusText}`, data); //eslint-disable-line
-  throw new ApiError(data, status, statusText);
-};
+interface ThrowApiErrorProps {
+  status: number;
+  statusText: string;
+  data: unknown;
+}
 
 class ApiClient {
   _api: AxiosInstance;
 
-  _handlers: Map<string, any>;
+  private _handlers: Map<keyof EventHandlers, Set<EventHandler>>;
 
   constructor(axiosConfig: AxiosRequestConfig) {
-    this._handlers = new Map();
-
+    this._handlers = new Map<keyof EventHandlers, Set<EventHandler>>();
     this._api = axios.create(axiosConfig);
+
     this._api.interceptors.response.use(
       (response: AxiosResponse) => response.data,
       (error) => {
-        if (axios.isCancel(error)) {
-          // eslint-disable-next-line @typescript-eslint/no-throw-literal
-          throw error;
-        }
-        // Axios Network Error & Timeout error dont have 'response' field
-        // https://github.com/axios/axios/issues/383
-        const errorResponse = error.response || {
-          status: error.code,
-          statusText: error.message,
+        const errorResponse: ThrowApiErrorProps = error.response || {
+          status: error.code ? parseInt(error.code, 10) : 500,
+          statusText: error.message || 'Network or timeout error',
           data: error.data,
         };
 
-        const errorHandlers = this._handlers.get('error') || [];
-        errorHandlers.forEach((handler: any) => {
-          handler(errorResponse);
-        });
+        const apiError = new ApiError(errorResponse.data, errorResponse.status, errorResponse.statusText);
 
-        return throwApiError(errorResponse);
+        const errorHandlers = this._handlers.get('error') as Set<ApiErrorHandler>;
+
+        errorHandlers.forEach((handler) => handler(apiError));
+
+        throw apiError;
       },
     );
   }
 
-  get(url: string, params: any = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
+  on<T extends keyof EventHandlers>(event: T, handler: EventHandlers[T]): void {
+    let handlers = this._handlers.get(event);
+
+    if (!handlers) {
+      handlers = new Set<EventHandler>();
+
+      this._handlers.set(event, handlers);
+    }
+
+    handlers.add(handler as EventHandler);
+  }
+
+  get<T, P>(url: string, params: P | unknown = {}, requestConfig: AxiosRequestConfig = {}): Promise<T> {
     return this._api({
       method: 'get',
       url,
@@ -75,7 +90,7 @@ class ApiClient {
     });
   }
 
-  post(url: string, data: any = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
+  post<T, D>(url: string, data: D | unknown = {}, requestConfig: AxiosRequestConfig = {}): Promise<T> {
     return this._api({
       method: 'post',
       url,
@@ -84,7 +99,7 @@ class ApiClient {
     });
   }
 
-  put(url: string, data: any = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
+  put<T, D>(url: string, data: D | unknown = {}, requestConfig: AxiosRequestConfig = {}): Promise<T> {
     return this._api({
       method: 'put',
       url,
@@ -93,23 +108,13 @@ class ApiClient {
     });
   }
 
-  delete(url: string, data: any = {}, requestConfig: AxiosRequestConfig<any> = {}): Promise<any> {
+  delete<T, D>(url: string, data: D | unknown = {}, requestConfig: AxiosRequestConfig = {}): Promise<T> {
     return this._api({
       method: 'delete',
       url,
       data,
       ...requestConfig,
     });
-  }
-
-  on(event: string, handler: (...args: any[]) => void) {
-    if (this._handlers.has(event)) {
-      this._handlers.get(event).add(handler);
-    } else {
-      this._handlers.set(event, new Set([handler]));
-    }
-
-    return () => this._handlers.get(event).remove(handler);
   }
 }
 

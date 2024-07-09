@@ -23,7 +23,7 @@ import { accountApi } from 'resources/account';
 
 import { GoogleIcon } from 'public/icons';
 
-import { handleError } from 'utils';
+import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
 import config from 'config';
@@ -99,7 +99,7 @@ const SignUp: NextPage = () => {
         setRegistered(true);
         setEmail(data.email);
       },
-      onError: (e) => handleError(e, setError),
+      onError: (e) => handleApiError(e, setError),
     });
 
   const label = (
