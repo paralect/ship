@@ -19,7 +19,7 @@ export const setTokenCookies = ({ ctx, accessToken }: { ctx: AppKoaContext; acce
   ctx.cookies.set(COOKIES.ACCESS_TOKEN, accessToken, {
     httpOnly: true,
     domain: cookiesDomain,
-    expires: new Date(Date.now() + TOKEN_SECURITY_EXPIRES_IN * 1000), // seconds to miliseconds 
+    expires: new Date(Date.now() + TOKEN_SECURITY_EXPIRES_IN * 1000), // seconds to milliseconds
   });
 };
 

@@ -55,5 +55,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/sign-in', rateLimitMiddleware, validateMiddleware(schema), validator, handler);
+  router.post('/sign-in', rateLimitMiddleware(), validateMiddleware(schema), validator, handler);
 };
