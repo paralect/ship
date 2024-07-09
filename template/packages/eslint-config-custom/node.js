@@ -27,11 +27,6 @@ module.exports = {
             group: ['app-types'],
             message: "Please use import from 'types' module instead.",
           },
-          {
-            group: ['pages/*'],
-            message:
-              "Imports from the 'pages' folder are not allowed. If you need to use a file in multiple places, please move it to the sharable folder.",
-          },
         ],
       },
     ],
