@@ -10,6 +10,7 @@
     "eslint-config-next": "14.1.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-no-relative-import-paths": "1.5.5",
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-simple-import-sort": "10.0.0",
     "prettier-config-custom": "workspace:*"
