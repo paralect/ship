@@ -6,7 +6,7 @@ const config: StorybookConfig = {
   stories: [
     {
       directory: '../src/components',
-      titlePrefix: 'Application components',
+      titlePrefix: 'Application Components',
     },
     {
       directory: '../src/theme/components',
