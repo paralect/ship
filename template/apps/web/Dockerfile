@@ -3,7 +3,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat
-RUN npm install --global --no-update-notifier --no-fund turbo@1.10.3
+RUN npm install --global --no-update-notifier --no-fund turbo@2.0.6
 COPY . .
 RUN turbo prune --scope=web --docker
 
@@ -12,7 +12,7 @@ FROM node:20-alpine AS installer
 WORKDIR /app
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat
-RUN npm install --global --no-update-notifier --no-fund pnpm@8.15.7
+RUN npm install --global --no-update-notifier --no-fund pnpm@9.5.0
 
 # First install the dependencies (as they change less often)
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml

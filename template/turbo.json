@@ -1,9 +1,9 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
+  "tasks": {
     "build": {
-      "outputs": ["dist/**", ".next/**", "public/dist/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "api#migrate-dev": {
       "cache": false
@@ -17,7 +17,8 @@
     },
     "development": {
       "dependsOn": ["api#migrate-dev", "api#schedule-dev", "dev"],
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "precommit": {
       "outputs": []
