@@ -9,21 +9,20 @@
   },
   "devDependencies": {
     "husky": "9.0.11",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "turbo": "1.11.1"
   },
   "optionalDependencies": {
-    "turbo-darwin-64": "1.11.1",
-    "turbo-darwin-arm64": "1.11.1",
-    "turbo-linux-64": "1.11.1",
-    "turbo-linux-arm64": "1.11.1",
-    "turbo-windows-64": "1.11.1",
-    "turbo-windows-arm64": "1.11.1"
+    "turbo-darwin-64": "2.0.6",
+    "turbo-darwin-arm64": "2.0.6",
+    "turbo-linux-64": "2.0.6",
+    "turbo-linux-arm64": "2.0.6",
+    "turbo-windows-64": "2.0.6",
+    "turbo-windows-arm64": "2.0.6"
   },
+  "packageManager": "pnpm@9.5.0",
   "engines": {
     "node": ">= 20.11.1",
     "yarn": "please-use-pnpm",
-    "pnpm": ">= 8.15.7 <= 9.0.5"
+    "pnpm": ">=9.5.0"
   }
 }
