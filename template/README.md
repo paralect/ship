@@ -1,39 +1,39 @@
 # [Documentation](https://ship.paralect.com/docs/introduction)
 
-## Starting application with Turborepo
+## Starting Application with Turborepo 🚀
 
-To run infra and all services -- just run: `pnpm start` 🚀
-
-### Turborepo: Running infra and services separately
-
-1. Start base infra services in Docker containers:
-
-```bash
-pnpm run infra
+To run the infrastructure and all services -- just run:
+```sh
+pnpm start
 ```
 
-2. Run services with Turborepo
+### Running Infra and Services Separately with Turborepo
 
-```bash
-pnpm run turbo-start
-```
+1. Start base infrastructure services in Docker containers:
+    ```sh
+    pnpm run infra
+    ```
+2. Run the services with Turborepo:
+    ```sh
+    pnpm run turbo-start
+    ```
 
 ## Using Ship with Docker
 
-To run infra and all services -- just run: `pnpm run docker` 🚀
-
-### Docker: Running infra and services separately
-
-1. Start base infra services in Docker containers:
-
-```bash
-pnpm run infra
+To run the infrastructure and all services, execute:
+```sh
+pnpm run docker
 ```
 
-2. Run services you need:
+### Running Infra and Services Separately with Docker
 
-```bash
-./bin/start.sh api web
-```
+1. Start base infrastructure services in Docker containers:
+    ```sh
+    pnpm run infra
+    ```
+2. Run the services you need:
+    ```sh
+    ./bin/start.sh api web
+    ```
 
-You can also run infra services separately with `./bin/start.sh` bash script.
+You can also run infrastructure services separately using the `./bin/start.sh` bash script.
