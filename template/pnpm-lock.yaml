@@ -428,9 +428,6 @@ importers:
       enums:
         specifier: workspace:*
         version: link:../enums
-      mailer:
-        specifier: workspace:*
-        version: link:../mailer
       schemas:
         specifier: workspace:*
         version: link:../schemas
