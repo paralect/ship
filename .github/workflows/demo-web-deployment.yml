@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'template/apps/web/**'
+      - 'template/packages/**'
   workflow_dispatch:
 
 jobs:
