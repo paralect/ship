@@ -1,4 +1,4 @@
-import { cloneDeep, isEqual } from 'lodash';
+import { cloneDeep, cloneDeepWith, escapeRegExp, isEqual, isObject } from 'lodash';
 import {
   WithoutId,
   ChangeStreamOptions,
@@ -41,6 +41,7 @@ const defaultOptions: ServiceOptions = {
   outbox: false,
   addCreatedOnField: true,
   addUpdatedOnField: true,
+  escapeRegExp: false,
 };
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -108,7 +109,17 @@ class Service<T extends IDocument> {
     return entity;
   };
 
-  protected validateReadOperation = <U = T>(
+  protected escapeFilterRegExp = <U = T>(
+    query: Filter<U>,
+  ): Filter<U> => {
+    return cloneDeepWith(query, (value, key) => {
+      if (!isObject(value)) {
+        return key === '$regex' ? escapeRegExp(value) : value;
+      }
+    });
+  };
+
+  protected handleReadOperations = <U = T>(
     query: Filter<U>,
     readConfig: ReadConfig,
   ): Filter<U> => {
@@ -117,7 +128,11 @@ class Service<T extends IDocument> {
       : this.options.skipDeletedOnDocs;
 
     if (!query.deletedOn && shouldSkipDeletedDocs) {
-      return { ...query, deletedOn: { $exists: false } };
+      query = { ...query, deletedOn: { $exists: false } };
+    }
+
+    if (this.options.escapeRegExp) {
+      query = this.escapeFilterRegExp(query);
     }
 
     return query;
@@ -178,7 +193,7 @@ class Service<T extends IDocument> {
   ): Promise<U | null> => {
     const collection = await this.getCollection<U>();
 
-    filter = this.validateReadOperation(filter, readConfig);
+    filter = this.handleReadOperations(filter, readConfig);
 
     return collection.findOne<U>(filter, findOptions);
   };
@@ -192,7 +207,7 @@ class Service<T extends IDocument> {
     const { page, perPage } = readConfig;
     const hasPaging = !!page && !!perPage;
 
-    filter = this.validateReadOperation(filter, readConfig);
+    filter = this.handleReadOperations(filter, readConfig);
 
     if (!hasPaging) {
       const results = await collection.find<U>(filter, findOptions).toArray();
@@ -238,7 +253,7 @@ class Service<T extends IDocument> {
   ): Promise<number> => {
     const collection = await this.getCollection();
 
-    filter = this.validateReadOperation(filter, readConfig);
+    filter = this.handleReadOperations(filter, readConfig);
 
     return collection.countDocuments(filter, countDocumentOptions);
   };
@@ -251,7 +266,7 @@ class Service<T extends IDocument> {
   ): Promise<any[]> => {
     const collection = await this.getCollection();
 
-    filter = this.validateReadOperation(filter, readConfig);
+    filter = this.handleReadOperations(filter, readConfig);
 
     return collection.distinct(key, filter, distinctOptions);
   };
@@ -340,7 +355,7 @@ class Service<T extends IDocument> {
   ): Promise<UpdateResult | Document> => {
     const collection = await this.getCollection();
 
-    filter = this.validateReadOperation(filter, readConfig);
+    filter = this.handleReadOperations(filter, readConfig);
 
     if (this.options.addUpdatedOnField) {
       replacement.updatedOn = new Date();
@@ -357,7 +372,7 @@ class Service<T extends IDocument> {
   ): Promise<U | null> => {
     const collection = await this.getCollection<U>();
 
-    filter = this.validateReadOperation(filter, updateConfig);
+    filter = this.handleReadOperations(filter, updateConfig);
 
     const doc = await this.findOne<U>(filter, updateConfig);
 
@@ -441,7 +456,7 @@ class Service<T extends IDocument> {
   ): Promise<U[]> => {
     const collection = await this.getCollection<U>();
 
-    filter = this.validateReadOperation(filter, updateConfig);
+    filter = this.handleReadOperations(filter, updateConfig);
 
     const documents = await collection.find<U>(filter).toArray();
 
@@ -590,7 +605,7 @@ class Service<T extends IDocument> {
   ): Promise<U[]> => {
     const collection = await this.getCollection<U>();
 
-    filter = this.validateReadOperation(filter, deleteConfig);
+    filter = this.handleReadOperations(filter, deleteConfig);
 
     const documents = await collection.find<U>(filter).toArray();
 
@@ -637,7 +652,7 @@ class Service<T extends IDocument> {
   ): Promise<U[]> => {
     const collection = await this.getCollection<U>();
 
-    filter = this.validateReadOperation(filter, deleteConfig);
+    filter = this.handleReadOperations(filter, deleteConfig);
 
     const documents = await collection.find<U>(filter).toArray();
 
@@ -697,7 +712,7 @@ class Service<T extends IDocument> {
     ):Promise<UpdateResult> => {
       const collection = await this.getCollection();
 
-      filter = this.validateReadOperation(filter, readConfig);
+      filter = this.handleReadOperations(filter, readConfig);
 
       if (this.options.addUpdatedOnField) {
         updateFilter = addUpdatedOnField(updateFilter);
@@ -713,7 +728,7 @@ class Service<T extends IDocument> {
     ): Promise<Document | UpdateResult> => {
       const collection = await this.getCollection();
 
-      filter = this.validateReadOperation(filter, readConfig);
+      filter = this.handleReadOperations(filter, readConfig);
 
       if (this.options.addUpdatedOnField) {
         updateFilter = addUpdatedOnField(updateFilter);

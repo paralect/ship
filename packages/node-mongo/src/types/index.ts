@@ -106,6 +106,7 @@ interface ServiceOptions {
   outbox?: boolean,
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
+  escapeRegExp?: boolean;
 }
 
 export {
