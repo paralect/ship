@@ -1,5 +1,5 @@
-import schedule from 'node-schedule';
 import { EventEmitter } from 'events';
+import schedule from 'node-schedule';
 
 const eventEmitter = new EventEmitter();
 

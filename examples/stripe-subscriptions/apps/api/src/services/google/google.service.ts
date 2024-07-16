@@ -1,12 +1,16 @@
-import { OAuth2Client } from 'google-auth-library';
+import { OAuth2Client, TokenPayload } from 'google-auth-library';
+import _ from 'lodash';
+
+import { caseUtil } from 'utils';
 
 import config from 'config';
-import logger from 'logger';
+
+import { ToCamelCase } from 'types';
 
 const client = new OAuth2Client(
-  config.google.clientId,
-  config.google.clientSecret,
-  `${config.apiUrl}/account/sign-in/google`,
+  config.GOOGLE_CLIENT_ID,
+  config.GOOGLE_CLIENT_SECRET,
+  `${config.API_URL}/account/sign-in/google`,
 );
 
 const oAuthURL = client.generateAuthUrl({
@@ -14,31 +18,44 @@ const oAuthURL = client.generateAuthUrl({
   scope: ['email', 'profile'],
   include_granted_scopes: true,
 });
-  
-const exchangeCodeForToken = async (code: string) => {
-  try {
-    const { tokens } = await client.getToken(code);
-  
-    const ticket = await client.verifyIdToken({
-      idToken: tokens.id_token || '',
-      audience: config.google.clientId,
-    });
-  
-    return {
-      isValid: true,
-      payload: ticket.getPayload(),
-    };
-  } catch ({ message, ...rest }) {
-    return {
-      isValid: false,
-      payload: { message },
-    };
-  }
+
+type ConvertedPayload = ToCamelCase<TokenPayload> | undefined;
+
+type ExchangeResponse = {
+  isValid: boolean;
+  payload: ConvertedPayload | Error | null;
 };
 
+const exchangeCodeForToken = async (code?: string | string[] | undefined): Promise<ExchangeResponse> => {
+  if (!code || _.isArray(code)) {
+    return { isValid: false, payload: new Error('Code not found') };
+  }
+
+  try {
+    const { tokens } = await client.getToken(code);
+
+    if (!tokens.id_token) {
+      return { isValid: false, payload: new Error('ID token not found') };
+    }
+
+    const loginTicket = await client.verifyIdToken({
+      idToken: tokens.id_token,
+      audience: config.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = caseUtil.toCamelCase<ConvertedPayload>(loginTicket.getPayload());
+
+    return { isValid: true, payload };
+  } catch (e) {
+    if (e instanceof Error) {
+      return { isValid: false, payload: e };
+    }
+
+    return { isValid: false, payload: new Error(`Unknown error: ${e}`) };
+  }
+};
 
 export default {
   oAuthURL,
   exchangeCodeForToken,
 };
-  

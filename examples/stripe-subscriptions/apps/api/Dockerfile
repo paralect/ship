@@ -1,42 +1,47 @@
-FROM node:16.15.1-alpine3.15 as base
-RUN apk add --no-cache python3 py3-pip
-
-ARG NODE_ENV=production
-ARG APP_ENV
-ENV NODE_ENV=$NODE_ENV
-ENV APP_ENV=$APP_ENV
-
+# BUILDER - Stage 1
+FROM node:20-alpine AS builder
 WORKDIR /app
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+RUN npm install --global --no-update-notifier --no-fund turbo@1.10.3
+COPY . .
+RUN turbo prune --scope=api --docker
+
+# INSTALLER - Stage 2
+FROM node:20-alpine AS installer
+WORKDIR /app
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+RUN npm install --global --no-update-notifier --no-fund pnpm@8.15.7
+
+# First install the dependencies (as they change less often)
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+RUN pnpm fetch
+
+# Build the project and its dependencies
+COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY --from=builder /app/out/full/ .
+RUN pnpm install -r --prefer-offline --ignore-scripts
+COPY --from=builder /app/out/full/turbo.json ./turbo.json
+
+# DEVELOPMENT - Stage 3
+FROM installer AS development
+CMD pnpm turbo run dev --scope=api
+
+# RUNNER - Stage 4
+FROM node:20-alpine AS runner
+WORKDIR /app
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+RUN npm install --global --no-update-notifier --no-fund ts-node@10.9.1
+
+# Don't run production as root
+RUN addgroup --system --gid 1001 app
+RUN adduser --system --uid 1001 app
+USER app
+
+COPY --from=installer /app .
+
 EXPOSE 3001
-COPY ["./package*.json", "/app/"]
-COPY ["./apps/api/package*.json", "./apps/api/.eslintrc.js", "./apps/api/tsconfig.json", "/app/apps/api/"]
-RUN npm pkg delete scripts.prepare
 
-# ---- Dependencies ----
-FROM base AS dependencies
-WORKDIR /app/apps/api
-# install node packages
-RUN npm ci --include=dev --quiet
-
-# Rewrite global node_modules with local ones (if exists)
-RUN if [ -e /app/apps/api/node_modules ]; then \
-    cp -Rf /app/apps/api/node_modules/* /app/node_modules; \
-    fi
-
-# ---- Build ----
-FROM dependencies AS build
-COPY ./apps/api/src /app/apps/api/src
-RUN npm run build
-
-FROM build AS development
-CMD npm run dev
-
-#
-# ---- Release ----
-FROM base AS release
-# copy production node_modules
-COPY --from=dependencies /app/node_modules ./node_modules
-# copy built dist
-COPY --from=build /app/apps/api/dist /app/apps/api/dist
-
-CMD npm --prefix=apps/api start
+CMD ["ts-node", "apps/api/src/app.ts"]

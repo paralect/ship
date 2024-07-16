@@ -2,32 +2,32 @@
 
 ## Starting application with Turborepo
 
-To run infra and all services -- just run: `npm start` 🚀
+To run infra and all services -- just run: `pnpm start` 🚀
 
 ### Turborepo: Running infra and services separately
 
 1. Start base infra services in Docker containers:
 
 ```bash
-npm run infra
+pnpm run infra
 ```
 
 2. Run services with Turborepo
 
 ```bash
-npm run turbo-start
+pnpm run turbo-start
 ```
 
 ## Using Ship with Docker
 
-To run infra and all services -- just run: `npm run docker` 🚀
+To run infra and all services -- just run: `pnpm run docker` 🚀
 
 ### Docker: Running infra and services separately
 
 1. Start base infra services in Docker containers:
 
 ```bash
-npm run infra
+pnpm run infra
 ```
 
 2. Run services you need:

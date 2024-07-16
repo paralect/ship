@@ -1,44 +1,18 @@
-import { FC, ReactElement } from 'react';
-
-import {
-  SimpleGrid,
-  Image,
-  MediaQuery,
-} from '@mantine/core';
-
-import { useStyles } from './styles';
+import React, { FC, ReactElement } from 'react';
+import { Center, Image, SimpleGrid } from '@mantine/core';
 
 interface UnauthorizedLayoutProps {
   children: ReactElement;
 }
 
-const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => {
-  const { classes } = useStyles();
-  return (
-    <SimpleGrid
-      cols={2}
-      breakpoints={[
-        { maxWidth: 'sm', cols: 1, spacing: 'sm' },
-      ]}
-    >
-      <MediaQuery
-        smallerThan="sm"
-        styles={{ display: 'none' }}
-      >
-        <Image
-          alt="app info"
-          src="../images/ship.svg"
-          height="100vh"
-        />
-      </MediaQuery>
+const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => (
+  <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
+    <Image h="100vh" src="/images/ship.svg" alt="App Info" visibleFrom="sm" />
 
-      <div className={classes.wrapper}>
-        <main className={classes.content}>
-          {children}
-        </main>
-      </div>
-    </SimpleGrid>
-  );
-};
+    <Center component="main" h="100vh" w="100%" px={32}>
+      {children}
+    </Center>
+  </SimpleGrid>
+);
 
 export default UnauthorizedLayout;

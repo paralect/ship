@@ -1,9 +1,10 @@
-import config from 'config';
 import Stripe from 'stripe';
-import { AppKoaContext, AppRouter, Next } from 'types';
 
 import { stripeService } from 'services';
-import { userService } from 'resources/user';
+
+import config from 'config';
+
+import { AppKoaContext, AppRouter, Next } from 'types';
 
 import stripeHandler from './stripe-handler';
 
@@ -11,19 +12,26 @@ interface ValidatedData {
   event: Stripe.Event;
 }
 
+type SubscriptionUpdate = Stripe.Subscription & {
+  plan: {
+    id: string;
+    product: string;
+    interval: string;
+  };
+};
 async function validator(ctx: AppKoaContext, next: Next) {
   const signature = ctx.request.header['stripe-signature'];
 
   ctx.assertError(signature, 'Stripe signature header is missing');
 
   try {
-    const event = stripeService.webhooks.constructEvent(ctx.request.rawBody, signature, config.stripe.webhookSecret);
+    const event = stripeService.webhooks.constructEvent(ctx.request.rawBody, signature, config.STRIPE_WEBHOOK_SECRET);
 
     ctx.validatedData = {
       event,
     };
-  } catch (err: any) {
-    ctx.throwError(`Webhook Error: ${err.message}`);
+  } catch (err) {
+    ctx.throwError(`Webhook Error: ${err}`);
   }
 
   await next();
@@ -32,9 +40,13 @@ async function validator(ctx: AppKoaContext, next: Next) {
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { event } = ctx.validatedData;
 
+  let paymentMethod: Stripe.PaymentMethod;
+  let setupIntent: Stripe.SetupIntent;
+
   switch (event.type) {
     case 'setup_intent.succeeded':
-      const setupIntent = event.data.object as Stripe.SetupIntent;
+      setupIntent = event.data.object;
+
       await Promise.all([
         stripeHandler.updateCustomerDefaultPaymentMethod({
           customer: setupIntent.customer as string,
@@ -45,22 +57,29 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
           paymentMethod: setupIntent.payment_method as string,
         }),
       ]);
-      return;
+      break;
+
+    case 'customer.subscription.created':
+      await stripeHandler.updateUserSubscription(event.data.object as SubscriptionUpdate);
+      break;
 
     case 'payment_method.attached':
-      const paymentMethod = event.data.object as Stripe.PaymentMethod;
+      paymentMethod = event.data.object;
       await stripeHandler.updateCustomerDefaultPaymentMethod({
         customer: paymentMethod.customer as string,
         paymentMethod: paymentMethod.id as string,
       });
-      return;
+      break;
 
     case 'customer.subscription.updated':
-      await stripeHandler.updateUserSubscription(event.data.object);
-      return;
+      await stripeHandler.updateUserSubscription(event.data.object as SubscriptionUpdate);
+      break;
 
     case 'customer.subscription.deleted':
       await stripeHandler.deleteUserSubscription(event.data.object);
+      break;
+    default:
+      logger.info('Unhandled event type', event.type);
   }
 
   ctx.status = 200;

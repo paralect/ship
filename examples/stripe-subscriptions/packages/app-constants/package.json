@@ -1,0 +1,26 @@
+{
+  "name": "app-constants",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "test:tsc": "tsc --noEmit",
+    "test:eslint": "eslint \"**/*.ts\" --fix",
+    "precommit": "lint-staged"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "eslint": "*",
+    "eslint-config-custom": "workspace:*",
+    "lint-staged": "*",
+    "prettier": "*",
+    "prettier-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "*"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix"
+    ]
+  }
+}

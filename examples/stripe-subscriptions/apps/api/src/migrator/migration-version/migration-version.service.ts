@@ -1,25 +1,24 @@
-import db from 'db';
 import fs from 'fs';
 import path from 'path';
 
+import { Migration } from 'migrator/types';
+
+import db from 'db';
+
 import schema from './migration-version.schema';
 import { MigrationVersion } from './migration-version-types';
-
-import { Migration } from '../types';
 
 const service = db.createService<MigrationVersion>('__migrationVersion', {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 
-const migrationsPath = path.join(__dirname, '../migrations');
+const migrationPaths = path.join(__dirname, '../migrations');
 const id = 'migration_version';
 
-const getMigrationNames = (): string[] => {
-  return fs.readdirSync(migrationsPath).filter(file => !file.endsWith('.js.map'));
-};
+const getMigrationNames = (): string[] => fs.readdirSync(migrationPaths).filter((file) => !file.endsWith('.js.map'));
 
-const getCurrentMigrationVersion = () => service.findOne({ _id: id })
-  .then((doc: MigrationVersion | null) => {
+const getCurrentMigrationVersion = () =>
+  service.findOne({ _id: id }).then((doc: MigrationVersion | null) => {
     if (!doc) {
       return 0;
     }
@@ -32,7 +31,7 @@ const getMigrations = (): Migration[] => {
 
   const names = getMigrationNames();
   migrations = names.map((name: string) => {
-    const migrationPath = path.join(migrationsPath, name);
+    const migrationPath = path.join(migrationPaths, name);
     return require(migrationPath);
   });
 
@@ -49,7 +48,9 @@ const setNewMigrationVersion = (version: number) =>
       $setOnInsert: {
         _id: id,
       },
-    }, {}, { upsert: true },
+    },
+    {},
+    { upsert: true },
   );
 
 export default Object.assign(service, {

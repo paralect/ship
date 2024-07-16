@@ -1,8 +1,9 @@
 import { z } from 'zod';
+
+import { validateMiddleware } from 'middlewares';
 import { stripeService } from 'services';
 
 import { AppKoaContext, AppRouter, Next } from 'types';
-import { validateMiddleware } from 'middlewares';
 
 enum PageDirections {
   BACK = 'back',

@@ -1,39 +1,38 @@
-import { FC } from 'react';
-import { QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import Head from 'next/head';
+import React, { FC } from 'react';
 import { AppProps } from 'next/app';
-import { Global, MantineProvider } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
+import Head from 'next/head';
+import { MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
+import { Notifications } from '@mantine/notifications';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+import theme from 'theme';
 
 import queryClient from 'query-client';
-import shipTheme from 'theme/ship-theme';
-import { globalStyles } from 'theme/globalStyles';
 
 import PageConfig from './PageConfig';
+
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => (
   <>
     <Head>
       <title>Ship</title>
     </Head>
+
     <QueryClientProvider client={queryClient}>
-      <MantineProvider
-        theme={shipTheme}
-        withGlobalStyles
-        withNormalizeCSS
-      >
+      <MantineProvider theme={theme}>
         <ModalsProvider>
-          <NotificationsProvider autoClose={10000}>
-            {/* @ts-ignore */ }
-            <Global styles={globalStyles} />
-            <PageConfig>
-              <Component {...pageProps} />
-            </PageConfig>
-          </NotificationsProvider>
+          <PageConfig>
+            <Component {...pageProps} />
+          </PageConfig>
         </ModalsProvider>
-        <ReactQueryDevtools position="bottom-right" />
+
+        <Notifications autoClose={10000} />
+        <ReactQueryDevtools buttonPosition="bottom-left" />
       </MantineProvider>
     </QueryClientProvider>
   </>

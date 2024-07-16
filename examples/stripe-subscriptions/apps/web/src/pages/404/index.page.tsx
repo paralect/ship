@@ -1,54 +1,26 @@
-import { useCallback } from 'react';
+import React, { NextPage } from 'next';
 import Head from 'next/head';
 import router from 'next/router';
-import { NextPage } from 'next';
+import { Button, Stack, Text, Title } from '@mantine/core';
 
 import { RoutePath } from 'routes';
-import {
-  Stack,
-  Title,
-  Text,
-  Button,
-} from '@mantine/core';
 
-const NotFound: NextPage = () => {
-  const handleClick = useCallback(() => {
-    router.push(RoutePath.Home);
-  }, []);
+const NotFound: NextPage = () => (
+  <>
+    <Head>
+      <title>Page not found</title>
+    </Head>
 
-  return (
-    <>
-      <Head>
-        <title>Page not found</title>
-      </Head>
-      <Stack sx={{
-        width: '328px',
-        height: '100vh',
-        display: 'flex',
-        margin: 'auto',
-        justifyContent: 'center',
-      }}
-      >
-        <Title order={2}>Oops! The page is not found.</Title>
-        <Text
-          component="p"
-          sx={(theme) => ({
-            color: theme.colors.gray[5],
-            margin: '20px 0 24px',
-          })}
-        >
-          The page you are looking for may have been removed,
-          or the link you followed may be broken.
-        </Text>
-        <Button
-          type="submit"
-          onClick={handleClick}
-        >
-          Go to homepage
-        </Button>
-      </Stack>
-    </>
-  );
-};
+    <Stack h="100vh" w={328} justify="center" m="auto">
+      <Title order={2}>Oops! The page is not found.</Title>
+
+      <Text mx={0} mt={20} mb={24} c="gray.6">
+        The page you are looking for may have been removed, or the link you followed may be broken.
+      </Text>
+
+      <Button onClick={() => router.push(RoutePath.Home)}>Go to homepage</Button>
+    </Stack>
+  </>
+);
 
 export default NotFound;
