@@ -11,6 +11,7 @@ export enum LayoutType {
 export enum RoutePath {
   // Private paths
   Home = '/',
+  OpenAI = '/open-ai',
   Profile = '/profile',
 
   // Auth paths
@@ -33,6 +34,10 @@ type RoutesConfiguration = {
 export const routesConfiguration: RoutesConfiguration = {
   // Private routes
   [RoutePath.Home]: {
+    scope: ScopeType.PRIVATE,
+    layout: LayoutType.MAIN,
+  },
+  [RoutePath.OpenAI]: {
     scope: ScopeType.PRIVATE,
     layout: LayoutType.MAIN,
   },

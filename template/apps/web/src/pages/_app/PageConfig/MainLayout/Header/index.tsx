@@ -8,8 +8,14 @@ import { LogoImage } from 'public/images';
 
 import { RoutePath } from 'routes';
 
+import NavBar from './components/NavBar';
 import ShadowLoginBanner from './components/ShadowLoginBanner';
 import UserMenu from './components/UserMenu';
+
+const DEFAULT_NAVBAR_OPTIONS = [
+  { label: 'Home', path: RoutePath.Home },
+  { label: 'OpenAI', path: RoutePath.OpenAI },
+];
 
 const Header: FC = () => {
   const { data: account } = accountApi.useGet();
@@ -21,9 +27,12 @@ const Header: FC = () => {
       {account.isShadow && <ShadowLoginBanner email={account.email} />}
 
       <Group h={72} px={32} py={0} justify="space-between" bg="white">
-        <Anchor component={Link} href={RoutePath.Home}>
-          <LogoImage />
-        </Anchor>
+        <Group justify="flex-start" gap={50}>
+          <Anchor component={Link} href={RoutePath.Home}>
+            <LogoImage />
+          </Anchor>
+          <NavBar options={DEFAULT_NAVBAR_OPTIONS} />
+        </Group>
 
         <UserMenu />
       </Group>
