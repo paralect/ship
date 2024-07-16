@@ -55,6 +55,11 @@ const usersService = database.createService<UserType>('users', {
   schemaValidator: (obj) => userSchema.parseAsync(obj),
 });
 
+const usersServiceEscapeRegExp = database.createService<UserType>('usersEsapeRegExp', {
+  schemaValidator: (obj) => userSchema.parseAsync(obj),
+  escapeRegExp: true,
+});
+
 const companyService = database.createService<CompanyType>('companies', {
   schemaValidator: (obj) => companySchema.parseAsync(obj),
 });
@@ -65,6 +70,7 @@ describe('service.ts', () => {
   });
   after(async () => {
     await usersService.drop();
+    await usersServiceEscapeRegExp.drop();
     await database.close();
   });
   it('should create and find document', async () => {
@@ -625,4 +631,39 @@ describe('service.ts', () => {
     //@ts-expect-error
     deletedMembers[0]?.permissions?.should.to.be.undefined;
   });
+
+  it('should escape regexp', async () => {
+    const users = await usersServiceEscapeRegExp.insertMany([
+      { fullName: 'A(B).Nosov' },
+      { fullName: 'A(B).Nosov' },
+      { fullName: 'I.Krivoshey' },
+      { fullName: ' ] \ ^ $ . | ? * + ( )' },
+    ]);
+ 
+    const { results: nosovUsers } = await usersServiceEscapeRegExp.find({
+      fullName: { $regex: 'A(B).Nosov' },
+    });
+    const targetIds = users.map((p) => p._id);
+    targetIds.slice(0, 2).should.be.deep.equal(nosovUsers.map((u) => u._id));
+ 
+ 
+    const randomUser = await usersServiceEscapeRegExp.findOne({
+      fullName: { $regex: ' ] \ ^ $ . | ? * + ( )' },
+    });
+    targetIds[3].should.be.equal(randomUser?._id);
+  });
+  it('should not escape regexp', async () => {
+    await usersService.insertMany([
+      { fullName: '$Ken BL' },
+      { fullName: 'John Dow*^' },
+    ]);
+    
+    const { results: newUsers } = await usersService.find({
+      $or: [
+        { fullName: { $regex: '$Ken BL' } },
+        { fullName: { $regex: 'John Dow*^' } },
+      ],
+    });
+    (newUsers.length).should.be.equal(0);
+  }); 
 });
