@@ -11,6 +11,7 @@ refer to the [API section in Ship documentation](https://ship.paralect.com/docs/
 ### Prerequisites
 
 Ensure you have a `.env` file. If not, create one by copying the `.env.example` file:
+
 ```sh
 cp .env.example .env
 ```
@@ -18,6 +19,7 @@ cp .env.example .env
 ### Running the Application
 
 You can start the application in two ways:
+
 1. **Independent Start**: Navigate to the `api` folder and run:
    ```sh
    pnpm run dev
