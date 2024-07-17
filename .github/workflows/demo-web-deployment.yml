@@ -1,12 +1,12 @@
-name: 'Demo Web deployment'
+name: Demo Web deployment
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'template/apps/web/**'
-      - 'template/packages/**'
+      - template/apps/web/**
+      - template/packages/**
   workflow_dispatch:
 
 jobs:

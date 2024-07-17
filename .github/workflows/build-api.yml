@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'template/apps/api/**'
-      - 'template/packages/**'
+      - template/apps/api/**
+      - template/packages/**
   workflow_dispatch:
 
 jobs:

@@ -1,10 +1,10 @@
-name: 'Storybook deployment'
+name: Storybook deployment
 
 on:
-#  push:
-#    branches: [ main ]
-#    paths:
-#      - 'template/apps/web/src/components/**'
+  #  push:
+  #    branches: [ main ]
+  #    paths:
+  #      - 'template/apps/web/src/components/**'
   workflow_dispatch:
     inputs:
       sha:
