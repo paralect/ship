@@ -63,12 +63,18 @@
     "prettier-config-custom": "workspace:*",
     "storybook": "8.2.0",
     "storybook-dark-mode": "4.0.2",
+    "stylelint": "16.7.0",
+    "stylelint-config-standard-scss": "13.1.0",
     "tsconfig": "workspace:*",
     "typescript": "5.2.2"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix"
+    ],
+    "*.{css,scss}": [
+      "stylelint --fix",
+      "prettier --write"
     ]
   }
 }
