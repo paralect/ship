@@ -4,7 +4,11 @@ module.exports = {
     browser: true,
     node: true,
   },
-  settings: { react: { version: 'detect' } },
+  settings: {
+    react: {
+      version: '18.3',
+    },
+  },
   rules: {
     'react/prop-types': 'off',
     'react/require-default-props': 'off',

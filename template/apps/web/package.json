@@ -8,10 +8,12 @@
     "build": "next build",
     "dev": "next dev -p 3002",
     "start": "next start -p 3002",
-    "ts-lint": "tsc --noEmit --incremental --watch",
-    "precommit": "lint-staged && next lint --fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tsc": "tsc --noEmit --watch",
+    "prettier": "prettier . --write --config .prettierrc.json",
+    "eslint": "eslint . --fix",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@hookform/resolvers": "3.3.4",
@@ -51,6 +53,7 @@
     "@tanstack/react-query-devtools": "5.50.1",
     "@types/lodash": "4.17.6",
     "@types/mixpanel-browser": "2.49.0",
+    "@types/node": "20.11.1",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "eslint": "8.56.0",
@@ -70,10 +73,15 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "bash -c 'tsc --noEmit'",
+      "prettier --write"
     ],
-    "*.{css,scss}": [
+    "*.css": [
       "stylelint --fix",
+      "prettier --write"
+    ],
+    "!(*.css|*.ts|*.tsx)": [
       "prettier --write"
     ]
   }
