@@ -22,10 +22,9 @@ interface ValidatedData extends z.infer<typeof schema> {
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const user = await userService.findOne({ email: ctx.validatedData.email });
 
-  if (!user) {
-    ctx.status = 204;
-    return;
-  }
+  ctx.assertClientError(user, {
+    email: 'The email address is not associated with any account.',
+  });
 
   ctx.validatedData.user = user;
   await next();
