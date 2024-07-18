@@ -28,7 +28,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const user = await userService.findOne({ resetPasswordToken: token });
 
   ctx.assertClientError(user, {
-    email: 'The email address is not associated with any account.',
+    email: 'The email address is not associated with any existing account.',
   });
 
   ctx.validatedData.user = user;
