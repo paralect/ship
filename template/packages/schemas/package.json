@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "enums": "workspace:*",
+    "app-constants": "workspace:*",
     "zod": "*"
   },
   "devDependencies": {

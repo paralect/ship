@@ -4,49 +4,17 @@ import Head from 'next/head';
 import { Stack, Title } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { ColumnDef, SortDirection } from '@tanstack/react-table';
+import { SortDirection } from '@tanstack/react-table';
 import { pick } from 'lodash';
 
-import { userApi, UsersListParams, UsersListSortParams } from 'resources/user';
+import { userApi, UsersListParams } from 'resources/user';
 
 import { Table } from 'components';
 
 import { User } from 'types';
 
 import Filters from './components/Filters';
-
-const DEFAULT_PAGE = 1;
-const PER_PAGE = 10;
-const EXTERNAL_SORT_FIELDS: Array<keyof UsersListSortParams> = ['createdOn'];
-
-const DEFAULT_PARAMS: UsersListParams = {
-  page: DEFAULT_PAGE,
-  searchValue: '',
-  perPage: PER_PAGE,
-  sort: {
-    createdOn: 'desc',
-  },
-};
-
-const COLUMNS: ColumnDef<User>[] = [
-  {
-    accessorKey: 'firstName',
-    header: 'First Name',
-    cell: (info) => info.getValue(),
-    enableSorting: true,
-  },
-  {
-    accessorKey: 'lastName',
-    header: 'Last Name',
-    cell: (info) => info.getValue(),
-    enableSorting: true,
-  },
-  {
-    accessorKey: 'email',
-    header: 'Email',
-    cell: (info) => info.getValue(),
-  },
-];
+import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
 
 const Home: NextPage = () => {
   const [params, setParams] = useSetState<UsersListParams>(DEFAULT_PARAMS);

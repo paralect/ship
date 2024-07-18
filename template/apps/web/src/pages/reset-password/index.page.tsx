@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { Button, PasswordInput, Stack, Text, Title } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { accountApi } from 'resources/account';
 
@@ -13,21 +12,10 @@ import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
 
-import { PASSWORD_REGEX } from 'app-constants';
-import { QueryParam } from 'types';
+import { resetPasswordSchema } from 'schemas';
+import { ResetPasswordParams } from 'types';
 
-const schema = z.object({
-  password: z
-    .string()
-    .regex(
-      PASSWORD_REGEX,
-      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
-    ),
-});
-
-interface ResetPasswordParams extends z.infer<typeof schema> {
-  token: QueryParam;
-}
+const schema = resetPasswordSchema.omit({ token: true });
 
 const ResetPassword: NextPage = () => {
   const [isSubmitted, setSubmitted] = useState(false);
@@ -39,12 +27,14 @@ const ResetPassword: NextPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Omit<ResetPasswordParams, 'token'>>({ resolver: zodResolver(schema) });
+  } = useForm<ResetPasswordParams>({ resolver: zodResolver(schema) });
 
   const { mutate: resetPassword, isPending: isResetPasswordPending } =
     accountApi.useResetPassword<ResetPasswordParams>();
 
-  const onSubmit = ({ password }: Omit<ResetPasswordParams, 'token'>) =>
+  const onSubmit = ({ password }: ResetPasswordParams) => {
+    if (typeof token !== 'string') return;
+
     resetPassword(
       {
         password,
@@ -55,6 +45,7 @@ const ResetPassword: NextPage = () => {
         onError: (e) => handleApiError(e),
       },
     );
+  };
 
   if (!token) {
     return (
@@ -94,6 +85,7 @@ const ResetPassword: NextPage = () => {
 
       <Stack w={328}>
         <Title order={2}>Reset Password</Title>
+
         <Text mt={0}>Please choose your new password</Text>
 
         <form onSubmit={handleSubmit(onSubmit)}>
