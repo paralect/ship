@@ -39,7 +39,7 @@ jobs:
           cache: pnpm
 
       - name: Install Dependencies
-        run: pnpm install
+        run: cd template && pnpm install
 
       - name: Run Linters
         uses: wearerequired/lint-action@v2
