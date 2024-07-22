@@ -9,6 +9,8 @@ export type ListResult<T> = {
   count: number;
 };
 
+export type ChatListResult<T> = Omit<ListResult<T>, 'pagesCount'>;
+
 export type SortOrder = 'asc' | 'desc';
 
 export type SortParams<F> = {
