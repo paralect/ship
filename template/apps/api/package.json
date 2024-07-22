@@ -19,6 +19,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "@ai-sdk/openai": "0.0.36",
     "@aws-sdk/client-s3": "3.540.0",
     "@aws-sdk/lib-storage": "3.540.0",
     "@aws-sdk/s3-request-presigner": "3.540.0",
@@ -28,6 +29,7 @@
     "@paralect/node-mongo": "3.2.0",
     "@socket.io/redis-adapter": "8.1.0",
     "@socket.io/redis-emitter": "5.1.0",
+    "ai": "3.2.26",
     "app-constants": "workspace:*",
     "app-types": "workspace:*",
     "bcryptjs": "2.4.3",
