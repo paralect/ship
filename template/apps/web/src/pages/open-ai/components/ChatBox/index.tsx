@@ -34,9 +34,9 @@ const ChatBox: FC<ChatBoxProps> = ({ selectedChatId, onChatSelect }) => {
   const { data: chat } = aiChatApi.useSelectedChat({ chatId: selectedChatId });
 
   const chatParent = useRef<HTMLDivElement>(null);
-  const prevChatId = useRef<string | null>(selectedChatId);
+  const skipNextUpdate = useRef<boolean>(false);
 
-  const [localMessages, setLocalMessages] = useState<AIMessage[]>(() => chat?.messages || []);
+  const [localMessages, setLocalMessages] = useState<AIMessage[]>(chat?.messages || []);
 
   const addLocalMessage = useCallback((message: AIMessage) => {
     setLocalMessages((prevMessages) => [...prevMessages, message]);
@@ -52,9 +52,12 @@ const ChatBox: FC<ChatBoxProps> = ({ selectedChatId, onChatSelect }) => {
   });
 
   useLayoutEffect(() => {
-    if (![selectedChatId, null].includes(prevChatId.current) && chat?.messages.length) {
-      setLocalMessages(chat.messages);
-      prevChatId.current = selectedChatId;
+    if (chat?.messages.length && selectedChatId !== null) {
+      if (!skipNextUpdate.current) {
+        setLocalMessages(chat.messages);
+      } else {
+        skipNextUpdate.current = false;
+      }
     }
     if (!selectedChatId) {
       setLocalMessages([]);
@@ -70,6 +73,11 @@ const ChatBox: FC<ChatBoxProps> = ({ selectedChatId, onChatSelect }) => {
         content: trimmedValue,
         id: crypto.randomUUID(),
       });
+
+      if (!selectedChatId) {
+        skipNextUpdate.current = true;
+      }
+
       fetchData({ requestTextValue: trimmedValue, chatId: selectedChatId });
     },
     [selectedChatId, fetchData],
@@ -94,7 +102,6 @@ const ChatBox: FC<ChatBoxProps> = ({ selectedChatId, onChatSelect }) => {
       )}
       <Flex
         ref={chatParent}
-        flex="flex"
         p={20}
         justify="flex-start"
         style={{
