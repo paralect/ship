@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Flex, Paper, ScrollArea, Stack, Text, UnstyledButton } from '@mantine/core';
 
 import { aiChatApi } from 'resources/ai-chat';
@@ -46,4 +46,4 @@ const ChatList: React.FC<ChatListProps> = ({ onChatSelect, selectedChat }) => {
   );
 };
 
-export default memo(ChatList);
+export default ChatList;

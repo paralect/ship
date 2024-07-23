@@ -1,9 +1,9 @@
 import React, { FC, memo } from 'react';
-import { Box, Loader } from '@mantine/core';
+import { Box, Loader, Space } from '@mantine/core';
 
 import { AIMessage, ChatRoleType } from 'types';
 
-import CustomPre from '../CustomPre/index';
+import CustomPre from '../CustomPre';
 import DynamicMessage from '../DynamicMessage';
 
 interface MessageListProps {
@@ -31,7 +31,7 @@ const MessageList: FC<MessageListProps> = ({ messages, isLoading, streamParts })
             >
               <CustomPre>{`${msg.content}`}</CustomPre>
             </Box>
-            <br />
+            <Space h="xs" />
           </React.Fragment>
         );
       }
@@ -39,7 +39,7 @@ const MessageList: FC<MessageListProps> = ({ messages, isLoading, streamParts })
       return (
         <React.Fragment key={msg.id}>
           <CustomPre>{`${msg.content}`}</CustomPre>
-          <br />
+          <Space h="xs" />
         </React.Fragment>
       );
     });

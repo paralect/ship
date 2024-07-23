@@ -1,5 +1,5 @@
 import React, { FC, memo, useState } from 'react';
-import { Button, Textarea } from '@mantine/core';
+import { Button, Flex, Textarea } from '@mantine/core';
 
 interface MessageInputProps {
   onSendMessage: (message: string) => void;
@@ -14,7 +14,7 @@ const MessageInput: FC<MessageInputProps> = ({ onSendMessage }) => {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '10px' }}>
+    <Flex gap={10}>
       <Textarea
         w="100%"
         value={inputValue}
@@ -32,7 +32,7 @@ const MessageInput: FC<MessageInputProps> = ({ onSendMessage }) => {
       <Button size="s" style={{ flexShrink: 0 }} onClick={handleSendMessage}>
         Send
       </Button>
-    </div>
+    </Flex>
   );
 };
 

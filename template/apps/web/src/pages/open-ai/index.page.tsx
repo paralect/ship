@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { Container, Flex, Stack, Title } from '@mantine/core';
 
 import ChatBox from './components/ChatBox';
-import ChatList from './components/ChatsList/index';
+import ChatList from './components/ChatsList';
 
 const OpenAI: NextPage = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);

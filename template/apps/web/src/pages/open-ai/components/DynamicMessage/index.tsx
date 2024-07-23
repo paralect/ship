@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import CustomPre from '../CustomPre/index';
+import CustomPre from '../CustomPre';
 
 interface DynamicMessageProps {
   streamParts: string[];
