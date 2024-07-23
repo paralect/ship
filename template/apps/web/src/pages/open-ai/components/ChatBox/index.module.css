@@ -1,0 +1,6 @@
+.list {
+  overflow-y: scroll;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+}

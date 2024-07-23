@@ -1,0 +1,8 @@
+.container {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--mantine-color-gray-4);
+  height: calc(100vh - 200px);
+  padding: 0;
+  width: 100%;
+}

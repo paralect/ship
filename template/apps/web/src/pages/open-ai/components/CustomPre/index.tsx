@@ -1,22 +1,14 @@
 import React from 'react';
 import { Text } from '@mantine/core';
 
+import classes from './index.module.css';
+
 interface CustomPreProps {
   children: React.ReactNode;
 }
 
 const CustomPre: React.FC<CustomPreProps> = ({ children }) => (
-  <Text
-    component="pre"
-    m={0}
-    maw="100%"
-    style={{
-      whiteSpace: 'pre-wrap',
-      wordBreak: 'break-word',
-      overflowWrap: 'break-word',
-      flexGrow: 0,
-    }}
-  >
+  <Text component="pre" className={classes.pre}>
     {children}
   </Text>
 );

@@ -1,0 +1,8 @@
+.pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  flex-grow: 0;
+  max-width: 100%;
+  margin: 0;
+}

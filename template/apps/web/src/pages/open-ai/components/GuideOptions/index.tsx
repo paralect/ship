@@ -1,6 +1,8 @@
 import React from 'react';
 import { Flex, Paper, Text } from '@mantine/core';
 
+import classes from './index.module.css';
+
 interface Option {
   title: string;
   content: string;
@@ -20,7 +22,7 @@ const GuideOptions: React.FC<GuideOptionsProps> = ({ options, onOptionClick }) =
         radius="lg"
         withBorder
         p="md"
-        style={{ cursor: 'pointer' }}
+        className={classes.option}
         maw={150}
         onClick={() => onOptionClick({ requestTextValue: option.content, chatId: null })}
       >

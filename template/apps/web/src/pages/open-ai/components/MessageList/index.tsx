@@ -6,6 +6,8 @@ import { AIMessage, ChatRoleType } from 'types';
 import CustomPre from '../CustomPre';
 import DynamicMessage from '../DynamicMessage';
 
+import classes from './index.module.css';
+
 interface MessageListProps {
   messages: AIMessage[];
   isLoading: boolean;
@@ -18,17 +20,7 @@ const MessageList: FC<MessageListProps> = ({ messages, isLoading, streamParts })
       if (msg.role === ChatRoleType.USER) {
         return (
           <React.Fragment key={msg.id}>
-            <Box
-              bg="pink"
-              p={5}
-              maw="70%"
-              c="white"
-              style={{
-                alignSelf: 'flex-end',
-                flexGrow: 0,
-                borderRadius: 8,
-              }}
-            >
+            <Box className={classes.container}>
               <CustomPre>{`${msg.content}`}</CustomPre>
             </Box>
             <Space h="xs" />

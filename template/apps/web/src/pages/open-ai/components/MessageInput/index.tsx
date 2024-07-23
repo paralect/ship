@@ -1,6 +1,8 @@
 import React, { FC, memo, useState } from 'react';
 import { Button, Flex, Textarea } from '@mantine/core';
 
+import classes from './index.module.css';
+
 interface MessageInputProps {
   onSendMessage: (message: string) => void;
 }
@@ -29,7 +31,7 @@ const MessageInput: FC<MessageInputProps> = ({ onSendMessage }) => {
         minRows={1}
         maxRows={4}
       />
-      <Button size="s" style={{ flexShrink: 0 }} onClick={handleSendMessage}>
+      <Button size="s" className={classes.button} onClick={handleSendMessage}>
         Send
       </Button>
     </Flex>

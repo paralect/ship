@@ -10,6 +10,8 @@ import GuideOptions from '../GuideOptions';
 import MessageInput from '../MessageInput';
 import MessageList from '../MessageList';
 
+import classes from './index.module.css';
+
 const GUIDE_OPTIONS = [
   {
     title: 'ChatGPT started guide',
@@ -100,15 +102,7 @@ const ChatBox: FC<ChatBoxProps> = ({ selectedChatId, onChatSelect }) => {
           <GuideOptions options={GUIDE_OPTIONS} onOptionClick={handleOptionClick} />
         </Stack>
       )}
-      <Flex
-        ref={chatParent}
-        p={20}
-        justify="flex-start"
-        style={{
-          overflowY: 'scroll',
-          flexDirection: 'column',
-        }}
-      >
+      <Flex ref={chatParent} className={classes.list}>
         <MessageList messages={localMessages} isLoading={isLoading} streamParts={streamParts} />
       </Flex>
 

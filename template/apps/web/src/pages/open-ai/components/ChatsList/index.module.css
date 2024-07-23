@@ -1,0 +1,12 @@
+.container {
+  border-right: 1px solid var(--mantine-color-gray-4);
+  border-radius: 0;
+}
+
+.item {
+  border-radius: 8px;
+}
+
+.active {
+  background-color: var(--mantine-color-gray-1);
+}
