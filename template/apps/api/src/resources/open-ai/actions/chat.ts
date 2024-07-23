@@ -5,7 +5,7 @@ import z from 'zod';
 
 import { openAIService } from 'resources/open-ai';
 
-import { validateMiddleware } from 'middlewares';
+import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
 
 import { AiChat, AIMessage, AppKoaContext, AppRouter, ChatRoleType, Next } from 'types';
 
@@ -15,6 +15,10 @@ const createMessageFromText = ({ text, role }: { text: string; role: ChatRoleTyp
   role,
   createdOn: new Date(),
 });
+
+const REQUEST_LIMIT = 30;
+const REQUEST_INTERVAL = 1000 * 60 * 60;
+const REQUEST_MESSAGE = 'You have reached the limit of requests per hour. Please try again later.';
 
 const schema = z.object({
   prompt: z.string(),
@@ -113,5 +117,11 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/chat', validateMiddleware(schema), validator, handler);
+  router.post(
+    '/chat',
+    rateLimitMiddleware(REQUEST_INTERVAL, REQUEST_LIMIT, REQUEST_MESSAGE),
+    validateMiddleware(schema),
+    validator,
+    handler,
+  );
 };

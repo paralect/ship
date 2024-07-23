@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Box, Loader, Space } from '@mantine/core';
+import { Box, Loader, Paper, Space } from '@mantine/core';
 
 import { AIMessage, ChatRoleType } from 'types';
 
@@ -12,9 +12,10 @@ interface MessageListProps {
   messages: AIMessage[];
   isLoading: boolean;
   streamParts: string[];
+  errorMessage?: string | null;
 }
 
-const MessageList: FC<MessageListProps> = ({ messages, isLoading, streamParts }) => {
+const MessageList: FC<MessageListProps> = ({ messages, isLoading, streamParts, errorMessage }) => {
   const renderMessages = () =>
     messages.map((msg: AIMessage) => {
       if (msg.role === ChatRoleType.USER) {
@@ -40,6 +41,11 @@ const MessageList: FC<MessageListProps> = ({ messages, isLoading, streamParts })
     <>
       {renderMessages()}
       {isLoading && <Loader color="gray" size="xs" type="dots" />}
+      {errorMessage && (
+        <Paper c="red" w="100%" shadow="xs" p="xs">
+          {errorMessage}
+        </Paper>
+      )}
       {streamParts.length > 0 && <DynamicMessage streamParts={streamParts} />}
     </>
   );

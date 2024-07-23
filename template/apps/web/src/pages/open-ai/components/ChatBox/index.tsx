@@ -44,7 +44,7 @@ const ChatBox: FC<ChatBoxProps> = ({ selectedChatId, onChatSelect }) => {
     setLocalMessages((prevMessages) => [...prevMessages, message]);
   }, []);
 
-  const { fetchData, isLoading, streamParts } = useChatData(onChatSelect, addLocalMessage);
+  const { fetchData, isLoading, streamParts, error, cleanErrors } = useChatData(onChatSelect, addLocalMessage);
 
   useEffect(() => {
     const domNode = chatParent.current;
@@ -64,6 +64,10 @@ const ChatBox: FC<ChatBoxProps> = ({ selectedChatId, onChatSelect }) => {
     if (!selectedChatId) {
       setLocalMessages([]);
     }
+
+    return () => {
+      cleanErrors();
+    };
   }, [selectedChatId, chat]);
 
   const handleSendMessage = useCallback(
@@ -103,7 +107,7 @@ const ChatBox: FC<ChatBoxProps> = ({ selectedChatId, onChatSelect }) => {
         </Stack>
       )}
       <Flex ref={chatParent} className={classes.list}>
-        <MessageList messages={localMessages} isLoading={isLoading} streamParts={streamParts} />
+        <MessageList messages={localMessages} isLoading={isLoading} streamParts={streamParts} errorMessage={error} />
       </Flex>
 
       <Container pos="absolute" bottom={10} right={10} left={10}>
