@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Flex, Paper, Stack, Text } from '@mantine/core';
 
 import { GuideOption } from 'types';
@@ -32,4 +32,4 @@ const GuideOptions: FC<GuideOptionsProps> = ({ options, onOptionClick }) => (
   </Stack>
 );
 
-export default GuideOptions;
+export default memo(GuideOptions);

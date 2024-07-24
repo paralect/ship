@@ -2,9 +2,13 @@ import { openai } from '@ai-sdk/openai';
 import { CoreMessage, streamText } from 'ai';
 import z from 'zod';
 
-import { validateMiddleware } from 'middlewares';
+import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
 
 import { AppKoaContext, AppRouter, ChatRoleType } from 'types';
+
+const REQUEST_LIMIT = 5;
+const REQUEST_INTERVAL = 1000 * 60 * 60;
+const REQUEST_MESSAGE = 'You have reached the limit of requests per hour. Please try again later.';
 
 const schema = z.object({
   messages: z.array(
@@ -37,11 +41,16 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   let done = false;
 
   while (!done) {
-    // eslint-disable-next-line no-await-in-loop
-    const { value, done: readerDone } = await reader.read();
-    done = readerDone;
-    if (value) {
-      ctx.res.write(value);
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      const { value, done: readerDone } = await reader.read();
+      done = readerDone;
+      if (value) {
+        ctx.res.write(value);
+      }
+    } catch (err) {
+      ctx.assertClientError(!err, { global: 'An error occurred while streaming the response.' });
+      done = true;
     }
   }
 
@@ -49,5 +58,10 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/', validateMiddleware(schema), handler);
+  router.post(
+    '/',
+    rateLimitMiddleware(REQUEST_INTERVAL, REQUEST_LIMIT, REQUEST_MESSAGE),
+    validateMiddleware(schema),
+    handler,
+  );
 };

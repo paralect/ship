@@ -18,10 +18,18 @@ const MessageList: FC<MessageListProps> = ({ messages }) => {
   const renderMessages = () =>
     messages.map((msg: Message) => {
       if (msg.role === ChatRoleType.USER) {
-        return <Text className={classes.container}>{msg.content.toString()}</Text>;
+        return (
+          <Text key={msg.id} className={classes.container}>
+            {msg.content.toString()}
+          </Text>
+        );
       }
 
-      return <ReactMarkdown rehypePlugins={[rehypeHighlight] as PluggableList}>{msg.content.trim()}</ReactMarkdown>;
+      return (
+        <ReactMarkdown key={msg.id} rehypePlugins={[rehypeHighlight] as PluggableList}>
+          {msg.content.trim()}
+        </ReactMarkdown>
+      );
     });
 
   return <>{renderMessages()}</>;

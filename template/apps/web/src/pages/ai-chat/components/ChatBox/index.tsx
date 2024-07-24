@@ -14,16 +14,16 @@ import classes from './index.module.css';
 
 const GUIDE_OPTIONS: GuideOption[] = [
   {
-    title: 'ChatGPT started guide',
-    content: 'This is the content for ChatGPT started guide',
+    title: 'Started with AI Chat',
+    content: 'This is the content for Getting Started with AI Chat',
   },
   {
-    title: 'ChatGPT started guide 2',
-    content: 'This is the content for ChatGPT started guide 2',
+    title: 'Basic AI Chat Features',
+    content: 'This is the content for Basic AI Chat Features',
   },
   {
-    title: 'ChatGPT started guide 3',
-    content: 'This is the content for ChatGPT started guide 3',
+    title: 'Advanced AI Chat Tips',
+    content: 'This is the content for Advanced AI Chat Tips',
   },
 ];
 
@@ -31,6 +31,7 @@ const DEFAULT_CHAT_OPTIONS: UseChatOptions = {
   api: `${config.API_URL}/ai-chat`,
   credentials: 'include',
   streamMode: 'text',
+  keepLastMessageOnError: true,
 };
 
 const ChatBox: FC = () => {
@@ -45,12 +46,12 @@ const ChatBox: FC = () => {
     }
   });
 
-  const handleOptionClick = async ({ requestTextValue }: { requestTextValue: string }) => {
+  const handleOptionClick = useCallback(async ({ requestTextValue }: { requestTextValue: string }) => {
     await append({
       role: ChatRoleType.USER,
       content: requestTextValue,
     });
-  };
+  }, []);
 
   const handleStop = useCallback(() => {
     stop();
@@ -59,17 +60,18 @@ const ChatBox: FC = () => {
   return (
     <Flex direction="column" justify="flex-start" bg="white" w="100%" pos="relative" pb="65px" h="100%">
       {!messages.length && <GuideOptions options={GUIDE_OPTIONS} onOptionClick={handleOptionClick} />}
+
       <Flex ref={chatParent} className={classes.list}>
         <MessageList messages={messages} />
       </Flex>
 
       <Container pos="absolute" bottom={10} right={10} left={10}>
         <MessageInput
-          onSubmit={handleSubmit}
           inputValue={input}
+          isLoading={isLoading}
+          onSubmit={handleSubmit}
           onChange={handleInputChange}
           onStop={handleStop}
-          isLoading={isLoading}
         />
       </Container>
     </Flex>
