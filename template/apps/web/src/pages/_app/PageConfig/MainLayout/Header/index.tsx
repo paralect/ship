@@ -14,7 +14,7 @@ import UserMenu from './components/UserMenu';
 
 const DEFAULT_NAVBAR_OPTIONS = [
   { label: 'Home', path: RoutePath.Home },
-  { label: 'OpenAI', path: RoutePath.OpenAI },
+  { label: 'AI Chat', path: RoutePath.AIChat },
 ];
 
 const Header: FC = () => {

@@ -1,9 +1,9 @@
 .container {
   align-self: flex-end;
-  flex-grow: 0;
   border-radius: 8px;
   color: var(--mantine-color-default);
   max-width: 70%;
-  background-color: var(--mantine-color-pink-6);
+  background-color: var(--mantine-color-pink-5);
   padding: 5px;
+  display: inline-block;
 }

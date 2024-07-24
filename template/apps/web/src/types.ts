@@ -24,3 +24,8 @@ export type ListParams<T, F> = {
   filter?: T;
   sort?: SortParams<F>;
 };
+
+export type GuideOption = {
+  title: string;
+  content: string;
+};
