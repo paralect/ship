@@ -37,14 +37,14 @@ const createAuthTokens = async ({ userId, isShadow }: { userId: string; isShadow
   };
 };
 
-const findTokenByValue = async (token?: string | null): Promise<TokenPayload | null> => {
+const findTokenByValue = async (token?: string | null): Promise<Token | null> => {
   if (!token) return null;
 
-  const tokenEntity = await securityUtil.verifyJwtToken<TokenPayload>(token);
+  const tokenPayload = await securityUtil.verifyJwtToken<TokenPayload>(token);
 
-  if (!tokenEntity) return null;
+  if (!tokenPayload) return null;
 
-  return tokenEntity;
+  return service.findOne({ value: token });
 };
 
 const removeAuthTokens = async (accessToken: string) => service.deleteMany({ value: accessToken });
