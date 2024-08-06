@@ -44,7 +44,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const passwordHash = await securityUtil.getHash(password);
 
-  await db.withTransaction(async (session) =>
+  await db.withTransaction((session) =>
     Promise.all([
       userService.updateOne(
         { _id: user._id },
