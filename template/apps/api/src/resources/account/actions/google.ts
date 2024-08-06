@@ -38,7 +38,7 @@ const signInGoogleWithCode = async (ctx: AppKoaContext) => {
 
     await Promise.all([userService.updateLastRequest(userUpdated._id), authService.setTokens(ctx, userUpdated._id)]);
 
-    return;
+    ctx.redirect(config.WEB_URL);
   }
 
   const { givenName: firstName, familyName, email, picture: avatarUrl } = payload;
