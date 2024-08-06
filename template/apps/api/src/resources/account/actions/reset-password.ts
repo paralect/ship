@@ -1,9 +1,12 @@
 import { z } from 'zod';
 
+import { tokenService } from 'resources/token';
 import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
 import { securityUtil } from 'utils';
+
+import db from 'db';
 
 import { PASSWORD_REGEX } from 'app-constants';
 import { AppKoaContext, AppRouter, Next, User } from 'types';
@@ -41,10 +44,20 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const passwordHash = await securityUtil.getHash(password);
 
-  await userService.updateOne({ _id: user._id }, () => ({
-    passwordHash,
-    resetPasswordToken: null,
-  }));
+  await db.withTransaction(async (session) =>
+    Promise.all([
+      userService.updateOne(
+        { _id: user._id },
+        () => ({
+          passwordHash,
+          resetPasswordToken: null,
+        }),
+        {},
+        { session },
+      ),
+      tokenService.invalidateUserTokens(user._id),
+    ]),
+  );
 
   ctx.status = 204;
 }

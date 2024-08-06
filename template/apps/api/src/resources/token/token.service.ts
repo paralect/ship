@@ -1,3 +1,5 @@
+import { ClientSession } from '@paralect/node-mongo';
+
 import { securityUtil } from 'utils';
 
 import db from 'db';
@@ -49,8 +51,12 @@ const findTokenByValue = async (token?: string | null): Promise<Token | null> =>
 
 const removeAuthTokens = async (accessToken: string) => service.deleteMany({ value: accessToken });
 
+const invalidateUserTokens = async (userId: string, session?: ClientSession) =>
+  service.deleteMany({ userId }, {}, { session });
+
 export default Object.assign(service, {
   createAuthTokens,
   findTokenByValue,
   removeAuthTokens,
+  invalidateUserTokens,
 });
