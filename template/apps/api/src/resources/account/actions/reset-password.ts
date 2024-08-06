@@ -55,7 +55,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
         {},
         { session },
       ),
-      tokenService.invalidateUserTokens(user._id),
+      tokenService.invalidateUserTokens(user._id, session),
     ]),
   );
 
