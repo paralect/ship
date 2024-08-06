@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { Anchor, Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { accountApi } from 'resources/account';
 
@@ -14,34 +13,26 @@ import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
 
-import { EMAIL_REGEX } from 'app-constants';
-
-const schema = z.object({
-  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-});
-
-type ForgotPasswordParams = {
-  email: string;
-};
+import { emailSchema } from 'schemas';
+import { EmailParams } from 'types';
 
 const ForgotPassword: NextPage = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState('');
 
-  const { mutate: forgotPassword, isPending: isForgotPasswordPending } =
-    accountApi.useForgotPassword<ForgotPasswordParams>();
+  const { mutate: forgotPassword, isPending: isForgotPasswordPending } = accountApi.useForgotPassword<EmailParams>();
 
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<ForgotPasswordParams>({
-    resolver: zodResolver(schema),
+  } = useForm<EmailParams>({
+    resolver: zodResolver(emailSchema),
   });
 
-  const onSubmit = (data: ForgotPasswordParams) =>
+  const onSubmit = (data: EmailParams) =>
     forgotPassword(data, {
       onSuccess: () => setEmail(data.email),
       onError: (e) => handleApiError(e, setError),

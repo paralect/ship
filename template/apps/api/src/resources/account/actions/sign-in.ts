@@ -1,25 +1,13 @@
-import { z } from 'zod';
-
 import { userService } from 'resources/user';
 
 import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
 import { authService } from 'services';
 import { securityUtil } from 'utils';
 
-import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
-import { AppKoaContext, AppRouter, Next, User } from 'types';
+import { signInSchema } from 'schemas';
+import { AppKoaContext, AppRouter, Next, SignInParams, User } from 'types';
 
-const schema = z.object({
-  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z
-    .string()
-    .regex(
-      PASSWORD_REGEX,
-      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
-    ),
-});
-
-interface ValidatedData extends z.infer<typeof schema> {
+interface ValidatedData extends SignInParams {
   user: User;
 }
 
@@ -55,5 +43,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/sign-in', rateLimitMiddleware(), validateMiddleware(schema), validator, handler);
+  router.post('/sign-in', rateLimitMiddleware(), validateMiddleware(signInSchema), validator, handler);
 };
