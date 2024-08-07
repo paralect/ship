@@ -64,11 +64,13 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     });
   }
 
-  ctx.body = await userService.find(
+  const result = await userService.find(
     { ...(filterOptions.length && { $and: filterOptions }) },
     { page, perPage },
     { sort },
   );
+
+  ctx.body = {...result, results: result.results.map(userService.getPublic)};
 }
 
 export default (router: AppRouter) => {
