@@ -70,7 +70,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     { sort },
   );
 
-  ctx.body = {...result, results: result.results.map(userService.getPublic)};
+  ctx.body = { ...result, results: result.results.map(userService.getPublic) };
 }
 
 export default (router: AppRouter) => {
