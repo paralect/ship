@@ -24,7 +24,7 @@ export const setTokenCookies = ({ ctx, accessToken }: { ctx: AppKoaContext; acce
 };
 
 export const unsetTokenCookies = (ctx: AppKoaContext) => {
-  ctx.cookies.set(COOKIES.ACCESS_TOKEN);
+  ctx.cookies.set(COOKIES.ACCESS_TOKEN, null);
 };
 
 export default {
