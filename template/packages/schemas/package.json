@@ -10,6 +10,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "app-constants": "workspace:*",
     "enums": "workspace:*",
     "zod": "*"
   },

@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
@@ -8,14 +6,10 @@ import { securityUtil } from 'utils';
 
 import config from 'config';
 
-import { EMAIL_REGEX } from 'app-constants';
-import { AppKoaContext, AppRouter, Next, Template, User } from 'types';
+import { resendEmailSchema } from 'schemas';
+import { AppKoaContext, AppRouter, Next, ResendEmailParams, Template, User } from 'types';
 
-const schema = z.object({
-  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-});
-
-interface ValidatedData extends z.infer<typeof schema> {
+interface ValidatedData extends ResendEmailParams {
   user: User;
 }
 
@@ -57,5 +51,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/resend-email', validateMiddleware(schema), validator, handler);
+  router.post('/resend-email', validateMiddleware(resendEmailSchema), validator, handler);
 };

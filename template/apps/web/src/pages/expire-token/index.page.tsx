@@ -10,20 +10,19 @@ import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
 
-import { QueryParam } from 'types';
-
-type ForgotPasswordParams = {
-  email: QueryParam;
-};
-
-const ForgotPassword: NextPage = () => {
+const ExpireToken: NextPage = () => {
   const router = useRouter();
 
   const { email } = router.query;
 
   const [isSent, setSent] = useState(false);
 
-  const { mutate: resendEmail, isPending: isResendEmailPending } = accountApi.useResendEmail<ForgotPasswordParams>();
+  const { mutate: resendEmail, isPending: isResendEmailPending } = accountApi.useResendEmail();
+
+  if (!email || Array.isArray(email)) {
+    router.push(RoutePath.SignIn);
+    return null;
+  }
 
   const onSubmit = () =>
     resendEmail(
@@ -70,4 +69,4 @@ const ForgotPassword: NextPage = () => {
   );
 };
 
-export default ForgotPassword;
+export default ExpireToken;

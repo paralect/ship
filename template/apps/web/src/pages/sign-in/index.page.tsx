@@ -5,7 +5,6 @@ import { Alert, Anchor, Button, Group, PasswordInput, Stack, TextInput, Title } 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { accountApi } from 'resources/account';
 
@@ -16,14 +15,10 @@ import { handleApiError } from 'utils';
 import { RoutePath } from 'routes';
 import config from 'config';
 
-import { EMAIL_REGEX } from 'app-constants';
+import { signInSchema } from 'schemas';
+import { SignInParams } from 'types';
 
-const schema = z.object({
-  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z.string().min(1, 'Please enter password'),
-});
-
-type SignInParams = z.infer<typeof schema> & { credentials?: string };
+type SignInParamsWithCredentials = SignInParams & { credentials?: string };
 
 const SignIn: NextPage = () => {
   const {
@@ -31,11 +26,11 @@ const SignIn: NextPage = () => {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<SignInParams>({ resolver: zodResolver(schema) });
+  } = useForm<SignInParamsWithCredentials>({ resolver: zodResolver(signInSchema) });
 
-  const { mutate: signIn, isPending: isSignInPending } = accountApi.useSignIn<SignInParams>();
+  const { mutate: signIn, isPending: isSignInPending } = accountApi.useSignIn();
 
-  const onSubmit = (data: SignInParams) =>
+  const onSubmit = (data: SignInParamsWithCredentials) =>
     signIn(data, {
       onError: (e) => handleApiError(e, setError),
     });

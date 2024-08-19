@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 import { tokenService } from 'resources/token';
 import { userService } from 'resources/user';
 
@@ -8,20 +6,10 @@ import { securityUtil } from 'utils';
 
 import db from 'db';
 
-import { PASSWORD_REGEX } from 'app-constants';
-import { AppKoaContext, AppRouter, Next, User } from 'types';
+import { resetPasswordSchema } from 'schemas';
+import { AppKoaContext, AppRouter, Next, ResetPasswordParams, User } from 'types';
 
-const schema = z.object({
-  token: z.string().min(1, 'Token is required'),
-  password: z
-    .string()
-    .regex(
-      PASSWORD_REGEX,
-      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
-    ),
-});
-
-interface ValidatedData extends z.infer<typeof schema> {
+interface ValidatedData extends ResetPasswordParams {
   user: User;
 }
 
@@ -63,5 +51,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.put('/reset-password', validateMiddleware(schema), validator, handler);
+  router.put('/reset-password', validateMiddleware(resetPasswordSchema), validator, handler);
 };
