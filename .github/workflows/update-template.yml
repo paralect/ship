@@ -1,0 +1,36 @@
+name: Trigger CI Workflow In Template Repo
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - template/apps/**
+      - template/packages/**
+  workflow_dispatch:
+
+env:
+  OWNER: paralect
+  REPO: ship-template-ci-cd
+  WORKFLOW: update-template.yml
+
+jobs:
+  trigger-workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate GitHub App Token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          repositories: ${{ env.REPO }}
+
+      - name: Send Dispatch Event
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            -H "Authorization: Bearer ${{ steps.generate-token.outputs.token }}" \
+            https://api.github.com/repos/${{ env.OWNER }}/${{ env.REPO }}/actions/workflows/${{ env.WORKFLOW }}/dispatches \
+            -d '{"ref": "main"}'
