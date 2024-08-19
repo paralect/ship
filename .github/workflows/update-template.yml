@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - template/apps/**
-      - template/packages/**
+      - template/**
+      - deploy/digital-ocean-apps/**
   workflow_dispatch:
 
 env:
