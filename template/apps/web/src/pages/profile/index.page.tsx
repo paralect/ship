@@ -36,7 +36,7 @@ const Profile: NextPage = () => {
     },
   });
 
-  const { mutate: updateAccount, isPending: isUpdatePending } = accountApi.useUpdate<UpdateUserParams>();
+  const { mutate: updateAccount, isPending: isUpdatePending } = accountApi.useUpdate();
 
   const onSubmit = (submitData: UpdateUserParams) =>
     updateAccount(pickBy(submitData), {

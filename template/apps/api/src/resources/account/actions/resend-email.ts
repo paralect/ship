@@ -6,10 +6,10 @@ import { securityUtil } from 'utils';
 
 import config from 'config';
 
-import { emailSchema } from 'schemas';
-import { AppKoaContext, AppRouter, EmailParams, Next, Template, User } from 'types';
+import { resendEmailSchema } from 'schemas';
+import { AppKoaContext, AppRouter, Next, ResendEmailParams, Template, User } from 'types';
 
-interface ValidatedData extends EmailParams {
+interface ValidatedData extends ResendEmailParams {
   user: User;
 }
 
@@ -51,5 +51,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/resend-email', validateMiddleware(emailSchema), validator, handler);
+  router.post('/resend-email', validateMiddleware(resendEmailSchema), validator, handler);
 };

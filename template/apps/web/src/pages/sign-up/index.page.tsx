@@ -75,7 +75,7 @@ const SignUp: NextPage = () => {
     setPasswordRulesData(updatedPasswordRulesData);
   }, [passwordValue]);
 
-  const { mutate: signUp, isPending: isSignUpPending } = accountApi.useSignUp<SignUpParams>();
+  const { mutate: signUp, isPending: isSignUpPending } = accountApi.useSignUp();
 
   const onSubmit = (data: SignUpParams) =>
     signUp(data, {

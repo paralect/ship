@@ -10,4 +10,4 @@ export const tokenSchema = dbSchema
     userId: z.string(),
     isShadow: z.boolean().nullable().optional(),
   })
-  .strict();
+  .strip();

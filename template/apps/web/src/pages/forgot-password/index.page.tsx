@@ -13,26 +13,26 @@ import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
 
-import { emailSchema } from 'schemas';
-import { EmailParams } from 'types';
+import { forgotPasswordSchema } from 'schemas';
+import { ForgotPasswordParams } from 'types';
 
 const ForgotPassword: NextPage = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState('');
 
-  const { mutate: forgotPassword, isPending: isForgotPasswordPending } = accountApi.useForgotPassword<EmailParams>();
+  const { mutate: forgotPassword, isPending: isForgotPasswordPending } = accountApi.useForgotPassword();
 
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<EmailParams>({
-    resolver: zodResolver(emailSchema),
+  } = useForm<ForgotPasswordParams>({
+    resolver: zodResolver(forgotPasswordSchema),
   });
 
-  const onSubmit = (data: EmailParams) =>
+  const onSubmit = (data: ForgotPasswordParams) =>
     forgotPassword(data, {
       onSuccess: () => setEmail(data.email),
       onError: (e) => handleApiError(e, setError),

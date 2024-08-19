@@ -29,15 +29,14 @@ const ResetPassword: NextPage = () => {
     formState: { errors },
   } = useForm<ResetPasswordParams>({ resolver: zodResolver(schema) });
 
-  const { mutate: resetPassword, isPending: isResetPasswordPending } =
-    accountApi.useResetPassword<ResetPasswordParams>();
+  const { mutate: resetPassword, isPending: isResetPasswordPending } = accountApi.useResetPassword();
 
-  const onSubmit = ({ password }: ResetPasswordParams) => {
+  const onSubmit = (data: ResetPasswordParams) => {
     if (typeof token !== 'string') return;
 
     resetPassword(
       {
-        password,
+        ...data,
         token,
       },
       {

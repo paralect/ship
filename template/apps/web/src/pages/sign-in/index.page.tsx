@@ -5,7 +5,6 @@ import { Alert, Anchor, Button, Group, PasswordInput, Stack, TextInput, Title } 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { accountApi } from 'resources/account';
 
@@ -19,7 +18,7 @@ import config from 'config';
 import { signInSchema } from 'schemas';
 import { SignInParams } from 'types';
 
-type SignInParamsWithCredentials = z.infer<typeof signInSchema> & { credentials?: string };
+type SignInParamsWithCredentials = SignInParams & { credentials?: string };
 
 const SignIn: NextPage = () => {
   const {
@@ -29,7 +28,7 @@ const SignIn: NextPage = () => {
     setError,
   } = useForm<SignInParamsWithCredentials>({ resolver: zodResolver(signInSchema) });
 
-  const { mutate: signIn, isPending: isSignInPending } = accountApi.useSignIn<SignInParams>();
+  const { mutate: signIn, isPending: isSignInPending } = accountApi.useSignIn();
 
   const onSubmit = (data: SignInParamsWithCredentials) =>
     signIn(data, {

@@ -4,9 +4,18 @@ import { apiService } from 'services';
 
 import queryClient from 'query-client';
 
-import { ApiError, User } from 'types';
+import {
+  ApiError,
+  ForgotPasswordParams,
+  ResendEmailParams,
+  ResetPasswordParams,
+  SignInParams,
+  SignUpParams,
+  UpdateUserParams,
+  User,
+} from 'types';
 
-export const useSignIn = <T>() =>
+export const useSignIn = <T = SignInParams>() =>
   useMutation<User, ApiError, T>({
     mutationFn: (data: T) => apiService.post('/account/sign-in', data),
     onSuccess: (data) => {
@@ -22,7 +31,7 @@ export const useSignOut = () =>
     },
   });
 
-export const useSignUp = <T>() => {
+export const useSignUp = <T = SignUpParams>() => {
   interface SignUpResponse {
     signupToken: string;
   }
@@ -32,17 +41,17 @@ export const useSignUp = <T>() => {
   });
 };
 
-export const useForgotPassword = <T>() =>
+export const useForgotPassword = <T = ForgotPasswordParams>() =>
   useMutation<void, ApiError, T>({
     mutationFn: (data: T) => apiService.post('/account/forgot-password', data),
   });
 
-export const useResetPassword = <T>() =>
+export const useResetPassword = <T = ResetPasswordParams>() =>
   useMutation<void, ApiError, T>({
     mutationFn: (data: T) => apiService.put('/account/reset-password', data),
   });
 
-export const useResendEmail = <T>() =>
+export const useResendEmail = <T = ResendEmailParams>() =>
   useMutation<null, ApiError, T>({
     mutationFn: (data: T) => apiService.post('/account/resend-email', data),
   });
@@ -55,7 +64,7 @@ export const useGet = (options = {}) =>
     ...options,
   });
 
-export const useUpdate = <T>() =>
+export const useUpdate = <T = UpdateUserParams>() =>
   useMutation<User, ApiError, T>({
     mutationFn: (data: T) => apiService.put('/account', data),
   });

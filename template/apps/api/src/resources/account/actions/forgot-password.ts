@@ -6,10 +6,10 @@ import { securityUtil } from 'utils';
 
 import config from 'config';
 
-import { emailSchema } from 'schemas';
-import { AppKoaContext, AppRouter, EmailParams, Next, Template, User } from 'types';
+import { forgotPasswordSchema } from 'schemas';
+import { AppKoaContext, AppRouter, ForgotPasswordParams, Next, Template, User } from 'types';
 
-interface ValidatedData extends EmailParams {
+interface ValidatedData extends ForgotPasswordParams {
   user: User;
 }
 
@@ -54,5 +54,5 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/forgot-password', validateMiddleware(emailSchema), validator, handler);
+  router.post('/forgot-password', validateMiddleware(forgotPasswordSchema), validator, handler);
 };
