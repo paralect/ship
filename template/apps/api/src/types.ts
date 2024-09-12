@@ -18,8 +18,8 @@ export type CustomErrors = {
 export interface AppKoaContext<T = unknown, R = unknown> extends ParameterizedContext<AppKoaContextState> {
   request: Request & R;
   validatedData: T & object;
-  throwError: (message: string) => never;
-  assertError: (condition: unknown, message: string) => asserts condition;
+  throwError: (message: string, status?: number) => never;
+  assertError: (condition: unknown, message: string, status?: number) => asserts condition;
   throwClientError: (errors: CustomErrors, status?: number) => never;
   assertClientError: (condition: unknown, errors: CustomErrors, status?: number) => asserts condition;
 }
