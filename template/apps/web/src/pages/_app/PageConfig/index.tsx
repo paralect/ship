@@ -1,4 +1,4 @@
-import React, { FC, Fragment, ReactElement } from 'react';
+import React, { FC, Fragment, ReactElement, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { accountApi } from 'resources/account';
@@ -30,15 +30,15 @@ interface PageConfigProps {
 
 const PageConfig: FC<PageConfigProps> = ({ children }) => {
   const { route, push } = useRouter();
-  const { data: account, isLoading: isAccountLoading } = accountApi.useGet({
-    onSettled: () => {
-      if (!config.MIXPANEL_API_KEY) return;
 
-      analyticsService.init();
+  const { data: account, isLoading: isAccountLoading, isSuccess, isError } = accountApi.useGet();
 
-      analyticsService.setUser(account);
-    },
-  });
+  useEffect(() => {
+    if ((!isSuccess && !isError) || !config.MIXPANEL_API_KEY) return;
+
+    analyticsService.init();
+    analyticsService.setUser(account);
+  }, [isSuccess, isError]);
 
   if (isAccountLoading) return null;
 

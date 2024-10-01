@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { apiService } from 'services';
 
@@ -56,7 +56,7 @@ export const useResendEmail = <T = ResendEmailParams>() =>
     mutationFn: (data: T) => apiService.post('/account/resend-email', data),
   });
 
-export const useGet = (options = {}) =>
+export const useGet = (options: Partial<UseQueryOptions<User>> = {}) =>
   useQuery<User>({
     queryKey: ['account'],
     queryFn: () => apiService.get('/account'),
