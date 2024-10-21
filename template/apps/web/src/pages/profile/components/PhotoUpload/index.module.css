@@ -1,23 +1,23 @@
-.dropzone-root {
+.dropzoneRoot {
   border: none;
   border-radius: 0;
   padding: 0;
   background-color: transparent;
 
-  &:hover .add-icon {
+  &:hover .addIcon {
     color: var(--mantine-color-gray-5);
   }
 
-  &:hover .browse-button {
+  &:hover .browseButton {
     border: 1px dashed var(--mantine-color-gray-5);
   }
 
-  &:hover .inner-avatar {
+  &:hover .innerAvatar {
     opacity: 1;
   }
 }
 
-.browse-button {
+.browseButton {
   width: 88px;
   height: 88px;
   border-radius: 50%;
@@ -33,12 +33,12 @@
   border: 1px dashed var(--mantine-color-red-5);
 }
 
-.add-icon {
+.addIcon {
   color: var(--mantine-primary-color-filled);
   transition: all 200ms ease-in-out;
 }
 
-.inner-avatar {
+.innerAvatar {
   border-radius: 50%;
 
   opacity: 0;
@@ -52,12 +52,12 @@
   word-wrap: break-word;
 }
 
-.button-container {
+.buttonContainer {
   display: flex;
   align-items: center;
 }
 
-.error-message {
+.errorMessage {
   margin-top: 4px;
   font-size: 14px;
   line-height: 17px;
