@@ -1,4 +1,4 @@
-import React, { FC, Fragment, ReactElement, useEffect } from 'react';
+import { FC, Fragment, ReactElement, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { accountApi } from 'resources/account';

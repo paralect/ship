@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Group, Pagination as MantinePagination, PaginationProps as MantinePaginationProps, Text } from '@mantine/core';
 
 import { useTableContext } from 'contexts';

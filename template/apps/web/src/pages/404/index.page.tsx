@@ -1,4 +1,4 @@
-import React, { NextPage } from 'next';
+import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Button, Stack, Text, Title } from '@mantine/core';

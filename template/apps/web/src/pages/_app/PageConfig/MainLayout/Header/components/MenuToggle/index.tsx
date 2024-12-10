@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { Avatar, UnstyledButton, useMantineTheme } from '@mantine/core';
 
 import { accountApi } from 'resources/account';

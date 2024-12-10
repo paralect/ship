@@ -1,4 +1,4 @@
-import React, { NextPage } from 'next';
+import { NextPage } from 'next';
 import Head from 'next/head';
 import { Button, PasswordInput, Stack, TextInput, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';

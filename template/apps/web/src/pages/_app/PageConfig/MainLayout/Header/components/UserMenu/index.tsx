@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import { Menu } from '@mantine/core';
 import { IconLogout, IconUserCircle } from '@tabler/icons-react';

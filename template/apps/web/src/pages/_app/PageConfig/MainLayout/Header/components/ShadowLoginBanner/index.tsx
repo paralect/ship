@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Center, Text } from '@mantine/core';
 
 interface ShadowLoginBannerProps {

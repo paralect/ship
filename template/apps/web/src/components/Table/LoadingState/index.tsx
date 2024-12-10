@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Skeleton, SkeletonProps, Stack, StackProps } from '@mantine/core';
 
 interface LoadingStateProps extends StackProps {

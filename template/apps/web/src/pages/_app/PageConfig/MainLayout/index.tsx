@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import { AppShell, Stack } from '@mantine/core';
 
 import { accountApi } from 'resources/account';

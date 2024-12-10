@@ -1,4 +1,3 @@
-import React from 'react';
 import { Table } from '@mantine/core';
 import { flexRender, RowData } from '@tanstack/react-table';
 import cx from 'clsx';

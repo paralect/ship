@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Center, CenterProps, Text, TextProps } from '@mantine/core';
 
 interface EmptyStateProps extends CenterProps {
