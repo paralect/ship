@@ -60,7 +60,6 @@
   "devDependencies": {
     "@shelf/jest-mongodb": "4.2.0",
     "@types/bcryptjs": "2.4.2",
-    "@types/formidable": "2.0.5",
     "@types/jest": "29.5.12",
     "@types/jsonwebtoken": "9.0.6",
     "@types/koa": "2.13.5",

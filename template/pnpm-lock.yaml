@@ -154,9 +154,6 @@ importers:
       '@types/bcryptjs':
         specifier: 2.4.2
         version: 2.4.2
-      '@types/formidable':
-        specifier: 2.0.5
-        version: 2.0.5
       '@types/jest':
         specifier: 29.5.12
         version: 29.5.12
@@ -445,7 +442,7 @@ importers:
         version: 3.21.4
     devDependencies:
       '@types/formidable':
-        specifier: '*'
+        specifier: 2.0.5
         version: 2.0.5
       '@types/node':
         specifier: '*'
