@@ -1,3 +1,8 @@
+import type { File as FormidableFile } from 'formidable';
+
+export type BackendFile = FormidableFile;
+export type FrontendFile = File;
+
 type Path<T> = T extends object
   ? {
       [K in keyof T]: K extends string

@@ -25,4 +25,16 @@ module.exports = {
   },
   pageExtensions: ['page.tsx', 'api.ts'],
   transpilePackages: ['app-constants', 'schemas', 'types'],
+  i18n: {
+    locales: ['en-US'],
+    defaultLocale: 'en-US',
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.digitaloceanspaces.com',
+      },
+    ],
+  },
 };

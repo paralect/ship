@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-import { EMAIL_REGEX } from 'app-constants';
+import { EMAIL_REGEX, USER_AVATAR } from 'app-constants';
 
-import { emailSchema, passwordSchema } from './common.schema';
+import { emailSchema, fileSchema, passwordSchema } from './common.schema';
 import dbSchema from './db.schema';
 
 const oauthSchema = z.object({
@@ -58,6 +58,13 @@ export const resetPasswordSchema = z.object({
 export const updateUserSchema = userSchema
   .pick({ firstName: true, lastName: true })
   .extend({
-    password: passwordSchema,
+    password: z.union([
+      passwordSchema,
+      z.literal(''), // Allow empty string when password is unchanged on the front-end
+    ]),
+    avatar: z.union([
+      fileSchema(USER_AVATAR.MAX_FILE_SIZE, USER_AVATAR.ACCEPTED_FILE_TYPES).nullable(),
+      z.literal(''), // Allow empty string to indicate removal
+    ]),
   })
   .partial();
