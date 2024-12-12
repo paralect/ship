@@ -1,8 +1,7 @@
 import type { File as FormidableFile } from 'formidable';
 import { z } from 'zod';
 
-import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
-import { ONE_MB_IN_BYTES } from 'app-constants/src/file.constants';
+import { EMAIL_REGEX, ONE_MB_IN_BYTES, PASSWORD_REGEX } from 'app-constants';
 
 export const paginationSchema = z.object({
   page: z.coerce.number().default(1),
