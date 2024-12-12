@@ -45,16 +45,6 @@ const initKoa = () => {
       },
     }),
   );
-  // app.use(
-  //   bodyParser({
-  //     enableTypes: ['json', 'form', 'text'],
-  //     onerror: (err: Error, ctx) => {
-  //       const errText: string = err.stack || err.toString();
-  //       logger.warn(`Unable to parse request body. ${errText}`);
-  //       ctx.throw(422, 'Unable to parse request JSON.');
-  //     },
-  //   }),
-  // );
   app.use(
     koaLogger({
       transporter: (message, args) => {
