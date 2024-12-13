@@ -1,14 +1,15 @@
 import _ from 'lodash';
 
+import { accountUtils } from 'resources/account';
 import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
 import { securityUtil } from 'utils';
 
 import { updateUserSchema } from 'schemas';
-import { AppKoaContext, AppRouter, Next, UpdateUserParams } from 'types';
+import { AppKoaContext, AppRouter, Next, UpdateUserParamsBackend, User } from 'types';
 
-interface ValidatedData extends UpdateUserParams {
+interface ValidatedData extends UpdateUserParamsBackend {
   passwordHash?: string | null;
 }
 
@@ -32,11 +33,23 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
+  const { avatar } = ctx.validatedData;
   const { user } = ctx.state;
 
-  const updatedUser = await userService.updateOne({ _id: user._id }, () => _.pickBy(ctx.validatedData));
+  const nonEmptyValues = _.pickBy(ctx.validatedData, (value) => !_.isUndefined(value));
+  const updateData: Partial<User> = _.omit(nonEmptyValues, 'avatar');
 
-  ctx.body = userService.getPublic(updatedUser);
+  if (avatar === '') {
+    await accountUtils.removeAvatar(user);
+
+    updateData.avatarUrl = null;
+  }
+
+  if (avatar && typeof avatar !== 'string') {
+    updateData.avatarUrl = await accountUtils.uploadAvatar(user, avatar);
+  }
+
+  ctx.body = await userService.updateOne({ _id: user._id }, () => updateData).then(userService.getPublic);
 }
 
 export default (router: AppRouter) => {

@@ -3,8 +3,9 @@ import Head from 'next/head';
 import { Button, PasswordInput, Stack, TextInput, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { zodResolver } from '@hookform/resolvers/zod';
-import pickBy from 'lodash/pickBy';
-import { useForm } from 'react-hook-form';
+import { isUndefined, pickBy } from 'lodash';
+import { serialize } from 'object-to-formdata';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { accountApi } from 'resources/account';
 
@@ -13,12 +14,25 @@ import { handleApiError } from 'utils';
 import queryClient from 'query-client';
 
 import { updateUserSchema } from 'schemas';
-import { UpdateUserParams } from 'types';
+import { UpdateUserParams, User } from 'types';
 
-import PhotoUpload from './components/PhotoUpload';
+import AvatarUpload from './components/AvatarUpload';
+
+const getFormDefaultValues = (account?: User) => ({
+  firstName: account?.firstName,
+  lastName: account?.lastName,
+  password: '',
+  avatar: undefined,
+});
 
 const Profile: NextPage = () => {
   const { data: account } = accountApi.useGet();
+
+  const methods = useForm<UpdateUserParams>({
+    resolver: zodResolver(updateUserSchema),
+    mode: 'onBlur',
+    defaultValues: getFormDefaultValues(account),
+  });
 
   const {
     register,
@@ -27,19 +41,19 @@ const Profile: NextPage = () => {
     setValue,
     reset,
     formState: { errors, isDirty },
-  } = useForm<UpdateUserParams>({
-    resolver: zodResolver(updateUserSchema),
-    defaultValues: {
-      firstName: account?.firstName,
-      lastName: account?.lastName,
-      password: '',
-    },
-  });
+  } = methods;
 
-  const { mutate: updateAccount, isPending: isUpdatePending } = accountApi.useUpdate();
+  const { mutate: updateAccount, isPending: isUpdatePending } = accountApi.useUpdate<FormData>();
 
-  const onSubmit = (submitData: UpdateUserParams) =>
-    updateAccount(pickBy(submitData), {
+  const onSubmit = (submitData: UpdateUserParams) => {
+    const updateData = pickBy(submitData, (value, key) => {
+      if (account && account[key as keyof User] === value) return false;
+      if (key === 'password' && value === '') return false;
+
+      return !isUndefined(value);
+    });
+
+    updateAccount(serialize(updateData), {
       onSuccess: (data) => {
         queryClient.setQueryData(['account'], data);
 
@@ -49,11 +63,13 @@ const Profile: NextPage = () => {
           color: 'green',
         });
 
-        reset(data, { keepDirtyValues: true });
+        reset(getFormDefaultValues(data), { keepValues: true });
         setValue('password', '');
+        setValue('avatar', undefined);
       },
       onError: (e) => handleApiError(e, setError),
     });
+  };
 
   return (
     <>
@@ -64,15 +80,15 @@ const Profile: NextPage = () => {
       <Stack w={408} m="auto" pt={48} gap={32}>
         <Title order={1}>Profile</Title>
 
-        <PhotoUpload />
+        <FormProvider {...methods}>
+          <Stack component="form" onSubmit={handleSubmit(onSubmit)} gap={32}>
+            <AvatarUpload />
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack gap={32}>
             <Stack gap={20}>
               <TextInput
                 {...register('firstName')}
-                label="Enter first name"
-                placeholder="First Name"
+                label="First Name"
+                placeholder="Enter first name"
                 error={errors.firstName?.message}
               />
 
@@ -97,7 +113,7 @@ const Profile: NextPage = () => {
               Update Profile
             </Button>
           </Stack>
-        </form>
+        </FormProvider>
       </Stack>
     </>
   );

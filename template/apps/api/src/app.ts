@@ -10,7 +10,8 @@ import 'dotenv/config';
 
 import cors from '@koa/cors';
 import http from 'http';
-import bodyParser from 'koa-bodyparser';
+import { koaBody } from 'koa-body';
+
 import helmet from 'koa-helmet';
 import koaLogger from 'koa-logger';
 import qs from 'koa-qs';
@@ -34,10 +35,11 @@ const initKoa = () => {
   app.use(helmet());
   qs(app);
   app.use(
-    bodyParser({
-      enableTypes: ['json', 'form', 'text'],
-      onerror: (err: Error, ctx) => {
-        const errText: string = err.stack || err.toString();
+    koaBody({
+      multipart: true,
+      onError: (error, ctx) => {
+        const errText: string = error.stack || error.toString();
+
         logger.warn(`Unable to parse request body. ${errText}`);
         ctx.throw(422, 'Unable to parse request JSON.');
       },
