@@ -5,7 +5,7 @@ export default defineConfig((options: Options) => ({
   entry: {
     index: 'src/index.ts',
   },
-  minify: true,
+  minify: false,
   bundle: true,
   platform: 'node',
   tsconfig: './tsconfig.json',

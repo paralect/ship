@@ -1,9 +1,11 @@
 import { promises as fs } from 'fs';
+import { PrevCaller } from 'prompts';
 
 import config from 'config';
+
 import { TEMP_DIR_NAME } from 'app.constants';
 
-export const onPromptState = (state: any) => {
+export const onPromptState: PrevCaller<string, void> = (state) => {
   if (state.aborted) {
     // If we don't re-enable the terminal cursor before exiting
     // the program, the cursor will remain hidden
@@ -15,11 +17,8 @@ export const onPromptState = (state: any) => {
 
 export const handleSigTerm = () => process.exit(0);
 
-export const isErrorLike = (err: unknown): err is { message: string } => (
-  typeof err === 'object'
-    && err !== null
-    && typeof (err as { message?: unknown }).message === 'string'
-);
+export const isErrorLike = (err: unknown): err is { message: string } =>
+  typeof err === 'object' && err !== null && typeof (err as { message?: unknown }).message === 'string';
 
 export const replaceTextInFile = async (filePath: string, search: string, replace: string) => {
   try {

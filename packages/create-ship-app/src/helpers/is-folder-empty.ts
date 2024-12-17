@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { green, blue } from 'picocolors';
+import { blue, green } from 'picocolors';
 
 export const isFolderEmpty = (root: string, name: string): boolean => {
   const validFiles = [

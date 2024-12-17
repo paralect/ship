@@ -4,6 +4,7 @@ import pluralize from 'pluralize';
 
 import config from 'config';
 
+import { lintDir } from './lintDir';
 import {
   actionCreateContent,
   actionGetContent,
@@ -17,8 +18,6 @@ import {
   webApiIndexContent,
   webResourceContent,
 } from './resources-templates';
-
-import { lintDir } from './lintDir';
 
 const createDirectory = (dirPath: string) => {
   if (!fs.existsSync(dirPath)) {
@@ -41,8 +40,9 @@ const createFile = (filePath: string, content = '') => {
 const modifyPrivateRoutes = (name: string, cwd: string) => {
   const filePath = path.join(cwd, 'apps', 'api', 'src', 'routes', 'private.routes.ts');
   const importStatement = `import { ${name}Routes } from 'resources/${name}';\n`;
-  const routeUseStatement = `  app.use(mount('/${pluralize
-    .plural(name)}', compose([auth, ${name}Routes.privateRoutes])));`;
+  const routeUseStatement = `  app.use(mount('/${pluralize.plural(
+    name,
+  )}', compose([auth, ${name}Routes.privateRoutes])));`;
 
   try {
     let data = fs.readFileSync(filePath, 'utf8');

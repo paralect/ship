@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync } from 'fs';
 import { execSync } from 'child_process';
+import { readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 
 const removeFirstLine = (filePath: string): void => {
@@ -14,7 +14,7 @@ const removeFirstLine = (filePath: string): void => {
   }
 };
 
-export const preCommitHooksInstaller = (root : string) => {
+export const preCommitHooksInstaller = (root: string) => {
   execSync('npm pkg set scripts.prepare="husky"');
 
   removeFirstLine(path.join(root, '.husky/pre-commit'));

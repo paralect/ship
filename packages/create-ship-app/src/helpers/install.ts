@@ -1,28 +1,25 @@
-import { cyan, yellow } from 'picocolors';
-import spawn from 'cross-spawn';
-import * as util from 'util';
-import prompts from 'prompts';
 import { exec } from 'child_process';
-
-import type { PackageManager } from 'types';
+import spawn from 'cross-spawn';
+import { cyan, yellow } from 'picocolors';
+import prompts from 'prompts';
+import * as util from 'util';
 
 import { preCommitHooksInstaller } from 'installers';
 
 import config from 'config';
 
-import { getOnline } from './is-online';
+import type { PackageManager } from 'types';
+
 import { onPromptState } from './common';
+import { getOnline } from './is-online';
 
 const execAsync = util.promisify(exec);
 
 interface InstallArgs {
-  packageManager: PackageManager
+  packageManager: PackageManager;
 }
 
-export const install = async (
-  root: string,
-  { packageManager }: InstallArgs,
-): Promise<void> => {
+export const install = async (root: string, { packageManager }: InstallArgs): Promise<void> => {
   let isPnpmInstalled: boolean;
 
   try {

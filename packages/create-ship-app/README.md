@@ -50,9 +50,9 @@ We believe we could ship great products faster, while maintain decent quality an
 
 ## Core concepts
 
-* We automatically build ship out of the number of smaller components. Our ultimate goal is too keep only parts your need for your product development.
-* Every component is kept is tiny as possible to simplify maintenance and stay up to date with new releases.
-* Ship is always in a production-ready state. We test every release manually to make sure great developer experience. We use ship to build our products, see more [here](https://www.paralect.com/build-stage).
+- We automatically build ship out of the number of smaller components. Our ultimate goal is too keep only parts your need for your product development.
+- Every component is kept is tiny as possible to simplify maintenance and stay up to date with new releases.
+- Ship is always in a production-ready state. We test every release manually to make sure great developer experience. We use ship to build our products, see more [here](https://www.paralect.com/build-stage).
 
 ## License
 

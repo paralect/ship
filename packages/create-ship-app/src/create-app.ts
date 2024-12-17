@@ -1,24 +1,25 @@
-import { promises as fs } from 'fs';
-import path from 'path';
 import retry from 'async-retry';
-import { cyan, green } from 'picocolors';
+import { promises as fs } from 'fs';
 import gradient from 'gradient-string';
+import path from 'path';
+import { cyan, green } from 'picocolors';
 
-import { RepoInfo, PackageManager, Deployment } from 'types';
-import { deploymentInstaller } from 'installers';
 import {
   downloadAndExtractRepo,
-  makeDir,
-  tryGitInit,
+  getRepoInfo,
+  install,
+  isErrorLike,
   isFolderEmpty,
   isWriteable,
-  getRepoInfo,
-  isErrorLike,
+  makeDir,
   replaceTextInFile,
-  install,
+  tryGitInit,
 } from 'helpers';
+import { deploymentInstaller } from 'installers';
+
 import config from 'config';
 
+import { Deployment, PackageManager, RepoInfo } from 'types';
 import { HAPPY_CODING_TEXT, REPO_ISSUES_URL, REPO_URL, TEMPLATE_PATH } from 'app.constants';
 
 export class DownloadError extends Error {}
@@ -29,10 +30,10 @@ export const createApp = async ({
   deployment,
   packageManager = 'pnpm',
 }: {
-  projectName: string
-  appPath: string
-  packageManager?: PackageManager
-  deployment: Deployment
+  projectName: string;
+  appPath: string;
+  packageManager?: PackageManager;
+  deployment: Deployment;
 }): Promise<void> => {
   const repoInfo: RepoInfo | undefined = await getRepoInfo(REPO_URL);
 

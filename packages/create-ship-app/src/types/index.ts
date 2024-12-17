@@ -1,9 +1,9 @@
 export type PackageManager = 'npm' | 'pnpm' | 'yarn' | 'bun';
 
 export type RepoInfo = {
-  username: string
-  name: string
-  branch: string
+  username: string;
+  name: string;
+  branch: string;
 };
 
 export enum Deployment {

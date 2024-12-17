@@ -8,8 +8,9 @@ import { DATABASE_DOCUMENTS } from 'app-constants';
 import { ${name}Schema } from 'schemas';
 import { ${capitalizeFirstLetter(name)} } from 'types';
 
-const service = db.createService<${capitalizeFirstLetter(name)}>(DATABASE_DOCUMENTS.${pluralize
-  .plural(name.toUpperCase())}, {
+const service = db.createService<${capitalizeFirstLetter(name)}>(DATABASE_DOCUMENTS.${pluralize.plural(
+  name.toUpperCase(),
+)}, {
   schemaValidator: (obj) => ${name}Schema.parseAsync(obj),
 });
 

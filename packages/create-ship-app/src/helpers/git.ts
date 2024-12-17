@@ -1,6 +1,7 @@
+import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
+
 import { PackageManager } from '../types';
 
 const isInGitRepository = (): boolean => {
@@ -36,13 +37,10 @@ const isDefaultBranchSet = (): boolean => {
 };
 
 type TryGitInitOptions = {
-  packageManager?: PackageManager
+  packageManager?: PackageManager;
 };
 
-export const tryGitInit = (
-  root: string,
-  { packageManager }: TryGitInitOptions,
-): boolean => {
+export const tryGitInit = (root: string, { packageManager }: TryGitInitOptions): boolean => {
   let didInit = false;
 
   try {

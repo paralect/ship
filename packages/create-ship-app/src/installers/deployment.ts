@@ -1,7 +1,8 @@
-import path from 'path';
 import { promises as fs } from 'fs';
+import path from 'path';
 
 import { replaceTextInFile } from 'helpers';
+
 import { Deployment } from 'types';
 
 type DeploymentInstallerOptions = {
@@ -73,7 +74,8 @@ export const deploymentInstaller = async (deployment: Deployment, options: Deplo
         break;
       }
 
-      default: break;
+      default:
+        break;
     }
   } catch (e) {
     console.log(e);
