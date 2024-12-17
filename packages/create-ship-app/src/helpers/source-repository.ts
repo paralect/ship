@@ -1,12 +1,13 @@
 import { createWriteStream, promises as fs } from 'fs';
-import { promisify } from 'util';
+import got from 'got';
+import { tmpdir } from 'os';
 import path, { join } from 'path';
 import { Stream } from 'stream';
-import { tmpdir } from 'os';
-import got from 'got';
-import tar from 'tar';
+import * as tar from 'tar';
+import { promisify } from 'util';
 
 import config from 'config';
+
 import { RepoInfo } from 'types';
 
 const pipeline = promisify(Stream.pipeline);
@@ -32,10 +33,7 @@ async function downloadTar(url: string) {
   return tempFile;
 }
 
-export async function downloadAndExtractRepo(
-  root: string,
-  { username, name, branch }: RepoInfo,
-) {
+export async function downloadAndExtractRepo(root: string, { username, name, branch }: RepoInfo) {
   if (!config.USE_LOCAL_REPO) {
     console.log('Downloading repository from GitHub...');
     console.log();
@@ -45,9 +43,7 @@ export async function downloadAndExtractRepo(
     await tar.x({
       file: tempFile,
       cwd: root,
-      filter: (p) => p.startsWith(
-        `${name}-${branch.replace(/\//g, '-')}`,
-      ),
+      filter: (p) => p.startsWith(`${name}-${branch.replace(/\//g, '-')}`),
     });
 
     // Rename folder with code from branch to name of repository

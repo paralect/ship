@@ -1,6 +1,6 @@
-import url from 'url';
-import dns from 'dns';
 import { execSync } from 'child_process';
+import dns from 'dns';
+import url from 'url';
 
 const getProxy = (): string | undefined => {
   if (process.env.https_proxy) {
@@ -16,26 +16,27 @@ const getProxy = (): string | undefined => {
   }
 };
 
-export const getOnline = (): Promise<boolean> => new Promise((resolve) => {
-  dns.lookup('registry.npmjs.org', (registryErr) => {
-    if (!registryErr) {
-      return resolve(true);
-    }
+export const getOnline = (): Promise<boolean> =>
+  new Promise((resolve) => {
+    dns.lookup('registry.npmjs.org', (registryErr) => {
+      if (!registryErr) {
+        return resolve(true);
+      }
 
-    const proxy = getProxy();
+      const proxy = getProxy();
 
-    if (!proxy) {
+      if (!proxy) {
+        return resolve(false);
+      }
+
+      const { hostname } = url.parse(proxy);
+
+      if (!hostname) {
+        return resolve(false);
+      }
+
+      dns.lookup(hostname, (proxyErr) => resolve(proxyErr == null));
+
       return resolve(false);
-    }
-
-    const { hostname } = url.parse(proxy);
-
-    if (!hostname) {
-      return resolve(false);
-    }
-
-    dns.lookup(hostname, (proxyErr) => resolve(proxyErr == null));
-
-    return resolve(false);
+    });
   });
-});
