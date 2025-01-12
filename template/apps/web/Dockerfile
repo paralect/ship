@@ -26,7 +26,7 @@ COPY --from=builder /app/out/full/turbo.json ./turbo.json
 
 # DEVELOPMENT - Stage 3
 FROM installer AS development
-CMD pnpm turbo run dev --scope=web
+CMD pnpm turbo run dev --filter=web
 
 # APP_BUILDER - Stage 4
 FROM installer AS app_builder
