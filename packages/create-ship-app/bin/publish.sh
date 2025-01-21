@@ -35,7 +35,7 @@ MODULE_VERSION=$(grep version package.json | sed 's/.*"version": "\(.*\)".*/\1/'
 
 echo ">>> Current version for module: ${blue}$MODULE${reset} is ${yellow}$MODULE_VERSION${reset}"
 echo ">>> Bumping version to ${yellow}$VERSION${reset}"
-pnpm run build 1>/dev/null && npm version $VERSION
+pnpm run build 1>/dev/null && npm version $VERSION && npm publish
 
 MODULE_VERSION_NEW=$(grep version package.json | sed 's/.*"version": "\(.*\)".*/\1/')
 
