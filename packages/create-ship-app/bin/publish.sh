@@ -24,18 +24,23 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 cd $SCRIPT_DIR/..
 echo ">>> Publishing module: $MODULE"
-echo ">>> Removing node_modules in $MODULE"
-rm -rf node_modules
+echo ">>> Removing node_modules and dist in $MODULE"
+rm -rf node_modules && rm -rf dist
 
 echo ">>> pnpm install for $MODULE"
 pnpm install 1>/dev/null
 
-echo ">>> pnpm run build && npm publish"
 MODULE_VERSION=$(grep version package.json | sed 's/.*"version": "\(.*\)".*/\1/')
 
 echo ">>> Current version for module: ${blue}$MODULE${reset} is ${yellow}$MODULE_VERSION${reset}"
 echo ">>> Bumping version to ${yellow}$VERSION${reset}"
-pnpm run build 1>/dev/null && npm version $VERSION && npm publish
+npm version $VERSION
+
+echo ">>> pnpm run build"
+pnpm run build 1>/dev/null
+
+echo ">>> npm publish"
+npm publish
 
 MODULE_VERSION_NEW=$(grep version package.json | sed 's/.*"version": "\(.*\)".*/\1/')
 
