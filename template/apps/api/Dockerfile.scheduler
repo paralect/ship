@@ -26,7 +26,7 @@ COPY --from=builder /app/out/full/turbo.json ./turbo.json
 
 # DEVELOPMENT - Stage 3
 FROM installer AS development
-CMD pnpm turbo run dev --scope=api
+CMD pnpm turbo run dev --filter=api
 
 # RUNNER - Stage 4
 FROM node:20-alpine AS runner
