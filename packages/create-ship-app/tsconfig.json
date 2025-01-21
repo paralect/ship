@@ -1,12 +1,20 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
   "compilerOptions": {
-    "target": "ESNext",
-    "baseUrl": "src",
     "rootDir": ".",
-    "moduleResolution": "node",
-    "strict": true,
+    "baseUrl": "src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["es2023"],
+    "target": "es2022",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "useUnknownInCatchVariables": true,
+    "strict": true
   },
-  "exclude": ["dist", "node_modules"]
+  "include": ["**/*.ts", "**/*.json"],
+  "exclude": ["node_modules"]
 }

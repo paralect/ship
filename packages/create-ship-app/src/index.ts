@@ -1,22 +1,30 @@
 #!/usr/bin/env node
 
-import { cyan, green, red, yellow, bold, blue, gray } from 'picocolors';
-import gradient from 'gradient-string';
-import Commander from 'commander';
+import { Command } from 'commander';
 import Conf from 'conf';
+import fs from 'fs';
+import gradient from 'gradient-string';
 import path from 'path';
+import { blue, bold, cyan, gray, green, red, yellow } from 'picocolors';
 import prompts from 'prompts';
 import checkForUpdate from 'update-check';
-import fs from 'fs';
 
-import { onPromptState, handleSigTerm, getDefaultProjectName, validateNpmName, isFolderEmpty, createResource } from 'helpers';
-import { Deployment } from 'types';
+import {
+  createResource,
+  getDefaultProjectName,
+  handleSigTerm,
+  isFolderEmpty,
+  onPromptState,
+  validateNpmName,
+} from 'helpers';
+
 import config from 'config';
+
+import { Deployment } from 'types';
 import { DEPLOYMENT_SHORTCUTS } from 'app.constants';
 
-import { createApp, DownloadError } from './create-app';
-
 import packageJson from '../package.json';
+import { createApp, DownloadError } from './create-app';
 
 let projectPath = getDefaultProjectName();
 let rawArgs: string[] = [];
@@ -24,13 +32,17 @@ let rawArgs: string[] = [];
 process.on('SIGINT', handleSigTerm);
 process.on('SIGTERM', handleSigTerm);
 
-const program = new Commander.Command(packageJson.name)
-  .version(packageJson.version)
-  .arguments('<project-directory>')
-  .usage(`${green('<project-directory>')} [options]`)
-  .action((name, options) => {
-    rawArgs = options.rawArgs;
-    projectPath = name;
+const program = new Command();
+
+program
+  .name(packageJson.name)
+  .description('Initialize Ship app with one command')
+  .version(packageJson.version, '-v, --version', 'Output the current version number')
+  .argument('[project-directory]')
+  .usage(`${green('[project-directory]')} [options]`)
+  .action((projectName, options, command) => {
+    rawArgs = command.args;
+    projectPath = projectName || '';
   })
   .option(
     '-d, --deployment <type>',
@@ -45,17 +57,18 @@ Available deployment options:
   aws-eks            AWS EKS
 `,
   )
-  .allowUnknownOption()
-  .parse(process.argv);
+  .allowUnknownOption();
+
+program.parse(process.argv);
 
 const run = async (): Promise<void> => {
-  // rawArgs = ['pathToNode', 'pathToExecutableFile', ...];
-  const isCommandCreateResource = rawArgs.length === 5 && rawArgs[2] === 'create' && rawArgs[3] === 'resource';
+  // rawArgs = ['create', 'resource', <resource-name>];
+  const isCommandCreateResource = rawArgs.length === 3 && rawArgs[0] === 'create' && rawArgs[1] === 'resource';
 
   if (isCommandCreateResource) {
-    await createResource(rawArgs[4].toLowerCase());
+    await createResource(rawArgs[2].toLowerCase());
 
-    console.log(`Resource ${rawArgs[4]} created successfully.`);
+    console.log(`Resource ${rawArgs[2]} created successfully.`);
 
     return;
   }
@@ -99,11 +112,11 @@ const run = async (): Promise<void> => {
 
   if (!projectPath) {
     console.log(
-      '\nPlease specify the project directory:\n'
-        + `  ${cyan(program.name())} ${green('<project-directory>')}\n`
-        + 'For example:\n'
-        + `  ${cyan(program.name())} ${green('my-ship-app')}\n\n`
-        + `Run ${cyan(`${program.name()} --help`)} to see all options.`,
+      '\nPlease specify the project directory:\n' +
+        `  ${cyan(program.name())} ${green('<project-directory>')}\n` +
+        'For example:\n' +
+        `  ${cyan(program.name())} ${green('my-ship-app')}\n\n` +
+        `Run ${cyan(`${program.name()} --help`)} to see all options.`,
     );
 
     process.exit(1);
@@ -142,19 +155,23 @@ const run = async (): Promise<void> => {
 
   const preferences: Partial<Record<string, string | Deployment>> = conf.get('preferences') || {};
 
-  if (program.deployment) {
-    const chosenDeployment = DEPLOYMENT_SHORTCUTS[program.deployment as keyof typeof DEPLOYMENT_SHORTCUTS];
+  const options = program.opts();
+
+  if (options.deployment) {
+    const chosenDeployment = DEPLOYMENT_SHORTCUTS[options.deployment as keyof typeof DEPLOYMENT_SHORTCUTS];
 
     if (chosenDeployment) {
-      program.deployment = chosenDeployment;
+      options.deployment = chosenDeployment;
 
-      console.log(`${green('✔')} ${bold(`What ${blue('deployment type')} would you like to use?`)} ${gray('›')} ${green(chosenDeployment)}`);
+      console.log(
+        `${green('✔')} ${bold(`What ${blue('deployment type')} would you like to use?`)} ${gray('›')} ${green(chosenDeployment)}`,
+      );
     } else {
-      program.deployment = undefined;
+      options.deployment = undefined;
     }
   }
 
-  if (typeof program.deployment !== 'string' || !program.deployment.length) {
+  if (typeof options.deployment !== 'string' || !options.deployment.length) {
     const { deployment } = await prompts({
       onState: onPromptState,
       type: 'select',
@@ -169,7 +186,7 @@ const run = async (): Promise<void> => {
       ],
     });
 
-    program.deployment = deployment;
+    options.deployment = deployment;
     preferences.deployment = deployment;
   }
 
@@ -177,7 +194,7 @@ const run = async (): Promise<void> => {
     await createApp({
       projectName,
       appPath: resolvedProjectPath,
-      deployment: program.deployment,
+      deployment: options.deployment,
     });
   } catch (reason) {
     if (!(reason instanceof DownloadError)) {
@@ -189,8 +206,8 @@ const run = async (): Promise<void> => {
       type: 'confirm',
       name: 'builtin',
       message:
-        'Could not download template because of a connectivity issue between your machine and GitHub.\n'
-        + 'Do you want to try again?',
+        'Could not download template because of a connectivity issue between your machine and GitHub.\n' +
+        'Do you want to try again?',
       initial: true,
     });
 
@@ -201,7 +218,7 @@ const run = async (): Promise<void> => {
     await createApp({
       projectName,
       appPath: resolvedProjectPath,
-      deployment: program.deployment,
+      deployment: options.deployment,
     });
   }
 
@@ -218,11 +235,8 @@ const notifyUpdate = async (): Promise<void> => {
       const updateMessage = 'pnpm add -g create-ship-app';
 
       console.log(
-        `${yellow(bold('A new version of `create-ship-app` is available!'))
-        }\n`
-          + `Update by running: ${
-            cyan(updateMessage)
-          }\n`,
+        `${yellow(bold('A new version of `create-ship-app` is available!'))}\n` +
+          `Update by running: ${cyan(updateMessage)}\n`,
       );
 
       process.exit(1);
@@ -243,10 +257,7 @@ run()
     if (reason.command) {
       console.log(`  ${cyan(reason.command)} has failed.`);
     } else {
-      console.log(
-        `${red('Unexpected error. Please report it as a bug:')}\n`,
-        reason,
-      );
+      console.log(`${red('Unexpected error. Please report it as a bug:')}\n`, reason);
     }
     console.log();
 
