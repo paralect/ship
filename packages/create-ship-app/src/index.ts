@@ -37,7 +37,7 @@ const program = new Command();
 program
   .name(packageJson.name)
   .description('Initialize Ship app with one command')
-  .version(packageJson.version)
+  .version(packageJson.version, '-v, --version', 'Output the current version number')
   .argument('[project-directory]')
   .usage(`${green('[project-directory]')} [options]`)
   .action((projectName, options, command) => {
