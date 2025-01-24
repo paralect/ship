@@ -21,3 +21,5 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+.prettierignore
