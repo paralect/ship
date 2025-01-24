@@ -21,3 +21,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# docker
+Dockerfile
+Dockerfile.*
+
+.prettierignore
