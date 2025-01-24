@@ -16,7 +16,7 @@ permissions:
 
 env:
   PNPM_VERSION: 9.5.0
-  NODE_VERSION: 20
+  NODE_VERSION: 22.13.0
 
 jobs:
   lint:
