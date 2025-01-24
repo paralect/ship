@@ -54,7 +54,7 @@
     "@tanstack/react-query-devtools": "5.50.1",
     "@types/lodash": "4.17.6",
     "@types/mixpanel-browser": "2.49.0",
-    "@types/node": "20.11.1",
+    "@types/node": "22.10.10",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "eslint": "8.56.0",

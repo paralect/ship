@@ -21,7 +21,7 @@
   },
   "packageManager": "pnpm@9.5.0",
   "engines": {
-    "node": ">= 20.11.1",
+    "node": ">= 22.13.0",
     "yarn": "please-use-pnpm",
     "pnpm": ">= 9.5.0"
   }
