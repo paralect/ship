@@ -1,0 +1,1 @@
+export { User, TokenType } from '@prisma/client';
