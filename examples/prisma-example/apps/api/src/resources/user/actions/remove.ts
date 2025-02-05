@@ -10,12 +10,10 @@ type Request = {
 };
 
 async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next) {
-  const isUserExists = Boolean(
-      await userService.findUnique({
-        where: { id: +ctx.request.params.id },
-        select: { id: true },
-      })
-  );
+  const isUserExists = Boolean(await userService.findUnique({
+    where: { id: +ctx.request.params.id },
+    select: { id: true },
+  }));
   ctx.assertError(isUserExists, 'User not found');
 
   await next();
@@ -23,7 +21,7 @@ async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next)
 
 async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
   await userService.delete({
-    where: { id: +ctx.request.params.id }
+    where: { id: +ctx.request.params.id },
   });
 
   ctx.status = 204;

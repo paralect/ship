@@ -51,11 +51,11 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
 
   ctx.body = await userService
-      .update({
-        where: { id: user.id },
-        data: updateData,
-      })
-      .then(userService.getPublic);
+    .update({
+      where: { id: user.id },
+      data: updateData,
+    })
+    .then(userService.getPublic);
 }
 
 export default (router: AppRouter) => {

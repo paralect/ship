@@ -1,4 +1,3 @@
-/* eslint-disable simple-import-sort/imports, import/newline-after-import, import/first */
 // Allows requiring modules relative to /src folder,
 // For example, require('lib/mongo/idGenerator')
 // All options can be found here: https://gist.github.com/branneman/8048520
@@ -34,26 +33,22 @@ const initKoa = () => {
   app.use(cors({ credentials: true }));
   app.use(helmet());
   qs(app);
-  app.use(
-    koaBody({
-      multipart: true,
-      onError: (error, ctx) => {
-        const errText: string = error.stack || error.toString();
+  app.use(koaBody({
+    multipart: true,
+    onError: (error, ctx) => {
+      const errText: string = error.stack || error.toString();
 
-        logger.warn(`Unable to parse request body. ${errText}`);
-        ctx.throw(422, 'Unable to parse request JSON.');
-      },
-    }),
-  );
-  app.use(
-    koaLogger({
-      transporter: (message, args) => {
-        const [, method, endpoint, status, time, length] = args;
+      logger.warn(`Unable to parse request body. ${errText}`);
+      ctx.throw(422, 'Unable to parse request JSON.');
+    },
+  }));
+  app.use(koaLogger({
+    transporter: (message, args) => {
+      const [, method, endpoint, status, time, length] = args;
 
-        logger.http(message.trim(), { method, endpoint, status, time, length });
-      },
-    }),
-  );
+      logger.http(message.trim(), { method, endpoint, status, time, length });
+    },
+  }));
 
   routes(app);
 

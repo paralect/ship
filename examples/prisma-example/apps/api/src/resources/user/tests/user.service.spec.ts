@@ -1,4 +1,4 @@
-import {database} from "database";
+import { database } from 'database';
 
 
 
@@ -22,11 +22,11 @@ describe('User service', () => {
     };
 
     await database.user.create({
-      data: mockUser
+      data: mockUser,
     });
 
     const insertedUser = await database.user.findUnique({
-      where: {id: mockUser.id},
+      where: { id: mockUser.id },
     });
 
     expect(insertedUser).not.toBeNull();

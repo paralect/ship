@@ -24,7 +24,7 @@ const signInGoogleWithCode = async (ctx: AppKoaContext) => {
   ctx.assertError(isValid && payload && !(payload instanceof Error), `Exchange code for token error: ${payload}`);
 
   const user = await userService.findUnique({
-    where: {email: payload.email},
+    where: { email: payload.email },
   });
 
   let userChanged;
@@ -62,7 +62,7 @@ const signInGoogleWithCode = async (ctx: AppKoaContext) => {
       email,
       isEmailVerified: true,
       avatarUrl,
-      isGoogleAuth: true
+      isGoogleAuth: true,
     },
   });
 

@@ -22,8 +22,8 @@ type Request = {
 
 async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next) {
   const isUserExists = await userService.count({
-    where: { id: +ctx.request.params.id}
-  })
+    where: { id: +ctx.request.params.id },
+  });
 
   ctx.assertError(isUserExists, 'User not found');
 
@@ -33,8 +33,8 @@ async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next)
 async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
 
   const updatedUser = await userService.update({
-      where: { id: +ctx.request.params.id },
-      data: ctx.validatedData,
+    where: { id: +ctx.request.params.id },
+    data: ctx.validatedData,
   });
 
   ctx.body = userService.getPublic(updatedUser);

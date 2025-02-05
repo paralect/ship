@@ -72,7 +72,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
           return {
             OR: filterItem.$or.map((condition) => {
               const [key, value] = Object.entries(condition)[0];
-              return { [key]: { contains: value.$regex.source, mode: "insensitive" } };
+              return { [key]: { contains: value.$regex.source, mode: 'insensitive' } };
             }),
           };
         }
@@ -89,7 +89,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     },
     skip: (page - 1) * perPage,
     take: perPage,
-    orderBy
+    orderBy,
   });
 
   ctx.body = { ...result, results: result.map(userService.getPublic) };

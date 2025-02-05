@@ -14,7 +14,7 @@ interface ValidatedData extends ForgotPasswordParams {
 }
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
-  const user = await userService.findUnique({ where: {email: ctx.validatedData.email} });
+  const user = await userService.findUnique({ where: { email: ctx.validatedData.email } });
 
   if (!user) {
     ctx.status = 204;
