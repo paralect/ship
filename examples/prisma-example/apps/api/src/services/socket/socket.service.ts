@@ -29,7 +29,6 @@ export default (server: http.Server) => {
     const accessToken = socketHelper.getCookie(socket.handshake.headers.cookie, COOKIES.ACCESS_TOKEN);
 
     if (typeof accessToken === 'string') {
-
       const tokenData = await tokenService.findTokenByValue(accessToken);
       if (tokenData) {
         socket.data = {
@@ -38,7 +37,6 @@ export default (server: http.Server) => {
 
         return next();
       }
-
     }
 
     return next(new Error('Token is invalid'));

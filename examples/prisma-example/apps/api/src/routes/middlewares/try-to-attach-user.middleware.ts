@@ -10,7 +10,6 @@ const tryToAttachUser = async (ctx: AppKoaContext, next: Next) => {
 
   if (userData) {
     if (userData.userId !== null) {
-
       const user = await userService.findUnique({
         where: { id: userData.userId },
       });
@@ -20,7 +19,6 @@ const tryToAttachUser = async (ctx: AppKoaContext, next: Next) => {
         ctx.state.user = user;
         ctx.state.isShadow = userData.isShadow ?? false;
       }
-
     }
   }
 

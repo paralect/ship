@@ -49,7 +49,6 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     updateData.avatarUrl = await accountUtils.uploadAvatar(user, avatar);
   }
 
-
   ctx.body = await userService
     .update({
       where: { id: user.id },

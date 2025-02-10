@@ -37,7 +37,9 @@ const PageConfig: FC<PageConfigProps> = ({ children }) => {
     if ((!isSuccess && !isError) || !config.MIXPANEL_API_KEY) return;
 
     analyticsService.init();
-    analyticsService.setUser(account);
+    if(account){
+      analyticsService.setUser(account);
+    }
   }, [isSuccess, isError]);
 
   if (isAccountLoading) return null;

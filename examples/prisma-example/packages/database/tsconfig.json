@@ -4,8 +4,5 @@
     "rootDir": ".",
     "baseUrl": "src"
   },
-  "include": [
-    "**/*.ts",
-    "**/*.json"
-  ]
+  "include": ["**/*.ts", "**/*.json"]
 }

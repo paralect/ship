@@ -28,7 +28,11 @@ const Tbody = <T extends RowData>({ onRowClick }: TbodyProps<T>) => {
           })}
         >
           {row.getVisibleCells().map((cell) => (
-            <Table.Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Table.Td>
+            <Table.Td key={cell.id}>
+              {
+              flexRender(cell.column.columnDef.cell, cell.getContext())
+              }
+            </Table.Td>
           ))}
         </Table.Tr>
       ))}

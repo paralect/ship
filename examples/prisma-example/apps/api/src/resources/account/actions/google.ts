@@ -30,16 +30,13 @@ const signInGoogleWithCode = async (ctx: AppKoaContext) => {
   let userChanged;
 
   if (user) {
-
     if (!user.isGoogleAuth) {
-
       userChanged = await userService.update({
         where: { id: user.id },
         data: {
           isGoogleAuth: true,
         },
       });
-
     }
 
     const userUpdated = userChanged || user;

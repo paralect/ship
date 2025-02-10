@@ -1,19 +1,5 @@
 #!/bin/sh
 
-KEYFILE_DIR=".dev/mongo/config"
-KEYFILE="$KEYFILE_DIR/keyfile"
-
-if [ ! -f "$KEYFILE" ]; then
-    echo "MongoDB keyfile does not exist. Generating now..."
-
-    mkdir -p "$KEYFILE_DIR"
-
-    openssl rand -base64 756 > "$KEYFILE"
-    chmod 400 "$KEYFILE"
-
-    echo "MongoDB keyfile generated."
-fi
-
 API_ENV_FILE="apps/api/.env"
 API_ENV_EXAMPLE_FILE="apps/api/.env.example"
 

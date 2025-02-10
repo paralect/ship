@@ -26,6 +26,10 @@ COPY --from=builder /app/out/full/turbo.json ./turbo.json
 
 # DEVELOPMENT - Stage 3
 FROM installer AS development
+# Generation prisma types
+WORKDIR /app/packages/database
+RUN npx prisma generate
+WORKDIR /app
 CMD pnpm turbo run dev --filter=api
 
 # RUNNER - Stage 4

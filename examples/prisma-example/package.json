@@ -1,7 +1,7 @@
 {
   "name": "ship",
   "scripts": {
-    "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
+    "infra": "bash ./bin/start.sh postgerss redis",
     "turbo-start": "turbo run development",
     "docker": "bash ./bin/start.sh",
     "start": "bash ./bin/run-all.sh",

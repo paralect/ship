@@ -4,6 +4,7 @@
   "description": "Koa.js API",
   "author": "Paralect",
   "license": "MIT",
+  "packageManager": "pnpm@9.5.0",
   "scripts": {
     "build": "tsc",
     "dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only src/app.ts",
@@ -16,9 +17,7 @@
     "tsc": "tsc --noEmit --watch",
     "prettier": "prettier . --write --config .prettierrc.json",
     "eslint": "eslint . --fix",
-    "precommit": "lint-staged",
-    "prisma:generate": "prisma generate --schema=../prisma/schema.prisma",
-    "postinstall": "prisma generate"
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.540.0",

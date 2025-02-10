@@ -10,10 +10,8 @@ type Request = {
 };
 
 async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next) {
-  const isUserExists = Boolean(await userService.findUnique({
-    where: { id: +ctx.request.params.id },
-    select: { id: true },
-  }));
+  const isUserExists = await userService.count({ where: { id: +ctx.request.params.id } });
+
   ctx.assertError(isUserExists, 'User not found');
 
   await next();

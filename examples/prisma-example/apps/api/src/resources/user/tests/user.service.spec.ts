@@ -1,7 +1,5 @@
 import { database } from 'database';
 
-
-
 describe('User service', () => {
   beforeAll(async () => {
     await database.$connect();

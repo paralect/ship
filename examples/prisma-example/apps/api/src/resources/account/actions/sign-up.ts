@@ -12,10 +12,7 @@ import { AppKoaContext, AppRouter, Next, SignUpParams, Template } from 'types';
 async function validator(ctx: AppKoaContext<SignUpParams>, next: Next) {
   const { email } = ctx.validatedData;
 
-  const isUserExists = Boolean(await userService.findUnique({
-    where: { email },
-    select: { id: true },
-  }));
+  const isUserExists = await userService.count({ where: { email } });
 
   ctx.assertClientError(!isUserExists, {
     email: 'User with this email is already registered',

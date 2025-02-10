@@ -1,5 +1,4 @@
-import { Prisma } from '@prisma/client/extension';
-import { database, TokenType } from 'database';
+import { database, TokenType, Prisma, Token } from 'database';
 
 import { securityUtil } from 'utils';
 
@@ -19,24 +18,25 @@ const createToken = async (userId: number, type: TokenType, isShadow?: boolean) 
 };
 
 const createAuthTokens = async (user: { userId: number; isShadow?: boolean }) => {
-  const accessTokenEntity = await createToken(user.userId, TokenType.ACCESS, user.isShadow);
+  const accessTokenEntity = await createToken(user.userId, Token.ACCESS, user.isShadow);
 
   return {
     accessToken: accessTokenEntity.value,
   };
 };
 
-const findTokenByValue = async (token: string) => database.token.findFirst({
-  where: { value: token },
-  select: { userId: true, isShadow: true },
-});
+const findTokenByValue = async (token: string) =>
+  database.token.findFirst({
+    where: { value: token },
+    select: { userId: true, isShadow: true },
+  });
 
-const removeAuthTokens = async (accessToken: string) => database.token.deleteMany({
-  where: {
-    value: accessToken,
-  },
-});
-
+const removeAuthTokens = async (accessToken: string) =>
+  database.token.deleteMany({
+    where: {
+      value: accessToken,
+    },
+  });
 
 const invalidateUserTokens = async (userId: number, tx?: Prisma.TransactionClient) => {
   const client = tx || database;

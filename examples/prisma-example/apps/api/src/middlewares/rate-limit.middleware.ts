@@ -30,7 +30,7 @@ const rateLimit = (
     ...dbOptions,
     duration: limitDuration,
     max: requestsPerDuration,
-    id: (ctx: ParameterizedContext<AppKoaContextState>) => ctx.state?.user?.id.toString() || ctx.ip,
+    id: (ctx: ParameterizedContext<AppKoaContextState>) => ctx.state?.user?.id?.toString() || ctx.ip,
     errorMessage,
     disableHeader: false,
     throw: true,
