@@ -1,5 +1,3 @@
-import { database } from 'database';
-
 import { tokenService } from 'resources/token';
 import { userService } from 'resources/user';
 
@@ -8,6 +6,7 @@ import { securityUtil } from 'utils';
 
 import { resetPasswordSchema } from 'schemas';
 import { AppKoaContext, AppRouter, Next, ResetPasswordParams, User } from 'types';
+import { database } from 'database';
 
 interface ValidatedData extends ResetPasswordParams {
   user: User;
