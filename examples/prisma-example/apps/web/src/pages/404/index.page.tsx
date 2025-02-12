@@ -18,8 +18,7 @@ const NotFound: NextPage = () => {
         <Title order={2}>Oops! The page is not found.</Title>
 
         <Text mx={0} mt={20} mb={24} c="gray.6">
-          The page you are looking for may have been removed, or the link you followed may be
-          broken.
+          The page you are looking for may have been removed, or the link you followed may be broken.
         </Text>
 
         <Button onClick={() => replace(RoutePath.Home)}>Go to homepage</Button>

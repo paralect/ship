@@ -46,12 +46,9 @@ const Thead = () => {
 
             return (
               <Table.Th key={header.id} colSpan={header.colSpan} style={{ width: columnWidth }}>
-                {!header.isPlaceholder
-                  && (isSortable ? (
-                    <UnstyledButton
-                      onClick={header.column.getToggleSortingHandler()}
-                      className={classes.headerButton}
-                    >
+                {!header.isPlaceholder &&
+                  (isSortable ? (
+                    <UnstyledButton onClick={header.column.getToggleSortingHandler()} className={classes.headerButton}>
                       {headerContent}
 
                       <SortIcon state={header.column.getIsSorted()} />

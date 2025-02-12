@@ -115,7 +115,7 @@ module.exports = {
               // Logger instance
               ['^logger'],
               // Internal packages
-              ['^app-constants', '^schemas', '^types'],
+              ['^app-constants', '^schemas', '^types', '^database'],
               // Relative imports
               ['^\\.\\.(?!/?$)', '^\\.\\./?$', '^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
               // Style imports.

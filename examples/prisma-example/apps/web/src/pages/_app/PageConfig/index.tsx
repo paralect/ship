@@ -34,12 +34,10 @@ const PageConfig: FC<PageConfigProps> = ({ children }) => {
   const { data: account, isLoading: isAccountLoading, isSuccess, isError } = accountApi.useGet();
 
   useEffect(() => {
-    if ((!isSuccess && !isError) || !config.MIXPANEL_API_KEY) return;
+    if (!isSuccess || !isError || !config.MIXPANEL_API_KEY) return;
 
     analyticsService.init();
-    if(account){
-      analyticsService.setUser(account);
-    }
+    analyticsService.setUser(account);
   }, [isSuccess, isError]);
 
   if (isAccountLoading) return null;

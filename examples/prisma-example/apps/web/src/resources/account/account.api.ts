@@ -1,5 +1,4 @@
 import { useMutation, useQuery, UseQueryOptions } from '@tanstack/react-query';
-import { User } from 'database'
 
 import { apiService } from 'services';
 
@@ -12,7 +11,7 @@ import {
   ResetPasswordParams,
   SignInParams,
   SignUpParams,
-  UpdateUserParams,
+  UpdateUserParams, User
 } from 'types';
 
 export const useSignIn = <T = SignInParams>() =>

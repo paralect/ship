@@ -2,10 +2,10 @@ model Token {
   id       Int       @id @default(autoincrement())
   type     TokenType
   value    String
-  userId   Int?
+  userId   Int
   isShadow Boolean?
 
-  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("token")
 }

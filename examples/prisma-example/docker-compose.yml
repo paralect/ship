@@ -26,19 +26,7 @@ services:
       - 3001:3001
     depends_on:
       - redis
-  migrator:
-    container_name: ship-migrator
-    build:
-      context: .
-      dockerfile: ./apps/api/Dockerfile.migrator
-      target: development
-      args:
-        NODE_ENV: development
-        APP_ENV: development
-    networks:
-      - ship
-    volumes:
-      - ./apps/api/src:/app/apps/api/src
+      - postgres
   scheduler:
     container_name: ship-scheduler
     build:

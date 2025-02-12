@@ -1,5 +1,5 @@
 model User {
-  id                 Int       @id @default(autoincrement()) @map("_id")
+  id                 Int       @id @default(autoincrement())
   firstName          String    @db.VarChar(100)
   lastName           String    @db.VarChar(100)
   fullName           String

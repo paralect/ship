@@ -1,8 +1,7 @@
-import { database, TokenType, Prisma, Token } from 'database';
-
 import { securityUtil } from 'utils';
 
 import { TOKEN_SECURITY_LENGTH } from 'app-constants';
+import { database, Prisma, Token,TokenType } from 'database';
 
 const createToken = async (userId: number, type: TokenType, isShadow?: boolean) => {
   const value = await securityUtil.generateSecureToken(TOKEN_SECURITY_LENGTH);
@@ -42,6 +41,7 @@ const invalidateUserTokens = async (userId: number, tx?: Prisma.TransactionClien
   const client = tx || database;
   return client.token.deleteMany({ where: { userId } });
 };
+
 export default Object.assign(database, {
   createAuthTokens,
   findTokenByValue,

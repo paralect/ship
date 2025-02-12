@@ -1,7 +1,7 @@
-import { database } from 'database';
 import _ from 'lodash';
 
 import { User } from 'types';
+import { database } from 'database';
 
 const updateLastRequest = async (id: number) =>
   database.user.update({

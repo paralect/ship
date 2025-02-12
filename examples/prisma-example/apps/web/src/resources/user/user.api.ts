@@ -1,10 +1,9 @@
 import { DateValue } from '@mantine/dates';
 import { useQuery } from '@tanstack/react-query';
-import { User } from 'database'
 
 import { apiService } from 'services';
 
-import { ListParams, ListResult, SortOrder } from 'types';
+import { ListParams, ListResult, SortOrder, User } from 'types';
 
 export type UsersListFilterParams = {
   createdAt?: {

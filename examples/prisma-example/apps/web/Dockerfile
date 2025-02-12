@@ -36,7 +36,7 @@ CMD pnpm turbo run dev --filter=web
 # APP_BUILDER - Stage 4
 FROM installer AS app_builder
 
-ARG APP_ENV=development
+ARG APP_ENV
 ENV NEXT_PUBLIC_APP_ENV=$APP_ENV
 
 RUN pnpm turbo run build --filter=web...

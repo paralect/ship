@@ -1,8 +1,0 @@
-{
-  "extends": "tsconfig/nodejs.json",
-  "compilerOptions": {
-    "rootDir": ".",
-    "baseUrl": "src"
-  },
-  "include": ["**/*.ts", "**/*.json"]
-}

@@ -80,7 +80,11 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     orderBy,
   });
 
-  ctx.body = { ...result, results: result.map(userService.getPublic) };
+  ctx.body = {
+      results: result.map(userService.getPublic),
+      count: result.length,
+      pagesCount: page,
+  };
 }
 
 export default (router: AppRouter) => {

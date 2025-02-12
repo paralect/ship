@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { Button, PasswordInput, Stack, TextInput, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User } from "database";
 import { isUndefined, pickBy } from 'lodash';
 import { serialize } from 'object-to-formdata';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -15,7 +14,7 @@ import { handleApiError } from 'utils';
 import queryClient from 'query-client';
 
 import { updateUserSchema } from 'schemas';
-import { UpdateUserParams } from 'types';
+import { UpdateUserParams, User } from 'types';
 
 import AvatarUpload from './components/AvatarUpload';
 

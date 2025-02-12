@@ -37,9 +37,6 @@ RUN npx prisma db push
 WORKDIR /app
 CMD pnpm turbo run dev --filter=api
 
-
-
-
 # RUNNER - Stage 4
 FROM node:alpine AS runner
 WORKDIR /app

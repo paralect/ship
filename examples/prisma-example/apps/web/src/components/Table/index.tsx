@@ -97,8 +97,8 @@ const Table = <T extends RowData>({
     <TableContext.Provider value={useMemo(() => table as TanstackTable<T | unknown>, [table])}>
       {isLoading && <LoadingState />}
 
-      {!isLoading
-        && (totalCount > 0 ? (
+      {!isLoading &&
+        (totalCount > 0 ? (
           <Stack gap="lg">
             <Paper radius="md" withBorder>
               <TableContainer horizontalSpacing="xl" verticalSpacing="lg" {...tableContainerProps}>

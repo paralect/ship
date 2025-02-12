@@ -21,15 +21,7 @@ const Pagination: FC<PaginationProps> = ({ totalCount, ...rest }) => {
     <Group justify="flex-end">
       {totalCount && (
         <Text size="sm" c="gray.6">
-          Showing
-          {' '}
-          <b>{table.getRowModel().rows.length}</b>
-          {' '}
-          of
-          {' '}
-          <b>{totalCount}</b>
-          {' '}
-          results
+          Showing <b>{table.getRowModel().rows.length}</b> of <b>{totalCount}</b> results
         </Text>
       )}
 

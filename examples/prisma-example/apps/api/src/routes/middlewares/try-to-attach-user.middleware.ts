@@ -8,17 +8,15 @@ const tryToAttachUser = async (ctx: AppKoaContext, next: Next) => {
 
   const userData = await tokenService.findTokenByValue(accessToken);
 
-  if (userData) {
-    if (userData.userId !== null) {
-      const user = await userService.findUnique({
-        where: { id: userData.userId },
-      });
-      if (user) {
-        await userService.updateLastRequest(userData.userId);
+  if (userData && userData.userId !== null) {
+    const user = await userService.findUnique({
+      where: { id: userData.userId },
+    });
+    if (user) {
+      await userService.updateLastRequest(userData.userId);
 
-        ctx.state.user = user;
-        ctx.state.isShadow = userData.isShadow ?? false;
-      }
+      ctx.state.user = user;
+      ctx.state.isShadow = userData.isShadow ?? false;
     }
   }
 
