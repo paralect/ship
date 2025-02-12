@@ -31,14 +31,14 @@ interface PageConfigProps {
 const PageConfig: FC<PageConfigProps> = ({ children }) => {
   const { route, push } = useRouter();
 
-  const { data: account, isLoading: isAccountLoading, isSuccess, isError } = accountApi.useGet();
+  const { data: account, isLoading: isAccountLoading, dataUpdatedAt } = accountApi.useGet();
 
   useEffect(() => {
-    if ((!isSuccess && !isError) || !config.MIXPANEL_API_KEY) return;
+    if (!dataUpdatedAt || !config.MIXPANEL_API_KEY) return;
 
     analyticsService.init();
     analyticsService.setUser(account);
-  }, [isSuccess, isError]);
+  }, [dataUpdatedAt]);
 
   if (isAccountLoading) return null;
 
