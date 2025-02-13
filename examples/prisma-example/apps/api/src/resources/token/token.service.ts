@@ -1,7 +1,7 @@
 import { securityUtil } from 'utils';
 
 import { TOKEN_SECURITY_LENGTH } from 'app-constants';
-import { database, Prisma, Token,TokenType } from 'database';
+import { database, Prisma, TokenType } from 'database';
 
 const createToken = async (userId: number, type: TokenType, isShadow?: boolean) => {
   const value = await securityUtil.generateSecureToken(TOKEN_SECURITY_LENGTH);
@@ -17,7 +17,7 @@ const createToken = async (userId: number, type: TokenType, isShadow?: boolean) 
 };
 
 const createAuthTokens = async (user: { userId: number; isShadow?: boolean }) => {
-  const accessTokenEntity = await createToken(user.userId, Token.ACCESS, user.isShadow);
+  const accessTokenEntity = await createToken(user.userId, TokenType.ACCESS, user.isShadow);
 
   return {
     accessToken: accessTokenEntity.value,

@@ -8,7 +8,7 @@ const tryToAttachUser = async (ctx: AppKoaContext, next: Next) => {
 
   const userData = await tokenService.findTokenByValue(accessToken);
 
-  if (userData && userData.userId !== null) {
+  if (userData) {
     const user = await userService.findUnique({
       where: { id: userData.userId },
     });

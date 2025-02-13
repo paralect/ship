@@ -71,19 +71,25 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     [key]: value,
   }));
 
-  const result = await userService.findMany({
-    where: {
-      AND: filterOptions,
-    },
-    skip: (page - 1) * perPage,
-    take: perPage,
-    orderBy,
-  });
+  const [results, count] = await Promise.all([
+    userService.findMany({
+      where: {
+        AND: filterOptions,
+      },
+      skip: (page - 1) * perPage,
+      take: perPage,
+      orderBy,
+    }),
+    userService.count({
+      where: {
+        AND: filterOptions,
+      }
+    })]);
 
   ctx.body = {
-      results: result.map(userService.getPublic),
-      count: result.length,
-      pagesCount: page,
+    results: results.map(userService.getPublic),
+    count: results.length,
+    pagesCount: count,
   };
 }
 
