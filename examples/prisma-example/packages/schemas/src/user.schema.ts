@@ -29,15 +29,16 @@ export const resetPasswordSchema = z.object({
   password: passwordSchema,
 });
 
-export const updateUserSchema = z
-    .object({
-        firstName: z.string().min(1, 'Please enter First name').max(100).optional(),
-        lastName: z.string().min(1, 'Please enter Last name').max(100).optional(),
-
-        password: z.union([passwordSchema, z.literal('')]), // Позволяет пустую строку
-        avatar: z.union([
-            fileSchema(USER_AVATAR.MAX_FILE_SIZE, USER_AVATAR.ACCEPTED_FILE_TYPES).nullable(),
-            z.literal(''),
-        ]),
-    })
-    .partial();
+export const updateUserSchema = z.object({
+  firstName: z.string().min(1, 'Please enter First name').max(100).optional(),
+  lastName: z.string().min(1, 'Please enter Last name').max(100).optional(),
+  password: z.union([passwordSchema, z.literal('')]),
+  avatar: z.union([
+      fileSchema
+      (
+          USER_AVATAR.MAX_FILE_SIZE,
+          USER_AVATAR.ACCEPTED_FILE_TYPES
+      ).nullable(),
+      z.literal(''),
+  ]),
+}).partial();
