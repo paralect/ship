@@ -1,0 +1,32 @@
+{
+  "name": "app-constants",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "tsc": "tsc --noEmit --watch",
+    "prettier": "prettier . --write --config .prettierrc.json",
+    "eslint": "eslint . --fix",
+    "precommit": "lint-staged"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "eslint": "*",
+    "eslint-config-custom": "workspace:*",
+    "lint-staged": "*",
+    "prettier": "*",
+    "prettier-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "*"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "bash -c 'tsc --noEmit'",
+      "prettier --write"
+    ],
+    "!*.ts": [
+      "prettier --write"
+    ]
+  }
+}

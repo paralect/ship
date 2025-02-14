@@ -1,0 +1,100 @@
+services:
+  redis:
+    container_name: ship-redis
+    image: redis:5.0.5
+    command: redis-server --appendonly yes
+    hostname: redis
+    networks:
+      - ship
+    ports:
+      - 6379:6379
+  api:
+    container_name: ship-api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+      target: development
+      args:
+        NODE_ENV: development
+        APP_ENV: development
+    networks:
+      - ship
+    volumes:
+      - ./apps/api/src:/app/apps/api/src
+      - mailer-volume:/app/packages/mailer
+    ports:
+      - 3001:3001
+    depends_on:
+      - redis
+      - postgres
+  scheduler:
+    container_name: ship-scheduler
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile.scheduler
+      target: development
+      args:
+        NODE_ENV: development
+        APP_ENV: development
+    networks:
+      - ship
+    volumes:
+      - ./apps/api/src:/app/apps/api/src
+  web:
+    container_name: ship-web
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+      target: development
+      args:
+        NODE_ENV: development
+        APP_ENV: development
+    volumes:
+      - ./apps/web/src:/app/apps/web/src
+      - ./apps/web/public:/app/apps/web/public
+    networks:
+      - ship
+    ports:
+      - 3002:3002
+  postgres:
+    container_name: ship-postgres
+    image: postgres:17
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ship
+    networks:
+      - ship
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U root -d ship" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  mailer:
+    container_name: ship-mailer
+    build:
+      context: .
+      dockerfile: ./packages/mailer/Dockerfile
+      target: development
+      args:
+        NODE_ENV: development
+        APP_ENV: development
+    volumes:
+      - mailer-volume:/app/packages/mailer/dist
+      - ./packages/mailer/emails:/app/packages/mailer/emails
+      - ./packages/mailer/src:/app/packages/mailer/src
+    networks:
+      - ship
+    ports:
+      - 3003:3003
+networks:
+  ship:
+    name: ship-network
+
+volumes:
+  mailer-volume:
+  postgres-data:

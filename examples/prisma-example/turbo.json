@@ -1,0 +1,30 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "api#migrate-dev": {
+      "cache": false
+    },
+    "api#schedule-dev": {
+      "dependsOn": ["api#migrate-dev"],
+      "cache": false
+    },
+    "dev": {
+      "cache": false
+    },
+    "development": {
+      "dependsOn": ["api#migrate-dev", "api#schedule-dev", "dev"],
+      "cache": false,
+      "persistent": true
+    },
+    "precommit": {
+      "outputs": []
+    },
+    "test:eslint": {
+      "outputs": []
+    }
+  }
+}

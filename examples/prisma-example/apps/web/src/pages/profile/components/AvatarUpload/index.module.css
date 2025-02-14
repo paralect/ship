@@ -1,0 +1,60 @@
+.root {
+  --dropzone-size: 100px;
+  --dropzone-hover-color: var(--mantine-color-gray-5);
+
+  padding: 0;
+  background-color: transparent;
+
+  border: none;
+  border-radius: 50%;
+
+  @mixin hover {
+    .addIcon {
+      color: var(--dropzone-hover-color);
+    }
+
+    .browseButton {
+      border-color: var(--dropzone-hover-color);
+    }
+
+    .editOverlay {
+      opacity: 1;
+    }
+  }
+}
+
+.browseButton {
+  width: var(--dropzone-size);
+  height: var(--dropzone-size);
+
+  border: 1px dashed var(--mantine-primary-color-filled);
+  border-radius: 50%;
+
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.imageExists {
+  border-color: transparent !important;
+}
+
+.addIcon {
+  color: var(--mantine-primary-color-filled);
+
+  transition: all 0.2s ease-in-out;
+}
+
+.pencilIcon {
+  color: var(--dropzone-hover-color);
+
+  transition: all 0.2s ease-in-out;
+}
+
+.editOverlay {
+  border-radius: 50%;
+  background-color: alpha(var(--mantine-color-black), 0.5);
+
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}

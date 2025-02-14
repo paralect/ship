@@ -1,0 +1,9 @@
+{
+  "extends": "tsconfig/nodejs.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": "src",
+    "jsx": "react" // for using Mailer
+  },
+  "include": ["**/*.ts", "**/*.json"]
+}

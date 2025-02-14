@@ -1,0 +1,89 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "Next.js web",
+  "author": "Paralect",
+  "license": "MIT",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev -p 3002",
+    "start": "next start -p 3002",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "tsc": "tsc --noEmit --watch",
+    "prettier": "prettier . --write --config .prettierrc.json",
+    "eslint": "eslint . --fix",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "3.3.4",
+    "@mantine/core": "7.15.1",
+    "@mantine/dates": "7.15.1",
+    "@mantine/dropzone": "7.15.1",
+    "@mantine/hooks": "7.15.1",
+    "@mantine/modals": "7.15.1",
+    "@mantine/next": "6.0.22",
+    "@mantine/notifications": "7.15.1",
+    "@svgr/webpack": "8.1.0",
+    "@tabler/icons-react": "3.10.0",
+    "@tanstack/react-query": "5.50.1",
+    "@tanstack/react-table": "8.19.2",
+    "app-constants": "workspace:*",
+    "app-types": "workspace:*",
+    "axios": "1.7.2",
+    "clsx": "2.1.1",
+    "dayjs": "1.11.10",
+    "dotenv-flow": "4.1.0",
+    "lodash": "4.17.21",
+    "mixpanel-browser": "2.53.0",
+    "next": "14.2.10",
+    "object-to-formdata": "4.5.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "7.52.1",
+    "schemas": "workspace:*",
+    "socket.io-client": "4.7.5",
+    "zod": "3.21.4"
+  },
+  "devDependencies": {
+    "@storybook/addon-controls": "8.4.7",
+    "@storybook/addon-styling-webpack": "1.0.1",
+    "@storybook/nextjs": "8.4.7",
+    "@storybook/preview-api": "8.4.7",
+    "@storybook/react": "8.4.7",
+    "@tanstack/react-query-devtools": "5.50.1",
+    "@types/lodash": "4.17.6",
+    "@types/mixpanel-browser": "2.49.0",
+    "@types/node": "22.10.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "eslint": "8.56.0",
+    "eslint-config-custom": "workspace:*",
+    "lint-staged": "15.2.7",
+    "postcss": "8.4.47",
+    "postcss-preset-mantine": "1.17.0",
+    "postcss-simple-vars": "7.0.1",
+    "prettier": "3.3.2",
+    "prettier-config-custom": "workspace:*",
+    "storybook": "8.4.7",
+    "storybook-dark-mode": "4.0.2",
+    "stylelint": "16.10.0",
+    "stylelint-config-standard-scss": "13.1.0",
+    "tsconfig": "workspace:*",
+    "typescript": "5.2.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "bash -c 'tsc --noEmit'",
+      "prettier --write"
+    ],
+    "*.css": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "!(*.css|*.ts|*.tsx)": [
+      "prettier --write"
+    ]
+  }
+}

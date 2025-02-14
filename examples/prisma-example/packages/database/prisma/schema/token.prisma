@@ -1,0 +1,15 @@
+model Token {
+  id       Int       @id @default(autoincrement())
+  type     TokenType
+  value    String
+  userId   Int
+  isShadow Boolean?
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("token")
+}
+
+enum TokenType {
+  ACCESS @map("access")
+}
