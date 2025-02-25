@@ -1,0 +1,21 @@
+model User {
+  id                 Int       @id @default(autoincrement())
+  firstName          String    @db.VarChar(100)
+  lastName           String    @db.VarChar(100)
+  fullName           String
+  email              String    @unique
+  passwordHash       String?
+  isEmailVerified    Boolean   @default(false)
+  isShadow           Boolean?
+  signupToken        String?
+  resetPasswordToken String?   @unique
+  avatarUrl          String?
+  isGoogleAuth       Boolean?
+  lastRequest        DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  tokens Token[]
+
+  @@map("users")
+}

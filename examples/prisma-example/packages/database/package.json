@@ -1,0 +1,21 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "private": true,
+  "packageManager": "pnpm@9.5.0",
+  "scripts": {
+    "postinstall": "prisma generate",
+    "build": "tsc",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@prisma/client": "6.3.0",
+    "tsconfig": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "5.2.2",
+    "prisma": "6.3.0"
+  }
+}
