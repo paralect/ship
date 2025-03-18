@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { getPublicSuffix, parse } from 'tldts';
 import { URL } from 'url';
 
@@ -14,22 +15,26 @@ import { AppKoaContext } from 'types';
  */
 const getCookieDomain = (hostname: string): string | undefined => {
   if (hostname === 'localhost' || hostname.endsWith('.localhost')) {
-    // Allow cookies to be set without domain in local development.
     return undefined;
   }
 
-  const { publicSuffix, domain } = parse(hostname);
+  const { domain, subdomain } = parse(hostname);
 
-  if (!publicSuffix || !domain) {
-    logger.warn(`Cannot determine cookie domain from hostname "${hostname}".`);
+  if (!domain) {
+    logger.warn(`Cannot determine cookie domain from "${hostname}".`);
     return undefined;
   }
 
-  const cookieDomain = `${domain}.${publicSuffix}`;
+  // Drop left-most subdomain and keep the rest
+  const cookieSubdomain = _.tail(subdomain?.split('.')).join('.');
+
+  const cookieDomain = cookieSubdomain ? `${cookieSubdomain}.${domain}` : domain;
+
+  const publicSuffix = getPublicSuffix(cookieDomain, { allowPrivateDomains: true });
 
   // Check if domain is a public suffix (e.g. ondigitalocean.app)
-  if (domain === getPublicSuffix(domain)) {
-    logger.warn(`Detected "${cookieDomain}" as public suffix. Cookie won't be set.`);
+  if (!publicSuffix || cookieDomain === publicSuffix) {
+    logger.warn(`"${cookieDomain}" is a public suffix. Cookie won't be set.`);
     return undefined;
   }
 
