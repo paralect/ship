@@ -18,7 +18,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
     <AppShell component={Stack} bg="gray.0">
       <Header />
 
-      <AppShell.Main p={32} pt={account.isShadow ? 144 : 104}>
+      <AppShell.Main p={32} pt={104}>
         {children}
       </AppShell.Main>
     </AppShell>

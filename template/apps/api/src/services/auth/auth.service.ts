@@ -50,8 +50,8 @@ const baseCookieOptions = {
   secure: webUrl.protocol === 'https:',
 };
 
-const setTokens = async (ctx: AppKoaContext, userId: string, isShadow?: boolean) => {
-  const { accessToken } = await tokenService.createAuthTokens({ userId, isShadow });
+const setTokens = async (ctx: AppKoaContext, userId: string) => {
+  const accessToken = await tokenService.createAccessToken({ userId });
 
   if (accessToken) {
     ctx.cookies.set(
@@ -65,7 +65,9 @@ const setTokens = async (ctx: AppKoaContext, userId: string, isShadow?: boolean)
 };
 
 const unsetTokens = async (ctx: AppKoaContext) => {
-  await tokenService.removeAuthTokens(ctx.state.accessToken);
+  const { accessToken } = ctx.state;
+
+  await tokenService.deleteMany({ value: accessToken });
 
   ctx.cookies.set(
     COOKIES.ACCESS_TOKEN,

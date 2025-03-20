@@ -8,7 +8,6 @@ import { LogoImage } from 'public/images';
 
 import { RoutePath } from 'routes';
 
-import ShadowLoginBanner from './components/ShadowLoginBanner';
 import UserMenu from './components/UserMenu';
 
 const Header: FC = () => {
@@ -18,8 +17,6 @@ const Header: FC = () => {
 
   return (
     <AppShell.Header>
-      {account.isShadow && <ShadowLoginBanner email={account.email} />}
-
       <Group h={72} px={32} py={0} justify="space-between" bg="white">
         <Anchor component={Link} href={RoutePath.Home}>
           <LogoImage />
