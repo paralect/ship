@@ -8,6 +8,5 @@ export const tokenSchema = dbSchema
     type: z.nativeEnum(TokenType),
     value: z.string(),
     userId: z.string(),
-    isShadow: z.boolean().nullable().optional(),
   })
   .strip();

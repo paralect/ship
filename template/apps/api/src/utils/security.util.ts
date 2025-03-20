@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { JwtPayload, Secret, SignOptions } from 'jsonwebtoken';
 
 import config from 'config';
 
@@ -38,15 +38,15 @@ export const compareTextWithHash = (text: string, hash: string) => bcrypt.compar
  * @desc Generates a JWT token with a secret
  *
  * @param payload {object} - Payload to include in the token
- * @param expiresIn {string | number} - Expiry time for the token
+ * @param [options] {SignOptions} - JWT sign options
  * @return {string} - JWT token
  */
 
-export const generateJwtToken = async <T extends object>(payload: T) => {
-  const secret = config.JWT_SECRET;
+export const generateJwtToken = async <T extends object>(payload: T, options?: SignOptions) => {
+  const secret: Secret = config.JWT_SECRET;
   const expiresIn = TOKEN_SECURITY_EXPIRES_IN;
 
-  return jwt.sign(payload, secret, { expiresIn });
+  return jwt.sign(payload, secret, { expiresIn, ...options });
 };
 
 /**

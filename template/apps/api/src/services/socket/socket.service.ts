@@ -27,11 +27,12 @@ export default (server: http.Server) => {
     if (!socket.handshake.headers.cookie) return next(new Error('Cookie not found'));
 
     const accessToken = socketHelper.getCookie(socket.handshake.headers.cookie, COOKIES.ACCESS_TOKEN);
-    const tokenData = await tokenService.findTokenByValue(accessToken);
 
-    if (tokenData) {
+    const token = await tokenService.findByJWTValue(accessToken);
+
+    if (token) {
       socket.data = {
-        userId: tokenData.userId,
+        userId: token.userId,
       };
 
       return next();

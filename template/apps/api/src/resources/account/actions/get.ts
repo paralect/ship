@@ -3,10 +3,9 @@ import { userService } from 'resources/user';
 import { AppKoaContext, AppRouter } from 'types';
 
 async function handler(ctx: AppKoaContext) {
-  ctx.body = {
-    ...userService.getPublic(ctx.state.user),
-    isShadow: ctx.state.isShadow,
-  };
+  const { user } = ctx.state;
+
+  ctx.body = userService.getPublic(user);
 }
 
 export default (router: AppRouter) => {

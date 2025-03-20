@@ -8,7 +8,6 @@ export * from 'app-types';
 export type AppKoaContextState = {
   user: User;
   accessToken: string;
-  isShadow: boolean | null;
 };
 
 export type CustomErrors = {

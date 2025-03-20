@@ -5,7 +5,6 @@ import get from './actions/get';
 import google from './actions/google';
 import resendEmail from './actions/resend-email';
 import resetPassword from './actions/reset-password';
-import shadowLogin from './actions/shadow-login';
 import signIn from './actions/sign-in';
 import signOut from './actions/sign-out';
 import signUp from './actions/sign-up';
@@ -27,10 +26,7 @@ const publicRoutes = routeUtil.getRoutes([
 
 const privateRoutes = routeUtil.getRoutes([get, update]);
 
-const adminRoutes = routeUtil.getRoutes([shadowLogin]);
-
 export default {
   publicRoutes,
   privateRoutes,
-  adminRoutes,
 };
