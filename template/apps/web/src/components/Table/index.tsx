@@ -103,6 +103,7 @@ const Table = <T extends RowData>({
             <Paper radius="md" withBorder>
               <TableContainer horizontalSpacing="xl" verticalSpacing="lg" {...tableContainerProps}>
                 <Thead />
+
                 <Tbody<T> onRowClick={onRowClick} />
               </TableContainer>
             </Paper>

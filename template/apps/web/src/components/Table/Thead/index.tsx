@@ -1,11 +1,9 @@
 import { FC } from 'react';
-import { Table, UnstyledButton } from '@mantine/core';
+import { Group, Table, UnstyledButton } from '@mantine/core';
 import { IconArrowsSort, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import { flexRender, SortDirection } from '@tanstack/react-table';
 
 import { useTableContext } from 'contexts';
-
-import classes from './index.module.css';
 
 interface SortIconProps {
   state: false | SortDirection;
@@ -48,10 +46,12 @@ const Thead = () => {
               <Table.Th key={header.id} colSpan={header.colSpan} style={{ width: columnWidth }}>
                 {!header.isPlaceholder &&
                   (isSortable ? (
-                    <UnstyledButton onClick={header.column.getToggleSortingHandler()} className={classes.headerButton}>
-                      {headerContent}
+                    <UnstyledButton fz="inherit" onClick={header.column.getToggleSortingHandler()}>
+                      <Group gap={8}>
+                        {headerContent}
 
-                      <SortIcon state={header.column.getIsSorted()} />
+                        <SortIcon state={header.column.getIsSorted()} />
+                      </Group>
                     </UnstyledButton>
                   ) : (
                     headerContent
