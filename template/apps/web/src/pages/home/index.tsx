@@ -6,7 +6,7 @@ import { showNotification } from '@mantine/notifications';
 import { SortDirection } from '@tanstack/react-table';
 import { pick } from 'lodash';
 
-import { userApi, UsersListParams } from 'resources/user';
+import { userApi, UserListParams } from 'resources/user';
 
 import { Table } from 'components';
 
@@ -16,7 +16,7 @@ import Filters from './components/Filters';
 import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
 
 const Home: NextPage = () => {
-  const [params, setParams] = useSetState<UsersListParams>(DEFAULT_PARAMS);
+  const [params, setParams] = useSetState<UserListParams>(DEFAULT_PARAMS);
 
   const { data: users, isLoading: isUserLostLoading } = userApi.useList(params);
 

@@ -21,10 +21,11 @@ export type ForgotPasswordParams = z.infer<typeof forgotPasswordSchema>;
 export type ResetPasswordParams = z.infer<typeof resetPasswordSchema>;
 export type UpdateUserParams = z.infer<typeof updateUserSchema>;
 
-export type UpdateUserParamsFrontend = Omit<UpdateUserParams, 'avatar'> & {
-  avatar?: FrontendFile | string;
-};
+// Empty string indicates avatar removal
+export interface UpdateUserParamsFrontend extends Omit<UpdateUserParams, 'avatar'> {
+  avatar?: FrontendFile | '';
+}
 
-export type UpdateUserParamsBackend = Omit<UpdateUserParams, 'avatar'> & {
-  avatar?: BackendFile | string;
-};
+export interface UpdateUserParamsBackend extends Omit<UpdateUserParams, 'avatar'> {
+  avatar?: BackendFile | '';
+}
