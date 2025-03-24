@@ -45,7 +45,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     updateData.avatarUrl = null;
   }
 
-  if (avatar && typeof avatar !== 'string') {
+  if (avatar) {
     updateData.avatarUrl = await accountUtils.uploadAvatar(user, avatar);
   }
 

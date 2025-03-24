@@ -5,7 +5,7 @@ import { useDebouncedValue, useInputState, useSetState } from '@mantine/hooks';
 import { IconSearch, IconSelector, IconX } from '@tabler/icons-react';
 import { set } from 'lodash';
 
-import { UsersListParams } from 'resources/user';
+import { UserListParams } from 'resources/user';
 
 const selectOptions: ComboboxItem[] = [
   {
@@ -19,7 +19,7 @@ const selectOptions: ComboboxItem[] = [
 ];
 
 interface FiltersProps {
-  setParams: ReturnType<typeof useSetState<UsersListParams>>[1];
+  setParams: ReturnType<typeof useSetState<UserListParams>>[1];
 }
 
 const Filters: FC<FiltersProps> = ({ setParams }) => {

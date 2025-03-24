@@ -52,7 +52,7 @@ export const useResetPassword = <T = ResetPasswordParams>() =>
   });
 
 export const useResendEmail = <T = ResendEmailParams>() =>
-  useMutation<null, ApiError, T>({
+  useMutation<void, ApiError, T>({
     mutationFn: (data: T) => apiService.post('/account/resend-email', data),
   });
 
@@ -60,27 +60,11 @@ export const useGet = (options: Partial<UseQueryOptions<User>> = {}) =>
   useQuery<User>({
     queryKey: ['account'],
     queryFn: () => apiService.get('/account'),
-    staleTime: 5 * 1000,
+    staleTime: 60 * 1000, // 60 seconds
     ...options,
   });
 
 export const useUpdate = <T = UpdateUserParams>() =>
   useMutation<User, ApiError, T>({
     mutationFn: (data: T) => apiService.put('/account', data),
-  });
-
-export const useUploadAvatar = <T>() =>
-  useMutation<User, ApiError, T>({
-    mutationFn: (data: T) => apiService.post('/account/avatar', data),
-    onSuccess: (data) => {
-      queryClient.setQueryData(['account'], data);
-    },
-  });
-
-export const useRemoveAvatar = () =>
-  useMutation<User, ApiError>({
-    mutationFn: () => apiService.delete('/account/avatar'),
-    onSuccess: (data) => {
-      queryClient.setQueryData(['account'], data);
-    },
   });
