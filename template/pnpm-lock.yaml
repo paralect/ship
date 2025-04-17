@@ -258,7 +258,7 @@ importers:
         version: 7.17.2(@mantine/core@7.17.2(@mantine/hooks@7.17.2(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.17.2(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mantine/next':
         specifier: 6.0.22
-        version: 6.0.22(@emotion/react@11.10.6(@types/react@18.3.3)(react@18.3.1))(@emotion/server@11.10.0)(next@15.2.3(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 6.0.22(@emotion/react@11.10.6(@types/react@18.3.3)(react@18.3.1))(@emotion/server@11.10.0)(next@15.2.4(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mantine/notifications':
         specifier: 7.17.2
         version: 7.17.2(@mantine/core@7.17.2(@mantine/hooks@7.17.2(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.17.2(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -299,8 +299,8 @@ importers:
         specifier: 2.53.0
         version: 2.53.0
       next:
-        specifier: 15.2.3
-        version: 15.2.3(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 15.2.4
+        version: 15.2.4(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       object-to-formdata:
         specifier: 4.5.1
         version: 4.5.1
@@ -331,7 +331,7 @@ importers:
         version: 1.0.1(storybook@8.4.7(prettier@3.3.2))(webpack@5.97.1(esbuild@0.19.11))
       '@storybook/nextjs':
         specifier: 8.4.7
-        version: 8.4.7(@types/webpack@5.28.5(esbuild@0.19.11))(esbuild@0.19.11)(next@15.2.3(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@3.3.2))(type-fest@4.30.1)(typescript@5.2.2)(webpack-hot-middleware@2.26.0)(webpack@5.97.1(esbuild@0.19.11))
+        version: 8.4.7(@types/webpack@5.28.5(esbuild@0.19.11))(esbuild@0.19.11)(next@15.2.4(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@3.3.2))(type-fest@4.30.1)(typescript@5.2.2)(webpack-hot-middleware@2.26.0)(webpack@5.97.1(esbuild@0.19.11))
       '@storybook/preview-api':
         specifier: 8.4.7
         version: 8.4.7(storybook@8.4.7(prettier@3.3.2))
@@ -2993,8 +2993,8 @@ packages:
   '@next/env@14.0.5-canary.46':
     resolution: {integrity: sha512-dvNzrArTfe3VY1VIscpb3E2e7SZ1qwFe82WGzpOVbxilT3JcsnVGYF/uq8Jj1qKWPI5C/aePNXwA97JRNAXpRQ==}
 
-  '@next/env@15.2.3':
-    resolution: {integrity: sha512-a26KnbW9DFEUsSxAxKBORR/uD9THoYoKbkpFywMN/AFvboTt94b8+g/07T8J6ACsdLag8/PDU60ov4rPxRAixw==}
+  '@next/env@15.2.4':
+    resolution: {integrity: sha512-+SFtMgoiYP3WoSswuNmxJOCwi06TdWE733D+WPjpXIe4LXGULwEaofiiAy6kbS0+XjM5xF5n3lKuBwN2SnqD9g==}
 
   '@next/eslint-plugin-next@14.1.0':
     resolution: {integrity: sha512-x4FavbNEeXx/baD/zC/SdrvkjSby8nBn8KcCREqk6UuwvwoAPZmaV8TFCAuo/cpovBRTIY67mHhe86MQQm/68Q==}
@@ -3005,8 +3005,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-arm64@15.2.3':
-    resolution: {integrity: sha512-uaBhA8aLbXLqwjnsHSkxs353WrRgQgiFjduDpc7YXEU0B54IKx3vU+cxQlYwPCyC8uYEEX7THhtQQsfHnvv8dw==}
+  '@next/swc-darwin-arm64@15.2.4':
+    resolution: {integrity: sha512-1AnMfs655ipJEDC/FHkSr0r3lXBgpqKo4K1kiwfUf3iE68rDFXZ1TtHdMvf7D0hMItgDZ7Vuq3JgNMbt/+3bYw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -3017,8 +3017,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@15.2.3':
-    resolution: {integrity: sha512-pVwKvJ4Zk7h+4hwhqOUuMx7Ib02u3gDX3HXPKIShBi9JlYllI0nU6TWLbPT94dt7FSi6mSBhfc2JrHViwqbOdw==}
+  '@next/swc-darwin-x64@15.2.4':
+    resolution: {integrity: sha512-3qK2zb5EwCwxnO2HeO+TRqCubeI/NgCe+kL5dTJlPldV/uwCnUgC7VbEzgmxbfrkbjehL4H9BPztWOEtsoMwew==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -3029,8 +3029,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-gnu@15.2.3':
-    resolution: {integrity: sha512-50ibWdn2RuFFkOEUmo9NCcQbbV9ViQOrUfG48zHBCONciHjaUKtHcYFiCwBVuzD08fzvzkWuuZkd4AqbvKO7UQ==}
+  '@next/swc-linux-arm64-gnu@15.2.4':
+    resolution: {integrity: sha512-HFN6GKUcrTWvem8AZN7tT95zPb0GUGv9v0d0iyuTb303vbXkkbHDp/DxufB04jNVD+IN9yHy7y/6Mqq0h0YVaQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -3041,8 +3041,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@15.2.3':
-    resolution: {integrity: sha512-2gAPA7P652D3HzR4cLyAuVYwYqjG0mt/3pHSWTCyKZq/N/dJcUAEoNQMyUmwTZWCJRKofB+JPuDVP2aD8w2J6Q==}
+  '@next/swc-linux-arm64-musl@15.2.4':
+    resolution: {integrity: sha512-Oioa0SORWLwi35/kVB8aCk5Uq+5/ZIumMK1kJV+jSdazFm2NzPDztsefzdmzzpx5oGCJ6FkUC7vkaUseNTStNA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -3053,8 +3053,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@15.2.3':
-    resolution: {integrity: sha512-ODSKvrdMgAJOVU4qElflYy1KSZRM3M45JVbeZu42TINCMG3anp7YCBn80RkISV6bhzKwcUqLBAmOiWkaGtBA9w==}
+  '@next/swc-linux-x64-gnu@15.2.4':
+    resolution: {integrity: sha512-yb5WTRaHdkgOqFOZiu6rHV1fAEK0flVpaIN2HB6kxHVSy/dIajWbThS7qON3W9/SNOH2JWkVCyulgGYekMePuw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -3065,8 +3065,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@15.2.3':
-    resolution: {integrity: sha512-ZR9kLwCWrlYxwEoytqPi1jhPd1TlsSJWAc+H/CJHmHkf2nD92MQpSRIURR1iNgA/kuFSdxB8xIPt4p/T78kwsg==}
+  '@next/swc-linux-x64-musl@15.2.4':
+    resolution: {integrity: sha512-Dcdv/ix6srhkM25fgXiyOieFUkz+fOYkHlydWCtB0xMST6X9XYI3yPDKBZt1xuhOytONsIFJFB08xXYsxUwJLw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -3077,8 +3077,8 @@ packages:
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-arm64-msvc@15.2.3':
-    resolution: {integrity: sha512-+G2FrDcfm2YDbhDiObDU/qPriWeiz/9cRR0yMWJeTLGGX6/x8oryO3tt7HhodA1vZ8r2ddJPCjtLcpaVl7TE2Q==}
+  '@next/swc-win32-arm64-msvc@15.2.4':
+    resolution: {integrity: sha512-dW0i7eukvDxtIhCYkMrZNQfNicPDExt2jPb9AZPpL7cfyUo7QSNl1DjsHjmmKp6qNAqUESyT8YFl/Aw91cNJJg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
@@ -3095,8 +3095,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@15.2.3':
-    resolution: {integrity: sha512-gHYS9tc+G2W0ZC8rBL+H6RdtXIyk40uLiaos0yj5US85FNhbFEndMA2nW3z47nzOWiSvXTZ5kBClc3rD0zJg0w==}
+  '@next/swc-win32-x64-msvc@15.2.4':
+    resolution: {integrity: sha512-SbnWkJmkS7Xl3kre8SdMF6F/XDh1DTFEhp0jRTj/uB8iPKoU2bb2NDfcu+iifv1+mxQEd1g2vvSxcZbXSKyWiQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -7668,8 +7668,8 @@ packages:
       sass:
         optional: true
 
-  next@15.2.3:
-    resolution: {integrity: sha512-x6eDkZxk2rPpu46E1ZVUWIBhYCLszmUY6fvHBFcbzJ9dD+qRX6vcHusaqqDlnY+VngKzKbAiG2iRCkPbmi8f7w==}
+  next@15.2.4:
+    resolution: {integrity: sha512-VwL+LAaPSxEkd3lU2xWbgEOtrM8oedmyhBqaVNmgKB+GvZlCy9rgaEc+y2on0wv+l0oSFqLtYD6dcC1eAedUaQ==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
     hasBin: true
     peerDependencies:
@@ -9975,7 +9975,7 @@ snapshots:
   '@aws-sdk/abort-controller@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/client-cognito-identity@3.272.0':
@@ -10014,7 +10014,7 @@ snapshots:
       '@aws-sdk/util-user-agent-browser': 3.272.0
       '@aws-sdk/util-user-agent-node': 3.272.0
       '@aws-sdk/util-utf8': 3.254.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10114,7 +10114,7 @@ snapshots:
       '@aws-sdk/util-user-agent-browser': 3.272.0
       '@aws-sdk/util-user-agent-node': 3.272.0
       '@aws-sdk/util-utf8': 3.254.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10160,7 +10160,7 @@ snapshots:
       '@smithy/util-middleware': 2.2.0
       '@smithy/util-retry': 2.2.0
       '@smithy/util-utf8': 2.3.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
 
@@ -10197,7 +10197,7 @@ snapshots:
       '@aws-sdk/util-user-agent-browser': 3.272.0
       '@aws-sdk/util-user-agent-node': 3.272.0
       '@aws-sdk/util-utf8': 3.254.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10241,7 +10241,7 @@ snapshots:
       '@smithy/util-middleware': 2.2.0
       '@smithy/util-retry': 2.2.0
       '@smithy/util-utf8': 2.3.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
 
@@ -10282,7 +10282,7 @@ snapshots:
       '@aws-sdk/util-user-agent-node': 3.272.0
       '@aws-sdk/util-utf8': 3.254.0
       fast-xml-parser: 4.0.11
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10337,7 +10337,7 @@ snapshots:
       '@aws-sdk/types': 3.272.0
       '@aws-sdk/util-config-provider': 3.208.0
       '@aws-sdk/util-middleware': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/core@3.535.0':
@@ -10355,7 +10355,7 @@ snapshots:
       '@aws-sdk/client-cognito-identity': 3.272.0
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10364,7 +10364,7 @@ snapshots:
     dependencies:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/credential-provider-env@3.535.0':
@@ -10392,7 +10392,7 @@ snapshots:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/types': 3.272.0
       '@aws-sdk/url-parser': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/credential-provider-ini@3.272.0':
@@ -10405,7 +10405,7 @@ snapshots:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/shared-ini-file-loader': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10438,7 +10438,7 @@ snapshots:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/shared-ini-file-loader': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10465,7 +10465,7 @@ snapshots:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/shared-ini-file-loader': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/credential-provider-process@3.535.0':
@@ -10483,7 +10483,7 @@ snapshots:
       '@aws-sdk/shared-ini-file-loader': 3.272.0
       '@aws-sdk/token-providers': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10505,7 +10505,7 @@ snapshots:
     dependencies:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/credential-provider-web-identity@3.540.0(@aws-sdk/credential-provider-node@3.540.0)':
@@ -10535,7 +10535,7 @@ snapshots:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/shared-ini-file-loader': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10546,7 +10546,7 @@ snapshots:
       '@aws-sdk/querystring-builder': 3.272.0
       '@aws-sdk/types': 3.272.0
       '@aws-sdk/util-base64': 3.208.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/hash-node@3.272.0':
@@ -10554,18 +10554,18 @@ snapshots:
       '@aws-sdk/types': 3.272.0
       '@aws-sdk/util-buffer-from': 3.208.0
       '@aws-sdk/util-utf8': 3.254.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/invalid-dependency@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/is-array-buffer@3.201.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/lib-storage@3.540.0(@aws-sdk/client-s3@3.540.0)':
@@ -10593,7 +10593,7 @@ snapshots:
     dependencies:
       '@aws-sdk/protocol-http': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-endpoint@3.272.0':
@@ -10605,7 +10605,7 @@ snapshots:
       '@aws-sdk/url-parser': 3.272.0
       '@aws-sdk/util-config-provider': 3.208.0
       '@aws-sdk/util-middleware': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-expect-continue@3.535.0':
@@ -10630,7 +10630,7 @@ snapshots:
     dependencies:
       '@aws-sdk/protocol-http': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-host-header@3.535.0':
@@ -10649,7 +10649,7 @@ snapshots:
   '@aws-sdk/middleware-logger@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-logger@3.535.0':
@@ -10662,7 +10662,7 @@ snapshots:
     dependencies:
       '@aws-sdk/protocol-http': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-recursion-detection@3.535.0':
@@ -10679,7 +10679,7 @@ snapshots:
       '@aws-sdk/types': 3.272.0
       '@aws-sdk/util-middleware': 3.272.0
       '@aws-sdk/util-retry': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
       uuid: 8.3.2
     optional: true
 
@@ -10702,13 +10702,13 @@ snapshots:
       '@aws-sdk/protocol-http': 3.272.0
       '@aws-sdk/signature-v4': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-serde@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-signing@3.272.0':
@@ -10718,7 +10718,7 @@ snapshots:
       '@aws-sdk/signature-v4': 3.272.0
       '@aws-sdk/types': 3.272.0
       '@aws-sdk/util-middleware': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-signing@3.535.0':
@@ -10739,14 +10739,14 @@ snapshots:
 
   '@aws-sdk/middleware-stack@3.272.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-user-agent@3.272.0':
     dependencies:
       '@aws-sdk/protocol-http': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/middleware-user-agent@3.540.0':
@@ -10762,7 +10762,7 @@ snapshots:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/shared-ini-file-loader': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/node-http-handler@3.272.0':
@@ -10771,32 +10771,32 @@ snapshots:
       '@aws-sdk/protocol-http': 3.272.0
       '@aws-sdk/querystring-builder': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/property-provider@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/protocol-http@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/querystring-builder@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
       '@aws-sdk/util-uri-escape': 3.201.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/querystring-parser@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/region-config-resolver@3.535.0':
@@ -10825,7 +10825,7 @@ snapshots:
   '@aws-sdk/shared-ini-file-loader@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/signature-v4-multi-region@3.535.0':
@@ -10845,14 +10845,14 @@ snapshots:
       '@aws-sdk/util-middleware': 3.272.0
       '@aws-sdk/util-uri-escape': 3.201.0
       '@aws-sdk/util-utf8': 3.254.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/smithy-client@3.272.0':
     dependencies:
       '@aws-sdk/middleware-stack': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/token-providers@3.272.0':
@@ -10861,7 +10861,7 @@ snapshots:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/shared-ini-file-loader': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10873,14 +10873,14 @@ snapshots:
       '@smithy/property-provider': 2.2.0
       '@smithy/shared-ini-file-loader': 2.4.0
       '@smithy/types': 2.12.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - '@aws-sdk/credential-provider-node'
       - aws-crt
 
   '@aws-sdk/types@3.272.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/types@3.535.0':
@@ -10892,7 +10892,7 @@ snapshots:
     dependencies:
       '@aws-sdk/querystring-parser': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-arn-parser@3.535.0':
@@ -10902,28 +10902,28 @@ snapshots:
   '@aws-sdk/util-base64@3.208.0':
     dependencies:
       '@aws-sdk/util-buffer-from': 3.208.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-body-length-browser@3.188.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-body-length-node@3.208.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-buffer-from@3.208.0':
     dependencies:
       '@aws-sdk/is-array-buffer': 3.201.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-config-provider@3.208.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-defaults-mode-browser@3.272.0':
@@ -10931,7 +10931,7 @@ snapshots:
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/types': 3.272.0
       bowser: 2.11.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-defaults-mode-node@3.272.0':
@@ -10941,13 +10941,13 @@ snapshots:
       '@aws-sdk/node-config-provider': 3.272.0
       '@aws-sdk/property-provider': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-endpoints@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-endpoints@3.540.0':
@@ -10966,7 +10966,7 @@ snapshots:
 
   '@aws-sdk/util-hex-encoding@3.201.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-locate-window@3.208.0':
@@ -10975,25 +10975,25 @@ snapshots:
 
   '@aws-sdk/util-middleware@3.272.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-retry@3.272.0':
     dependencies:
       '@aws-sdk/service-error-classification': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-uri-escape@3.201.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-user-agent-browser@3.272.0':
     dependencies:
       '@aws-sdk/types': 3.272.0
       bowser: 2.11.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-user-agent-browser@3.535.0':
@@ -11007,7 +11007,7 @@ snapshots:
     dependencies:
       '@aws-sdk/node-config-provider': 3.272.0
       '@aws-sdk/types': 3.272.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/util-user-agent-node@3.535.0':
@@ -11024,7 +11024,7 @@ snapshots:
   '@aws-sdk/util-utf8@3.254.0':
     dependencies:
       '@aws-sdk/util-buffer-from': 3.208.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optional: true
 
   '@aws-sdk/xml-builder@3.535.0':
@@ -13461,11 +13461,11 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@mantine/next@6.0.22(@emotion/react@11.10.6(@types/react@18.3.3)(react@18.3.1))(@emotion/server@11.10.0)(next@15.2.3(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@mantine/next@6.0.22(@emotion/react@11.10.6(@types/react@18.3.3)(react@18.3.1))(@emotion/server@11.10.0)(next@15.2.4(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@mantine/ssr': 6.0.22(@emotion/react@11.10.6(@types/react@18.3.3)(react@18.3.1))(@emotion/server@11.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mantine/styles': 6.0.22(@emotion/react@11.10.6(@types/react@18.3.3)(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next: 15.2.3(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 15.2.4(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
@@ -13508,7 +13508,7 @@ snapshots:
 
   '@next/env@14.0.5-canary.46': {}
 
-  '@next/env@15.2.3': {}
+  '@next/env@15.2.4': {}
 
   '@next/eslint-plugin-next@14.1.0':
     dependencies:
@@ -13517,43 +13517,43 @@ snapshots:
   '@next/swc-darwin-arm64@14.0.5-canary.46':
     optional: true
 
-  '@next/swc-darwin-arm64@15.2.3':
+  '@next/swc-darwin-arm64@15.2.4':
     optional: true
 
   '@next/swc-darwin-x64@14.0.5-canary.46':
     optional: true
 
-  '@next/swc-darwin-x64@15.2.3':
+  '@next/swc-darwin-x64@15.2.4':
     optional: true
 
   '@next/swc-linux-arm64-gnu@14.0.5-canary.46':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@15.2.3':
+  '@next/swc-linux-arm64-gnu@15.2.4':
     optional: true
 
   '@next/swc-linux-arm64-musl@14.0.5-canary.46':
     optional: true
 
-  '@next/swc-linux-arm64-musl@15.2.3':
+  '@next/swc-linux-arm64-musl@15.2.4':
     optional: true
 
   '@next/swc-linux-x64-gnu@14.0.5-canary.46':
     optional: true
 
-  '@next/swc-linux-x64-gnu@15.2.3':
+  '@next/swc-linux-x64-gnu@15.2.4':
     optional: true
 
   '@next/swc-linux-x64-musl@14.0.5-canary.46':
     optional: true
 
-  '@next/swc-linux-x64-musl@15.2.3':
+  '@next/swc-linux-x64-musl@15.2.4':
     optional: true
 
   '@next/swc-win32-arm64-msvc@14.0.5-canary.46':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@15.2.3':
+  '@next/swc-win32-arm64-msvc@15.2.4':
     optional: true
 
   '@next/swc-win32-ia32-msvc@14.0.5-canary.46':
@@ -13562,7 +13562,7 @@ snapshots:
   '@next/swc-win32-x64-msvc@14.0.5-canary.46':
     optional: true
 
-  '@next/swc-win32-x64-msvc@15.2.3':
+  '@next/swc-win32-x64-msvc@15.2.4':
     optional: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -13602,7 +13602,7 @@ snapshots:
       open: 8.4.2
       picocolors: 1.1.1
       tiny-glob: 0.2.9
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@pmmmwh/react-refresh-webpack-plugin@0.5.15(@types/webpack@5.28.5(esbuild@0.19.11))(react-refresh@0.14.0)(type-fest@4.30.1)(webpack-hot-middleware@2.26.0)(webpack@5.97.1(esbuild@0.19.11))':
     dependencies:
@@ -14128,7 +14128,7 @@ snapshots:
       '@aws-crypto/crc32': 3.0.0
       '@smithy/types': 2.12.0
       '@smithy/util-hex-encoding': 2.2.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@smithy/eventstream-serde-browser@2.2.0':
     dependencies:
@@ -14384,7 +14384,7 @@ snapshots:
 
   '@smithy/util-uri-escape@2.2.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@smithy/util-utf8@2.3.0':
     dependencies:
@@ -14530,7 +14530,7 @@ snapshots:
     dependencies:
       storybook: 8.4.7(prettier@3.3.2)
 
-  '@storybook/nextjs@8.4.7(@types/webpack@5.28.5(esbuild@0.19.11))(esbuild@0.19.11)(next@15.2.3(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@3.3.2))(type-fest@4.30.1)(typescript@5.2.2)(webpack-hot-middleware@2.26.0)(webpack@5.97.1(esbuild@0.19.11))':
+  '@storybook/nextjs@8.4.7(@types/webpack@5.28.5(esbuild@0.19.11))(esbuild@0.19.11)(next@15.2.4(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.7(prettier@3.3.2))(type-fest@4.30.1)(typescript@5.2.2)(webpack-hot-middleware@2.26.0)(webpack@5.97.1(esbuild@0.19.11))':
     dependencies:
       '@babel/core': 7.24.7
       '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.24.7)
@@ -14557,7 +14557,7 @@ snapshots:
       find-up: 5.0.0
       image-size: 1.1.1
       loader-utils: 3.2.1
-      next: 15.2.3(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 15.2.4(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       node-polyfill-webpack-plugin: 2.0.1(webpack@5.97.1(esbuild@0.19.11))
       pnp-webpack-plugin: 1.7.0(typescript@5.2.2)
       postcss: 8.4.47
@@ -14835,7 +14835,7 @@ snapshots:
 
   '@swc/helpers@0.5.2':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@swc/types@0.1.5': {}
 
@@ -15516,7 +15516,7 @@ snapshots:
 
   aria-hidden@1.2.3:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   aria-query@5.1.3:
     dependencies:
@@ -15657,7 +15657,7 @@ snapshots:
 
   ast-types@0.16.1:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   astral-regex@2.0.0: {}
 
@@ -15667,7 +15667,7 @@ snapshots:
 
   async-mutex@0.4.1:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   async-ratelimiter@1.3.8: {}
 
@@ -16016,7 +16016,7 @@ snapshots:
   camel-case@4.1.2:
     dependencies:
       pascal-case: 3.1.2
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   camelcase-css@2.0.1: {}
 
@@ -16630,7 +16630,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   dotenv-flow@4.1.0:
     dependencies:
@@ -18179,7 +18179,7 @@ snapshots:
       '@babel/parser': 7.24.1
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.0
-      semver: 7.6.2
+      semver: 7.7.1
     transitivePeerDependencies:
       - supports-color
 
@@ -18905,7 +18905,7 @@ snapshots:
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   lru-cache@10.1.0: {}
 
@@ -19216,9 +19216,9 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@15.2.3(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next@15.2.4(@babel/core@7.23.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@next/env': 15.2.3
+      '@next/env': 15.2.4
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.15
       busboy: 1.6.0
@@ -19228,14 +19228,14 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       styled-jsx: 5.1.6(@babel/core@7.23.7)(react@18.3.1)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 15.2.3
-      '@next/swc-darwin-x64': 15.2.3
-      '@next/swc-linux-arm64-gnu': 15.2.3
-      '@next/swc-linux-arm64-musl': 15.2.3
-      '@next/swc-linux-x64-gnu': 15.2.3
-      '@next/swc-linux-x64-musl': 15.2.3
-      '@next/swc-win32-arm64-msvc': 15.2.3
-      '@next/swc-win32-x64-msvc': 15.2.3
+      '@next/swc-darwin-arm64': 15.2.4
+      '@next/swc-darwin-x64': 15.2.4
+      '@next/swc-linux-arm64-gnu': 15.2.4
+      '@next/swc-linux-arm64-musl': 15.2.4
+      '@next/swc-linux-x64-gnu': 15.2.4
+      '@next/swc-linux-x64-musl': 15.2.4
+      '@next/swc-win32-arm64-msvc': 15.2.4
+      '@next/swc-win32-x64-msvc': 15.2.4
       sharp: 0.33.5
     transitivePeerDependencies:
       - '@babel/core'
@@ -19244,7 +19244,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   node-abort-controller@3.1.1: {}
 
@@ -19492,7 +19492,7 @@ snapshots:
   param-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   parent-module@1.0.1:
     dependencies:
@@ -19523,7 +19523,7 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   passthrough-counter@1.0.0: {}
 
@@ -19940,7 +19940,7 @@ snapshots:
     dependencies:
       react: 18.2.0
       react-style-singleton: 2.2.3(@types/react@18.2.55)(react@18.2.0)
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.55
 
@@ -19948,7 +19948,7 @@ snapshots:
     dependencies:
       react: 18.3.1
       react-style-singleton: 2.2.3(@types/react@18.3.3)(react@18.3.1)
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.3.3
 
@@ -19957,7 +19957,7 @@ snapshots:
       react: 18.2.0
       react-remove-scroll-bar: 2.3.8(@types/react@18.2.55)(react@18.2.0)
       react-style-singleton: 2.2.3(@types/react@18.2.55)(react@18.2.0)
-      tslib: 2.6.2
+      tslib: 2.8.1
       use-callback-ref: 1.3.0(@types/react@18.2.55)(react@18.2.0)
       use-sidecar: 1.1.2(@types/react@18.2.55)(react@18.2.0)
     optionalDependencies:
@@ -19978,7 +19978,7 @@ snapshots:
     dependencies:
       get-nonce: 1.0.1
       react: 18.2.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.55
 
@@ -19986,7 +19986,7 @@ snapshots:
     dependencies:
       get-nonce: 1.0.1
       react: 18.3.1
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.3.3
 
@@ -20080,7 +20080,7 @@ snapshots:
       esprima: 4.0.1
       source-map: 0.6.1
       tiny-invariant: 1.3.3
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   rechoir@0.6.2:
     dependencies:
@@ -20325,8 +20325,7 @@ snapshots:
 
   semver@7.6.2: {}
 
-  semver@7.7.1:
-    optional: true
+  semver@7.7.1: {}
 
   serialize-javascript@6.0.2:
     dependencies:
@@ -20484,7 +20483,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   socket.io-adapter@2.5.2:
     dependencies:
@@ -21435,14 +21434,14 @@ snapshots:
   use-callback-ref@1.3.0(@types/react@18.2.55)(react@18.2.0):
     dependencies:
       react: 18.2.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.55
 
   use-callback-ref@1.3.3(@types/react@18.3.3)(react@18.3.1):
     dependencies:
       react: 18.3.1
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.3.3
 
@@ -21467,7 +21466,7 @@ snapshots:
     dependencies:
       detect-node-es: 1.1.0
       react: 18.2.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.55
 
@@ -21475,7 +21474,7 @@ snapshots:
     dependencies:
       detect-node-es: 1.1.0
       react: 18.3.1
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.3.3
 
