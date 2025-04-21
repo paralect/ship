@@ -15,10 +15,10 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@react-email/components": "0.0.14",
-    "@react-email/render": "0.0.12",
+    "@react-email/components": "0.0.36",
+    "@react-email/render": "1.0.6",
     "react": "*",
-    "react-email": "2.0.0"
+    "react-dom": "*"
   },
   "devDependencies": {
     "@types/node": "*",
@@ -28,6 +28,7 @@
     "lint-staged": "*",
     "prettier": "*",
     "prettier-config-custom": "workspace:*",
+    "react-email": "4.0.7",
     "tsconfig": "workspace:*",
     "typescript": "*"
   },
