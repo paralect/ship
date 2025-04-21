@@ -49,8 +49,8 @@ importers:
         specifier: 5.0.0
         version: 5.0.0
       '@koa/router':
-        specifier: 13.0.0
-        version: 13.0.0
+        specifier: 13.1.0
+        version: 13.1.0
       '@paralect/node-mongo':
         specifier: 3.2.0
         version: 3.2.0(@aws-sdk/credential-providers@3.787.0)(gcp-metadata@5.3.0)(socks@2.8.4)
@@ -85,8 +85,8 @@ importers:
         specifier: 9.0.0
         version: 9.0.0
       koa:
-        specifier: 2.14.1
-        version: 2.14.1
+        specifier: 2.16.1
+        version: 2.16.1
       koa-body:
         specifier: 6.0.1
         version: 6.0.1
@@ -2180,10 +2180,9 @@ packages:
     resolution: {integrity: sha512-x/iUDjcS90W69PryLDIMgFyV21YLTnG9zOpPXS7Bkt2b8AsY3zZsIpOLBkYr9fBcF3HbkKaER5hOBZLfpLgYNw==}
     engines: {node: '>= 14.0.0'}
 
-  '@koa/router@13.0.0':
-    resolution: {integrity: sha512-P278xb5IoLtDn2inRsCzJVKGxt5RkjOivwxGbniMO1sI8bft1/Dr93UsRP5aByT8C74x8zqxDYyPXrQwRKIhjg==}
+  '@koa/router@13.1.0':
+    resolution: {integrity: sha512-mNVu1nvkpSd8Q8gMebGbCkDWJ51ODetrFvLKYusej+V0ByD4btqHYnPIzTBLXnQMVUlm/oxVwqmWBY3zQfZilw==}
     engines: {node: '>= 18'}
-    deprecated: Use v13.1.0 or higher to fix the vulnerability issue
 
   '@mantine/core@7.17.4':
     resolution: {integrity: sha512-Ea4M/98jxgIWCuxCdM0YIotVYjfLTGQsfIA6zDg0LsClgjo/ZLnnh4zbi+bLNgM+GGjP4ju7gv4MZvaTKuLO8g==}
@@ -4271,8 +4270,8 @@ packages:
     resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
 
-  cookies@0.8.0:
-    resolution: {integrity: sha512-8aPsApQfebXnuI+537McwYsDtjVxGm8gTIzQI3FDW6t5t/DAhERxtnbEPN/8RX+uZthoz4eCOgloXaE5cYyNow==}
+  cookies@0.9.1:
+    resolution: {integrity: sha512-TG2hpqe4ELx54QER/S3HQ9SRVnQnGBtKUz5bLQWtYAQ+o6GpgMs6sYUvaiJjVxb+UXwhRhAEP3m7LbsIZ77Hmw==}
     engines: {node: '>= 0.8'}
 
   copy-to@2.0.1:
@@ -6005,8 +6004,8 @@ packages:
     resolution: {integrity: sha512-H7IEkNS/b18Uwtm3RIvAK3orJE8ew8wEBsnezlQWz7GTWqEnDtbTNfTedVXjj07gyh8gWTkEdODEXRquGCBqmg==}
     engines: {node: '>= 10'}
 
-  koa@2.14.1:
-    resolution: {integrity: sha512-USJFyZgi2l0wDgqkfD27gL4YGno7TfUkcmOe6UOLFOVuN+J7FwnNu4Dydl4CUQzraM1lBAiGed0M9OVJoT0Kqw==}
+  koa@2.16.1:
+    resolution: {integrity: sha512-umfX9d3iuSxTQP4pnzLOz0HKnPg0FaUUIKcye2lOiz3KPu1Y3M3xlz76dISdFPQs37P9eJz1wUpcTS6KDPn9fA==}
     engines: {node: ^4.8.4 || ^6.10.1 || ^7.10.1 || >= 8.1.4}
 
   kuler@2.0.0:
@@ -10671,7 +10670,7 @@ snapshots:
     dependencies:
       vary: 1.1.2
 
-  '@koa/router@13.0.0':
+  '@koa/router@13.1.0':
     dependencies:
       http-errors: 2.0.0
       koa-compose: 4.1.0
@@ -13254,7 +13253,7 @@ snapshots:
 
   cookie@0.7.2: {}
 
-  cookies@0.8.0:
+  cookies@0.9.1:
     dependencies:
       depd: 2.0.0
       keygrip: 1.1.0
@@ -15530,13 +15529,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  koa@2.14.1:
+  koa@2.16.1:
     dependencies:
       accepts: 1.3.8
       cache-content-type: 1.0.1
       content-disposition: 0.5.4
       content-type: 1.0.5
-      cookies: 0.8.0
+      cookies: 0.9.1
       debug: 4.4.0
       delegates: 1.0.0
       depd: 2.0.0
