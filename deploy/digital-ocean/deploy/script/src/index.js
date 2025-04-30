@@ -76,7 +76,7 @@ const deploy = async () => {
     const { stdout: branch } = await execCommand('git rev-parse --abbrev-ref HEAD', { stdio: 'pipe' });
     const { stdout: commitSHA } = await execCommand('git rev-parse HEAD', { stdio: 'pipe' });
 
-    imageTag = `${branch}.${commitSHA}`;
+    imageTag = `${branch.replace('/', '-')}.${commitSHA}`;
   }
 
   if (deployConfig.name === 'api') {
