@@ -1,0 +1,193 @@
+name: "[TEMPLATE][CI & CD]: Basic template for CIP services"
+
+
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        type: string
+        description: 'Name of service. E.g: api'
+        required: true
+      aws_region:
+        type: string
+        description: 'AWS REGION where EKS deployed'
+        required: true
+      environment:
+        type: string
+        description: 'Selected env if manually triggered'
+        required: true
+      dockerFilePath:
+        type: string
+        description: 'Path for Dockerfile'
+        required: true
+      dockerContextDir:
+        type: string
+        description: 'Context for Docker build'
+        required: true
+      helmChartDir:
+        type: string
+        description: 'Directory with helm chart'
+        required: true
+    secrets:
+      gh_aws_access_key_id:
+        required: true
+      gh_aws_secret_key_id:
+        required: true
+      aws_account_id:
+        required: true
+      eks_cluster_name:
+        description: 'EKS cluster name'
+        required: true
+
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.gh_aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.gh_aws_secret_key_id }}
+          aws-region: ${{ inputs.aws_region }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            "${{ steps.login-ecr.outputs.registry }}/${{ inputs.service_name }}"
+          tags: |
+            type=sha,prefix=${{ inputs.environment }}}
+          flavor: |
+            latest=false
+
+      - name: Build only service
+        uses: docker/build-push-action@v3
+        if: |-
+          ${{ 
+            (github.event_name == 'workflow_dispatch' && github.event.inputs.skip_deploy == 'true') ||
+            (github.event_name == 'pull_request')
+          }}
+        with:
+          context: ${{ inputs.dockerContextDir }}
+          file: ${{ inputs.dockerFilePath }}
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          provenance: false
+          build-args: |
+            APP_ENV=${{ inputs.environment }}
+
+      - name: Build service and push image
+        uses: docker/build-push-action@v3
+        if: |-
+          ${{ 
+            (github.event_name == 'workflow_dispatch' && github.event.inputs.skip_deploy != 'true') ||
+            (github.event_name == 'push')
+          }}
+        with:
+          context: ${{ inputs.dockerContextDir }}
+          file: ${{ inputs.dockerFilePath }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          provenance: false
+          build-args: |
+            APP_ENV=${{ inputs.environment }}
+
+      - name: Create summary
+        uses: x-color/github-actions-job-summary@v0.1.0
+        with:
+          file: .github/workflows/template/summary_cip_deploy.md
+          vars: |
+            trg_user:  ${{ github.actor }}
+            trg_event: ${{ github.event_name }}
+            selected_env: ${{ inputs.environment }}
+            pushed_to_ecr: ${{ github.event.inputs.skip_deploy }}
+            image_tag: ${{ steps.meta.outputs.tags }}
+  
+  
+  deploy:
+    if: |-
+      ${{ 
+        (github.event_name == 'workflow_dispatch' && github.event.inputs.skip_deploy != 'true') ||
+        (github.event_name == 'push')
+      }}
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    
+    env:
+      KUBECONFIG: ./.kube/kubeconfig
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install helm-diff plugin
+        run: helm plugin install https://github.com/databus23/helm-diff
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.gh_aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.gh_aws_secret_key_id }}
+          aws-region: ${{ inputs.aws_region }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          mask-password: true
+
+      - name: Get the kubeconfig file
+        run: |
+          aws eks update-kubeconfig --name ${{ inputs.eks_cluster_name }} --kubeconfig ${{ env.KUBECONFIG }} --region ${{ inputs.aws_region }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            "${{ steps.login-ecr.outputs.registry }}/${{ inputs.service_name }}"
+          tags: |
+            type=sha,prefix=${{ inputs.environment }}}
+          flavor: |
+            latest=false
+
+      - name: helm diff
+        run: |
+          helm dependency build ${{ inputs.helmChartDir }}
+          helm diff upgrade --install \
+          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helmChartDir }} \
+          --namespace ${{ inputs.environment }} \
+          --set appname=${{ inputs.service_name }} \
+          --set imagesVersion=${{ steps.meta.outputs.tags }} \
+          -f ${{ inputs.helmChartDir }}/${{ inputs.environment }}.yaml \
+          --kubeconfig ${{ env.KUBECONFIG }}
+          
+
+      - name: helm upgrade
+        run: |
+          KUBECONFIG=$PWD/$KUBECONFIG helm upgrade --install \
+          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helmChartDir }} \
+          --namespace ${{ inputs.environment }} \
+          --set appname=${{ inputs.service_name }} \
+          --set imagesVersion=${{ steps.meta.outputs.tags }} \
+          -f ${{ inputs.helmChartDir }}/${{ inputs.environment }}.yaml \
+          --dependency-update \
+          --kubeconfig ${{ env.KUBECONFIG }}
+
+     
+
+  
