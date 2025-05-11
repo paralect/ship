@@ -152,7 +152,7 @@ jobs:
 
       - name: Get the kubeconfig file
         run: |
-          aws eks update-kubeconfig --name ${{ inputs.eks_cluster_name }} --kubeconfig ${{ env.KUBECONFIG }} --region ${{ inputs.aws_region }}
+          aws eks update-kubeconfig --name ${{ secrets.eks_cluster_name }} --kubeconfig ${{ env.KUBECONFIG }} --region ${{ inputs.aws_region }}
 
       - name: Docker meta
         id: meta
