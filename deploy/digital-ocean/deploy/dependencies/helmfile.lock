@@ -1,0 +1,10 @@
+version: 0.171.0
+dependencies:
+- name: ingress-nginx
+  repository: https://kubernetes.github.io/ingress-nginx
+  version: 4.12.2
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 21.0.2
+digest: sha256:4a1de702a3b925ff22c2777ef2a87462576b26c8eacce040eeb0598bbbf35a8c
+generated: "2025-05-11T20:55:17.625128146+03:00"

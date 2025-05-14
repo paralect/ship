@@ -2,7 +2,7 @@ controller:
   publishService:
     enabled: true
   nodeSelector:
-    doks.digitalocean.com/node-pool: pool-app
+    eks.amazonaws.com/nodegroup: pool-app
 
 rbac:
   create: true
