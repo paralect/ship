@@ -1,0 +1,69 @@
+# This is a basic workflow to help you get started with Actions
+name: "[API] Build and Deploy service"
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main, production ]
+    paths:
+      - 'apps/api/**'
+      - 'packages/**'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: 'environment - staging or production'
+        options:
+          - 'staging'
+          - 'production'
+        default: 'staging'
+        required: true
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario'
+        required: false
+
+jobs:
+  staging_flow:
+    uses: ./.github/workflows/build-deploy-template.yml
+    if: |-
+      ${{ 
+        (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+        (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+      }}
+    with:
+      service_name: "api"
+      aws_region: "${{ vars.AWS_REGION }}"
+      environment: "staging"
+      dockerFilePath: "apps/api/Contentgine.Cip.Api/Dockerfile"
+      dockerContextDir: "apps/api"
+      helmChartDir: "apps/deploy/app/api"
+    secrets:
+      gh_aws_access_key_id: ${{ secrets.GH_AWS_ACCESS_KEY_ID }}
+      gh_aws_secret_key_id: ${{ secrets.GH_AWS_SECRET_ACCESS_KEY }}
+      aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+      eks_cluster_name: ${{ secrets.CLUSTER_NAME_STAGING }}
+    
+  production_flow:
+    uses: ./.github/workflows/build-deploy-template.yml
+    if: |-
+      ${{ 
+        (github.event_name == 'push' && github.ref == 'refs/heads/production') ||
+        (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
+      }}
+    with:
+      service_name: "api"
+      aws_region: "${{ vars.AWS_REGION }}"
+      environment: "production"
+      dockerFilePath: "apps/api/Contentgine.Cip.Api/Dockerfile"
+      dockerContextDir: "apps/api"
+      helmChartDir: "apps/deploy/app/api"
+    secrets:
+      gh_aws_access_key_id: ${{ secrets.GH_AWS_ACCESS_KEY_ID }}
+      gh_aws_secret_key_id: ${{ secrets.GH_AWS_SECRET_ACCESS_KEY }}
+      aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}}
+      eks_cluster_name: ${{ secrets.CLUSTER_NAME_PRODUCTION }}
