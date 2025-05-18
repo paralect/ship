@@ -3,6 +3,6 @@ redis:
     eks.amazonaws.com/nodegroup: pool-app
 
 auth:
-  password: super-secured-password
+  password: "{{ .Values.redis.auth.password }}"
 
 architecture: standalone
