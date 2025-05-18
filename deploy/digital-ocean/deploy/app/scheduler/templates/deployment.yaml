@@ -26,6 +26,13 @@ spec:
         - name: {{ .Values.service }}
           image: {{ .Values.containerRegistry }}-{{ .Values.service }}:{{ .Values.imagesVersion }}
           imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        runAsNonRoot: true
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   strategy:
