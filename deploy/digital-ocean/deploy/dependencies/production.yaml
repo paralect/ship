@@ -1,0 +1,3 @@
+redis:
+  auth:
+    password: super-secured-password

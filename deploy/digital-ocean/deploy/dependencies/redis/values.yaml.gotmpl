@@ -3,6 +3,6 @@ redis:
     doks.digitalocean.com/node-pool: pool-app
 
 auth:
-  password: super-secured-password
+  password: "{{ .Values.redis.auth.password }}"
 
 architecture: standalone
