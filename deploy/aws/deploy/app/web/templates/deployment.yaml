@@ -17,7 +17,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: {{ .Values.service }}
-        image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
+        image: {{ .Values.imagesVersion }}
         imagePullPolicy: Always
         ports:
         - containerPort: {{ .Values.port }}
