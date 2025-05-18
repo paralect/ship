@@ -7,7 +7,7 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        - name: migrator
+        - name: {{ .Values.service }}
           image: {{ .Values.imagesVersion }}
           imagePullPolicy: Always
           envFrom:

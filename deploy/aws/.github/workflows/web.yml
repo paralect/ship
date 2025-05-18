@@ -19,6 +19,10 @@ on:
           - 'production'
         default: 'staging'
         required: true
+      skip_deploy:
+        type: boolean
+        description: 'Skip deploy(Test PR build)'
+        default: false
       logLevel:
         description: 'Log level'
         required: true
@@ -26,6 +30,13 @@ on:
       tags:
         description: 'Test scenario'
         required: false
+  # Run build of service while PR opened or reopened. Same as trigger manually with skip_deploy variable active     
+  pull_request:
+    types: [opened, reopened]
+    branches: [main]
+    paths:
+      - 'apps/web/**'
+      - 'packages/**'
 
 jobs:
   staging_build_and_deploy:
