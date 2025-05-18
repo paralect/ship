@@ -16,15 +16,15 @@ on:
         type: string
         description: 'Selected env if manually triggered'
         required: true
-      dockerFilePath:
+      docker_file_path:
         type: string
         description: 'Path for Dockerfile'
         required: true
-      dockerContextDir:
+      docker_context_dir:
         type: string
         description: 'Context for Docker build'
         required: true
-      helmChartDir:
+      helm_chart_dir:
         type: string
         description: 'Directory with helm chart'
         required: true
@@ -83,8 +83,8 @@ jobs:
             (github.event_name == 'pull_request')
           }}
         with:
-          context: ${{ inputs.dockerContextDir }}
-          file: ${{ inputs.dockerFilePath }}
+          context: ${{ inputs.docker_context_dir }}
+          file: ${{ inputs.docker_file_path }}
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           provenance: false
@@ -99,8 +99,8 @@ jobs:
             (github.event_name == 'push')
           }}
         with:
-          context: ${{ inputs.dockerContextDir }}
-          file: ${{ inputs.dockerFilePath }}
+          context: ${{ inputs.docker_context_dir }}
+          file: ${{ inputs.docker_file_path }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           provenance: false
@@ -167,27 +167,23 @@ jobs:
 
       - name: helm diff
         run: |
-          helm dependency build ${{ inputs.helmChartDir }}
+          helm dependency build ${{ inputs.helm_chart_dir }}
           helm diff upgrade --install \
-          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helmChartDir }} \
+          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helm_chart_dir }} \
           --namespace ${{ inputs.environment }} \
           --set appname=${{ inputs.service_name }} \
           --set imagesVersion=${{ steps.meta.outputs.tags }} \
-          -f ${{ inputs.helmChartDir }}/${{ inputs.environment }}.yaml \
+          -f ${{ inputs.helm_chart_dir }}/${{ inputs.environment }}.yaml \
           --kubeconfig ${{ env.KUBECONFIG }}
           
 
       - name: helm upgrade
         run: |
           KUBECONFIG=$PWD/$KUBECONFIG helm upgrade --install \
-          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helmChartDir }} \
+          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helm_chart_dir }} \
           --namespace ${{ inputs.environment }} \
           --set appname=${{ inputs.service_name }} \
           --set imagesVersion=${{ steps.meta.outputs.tags }} \
-          -f ${{ inputs.helmChartDir }}/${{ inputs.environment }}.yaml \
+          -f ${{ inputs.helm_chart_dir }}/${{ inputs.environment }}.yaml \
           --dependency-update \
           --kubeconfig ${{ env.KUBECONFIG }}
-
-     
-
-  

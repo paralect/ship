@@ -39,9 +39,9 @@ jobs:
       service_name: "api"
       aws_region: "${{ vars.AWS_REGION }}"
       environment: "staging"
-      dockerFilePath: "apps/api/Contentgine.Cip.Api/Dockerfile"
-      dockerContextDir: "apps/api"
-      helmChartDir: "apps/deploy/app/api"
+      docker_file_path: "apps/api/Dockerfile"
+      docker_context_dir: "."
+      helm_chart_dir: "apps/deploy/app/api"
     secrets:
       gh_aws_access_key_id: ${{ secrets.GH_AWS_ACCESS_KEY_ID }}
       gh_aws_secret_key_id: ${{ secrets.GH_AWS_SECRET_ACCESS_KEY }}
@@ -59,9 +59,9 @@ jobs:
       service_name: "api"
       aws_region: "${{ vars.AWS_REGION }}"
       environment: "production"
-      dockerFilePath: "apps/api/Contentgine.Cip.Api/Dockerfile"
-      dockerContextDir: "apps/api"
-      helmChartDir: "apps/deploy/app/api"
+      docker_file_path: "apps/api/Dockerfile"
+      docker_context_dir: "."
+      helm_chart_dir: "apps/deploy/app/api"
     secrets:
       gh_aws_access_key_id: ${{ secrets.GH_AWS_ACCESS_KEY_ID }}
       gh_aws_secret_key_id: ${{ secrets.GH_AWS_SECRET_ACCESS_KEY }}

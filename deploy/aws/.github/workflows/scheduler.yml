@@ -1,12 +1,12 @@
 # This is a basic workflow to help you get started with Actions
-name: "[WEB] Build and Deploy service"
+name: "[SCHEDULER] Build and Deploy service"
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main, production ]
     paths:
-      - 'apps/web/**'
+      - 'apps/api/**'
       - 'packages/**'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,23 +28,6 @@ on:
         required: false
 
 jobs:
-  staging_build_and_deploy:
-    if: |-
-      ${{ 
-        (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
-        (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
-      }}
-    uses: ./.github/workflows/build-deploy-template.yml
-    with:
-      service_name: "web"
-      aws_region: "${{ vars.AWS_REGION }}"
-      environment: "staging"
-    secrets:
-      aws_eks_name: ${{ secrets.CLUSTER_NAME_STAGING }}
-      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws_secret_key_id: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-
   staging_flow:
     uses: ./.github/workflows/build-deploy-template.yml
     if: |-
@@ -53,12 +36,12 @@ jobs:
         (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
       }}
     with:
-      service_name: "web"
+      service_name: "scheduler"
       aws_region: "${{ vars.AWS_REGION }}"
       environment: "staging"
-      docker_file_path: "apps/web/Dockerfile"
+      docker_file_path: "apps/api/Dockerfile.scheduler"
       docker_context_dir: "."
-      helm_chart_dir: "apps/deploy/app/web"
+      helm_chart_dir: "apps/deploy/app/scheduler"
     secrets:
       gh_aws_access_key_id: ${{ secrets.GH_AWS_ACCESS_KEY_ID }}
       gh_aws_secret_key_id: ${{ secrets.GH_AWS_SECRET_ACCESS_KEY }}
@@ -73,12 +56,12 @@ jobs:
         (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
       }}
     with:
-      service_name: "web"
+      service_name: "scheduler"
       aws_region: "${{ vars.AWS_REGION }}"
       environment: "production"
-      docker_file_path: "apps/web/Dockerfile"
+      docker_file_path: "apps/api/Dockerfile"
       docker_context_dir: "."
-      helm_chart_dir: "apps/deploy/app/web"
+      helm_chart_dir: "apps/deploy/app/scheduler"
     secrets:
       gh_aws_access_key_id: ${{ secrets.GH_AWS_ACCESS_KEY_ID }}
       gh_aws_secret_key_id: ${{ secrets.GH_AWS_SECRET_ACCESS_KEY }}
