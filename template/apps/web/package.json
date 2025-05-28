@@ -81,7 +81,7 @@
       "stylelint --fix",
       "prettier --write"
     ],
-    "!(*.css|*.ts|*.tsx)": [
+    "*.{json,md}": [
       "prettier --write"
     ]
   }

@@ -38,7 +38,7 @@
       "bash -c 'tsc --noEmit'",
       "prettier --write"
     ],
-    "!(*.ts|*.tsx)": [
+    "*.{json,md}": [
       "prettier --write"
     ]
   }

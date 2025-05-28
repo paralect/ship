@@ -94,7 +94,7 @@
       "bash -c 'tsc --noEmit'",
       "prettier --write"
     ],
-    "!*.ts": [
+    "*.{json,md}": [
       "prettier --write"
     ]
   }
