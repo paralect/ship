@@ -2,38 +2,59 @@
 
 ### API
 
-For the API deployment, you need to set up environment variables using Kubernetes secrets and configMaps.
+For the API deployment, you need to set up environment variables using Kubernetes secrets.
 
 <Info>
   **Secrets** in Kubernetes are used to store sensitive information, such as passwords, API tokens, and keys.
   They are encoded in Base64 format to provide a level of security.
   These can be mounted into containers as data volumes or used as environment variables.
-
-  **ConfigMaps** in Kubernetes are used to store configuration data in key-value pairs, such as environment variables, command-line arguments, or configuration files.
-  They help decouple configuration from containerized applications.
 </Info>
 
 Before deploying the app, make sure all necessary variables from the API config are set. Here are the default required variables:
-* **MONGO_URI** (requires encoding)
-* **MONGO_DB_NAME**
-* **API_URL**
-* **WEB_URL**
+| Name                    | Description     | Example value                                                                                                                |
+|-------------------------|----------|-----------------------------------------------------------------------------------------------------------------------------|
+| APP_ENV   | describe env here   | production |
+| MONGO_URI       | describe env here  | mongodb+srv://api-production:L2IbdJQOCrGOKeS2@cluster0.nodjscz.mongodb.net                     |
+| MONGO_DB_NAME              | describe env here  | api-production                                      |
+| API_URL      | describe env here, must be a valid url  | https://api.my-ship-app.paralect.com                           |
+| WEB_URL | describe env here, must be a valid url  | https://my-ship-app.paralect.com                              |
+| JWT_SECRET    | describe env here, can be generated via `openssl rand -base64 32`  | Vz2Ol8HKBO0/38i1IBm2uJ7JnVabWGm0RiRVY5w1sNY=                                   |
 
-Open `deploy/bin` folder and run the bash script.
-Enter the stage name. Then, you'll be asked for variable name, its value, and whether it should be encoded.
-Repeat this process as required to create all the essential variables.
 
-<Note>
-  If you pick that variable should be encoded, it will be stored as a secret in Kubernetes.
-  Otherwise, it gets stored in a configMap.
-</Note>
+create kuberntes secret and namespaces for staging and production by running the following commands:
 
-```shell
-bash deploy-secrets.sh
+```bash
+kubectl create namespace staging
+kubectl create secret generic api-staging-secret -n staging
+kubectl create namespace production
+kubectl create secret generic api-production-secret -n production
 ```
 
-The script works for initially creating secrets and configMaps, as well as for updates.
-When updating, you only need to input the variables that require changes, not all of them.
+First, create an `APP_ENV` variable for initializing secret storage for k8sec
+```bash
+k8sec set api-production-secret APP_ENV=production -n production
+```
+
+Run the following command to check the created secret
+```bash
+k8sec list api-production-secret -n production
+```
+
+create .env file and fill variables above 1 line by 1:
+
+```dotenv .env.production
+APP_ENV=production
+MONGO_URI=mongodb+srv://api-production:L2IbdJQOCrGOKeS2@cluster0.nodjscz.mongodb.net
+MONGO_DB_NAME=api-docs
+API_URL=https://api.my-ship-app.paralect.com
+WEB_URL=https://my-ship-app.paralect.com
+JWT_SECRET=Vz2Ol8HKBO0/38i1IBm2uJ7JnVabWGm0RiRVY5w1sNY=
+```
+
+then import secrets from .env to kubernetes secret via k8sec:
+```bash
+k8sec load -f .env.production api-production-secret -n production
+```
 
 <Warning>
   After updating variables, initiate a new deployment.
@@ -44,12 +65,18 @@ When updating, you only need to input the variables that require changes, not al
 
 To modify environment variables in web, access the `.env.staging` or `.env.production` file:
 
-```plaintext apps/web/.env.production
-NEXT_PUBLIC_API_URL=https://my-app-api.paralect.com
-NEXT_PUBLIC_WS_URL=https://my-app-api.paralect.com
-NEXT_PUBLIC_WEB_URL=https://my-app.paralect.com
+```dotenv apps/web/.env.production
+NEXT_PUBLIC_API_URL=https://api.my-app-ship.paralect.com
+NEXT_PUBLIC_WS_URL=https://api.my-app-ship.paralect.com
+NEXT_PUBLIC_WEB_URL=https://my-ship-app.paralect.com
+```
+
+```dotenv apps/web/.env.staging
+NEXT_PUBLIC_API_URL=https://api.my-app-ship.staging.paralect.com
+NEXT_PUBLIC_WS_URL=https://api.my-app-ship.staging.paralect.com
+NEXT_PUBLIC_WEB_URL=https://my-ship-app.staging.paralect.com
 ```
 
 <Warning>
-  Avoid storing sensitive information in web environment files as they are not secure.
+  Avoid storing sensitive information in web environment files as they are not secure and will be accessible on client side.
 </Warning>

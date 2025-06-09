@@ -1,0 +1,133 @@
+# Upstash Redis Integration
+
+[Upstash Redis](https://upstash.com/) is a **highly available, infinitely scalable** Redis-compatible database that provides enterprise-grade features without the operational complexity.
+
+## How Ship Uses Redis
+
+Ship leverages Redis for several critical functionalities:
+
+| Use Case                    | Description                                       | Implementation                                                      |
+|-----------------------------|---------------------------------------------------|---------------------------------------------------------------------|
+| **Real-time Communication** | Pub/Sub mechanism for WebSocket functionality     | [Socket.io Redis Adapter](https://socket.io/docs/v4/redis-adapter/) |
+| **Rate Limiting**           | API request throttling and abuse prevention       | Redis counters with TTL                                             |
+| **Caching**                 | Application data caching for improved performance | Key-value storage with expiration                                   |
+
+<Info>
+  **Redis as a Message Broker**: When scaling to multiple server instances, Redis acts as a message broker between Socket.io servers, ensuring real-time messages reach all connected clients regardless of which server they're connected to.
+</Info>
+
+## Setting Up Upstash Redis
+
+### Create Your Database
+
+<Steps>
+  <Step title="Access Upstash Console">
+    Log in to your [Upstash account](https://console.upstash.com/) and navigate to the Redis section.
+  </Step>
+
+  <Step title="Create New Database">
+    Click **Create Database** in the upper right corner to open the configuration dialog.
+
+    <Frame>
+      <img src="/images/upstash-redis/create-global.png" alt="Create Upstash Redis Database" />
+    </Frame>
+  </Step>
+
+  <Step title="Configure Database Settings">
+    **Database Name:** Choose a descriptive name for your database (e.g., `my-ship-app-production`)
+
+    **Primary Region:** Select the region closest to your main application deployment for optimal write performance.
+
+    **Read Regions:** Choose additional regions where you expect high read traffic for better global performance.
+  </Step>
+
+  <Step title="Select Plan & Deploy">
+    Choose your pricing plan based on expected usage and click **Create** to deploy your database.
+  </Step>
+</Steps>
+
+<Tip>
+  **Region Selection**: For Kubernetes deployments on AWS, choose the same AWS region as your EKS cluster to minimize latency and data transfer costs.
+</Tip>
+
+### Get Connection Details
+
+Once your database is created, you'll need the connection string for your application:
+
+<Steps>
+  <Step title="Navigate to Connection Info">
+    Go to your database dashboard and find the **Connect to your database** section.
+
+    <Frame>
+      <img src="/images/upstash-redis/database.png" alt="Upstash Redis Connection Details" />
+    </Frame>
+  </Step>
+
+  <Step title="Copy Connection String">
+    1. Select the **Node** tab for the appropriate connection string format
+    2. Click **Reveal** to show the hidden password
+    3. Copy the complete Redis URI (format: `rediss://username:password@host:port`)
+  </Step>
+
+  <Step title="Add to Environment Variables through k8sec">
+    Using `k8sec`, add the Redis connection string to your environment configuration:
+
+    <CodeGroup>
+      ```bash production
+      k8sec set api-production-secret -n production REDIS_URI=$REDIS_URI
+      ```
+
+      ```bash staging
+      k8sec set api-staging-secret -n staging REDIS_URI=$REDIS_URI
+      ```
+    </CodeGroup>
+
+    <Note>
+      After updating environment variables, restart your API pod using:
+      ```bash
+      kubectl delete pod <pod-name> -n <namespace>
+      ```
+      This will trigger Kubernetes to create a new pod with the updated environment variables.
+    </Note>
+  </Step>
+</Steps>
+
+### Verify Connection with Redis Insight
+
+Redis Insight is a powerful GUI tool for managing and debugging Redis databases.
+
+<Steps>
+  <Step title="Install Redis Insight">
+    Download and install [Redis Insight](https://redis.io/insight/) on your local machine.
+  </Step>
+
+  <Step title="Add Database Connection">
+    1. Open Redis Insight
+    2. Click **Add Database**
+    3. Paste your Upstash Redis connection string in the **Connection URL** field
+    4. Click **Add Database**
+
+    <Frame>
+      <img src="/images/upstash-redis/redis-insight.png" alt="Redis Insight Connection Setup" />
+    </Frame>
+  </Step>
+
+  <Step title="Explore Your Database">
+    Once connected, you can use Upstash Redis Console to:
+    - Browse keys and data structures
+    - Execute Redis commands directly
+    - Monitor real-time performance metrics
+    - Debug application data storage
+
+    <Frame>
+      <img src="/images/upstash-redis/charts.png" alt="Upstash Redis Metrics Dashboard" />
+    </Frame>
+
+    <Info>
+      **Real-time Monitoring**: Upstash Redis updates database metrics automatically every 10 seconds, giving you near real-time visibility into your Redis performance and usage.
+    </Info>
+  </Step>
+</Steps>
+
+
+
