@@ -6,11 +6,11 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only src/app.ts",
+    "dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only --watch .env src/app.ts",
     "start": "ts-node src/app.ts",
     "migrate-dev": "NODE_ENV=development APP_ENV=development ts-node src/migrator.ts",
     "migrate": "ts-node src/migrator.ts",
-    "schedule-dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only src/scheduler.ts",
+    "schedule-dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only --watch .env src/scheduler.ts",
     "schedule": "ts-node src/scheduler.ts",
     "test:unit": "jest --runInBand -c ./jest.config.js --collectCoverage false",
     "tsc": "tsc --noEmit --watch",
