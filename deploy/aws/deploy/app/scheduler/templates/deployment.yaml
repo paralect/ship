@@ -17,13 +17,18 @@ spec:
       restartPolicy: Always
       containers:
       - name: {{ .Values.service }}
-        image: {{ .Values.awsAccountId }}.dkr.ecr.{{ .Values.awsRegion }}.amazonaws.com/{{ .Values.service }}:{{ $.Values.imagesVersion }}
+        image: {{ .Values.image }}
         imagePullPolicy: Always
         envFrom:
-          - configMapRef:
-              name: api-{{ .Values.environment }}-configmap
           - secretRef:
               name: api-{{ .Values.environment }}-secret
+        securityContext:
+          allowPrivilegeEscalation: false
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        runAsNonRoot: true
       nodeSelector:
         eks.amazonaws.com/nodegroup: {{ .Values.nodeGroup }}
   strategy:

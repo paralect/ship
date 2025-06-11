@@ -56,4 +56,6 @@ COPY --from=app_builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/pu
 
 EXPOSE 3002
 
+ENV PORT=3002
+
 CMD ["node", "apps/web/server.js"]

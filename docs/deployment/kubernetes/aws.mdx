@@ -2,47 +2,47 @@
 title: "AWS"
 ---
 
-import SecretsSection from '/snippets/kubernetes-deploy-envs-section.mdx';
-import PortSection from '/snippets/kubernetes-deploy-port-section.mdx';
+import UpstashRedis from '/snippets/upstash-redis-aws-eks.mdx';
 
 It's a step-by-step Ship deployment guide. We will use [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks), [Mongo Atlas](https://www.mongodb.com/), [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com) for DNS and SSL configuration.
 
 You need to create [GitHub](https://github.com), [AWS](https://aws.amazon.com), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [CloudFlare](https://www.cloudflare.com/) accounts and install the next tools on your machine before starting:
 
-* [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster (We recommend installing it via [Docker Desktop](https://www.docker.com/products/docker-desktop));
+* [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster;
 * [kubectx](https://github.com/ahmetb/kubectx) - CLI tool for easier switching between Kubernetes contexts;
 * [helm](https://helm.sh/docs/intro/install) - CLI tool for managing Kubernetes deployments;
 * [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - CLI tool for managing AWS resources;
 * [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html) - CLI tool for managing EKS clusters;
-* [jq](https://jqlang.github.io/jq/) - command-line JSON processor used to manipulate JSON data;
+* [k8sec](https://github.com/dtan4/k8sec) - CLI tool for managing Kubernetes Secrets easily;
 
 Try the next commands to ensure that everything is installed correctly:
 
 ```
-kubectl get pods -A
+kubectl
 
 kubectx
 
-helm list
+helm
 
 aws sts get-caller-identity
 
 eksctl
 
+k8sec
 ```
 
 Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) if you already haven't.
 
 ## Setup project
 
-First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose **AWS EKS** deployment type.
+First, initialize your project. Type ```npx create-ship-app@latest``` in the terminal then choose **AWS EKS** deployment type.
 
-![Init project](/images/init-project-aws.png)
+![Init project](/images/aws/init-project-aws-eks.png)
 
 You will have the next project structure.
 
 ```shell
-/my-app
+/my-ship-app
   /.github
   /apps
     /api
@@ -51,24 +51,13 @@ You will have the next project structure.
   ...
 ```
 
-Create GitHub private repository and upload the source code.
-
-![Private repo](/images/private-repo-aws.png)
-
-```shell
-cd my-app
-git remote add origin git@github.com:fruneen/my-app.git
-git branch -M main
-git push -u origin main
-```
-
 ## AWS Regions
 
-AWS Regions are physical locations of AWS clusters data centers. Each group of logical data centers calls Availability Zone (AZ). AZs allow the operation of production applications and databases that are more highly available, fault-tolerant, and scalable.
+AWS Regions are physical locations of AWS cluster data centers. Each group of logical data centers calls Availability Zone (AZ). AZs allow the operation of production applications and databases that are more highly available, fault-tolerant and scalable.
 
 Now you need to select an AWS region for future use of the services. You can read more about region selection for your workloads here: [What to Consider when Selecting a Region for your Workloads](https://aws.amazon.com/blogs/architecture/what-to-consider-when-selecting-a-region-for-your-workloads/).
 
-For this deployment guide, we will use the **us-east-1**.
+For this deployment guide, we will use the **us-east-1** region.
 
 <Tip>
 Usually, you have to create AWS resources in a single region. If you don't see created resources, you may need to switch to the appropriate AWS region.
@@ -76,17 +65,17 @@ Usually, you have to create AWS resources in a single region. If you don't see c
 
 ## Container registry
 
-You need to create [private repositories](https://console.aws.amazon.com/ecr/repositories) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of the service during the deployment step.
+You need to create [private repositories](https://console.aws.amazon.com/ecr/private-registry/repositories/create) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of the service during the deployment step.
 
 Now we should create a repository for each service.
 
 For Ship, we need to create repositories for the next services:
 * [**API**](/api-reference/overview) - api
-* [**Scheduler**](/scheduler) - scheduler
 * [**Migrator**](/migrator) - migrator
+* [**Scheduler**](/scheduler) - scheduler
 * [**Web**](/web/overview) - web
 
-![Container Registry creation](/images/container-registry-creation-aws.png)
+![Container Registry creation](/images/aws/ecr-creation.png)
 
 <Tip>
 You should create a private repository for each service manually.
@@ -94,19 +83,19 @@ You should create a private repository for each service manually.
 
 After creation, you should have the following 4 services in ECR
 
-![Container Registry creation](/images/aws/container-registry-created.png)
+![Container Registry creation](/images/aws/ecr-created.png)
 
 Docker images for each service are stored in a separate repository.
-During the deployment process script will automatically create paths to repositories in next format:
+During the deployment process script will automatically create paths to repositories in the next format:
 
-* [**API**](/api-reference/overview) - 402167441269.dkr.ecr.us-east-1.amazonaws.com/api;
-* [**Scheduler**](/scheduler) - r402167441269.dkr.ecr.us-east-1.amazonaws.com/scheduler;
-* [**Migrator**](/migrator) - 402167441269.dkr.ecr.us-east-1.amazonaws.com/migrator;
-* [**Web**](/web/overview) - 402167441269.dkr.ecr.us-east-1.amazonaws.com/web;
+* [**API**](/api-reference/overview) - 276472736030.dkr.ecr.us-east-1.amazonaws.com/api;
+* [**Migrator**](/migrator) - 276472736030.dkr.ecr.us-east-1.amazonaws.com/migrator;
+* [**Scheduler**](/scheduler) - 276472736030.dkr.ecr.us-east-1.amazonaws.com/scheduler;
+* [**Web**](/web/overview) - 276472736030.dkr.ecr.us-east-1.amazonaws.com/web;
 
 <Tip>
-Repository name`402167441269.dkr.ecr.us-east-1.amazonaws.com/api` consists of 5 values:
-* `402167441269` - AWS account ID;
+Repository name`276472736030.dkr.ecr.us-east-1.amazonaws.com/api` consists of 5 values:
+* `276472736030` - AWS account ID;
 * `us-east-1` - AWS region.
 * `dkr.ecr` - AWS service.
 * `amazonaws.com` - AWS domain.
@@ -117,16 +106,79 @@ Repository name`402167441269.dkr.ecr.us-east-1.amazonaws.com/api` consists of 5 
 Images for all environments will be uploaded to the same repository for each service.
 </Tip>
 
-## Kubernetes cluster
+## Kubernetes Cluster
 
-Now let's create [EKS](https://aws.amazon.com/eks) cluster.
+Now let's [create EKS cluster](https://console.aws.amazon.com/eks/cluster-create).
 
-In the first step, we need to set the cluster name. A common practice is to use the project name for it. Also, you can add an environment prefix if you have separate clusters for each environment: `my-app-staging`, and `my-app-production`.
-We can leave other parameters by default.
+<Steps>
+  <Step title="Select Custom Configuration">
+    Navigate to the cluster creation page and choose `Custom configuration` <br/>
+    Make sure to disable `EKS Auto Mode`
 
-![Cluster Creation](/images/aws/cluster-creation.png)
+    <Frame>
+      <img src="/images/aws/cluster-creation-configuration-options.png" alt="Cluster configuration" />
+    </Frame>
+  </Step>
 
-After creation, you need to wait a bit until the cluster status becomes **Active**.
+  <Step title="Name Your Cluster">
+    Enter a name for your cluster. It's recommended to use your project name.
+
+    <Frame>
+      <img src="/images/aws/cluster-creation-naming.png" alt="Cluster naming" />
+    </Frame>
+
+    <Tip>
+      For multi-environment setups, append the environment name to your cluster:
+      - `my-ship-app-staging`
+      - `my-ship-app-production`
+    </Tip>
+  </Step>
+
+  <Step title="Configure Cluster IAM Role">
+    For the `Cluster IAM role`:
+
+    1. Click the `Create recommended role` button
+    2. AWS will automatically create IAM roles with necessary EKS cluster permissions
+    3. Return to cluster creation page and select the created policy
+
+    <Frame>
+      <img src="/images/aws/cluster-creation-cluster-iam-role.png" alt="Cluster IAM role" />
+    </Frame>
+  </Step>
+
+  <Step title="Set Authentication Mode">
+    In the `Cluster access` section:
+    - Set `Cluster authentication mode` to `EKS API and ConfigMap`
+
+    <Frame>
+      <img src="/images/aws/cluster-creation-access.png" alt="Cluster access" />
+    </Frame>
+  </Step>
+
+  <Step title="Configure Add-ons">
+    Navigate to 'Select add-ons' and verify these required add-ons are selected:
+    - CoreDNS
+    - kube-proxy
+    - Amazon VPC CNI
+    - Node monitoring agent
+
+    <Frame>
+      <img src="/images/aws/cluster-creation-addons.png" alt="Cluster addons" />
+    </Frame>
+  </Step>
+
+  <Step title="Review and Create">
+    Move to the review section and verify all configuration parameters are correct before creating the cluster.
+
+    <Note>
+      Default values for other configuration parameters are suitable unless you have specific requirements.
+    </Note>
+  </Step>
+</Steps>
+
+
+
+After creation, you need to wait a few minutes until the cluster status becomes **Active**.
 
 ![Cluster Created](/images/aws/cluster-active-state.png)
 
@@ -134,7 +186,9 @@ After cluster creation, you should attach [EC2](https://aws.amazon.com/ec2) inst
 
 ![Add Node Group](/images/aws/cluster-computing.png)
 
-Set the node group name and select the only Node IAM role from the list.
+Set the node group name as `pool-app` and select the relevant Node IAM role from the list.
+
+If you don't have any IAM roles here, click the `Create recommended role` button. You will be prompted to create properly configured IAM roles with all necessary permissions.
 
 ![Node Group Configuration](/images/aws/node-group-configuration.png)
 
@@ -142,339 +196,700 @@ AWS recommends creating at least 2 nodes **t3.medium** instance type for the pro
 
 ![Node Group Instance Configuration](/images/aws/node-group-instance-configuration.png)
 
-Now you need to configure the node group in the deployment script that we created on the second screenshot.
-Need to update the `nodeGroup` value to `pool-app`.
+<Note>
+  Default values for other configuration parameters are suitable unless you have specific requirements.
+</Note>
 
-```javascript deploy/script/src/config.js
-const config = {
-  nodeGroup: 'pool-app'
-};
-```
+## Accessing a cluster from a local machine
 
-## Accessing cluster from a local machine
+<Warning>
+  Before proceeding, ensure you have [configured the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
+</Warning>
 
-Before working with the cluster, you need to [configure the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
+<Steps>
+  <Step title="Update kubeconfig">
+    Run the following command to configure cluster access:
 
-For accessing the cluster we need to run the following command:
+    ```bash
+    aws eks update-kubeconfig \
+      --region us-east-1 \
+      --name my-ship-app \
+      --alias my-ship-app
+    ```
 
-```shell
-aws eks update-kubeconfig --region us-east-1 --name my-app
-```
-Where **us-east-1** is the cluster region and **my-app** is the cluster name.
+    <Note>
+      Replace `us-east-1` with your cluster's region and `my-ship-app` with your cluster name.
+    </Note>
+  </Step>
 
-If everything is ok you will be able to switch to your cluster.
-Type `kubectx` in the terminal and select your cluster.
+  <Step title="Switch to cluster context">
+    Execute `kubectx` in your terminal and select your cluster from the list.
 
+    ```bash
+    kubectx
+    ```
 
-![Kubectx](/images/aws/kubectx.png)
+    <Frame>
+      <img src="/images/aws/kubectx.png" alt="Kubectx selection" />
+    </Frame>
+  </Step>
 
+  <Step title="Verify cluster access">
+    Check the installed pods by running:
+
+    ```bash
+    kubectl get pods -A
+    ```
+
+    You should see a list of system pods in your cluster:
+
+    <Frame>
+      <img src="/images/aws/pods-list.png" alt="List of pods" />
+    </Frame>
+  </Step>
+</Steps>
+
+## Ingress NGINX Controller
+
+[ingress-nginx](https://github.com/kubernetes/ingress-nginx) is an Ingress controller for Kubernetes using [NGINX](https://nginx.org) as a reverse proxy and load balancer.
 
 <Tip>
-By default, the cluster name will have an arn-name type like  `arn:aws:eks:us-east-1:402167441269:cluster/my-app`.
-
-To change it to a more convenient name, you can use the command `kubectx my-app=arn:aws:eks:us-east-1:402167441269:cluster/my-app`.
+  Learn more about ingress-nginx functionality in the **[official documentation](https://docs.nginx.com/nginx-ingress-controller/intro/how-nginx-ingress-controller-works/)**.
 </Tip>
 
-Then try to get information about installed pods in the cluster. Type `kubectl get pods -A` in the terminal.
+<Steps>
+  <Step title="Navigate to dependencies directory">
+    Change to the `deploy/dependencies` directory in your terminal.
+  </Step>
 
-If you did all steps correctly you will see the next info in a terminal.
+  <Step title="Configure Helm Values (Optional)">
 
-![Pods List](/images/aws/pods-list.png)
+    This step is required **only if** you specified a custom node group name in your EKS cluster.
 
-## Dependencies
+    If you did, update the `eks.amazonaws.com/nodegroup` value in `values.yaml.gotmpl`:
 
-Now we need to install our dependencies in the cluster.
+    ```yaml deploy/dependencies/ingress-nginx/values.yaml.gotmpl {5}
+    controller:
+      publishService:
+        enabled: true
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: pool-app
 
-|Dependency|Description|
-|:---|:---|
-|[ingress-nginx](https://github.com/kubernetes/ingress-nginx)|Ingress controller for Kubernetes using Nginx as a reverse proxy and load balancer|
-|[redis](https://github.com/bitnami/charts/tree/main/bitnami/redis)|Open source, advanced key-value store. Redis needed for API service|
+    rbac:
+      create: true
 
-<Tip>
-You can read **[here](https://docs.nginx.com/nginx-ingress-controller/intro/how-nginx-ingress-controller-works/)** how ingress-nginx works.
-</Tip>
+    defaultBackend:
+      enabled: false
+    ```
+  </Step>
 
-Configure [Helm Values](https://helm.sh/docs/chart_template_guide/values_files/) for ingress-nginx and redis. Need to update the `eks.amazonaws.com/nodegroup` value to `pool-app`.
 
-```yaml deploy/dependecies/ingress-nginx/values/values.yml
-controller:
-  publishService:
-    enabled: true
-  nodeSelector:
-    eks.amazonaws.com/nodegroup: pool-app
+  <Step title="Install dependencies">
+    Install helm dependencies using helmfile:
 
-rbac:
-  create: true
+    ```bash
+    helmfile deps
+    ```
+  </Step>
 
-defaultBackend:
-  enabled: false
-```
+  <Step title="Review and apply changes">
+    Preview the changes first:
 
-```yaml deploy/dependecies/redis/values/values.yml
-redis:
-  nodeSelector:
-    eks.amazonaws.com/nodegroup: pool-app
+    ```bash
+    helmfile diff
+    ```
 
-auth:
-  password: super-secured-password
+    If the preview looks correct, apply the configuration:
 
-architecture: standalone
-```
-Open `deploy/bin` folder and run the bash script.
-
-```shell
-bash deploy-dependencies.sh
-```
+    ```bash
+    helmfile apply
+    ```
+  </Step>
+</Steps>
 
 ## DNS and SSL
 
-Once you deploy ingress-nginx, it will create a Load Balancer with external IP. All incoming requests to services should be sent to Load Balancer external IP, then requests to our services will be routed to domains from Ingresses configuration by **ingress-nginx**.
+<Steps>
+  <Step title="Get Load Balancer Address">
+    After deploying ingress-nginx, retrieve the Load Balancer's external hostname:
 
-To get Load Balancer IP type `kubectl get services -n ingress-nginx` in the terminal and copy `EXTERNAL-IP` of `ingress-nginx-controller`.
+    ```bash
+    kubectl get svc ingress-nginx-controller -n ingress-nginx -o json | jq -r '.status.loadBalancer.ingress[0].hostname'
+    ```
 
-```shell
-~ % kubectl get services -n ingress-nginx
-NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP                                                              PORT(S)                      AGE
-ingress-nginx-controller             LoadBalancer   10.100.220.127   a71ee1af9a5bc45e494df110e2b22fdb-633881399.us-east-1.elb.amazonaws.com   80:30799/TCP,443:31358/TCP   30m
-```
+    <Note>
+      If you have trouble running the above command, you can alternatively use:
 
-<Tip>
-It takes some time while **ingress-nginx** will configure everything and provide `EXTERNAL-IP`.
-</Tip>
+      ```bash
+      kubectl get svc ingress-nginx-controller -n ingress-nginx
+      ```
 
-We are using Cloudflare for setting DNS records. You can [register](https://developers.cloudflare.com/registrar/get-started/register-domain/) a domain in Cloudflare or [transfer](https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare/) it from another service.
+      And copy the value from the `EXTERNAL-IP` column.
+    </Note>
+  </Step>
 
-Open the **DNS** tab in Cloudflare and create two `CNAME` records for **Web** and **API** that point to Load Balancer external IP.
+  <Step title="Domain Naming Convention">
+    You can follow this recommended naming pattern for different environments:
 
-![CloudFlare Web](/images/aws/cloudflare-web.png)
+    | Environment | API Domain           | Web Domain           |
+    |-------------|----------------------|----------------------|
+    | Production  | api.ship.com         | app.ship.com         |
+    | Staging     | api.staging.ship.com | app.staging.ship.com |
+  </Step>
 
-![CloudFlare API](/images/aws/cloudflare-api.png)
+  <Step title="Configure DNS in Cloudflare">
+    1. First, ensure you have a domain in Cloudflare. You can either:
+    - [Register a new domain](https://developers.cloudflare.com/registrar/get-started/register-domain/)
+    - [Transfer an existing domain](https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare/)
 
-Select the **Proxied** option that will proxy all traffic through Cloudflare.
-It does a lot of awesome work, you can read more about it [here](https://developers.cloudflare.com/dns/manage-dns-records/reference/proxied-dns-records/).
-In our case, we use it for automatic **SSL** certificate generation.
+    2. In the Cloudflare DNS tab, create 2 `CNAME` records:
+    - One for Web interface
+    - One for API endpoint
 
+    Both should point to your Load Balancer's external hostname.
 
-<Tip>
-If you are deploying on a staging/demo environment add the corresponding postfix in the domain.
-**Example**: ```my-app-staging```
-</Tip>
+    Enable the **Proxied** option to:
+    - Route traffic through Cloudflare
+    - Generate SSL certificates automatically
 
-Now add your domains in helm templates and code. For example, we are deploying on a **production** environment, if you are deploying on **staging** you will need to update `staging.yaml` and `staging.json` files.
+    <Frame>
+      <img src="/images/aws/cloudflare-api.png" alt="CloudFlare API DNS Configuration" />
+    </Frame>
 
-```yaml deploy/app/api/production.yaml
-service: api
-port: 3001
-domain: my-app-api.paralect.com
-```
+    <br/>
 
-```yaml deploy/app/web/production.yaml
-service: web
-port: 3002
-domain: my-app.paralect.com
-```
+    <Frame>
+      <img src="/images/aws/cloudflare-web.png" alt="CloudFlare Web DNS Configuration" />
+    </Frame>
+
+    <Note>
+      Cloudflare's free Universal SSL certificates only cover the apex domain and one subdomain level. For multiple subdomain levels, you'll need an [Advanced Certificate](https://developers.cloudflare.com/ssl/edge-certificates/advanced-certificate-manager/manage-certificates/).
+    </Note>
+  </Step>
+
+  <Step title="Update Configuration Files">
+    Update your domain settings in the appropriate environment configuration files:
+
+    For API service:
+    <CodeGroup>
+      ```yaml deploy/app/api/production.yaml
+      service: api
+      port: 3001
+      domain: api.my-ship-app.paralect.com
+      ```
+
+      ```yaml deploy/app/api/staging.yaml
+      service: api
+      port: 3001
+      domain: api.my-ship-app.staging.paralect.com
+      ```
+    </CodeGroup>
+
+    For Web service:
+    <CodeGroup>
+      ```yaml deploy/app/web/production.yaml
+      service: web
+      port: 3002
+      domain: my-ship-app.paralect.com
+      ```
+
+      ```yaml deploy/app/web/staging.yaml
+      service: web
+      port: 3002
+      domain: my-ship-app.staging.paralect.com
+      ```
+    </CodeGroup>
+  </Step>
+</Steps>
 
 ## MongoDB Atlas
 
-Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account and create a new database.
+[MongoDB Atlas](https://cloud.mongodb.com/) is a fully managed cloud database service that provides automated backups, scaling, and security features. It offers 99.995% availability with global deployment options and seamless integration with AWS infrastructure.
 
-### Database creation
+### Cluster Creation
 
-1. Select the appropriate type. Dedicated for a production environment, shared for staging/demo.
-2. Select provider and region. We recommend selecting the same or closest region to the AWS EKS cluster.
-3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M2 or higher.
-4. Enter cluster name
+<Steps>
+  <Step title="Access MongoDB Atlas">
+    Sign in to your [MongoDB Atlas account](https://cloud.mongodb.com/) and create a new project if needed.
+  </Step>
 
-![Mongo cluster](/images/aws/mongo-create.png)
+  <Step title="Deploy New Cluster">
+    Click **Create** to start cluster deployment.
 
-### Security and connection
+    **Cluster Tier Selection:**
+    - **Staging**: `M0` (Free tier) - Suitable for development and testing
+    - **Production**: `M10` or higher - Includes automated backups and advanced features
 
-After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
+    **Provider & Region:**
+    - Select **AWS** as your cloud provider
+    - Choose the **same region** as your EKS cluster for optimal performance
 
-<Warning>
-Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password.
-Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
-</Warning>
+    <Frame>
+      <img src="/images/mongodb-cloud/deploy-cluster.png" alt="Deploy MongoDB Atlas cluster" />
+    </Frame>
+  </Step>
 
-![Mongo setup authentication](/images/aws/mongo-create-password.png)
+  <Step title="Configure Cluster Name">
+    Enter a descriptive cluster name (e.g., `ship-production-cluster`, `ship-staging-cluster`)
+  </Step>
+</Steps>
 
-Add IP addresses list, which should have access to your cluster. Add 0.0.0.0/0 IP address to allow anyone with credentials to connect.
+### Security Configuration
 
-![Mongo setup ip white list](/images/aws/mongo-create-ip-list.png)
+<Steps>
+  <Step title="Create Database User">
+    Navigate to **Database Access** → **Add New Database User**
 
-After database creation, go to the dashboard page and get the URI connection string by pressing the `connect` button.
+    - **Authentication Method**: Password
+    - **Username**: Use environment-specific names (e.g., `api-production`, `api-staging`)
+    - **Password**: Generate a strong password
+    - **Database User Privileges**: **Read and write to any database**
 
-![Mongo dashboard](/images/aws/mongo-dashboard.png)
+    <Frame>
+      <img src="/images/mongodb-cloud/add-database-user.png" alt="Add MongoDB database user" />
+    </Frame>
 
-Select `Connect your application` option. Choose driver and mongo version, and copy connection string. Don't forget to replace `<password>` with your credentials.
+    <Warning>
+      **Password Requirements**: Ensure the password starts with a letter and contains only alphanumeric characters and common symbols. Special characters at the beginning can cause URI parsing issues.
+    </Warning>
+  </Step>
 
-![Mongo connect dialog](/images/aws/mongo-connection-string.png)
+  <Step title="Configure Network Access">
+    Navigate to **Network Access** → **Add IP Address**
 
-Now save this string, you will need it later.
+    - Click **Allow access from anywhere** to allow connections from any IP with valid credentials
+    - For production, consider restricting to specific IP ranges for enhanced security
+
+    <Frame>
+      <img src="/images/mongodb-cloud/network-access.png" alt="Configure MongoDB network access" />
+    </Frame>
+  </Step>
+</Steps>
+
+### Get Connection String
+
+<Steps>
+  <Step title="Access Connection Details">
+    Go to your cluster dashboard and click the **Connect** button.
+
+    <Frame>
+      <img src="/images/mongodb-cloud/dashboard.png" alt="MongoDB Atlas dashboard" />
+    </Frame>
+  </Step>
+
+  <Step title="Copy Connection String">
+    1. Select **Drivers** in the "Connect your application" section
+    2. Choose **Node.js** driver and latest version
+    3. Copy the connection string and replace `<db_password>` with your actual password
+
+    <Frame>
+      <img src="/images/mongodb-cloud/cluster-connect.png" alt="MongoDB connection string" />
+    </Frame>
+
+    **Example Connection String:**
+    ```bash
+    mongodb+srv://api-production:your-password@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+    ```
+  </Step>
+
+  <Step title="Save Connection Details">
+    Store the connection string securely - you'll need it for environment configuration later
+  </Step>
+</Steps>
 
 <Tip>
-Before moving to production, it's crucial to set up [MongoDB backup methods](https://www.mongodb.com/docs/manual/core/backups).
-
-This ensures that you can reliably restore your data in the event of unforeseen circumstances.
+  Before deploying to production, configure [automated backups](https://www.mongodb.com/docs/atlas/backup-restore-cluster/) in the Atlas console to ensure data recovery capabilities.
 </Tip>
 
-## CI/CD Preparation
+# Environment variables
 
-Before setup CI/CD you need to create a separate user in AWS IAM with certain permissions, let's create this user.
+Kubernetes applications require proper environment variable configuration for both API and Web components. This section covers how to set up and manage environment variables securely using Kubernetes secrets and configuration files.
 
-First of all, we need to create a policy for our user and move to [IAM dashboard](https://console.aws.amazon.com/iamv2/home#/home). Open the **Policies** page in the sidebar and click **Create policy**. After choosing the **JSON** tab, insert the following config:
+### API Environment Variables
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "EKS",
-            "Effect": "Allow",
-            "Action": [
-                "eks:DescribeCluster"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "ECR",
-            "Effect": "Allow",
-            "Action": [
+For the API deployment, you need to set up environment variables using Kubernetes secrets to securely manage sensitive configuration data.
+
+<Info>
+  **Secrets** in Kubernetes are used to store sensitive information, such as passwords, API tokens, and keys.
+  They are encoded in Base64 format to provide a level of security.
+  These can be mounted into containers as data volumes or used as environment variables.
+</Info>
+
+Before deploying the app, make sure all necessary variables from the API config are exist. Here are the minimal set of required variables:
+
+| Name            | Description                | Example value                                      |
+|-----------------|----------------------------|----------------------------------------------------|
+| `APP_ENV`       | Application environment    | `production`                                       |
+| `MONGO_URI`     | Database connection string | `mongodb://<username>:<password>@ship.mongodb.net` |
+| `MONGO_DB_NAME` | Database name              | `api-production`                                   |
+| `API_URL`       | API domain URL             | `https://api.my-ship-app.paralect.com`             |
+| `WEB_URL`       | Web app domain URL         | `https://my-ship-app.paralect.com`                 |
+| `JWT_SECRET`    | JWT signing key            | `Vz2Ol8HKBO0/38i1IBm2uJ7JnVabWGm0RiRVY5w1sNY=`     |
+
+#### Environment Variable Details
+
+<Accordion title="APP_ENV">
+  Specifies the application environment (development, staging, production). This controls logging levels, debugging features, error reporting, and other environment-specific behaviors. The API uses this to determine which configuration settings to load.
+</Accordion>
+
+<Accordion title="MONGO_URI">
+  MongoDB connection string including authentication credentials and cluster information. This is the primary database connection for the API. Format: `mongodb+srv://username:password@cluster.mongodb.net`. Each environment should use a separate database cluster or at minimum separate credentials.
+</Accordion>
+
+<Accordion title="MONGO_DB_NAME">
+  Name of the MongoDB database to use for this environment. Each environment (development, staging, production) should have its own database to prevent data conflicts and ensure proper isolation.
+</Accordion>
+
+<Accordion title="API_URL">
+  The fully qualified domain name where the API will be accessible. This must be a valid HTTPS URL and should match your Kubernetes ingress configuration. Used for CORS settings and internal service communication.
+</Accordion>
+
+<Accordion title="WEB_URL">
+  The fully qualified domain name where the web application will be accessible. Used for CORS configuration, redirect URLs, email templates, and social sharing metadata. Must be a valid HTTPS URL.
+</Accordion>
+
+<Accordion title="JWT_SECRET">
+  Secret key used for signing and verifying JSON Web Tokens. Should be a long, random string (minimum 32 characters). Can be generated using `openssl rand -base64 32`. Keep this secret secure and rotate it regularly.
+</Accordion>
+
+#### Setting up Kubernetes Secrets
+
+<Steps>
+  <Step title="Create namespaces and secret objects">
+    Create Kubernetes namespaces and secret objects for staging and production environments:
+
+    ```bash
+    kubectl create namespace staging
+    kubectl create secret generic api-staging-secret -n staging
+    kubectl create namespace production
+    kubectl create secret generic api-production-secret -n production
+    ```
+  </Step>
+
+  <Step title="Initialize secret storage">
+    First, create an `APP_ENV` variable to initialize secret storage for k8sec:
+
+    <CodeGroup>
+      ```bash production
+      k8sec set api-production-secret APP_ENV=production -n production
+      ```
+
+      ```bash staging
+      k8sec set api-staging-secret APP_ENV=staging -n staging
+      ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Verify secret creation">
+    Run the following command to check the created secret:
+
+    <CodeGroup>
+      ```bash production
+      k8sec list api-production-secret -n production
+      ```
+
+      ```bash staging
+      k8sec list api-staging-secret -n staging
+      ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Prepare environment file">
+    Create a `.env.production` file with all required variables:
+
+    <CodeGroup>
+      ```bash .env.production
+      APP_ENV=production
+      MONGO_URI=mongodb://username:password@ship.mongodb.net
+      MONGO_DB_NAME=api-production
+      API_URL=https://api.my-ship-app.paralect.com
+      WEB_URL=https://my-ship-app.paralect.com
+      JWT_SECRET=Vz2Ol8HKBO0/38i1IBm2uJ7JnVabWGm0RiRVY5w1sNY=
+      ```
+
+      ```bash .env.staging
+      APP_ENV=staging
+      MONGO_URI=mongodb://username:password@ship.mongodb.net
+      MONGO_DB_NAME=api-staging
+      API_URL=https://api.my-ship-app.staging.paralect.com
+      WEB_URL=https://my-ship-app.staging.paralect.com
+      JWT_SECRET=Ol2Ol8HKBO0/38i1IBm2uJ7Jn3oabWGm0RiRVY5w1sNY=
+      ```
+    </CodeGroup>
+
+
+    <Warning>
+      Replace all example values with your actual configuration. Never use production secrets in documentation or version control.
+    </Warning>
+  </Step>
+
+  <Step title="Import secrets to Kubernetes">
+    Import secrets from the .env file to Kubernetes secret using k8sec:
+
+    <CodeGroup>
+      ```bash production
+      k8sec load -f .env.production api-production-secret -n production
+      ```
+
+      ```bash staging
+      k8sec load -f .env.staging api-staging-secret -n staging
+      ```
+    </CodeGroup>
+  </Step>
+</Steps>
+
+<Warning>
+  After updating environment variables, you must initiate a new deployment for changes to take effect.
+  Kubernetes pods cache variable values during startup, requiring a pod restart or rolling update to apply changes.
+</Warning>
+
+### Web Environment Variables
+
+The web application uses Next.js environment variables that are embedded at build time and made available in the browser. Unlike API secrets, these variables are stored directly in the GitHub repository.
+
+<Info>
+  **Why Web Environment Variables Are Safe in Git**: Web environment variables (prefixed with `NEXT_PUBLIC_`) contain only public configuration like URLs and API endpoints. They don't include sensitive data like passwords or API keys, making them safe to store in version control. These values are already exposed to users in the browser, so repository storage doesn't create additional security risks.
+</Info>
+
+<Warning>
+  **Security Notice**: Never store sensitive information (passwords, API keys, secrets) in web environment files as they will be accessible on the client side. Only use public configuration values that are safe to expose to end users.
+</Warning>
+
+#### Configuration Files
+
+Web environment variables are stored in separate files for each deployment environment:
+
+<CodeGroup>
+  ```bash apps/web/.env.production
+  NEXT_PUBLIC_API_URL=https://api.my-ship-app.paralect.com
+  NEXT_PUBLIC_WS_URL=https://api.my-ship-app.paralect.com
+  NEXT_PUBLIC_WEB_URL=https://my-ship-app.paralect.com
+  ```
+
+  ```bash apps/web/.env.staging
+  NEXT_PUBLIC_API_URL=https://api.my-ship-app.staging.paralect.com
+  NEXT_PUBLIC_WS_URL=https://api.my-ship-app.staging.paralect.com
+  NEXT_PUBLIC_WEB_URL=https://my-ship-app.staging.paralect.com
+  ```
+</CodeGroup>
+
+#### Environment Variables Reference
+
+| Variable              | Description                           | Example                                |
+|-----------------------|---------------------------------------|----------------------------------------|
+| `NEXT_PUBLIC_API_URL` | Base URL for API requests             | `https://api.my-ship-app.paralect.com` |
+| `NEXT_PUBLIC_WS_URL`  | WebSocket server URL for real-time    | `https://api.my-ship-app.paralect.com` |
+| `NEXT_PUBLIC_WEB_URL` | App's own URL for redirects/metadata  | `https://my-ship-app.paralect.com`     |
+
+<Tip>
+  **Best Practice**: Keep web environment files in your repository and ensure all values are non-sensitive. If you need to reference sensitive data from the frontend, create a secure API endpoint that returns the necessary information after proper authentication.
+</Tip>
+
+
+# Setting up GitHub Actions CI/CD
+
+### Creating IAM user in AWS
+
+To set up CI/CD with GitHub Actions securely, we need to create a dedicated IAM user in AWS with specific permissions.
+
+This separate user will be used exclusively for CI/CD operations, following the principle of least privilege and keeping deployment credentials isolated from other system users.
+
+<Steps>
+  <Step title="Create IAM Policy">
+    1. Go to [AWS IAM Policies](https://console.aws.amazon.com/iam/home#/policies)
+    2. Click **Create policy**
+    3. Select **JSON** tab and add the policy:
+
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "ECR",
+                "Effect": "Allow",
+                "Action": [
+                "ecr:BatchGetImage",
                 "ecr:CompleteLayerUpload",
                 "ecr:GetAuthorizationToken",
                 "ecr:UploadLayerPart",
                 "ecr:InitiateLayerUpload",
                 "ecr:BatchCheckLayerAvailability",
                 "ecr:PutImage"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
+              ],
+               "Resource": "*"
+            },
+            {
+                "Sid": "EKS",
+                "Effect": "Allow",
+                "Action": "eks:DescribeCluster",
+                "Resource": "*"
+            }
+        ]
+    }
+    ```
 
-![Policy Configuration](/images/aws/policy-config.png)
+    <Frame>
+      <img src="/images/aws/policy-config.png" alt="Policy Configuration" />
+    </Frame>
 
-In the second step, you can optionally add tags to your policy.
+    4. (Optional) Add tags
+    5. Give the policy a name (e.g. `GitHubActionsDeployPolicy`) and create it
 
-And at the last step, you need to give your policy a name and review summary.
+    <Frame>
+      <img src="/images/aws/policy-review-create.png" alt="Policy review create" />
+    </Frame>
+  </Step>
 
-![Policy Review](/images/aws/policy-review.png)
+  <Step title="Create IAM User">
+    1. Navigate to **Users** in IAM console
+    2. Click **Create user**
+    3. Give the user a name (e.g. `github-actions`)
 
-Now we need to create a user, open the **Users** page in the sidebar and click **Add user**.
+    <Frame>
+      <img src="/images/aws/user-creating.png" alt="User creating" />
+    </Frame>
 
-![User Creating](/images/aws/user-creating.png)
+    4. Attach the policy you created by selecting:
+    - **Attach existing policies directly**
+    - Choose the CI/CD policy created in previous step
 
-In the next step, you need to attach your policy to the user. Click **Attach existing policies directly** and select the policy, which we created recently.
+    <Frame>
+      <img src="/images/aws/user-policy.png" alt="User policy" />
+    </Frame>
 
-![User Policy](/images/aws/user-policy.png)
+    4. (Optional) Add user tags
+    5. Review and create user
+  </Step>
 
-At the next step, you can optionally add tags to your user.
+  <Step title="Generate Access Keys">
+    1. Find your new user in the users list and open user's page
+    2. Click **Create access key**
 
-The fourth step is to review your user and click **Create user**.
+    <Frame>
+      <img src="/images/aws/user-create-access-key.png" alt="User create access key" />
+    </Frame>
 
-Once you're done, you'll see a list of users. Find yours and click **Create access key**.
+    3. Select use case: **Third-party service**
 
-![User Access Key](/images/aws/user-access-key.png)
+    <Frame>
+      <img src="/images/aws/user-access-key-use-case.png" alt="User access key use cases" />
+    </Frame>
 
-Then, pick **Application running on an AWS compute service** as the use case. You can also add a tag if needed.
+    4. Save the Access Key ID and Secret Access Key securely
 
-![User Access Key](/images/aws/user-access-key-type.png)
+    <Frame>
+      <img src="/images/aws/user-credentials.png" alt="User credentials" />
+    </Frame>
 
-After that, you'll get your Access Key ID and Secret Access Key. Remember to save them because you won't see them again.
+    <Warning>
+      The Secret Access Key will only be shown once - make sure to save it immediately!
+    </Warning>
+  </Step>
 
-![User Credentials](/images/aws/user-credentials.png)
+  <Step title="Configure EKS Access">
+    1. Copy your user's ARN from the IAM dashboard
 
-Now we need to give EKS permissions to our user. Use the following command to attach the user to kubernetes masters group:
+    <Frame>
+      <img src="/images/aws/user-arn.png" alt="User ARN" />
+    </Frame>
 
-```shell
-eksctl create iamidentitymapping --cluster my-app --arn arn:aws:iam::402167441269:user/cicd --group system:masters --username cicd
-```
+    2. Run the following command to grant Kubernetes access:
 
-In the **--arn** parameter you need to specify your user ARN, which you can find in the IAM dashboard.
+    ```bash
+    eksctl create iamidentitymapping \
+    --cluster my-ship-app \
+    --group system:masters \
+    --username github-actions \
+    --arn YOUR_USER_ARN
+    ```
 
-<SecretsSection/>
+    Replace `YOUR_USER_ARN` with the actual ARN copied earlier.
+  </Step>
+</Steps>
 
-<PortSection/>
+<Note>
+  These permissions enable CI/CD workflows while following security best practices:
+  - Minimal required permissions for ECR operations
+  - Limited EKS access for cluster management
+  - Dedicated CI/CD user separate from other IAM users
+</Note>
 
-## CI/CD
+### Configuring GitHub Actions secrets and variables
 
-To automate deployment through GitHub Actions you need to configure [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) inside workflow files.
+<Note>
+  Before starting, make sure you have created a GitHub repository for your project.
+</Note>
+
+GitHub Secrets and variables allow you to manage reusable configuration data.
+
+Secrets are encrypted and are used for sensitive data. [Learn more about encrypted secrets](https://docs.github.com/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets).
+
+Variables are shown as plain text and are used for non-sensitive data. [Learn more about variables](https://docs.github.com/actions/learn-github-actions/variables).
 
 <Tip>
-The deployment will be triggered on each commit.
-Committing to the **main** branch will trigger a deployment in the **staging** environment, and committing to the **production** branch will trigger a deployment in the **production** environment.
+The deployment will be triggered on each commit:
+- Commits to **main** branch → deploy to **staging** environment
+- Commits to **production** branch → deploy to **production** environment
 </Tip>
 
-To check required Secrets you can open workflows in the `.github` folder at the root of your project.
+[Configure](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) the following secrets and variables in your GitHub repository:
 
-To automate deployment to the **production** environment you need to create `AWS_ACCESS_KEY`, `AWS_SECRET_ACCESS_KEY`, `AWS_ACCOUNT_ID`, `AWS_REGION` and `CLUSTER_NAME_PRODUCTION`  secrets for `api-production.yml` and `web-production.yml` workflows.
+| Name                    | Type     | Description                                                                                                                 |
+|-------------------------|----------|-----------------------------------------------------------------------------------------------------------------------------|
+| AWS_SECRET_ACCESS_KEY   | secret   | The secret access key from the AWS IAM user created for CI/CD. This allows GitHub Actions to authenticate with AWS services |
+| AWS_ACCESS_KEY_ID       | variable | The access key ID from the AWS IAM user. Used in conjunction with the secret key for AWS authentication                     |
+| AWS_REGION              | variable | The AWS region where your EKS cluster and ECR registry are located (e.g. `us-east-1`)                                       |
+| CLUSTER_NODE_GROUP      | variable | The name of the EKS node group where your application pods will be scheduled (e.g. `pool-app`)                              |
+| CLUSTER_NAME_PRODUCTION | variable | The name of your production EKS cluster. Required when deploying to the production environment                              |
+| CLUSTER_NAME_STAGING    | variable | The name of your staging EKS cluster. Required when deploying to the staging environment                                    |
 
-`AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY` you can get information about secrets from the downloaded credentials file when creating a user for CI/CD.
+<Warning>
+Never commit sensitive credentials directly to your repository. <br/>
+  Always use GitHub Secrets for sensitive information like AWS keys.
+</Warning>
 
-![CI/CD user credentials](/images/aws/cicd-credentials.png)
+<Note>
+Variables (unlike secrets) are visible in logs and can be used for non-sensitive configuration values that may need to be referenced or modified.
+</Note>
 
-`AWS_ACCOUNT_ID` you can get from the user menu in the upper right corner of the AWS Management Console.
 
-![Account ID location](/images/aws/account-id.png)
+<Frame>
+  <img src="/images/aws/gh-secrets.png" alt="GitHub Secrets" />
+</Frame>
 
-`AWS_REGION` and `CLUSTER_NAME_PRODUCTION` you set according to your project, for this guide we use `us-east-1` and `my-app` respectively.
+<Frame>
+  <img src="/images/aws/gh-variables.png" alt="GitHub Variables" />
+</Frame>
 
-After adding all the secrets, you should have the same secrets as in the following screenshot.
 
-![GitHub secrets](/images/aws/gh-secrets.png)
+Now commit all changes to GitHub that will trigger deployment, or you can [run a workflow manually](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow)
 
-Now commit all changes to GitHub that will trigger deployment.
+<Frame>
+  <img src="/images/aws/ci-start.png" alt="CI start" />
+</Frame>
 
-![CI start](/images/aws/ci-start.png)
+Done! Application deployed and can be accessed by the provided domain.
 
-Done! Application deployed and can be accessed by provided domain.
 
-![CI finish](/images/aws/ci-finish.png)
+<Frame>
+  <img src="/images/aws/ci-finish.png" alt="CI finish" />
+</Frame>
 
-![Deployment finish](/images/aws/deployment-finish.png)
 
-![Deployed pods](/images/aws/deployed-pods.png)
+<Frame>
+  <img src="/images/aws/deployment-finish.png" alt="Deployment finish" />
+</Frame>
+
+
+<Frame>
+  <img src="/images/aws/deployed-pods.png" alt="Deployed pods" />
+</Frame>
 
 <Tip>
 If something went wrong you can check the workflows logs on GitHub and use [**kubectl logs**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#interacting-with-running-pods), [**kubectl describe**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#viewing-finding-resources) commands.
 </Tip>
 
-## Manual deployment
 
-To deploy services in the cluster manually you need to set cluster authorization credentials inside the **config**.
-Set `environment` and `namespace` to `production/staging` and set your AWS credentials into config.
+## Setting up Upstash Redis database (recommended)
+<UpstashRedis/>
 
-```javascript deploy/src/config.js
-const config = {
-  rootDir,
-
-  service: ENV.SERVICE,
-
-  environment: ENV.ENVIRONMENT || 'production',
-
-  namespace: ENV.NAMESPACE || 'production',
-
-  kubeConfig: ENV.KUBE_CONFIG,
-
-  home: ENV.HOME,
-
-  AWS: {
-    clusterName: ENV.CLUSTER_NAME || 'my-app',
-    accessKey: ENV.AWS_ACCESS_KEY || 'AKIAV...',
-    secretAccessKey: ENV.AWS_SECRET_ACCESS_KEY || 'a+frRW...',
-    region: ENV.AWS_REGION || 'us-east-1',
-    accountId: ENV.AWS_ACCOUNT_ID || '40216...',
-  },
-};
-```
-
-Run the deployment **script**. It will do the same as the CI deployment, but you run it manually.
-
-```shell title=deploy/script/src
-node index
-
-? What service to deploy? (Use arrow keys)
-  api
-  web
-```

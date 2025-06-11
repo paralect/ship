@@ -47,7 +47,6 @@ const baseCookieOptions = {
   domain: cookieDomain,
   httpOnly: true,
   sameSite: 'lax' as const,
-  secure: webUrl.protocol === 'https:',
 };
 
 const setTokens = async (ctx: AppKoaContext, userId: string) => {
@@ -59,6 +58,7 @@ const setTokens = async (ctx: AppKoaContext, userId: string) => {
       accessToken,
       Object.assign(baseCookieOptions, {
         expires: new Date(Date.now() + TOKEN_SECURITY_EXPIRES_IN * 1000),
+        secure: ctx.secure,
       }),
     );
   }
@@ -74,6 +74,7 @@ const unsetTokens = async (ctx: AppKoaContext) => {
     null,
     Object.assign(baseCookieOptions, {
       expires: new Date(0),
+      secure: ctx.secure,
     }),
   );
 };

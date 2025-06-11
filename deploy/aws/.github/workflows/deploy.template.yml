@@ -1,0 +1,91 @@
+name: "Deploy Template"
+
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        type: string
+        description: 'Service identifier for ECR repository (e.g., "api", "web")'
+        required: true
+      aws_region:
+        type: string
+        description: 'AWS region where EKS cluster is deployed'
+        required: true
+      aws_access_key_id:
+        type: string
+        description: 'AWS access key ID for EKS authentication'
+        required: true
+      aws_eks_name:
+        type: string
+        description: 'Name of the target EKS cluster'
+        required: true
+      node_group:
+        type: string
+        description: 'EKS node group where pods will be scheduled'
+        required: true
+      environment:
+        type: string
+        description: 'Target deployment environment (staging/production)'
+        required: true
+      helm_chart_dir:
+        type: string
+        description: 'Path to Helm chart configuration directory'
+        required: true
+      image_tag:
+        type: string
+        description: 'Docker image tag to deploy for the service'
+        required: true
+      migrator_image_tag:
+        type: string
+        description: 'Optional Docker image tag for database migrations'
+        required: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      KUBECONFIG: .kube/kubeconfig
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install helm-diff plugin
+        run: helm plugin install https://github.com/databus23/helm-diff
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ inputs.aws_region }}
+          aws-access-key-id: ${{ inputs.aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Get the kubeconfig file
+        run: |
+          aws eks update-kubeconfig --name ${{ inputs.aws_eks_name }} --kubeconfig ${{ env.KUBECONFIG }} --region ${{ inputs.aws_region }}
+
+      - name: helm diff
+        run: |
+          helm dependency build ${{ inputs.helm_chart_dir }}
+          helm diff upgrade --install \
+          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helm_chart_dir }} \
+          --namespace ${{ inputs.environment }} \
+          --set environment=${{ inputs.environment }} \
+          --set image=${{ inputs.image_tag }} \
+          --set migratorImage=${{ inputs.migrator_image_tag }} \
+          --set nodeGroup=${{ inputs.node_group }} \
+          -f ${{ inputs.helm_chart_dir }}/${{ inputs.environment }}.yaml \
+          --kubeconfig ${{ env.KUBECONFIG }}
+
+      - name: helm upgrade
+        run: |
+          KUBECONFIG=$PWD/$KUBECONFIG helm upgrade --install \
+          --create-namespace \
+          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helm_chart_dir }} \
+          --namespace ${{ inputs.environment }} \
+          --set environment=${{ inputs.environment }} \
+          --set image=${{ inputs.image_tag }} \
+          --set migratorImage=${{ inputs.migrator_image_tag }} \
+          --set nodeGroup=${{ inputs.node_group }} \
+          -f ${{ inputs.helm_chart_dir }}/${{ inputs.environment }}.yaml \
+          --dependency-update \
+          --kubeconfig ${{ env.KUBECONFIG }}

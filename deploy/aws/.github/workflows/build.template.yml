@@ -1,0 +1,96 @@
+name: "Build Template"
+
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        type: string
+        description: 'Service identifier for ECR repository (e.g., "api", "web")'
+        required: true
+      aws_access_key_id:
+        type: string
+        description: 'AWS access key ID for ECR authentication'
+        required: true
+      aws_region:
+        type: string
+        description: 'AWS region where ECR registry is located'
+        required: true
+      environment:
+        type: string
+        description: 'Target environment for deployment (staging/production)'
+        required: true
+      docker_file_path:
+        type: string
+        description: 'Relative path to the Dockerfile'
+        required: true
+      docker_context_dir:
+        description: 'Directory for Docker build context'
+        default: '.'
+        required: false
+        type: string
+      helm_chart_dir:
+        type: string
+        description: 'Path to Helm chart configuration files'
+        required: true
+
+    outputs:
+      image_tag:
+        value: ${{ jobs.build.outputs.image_tag }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tags }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ inputs.aws_region }}
+          aws-access-key-id: ${{ inputs.aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            "${{ steps.login-ecr.outputs.registry }}/${{ inputs.service_name }}"
+          tags: |
+            type=sha,prefix=${{ inputs.environment }}}
+          flavor: |
+            latest=false
+
+      - name: Build service and push image
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{ inputs.docker_context_dir }}
+          file: ${{ inputs.docker_file_path }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          provenance: false
+          build-args: |
+            APP_ENV=${{ inputs.environment }}
+
+      - name: Create summary
+        uses: x-color/github-actions-job-summary@v0.1.0
+        with:
+          file: ./.github/workflows/template/summary-build.md
+          vars: |
+            actor:  ${{ github.actor }}
+            event_name: ${{ github.event_name }}
+            environment: ${{ inputs.environment }}
+            image_tag: ${{ steps.meta.outputs.tags }}
