@@ -50,7 +50,7 @@ services:
       - mongo
   redis:
     container_name: ship-redis
-    image: redis:5.0.5
+    image: redis:8.0.2
     command: redis-server --appendonly yes
     hostname: redis
     networks:
