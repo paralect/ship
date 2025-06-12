@@ -16,7 +16,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@hookform/resolvers": "3.3.4",
+    "@hookform/resolvers": "5.1.1",
     "@mantine/core": "8.1.0",
     "@mantine/dates": "8.1.0",
     "@mantine/dropzone": "8.1.0",
@@ -39,10 +39,10 @@
     "object-to-formdata": "4.5.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-hook-form": "7.52.1",
+    "react-hook-form": "7.57.0",
     "schemas": "workspace:*",
     "socket.io-client": "4.7.5",
-    "zod": "3.21.4"
+    "zod": "3.25.63"
   },
   "devDependencies": {
     "@storybook/addon-controls": "8.4.7",

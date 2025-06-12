@@ -55,7 +55,7 @@
     "socket.io": "4.6.1",
     "tldts": "6.1.84",
     "winston": "3.8.2",
-    "zod": "3.21.4"
+    "zod": "3.25.63"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "4.2.0",
