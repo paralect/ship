@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Button, PasswordInput, Stack, Text, Title } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { accountApi } from 'resources/account';
 
@@ -13,9 +14,10 @@ import { handleApiError } from 'utils';
 import { RoutePath } from 'routes';
 
 import { resetPasswordSchema } from 'schemas';
-import { ResetPasswordParams } from 'types';
 
 const schema = resetPasswordSchema.omit({ token: true });
+
+type ResetPasswordParams = z.infer<typeof schema>;
 
 const ResetPassword: NextPage = () => {
   const [isSubmitted, setSubmitted] = useState(false);
