@@ -8,7 +8,7 @@
     "light": "#ECCBFF",
     "dark": "#9166A9"
   },
- "modeToggle": {
+  "modeToggle": {
     "default": "dark",
     "isHidden": true
   },
@@ -68,10 +68,7 @@
         },
         {
           "group": "Package sharing",
-          "pages": [
-            "package-sharing/overview",
-            "package-sharing/schemas"
-          ]
+          "pages": ["package-sharing/overview", "package-sharing/schemas"]
         },
         "migrator",
         "scheduler",
@@ -106,10 +103,7 @@
         },
         {
           "group": "Packages",
-          "pages": [
-            "packages/node-mongo",
-            "packages/create-ship-app"
-          ]
+          "pages": ["packages/node-mongo", "packages/create-ship-app"]
         },
         "retool",
         {
@@ -147,10 +141,5 @@
   "footerSocials": {
     "twitter": "https://twitter.com/paralect_ship",
     "github": "https://github.com/paralect/ship"
-  },
-  "analytics": {
-    "posthog": {
-      "apiKey": "phc_r8CwY7CdUdM2qJtLaLlSyA1HuvG4fZJ26jBI7ZRkirF"
-    }
   }
 }
