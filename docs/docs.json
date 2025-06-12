@@ -1,0 +1,169 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Ship",
+  "colors": {
+    "primary": "#9166A9",
+    "light": "#ECCBFF",
+    "dark": "#9166A9"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "Documentation",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "contribution-guide"
+            ]
+          },
+          {
+            "group": "Ship Components",
+            "pages": [
+              "architecture",
+              {
+                "group": "API",
+                "pages": [
+                  "api-reference/overview",
+                  "api-reference/api-limitations",
+                  "api-reference/using-events",
+                  "api-reference/data-service",
+                  "api-reference/api-action",
+                  "api-reference/api-action-validator",
+                  "api-reference/event-handler",
+                  "api-reference/events",
+                  "api-reference/testing",
+                  "api-reference/workflow"
+                ]
+              },
+              {
+                "group": "Package sharing",
+                "pages": [
+                  "package-sharing/overview",
+                  "package-sharing/schemas"
+                ]
+              },
+              "migrator",
+              "scheduler",
+              "mailer",
+              {
+                "group": "Web",
+                "pages": [
+                  "web/overview",
+                  "web/styling",
+                  "web/routing",
+                  "web/calling-api",
+                  "web/forms",
+                  "web/services",
+                  "web/environment-variables"
+                ]
+              },
+              {
+                "group": "Deployment",
+                "pages": [
+                  "deployment/digital-ocean-apps",
+                  "deployment/digital-ocean-apps-iac",
+                  "deployment/render",
+                  {
+                    "group": "Kubernetes",
+                    "pages": [
+                      "deployment/kubernetes/overview",
+                      "deployment/kubernetes/digital-ocean",
+                      "deployment/kubernetes/aws"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Packages",
+                "pages": [
+                  "packages/node-mongo",
+                  "packages/create-ship-app"
+                ]
+              },
+              "retool",
+              {
+                "group": "Examples",
+                "pages": [
+                  "examples/overview",
+                  {
+                    "group": "Stripe subscriptions",
+                    "pages": [
+                      "examples/stripe-subscriptions/overview",
+                      "examples/stripe-subscriptions/account",
+                      {
+                        "group": "API",
+                        "pages": [
+                          "examples/stripe-subscriptions/api/overview",
+                          "examples/stripe-subscriptions/api/subscriptions",
+                          "examples/stripe-subscriptions/api/payments"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "API Public Docs",
+                    "pages": [
+                      "examples/api-public-docs/overview",
+                      "examples/api-public-docs/usage",
+                      "examples/api-public-docs/how-it-works"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Twitter",
+          "href": "https://twitter.com/paralect_ship",
+          "icon": "twitter"
+        },
+        {
+          "anchor": "Discord",
+          "href": "https://discord.gg/zNWEatRWqx",
+          "icon": "discord"
+        }
+      ]
+    }
+  },
+  "logo": "/logo.png",
+  "appearance": {
+    "default": "dark",
+    "strict": true
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "What's Ship?",
+        "href": "https://ship.paralect.com/#product-platform"
+      },
+      {
+        "label": "Showcase",
+        "href": "https://ship.paralect.com/#showcase"
+      },
+      {
+        "label": "Contributors",
+        "href": "https://ship.paralect.com/#contributors"
+      }
+    ],
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/paralect/ship"
+    }
+  },
+  "footer": {
+    "socials": {
+      "twitter": "https://twitter.com/paralect_ship",
+      "github": "https://github.com/paralect/ship"
+    }
+  }
+}
