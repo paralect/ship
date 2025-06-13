@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "husky": "9.0.11",
-    "turbo": "2.0.6"
+    "turbo": "2.5.4"
   },
   "optionalDependencies": {
     "turbo-darwin-64": "2.0.6",
