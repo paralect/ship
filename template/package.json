@@ -9,15 +9,15 @@
   },
   "devDependencies": {
     "husky": "9.0.11",
-    "turbo": "2.0.6"
+    "turbo": "2.5.4"
   },
   "optionalDependencies": {
-    "turbo-darwin-64": "2.0.6",
-    "turbo-darwin-arm64": "2.0.6",
-    "turbo-linux-64": "2.0.6",
-    "turbo-linux-arm64": "2.0.6",
-    "turbo-windows-64": "2.0.6",
-    "turbo-windows-arm64": "2.0.6"
+    "turbo-darwin-64": "2.5.4",
+    "turbo-darwin-arm64": "2.5.4",
+    "turbo-linux-64": "2.5.4",
+    "turbo-linux-arm64": "2.5.4",
+    "turbo-windows-64": "2.5.4",
+    "turbo-windows-arm64": "2.5.4"
   },
   "packageManager": "pnpm@9.5.0",
   "engines": {

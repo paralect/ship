@@ -3,7 +3,7 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat
-RUN npm install --global --no-update-notifier --no-fund turbo@2.0.6
+RUN npm install --global --no-update-notifier --no-fund turbo@2.5.4
 COPY . .
 RUN turbo prune --scope=api --docker
 
