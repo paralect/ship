@@ -24,14 +24,17 @@ async function validator(ctx: AppKoaContext<SignUpParams>, next: Next) {
 async function handler(ctx: AppKoaContext<SignUpParams>) {
   const { firstName, lastName, email, password } = ctx.validatedData;
 
-  const [hash, signupToken] = await Promise.all([securityUtil.getHash(password), securityUtil.generateSecureToken()]);
+  const [passwordHash, signupToken] = await Promise.all([
+    securityUtil.hashPassword(password),
+    securityUtil.generateSecureToken(),
+  ]);
 
   const user = await userService.insertOne({
     email,
     firstName,
     lastName,
     fullName: `${firstName} ${lastName}`,
-    passwordHash: hash.toString(),
+    passwordHash,
     isEmailVerified: false,
     signupToken,
   });

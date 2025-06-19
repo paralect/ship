@@ -30,7 +30,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user, password } = ctx.validatedData;
 
-  const passwordHash = await securityUtil.getHash(password);
+  const passwordHash = await securityUtil.hashPassword(password);
 
   await db.withTransaction((session) =>
     Promise.all([

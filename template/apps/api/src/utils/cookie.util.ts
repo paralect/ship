@@ -2,11 +2,9 @@ import _ from 'lodash';
 import { getPublicSuffix, parse } from 'tldts';
 import { URL } from 'url';
 
-import { tokenService } from 'resources/token';
-
 import config from 'config';
 
-import { COOKIES, TOKEN_SECURITY_EXPIRES_IN } from 'app-constants';
+import { COOKIES } from 'app-constants';
 import { AppKoaContext } from 'types';
 
 /**
@@ -49,31 +47,33 @@ const baseCookieOptions = {
   sameSite: 'lax' as const,
 };
 
-const setTokens = async (ctx: AppKoaContext, userId: string) => {
-  const accessToken = await tokenService.createAccessToken({ userId });
+interface SetTokensOptions {
+  ctx: AppKoaContext;
+  accessToken: string;
+  expiresIn: number;
+}
 
-  if (accessToken) {
-    ctx.cookies.set(
-      COOKIES.ACCESS_TOKEN,
-      accessToken,
-      Object.assign(baseCookieOptions, {
-        expires: new Date(Date.now() + TOKEN_SECURITY_EXPIRES_IN * 1000),
-        secure: ctx.secure,
-      }),
-    );
-  }
+const setTokens = async ({ ctx, accessToken, expiresIn }: SetTokensOptions) => {
+  ctx.cookies.set(
+    COOKIES.ACCESS_TOKEN,
+    accessToken,
+    Object.assign(baseCookieOptions, {
+      expires: new Date(Date.now() + expiresIn * 1000),
+      secure: ctx.secure,
+    }),
+  );
 };
 
-const unsetTokens = async (ctx: AppKoaContext) => {
-  const { accessToken } = ctx.state;
+interface UnsetTokensOptions {
+  ctx: AppKoaContext;
+}
 
-  await tokenService.deleteMany({ value: accessToken });
-
+const unsetTokens = async ({ ctx }: UnsetTokensOptions) => {
   ctx.cookies.set(
     COOKIES.ACCESS_TOKEN,
     null,
     Object.assign(baseCookieOptions, {
-      expires: new Date(0),
+      maxAge: 0,
       secure: ctx.secure,
     }),
   );
