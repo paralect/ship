@@ -2,7 +2,11 @@ import { securityUtil } from 'utils';
 
 import db from 'db';
 
-import { DATABASE_DOCUMENTS } from 'app-constants';
+import {
+  ACCESS_TOKEN_ACTIVITY_CHECK_INTERVAL_SECONDS,
+  ACCESS_TOKEN_INACTIVITY_TIMEOUT_SECONDS,
+  DATABASE_DOCUMENTS,
+} from 'app-constants';
 import { tokenSchema } from 'schemas';
 import { Token, TokenPayload, TokenType } from 'types';
 
@@ -10,41 +14,80 @@ const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, {
   schemaValidator: (obj) => tokenSchema.parseAsync(obj),
 });
 
-const createToken = async ({ userId, type }: TokenPayload): Promise<Token> => {
-  const payload: TokenPayload = {
-    type,
-    userId,
-  };
+const createAccessToken = async ({ userId }: Pick<TokenPayload, 'userId'>): Promise<string> => {
+  const secureToken = await securityUtil.generateSecureToken();
 
-  const value = await securityUtil.generateJwtToken<TokenPayload>(payload);
+  const value = await securityUtil.hashAccessToken(secureToken);
 
-  return service.insertOne({
-    type,
+  const accessToken = await service.insertOne({
+    type: TokenType.ACCESS,
     value,
     userId,
-  });
-};
-
-const createAccessToken = async ({ userId }: Pick<TokenPayload, 'userId'>): Promise<string> => {
-  const accessToken = await createToken({
-    userId,
-    type: TokenType.ACCESS,
+    lastVerifiedOn: new Date(),
   });
 
-  return accessToken.value;
+  return `${accessToken._id}.${secureToken}`;
 };
 
-const findByJWTValue = async (value?: string | null): Promise<Token | null> => {
+const getAccessToken = async (tokenId?: string | null): Promise<Token | null> => {
+  if (!tokenId) return null;
+
+  const token = await service.findOne({ _id: tokenId, type: TokenType.ACCESS });
+
+  if (!token) return null;
+
+  const now = new Date();
+
+  if (now.getTime() - token.lastVerifiedOn.getTime() >= ACCESS_TOKEN_INACTIVITY_TIMEOUT_SECONDS * 1000) {
+    await service.deleteOne({ _id: tokenId, type: TokenType.ACCESS });
+
+    return null;
+  }
+
+  return token;
+};
+
+const validateAccessToken = async (value?: string | null): Promise<Token | null> => {
   if (!value) return null;
 
-  const tokenPayload = await securityUtil.verifyJwtToken<TokenPayload>(value);
+  const tokenParts = value.split('.');
 
-  if (!tokenPayload) return null;
+  if (tokenParts.length !== 2) return null;
 
-  return service.findOne({ value });
+  const [tokenId, secret] = tokenParts;
+
+  const token = await getAccessToken(tokenId);
+
+  const isValid = await securityUtil.verifyAccessToken(token?.value, secret);
+
+  if (!isValid) return null;
+  if (!token) return null;
+
+  const now = new Date();
+
+  if (now.getTime() - token.lastVerifiedOn.getTime() >= ACCESS_TOKEN_ACTIVITY_CHECK_INTERVAL_SECONDS * 1000) {
+    token.lastVerifiedOn = now;
+
+    await service.updateOne({ value, type: TokenType.ACCESS }, () => ({ lastVerifiedOn: now }));
+  }
+
+  return token;
+};
+
+const invalidateAccessToken = async (accessToken?: string | null): Promise<void> => {
+  if (!accessToken) return;
+
+  const tokenParts = accessToken.split('.');
+
+  if (tokenParts.length !== 2) return;
+
+  const [tokenId] = tokenParts;
+
+  await service.deleteOne({ _id: tokenId, type: TokenType.ACCESS });
 };
 
 export default Object.assign(service, {
   createAccessToken,
-  findByJWTValue,
+  validateAccessToken,
+  invalidateAccessToken,
 });

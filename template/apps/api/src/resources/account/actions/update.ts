@@ -24,7 +24,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   }
 
   if (password) {
-    ctx.validatedData.passwordHash = await securityUtil.getHash(password);
+    ctx.validatedData.passwordHash = await securityUtil.hashPassword(password);
 
     delete ctx.validatedData.password;
   }

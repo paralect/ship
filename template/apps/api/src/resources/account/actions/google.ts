@@ -1,6 +1,7 @@
 import { userService } from 'resources/user';
 
-import { authService, googleService } from 'services';
+import { googleService } from 'services';
+import { authUtil } from 'utils';
 
 import config from 'config';
 
@@ -36,7 +37,10 @@ const signInGoogleWithCode = async (ctx: AppKoaContext) => {
 
     const userUpdated = userChanged || user;
 
-    await Promise.all([userService.updateLastRequest(userUpdated._id), authService.setTokens(ctx, userUpdated._id)]);
+    await Promise.all([
+      userService.updateLastRequest(userUpdated._id),
+      authUtil.setAuthToken({ ctx, userId: userUpdated._id }),
+    ]);
 
     ctx.redirect(config.WEB_URL);
   }
@@ -59,7 +63,10 @@ const signInGoogleWithCode = async (ctx: AppKoaContext) => {
   });
 
   if (newUser) {
-    await Promise.all([userService.updateLastRequest(newUser._id), authService.setTokens(ctx, newUser._id)]);
+    await Promise.all([
+      userService.updateLastRequest(newUser._id),
+      authUtil.setAuthToken({ ctx, userId: newUser._id }),
+    ]);
   }
 
   ctx.redirect(config.WEB_URL);

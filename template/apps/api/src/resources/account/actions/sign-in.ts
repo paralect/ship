@@ -1,8 +1,7 @@
 import { userService } from 'resources/user';
 
 import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
-import { authService } from 'services';
-import { securityUtil } from 'utils';
+import { authUtil, securityUtil } from 'utils';
 
 import { signInSchema } from 'schemas';
 import { AppKoaContext, AppRouter, Next, SignInParams, User } from 'types';
@@ -20,7 +19,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
     credentials: 'The email or password you have entered is invalid',
   });
 
-  const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
+  const isPasswordMatch = await securityUtil.verifyPasswordHash(password, user.passwordHash);
 
   ctx.assertClientError(isPasswordMatch, {
     credentials: 'The email or password you have entered is invalid',
@@ -37,7 +36,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.validatedData;
 
-  await Promise.all([userService.updateLastRequest(user._id), authService.setTokens(ctx, user._id)]);
+  await Promise.all([userService.updateLastRequest(user._id), authUtil.setAuthToken({ ctx, userId: user._id })]);
 
   ctx.body = userService.getPublic(user);
 }

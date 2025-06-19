@@ -6,7 +6,7 @@ import { AppKoaContext, Next } from 'types';
 const tryToAttachUser = async (ctx: AppKoaContext, next: Next) => {
   const { accessToken } = ctx.state;
 
-  const token = await tokenService.findByJWTValue(accessToken);
+  const token = await tokenService.validateAccessToken(accessToken);
 
   if (token) {
     const user = await userService.findOne({ _id: token.userId });
