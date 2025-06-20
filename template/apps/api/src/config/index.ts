@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { configUtil } from 'utils';
+import configUtil from 'utils/config.util';
 
 /**
  * Specify your environment variables schema here.

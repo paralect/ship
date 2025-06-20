@@ -6,7 +6,12 @@ import { emailSchema, fileSchema, passwordSchema } from './common.schema';
 import dbSchema from './db.schema';
 
 const oauthSchema = z.object({
-  google: z.boolean().default(false),
+  google: z
+    .object({
+      userId: z.string().min(1, 'Google user ID is required'),
+      connectedOn: z.date(),
+    })
+    .optional(),
 });
 
 export const userSchema = dbSchema

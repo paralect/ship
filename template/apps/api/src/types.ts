@@ -21,6 +21,7 @@ export interface AppKoaContext<T = unknown, R = unknown> extends ParameterizedCo
   assertError: (condition: unknown, message: string, status?: number) => asserts condition;
   throwClientError: (errors: CustomErrors, status?: number) => never;
   assertClientError: (condition: unknown, errors: CustomErrors, status?: number) => asserts condition;
+  throwErrorWithRedirect: (message: string, redirectUrl?: string) => void;
 }
 
 export class AppRouter extends Router<AppKoaContextState, AppKoaContext> {}
