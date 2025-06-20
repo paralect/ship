@@ -4,7 +4,7 @@ import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
 import { emailService } from 'services';
-import { cookieUtil } from 'utils';
+import { authUtil } from 'utils';
 
 import config from 'config';
 
@@ -39,14 +39,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     signupToken: null,
   }));
 
-  await Promise.all([
-    userService.updateLastRequest(user._id),
-    cookieUtil.setTokens({
-      ctx,
-      accessToken: '',
-      expiresIn: 0,
-    }),
-  ]);
+  await Promise.all([userService.updateLastRequest(user._id), authUtil.setAuthToken({ ctx, userId: user._id })]);
 
   await emailService.sendTemplate<Template.SIGN_UP_WELCOME>({
     to: user.email,

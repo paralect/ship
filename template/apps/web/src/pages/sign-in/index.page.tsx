@@ -83,7 +83,7 @@ const SignIn: NextPage = () => {
             component="a"
             variant="outline"
             leftSection={<GoogleIcon />}
-            href={`${config.API_URL}/account/sign-in/google/auth`}
+            href={`${config.API_URL}/account/sign-in/google`}
           >
             Continue with Google
           </Button>

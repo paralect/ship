@@ -19,7 +19,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
     credentials: 'The email or password you have entered is invalid',
   });
 
-  const isPasswordMatch = await securityUtil.verifyPasswordHash(password, user.passwordHash);
+  const isPasswordMatch = await securityUtil.verifyPasswordHash(user.passwordHash, password);
 
   ctx.assertClientError(isPasswordMatch, {
     credentials: 'The email or password you have entered is invalid',
