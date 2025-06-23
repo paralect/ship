@@ -6,7 +6,7 @@ import {
   Google,
   OAuth2RequestError,
   OAuth2Tokens,
-  // @ts-expect-error - zod is not a CommonJS module
+  // @ts-expect-error - `arctic` is an ESM-only package, but `ts-node` can handle this import.
 } from 'arctic';
 import { z } from 'zod';
 
