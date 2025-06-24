@@ -426,7 +426,7 @@ importers:
         specifier: workspace:*
         version: link:../schemas
       zod:
-        specifier: 3.25.63
+        specifier: '*'
         version: 3.25.63
     devDependencies:
       '@types/formidable':
@@ -577,7 +577,7 @@ importers:
         specifier: workspace:*
         version: link:../enums
       zod:
-        specifier: 3.25.63
+        specifier: '*'
         version: 3.25.63
     devDependencies:
       '@types/formidable':

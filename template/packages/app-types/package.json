@@ -12,7 +12,7 @@
   "dependencies": {
     "enums": "workspace:*",
     "schemas": "workspace:*",
-    "zod": "3.25.63"
+    "zod": "*"
   },
   "devDependencies": {
     "@types/formidable": "2.0.5",
