@@ -1,5 +1,7 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
+import { analyticsService } from 'services';
+
 import ioEmitter from 'io-emitter';
 
 import logger from 'logger';
@@ -21,13 +23,17 @@ eventBus.on(`${USERS}.updated`, (data: InMemoryEvent<User>) => {
   }
 });
 
-eventBus.onUpdated(USERS, ['firstName', 'lastName'], async (data: InMemoryEvent<User>) => {
+eventBus.on(`${USERS}.created`, (data: InMemoryEvent<User>) => {
   try {
     const user = data.doc;
-    const fullName = user.lastName ? `${user.firstName} ${user.lastName}` : user.firstName;
 
-    await userService.atomic.updateOne({ _id: user._id }, { $set: { fullName } });
+    const { firstName, lastName } = user;
+
+    analyticsService.track('New user created', {
+      firstName,
+      lastName,
+    });
   } catch (err) {
-    logger.error(`${USERS} onUpdated ['firstName', 'lastName'] handler error: ${err}`);
+    logger.error(`${USERS}.created handler error: ${err}`);
   }
 });

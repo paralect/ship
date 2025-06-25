@@ -3,14 +3,9 @@ import { z } from 'zod';
 
 import dbSchema from './db.schema';
 
-const baseTokenSchema = dbSchema.extend({
-  userId: z.string(),
+export const tokenSchema = dbSchema.extend({
   value: z.string(),
+  userId: z.string(),
+  type: z.nativeEnum(TokenType),
+  expiresOn: z.date(),
 });
-
-export const tokenSchema = z.discriminatedUnion('type', [
-  baseTokenSchema.extend({
-    type: z.literal(TokenType.ACCESS),
-    lastVerifiedOn: z.date(),
-  }),
-]);

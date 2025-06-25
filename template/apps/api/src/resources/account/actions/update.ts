@@ -10,7 +10,7 @@ import { updateUserSchema } from 'schemas';
 import { AppKoaContext, AppRouter, Next, UpdateUserParamsBackend, User } from 'types';
 
 interface ValidatedData extends UpdateUserParamsBackend {
-  passwordHash?: string | null;
+  passwordHash?: string;
 }
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {

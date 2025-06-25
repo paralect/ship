@@ -7,11 +7,17 @@ import redisClient from 'redis-client';
 
 import { AppKoaContextState } from 'types';
 
-const rateLimit = (
-  limitDuration = 1000 * 60, // 60 sec
+interface RateLimitOptions {
+  limitDuration?: number;
+  requestsPerDuration?: number;
+  errorMessage?: string;
+}
+
+const rateLimit = ({
+  limitDuration = 60, // 60 seconds
   requestsPerDuration = 10,
-  errorMessage: string | undefined = 'Looks like you are moving too fast. Retry again in few minutes.',
-): ReturnType<typeof koaRateLimit> => {
+  errorMessage = 'Looks like you are moving too fast. Retry again in few minutes.',
+}: RateLimitOptions = {}): ReturnType<typeof koaRateLimit> => {
   const isRedisAvailable = !!config.REDIS_URI;
 
   let dbOptions: Pick<MiddlewareOptions, 'driver' | 'db'> = {
@@ -28,7 +34,7 @@ const rateLimit = (
 
   return koaRateLimit({
     ...dbOptions,
-    duration: limitDuration,
+    duration: limitDuration * 1000, // convert to milliseconds
     max: requestsPerDuration,
     id: (ctx: ParameterizedContext<AppKoaContextState>) => ctx.state?.user?._id || ctx.ip,
     errorMessage,

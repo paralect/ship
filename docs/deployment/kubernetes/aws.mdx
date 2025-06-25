@@ -524,7 +524,6 @@ Before deploying the app, make sure all necessary variables from the API config 
 | `MONGO_DB_NAME` | Database name              | `api-production`                                   |
 | `API_URL`       | API domain URL             | `https://api.my-ship-app.paralect.com`             |
 | `WEB_URL`       | Web app domain URL         | `https://my-ship-app.paralect.com`                 |
-| `JWT_SECRET`    | JWT signing key            | `Vz2Ol8HKBO0/38i1IBm2uJ7JnVabWGm0RiRVY5w1sNY=`     |
 
 #### Environment Variable Details
 
@@ -546,10 +545,6 @@ Before deploying the app, make sure all necessary variables from the API config 
 
 <Accordion title="WEB_URL">
   The fully qualified domain name where the web application will be accessible. Used for CORS configuration, redirect URLs, email templates, and social sharing metadata. Must be a valid HTTPS URL.
-</Accordion>
-
-<Accordion title="JWT_SECRET">
-  Secret key used for signing and verifying JSON Web Tokens. Should be a long, random string (minimum 32 characters). Can be generated using `openssl rand -base64 32`. Keep this secret secure and rotate it regularly.
 </Accordion>
 
 #### Setting up Kubernetes Secrets
@@ -604,7 +599,6 @@ Before deploying the app, make sure all necessary variables from the API config 
       MONGO_DB_NAME=api-production
       API_URL=https://api.my-ship-app.paralect.com
       WEB_URL=https://my-ship-app.paralect.com
-      JWT_SECRET=Vz2Ol8HKBO0/38i1IBm2uJ7JnVabWGm0RiRVY5w1sNY=
       ```
 
       ```bash .env.staging
@@ -613,7 +607,6 @@ Before deploying the app, make sure all necessary variables from the API config 
       MONGO_DB_NAME=api-staging
       API_URL=https://api.my-ship-app.staging.paralect.com
       WEB_URL=https://my-ship-app.staging.paralect.com
-      JWT_SECRET=Ol2Ol8HKBO0/38i1IBm2uJ7Jn3oabWGm0RiRVY5w1sNY=
       ```
     </CodeGroup>
 

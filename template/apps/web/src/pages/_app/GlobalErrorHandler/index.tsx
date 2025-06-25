@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { showNotification } from '@mantine/notifications';
 
 import { sanitizeErrorMessage } from 'utils';
 
-export const useHandleUrlError = () => {
+const GlobalErrorHandler: FC = () => {
   const router = useRouter();
+
   const { error } = router.query;
 
   useEffect(() => {
@@ -28,3 +29,5 @@ export const useHandleUrlError = () => {
 
   return null;
 };
+
+export default GlobalErrorHandler;

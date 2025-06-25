@@ -1,7 +1,7 @@
 import type { File as FormidableFile } from 'formidable';
 import { z } from 'zod';
 
-import { EMAIL_REGEX, ONE_MB_IN_BYTES, PASSWORD_REGEX } from 'app-constants';
+import { ONE_MB_IN_BYTES, PASSWORD_RULES } from 'app-constants';
 
 export const paginationSchema = z.object({
   page: z.coerce.number().default(1),
@@ -16,12 +16,22 @@ export const paginationSchema = z.object({
     .default({}),
 });
 
-export const emailSchema = z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.');
+export const emailSchema = z
+  .string()
+  .nonempty('Email is required')
+  .toLowerCase()
+  .trim()
+  .email()
+  .max(255, 'Email must be less than 255 characters.');
+
 export const passwordSchema = z
   .string()
+  .nonempty('Password is required')
+  .min(PASSWORD_RULES.MIN_LENGTH, `Password must be at least ${PASSWORD_RULES.MIN_LENGTH} characters.`)
+  .max(PASSWORD_RULES.MAX_LENGTH, `Password must be less than ${PASSWORD_RULES.MAX_LENGTH} characters.`)
   .regex(
-    PASSWORD_REGEX,
-    'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+    PASSWORD_RULES.REGEX,
+    `The password must contain ${PASSWORD_RULES.MIN_LENGTH} or more characters with at least one letter (a-z) and one number (0-9).`,
   );
 
 export const fileSchema = (fileSize: number, acceptedFileTypes: string[]) =>

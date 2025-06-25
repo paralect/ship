@@ -22,7 +22,7 @@ const attachCustomErrors = async (ctx: AppKoaContext, next: Next) => {
   ctx.assertClientError = (condition, errors, status = 400) =>
     ctx.assert(condition, status, { clientErrors: formatError(errors) });
 
-  ctx.throwErrorWithRedirect = (message: string, redirectUrl: string = config.WEB_URL) => {
+  ctx.throwGlobalErrorWithRedirect = (message: string, redirectUrl: string = config.WEB_URL) => {
     const url = new URL(redirectUrl);
 
     // Only include essential error information and encode it properly

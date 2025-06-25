@@ -27,17 +27,17 @@ export const hashPassword = async (password: string): Promise<string> =>
 export const verifyPasswordHash = async (hashedPassword: string, password: string): Promise<boolean> =>
   verify(hashedPassword, password);
 
-export const hashAccessToken = async (token: string): Promise<string> => {
+export const hashToken = async (token: string): Promise<string> => {
   const { sha256 } = await import('@oslojs/crypto/sha2');
   const { encodeHexLowerCase } = await import('@oslojs/encoding');
 
   return encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 };
 
-export const verifyAccessToken = async (hashedToken: string | undefined, token: string): Promise<boolean> => {
+export const verifyTokenHash = async (hashedToken: string | undefined, token: string): Promise<boolean> => {
   const { constantTimeEqual } = await import('@oslojs/crypto/subtle');
 
-  const computedHash = await hashAccessToken(token);
+  const computedHash = await hashToken(token);
 
   return constantTimeEqual(new TextEncoder().encode(computedHash), new TextEncoder().encode(hashedToken));
 };
