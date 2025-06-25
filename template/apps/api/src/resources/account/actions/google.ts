@@ -1,5 +1,4 @@
-import { googleService } from 'services';
-import { authUtil } from 'utils';
+import { authService, googleService } from 'services';
 
 import config from 'config';
 
@@ -22,7 +21,7 @@ const handleGetOAuthUrl = async (ctx: AppKoaContext) => {
 
     ctx.redirect(authorizationUrl);
   } catch (error) {
-    ctx.throwErrorWithRedirect(error instanceof Error ? error.message : 'Failed to create Google OAuth URL');
+    ctx.throwGlobalErrorWithRedirect(error instanceof Error ? error.message : 'Failed to create Google OAuth URL');
   }
 };
 
@@ -39,11 +38,11 @@ const handleOAuthCallback = async (ctx: AppKoaContext) => {
       throw new Error('Failed to authenticate with Google');
     }
 
-    await authUtil.setAuthToken({ ctx, userId: user._id });
+    await authService.setAccessToken({ ctx, userId: user._id });
 
     ctx.redirect(config.WEB_URL);
   } catch (error) {
-    ctx.throwErrorWithRedirect(error instanceof Error ? error.message : 'Google authentication failed');
+    ctx.throwGlobalErrorWithRedirect(error instanceof Error ? error.message : 'Google authentication failed');
   }
 };
 

@@ -47,7 +47,6 @@ type GoogleUserData = {
   googleUserId: string;
   firstName: string;
   lastName: string;
-  fullName: string;
   email: string;
   isEmailVerified: boolean;
   avatarUrl?: string;
@@ -87,12 +86,11 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
 };
 
 const createNewUser = async (userData: GoogleUserData): Promise<User | null> => {
-  const { firstName, lastName, fullName, email, isEmailVerified, avatarUrl, googleUserId } = userData;
+  const { firstName, lastName, email, isEmailVerified, avatarUrl, googleUserId } = userData;
 
   return userService.insertOne({
     firstName,
     lastName,
-    fullName,
     email,
     isEmailVerified,
     avatarUrl,
@@ -175,7 +173,6 @@ export const validateCallback = async (params: {
 
   const {
     sub: googleUserId,
-    name: fullName,
     email,
     email_verified: isEmailVerified,
     picture: avatarUrl,
@@ -198,7 +195,6 @@ export const validateCallback = async (params: {
   return createNewUser({
     firstName,
     lastName,
-    fullName,
     email,
     isEmailVerified,
     avatarUrl,

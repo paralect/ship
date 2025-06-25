@@ -24,7 +24,6 @@ describe('User service', () => {
       _id: '123asdqwer',
       firstName: 'John',
       lastName: 'Smith',
-      fullName: 'John Smith',
       email: 'smith@example.com',
       isEmailVerified: false,
     };

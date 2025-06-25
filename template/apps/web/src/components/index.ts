@@ -1,2 +1,2 @@
-export { default as ErrorHandler } from './ErrorHandler';
+export { default as ErrorHandler } from '../pages/_app/GlobalErrorHandler';
 export { default as Table } from './Table';

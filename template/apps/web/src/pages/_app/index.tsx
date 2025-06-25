@@ -7,12 +7,11 @@ import { Notifications } from '@mantine/notifications';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { ErrorHandler } from 'components';
-
 import theme from 'theme';
 
 import queryClient from 'query-client';
 
+import GlobalErrorHandler from './GlobalErrorHandler';
 import PageConfig from './PageConfig';
 
 import '@mantine/core/styles.layer.css';
@@ -34,8 +33,9 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
           </PageConfig>
         </ModalsProvider>
 
+        <GlobalErrorHandler />
+
         <Notifications autoClose={10000} />
-        <ErrorHandler />
         <ReactQueryDevtools buttonPosition="bottom-left" />
       </MantineProvider>
     </QueryClientProvider>

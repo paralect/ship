@@ -15,13 +15,19 @@ import {
   User,
 } from 'types';
 
-export const useSignIn = <T = SignInParams>() =>
-  useMutation<User, ApiError, T>({
+export const useSignIn = <T = SignInParams>() => {
+  interface SignInResponse {
+    emailVerificationTokenExpired: boolean;
+    credentials: string;
+  }
+
+  return useMutation<SignInResponse | User, ApiError, T>({
     mutationFn: (data: T) => apiService.post('/account/sign-in', data),
     onSuccess: (data) => {
       queryClient.setQueryData(['account'], data);
     },
   });
+};
 
 export const useSignOut = () =>
   useMutation<void, ApiError>({
@@ -33,7 +39,7 @@ export const useSignOut = () =>
 
 export const useSignUp = <T = SignUpParams>() => {
   interface SignUpResponse {
-    signupToken: string;
+    emailVerificationToken: string;
   }
 
   return useMutation<SignUpResponse, ApiError, T>({
