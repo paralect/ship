@@ -12,18 +12,16 @@ interface SetAccessTokenOptions {
 }
 
 export const setAccessToken = async ({ ctx, userId }: SetAccessTokenOptions) => {
-  const expiresIn = ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS;
-
   const accessToken = await tokenService.createToken({
     userId,
     type: TokenType.ACCESS,
-    expiresIn,
+    expiresIn: ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS,
   });
 
   await cookieUtil.setTokens({
     ctx,
     accessToken,
-    expiresIn,
+    expiresIn: ACCESS_TOKEN.ABSOLUTE_EXPIRATION_SECONDS,
   });
 
   userService.updateLastRequest(userId);
