@@ -24,10 +24,5 @@
     "node": ">= 22.13.0",
     "yarn": "please-use-pnpm",
     "pnpm": ">= 9.5.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "esbuild": "0.25.0"
-    }
   }
 }
