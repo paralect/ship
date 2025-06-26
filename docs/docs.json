@@ -16,10 +16,7 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": [
-              "introduction",
-              "contribution-guide"
-            ]
+            "pages": ["introduction", "contribution-guide"]
           },
           {
             "group": "Ship Components",
@@ -42,10 +39,7 @@
               },
               {
                 "group": "Package sharing",
-                "pages": [
-                  "package-sharing/overview",
-                  "package-sharing/schemas"
-                ]
+                "pages": ["package-sharing/overview", "package-sharing/schemas"]
               },
               "migrator",
               "scheduler",
@@ -59,7 +53,8 @@
                   "web/calling-api",
                   "web/forms",
                   "web/services",
-                  "web/environment-variables"
+                  "web/environment-variables",
+                  "web/storybook"
                 ]
               },
               {
@@ -80,10 +75,7 @@
               },
               {
                 "group": "Packages",
-                "pages": [
-                  "packages/node-mongo",
-                  "packages/create-ship-app"
-                ]
+                "pages": ["packages/node-mongo", "packages/create-ship-app"]
               },
               "retool",
               {
