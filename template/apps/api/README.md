@@ -46,7 +46,7 @@ You can start the application in two ways:
 ### API and Authentication
 
 - **Account API**: Provides production-ready account functionalities including Sign Up, Sign In, Forgot Password, and Reset Password.
-- **Authentication**: Implements access token-based authentication using [JWT](https://jwt.io/).
+- **Authentication**: Implements access token-based authentication.
 
 ### Data Handling
 

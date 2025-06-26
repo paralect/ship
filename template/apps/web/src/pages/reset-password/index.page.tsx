@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -20,7 +19,6 @@ const schema = resetPasswordSchema.omit({ token: true });
 type ResetPasswordParams = z.infer<typeof schema>;
 
 const ResetPassword: NextPage = () => {
-  const [isSubmitted, setSubmitted] = useState(false);
   const router = useRouter();
 
   const { token } = router.query;
@@ -31,7 +29,11 @@ const ResetPassword: NextPage = () => {
     formState: { errors },
   } = useForm<ResetPasswordParams>({ resolver: zodResolver(schema) });
 
-  const { mutate: resetPassword, isPending: isResetPasswordPending } = accountApi.useResetPassword();
+  const {
+    mutate: resetPassword,
+    isPending: isResetPasswordPending,
+    isSuccess: isResetPasswordSuccess,
+  } = accountApi.useResetPassword();
 
   const onSubmit = (data: ResetPasswordParams) => {
     if (typeof token !== 'string') return;
@@ -42,7 +44,6 @@ const ResetPassword: NextPage = () => {
         token,
       },
       {
-        onSuccess: () => setSubmitted(true),
         onError: (e) => handleApiError(e),
       },
     );
@@ -60,7 +61,7 @@ const ResetPassword: NextPage = () => {
     );
   }
 
-  if (isSubmitted) {
+  if (isResetPasswordSuccess) {
     return (
       <>
         <Head>

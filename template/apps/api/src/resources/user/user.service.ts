@@ -10,6 +10,8 @@ const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, {
   schemaValidator: (obj) => userSchema.parseAsync(obj),
 });
 
+service.createIndex({ email: 1 }, { unique: true });
+
 const updateLastRequest = (_id: string) =>
   service.atomic.updateOne(
     { _id },
@@ -20,7 +22,7 @@ const updateLastRequest = (_id: string) =>
     },
   );
 
-const privateFields = ['passwordHash', 'signupToken', 'resetPasswordToken'];
+const privateFields = ['passwordHash'];
 
 const getPublic = (user: User | null) => _.omit(user, privateFields);
 

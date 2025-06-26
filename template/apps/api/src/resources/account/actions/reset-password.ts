@@ -1,13 +1,11 @@
 import { tokenService } from 'resources/token';
 import { userService } from 'resources/user';
 
-import { validateMiddleware } from 'middlewares';
+import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
 import { securityUtil } from 'utils';
 
-import db from 'db';
-
 import { resetPasswordSchema } from 'schemas';
-import { AppKoaContext, AppRouter, Next, ResetPasswordParams, User } from 'types';
+import { AppKoaContext, AppRouter, Next, ResetPasswordParams, TokenType, User } from 'types';
 
 interface ValidatedData extends ResetPasswordParams {
   user: User;
@@ -16,9 +14,10 @@ interface ValidatedData extends ResetPasswordParams {
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { token } = ctx.validatedData;
 
-  const user = await userService.findOne({ resetPasswordToken: token });
+  const resetPasswordToken = await tokenService.validateToken(token, TokenType.RESET_PASSWORD);
+  const user = await userService.findOne({ _id: resetPasswordToken?.userId });
 
-  if (!user) {
+  if (!resetPasswordToken || !user) {
     ctx.status = 204;
     return;
   }
@@ -30,26 +29,15 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user, password } = ctx.validatedData;
 
-  const passwordHash = await securityUtil.getHash(password);
+  const passwordHash = await securityUtil.hashPassword(password);
 
-  await db.withTransaction((session) =>
-    Promise.all([
-      userService.updateOne(
-        { _id: user._id },
-        () => ({
-          passwordHash,
-          resetPasswordToken: null,
-        }),
-        {},
-        { session },
-      ),
-      tokenService.deleteMany({ userId: user._id }, {}, { session }),
-    ]),
-  );
+  await tokenService.invalidateUserTokens(user._id, TokenType.RESET_PASSWORD);
+
+  await userService.updateOne({ _id: user._id }, () => ({ passwordHash }));
 
   ctx.status = 204;
 }
 
 export default (router: AppRouter) => {
-  router.put('/reset-password', validateMiddleware(resetPasswordSchema), validator, handler);
+  router.put('/reset-password', rateLimitMiddleware(), validateMiddleware(resetPasswordSchema), validator, handler);
 };

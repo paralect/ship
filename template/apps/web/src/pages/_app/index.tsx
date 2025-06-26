@@ -11,6 +11,7 @@ import theme from 'theme';
 
 import queryClient from 'query-client';
 
+import GlobalErrorHandler from './GlobalErrorHandler';
 import PageConfig from './PageConfig';
 
 import '@mantine/core/styles.layer.css';
@@ -31,6 +32,8 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
             <Component {...pageProps} />
           </PageConfig>
         </ModalsProvider>
+
+        <GlobalErrorHandler />
 
         <Notifications autoClose={10000} />
         <ReactQueryDevtools buttonPosition="bottom-left" />

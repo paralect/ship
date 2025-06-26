@@ -32,6 +32,10 @@ module.exports = {
         protocol: 'https',
         hostname: '**.digitaloceanspaces.com',
       },
+      {
+        protocol: 'https',
+        hostname: '**.googleusercontent.com',
+      },
     ],
   },
 };

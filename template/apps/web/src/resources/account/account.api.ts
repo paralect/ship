@@ -33,7 +33,7 @@ export const useSignOut = () =>
 
 export const useSignUp = <T = SignUpParams>() => {
   interface SignUpResponse {
-    signupToken: string;
+    emailVerificationToken: string;
   }
 
   return useMutation<SignUpResponse, ApiError, T>({

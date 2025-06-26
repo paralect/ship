@@ -1,3 +1,4 @@
+import { tokenService } from 'resources/token';
 import { userService } from 'resources/user';
 
 import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
@@ -5,7 +6,7 @@ import { authService } from 'services';
 import { securityUtil } from 'utils';
 
 import { signInSchema } from 'schemas';
-import { AppKoaContext, AppRouter, Next, SignInParams, User } from 'types';
+import { AppKoaContext, AppRouter, Next, SignInParams, TokenType, User } from 'types';
 
 interface ValidatedData extends SignInParams {
   user: User;
@@ -20,11 +21,22 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
     credentials: 'The email or password you have entered is invalid',
   });
 
-  const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
+  const isPasswordMatch = await securityUtil.verifyPasswordHash(user.passwordHash, password);
 
   ctx.assertClientError(isPasswordMatch, {
     credentials: 'The email or password you have entered is invalid',
   });
+
+  if (!user.isEmailVerified) {
+    const existingEmailVerificationToken = await tokenService.getUserActiveToken(
+      user._id,
+      TokenType.EMAIL_VERIFICATION,
+    );
+
+    ctx.assertClientError(existingEmailVerificationToken, {
+      emailVerificationTokenExpired: true,
+    });
+  }
 
   ctx.assertClientError(user.isEmailVerified, {
     email: 'Please verify your email to sign in',
@@ -37,7 +49,7 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.validatedData;
 
-  await Promise.all([userService.updateLastRequest(user._id), authService.setTokens(ctx, user._id)]);
+  await authService.setAccessToken({ ctx, userId: user._id });
 
   ctx.body = userService.getPublic(user);
 }

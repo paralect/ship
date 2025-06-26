@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-import { validateConfig } from '../utils';
+import { validateConfig } from "../utils";
 
 /**
  * Specify your environment variables schema here.
@@ -9,18 +9,17 @@ import { validateConfig } from '../utils';
 const schema = z.object({
   GITHUB_REPOSITORY: z.string(),
   GITHUB_BRANCH: z.string(),
-  PROJECT_NAME: z.string().default(process.env.PULUMI_NODEJS_PROJECT || ''),
-  REGION: z.string().default('fra1'),
+  PROJECT_NAME: z.string().default(process.env.PULUMI_NODEJS_PROJECT || ""),
+  REGION: z.string().default("fra1"),
 
-  APP_ENV: z.enum(['staging', 'production']),
+  APP_ENV: z.enum(["staging", "production"]),
   MONGO_URI: z.string(),
   MONGO_DB_NAME: z.string().optional(),
   REDIS_URI: z.string(),
   API_URL: z.string(),
   WEB_URL: z.string(),
-  JWT_SECRET: z.string(),
 
-  SENDGRID_API_KEY: z.string().optional(),
+  RESEND_API_KEY: z.string().optional(),
   ADMIN_KEY: z.string().optional(),
   MIXPANEL_API_KEY: z.string().optional(),
   CLOUD_STORAGE_ENDPOINT: z.string().optional(),

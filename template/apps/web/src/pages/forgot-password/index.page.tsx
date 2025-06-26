@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -19,26 +18,30 @@ import { ForgotPasswordParams } from 'types';
 const ForgotPassword: NextPage = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState('');
-
-  const { mutate: forgotPassword, isPending: isForgotPasswordPending } = accountApi.useForgotPassword();
+  const {
+    mutate: forgotPassword,
+    isPending: isForgotPasswordPending,
+    isSuccess: isForgotPasswordSuccess,
+  } = accountApi.useForgotPassword();
 
   const {
     register,
     handleSubmit,
     setError,
+    watch,
     formState: { errors },
   } = useForm<ForgotPasswordParams>({
     resolver: zodResolver(forgotPasswordSchema),
   });
 
+  const email = watch('email');
+
   const onSubmit = (data: ForgotPasswordParams) =>
     forgotPassword(data, {
-      onSuccess: () => setEmail(data.email),
       onError: (e) => handleApiError(e, setError),
     });
 
-  if (email) {
+  if (isForgotPasswordSuccess && email) {
     return (
       <>
         <Head>
