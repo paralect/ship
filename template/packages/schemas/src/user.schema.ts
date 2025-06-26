@@ -8,7 +8,7 @@ import dbSchema from './db.schema';
 const oauthSchema = z.object({
   google: z
     .object({
-      userId: z.string().min(1, 'Google user ID is required'),
+      userId: z.string().nonempty('Google user ID is required'),
       connectedOn: z.date(),
     })
     .optional(),

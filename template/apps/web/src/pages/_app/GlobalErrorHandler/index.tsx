@@ -1,8 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { showNotification } from '@mantine/notifications';
-
-import { sanitizeErrorMessage } from 'utils';
+import DOMPurify from 'dompurify';
 
 const GlobalErrorHandler: FC = () => {
   const router = useRouter();
@@ -11,7 +10,7 @@ const GlobalErrorHandler: FC = () => {
 
   useEffect(() => {
     if (error && typeof error === 'string') {
-      const sanitizedError = sanitizeErrorMessage(error);
+      const sanitizedError = DOMPurify.sanitize(decodeURIComponent(error), { ALLOWED_TAGS: [] });
 
       showNotification({
         title: 'Error',
