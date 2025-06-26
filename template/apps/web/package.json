@@ -29,7 +29,7 @@
     "@tanstack/react-table": "8.19.2",
     "app-constants": "workspace:*",
     "app-types": "workspace:*",
-    "axios": "1.7.2",
+    "axios": "1.10.0",
     "clsx": "2.1.1",
     "dayjs": "1.11.10",
     "dotenv-flow": "4.1.0",
