@@ -392,51 +392,100 @@ users:
 
 ## DNS and SSL
 
-Once you deploy ingress-nginx, it will create a Load Balancer with external IP. All incoming requests to services should be sent to Load Balancer external IP, then requests to our services will be routed to domains from Ingresses configuration by **ingress-nginx**.
+<Steps>
+  <Step title="Get Load Balancer Address">
+    After deploying ingress-nginx, retrieve the Load Balancer's external ip:
 
-To get Load Balancer IP type `kubectl get services -n ingress-nginx` in the terminal and copy `EXTERNAL-IP` of `ingress-nginx-controller`.
+    ```bash
+    kubectl get svc ingress-nginx-controller -n ingress-nginx
+    ```
 
-```shell
-oigen@MacBook-Pro-4 ~ % kubectl get services -n ingress-nginx
-NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                      AGE
-ingress-nginx-controller             LoadBalancer   10.245.201.160   138.68.124.241   80:30186/TCP,443:32656/TCP   28m
-```
+    Copy the value from the `EXTERNAL-IP` column.
 
-<Tip>
-  It take some time while **ingress-nginx** will configure everything and
-  provide `EXTERNAL-IP`.
-</Tip>
+    ```shell
+    NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                      AGE
+    ingress-nginx-controller             LoadBalancer   10.245.201.160   138.68.124.241   80:30186/TCP,443:32656/TCP   28m
+    ```
 
-We are using CloudFlare for setting DNS records. You can [register](https://developers.cloudflare.com/registrar/get-started/register-domain/) a domain in CloudFlare or [transfer](https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare/) it from another service.
+    <Tip>
+      It take some time while **ingress-nginx** will configure everything and
+      provide `EXTERNAL-IP`.
+    </Tip>
+  </Step>
 
-Open the **DNS** tab in CloudFlare and create two `A` records for **Web** and **API** that points Load Balancer external IP.
+  <Step title="Domain Naming Convention">
+    You can follow this recommended naming pattern for different environments:
 
-![CloudFlare Web](/images/cloudflare-web.png)
+    | Environment | API Domain           | Web Domain           |
+    |-------------|----------------------|----------------------|
+    | Production  | api.ship.com         | app.ship.com         |
+    | Staging     | api.staging.ship.com | app.staging.ship.com |
+  </Step>
 
-![CloudFlare API](/images/cloudflare-api.png)
+  <Step title="Configure DNS in Cloudflare">
+    1. First, ensure you have a domain in Cloudflare. You can either:
+    - [Register a new domain](https://developers.cloudflare.com/registrar/get-started/register-domain/)
+    - [Transfer an existing domain](https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare/)
 
-Select the **Proxied** option that will proxy all traffic through Cloudflare.
-It does a lot of awesome work, you can read more about it [here](https://developers.cloudflare.com/dns/manage-dns-records/reference/proxied-dns-records/).
-In our case we use it for automatic **SSL** certificates generation.
+    2. In the Cloudflare DNS tab, create 2 `A` records:
+    - One for Web interface
+    - One for API endpoint
 
-<Tip>
-  If you are deploying on a staging/demo environment add the corresponding
-  postfix in the domain. **Example**: ```my-app-staging```
-</Tip>
+    Both should point to your Load Balancer's external hostname.
 
-Now add your domains in helm templates. In example, we are deploying on **production** environment, if you are deploying on **staging** you will need to update `staging.yaml` file.
+    Enable the **Proxied** option to:
+    - Route traffic through Cloudflare
+    - Generate SSL certificates automatically
 
-```yaml deploy/app/api/production.yaml
-service: api
-port: 3001
-domain: my-app-api.paralect.net
-```
+    <Frame>
+      <img src="/images/do/cloudflare-api.png" alt="CloudFlare API DNS Configuration" />
+    </Frame>
 
-```yaml deploy/app/web/production.yaml
-service: web
-port: 3002
-domain: my-app.paralect.net
-```
+    <br/>
+
+    <Frame>
+      <img src="/images/do/cloudflare-web.png" alt="CloudFlare Web DNS Configuration" />
+    </Frame>
+
+    <Note>
+      Cloudflare's free Universal SSL certificates only cover the apex domain and one subdomain level. For multiple subdomain levels, you'll need an [Advanced Certificate](https://developers.cloudflare.com/ssl/edge-certificates/advanced-certificate-manager/manage-certificates/).
+    </Note>
+  </Step>
+
+  <Step title="Update Configuration Files">
+    Update your domain settings in the appropriate environment configuration files:
+
+    For API service:
+    <CodeGroup>
+      ```yaml deploy/app/api/production.yaml
+      service: api
+      port: 3001
+      domain: api.my-ship-app.paralect.com
+      ```
+
+      ```yaml deploy/app/api/staging.yaml
+      service: api
+      port: 3001
+      domain: api.my-ship-app.staging.paralect.com
+      ```
+    </CodeGroup>
+
+    For Web service:
+    <CodeGroup>
+      ```yaml deploy/app/web/production.yaml
+      service: web
+      port: 3002
+      domain: my-ship-app.paralect.com
+      ```
+
+      ```yaml deploy/app/web/staging.yaml
+      service: web
+      port: 3002
+      domain: my-ship-app.staging.paralect.com
+      ```
+    </CodeGroup>
+  </Step>
+</Steps>
 
 ## Database
 
