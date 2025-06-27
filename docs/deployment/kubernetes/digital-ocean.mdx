@@ -252,8 +252,8 @@ Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kube
     ```
   </Step>
 
-  <Step title="Switch context to your new cluster">
-    Type `kubectx` in the terminal and select your cluster.
+  <Step title="Switch to cluster context">
+    Execute kubectx in your terminal and select your cluster from the list.
     ```shell
     kubectx
     ```
@@ -265,62 +265,70 @@ Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kube
     do-nyc3-my-ship-app
     ```
 
+    Select your cluster from the list:
     ```shell
     kubectx do-nyc3-my-ship-app
     ```
   </Step>
 
-  <Step title="Get information about installed pods in the cluster">
-    Try to get information about installed pods in the cluster with:
+  <Step title="Verify cluster access">
+    Check the installed pods by running:
 
     ```shell
     kubectl get pods -A
     ```
+
+    You should see a list of system pods in your cluster:
+
+    ```shell
+    NAMESPACE     NAME                            READY   STATUS    RESTARTS   AGE
+    kube-system   cilium-tb8td                    1/1     Running   0          18m
+    kube-system   cilium-x5w8n                    1/1     Running   0          19m
+    kube-system   coredns-5679ffb5c8-b7dzj        1/1     Running   0          17m
+    kube-system   coredns-5679ffb5c8-d465r        1/1     Running   0          17m
+    kube-system   cpc-bridge-proxy-ebpf-2gzfr     1/1     Running   0          17m
+    kube-system   cpc-bridge-proxy-ebpf-jknzh     1/1     Running   0          17m
+    kube-system   csi-do-node-jcqd2               2/2     Running   0          17m
+    kube-system   csi-do-node-rpx6q               2/2     Running   0          17m
+    kube-system   do-node-agent-ldhxq             1/1     Running   0          17m
+    kube-system   do-node-agent-pdksz             1/1     Running   0          17m
+    kube-system   hubble-relay-66f54dcd57-l7xjb   1/1     Running   0          21m
+    kube-system   hubble-ui-785bdbc45b-6xd57      2/2     Running   0          18m
+    kube-system   konnectivity-agent-h79mt        1/1     Running   0          17m
+    kube-system   konnectivity-agent-hvv67        1/1     Running   0          17m
+    ```
   </Step>
 </Steps>
-
-If you did all steps correctly you will see info about installed pods in the cluster.
-
-```shell
-NAMESPACE     NAME                            READY   STATUS    RESTARTS   AGE
-kube-system   cilium-tb8td                    1/1     Running   0          18m
-kube-system   cilium-x5w8n                    1/1     Running   0          19m
-kube-system   coredns-5679ffb5c8-b7dzj        1/1     Running   0          17m
-kube-system   coredns-5679ffb5c8-d465r        1/1     Running   0          17m
-kube-system   cpc-bridge-proxy-ebpf-2gzfr     1/1     Running   0          17m
-kube-system   cpc-bridge-proxy-ebpf-jknzh     1/1     Running   0          17m
-kube-system   csi-do-node-jcqd2               2/2     Running   0          17m
-kube-system   csi-do-node-rpx6q               2/2     Running   0          17m
-kube-system   do-node-agent-ldhxq             1/1     Running   0          17m
-kube-system   do-node-agent-pdksz             1/1     Running   0          17m
-kube-system   hubble-relay-66f54dcd57-l7xjb   1/1     Running   0          21m
-kube-system   hubble-ui-785bdbc45b-6xd57      2/2     Running   0          18m
-kube-system   konnectivity-agent-h79mt        1/1     Running   0          17m
-kube-system   konnectivity-agent-hvv67        1/1     Running   0          17m
-```
 
 ## Personal access token
 
 To upload docker images in Container Registry and pull them after from cluster we need Digital Ocean [Personal Access Token](https://cloud.digitalocean.com/account/api/tokens).
-When you created cluster, this token was automatically created.
+When you created cluster - one with **Read Only** scope was automatically created.
+
+But we need to [generate](https://cloud.digitalocean.com/account/api/tokens/new) a new one with:
+
+- Name (e.g. `my-ship-app-admin-deploy`)
+- **Full Access** scope
+- No expiration
+
+<Tip>
+  You cannot change scope of already generated token.
+</Tip>
+
 
 ![Digital Ocean Token](/images/do-token.png)
 
-Add **Write** scope to the token and change token's name to app name, it will be easier to find it in the future.
-
-![Digital Ocean Update Token](/images/do-token-update.png)
-
-You can grab this token from kubeconfig that we downloaded from Digital Ocean.
+Now new token can be added to your local kubeconfig's `users`.
 
 ```yaml
 users:
-  - name: do-fra1-my-app-admin
+  - name: do-nyc3-my-ship-app-admin
     user:
-      token: dop_v1_...
+      token: dop_v1_... # paste new full access token here
 ```
 
 <Warning>
-  Be careful with Personal Access Token, if someone steals it he will get access
+  Be very careful with Personal Access Token, if someone steals it he will get access
   to all resources from your Digital Ocean account.
 </Warning>
 
