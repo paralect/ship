@@ -46,6 +46,5 @@ You can start the application in two ways:
 
 ## Development Tools
 
-- **Storybook**: Develop UI components in isolation with [Storybook](https://storybook.js.org/), enhancing UI consistency and speeding up the development process.
 - **Linting and Formatting**: Enforce coding standards using [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/).
 - **TypeScript**: Leverage TypeScript for safer and more reliable coding thanks to static type checking.

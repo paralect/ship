@@ -1,0 +1,71 @@
+---
+title: "Storybook"
+---
+
+Storybook is powerful tool for developing, testing, and reviewing UI components in isolation.
+Chromatic helps you to automate the process of reviewing UI changes.
+
+Follow the official guides below to add them to your project.
+
+## Official Setup Guides
+
+- [Setup Mantine in Storybook Guide](https://mantine.dev/guides/storybook/)
+- [Chromatic GitHub Actions Guide](https://www.chromatic.com/docs/github-actions/)
+
+## Project Conventions
+
+- **Stories Organization:**
+  - Application components: `src/components`
+  - UI Kit (theme components): `src/theme/components`
+- **Storybook stories path config:**
+
+```tsx  .storybook/main.ts
+stories: [
+  {
+    directory: '../src/components',
+    titlePrefix: 'Application Components',
+  },
+  {
+    directory: '../src/theme/components',
+    titlePrefix: 'UI Kit',
+  },
+],
+```
+
+## Example: Mantine Button Story
+
+```tsx src/theme/components/Button/index.stories.tsx
+import { Button, ButtonProps } from '@mantine/core';
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta = {
+  component: Button,
+  args: {
+    children: 'Button',
+    variant: 'primary',
+    size: 'md',
+    loading: false,
+  },
+  argTypes: {
+    variant: {
+      options: ['primary', 'outline'],
+      control: { type: 'radio' },
+    },
+    size: {
+      options: ['md', 'lg'],
+      control: { type: 'radio' },
+    },
+    loading: {
+      control: { type: 'boolean' },
+    },
+  },
+} satisfies Meta<typeof Button>;
+
+export default meta;
+
+type Story = StoryObj<ButtonProps>;
+
+export const Basic: Story = {};
+```
+
+
