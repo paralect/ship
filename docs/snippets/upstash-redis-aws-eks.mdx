@@ -47,10 +47,17 @@ Ship leverages Redis for several critical functionalities:
 </Steps>
 
 <Tip>
-  **Region Selection**: For Kubernetes deployments on AWS, choose the same AWS region as your EKS cluster to minimize latency and data transfer costs.
+  {provider === 'aws' && (
+    <p>
+      <strong>Region Selection:</strong> For Kubernetes deployments on AWS, choose the same AWS region as your EKS cluster to minimize latency and data transfer costs.
+    </p>
+  )}
+  {provider === 'do' && (
+    <p>
+      <strong>Region Selection:</strong> For Kubernetes deployments on Digital Ocean, choose the same region as your cluster to minimize latency and data transfer costs.
+    </p>
+  )}
 </Tip>
-
-### Get Connection Details
 
 Once your database is created, you'll need the connection string for your application:
 
