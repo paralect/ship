@@ -166,7 +166,7 @@ Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kube
     </Frame>
   </Step>
 
-  <Step title="Create Kubernetes Cluster with everything configured">
+  <Step title="Review and Create">
     Click on `Create Kubernetes Cluster` button to create a cluster.
 
     <Frame>
@@ -178,42 +178,126 @@ Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kube
 
 ## Accessing cluster from a local machine
 
-You need to download cluster's kubeconfig, this file includes information for accessing cluster through `kubectl`.
+<Steps>
+  <Step title="Download cluster's kubeconfig">
+    Download cluster's kubeconfig, this file includes information for accessing cluster through `kubectl`.
 
-![Kubeconfig Download](/images/kubeconfig-download.png)
+    <Frame>
+      <img src="/images/kubeconfig-download.png" alt="Kubeconfig Download" />
+    </Frame>
 
-```yaml my-app-kubeconfig.yaml
-clusters:
-  - cluster:
-      certificate-authority-data: ...
-      server: ...
-    name: do-fra1-my-app
-contexts:
-  - context:
-      cluster: do-fra1-my-app
-      user: do-fra1-my-app-admin
-    name: do-fra1-my-app
-current-context: do-fra1-my-app
-kind: Config
-preferences: {}
-users:
-  - name: do-fra1-my-app-admin
-    user:
-      token: ...
+    ```yaml my-ship-app-kubeconfig.yaml
+    apiVersion: v1
+    clusters:
+    - cluster:
+        certificate-authority-data: ...
+        server: https://...
+      name: do-nyc3-my-ship-app
+    contexts:
+    - context:
+        cluster: do-nyc3-my-ship-app
+        user: do-nyc3-my-ship-app-admin
+      name: do-nyc3-my-ship-app
+    current-context: do-nyc3-my-ship-app
+    kind: Config
+    preferences: {}
+    users:
+    - name: do-nyc3-my-ship-app-admin
+      user:
+        token: dop_v1_...
+    ```
+  </Step>
+
+  <Step title="Add cluster, context and user to kubeconfig">
+    <Tip>
+      [Kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files contain information about several clusters, you have your own on the local machine, it should have been created after `kubectl` installation.
+    </Tip>
+
+    You need to add information about the new cluster to your config.
+    Find `.kube/config` file on your machine, and add `cluster`, `context` and `user` values from the downloaded config to it.
+
+    ```yaml ~/.kube/config
+    apiVersion: v1
+    clusters:
+    - cluster:
+        certificate-authority-data: ...
+        server: https://...
+      name: some-cluster
+    # your new cluster from my-ship-app-kubeconfig.yaml goes here
+    - cluster:
+        certificate-authority-data: ...
+        server: https://...
+      name: do-nyc3-my-ship-app
+    contexts:
+    - context:
+        cluster: some-cluster
+        user: some-user
+      name: some-cluster
+    # your new context from my-ship-app-kubeconfig.yaml goes here
+    - context:
+        cluster: do-nyc3-my-ship-app
+        user: do-nyc3-my-ship-app-admin
+      name: do-nyc3-my-ship-app
+    current-context: some-cluster
+    kind: Config
+    preferences: {}
+    users:
+    - name: some-user
+      user:
+        token: dop_v1_...
+    # your new user from my-ship-app-kubeconfig.yaml goes here
+    - name: do-nyc3-my-ship-app-admin
+      user:
+        token: dop_v1_...
+    ```
+  </Step>
+
+  <Step title="Switch context to your new cluster">
+    Type `kubectx` in the terminal and select your cluster.
+    ```shell
+    kubectx
+    ```
+
+    You will see the list of available clusters.
+
+    ```shell
+    some-cluster
+    do-nyc3-my-ship-app
+    ```
+
+    ```shell
+    kubectx do-nyc3-my-ship-app
+    ```
+  </Step>
+
+  <Step title="Get information about installed pods in the cluster">
+    Try to get information about installed pods in the cluster with:
+
+    ```shell
+    kubectl get pods -A
+    ```
+  </Step>
+</Steps>
+
+If you did all steps correctly you will see info about installed pods in the cluster.
+
+```shell
+NAMESPACE     NAME                            READY   STATUS    RESTARTS   AGE
+kube-system   cilium-tb8td                    1/1     Running   0          18m
+kube-system   cilium-x5w8n                    1/1     Running   0          19m
+kube-system   coredns-5679ffb5c8-b7dzj        1/1     Running   0          17m
+kube-system   coredns-5679ffb5c8-d465r        1/1     Running   0          17m
+kube-system   cpc-bridge-proxy-ebpf-2gzfr     1/1     Running   0          17m
+kube-system   cpc-bridge-proxy-ebpf-jknzh     1/1     Running   0          17m
+kube-system   csi-do-node-jcqd2               2/2     Running   0          17m
+kube-system   csi-do-node-rpx6q               2/2     Running   0          17m
+kube-system   do-node-agent-ldhxq             1/1     Running   0          17m
+kube-system   do-node-agent-pdksz             1/1     Running   0          17m
+kube-system   hubble-relay-66f54dcd57-l7xjb   1/1     Running   0          21m
+kube-system   hubble-ui-785bdbc45b-6xd57      2/2     Running   0          18m
+kube-system   konnectivity-agent-h79mt        1/1     Running   0          17m
+kube-system   konnectivity-agent-hvv67        1/1     Running   0          17m
 ```
-
-[Kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files contain information about several clusters, you have your own on the local machine, it should have been created after `kubectl` installation.
-
-You need to add information about the new cluster to your config.
-Find `.kube/config` file on your machine, and add `cluster`, `context` and `user` values from the downloaded config to it.
-
-If everything is ok you will be able to switch to your cluster.
-Type `kubectx` in the terminal and select your cluster.
-Then try to get information about installed pods in the cluster. Type `kubectl get pods -A` in the terminal.
-
-If you did all steps correctly you will see the next info in a terminal.
-
-![Pods List](/images/pods-list.png)
 
 ## Personal access token
 
