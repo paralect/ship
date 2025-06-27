@@ -487,36 +487,104 @@ users:
   </Step>
 </Steps>
 
-## Database
+## MongoDB Atlas
 
-Now, let's create [Managed MongoDB](https://www.digitalocean.com/products/managed-databases-mongodb) cluster. Select the latest MongoDB version and choose the same region as the Kubernetes cluster, it will increase database requests speed.
+[MongoDB Atlas](https://cloud.mongodb.com/) is a fully managed cloud database service that provides automated backups, scaling, and security features. It offers 99.995% availability with global deployment options and seamless integration with AWS infrastructure.
 
-![MongoDB Region](/images/mongodb-region.png)
+### Cluster Creation
 
-Choose a database configuration.
+<Steps>
+  <Step title="Access MongoDB Atlas">
+    Sign in to your [MongoDB Atlas account](https://cloud.mongodb.com/) and create a new project if needed.
+  </Step>
 
-![MongoDB Configuration](/images/mongodb-configuration.png)
+  <Step title="Deploy New Cluster">
+    Click **Create** to start cluster deployment.
 
-The last step is to set a cluster name. A common practice is to use the project name for it. Also, you can add an environment prefix if you have separate clusters for each environment: `my-app-staging`, `my-app-production`.
+    **Cluster Tier Selection:**
+    - **Staging**: `M0` (Free tier) - Suitable for development and testing
+    - **Production**: `M10` or higher - Includes automated backups and advanced features
 
-![MongoDB Name](/images/mongodb-name.png)
+    **Provider & Region:**
+    - Select **AWS** as your cloud provider
+    - Choose the **same region** as your EKS cluster for optimal performance
 
-After some time database cluster will be created. Copy connection string and add it in **API** config.
+    <Frame>
+      <img src="/images/mongodb-cloud/deploy-cluster.png" alt="Deploy MongoDB Atlas cluster" />
+    </Frame>
+  </Step>
 
-![MongoDB Connection String](/images/mongodb-connection-string.png)
+  <Step title="Configure Cluster Name">
+    Enter a descriptive cluster name (e.g., `ship-production-cluster`, `ship-staging-cluster`)
+  </Step>
+</Steps>
 
-<Warning>
-  Change database name from `admin` to `api-production` or `api-staging` in
-  connection string.
-</Warning>
+### Security Configuration
 
-MongoDB cluster is open to all incoming connections by default, which is not secure. We need to select sources that will be allowed to connect to the database. Open the **Settings** tab, and select your k8s cluster. If you want to connect to the database from your machine also add your IP to **Trusted Sources**.
+<Steps>
+  <Step title="Create Database User">
+    Navigate to **Database Access** → **Add New Database User**
 
-![Trusted sources](/images/mongodb-trusted-sources.png)
+    - **Authentication Method**: Password
+    - **Username**: Use environment-specific names (e.g., `api-production`, `api-staging`)
+    - **Password**: Generate a strong password
+    - **Database User Privileges**: **Read and write to any database**
 
-<SecretsSection/>
+    <Frame>
+      <img src="/images/mongodb-cloud/add-database-user.png" alt="Add MongoDB database user" />
+    </Frame>
 
-<PortSection/>
+    <Warning>
+      **Password Requirements**: Ensure the password starts with a letter and contains only alphanumeric characters and common symbols. Special characters at the beginning can cause URI parsing issues.
+    </Warning>
+  </Step>
+
+  <Step title="Configure Network Access">
+    Navigate to **Network Access** → **Add IP Address**
+
+    - Click **Allow access from anywhere** to allow connections from any IP with valid credentials
+    - For production, consider restricting to specific IP ranges for enhanced security
+
+    <Frame>
+      <img src="/images/mongodb-cloud/network-access.png" alt="Configure MongoDB network access" />
+    </Frame>
+  </Step>
+</Steps>
+
+### Get Connection String
+
+<Steps>
+  <Step title="Access Connection Details">
+    Go to your cluster dashboard and click the **Connect** button.
+
+    <Frame>
+      <img src="/images/mongodb-cloud/dashboard.png" alt="MongoDB Atlas dashboard" />
+    </Frame>
+  </Step>
+
+  <Step title="Copy Connection String">
+    1. Select **Drivers** in the "Connect your application" section
+    2. Choose **Node.js** driver and latest version
+    3. Copy the connection string and replace `<db_password>` with your actual password
+
+    <Frame>
+      <img src="/images/mongodb-cloud/cluster-connect.png" alt="MongoDB connection string" />
+    </Frame>
+
+    **Example Connection String:**
+    ```bash
+    mongodb+srv://api-production:your-password@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+    ```
+  </Step>
+
+  <Step title="Save Connection Details">
+    Store the connection string securely - you'll need it for environment configuration later
+  </Step>
+</Steps>
+
+<Tip>
+  Before deploying to production, configure [automated backups](https://www.mongodb.com/docs/atlas/backup-restore-cluster/) in the Atlas console to ensure data recovery capabilities.
+</Tip>
 
 ## CI/CD
 
