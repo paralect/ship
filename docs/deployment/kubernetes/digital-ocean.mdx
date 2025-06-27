@@ -172,6 +172,37 @@ Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kube
   </Step>
 </Steps>
 
+# Personal access token
+
+To upload docker images in Container Registry and pull them after from cluster we need Digital Ocean [Personal Access Token](https://cloud.digitalocean.com/account/api/tokens).
+When you created cluster - one with **Read Only** scope was automatically created.
+
+But we need to [generate](https://cloud.digitalocean.com/account/api/tokens/new) a new one with:
+
+- Name (e.g. `my-ship-app-admin-deploy`)
+- **Full Access** scope
+- No expiration
+
+<Tip>
+  You cannot change scope of already generated token.
+</Tip>
+
+
+![Digital Ocean Token](/images/do-token.png)
+
+Now new token can be added to your local kubeconfig's `users`.
+
+```yaml {4}
+users:
+  - name: do-nyc3-my-ship-app-admin
+    user:
+      token: dop_v1_... # paste new full access token here
+```
+
+<Warning>
+  Be very careful with Personal Access Token, if someone steals it he will get access
+  to all resources from your Digital Ocean account.
+</Warning>
 
 # Accessing cluster from a local machine
 
@@ -296,38 +327,6 @@ Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kube
     ```
   </Step>
 </Steps>
-
-# Personal access token
-
-To upload docker images in Container Registry and pull them after from cluster we need Digital Ocean [Personal Access Token](https://cloud.digitalocean.com/account/api/tokens).
-When you created cluster - one with **Read Only** scope was automatically created.
-
-But we need to [generate](https://cloud.digitalocean.com/account/api/tokens/new) a new one with:
-
-- Name (e.g. `my-ship-app-admin-deploy`)
-- **Full Access** scope
-- No expiration
-
-<Tip>
-  You cannot change scope of already generated token.
-</Tip>
-
-
-![Digital Ocean Token](/images/do-token.png)
-
-Now new token can be added to your local kubeconfig's `users`.
-
-```yaml {4}
-users:
-  - name: do-nyc3-my-ship-app-admin
-    user:
-      token: dop_v1_... # paste new full access token here
-```
-
-<Warning>
-  Be very careful with Personal Access Token, if someone steals it he will get access
-  to all resources from your Digital Ocean account.
-</Warning>
 
 # Ingress NGINX Controller
 
