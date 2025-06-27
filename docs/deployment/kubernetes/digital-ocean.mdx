@@ -5,40 +5,57 @@ title: "Digital Ocean"
 import SecretsSection from '/snippets/kubernetes-deploy-envs-section.mdx';
 import PortSection from '/snippets/kubernetes-deploy-port-section.mdx';
 
-It's a step-by-step Ship deployment guide. We will use Digital Ocean Managed [Kubernetes](https://www.digitalocean.com/products/kubernetes) and [MongoDB](https://www.digitalocean.com/products/managed-databases-mongodb), [Container Registry](https://www.digitalocean.com/products/container-registry), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com/) for DNS and SSL configuration.
+It's a step-by-step Ship deployment guide. We will use Digital Ocean Managed [Kubernetes](https://www.digitalocean.com/products/kubernetes), [Container Registry](https://www.digitalocean.com/products/container-registry), [Mongo Atlas](https://www.mongodb.com/), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com/) for DNS and SSL configuration.
 
-You need to create [GitHub](https://github.com/), [CloudFlare](https://www.cloudflare.com/), [Digital Ocean](https://www.digitalocean.com/) accounts and install the next tools on your machine before starting:
+You need to create [GitHub](https://github.com/), [CloudFlare](https://www.cloudflare.com/), [Digital Ocean](https://www.digitalocean.com/) and [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) accounts and install the next tools on your machine before starting:
 
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster (We recommend installing it via [Docker Desktop](https://www.docker.com/products/docker-desktop/));
-- [helm](https://helm.sh/docs/intro/install/) - CLI tool for managing Kubernetes deployments;
-- [kubectx](https://github.com/ahmetb/kubectx) - CLI tool for easier switching between Kubernetes contexts;
-- [jq](https://jqlang.github.io/jq/) - command-line JSON processor used to manipulate JSON data;
+* [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster;
+* [kubectx](https://github.com/ahmetb/kubectx) - CLI tool for easier switching between Kubernetes contexts;
+* [helm](https://helm.sh/docs/intro/install) - CLI tool for managing Kubernetes deployments;
+* [k8sec](https://github.com/dtan4/k8sec) - CLI tool for managing Kubernetes Secrets easily;
+
+<Accordion title="How to install k8sec on Linux?">
+  Download k8sec tar.gz, then do:
+
+  ```
+  chmod +x k8sec
+  ```
+  ```
+  sudo cp k8sec /usr/local/bin/
+  ```
+  ```
+  k8sec --help
+  ```
+</Accordion>
 
 Try the next commands to ensure that everything is installed correctly:
 
 ```
-kubectl get pods -A
-
-helm list
+kubectl
 
 kubectx
+
+helm
+
+k8sec
 ```
 
 Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) if you already haven't.
 
 ## Setup project
 
-First, initialize your project. Type `npx create-ship-app init` in the terminal then choose **Digital Ocean Managed Kubernetes** deployment type.
+First, initialize your project. Type `npx create-ship-app@latest` in the terminal then choose **Digital Ocean Managed Kubernetes** deployment type.
 
 ![Init project](/images/init-project.png)
 
 You will have next project structure.
 
 ```shell
-/my-app
+/deploy-guide
   /.github
-  /web
-  /api
+  /apps
+    /api
+    /web
   /deploy
   ...
 ```
@@ -48,15 +65,16 @@ Create GitHub private repository and upload source code.
 ![Private repo](/images/private-repo.png)
 
 ```shell
-cd my-app
-git remote add origin https://github.com/Oigen43/my-app.git
-git branch -M main
+cd my-ship-app
+git remote add origin git@github.com:dzinrai/my-ship-app.git
 git push -u origin main
 ```
 
 ## Container registry
 
 You need to create [Container Registry](https://www.digitalocean.com/products/container-registry) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of service during the deployment step.
+
+Usually `deploy-guide` is the name of organization, and `my-ship-app` is the name of project.
 
 ![Container Registry creation](/images/container-registry-creation.png)
 
@@ -65,29 +83,31 @@ After some time, you will get registry endpoint.
 ![Container Registry creation](/images/container-registry-created.png)
 
 Now you should configure the deployment script to point Container Registry.
-Need to update `dockerRegistry.name` value to `registry.digitalocean.com/oigen43/my-app`.
+Need to update `dockerRegistry.name` value to `registry.digitalocean.com/deploy-guide/my-ship-app`.
 
 ```javascript deploy/script/src/config.js
 const config = {
+  ...
   dockerRegistry: {
-    name: "registry.digitalocean.com/oigen43/my-app",
+    name: "registry.digitalocean.com/deploy-guide/my-ship-app",
+    ...
   },
 };
 ```
 
-`registry.digitalocean.com/oigen43/my-app` consists of 2 values:
+`registry.digitalocean.com/deploy-guide/my-ship-app` consists of 2 values:
 
-- `registry.digitalocean.com/oigen43` - registry endpoint;
-- `my-app` - project name;
+- `registry.digitalocean.com/deploy-guide` - registry endpoint;
+- `my-ship-app` - project name;
 
 Docker images for each service are stored in separate repository.
 In Digital Ocean repositories are created automatically when something is uploaded by specific paths.
 During deployment process script will automatically create paths to repositories in next format:
 
-- [**API**](/api-reference/overview) - registry.digitalocean.com/oigen43/my-app-api;
-- [**Scheduler**](/scheduler) - registry.digitalocean.com/oigen43/my-app-scheduler;
-- [**Migrator**](/migrator) - registry.digitalocean.com/oigen43/my-app-migrator;
-- [**Web**](/web/overview) - registry.digitalocean.com/oigen43/my-app-web;
+- [**API**](/api-reference/overview) - registry.digitalocean.com/deploy-guide/my-ship-app-api;
+- [**Scheduler**](/scheduler) - registry.digitalocean.com/deploy-guide/my-ship-app-scheduler;
+- [**Migrator**](/migrator) - registry.digitalocean.com/deploy-guide/my-ship-app-migrator;
+- [**Web**](/web/overview) - registry.digitalocean.com/deploy-guide/my-ship-app-web;
 
 <Tip>
   Images for all environments will be uploaded to the same repository for each
