@@ -118,27 +118,63 @@ During deployment process script will automatically create paths to repositories
 
 Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kubernetes) cluster.
 
-We recommend you to create a cluster in the region where your end-users are located, it will reduce response time to incoming requests to all services. Also, if your cluster will be located in one region with a Container Registry deployment process will be faster.
+<Steps>
+  <Step title="Select a region">
+    Navigate to the cluster creation page [here](https://cloud.digitalocean.com/kubernetes/clusters/new)<br/>
+    <Tip>
+      We recommend you to create a cluster in the region where your end-users are located, it will reduce response time to incoming requests to all services.
+    </Tip>
 
-![Cluster Region](/images/cluster-region.png)
+    <Tip>
+      Also, if your cluster will be located in one region with a Container Registry deployment process will be faster. You can find more information about regions [here](https://docs.digitalocean.com/products/platform/availability-matrix/).
+    </Tip>
+    <Frame>
+      <img src="/images/cluster-region.png" alt="Cluster Region" />
+    </Frame>
+  </Step>
 
-Set Node pool name and configure Nodes.
-Digital Ocean recommends creating at least 2 nodes for the production environment.
+  <Step title="Set Node pool name">
+    Set Node pool name (e.g. `pool-app`) and configure Nodes.
+    Digital Ocean recommends creating at least 2 nodes for the production environment. These settings will have an impact on the price of the cluster.
 
-![Cluster Capacity](/images/cluster-capacity.png)
+    <Frame>
+      <img src="/images/cluster-capacity.png" alt="Cluster Capacity" />
+    </Frame>
+  </Step>
 
-The last step is to set a cluster name. A common practice is to use the project name for it. Also, you can add an environment prefix if you have separate clusters for each environment: `my-app-staging`, `my-app-production`.
+  <Step title="Configure cluster">
+    Now you need to configure node pool in deployment script.
+    Need to update `nodePool` value to `pool-app` to match the node pool name we set on the previous step.
 
-![Cluster Price](/images/cluster-price.png)
+    ```javascript deploy/script/src/config.js
+    const config = {
+      ...
+      nodePool: "pool-app",
+      dockerRegistry: {
+        name: 'registry.digitalocean.com/deploy-guide/my-ship-app',
+        ...
+      },
+    };
+    ```
+  </Step>
 
-Now you need to configure node pool in deployment script that we created on second screenshot.
-Need to update `nodePool` value to `pool-app`.
+  <Step title="Set cluster name">
+    Set cluster name (e.g. `my-ship-app`). A common practice is to use the project name for it.
 
-```javascript deploy/script/src/config.js
-const config = {
-  nodePool: "pool-app",
-};
-```
+    <Frame>
+      <img src="/images/cluster-name.png" alt="Cluster Name" />
+    </Frame>
+  </Step>
+
+  <Step title="Create Kubernetes Cluster with everything configured">
+    Click on `Create Kubernetes Cluster` button to create a cluster.
+
+    <Frame>
+      <img src="/images/do-cluster-creation.png" alt="Cluster Creation" />
+    </Frame>
+  </Step>
+</Steps>
+
 
 ## Accessing cluster from a local machine
 
