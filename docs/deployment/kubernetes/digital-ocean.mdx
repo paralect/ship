@@ -320,7 +320,7 @@ But we need to [generate](https://cloud.digitalocean.com/account/api/tokens/new)
 
 Now new token can be added to your local kubeconfig's `users`.
 
-```yaml
+```yaml {4}
 users:
   - name: do-nyc3-my-ship-app-admin
     user:
@@ -332,51 +332,63 @@ users:
   to all resources from your Digital Ocean account.
 </Warning>
 
-## Dependencies
+## Ingress NGINX Controller
 
-Now we need to install our dependencies in the cluster.
-
-| Dependency                                                                                        | Description                                                                                                                                                                                  |
-| :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [ingress-nginx](https://github.com/kubernetes/ingress-nginx)                                      | Ingress controller for Kubernetes using Nginx as a reverse proxy and load balancer                                                                                                           |
-| [redis](https://github.com/bitnami/charts/tree/main/bitnami/redis)                              | Open source, advanced key-value store. Redis needed for API service                                                                                                                          |
-| [regcred](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/deploy/dependencies/regcred/bin/create-docker-regcred.sh) | Bash script for creating Kubernetes [Secret](https://kubernetes.io/docs/concepts/configuration/secret/). Secret needs for authorizing in Container Registry when pulling images from cluster |
+[ingress-nginx](https://github.com/kubernetes/ingress-nginx) is an Ingress controller for Kubernetes using [NGINX](https://nginx.org) as a reverse proxy and load balancer.
 
 <Tip>
-  You can read
-  **[here](https://docs.nginx.com/nginx-ingress-controller/intro/how-nginx-ingress-controller-works/)**
-  how ingress-nginx works.
+  Learn more about ingress-nginx functionality in the **[official documentation](https://docs.nginx.com/nginx-ingress-controller/intro/how-nginx-ingress-controller-works/)**.
 </Tip>
 
-Configure [Helm Values](https://helm.sh/docs/chart_template_guide/values_files/) for ingress-nginx. Need to update `doks.digitalocean.com/node-pool` value to `pool-app`.
+<Steps>
+  <Step title="Navigate to dependencies directory">
+    Change to the `deploy/dependencies` directory in your terminal.
+  </Step>
 
-```yaml deploy/dependecies/ingress-nginx/values/values.yml
-controller:
-  publishService:
-    enabled: true
-  nodeSelector:
-    doks.digitalocean.com/node-pool: pool-app
+  <Step title="Configure Helm Values (Optional)">
 
-rbac:
-  create: true
+    This step is required **only if** you specified a custom node pool name in your Digital Ocean Kubernetes cluster.
 
-defaultBackend:
-  enabled: false
-```
+    If you did, update the `doks.digitalocean.com/node-pool` value in `values.yaml.gotmpl`:
 
-Open `deploy/bin` folder and run the bash script.
+    ```yaml deploy/dependencies/ingress-nginx/values.yaml.gotmpl {5}
+    controller:
+      publishService:
+        enabled: true
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-app
 
-```shell
-bash deploy-dependencies.sh
-```
+    rbac:
+      create: true
 
-You will be prompted to enter some values when installing `regcred` dependency
+    defaultBackend:
+      enabled: false
+    ```
+  </Step>
 
-```shell
-dockerhub username: // Personal Access Token(dop_v1_...)
-dockerhub password: // Personal Access Token(dop_v1_...)
-namespace: // production or staging
-```
+
+  <Step title="Install dependencies">
+    Install helm dependencies using helmfile:
+
+    ```bash
+    helmfile deps
+    ```
+  </Step>
+
+  <Step title="Review and apply changes">
+    Preview the changes first:
+
+    ```bash
+    helmfile diff
+    ```
+
+    If the preview looks correct, apply the configuration:
+
+    ```bash
+    helmfile apply
+    ```
+  </Step>
+</Steps>
 
 ## DNS and SSL
 
