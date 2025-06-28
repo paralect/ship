@@ -75,7 +75,7 @@ git push -u origin main
 
 You need to create [Container Registry](https://www.digitalocean.com/products/container-registry) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of service during the deployment step.
 
-Usually `deploy-guide` is the name of organization, and `my-ship-app` is the name of project.
+Usually cluster name (here `deploy-guide`) is the name of organization, and `my-ship-app` is the name of the project.
 
 ![Container Registry creation](/images/container-registry-creation.png)
 
@@ -191,7 +191,6 @@ But we need to [generate](https://cloud.digitalocean.com/account/api/tokens/new)
   You cannot change scope of already generated token.
 </Tip>
 
-
 ![Digital Ocean Token](/images/do-token.png)
 
 We will need this token soon, so don't close this page yet.
@@ -212,9 +211,31 @@ We will need this token soon, so don't close this page yet.
     <Frame>
       <img src="/images/kubeconfig-download.png" alt="Kubeconfig Download" />
     </Frame>
-    <Warning>
-      Remember to replace initial **Read only** token with new **Full access** token from [Personal access token](#personal-access-token) section.
-    </Warning>
+
+    <Accordion title="Expected structure of downloaded kubeconfig">
+      ```yaml my-ship-app-kubeconfig.yaml
+      apiVersion: v1
+      clusters:
+      - cluster:
+          certificate-authority-data: ...
+          server: https://...
+        name: do-nyc3-my-ship-app
+      contexts:
+      - context:
+          cluster: do-nyc3-my-ship-app
+          user: do-nyc3-my-ship-app-admin
+        name: do-nyc3-my-ship-app
+      current-context: do-nyc3-my-ship-app
+      kind: Config
+      preferences: {}
+      users:
+      - name: do-nyc3-my-ship-app-admin
+        user:
+          token: dop_v1_...
+      ```
+    </Accordion>
+
+    And replace initial **Read only** token with new **Full access** token from [Personal access token](#personal-access-token) section.
 
     ```yaml my-ship-app-kubeconfig.yaml {18-19}
     apiVersion: v1
@@ -234,7 +255,7 @@ We will need this token soon, so don't close this page yet.
     users:
     - name: do-nyc3-my-ship-app-admin
       user:
-        # replace initial read only token with new full access token from Personal Access Token section
+        # replace this token for full access token
         token: dop_v1_...
     ```
   </Step>
@@ -245,7 +266,7 @@ We will need this token soon, so don't close this page yet.
     </Tip>
 
     You need to add information about the new cluster to your config.
-    Find `.kube/config` file on your machine, and add `cluster`, `context` and `user` values from the downloaded config to it.
+    Find `.kube/config` file on your machine, and add `cluster`, `context` and `user` values from `my-ship-app-kubeconfig.yaml`.
 
     ```yaml ~/.kube/config {7-11, 17-21, 29-33}
     apiVersion: v1
@@ -402,8 +423,8 @@ We will need this token soon, so don't close this page yet.
     Copy the value from the `EXTERNAL-IP` column.
 
     ```shell
-    NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                      AGE
-    ingress-nginx-controller             LoadBalancer   10.245.201.160   138.68.124.241   80:30186/TCP,443:32656/TCP   28m
+    NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                      AGE
+    ingress-nginx-controller   LoadBalancer   10.245.201.160   138.68.124.241   80:30186/TCP,443:32656/TCP   28m
     ```
 
     <Tip>
@@ -497,47 +518,108 @@ We will need this token soon, so don't close this page yet.
 
 To automate deployment through Github Actions you need to configure [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) inside workflow files.
 
+### Configuring GitHub Actions secrets and variables
+
+<Note>
+  Before starting, make sure you have created a GitHub repository for your project.
+</Note>
+
+GitHub Secrets and variables allow you to manage reusable configuration data.
+
+Secrets are encrypted and are used for sensitive data. [Learn more about encrypted secrets](https://docs.github.com/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets).
+
+Variables are shown as plain text and are used for non-sensitive data. [Learn more about variables](https://docs.github.com/actions/learn-github-actions/variables).
+
 <Tip>
-  The deployment will be triggered on each commit. Committing to the **main**
-  branch will trigger a deployment in the **staging** environment, and
-  committing to the **production** branch will trigger a deployment in the
-  **production** environment.
+The deployment will be triggered on each commit:
+- Commits to **main** branch → deploy to **staging** environment
+- Commits to **production** branch → deploy to **production** environment
 </Tip>
 
-To check required Secrets you can open workflows in the `.github` folder at root of your project.
-To automate deployment to the **production** environment you need `DIGITAL_OCEAN_TOKEN` and `KUBE_CONFIG_PRODUCTION` secrets for `api-production.yml` and `web-production.yml` workflows.
+[Configure](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) the following secrets (and variables if needed) in your GitHub repository:
 
-`DIGITAL_OCEAN_TOKEN`
+| Name                    | Type     | Description                                                                                                                 |
+|-------------------------|----------|-----------------------------------------------------------------------------------------------------------------------------|
+| DIGITAL_OCEAN_TOKEN     | secret   | The secret access user created for CI/CD. This allows GitHub Actions to authenticate with DO services                       |
+| KUBE_CONFIG_STAGING     | secret   | This kubeconfig file contains the credentials to access the staging cluster. Copy of `my-ship-app-kubeconfig.yaml` from [here](#accessing-cluster-from-a-local-machine)         |
+| KUBE_CONFIG_PRODUCTION  | secret   | This kubeconfig file contains the credentials to access the production cluster. Copy of `my-ship-app-kubeconfig.yaml` from [here](#accessing-cluster-from-a-local-machine)       |
 
-Personal access token from [Personal access token](#personal-access-token) section.
+<Warning>
+Never commit sensitive credentials directly to your repository. <br/>
+  Always use GitHub Secrets for sensitive information like DO keys.
+</Warning>
+1
+<Note>
+Variables (unlike secrets) are visible in logs and can be used for non-sensitive configuration values that may need to be referenced or modified.
+</Note>
 
-![DO Secret](/images/do-secret.png)
+<Note>
+  We set up **DIGITAL_OCEAN_TOKEN** to be universal for both production and staging environments with **Full access** scope.
+</Note>
 
-`KUBE_CONFIG_PRODUCTION` (`KUBE_CONFIG_STAGING` for staging environment)
+<Note>
+  Your **KUBE_CONFIG_PRODUCTION** and **KUBE_CONFIG_STAGING** will be the same if you have only one cluster for both environments.
+</Note>
 
-Kubeconfig file from [Accessing cluster from a local machine](#accessing-cluster-from-a-local-machine) section.
+<Frame>
+  <img src="/images/do/gh-secrets.png" alt="GitHub Secrets" />
+</Frame>
 
-![Kubeconfig Secret](/images/kubeconfig-secret.png)
+<Frame>
+  <img src="/images/do/gh-variables.png" alt="GitHub Variables" />
+</Frame>
 
-Now commit all changes to GitHub that will trigger deployment.
 
-![CI start](/images/ci-start.png)
+Now commit all changes to GitHub that will trigger deployment, or you can [run a workflow manually](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow)
 
-Done! Application deployed and can be accessed by provided domain.
+<Frame>
+  <img src="/images/do/ci-start.png" alt="CI start" />
+</Frame>
 
-![CI finish](/images/ci-finish.png)
+Done! Application deployed and can be accessed by the provided domain.
 
-![Deployment finish](/images/deployment-finish.png)
 
-![Deployed pods](/images/deployed-pods.png)
+<Frame>
+  <img src="/images/do/ci-finish.png" alt="CI finish" />
+</Frame>
+
+
+<Frame>
+  <img src="/images/do/deployment-finish.png" alt="Deployment finish" />
+</Frame>
+
+
+```shell
+kubectl get pods -A
+
+NAMESPACE       NAME                                        READY   STATUS      RESTARTS   AGE
+ingress-nginx   ingress-nginx-controller-6bdff8c8fd-kwxcn   1/1     Running     0          6h50m
+kube-system     cilium-tb8td                                1/1     Running     0          8h
+kube-system     cilium-x5w8n                                1/1     Running     0          8h
+kube-system     coredns-5679ffb5c8-b7dzj                    1/1     Running     0          8h
+kube-system     coredns-5679ffb5c8-d465r                    1/1     Running     0          8h
+kube-system     cpc-bridge-proxy-ebpf-2gzfr                 1/1     Running     0          8h
+kube-system     cpc-bridge-proxy-ebpf-jknzh                 1/1     Running     0          8h
+kube-system     csi-do-node-jcqd2                           2/2     Running     0          8h
+kube-system     csi-do-node-rpx6q                           2/2     Running     0          8h
+kube-system     do-node-agent-ldhxq                         1/1     Running     0          8h
+kube-system     do-node-agent-pdksz                         1/1     Running     0          8h
+kube-system     hubble-relay-66f54dcd57-l7xjb               1/1     Running     0          8h
+kube-system     hubble-ui-785bdbc45b-6xd57                  2/2     Running     0          8h
+kube-system     konnectivity-agent-h79mt                    1/1     Running     0          8h
+kube-system     konnectivity-agent-hvv67                    1/1     Running     0          8h
+production      api-57d7787d98-cj75s                        1/1     Running     0          2m15s
+production      migrator-286bq                              0/1     Completed   0          2m54s
+production      scheduler-6c497dfbcc-n6b5l                  1/1     Running     0          2m6s
+production      web-54c6674974-lv94b                        1/1     Running     0          71m
+redis           redis-master-0                              1/1     Running     0          6h49m
+staging         api-689b75c786-97c4l                        1/1     Running     0          71m
+staging         scheduler-57b984f6c-zcc44                   1/1     Running     0          71m
+staging         web-55bdd955b-chswp                         1/1     Running     0          70m
+```
 
 <Tip>
-  If something went wrong you can check the workflows logs on GitHub and use
-  [**kubectl
-  logs**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#interacting-with-running-pods),
-  [**kubectl
-  describe**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#viewing-finding-resources)
-  commands.
+If something went wrong you can check the workflows logs on GitHub and use [**kubectl logs**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#interacting-with-running-pods), [**kubectl describe**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#viewing-finding-resources) commands.
 </Tip>
 
 ## Setting up Upstash Redis database (recommended)
