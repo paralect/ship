@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "4.17.21",
-    "mongodb": "6.1.0"
+    "mongodb": "6.17.0"
   },
   "devDependencies": {
     "@types/chai": "4.2.16",
