@@ -43,7 +43,7 @@ k8sec
 
 Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) if you already haven't.
 
-# Setup project
+## Setup project
 
 First, initialize your project. Type `npx create-ship-app@latest` in the terminal then choose **Digital Ocean Managed Kubernetes** deployment type.
 
@@ -71,7 +71,7 @@ git remote add origin git@github.com:dzinrai/my-ship-app.git
 git push -u origin main
 ```
 
-# Container registry
+## Container registry
 
 You need to create [Container Registry](https://www.digitalocean.com/products/container-registry) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of service during the deployment step.
 
@@ -115,7 +115,7 @@ During deployment process script will automatically create paths to repositories
   service.
 </Tip>
 
-# Kubernetes cluster
+## Kubernetes cluster
 
 Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kubernetes) cluster.
 
@@ -174,9 +174,27 @@ Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kube
       <img src="/images/do-cluster-creation.png" alt="Cluster Creation" />
     </Frame>
   </Step>
+
+  <Step title="Wait for cluster to be ready">
+    Wait for cluster to be ready.
+  </Step>
+
+  <Step title="Integrate with created Container Registry">
+    Go to the Container Registry's settings and find `DigitalOcean Kubernetes integration` section.
+
+    You need to select your created `my-ship-app` cluster.
+
+    <Frame>
+      <img src="/images/do/registry-settings.png" alt="Registry Settings" />
+    </Frame>
+
+    <Frame>
+      <img src="/images/do/registry-check-cluster.png" alt="Registry Check Cluster" />
+    </Frame>
+  </Step>
 </Steps>
 
-# Personal access token
+## Personal access token
 
 To upload docker images in Container Registry and pull them after from cluster we need Digital Ocean [Personal Access Token](https://cloud.digitalocean.com/account/api/tokens).
 When you created cluster - one with **Read Only** scope was automatically created.
@@ -202,7 +220,7 @@ We will need this token soon, so don't close this page yet.
   to all resources from your Digital Ocean account.
 </Warning>
 
-# Accessing cluster from a local machine
+## Accessing cluster from a local machine
 
 <Steps>
   <Step title="Download cluster's kubeconfig">
@@ -352,7 +370,7 @@ We will need this token soon, so don't close this page yet.
   </Step>
 </Steps>
 
-# Ingress NGINX Controller
+## Ingress NGINX Controller
 
 [ingress-nginx](https://github.com/kubernetes/ingress-nginx) is an Ingress controller for Kubernetes using [NGINX](https://nginx.org) as a reverse proxy and load balancer.
 
@@ -410,7 +428,7 @@ We will need this token soon, so don't close this page yet.
   </Step>
 </Steps>
 
-# DNS and SSL
+## DNS and SSL
 
 <Steps>
   <Step title="Get Load Balancer Address">
@@ -507,14 +525,14 @@ We will need this token soon, so don't close this page yet.
   </Step>
 </Steps>
 
-# MongoDB Atlas
+## MongoDB Atlas
 <MongoAtlas provider="do" />
 
 # Environment variables
 <EnvironmentVariables />
 
 
-# Setting up GitHub Actions CI/CD
+## Setting up GitHub Actions CI/CD
 
 To automate deployment through Github Actions you need to configure [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) inside workflow files.
 
