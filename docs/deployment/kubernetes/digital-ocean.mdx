@@ -83,23 +83,7 @@ After some time, you will get registry endpoint.
 
 ![Container Registry creation](/images/container-registry-created.png)
 
-Now you should configure the deployment script to point Container Registry.
-Need to update `dockerRegistry.name` value to `registry.digitalocean.com/deploy-guide/my-ship-app`.
-
-```javascript deploy/script/src/config.js
-const config = {
-  ...
-  dockerRegistry: {
-    name: "registry.digitalocean.com/deploy-guide/my-ship-app",
-    ...
-  },
-};
-```
-
-`registry.digitalocean.com/deploy-guide/my-ship-app` consists of 2 values:
-
-- `registry.digitalocean.com/deploy-guide` - registry endpoint;
-- `my-ship-app` - project name;
+`registry.digitalocean.com/deploy-guide` is registry endpoint, where `deploy-guide` is registry name.
 
 Docker images for each service are stored in separate repository.
 In Digital Ocean repositories are created automatically when something is uploaded by specific paths.
@@ -143,22 +127,6 @@ Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kube
     </Frame>
   </Step>
 
-  <Step title="Configure cluster">
-    Now you need to configure node pool in deployment script.
-    Need to update `nodePool` value to `pool-app` to match the node pool name we set on the previous step.
-
-    ```javascript deploy/script/src/config.js
-    const config = {
-      ...
-      nodePool: "pool-app",
-      dockerRegistry: {
-        name: 'registry.digitalocean.com/deploy-guide/my-ship-app',
-        ...
-      },
-    };
-    ```
-  </Step>
-
   <Step title="Set cluster name">
     Set cluster name (e.g. `my-ship-app`). A common practice is to use the project name for it.
 
@@ -173,20 +141,18 @@ Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kube
     <Frame>
       <img src="/images/do-cluster-creation.png" alt="Cluster Creation" />
     </Frame>
-  </Step>
 
-  <Step title="Wait for cluster to be ready">
     Wait for cluster to be ready.
   </Step>
 
   <Step title="Integrate with created Container Registry">
-    Go to the Container Registry's settings and find `DigitalOcean Kubernetes integration` section.
-
-    You need to select your created `my-ship-app` cluster.
+    After cluster is created, go to the Container Registry's settings and find `DigitalOcean Kubernetes integration` section.
 
     <Frame>
       <img src="/images/do/registry-settings.png" alt="Registry Settings" />
     </Frame>
+
+    You need to select your newly created `my-ship-app` cluster.
 
     <Frame>
       <img src="/images/do/registry-check-cluster.png" alt="Registry Check Cluster" />
@@ -283,7 +249,7 @@ We will need this token soon, so don't close this page yet.
       [Kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files contain information about several clusters, you have your own on the local machine, it should have been created after `kubectl` installation.
     </Tip>
 
-    You need to add information about the new cluster to your config.
+    You need to add information about the new cluster to your kubeconfig.
     Find `.kube/config` file on your machine, and add `cluster`, `context` and `user` values from `my-ship-app-kubeconfig.yaml`.
 
     ```yaml ~/.kube/config {7-11, 17-21, 29-33}
@@ -554,19 +520,21 @@ The deployment will be triggered on each commit:
 - Commits to **production** branch → deploy to **production** environment
 </Tip>
 
-[Configure](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) the following secrets (and variables if needed) in your GitHub repository:
+[Configure](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) the following secrets and variables in your GitHub repository:
 
 | Name                    | Type     | Description                                                                                                                 |
 |-------------------------|----------|-----------------------------------------------------------------------------------------------------------------------------|
 | DIGITAL_OCEAN_TOKEN     | secret   | The secret access user created for CI/CD. This allows GitHub Actions to authenticate with DO services                       |
-| KUBE_CONFIG_STAGING     | secret   | This kubeconfig file contains the credentials to access the staging cluster. Copy of `my-ship-app-kubeconfig.yaml` from [here](#accessing-cluster-from-a-local-machine)         |
-| KUBE_CONFIG_PRODUCTION  | secret   | This kubeconfig file contains the credentials to access the production cluster. Copy of `my-ship-app-kubeconfig.yaml` from [here](#accessing-cluster-from-a-local-machine)       |
+| CLUSTER_NAME_STAGING    | variable | Name of the staging cluster. (our case: `my-ship-app`)                                                                      |
+| CLUSTER_NAME_PRODUCTION | variable | Name of the production cluster. (our case: `my-ship-app`, same as staging cluster since we have only one cluster)                |
+| CLUSTER_NODE_POOL       | variable | Name of the node pool. (our case: `pool-app`)                                                                                    |
+| REGISTRY_NAME           | variable | Name of the Digital Ocean Container Registry. (our case: `deploy-guide`)                                                        |
 
 <Warning>
 Never commit sensitive credentials directly to your repository. <br/>
   Always use GitHub Secrets for sensitive information like DO keys.
 </Warning>
-1
+
 <Note>
 Variables (unlike secrets) are visible in logs and can be used for non-sensitive configuration values that may need to be referenced or modified.
 </Note>
