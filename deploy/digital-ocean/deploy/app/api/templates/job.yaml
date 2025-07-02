@@ -1,7 +1,7 @@
 kind: Job
 apiVersion: batch/v1
 metadata:
-  name: migrator
+  name: {{ printf "%s-%s"  migrator (randAlpha 8) | lower | quote }}
   annotations:
     helm.sh/hook: pre-upgrade
     helm.sh/hook-delete-policy: before-hook-creation
@@ -9,19 +9,15 @@ spec:
   template:
     spec:
       restartPolicy: Never
-      imagePullSecrets:
-        - name: regcred
       containers:
         - name: migrator
-          image: {{ .Values.containerRegistry }}-migrator:{{ .Values.imagesVersion }}
+          image: {{ .Values.migratorImage }}
           imagePullPolicy: Always
           envFrom:
-            - configMapRef:
-                name: api-{{ .Values.environment }}-configmap
             - secretRef:
                 name: api-{{ .Values.environment }}-secret
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   backoffLimit: 0
-  activeDeadlineSeconds: 1800 # 30 minutes max time for migrator to complete the job
+  activeDeadlineSeconds: 1800 # 30-minute max time for a migrator to complete the job
   ttlSecondsAfterFinished: 3600 # 1h to check pod logs after migrations finished
