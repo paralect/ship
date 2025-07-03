@@ -1,43 +1,70 @@
-# This is a basic workflow to help you get started with Actions
-name: api-staging
-# Controls when the workflow will run
+name: "Staging - API Services Deploy"
+
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
     paths:
       - 'apps/api/**'
       - 'packages/**'
-  # Allows you to run this workflow manually from the Actions tab
+      - 'deploy/app/api/**'
+      - 'deploy/app/scheduler/**'
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario'
-        required: false
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - name: Build staging api
-        id: build-app
-        run: |
-          docker build -f deploy/script/Dockerfile -t deploy ./
-          docker run -v /var/run/docker.sock:/var/run/docker.sock:rw \
-          -e DOCKER_AUTH_USERNAME=${{ secrets.DIGITAL_OCEAN_TOKEN }} \
-          -e DOCKER_AUTH_PASSWORD=${{ secrets.DIGITAL_OCEAN_TOKEN }} \
-          -e KUBE_CONFIG="${{ secrets.KUBE_CONFIG_STAGING }}" \
-          -e SERVICE=api \
-          -e IMAGE_TAG=staging.${{ github.sha }} \
-          -e NAMESPACE=staging \
-          -e ENVIRONMENT=staging \
-          deploy
+  build-api:
+    uses: ./.github/workflows/build.template.yml
+    secrets: inherit
+    with:
+      service_name: "api"
+      environment: "staging"
+      docker_file_path: "apps/api/Dockerfile"
+      helm_chart_dir: "deploy/app/api"
+      cluster_name: ${{ vars.CLUSTER_NAME_STAGING }}
+      registry_name: ${{ vars.REGISTRY_NAME }}
+
+  build-migrator:
+    uses: ./.github/workflows/build.template.yml
+    secrets: inherit
+    with:
+      service_name: "migrator"
+      environment: "staging"
+      docker_file_path: "apps/api/Dockerfile.migrator"
+      helm_chart_dir: "deploy/app/api"
+      cluster_name: ${{ vars.CLUSTER_NAME_STAGING }}
+      registry_name: ${{ vars.REGISTRY_NAME }}
+
+  build-scheduler:
+    uses: ./.github/workflows/build.template.yml
+    secrets: inherit
+    with:
+      service_name: "scheduler"
+      environment: "staging"
+      docker_file_path: "apps/api/Dockerfile.scheduler"
+      helm_chart_dir: "deploy/app/scheduler"
+      cluster_name: ${{ vars.CLUSTER_NAME_STAGING }}
+      registry_name: ${{ vars.REGISTRY_NAME }}
+
+  deploy-api:
+    needs: [build-api, build-migrator]
+    uses: ./.github/workflows/deploy.template.yml
+    secrets: inherit
+    with:
+      service_name: "api"
+      environment: "staging"
+      helm_chart_dir: "deploy/app/api"
+      cluster_name: ${{ vars.CLUSTER_NAME_STAGING }}
+      node_pool: ${{ vars.CLUSTER_NODE_POOL }}
+      image_tag: ${{ needs.build-api.outputs.image_tag }}
+      migrator_image_tag: ${{ needs.build-migrator.outputs.image_tag }}
+
+  deploy-scheduler:
+    needs: [build-scheduler, deploy-api]
+    uses: ./.github/workflows/deploy.template.yml
+    secrets: inherit
+    with:
+      service_name: "scheduler"
+      environment: "staging"
+      helm_chart_dir: "deploy/app/scheduler"
+      cluster_name: ${{ vars.CLUSTER_NAME_STAGING }}
+      node_pool: ${{ vars.CLUSTER_NODE_POOL }}
+      image_tag: ${{ needs.build-scheduler.outputs.image_tag }}

@@ -1,9 +1,9 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: scheduler
+  name: {{ .Values.service }}
   labels:
-    app: scheduler
+    app: {{ .Values.service }}
 spec:
   replicas: 1
   selector:
@@ -15,17 +15,20 @@ spec:
         app: {{ .Values.service }}
     spec:
       restartPolicy: Always
-      envFrom:
-        - configMapRef:
-            name: api-{{ .Values.environment }}-configmap
-        - secretRef:
-            name: api-{{ .Values.environment }}-secret
-      imagePullSecrets:
-        - name: regcred
       containers:
-        - name: {{ .Values.service }}
-          image: {{ .Values.containerRegistry }}-{{ .Values.service }}:{{ .Values.imagesVersion }}
-          imagePullPolicy: Always
+      - name: {{ .Values.service }}
+        image: {{ .Values.image }}
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: api-{{ .Values.environment }}-secret
+        securityContext:
+          allowPrivilegeEscalation: false
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        runAsNonRoot: true
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   strategy:

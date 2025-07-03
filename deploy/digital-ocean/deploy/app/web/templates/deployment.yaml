@@ -15,15 +15,20 @@ spec:
         app: {{ .Values.service }}
     spec:
       restartPolicy: Always
-      imagePullSecrets:
-        - name: regcred
       containers:
-        - name: {{ .Values.service }}
-          image: {{ .Values.containerRegistry }}-{{ .Values.service }}:{{ .Values.imagesVersion }}
-          imagePullPolicy: Always
-          ports:
-            - containerPort: {{ .Values.port }}
-              protocol: TCP
+      - name: {{ .Values.service }}
+        image: {{ .Values.image }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ .Values.port }}
+          protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        runAsNonRoot: true
       nodeSelector:
         doks.digitalocean.com/node-pool: {{ .Values.nodePool }}
   strategy:
