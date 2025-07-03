@@ -52,7 +52,7 @@ First, initialize your project. Type `npx create-ship-app@latest` in the termina
 You will have next project structure.
 
 ```shell
-/deploy-guide
+/my-ship-app
   /.github
   /apps
     /api
@@ -61,21 +61,11 @@ You will have next project structure.
   ...
 ```
 
-Create GitHub private repository and upload source code.
-
-![Private repo](/images/private-repo.png)
-
-```shell
-cd my-ship-app
-git remote add origin git@github.com:dzinrai/my-ship-app.git
-git push -u origin main
-```
-
 ## Container registry
 
 You need to create [Container Registry](https://www.digitalocean.com/products/container-registry) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of service during the deployment step.
 
-Usually cluster name (here `deploy-guide`) is the name of organization, and `my-ship-app` is the name of the project.
+Name container registry as the name of organization, which usually is equals to the name of the project: `my-ship-app`.
 
 ![Container Registry creation](/images/container-registry-creation.png)
 
@@ -83,16 +73,16 @@ After some time, you will get registry endpoint.
 
 ![Container Registry creation](/images/container-registry-created.png)
 
-`registry.digitalocean.com/deploy-guide` is registry endpoint, where `deploy-guide` is registry name.
+`registry.digitalocean.com/my-ship-app` is registry endpoint, where `my-ship-app` is registry name.
 
 Docker images for each service are stored in separate repository.
 In Digital Ocean repositories are created automatically when something is uploaded by specific paths.
 During deployment process script will automatically create paths to repositories in next format:
 
-- [**API**](/api-reference/overview) - registry.digitalocean.com/deploy-guide/my-ship-app-api;
-- [**Scheduler**](/scheduler) - registry.digitalocean.com/deploy-guide/my-ship-app-scheduler;
-- [**Migrator**](/migrator) - registry.digitalocean.com/deploy-guide/my-ship-app-migrator;
-- [**Web**](/web/overview) - registry.digitalocean.com/deploy-guide/my-ship-app-web;
+- [**API**](/api-reference/overview) - registry.digitalocean.com/my-ship-app/api;
+- [**Scheduler**](/scheduler) - registry.digitalocean.com/my-ship-app/scheduler;
+- [**Migrator**](/migrator) - registry.digitalocean.com/my-ship-app/migrator;
+- [**Web**](/web/overview) - registry.digitalocean.com/my-ship-app/web;
 
 <Tip>
   Images for all environments will be uploaded to the same repository for each
@@ -522,7 +512,7 @@ The deployment will be triggered on each commit:
 | CLUSTER_NAME_STAGING    | variable | Name of the staging cluster. (our case: `my-ship-app`)                                                                      |
 | CLUSTER_NAME_PRODUCTION | variable | Name of the production cluster. (our case: `my-ship-app`, same as staging cluster since we have only one cluster)           |
 | CLUSTER_NODE_POOL       | variable | Name of the node pool. (our case: `pool-app`)                                                                               |
-| REGISTRY_NAME           | variable | Name of the Digital Ocean Container Registry. (our case: `deploy-guide`)                                                    |
+| REGISTRY_NAME           | variable | Name of the Digital Ocean Container Registry. (our case: `my-ship-app`)                                                    |
 
 <Warning>
 Never commit sensitive credentials directly to your repository. <br/>
