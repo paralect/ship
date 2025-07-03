@@ -30,6 +30,7 @@
     "axios": "1.10.0",
     "clsx": "2.1.1",
     "dayjs": "1.11.10",
+    "dompurify": "3.2.6",
     "dotenv-flow": "4.1.0",
     "lodash": "4.17.21",
     "mixpanel-browser": "2.53.0",

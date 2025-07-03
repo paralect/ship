@@ -1,16 +1,15 @@
 import { z } from 'zod';
 
+import { tokenService } from 'resources/token';
 import { userService } from 'resources/user';
 
-import { validateMiddleware } from 'middlewares';
+import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
 
 import config from 'config';
 
-import { EMAIL_REGEX } from 'app-constants';
-import { AppKoaContext, AppRouter, User } from 'types';
+import { AppKoaContext, AppRouter, TokenType, User } from 'types';
 
 const schema = z.object({
-  email: z.string().toLowerCase().regex(EMAIL_REGEX, 'Email format is incorrect.'),
   token: z.string().min(1, 'Token is required'),
 });
 
@@ -18,18 +17,29 @@ interface ValidatedData extends z.infer<typeof schema> {
   user: User;
 }
 
-async function validator(ctx: AppKoaContext<ValidatedData>) {
-  const { email, token } = ctx.validatedData;
+async function handler(ctx: AppKoaContext<ValidatedData>) {
+  try {
+    const { token } = ctx.validatedData;
 
-  const user = await userService.findOne({ resetPasswordToken: token });
+    const resetPasswordToken = await tokenService.validateToken(token, TokenType.RESET_PASSWORD);
 
-  const redirectUrl = user
-    ? `${config.WEB_URL}/reset-password?token=${token}`
-    : `${config.WEB_URL}/expire-token?email=${email}`;
+    const user = await userService.findOne({ _id: resetPasswordToken?.userId });
 
-  ctx.redirect(redirectUrl);
+    if (!resetPasswordToken || !user) {
+      ctx.throwGlobalErrorWithRedirect('Token is invalid or expired.');
+      return;
+    }
+
+    const redirectUrl = new URL(`${config.WEB_URL}/reset-password`);
+
+    redirectUrl.searchParams.set('token', token);
+
+    ctx.redirect(redirectUrl.toString());
+  } catch (error) {
+    ctx.throwGlobalErrorWithRedirect('Failed to verify reset password token. Please try again.');
+  }
 }
 
 export default (router: AppRouter) => {
-  router.get('/verify-reset-token', validateMiddleware(schema), validator);
+  router.get('/verify-reset-token', rateLimitMiddleware(), validateMiddleware(schema), handler);
 };

@@ -1,13 +1,15 @@
+import { tokenService } from 'resources/token';
 import { userService } from 'resources/user';
 
-import { validateMiddleware } from 'middlewares';
-import { analyticsService, emailService } from 'services';
+import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
+import { emailService } from 'services';
 import { securityUtil } from 'utils';
 
 import config from 'config';
 
+import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 import { signUpSchema } from 'schemas';
-import { AppKoaContext, AppRouter, Next, SignUpParams, Template } from 'types';
+import { AppKoaContext, AppRouter, Next, SignUpParams, Template, TokenType } from 'types';
 
 async function validator(ctx: AppKoaContext<SignUpParams>, next: Next) {
   const { email } = ctx.validatedData;
@@ -24,21 +26,18 @@ async function validator(ctx: AppKoaContext<SignUpParams>, next: Next) {
 async function handler(ctx: AppKoaContext<SignUpParams>) {
   const { firstName, lastName, email, password } = ctx.validatedData;
 
-  const [hash, signupToken] = await Promise.all([securityUtil.getHash(password), securityUtil.generateSecureToken()]);
-
   const user = await userService.insertOne({
     email,
     firstName,
     lastName,
-    fullName: `${firstName} ${lastName}`,
-    passwordHash: hash.toString(),
+    passwordHash: await securityUtil.hashPassword(password),
     isEmailVerified: false,
-    signupToken,
   });
 
-  analyticsService.track('New user created', {
-    firstName,
-    lastName,
+  const emailVerificationToken = await tokenService.createToken({
+    userId: user._id,
+    type: TokenType.EMAIL_VERIFICATION,
+    expiresIn: EMAIL_VERIFICATION_TOKEN.EXPIRATION_SECONDS,
   });
 
   await emailService.sendTemplate<Template.VERIFY_EMAIL>({
@@ -47,12 +46,12 @@ async function handler(ctx: AppKoaContext<SignUpParams>) {
     template: Template.VERIFY_EMAIL,
     params: {
       firstName: user.firstName,
-      href: `${config.API_URL}/account/verify-email?token=${signupToken}`,
+      href: `${config.API_URL}/account/verify-email?token=${emailVerificationToken}`,
     },
   });
 
   if (config.IS_DEV) {
-    ctx.body = { signupToken };
+    ctx.body = { emailVerificationToken };
     return;
   }
 
@@ -60,5 +59,5 @@ async function handler(ctx: AppKoaContext<SignUpParams>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/sign-up', validateMiddleware(signUpSchema), validator, handler);
+  router.post('/sign-up', rateLimitMiddleware(), validateMiddleware(signUpSchema), validator, handler);
 };

@@ -1,71 +1,52 @@
-import { userService } from 'resources/user';
-
 import { authService, googleService } from 'services';
 
 import config from 'config';
 
 import { AppKoaContext, AppRouter } from 'types';
 
-const getOAuthUrl = async (ctx: AppKoaContext) => {
-  const areCredentialsExist = config.GOOGLE_CLIENT_ID && config.GOOGLE_CLIENT_SECRET;
+const handleGetOAuthUrl = async (ctx: AppKoaContext) => {
+  try {
+    const { state, codeVerifier, authorizationUrl } = googleService.createAuthUrl();
 
-  ctx.assertClientError(areCredentialsExist, {
-    global: 'Setup Google OAuth credentials on API',
-  });
+    const cookieOptions = {
+      path: '/',
+      httpOnly: true,
+      secure: ctx.secure,
+      maxAge: 60 * 10 * 1000, // valid for 10 minutes
+      sameSite: 'lax' as const,
+    };
 
-  ctx.redirect(googleService.oAuthURL);
+    ctx.cookies.set('google-oauth-state', state, cookieOptions);
+    ctx.cookies.set('google-code-verifier', codeVerifier, cookieOptions);
+
+    ctx.redirect(authorizationUrl);
+  } catch (error) {
+    ctx.throwGlobalErrorWithRedirect(error instanceof Error ? error.message : 'Failed to create Google OAuth URL');
+  }
 };
 
-const signInGoogleWithCode = async (ctx: AppKoaContext) => {
-  const { code } = ctx.request.query;
+const handleOAuthCallback = async (ctx: AppKoaContext) => {
+  try {
+    const user = await googleService.validateCallback({
+      code: ctx.request.query.code?.toString(),
+      state: ctx.request.query.state?.toString(),
+      storedState: ctx.cookies.get('google-oauth-state'),
+      codeVerifier: ctx.cookies.get('google-code-verifier'),
+    });
 
-  const { isValid, payload } = await googleService.exchangeCodeForToken(code);
-
-  ctx.assertError(isValid && payload && !(payload instanceof Error), `Exchange code for token error: ${payload}`);
-
-  const user = await userService.findOne({ email: payload.email });
-  let userChanged;
-
-  if (user) {
-    if (!user.oauth?.google) {
-      userChanged = await userService.updateOne({ _id: user._id }, (old) => ({
-        ...old,
-        oauth: { google: true },
-      }));
+    if (!user) {
+      throw new Error('Failed to authenticate with Google');
     }
 
-    const userUpdated = userChanged || user;
-
-    await Promise.all([userService.updateLastRequest(userUpdated._id), authService.setTokens(ctx, userUpdated._id)]);
+    await authService.setAccessToken({ ctx, userId: user._id });
 
     ctx.redirect(config.WEB_URL);
+  } catch (error) {
+    ctx.throwGlobalErrorWithRedirect(error instanceof Error ? error.message : 'Google authentication failed');
   }
-
-  const { givenName: firstName, familyName, email, picture: avatarUrl } = payload;
-
-  const lastName = familyName || '';
-  const fullName = lastName ? `${firstName} ${lastName}` : firstName;
-
-  const newUser = await userService.insertOne({
-    firstName,
-    lastName,
-    fullName,
-    email,
-    isEmailVerified: true,
-    avatarUrl,
-    oauth: {
-      google: true,
-    },
-  });
-
-  if (newUser) {
-    await Promise.all([userService.updateLastRequest(newUser._id), authService.setTokens(ctx, newUser._id)]);
-  }
-
-  ctx.redirect(config.WEB_URL);
 };
 
 export default (router: AppRouter) => {
-  router.get('/sign-in/google/auth', getOAuthUrl);
-  router.get('/sign-in/google', signInGoogleWithCode);
+  router.get('/sign-in/google', handleGetOAuthUrl);
+  router.get('/sign-in/google/callback', handleOAuthCallback);
 };

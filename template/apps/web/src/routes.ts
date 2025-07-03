@@ -18,7 +18,6 @@ export enum RoutePath {
   SignUp = '/sign-up',
   ForgotPassword = '/forgot-password',
   ResetPassword = '/reset-password',
-  ExpireToken = '/expire-token',
 
   NotFound = '/404',
 }
@@ -55,10 +54,6 @@ export const routesConfiguration: RoutesConfiguration = {
     layout: LayoutType.UNAUTHORIZED,
   },
   [RoutePath.ResetPassword]: {
-    scope: ScopeType.PUBLIC,
-    layout: LayoutType.UNAUTHORIZED,
-  },
-  [RoutePath.ExpireToken]: {
     scope: ScopeType.PUBLIC,
     layout: LayoutType.UNAUTHORIZED,
   },

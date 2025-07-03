@@ -1,85 +1,63 @@
-import _ from 'lodash';
-import { getPublicSuffix, parse } from 'tldts';
-import { URL } from 'url';
-
 import { tokenService } from 'resources/token';
+import { userService } from 'resources/user';
 
-import config from 'config';
+import { cookieUtil } from 'utils';
 
-import { COOKIES, TOKEN_SECURITY_EXPIRES_IN } from 'app-constants';
-import { AppKoaContext } from 'types';
+import { ACCESS_TOKEN } from 'app-constants';
+import { AppKoaContext, Token, TokenType } from 'types';
 
-/**
- * Determines a valid cookie domain.
- * Returns undefined for localhost or invalid domains.
- */
-const getCookieDomain = (hostname: string): string | undefined => {
-  if (hostname === 'localhost' || hostname.endsWith('.localhost')) {
-    return undefined;
-  }
+interface SetAccessTokenOptions {
+  ctx: AppKoaContext;
+  userId: string;
+}
 
-  const { domain, subdomain } = parse(hostname);
+export const setAccessToken = async ({ ctx, userId }: SetAccessTokenOptions) => {
+  const accessToken = await tokenService.createToken({
+    userId,
+    type: TokenType.ACCESS,
+    expiresIn: ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS,
+  });
 
-  if (!domain) {
-    logger.warn(`Cannot determine cookie domain from "${hostname}".`);
-    return undefined;
-  }
+  await cookieUtil.setTokens({
+    ctx,
+    accessToken,
+    expiresIn: ACCESS_TOKEN.ABSOLUTE_EXPIRATION_SECONDS,
+  });
 
-  // Drop left-most subdomain and keep the rest
-  const cookieSubdomain = _.tail(subdomain?.split('.')).join('.');
+  userService.updateLastRequest(userId);
 
-  const cookieDomain = cookieSubdomain ? `${cookieSubdomain}.${domain}` : domain;
-
-  const publicSuffix = getPublicSuffix(cookieDomain, { allowPrivateDomains: true });
-
-  // Check if domain is a public suffix (e.g. ondigitalocean.app)
-  if (!publicSuffix || cookieDomain === publicSuffix) {
-    logger.warn(`"${cookieDomain}" is a public suffix. Cookie won't be set.`);
-    return undefined;
-  }
-
-  return cookieDomain;
+  return accessToken;
 };
 
-const webUrl = new URL(config.WEB_URL);
-const cookieDomain = getCookieDomain(webUrl.hostname);
-const baseCookieOptions = {
-  domain: cookieDomain,
-  httpOnly: true,
-  sameSite: 'lax' as const,
+interface UnsetUserAccessTokenOptions {
+  ctx: AppKoaContext;
+}
+
+export const unsetUserAccessToken = async ({ ctx }: UnsetUserAccessTokenOptions) => {
+  const { user } = ctx.state;
+
+  if (user) await tokenService.invalidateUserTokens(user._id, TokenType.ACCESS);
+
+  await cookieUtil.unsetTokens({ ctx });
 };
 
-const setTokens = async (ctx: AppKoaContext, userId: string) => {
-  const accessToken = await tokenService.createAccessToken({ userId });
+export const validateAccessToken = async (value?: string | null): Promise<Token | null> => {
+  const token = await tokenService.validateToken(value, TokenType.ACCESS);
 
-  if (accessToken) {
-    ctx.cookies.set(
-      COOKIES.ACCESS_TOKEN,
-      accessToken,
-      Object.assign(baseCookieOptions, {
-        expires: new Date(Date.now() + TOKEN_SECURITY_EXPIRES_IN * 1000),
-        secure: ctx.secure,
-      }),
-    );
+  if (!token || token.type !== TokenType.ACCESS) return null;
+
+  const now = new Date();
+
+  if (
+    token.expiresOn.getTime() - now.getTime() <=
+    ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS * 1000 - ACCESS_TOKEN.ACTIVITY_CHECK_INTERVAL_SECONDS * 1000
+  ) {
+    const newExpiresOn = new Date(now.getTime() + ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS * 1000);
+
+    await tokenService.updateOne({ _id: token._id, type: TokenType.ACCESS }, () => ({ expiresOn: newExpiresOn }));
+
+    token.expiresOn = newExpiresOn;
   }
-};
 
-const unsetTokens = async (ctx: AppKoaContext) => {
-  const { accessToken } = ctx.state;
-
-  await tokenService.deleteMany({ value: accessToken });
-
-  ctx.cookies.set(
-    COOKIES.ACCESS_TOKEN,
-    null,
-    Object.assign(baseCookieOptions, {
-      expires: new Date(0),
-      secure: ctx.secure,
-    }),
-  );
-};
-
-export default {
-  setTokens,
-  unsetTokens,
+  return token;
 };

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { configUtil } from 'utils';
+import configUtil from 'utils/config.util';
 
 /**
  * Specify your environment variables schema here.
@@ -14,7 +14,6 @@ const schema = z.object({
   WEB_URL: z.string(),
   MONGO_URI: z.string(),
   MONGO_DB_NAME: z.string(),
-  JWT_SECRET: z.string(),
   REDIS_URI: z.string().optional(),
   REDIS_ERRORS_POLICY: z.enum(['throw', 'log']).default('log'),
   RESEND_API_KEY: z.string().optional(),

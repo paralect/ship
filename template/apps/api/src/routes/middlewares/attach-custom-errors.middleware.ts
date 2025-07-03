@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import config from 'config';
+
 import { AppKoaContext, CustomErrors, Next, ValidationErrors } from 'types';
 
 const formatError = (customError: CustomErrors): ValidationErrors => {
@@ -19,6 +21,15 @@ const attachCustomErrors = async (ctx: AppKoaContext, next: Next) => {
   ctx.throwClientError = (errors, status = 400) => ctx.throw(status, { clientErrors: formatError(errors) });
   ctx.assertClientError = (condition, errors, status = 400) =>
     ctx.assert(condition, status, { clientErrors: formatError(errors) });
+
+  ctx.throwGlobalErrorWithRedirect = (message: string, redirectUrl: string = config.WEB_URL) => {
+    const url = new URL(redirectUrl);
+
+    // Only include essential error information and encode it properly
+    url.searchParams.set('error', encodeURIComponent(message));
+
+    ctx.redirect(url.toString());
+  };
 
   await next();
 };
