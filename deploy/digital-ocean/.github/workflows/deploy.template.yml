@@ -47,7 +47,7 @@ jobs:
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
-          token: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+          token: ${{ secrets.DO_PERSONAL_ACCESS_TOKEN }}
 
       - name: Get the kubeconfig file
         run: doctl kubernetes cluster kubeconfig save ${{ inputs.cluster_name }}

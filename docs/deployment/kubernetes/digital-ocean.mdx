@@ -524,11 +524,11 @@ The deployment will be triggered on each commit:
 
 | Name                    | Type     | Description                                                                                                                 |
 |-------------------------|----------|-----------------------------------------------------------------------------------------------------------------------------|
-| DIGITAL_OCEAN_TOKEN     | secret   | The secret access user created for CI/CD. This allows GitHub Actions to authenticate with DO services                       |
+| DO_PERSONAL_ACCESS_TOKEN| secret   | The secret access user created for CI/CD. This allows GitHub Actions to authenticate with DO services                       |
 | CLUSTER_NAME_STAGING    | variable | Name of the staging cluster. (our case: `my-ship-app`)                                                                      |
-| CLUSTER_NAME_PRODUCTION | variable | Name of the production cluster. (our case: `my-ship-app`, same as staging cluster since we have only one cluster)                |
-| CLUSTER_NODE_POOL       | variable | Name of the node pool. (our case: `pool-app`)                                                                                    |
-| REGISTRY_NAME           | variable | Name of the Digital Ocean Container Registry. (our case: `deploy-guide`)                                                        |
+| CLUSTER_NAME_PRODUCTION | variable | Name of the production cluster. (our case: `my-ship-app`, same as staging cluster since we have only one cluster)           |
+| CLUSTER_NODE_POOL       | variable | Name of the node pool. (our case: `pool-app`)                                                                               |
+| REGISTRY_NAME           | variable | Name of the Digital Ocean Container Registry. (our case: `deploy-guide`)                                                    |
 
 <Warning>
 Never commit sensitive credentials directly to your repository. <br/>
@@ -540,7 +540,7 @@ Variables (unlike secrets) are visible in logs and can be used for non-sensitive
 </Note>
 
 <Note>
-  We set up **DIGITAL_OCEAN_TOKEN** to be universal for both production and staging environments with **Full access** scope.
+  We set up **DO_PERSONAL_ACCESS_TOKEN** to be universal for both production and staging environments with **Full access** scope.
 </Note>
 
 <Note>
