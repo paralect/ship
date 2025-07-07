@@ -1,0 +1,80 @@
+name: "Deploy Template"
+
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        type: string
+        description: 'Service identifier for DO container registry (e.g., "api", "web")'
+        required: true
+      cluster_name:
+        type: string
+        description: 'Name of the target cluster'
+        required: true
+      node_pool:
+        type: string
+        description: 'DO node pool where pods will be scheduled'
+        required: true
+      environment:
+        type: string
+        description: 'Target deployment environment (staging/production)'
+        required: true
+      helm_chart_dir:
+        type: string
+        description: 'Path to Helm chart configuration directory'
+        required: true
+      image_tag:
+        type: string
+        description: 'Docker image tag to deploy for the service'
+        required: true
+      migrator_image_tag:
+        type: string
+        description: 'Optional Docker image tag for database migrations'
+        required: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      KUBECONFIG: .kube/kubeconfig
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install helm-diff plugin
+        run: helm plugin install https://github.com/databus23/helm-diff
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_PERSONAL_ACCESS_TOKEN }}
+
+      - name: Get the kubeconfig file
+        run: doctl kubernetes cluster kubeconfig save ${{ inputs.cluster_name }}
+
+      - name: helm diff
+        run: |
+          helm dependency build ${{ inputs.helm_chart_dir }}
+          helm diff upgrade --install \
+          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helm_chart_dir }} \
+          --namespace ${{ inputs.environment }} \
+          --set environment=${{ inputs.environment }} \
+          --set image=${{ inputs.image_tag }} \
+          --set migratorImage=${{ inputs.migrator_image_tag }} \
+          --set nodePool=${{ inputs.node_pool }} \
+          -f ${{ inputs.helm_chart_dir }}/${{ inputs.environment }}.yaml \
+          --kubeconfig ${{ env.KUBECONFIG }}
+
+      - name: helm upgrade
+        run: |
+          KUBECONFIG=$PWD/$KUBECONFIG helm upgrade --install \
+          --create-namespace \
+          apps-${{ inputs.environment }}-${{ inputs.service_name }} ${{ inputs.helm_chart_dir }} \
+          --namespace ${{ inputs.environment }} \
+          --set environment=${{ inputs.environment }} \
+          --set image=${{ inputs.image_tag }} \
+          --set migratorImage=${{ inputs.migrator_image_tag }} \
+          --set nodePool=${{ inputs.node_pool }} \
+          -f ${{ inputs.helm_chart_dir }}/${{ inputs.environment }}.yaml \
+          --dependency-update \
+          --kubeconfig ${{ env.KUBECONFIG }}

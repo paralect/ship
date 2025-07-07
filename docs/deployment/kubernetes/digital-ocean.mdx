@@ -2,61 +2,70 @@
 title: "Digital Ocean"
 ---
 
-import SecretsSection from '/snippets/kubernetes-deploy-envs-section.mdx';
-import PortSection from '/snippets/kubernetes-deploy-port-section.mdx';
+import UpstashRedis from '/snippets/upstash-redis-aws-eks.mdx';
+import MongoAtlas from '/snippets/mongo-atlas-section.mdx';
+import EnvironmentVariables from '/snippets/environment-variables.mdx';
 
-It's a step-by-step Ship deployment guide. We will use Digital Ocean Managed [Kubernetes](https://www.digitalocean.com/products/kubernetes) and [MongoDB](https://www.digitalocean.com/products/managed-databases-mongodb), [Container Registry](https://www.digitalocean.com/products/container-registry), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com/) for DNS and SSL configuration.
+It's a step-by-step Ship deployment guide. We will use Digital Ocean Managed [Kubernetes](https://www.digitalocean.com/products/kubernetes), [Container Registry](https://www.digitalocean.com/products/container-registry), [Mongo Atlas](https://www.mongodb.com/), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com/) for DNS and SSL configuration.
 
-You need to create [GitHub](https://github.com/), [CloudFlare](https://www.cloudflare.com/), [Digital Ocean](https://www.digitalocean.com/) accounts and install the next tools on your machine before starting:
+You need to create [GitHub](https://github.com/), [CloudFlare](https://www.cloudflare.com/), [Digital Ocean](https://www.digitalocean.com/) and [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) accounts and install the next tools on your machine before starting:
 
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster (We recommend installing it via [Docker Desktop](https://www.docker.com/products/docker-desktop/));
-- [helm](https://helm.sh/docs/intro/install/) - CLI tool for managing Kubernetes deployments;
-- [kubectx](https://github.com/ahmetb/kubectx) - CLI tool for easier switching between Kubernetes contexts;
-- [jq](https://jqlang.github.io/jq/) - command-line JSON processor used to manipulate JSON data;
+* [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster;
+* [kubectx](https://github.com/ahmetb/kubectx) - CLI tool for easier switching between Kubernetes contexts;
+* [helm](https://helm.sh/docs/intro/install) - CLI tool for managing Kubernetes deployments;
+* [k8sec](https://github.com/dtan4/k8sec) - CLI tool for managing Kubernetes Secrets easily;
+
+<Accordion title="How to install k8sec on Linux?">
+  Download k8sec tar.gz, then do:
+
+  ```
+  chmod +x k8sec
+  ```
+  ```
+  sudo cp k8sec /usr/local/bin/
+  ```
+  ```
+  k8sec --help
+  ```
+</Accordion>
 
 Try the next commands to ensure that everything is installed correctly:
 
 ```
-kubectl get pods -A
-
-helm list
+kubectl
 
 kubectx
+
+helm
+
+k8sec
 ```
 
 Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) if you already haven't.
 
 ## Setup project
 
-First, initialize your project. Type `npx create-ship-app init` in the terminal then choose **Digital Ocean Managed Kubernetes** deployment type.
+First, initialize your project. Type `npx create-ship-app@latest` in the terminal then choose **Digital Ocean Managed Kubernetes** deployment type.
 
 ![Init project](/images/init-project.png)
 
 You will have next project structure.
 
 ```shell
-/my-app
+/my-ship-app
   /.github
-  /web
-  /api
+  /apps
+    /api
+    /web
   /deploy
   ...
-```
-
-Create GitHub private repository and upload source code.
-
-![Private repo](/images/private-repo.png)
-
-```shell
-cd my-app
-git remote add origin https://github.com/Oigen43/my-app.git
-git branch -M main
-git push -u origin main
 ```
 
 ## Container registry
 
 You need to create [Container Registry](https://www.digitalocean.com/products/container-registry) for storing Docker images. The deployment script will upload images to Container Registry during the build step, and Kubernetes will automatically pull these images from Container Registry to run a new version of service during the deployment step.
+
+Name container registry as the name of organization, which usually is equals to the name of the project: `my-ship-app`.
 
 ![Container Registry creation](/images/container-registry-creation.png)
 
@@ -64,30 +73,16 @@ After some time, you will get registry endpoint.
 
 ![Container Registry creation](/images/container-registry-created.png)
 
-Now you should configure the deployment script to point Container Registry.
-Need to update `dockerRegistry.name` value to `registry.digitalocean.com/oigen43/my-app`.
-
-```javascript deploy/script/src/config.js
-const config = {
-  dockerRegistry: {
-    name: "registry.digitalocean.com/oigen43/my-app",
-  },
-};
-```
-
-`registry.digitalocean.com/oigen43/my-app` consists of 2 values:
-
-- `registry.digitalocean.com/oigen43` - registry endpoint;
-- `my-app` - project name;
+`registry.digitalocean.com/my-ship-app` is registry endpoint, where `my-ship-app` is registry name.
 
 Docker images for each service are stored in separate repository.
 In Digital Ocean repositories are created automatically when something is uploaded by specific paths.
 During deployment process script will automatically create paths to repositories in next format:
 
-- [**API**](/api-reference/overview) - registry.digitalocean.com/oigen43/my-app-api;
-- [**Scheduler**](/scheduler) - registry.digitalocean.com/oigen43/my-app-scheduler;
-- [**Migrator**](/migrator) - registry.digitalocean.com/oigen43/my-app-migrator;
-- [**Web**](/web/overview) - registry.digitalocean.com/oigen43/my-app-web;
+- [**API**](/api-reference/overview) - registry.digitalocean.com/my-ship-app/api;
+- [**Scheduler**](/scheduler) - registry.digitalocean.com/my-ship-app/scheduler;
+- [**Migrator**](/migrator) - registry.digitalocean.com/my-ship-app/migrator;
+- [**Web**](/web/overview) - registry.digitalocean.com/my-ship-app/web;
 
 <Tip>
   Images for all environments will be uploaded to the same repository for each
@@ -98,295 +93,504 @@ During deployment process script will automatically create paths to repositories
 
 Now let's create [Managed Kubernetes](https://www.digitalocean.com/products/kubernetes) cluster.
 
-We recommend you to create a cluster in the region where your end-users are located, it will reduce response time to incoming requests to all services. Also, if your cluster will be located in one region with a Container Registry deployment process will be faster.
+<Steps>
+  <Step title="Select a region">
+    Navigate to the cluster creation page [here](https://cloud.digitalocean.com/kubernetes/clusters/new)<br/>
+    <Tip>
+      We recommend you to create a cluster in the region where your end-users are located, it will reduce response time to incoming requests to all services.
+    </Tip>
 
-![Cluster Region](/images/cluster-region.png)
+    <Tip>
+      Also, if your cluster will be located in one region with a Container Registry deployment process will be faster. You can find more information about regions [here](https://docs.digitalocean.com/products/platform/availability-matrix/).
+    </Tip>
+    <Frame>
+      <img src="/images/cluster-region.png" alt="Cluster Region" />
+    </Frame>
+  </Step>
 
-Set Node pool name and configure Nodes.
-Digital Ocean recommends creating at least 2 nodes for the production environment.
+  <Step title="Set Node pool name">
+    Set Node pool name (e.g. `pool-app`) and configure Nodes.
+    Digital Ocean recommends creating at least 2 nodes for the production environment. These settings will have an impact on the price of the cluster.
 
-![Cluster Capacity](/images/cluster-capacity.png)
+    <Frame>
+      <img src="/images/cluster-capacity.png" alt="Cluster Capacity" />
+    </Frame>
+  </Step>
 
-The last step is to set a cluster name. A common practice is to use the project name for it. Also, you can add an environment prefix if you have separate clusters for each environment: `my-app-staging`, `my-app-production`.
+  <Step title="Set cluster name">
+    Set cluster name (e.g. `my-ship-app`). A common practice is to use the project name for it.
 
-![Cluster Price](/images/cluster-price.png)
+    <Frame>
+      <img src="/images/cluster-name.png" alt="Cluster Name" />
+    </Frame>
+  </Step>
 
-Now you need to configure node pool in deployment script that we created on second screenshot.
-Need to update `nodePool` value to `pool-app`.
+  <Step title="Review and Create">
+    Click on `Create Kubernetes Cluster` button to create a cluster and wait for cluster to be ready.
+  </Step>
 
-```javascript deploy/script/src/config.js
-const config = {
-  nodePool: "pool-app",
-};
-```
+  <Step title="Integrate with created Container Registry">
+    After cluster is created, go to the Container Registry's settings and find `DigitalOcean Kubernetes integration` section.
 
-## Accessing cluster from a local machine
+    <Frame>
+      <img src="/images/do/registry-settings.png" alt="Registry Settings" />
+    </Frame>
 
-You need to download cluster's kubeconfig, this file includes information for accessing cluster through `kubectl`.
+    You need to select your newly created `my-ship-app` cluster.
 
-![Kubeconfig Download](/images/kubeconfig-download.png)
-
-```yaml my-app-kubeconfig.yaml
-clusters:
-  - cluster:
-      certificate-authority-data: ...
-      server: ...
-    name: do-fra1-my-app
-contexts:
-  - context:
-      cluster: do-fra1-my-app
-      user: do-fra1-my-app-admin
-    name: do-fra1-my-app
-current-context: do-fra1-my-app
-kind: Config
-preferences: {}
-users:
-  - name: do-fra1-my-app-admin
-    user:
-      token: ...
-```
-
-[Kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files contain information about several clusters, you have your own on the local machine, it should have been created after `kubectl` installation.
-
-You need to add information about the new cluster to your config.
-Find `.kube/config` file on your machine, and add `cluster`, `context` and `user` values from the downloaded config to it.
-
-If everything is ok you will be able to switch to your cluster.
-Type `kubectx` in the terminal and select your cluster.
-Then try to get information about installed pods in the cluster. Type `kubectl get pods -A` in the terminal.
-
-If you did all steps correctly you will see the next info in a terminal.
-
-![Pods List](/images/pods-list.png)
+    <Frame>
+      <img src="/images/do/registry-check-cluster.png" alt="Registry Check Cluster" />
+    </Frame>
+  </Step>
+</Steps>
 
 ## Personal access token
 
 To upload docker images in Container Registry and pull them after from cluster we need Digital Ocean [Personal Access Token](https://cloud.digitalocean.com/account/api/tokens).
-When you created cluster, this token was automatically created.
+When you created cluster - one with **Read Only** scope was automatically created.
+
+But we need to [generate](https://cloud.digitalocean.com/account/api/tokens/new) a new one with:
+
+- Name (e.g. `my-ship-app-admin-deploy`)
+- **Full Access** scope
+- No expiration
+
+<Tip>
+  You cannot change scope of already generated token.
+</Tip>
 
 ![Digital Ocean Token](/images/do-token.png)
 
-Add **Write** scope to the token and change token's name to app name, it will be easier to find it in the future.
+We will need this token soon, so don't close this page yet.
 
-![Digital Ocean Update Token](/images/do-token-update.png)
-
-You can grab this token from kubeconfig that we downloaded from Digital Ocean.
-
-```yaml
-users:
-  - name: do-fra1-my-app-admin
-    user:
-      token: dop_v1_...
-```
+![Digital Ocean Token](/images/do/full-access-token.png)
 
 <Warning>
-  Be careful with Personal Access Token, if someone steals it he will get access
+  Be very careful with Personal Access Token, if someone steals it he will get access
   to all resources from your Digital Ocean account.
 </Warning>
 
-## Dependencies
+## Accessing cluster from a local machine
 
-Now we need to install our dependencies in the cluster.
+<Steps>
+  <Step title="Download cluster's kubeconfig">
+    Download cluster's kubeconfig, this file includes information for accessing cluster through `kubectl`.
 
-| Dependency                                                                                        | Description                                                                                                                                                                                  |
-| :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [ingress-nginx](https://github.com/kubernetes/ingress-nginx)                                      | Ingress controller for Kubernetes using Nginx as a reverse proxy and load balancer                                                                                                           |
-| [redis](https://github.com/bitnami/charts/tree/main/bitnami/redis)                              | Open source, advanced key-value store. Redis needed for API service                                                                                                                          |
-| [regcred](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/deploy/dependencies/regcred/bin/create-docker-regcred.sh) | Bash script for creating Kubernetes [Secret](https://kubernetes.io/docs/concepts/configuration/secret/). Secret needs for authorizing in Container Registry when pulling images from cluster |
+    <Frame>
+      <img src="/images/kubeconfig-download.png" alt="Kubeconfig Download" />
+    </Frame>
+
+    <Accordion title="Expected structure of downloaded kubeconfig">
+      ```yaml my-ship-app-kubeconfig.yaml
+      apiVersion: v1
+      clusters:
+      - cluster:
+          certificate-authority-data: ...
+          server: https://...
+        name: do-nyc3-my-ship-app
+      contexts:
+      - context:
+          cluster: do-nyc3-my-ship-app
+          user: do-nyc3-my-ship-app-admin
+        name: do-nyc3-my-ship-app
+      current-context: do-nyc3-my-ship-app
+      kind: Config
+      preferences: {}
+      users:
+      - name: do-nyc3-my-ship-app-admin
+        user:
+          token: dop_v1_...
+      ```
+    </Accordion>
+
+    And replace initial **Read only** token with new **Full access** token from [Personal access token](#personal-access-token) section.
+
+    ```yaml my-ship-app-kubeconfig.yaml {18-19}
+    apiVersion: v1
+    clusters:
+    - cluster:
+        certificate-authority-data: ...
+        server: https://...
+      name: do-nyc3-my-ship-app
+    contexts:
+    - context:
+        cluster: do-nyc3-my-ship-app
+        user: do-nyc3-my-ship-app-admin
+      name: do-nyc3-my-ship-app
+    current-context: do-nyc3-my-ship-app
+    kind: Config
+    preferences: {}
+    users:
+    - name: do-nyc3-my-ship-app-admin
+      user:
+        # replace this token for full access token
+        token: dop_v1_...
+    ```
+  </Step>
+
+  <Step title="Add cluster, context and user to kubeconfig">
+    <Tip>
+      [Kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files contain information about several clusters, you have your own on the local machine, it should have been created after `kubectl` installation.
+    </Tip>
+
+    You need to add information about the new cluster to your kubeconfig.
+    Find `.kube/config` file on your machine, and add `cluster`, `context` and `user` values from `my-ship-app-kubeconfig.yaml`.
+
+    ```yaml ~/.kube/config {7-11, 17-21, 29-33}
+    apiVersion: v1
+    clusters:
+    - cluster:
+        certificate-authority-data: ...
+        server: https://...
+      name: some-cluster
+    # your new cluster from my-ship-app-kubeconfig.yaml goes here
+    - cluster:
+        certificate-authority-data: ...
+        server: https://...
+      name: do-nyc3-my-ship-app
+    contexts:
+    - context:
+        cluster: some-cluster
+        user: some-user
+      name: some-cluster
+    # your new context from my-ship-app-kubeconfig.yaml goes here
+    - context:
+        cluster: do-nyc3-my-ship-app
+        user: do-nyc3-my-ship-app-admin
+      name: do-nyc3-my-ship-app
+    current-context: some-cluster
+    kind: Config
+    preferences: {}
+    users:
+    - name: some-user
+      user:
+        token: dop_v1_...
+    # your new user from my-ship-app-kubeconfig.yaml goes here
+    - name: do-nyc3-my-ship-app-admin
+      user:
+        token: dop_v1_...
+    ```
+  </Step>
+
+  <Step title="Switch to cluster context">
+    Execute kubectx in your terminal and select your cluster from the list.
+    ```shell
+    kubectx
+    ```
+
+    You will see the list of available clusters.
+
+    ```shell
+    some-cluster
+    do-nyc3-my-ship-app
+    ```
+
+    Select your cluster from the list:
+    ```shell
+    kubectx do-nyc3-my-ship-app
+    ```
+  </Step>
+
+  <Step title="Verify cluster access">
+    Check the installed pods by running:
+
+    ```shell
+    kubectl get pods -A
+    ```
+
+    You should see a list of system pods in your cluster:
+
+    ```shell
+    NAMESPACE     NAME                            READY   STATUS    RESTARTS   AGE
+    kube-system   cilium-tb8td                    1/1     Running   0          18m
+    kube-system   cilium-x5w8n                    1/1     Running   0          19m
+    kube-system   coredns-5679ffb5c8-b7dzj        1/1     Running   0          17m
+    kube-system   coredns-5679ffb5c8-d465r        1/1     Running   0          17m
+    kube-system   cpc-bridge-proxy-ebpf-2gzfr     1/1     Running   0          17m
+    kube-system   cpc-bridge-proxy-ebpf-jknzh     1/1     Running   0          17m
+    kube-system   csi-do-node-jcqd2               2/2     Running   0          17m
+    kube-system   csi-do-node-rpx6q               2/2     Running   0          17m
+    kube-system   do-node-agent-ldhxq             1/1     Running   0          17m
+    kube-system   do-node-agent-pdksz             1/1     Running   0          17m
+    kube-system   hubble-relay-66f54dcd57-l7xjb   1/1     Running   0          21m
+    kube-system   hubble-ui-785bdbc45b-6xd57      2/2     Running   0          18m
+    kube-system   konnectivity-agent-h79mt        1/1     Running   0          17m
+    kube-system   konnectivity-agent-hvv67        1/1     Running   0          17m
+    ```
+  </Step>
+</Steps>
+
+## Ingress NGINX Controller
+
+[ingress-nginx](https://github.com/kubernetes/ingress-nginx) is an Ingress controller for Kubernetes using [NGINX](https://nginx.org) as a reverse proxy and load balancer.
 
 <Tip>
-  You can read
-  **[here](https://docs.nginx.com/nginx-ingress-controller/intro/how-nginx-ingress-controller-works/)**
-  how ingress-nginx works.
+  Learn more about ingress-nginx functionality in the **[official documentation](https://docs.nginx.com/nginx-ingress-controller/intro/how-nginx-ingress-controller-works/)**.
 </Tip>
 
-Configure [Helm Values](https://helm.sh/docs/chart_template_guide/values_files/) for ingress-nginx. Need to update `doks.digitalocean.com/node-pool` value to `pool-app`.
+<Steps>
+  <Step title="Navigate to dependencies directory">
+    Change to the `deploy/dependencies` directory in your terminal.
+  </Step>
 
-```yaml deploy/dependecies/ingress-nginx/values/values.yml
-controller:
-  publishService:
-    enabled: true
-  nodeSelector:
-    doks.digitalocean.com/node-pool: pool-app
+  <Step title="Configure Helm Values (Optional)">
 
-rbac:
-  create: true
+    This step is required **only if** you specified a custom node pool name in your Digital Ocean Kubernetes cluster.
 
-defaultBackend:
-  enabled: false
-```
+    If you did, update the `doks.digitalocean.com/node-pool` value in `values.yaml.gotmpl`:
 
-Open `deploy/bin` folder and run the bash script.
+    ```yaml deploy/dependencies/ingress-nginx/values.yaml.gotmpl {5}
+    controller:
+      publishService:
+        enabled: true
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-app
 
-```shell
-bash deploy-dependencies.sh
-```
+    rbac:
+      create: true
 
-You will be prompted to enter some values when installing `regcred` dependency
+    defaultBackend:
+      enabled: false
+    ```
+  </Step>
 
-```shell
-dockerhub username: // Personal Access Token(dop_v1_...)
-dockerhub password: // Personal Access Token(dop_v1_...)
-namespace: // production or staging
-```
+
+  <Step title="Install dependencies">
+    Install helm dependencies using helmfile:
+
+    ```bash
+    helmfile deps
+    ```
+  </Step>
+
+  <Step title="Review and apply changes">
+    Preview the changes first:
+
+    ```bash
+    helmfile diff
+    ```
+
+    If the preview looks correct, apply the configuration:
+
+    ```bash
+    helmfile apply
+    ```
+  </Step>
+</Steps>
 
 ## DNS and SSL
 
-Once you deploy ingress-nginx, it will create a Load Balancer with external IP. All incoming requests to services should be sent to Load Balancer external IP, then requests to our services will be routed to domains from Ingresses configuration by **ingress-nginx**.
+<Steps>
+  <Step title="Get Load Balancer Address">
+    After deploying ingress-nginx, retrieve the Load Balancer's external ip:
 
-To get Load Balancer IP type `kubectl get services -n ingress-nginx` in the terminal and copy `EXTERNAL-IP` of `ingress-nginx-controller`.
+    ```bash
+    kubectl get svc ingress-nginx-controller -n ingress-nginx
+    ```
 
-```shell
-oigen@MacBook-Pro-4 ~ % kubectl get services -n ingress-nginx
-NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                      AGE
-ingress-nginx-controller             LoadBalancer   10.245.201.160   138.68.124.241   80:30186/TCP,443:32656/TCP   28m
-```
+    Copy the value from the `EXTERNAL-IP` column.
 
-<Tip>
-  It take some time while **ingress-nginx** will configure everything and
-  provide `EXTERNAL-IP`.
-</Tip>
+    ```shell
+    NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                      AGE
+    ingress-nginx-controller   LoadBalancer   10.245.201.160   138.68.124.241   80:30186/TCP,443:32656/TCP   28m
+    ```
 
-We are using CloudFlare for setting DNS records. You can [register](https://developers.cloudflare.com/registrar/get-started/register-domain/) a domain in CloudFlare or [transfer](https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare/) it from another service.
+    <Tip>
+      It take some time while **ingress-nginx** will configure everything and
+      provide `EXTERNAL-IP`.
+    </Tip>
+  </Step>
 
-Open the **DNS** tab in CloudFlare and create two `A` records for **Web** and **API** that points Load Balancer external IP.
+  <Step title="Domain Naming Convention">
+    You can follow this recommended naming pattern for different environments:
 
-![CloudFlare Web](/images/cloudflare-web.png)
+    | Environment | API Domain           | Web Domain           |
+    |-------------|----------------------|----------------------|
+    | Production  | api.ship.com         | app.ship.com         |
+    | Staging     | api.staging.ship.com | app.staging.ship.com |
+  </Step>
 
-![CloudFlare API](/images/cloudflare-api.png)
+  <Step title="Configure DNS in Cloudflare">
+    1. First, ensure you have a domain in Cloudflare. You can either:
+    - [Register a new domain](https://developers.cloudflare.com/registrar/get-started/register-domain/)
+    - [Transfer an existing domain](https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare/)
 
-Select the **Proxied** option that will proxy all traffic through Cloudflare.
-It does a lot of awesome work, you can read more about it [here](https://developers.cloudflare.com/dns/manage-dns-records/reference/proxied-dns-records/).
-In our case we use it for automatic **SSL** certificates generation.
+    2. In the Cloudflare DNS tab, create 2 `A` records:
+    - One for Web interface
+    - One for API endpoint
 
-<Tip>
-  If you are deploying on a staging/demo environment add the corresponding
-  postfix in the domain. **Example**: ```my-app-staging```
-</Tip>
+    Both should point to your Load Balancer's external hostname.
 
-Now add your domains in helm templates. In example, we are deploying on **production** environment, if you are deploying on **staging** you will need to update `staging.yaml` file.
+    Enable the **Proxied** option to:
+    - Route traffic through Cloudflare
+    - Generate SSL certificates automatically
 
-```yaml deploy/app/api/production.yaml
-service: api
-port: 3001
-domain: my-app-api.paralect.net
-```
+    <Frame>
+      <img src="/images/do/cloudflare-api.png" alt="CloudFlare API DNS Configuration" />
+    </Frame>
 
-```yaml deploy/app/web/production.yaml
-service: web
-port: 3002
-domain: my-app.paralect.net
-```
+    <br/>
 
-## Database
+    <Frame>
+      <img src="/images/do/cloudflare-web.png" alt="CloudFlare Web DNS Configuration" />
+    </Frame>
 
-Now, let's create [Managed MongoDB](https://www.digitalocean.com/products/managed-databases-mongodb) cluster. Select the latest MongoDB version and choose the same region as the Kubernetes cluster, it will increase database requests speed.
+    <Note>
+      Cloudflare's free Universal SSL certificates only cover the apex domain and one subdomain level. For multiple subdomain levels, you'll need an [Advanced Certificate](https://developers.cloudflare.com/ssl/edge-certificates/advanced-certificate-manager/manage-certificates/).
+    </Note>
+  </Step>
 
-![MongoDB Region](/images/mongodb-region.png)
+  <Step title="Update Configuration Files">
+    Update your domain settings in the appropriate environment configuration files:
 
-Choose a database configuration.
+    For API service:
+    <CodeGroup>
+      ```yaml deploy/app/api/production.yaml
+      service: api
+      port: 3001
+      domain: api.my-ship-app.paralect.com
+      ```
 
-![MongoDB Configuration](/images/mongodb-configuration.png)
+      ```yaml deploy/app/api/staging.yaml
+      service: api
+      port: 3001
+      domain: api.my-ship-app.staging.paralect.com
+      ```
+    </CodeGroup>
 
-The last step is to set a cluster name. A common practice is to use the project name for it. Also, you can add an environment prefix if you have separate clusters for each environment: `my-app-staging`, `my-app-production`.
+    For Web service:
+    <CodeGroup>
+      ```yaml deploy/app/web/production.yaml
+      service: web
+      port: 3002
+      domain: my-ship-app.paralect.com
+      ```
 
-![MongoDB Name](/images/mongodb-name.png)
+      ```yaml deploy/app/web/staging.yaml
+      service: web
+      port: 3002
+      domain: my-ship-app.staging.paralect.com
+      ```
+    </CodeGroup>
+  </Step>
+</Steps>
 
-After some time database cluster will be created. Copy connection string and add it in **API** config.
+## MongoDB Atlas
+<MongoAtlas provider="do" />
 
-![MongoDB Connection String](/images/mongodb-connection-string.png)
+# Environment variables
+<EnvironmentVariables />
 
-<Warning>
-  Change database name from `admin` to `api-production` or `api-staging` in
-  connection string.
-</Warning>
 
-MongoDB cluster is open to all incoming connections by default, which is not secure. We need to select sources that will be allowed to connect to the database. Open the **Settings** tab, and select your k8s cluster. If you want to connect to the database from your machine also add your IP to **Trusted Sources**.
-
-![Trusted sources](/images/mongodb-trusted-sources.png)
-
-<SecretsSection/>
-
-<PortSection/>
-
-## CI/CD
+## Setting up GitHub Actions CI/CD
 
 To automate deployment through Github Actions you need to configure [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) inside workflow files.
 
-<Tip>
-  The deployment will be triggered on each commit. Committing to the **main**
-  branch will trigger a deployment in the **staging** environment, and
-  committing to the **production** branch will trigger a deployment in the
-  **production** environment.
-</Tip>
+### Configuring GitHub Actions secrets and variables
 
-To check required Secrets you can open workflows in the `.github` folder at root of your project.
-To automate deployment to the **production** environment you need to create `DIGITAL_OCEAN_TOKEN` and `KUBE_CONFIG_PRODUCTION` secrets for `api-production.yml` and `web-production.yml` workflows.
+<Note>
+  Before starting, make sure you have created a GitHub repository for your project.
+</Note>
 
-`DIGITAL_OCEAN_TOKEN`
+GitHub Secrets and variables allow you to manage reusable configuration data.
 
-![DO Secret](/images/do-secret.png)
+Secrets are encrypted and are used for sensitive data. [Learn more about encrypted secrets](https://docs.github.com/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets).
 
-`KUBE_CONFIG_PRODUCTION`
-
-![Kubeconfig Secret](/images/kubeconfig-secret.png)
-
-Now commit all changes to GitHub that will trigger deployment.
-
-![CI start](/images/ci-start.png)
-
-Done! Application deployed and can be accessed by provided domain.
-
-![CI finish](/images/ci-finish.png)
-
-![Deployment finish](/images/deployment-finish.png)
-
-![Deployed pods](/images/deployed-pods.png)
+Variables are shown as plain text and are used for non-sensitive data. [Learn more about variables](https://docs.github.com/actions/learn-github-actions/variables).
 
 <Tip>
-  If something went wrong you can check the workflows logs on GitHub and use
-  [**kubectl
-  logs**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#interacting-with-running-pods),
-  [**kubectl
-  describe**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#viewing-finding-resources)
-  commands.
+The deployment will be triggered on each commit:
+- Commits to **main** branch → deploy to **staging** environment
+- Commits to **production** branch → deploy to **production** environment
 </Tip>
 
-## Manual deployment
+[Configure](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) the following secrets and variables in your GitHub repository:
 
-To deploy services in the cluster manually you need to set cluster authorization credentials inside the **config**.
-Set `environment` and `namespace` to `production/staging` and set your Personal Access Token in `dockerRegistry.username` and `dockerRegistry.password`.
+| Name                    | Type     | Description                                                                                                                 |
+|-------------------------|----------|-----------------------------------------------------------------------------------------------------------------------------|
+| DO_PERSONAL_ACCESS_TOKEN| secret   | The secret access user created for CI/CD. This allows GitHub Actions to authenticate with DO services                       |
+| CLUSTER_NAME_STAGING    | variable | Name of the staging cluster. (our case: `my-ship-app`)                                                                      |
+| CLUSTER_NAME_PRODUCTION | variable | Name of the production cluster. (our case: `my-ship-app`, same as staging cluster since we have only one cluster)           |
+| CLUSTER_NODE_POOL       | variable | Name of the node pool. (our case: `pool-app`)                                                                               |
+| REGISTRY_NAME           | variable | Name of the Digital Ocean Container Registry. (our case: `my-ship-app`)                                                    |
 
-```javascript deploy/src/config.js
-const config = {
-  rootDir,
+<Warning>
+Never commit sensitive credentials directly to your repository. <br/>
+  Always use GitHub Secrets for sensitive information like DO keys.
+</Warning>
 
-  service: ENV.SERVICE,
+<Note>
+Variables (unlike secrets) are visible in logs and can be used for non-sensitive configuration values that may need to be referenced or modified.
+</Note>
 
-  environment: ENV.ENVIRONMENT || "production",
+<Note>
+  We set up **DO_PERSONAL_ACCESS_TOKEN** to be universal for both production and staging environments with **Full access** scope.
+</Note>
 
-  namespace: ENV.NAMESPACE || "production",
+<Note>
+  Your **KUBE_CONFIG_PRODUCTION** and **KUBE_CONFIG_STAGING** will be the same if you have only one cluster for both environments.
+</Note>
 
-  kubeConfig: ENV.KUBE_CONFIG,
+<Frame>
+  <img src="/images/do/gh-secrets.png" alt="GitHub Secrets" />
+</Frame>
 
-  home: ENV.HOME,
+<Frame>
+  <img src="/images/do/gh-variables.png" alt="GitHub Variables" />
+</Frame>
 
-  dockerRegistry: {
-    name: "registry.digitalocean.com/oigen43/my-app",
-    username: ENV.DOCKER_AUTH_USERNAME || "dop_v1_...",
-    password: ENV.DOCKER_AUTH_PASSWORD || "dop_v1_...",
 
-    imageTag: ENV.IMAGE_TAG,
-  },
-};
+Now commit all changes to GitHub that will trigger deployment, or you can [run a workflow manually](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow)
+
+<Frame>
+  <img src="/images/do/ci-start.png" alt="CI start" />
+</Frame>
+
+Done! Application deployed and can be accessed by the provided domain.
+
+
+<Frame>
+  <img src="/images/do/ci-finish.png" alt="CI finish" />
+</Frame>
+
+
+<Frame>
+  <img src="/images/do/deployment-finish.png" alt="Deployment finish" />
+</Frame>
+
+
+```shell
+kubectl get pods -A
+
+NAMESPACE       NAME                                        READY   STATUS      RESTARTS   AGE
+ingress-nginx   ingress-nginx-controller-6bdff8c8fd-kwxcn   1/1     Running     0          6h50m
+kube-system     cilium-tb8td                                1/1     Running     0          8h
+kube-system     cilium-x5w8n                                1/1     Running     0          8h
+kube-system     coredns-5679ffb5c8-b7dzj                    1/1     Running     0          8h
+kube-system     coredns-5679ffb5c8-d465r                    1/1     Running     0          8h
+kube-system     cpc-bridge-proxy-ebpf-2gzfr                 1/1     Running     0          8h
+kube-system     cpc-bridge-proxy-ebpf-jknzh                 1/1     Running     0          8h
+kube-system     csi-do-node-jcqd2                           2/2     Running     0          8h
+kube-system     csi-do-node-rpx6q                           2/2     Running     0          8h
+kube-system     do-node-agent-ldhxq                         1/1     Running     0          8h
+kube-system     do-node-agent-pdksz                         1/1     Running     0          8h
+kube-system     hubble-relay-66f54dcd57-l7xjb               1/1     Running     0          8h
+kube-system     hubble-ui-785bdbc45b-6xd57                  2/2     Running     0          8h
+kube-system     konnectivity-agent-h79mt                    1/1     Running     0          8h
+kube-system     konnectivity-agent-hvv67                    1/1     Running     0          8h
+production      api-57d7787d98-cj75s                        1/1     Running     0          2m15s
+production      migrator-286bq                              0/1     Completed   0          2m54s
+production      scheduler-6c497dfbcc-n6b5l                  1/1     Running     0          2m6s
+production      web-54c6674974-lv94b                        1/1     Running     0          71m
+redis           redis-master-0                              1/1     Running     0          6h49m
+staging         api-689b75c786-97c4l                        1/1     Running     0          71m
+staging         scheduler-57b984f6c-zcc44                   1/1     Running     0          71m
+staging         web-55bdd955b-chswp                         1/1     Running     0          70m
 ```
 
-Run the deployment **script**. It will do the same as the CI deployment, but you run it manually.
+<Tip>
+If something went wrong you can check the workflows logs on GitHub and use [**kubectl logs**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#interacting-with-running-pods), [**kubectl describe**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#viewing-finding-resources) commands.
+</Tip>
 
-```shell deploy/script/src
-node index
-
-? What service to deploy? (Use arrow keys)
-  api
-  web
-```
+## Setting up Upstash Redis database (recommended)
+<UpstashRedis provider="do" />

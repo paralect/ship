@@ -9,5 +9,5 @@ spec:
   selector:
     app: {{ .Values.service }}
   ports:
-    - protocol: TCP
-      port: {{ .Values.port }}
+  - protocol: TCP
+    port: {{ .Values.port }}
