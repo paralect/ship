@@ -65,8 +65,16 @@ export type CreateConfig = {
   publishEvents?: boolean,
 };
 
+export type PopulateOptions = {
+  localField: string;
+  foreignField?: string; // default '_id'
+  collection: string;
+  fieldName: string;
+};
+
 export type ReadConfig = {
   skipDeletedOnDocs?: boolean,
+  populate?: PopulateOptions | PopulateOptions[];
 };
 
 export type UpdateConfig = {

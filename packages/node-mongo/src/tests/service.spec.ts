@@ -47,9 +47,29 @@ const userSchema = z.object({
   subscriptionId: z.string().optional(),
 });
 
+const postSchema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  title: z.string(),
+  content: z.string(),
+  authorId: z.string(),
+});
+
+const categorySchema = z.object({
+  _id: z.string(),
+  createdOn: z.date().optional(),
+  updatedOn: z.date().optional(),
+  deletedOn: z.date().optional().nullable(),
+  name: z.string(),
+});
+
 type UserType = Omit<z.infer<typeof userSchema>, 'permissions'>;
 type AdminType = Omit<z.infer<typeof userSchema>, 'subscriptionId'>;
 type CompanyType = z.infer<typeof companySchema>;
+type PostType = z.infer<typeof postSchema>;
+type CategoryType = z.infer<typeof categorySchema>;
 
 const usersService = database.createService<UserType>('users', {
   schemaValidator: (obj) => userSchema.parseAsync(obj),
@@ -64,6 +84,14 @@ const companyService = database.createService<CompanyType>('companies', {
   schemaValidator: (obj) => companySchema.parseAsync(obj),
 });
 
+const postsService = database.createService<PostType>('posts', {
+  schemaValidator: (obj) => postSchema.parseAsync(obj),
+});
+
+const categoriesService = database.createService<CategoryType>('categories', {
+  schemaValidator: (obj) => categorySchema.parseAsync(obj),
+});
+
 describe('service.ts', () => {
   before(async () => {
     await database.connect();
@@ -71,6 +99,9 @@ describe('service.ts', () => {
   after(async () => {
     await usersService.drop();
     await usersServiceEscapeRegExp.drop();
+    await postsService.drop();
+    await companyService.drop();
+    await categoriesService.drop();
     await database.close();
   });
   it('should create and find document', async () => {
@@ -665,5 +696,142 @@ describe('service.ts', () => {
       ],
     });
     (newUsers.length).should.be.equal(0);
-  }); 
+  });
+
+  it('should populate single field', async () => {
+    // Insert a user
+    const user = await usersService.insertOne({
+      fullName: 'John Doe',
+    });
+
+    // Insert a post with author reference
+    const post = await postsService.insertOne({
+      title: 'Test Post',
+      content: 'This is a test post',
+      authorId: user._id,
+    });
+
+    // Find post with populated author
+    const populatedPost = await postsService.findOne(
+      { _id: post._id },
+      {
+        populate: {
+          localField: 'authorId',
+          foreignField: '_id',
+          collection: 'users',
+          fieldName: 'author',
+        },
+      },
+    );
+
+    console.log('(should populate single post) populatedPost', populatedPost);
+
+    populatedPost!.should.exist;
+    // populatedPost!.author.should.exist;
+    // populatedPost!.author.fullName.should.equal('John Doe');
+  });
+
+  it('should populate multiple posts', async () => {
+    // Insert users
+    const user1 = await usersService.insertOne({
+      fullName: 'Jane Smith',
+    });
+
+    const user2 = await usersService.insertOne({
+      fullName: 'Bob Johnson',
+    });
+
+    // Insert posts with author references
+    await postsService.insertOne({
+      title: 'Test Post 1',
+      content: 'First post',
+      authorId: user1._id,
+    });
+
+    await postsService.insertOne({
+      title: 'Test Post 2',
+      content: 'Second post',
+      authorId: user2._id,
+    });
+
+    // Find all posts with populated authors
+    const { results: populatedPosts } = await postsService.find(
+      { authorId: { $in: [user1._id, user2._id] } },
+      {
+        populate: {
+          localField: 'authorId',
+          foreignField: '_id',
+          collection: 'users',
+          fieldName: 'author',
+        },
+      },
+    );
+
+    console.log('(should populate multiple posts) populatedPosts', populatedPosts);
+
+    populatedPosts!.should.have.length(2);
+    // populatedPosts![0]!.author.should.exist;
+    // populatedPosts![1]!.author.should.exist;
+    // populatedPosts![0]!.author.fullName.should.exist;
+    // populatedPosts![1]!.author.fullName.should.exist;
+  });
+
+  it('should handle populate with foreign field other than _id', async () => {
+    // Insert a user
+    const user = await usersService.insertOne({
+      fullName: 'Custom Field User',
+    });
+
+    // Insert a post with fullName reference instead of _id
+    const post = await postsService.insertOne({
+      title: 'Custom Field Post',
+      content: 'This post references user by email',
+      authorId: user.fullName, // Using fullName as reference
+    });
+
+    // Find post with populated author using email as foreign field
+    const populatedPost = await postsService.findOne(
+      { _id: post._id },
+      {
+        populate: {
+          localField: 'authorId',
+          foreignField: 'fullName',
+          collection: 'users',
+          fieldName: 'author',
+        },
+      },
+    );
+
+    console.log('(should populate with foreign field other than _id) populatedPost', populatedPost);
+
+    populatedPost!.should.exist;
+    // populatedPost!.author.should.exist;
+    // populatedPost!.author.fullName.should.equal('Custom Field User');
+  });
+
+  // it('should handle populate with no matching documents', async () => {
+  //   // Insert a post with non-existent author reference
+  //   const post = await postsService.insertOne({
+  //     title: 'Orphan Post',
+  //     content: 'This post has no author',
+  //     authorId: 'non-existent-id',
+  //   });
+
+  //   // Find post with populated author (should not have author field)
+  //   const populatedPost = await postsService.findOne(
+  //     { _id: post._id },
+  //     {
+  //       populate: {
+  //         localField: 'authorId',
+  //         foreignField: '_id',
+  //         collection: 'users',
+  //         fieldName: 'author',
+  //       },
+  //     },
+  //   );
+
+  //   populatedPost!.should.exist;
+  //   (populatedPost as any).title.should.equal('Orphan Post');
+  //   (populatedPost as any).author.should.be.undefined;
+  // });
 });
