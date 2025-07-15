@@ -115,7 +115,11 @@
                   "packages/node-mongo/changelog",
                   {
                     "group": "API Reference",
-                    "pages": ["packages/node-mongo/api-reference/service"]
+                    "pages": [
+                      "packages/node-mongo/api-reference/service",
+                      "packages/node-mongo/api-reference/events",
+                      "packages/node-mongo/api-reference/transactions"
+                    ]
                   }
                 ]
               },
