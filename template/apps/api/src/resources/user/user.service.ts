@@ -8,6 +8,7 @@ import { User } from 'types';
 
 const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, {
   schemaValidator: (obj) => userSchema.parseAsync(obj),
+  escapeRegExp: true,
 });
 
 service.createIndex({ email: 1 }, { unique: true });
