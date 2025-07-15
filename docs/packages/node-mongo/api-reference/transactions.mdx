@@ -1,0 +1,34 @@
+---
+title: "Transactions"
+description: "Transactions API reference"
+---
+
+### `withTransaction`
+
+```typescript
+withTransaction: <TRes = any>(
+  transactionFn: (session: ClientSession) => Promise<TRes>,
+): Promise<TRes>
+```
+
+Runs callbacks and automatically commits or rollbacks transaction.
+
+```typescript
+import db from 'db';
+
+const { user, company } = await db.withTransaction(async (session) => {
+  const createdUser = await usersService.insertOne({ fullName: 'Bahrimchuk' }, {}, { session });
+  const createdCompany = await companyService.insertOne(
+    { users: [createdUser._id] }, {},
+    { session },
+  );
+
+  return { user: createdUser, company: createdCompany };
+});
+```
+
+**Parameters**
+- transactionFn: `(session: ClientSession) => Promise<TRes>`;  
+  Function that accepts a client session and manages some business logic. Must return a `Promise`.
+
+**Returns** `Promise<TRes>`.

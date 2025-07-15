@@ -73,10 +73,6 @@
                   }
                 ]
               },
-              {
-                "group": "Packages",
-                "pages": ["packages/node-mongo", "packages/create-ship-app"]
-              },
               "retool",
               {
                 "group": "Examples",
@@ -107,6 +103,23 @@
                   }
                 ]
               }
+            ]
+          },
+          {
+            "group": "Packages",
+            "pages": [
+              {
+                "group": "node-mongo",
+                "pages": [
+                  "packages/node-mongo/overview",
+                  "packages/node-mongo/changelog",
+                  {
+                    "group": "API Reference",
+                    "pages": ["packages/node-mongo/api-reference/service"]
+                  }
+                ]
+              },
+              "packages/create-ship-app"
             ]
           }
         ]
