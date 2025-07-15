@@ -1,0 +1,114 @@
+---
+title: "Events"
+description: "Events API reference"
+---
+
+### `eventBus.on`
+
+```typescript
+on: (
+  eventName: string,
+  handler: InMemoryEventHandler,
+): void
+```
+
+```typescript
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+
+const collectionName = 'users';
+
+eventBus.on(`${collectionName}.created`, (data: InMemoryEvent<User>) => {
+  try {
+    const user = data.doc;
+
+    console.log('user created', user);
+  } catch (err) {
+    logger.error(`${USERS}.created handler error: ${err}`);
+  }
+});
+
+eventBus.on(`${collectionName}.updated`, (data: InMemoryEvent<User>) => {});
+
+eventBus.on(`${collectionName}.deleted`, (data: InMemoryEvent<User>) => {});
+```
+
+In-memory events handler that listens for a CUD events.
+
+**Parameters**
+- eventName: `string`;  
+  Events names to listen.  
+  Valid format: `${collectionName}.created`, `${collectionName}.updated`, `${collectionName}.deleted`.
+- handler: [`InMemoryEventHandler`](#inmemoryeventhandler);
+
+**Returns** `void`.
+
+### `eventBus.once`
+
+```typescript
+once: (
+  eventName: string,
+  handler: InMemoryEventHandler,
+): void
+```
+
+```typescript
+eventBus.once(`${USERS}.updated`, (data: InMemoryEvent<User>) => {
+  try {
+    const user = data.doc;
+
+    console.log('user updated', user);
+  } catch (err) {
+    logger.error(`${USERS}.updated handler error: ${err}`);
+  }
+});
+```
+
+In-memory events handler that listens for a CUD events. **It will be called only once**.
+
+**Parameters**
+- eventName: `string`;  
+  Events names to listen.  
+  Valid format: `${collectionName}.created`, `${collectionName}.updated`, `${collectionName}.deleted`.
+- handler: [`InMemoryEventHandler`](#inmemoryeventhandler);
+
+**Returns** `void`.
+
+### `eventBus.onUpdated`
+
+```typescript
+onUpdated: (
+  entity: string,
+  properties: OnUpdatedProperties,
+  handler: InMemoryEventHandler,
+): void
+```
+
+```typescript
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+
+eventBus.onUpdated('users', ['firstName', 'lastName'], async (data: InMemoryEvent<User>) => {
+  try {
+    await userService.atomic.updateOne(
+      { _id: data.doc._id },
+      { $set: { fullName: `${data.doc.firstName} ${data.doc.lastName}` } },
+    );
+  } catch (err) {
+    console.log(`users onUpdated ['firstName', 'lastName'] handler error: ${err}`);
+  }
+});
+
+eventBus.onUpdated('users', [{ fullName: 'John Wake', firstName: 'John' }, 'lastName'], () => {});
+
+eventBus.onUpdated('users', ['oauth.google'], () => {});
+```
+
+In-memory events handler that listens for specific fields updates. It will be called when one of the provided `properties` updates.  
+
+**Parameters**
+- entity: `string`;  
+  Collection name for events listening.
+- properties: [`OnUpdatedProperties`](#onupdatedproperties);  
+  Properties whose update will trigger the event.
+- handler: [`InMemoryEventHandler`](#inmemoryeventhandler);
+
+**Returns** `void`.

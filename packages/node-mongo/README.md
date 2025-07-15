@@ -6,31 +6,34 @@ Lightweight reactive extension to official Node.js MongoDB [driver](https://mong
 
 ## Features
 
-* **ObjectId mapping**. Automatically converts the `_id` field from the `ObjectId` to a `string`.
-* ️️**Reactive**. Fires events as a document created, updated, or deleted from the database;
-* **CUD operations timestamps**. Automatically sets `createdOn`, `updatedOn`, and `deletedOn` timestamps for CUD operations;
-* **Schema validation**. Validates your data before saving;
-* **Paging**. Implements high-level paging API;
-* **Soft delete**. By default, documents don't remove from the collection, but are marked with the `deletedOn` field;
-* **Extendable**. API is easily extendable, you can add new methods or override existing ones;
-* **Outbox support**. node-mongo can create collections with `_outbox` postfix that stores all CUD events for implementing the [transactional outbox](about:blank) pattern;
+- **ObjectId mapping**. Automatically converts the `_id` field from the `ObjectId` to a `string`.
+- ️️**Reactive**. Fires events as a document created, updated, or deleted from the database;
+- **CUD operations timestamps**. Automatically sets `createdOn`, `updatedOn`, and `deletedOn` timestamps for CUD operations;
+- **Schema validation**. Validates your data before saving;
+- **Paging**. Implements high-level paging API;
+- **Soft delete**. By default, documents don't remove from the collection, but are marked with the `deletedOn` field;
+- **Extendable**. API is easily extendable, you can add new methods or override existing ones;
+- **Outbox support**. node-mongo can create collections with `_outbox` postfix that stores all CUD events for implementing the [transactional outbox](about:blank) pattern;
 
 The following example shows some of these features:
 
 ```typescript
-import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+import { eventBus, InMemoryEvent } from "@paralect/node-mongo";
 
-await userService.updateOne(
-  { _id: '62670b6204f1aab85e5033dc' },
-  (doc) => ({ firstName: 'Mark' }),
+await userService.updateOne({ _id: "62670b6204f1aab85e5033dc" }, (doc) => ({
+  firstName: "Mark",
+}));
+
+eventBus.onUpdated(
+  "users",
+  ["firstName", "lastName"],
+  async (data: InMemoryEvent<User>) => {
+    await userService.atomic.updateOne(
+      { _id: data.doc._id },
+      { $set: { fullName: `${data.doc.firstName} ${data.doc.lastName}` } }
+    );
+  }
 );
-
-eventBus.onUpdated('users', ['firstName', 'lastName'], async (data: InMemoryEvent<User>) => {
-  await userService.atomic.updateOne(
-    { _id: data.doc._id },
-    { $set: { fullName: `${data.doc.firstName} ${data.doc.lastName}` } },
-  );
-});
 ```
 
 ## Installation
@@ -42,13 +45,19 @@ npm i @paralect/node-mongo
 ## Connect to Database
 
 Usually, you need to define a file called `db` that does two things:
+
 1. Creates database instance and connects to the database;
 2. Exposes factory method `createService` to create different [Services](#services) to work with MongoDB;
 
 ```typescript title=db.ts
-import { Database, Service, ServiceOptions, IDocument } from '@paralect/node-mongo';
+import {
+  Database,
+  Service,
+  ServiceOptions,
+  IDocument,
+} from "@paralect/node-mongo";
 
-import config from 'config';
+import config from "config";
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 database.connect();
@@ -57,7 +66,10 @@ class CustomService<T extends IDocument> extends Service<T> {
   // You can add new methods or override existing here
 }
 
-function createService<T extends IDocument>(collectionName: string, options: ServiceOptions = {}) {
+function createService<T extends IDocument>(
+  collectionName: string,
+  options: ServiceOptions = {}
+) {
   return new CustomService<T>(collectionName, database, options);
 }
 
@@ -74,21 +86,23 @@ Service is a collection wrapper that adds all node-mongo features. Under the hoo
 `createService` method returns the service instance. It accepts two parameters: collection name and [ServiceOptions](#serviceoptions).
 
 ```typescript title=user.service.ts
-import { z } from 'zod';
+import { z } from "zod";
 
-import db from 'db';
+import db from "db";
 
-const schema = z.object({
-  _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
-  fullName: z.string(),
-}).strict();
+const schema = z
+  .object({
+    _id: z.string(),
+    createdOn: z.date().optional(),
+    updatedOn: z.date().optional(),
+    deletedOn: z.date().optional().nullable(),
+    fullName: z.string(),
+  })
+  .strict();
 
 type User = z.infer<typeof schema>;
 
-const service = db.createService<User>('users', {
+const service = db.createService<User>("users", {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 
@@ -96,12 +110,13 @@ export default service;
 ```
 
 ```typescript title=update-user.ts
-import userService from 'user.service';
+import userService from "user.service";
 
-await userService.insertOne({ fullName: 'Max' });
+await userService.insertOne({ fullName: "Max" });
 ```
 
 ## Schema validation
+
 Node-mongo supports any schema library, but we recommend [Zod](https://zod.dev/), due to this ability to generate TypeScript types from the schemas.
 
 ### Zod
@@ -117,7 +132,7 @@ const schema = z.object({
 
 type User = z.infer<typeof schema>;
 
-const service = createService<User>('users', {
+const service = createService<User>("users", {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 ```
@@ -141,10 +156,9 @@ type User = {
   fullName: string;
 };
 
-const service = createService<User>('users', {
+const service = createService<User>("users", {
   schemaValidator: (obj) => schema.validateAsync(obj),
 });
-
 ```
 
 Node-mongo validates documents before save.
@@ -192,22 +206,23 @@ find(
 ```
 
 ```typescript
-const { results: users, count: usersCount } = await userService.find(
-  { status: 'active' },
-);
+const { results: users, count: usersCount } = await userService.find({
+  status: "active",
+});
 ```
 
 Fetches documents that matches the filter. Returns an object with the following fields(`FindResult`):
 
-| Field | Description |
-| ------------- | --------|
-| results | documents, that matches the filter |
-| count | total number of documents, that matches the filter |
+| Field      | Description                                                                                    |
+| ---------- | ---------------------------------------------------------------------------------------------- |
+| results    | documents, that matches the filter                                                             |
+| count      | total number of documents, that matches the filter                                             |
 | pagesCount | total number of documents, that matches the filter divided by the number of documents per page |
 
 Pass `page` and `perPage` params to get a paginated result. Otherwise, all documents will be returned.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - readConfig: [`ReadConfig`](#readconfig) `& { page?: number; perPage?: number }`;
 - findOptions: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/FindOptions.html);
@@ -231,6 +246,7 @@ const user = await userService.findOne({ _id: u._id });
 Fetches the first document that matches the filter. Returns `null` if document was not found.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - readConfig: [`ReadConfig`](#readconfig);
 - findOptions: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/FindOptions.html);
@@ -251,12 +267,12 @@ updateOne: (
 ```typescript
 const updatedUserWithEvent = await userService.updateOne(
   { _id: u._id },
-  (doc) => ({ fullName: 'Updated fullname' }),
+  (doc) => ({ fullName: "Updated fullname" })
 );
 
 const updatedUser = await userService.updateOne(
   { _id: u._id },
-  (doc) => ({ fullName: 'Updated fullname' }),
+  (doc) => ({ fullName: "Updated fullname" }),
   { publishEvents: false }
 );
 ```
@@ -264,6 +280,7 @@ const updatedUser = await userService.updateOne(
 Updates a single document and returns it. Returns `null` if document was not found.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - updateFn: `(doc: T) => Partial<T>`;  
   Function that accepts current document and returns object containing fields to update.
@@ -285,14 +302,15 @@ updateMany: (
 
 ```typescript
 const updatedUsers = await userService.updateMany(
-  { status: 'active' },
-  (doc) => ({ isEmailVerified: true }),
+  { status: "active" },
+  (doc) => ({ isEmailVerified: true })
 );
 ```
 
 Updates multiple documents that match the query. Returns array with updated documents.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
 - updateFn: `(doc: T) => Partial<T>`;  
   Function that accepts current document and returns object containing fields to update.
@@ -313,13 +331,14 @@ insertOne: (
 
 ```typescript
 const user = await userService.insertOne({
-  fullName: 'John',
+  fullName: "John",
 });
 ```
 
 Inserts a single document into a collection and returns it.
 
 **Parameters**
+
 - object: `Partial<T>`;
 - createConfig: [`CreateConfig`](#createconfig);
 - insertOneOptions: [`InsertOneOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/InsertOneOptions.html);
@@ -338,14 +357,15 @@ insertMany: (
 
 ```typescript
 const users = await userService.insertMany([
-  { fullName: 'John' },
-  { fullName: 'Kobe' },
+  { fullName: "John" },
+  { fullName: "Kobe" },
 ]);
 ```
 
 Inserts multiple documents into a collection and returns them.
 
 **Parameters**
+
 - objects: `Partial<T>[]`;
 - createConfig: [`CreateConfig`](#createconfig);
 - bulkWriteOptions: [`BulkWriteOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/BulkWriteOptions.html);
@@ -363,14 +383,13 @@ deleteSoft: (
 ```
 
 ```typescript
-const deletedUsers = await userService.deleteSoft(
-  { status: 'deactivated' },
-);
+const deletedUsers = await userService.deleteSoft({ status: "deactivated" });
 ```
 
 Adds `deletedOn` field to the documents that match the query and returns them.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - deleteConfig: [`DeleteConfig`](#deleteconfig);
 - deleteOptions: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/DeleteOptions.html);
@@ -388,14 +407,13 @@ deleteOne: (
 ```
 
 ```typescript
-const deletedUser = await userService.deleteOne(
-  { _id: u._id },
-);
+const deletedUser = await userService.deleteOne({ _id: u._id });
 ```
 
 Deletes a single document and returns it. Returns `null` if document was not found.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - deleteConfig: [`DeleteConfig`](#deleteconfig);
 - deleteOptions: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/DeleteOptions.html);
@@ -413,14 +431,13 @@ deleteMany: (
 ```
 
 ```typescript
-const deletedUsers = await userService.deleteMany(
-  { status: 'deactivated' },
-);
+const deletedUsers = await userService.deleteMany({ status: "deactivated" });
 ```
 
 Deletes multiple documents that match the query. Returns array with deleted documents.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - deleteConfig: [`DeleteConfig`](#deleteconfig);
 - deleteOptions: [`DeleteOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/DeleteOptions.html);
@@ -439,15 +456,13 @@ replaceOne: (
 ```
 
 ```typescript
-await usersService.replaceOne(
-  { _id: u._id },
-  { fullName: fullNameToUpdate },
-);
+await usersService.replaceOne({ _id: u._id }, { fullName: fullNameToUpdate });
 ```
 
 Replaces a single document within the collection based on the filter. **Doesn't validate schema or publish events**.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - replacement: `Partial<T>`;
 - readConfig: [`ReadConfig`](#readconfig);
@@ -469,13 +484,14 @@ updateOne: (
 ```typescript
 await userService.atomic.updateOne(
   { _id: u._id },
-  { $set: { fullName: `${u.firstName} ${u.lastName}` } },
+  { $set: { fullName: `${u.firstName} ${u.lastName}` } }
 );
 ```
 
 Updates a single document. **Doesn't validate schema or publish events**.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - updateFilter: [`UpdateFilter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#UpdateFilter);
 - readConfig: [`ReadConfig`](#readconfig);
@@ -497,13 +513,14 @@ updateMany: (
 ```typescript
 await userService.atomic.updateMany(
   { firstName: { $exists: true }, lastName: { $exists: true } },
-  { $set: { fullName: `${u.firstName} ${u.lastName}` } },
+  { $set: { fullName: `${u.firstName} ${u.lastName}` } }
 );
 ```
 
 Updates all documents that match the specified filter. **Doesn't validate schema or publish events**.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - updateFilter: [`UpdateFilter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#UpdateFilter);
 - readConfig: [`ReadConfig`](#readconfig);
@@ -522,14 +539,13 @@ exists(
 ```
 
 ```typescript
-const isUserExists = await userService.exists(
-  { email: 'example@gmail.com' },
-);
+const isUserExists = await userService.exists({ email: "example@gmail.com" });
 ```
 
-Returns ***true*** if document exists, otherwise ***false***.
+Returns **_true_** if document exists, otherwise **_false_**.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - readConfig: [`ReadConfig`](#readconfig);
 - findOptions: [`FindOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/FindOptions.html);
@@ -547,14 +563,13 @@ countDocuments(
 ```
 
 ```typescript
-const documentsCount = await userService.countDocuments(
-  { status: 'active' },
-);
+const documentsCount = await userService.countDocuments({ status: "active" });
 ```
 
 Returns amount of documents that matches the query.
 
 **Parameters**
+
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - readConfig: [`ReadConfig`](#readconfig);
 - countDocumentOptions: [`CountDocumentsOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CountDocumentsOptions.html);
@@ -573,12 +588,13 @@ distinct(
 ```
 
 ```typescript
-const statesList = await userService.distinct('states');
+const statesList = await userService.distinct("states");
 ```
 
 Returns distinct values for a specified field across a single collection or view and returns the results in an array.
 
 **Parameters**
+
 - key: `string`;
 - filter: [`Filter<T>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
 - readConfig: [`ReadConfig`](#readconfig);
@@ -598,13 +614,14 @@ aggregate: (
 ```typescript
 const sortedActiveUsers = await userService.aggregate([
   { $match: { status: "active" } },
-  { $sort: { firstName: -1, lastName: -1 } }
+  { $sort: { firstName: -1, lastName: -1 } },
 ]);
 ```
 
 Executes an aggregation framework pipeline and returns array with aggregation result of documents.
 
 **Parameters**
+
 - pipeline: `any[]`;
 - options: [`AggregateOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/AggregateOptions.html);
 
@@ -626,6 +643,7 @@ const watchCursor = userService.watch();
 Creates a new Change Stream, watching for new changes and returns a cursor.
 
 **Parameters**
+
 - pipeline: `Document[] | undefined`;
 - options: [`ChangeStreamOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/ChangeStreamOptions.html);
 
@@ -646,6 +664,7 @@ await userService.drop();
 Removes a collection from the database. The method also removes any indexes associated with the dropped collection.
 
 **Parameters**
+
 - recreate: `boolean`;
   Should create collection after deletion.
 
@@ -667,6 +686,7 @@ const isIndexExists = await usersService.indexExists(index);
 Checks if one or more indexes exist on the collection, fails on first non-existing index.
 
 **Parameters**
+
 - indexes: `string | string[]`;
 - indexInformationOptions: [`IndexInformationOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/IndexInformationOptions.html);
 
@@ -688,6 +708,7 @@ await usersService.createIndex({ fullName: 1 });
 Creates collection index.
 
 **Parameters**
+
 - indexSpec: [`IndexSpecification`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#IndexSpecification);
 - options: [`CreateIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CreateIndexesOptions.html);
 
@@ -712,6 +733,7 @@ await usersService.createIndexes([
 Creates one or more indexes on a collection.
 
 **Parameters**
+
 - indexSpecs: [`IndexDescription[]`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#IndexSpecification);
 - options: [`CreateIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CreateIndexesOptions.html);
 
@@ -733,6 +755,7 @@ await userService.dropIndex({ firstName: 1, lastName: -1 });
 Removes the specified index from a collection.
 
 **Parameters**
+
 - indexName: `string`;
 - options: [`DropIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#DropIndexesOptions);
 
@@ -753,6 +776,7 @@ await userService.dropIndexes();
 ```
 
 **Parameters**
+
 - options: [`DropIndexesOptions`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#DropIndexesOptions);
 
 **Returns** `Promise<void | Document>`.
@@ -769,15 +793,15 @@ on: (
 ```
 
 ```typescript
-import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+import { eventBus, InMemoryEvent } from "@paralect/node-mongo";
 
-const collectionName = 'users';
+const collectionName = "users";
 
 eventBus.on(`${collectionName}.created`, (data: InMemoryEvent<User>) => {
   try {
     const user = data.doc;
 
-    console.log('user created', user);
+    console.log("user created", user);
   } catch (err) {
     logger.error(`${USERS}.created handler error: ${err}`);
   }
@@ -791,6 +815,7 @@ eventBus.on(`${collectionName}.deleted`, (data: InMemoryEvent<User>) => {});
 In-memory events handler that listens for a CUD events.
 
 **Parameters**
+
 - eventName: `string`;  
   Events names to listen.  
   Valid format: `${collectionName}.created`, `${collectionName}.updated`, `${collectionName}.deleted`.
@@ -812,7 +837,7 @@ eventBus.once(`${USERS}.updated`, (data: InMemoryEvent<User>) => {
   try {
     const user = data.doc;
 
-    console.log('user updated', user);
+    console.log("user updated", user);
   } catch (err) {
     logger.error(`${USERS}.updated handler error: ${err}`);
   }
@@ -822,6 +847,7 @@ eventBus.once(`${USERS}.updated`, (data: InMemoryEvent<User>) => {
 In-memory events handler that listens for a CUD events. **It will be called only once**.
 
 **Parameters**
+
 - eventName: `string`;  
   Events names to listen.  
   Valid format: `${collectionName}.created`, `${collectionName}.updated`, `${collectionName}.deleted`.
@@ -840,27 +866,38 @@ onUpdated: (
 ```
 
 ```typescript
-import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+import { eventBus, InMemoryEvent } from "@paralect/node-mongo";
 
-eventBus.onUpdated('users', ['firstName', 'lastName'], async (data: InMemoryEvent<User>) => {
-  try {
-    await userService.atomic.updateOne(
-      { _id: data.doc._id },
-      { $set: { fullName: `${data.doc.firstName} ${data.doc.lastName}` } },
-    );
-  } catch (err) {
-    console.log(`users onUpdated ['firstName', 'lastName'] handler error: ${err}`);
+eventBus.onUpdated(
+  "users",
+  ["firstName", "lastName"],
+  async (data: InMemoryEvent<User>) => {
+    try {
+      await userService.atomic.updateOne(
+        { _id: data.doc._id },
+        { $set: { fullName: `${data.doc.firstName} ${data.doc.lastName}` } }
+      );
+    } catch (err) {
+      console.log(
+        `users onUpdated ['firstName', 'lastName'] handler error: ${err}`
+      );
+    }
   }
-});
+);
 
-eventBus.onUpdated('users', [{ fullName: 'John Wake', firstName: 'John' }, 'lastName'], () => {});
+eventBus.onUpdated(
+  "users",
+  [{ fullName: "John Wake", firstName: "John" }, "lastName"],
+  () => {}
+);
 
-eventBus.onUpdated('users', ['oauth.google'], () => {});
+eventBus.onUpdated("users", ["oauth.google"], () => {});
 ```
 
-In-memory events handler that listens for specific fields updates. It will be called when one of the provided `properties` updates.  
+In-memory events handler that listens for specific fields updates. It will be called when one of the provided `properties` updates.
 
 **Parameters**
+
 - entity: `string`;  
   Collection name for events listening.
 - properties: [`OnUpdatedProperties`](#onupdatedproperties);  
@@ -882,13 +919,18 @@ withTransaction: <TRes = any>(
 Runs callbacks and automatically commits or rollbacks transaction.
 
 ```typescript
-import db from 'db';
+import db from "db";
 
 const { user, company } = await db.withTransaction(async (session) => {
-  const createdUser = await usersService.insertOne({ fullName: 'Bahrimchuk' }, {}, { session });
+  const createdUser = await usersService.insertOne(
+    { fullName: "Bahrimchuk" },
+    {},
+    { session }
+  );
   const createdCompany = await companyService.insertOne(
-    { users: [createdUser._id] }, {},
-    { session },
+    { users: [createdUser._id] },
+    {},
+    { session }
   );
 
   return { user: createdUser, company: createdCompany };
@@ -896,6 +938,7 @@ const { user, company } = await db.withTransaction(async (session) => {
 ```
 
 **Parameters**
+
 - transactionFn: `(session: ClientSession) => Promise<TRes>`;  
   Function that accepts a client session and manages some business logic. Must return a `Promise`.
 
@@ -907,101 +950,105 @@ const { user, company } = await db.withTransaction(async (session) => {
 
 ```typescript
 interface ServiceOptions {
-  skipDeletedOnDocs?: boolean,
-  schemaValidator?: (obj: any) => Promise<any>,
-  publishEvents?: boolean,
-  addCreatedOnField?: boolean,
-  addUpdatedOnField?: boolean,
-  outbox?: boolean,
+  skipDeletedOnDocs?: boolean;
+  schemaValidator?: (obj: any) => Promise<any>;
+  publishEvents?: boolean;
+  addCreatedOnField?: boolean;
+  addUpdatedOnField?: boolean;
+  outbox?: boolean;
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
 }
 ```
 
-| Option | Description |Default value|
-| ------------- | --------|----|
-|`skipDeletedOnDocs` |Skip documents with the `deletedOn` field|`true`|
-|`schemaValidator` |Validation function that will be called on data save|-|
-|`publishEvents` |Publish [CUD events](#reactivity) on save.|`true`|
-|`addCreatedOnField` |Set the `createdOn` field to the current timestamp on document creation.|`true`|
-|`addUpdatedOnField` |Set `updateOne` field to the current timestamp on the document update.|`true`|
-|`outbox`|Use [transactional](#transactional-events) events instead of [in-memory events](#in-memory-events)|`false`|
-|`collectionOptions`|MongoDB [CollectionOptions](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CollectionOptions.html)|`{}`|
-|`collectionCreateOptions`|MongoDB [CreateCollectionOptions](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CreateCollectionOptions.html)|`{}`|
+| Option                    | Description                                                                                                                   | Default value |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `skipDeletedOnDocs`       | Skip documents with the `deletedOn` field                                                                                     | `true`        |
+| `schemaValidator`         | Validation function that will be called on data save                                                                          | -             |
+| `publishEvents`           | Publish [CUD events](#reactivity) on save.                                                                                    | `true`        |
+| `addCreatedOnField`       | Set the `createdOn` field to the current timestamp on document creation.                                                      | `true`        |
+| `addUpdatedOnField`       | Set `updateOne` field to the current timestamp on the document update.                                                        | `true`        |
+| `outbox`                  | Use [transactional](#transactional-events) events instead of [in-memory events](#in-memory-events)                            | `false`       |
+| `collectionOptions`       | MongoDB [CollectionOptions](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CollectionOptions.html)             | `{}`          |
+| `collectionCreateOptions` | MongoDB [CreateCollectionOptions](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CreateCollectionOptions.html) | `{}`          |
 
 ### `CreateConfig`
+
 Overrides `ServiceOptions` parameters for create operations.
 
 ```typescript
 type CreateConfig = {
-  validateSchema?: boolean,
-  publishEvents?: boolean,
+  validateSchema?: boolean;
+  publishEvents?: boolean;
 };
 ```
 
 ### `ReadConfig`
+
 Overrides `ServiceOptions` parameters for read operations.
 
 ```typescript
 type ReadConfig = {
-  skipDeletedOnDocs?: boolean,
+  skipDeletedOnDocs?: boolean;
 };
 ```
 
 ### `UpdateConfig`
+
 Overrides `ServiceOptions` parameters for update operations.
 
 ```typescript
 type UpdateConfig = {
-  skipDeletedOnDocs?: boolean,
-  validateSchema?: boolean,
-  publishEvents?: boolean,
+  skipDeletedOnDocs?: boolean;
+  validateSchema?: boolean;
+  publishEvents?: boolean;
 };
 ```
 
 ### `DeleteConfig`
+
 Overrides `ServiceOptions` parameters for delete operations.
 
 ```typescript
 type DeleteConfig = {
-  skipDeletedOnDocs?: boolean,
-  publishEvents?: boolean,
+  skipDeletedOnDocs?: boolean;
+  publishEvents?: boolean;
 };
 ```
 
 ### `InMemoryEvent`
+
 ```typescript
 type InMemoryEvent<T = any> = {
-  doc: T,
-  prevDoc?: T,
-  name: string,
-  createdOn: Date
+  doc: T;
+  prevDoc?: T;
+  name: string;
+  createdOn: Date;
 };
 ```
 
 ### `InMemoryEventHandler`
+
 ```typescript
 type InMemoryEventHandler = (evt: InMemoryEvent) => Promise<void> | void;
 ```
 
 ### `OnUpdatedProperties`
+
 ```typescript
 type OnUpdatedProperties = Array<Record<string, unknown> | string>;
 ```
 
 ## Extending API
+
 Extending API for a single service.
 
 ```typescript
-const service = db.createService<User>('users', {
+const service = db.createService<User>("users", {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 
-const privateFields = [
-  'passwordHash',
-  'signupToken',
-  'resetPasswordToken',
-];
+const privateFields = ["passwordHash", "signupToken", "resetPasswordToken"];
 
 const getPublic = (user: User | null) => _.omit(user, privateFields);
 
@@ -1017,7 +1064,10 @@ Extending API for all services.
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 
 class CustomService<T extends IDocument> extends Service<T> {
-  createOrUpdate = async (query: any, updateCallback: (item?: T) => Partial<T>) => {
+  createOrUpdate = async (
+    query: any,
+    updateCallback: (item?: T) => Partial<T>
+  ) => {
     const docExists = await this.exists(query);
 
     if (!docExists) {
@@ -1029,16 +1079,18 @@ class CustomService<T extends IDocument> extends Service<T> {
   };
 }
 
-function createService<T extends IDocument>(collectionName: string, options: ServiceOptions = {}) {
+function createService<T extends IDocument>(
+  collectionName: string,
+  options: ServiceOptions = {}
+) {
   return new CustomService<T>(collectionName, database, options);
 }
 
-const userService = createService<UserType>('users', {
+const userService = createService<UserType>("users", {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 
-await userService.createOrUpdate(
-  { _id: 'some-id' },
-  () => ({ fullName: 'Max' }),
-);
+await userService.createOrUpdate({ _id: "some-id" }, () => ({
+  fullName: "Max",
+}));
 ```
