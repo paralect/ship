@@ -3,7 +3,6 @@ import { z } from 'zod';
 import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
-import { stringUtil } from 'utils';
 
 import { paginationSchema } from 'schemas';
 import { AppKoaContext, AppRouter, NestedKeys, User } from 'types';
@@ -36,12 +35,10 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   const filterOptions = [];
 
   if (searchValue) {
-    const searchPattern = stringUtil.escapeRegExpString(searchValue);
-
     const searchFields: NestedKeys<User>[] = ['firstName', 'lastName', 'email'];
 
     filterOptions.push({
-      $or: searchFields.map((field) => ({ [field]: { $regex: searchPattern } })),
+      $or: searchFields.map((field) => ({ [field]: { $regex: searchValue } })),
     });
   }
 

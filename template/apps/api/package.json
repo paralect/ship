@@ -27,7 +27,7 @@
     "@node-rs/argon2": "2.0.2",
     "@oslojs/crypto": "1.0.1",
     "@oslojs/encoding": "1.1.0",
-    "@paralect/node-mongo": "3.2.0",
+    "@paralect/node-mongo": "3.3.0",
     "@socket.io/redis-adapter": "8.3.0",
     "@socket.io/redis-emitter": "5.1.0",
     "app-constants": "workspace:*",
