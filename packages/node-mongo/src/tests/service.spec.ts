@@ -809,6 +809,41 @@ describe('service.ts', () => {
     // populatedPost!.author.fullName.should.equal('Custom Field User');
   });
 
+  it('should provide type-safe populate with minimal changes', async () => {
+    // Insert a user
+    const user = await usersService.insertOne({
+      fullName: 'John Doe',
+    });
+
+    // Insert a post with author reference
+    const post = await postsService.insertOne({
+      title: 'Test Post',
+      content: 'This is a test post',
+      authorId: user._id,
+    });
+
+    // Use existing findOne method with type parameter
+    const populatedPost = await postsService.findOne<PostType, { author: UserType }>(
+      { _id: post._id },
+      {
+        populate: {
+          localField: 'authorId',
+          foreignField: '_id',
+          collection: 'users',
+          fieldName: 'author',
+        },
+      },
+    );
+
+    populatedPost?.should.exist;
+    populatedPost?.title.should.equal('Test Post');
+
+    if (populatedPost?.author) {
+      populatedPost.author.fullName.should.equal('John Doe');
+      populatedPost.author._id.should.equal(user._id);
+    }
+  });
+
   // it('should handle populate with no matching documents', async () => {
   //   // Insert a post with non-existent author reference
   //   const post = await postsService.insertOne({

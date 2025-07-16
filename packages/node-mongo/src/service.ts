@@ -186,12 +186,12 @@ class Service<T extends IDocument> {
     return this.collection as unknown as Collection<U>;
   };
 
-  protected populateAggregate = async <U extends T = T>(
+  protected populateAggregate = async <U extends T = T, PopulateTypes = Record<string, unknown>>(
     collection: Collection<U>,
     filter: Filter<U>,
     readConfig: ReadConfig,
     findOptions: FindOptions = {},
-  ) => {
+  ): Promise<(U & PopulateTypes)[]> => {
     let populateLookups: {
       $lookup: {
         from: string;
@@ -243,36 +243,58 @@ class Service<T extends IDocument> {
       }];
     }
 
-    return collection.aggregate<U>([
+    return collection.aggregate<U & PopulateTypes>([
       { $match: filter },
       ...populateLookups,
       ...addFieldsStage,
     ], findOptions).toArray();
   };
 
-  findOne = async <U extends T = T>(
+  // Method overloading for findOne
+  async findOne<U extends T = T, PopulateTypes = Record<string, unknown>>(
+    filter: Filter<U>,
+    readConfig: ReadConfig & { populate: any },
+    findOptions?: FindOptions,
+  ): Promise<(U & PopulateTypes) | null>;
+  async findOne<U extends T = T>(
+    filter: Filter<U>,
+    readConfig?: ReadConfig,
+    findOptions?: FindOptions,
+  ): Promise<U | null>;
+  async findOne<U extends T = T, PopulateTypes = Record<string, unknown>>(
     filter: Filter<U>,
     readConfig: ReadConfig = {},
     findOptions: FindOptions = {},
-  ): Promise<U | null> => {
+  ): Promise<(U & PopulateTypes) | U | null> {
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, readConfig);
 
     if (readConfig.populate) {
-      const docs = await this.populateAggregate(collection, filter, readConfig, findOptions);
+      const docs = await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions);
 
-      return docs[0];
+      return docs[0] || null;
     }
 
     return collection.findOne<U>(filter, findOptions);
-  };
+  }
 
-  find = async <U extends T = T>(
+  // Method overloading for find
+  async find<U extends T = T, PopulateTypes = Record<string, unknown>>(
+    filter: Filter<U>,
+    readConfig: ReadConfig & { page?: number; perPage?: number; populate: any },
+    findOptions?: FindOptions,
+  ): Promise<FindResult<U & PopulateTypes>>;
+  async find<U extends T = T>(
+    filter: Filter<U>,
+    readConfig?: ReadConfig & { page?: number; perPage?: number },
+    findOptions?: FindOptions,
+  ): Promise<FindResult<U>>;
+  async find<U extends T = T, PopulateTypes = Record<string, unknown>>(
     filter: Filter<U>,
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
     findOptions: FindOptions = {},
-  ): Promise<FindResult<U>> => {
+  ): Promise<FindResult<U & PopulateTypes> | FindResult<U>> {
     const collection = await this.getCollection<U>();
     const { page, perPage } = readConfig;
     const hasPaging = !!page && !!perPage;
@@ -281,7 +303,7 @@ class Service<T extends IDocument> {
 
     if (!hasPaging) {
       const results = readConfig.populate
-        ? await this.populateAggregate<U>(collection, filter, readConfig, findOptions)
+        ? await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
         : await collection.find<U>(filter, findOptions).toArray();
 
       return {
@@ -296,7 +318,7 @@ class Service<T extends IDocument> {
 
     const [results, count] = await Promise.all([
       readConfig.populate
-        ? this.populateAggregate<U>(collection, filter, readConfig, findOptions)
+        ? this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
         : collection.find<U>(filter, findOptions).toArray(),
       collection.countDocuments(filter),
     ]);
@@ -308,7 +330,7 @@ class Service<T extends IDocument> {
       results,
       count,
     };
-  };
+  }
 
   exists = async (
     filter: Filter<T>,
