@@ -12,7 +12,7 @@ import config from '../config';
 
 chai.use(spies);
 chai.should();
-const { assert } = chai;
+const { assert, expect } = chai;
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 
@@ -55,6 +55,7 @@ const postSchema = z.object({
   title: z.string(),
   content: z.string(),
   authorId: z.string(),
+  categoryId: z.string().optional(),
 });
 
 const categorySchema = z.object({
@@ -670,14 +671,13 @@ describe('service.ts', () => {
       { fullName: 'I.Krivoshey' },
       { fullName: ' ] \ ^ $ . | ? * + ( )' },
     ]);
- 
+
     const { results: nosovUsers } = await usersServiceEscapeRegExp.find({
       fullName: { $regex: 'A(B).Nosov' },
     });
     const targetIds = users.map((p) => p._id);
     targetIds.slice(0, 2).should.be.deep.equal(nosovUsers.map((u) => u._id));
- 
- 
+
     const randomUser = await usersServiceEscapeRegExp.findOne({
       fullName: { $regex: ' ] \ ^ $ . | ? * + ( )' },
     });
@@ -688,7 +688,7 @@ describe('service.ts', () => {
       { fullName: '$Ken BL' },
       { fullName: 'John Dow*^' },
     ]);
-    
+
     const { results: newUsers } = await usersService.find({
       $or: [
         { fullName: { $regex: '$Ken BL' } },
@@ -699,20 +699,17 @@ describe('service.ts', () => {
   });
 
   it('should populate single field', async () => {
-    // Insert a user
     const user = await usersService.insertOne({
       fullName: 'John Doe',
     });
 
-    // Insert a post with author reference
     const post = await postsService.insertOne({
       title: 'Test Post',
       content: 'This is a test post',
       authorId: user._id,
     });
 
-    // Find post with populated author
-    const populatedPost = await postsService.findOne(
+    const populatedPost = await postsService.findOne<PostType, { author: UserType }>(
       { _id: post._id },
       {
         populate: {
@@ -724,15 +721,12 @@ describe('service.ts', () => {
       },
     );
 
-    console.log('(should populate single post) populatedPost', populatedPost);
-
-    populatedPost!.should.exist;
-    // populatedPost!.author.should.exist;
-    // populatedPost!.author.fullName.should.equal('John Doe');
+    populatedPost?.should.exist;
+    populatedPost?.author.should.exist;
+    populatedPost?.author.fullName.should.equal('John Doe');
   });
 
   it('should populate multiple posts', async () => {
-    // Insert users
     const user1 = await usersService.insertOne({
       fullName: 'Jane Smith',
     });
@@ -741,7 +735,6 @@ describe('service.ts', () => {
       fullName: 'Bob Johnson',
     });
 
-    // Insert posts with author references
     await postsService.insertOne({
       title: 'Test Post 1',
       content: 'First post',
@@ -754,8 +747,7 @@ describe('service.ts', () => {
       authorId: user2._id,
     });
 
-    // Find all posts with populated authors
-    const { results: populatedPosts } = await postsService.find(
+    const { results: populatedPosts } = await postsService.find<PostType, { author: UserType }>(
       { authorId: { $in: [user1._id, user2._id] } },
       {
         populate: {
@@ -767,17 +759,14 @@ describe('service.ts', () => {
       },
     );
 
-    console.log('(should populate multiple posts) populatedPosts', populatedPosts);
-
-    populatedPosts!.should.have.length(2);
-    // populatedPosts![0]!.author.should.exist;
-    // populatedPosts![1]!.author.should.exist;
-    // populatedPosts![0]!.author.fullName.should.exist;
-    // populatedPosts![1]!.author.fullName.should.exist;
+    populatedPosts?.should.have.length(2);
+    populatedPosts?.[0]?.author.should.exist;
+    populatedPosts?.[1]?.author.should.exist;
+    populatedPosts?.[0]?.author.fullName.should.exist;
+    populatedPosts?.[1]?.author.fullName.should.exist;
   });
 
   it('should handle populate with foreign field other than _id', async () => {
-    // Insert a user
     const user = await usersService.insertOne({
       fullName: 'Custom Field User',
     });
@@ -790,7 +779,7 @@ describe('service.ts', () => {
     });
 
     // Find post with populated author using email as foreign field
-    const populatedPost = await postsService.findOne(
+    const populatedPost = await postsService.findOne<PostType, { author: UserType }>(
       { _id: post._id },
       {
         populate: {
@@ -802,27 +791,22 @@ describe('service.ts', () => {
       },
     );
 
-    console.log('(should populate with foreign field other than _id) populatedPost', populatedPost);
-
-    populatedPost!.should.exist;
-    // populatedPost!.author.should.exist;
-    // populatedPost!.author.fullName.should.equal('Custom Field User');
+    populatedPost?.should.exist;
+    populatedPost?.author.should.exist;
+    populatedPost?.author.fullName.should.equal('Custom Field User');
   });
 
   it('should provide type-safe populate with minimal changes', async () => {
-    // Insert a user
     const user = await usersService.insertOne({
       fullName: 'John Doe',
     });
 
-    // Insert a post with author reference
     const post = await postsService.insertOne({
       title: 'Test Post',
       content: 'This is a test post',
       authorId: user._id,
     });
 
-    // Use existing findOne method with type parameter
     const populatedPost = await postsService.findOne<PostType, { author: UserType }>(
       { _id: post._id },
       {
@@ -844,29 +828,124 @@ describe('service.ts', () => {
     }
   });
 
-  // it('should handle populate with no matching documents', async () => {
-  //   // Insert a post with non-existent author reference
-  //   const post = await postsService.insertOne({
-  //     title: 'Orphan Post',
-  //     content: 'This post has no author',
-  //     authorId: 'non-existent-id',
-  //   });
+  it('should handle populate with no matching documents', async () => {
+    // Insert a post with non-existent author reference
+    const post = await postsService.insertOne({
+      title: 'Orphan Post',
+      content: 'This post has no author',
+      authorId: 'non-existent-id',
+    });
 
-  //   // Find post with populated author (should not have author field)
-  //   const populatedPost = await postsService.findOne(
-  //     { _id: post._id },
-  //     {
-  //       populate: {
-  //         localField: 'authorId',
-  //         foreignField: '_id',
-  //         collection: 'users',
-  //         fieldName: 'author',
-  //       },
-  //     },
-  //   );
+    // Find post with populated author (should not have author field)
+    const populatedPost = await postsService.findOne<PostType, { author: UserType }>(
+      { _id: post._id },
+      {
+        populate: {
+          localField: 'authorId',
+          foreignField: '_id',
+          collection: 'users',
+          fieldName: 'author',
+        },
+      },
+    );
 
-  //   populatedPost!.should.exist;
-  //   (populatedPost as any).title.should.equal('Orphan Post');
-  //   (populatedPost as any).author.should.be.undefined;
-  // });
+    populatedPost?.should.exist;
+    populatedPost?.title.should.equal('Orphan Post');
+    expect(populatedPost?.author).to.be.undefined;
+  });
+
+  it('should handle populate with multiple documents for findOne', async () => {
+    const user = await usersService.insertOne({
+      fullName: 'John Doe',
+    });
+
+    const category = await categoriesService.insertOne({
+      name: 'Test Category',
+    });
+
+    const post = await postsService.insertOne({
+      title: 'Test Post',
+      content: 'This is a test post',
+      authorId: user._id,
+      categoryId: category._id,
+    });
+
+    const populatedPost = await postsService.findOne<PostType, { author: UserType, category: CategoryType }>(
+      { _id: post._id },
+      {
+        populate: [{
+          localField: 'authorId',
+          foreignField: '_id',
+          collection: 'users',
+          fieldName: 'author',
+        }, {
+          localField: 'categoryId',
+          foreignField: '_id',
+          collection: 'categories',
+          fieldName: 'category',
+        }],
+      },
+    );
+
+    populatedPost?.should.exist;
+    populatedPost?.author.should.exist;
+    populatedPost?.category.should.exist;
+    populatedPost?.author.fullName.should.equal('John Doe');
+    populatedPost?.category.name.should.equal('Test Category');
+  });
+
+  it('should handle populate with multiple documents for find', async () => {
+    const user1 = await usersService.insertOne({
+      fullName: 'Mark Doe',
+    });
+
+    const user2 = await usersService.insertOne({
+      fullName: 'Jimmy Doe',
+    });
+
+    const category1 = await categoriesService.insertOne({
+      name: 'Category 1',
+    });
+
+    const category2 = await categoriesService.insertOne({
+      name: 'Category 2',
+    });
+
+    const post1 = await postsService.insertOne({
+      title: 'Post 1',
+      content: 'This is a test post',
+      authorId: user1._id,
+      categoryId: category1._id,
+    });
+
+    const post2 = await postsService.insertOne({
+      title: 'Post 2',
+      content: 'This is a test post',
+      authorId: user2._id,
+      categoryId: category2._id,
+    });
+
+    const { results: populatedPosts } = await postsService.find<PostType, { author: UserType, category: CategoryType }>(
+      { _id: { $in: [post1._id, post2._id] } },
+      {
+        populate: [{
+          localField: 'authorId',
+          foreignField: '_id',
+          collection: 'users',
+          fieldName: 'author',
+        }, {
+          localField: 'categoryId',
+          foreignField: '_id',
+          collection: 'categories',
+          fieldName: 'category',
+        }],
+      },
+    );
+
+    populatedPosts?.should.have.length(2);
+    populatedPosts?.[0]?.author.should.exist;
+    populatedPosts?.[1]?.author.should.exist;
+    populatedPosts?.[0]?.category.should.exist;
+    populatedPosts?.[1]?.category.should.exist;
+  });
 });
