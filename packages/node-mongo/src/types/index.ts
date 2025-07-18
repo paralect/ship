@@ -66,7 +66,7 @@ export type CreateConfig = {
 };
 
 export type PopulateOptions = {
-  localField: string;
+  localField: string | string[];
   foreignField?: string; // default '_id'
   collection: string;
   fieldName: string;

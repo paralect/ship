@@ -192,62 +192,69 @@ class Service<T extends IDocument> {
     readConfig: ReadConfig,
     findOptions: FindOptions = {},
   ): Promise<(U & PopulateTypes)[]> => {
-    let populateLookups: {
-      $lookup: {
-        from: string;
-        localField: string;
-        foreignField: string;
-        as: string;
-      };
-    }[] = [];
-
     if (!readConfig.populate) {
       throw new Error('Populate is required');
     }
 
-    const addFieldsStage: { $addFields: Record<string, any> }[] = [];
+    const pipeline: any[] = [{ $match: filter }];
 
-    if (Array.isArray(readConfig.populate)) {
-      populateLookups = readConfig.populate.map((popOpt) => {
-        addFieldsStage.push({
+    const processPopulateOption = (popOpt: any) => {
+      if (Array.isArray(popOpt.localField)) {
+        const tempFieldNames: string[] = [];
+
+        popOpt.localField.forEach((field: string, index: number) => {
+          const tempFieldName = `${popOpt.fieldName}_temp_${index}`;
+          tempFieldNames.push(tempFieldName);
+
+          pipeline.push({
+            $lookup: {
+              from: popOpt.collection,
+              localField: field,
+              foreignField: popOpt.foreignField || '_id',
+              as: tempFieldName,
+            },
+          });
+        });
+
+        pipeline.push({
           $addFields: {
             [popOpt.fieldName]: {
-              $arrayElemAt: [`$${popOpt.fieldName}`, 0],
+              $concatArrays: tempFieldNames.map(name => `$${name}`),
             },
           },
         });
-        return {
+
+        // Remove temporary fields
+        pipeline.push({
+          $unset: tempFieldNames,
+        });
+      } else {
+        pipeline.push({
           $lookup: {
             from: popOpt.collection,
             localField: popOpt.localField,
             foreignField: popOpt.foreignField || '_id',
             as: popOpt.fieldName,
           },
-        };
-      });
-    } else {
-      addFieldsStage.push({
-        $addFields: {
-          [readConfig.populate.fieldName]: {
-            $arrayElemAt: [`$${readConfig.populate.fieldName}`, 0],
+        });
+
+        pipeline.push({
+          $addFields: {
+            [popOpt.fieldName]: {
+              $arrayElemAt: [`$${popOpt.fieldName}`, 0],
+            },
           },
-        },
-      });
-      populateLookups = [{
-        $lookup: {
-          from: readConfig.populate.collection,
-          localField: readConfig.populate.localField,
-          foreignField: readConfig.populate.foreignField || '_id',
-          as: readConfig.populate.fieldName,
-        },
-      }];
+        });
+      }
+    };
+
+    if (Array.isArray(readConfig.populate)) {
+      readConfig.populate.forEach(processPopulateOption);
+    } else {
+      processPopulateOption(readConfig.populate);
     }
 
-    return collection.aggregate<U & PopulateTypes>([
-      { $match: filter },
-      ...populateLookups,
-      ...addFieldsStage,
-    ], findOptions).toArray();
+    return collection.aggregate<U & PopulateTypes>(pipeline, findOptions).toArray();
   };
 
   // Method overloading for findOne
