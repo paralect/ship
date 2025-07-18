@@ -58,6 +58,7 @@
     "zod": "3.25.63"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "4.17.0",
     "@shelf/jest-mongodb": "4.2.0",
     "@types/jest": "29.5.12",
     "@types/jsonwebtoken": "9.0.9",
@@ -73,8 +74,8 @@
     "@types/module-alias": "2.0.4",
     "@types/node": "22.10.10",
     "@types/node-schedule": "2.1.7",
-    "eslint": "8.56.0",
-    "eslint-config-custom": "workspace:*",
+    "eslint": "*",
+    "eslint-config": "workspace:*",
     "jest": "29.7.0",
     "lint-staged": "13.2.0",
     "mongodb-memory-server": "8.12.0",

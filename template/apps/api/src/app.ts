@@ -9,7 +9,7 @@ moduleAlias(); // read aliases from package json
 import 'dotenv/config';
 
 import cors from '@koa/cors';
-import http from 'http';
+import http from 'node:http';
 import { koaBody } from 'koa-body';
 
 import helmet from 'koa-helmet';
