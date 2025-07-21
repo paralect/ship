@@ -18,6 +18,7 @@
     "@types/formidable": "*",
     "@types/node": "*",
     "eslint": "*",
+    "eslint-config": "workspace:*",
     "lint-staged": "*",
     "prettier": "*",
     "prettier-config-custom": "workspace:*",

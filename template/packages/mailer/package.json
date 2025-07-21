@@ -24,6 +24,7 @@
     "@types/node": "*",
     "@types/react": "*",
     "eslint": "*",
+    "eslint-config": "workspace:*",
     "lint-staged": "*",
     "prettier": "*",
     "prettier-config-custom": "workspace:*",

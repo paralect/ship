@@ -380,6 +380,9 @@ importers:
       eslint:
         specifier: '*'
         version: 9.31.0
+      eslint-config:
+        specifier: workspace:*
+        version: link:../eslint-config
       lint-staged:
         specifier: '*'
         version: 15.2.7
@@ -417,6 +420,9 @@ importers:
       eslint:
         specifier: '*'
         version: 9.31.0
+      eslint-config:
+        specifier: workspace:*
+        version: link:../eslint-config
       lint-staged:
         specifier: '*'
         version: 15.2.7
@@ -441,6 +447,9 @@ importers:
       eslint:
         specifier: '*'
         version: 9.31.0
+      eslint-config:
+        specifier: workspace:*
+        version: link:../eslint-config
       lint-staged:
         specifier: '*'
         version: 15.2.7
@@ -511,6 +520,9 @@ importers:
       eslint:
         specifier: '*'
         version: 9.31.0
+      eslint-config:
+        specifier: workspace:*
+        version: link:../eslint-config
       lint-staged:
         specifier: '*'
         version: 15.2.7
