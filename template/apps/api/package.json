@@ -58,7 +58,6 @@
     "zod": "3.25.63"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "4.17.0",
     "@shelf/jest-mongodb": "4.2.0",
     "@types/jest": "29.5.12",
     "@types/jsonwebtoken": "9.0.9",

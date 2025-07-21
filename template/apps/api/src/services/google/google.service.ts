@@ -43,14 +43,14 @@ export const googleClient = new Google(
   `${config.API_URL}/account/sign-in/google/callback`,
 );
 
-type GoogleUserData = {
+interface GoogleUserData {
   googleUserId: string;
   firstName: string;
   lastName: string;
   email: string;
   isEmailVerified: boolean;
   avatarUrl?: string;
-};
+}
 
 const handleExistingUser = async (userId: string): Promise<User | null> => {
   const existingUser = await userService.findOne({ 'oauth.google.userId': userId });

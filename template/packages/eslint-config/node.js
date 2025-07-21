@@ -13,6 +13,17 @@ export default antfu(
       'simple-import-sort': simpleImportSort,
     },
     rules: {
+      'ts/no-explicit-any': 'error',
+      'ts/consistent-type-imports': 'off',
+
+      'style/operator-linebreak': ['error', 'after', { overrides: { '?': 'before', ':': 'before' } }],
+      'style/quotes': ['error', 'single', { avoidEscape: true }],
+      'style/brace-style': ['error', '1tbs'],
+      'style/member-delimiter-style': 'off',
+      'style/arrow-parens': ['error', 'always'],
+      'style/semi': ['error', 'always'],
+      curly: 'off',
+
       'no-console': [
         'error',
         {
@@ -39,49 +50,13 @@ export default antfu(
           prefix: '',
         },
       ],
-      // Too strict
-      'no-param-reassign': 'off',
-      'max-classes-per-file': 'off',
-      'no-underscore-dangle': 'off',
-      'class-methods-use-this': 'off',
-      // @TODO fix in /apps/api/src/migrator/migration-version/migration-version.service.ts
-      'import/no-dynamic-require': 'off',
-      'global-require': 'off',
-      // https://stackoverflow.com/a/64024916/286387
-      'no-use-before-define': 'off',
-      // Allow for..of syntax
-      'no-restricted-syntax': ['error', 'ForInStatement', 'LabeledStatement', 'WithStatement'],
-      // https://basarat.gitbook.io/typescript/main-1/defaultisbad
-      'import/prefer-default-export': 'off',
-      'import/no-default-export': 'off',
-      'import/no-anonymous-default-export': 'off',
-      // It's not accurate in the monorepo style
-      'import/no-extraneous-dependencies': 'off',
-      'import/extensions': 'off',
-      'import/first': 'error',
-      'import/newline-after-import': 'error',
-      'import/no-duplicates': 'error',
-      // Allow most functions to rely on type inference. If the function is exported, then `@typescript-eslint/explicit-module-boundary-types` will ensure it's typed.
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/no-empty-function': 'off',
-      '@typescript-eslint/no-use-before-define': [
+
+      'unused-imports/no-unused-vars': [
         'error',
         {
-          functions: false,
-          classes: true,
-          variables: true,
-          typedefs: true,
+          caughtErrors: 'none',
         },
       ],
-      '@typescript-eslint/no-explicit-any': 'error',
-      // Enable some rules for async JS
-      'no-promise-executor-return': 'error',
-      'max-nested-callbacks': 'error',
-      'no-return-await': 'error',
-
-      'style/member-delimiter-style': 'off',
-      '@typescript-eslint/consistent-type-imports': 'off',
-      '@stylistic/semi': ['error', 'always'],
 
       'perfectionist/sort-imports': 'off',
       'simple-import-sort/imports': [
@@ -117,6 +92,12 @@ export default antfu(
           ],
         },
       ],
+    },
+  },
+  {
+    files: ['**/types.ts'],
+    rules: {
+      'no-restricted-imports': 'off',
     },
   },
 );

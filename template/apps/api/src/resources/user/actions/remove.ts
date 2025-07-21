@@ -3,11 +3,11 @@ import { userService } from 'resources/user';
 import { AppKoaContext, AppRouter, Next } from 'types';
 
 type ValidatedData = never;
-type Request = {
+interface Request {
   params: {
     id: string;
   };
-};
+}
 
 async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next) {
   const isUserExists = await userService.exists({ _id: ctx.request.params.id });

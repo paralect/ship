@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { Migration } from 'migrator/types';
 
@@ -26,16 +26,11 @@ const getCurrentMigrationVersion = () =>
     return doc.version;
   });
 
-const getMigrations = (): Migration[] => {
-  let migrations = null;
-
+const getMigrations = (): Promise<Migration[]> => {
   const names = getMigrationNames();
-  migrations = names.map((name: string) => {
-    const migrationPath = path.join(migrationPaths, name);
-    return require(migrationPath);
-  });
+  const migrations = names.map((name: string) => import(path.join(migrationPaths, name)).then((m) => m.default));
 
-  return migrations.map((m) => m.default);
+  return Promise.all(migrations);
 };
 
 const setNewMigrationVersion = (version: number) =>

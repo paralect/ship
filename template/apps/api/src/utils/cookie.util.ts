@@ -1,6 +1,6 @@
 import _ from 'lodash';
+import { URL } from 'node:url';
 import { getPublicSuffix, parse } from 'tldts';
-import { URL } from 'url';
 
 import config from 'config';
 

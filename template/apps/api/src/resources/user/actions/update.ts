@@ -11,11 +11,11 @@ import { AppKoaContext, AppRouter, Next } from 'types';
 const schema = userSchema.pick({ firstName: true, lastName: true, email: true });
 
 type ValidatedData = z.infer<typeof schema>;
-type Request = {
+interface Request {
   params: {
     id: string;
   };
-};
+}
 
 async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next) {
   const { id } = ctx.request.params;

@@ -5,10 +5,10 @@ import { Template } from 'mailer';
 
 export * from 'app-types';
 
-export type AppKoaContextState = {
+export interface AppKoaContextState {
   user: User;
   accessToken: string;
-};
+}
 
 type JSONPrimitive = string | number | boolean;
 
