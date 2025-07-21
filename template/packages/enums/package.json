@@ -15,7 +15,7 @@
     "eslint-config": "workspace:*",
     "lint-staged": "*",
     "prettier": "*",
-    "prettier-config-custom": "workspace:*",
+    "prettier-config": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "*"
   },

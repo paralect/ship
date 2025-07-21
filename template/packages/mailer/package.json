@@ -27,7 +27,7 @@
     "eslint-config": "workspace:*",
     "lint-staged": "*",
     "prettier": "*",
-    "prettier-config-custom": "workspace:*",
+    "prettier-config": "workspace:*",
     "react-email": "4.0.7",
     "tsconfig": "workspace:*",
     "typescript": "*"
