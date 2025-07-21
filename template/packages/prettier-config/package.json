@@ -1,8 +1,5 @@
 {
   "name": "prettier-config",
   "version": "0.0.0",
-  "private": true,
-  "devDependencies": {
-    "prettier": "3.6.2"
-  }
+  "private": true
 }
