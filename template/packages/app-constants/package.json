@@ -11,13 +11,13 @@
   },
   "devDependencies": {
     "@types/node": "*",
-    "eslint": "*",
+    "eslint": "catalog:",
     "eslint-config": "workspace:*",
     "lint-staged": "*",
-    "prettier": "*",
+    "prettier": "catalog:",
     "prettier-config": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "*"
+    "typescript": "catalog:"
   },
   "lint-staged": {
     "*.ts": [

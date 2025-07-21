@@ -4,6 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    eslint:
+      specifier: 9.31.0
+      version: 9.31.0
+    prettier:
+      specifier: 3.6.2
+      version: 3.6.2
+    typescript:
+      specifier: 5.2.2
+      version: 5.2.2
+
 importers:
 
   .:
@@ -194,7 +206,7 @@ importers:
         specifier: 2.1.7
         version: 2.1.7
       eslint:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 9.31.0
       eslint-config:
         specifier: workspace:*
@@ -209,7 +221,7 @@ importers:
         specifier: 8.12.0
         version: 8.12.0
       prettier:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 3.6.2
       prettier-config:
         specifier: workspace:*
@@ -227,7 +239,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tsconfig
       typescript:
-        specifier: 5.2.2
+        specifier: 'catalog:'
         version: 5.2.2
 
   apps/web:
@@ -336,7 +348,7 @@ importers:
         specifier: 19.0.4
         version: 19.0.4(@types/react@19.0.10)
       eslint:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 9.31.0
       eslint-config:
         specifier: workspace:*
@@ -354,7 +366,7 @@ importers:
         specifier: 7.0.1
         version: 7.0.1(postcss@8.4.47)
       prettier:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 3.6.2
       prettier-config:
         specifier: workspace:*
@@ -369,7 +381,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tsconfig
       typescript:
-        specifier: 5.2.2
+        specifier: 'catalog:'
         version: 5.2.2
 
   packages/app-constants:
@@ -378,7 +390,7 @@ importers:
         specifier: '*'
         version: 22.10.10
       eslint:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 9.31.0
       eslint-config:
         specifier: workspace:*
@@ -387,8 +399,8 @@ importers:
         specifier: '*'
         version: 15.2.7
       prettier:
-        specifier: '*'
-        version: 3.3.2
+        specifier: 'catalog:'
+        version: 3.6.2
       prettier-config:
         specifier: workspace:*
         version: link:../prettier-config
@@ -396,7 +408,7 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       typescript:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 5.2.2
 
   packages/app-types:
@@ -418,7 +430,7 @@ importers:
         specifier: '*'
         version: 22.10.10
       eslint:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 9.31.0
       eslint-config:
         specifier: workspace:*
@@ -427,8 +439,8 @@ importers:
         specifier: '*'
         version: 15.2.7
       prettier:
-        specifier: '*'
-        version: 3.3.2
+        specifier: 'catalog:'
+        version: 3.6.2
       prettier-config:
         specifier: workspace:*
         version: link:../prettier-config
@@ -436,7 +448,7 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       typescript:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 5.2.2
 
   packages/enums:
@@ -445,7 +457,7 @@ importers:
         specifier: '*'
         version: 22.10.10
       eslint:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 9.31.0
       eslint-config:
         specifier: workspace:*
@@ -454,8 +466,8 @@ importers:
         specifier: '*'
         version: 15.2.7
       prettier:
-        specifier: '*'
-        version: 3.3.2
+        specifier: 'catalog:'
+        version: 3.6.2
       prettier-config:
         specifier: workspace:*
         version: link:../prettier-config
@@ -463,7 +475,7 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       typescript:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 5.2.2
 
   packages/eslint-config:
@@ -518,7 +530,7 @@ importers:
         specifier: '*'
         version: 19.0.10
       eslint:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 9.31.0
       eslint-config:
         specifier: workspace:*
@@ -527,8 +539,8 @@ importers:
         specifier: '*'
         version: 15.2.7
       prettier:
-        specifier: '*'
-        version: 3.3.2
+        specifier: 'catalog:'
+        version: 3.6.2
       prettier-config:
         specifier: workspace:*
         version: link:../prettier-config
@@ -539,7 +551,7 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       typescript:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 5.2.2
 
   packages/prettier-config:
@@ -567,7 +579,7 @@ importers:
         specifier: '*'
         version: 22.10.10
       eslint:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 9.31.0
       eslint-config:
         specifier: workspace:*
@@ -576,8 +588,8 @@ importers:
         specifier: '*'
         version: 15.2.7
       prettier:
-        specifier: '*'
-        version: 3.3.2
+        specifier: 'catalog:'
+        version: 3.6.2
       prettier-config:
         specifier: workspace:*
         version: link:../prettier-config
@@ -585,7 +597,7 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       typescript:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 5.2.2
 
   packages/tsconfig: {}
@@ -6074,11 +6086,6 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
-
-  prettier@3.3.2:
-    resolution: {integrity: sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==}
-    engines: {node: '>=14'}
-    hasBin: true
 
   prettier@3.5.3:
     resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
@@ -14470,8 +14477,6 @@ snapshots:
       source-map-js: 1.2.1
 
   prelude-ls@1.2.1: {}
-
-  prettier@3.3.2: {}
 
   prettier@3.5.3: {}
 

@@ -23,14 +23,14 @@
   "devDependencies": {
     "@types/node": "*",
     "@types/react": "*",
-    "eslint": "*",
+    "eslint": "catalog:",
     "eslint-config": "workspace:*",
     "lint-staged": "*",
-    "prettier": "*",
+    "prettier": "catalog:",
     "prettier-config": "workspace:*",
     "react-email": "4.0.7",
     "tsconfig": "workspace:*",
-    "typescript": "*"
+    "typescript": "catalog:"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
