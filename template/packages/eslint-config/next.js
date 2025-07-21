@@ -1,81 +1,61 @@
-module.exports = {
-  extends: ['next/core-web-vitals', 'plugin:react/recommended', './node.js'],
-  env: {
-    browser: true,
-    node: true,
-  },
-  settings: {
-    react: {
-      version: '18.3',
-    },
-  },
-  rules: {
-    'react/prop-types': 'off',
-    'react/require-default-props': 'off',
-    'react/jsx-props-no-spreading': 'off',
-    'react/react-in-jsx-scope': 'off',
-    'react-hooks/exhaustive-deps': 'off',
+import node from './node.js';
+import next from '@next/eslint-plugin-next';
+import jsxReact from 'eslint-plugin-react';
 
-    'react/jsx-filename-extension': [
-      'warn',
-      {
-        extensions: ['.tsx'],
-      },
-    ],
+export default node({
+  react: true,
+}).append(
+  {
+    rules: {
+      'react-hooks/exhaustive-deps': 'off', // much opinionated
+      'style/jsx-one-expression-per-line': 'off', // conflicts with prettier
+      'style/multiline-ternary': 'off', // conflicts with prettier
 
-    'react-hooks/rules-of-hooks': 'error',
-
-    'react/function-component-definition': [
-      'error',
-      {
-        namedComponents: 'arrow-function',
-      },
-    ],
-  },
-  overrides: [
-    // Allow require() syntax in .config.js files
-    {
-      files: ['*.js'],
-      rules: {
-        '@typescript-eslint/no-var-requires': 'off',
-      },
-    },
-    // Config for simple-import-sort plugin
-    {
-      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
-      rules: {
-        'simple-import-sort/imports': [
-          'error',
-          {
-            groups: [
-              // Third-party libraries and frameworks
-              ['^react$', '^next', '^@mantine/core$', '^@mantine/', '^@?\\w'],
-              // Particular business entities
-              ['^resources'],
-              // Shared components under the web application
-              ['^components'],
-              // Static files
-              ['^public'],
-              // Internal app modules
-              ['^contexts', '^services', '^theme', '^utils'],
-              // Other app modules
-              [
-                '^routes', // App pages structure
-                '^query-client', // React Query Client
-                '^config',
-              ],
-              // Internal packages
-              ['^app-constants', '^schemas', '^types'],
-              // Relative imports
-              ['^\\.\\.(?!/?$)', '^\\.\\./?$', '^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
-              // Style imports.
-              ['^.+\\.?(css|scss|sass)$'],
-              // Side effect imports.
-              ['^\\u0000'],
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            // Third-party libraries and frameworks
+            ['^react$', '^next', '^@mantine/core$', '^@mantine/', '^@?\\w'],
+            // Particular business entities
+            ['^resources'],
+            // Shared components under the web application
+            ['^components'],
+            // Static files
+            ['^public'],
+            // Internal app modules
+            ['^contexts', '^services', '^theme', '^utils'],
+            // Other app modules
+            [
+              '^routes', // App pages structure
+              '^query-client', // React Query Client
+              '^config',
             ],
-          },
-        ],
-      },
+            // Internal packages
+            ['^app-constants', '^schemas', '^types'],
+            // Relative imports
+            ['^\\.\\.(?!/?$)', '^\\.\\./?$', '^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+            // Style imports.
+            ['^.+\\.?(css|scss|sass)$'],
+            // Side effect imports.
+            ['^\\u0000'],
+          ],
+        },
+      ],
     },
-  ],
-};
+  },
+  // {
+  //   plugins: {
+  //     'jsx-react': jsxReact,
+  //   },
+
+  //   rules: {
+  //     'jsx-react/function-component-definition': [
+  //       'error',
+  //       {
+  //         namedComponents: 'arrow-function',
+  //       },
+  //     ],
+  //   },
+  // },
+);

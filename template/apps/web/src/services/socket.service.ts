@@ -23,10 +23,10 @@ export const emit = (event: string, ...args: unknown[]) => {
   socket.emit(event, ...args);
 };
 
-type SocketListener = {
+interface SocketListener {
   (event: string, callback: (data: unknown) => void): void;
   (event: 'user:updated', callback: (user: User) => void): void;
-};
+}
 
 export const on: SocketListener = (event, callback) => {
   socket.on(event, callback);

@@ -5,12 +5,12 @@ import { apiService } from 'services';
 
 import { ListParams, ListResult, User } from 'types';
 
-export type UserListFilterParams = {
+export interface UserListFilterParams {
   createdOn?: {
     startDate: DateValue;
     endDate: DateValue;
   };
-};
+}
 
 export type UserListSortFields = 'createdOn' | 'firstName' | 'lastName';
 

@@ -21,7 +21,7 @@ const GlobalErrorHandler: FC = () => {
       // Remove the error from the URL to prevent showing it again on refresh
       const { pathname, query: currentQuery } = router;
 
-      const { error: errorParam, ...newQuery } = currentQuery; // Remove error from query
+      const { error: _, ...newQuery } = currentQuery; // Remove error from query
       router.replace({ pathname, query: newQuery }, undefined, { shallow: true });
     }
   }, [error, router]);

@@ -40,7 +40,7 @@ interface TableProps<T> {
 }
 
 const Table = <T extends RowData>({
-  data = [],
+  data,
   totalCount = data?.length || 0,
   columns,
   pageCount,
@@ -61,7 +61,7 @@ const Table = <T extends RowData>({
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable<T>({
-    data,
+    data: data || [],
     // disable column sorting and reset size by default.
     columns: columns.map((c) => ({ ...c, enableSorting: c.enableSorting || false, size: 0 })),
     state: {
@@ -94,7 +94,7 @@ const Table = <T extends RowData>({
   }, [pagination]);
 
   return (
-    <TableContext.Provider value={useMemo(() => table as TanstackTable<T | unknown>, [table])}>
+    <TableContext value={useMemo(() => table as TanstackTable<T | unknown>, [table])}>
       {isLoading && <LoadingState />}
 
       {!isLoading &&
@@ -113,7 +113,7 @@ const Table = <T extends RowData>({
         ) : (
           <EmptyState />
         ))}
-    </TableContext.Provider>
+    </TableContext>
   );
 };
 

@@ -20,7 +20,9 @@ import { SignUpParams } from 'types';
 import PasswordRules from './components/PasswordRules';
 
 const SignUp: NextPage = () => {
-  const methods = useForm<SignUpParams>({ resolver: zodResolver(signUpSchema) });
+  const methods = useForm<SignUpParams>({
+    resolver: zodResolver(signUpSchema),
+  });
   const {
     register,
     handleSubmit,

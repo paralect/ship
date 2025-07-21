@@ -1,5 +1,6 @@
 const dotenv = require('dotenv-flow');
-const { join } = require('path');
+const { join } = require('node:path');
+const process = require('node:process');
 
 const dotenvConfig = dotenv.config({
   node_env: process.env.NEXT_PUBLIC_APP_ENV,

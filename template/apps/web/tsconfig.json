@@ -1,9 +1,9 @@
 {
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
-    "rootDir": ".",
+    "target": "ES2017",
     "baseUrl": "src",
-    "target": "ES2017"
+    "rootDir": "."
   },
   "include": [
     "**/*.ts",
