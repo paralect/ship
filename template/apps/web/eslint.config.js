@@ -1,3 +1,3 @@
-import next from 'eslint-config/next.js';
+import next from 'eslint-config/next';
 
 export default next;

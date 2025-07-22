@@ -1,16 +1,18 @@
-import node from './node.js';
-import next from '@next/eslint-plugin-next';
-import jsxReact from 'eslint-plugin-react';
+import { renameRules } from '@antfu/eslint-config';
+import reactPlugin from 'eslint-plugin-react';
 
-export default node({
+import { getNodeConfig } from './node.js';
+
+export default getNodeConfig({
   react: true,
 }).append(
   {
     rules: {
       'react-hooks/exhaustive-deps': 'off', // much opinionated
-      'style/jsx-one-expression-per-line': 'off', // conflicts with prettier
-      'style/multiline-ternary': 'off', // conflicts with prettier
-
+    },
+  },
+  {
+    rules: {
       'simple-import-sort/imports': [
         'error',
         {
@@ -29,7 +31,7 @@ export default node({
             [
               '^routes', // App pages structure
               '^query-client', // React Query Client
-              '^config',
+              '^config', // App config with env variables
             ],
             // Internal packages
             ['^app-constants', '^schemas', '^types'],
@@ -44,18 +46,33 @@ export default node({
       ],
     },
   },
-  // {
-  //   plugins: {
-  //     'jsx-react': jsxReact,
-  //   },
+  {
+    plugins: {
+      'jsx-react': reactPlugin,
+    },
 
-  //   rules: {
-  //     'jsx-react/function-component-definition': [
-  //       'error',
-  //       {
-  //         namedComponents: 'arrow-function',
-  //       },
-  //     ],
-  //   },
-  // },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+
+    rules: renameRules(
+      {
+        ...reactPlugin.configs.flat.recommended.rules,
+
+        'react/react-in-jsx-scope': 'off',
+        'react/jsx-boolean-value': ['error', 'never'],
+        'react/function-component-definition': [
+          'error',
+          {
+            namedComponents: 'arrow-function',
+          },
+        ],
+      },
+      {
+        react: 'jsx-react',
+      },
+    ),
+  },
 );

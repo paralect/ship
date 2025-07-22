@@ -2,55 +2,24 @@ import antfu from '@antfu/eslint-config';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
-export default (antfuOptions) =>
+export const getNodeConfig = (antfuOptions) =>
   antfu(
     {
       lessOpinionated: true,
-      stylistic: {
-        semi: true,
-      },
+      stylistic: false,
       ...antfuOptions,
     },
     {
-      plugins: {
-        'no-relative-import-paths': noRelativeImportPaths,
-        'simple-import-sort': simpleImportSort,
-      },
       rules: {
         'ts/no-explicit-any': 'error',
         'ts/consistent-type-imports': 'off',
 
-        'style/operator-linebreak': ['error', 'after', { overrides: { '?': 'before', ':': 'before' } }],
-        'style/quotes': ['error', 'single', { avoidEscape: true }],
-        'style/brace-style': ['error', '1tbs'],
-        'style/member-delimiter-style': 'off',
-        'style/arrow-parens': ['error', 'always'],
         curly: 'off',
 
         'no-console': [
           'error',
           {
             allow: ['warn', 'error'],
-          },
-        ],
-        'no-restricted-imports': [
-          'error',
-          {
-            patterns: [
-              {
-                group: ['app-types'],
-                message: 'Please use import from "types" module instead.',
-              },
-            ],
-          },
-        ],
-        'no-relative-import-paths/no-relative-import-paths': [
-          'warn',
-          {
-            allowSameFolder: true,
-            allowedDepth: 1,
-            rootDir: './src',
-            prefix: '',
           },
         ],
 
@@ -61,7 +30,13 @@ export default (antfuOptions) =>
             varsIgnorePattern: '^_',
           },
         ],
-
+      },
+    },
+    {
+      plugins: {
+        'simple-import-sort': simpleImportSort,
+      },
+      rules: {
         'perfectionist/sort-imports': 'off',
         'simple-import-sort/imports': [
           'error',
@@ -99,9 +74,43 @@ export default (antfuOptions) =>
       },
     },
     {
+      plugins: {
+        'no-relative-import-paths': noRelativeImportPaths,
+      },
+      rules: {
+        'no-relative-import-paths/no-relative-import-paths': [
+          'warn',
+          {
+            allowSameFolder: true,
+            allowedDepth: 1,
+            rootDir: './src',
+            prefix: '',
+          },
+        ],
+      },
+    },
+    // Disallow importing from 'app-types' as it's a special module for reexporting types
+    {
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: ['app-types'],
+                message: 'Please use import from "types" module instead.',
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
       files: ['**/types.ts'],
       rules: {
-        'no-restricted-imports': 'off',
+        'no-restricted-imports': 'off', // disable rule for reexporting types from 'app-types'
       },
     },
   );
+
+export default getNodeConfig();

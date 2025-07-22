@@ -1,8 +1,9 @@
-/* eslint-disable simple-import-sort/imports, import/newline-after-import, import/first */
+/* eslint-disable simple-import-sort/imports, import/first */
 // Allows requiring modules relative to /src folder,
 // For example, require('lib/mongo/idGenerator')
 // All options can be found here: https://gist.github.com/branneman/8048520
 import moduleAlias from 'module-alias';
+
 moduleAlias.addPath(__dirname);
 moduleAlias(); // read aliases from package json
 
