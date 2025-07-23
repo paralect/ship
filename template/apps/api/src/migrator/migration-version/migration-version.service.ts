@@ -26,11 +26,16 @@ const getCurrentMigrationVersion = () =>
     return doc.version;
   });
 
-const getMigrations = (): Promise<Migration[]> => {
+const getMigrations = (): Migration[] => {
   const names = getMigrationNames();
-  const migrations = names.map((name: string) => import(path.join(migrationPaths, name)).then((m) => m.default));
+  const migrations = names.map((name: string) => {
+    const migrationPath = path.join(migrationPaths, name);
 
-  return Promise.all(migrations);
+    // eslint-disable-next-line ts/no-require-imports
+    return require(migrationPath);
+  });
+
+  return migrations.map((m) => m.default);
 };
 
 const setNewMigrationVersion = (version: number) =>
