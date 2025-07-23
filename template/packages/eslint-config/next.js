@@ -8,7 +8,7 @@ export default getNodeConfig({
 }).append(
   {
     rules: {
-      'react-hooks/exhaustive-deps': 'error', // Enforce proper dependency tracking in hooks
+      'react-hooks/exhaustive-deps': 'off', // Disable automatic dependency tracking to allow manual control
 
       'unicorn/prefer-node-protocol': 'off', // Next.js doesn't support "node:" URI
     },
