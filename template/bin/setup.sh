@@ -3,6 +3,12 @@ set -e
 
 source ./constants.sh
 
+# Wait for MongoDB to be ready
+until mongosh --host "$HOST" --port "$PORT" --eval "print('waiting...')" 2>/dev/null; do
+  echo "Waiting for MongoDB to be ready..."
+  sleep 2
+done
+
 handle_replication() {
   local authArgs=""
   if [[ $USERNAME ]]; then
