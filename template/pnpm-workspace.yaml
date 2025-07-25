@@ -3,6 +3,6 @@ packages:
   - ./packages/*
 
 catalog:
-  typescript: 5.3.3
+  typescript: 5.8.3
   eslint: 9.31.0
   prettier: 3.6.2

@@ -6,7 +6,6 @@ import {
   Google,
   OAuth2RequestError,
   OAuth2Tokens,
-  // @ts-expect-error - `arctic` is an ESM-only package, but `ts-node` can handle this import.
 } from 'arctic';
 import { z } from 'zod';
 
