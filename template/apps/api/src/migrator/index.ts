@@ -1,6 +1,7 @@
 import { generateId } from '@paralect/node-mongo';
 import dayjs from 'dayjs';
 import durationPlugin from 'dayjs/plugin/duration';
+import process from 'node:process';
 
 import logger from 'logger';
 
@@ -27,22 +28,25 @@ const run = async (migrations: Migration[], curVersion: number) => {
 
   try {
     for (migration of newMigrations) {
-      //eslint-disable-line
       migrationLogId = generateId();
+
       const startTime = dayjs();
-      await migrationLogService.startMigrationLog(migrationLogId, startTime.get('seconds'), migration.version); //eslint-disable-line
+
+      await migrationLogService.startMigrationLog(migrationLogId, startTime.get('seconds'), migration.version);
       logger.info(`[Migrator] Migration #${migration.version} is running: ${migration.description}`);
+
       if (!migration.migrate) {
         throw new Error('migrate function is not defined for the migration');
       }
-      await migration.migrate(); //eslint-disable-line
+
+      await migration.migrate();
 
       lastMigrationVersion = migration.version;
-      await migrationVersionService.setNewMigrationVersion(migration.version); //eslint-disable-line
+      await migrationVersionService.setNewMigrationVersion(migration.version);
       const finishTime = dayjs();
       const duration = dayjs.duration(finishTime.diff(startTime)).format('H [hrs], m [min], s [sec], SSS [ms]');
 
-      await migrationLogService.finishMigrationLog(migrationLogId, finishTime.get('seconds'), duration); //eslint-disable-line
+      await migrationLogService.finishMigrationLog(migrationLogId, finishTime.get('seconds'), duration);
       logger.info(`[Migrator] Database has been updated to the version #${migration.version}`);
       logger.info(`[Migrator] Time of migration #${migration.version}: ${duration}`);
     }

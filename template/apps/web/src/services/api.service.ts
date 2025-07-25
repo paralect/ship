@@ -53,7 +53,7 @@ class ApiClient {
       (response: AxiosResponse) => response.data,
       (error) => {
         const errorResponse: ThrowApiErrorProps = error.response || {
-          status: error.code ? parseInt(error.code, 10) : 500,
+          status: error.code ? Number.parseInt(error.code, 10) : 500,
           statusText: error.message || 'Network or timeout error',
           data: error.data,
         };

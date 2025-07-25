@@ -1,5 +1,5 @@
 import { hash, verify } from '@node-rs/argon2';
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 
 // Human readable alphabet (a-z, 0-9 without l, o, 0, 1 to avoid confusion)
 const ALPHABET = 'abcdefghijklmnpqrstuvwxyz23456789';

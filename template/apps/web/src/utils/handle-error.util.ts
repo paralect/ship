@@ -5,9 +5,9 @@ import { FieldValues, Path, UseFormSetError } from 'react-hook-form';
 import { ONE_MB_IN_BYTES } from 'app-constants';
 import { ApiError } from 'types';
 
-type ValidationErrors = {
+interface ValidationErrors {
   [name: string]: string[] | string;
-};
+}
 
 interface ErrorData {
   errors?: ValidationErrors;

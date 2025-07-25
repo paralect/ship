@@ -73,18 +73,18 @@
     "@types/module-alias": "2.0.4",
     "@types/node": "22.10.10",
     "@types/node-schedule": "2.1.7",
-    "eslint": "8.56.0",
-    "eslint-config-custom": "workspace:*",
+    "eslint": "catalog:",
+    "eslint-config": "workspace:*",
     "jest": "29.7.0",
     "lint-staged": "13.2.0",
     "mongodb-memory-server": "8.12.0",
-    "prettier": "3.2.5",
-    "prettier-config-custom": "workspace:*",
+    "prettier": "catalog:",
+    "prettier-config": "workspace:*",
     "ts-jest": "29.1.2",
     "ts-node": "10.9.2",
     "ts-node-dev": "2.0.0",
     "tsconfig": "workspace:*",
-    "typescript": "5.2.2"
+    "typescript": "catalog:"
   },
   "lint-staged": {
     "*.ts": [

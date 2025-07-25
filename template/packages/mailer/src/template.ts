@@ -14,8 +14,8 @@ export const EmailComponent = {
   [Template.VERIFY_EMAIL]: VerifyEmail,
 };
 
-export type TemplateProps = {
+export interface TemplateProps {
   [Template.RESET_PASSWORD]: ResetPasswordProps;
   [Template.SIGN_UP_WELCOME]: SignUpWelcomeProps;
   [Template.VERIFY_EMAIL]: VerifyEmailProps;
-};
+}

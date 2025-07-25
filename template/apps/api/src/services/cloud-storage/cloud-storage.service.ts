@@ -11,7 +11,7 @@ import {
 import { PutObjectCommandInput } from '@aws-sdk/client-s3/dist-types/commands/PutObjectCommand';
 import { Upload } from '@aws-sdk/lib-storage';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import fs from 'fs/promises';
+import fs from 'node:fs/promises';
 
 import { caseUtil } from 'utils';
 

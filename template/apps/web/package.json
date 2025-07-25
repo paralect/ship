@@ -50,18 +50,18 @@
     "@types/node": "22.10.10",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
-    "eslint": "8.56.0",
-    "eslint-config-custom": "workspace:*",
+    "eslint": "catalog:",
+    "eslint-config": "workspace:*",
     "lint-staged": "15.2.7",
     "postcss": "8.4.47",
     "postcss-preset-mantine": "1.17.0",
     "postcss-simple-vars": "7.0.1",
-    "prettier": "3.3.2",
-    "prettier-config-custom": "workspace:*",
+    "prettier": "catalog:",
+    "prettier-config": "workspace:*",
     "stylelint": "16.10.0",
     "stylelint-config-standard-scss": "13.1.0",
     "tsconfig": "workspace:*",
-    "typescript": "5.2.2"
+    "typescript": "catalog:"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

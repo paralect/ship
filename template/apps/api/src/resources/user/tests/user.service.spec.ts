@@ -10,7 +10,7 @@ const userService = database.createService<User>(DATABASE_DOCUMENTS.USERS, {
   schemaValidator: (obj) => userSchema.parseAsync(obj),
 });
 
-describe('User service', () => {
+describe('user service', () => {
   beforeAll(async () => {
     await database.connect();
   });

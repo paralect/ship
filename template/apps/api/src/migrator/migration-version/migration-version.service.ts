@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { Migration } from 'migrator/types';
 
@@ -27,11 +27,11 @@ const getCurrentMigrationVersion = () =>
   });
 
 const getMigrations = (): Migration[] => {
-  let migrations = null;
-
   const names = getMigrationNames();
-  migrations = names.map((name: string) => {
+  const migrations = names.map((name: string) => {
     const migrationPath = path.join(migrationPaths, name);
+
+    // eslint-disable-next-line ts/no-require-imports
     return require(migrationPath);
   });
 

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import NextImage from 'next/image';
 import { Box, Button, Center, Group, Image, Stack, Text, Title } from '@mantine/core';
 import { Dropzone } from '@mantine/dropzone';
@@ -16,8 +15,6 @@ import { UpdateUserParamsFrontend } from 'types';
 import classes from './index.module.css';
 
 const AvatarUpload = () => {
-  const [imageSrc, setImageSrc] = useState<string | null | undefined>(undefined);
-
   const { data: account } = accountApi.useGet();
 
   const {
@@ -30,16 +27,10 @@ const AvatarUpload = () => {
   const avatarValue = watch('avatar');
   const avatarError = errors.avatar?.message;
 
-  useEffect(() => {
-    if (typeof avatarValue === 'string') {
-      setImageSrc('');
-      return;
-    }
+  let imageSrc: string | null | undefined = account?.avatarUrl;
 
-    const imageUrl = avatarValue ? URL.createObjectURL(avatarValue) : account?.avatarUrl;
-
-    setImageSrc(imageUrl);
-  }, [avatarValue]);
+  if (typeof avatarValue === 'string') imageSrc = '';
+  else if (avatarValue) imageSrc = URL.createObjectURL(avatarValue);
 
   return (
     <Stack>

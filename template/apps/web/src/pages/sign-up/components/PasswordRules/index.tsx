@@ -27,7 +27,7 @@ const PasswordRules: FC<PasswordRulesProps> = ({ render }) => {
     },
     {
       title: 'Have at least one letter',
-      done: /[a-zA-Z]/.test(password),
+      done: /[a-z]/i.test(password),
     },
     {
       title: 'Have at least one number',

@@ -10,5 +10,5 @@
 export const PASSWORD_RULES = {
   MIN_LENGTH: 8,
   MAX_LENGTH: 128,
-  REGEX: /^(?=.*[a-zA-Z])(?=.*\d).*$/,
+  REGEX: /^(?=.*[a-z])(?=.*\d).+$/i,
 };

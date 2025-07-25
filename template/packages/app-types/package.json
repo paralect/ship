@@ -17,13 +17,13 @@
   "devDependencies": {
     "@types/formidable": "2.0.5",
     "@types/node": "*",
-    "eslint": "*",
-    "eslint-config-custom": "workspace:*",
+    "eslint": "catalog:",
+    "eslint-config": "workspace:*",
     "lint-staged": "*",
-    "prettier": "*",
-    "prettier-config-custom": "workspace:*",
+    "prettier": "catalog:",
+    "prettier-config": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "*"
+    "typescript": "catalog:"
   },
   "lint-staged": {
     "*.ts": [
