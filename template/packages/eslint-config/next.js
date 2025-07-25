@@ -5,6 +5,7 @@ import { getNodeConfig } from './node.js';
 
 export default getNodeConfig({
   react: true,
+  nextjs: true,
 }).append(
   {
     rules: {
