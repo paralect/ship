@@ -186,23 +186,122 @@ class Service<T extends IDocument> {
     return this.collection as unknown as Collection<U>;
   };
 
-  findOne = async <U extends T = T>(
+  protected populateAggregate = async <U extends T = T, PopulateTypes = Record<string, unknown>>(
+    collection: Collection<U>,
+    filter: Filter<U>,
+    readConfig: ReadConfig,
+    findOptions: FindOptions = {},
+  ): Promise<(U & PopulateTypes)[]> => {
+    if (!readConfig.populate) {
+      throw new Error('Populate is required');
+    }
+
+    const pipeline: any[] = [{ $match: filter }];
+
+    const processPopulateOption = (popOpt: any) => {
+      if (Array.isArray(popOpt.localField)) {
+        const tempFieldNames: string[] = [];
+
+        popOpt.localField.forEach((field: string, index: number) => {
+          const tempFieldName = `${popOpt.fieldName}_temp_${index}`;
+          tempFieldNames.push(tempFieldName);
+
+          pipeline.push({
+            $lookup: {
+              from: popOpt.collection,
+              localField: field,
+              foreignField: popOpt.foreignField || '_id',
+              as: tempFieldName,
+            },
+          });
+        });
+
+        pipeline.push({
+          $addFields: {
+            [popOpt.fieldName]: {
+              $concatArrays: tempFieldNames.map(name => `$${name}`),
+            },
+          },
+        });
+
+        // Remove temporary fields
+        pipeline.push({
+          $unset: tempFieldNames,
+        });
+      } else {
+        pipeline.push({
+          $lookup: {
+            from: popOpt.collection,
+            localField: popOpt.localField,
+            foreignField: popOpt.foreignField || '_id',
+            as: popOpt.fieldName,
+          },
+        });
+
+        pipeline.push({
+          $addFields: {
+            [popOpt.fieldName]: {
+              $arrayElemAt: [`$${popOpt.fieldName}`, 0],
+            },
+          },
+        });
+      }
+    };
+
+    if (Array.isArray(readConfig.populate)) {
+      readConfig.populate.forEach(processPopulateOption);
+    } else {
+      processPopulateOption(readConfig.populate);
+    }
+
+    return collection.aggregate<U & PopulateTypes>(pipeline, findOptions).toArray();
+  };
+
+  // Method overloading for findOne
+  async findOne<U extends T = T, PopulateTypes = Record<string, unknown>>(
+    filter: Filter<U>,
+    readConfig: ReadConfig & { populate: any },
+    findOptions?: FindOptions,
+  ): Promise<(U & PopulateTypes) | null>;
+  async findOne<U extends T = T>(
+    filter: Filter<U>,
+    readConfig?: ReadConfig,
+    findOptions?: FindOptions,
+  ): Promise<U | null>;
+  async findOne<U extends T = T, PopulateTypes = Record<string, unknown>>(
     filter: Filter<U>,
     readConfig: ReadConfig = {},
     findOptions: FindOptions = {},
-  ): Promise<U | null> => {
+  ): Promise<(U & PopulateTypes) | U | null> {
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, readConfig);
 
-    return collection.findOne<U>(filter, findOptions);
-  };
+    if (readConfig.populate) {
+      const docs = await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions);
 
-  find = async <U extends T = T>(
+      return docs[0] || null;
+    }
+
+    return collection.findOne<U>(filter, findOptions);
+  }
+
+  // Method overloading for find
+  async find<U extends T = T, PopulateTypes = Record<string, unknown>>(
+    filter: Filter<U>,
+    readConfig: ReadConfig & { page?: number; perPage?: number; populate: any },
+    findOptions?: FindOptions,
+  ): Promise<FindResult<U & PopulateTypes>>;
+  async find<U extends T = T>(
+    filter: Filter<U>,
+    readConfig?: ReadConfig & { page?: number; perPage?: number },
+    findOptions?: FindOptions,
+  ): Promise<FindResult<U>>;
+  async find<U extends T = T, PopulateTypes = Record<string, unknown>>(
     filter: Filter<U>,
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
     findOptions: FindOptions = {},
-  ): Promise<FindResult<U>> => {
+  ): Promise<FindResult<U & PopulateTypes> | FindResult<U>> {
     const collection = await this.getCollection<U>();
     const { page, perPage } = readConfig;
     const hasPaging = !!page && !!perPage;
@@ -210,7 +309,9 @@ class Service<T extends IDocument> {
     filter = this.handleReadOperations(filter, readConfig);
 
     if (!hasPaging) {
-      const results = await collection.find<U>(filter, findOptions).toArray();
+      const results = readConfig.populate
+        ? await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
+        : await collection.find<U>(filter, findOptions).toArray();
 
       return {
         pagesCount: 1,
@@ -223,7 +324,9 @@ class Service<T extends IDocument> {
     findOptions.limit = perPage;
 
     const [results, count] = await Promise.all([
-      collection.find<U>(filter, findOptions).toArray(),
+      readConfig.populate
+        ? this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
+        : collection.find<U>(filter, findOptions).toArray(),
       collection.countDocuments(filter),
     ]);
 
@@ -234,7 +337,7 @@ class Service<T extends IDocument> {
       results,
       count,
     };
-  };
+  }
 
   exists = async (
     filter: Filter<T>,
