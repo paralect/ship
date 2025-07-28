@@ -10,10 +10,10 @@
     "precommit": "lint-staged"
   },
   "devDependencies": {
-    "@types/node": "*",
+    "@types/node": "catalog:",
     "eslint": "catalog:",
     "eslint-config": "workspace:*",
-    "lint-staged": "*",
+    "lint-staged": "catalog:",
     "prettier": "catalog:",
     "prettier-config": "workspace:*",
     "tsconfig": "workspace:*",

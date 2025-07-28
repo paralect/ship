@@ -6,3 +6,12 @@ catalog:
   typescript: 5.8.3
   eslint: 9.31.0
   prettier: 3.6.2
+
+  zod: 3.25.63
+  lint-staged: 16.1.2
+  react: 19.0.0
+  react-dom: 19.0.0
+
+  "@types/react": 19.0.10
+  "@types/node": 22.10.10
+  "@types/formidable": 2.0.5

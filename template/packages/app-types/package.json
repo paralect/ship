@@ -12,14 +12,14 @@
   "dependencies": {
     "enums": "workspace:*",
     "schemas": "workspace:*",
-    "zod": "*"
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/formidable": "2.0.5",
-    "@types/node": "*",
+    "@types/formidable": "catalog:",
+    "@types/node": "catalog:",
     "eslint": "catalog:",
     "eslint-config": "workspace:*",
-    "lint-staged": "*",
+    "lint-staged": "catalog:",
     "prettier": "catalog:",
     "prettier-config": "workspace:*",
     "tsconfig": "workspace:*",
