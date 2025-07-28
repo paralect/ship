@@ -7,7 +7,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "dev": "email dev --port 3003",
+    "dev": "email dev --port 4000",
     "export": "email export",
     "tsc": "tsc --noEmit --watch",
     "prettier": "prettier . --write --config .prettierrc.json",
