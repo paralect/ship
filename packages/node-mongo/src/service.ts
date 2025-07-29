@@ -28,7 +28,7 @@ import {
   IChangePublisher,
   IDatabase,
   ServiceOptions,
-  ReadConfig, CreateConfig, UpdateConfig, DeleteConfig,
+  ReadConfig, CreateConfig, UpdateConfig, DeleteConfig, PopulateOptions,
 } from './types';
 
 import logger from './utils/logger';
@@ -196,21 +196,21 @@ class Service<T extends IDocument> {
       throw new Error('Populate is required');
     }
 
-    const pipeline: any[] = [{ $match: filter }];
+    const pipeline: Document[] = [{ $match: filter }];
 
-    const processPopulateOption = (popOpt: any) => {
-      if (Array.isArray(popOpt.localField)) {
+    const processPopulateOption = (populateOption: PopulateOptions) => {
+      if (Array.isArray(populateOption.localField)) {
         const tempFieldNames: string[] = [];
 
-        popOpt.localField.forEach((field: string, index: number) => {
-          const tempFieldName = `${popOpt.fieldName}_temp_${index}`;
+        populateOption.localField.forEach((field: string, index: number) => {
+          const tempFieldName = `${populateOption.fieldName}_temp_${index}`;
           tempFieldNames.push(tempFieldName);
 
           pipeline.push({
             $lookup: {
-              from: popOpt.collection,
+              from: populateOption.collection,
               localField: field,
-              foreignField: popOpt.foreignField || '_id',
+              foreignField: populateOption.foreignField || '_id',
               as: tempFieldName,
             },
           });
@@ -218,7 +218,7 @@ class Service<T extends IDocument> {
 
         pipeline.push({
           $addFields: {
-            [popOpt.fieldName]: {
+            [populateOption.fieldName]: {
               $concatArrays: tempFieldNames.map(name => `$${name}`),
             },
           },
@@ -231,17 +231,17 @@ class Service<T extends IDocument> {
       } else {
         pipeline.push({
           $lookup: {
-            from: popOpt.collection,
-            localField: popOpt.localField,
-            foreignField: popOpt.foreignField || '_id',
-            as: popOpt.fieldName,
+            from: populateOption.collection,
+            localField: populateOption.localField,
+            foreignField: populateOption.foreignField || '_id',
+            as: populateOption.fieldName,
           },
         });
 
         pipeline.push({
           $addFields: {
-            [popOpt.fieldName]: {
-              $arrayElemAt: [`$${popOpt.fieldName}`, 0],
+            [populateOption.fieldName]: {
+              $arrayElemAt: [`$${populateOption.fieldName}`, 0],
             },
           },
         });
@@ -292,11 +292,13 @@ class Service<T extends IDocument> {
     readConfig: ReadConfig & { page?: number; perPage?: number; populate: any },
     findOptions?: FindOptions,
   ): Promise<FindResult<U & PopulateTypes>>;
+
   async find<U extends T = T>(
     filter: Filter<U>,
     readConfig?: ReadConfig & { page?: number; perPage?: number },
     findOptions?: FindOptions,
   ): Promise<FindResult<U>>;
+
   async find<U extends T = T, PopulateTypes = Record<string, unknown>>(
     filter: Filter<U>,
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
