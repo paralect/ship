@@ -28,11 +28,13 @@ import {
   IChangePublisher,
   IDatabase,
   ServiceOptions,
-  ReadConfig, CreateConfig, UpdateConfig, DeleteConfig, PopulateOptions,
+  ReadConfig, ReadConfigWithPopulate, ReadConfigWithoutPopulate, CreateConfig, UpdateConfig, DeleteConfig,
 } from './types';
 
 import logger from './utils/logger';
 import { addUpdatedOnField, generateId } from './utils/helpers';
+import PopulateUtil from './utils/populate';
+
 import { inMemoryPublisher } from './events/in-memory';
 
 const defaultOptions: ServiceOptions = {
@@ -196,76 +198,19 @@ class Service<T extends IDocument> {
       throw new Error('Populate is required');
     }
 
-    const pipeline: Document[] = [{ $match: filter }];
-
-    const processPopulateOption = (populateOption: PopulateOptions) => {
-      if (Array.isArray(populateOption.localField)) {
-        const tempFieldNames: string[] = [];
-
-        populateOption.localField.forEach((field: string, index: number) => {
-          const tempFieldName = `${populateOption.fieldName}_temp_${index}`;
-          tempFieldNames.push(tempFieldName);
-
-          pipeline.push({
-            $lookup: {
-              from: populateOption.collection,
-              localField: field,
-              foreignField: populateOption.foreignField || '_id',
-              as: tempFieldName,
-            },
-          });
-        });
-
-        pipeline.push({
-          $addFields: {
-            [populateOption.fieldName]: {
-              $concatArrays: tempFieldNames.map(name => `$${name}`),
-            },
-          },
-        });
-
-        // Remove temporary fields
-        pipeline.push({
-          $unset: tempFieldNames,
-        });
-      } else {
-        pipeline.push({
-          $lookup: {
-            from: populateOption.collection,
-            localField: populateOption.localField,
-            foreignField: populateOption.foreignField || '_id',
-            as: populateOption.fieldName,
-          },
-        });
-
-        pipeline.push({
-          $addFields: {
-            [populateOption.fieldName]: {
-              $arrayElemAt: [`$${populateOption.fieldName}`, 0],
-            },
-          },
-        });
-      }
-    };
-
-    if (Array.isArray(readConfig.populate)) {
-      readConfig.populate.forEach(processPopulateOption);
-    } else {
-      processPopulateOption(readConfig.populate);
-    }
-
+    const pipeline = PopulateUtil.buildPipeline(filter, readConfig.populate);
     return collection.aggregate<U & PopulateTypes>(pipeline, findOptions).toArray();
   };
 
   // Method overloading for findOne
   async findOne<U extends T = T, PopulateTypes = Record<string, unknown>>(
     filter: Filter<U>,
-    readConfig: ReadConfig & { populate: any },
+    readConfig: ReadConfigWithPopulate,
     findOptions?: FindOptions,
   ): Promise<(U & PopulateTypes) | null>;
   async findOne<U extends T = T>(
     filter: Filter<U>,
-    readConfig?: ReadConfig,
+    readConfig?: ReadConfigWithoutPopulate,
     findOptions?: FindOptions,
   ): Promise<U | null>;
   async findOne<U extends T = T, PopulateTypes = Record<string, unknown>>(
@@ -289,13 +234,13 @@ class Service<T extends IDocument> {
   // Method overloading for find
   async find<U extends T = T, PopulateTypes = Record<string, unknown>>(
     filter: Filter<U>,
-    readConfig: ReadConfig & { page?: number; perPage?: number; populate: any },
+    readConfig: ReadConfigWithPopulate & { page?: number; perPage?: number },
     findOptions?: FindOptions,
   ): Promise<FindResult<U & PopulateTypes>>;
 
   async find<U extends T = T>(
     filter: Filter<U>,
-    readConfig?: ReadConfig & { page?: number; perPage?: number },
+    readConfig?: ReadConfigWithoutPopulate & { page?: number; perPage?: number },
     findOptions?: FindOptions,
   ): Promise<FindResult<U>>;
 
@@ -343,7 +288,7 @@ class Service<T extends IDocument> {
 
   exists = async (
     filter: Filter<T>,
-    readConfig: ReadConfig = {},
+    readConfig: ReadConfigWithoutPopulate = {},
     findOptions: FindOptions = {},
   ): Promise<boolean> => {
     const doc = await this.findOne(filter, readConfig, findOptions);
@@ -353,7 +298,7 @@ class Service<T extends IDocument> {
 
   countDocuments = async (
     filter: Filter<T>,
-    readConfig: ReadConfig = {},
+    readConfig: ReadConfigWithoutPopulate = {},
     countDocumentOptions: CountDocumentsOptions = {},
   ): Promise<number> => {
     const collection = await this.getCollection();
@@ -366,7 +311,7 @@ class Service<T extends IDocument> {
   distinct = async (
     key: string,
     filter: Filter<T>,
-    readConfig: ReadConfig = {},
+    readConfig: ReadConfigWithoutPopulate = {},
     distinctOptions: DistinctOptions = {},
   ): Promise<any[]> => {
     const collection = await this.getCollection();
