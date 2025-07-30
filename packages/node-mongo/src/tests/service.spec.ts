@@ -12,7 +12,7 @@ import config from '../config';
 
 chai.use(spies);
 chai.should();
-const { assert, expect } = chai;
+const { assert } = chai;
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 
