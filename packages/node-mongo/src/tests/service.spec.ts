@@ -71,6 +71,7 @@ describe('service.ts', () => {
   after(async () => {
     await usersService.drop();
     await usersServiceEscapeRegExp.drop();
+    await companyService.drop();
     await database.close();
   });
   it('should create and find document', async () => {
@@ -639,14 +640,13 @@ describe('service.ts', () => {
       { fullName: 'I.Krivoshey' },
       { fullName: ' ] \ ^ $ . | ? * + ( )' },
     ]);
- 
+
     const { results: nosovUsers } = await usersServiceEscapeRegExp.find({
       fullName: { $regex: 'A(B).Nosov' },
     });
     const targetIds = users.map((p) => p._id);
     targetIds.slice(0, 2).should.be.deep.equal(nosovUsers.map((u) => u._id));
- 
- 
+
     const randomUser = await usersServiceEscapeRegExp.findOne({
       fullName: { $regex: ' ] \ ^ $ . | ? * + ( )' },
     });
@@ -657,7 +657,7 @@ describe('service.ts', () => {
       { fullName: '$Ken BL' },
       { fullName: 'John Dow*^' },
     ]);
-    
+
     const { results: newUsers } = await usersService.find({
       $or: [
         { fullName: { $regex: '$Ken BL' } },
@@ -665,5 +665,5 @@ describe('service.ts', () => {
       ],
     });
     (newUsers.length).should.be.equal(0);
-  }); 
+  });
 });

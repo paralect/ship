@@ -28,11 +28,13 @@ import {
   IChangePublisher,
   IDatabase,
   ServiceOptions,
-  ReadConfig, CreateConfig, UpdateConfig, DeleteConfig,
+  ReadConfig, ReadConfigWithPopulate, ReadConfigWithoutPopulate, CreateConfig, UpdateConfig, DeleteConfig,
 } from './types';
 
 import logger from './utils/logger';
 import { addUpdatedOnField, generateId } from './utils/helpers';
+import PopulateUtil from './utils/populate';
+
 import { inMemoryPublisher } from './events/in-memory';
 
 const defaultOptions: ServiceOptions = {
@@ -186,23 +188,67 @@ class Service<T extends IDocument> {
     return this.collection as unknown as Collection<U>;
   };
 
-  findOne = async <U extends T = T>(
+  protected populateAggregate = async <U extends T = T, PopulateTypes = Record<string, unknown>>(
+    collection: Collection<U>,
+    filter: Filter<U>,
+    readConfig: ReadConfig,
+    findOptions: FindOptions = {},
+  ): Promise<(U & PopulateTypes)[]> => {
+    if (!readConfig.populate) {
+      throw new Error('Populate is required');
+    }
+
+    const pipeline = PopulateUtil.buildPipeline(filter, readConfig.populate);
+    return collection.aggregate<U & PopulateTypes>(pipeline, findOptions).toArray();
+  };
+
+  // Method overloading for findOne
+  async findOne<U extends T = T, PopulateTypes = Record<string, unknown>>(
+    filter: Filter<U>,
+    readConfig: ReadConfigWithPopulate,
+    findOptions?: FindOptions,
+  ): Promise<(U & PopulateTypes) | null>;
+  async findOne<U extends T = T>(
+    filter: Filter<U>,
+    readConfig?: ReadConfigWithoutPopulate,
+    findOptions?: FindOptions,
+  ): Promise<U | null>;
+  async findOne<U extends T = T, PopulateTypes = Record<string, unknown>>(
     filter: Filter<U>,
     readConfig: ReadConfig = {},
     findOptions: FindOptions = {},
-  ): Promise<U | null> => {
+  ): Promise<(U & PopulateTypes) | U | null> {
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, readConfig);
 
-    return collection.findOne<U>(filter, findOptions);
-  };
+    if (readConfig.populate) {
+      const docs = await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions);
 
-  find = async <U extends T = T>(
+      return docs[0] || null;
+    }
+
+    return collection.findOne<U>(filter, findOptions);
+  }
+
+  // Method overloading for find
+  async find<U extends T = T, PopulateTypes = Record<string, unknown>>(
+    filter: Filter<U>,
+    readConfig: ReadConfigWithPopulate & { page?: number; perPage?: number },
+    findOptions?: FindOptions,
+  ): Promise<FindResult<U & PopulateTypes>>;
+
+  async find<U extends T = T>(
+    filter: Filter<U>,
+    readConfig?: ReadConfigWithoutPopulate & { page?: number; perPage?: number },
+    findOptions?: FindOptions,
+  ): Promise<FindResult<U>>;
+
+  async find<U extends T = T, PopulateTypes = Record<string, unknown>>(
     filter: Filter<U>,
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
     findOptions: FindOptions = {},
-  ): Promise<FindResult<U>> => {
+  ): Promise<FindResult<U & PopulateTypes> | FindResult<U>> {
     const collection = await this.getCollection<U>();
     const { page, perPage } = readConfig;
     const hasPaging = !!page && !!perPage;
@@ -210,7 +256,9 @@ class Service<T extends IDocument> {
     filter = this.handleReadOperations(filter, readConfig);
 
     if (!hasPaging) {
-      const results = await collection.find<U>(filter, findOptions).toArray();
+      const results = readConfig.populate
+        ? await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
+        : await collection.find<U>(filter, findOptions).toArray();
 
       return {
         pagesCount: 1,
@@ -223,7 +271,9 @@ class Service<T extends IDocument> {
     findOptions.limit = perPage;
 
     const [results, count] = await Promise.all([
-      collection.find<U>(filter, findOptions).toArray(),
+      readConfig.populate
+        ? this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
+        : collection.find<U>(filter, findOptions).toArray(),
       collection.countDocuments(filter),
     ]);
 
@@ -234,11 +284,11 @@ class Service<T extends IDocument> {
       results,
       count,
     };
-  };
+  }
 
   exists = async (
     filter: Filter<T>,
-    readConfig: ReadConfig = {},
+    readConfig: ReadConfigWithoutPopulate = {},
     findOptions: FindOptions = {},
   ): Promise<boolean> => {
     const doc = await this.findOne(filter, readConfig, findOptions);
@@ -248,7 +298,7 @@ class Service<T extends IDocument> {
 
   countDocuments = async (
     filter: Filter<T>,
-    readConfig: ReadConfig = {},
+    readConfig: ReadConfigWithoutPopulate = {},
     countDocumentOptions: CountDocumentsOptions = {},
   ): Promise<number> => {
     const collection = await this.getCollection();
@@ -261,7 +311,7 @@ class Service<T extends IDocument> {
   distinct = async (
     key: string,
     filter: Filter<T>,
-    readConfig: ReadConfig = {},
+    readConfig: ReadConfigWithoutPopulate = {},
     distinctOptions: DistinctOptions = {},
   ): Promise<any[]> => {
     const collection = await this.getCollection();

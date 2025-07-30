@@ -65,8 +65,29 @@ export type CreateConfig = {
   publishEvents?: boolean,
 };
 
+export type PopulateOptions = {
+  localField: string | {
+    name: string;
+    isArray?: boolean;
+    path?: string; // specifies which field to use from array objects (e.g., '_id', 'userId')
+  };
+  foreignField?: string; // default '_id'
+  collection: string;
+  fieldName: string;
+};
+
 export type ReadConfig = {
   skipDeletedOnDocs?: boolean,
+  populate?: PopulateOptions | PopulateOptions[];
+};
+
+// Type-safe discriminated unions for populate operations
+export type ReadConfigWithPopulate = ReadConfig & { 
+  populate: PopulateOptions | PopulateOptions[]; 
+};
+
+export type ReadConfigWithoutPopulate = ReadConfig & { 
+  populate?: never; 
 };
 
 export type UpdateConfig = {
