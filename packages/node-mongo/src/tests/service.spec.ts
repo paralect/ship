@@ -47,40 +47,9 @@ const userSchema = z.object({
   subscriptionId: z.string().optional(),
 });
 
-const postSchema = z.object({
-  _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
-  title: z.string(),
-  content: z.string(),
-  authorId: z.string(),
-  authorIds: z.array(z.string()).optional(), // Array of author IDs
-  authorRefs: z.array(z.object({
-    _id: z.string(),
-    role: z.string().optional(),
-  })).optional(), // Array of author objects with _id field
-  authorObj: z.object({
-    _id: z.string(),
-    role: z.string().optional(),
-  }).optional(), // Single author object with _id field
-  categoryId: z.string().optional(),
-  editorId: z.string().optional(),
-});
-
-const categorySchema = z.object({
-  _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
-  name: z.string(),
-});
-
 type UserType = Omit<z.infer<typeof userSchema>, 'permissions'>;
 type AdminType = Omit<z.infer<typeof userSchema>, 'subscriptionId'>;
 type CompanyType = z.infer<typeof companySchema>;
-type PostType = z.infer<typeof postSchema>;
-type CategoryType = z.infer<typeof categorySchema>;
 
 const usersService = database.createService<UserType>('users', {
   schemaValidator: (obj) => userSchema.parseAsync(obj),
@@ -95,14 +64,6 @@ const companyService = database.createService<CompanyType>('companies', {
   schemaValidator: (obj) => companySchema.parseAsync(obj),
 });
 
-const postsService = database.createService<PostType>('posts', {
-  schemaValidator: (obj) => postSchema.parseAsync(obj),
-});
-
-const categoriesService = database.createService<CategoryType>('categories', {
-  schemaValidator: (obj) => categorySchema.parseAsync(obj),
-});
-
 describe('service.ts', () => {
   before(async () => {
     await database.connect();
@@ -110,9 +71,7 @@ describe('service.ts', () => {
   after(async () => {
     await usersService.drop();
     await usersServiceEscapeRegExp.drop();
-    await postsService.drop();
     await companyService.drop();
-    await categoriesService.drop();
     await database.close();
   });
   it('should create and find document', async () => {
