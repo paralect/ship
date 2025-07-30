@@ -13,8 +13,8 @@ export default class PopulateUtil {
   /**
    * Builds a complete aggregation pipeline for populate operations
    */
-  static buildPipeline<T>(
-    filter: any,
+  static buildPipeline(
+    filter: Document,
     populateOptions: PopulateOptions | PopulateOptions[],
   ): Document[] {
     const options = Array.isArray(populateOptions) ? populateOptions : [populateOptions];

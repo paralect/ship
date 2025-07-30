@@ -317,7 +317,7 @@ describe('populate.spec.ts', () => {
         const populateOptions: PopulateOptions = {
           localField: 'authorId',
           // Missing required fields
-        } as any;
+        } as PopulateOptions;
 
         expect(() => PopulateUtil.buildPipeline(filter, populateOptions)).to.throw(
           'Invalid populate option at index 0: missing required fields (collection, fieldName, or localField)',
