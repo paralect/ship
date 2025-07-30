@@ -18,15 +18,15 @@ Lightweight reactive extension to official Node.js MongoDB [driver](https://mong
 The following example shows some of these features:
 
 ```typescript
-import { eventBus, InMemoryEvent } from "@paralect/node-mongo";
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
-await userService.updateOne({ _id: "62670b6204f1aab85e5033dc" }, (doc) => ({
-  firstName: "Mark",
+await userService.updateOne({ _id: '62670b6204f1aab85e5033dc' }, (doc) => ({
+  firstName: 'Mark',
 }));
 
 eventBus.onUpdated(
-  "users",
-  ["firstName", "lastName"],
+  'users',
+  ['firstName', 'lastName'],
   async (data: InMemoryEvent<User>) => {
     await userService.atomic.updateOne(
       { _id: data.doc._id },
@@ -55,9 +55,9 @@ import {
   Service,
   ServiceOptions,
   IDocument,
-} from "@paralect/node-mongo";
+} from '@paralect/node-mongo';
 
-import config from "config";
+import config from 'config';
 
 const database = new Database(config.mongo.connection, config.mongo.dbName);
 database.connect();
@@ -86,9 +86,9 @@ Service is a collection wrapper that adds all node-mongo features. Under the hoo
 `createService` method returns the service instance. It accepts two parameters: collection name and [ServiceOptions](#serviceoptions).
 
 ```typescript title=user.service.ts
-import { z } from "zod";
+import { z } from 'zod';
 
-import db from "db";
+import db from 'db';
 
 const schema = z
   .object({
@@ -102,7 +102,7 @@ const schema = z
 
 type User = z.infer<typeof schema>;
 
-const service = db.createService<User>("users", {
+const service = db.createService<User>('users', {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 
@@ -110,9 +110,9 @@ export default service;
 ```
 
 ```typescript title=update-user.ts
-import userService from "user.service";
+import userService from 'user.service';
 
-await userService.insertOne({ fullName: "Max" });
+await userService.insertOne({ fullName: 'Max' });
 ```
 
 ## Schema validation
@@ -132,7 +132,7 @@ const schema = z.object({
 
 type User = z.infer<typeof schema>;
 
-const service = createService<User>("users", {
+const service = createService<User>('users', {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 ```
@@ -156,7 +156,7 @@ type User = {
   fullName: string;
 };
 
-const service = createService<User>("users", {
+const service = createService<User>('users', {
   schemaValidator: (obj) => schema.validateAsync(obj),
 });
 ```
@@ -207,7 +207,7 @@ find(
 
 ```typescript
 const { results: users, count: usersCount } = await userService.find({
-  status: "active",
+  status: 'active',
 });
 ```
 
@@ -256,9 +256,9 @@ Fetches the first document that matches the filter. Returns `null` if document w
 ### `updateOne`
 
 ```typescript
-updateOne: (
-  filter: Filter<T>,
-  updateFn: (doc: T) => Partial<T>,
+updateOne<U extends T = T>: (
+  filter: Filter<U>,
+  updateFilterOrFn: (doc: U) => Partial<U> | UpdateFilter<U>,
   updateConfig: UpdateConfig = {},
   updateOptions: UpdateOptions = {},
 ): Promise<T | null>
@@ -267,12 +267,12 @@ updateOne: (
 ```typescript
 const updatedUserWithEvent = await userService.updateOne(
   { _id: u._id },
-  (doc) => ({ fullName: "Updated fullname" })
+  (doc) => ({ fullName: 'Updated fullname' })
 );
 
 const updatedUser = await userService.updateOne(
   { _id: u._id },
-  (doc) => ({ fullName: "Updated fullname" }),
+  (doc) => ({ fullName: 'Updated fullname' }),
   { publishEvents: false }
 );
 ```
@@ -292,17 +292,17 @@ Updates a single document and returns it. Returns `null` if document was not fou
 ### `updateMany`
 
 ```typescript
-updateMany: (
-  filter: Filter<T>,
-  updateFn: (doc: T) => Partial<T>,
+updateMany<U extends T = T>: (
+  filter: Filter<U>,
+  updateFilterOrFn: (doc: U) => Partial<U> | UpdateFilter<U>,
   updateConfig: UpdateConfig = {},
   updateOptions: UpdateOptions = {},
-): Promise<T[]>
+): Promise<U[]>
 ```
 
 ```typescript
 const updatedUsers = await userService.updateMany(
-  { status: "active" },
+  { status: 'active' },
   (doc) => ({ isEmailVerified: true })
 );
 ```
@@ -331,7 +331,7 @@ insertOne: (
 
 ```typescript
 const user = await userService.insertOne({
-  fullName: "John",
+  fullName: 'John',
 });
 ```
 
@@ -357,8 +357,8 @@ insertMany: (
 
 ```typescript
 const users = await userService.insertMany([
-  { fullName: "John" },
-  { fullName: "Kobe" },
+  { fullName: 'John' },
+  { fullName: 'Kobe' },
 ]);
 ```
 
@@ -383,7 +383,7 @@ deleteSoft: (
 ```
 
 ```typescript
-const deletedUsers = await userService.deleteSoft({ status: "deactivated" });
+const deletedUsers = await userService.deleteSoft({ status: 'deactivated' });
 ```
 
 Adds `deletedOn` field to the documents that match the query and returns them.
@@ -431,7 +431,7 @@ deleteMany: (
 ```
 
 ```typescript
-const deletedUsers = await userService.deleteMany({ status: "deactivated" });
+const deletedUsers = await userService.deleteMany({ status: 'deactivated' });
 ```
 
 Deletes multiple documents that match the query. Returns array with deleted documents.
@@ -539,7 +539,7 @@ exists(
 ```
 
 ```typescript
-const isUserExists = await userService.exists({ email: "example@gmail.com" });
+const isUserExists = await userService.exists({ email: 'example@gmail.com' });
 ```
 
 Returns **_true_** if document exists, otherwise **_false_**.
@@ -563,7 +563,7 @@ countDocuments(
 ```
 
 ```typescript
-const documentsCount = await userService.countDocuments({ status: "active" });
+const documentsCount = await userService.countDocuments({ status: 'active' });
 ```
 
 Returns amount of documents that matches the query.
@@ -588,7 +588,7 @@ distinct(
 ```
 
 ```typescript
-const statesList = await userService.distinct("states");
+const statesList = await userService.distinct('states');
 ```
 
 Returns distinct values for a specified field across a single collection or view and returns the results in an array.
@@ -613,7 +613,7 @@ aggregate: (
 
 ```typescript
 const sortedActiveUsers = await userService.aggregate([
-  { $match: { status: "active" } },
+  { $match: { status: 'active' } },
   { $sort: { firstName: -1, lastName: -1 } },
 ]);
 ```
@@ -793,15 +793,15 @@ on: (
 ```
 
 ```typescript
-import { eventBus, InMemoryEvent } from "@paralect/node-mongo";
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
-const collectionName = "users";
+const collectionName = 'users';
 
 eventBus.on(`${collectionName}.created`, (data: InMemoryEvent<User>) => {
   try {
     const user = data.doc;
 
-    console.log("user created", user);
+    console.log('user created', user);
   } catch (err) {
     logger.error(`${USERS}.created handler error: ${err}`);
   }
@@ -837,7 +837,7 @@ eventBus.once(`${USERS}.updated`, (data: InMemoryEvent<User>) => {
   try {
     const user = data.doc;
 
-    console.log("user updated", user);
+    console.log('user updated', user);
   } catch (err) {
     logger.error(`${USERS}.updated handler error: ${err}`);
   }
@@ -866,11 +866,11 @@ onUpdated: (
 ```
 
 ```typescript
-import { eventBus, InMemoryEvent } from "@paralect/node-mongo";
+import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
 eventBus.onUpdated(
-  "users",
-  ["firstName", "lastName"],
+  'users',
+  ['firstName', 'lastName'],
   async (data: InMemoryEvent<User>) => {
     try {
       await userService.atomic.updateOne(
@@ -886,12 +886,12 @@ eventBus.onUpdated(
 );
 
 eventBus.onUpdated(
-  "users",
-  [{ fullName: "John Wake", firstName: "John" }, "lastName"],
+  'users',
+  [{ fullName: 'John Wake', firstName: 'John' }, 'lastName'],
   () => {}
 );
 
-eventBus.onUpdated("users", ["oauth.google"], () => {});
+eventBus.onUpdated('users', ['oauth.google'], () => {});
 ```
 
 In-memory events handler that listens for specific fields updates. It will be called when one of the provided `properties` updates.
@@ -919,11 +919,11 @@ withTransaction: <TRes = any>(
 Runs callbacks and automatically commits or rollbacks transaction.
 
 ```typescript
-import db from "db";
+import db from 'db';
 
 const { user, company } = await db.withTransaction(async (session) => {
   const createdUser = await usersService.insertOne(
-    { fullName: "Bahrimchuk" },
+    { fullName: 'Bahrimchuk' },
     {},
     { session }
   );
@@ -1044,11 +1044,11 @@ type OnUpdatedProperties = Array<Record<string, unknown> | string>;
 Extending API for a single service.
 
 ```typescript
-const service = db.createService<User>("users", {
+const service = db.createService<User>('users', {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 
-const privateFields = ["passwordHash", "signupToken", "resetPasswordToken"];
+const privateFields = ['passwordHash', 'signupToken', 'resetPasswordToken'];
 
 const getPublic = (user: User | null) => _.omit(user, privateFields);
 
@@ -1086,11 +1086,11 @@ function createService<T extends IDocument>(
   return new CustomService<T>(collectionName, database, options);
 }
 
-const userService = createService<UserType>("users", {
+const userService = createService<UserType>('users', {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 
-await userService.createOrUpdate({ _id: "some-id" }, () => ({
-  fullName: "Max",
+await userService.createOrUpdate({ _id: 'some-id' }, () => ({
+  fullName: 'Max',
 }));
 ```
