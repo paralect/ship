@@ -1,0 +1,55 @@
+name: Linter
+
+on:
+  workflow_call:
+    inputs:
+      component:
+        type: string
+        required: true
+      dir:
+        type: string
+        required: true
+
+permissions:
+  checks: write
+  contents: write
+
+env:
+  PNPM_VERSION: 9.5.0
+  NODE_VERSION: 22.13.0
+
+jobs:
+  lint:
+    name: Lint ${{ inputs.component }} Component
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm ${{ env.PNPM_VERSION }}
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Run Linters
+        uses: wearerequired/lint-action@v2
+        with:
+          check_name: "${linter} in ${{ inputs.component }} component"
+          eslint: true
+          eslint_dir: ${{ inputs.dir }}
+          eslint_extensions: ts,tsx
+          tsc: true
+          tsc_dir: ${{ inputs.dir }}
+          tsc_extensions: ts,tsx
+          prettier: true
+          prettier_dir: ${{ inputs.dir }}
