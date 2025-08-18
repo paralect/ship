@@ -130,6 +130,8 @@ interface ServiceOptions {
   escapeRegExp?: boolean;
 }
 
+export type UpdateFilterFunction<U> = (doc: U) => Partial<U>;
+
 export {
   IDatabase,
   ServiceOptions,
