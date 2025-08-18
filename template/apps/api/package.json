@@ -6,11 +6,11 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only --watch .env src/app.ts",
+    "dev": "NODE_ENV=development APP_ENV=development tsx watch --env-file=.env src/app.ts",
     "start": "ts-node src/app.ts",
     "migrate-dev": "NODE_ENV=development APP_ENV=development ts-node src/migrator.ts",
     "migrate": "ts-node src/migrator.ts",
-    "schedule-dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only --watch .env src/scheduler.ts",
+    "schedule-dev": "NODE_ENV=development APP_ENV=development tsx watch --env-file=.env src/scheduler.ts",
     "schedule": "ts-node src/scheduler.ts",
     "test:unit": "jest --runInBand -c ./jest.config.js --collectCoverage false",
     "tsc": "tsc --noEmit --watch",
@@ -81,8 +81,8 @@
     "prettier-config": "workspace:*",
     "ts-jest": "29.1.2",
     "ts-node": "10.9.2",
-    "ts-node-dev": "2.0.0",
     "tsconfig": "workspace:*",
+    "tsx": "4.20.4",
     "typescript": "catalog:"
   },
   "lint-staged": {

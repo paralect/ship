@@ -24,6 +24,6 @@
   "engines": {
     "node": ">= 20.11.1",
     "yarn": "please-use-pnpm",
-    "pnpm": ">= 8.15.7 <= 9.0.5"
+    "pnpm": ">= 9.5.0"
   }
 }
