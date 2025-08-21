@@ -3,9 +3,9 @@
   "display": "Node.js",
   "extends": "./base.json",
   "compilerOptions": {
-    "moduleResolution": "NodeNext",
     "lib": ["es2023"],
-    "module": "NodeNext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "target": "es2022",
 
     "allowSyntheticDefaultImports": true,

@@ -1,4 +1,4 @@
-import { camelCase, isArray, isObject, transform } from 'lodash';
+import _ from 'lodash';
 
 type NonNullableObject = Record<string, unknown>;
 
@@ -8,17 +8,17 @@ export const toCamelCase = <T extends NonNullableObject | null | undefined>(obje
   }
 
   const transformObject = (input: NonNullableObject): NonNullableObject =>
-    transform(input, (result: NonNullableObject, value, key) => {
-      const camelKey = camelCase(key);
+    _.transform(input, (result: NonNullableObject, value, key) => {
+      const camelKey = _.camelCase(key);
 
-      if (isObject(value) && !isArray(value)) {
+      if (_.isObject(value) && !_.isArray(value)) {
         result[camelKey] = transformObject(value as NonNullableObject);
-      } else if (isArray(value)) {
-        result[camelKey] = value.map((item) => (isObject(item) ? transformObject(item as NonNullableObject) : item));
+      } else if (_.isArray(value)) {
+        result[camelKey] = value.map((item) => (_.isObject(item) ? transformObject(item as NonNullableObject) : item));
       } else {
         result[camelKey] = value;
       }
     });
 
-  return isObject(object) && !isArray(object) ? (transformObject(object as NonNullableObject) as T) : object;
+  return _.isObject(object) && !_.isArray(object) ? (transformObject(object as NonNullableObject) as T) : object;
 };
