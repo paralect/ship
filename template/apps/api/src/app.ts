@@ -1,7 +1,3 @@
-/* eslint-disable simple-import-sort/imports */
-
-import 'dotenv/config';
-
 import cors from '@koa/cors';
 import { koaBody } from 'koa-body';
 import helmet from 'koa-helmet';
