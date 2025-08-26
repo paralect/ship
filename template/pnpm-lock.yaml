@@ -114,9 +114,6 @@ importers:
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
-      dotenv:
-        specifier: 16.5.0
-        version: 16.5.0
       ioredis:
         specifier: 5.6.1
         version: 5.6.1
