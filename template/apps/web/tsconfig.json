@@ -11,7 +11,7 @@
     "**/*.json",
     ".next/types/**/*.ts",
     "next-env.d.ts",
-    "next.config.js",
-    "postcss.config.js"
+    "next.config.mjs",
+    "postcss.config.json"
   ]
 }

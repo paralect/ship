@@ -1,5 +1,6 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import { readdirSync } from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { Migration } from 'migrator/types';
 
@@ -8,6 +9,9 @@ import db from 'db';
 import schema from './migration-version.schema';
 import { MigrationVersion } from './migration-version-types';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const service = db.createService<MigrationVersion>('__migrationVersion', {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
@@ -15,7 +19,7 @@ const service = db.createService<MigrationVersion>('__migrationVersion', {
 const migrationPaths = path.join(__dirname, '../migrations');
 const id = 'migration_version';
 
-const getMigrationNames = (): string[] => fs.readdirSync(migrationPaths).filter((file) => !file.endsWith('.js.map'));
+const getMigrationNames = (): string[] => readdirSync(migrationPaths).filter((file) => !file.endsWith('.js.map'));
 
 const getCurrentMigrationVersion = () =>
   service.findOne({ _id: id }).then((doc: MigrationVersion | null) => {
@@ -26,16 +30,20 @@ const getCurrentMigrationVersion = () =>
     return doc.version;
   });
 
-const getMigrations = (): Migration[] => {
+const getMigrations = async (): Promise<Migration[]> => {
   const names = getMigrationNames();
-  const migrations = names.map((name: string) => {
-    const migrationPath = path.join(migrationPaths, name);
 
-    // eslint-disable-next-line ts/no-require-imports
-    return require(migrationPath);
-  });
+  const migrations = await Promise.all(
+    names.map(async (name: string) => {
+      const migrationPath = path.join(migrationPaths, name);
 
-  return migrations.map((m) => m.default);
+      const migration = await import(migrationPath);
+
+      return migration.default;
+    }),
+  );
+
+  return migrations;
 };
 
 const setNewMigrationVersion = (version: number) =>

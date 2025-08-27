@@ -1,5 +1,6 @@
 {
   "name": "web",
+  "type": "module",
   "version": "1.0.0",
   "description": "Next.js web",
   "author": "Paralect",
