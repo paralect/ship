@@ -1,4 +1,4 @@
-import { cloneDeep, cloneDeepWith, escapeRegExp, isEqual, isObject } from 'lodash';
+import _, { cloneDeep, cloneDeepWith, escapeRegExp, isEqual, isObject } from 'lodash';
 import {
   WithoutId,
   ChangeStreamOptions,
@@ -29,6 +29,7 @@ import {
   IDatabase,
   ServiceOptions,
   ReadConfig, ReadConfigWithPopulate, ReadConfigWithoutPopulate, CreateConfig, UpdateConfig, DeleteConfig,
+  UpdateFilterFunction,
 } from './types';
 
 import logger from './utils/logger';
@@ -200,6 +201,26 @@ class Service<T extends IDocument> {
 
     const pipeline = PopulateUtil.buildPipeline(filter, readConfig.populate);
     return collection.aggregate<U & PopulateTypes>(pipeline, findOptions).toArray();
+  };
+
+  protected simulateUpdate = async <U extends object = T>(
+    doc: U,
+    filter: Filter<U>,
+    updateFilter: UpdateFilter<U>,
+  ): Promise<U> => {
+    return this.db.withTransaction(async (session) => {
+      let updatedDoc = cloneDeep(doc);
+
+      const updateResult = await this.collection?.findOneAndUpdate(filter as Filter<T>, updateFilter as UpdateFilter<T>, { session, returnDocument: 'after' });
+
+      if (updateResult) {
+        updatedDoc = updateResult as unknown as U;
+      }
+
+      await session.abortTransaction();
+
+      return updatedDoc;
+    });
   };
 
   // Method overloading for findOne
@@ -414,12 +435,26 @@ class Service<T extends IDocument> {
     return collection.replaceOne(filter, replacement as WithoutId<T>, replaceOptions);
   };
 
-  updateOne = async <U extends T = T>(
+  updateOne<U extends T = T>(
     filter: Filter<U>,
-    updateFn: (doc: U) => Partial<U>,
+    updateFn: UpdateFilterFunction<U>,
+    updateConfig?: UpdateConfig,
+    updateOptions?: UpdateOptions,
+  ): Promise<U | null>;
+
+  updateOne<U extends T = T>(
+    filter: Filter<U>,
+    updateFilter: UpdateFilter<U>,
+    updateConfig?: UpdateConfig,
+    updateOptions?: UpdateOptions,
+  ): Promise<U | null>;
+
+  async updateOne <U extends T = T>(
+    filter: Filter<U>,
+    updateFilterOrFn: UpdateFilterFunction<U> | UpdateFilter<U>,
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
-  ): Promise<U | null> => {
+  ): Promise<U | null> {
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, updateConfig);
@@ -434,24 +469,50 @@ class Service<T extends IDocument> {
     }
 
     const prevDoc = cloneDeep(doc);
+        
+    let newDoc: U;
+    let updateFilter: UpdateFilter<U>;
 
-    const updatedFields = await updateFn(doc);
+    switch (typeof updateFilterOrFn) {
+      case 'function': {
+        const updatedFields = await updateFilterOrFn(doc);
 
-    const newDoc = { ...doc, ...updatedFields };
+        newDoc = { ...doc, ...updatedFields };
+        updateFilter = { $set: updatedFields };
+
+        break;
+      }
+
+      case 'object': {
+        const clonedUpdateFilter = cloneDeep(updateFilterOrFn);
+
+        newDoc = await this.simulateUpdate<U>(doc, filter, clonedUpdateFilter);
+        updateFilter = clonedUpdateFilter;
+
+        break;
+      }
+
+      default: {
+        logger.error('Invalid update filter type. Must be function or object.', { type: typeof updateFilterOrFn });
+        return null;
+      }
+    }
+
     const isUpdated = !isEqual(prevDoc, newDoc);
 
     if (!isUpdated) {
       if (isDev) {
         logger.warn(`Document hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
       }
+
       return newDoc;
     }
 
     if (this.options.addUpdatedOnField) {
       const updatedOnDate = new Date();
 
-      updatedFields.updatedOn = updatedOnDate;
       newDoc.updatedOn = updatedOnDate;
+      updateFilter = _.merge(updateFilter, { $set: { updatedOn: updatedOnDate } });
     }
 
     const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
@@ -470,7 +531,7 @@ class Service<T extends IDocument> {
       const updateOneWithEvent = async (opts: UpdateOptions): Promise<void> => {
         await collection.updateOne(
           { _id: doc._id } as Filter<U>,
-          { $set: updatedFields } as UpdateFilter<U>,
+          updateFilter,
           opts,
         );
 
@@ -490,20 +551,34 @@ class Service<T extends IDocument> {
     } else {
       await collection.updateOne(
         { _id: doc._id } as Filter<U>,
-        { $set: updatedFields } as UpdateFilter<U>,
+        updateFilter,
         updateOptions,
       );
     }
 
     return newDoc;
-  };
+  }
 
-  updateMany = async <U extends T = T>(
+  updateMany<U extends T = T>(
     filter: Filter<U>,
-    updateFn: (doc: U) => Partial<U>,
+    updateFn: UpdateFilterFunction<U>,
+    updateConfig?: UpdateConfig,
+    updateOptions?: UpdateOptions,
+  ): Promise<U[]>;
+
+  updateMany<U extends T = T>(
+    filter: Filter<U>,
+    updateFilter: UpdateFilter<U>,
+    updateConfig?: UpdateConfig,
+    updateOptions?: UpdateOptions,
+  ): Promise<U[]>;
+
+  async updateMany<U extends T = T>(
+    filter: Filter<U>,
+    updateFilterOrFn: UpdateFilterFunction<U> | UpdateFilter<U>,
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
-  ): Promise<U[]> => {
+  ): Promise<U[]> {
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, updateConfig);
@@ -520,35 +595,61 @@ class Service<T extends IDocument> {
     const updated = await Promise.all(
       documents.map(async (doc) => {
         const prevDoc = cloneDeep(doc);
-        const updatedFields = await updateFn(doc);
-        const newDoc = { ...doc, ...updatedFields };
+
+        let newDoc: U;
+        let updateFilter: UpdateFilter<U>;
+
+        switch (typeof updateFilterOrFn) {
+          case 'function': {
+            const updatedFields = await updateFilterOrFn(doc);
+
+            newDoc = { ...doc, ...updatedFields };
+            updateFilter = { $set: updatedFields };
+
+            break;
+          }
+
+          case 'object': {
+            const clonedUpdateFilter = cloneDeep(updateFilterOrFn);
+
+            newDoc = await this.simulateUpdate<U>(doc, filter, clonedUpdateFilter);
+            updateFilter = clonedUpdateFilter;
+
+            break;
+          }
+
+          default: {
+            logger.error('Invalid update filter type. Must be function or object.', { type: typeof updateFilterOrFn });
+            return null;
+          }
+        }
 
         return {
           doc: newDoc,
           prevDoc,
-          updatedFields,
           isUpdated: !isEqual(prevDoc, newDoc),
+          updateFilter,
         };
       }),
     );
 
-    const isUpdated = updated.find((u) => u.isUpdated) !== undefined;
+    const isUpdated = updated.find((u) => u?.isUpdated) !== undefined;
 
     if (!isUpdated) {
       if (isDev) {
         logger.warn(`Documents hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
       }
 
-      return updated.map((u) => u.doc);
+      return updated.filter(Boolean).map((u) => u?.doc) as U[];
     }
 
     if (this.options.addUpdatedOnField) {
       const updatedOnDate = new Date();
 
       updated.forEach((u) => {
-        if (u.isUpdated) {
+        if (u?.isUpdated) {
           u.doc.updatedOn = updatedOnDate;
-          u.updatedFields.updatedOn = updatedOnDate;
+          u.updateFilter = _.merge(u.updateFilter, { $set: { updatedOn: updatedOnDate } });
         }
       });
     }
@@ -558,18 +659,18 @@ class Service<T extends IDocument> {
       : Boolean(this.options.schemaValidator);
 
     if (shouldValidateSchema) {
-      await Promise.all((updated.map((u) => this.validateSchema(u.doc))));
+      await Promise.all((updated.map((u) => this.validateSchema(u?.doc))));
     }
 
-    const updatedDocuments = updated.filter((u) => u.isUpdated);
+    const updatedDocuments = updated.filter((u) => u?.isUpdated);
     const bulkWriteQuery = updatedDocuments.map(
       (u): { updateOne: UpdateOneModel<U> } => {
-        const filterQuery = { _id: u.doc._id } as Filter<U>;
+        const filterQuery = { _id: u?.doc._id } as Filter<U>;
 
         return {
           updateOne: {
             filter: filterQuery,
-            update: { $set: u.updatedFields } as UpdateFilter<U>,
+            update: u?.updateFilter as UpdateFilter<U>,
           },
         };
       },
@@ -586,7 +687,7 @@ class Service<T extends IDocument> {
         return this.changePublisher.publishDbChanges(
           this._collectionName,
           'update',
-          updatedDocuments.map((u) => ({ doc: u.doc, prevDoc: u.prevDoc })),
+          updatedDocuments.map((u) => ({ doc: u?.doc, prevDoc: u?.prevDoc })),
           { session: opts.session },
         );
       };
@@ -600,8 +701,8 @@ class Service<T extends IDocument> {
       await collection.bulkWrite(bulkWriteQuery, updateOptions);
     }
 
-    return updated.map((u) => u.doc);
-  };
+    return updated.map((u) => u?.doc) as U[];
+  }
 
   deleteOne = async <U extends T = T>(
     filter: Filter<U>,
