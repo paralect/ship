@@ -6,12 +6,12 @@ import {
   DeleteObjectCommandOutput,
   GetObjectCommand,
   GetObjectOutput,
-  PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3';
+import { PutObjectCommandInput } from '@aws-sdk/client-s3/dist-types/commands/PutObjectCommand';
 import { Upload } from '@aws-sdk/lib-storage';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { readFile } from 'node:fs/promises';
+import fs from 'node:fs/promises';
 
 import { caseUtil } from 'utils';
 
@@ -39,7 +39,7 @@ const upload = async (fileName: string, file: BackendFile): Promise<UploadOutput
   const params: PutObjectCommandInput = {
     Bucket: bucket,
     ContentType: file.mimetype as string,
-    Body: await readFile(file.filepath as string),
+    Body: await fs.readFile(file.filepath as string),
     Key: fileName,
     ACL: 'private',
   };
@@ -56,7 +56,7 @@ const uploadPublic = async (fileName: string, file: BackendFile): Promise<Upload
   const params: PutObjectCommandInput = {
     Bucket: bucket,
     ContentType: file.mimetype as string,
-    Body: await readFile(file.filepath as string),
+    Body: await fs.readFile(file.filepath as string),
     Key: fileName,
     ACL: 'public-read',
   };
@@ -110,12 +110,11 @@ const deleteObject = async (fileName: string): Promise<DeleteOutput> => {
   return client.send(command).then((value) => caseUtil.toCamelCase<DeleteOutput>(value));
 };
 
-export default {
-  ...helpers,
+export default Object.assign(helpers, {
   upload,
   uploadPublic,
   getObject,
   copyObject,
   deleteObject,
   getSignedDownloadUrl,
-};
+});

@@ -3,11 +3,7 @@
   "compilerOptions": {
     "jsx": "react", // for using Mailer
     "baseUrl": "src",
-    "rootDir": ".",
-    "outDir": "dist",
-
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "rootDir": "."
   },
   "include": ["**/*.ts", "**/*.json"]
 }

@@ -1,6 +1,5 @@
 {
   "name": "enums",
-  "type": "module",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",

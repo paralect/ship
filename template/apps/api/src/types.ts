@@ -32,6 +32,4 @@ export type AppRouterMiddleware = Router.Middleware<AppKoaContextState, AppKoaCo
 
 export type ValidationErrors = Record<string, JSONPrimitive | JSONPrimitive[]>;
 
-export { Template };
-
-export type { Next };
+export { Next, Template };

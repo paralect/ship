@@ -45,7 +45,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
-COPY --from=app_builder /app/apps/web/next.config.mjs .
+COPY --from=app_builder /app/apps/web/next.config.js .
 COPY --from=app_builder /app/apps/web/package.json .
 
 # Automatically leverage output traces to reduce image size

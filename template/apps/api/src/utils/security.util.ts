@@ -1,8 +1,4 @@
 import { hash, verify } from '@node-rs/argon2';
-import { generateRandomString } from '@oslojs/crypto/random';
-import { sha256 } from '@oslojs/crypto/sha2';
-import { constantTimeEqual } from '@oslojs/crypto/subtle';
-import { encodeHexLowerCase } from '@oslojs/encoding';
 import crypto from 'node:crypto';
 
 // Human readable alphabet (a-z, 0-9 without l, o, 0, 1 to avoid confusion)
@@ -15,6 +11,8 @@ const RANDOM = {
 };
 
 export const generateSecureToken = async (tokenLength = 24) => {
+  const { generateRandomString } = await import('@oslojs/crypto/random');
+
   return generateRandomString(RANDOM, ALPHABET, tokenLength);
 };
 
@@ -30,10 +28,15 @@ export const verifyPasswordHash = async (hashedPassword: string, password: strin
   verify(hashedPassword, password);
 
 export const hashToken = async (token: string): Promise<string> => {
+  const { sha256 } = await import('@oslojs/crypto/sha2');
+  const { encodeHexLowerCase } = await import('@oslojs/encoding');
+
   return encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 };
 
 export const verifyTokenHash = async (hashedToken: string | undefined, token: string): Promise<boolean> => {
+  const { constantTimeEqual } = await import('@oslojs/crypto/subtle');
+
   const computedHash = await hashToken(token);
 
   return constantTimeEqual(new TextEncoder().encode(computedHash), new TextEncoder().encode(hashedToken));
