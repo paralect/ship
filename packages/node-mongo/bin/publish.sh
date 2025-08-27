@@ -11,6 +11,7 @@ blue=`tput setaf 4`
 reset=`tput sgr0`
 
 VERSION=$1
+TAG=${2:-latest}
 MODULE='node-mongo'
 
 if [ -z "$1" ] ; then
@@ -35,7 +36,7 @@ MODULE_VERSION=$(grep version package.json | sed 's/.*"version": "\(.*\)".*/\1/'
 
 echo ">>> Current version for module: ${blue}@paralect/$MODULE${reset} is ${yellow}$MODULE_VERSION${reset}"
 echo ">>> Bumping version to ${yellow}$VERSION${reset}"
-npm run test:eslint 1>/dev/null && npm run build 1>/dev/null && npm version $VERSION && npm publish
+npm run test:eslint 1>/dev/null && npm run build 1>/dev/null && npm version $VERSION && npm publish --tag $TAG
 
 MODULE_VERSION_NEW=$(grep version package.json | sed 's/.*"version": "\(.*\)".*/\1/')
 
