@@ -4,7 +4,7 @@ packages:
 
 catalog:
   typescript: 5.8.3
-  eslint: 9.31.0
+  eslint: 9.34.0
   prettier: 3.6.2
 
   zod: 3.25.63
