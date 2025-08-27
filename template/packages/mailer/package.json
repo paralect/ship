@@ -1,6 +1,5 @@
 {
   "name": "mailer",
-  "type": "module",
   "version": "0.0.0",
   "description": "Ship Mailer based on React Email",
   "author": "Paralect",

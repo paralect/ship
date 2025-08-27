@@ -39,7 +39,7 @@ You can start the application in two ways:
 
 ### Development Tools
 
-- **Automatic Restart**: Utilizes [tsx](https://tsx.is/) for automatic application restart on code changes.
+- **Automatic Restart**: Utilizes [ts-node-dev](https://github.com/wclr/ts-node-dev) for automatic application restart on code changes.
 - **Code Quality**: Enforces code linting with [ESLint](https://eslint.org/) and formatting with [Prettier](https://prettier.io/).
 - **TypeScript Support**: Full support for TypeScript for a better development experience.
 

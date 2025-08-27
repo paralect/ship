@@ -1,6 +1,6 @@
-import dotenv from 'dotenv-flow';
-import { join } from 'node:path';
-import process from 'node:process';
+const dotenv = require('dotenv-flow');
+const { join } = require('node:path');
+const process = require('node:process');
 
 const dotenvConfig = dotenv.config({
   node_env: process.env.NEXT_PUBLIC_APP_ENV,
@@ -8,7 +8,7 @@ const dotenvConfig = dotenv.config({
 });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   env: dotenvConfig.parsed,
   webpack(config) {
     config.module.rules.push({
@@ -20,7 +20,7 @@ const nextConfig = {
   },
   reactStrictMode: true,
   output: 'standalone',
-  outputFileTracingRoot: join(process.cwd(), '../../'), // this includes files from the monorepo base two directories up
+  outputFileTracingRoot: join(__dirname, '../../'), // this includes files from the monorepo base two directories up
   pageExtensions: ['page.tsx', 'api.ts'],
   transpilePackages: ['app-constants', 'schemas', 'types'],
   i18n: {
@@ -40,5 +40,3 @@ const nextConfig = {
     ],
   },
 };
-
-export default nextConfig;

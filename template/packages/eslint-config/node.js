@@ -42,8 +42,10 @@ export const getNodeConfig = (antfuOptions) =>
           'error',
           {
             groups: [
-              // Side effect imports.
-              ['^\\u0000'],
+              // Allows requiring modules relative to /src folder
+              ['^module-alias'],
+              // App environment variables
+              ['^\\dotenv/config'],
               // Third-party libraries and frameworks
               ['^@?\\w'],
               // Particular business entities
@@ -64,6 +66,8 @@ export const getNodeConfig = (antfuOptions) =>
               ['^\\.\\.(?!/?$)', '^\\.\\./?$', '^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
               // Style imports.
               ['^.+\\.?(css|scss|sass)$'],
+              // Side effect imports.
+              ['^\\u0000'],
             ],
           },
         ],
