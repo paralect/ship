@@ -1,3 +1,5 @@
+import 'resources/user/user.handlers';
+
 import { FC, Fragment, ReactElement, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
@@ -11,8 +13,6 @@ import config from 'config';
 import MainLayout from './MainLayout';
 import PrivateScope from './PrivateScope';
 import UnauthorizedLayout from './UnauthorizedLayout';
-
-import 'resources/user/user.handlers';
 
 const layoutToComponent = {
   [LayoutType.MAIN]: MainLayout,

@@ -26,22 +26,17 @@ COPY --from=builder /app/out/full/turbo.json ./turbo.json
 
 # DEVELOPMENT - Stage 3
 FROM installer AS development
-CMD pnpm turbo run dev --filter=api
+CMD ["pnpm", "--filter=api", "dev"]
 
 # RUNNER - Stage 4
-FROM node:22-alpine AS runner
+FROM installer AS runner
 WORKDIR /app
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk update && apk add --no-cache libc6-compat
-RUN npm install --global --no-update-notifier --no-fund ts-node@10.9.2
 
 # Don't run production as root
 RUN addgroup --system --gid 1001 app
 RUN adduser --system --uid 1001 app
 USER app
 
-COPY --from=installer /app .
-
 EXPOSE 3001
 
-CMD ["ts-node", "apps/api/src/app.ts"]
+CMD ["pnpm", "--filter=api", "start"]
