@@ -66,6 +66,7 @@ export default getNodeConfig({
 
         'react/react-in-jsx-scope': 'off',
         'react/jsx-boolean-value': ['error', 'never'],
+        'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
         'react/function-component-definition': [
           'error',
           {
