@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactNode } from 'react';
 import { AppShell, Stack } from '@mantine/core';
 
 import { accountApi } from 'resources/account';
@@ -6,7 +6,7 @@ import { accountApi } from 'resources/account';
 import Header from './Header';
 
 interface MainLayoutProps {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {

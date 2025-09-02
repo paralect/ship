@@ -1,9 +1,9 @@
-import { FC, ReactElement, useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 
 import { socketService } from 'services';
 
 interface PrivateScopeProps {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const PrivateScope: FC<PrivateScopeProps> = ({ children }) => {
