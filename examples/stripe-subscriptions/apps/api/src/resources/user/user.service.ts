@@ -8,6 +8,7 @@ import { User } from 'types';
 
 const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, {
   schemaValidator: (obj) => userSchema.parseAsync(obj),
+  privateFields: ['passwordHash', 'signupToken', 'resetPasswordToken'],
 });
 
 const updateLastRequest = (_id: string) =>
@@ -20,9 +21,7 @@ const updateLastRequest = (_id: string) =>
     },
   );
 
-const privateFields = ['passwordHash', 'signupToken', 'resetPasswordToken'];
-
-const getPublic = (user: User | null) => _.omit(user, privateFields);
+const getPublic = (user: User | null) => service.getPublic(user);
 
 export default Object.assign(service, {
   updateLastRequest,
