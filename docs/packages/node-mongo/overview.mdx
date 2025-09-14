@@ -200,6 +200,7 @@ interface ServiceOptions {
   outbox?: boolean,
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
+  privateFields?: string[];
 }
 ```
 
@@ -214,6 +215,7 @@ interface ServiceOptions {
 |`escapeRegExp`|Escape `$regex` values to prevent special characters from being interpreted as patterns. |`false`|
 |`collectionOptions`|MongoDB [CollectionOptions](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CollectionOptions.html)|`{}`|
 |`collectionCreateOptions`|MongoDB [CreateCollectionOptions](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CreateCollectionOptions.html)|`{}`|
+|`privateFields`|Fields that should be omitted from the public response.|`[]`|
 
 ### `CreateConfig`
 Overrides `ServiceOptions` parameters for create operations.
@@ -281,19 +283,11 @@ Extending API for a single service.
 ```typescript
 const service = db.createService<User>('users', {
   schemaValidator: (obj) => schema.parseAsync(obj),
+  privateFields: ['passwordHash', 'signupToken', 'resetPasswordToken'],
 });
-
-const privateFields = [
-  'passwordHash',
-  'signupToken',
-  'resetPasswordToken',
-];
-
-const getPublic = (user: User | null) => _.omit(user, privateFields);
 
 export default Object.assign(service, {
   updateLastRequest,
-  getPublic,
 });
 ```
 
@@ -321,6 +315,7 @@ function createService<T extends IDocument>(collectionName: string, options: Ser
 
 const userService = createService<UserType>('users', {
   schemaValidator: (obj) => schema.parseAsync(obj),
+  privateFields: ['passwordHash', 'signupToken', 'resetPasswordToken'],
 });
 
 await userService.createOrUpdate(
