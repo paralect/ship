@@ -13,7 +13,6 @@
     "migrate": "tsx src/migrator.ts",
     "schedule-dev": "NODE_ENV=development APP_ENV=development tsx watch --env-file=.env src/scheduler.ts",
     "schedule": "tsx src/scheduler.ts",
-    "test:unit": "jest --runInBand -c ./jest.config.js --collectCoverage false",
     "tsc": "tsc --noEmit --watch",
     "prettier": "prettier . --write --config .prettierrc.json",
     "eslint": "eslint . --fix",
@@ -56,8 +55,6 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@shelf/jest-mongodb": "4.2.0",
-    "@types/jest": "29.5.12",
     "@types/koa": "2.15.0",
     "@types/koa-compose": "3.2.8",
     "@types/koa-logger": "3.1.5",
@@ -70,12 +67,9 @@
     "@types/node-schedule": "2.1.7",
     "eslint": "catalog:",
     "eslint-config": "workspace:*",
-    "jest": "29.7.0",
     "lint-staged": "catalog:",
-    "mongodb-memory-server": "8.12.0",
     "prettier": "catalog:",
     "prettier-config": "workspace:*",
-    "ts-jest": "29.1.2",
     "tsconfig": "workspace:*",
     "tsx": "4.20.4",
     "typescript": "catalog:"
