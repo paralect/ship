@@ -41,17 +41,30 @@ and [Mintlify documentation](https://mintlify.com/docs/quickstart) to become fam
   Ensure that your Node.js version is 19.00.0 or higher.
 </Warning>
 
-```shell
-pnpm i -g mintlify
-```
+<CodeGroup>
+    ```shell pnpm
+    pnpm add -g mint
+    ```
+
+    ```shell npm
+    npm i -g mint
+    ```
+</CodeGroup>
 
 2. Execute the following command in the project's root directory:
 
-```shell
+<CodeGroup>
+```shell pnpm
 pnpm run docs
 ```
 
-Documentation will be opened on [http://localhost:3000](http://localhost:3000) if it's not in use.
+```shell npm
+npm run docs
+```
+
+</CodeGroup>
+
+Documentation will be opened on [http://localhost:4100](http://localhost:4100) if it's not in use.
 
 ## Packages
 

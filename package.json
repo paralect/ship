@@ -5,6 +5,6 @@
   "author": "Ship Team <ship@paralect.com>",
   "license": "MIT",
   "scripts": {
-    "docs": "cd docs && mintlify dev"
+    "docs": "cd docs && mint dev --port 4100"
   }
 }
