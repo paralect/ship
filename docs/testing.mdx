@@ -36,14 +36,19 @@ pnpm add -D --filter=api \
      ts-jest \
      @shelf/jest-mongodb \
      mongodb-memory-server \
-     supertest
+     supertest \
+     @types/supertest \
+     dotenv
 ```
 
 ### Jest Configuration
 
-Create jest.config.js in the root of apps/api:
 
-```javascript apps/api/jest.config.js
+Navigate to the root of `apps/api`.
+
+Create configuration file for jest:
+
+```javascript jest.config.js
 /** @type {import('jest').Config} */
 const config = {
   preset: '@shelf/jest-mongodb',
@@ -51,16 +56,45 @@ const config = {
   testEnvironment: 'node',
   testMatch: ['**/?(*.)+(spec.ts)'],
   transform: {
-    '^.+\\.(ts)$': 'ts-jest',
+    '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true, diagnostics: false }],
   },
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
   watchPathIgnorePatterns: ['globalConfig'],
   roots: ['<rootDir>'],
   modulePaths: ['src'],
   moduleDirectories: ['node_modules'],
   testTimeout: 10000,
+  forceExit: true,
+  detectOpenHandles: true,
+  setupFiles: ['dotenv/config'],
 };
 
 export default config;
+```
+
+After, create configuration file for jest-mongodb:
+
+```javascript jest-mongodb-config.js
+module.exports = {
+  mongoURLEnvName: 'MONGO_URI',
+  mongodbMemoryServerOptions: {
+    binary: {
+      version: '8.0.0',
+    },
+    autoStart: false,
+  },
+};
+```
+
+Jest requires set of environment variables to work properly. Create `.env.test` file in the root of `apps/api` and set the following variables:
+
+```shell .env.test
+APP_ENV=staging
+
+API_URL=http://localhost:3001
+WEB_URL=http://localhost:3002
+
+MONGO_DB_NAME=api-tests
 ```
 
 ### package.json scripts
@@ -70,9 +104,9 @@ Add test scripts to your `apps/api/package.json`:
 ```json apps/api/package.json
 {
   "scripts": {
-    "test": "jest --runInBand -c ./jest.config.js --collectCoverage false",
-    "test:watch": "jest --watch -c ./jest.config.js",
-    "test:coverage": "jest --coverage -c ./jest.config.js"
+    "test": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=.env.test jest --runInBand",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=.env.test jest --watch",
+    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=.env.test jest --coverage",
   }
 }
 ```
@@ -124,26 +158,12 @@ apps/api/src/utils/
 ### Service Integration Test Example
 
 ```typescript user.service.spec.ts
-import { Database, generateId } from '@paralect/node-mongo';
+import { generateId } from '@paralect/node-mongo';
 
-import { DATABASE_DOCUMENTS } from 'app-constants';
-import { userSchema } from 'schemas';
-import { User } from 'types';
+import { userService } from 'resources/user';
 
-const database = new Database(process.env.MONGO_URL as string);
-
-const userService = database.createService<User>(DATABASE_DOCUMENTS.USERS, {
-  schemaValidator: (obj) => userSchema.parseAsync(obj),
-});
-
-describe('User service', () => {
-  beforeAll(async () => {
-    await database.connect();
-  });
-
-  beforeEach(async () => {
-    await userService.deleteMany({});
-  });
+describe('user service', () => {
+  beforeEach(async () => await userService.deleteMany({}));
 
   it('should create user', async () => {
     const mockUser = {
@@ -154,7 +174,7 @@ describe('User service', () => {
       isEmailVerified: false,
     };
 
-    await userService.insertOne(mockUser);
+    await userService.insertOne(mockUser, { publishEvents: false });
 
     const insertedUser = await userService.findOne({ _id: mockUser._id });
 
@@ -163,25 +183,21 @@ describe('User service', () => {
   });
 
   it('should update user', async () => {
-    const user = await userService.insertOne({
-      _id: generateId(),
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john@example.com',
-      isEmailVerified: false,
-    });
-
-    await userService.updateOne(
-      { _id: user._id },
-      { $set: { isEmailVerified: true } }
+    const user = await userService.insertOne(
+      {
+        _id: generateId(),
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john@example.com',
+        isEmailVerified: false,
+      },
+      { publishEvents: false },
     );
+
+    await userService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }), { publishEvents: false });
 
     const updatedUser = await userService.findOne({ _id: user._id });
     expect(updatedUser?.isEmailVerified).toBe(true);
-  });
-
-  afterAll(async () => {
-    await database.close();
   });
 });
 ```
@@ -190,35 +206,25 @@ describe('User service', () => {
 
 Test your API endpoints:
 
-```typescript create.action.spec.ts
-import request from 'supertest';
-import { Database } from '@paralect/node-mongo';
-
+```typescript sign-up.action.spec.ts
 import app from 'app';
-import { DATABASE_DOCUMENTS } from 'app-constants';
+import request from 'supertest';
 
-describe('POST /api/users', () => {
-  beforeEach(async () => {
-    // Clean test data
-  });
+import { tokenService } from 'resources/token';
+import { userService } from 'resources/user';
+
+describe('post /account/sign-up', () => {
+  beforeEach(async () => await Promise.all([userService.deleteMany({}), tokenService.deleteMany({})]));
 
   it('should create user with valid data', async () => {
     const userData = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john.doe@example.com',
+      password: 'Password123!',
     };
 
-    const response = await request(app.callback())
-      .post('/api/users')
-      .send(userData)
-      .expect(201);
-
-    expect(response.body).toMatchObject({
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      email: userData.email,
-    });
+    await request(app.callback()).post('/account/sign-up').send(userData).expect(204);
   });
 
   it('should return validation error for invalid email', async () => {
@@ -226,12 +232,10 @@ describe('POST /api/users', () => {
       firstName: 'John',
       lastName: 'Doe',
       email: 'invalid-email',
+      password: 'Password123!',
     };
 
-    await request(app.callback())
-      .post('/api/users')
-      .send(userData)
-      .expect(400);
+    await request(app.callback()).post('/account/sign-up').send(userData).expect(400);
   });
 });
 ```
@@ -240,11 +244,11 @@ describe('POST /api/users', () => {
 ``` typescript security.util.spec.ts
 import { securityUtil } from 'utils';
 
-describe('Security utils', () => {
+describe('security utils', () => {
   describe('generateSecureToken', () => {
-    it('should generate token of specified length', () => {
-      const token = securityUtil.generateSecureToken(32);
-      
+    it('should generate token of specified length', async () => {
+      const token = await securityUtil.generateSecureToken(32);
+
       expect(token).toHaveLength(32);
       expect(typeof token).toBe('string');
     });
@@ -254,10 +258,10 @@ describe('Security utils', () => {
     it('should hash password correctly', async () => {
       const password = 'test-password-123';
       const hash = await securityUtil.hashPassword(password);
-      
+
       expect(hash).not.toBe(password);
-      
-      const isValid = await securityUtil.compareTextWithHash(password, hash);
+
+      const isValid = await securityUtil.verifyPasswordHash(hash, password);
       expect(isValid).toBe(true);
     });
   });
@@ -273,7 +277,7 @@ Each test should be isolated from the others.
 Use `beforeEach` to clean the database before each test.
 
 ```typescript
-describe('User service', () => {
+describe('user service', () => {
   beforeEach(async () => {
     // Clean database before each test
     await userService.deleteMany({});
