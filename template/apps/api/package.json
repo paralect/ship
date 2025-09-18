@@ -23,7 +23,7 @@
     "@aws-sdk/lib-storage": "3.828.0",
     "@aws-sdk/s3-request-presigner": "3.828.0",
     "@koa/cors": "5.0.0",
-    "@koa/router": "13.1.0",
+    "@koa/router": "14.0.0",
     "@node-rs/argon2": "2.0.2",
     "@oslojs/crypto": "1.0.1",
     "@oslojs/encoding": "1.1.0",
