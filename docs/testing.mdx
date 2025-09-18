@@ -1,0 +1,310 @@
+---
+title: "Testing"
+---
+
+## Overview
+
+Tests in Ship applications is **optional by default**. The template comes without testing dependencies to keep it lightweight and focused on rapid development. However, when your project grows in complexity or requires high reliability, testing becomes essential.
+
+<CardGroup cols={2}>
+  <Card title="When to Add Testing" icon="shield-check">
+    - Complex and confusing business rules
+    - Critical calculations/algorithms
+    - Core flows that affect other features
+    - Logic reused across the applications
+    - Areas with recurring hard bugs
+  </Card>
+  <Card title="When to Skip Testing" icon="ban">
+    - Simple CRUD operations
+    - Prototype/MVP development
+    - Short-term projects
+    - Basic UI components
+    - Static content pages
+  </Card>
+</CardGroup>
+
+## Installation and Setup
+
+### Installing Dependencies
+
+Add the necessary testing packages to your project:
+
+```shell
+pnpm add -D --filter=api \
+     jest \
+     @types/jest \
+     ts-jest \
+     @shelf/jest-mongodb \
+     mongodb-memory-server \
+     supertest \
+     @types/supertest \
+     dotenv
+```
+
+### Jest Configuration
+
+
+Navigate to the root of `apps/api`.
+
+Create configuration file for jest:
+
+```javascript jest.config.js
+/** @type {import('jest').Config} */
+const config = {
+  preset: '@shelf/jest-mongodb',
+  verbose: true,
+  testEnvironment: 'node',
+  testMatch: ['**/?(*.)+(spec.ts)'],
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true, diagnostics: false }],
+  },
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  watchPathIgnorePatterns: ['globalConfig'],
+  roots: ['<rootDir>'],
+  modulePaths: ['src'],
+  moduleDirectories: ['node_modules'],
+  testTimeout: 10000,
+  forceExit: true,
+  detectOpenHandles: true,
+  setupFiles: ['dotenv/config'],
+};
+
+export default config;
+```
+
+After, create configuration file for jest-mongodb:
+
+```javascript jest-mongodb-config.js
+module.exports = {
+  mongoURLEnvName: 'MONGO_URI',
+  mongodbMemoryServerOptions: {
+    binary: {
+      version: '8.0.0',
+    },
+    autoStart: false,
+  },
+};
+```
+
+Jest requires set of environment variables to work properly. Create `.env.test` file in the root of `apps/api` and set the following variables:
+
+```shell .env.test
+APP_ENV=staging
+
+API_URL=http://localhost:3001
+WEB_URL=http://localhost:3002
+
+MONGO_DB_NAME=api-tests
+```
+
+### package.json scripts
+
+Add test scripts to your `apps/api/package.json`:
+
+```json apps/api/package.json
+{
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=.env.test jest --runInBand",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=.env.test jest --watch",
+    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=.env.test jest --coverage",
+  }
+}
+```
+
+### Test Structure
+
+Tests should be placed next to the code they are testing inside a `tests/` folder. Use `*.spec.ts` suffixes and standardize by unit type:
+
+- `.action.spec.ts` — for action handler + validator (HTTP via supertest)
+- `.service.spec.ts` — for data/service layer
+- `.validator.spec.ts` — for standalone schema/validators
+
+#### API resource example
+
+```text
+apps/api/src/resources/user/
+├── actions/
+│   ├── create.ts
+│   └── tests/
+│       └── create.action.spec.ts
+├── user.service.ts
+├── user.routes.ts
+└── tests/
+    ├── user.service.spec.ts
+    └── factories/
+        └── user.factory.ts
+```
+
+#### Utilities 
+
+Colocate tests for utility modules. Keep them small and pure (no DB).
+
+Create `tests/` folder inside `utils`
+
+```text
+apps/api/src/utils/
+├── cookie.util.ts
+├── promise.util.ts
+├── security.util.ts
+└── tests/
+    ├── cookie.util.spec.ts
+    ├── promise.util.spec.ts
+    └── security.util.spec.ts
+```
+
+
+## Testing Examples
+
+### Service Integration Test Example
+
+```typescript user.service.spec.ts
+import { generateId } from '@paralect/node-mongo';
+
+import { userService } from 'resources/user';
+
+describe('user service', () => {
+  beforeEach(async () => await userService.deleteMany({}));
+
+  it('should create user', async () => {
+    const mockUser = {
+      _id: generateId(),
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john.doe@example.com',
+      isEmailVerified: false,
+    };
+
+    await userService.insertOne(mockUser, { publishEvents: false });
+
+    const insertedUser = await userService.findOne({ _id: mockUser._id });
+
+    expect(insertedUser).not.toBeNull();
+    expect(insertedUser?.email).toBe(mockUser.email);
+  });
+
+  it('should update user', async () => {
+    const user = await userService.insertOne(
+      {
+        _id: generateId(),
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john@example.com',
+        isEmailVerified: false,
+      },
+      { publishEvents: false },
+    );
+
+    await userService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }), { publishEvents: false });
+
+    const updatedUser = await userService.findOne({ _id: user._id });
+    expect(updatedUser?.isEmailVerified).toBe(true);
+  });
+});
+```
+
+### API Action Test Example
+
+Test your API endpoints:
+
+```typescript sign-up.action.spec.ts
+import app from 'app';
+import request from 'supertest';
+
+import { tokenService } from 'resources/token';
+import { userService } from 'resources/user';
+
+describe('post /account/sign-up', () => {
+  beforeEach(async () => await Promise.all([userService.deleteMany({}), tokenService.deleteMany({})]));
+
+  it('should create user with valid data', async () => {
+    const userData = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john.doe@example.com',
+      password: 'Password123!',
+    };
+
+    await request(app.callback()).post('/account/sign-up').send(userData).expect(204);
+  });
+
+  it('should return validation error for invalid email', async () => {
+    const userData = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'invalid-email',
+      password: 'Password123!',
+    };
+
+    await request(app.callback()).post('/account/sign-up').send(userData).expect(400);
+  });
+});
+```
+
+### Testing Utilities
+``` typescript security.util.spec.ts
+import { securityUtil } from 'utils';
+
+describe('security utils', () => {
+  describe('generateSecureToken', () => {
+    it('should generate token of specified length', async () => {
+      const token = await securityUtil.generateSecureToken(32);
+
+      expect(token).toHaveLength(32);
+      expect(typeof token).toBe('string');
+    });
+  });
+
+  describe('hashPassword', () => {
+    it('should hash password correctly', async () => {
+      const password = 'test-password-123';
+      const hash = await securityUtil.hashPassword(password);
+
+      expect(hash).not.toBe(password);
+
+      const isValid = await securityUtil.verifyPasswordHash(hash, password);
+      expect(isValid).toBe(true);
+    });
+  });
+});
+```
+
+## Best Practices
+
+### Test Isolation
+
+Each test should be isolated from the others.
+
+Use `beforeEach` to clean the database before each test.
+
+```typescript
+describe('user service', () => {
+  beforeEach(async () => {
+    // Clean database before each test
+    await userService.deleteMany({});
+  });
+});
+```
+
+### Test Naming
+
+Use descriptive test names that explain the expected behavior:
+
+```typescript
+// Good
+it('should return user data when valid ID is provided', () => {});
+
+// Bad
+it('should work', () => {});
+```
+
+
+### Mock External Services
+
+Mock external API calls and services:
+
+```typescript
+jest.mock('@aws-sdk/client-s3', () => ({
+  S3Client: jest.fn(),
+  PutObjectCommand: jest.fn(),
+}));
+```

@@ -73,6 +73,7 @@
                   }
                 ]
               },
+              "testing",
               "retool",
               {
                 "group": "Examples",
