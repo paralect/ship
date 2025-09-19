@@ -13,6 +13,7 @@ const theme = createTheme({
     fontWeight: '600',
   },
   primaryColor: 'dark',
+  defaultRadius: 'md',
   components,
 });
 
