@@ -33,7 +33,7 @@ import {
 } from './types';
 
 import logger from './utils/logger';
-import { addUpdatedOnField, generateId } from './utils/helpers';
+import { addUpdatedOnField, generateId, omitPrivateFields } from './utils/helpers';
 import PopulateUtil from './utils/populate';
 
 import { inMemoryPublisher } from './events/in-memory';
@@ -976,6 +976,10 @@ class Service<T extends IDocument> {
     } else {
       this.collection = null;
     }
+  };
+
+  getPublic = <U extends T = T>(doc: U | null): Partial<U> | null => {
+    return omitPrivateFields(doc, this.options.privateFields);
   };
 }
 
