@@ -1,0 +1,137 @@
+---
+title: "Git Hooks"
+description: "Automated code quality checks with Husky and lint-staged"
+---
+
+Ship uses [Husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/lint-staged/lint-staged) to automatically run linters and formatters on staged files before each commit, ensuring consistent code quality.
+
+## How It Works
+
+When you commit changes, Husky triggers a pre-commit hook that runs lint-staged. Lint-staged then executes configured linters only on files you're committing, making the process fast and efficient.
+
+<Info>
+  The pre-commit hook is automatically installed when you run `pnpm install` via the `prepare` script.
+</Info>
+
+<Note>
+  **Validation Scope**: While lint-staged targets only staged files, the linters (ESLint, TypeScript, Prettier) validate the entire project. This ensures project-wide code quality but means errors anywhere will block commits.
+</Note>
+
+## Configuration
+
+### API (`apps/api/package.json`)
+
+<CodeGroup>
+```json TypeScript Files
+"lint-staged": {
+  "*.ts": [
+    "eslint --fix",
+    "bash -c 'tsc --noEmit'",
+    "prettier --write"
+  ]
+}
+```
+
+```json JSON & Markdown
+"lint-staged": {
+  "*.{json,md}": [
+    "prettier --write"
+  ]
+}
+```
+</CodeGroup>
+
+For each staged `.ts` file:
+1. **ESLint** - Auto-fixes code issues
+2. **TypeScript** - Type checks without emitting files
+3. **Prettier** - Formats code
+
+### Web (`apps/web/package.json`)
+
+<CodeGroup>
+```json TypeScript/React Files
+"lint-staged": {
+  "*.{ts,tsx}": [
+    "eslint --fix",
+    "bash -c 'tsc --noEmit'",
+    "prettier --write"
+  ]
+}
+```
+
+```json CSS Files
+"lint-staged": {
+  "*.css": [
+    "stylelint --fix",
+    "prettier --write"
+  ]
+}
+```
+</CodeGroup>
+
+Additionally runs **Stylelint** on `.css` files for style linting.
+
+### Packages
+
+All shared packages (`schemas`, `mailer`, `app-types`, etc.) have similar lint-staged configurations tailored to their file types.
+
+## Customization
+
+### Modify Linters
+
+Edit `lint-staged` in your `package.json`:
+
+```json
+"lint-staged": {
+  "*.ts": [
+    "eslint --fix",
+    "prettier --write"
+    // Remove TypeScript check or add more tools
+  ]
+}
+```
+
+### Skip Hooks Temporarily
+
+```bash
+# Bypass pre-commit hook (not recommended)
+git commit --no-verify -m "message"
+```
+
+<Tip>
+  Only skip hooks when absolutely necessary, as they help maintain code quality.
+</Tip>
+
+## Troubleshooting
+
+### Hook Not Running
+
+If pre-commit hooks don't run:
+
+1. Ensure Husky is installed:
+```bash
+pnpm install
+```
+
+2. Check if `.husky/pre-commit` exists in your project root
+
+3. Verify Git hooks path:
+```bash
+git config core.hooksPath
+```
+
+### Linter Errors Blocking Commits
+
+If linters fail:
+
+1. Review the error output
+2. Fix the issues manually or let auto-fix handle them
+3. Stage the fixed files: `git add .`
+4. Commit again
+
+## Best Practices
+
+- **Commit frequently** - Smaller commits are faster to lint
+- **Fix issues early** - Don't accumulate linting errors
+- **Keep configs in sync** - Ensure lint-staged matches your editor settings
+
