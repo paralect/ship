@@ -22,12 +22,12 @@
   },
   "lint-staged": {
     "*.ts": [
-      "eslint --fix",
+      "eslint . --fix",
       "bash -c 'tsc --noEmit'",
-      "prettier --write"
+      "prettier . --write"
     ],
     "*.{json,md}": [
-      "prettier --write"
+      "prettier . --write"
     ]
   }
 }

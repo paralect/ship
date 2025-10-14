@@ -45,6 +45,7 @@
               "scheduler",
               "mailer",
               "github-actions",
+              "git-hooks",
               {
                 "group": "Web",
                 "pages": [
