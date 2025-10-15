@@ -7,7 +7,6 @@ title: "Overview"
 - Migrator — small utility that runs MongoDB migrations, entry file is `/api/src/migrator.ts`
 - Scheduler — standalone service, that runs background jobs, entry file is `/api/src/scheduler.ts`
 
-
 ## What is resource?
 
 From the outside world, the resource is a set of REST API endpoints that allow managing a particular business entity (e.x. user). Inside, the resource includes methods to work with the database, business logic, database data, request validation, events and event handlers. Most of the time, a resource has 1 on 1 mapping to the database entity. The resource describes how you can work with any given entity. E.x. User API needs to create new users, edit an existing user, list all users.
@@ -24,7 +23,7 @@ A resource represents on REST endpoint and most of the time one database table o
 
 The data schemas and type definitions can be found in the `packages` folder. Check out the ["Package sharing" section](/package-sharing/overview) for more information on data sharing.
 
-## Example stucture
+## Example structure
 
 Here is the resource structure example:
 
@@ -38,3 +37,9 @@ Here is the resource structure example:
   resource.service.ts
   resource.routes.ts
 ```
+
+## Routing
+
+Ship's API uses a structured routing system built on [Koa](https://koajs.com/) that organizes endpoints into three categories: **public**, **private**, and **admin** routes. All requests pass through global middlewares for authentication, error handling, and request processing.
+
+Learn more about the routing architecture in the [Routing](/api-reference/routing/overview) section.

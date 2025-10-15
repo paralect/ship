@@ -26,6 +26,13 @@
                 "group": "API",
                 "pages": [
                   "api-reference/overview",
+                  {
+                    "group": "Routing",
+                    "pages": [
+                      "api-reference/routing/overview",
+                      "api-reference/routing/middlewares"
+                    ]
+                  },
                   "api-reference/api-limitations",
                   "api-reference/using-events",
                   "api-reference/data-service",
