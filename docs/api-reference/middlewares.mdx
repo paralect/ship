@@ -1,0 +1,121 @@
+---
+title: "Middlewares"
+---
+
+## Overview
+
+Ship provides two essential middleware utilities for API routes:
+- **Rate Limit Middleware** — protects your API endpoints from excessive requests
+- **Validate Middleware** — validates incoming request data using Zod schemas
+
+Both middlewares are located in `/api/src/middlewares` and can be imported and applied to any route.
+
+## Rate Limit Middleware
+
+The rate limit middleware protects your API endpoints from abuse by limiting the number of requests a user can make within a specified time window. It automatically uses Redis when available, falling back to in-memory storage for development environments.
+
+### Parameters
+
+The `rateLimitMiddleware` function accepts an options object with the following parameters:
+
+- `limitDuration` (optional) — Time window in seconds. Default: `60` seconds
+- `requestsPerDuration` (optional) — Maximum number of requests allowed within the time window. Default: `10`
+- `errorMessage` (optional) — Custom error message shown when rate limit is exceeded. Default: `'Looks like you are moving too fast. Retry again in few minutes.'`
+
+### Key Features
+
+- **Automatic Storage Selection**: Uses Redis if `REDIS_URI` is configured, otherwise falls back to in-memory storage
+- **User-Specific Limits**: Rate limits are applied per authenticated user (based on `user._id`) or per IP address for unauthenticated requests
+- **Response Headers**: Includes rate limit headers in the response for client-side tracking
+
+### Example
+
+```typescript
+import Router from '@koa/router';
+
+import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
+
+async function handler(ctx: AppKoaContext) {
+  // Your handler logic here
+  ctx.body = { success: true };
+}
+
+export default (router: Router) => {
+  router.post(
+    '/send-email',
+    rateLimitMiddleware({
+      limitDuration: 300, // 5 minutes
+      requestsPerDuration: 5, // 5 requests per 5 minutes
+      errorMessage: 'Too many emails sent. Please try again later.',
+    }),
+    validateMiddleware(schema),
+    handler,
+  );
+};
+```
+
+### Common Use Cases
+
+- Protecting email sending endpoints
+- Rate limiting authentication attempts
+- Preventing API abuse on expensive operations
+- Throttling public API endpoints
+
+## Validate Middleware
+
+The validate middleware automatically validates incoming request data against a Zod schema. It combines data from request body, files, query parameters, and route parameters into a single validated object.
+
+### How It Works
+
+The middleware validates the following request data:
+- **Request body** (`ctx.request.body`)
+- **Uploaded files** (`ctx.request.files`)
+- **Query parameters** (`ctx.query`)
+- **Route parameters** (`ctx.params`)
+
+If validation fails, it automatically throws a `400` error with detailed field-level error messages. If validation succeeds, the validated data is available via `ctx.validatedData`.
+
+### Example
+
+```typescript
+import Router from '@koa/router';
+import { z } from 'zod';
+
+import { AppKoaContext } from 'types';
+import { validateMiddleware } from 'middlewares';
+
+// Define your schema
+const schema = z.object({
+  email: z.string().email('Email format is incorrect'),
+  firstName: z.string().min(1, 'First name is required').max(100),
+  lastName: z.string().min(1, 'Last name is required').max(100),
+  age: z.number().int().positive().optional(),
+});
+
+type CreateUserData = z.infer<typeof schema>;
+
+async function handler(ctx: AppKoaContext<CreateUserData>) {
+  // Access validated data
+  const { email, firstName, lastName, age } = ctx.validatedData;
+
+  // Your handler logic here
+  ctx.body = { email, firstName, lastName, age };
+}
+
+export default (router: Router) => {
+  router.post('/users', validateMiddleware(schema), handler);
+};
+```
+
+### Error Response Format
+
+When validation fails, the middleware returns a structured error response with field-specific error messages:
+
+```json
+{
+  "clientErrors": {
+    "email": ["Email format is incorrect"],
+    "firstName": ["First name is required"]
+  }
+}
+```
