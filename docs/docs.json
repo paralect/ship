@@ -33,6 +33,7 @@
                   "api-reference/api-action-validator",
                   "api-reference/event-handler",
                   "api-reference/events",
+                  "api-reference/middlewares",
                   "api-reference/testing",
                   "api-reference/workflow"
                 ]
