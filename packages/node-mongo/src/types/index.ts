@@ -128,6 +128,7 @@ interface ServiceOptions {
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
   escapeRegExp?: boolean;
+  privateFields?: string[];
 }
 
 export type UpdateFilterFunction<U> = (doc: U) => Partial<U>;

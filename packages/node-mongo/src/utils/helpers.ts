@@ -40,4 +40,15 @@ const addUpdatedOnField = <T>(update: UpdateFilter<T>): UpdateFilter<T> => {
   } as unknown as UpdateFilter<T>;
 };
 
-export { deepCompare, generateId, addUpdatedOnField };
+const omitPrivateFields = <T extends Record<string, any>>(
+  doc: T | null | undefined,
+  privateFields?: string[],
+): Partial<T> | null => {
+  if (!doc) return null;
+
+  if (!privateFields) return doc;
+
+  return _.omit(doc, privateFields) as Partial<T>;
+};
+
+export { deepCompare, generateId, addUpdatedOnField, omitPrivateFields };
