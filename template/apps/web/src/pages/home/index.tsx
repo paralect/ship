@@ -18,7 +18,7 @@ import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE }
 const Home: NextPage = () => {
   const [params, setParams] = useSetState<UserListParams>(DEFAULT_PARAMS);
 
-  const { data: users, isLoading: isUserLostLoading } = userApi.useList(params);
+  const { data: users, isLoading: isUserListLoading } = userApi.useList(params);
 
   const onSortingChange = (sort: Record<string, SortDirection>) => {
     setParams((prev) => {
@@ -54,7 +54,7 @@ const Home: NextPage = () => {
           page={DEFAULT_PAGE}
           perPage={PER_PAGE}
           columns={COLUMNS}
-          isLoading={isUserLostLoading}
+          isLoading={isUserListLoading}
           onPageChange={(page) => setParams({ page })}
           onSortingChange={onSortingChange}
           onRowClick={onRowClick}
