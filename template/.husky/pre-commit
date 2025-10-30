@@ -1,2 +1,2 @@
 cd template
-npx turbo run precommit --concurrency=1
+pnpm exec turbo run precommit --concurrency=1
