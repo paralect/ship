@@ -16,7 +16,7 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["introduction", "contribution-guide"]
+            "pages": ["introduction", "contribution-guide", "llms"]
           },
           {
             "group": "Ship Components",
