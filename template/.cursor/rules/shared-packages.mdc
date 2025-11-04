@@ -1,0 +1,274 @@
+---
+description: Guidelines for working with shared packages
+alwaysApply: false
+---
+# Shared Packages Guidelines
+
+The `packages/` directory contains reusable code shared between `api` and `web` applications.
+
+## Available Packages
+
+### app-constants
+[packages/app-constants/src/](mdc:packages/app-constants/src/)
+
+Shared constants used across applications.
+
+Usage:
+```typescript
+import { API_ROUTES, COOKIES, FILE } from 'app-constants';
+```
+
+### app-types
+[packages/app-types/src/](mdc:packages/app-types/src/)
+
+Shared TypeScript type definitions and enums (re-exported to prevent dependency cycles).
+
+**Important**: Always import from `types`, not `app-types`. The API application has a local `types.ts` file that stores API-specific types which cannot be used by the Web application. Using `types` as the import path prevents conflicts.
+
+Usage:
+```typescript
+// ✅ Correct - import from 'types'
+import { User, Account, ListParams, TokenType } from 'types';
+
+// ❌ Incorrect - don't use 'app-types'
+import { User } from 'app-types';
+```
+
+### enums
+[packages/enums/src/](mdc:packages/enums/src/)
+
+Shared enumerations:
+- `token.enum.ts` - Token types enum
+
+**Important**: To prevent dependency cycle issues, import enums from the `types` package instead of `enums`. The `app-types` package re-exports all enums to break circular dependencies.
+
+Usage:
+```typescript
+// ✅ Correct - import from 'types'
+import { TokenType } from 'types';
+
+// ❌ Incorrect - don't import directly from 'enums'
+import { TokenType } from 'enums';
+```
+
+### schemas
+[packages/schemas/src/](mdc:packages/schemas/src/)
+
+Zod validation schemas shared between API and web for type-safe validation:
+- `common.schema.ts` - Reusable schema components
+- `db.schema.ts` - Database-specific schemas (contains base database entity schema)
+
+**Important**: When creating a new database resource schema, always extend from `dbSchema` to include common database fields (`_id`, `createdOn`, `updatedOn`, etc.):
+
+```typescript
+import { z } from 'zod';
+
+import { dbSchema } from './db.schema';
+
+export const userSchema = dbSchema.extends({
+  name: z.string().min(1),
+  email: z.string().email(),
+});
+```
+
+See [validation-schemas.mdc](mdc:.cursor/rules/validation-schemas.mdc) for detailed usage.
+
+### mailer
+[packages/mailer/](mdc:packages/mailer/)
+
+Email templates built with React Email:
+- `emails/` - React email components
+- `src/template.ts` - Template registry (enum, component mapping, props types)
+- `src/utils.tsx` - Email utilities
+
+Email templates:
+- `sign-up-welcome.tsx` - Welcome email
+- `verify-email.tsx` - Email verification
+- `reset-password.tsx` - Password reset
+
+#### Adding a New Email Template
+
+**Step 1**: Create email template in [packages/mailer/emails/](mdc:packages/mailer/emails/) folder
+```tsx
+// packages/mailer/emails/my-template.tsx
+export interface MyTemplateProps {
+  firstName: string;
+  actionUrl: string;
+}
+
+export const MyTemplate = ({ firstName, actionUrl }: MyTemplateProps) => (
+  <Layout previewText="Greeting">
+    <Text>Hello, {firstName}!</Text>
+    <Button href={actionUrl}>Take Action</Button>
+  </Layout>
+);
+```
+
+**Step 2**: Register template in [packages/mailer/src/template.ts](mdc:packages/mailer/src/template.ts)
+```typescript
+// Add to Template enum
+export enum Template {
+  MY_TEMPLATE = 'MY_TEMPLATE',
+  // ... other templates
+}
+
+// Add to EmailComponent mapping
+export const EmailComponent = {
+  [Template.MY_TEMPLATE]: MyTemplate,
+  // ... other templates
+};
+
+// Add to TemplateProps interface
+export interface TemplateProps {
+  [Template.MY_TEMPLATE]: MyTemplateProps;
+  // ... other templates
+}
+```
+
+**Step 3**: Use in API with emailService
+```typescript
+import { emailService } from 'services';
+import { Template } from 'mailer';
+
+await emailService.sendTemplate<Template.MY_TEMPLATE>({
+  to: user.email,
+  subject: 'Action Required',
+  template: Template.MY_TEMPLATE,
+  params: {
+    firstName: user.firstName,
+    actionUrl: resetUrl.toString(),
+  },
+});
+```
+
+### eslint-config
+[packages/eslint-config/](mdc:packages/eslint-config/)
+
+Shared ESLint configurations:
+- `node.js` - For Node.js/API code
+- `next.js` - For Next.js/React code
+
+Usage in app's `eslint.config.js`:
+```javascript
+import config from 'eslint-config/node.js';
+// or
+import config from 'eslint-config/next.js';
+
+export default config;
+```
+
+### prettier-config
+[packages/prettier-config/](mdc:packages/prettier-config/)
+
+Shared Prettier configuration.
+
+Usage in app's `.prettierrc.json`:
+```json
+"prettier-config"
+```
+
+### tsconfig
+[packages/tsconfig/](mdc:packages/tsconfig/)
+
+Shared TypeScript configurations:
+- `base.json` - Base config
+- `nodejs.json` - Node.js specific settings
+- `nextjs.json` - Next.js specific settings
+
+Usage in app's `tsconfig.json`:
+```json
+{
+  "extends": "tsconfig/nodejs.json"
+}
+```
+
+## Package Development Guidelines
+
+### Exports
+- Always export through an `index.ts` barrel file
+- Use named exports for better tree-shaking
+- Export types separately when possible
+
+### Dependencies
+- Minimize dependencies in shared packages
+- Use peer dependencies for framework-specific packages
+- Common dependencies should use the catalog version
+
+### TypeScript
+- Extend from `tsconfig/base.json`
+- Enable strict mode
+- Export types alongside runtime code
+
+### Versioning
+- Keep versions in sync (use same version across packages)
+- Update version when making breaking changes
+- Document changes if creating a changelog
+
+## Common Patterns
+
+### Constants Package
+```typescript
+// 1. Define in packages/app-constants/src/feature.constants.ts
+export const FEATURE = {
+  MAX_ITEMS: 100,
+  DEFAULT_TIMEOUT: 5000,
+} as const;
+
+// 2. Export from packages/app-constants/src/index.ts
+export * from './feature.constants';
+
+// 3. Consume
+import { FEATURE } from 'app-constants';
+```
+
+### Types Package
+```typescript
+// 1. Define in packages/app-types/src/feature.types.ts
+export interface Feature {
+  id: string;
+  name: string;
+}
+
+export type FeatureList = Feature[];
+
+// 2. Export from packages/app-types/src/index.ts
+export * from './feature.types';
+
+// 3. Consume - always use 'types' not 'app-types'
+import { Feature } from 'types';
+```
+
+### Enums Pattern
+```typescript
+// 1. Define in packages/enums/src/feature.enum.ts
+export enum FeatureType {
+  TypeA = 'type-a',
+  TypeB = 'type-b',
+}
+
+// 2. Export from packages/enums/src/index.ts
+export * from './feature.enum';
+
+// 3. Consume from 'types' (already re-exported in app-types)
+import { FeatureType } from 'types';
+```
+
+**Note**: All enums are automatically re-exported from the `app-types` package, so you don't need to manually add re-exports there.
+
+### Schemas Package
+```typescript
+// 1. Define in packages/schemas/src/feature.schema.ts
+import { z } from 'zod';
+
+export const featureSchema = {
+  create: z.object({
+    name: z.string().min(1),
+  }),
+};
+
+// 2. Export from packages/schemas/src/index.ts
+export * from './feature.schema';
+
+// 3. Consume
+import { featureSchema } from 'schemas';
+```

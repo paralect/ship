@@ -1,0 +1,139 @@
+---
+description: "Guidelines for using and creating Zod validation schemas"
+---
+
+# Validation and Schema Guidelines
+
+## Zod Schemas Package
+
+All validation schemas are centralized in the `schemas` package: [packages/schemas/src/](mdc:packages/schemas/src/)
+
+This ensures type-safe validation shared between API and web applications.
+
+## Using Schemas
+
+Import schemas from the `schemas` package:
+```typescript
+import { userSchema, accountSchema, commonSchema } from 'schemas';
+```
+## API Validation
+
+Use the validate middleware in the API:
+```typescript
+import { validateMiddleware } from 'middlewares';
+
+import { createUserSchema } from 'schemas';
+
+router.post('/users',
+  validateMiddleware(createUserSchema),
+  handler
+);
+```
+
+The middleware validates:
+- `ctx.request.body` - Request body
+- `ctx.request.files` - Uploaded formidable files
+- `ctx.query` - Query parameters
+- `ctx.params` - URL parameters  
+
+## Web/Frontend Validation
+
+### With React Hook Form
+
+```typescript
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { createUserSchema } from 'schemas';
+import { CreateUserSchema } from 'types';
+
+const form = useForm<CreateUserSchema>({
+  resolver: zodResolver(createUserSchema),
+});
+```
+
+### Manual Validation
+
+```typescript
+import { createUserSchema } from 'schemas';
+
+const result = createUserSchema.safeParse(data);
+
+if (!result.success) {
+  console.error(result.error.errors);
+}
+```
+
+## Creating New Schemas
+
+When adding new schemas:
+
+1. Add to the appropriate file in `packages/schemas/src/`
+2. Export from [packages/schemas/src/index.ts](mdc:packages/schemas/src/index.ts)
+3. Use Zod's built-in validators and composability
+
+Example structure:
+```typescript
+import { z } from 'zod';
+
+import { dbSchema } from './db.schema';
+
+export const userSchema = dbSchema.extend({
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string().email(),
+  passwordHash: z.string().optional(),
+});
+
+// Compose schemas (mostly based on entity schema)
+export const createUserSchema = userSchema.pick({
+  firstName: true,
+  lastName: true,
+  email: true,
+});
+
+export const updateUserSchema = userSchema
+  .pick({ firstName: true, lastName: true })
+  .extend({
+    password: userSchema.shape.passwordHash.optional(),
+  })
+  .partial();
+```
+
+## Enums in Schemas
+
+Enums are centralized in [packages/enums/src/](mdc:packages/enums/src/). Use `z.nativeEnum()` for validation:
+
+```typescript
+import { TokenType } from 'enums';
+
+export const tokenSchema = dbSchema.extend({
+  type: z.nativeEnum(TokenType),
+});
+```
+
+When creating new enums, add to `packages/enums/src/*.enum.ts` and export from index:
+```typescript
+export enum TokenType {
+  ACCESS = 'access',
+  RESET_PASSWORD = 'reset-password',
+}
+```
+
+## Type Inference
+
+Extract TypeScript types from Zod schemas:
+```typescript
+import { z } from 'zod';
+
+import { createUserSchema, updateUserSchema } from 'schemas';
+
+type CreateUser = z.infer<typeof createUserSchema>;
+type UpdateUser = z.infer<typeof updateUserSchema>;
+```
+
+For API types, consider adding to [packages/app-types/](mdc:packages/app-types/) if used across applications.
+
+## Constants
+
+Validation-related constants in [packages/app-constants/src/validation.constants.ts](mdc:packages/app-constants/src/validation.constants.ts)
