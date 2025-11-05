@@ -66,6 +66,11 @@ const companyService = database.createService<CompanyType>('companies', {
   schemaValidator: (obj) => companySchema.parseAsync(obj),
 });
 
+const usersServicePrivateFields = database.createService<UserType>('usersPrivateFields', {
+  schemaValidator: (obj) => userSchema.parseAsync(obj),
+  privateFields: ['fullName', 'age'],
+});
+
 describe('service.ts', () => {
   before(async () => {
     await database.connect();
@@ -1490,5 +1495,38 @@ describe('service.ts', () => {
     updatedUser?.permissions?.[0]?.should.be.undefined;
     updatedUser?.permissions?.[1]?.should.be.undefined;
     updatedUser?.permissions?.length?.should.be.equal(0);
+  });
+
+  it('should omit private fields using array configuration', async () => {
+    const user = await usersServicePrivateFields.insertOne({
+      fullName: 'John Doe',
+      age: 30,
+      role: UserRoles.ADMIN,
+    });
+
+    const publicUser = usersServicePrivateFields.getPublic(user);
+    
+    (publicUser?.fullName === undefined).should.be.equal(true);
+    (publicUser?.age === undefined).should.be.equal(true);
+    publicUser?.role?.should.be.equal(UserRoles.ADMIN);
+  });
+
+  it('should return original document when no privateFields configured', async () => {
+    const user = await usersService.insertOne({
+      fullName: 'Test User',
+      age: 30,
+      role: UserRoles.ADMIN,
+    });
+
+    const publicUser = usersService.getPublic(user);
+    
+    publicUser?.fullName?.should.be.equal('Test User');
+    publicUser?.age?.should.be.equal(30);
+    publicUser?.role?.should.be.equal(UserRoles.ADMIN);
+  });
+
+  it('should handle null documents in getPublic', async () => {
+    const publicUser = usersServicePrivateFields.getPublic(null);
+    (publicUser === null).should.be.equal(true);
   });
 });
