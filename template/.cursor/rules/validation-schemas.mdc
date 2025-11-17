@@ -102,13 +102,13 @@ export const updateUserSchema = userSchema
 
 ## Enums in Schemas
 
-Enums are centralized in [packages/enums/src/](mdc:packages/enums/src/). Use `z.nativeEnum()` for validation:
+Enums are centralized in [packages/enums/src/](mdc:packages/enums/src/). Use `z.enum()` for validation:
 
 ```typescript
 import { TokenType } from 'enums';
 
 export const tokenSchema = dbSchema.extend({
-  type: z.nativeEnum(TokenType),
+  type: z.enum(TokenType),
 });
 ```
 

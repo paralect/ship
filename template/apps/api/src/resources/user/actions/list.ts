@@ -24,7 +24,7 @@ const schema = paginationSchema.extend({
       lastName: z.enum(['asc', 'desc']).optional(),
       createdOn: z.enum(['asc', 'desc']).default('asc'),
     })
-    .default({}),
+    .default({ createdOn: 'asc' }),
 });
 
 type ValidatedData = z.infer<typeof schema>;

@@ -1,17 +1,17 @@
 import process from 'node:process';
-import { ZodSchema } from 'zod';
+import { z, ZodType } from 'zod';
 
-const validateConfig = <T>(schema: ZodSchema): T => {
+const validateConfig = <T>(schema: ZodType): T => {
   const parsed = schema.safeParse(process.env);
 
   if (!parsed.success) {
-    // Allow the use of a console instance for logging before launching the application.
-    console.error('❌ Invalid environment variables:', parsed.error.flatten().fieldErrors);
+    console.error('❌ Invalid environment variables ❌');
+    console.error(z.prettifyError(parsed.error));
 
     throw new Error('Invalid environment variables');
   }
 
-  return parsed.data;
+  return parsed.data as T;
 };
 
 export default {

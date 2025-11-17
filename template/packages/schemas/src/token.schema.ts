@@ -6,6 +6,6 @@ import dbSchema from './db.schema';
 export const tokenSchema = dbSchema.extend({
   value: z.string(),
   userId: z.string(),
-  type: z.nativeEnum(TokenType),
+  type: z.enum(TokenType),
   expiresOn: z.date(),
 });

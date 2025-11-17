@@ -15,7 +15,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@hookform/resolvers": "5.1.1",
+    "@hookform/resolvers": "5.2.2",
     "@mantine/core": "8.3.6",
     "@mantine/dates": "8.3.6",
     "@mantine/dropzone": "8.3.6",
@@ -35,7 +35,7 @@
     "dotenv-flow": "4.1.0",
     "lodash": "4.17.21",
     "mixpanel-browser": "2.53.0",
-    "next": "15.5.3",
+    "next": "15.5.6",
     "object-to-formdata": "4.5.1",
     "react": "catalog:",
     "react-dom": "catalog:",
