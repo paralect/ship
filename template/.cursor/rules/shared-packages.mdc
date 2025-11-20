@@ -67,7 +67,7 @@ import { dbSchema } from './db.schema';
 
 export const userSchema = dbSchema.extends({
   name: z.string().min(1),
-  email: z.string().email(),
+  email: z.email(),
 });
 ```
 

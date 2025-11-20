@@ -34,7 +34,7 @@ The middleware validates:
 - `ctx.request.body` - Request body
 - `ctx.request.files` - Uploaded formidable files
 - `ctx.query` - Query parameters
-- `ctx.params` - URL parameters  
+- `ctx.params` - URL parameters
 
 ## Web/Frontend Validation
 
@@ -81,7 +81,7 @@ import { dbSchema } from './db.schema';
 export const userSchema = dbSchema.extend({
   firstName: z.string(),
   lastName: z.string(),
-  email: z.string().email(),
+  email: z.email(),
   passwordHash: z.string().optional(),
 });
 

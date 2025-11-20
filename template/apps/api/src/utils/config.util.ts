@@ -1,7 +1,7 @@
 import process from 'node:process';
 import { z, ZodType } from 'zod';
 
-const validateConfig = <T>(schema: ZodType): T => {
+const validateConfig = <T>(schema: ZodType<T>): T => {
   const parsed = schema.safeParse(process.env);
 
   if (!parsed.success) {
@@ -11,7 +11,7 @@ const validateConfig = <T>(schema: ZodType): T => {
     throw new Error('Invalid environment variables');
   }
 
-  return parsed.data as T;
+  return parsed.data;
 };
 
 export default {

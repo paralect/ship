@@ -51,9 +51,9 @@ import { AppKoaContext, AppRouter } from 'types';
 
 import { validateMiddleware } from 'middlewares';
 
-const schema = z.object({
+const schema = z.strictObject({
   name: z.string().min(1, 'Please enter name').max(40),
-}).strict();
+});
 
 type ValidatedData = z.infer<typeof schema>;
 

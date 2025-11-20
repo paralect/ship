@@ -17,11 +17,10 @@ export const paginationSchema = z.object({
 });
 
 export const emailSchema = z
-  .string()
+  .email()
   .min(1, 'Email is required')
   .toLowerCase()
   .trim()
-  .email()
   .max(255, 'Email must be less than 255 characters.');
 
 export const passwordSchema = z

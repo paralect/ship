@@ -86,7 +86,7 @@ import { validateMiddleware } from 'middlewares';
 
 // Define your schema
 const schema = z.object({
-  email: z.string().email('Email format is incorrect'),
+  email: z.email('Email format is incorrect'),
   firstName: z.string().min(1, 'First name is required').max(100),
   lastName: z.string().min(1, 'Last name is required').max(100),
   age: z.number().int().positive().optional(),

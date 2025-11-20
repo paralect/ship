@@ -9,7 +9,7 @@ const schema = z.object({
   error: z.string().optional(),
   errorStack: z.string().optional(),
   duration: z.string().optional(),
-  migrationVersion: z.number(),
+  migrationVersion: z.int(),
 
   createdOn: z.date().optional(),
   updatedOn: z.date().optional(),
