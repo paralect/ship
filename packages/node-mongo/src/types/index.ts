@@ -1,5 +1,5 @@
 import {
-  ClientSession, Collection, CollectionOptions, CreateCollectionOptions, Document, MongoClient,
+  ClientSession, Collection, CollectionOptions, CreateCollectionOptions, Document, FindOptions, MongoClient,
 } from 'mongodb';
 
 export type DbChangeType = 'create' | 'update' | 'delete';
@@ -61,8 +61,9 @@ export type FindResult<T> = {
 };
 
 export type CreateConfig = {
-  validateSchema?: boolean,
-  publishEvents?: boolean,
+  validateSchema?: boolean;
+  publishEvents?: boolean;
+  mode?: 'public' | 'private';
 };
 
 export type PopulateOptions = {
@@ -79,11 +80,12 @@ export type PopulateOptions = {
 export type ReadConfig = {
   skipDeletedOnDocs?: boolean,
   populate?: PopulateOptions | PopulateOptions[];
+  mode?: 'public' | 'private';
 };
 
 // Type-safe discriminated unions for populate operations
 export type ReadConfigWithPopulate = ReadConfig & { 
-  populate: PopulateOptions | PopulateOptions[]; 
+  populate: PopulateOptions | PopulateOptions[];
 };
 
 export type ReadConfigWithoutPopulate = ReadConfig & { 
@@ -91,9 +93,10 @@ export type ReadConfigWithoutPopulate = ReadConfig & {
 };
 
 export type UpdateConfig = {
-  skipDeletedOnDocs?: boolean,
-  validateSchema?: boolean,
-  publishEvents?: boolean,
+  skipDeletedOnDocs?: boolean;
+  validateSchema?: boolean;
+  publishEvents?: boolean;
+  mode?: 'public' | 'private';
 };
 
 export type DeleteConfig = {
@@ -128,6 +131,7 @@ interface ServiceOptions {
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
   escapeRegExp?: boolean;
+  privateFields?: string[];
 }
 
 export type UpdateFilterFunction<U> = (doc: U) => Partial<U>;
@@ -136,3 +140,9 @@ export {
   IDatabase,
   ServiceOptions,
 };
+
+export interface GetPrivateProjectionParams {
+  privateFields?: string[];
+  mode: 'public' | 'private';
+  findOptions: FindOptions;
+}

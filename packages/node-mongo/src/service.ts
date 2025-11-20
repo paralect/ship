@@ -33,7 +33,7 @@ import {
 } from './types';
 
 import logger from './utils/logger';
-import { addUpdatedOnField, generateId } from './utils/helpers';
+import { addUpdatedOnField, generateId, getPrivateFindOptions, omitPrivateFields } from './utils/helpers';
 import PopulateUtil from './utils/populate';
 
 import { inMemoryPublisher } from './events/in-memory';
@@ -45,6 +45,7 @@ const defaultOptions: ServiceOptions = {
   addCreatedOnField: true,
   addUpdatedOnField: true,
   escapeRegExp: false,
+  privateFields: [],
 };
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -239,17 +240,21 @@ class Service<T extends IDocument> {
     readConfig: ReadConfig = {},
     findOptions: FindOptions = {},
   ): Promise<(U & PopulateTypes) | U | null> {
+    const { mode = 'private', populate } = readConfig;
+
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, readConfig);
 
-    if (readConfig.populate) {
-      const docs = await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions);
+    const privateFindOptions = getPrivateFindOptions({ mode, findOptions, privateFields: this.options.privateFields });
+
+    if (populate) {
+      const docs = await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, privateFindOptions);
 
       return docs[0] || null;
     }
 
-    return collection.findOne<U>(filter, findOptions);
+    return collection.findOne<U>(filter, privateFindOptions);
   }
 
   // Method overloading for find
@@ -270,16 +275,19 @@ class Service<T extends IDocument> {
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
     findOptions: FindOptions = {},
   ): Promise<FindResult<U & PopulateTypes> | FindResult<U>> {
+    const { mode = 'private', populate, page, perPage } = readConfig;
+
     const collection = await this.getCollection<U>();
-    const { page, perPage } = readConfig;
     const hasPaging = !!page && !!perPage;
 
     filter = this.handleReadOperations(filter, readConfig);
 
+    const privateFindOptions = getPrivateFindOptions({ mode, findOptions, privateFields: this.options.privateFields });
+
     if (!hasPaging) {
-      const results = readConfig.populate
-        ? await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
-        : await collection.find<U>(filter, findOptions).toArray();
+      const results = populate
+        ? await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, privateFindOptions)
+        : await collection.find<U>(filter, privateFindOptions).toArray();
 
       return {
         pagesCount: 1,
@@ -288,13 +296,13 @@ class Service<T extends IDocument> {
       };
     }
 
-    findOptions.skip = (page - 1) * perPage;
-    findOptions.limit = perPage;
+    privateFindOptions.skip = (page - 1) * perPage;
+    privateFindOptions.limit = perPage;
 
     const [results, count] = await Promise.all([
-      readConfig.populate
-        ? this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
-        : collection.find<U>(filter, findOptions).toArray(),
+      populate
+        ? this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, privateFindOptions)
+        : collection.find<U>(filter, privateFindOptions).toArray(),
       collection.countDocuments(filter),
     ]);
 
@@ -347,12 +355,13 @@ class Service<T extends IDocument> {
     createConfig: CreateConfig = {},
     insertOneOptions: InsertOneOptions = {},
   ): Promise<U> => {
+    const { mode = 'private', publishEvents } = createConfig;
     const collection = await this.getCollection<U>();
 
     const validEntity = await this.validateCreateOperation<U>(object, createConfig);
 
-    const shouldPublishEvents = typeof createConfig.publishEvents === 'boolean'
-      ? createConfig.publishEvents
+    const shouldPublishEvents = typeof publishEvents === 'boolean'
+      ? publishEvents
       : this.options.publishEvents;
 
     if (shouldPublishEvents) {
@@ -376,22 +385,28 @@ class Service<T extends IDocument> {
       await collection.insertOne(validEntity as OptionalUnlessRequiredId<U>, insertOneOptions);
     }
 
-    return validEntity;
+    if (mode === 'public') {
+      return validEntity;
+    }
+
+    return omitPrivateFields<U>(validEntity, this.options.privateFields);
   };
 
   insertMany = async <U extends T = T>(
     objects: Partial<U>[],
     createConfig: CreateConfig = {},
     bulkWriteOptions: BulkWriteOptions = {},
-  ): Promise<U[]> => {
+  ): Promise<Array<U>> => {
+    const { mode = 'private', publishEvents } = createConfig;
+
     const collection = await this.getCollection<U>();
 
     const validEntities = await Promise.all(objects.map(
       (o) => this.validateCreateOperation<U>(o, createConfig),
     ));
 
-    const shouldPublishEvents = typeof createConfig.publishEvents === 'boolean'
-      ? createConfig.publishEvents
+    const shouldPublishEvents = typeof publishEvents === 'boolean'
+      ? publishEvents
       : this.options.publishEvents;
 
     if (shouldPublishEvents) {
@@ -415,7 +430,11 @@ class Service<T extends IDocument> {
       await collection.insertMany(validEntities as OptionalUnlessRequiredId<U>[], bulkWriteOptions);
     }
 
-    return validEntities;
+    if (mode === 'public') {
+      return validEntities;
+    }
+
+    return validEntities.map((doc) => omitPrivateFields<U>(doc, this.options.privateFields));
   };
 
   replaceOne = async (
@@ -455,6 +474,8 @@ class Service<T extends IDocument> {
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
   ): Promise<U | null> {
+    const { mode = 'private', validateSchema, publishEvents } = updateConfig;
+    
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, updateConfig);
@@ -515,16 +536,16 @@ class Service<T extends IDocument> {
       updateFilter = _.merge(updateFilter, { $set: { updatedOn: updatedOnDate } });
     }
 
-    const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
-      ? updateConfig.validateSchema
+    const shouldValidateSchema = typeof validateSchema === 'boolean'
+      ? validateSchema
       : Boolean(this.options.schemaValidator);
 
     if (shouldValidateSchema) {
       await this.validateSchema(newDoc);
     }
 
-    const shouldPublishEvents = typeof updateConfig.publishEvents === 'boolean'
-      ? updateConfig.publishEvents
+    const shouldPublishEvents = typeof publishEvents === 'boolean'
+      ? publishEvents
       : this.options.publishEvents;
 
     if (shouldPublishEvents) {
@@ -556,7 +577,11 @@ class Service<T extends IDocument> {
       );
     }
 
-    return newDoc;
+    if (mode === 'public') {
+      return newDoc;
+    }
+
+    return omitPrivateFields<U>(newDoc, this.options.privateFields);
   }
 
   updateMany<U extends T = T>(
@@ -579,6 +604,8 @@ class Service<T extends IDocument> {
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
   ): Promise<U[]> {
+    const { mode = 'private', validateSchema, publishEvents } = updateConfig;
+
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, updateConfig);
@@ -654,8 +681,8 @@ class Service<T extends IDocument> {
       });
     }
 
-    const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
-      ? updateConfig.validateSchema
+    const shouldValidateSchema = typeof validateSchema === 'boolean'
+      ? validateSchema
       : Boolean(this.options.schemaValidator);
 
     if (shouldValidateSchema) {
@@ -676,8 +703,8 @@ class Service<T extends IDocument> {
       },
     );
 
-    const shouldPublishEvents = typeof updateConfig.publishEvents === 'boolean'
-      ? updateConfig.publishEvents
+    const shouldPublishEvents = typeof publishEvents === 'boolean'
+      ? publishEvents
       : this.options.publishEvents;
 
     if (shouldPublishEvents) {
@@ -701,7 +728,11 @@ class Service<T extends IDocument> {
       await collection.bulkWrite(bulkWriteQuery, updateOptions);
     }
 
-    return updated.map((u) => u?.doc) as U[];
+    if (mode === 'public') {
+      return updated.map((u) => u?.doc) as U[];
+    }
+
+    return updated.map((u) => omitPrivateFields<U>(u?.doc as U, this.options.privateFields)) as U[];
   }
 
   deleteOne = async <U extends T = T>(

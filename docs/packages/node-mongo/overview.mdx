@@ -214,6 +214,7 @@ interface ServiceOptions {
 |`escapeRegExp`|Escape `$regex` values to prevent special characters from being interpreted as patterns. |`false`|
 |`collectionOptions`|MongoDB [CollectionOptions](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CollectionOptions.html)|`{}`|
 |`collectionCreateOptions`|MongoDB [CreateCollectionOptions](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/CreateCollectionOptions.html)|`{}`|
+|`privateFields`|Fields that should be omitted from the public response.|`[]`|
 
 ### `CreateConfig`
 Overrides `ServiceOptions` parameters for create operations.
@@ -222,6 +223,7 @@ Overrides `ServiceOptions` parameters for create operations.
 type CreateConfig = {
   validateSchema?: boolean,
   publishEvents?: boolean,
+  mode?: 'public' | 'private',
 };
 ```
 
@@ -231,6 +233,8 @@ Overrides `ServiceOptions` parameters for read operations.
 ```typescript
 type ReadConfig = {
   skipDeletedOnDocs?: boolean,
+  populate?: PopulateOptions | PopulateOptions[],
+  mode?: 'public' | 'private',
 };
 ```
 
@@ -242,6 +246,7 @@ type UpdateConfig = {
   skipDeletedOnDocs?: boolean,
   validateSchema?: boolean,
   publishEvents?: boolean,
+  mode?: 'public' | 'private',
 };
 ```
 
@@ -281,19 +286,11 @@ Extending API for a single service.
 ```typescript
 const service = db.createService<User>('users', {
   schemaValidator: (obj) => schema.parseAsync(obj),
+  privateFields: ['passwordHash', 'signupToken', 'resetPasswordToken'],
 });
-
-const privateFields = [
-  'passwordHash',
-  'signupToken',
-  'resetPasswordToken',
-];
-
-const getPublic = (user: User | null) => _.omit(user, privateFields);
 
 export default Object.assign(service, {
   updateLastRequest,
-  getPublic,
 });
 ```
 

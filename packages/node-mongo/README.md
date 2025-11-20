@@ -1046,15 +1046,11 @@ Extending API for a single service.
 ```typescript
 const service = db.createService<User>("users", {
   schemaValidator: (obj) => schema.parseAsync(obj),
+  privateFields: ['passwordHash', 'signupToken', 'resetPasswordToken'],
 });
-
-const privateFields = ["passwordHash", "signupToken", "resetPasswordToken"];
-
-const getPublic = (user: User | null) => _.omit(user, privateFields);
 
 export default Object.assign(service, {
   updateLastRequest,
-  getPublic,
 });
 ```
 

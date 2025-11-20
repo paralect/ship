@@ -43,6 +43,7 @@ const userSchema = z.object({
   deletedOn: z.date().optional().nullable(),
   fullName: z.string(),
   age: z.number().optional(),
+  passwordHash: z.string().optional(),
   role: z.nativeEnum(UserRoles).default(UserRoles.MEMBER),
   permissions: z.array(z.nativeEnum(AdminPermissions)).optional(),
   birthDate: z.date().optional(),
@@ -65,6 +66,12 @@ const usersServiceEscapeRegExp = database.createService<UserType>('usersEsapeReg
 const companyService = database.createService<CompanyType>('companies', {
   schemaValidator: (obj) => companySchema.parseAsync(obj),
 });
+
+const usersServiceWithPrivateFields = database.createService<UserType>('usersWithPrivateFields', {
+  schemaValidator: (obj) => userSchema.parseAsync(obj),
+  privateFields: ['passwordHash'],
+});
+
 
 describe('service.ts', () => {
   before(async () => {
@@ -1490,5 +1497,144 @@ describe('service.ts', () => {
     updatedUser?.permissions?.[0]?.should.be.undefined;
     updatedUser?.permissions?.[1]?.should.be.undefined;
     updatedUser?.permissions?.length?.should.be.equal(0);
+  });
+
+  it('should omit private fields after insertOne method', async () => {
+    const newUserData = {
+      fullName: 'Test User with private fields',
+      age: 30,
+      role: UserRoles.ADMIN,
+      passwordHash: '123456',
+    };
+    
+    const user = await usersServiceWithPrivateFields.insertOne(newUserData);
+
+    (user?.passwordHash === undefined).should.be.equal(true);
+    user?.role?.should.be.equal(newUserData.role);
+    user?.fullName?.should.be.equal(newUserData.fullName);
+    user?.age?.should.be.equal(newUserData.age);
+  });
+
+  it('should omit private fields after insertMany method', async () => {
+    const newUsersData = [
+      {
+        fullName: 'Test User with private fields',
+        age: 30,
+        role: UserRoles.ADMIN,
+        passwordHash: '123456',
+      },
+      { 
+        fullName: 'Test User with private fields 2',
+        age: 20,
+        role: UserRoles.MANAGER,
+        passwordHash: '789012', 
+      },
+    ];
+    
+    const newUsers = await usersServiceWithPrivateFields.insertMany(newUsersData);
+
+    (newUsers[0]?.passwordHash === undefined).should.be.equal(true);
+    newUsers[0]?.role?.should.be.equal(newUsersData[0].role);
+    newUsers[0]?.fullName?.should.be.equal(newUsersData[0].fullName);
+    newUsers[0]?.age?.should.be.equal(newUsersData[0].age);
+
+    (newUsers[1]?.passwordHash === undefined).should.be.equal(true);
+    newUsers[1]?.role?.should.be.equal(newUsersData[1].role);
+    newUsers[1]?.fullName?.should.be.equal(newUsersData[1].fullName);
+    newUsers[1]?.age?.should.be.equal(newUsersData[1].age);
+  });
+
+  it('should omit private fields after updateOne method', async () => {
+    const newUsersData = {
+      fullName: 'Test User with private fields',
+      age: 30,
+      role: UserRoles.ADMIN,
+      passwordHash: '123456',
+    };
+    
+    const updateUserData = { 
+      fullName: 'Test User with private fields 2',
+      age: 20,
+      role: UserRoles.MANAGER,
+      passwordHash: '789012', 
+    };
+    
+    const newUser = await usersServiceWithPrivateFields.insertOne(newUsersData);
+    const updatedUser = await usersServiceWithPrivateFields.updateOne({ _id: newUser._id }, () => updateUserData);
+
+    (updatedUser?.passwordHash === undefined).should.be.equal(true);
+    updatedUser?.role?.should.be.equal(updateUserData.role);
+    updatedUser?.fullName?.should.be.equal(updateUserData.fullName);
+    updatedUser?.age?.should.be.equal(updateUserData.age);
+  });
+
+  it('should omit private fields after updateMany method', async () => {
+    const newUsersData = [{
+      fullName: 'Test User with private fields',
+      age: 30,
+      role: UserRoles.ADMIN,
+      passwordHash: '123456',
+    },
+    { 
+      fullName: 'Test User with private fields 2',
+      age: 20,
+      role: UserRoles.MANAGER,
+      passwordHash: '789012', 
+    }];
+    
+    const updateUserData = { 
+      fullName: 'Test User with private fields 2',
+      age: 20,
+      role: UserRoles.MANAGER,
+      passwordHash: '789012', 
+    };
+    
+    const newUser = await usersServiceWithPrivateFields.insertMany(newUsersData);
+    const newUsersIds = newUser.map((u) => u?._id).filter(Boolean) as string[];
+    const updatedUsers = await usersServiceWithPrivateFields.updateMany({ _id: { $in: newUsersIds } }, () => updateUserData);
+
+    (updatedUsers[0]?.passwordHash === undefined).should.be.equal(true);
+    updatedUsers[0]?.role?.should.be.equal(updateUserData.role);
+    updatedUsers[0]?.fullName?.should.be.equal(updateUserData.fullName);
+    updatedUsers[0]?.age?.should.be.equal(updateUserData.age);
+
+    (updatedUsers[1]?.passwordHash === undefined).should.be.equal(true);
+    updatedUsers[1]?.role?.should.be.equal(updateUserData.role);
+    updatedUsers[1]?.fullName?.should.be.equal(updateUserData.fullName);
+    updatedUsers[1]?.age?.should.be.equal(updateUserData.age);
+  });
+
+  it('should omit private fields after find method', async () => {
+    const newUserData = {
+      fullName: 'Test User with private fields',
+      age: 30,
+      role: UserRoles.ADMIN,
+      passwordHash: '123456',
+    };
+    
+    const user = await usersServiceWithPrivateFields.insertOne(newUserData);
+    const { results: foundUsers } = await usersServiceWithPrivateFields.find({ _id: user._id });
+
+    (foundUsers[0]?.passwordHash === undefined).should.be.equal(true);
+    foundUsers[0]?.role?.should.be.equal(newUserData.role);
+    foundUsers[0]?.fullName?.should.be.equal(newUserData.fullName);
+    foundUsers[0]?.age?.should.be.equal(newUserData.age);
+  });
+
+  it('should omit private fields after findOne method', async () => {
+    const newUserData = {
+      fullName: 'Test User with private fields',
+      age: 30,
+      role: UserRoles.ADMIN,
+      passwordHash: '123456',
+    };
+    
+    const user = await usersServiceWithPrivateFields.insertOne(newUserData);
+    const foundUser = await usersServiceWithPrivateFields.findOne({ _id: user._id });
+
+    (foundUser?.passwordHash === undefined).should.be.equal(true);
+    foundUser?.role?.should.be.equal(newUserData.role);
+    foundUser?.fullName?.should.be.equal(newUserData.fullName);
+    foundUser?.age?.should.be.equal(newUserData.age);
   });
 });
