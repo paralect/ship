@@ -80,13 +80,13 @@ import { z } from 'zod';
 
 import db from 'db';
 
-const schema = z.strictObject({
+const schema = z.object({
   _id: z.string(),
   createdOn: z.date().optional(),
   updatedOn: z.date().optional(),
   deletedOn: z.date().optional().nullable(),
   fullName: z.string(),
-});
+}).strict();
 
 type User = z.infer<typeof schema>;
 
