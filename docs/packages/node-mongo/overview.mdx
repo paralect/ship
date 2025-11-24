@@ -222,7 +222,7 @@ Overrides `ServiceOptions` parameters for create operations.
 ```typescript
 type CreateConfig = {
   validateSchema?: boolean,
-  publishEvents?: boolean
+  publishEvents?: boolean,
 };
 ```
 
@@ -232,7 +232,7 @@ Overrides `ServiceOptions` parameters for read operations.
 ```typescript
 type ReadConfig = {
   skipDeletedOnDocs?: boolean,
-  populate?: PopulateOptions | PopulateOptions[]
+  populate?: PopulateOptions | PopulateOptions[],
 };
 ```
 
@@ -243,7 +243,7 @@ Overrides `ServiceOptions` parameters for update operations.
 type UpdateConfig = {
   skipDeletedOnDocs?: boolean,
   validateSchema?: boolean,
-  publishEvents?: boolean
+  publishEvents?: boolean,
 };
 ```
 
@@ -315,6 +315,7 @@ function createService<T extends IDocument>(collectionName: string, options: Ser
 
 const userService = createService<UserType>('users', {
   schemaValidator: (obj) => schema.parseAsync(obj),
+  privateFields: ['passwordHash', 'signupToken', 'resetPasswordToken'],
 });
 
 await userService.createOrUpdate(
