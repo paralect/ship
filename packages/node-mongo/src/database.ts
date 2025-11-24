@@ -83,7 +83,7 @@ class Database extends EventEmitter {
 
   createService<T extends IDocument>(
     collectionName: string,
-    options?: ServiceOptions | undefined,
+    options?: ServiceOptions<T> | undefined,
   ): Service<T> {
     return new Service<T>(
       collectionName,

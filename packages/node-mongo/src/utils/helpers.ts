@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 import { ObjectId, UpdateFilter } from 'mongodb';
-import { GetPrivateProjectionParams } from 'src/types';
 
 const deepCompare = (
   data: unknown,
@@ -42,32 +41,13 @@ const addUpdatedOnField = <T>(update: UpdateFilter<T>): UpdateFilter<T> => {
 };
 
 const omitPrivateFields = <T>(
-  doc: T,
-  privateFields?: string[],
-): T => {
+  doc: T | null,
+  privateFields: Array<keyof T>,
+): Partial<T> | null => {
   if (!doc) return doc;
 
   return _.omit(doc, privateFields || []) as T;
 };
 
-const getPrivateFindOptions = (params: GetPrivateProjectionParams) => {
-  const { findOptions, privateFields, mode } = params;
 
-  if (mode === 'private' && privateFields?.length) {
-    return { 
-      ...findOptions, 
-      projection: { 
-        ...findOptions.projection,
-        ...privateFields.reduce((acc: Record<string, number>, key: string) => {
-          acc[key] = 0;
-
-          return acc;
-        }, {}),
-      },
-    };
-  }
-
-  return findOptions;
-};
-
-export { deepCompare, generateId, addUpdatedOnField, omitPrivateFields, getPrivateFindOptions };
+export { deepCompare, generateId, addUpdatedOnField, omitPrivateFields };

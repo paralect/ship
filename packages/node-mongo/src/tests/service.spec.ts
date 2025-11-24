@@ -1499,142 +1499,45 @@ describe('service.ts', () => {
     updatedUser?.permissions?.length?.should.be.equal(0);
   });
 
-  it('should omit private fields after insertOne method', async () => {
-    const newUserData = {
-      fullName: 'Test User with private fields',
+  it('should omit private fields using array configuration', async () => {
+    const userToInsertPayload = {
+      fullName: 'John Doe',
       age: 30,
       role: UserRoles.ADMIN,
       passwordHash: '123456',
     };
-    
-    const user = await usersServiceWithPrivateFields.insertOne(newUserData);
 
-    (user?.passwordHash === undefined).should.be.equal(true);
-    user?.role?.should.be.equal(newUserData.role);
-    user?.fullName?.should.be.equal(newUserData.fullName);
-    user?.age?.should.be.equal(newUserData.age);
+    const user = await usersServiceWithPrivateFields.insertOne(userToInsertPayload);
+
+    const publicUser = usersServiceWithPrivateFields.getPublic(user);
+
+    (publicUser?.passwordHash === undefined).should.be.equal(true);
+    publicUser?.fullName?.should.be.equal(userToInsertPayload.fullName);
+    publicUser?.age?.should.be.equal(userToInsertPayload.age);
+    publicUser?.role?.should.be.equal(userToInsertPayload.role);
   });
 
-  it('should omit private fields after insertMany method', async () => {
-    const newUsersData = [
-      {
-        fullName: 'Test User with private fields',
-        age: 30,
-        role: UserRoles.ADMIN,
-        passwordHash: '123456',
-      },
-      { 
-        fullName: 'Test User with private fields 2',
-        age: 20,
-        role: UserRoles.MANAGER,
-        passwordHash: '789012', 
-      },
-    ];
-    
-    const newUsers = await usersServiceWithPrivateFields.insertMany(newUsersData);
-
-    (newUsers[0]?.passwordHash === undefined).should.be.equal(true);
-    newUsers[0]?.role?.should.be.equal(newUsersData[0].role);
-    newUsers[0]?.fullName?.should.be.equal(newUsersData[0].fullName);
-    newUsers[0]?.age?.should.be.equal(newUsersData[0].age);
-
-    (newUsers[1]?.passwordHash === undefined).should.be.equal(true);
-    newUsers[1]?.role?.should.be.equal(newUsersData[1].role);
-    newUsers[1]?.fullName?.should.be.equal(newUsersData[1].fullName);
-    newUsers[1]?.age?.should.be.equal(newUsersData[1].age);
-  });
-
-  it('should omit private fields after updateOne method', async () => {
-    const newUsersData = {
-      fullName: 'Test User with private fields',
+  it('should return original document when no privateFields configured', async () => {
+    const userToInsertPayload = {
+      fullName: 'John Doe',
       age: 30,
       role: UserRoles.ADMIN,
       passwordHash: '123456',
     };
-    
-    const updateUserData = { 
-      fullName: 'Test User with private fields 2',
-      age: 20,
-      role: UserRoles.MANAGER,
-      passwordHash: '789012', 
-    };
-    
-    const newUser = await usersServiceWithPrivateFields.insertOne(newUsersData);
-    const updatedUser = await usersServiceWithPrivateFields.updateOne({ _id: newUser._id }, () => updateUserData);
 
-    (updatedUser?.passwordHash === undefined).should.be.equal(true);
-    updatedUser?.role?.should.be.equal(updateUserData.role);
-    updatedUser?.fullName?.should.be.equal(updateUserData.fullName);
-    updatedUser?.age?.should.be.equal(updateUserData.age);
+    const user = await usersService.insertOne(userToInsertPayload);
+
+    const publicUser = usersService.getPublic(user);
+
+    publicUser?.passwordHash?.should.be.equal(userToInsertPayload.passwordHash);
+    publicUser?.fullName?.should.be.equal(userToInsertPayload.fullName);
+    publicUser?.age?.should.be.equal(userToInsertPayload.age);
+    publicUser?.role?.should.be.equal(userToInsertPayload.role);
   });
 
-  it('should omit private fields after updateMany method', async () => {
-    const newUsersData = [{
-      fullName: 'Test User with private fields',
-      age: 30,
-      role: UserRoles.ADMIN,
-      passwordHash: '123456',
-    },
-    { 
-      fullName: 'Test User with private fields 2',
-      age: 20,
-      role: UserRoles.MANAGER,
-      passwordHash: '789012', 
-    }];
+  it('should handle null documents in getPublic', async () => {
+    const publicUser = usersServiceWithPrivateFields.getPublic(null);
     
-    const updateUserData = { 
-      fullName: 'Test User with private fields 2',
-      age: 20,
-      role: UserRoles.MANAGER,
-      passwordHash: '789012', 
-    };
-    
-    const newUser = await usersServiceWithPrivateFields.insertMany(newUsersData);
-    const newUsersIds = newUser.map((u) => u?._id).filter(Boolean) as string[];
-    const updatedUsers = await usersServiceWithPrivateFields.updateMany({ _id: { $in: newUsersIds } }, () => updateUserData);
-
-    (updatedUsers[0]?.passwordHash === undefined).should.be.equal(true);
-    updatedUsers[0]?.role?.should.be.equal(updateUserData.role);
-    updatedUsers[0]?.fullName?.should.be.equal(updateUserData.fullName);
-    updatedUsers[0]?.age?.should.be.equal(updateUserData.age);
-
-    (updatedUsers[1]?.passwordHash === undefined).should.be.equal(true);
-    updatedUsers[1]?.role?.should.be.equal(updateUserData.role);
-    updatedUsers[1]?.fullName?.should.be.equal(updateUserData.fullName);
-    updatedUsers[1]?.age?.should.be.equal(updateUserData.age);
-  });
-
-  it('should omit private fields after find method', async () => {
-    const newUserData = {
-      fullName: 'Test User with private fields',
-      age: 30,
-      role: UserRoles.ADMIN,
-      passwordHash: '123456',
-    };
-    
-    const user = await usersServiceWithPrivateFields.insertOne(newUserData);
-    const { results: foundUsers } = await usersServiceWithPrivateFields.find({ _id: user._id });
-
-    (foundUsers[0]?.passwordHash === undefined).should.be.equal(true);
-    foundUsers[0]?.role?.should.be.equal(newUserData.role);
-    foundUsers[0]?.fullName?.should.be.equal(newUserData.fullName);
-    foundUsers[0]?.age?.should.be.equal(newUserData.age);
-  });
-
-  it('should omit private fields after findOne method', async () => {
-    const newUserData = {
-      fullName: 'Test User with private fields',
-      age: 30,
-      role: UserRoles.ADMIN,
-      passwordHash: '123456',
-    };
-    
-    const user = await usersServiceWithPrivateFields.insertOne(newUserData);
-    const foundUser = await usersServiceWithPrivateFields.findOne({ _id: user._id });
-
-    (foundUser?.passwordHash === undefined).should.be.equal(true);
-    foundUser?.role?.should.be.equal(newUserData.role);
-    foundUser?.fullName?.should.be.equal(newUserData.fullName);
-    foundUser?.age?.should.be.equal(newUserData.age);
+    (publicUser === null).should.be.equal(true);
   });
 });

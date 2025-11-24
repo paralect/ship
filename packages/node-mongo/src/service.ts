@@ -33,12 +33,12 @@ import {
 } from './types';
 
 import logger from './utils/logger';
-import { addUpdatedOnField, generateId, getPrivateFindOptions, omitPrivateFields } from './utils/helpers';
+import { addUpdatedOnField, generateId, omitPrivateFields } from './utils/helpers';
 import PopulateUtil from './utils/populate';
 
 import { inMemoryPublisher } from './events/in-memory';
 
-const defaultOptions: ServiceOptions = {
+const defaultOptions: ServiceOptions<IDocument> = {
   skipDeletedOnDocs: true,
   publishEvents: true,
   outbox: false,
@@ -57,7 +57,7 @@ class Service<T extends IDocument> {
 
   private _collectionName: string;
 
-  private options: ServiceOptions;
+  private options: ServiceOptions<T>;
 
   private db;
 
@@ -68,7 +68,7 @@ class Service<T extends IDocument> {
   constructor(
     collectionName: string,
     db: IDatabase,
-    options: ServiceOptions = {},
+    options: ServiceOptions<T> = {},
   ) {
     this._collectionName = collectionName;
     this.db = db;
@@ -240,21 +240,19 @@ class Service<T extends IDocument> {
     readConfig: ReadConfig = {},
     findOptions: FindOptions = {},
   ): Promise<(U & PopulateTypes) | U | null> {
-    const { mode = 'private', populate } = readConfig;
+    const { populate } = readConfig;
 
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, readConfig);
 
-    const privateFindOptions = getPrivateFindOptions({ mode, findOptions, privateFields: this.options.privateFields });
-
     if (populate) {
-      const docs = await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, privateFindOptions);
+      const docs = await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions);
 
       return docs[0] || null;
     }
 
-    return collection.findOne<U>(filter, privateFindOptions);
+    return collection.findOne<U>(filter, findOptions);
   }
 
   // Method overloading for find
@@ -275,19 +273,17 @@ class Service<T extends IDocument> {
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
     findOptions: FindOptions = {},
   ): Promise<FindResult<U & PopulateTypes> | FindResult<U>> {
-    const { mode = 'private', populate, page, perPage } = readConfig;
+    const {  populate, page, perPage } = readConfig;
 
     const collection = await this.getCollection<U>();
     const hasPaging = !!page && !!perPage;
 
     filter = this.handleReadOperations(filter, readConfig);
 
-    const privateFindOptions = getPrivateFindOptions({ mode, findOptions, privateFields: this.options.privateFields });
-
     if (!hasPaging) {
       const results = populate
-        ? await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, privateFindOptions)
-        : await collection.find<U>(filter, privateFindOptions).toArray();
+        ? await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
+        : await collection.find<U>(filter, findOptions).toArray();
 
       return {
         pagesCount: 1,
@@ -296,13 +292,13 @@ class Service<T extends IDocument> {
       };
     }
 
-    privateFindOptions.skip = (page - 1) * perPage;
-    privateFindOptions.limit = perPage;
+    findOptions.skip = (page - 1) * perPage;
+    findOptions.limit = perPage;
 
     const [results, count] = await Promise.all([
       populate
-        ? this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, privateFindOptions)
-        : collection.find<U>(filter, privateFindOptions).toArray(),
+        ? this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
+        : collection.find<U>(filter, findOptions).toArray(),
       collection.countDocuments(filter),
     ]);
 
@@ -355,7 +351,7 @@ class Service<T extends IDocument> {
     createConfig: CreateConfig = {},
     insertOneOptions: InsertOneOptions = {},
   ): Promise<U> => {
-    const { mode = 'private', publishEvents } = createConfig;
+    const { publishEvents } = createConfig;
     const collection = await this.getCollection<U>();
 
     const validEntity = await this.validateCreateOperation<U>(object, createConfig);
@@ -385,19 +381,15 @@ class Service<T extends IDocument> {
       await collection.insertOne(validEntity as OptionalUnlessRequiredId<U>, insertOneOptions);
     }
 
-    if (mode === 'public') {
-      return validEntity;
-    }
-
-    return omitPrivateFields<U>(validEntity, this.options.privateFields);
+    return validEntity;
   };
 
   insertMany = async <U extends T = T>(
     objects: Partial<U>[],
     createConfig: CreateConfig = {},
     bulkWriteOptions: BulkWriteOptions = {},
-  ): Promise<Array<U>> => {
-    const { mode = 'private', publishEvents } = createConfig;
+  ): Promise<U[]> => {
+    const { publishEvents } = createConfig;
 
     const collection = await this.getCollection<U>();
 
@@ -430,11 +422,7 @@ class Service<T extends IDocument> {
       await collection.insertMany(validEntities as OptionalUnlessRequiredId<U>[], bulkWriteOptions);
     }
 
-    if (mode === 'public') {
-      return validEntities;
-    }
-
-    return validEntities.map((doc) => omitPrivateFields<U>(doc, this.options.privateFields));
+    return validEntities;
   };
 
   replaceOne = async (
@@ -474,7 +462,7 @@ class Service<T extends IDocument> {
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
   ): Promise<U | null> {
-    const { mode = 'private', validateSchema, publishEvents } = updateConfig;
+    const { validateSchema, publishEvents } = updateConfig;
     
     const collection = await this.getCollection<U>();
 
@@ -577,11 +565,7 @@ class Service<T extends IDocument> {
       );
     }
 
-    if (mode === 'public') {
-      return newDoc;
-    }
-
-    return omitPrivateFields<U>(newDoc, this.options.privateFields);
+    return newDoc;
   }
 
   updateMany<U extends T = T>(
@@ -604,7 +588,7 @@ class Service<T extends IDocument> {
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
   ): Promise<U[]> {
-    const { mode = 'private', validateSchema, publishEvents } = updateConfig;
+    const { validateSchema, publishEvents } = updateConfig;
 
     const collection = await this.getCollection<U>();
 
@@ -728,11 +712,7 @@ class Service<T extends IDocument> {
       await collection.bulkWrite(bulkWriteQuery, updateOptions);
     }
 
-    if (mode === 'public') {
-      return updated.map((u) => u?.doc) as U[];
-    }
-
-    return updated.map((u) => omitPrivateFields<U>(u?.doc as U, this.options.privateFields)) as U[];
+    return updated.map((u) => u?.doc).filter(Boolean) as U[];
   }
 
   deleteOne = async <U extends T = T>(
@@ -1007,6 +987,10 @@ class Service<T extends IDocument> {
     } else {
       this.collection = null;
     }
+  };
+
+  getPublic = <U extends T = T>(doc: U | null): Partial<U> | null => {
+    return omitPrivateFields<U>(doc, this.options.privateFields || []);
   };
 }
 

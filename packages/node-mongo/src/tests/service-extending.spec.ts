@@ -28,7 +28,7 @@ class CustomService<T extends IDocument> extends Service<T> {
   };
 }
 
-function createService<T extends IDocument>(collectionName: string, options: ServiceOptions = {}) {
+function createService<T extends IDocument>(collectionName: string, options: ServiceOptions<T> = {}) {
   return new CustomService<T>(collectionName, database, options);
 }
 

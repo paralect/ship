@@ -63,7 +63,6 @@ export type FindResult<T> = {
 export type CreateConfig = {
   validateSchema?: boolean;
   publishEvents?: boolean;
-  mode?: 'public' | 'private';
 };
 
 export type PopulateOptions = {
@@ -80,7 +79,6 @@ export type PopulateOptions = {
 export type ReadConfig = {
   skipDeletedOnDocs?: boolean,
   populate?: PopulateOptions | PopulateOptions[];
-  mode?: 'public' | 'private';
 };
 
 // Type-safe discriminated unions for populate operations
@@ -96,7 +94,6 @@ export type UpdateConfig = {
   skipDeletedOnDocs?: boolean;
   validateSchema?: boolean;
   publishEvents?: boolean;
-  mode?: 'public' | 'private';
 };
 
 export type DeleteConfig = {
@@ -121,7 +118,7 @@ interface IDatabase {
   ) => Promise<TRes>,
 }
 
-interface ServiceOptions {
+interface ServiceOptions<T extends IDocument> {
   skipDeletedOnDocs?: boolean,
   schemaValidator?: (obj: any) => Promise<any>,
   publishEvents?: boolean,
@@ -131,7 +128,7 @@ interface ServiceOptions {
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
   escapeRegExp?: boolean;
-  privateFields?: string[];
+  privateFields?: Array<keyof T>;
 }
 
 export type UpdateFilterFunction<U> = (doc: U) => Partial<U>;
@@ -140,9 +137,3 @@ export {
   IDatabase,
   ServiceOptions,
 };
-
-export interface GetPrivateProjectionParams {
-  privateFields?: string[];
-  mode: 'public' | 'private';
-  findOptions: FindOptions;
-}
