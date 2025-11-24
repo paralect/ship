@@ -273,7 +273,7 @@ class Service<T extends IDocument> {
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
     findOptions: FindOptions = {},
   ): Promise<FindResult<U & PopulateTypes> | FindResult<U>> {
-    const {  populate, page, perPage } = readConfig;
+    const { populate, page, perPage } = readConfig;
 
     const collection = await this.getCollection<U>();
     const hasPaging = !!page && !!perPage;
@@ -352,6 +352,7 @@ class Service<T extends IDocument> {
     insertOneOptions: InsertOneOptions = {},
   ): Promise<U> => {
     const { publishEvents } = createConfig;
+    
     const collection = await this.getCollection<U>();
 
     const validEntity = await this.validateCreateOperation<U>(object, createConfig);
