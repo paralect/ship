@@ -38,7 +38,7 @@ import PopulateUtil from './utils/populate';
 
 import { inMemoryPublisher } from './events/in-memory';
 
-const defaultOptions: ServiceOptions<IDocument> = {
+const defaultOptions: ServiceOptions<IDocument, ReadonlyArray<keyof IDocument>> = {
   skipDeletedOnDocs: true,
   publishEvents: true,
   outbox: false,
@@ -50,14 +50,14 @@ const defaultOptions: ServiceOptions<IDocument> = {
 
 const isDev = process.env.NODE_ENV === 'development';
 
-class Service<T extends IDocument> {
+class Service<T extends IDocument, PrivateFields extends ReadonlyArray<keyof T> = []> {
   private client?: MongoClient;
 
   private collection: Collection<T> | null;
 
   private _collectionName: string;
 
-  private options: ServiceOptions<T>;
+  private options: ServiceOptions<T, PrivateFields>;
 
   private db;
 
@@ -68,14 +68,14 @@ class Service<T extends IDocument> {
   constructor(
     collectionName: string,
     db: IDatabase,
-    options: ServiceOptions<T> = {},
+    options: ServiceOptions<T, PrivateFields> = {},
   ) {
     this._collectionName = collectionName;
     this.db = db;
     this.options = {
       ...defaultOptions,
       ...options,
-    };
+    } as ServiceOptions<T, PrivateFields>;
     this.waitForConnection = db.waitForConnection;
 
     if (this.options.outbox) {
@@ -990,9 +990,13 @@ class Service<T extends IDocument> {
     }
   };
 
-  getPublic = <U extends T = T>(doc: U | null): Partial<U> | null => {
-    return omitPrivateFields<U>(doc, this.options.privateFields || []);
-  };
+  getPublic(doc: null): null;
+
+  getPublic(doc: T): Omit<T, PrivateFields[number]>;
+
+  getPublic(doc: T | null): Omit<T, PrivateFields[number]> | null {
+    return omitPrivateFields<T, PrivateFields[number]>(doc, this.options.privateFields || []);
+  }
 }
 
 export default Service;

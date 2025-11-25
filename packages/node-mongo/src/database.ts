@@ -81,11 +81,11 @@ class Database extends EventEmitter {
     await this.client.close();
   };
 
-  createService<T extends IDocument>(
+  createService<T extends IDocument, PrivateFields extends ReadonlyArray<keyof T> = []>(
     collectionName: string,
-    options?: ServiceOptions<T> | undefined,
-  ): Service<T> {
-    return new Service<T>(
+    options?: ServiceOptions<T, PrivateFields> | undefined,
+  ): Service<T, PrivateFields> {
+    return new Service<T, PrivateFields>(
       collectionName,
       this as IDatabase,
       options,

@@ -276,8 +276,10 @@ Removes private fields from a document and returns a sanitized version. Private 
 **Example**
 
 ```typescript
-const service = db.createService<User>("users", {
-  privateFields: ['passwordHash', 'signupToken', 'resetPasswordToken'],
+const USER_PRIVATE_FIELDS = ['passwordHash', 'signupToken', 'resetPasswordToken'] as const
+
+const service = db.createService<User, typeof USER_PRIVATE_FIELDS>("users", {
+  privateFields: USER_PRIVATE_FIELDS,
 });
 
 const user = await service.findOne({ _id: userId });

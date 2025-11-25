@@ -36,6 +36,8 @@ enum AdminPermissions {
   EDIT = 'edit',
 }
 
+const USER_PRIVATE_FIELDS = ['passwordHash'] as const;
+
 const userSchema = z.object({
   _id: z.string(),
   createdOn: z.date().optional(),
@@ -67,11 +69,10 @@ const companyService = database.createService<CompanyType>('companies', {
   schemaValidator: (obj) => companySchema.parseAsync(obj),
 });
 
-const usersServiceWithPrivateFields = database.createService<UserType>('usersWithPrivateFields', {
+const usersServiceWithPrivateFields = database.createService<UserType, typeof USER_PRIVATE_FIELDS>('usersWithPrivateFields', {
   schemaValidator: (obj) => userSchema.parseAsync(obj),
-  privateFields: ['passwordHash'],
+  privateFields: USER_PRIVATE_FIELDS,
 });
-
 
 describe('service.ts', () => {
   before(async () => {
@@ -1511,7 +1512,9 @@ describe('service.ts', () => {
 
     const publicUser = usersServiceWithPrivateFields.getPublic(user);
 
-    (publicUser?.passwordHash === undefined).should.be.equal(true);
+    // @ts-expect-error Property 'passwordHash' does not exist
+    publicUser?.passwordHash;
+
     publicUser?.fullName?.should.be.equal(userToInsertPayload.fullName);
     publicUser?.age?.should.be.equal(userToInsertPayload.age);
     publicUser?.role?.should.be.equal(userToInsertPayload.role);

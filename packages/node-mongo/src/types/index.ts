@@ -118,7 +118,7 @@ interface IDatabase {
   ) => Promise<TRes>,
 }
 
-interface ServiceOptions<T extends IDocument> {
+interface ServiceOptions<T extends IDocument, PrivateFields extends ReadonlyArray<keyof T> = []> {
   skipDeletedOnDocs?: boolean,
   schemaValidator?: (obj: any) => Promise<any>,
   publishEvents?: boolean,
@@ -128,7 +128,7 @@ interface ServiceOptions<T extends IDocument> {
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
   escapeRegExp?: boolean;
-  privateFields?: Array<keyof T>;
+  privateFields?: PrivateFields;
 }
 
 export type UpdateFilterFunction<U> = (doc: U) => Partial<U>;
