@@ -237,6 +237,324 @@ Done! Application deployed and can be accessed by provided domain.
 
 ![Deployed application](/images/deployed-application.png)
 
+## Github Actions with prebuilt Container Images (Optional)
+
+Deploying an application to DigitalOcean can be done using prebuilt container images stored in a container registry such as [Digital Ocean Container Registry](https://www.digitalocean.com/products/container-registry). Using prebuilt images helps speed up deployment, eliminate the need to install dependencies on the server, and ensure build reproducibility.
+
+To use prebuilt container images, navigate to the DigitalOcean Container Registry tab and click the Create a Container Registry button.
+
+![Digital Ocean Container Registry](/images/create-digital-ocean-container-registry.png)
+
+1. Select the Basic plan, choose the region that matches your app’s region, specify a name for the container registry, and click Create Registry.
+
+![Select DO container registry plan](/images/select-do-registry-plan.png)
+
+2. Add two new GitHub Actions workflows to build and push updated images so they can be attached to your DigitalOcean Apps. Don’t forget to replace `registry.digitalocean.com/ship-demo/ship-demo-${{ matrix.app_name }}:${{ github.sha }}` with your own values from DigitalOcean.
+
+**API Build and Push Docker Image GH Action:**
+```yaml
+name: Build and Push Staging API Image to DigitalOcean
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/api/**"
+      - "packages/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    name: Build and Push Docker Images
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - app_name: api
+            dockerfile: apps/api/Dockerfile
+          - app_name: migrator
+            dockerfile: apps/api/Dockerfile.migrator
+          - app_name: scheduler
+            dockerfile: apps/api/Dockerfile.scheduler
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: registry.digitalocean.com
+          username: ${{ secrets.DO_USERNAME }}
+          password: ${{ secrets.DO_ACCESS_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          file: ${{ matrix.dockerfile }}
+          tags: registry.digitalocean.com/ship-demo/ship-demo-${{ matrix.app_name }}:${{ github.sha }}
+          target: runner
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+```
+
+**WEB Build and Push Docker Image GH Action:**
+```yaml
+name: Build and Push Staging Web Image to DigitalOcean
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/web/**"
+      - "packages/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    name: Build and Push Docker Images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: registry.digitalocean.com
+          username: ${{ secrets.DO_USERNAME }}
+          password: ${{ secrets.DO_ACCESS_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          file: ./apps/web/Dockerfile
+          tags: registry.digitalocean.com/ship-demo/ship-demo-web:${{ github.sha }}
+          target: runner
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+```
+
+3. Add 3 new github secrets: `DO_USERNAME` (the email of your DigitalOcean account), `DO_WEB_STAGING_APP_NAME` (the name of the web app) and `DO_API_STAGING_APP_NAME` (the name of the API app). And run 2 new workflows manually to push the initial images to the DigitalOcean Container Registry.
+
+![Create new github secrets for DO container registry](/images/do-registry-github-secrets.png)
+
+![Run and Build Docker images result](/images/run-build-and-push-do-image-results.png)
+
+4. Navigate to your DigitalOcean Container Registry. You should see 4 newly added repositories, as shown in the screenshot below.
+
+![Pushed Docker Images in DOCR](/images/pushed-images-in-docr.png)
+
+5. Navigate to Application Spec `(settings tab)`. Remove `dockerfile_path`, `github`, `source_dir` variables for migrator, scheduler and api. Migrator is placed in the `jobs` section. The scheduler is placed in the `workers` section. The api is placed in the `services` section. You can also find it by name of the resource.
+
+6. Add `image` variable for api, migrator and scheduler. You can check image `tag` in your DigitalOcean Container Registry.
+
+**Image configuration :**
+```yaml
+image:
+  registry: YOUR_DO_REGISTRY_NAME
+  registry_type: DOCR
+  repository: YOUR_DO_REPOSITORY_NAME
+  tag: YOUR_RECENT_IMAGE_TAG
+```
+
+![API spec for DOCR](/images/api-app-spec-for-docr-deployment.png)
+
+![Migrator spec for DOCR](/images/migrator-app-spec-for-docr-deployment.png)
+
+![Scheduler spec for DOCR](/images/scheduler-app-spec-for-docr-deployment.png)
+
+7. Do the same actions for web app.
+
+![WEB spec for DOCR](/images/web-app-spec-for-docr-deployment.png)
+
+8. Replace the old deployment action with the new one and remove old two actions: `Build and Push Staging API Image to DigitalOcean` and `Build and Push Staging Web Image to DigitalOcean`.
+
+**New API deployment github action:**
+```yaml
+name: "Staging application API deployment"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/api/**"
+      - "packages/**"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        required: true
+        default: "warning"
+      tags:
+        description: "Test scenario"
+        required: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    name: Build and Push Docker Images
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - app_name: api
+            dockerfile: apps/api/Dockerfile
+          - app_name: migrator
+            dockerfile: apps/api/Dockerfile.migrator
+          - app_name: scheduler
+            dockerfile: apps/api/Dockerfile.scheduler
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: registry.digitalocean.com
+          username: ${{ secrets.DO_USERNAME }}
+          password: ${{ secrets.DO_ACCESS_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          file: ${{ matrix.dockerfile }}
+          tags: registry.digitalocean.com/ship-demo/ship-demo-${{ matrix.app_name }}:${{ github.sha }}
+          target: runner
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy to DigitalOcean
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to DigitalOcean App Platform
+        uses: digitalocean/app_action/deploy@v2
+        env:
+          IMAGE_TAG_SHIP_DEMO_API: ${{ github.sha }}
+          IMAGE_TAG_SHIP_DEMO_MIGRATOR: ${{ github.sha }}
+          IMAGE_TAG_SHIP_DEMO_SCHEDULER: ${{ github.sha }}
+        with:
+          token: ${{ secrets.DO_ACCESS_TOKEN }}
+          app_name: ${{ secrets.DO_API_STAGING_APP_NAME }}
+```
+
+**New WEB deployment github action:**
+```yaml
+name: "Staging application Web deployment"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/web/**"
+      - "packages/**"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        required: true
+        default: "warning"
+      tags:
+        description: "Test scenario"
+        required: false
+
+jobs:
+  build:
+    name: Build and Push Docker Images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: registry.digitalocean.com
+          username: ${{ secrets.DO_USERNAME }}
+          password: ${{ secrets.DO_ACCESS_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          file: ./apps/web/Dockerfile
+          tags: registry.digitalocean.com/ship-demo/ship-demo-web:${{ github.sha }}
+          target: runner
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            APP_ENV=staging
+
+  deploy:
+    name: Deploy to DigitalOcean
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to DigitalOcean App Platform
+        uses: digitalocean/app_action/deploy@v2
+        env:
+          IMAGE_TAG_SHIP_DEMO_WEB: ${{ github.sha }}
+        with:
+          token: ${{ secrets.DO_ACCESS_TOKEN }}
+          app_name: ${{ secrets.DO_WEB_STAGING_APP_NAME }}
+```
+
+<Note>
+  The name of the environment variable for the image tag must meet this requirement IMAGE_TAG_$component-name.
+</Note>
+
+For production deployments, **prebuilt container images** provide better consistency and reliability. Prebuilt container images in GitHub Actions deploy faster than DigitalOcean-managed builds because the images are built in CI/CD and pushed ready-to-use, while DO builds them during deployment. See the comparison below.
+
+![Deploy actions compressions](/images/deploy-actions-compressions.png)
+
 ## Set up migrator and scheduler (Optional)
 
 Digital Ocean Apps allows configuring additional resources within one application, which can serve as background workers and jobs, and a scheduler to run before/after the deployment process.
