@@ -143,7 +143,8 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
     Add 3 new github secrets: 
     - `DO_USERNAME` - the email of your DigitalOcean account;
     - `DO_WEB_STAGING_APP_NAME` - the name of the web app;
-    - `DO_API_STAGING_APP_NAME` - the name of the API app. 
+    - `DO_API_STAGING_APP_NAME` - the name of the API app.
+
 
     ![Create new github secrets for DO container registry](/images/do-registry-github-secrets.png)
     
@@ -254,9 +255,9 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
   </Step>
 
   <Step title="Update deploy Github actions for WEB and API">
-    Replace the old deployment action with the new one and remove old two actions: `Build and Push Staging API Image to DigitalOcean` and `Build and Push Staging Web Image to DigitalOcean`.
+    Replace the old deployment action with the new one and **remove** old two actions: `.github/workflows/api-staging-build-and-push-image.yml` and `.github/workflows/web-staging-build-and-push-image.yml`.
 
-    ```yaml New API deployment github action expandable
+    ```yaml .github/workflows/api-staging.yml
     name: "Staging application API deployment"
 
     on:
@@ -337,7 +338,7 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
               app_name: ${{ secrets.DO_API_STAGING_APP_NAME }}
     ```
 
-    ```yaml New WEB deployment github action expandable
+    ```yaml .github/workflows/web-staging.yml
     name: "Staging application Web deployment"
 
     on:
