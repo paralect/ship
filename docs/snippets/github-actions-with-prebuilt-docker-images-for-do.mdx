@@ -12,21 +12,25 @@ See speed comparison below.
 
 ![Deploy actions compressions](/images/deploy-actions-compressions.png)
 
-To use prebuilt container images, navigate to the DigitalOcean Container Registry tab and click the Create a Container Registry button.
+To use prebuilt container images, navigate to the **DigitalOcean Container Registry** tab and click the  **Create a Container Registry** button.
 
 ![Digital Ocean Container Registry](/images/create-digital-ocean-container-registry.png)
 
 <Steps>
   <Step title="Create DO Registry">
-    Select the Basic plan, choose the region that matches your app’s region, specify a name for the container registry, and click Create Registry.
+    Select the Basic plan, choose the region that matches your app’s region, specify a name for the container registry, and click **Create Registry**.
 
     ![Select DO container registry plan](/images/select-do-registry-plan.png)
   </Step>
 
   <Step title="Add new GitHub Actions workflows">
-    Add two new GitHub Actions workflows to build and push updated images so they can be attached to your DigitalOcean Apps. Don’t forget to replace `registry.digitalocean.com/ship-demo/ship-demo-${{ matrix.app_name }}:${{ github.sha }}` with your own values from DigitalOcean.
+    Add two new GitHub Actions workflows to build and push updated images so they can be attached to your DigitalOcean Apps. 
+    
+    <Attention>
+      Don’t forget to replace `ship-demo` in `registry.digitalocean.com/ship-demo/ship-demo-...` with your own values from DigitalOcean.
+    </Attention>
 
-    ```yaml API Build and Push Docker Image GH Action expandable
+    ```yaml .github/workflows/api-staging-build-and-push-image.yml expandable
     name: Build and Push Staging API Image to DigitalOcean
 
     on:
@@ -84,7 +88,7 @@ To use prebuilt container images, navigate to the DigitalOcean Container Registr
               cache-to: type=registry,ref=registry.digitalocean.com/ship-demo/ship-demo-${{ matrix.app_name }}:cache,mode=max
     ```
 
-    ```yaml WEB Build and Push Docker Image GH Action expandable
+    ```yaml .github/workflows/web-staging-build-and-push-image.yml expandable
     name: Build and Push Staging Web Image to DigitalOcean
 
     on:
@@ -136,9 +140,14 @@ To use prebuilt container images, navigate to the DigitalOcean Container Registr
   </Step>
 
   <Step title="Add new GitHub Actions secrets and run new workflows">
-    Add 3 new github secrets: `DO_USERNAME` (the email of your DigitalOcean account), `DO_WEB_STAGING_APP_NAME` (the name of the web app) and `DO_API_STAGING_APP_NAME` (the name of the API app). And run 2 new workflows manually to push the initial images to the DigitalOcean Container Registry.
+    Add 3 new github secrets: 
+    - `DO_USERNAME` - the email of your DigitalOcean account;
+    - `DO_WEB_STAGING_APP_NAME` - the name of the web app;
+    - `DO_API_STAGING_APP_NAME` - the name of the API app. 
 
     ![Create new github secrets for DO container registry](/images/do-registry-github-secrets.png)
+    
+    Run 2 new workflows manually to push the initial images to the DigitalOcean Container Registry.
 
     ![Run and Build Docker images result](/images/run-build-and-push-do-image-results.png)
   </Step>
@@ -150,7 +159,27 @@ To use prebuilt container images, navigate to the DigitalOcean Container Registr
   </Step>
 
   <Step title="Update Digital Ocean API App Spec">
-    Navigate to Application Spec `(settings tab)`. Remove `dockerfile_path`, `github`, `source_dir` variables for migrator, scheduler and api. Migrator is placed in the `jobs` section. The scheduler is placed in the `workers` section. The api is placed in the `services` section. You can also find it by name of the resource. Add `image` variable for api, migrator and scheduler. You can check image `tag` in your DigitalOcean Container Registry.
+    Open Application Spec (settings tab) and remove the following properties for api, migrator and scheduler:
+
+    - `dockerfile_path`
+    - `github`
+    - `source_dir`
+
+    Migrator is placed in the `jobs` section.
+    The scheduler is placed in the `workers` section.
+    The api is placed in the `services` section. 
+
+    You can also find it by name of the resource.
+
+    Now you need to add a configuration to work with prebuilt images:
+    Add `image` property for api, migrator and scheduler.
+
+    | Property      | Description                                                      | Example                                    |
+    | ------        | ---------------------------------------------------------------- | ------------------------------------------ |
+    | registry      | Name of created Digital Ocean registry                           | `ship-demo`                                |
+    | registry_type | Container registry’s service. For our solution it will be `DOCR`.| `DOCR`                                     |
+    | repository    | Image repository’s name                                          | `ship-demo-api`                            |
+    | tag           | Image’s latest tag. Check this value in your Image's repository  | `55267dd70af17cb0e770ceed696f3fe9e5f1ee8d` |
 
     ```yaml API App Spec example expandable lines
     services:
@@ -200,12 +229,6 @@ To use prebuilt container images, navigate to the DigitalOcean Container Registr
         repository: YOUR_DO_SCHEDULER_REPOSITORY_NAME
         tag: YOUR_RECENT_SCHEDULER_IMAGE_TAG
     ```
-
-    ![API spec for DOCR](/images/api-app-spec-for-docr-deployment.png)
-
-    ![Migrator spec for DOCR](/images/migrator-app-spec-for-docr-deployment.png)
-
-    ![Scheduler spec for DOCR](/images/scheduler-app-spec-for-docr-deployment.png)
   </Step>
 
   <Step title="Update Digital Ocean WEB App Spec">
@@ -228,8 +251,6 @@ To use prebuilt container images, navigate to the DigitalOcean Container Registr
         repository: YOUR_DO_WEB_REPOSITORY_NAME
         tag: YOUR_RECENT_WEB_IMAGE_TAG
     ```
-
-    ![WEB spec for DOCR](/images/web-app-spec-for-docr-deployment.png)
   </Step>
 
   <Step title="Update deploy Github actions for WEB and API">
