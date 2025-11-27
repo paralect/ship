@@ -145,7 +145,6 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
     - `DO_WEB_STAGING_APP_NAME` - the name of the web app;
     - `DO_API_STAGING_APP_NAME` - the name of the API app.
 
-
     ![Create new github secrets for DO container registry](/images/do-registry-github-secrets.png)
     
     Run 2 new workflows manually to push the initial images to the DigitalOcean Container Registry.
@@ -160,20 +159,20 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
   </Step>
 
   <Step title="Update Digital Ocean API App Spec">
-    Open Application Spec (settings tab) and remove the following properties for api, migrator and scheduler:
+    Open Application Spec (settings tab) and **remove** the following properties for **api**, **migrator** and **scheduler**:
 
     - `dockerfile_path`
     - `github`
     - `source_dir`
 
-    Migrator is placed in the `jobs` section.
-    The scheduler is placed in the `workers` section.
-    The api is placed in the `services` section. 
+    **Migrator** is placed in the `jobs` section.
+    **Scheduler** is placed in the `workers` section.
+    **Api** is placed in the `services` section. 
 
     You can also find it by name of the resource.
 
     Now you need to add a configuration to work with prebuilt images:
-    Add `image` property for api, migrator and scheduler.
+    Add `image` property for **api**, **migrator** and **scheduler**.
 
     | Property      | Description                                                      | Example                                    |
     | ------        | ---------------------------------------------------------------- | ------------------------------------------ |
