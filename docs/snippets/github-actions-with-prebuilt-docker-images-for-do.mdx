@@ -1,8 +1,12 @@
 Deploying an application to DigitalOcean can be done using prebuilt container images stored in a container registry such as [Digital Ocean Container Registry](https://www.digitalocean.com/products/container-registry). Using prebuilt images helps speed up deployment, eliminate the need to install dependencies on the server, and ensure build reproducibility.
 
-For production deployments, **prebuilt container images** provide better consistency and reliability. Prebuilt container images in GitHub Actions deploy faster than DigitalOcean-managed builds because the images are built in CI/CD and pushed ready-to-use, while DO builds them during deployment.
-
-For small applications, these GitHub Actions workflows are optional — you can deploy without them. However, for larger projects where the build process requires significant compute resources and memory, these Github actions become essential to ensure successful, stable, and resource-efficient deployments.
+| When to use            | DO builds from repo (App Platform)                                       | Prebuilt image from GH Actions + DOCR                              |
+| ---------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| Small applications     | Can deploy directly                                                      | Can also deploy, but optional for small apps                       |
+| Large applications     | May fail or be slow if build requires significant resources and memory   | Essential for large projects with high compute/memory requirements |
+| Deployment speed       | Slower; builds happen during deployment                                  | Faster; images are prebuilt in CI/CD and pushed ready-to-use       |
+| Reliability            | Builds depend on server environment                                      | Better consistency and reproducibility in production               |
+| Dependencies           | Installed on server during build                                         | Already included in prebuilt image                                 |
 
 See speed comparison below.
 
