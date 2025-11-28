@@ -189,6 +189,11 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
 
     ```yaml API App Spec example expandable lines
     services:
+    - image: # [!code ++:5]
+        registry: YOUR_DO_REGISTRY_NAME
+        registry_type: DOCR
+        repository: YOUR_DO_API_REPOSITORY_NAME
+        tag: YOUR_RECENT_API_IMAGE_TAG
     - dockerfile_path: apps/api/Dockerfile # [!code --]
       github: # [!code --:3]
         branch: main
@@ -198,13 +203,13 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
       instance_size_slug: apps-s-1vcpu-0.5gb
       name: ship-demo-api
       source_dir: . # [!code --]
+    
+    jobs:
     - image: # [!code ++:5]
         registry: YOUR_DO_REGISTRY_NAME
         registry_type: DOCR
-        repository: YOUR_DO_API_REPOSITORY_NAME
-        tag: YOUR_RECENT_API_IMAGE_TAG
-
-    jobs:
+        repository: YOUR_DO_MIGRATOR_REPOSITORY_NAME
+        tag: YOUR_RECENT_MIGRATOR_IMAGE_TAG
     - dockerfile_path: apps/api/Dockerfile.migrator # [!code --]
       github: # [!code --:3]
         branch: main
@@ -214,13 +219,13 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
       kind: PRE_DEPLOY
       name: ship-demo-migrator
       source_dir: . # [!code --]
+
+    workers:
     - image: # [!code ++:5]
         registry: YOUR_DO_REGISTRY_NAME
         registry_type: DOCR
-        repository: YOUR_DO_MIGRATOR_REPOSITORY_NAME
-        tag: YOUR_RECENT_MIGRATOR_IMAGE_TAG
-
-    workers:
+        repository: YOUR_DO_SCHEDULER_REPOSITORY_NAME
+        tag: YOUR_RECENT_SCHEDULER_IMAGE_TAG
     - dockerfile_path: apps/api/Dockerfile.scheduler # [!code --]
       github: # [!code --:3]
         branch: main
@@ -229,11 +234,6 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
       instance_size_slug: apps-s-1vcpu-1gb
       name: ship-demo-scheduler
       source_dir: . # [!code --]
-    - image: # [!code ++:5]
-        registry: YOUR_DO_REGISTRY_NAME
-        registry_type: DOCR
-        repository: YOUR_DO_SCHEDULER_REPOSITORY_NAME
-        tag: YOUR_RECENT_SCHEDULER_IMAGE_TAG
     ```
   </Step>
 
@@ -242,6 +242,11 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
 
     ```yaml WEB App Spec example lines
     services:
+    - image: # [!code ++:5]
+        registry: YOUR_DO_REGISTRY_NAME
+        registry_type: DOCR
+        repository: YOUR_DO_WEB_REPOSITORY_NAME
+        tag: YOUR_RECENT_WEB_IMAGE_TAG
     - dockerfile_path: apps/web/Dockerfile # [!code --]
       github: # [!code --:3]
         branch: main
@@ -251,16 +256,15 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
       instance_size_slug: apps-s-1vcpu-0.5gb
       name: ship-demo-web
       source_dir: . # [!code --]
-    - image: # [!code ++:5]
-        registry: YOUR_DO_REGISTRY_NAME
-        registry_type: DOCR
-        repository: YOUR_DO_WEB_REPOSITORY_NAME
-        tag: YOUR_RECENT_WEB_IMAGE_TAG
     ```
   </Step>
 
   <Step title="Update deploy Github actions for WEB and API">
     Replace the old deployment action with the new one and **remove** old two actions: `.github/workflows/api-staging-build-and-push-image.yml` and `.github/workflows/web-staging-build-and-push-image.yml`.
+
+    <Note>
+      Don’t forget to replace `ship-demo` in `registry.digitalocean.com/ship-demo/ship-demo-...` with your own values from DigitalOcean.
+    </Note>
 
     ```yaml .github/workflows/api-staging.yml
     name: "Staging application API deployment"
