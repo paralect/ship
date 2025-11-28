@@ -1,30 +1,26 @@
 import { FC, useLayoutEffect, useState } from 'react';
-import { ActionIcon, ComboboxItem, Group, Select, TextInput } from '@mantine/core';
+import { ActionIcon, Group, Select, Stack, TextInput } from '@mantine/core';
 import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
 import { useDebouncedValue, useInputState, useSetState } from '@mantine/hooks';
 import { IconSearch, IconSelector, IconX } from '@tabler/icons-react';
+import { useMobile } from 'hooks';
 import { set } from 'lodash';
 
 import { UserListParams } from 'resources/user';
 
-const selectOptions: ComboboxItem[] = [
-  {
-    value: 'newest',
-    label: 'Newest',
-  },
-  {
-    value: 'oldest',
-    label: 'Oldest',
-  },
-];
+import { getSortByOptions } from './helpers';
 
 interface FiltersProps {
   setParams: ReturnType<typeof useSetState<UserListParams>>[1];
 }
 
 const Filters: FC<FiltersProps> = ({ setParams }) => {
+  const isMobile = useMobile();
+
+  const sortByOptions = getSortByOptions(isMobile);
+
   const [search, setSearch] = useInputState('');
-  const [sortBy, setSortBy] = useState<string | null>(selectOptions[0].value);
+  const [sortBy, setSortBy] = useState<string | null>(sortByOptions[0].value);
   const [filterDate, setFilterDate] = useState<DatesRangeValue>();
 
   const [debouncedSearch] = useDebouncedValue(search, 500);
@@ -57,9 +53,9 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
 
   return (
     <Group wrap="nowrap" justify="space-between">
-      <Group wrap="nowrap">
+      <Group wrap="nowrap" component={isMobile ? Stack : undefined} flex={isMobile ? 1 : undefined}>
         <TextInput
-          w={350}
+          w={isMobile ? '100%' : 350}
           size="md"
           value={search}
           onChange={setSearch}
@@ -75,9 +71,9 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
         />
 
         <Select
-          w={200}
+          w={isMobile ? '100%' : 200}
           size="md"
-          data={selectOptions}
+          data={sortByOptions}
           value={sortBy}
           onChange={handleSort}
           allowDeselect={false}
@@ -92,7 +88,14 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
           }}
         />
 
-        <DatePickerInput type="range" size="md" placeholder="Pick date" value={filterDate} onChange={handleFilter} />
+        <DatePickerInput
+          valueFormat={isMobile ? 'YYYY-MM-DD' : undefined}
+          type="range"
+          size="md"
+          placeholder="Pick date"
+          value={filterDate}
+          onChange={handleFilter}
+        />
       </Group>
     </Group>
   );

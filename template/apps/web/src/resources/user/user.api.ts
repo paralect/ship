@@ -1,25 +1,32 @@
-import { DateValue } from '@mantine/dates';
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { apiService } from 'services';
 
-import { ListParams, ListResult, User } from 'types';
+import { ApiError, InfinityQueryOptions, ListResult, User } from 'types';
 
-export interface UserListFilterParams {
-  createdOn?: {
-    startDate: DateValue;
-    endDate: DateValue;
-  };
-}
+import { UserListParams, UserListResponse } from '.';
 
-export type UserListSortFields = 'createdOn' | 'firstName' | 'lastName';
-
-export type UserListParams = ListParams<UserListFilterParams, Pick<User, UserListSortFields>>;
-export type UserListResponse = ListResult<User>;
+const BASE_URL = '/users';
 
 export const useList = <T extends UserListParams>(params: T, options?: Partial<UseQueryOptions<UserListResponse>>) =>
   useQuery<UserListResponse>({
     queryKey: ['users', params],
-    queryFn: () => apiService.get('/users', params),
+    queryFn: () => apiService.get(BASE_URL, params),
     ...options,
   });
+
+export const useInfinityList = <T extends UserListParams>(
+  params: T,
+  options?: InfinityQueryOptions<ListResult<User>, ApiError>,
+) => {
+  const queryFn = (pageParam: number): Promise<ListResult<User>> =>
+    apiService.get(BASE_URL, { ...params, page: pageParam });
+
+  return useInfiniteQuery<ListResult<User>, ApiError>({
+    queryKey: ['users-infinity-list', params],
+    queryFn: ({ pageParam = 1 }) => queryFn(pageParam as number),
+    getNextPageParam: (lastPage) => (lastPage.pagesCount > lastPage.page! ? lastPage.page! + 1 : undefined),
+    initialPageParam: 1,
+    ...(options || {}),
+  });
+};

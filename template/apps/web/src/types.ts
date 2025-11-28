@@ -1,3 +1,5 @@
+import { InfiniteData, UseInfiniteQueryOptions } from '@tanstack/react-query';
+
 export * from 'app-types';
 export type { ApiError } from 'services/api.service';
 
@@ -7,6 +9,7 @@ export interface ListResult<T> {
   results: T[];
   pagesCount: number;
   count: number;
+  page?: number;
 }
 
 export type SortOrder = 'asc' | 'desc';
@@ -22,3 +25,9 @@ export interface ListParams<T, F> {
   filter?: T;
   sort?: SortParams<F>;
 }
+
+export interface InfinityQueryOptions<T, E>
+  extends Omit<
+    UseInfiniteQueryOptions<T, E, InfiniteData<T>>,
+    'queryKey' | 'queryFn' | 'getNextPageParam' | 'initialPageParam'
+  > {}

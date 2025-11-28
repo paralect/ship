@@ -77,7 +77,7 @@ const Profile: NextPage = () => {
         <title>Profile</title>
       </Head>
 
-      <Stack w={408} m="auto" pt={48} gap={32}>
+      <Stack w={{ lg: 408, md: 408, sm: '100%', xs: '100%' }} m="auto" pt={48} gap={32}>
         <Title order={1}>Profile</Title>
 
         <FormProvider {...methods}>
