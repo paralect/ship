@@ -1,9 +1,9 @@
-import { FC, UIEventHandler, useEffect } from 'react';
+import { FC, ReactNode, UIEventHandler, useEffect } from 'react';
 import { Center, Loader, ScrollAreaAutosize, ScrollAreaProps, Stack } from '@mantine/core';
 import { useInViewport } from '@mantine/hooks';
 
 export interface InfiniteScrollProps extends ScrollAreaProps {
-  children: React.ReactNode;
+  children: ReactNode;
   fetchNextData: () => void;
   hasMore: boolean;
   maxContainerHeight?: number | string;
