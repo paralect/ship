@@ -26,9 +26,9 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
   <Step title="Add new GitHub Actions workflows">
     Add two new GitHub Actions workflows to build and push updated images so they can be attached to your DigitalOcean Apps. 
     
-    <Attention>
+    <Note>
       Don’t forget to replace `ship-demo` in `registry.digitalocean.com/ship-demo/ship-demo-...` with your own values from DigitalOcean.
-    </Attention>
+    </Note>
 
     ```yaml .github/workflows/api-staging-build-and-push-image.yml expandable
     name: Build and Push Staging API Image to DigitalOcean
@@ -135,6 +135,8 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
               target: runner
               cache-from: type=registry,ref=registry.digitalocean.com/ship-demo/ship-demo-web:cache
               cache-to: type=registry,ref=registry.digitalocean.com/ship-demo/ship-demo-web:cache,mode=max
+              build-args: |
+                APP_ENV=staging
 
     ```
   </Step>
@@ -180,6 +182,10 @@ To use prebuilt container images, navigate to the **DigitalOcean Container Regis
     | registry_type | Container registry’s service. For our solution it will be `DOCR`.| `DOCR`                                     |
     | repository    | Image repository’s name                                          | `ship-demo-api`                            |
     | tag           | Image’s latest tag. Check this value in your Image's repository  | `55267dd70af17cb0e770ceed696f3fe9e5f1ee8d` |
+
+    You can find the recent tag for your app image in **container registry** as shown in the screenshot below.
+
+    ![Recent Image tag in DOCR](/images/recent-image-tag-in-docr.png)
 
     ```yaml API App Spec example expandable lines
     services:
