@@ -35,7 +35,7 @@
     "dotenv-flow": "4.1.0",
     "lodash": "4.17.21",
     "mixpanel-browser": "2.53.0",
-    "next": "15.5.6",
+    "next": "15.5.7",
     "object-to-formdata": "4.5.1",
     "react": "catalog:",
     "react-dom": "catalog:",
