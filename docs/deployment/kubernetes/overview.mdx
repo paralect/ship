@@ -65,7 +65,7 @@ const pushToKubernetes = async ({ imageTag, appName, deployConfig }) => {
       --set nodePool=${config.nodePool} \
       --set containerRegistry=${config.dockerRegistry.name} \
       -f ${deployDir}/${config.environment}.yaml \
-      --timeout 35m \
+      --timeout 35m --wait --wait-for-jobs \
   `);
 }
 

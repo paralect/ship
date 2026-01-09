@@ -88,4 +88,4 @@ jobs:
           --set nodeGroup=${{ inputs.node_group }} \
           -f ${{ inputs.helm_chart_dir }}/${{ inputs.environment }}.yaml \
           --dependency-update \
-          --kubeconfig ${{ env.KUBECONFIG }}
+          --kubeconfig ${{ env.KUBECONFIG }} --wait --wait-for-jobs
