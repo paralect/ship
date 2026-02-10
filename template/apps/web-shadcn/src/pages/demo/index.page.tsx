@@ -2,14 +2,16 @@ import Link from 'next/link';
 import { AlertCircle, CheckCircle2, Info } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { Alert, AlertDescription, AlertTitle } from 'components/ui/alert';
-import { Button } from 'components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'components/ui/card';
-import { Checkbox } from 'components/ui/checkbox';
-import { Input } from 'components/ui/input';
-import { Label } from 'components/ui/label';
-import { PasswordInput } from 'components/ui/password-input';
-import { Text, Title } from 'components/ui/typography';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Text, Title } from '@/components/ui/typography';
 
 const Demo = () => {
   const handleToast = () => {
@@ -140,11 +142,50 @@ const Demo = () => {
               <AlertDescription>Something went wrong. Please try again.</AlertDescription>
             </Alert>
 
-            <Alert variant="success">
+            <Alert className="border-green-500/50 text-green-600 [&>svg]:text-green-600">
               <CheckCircle2 className="h-4 w-4" />
               <AlertTitle>Success</AlertTitle>
               <AlertDescription>Your changes have been saved successfully.</AlertDescription>
             </Alert>
+          </CardContent>
+        </Card>
+
+        {/* Select Section */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Select</CardTitle>
+
+            <CardDescription>Dropdown select component</CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label>Favorite fruit</Label>
+              <Select>
+                <SelectTrigger className="w-[200px]">
+                  <SelectValue placeholder="Select a fruit" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="apple">Apple</SelectItem>
+                  <SelectItem value="banana">Banana</SelectItem>
+                  <SelectItem value="orange">Orange</SelectItem>
+                  <SelectItem value="grape">Grape</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Calendar Section */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Calendar</CardTitle>
+
+            <CardDescription>Date picker calendar</CardDescription>
+          </CardHeader>
+
+          <CardContent>
+            <Calendar className="rounded-md border" />
           </CardContent>
         </Card>
 

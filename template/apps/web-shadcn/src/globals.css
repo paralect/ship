@@ -48,6 +48,13 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  input,
+  select,
+  textarea {
+    color: var(--color-foreground);
+    background-color: var(--color-background);
+  }
 }
 
 .dark {

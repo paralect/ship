@@ -1,16 +1,15 @@
+'use client';
+
 import * as React from 'react';
-import { cn } from 'lib/utils';
 import { Eye, EyeOff } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
 
 import { Button } from './button';
 
-export interface PasswordInputProps extends Omit<React.ComponentProps<'input'>, 'type'> {}
+export type PasswordInputProps = Omit<React.ComponentProps<'input'>, 'type'>;
 
-const PasswordInput = ({
-  ref,
-  className,
-  ...props
-}: PasswordInputProps & { ref?: React.RefObject<HTMLInputElement | null> }) => {
+const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(({ className, ...props }, ref) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   return (
@@ -24,7 +23,6 @@ const PasswordInput = ({
         ref={ref}
         {...props}
       />
-
       <Button
         type="button"
         variant="ghost"
@@ -34,15 +32,15 @@ const PasswordInput = ({
         disabled={props.disabled}
       >
         {showPassword ? (
-          <EyeOff className="h-4 w-4 text-muted-foreground" />
+          <EyeOff className="size-4 text-muted-foreground" />
         ) : (
-          <Eye className="h-4 w-4 text-muted-foreground" />
+          <Eye className="size-4 text-muted-foreground" />
         )}
         <span className="sr-only">{showPassword ? 'Hide password' : 'Show password'}</span>
       </Button>
     </div>
   );
-};
+});
 PasswordInput.displayName = 'PasswordInput';
 
 export { PasswordInput };
