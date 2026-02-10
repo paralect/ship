@@ -1,14 +1,17 @@
-import { useState } from 'react';
 import Link from 'next/link';
+import { AlertCircle, CheckCircle2, Info } from 'lucide-react';
 import { toast } from 'sonner';
 
+import { Alert, AlertDescription, AlertTitle } from 'components/ui/alert';
 import { Button } from 'components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'components/ui/card';
+import { Checkbox } from 'components/ui/checkbox';
 import { Input } from 'components/ui/input';
+import { Label } from 'components/ui/label';
+import { PasswordInput } from 'components/ui/password-input';
+import { Text, Title } from 'components/ui/typography';
 
 const Demo = () => {
-  const [inputValue, setInputValue] = useState('');
-
   const handleToast = () => {
     toast.success('This is a success toast!');
   };
@@ -58,21 +61,91 @@ const Demo = () => {
         {/* Input Section */}
         <Card>
           <CardHeader>
-            <CardTitle>Input</CardTitle>
+            <CardTitle>Input & PasswordInput</CardTitle>
 
-            <CardDescription>Text input component</CardDescription>
+            <CardDescription>Text input components with labels</CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-4">
-            <Input placeholder="Type something..." value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-            <Input type="email" placeholder="Email address" />
-            <Input type="password" placeholder="Password" />
-            <Input disabled placeholder="Disabled input" />
-          </CardContent>
+            <div className="space-y-2">
+              <Label htmlFor="text-input">Text Input</Label>
+              <Input id="text-input" placeholder="Type something..." />
+            </div>
 
-          <CardFooter>
-            <p className="text-sm text-muted-foreground">Current value: {inputValue || '(empty)'}</p>
-          </CardFooter>
+            <div className="space-y-2">
+              <Label htmlFor="email-input">Email</Label>
+              <Input id="email-input" type="email" placeholder="Email address" />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password-input">Password (with toggle)</Label>
+              <PasswordInput id="password-input" placeholder="Enter password" />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="disabled-input">Disabled Input</Label>
+              <Input id="disabled-input" disabled placeholder="Disabled input" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Checkbox Section */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Checkbox</CardTitle>
+
+            <CardDescription>Checkbox component with label</CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <Checkbox id="terms" />
+              <Label htmlFor="terms">Accept terms and conditions</Label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Checkbox id="disabled" disabled />
+              <Label htmlFor="disabled" className="text-muted-foreground">
+                Disabled checkbox
+              </Label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Checkbox id="checked-disabled" disabled checked />
+              <Label htmlFor="checked-disabled" className="text-muted-foreground">
+                Disabled checked
+              </Label>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Alert Section */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Alert</CardTitle>
+
+            <CardDescription>Alert component variants</CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-4">
+            <Alert>
+              <Info className="h-4 w-4" />
+              <AlertTitle>Default Alert</AlertTitle>
+              <AlertDescription>This is a default informational alert.</AlertDescription>
+            </Alert>
+
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>Something went wrong. Please try again.</AlertDescription>
+            </Alert>
+
+            <Alert variant="success">
+              <CheckCircle2 className="h-4 w-4" />
+              <AlertTitle>Success</AlertTitle>
+              <AlertDescription>Your changes have been saved successfully.</AlertDescription>
+            </Alert>
+          </CardContent>
         </Card>
 
         {/* Toast Section */}
@@ -98,17 +171,23 @@ const Demo = () => {
           <CardHeader>
             <CardTitle>Typography</CardTitle>
 
-            <CardDescription>Text styles using Tailwind</CardDescription>
+            <CardDescription>Title and Text components (Mantine replacement)</CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-4">
-            <h1 className="text-4xl font-bold">Heading 1</h1>
-            <h2 className="text-3xl font-semibold">Heading 2</h2>
-            <h3 className="text-2xl font-medium">Heading 3</h3>
+            <Title order={1}>Title order 1</Title>
+            <Title order={2}>Title order 2</Title>
+            <Title order={3}>Title order 3</Title>
+            <Title order={4}>Title order 4</Title>
 
-            <p className="text-base">Regular paragraph text</p>
-            <p className="text-sm text-muted-foreground">Muted text for descriptions</p>
-            <p className="text-xs text-muted-foreground">Small helper text</p>
+            <Text>Regular text</Text>
+            <Text size="sm" variant="muted">
+              Muted small text
+            </Text>
+            <Text size="lg" weight="semibold">
+              Large semibold text
+            </Text>
+            <Text variant="destructive">Destructive text</Text>
           </CardContent>
         </Card>
       </div>
