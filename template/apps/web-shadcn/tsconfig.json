@@ -1,0 +1,20 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "target": "ES2017",
+    "baseUrl": "src",
+    "rootDir": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.json",
+    ".next/types/**/*.ts",
+    "next-env.d.ts",
+    "next.config.mjs",
+    "postcss.config.mjs"
+  ]
+}
