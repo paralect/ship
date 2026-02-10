@@ -1,6 +1,7 @@
-import type { VariantProps } from 'class-variance-authority';
-import { cva } from 'class-variance-authority';
-import { cn } from 'lib/utils';
+import * as React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+import { cn } from '@/lib/utils';
 
 const titleVariants = cva('font-bold tracking-tight', {
   variants: {
@@ -20,19 +21,19 @@ const titleVariants = cva('font-bold tracking-tight', {
 
 export interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof titleVariants> {
   order?: 1 | 2 | 3 | 4 | 5 | 6;
-  ref?: React.Ref<HTMLHeadingElement>;
 }
 
-const Title = ({ className, order = 1, children, ref, ...props }: TitleProps) => {
+const Title = ({ className, order = 1, children, ...props }: TitleProps) => {
   const Tag = `h${order}` as const;
 
   return (
-    <Tag ref={ref} className={cn(titleVariants({ order }), className)} {...props}>
+    <Tag className={cn(titleVariants({ order }), className)} {...props}>
       {children}
     </Tag>
   );
 };
 
+// Text variants (replacement for Mantine Text)
 const textVariants = cva('', {
   variants: {
     size: {
@@ -63,11 +64,10 @@ const textVariants = cva('', {
 
 export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement>, VariantProps<typeof textVariants> {
   as?: 'p' | 'span' | 'div';
-  ref?: React.Ref<HTMLParagraphElement>;
 }
 
-const Text = ({ className, size, variant, weight, as: Tag = 'p', ref, ...props }: TextProps) => (
-  <Tag ref={ref} className={cn(textVariants({ size, variant, weight }), className)} {...props} />
+const Text = ({ className, size, variant, weight, as: Tag = 'p', ...props }: TextProps) => (
+  <Tag className={cn(textVariants({ size, variant, weight }), className)} {...props} />
 );
 
 export { Text, Title };
