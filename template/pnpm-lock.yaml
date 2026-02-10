@@ -443,6 +443,9 @@ importers:
       react-dom:
         specifier: 'catalog:'
         version: 19.0.3(react@19.0.3)
+      react-dropzone:
+        specifier: 15.0.0
+        version: 15.0.0(react@19.0.3)
       react-hook-form:
         specifier: 7.57.0
         version: 7.57.0(react@19.0.3)
@@ -6511,6 +6514,12 @@ packages:
 
   react-dropzone@14.3.8:
     resolution: {integrity: sha512-sBgODnq+lcA4P296DY4wacOZz3JFpD99fp+hb//iBO2HHnyeZU3FwWyXJ6salNpqQdsZrgMrotuko/BdJMV8Ug==}
+    engines: {node: '>= 10.13'}
+    peerDependencies:
+      react: '>= 16.8 || 18.0.0'
+
+  react-dropzone@15.0.0:
+    resolution: {integrity: sha512-lGjYV/EoqEjEWPnmiSvH4v5IoIAwQM2W4Z1C0Q/Pw2xD0eVzKPS359BQTUMum+1fa0kH2nrKjuavmTPOGhpLPg==}
     engines: {node: '>= 10.13'}
     peerDependencies:
       react: '>= 16.8 || 18.0.0'
@@ -14678,6 +14687,13 @@ snapshots:
       scheduler: 0.25.0
 
   react-dropzone@14.3.8(react@19.0.3):
+    dependencies:
+      attr-accept: 2.2.5
+      file-selector: 2.1.2
+      prop-types: 15.8.1
+      react: 19.0.3
+
+  react-dropzone@15.0.0(react@19.0.3):
     dependencies:
       attr-accept: 2.2.5
       file-selector: 2.1.2

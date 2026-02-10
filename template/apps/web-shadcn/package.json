@@ -44,6 +44,7 @@
     "react": "catalog:",
     "react-day-picker": "9.13.2",
     "react-dom": "catalog:",
+    "react-dropzone": "15.0.0",
     "react-hook-form": "7.57.0",
     "schemas": "workspace:*",
     "socket.io-client": "4.7.5",
