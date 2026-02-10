@@ -9,6 +9,7 @@ import queryClient from 'query-client';
 import 'globals.css';
 
 import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => (
   <>
@@ -17,9 +18,11 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
     </Head>
 
     <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
+      <TooltipProvider>
+        <Component {...pageProps} />
 
-      <Toaster richColors position="top-right" />
+        <Toaster richColors position="top-right" />
+      </TooltipProvider>
 
       <ReactQueryDevtools buttonPosition="bottom-left" />
     </QueryClientProvider>
