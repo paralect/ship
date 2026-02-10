@@ -5,7 +5,14 @@
     "baseUrl": "src",
     "rootDir": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "public/*": ["../public/*"],
+      "types": ["./types.ts"],
+      "config": ["./config/index.ts"],
+      "routes": ["./routes.ts"],
+      "services": ["./services/index.ts"],
+      "utils": ["./utils/index.ts"],
+      "query-client": ["./query-client.ts"]
     }
   },
   "include": [

@@ -1,32 +1,7 @@
-import { FC } from 'react';
-import { AppProps } from 'next/app';
-import Head from 'next/head';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import 'resources/user/user.handlers';
 
-import queryClient from 'query-client';
+import App from './_app';
 
 import 'globals.css';
-
-import { Toaster } from '@/components/ui/sonner';
-import { TooltipProvider } from '@/components/ui/tooltip';
-
-const App: FC<AppProps> = ({ Component, pageProps }) => (
-  <>
-    <Head>
-      <title>Ship</title>
-    </Head>
-
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Component {...pageProps} />
-
-        <Toaster richColors position="top-right" />
-      </TooltipProvider>
-
-      <ReactQueryDevtools buttonPosition="bottom-left" />
-    </QueryClientProvider>
-  </>
-);
 
 export default App;
