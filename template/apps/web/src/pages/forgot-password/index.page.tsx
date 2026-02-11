@@ -3,17 +3,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Anchor, Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useApiForm, useApiMutation } from 'hooks';
 
-import { accountApi } from 'resources/account';
-
+import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
-
-import { forgotPasswordSchema } from 'schemas';
-import { ForgotPasswordParams } from 'types';
 
 const ForgotPassword: NextPage = () => {
   const router = useRouter();
@@ -22,7 +17,7 @@ const ForgotPassword: NextPage = () => {
     mutate: forgotPassword,
     isPending: isForgotPasswordPending,
     isSuccess: isForgotPasswordSuccess,
-  } = accountApi.useForgotPassword();
+  } = useApiMutation(apiClient.account.forgotPassword);
 
   const {
     register,
@@ -30,16 +25,15 @@ const ForgotPassword: NextPage = () => {
     setError,
     watch,
     formState: { errors },
-  } = useForm<ForgotPasswordParams>({
-    resolver: zodResolver(forgotPasswordSchema),
-  });
+  } = useApiForm(apiClient.account.forgotPassword);
 
   const email = watch('email');
 
-  const onSubmit = (data: ForgotPasswordParams) =>
+  const onSubmit = handleSubmit((data) =>
     forgotPassword(data, {
       onError: (e) => handleApiError(e, setError),
-    });
+    }),
+  );
 
   if (isForgotPasswordSuccess && email) {
     return (
@@ -75,7 +69,7 @@ const ForgotPassword: NextPage = () => {
 
         <Text m={0}>Please enter your email and we&apos;ll send a link to reset your password.</Text>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={onSubmit}>
           <Stack gap={34}>
             <TextInput
               {...register('email')}

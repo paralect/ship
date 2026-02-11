@@ -3,7 +3,7 @@ import { securityUtil } from 'utils';
 import db from 'db';
 
 import { DATABASE_DOCUMENTS } from 'app-constants';
-import { tokenSchema } from 'schemas';
+import { tokenSchema } from './token.schema';
 import { Token, TokenType } from 'types';
 
 const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, {

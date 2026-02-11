@@ -4,29 +4,31 @@ import { Stack, Title } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { SortDirection } from '@tanstack/react-table';
+import { useApiQuery } from 'hooks';
 import { pick } from 'lodash';
-
-import { userApi, UserListParams } from 'resources/user';
+import { UsersListParams, UsersListResponse } from 'shared';
 
 import { Table } from 'components';
 
-import { User } from 'types';
+import { apiClient } from 'services';
 
 import Filters from './components/Filters';
 import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
 
 const Home: NextPage = () => {
-  const [params, setParams] = useSetState<UserListParams>(DEFAULT_PARAMS);
-
-  const { data: users, isLoading: isUserListLoading } = userApi.useList(params);
+  const [params, setParams] = useSetState(DEFAULT_PARAMS);
+  const { data: users, isLoading: isUserListLoading } = useApiQuery(apiClient.users.list, params);
 
   const onSortingChange = (sort: Record<string, SortDirection>) => {
-    setParams((prev) => {
+    setParams((prev: UsersListParams) => {
       const combinedSort = { ...pick(prev.sort, EXTERNAL_SORT_FIELDS), ...sort };
 
       return { sort: combinedSort };
     });
   };
+
+  // Get user type from the response
+  type User = UsersListResponse['results'][number];
 
   const onRowClick = (user: User) => {
     showNotification({

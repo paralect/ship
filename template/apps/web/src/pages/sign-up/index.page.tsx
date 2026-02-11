@@ -2,10 +2,10 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Anchor, Button, Group, PasswordInput, Stack, Text, TextInput, Title } from '@mantine/core';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
+import { useApiForm, useApiMutation } from 'hooks';
 
-import { accountApi } from 'resources/account';
+import { apiClient } from 'services/api-client.service';
 
 import { GoogleIcon } from 'public/icons';
 
@@ -14,15 +14,10 @@ import { handleApiError } from 'utils';
 import { RoutePath } from 'routes';
 import config from 'config';
 
-import { signUpSchema } from 'schemas';
-import { SignUpParams } from 'types';
-
 import PasswordRules from './components/PasswordRules';
 
 const SignUp: NextPage = () => {
-  const methods = useForm<SignUpParams>({
-    resolver: zodResolver(signUpSchema),
-  });
+  const methods = useApiForm(apiClient.account.signUp);
   const {
     register,
     handleSubmit,
@@ -38,12 +33,13 @@ const SignUp: NextPage = () => {
     isPending: isSignUpPending,
     isSuccess: isSignUpSuccess,
     data: signUpData,
-  } = accountApi.useSignUp();
+  } = useApiMutation(apiClient.account.signUp);
 
-  const onSubmit = (data: SignUpParams) =>
+  const onSubmit = handleSubmit((data) =>
     signUp(data, {
       onError: (e) => handleApiError(e, setError),
-    });
+    }),
+  );
 
   if (isSignUpSuccess) {
     return (
@@ -89,7 +85,7 @@ const SignUp: NextPage = () => {
 
       <FormProvider {...methods}>
         <Stack w={400} gap={20}>
-          <Stack component="form" onSubmit={handleSubmit(onSubmit)} gap={32}>
+          <Stack component="form" onSubmit={onSubmit} gap={32}>
             <Title order={1}>Sign Up</Title>
 
             <Stack gap={24}>

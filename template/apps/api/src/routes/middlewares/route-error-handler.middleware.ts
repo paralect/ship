@@ -1,4 +1,4 @@
-import { userService } from 'resources/user';
+import { userService } from 'resources/users';
 
 import config from 'config';
 

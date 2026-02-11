@@ -5,7 +5,7 @@ import { useDebouncedValue, useInputState, useSetState } from '@mantine/hooks';
 import { IconSearch, IconSelector, IconX } from '@tabler/icons-react';
 import { set } from 'lodash';
 
-import { UserListParams } from 'resources/user';
+import { UsersListParams } from 'shared';
 
 const selectOptions: ComboboxItem[] = [
   {
@@ -19,7 +19,7 @@ const selectOptions: ComboboxItem[] = [
 ];
 
 interface FiltersProps {
-  setParams: ReturnType<typeof useSetState<UserListParams>>[1];
+  setParams: ReturnType<typeof useSetState<UsersListParams>>[1];
 }
 
 const Filters: FC<FiltersProps> = ({ setParams }) => {
@@ -32,7 +32,7 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
   const handleSort = (value: string | null) => {
     setSortBy(value);
 
-    setParams((old) => set(old, 'sort.createdOn', value === 'newest' ? 'desc' : 'asc'));
+    setParams((old: UsersListParams) => set(old, 'sort.createdOn', value === 'newest' ? 'desc' : 'asc'));
   };
 
   const handleFilter = ([startDate, endDate]: DatesRangeValue) => {
@@ -45,7 +45,10 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
     if (endDate) {
       setParams({
         filter: {
-          createdOn: { startDate, endDate },
+          createdOn: { 
+            startDate: startDate instanceof Date ? startDate : undefined, 
+            endDate: endDate instanceof Date ? endDate : undefined 
+          },
         },
       });
     }

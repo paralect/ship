@@ -6,7 +6,7 @@ import qs from 'koa-qs';
 import http from 'node:http';
 
 import { socketService } from 'services';
-import routes from 'routes';
+import defineRoutes from 'routes';
 
 import config from 'config';
 
@@ -17,7 +17,7 @@ import logger from 'logger';
 
 import { AppKoa } from 'types';
 
-const initKoa = () => {
+const initKoa = async () => {
   const app = new AppKoa();
   app.proxy = true;
 
@@ -45,14 +45,13 @@ const initKoa = () => {
     }),
   );
 
-  routes(app);
+  await defineRoutes(app);
 
   return app;
 };
 
-const app = initKoa();
-
 (async () => {
+  const app = await initKoa();
   const server = http.createServer(app.callback());
 
   if (config.REDIS_URI) {
@@ -70,4 +69,4 @@ const app = initKoa();
   });
 })();
 
-export default app;
+export default initKoa;

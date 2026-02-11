@@ -3,26 +3,20 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Alert, Anchor, Button, Group, Loader, PasswordInput, Stack, Text, TextInput, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { IconAlertCircle } from '@tabler/icons-react';
-import { useForm } from 'react-hook-form';
+import { useApiForm, useApiMutation } from 'hooks';
+import { AccountGetResponse } from 'shared';
 
-import { accountApi } from 'resources/account';
+import { apiClient } from 'services/api-client.service';
 
 import { GoogleIcon } from 'public/icons';
 
 import { handleApiError } from 'utils';
 
+import queryClient from 'query-client';
+
 import { RoutePath } from 'routes';
 import config from 'config';
-
-import { signInSchema } from 'schemas';
-import { SignInParams } from 'types';
-
-interface SignInResponse {
-  emailVerificationTokenExpired?: boolean;
-  credentials?: string;
-}
 
 const SignIn: NextPage = () => {
   const {
@@ -31,15 +25,26 @@ const SignIn: NextPage = () => {
     watch,
     formState: { errors },
     setError,
-  } = useForm<SignInParams & SignInResponse>({ resolver: zodResolver(signInSchema) });
+  } = useApiForm(apiClient.account.signIn);
 
-  const { mutate: signIn, isPending: isSignInPending } = accountApi.useSignIn();
-  const { mutate: resendEmail, isPending: isResendEmailPending } = accountApi.useResendEmail();
+  // API error fields set via setError
+  const apiErrors = errors as typeof errors & {
+    credentials?: { message?: string };
+    emailVerificationTokenExpired?: { message?: string };
+  };
 
-  const onSubmit = (data: SignInParams) =>
+  const { mutate: signIn, isPending: isSignInPending } = useApiMutation(apiClient.account.signIn, {
+    onSuccess: (data: AccountGetResponse) => {
+      queryClient.setQueryData([apiClient.account.get.path], data);
+    },
+  });
+  const { mutate: resendEmail, isPending: isResendEmailPending } = useApiMutation(apiClient.account.resendEmail);
+
+  const onSubmit = handleSubmit((data) =>
     signIn(data, {
       onError: (e) => handleApiError(e, setError),
-    });
+    }),
+  );
 
   const onResendEmail = () => {
     if (isResendEmailPending) return;
@@ -69,7 +74,7 @@ const SignIn: NextPage = () => {
         <Stack gap={32}>
           <Title order={1}>Sign In</Title>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={onSubmit}>
             <Stack gap={20}>
               <TextInput
                 {...register('email')}
@@ -85,13 +90,13 @@ const SignIn: NextPage = () => {
                 error={errors.password?.message}
               />
 
-              {errors.credentials && (
+              {apiErrors.credentials && (
                 <Alert icon={<IconAlertCircle />} color="red">
-                  {errors.credentials.message}
+                  {apiErrors.credentials.message}
                 </Alert>
               )}
 
-              {errors.emailVerificationTokenExpired && (
+              {apiErrors.emailVerificationTokenExpired && (
                 <Alert icon={<IconAlertCircle />} color="yellow">
                   <Stack gap={4}>
                     <Text>Please verify your email to sign in.</Text>

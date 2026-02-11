@@ -2,7 +2,9 @@ import { FC, memo } from 'react';
 import Link from 'next/link';
 import { Anchor, AppShell, Group } from '@mantine/core';
 
-import { accountApi } from 'resources/account';
+import { apiClient } from 'services/api-client.service';
+
+import { useApiQuery } from 'hooks/use-api.hook';
 
 import { LogoImage } from 'public/images';
 
@@ -11,7 +13,7 @@ import { RoutePath } from 'routes';
 import UserMenu from './components/UserMenu';
 
 const Header: FC = () => {
-  const { data: account } = accountApi.useGet();
+  const { data: account } = useApiQuery(apiClient.account.get);
 
   if (!account) return null;
 

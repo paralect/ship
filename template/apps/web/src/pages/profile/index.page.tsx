@@ -2,23 +2,21 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { Button, PasswordInput, Stack, TextInput, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useApiForm, useApiMutation, useApiQuery } from 'hooks';
 import { isUndefined, pickBy } from 'lodash';
 import { serialize } from 'object-to-formdata';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
+import { AccountGetResponse, updateUserSchema  } from 'shared';
+import { z } from 'zod';
 
-import { accountApi } from 'resources/account';
-
+import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
 
 import queryClient from 'query-client';
 
-import { updateUserSchema } from 'schemas';
-import { UpdateUserParams, User } from 'types';
-
 import AvatarUpload from './components/AvatarUpload';
 
-const getFormDefaultValues = (account?: User) => ({
+const getFormDefaultValues = (account?: AccountGetResponse) => ({
   firstName: account?.firstName,
   lastName: account?.lastName,
   password: '',
@@ -26,10 +24,9 @@ const getFormDefaultValues = (account?: User) => ({
 });
 
 const Profile: NextPage = () => {
-  const { data: account } = accountApi.useGet();
+  const { data: account } = useApiQuery(apiClient.account.get);
 
-  const methods = useForm<UpdateUserParams>({
-    resolver: zodResolver(updateUserSchema),
+  const methods = useApiForm(apiClient.account.update, {
     mode: 'onBlur',
     defaultValues: getFormDefaultValues(account),
   });
@@ -43,19 +40,19 @@ const Profile: NextPage = () => {
     formState: { errors, isDirty },
   } = methods;
 
-  const { mutate: updateAccount, isPending: isUpdatePending } = accountApi.useUpdate<FormData>();
+  const { mutate: updateAccount, isPending: isUpdatePending } = useApiMutation(apiClient.account.update);
 
-  const onSubmit = (submitData: UpdateUserParams) => {
+  const onSubmit = handleSubmit((submitData) => {
     const updateData = pickBy(submitData, (value, key) => {
-      if (account && account[key as keyof User] === value) return false;
+      if (account && (account as Record<string, unknown>)[key] === value) return false;
       if (key === 'password' && value === '') return false;
 
       return !isUndefined(value);
     });
 
-    updateAccount(serialize(updateData), {
+    updateAccount(serialize(updateData) as unknown as z.infer<typeof updateUserSchema>, {
       onSuccess: (data) => {
-        queryClient.setQueryData(['account'], data);
+        queryClient.setQueryData([apiClient.account.get.path], data);
 
         showNotification({
           title: 'Success',
@@ -69,7 +66,7 @@ const Profile: NextPage = () => {
       },
       onError: (e) => handleApiError(e, setError),
     });
-  };
+  });
 
   return (
     <>
@@ -81,7 +78,7 @@ const Profile: NextPage = () => {
         <Title order={1}>Profile</Title>
 
         <FormProvider {...methods}>
-          <Stack component="form" onSubmit={handleSubmit(onSubmit)} gap={32}>
+          <Stack component="form" onSubmit={onSubmit} gap={32}>
             <AvatarUpload />
 
             <Stack gap={20}>

@@ -6,17 +6,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { accountApi } from 'resources/account';
+import { apiClient } from 'services/api-client.service';
+
+import { useApiMutation } from 'hooks';
 
 import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
 
-import { resetPasswordSchema } from 'schemas';
+import { resetPasswordSchema } from 'shared';
 
-const schema = resetPasswordSchema.omit({ token: true });
+// Form schema differs from API schema (token comes from URL, not form)
+const formSchema = resetPasswordSchema.omit({ token: true });
 
-type ResetPasswordParams = z.infer<typeof schema>;
+type ResetPasswordFormData = z.infer<typeof formSchema>;
 
 const ResetPassword: NextPage = () => {
   const router = useRouter();
@@ -27,15 +30,15 @@ const ResetPassword: NextPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ResetPasswordParams>({ resolver: zodResolver(schema) });
+  } = useForm<ResetPasswordFormData>({ resolver: zodResolver(formSchema) });
 
   const {
     mutate: resetPassword,
     isPending: isResetPasswordPending,
     isSuccess: isResetPasswordSuccess,
-  } = accountApi.useResetPassword();
+  } = useApiMutation(apiClient.account.resetPassword);
 
-  const onSubmit = (data: ResetPasswordParams) => {
+  const onSubmit = (data: ResetPasswordFormData) => {
     if (typeof token !== 'string') return;
 
     resetPassword(

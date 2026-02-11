@@ -26,8 +26,6 @@
     "@tabler/icons-react": "3.10.0",
     "@tanstack/react-query": "5.74.4",
     "@tanstack/react-table": "8.19.2",
-    "app-constants": "workspace:*",
-    "app-types": "workspace:*",
     "axios": "1.12.2",
     "clsx": "2.1.1",
     "dayjs": "1.11.10",
@@ -40,7 +38,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "7.57.0",
-    "schemas": "workspace:*",
+    "shared": "workspace:*",
     "socket.io-client": "4.7.5",
     "zod": "catalog:"
   },

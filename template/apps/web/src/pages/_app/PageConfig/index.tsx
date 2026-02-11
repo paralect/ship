@@ -1,9 +1,11 @@
-import 'resources/user/user.handlers';
+import 'services/socket-handlers';
 
 import { FC, Fragment, ReactElement, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { accountApi } from 'resources/account';
+import { apiClient } from 'services/api-client.service';
+
+import { useApiQuery } from 'hooks/use-api.hook';
 
 import { analyticsService } from 'services';
 
@@ -31,7 +33,7 @@ interface PageConfigProps {
 const PageConfig: FC<PageConfigProps> = ({ children }) => {
   const { route, push } = useRouter();
 
-  const { data: account, isLoading: isAccountLoading, dataUpdatedAt } = accountApi.useGet();
+  const { data: account, isLoading: isAccountLoading, dataUpdatedAt } = useApiQuery(apiClient.account.get);
 
   useEffect(() => {
     if (!dataUpdatedAt || !config.MIXPANEL_API_KEY) return;

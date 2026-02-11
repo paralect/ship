@@ -3,26 +3,31 @@ import { Box, Button, Center, Group, Image, Stack, Text, Title } from '@mantine/
 import { Dropzone } from '@mantine/dropzone';
 import { IconPencil, IconPlus } from '@tabler/icons-react';
 import cx from 'clsx';
+import { z } from 'zod';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { accountApi } from 'resources/account';
+import { apiClient } from 'services/api-client.service';
+
+import { useApiQuery } from 'hooks/use-api.hook';
 
 import { handleDropzoneError } from 'utils';
 
-import { USER_AVATAR } from 'app-constants';
-import { UpdateUserParamsFrontend } from 'types';
+import { USER_AVATAR } from 'shared';
+import { updateUserSchema } from 'shared';
 
 import classes from './index.module.css';
 
+type UpdateUserFormData = z.infer<typeof updateUserSchema>;
+
 const AvatarUpload = () => {
-  const { data: account } = accountApi.useGet();
+  const { data: account } = useApiQuery(apiClient.account.get);
 
   const {
     control,
     watch,
     setValue,
     formState: { errors },
-  } = useFormContext<UpdateUserParamsFrontend>();
+  } = useFormContext<UpdateUserFormData>();
 
   const avatarValue = watch('avatar');
   const avatarError = errors.avatar?.message;
@@ -30,7 +35,7 @@ const AvatarUpload = () => {
   let imageSrc: string | null | undefined = account?.avatarUrl;
 
   if (typeof avatarValue === 'string') imageSrc = '';
-  else if (avatarValue) imageSrc = URL.createObjectURL(avatarValue);
+  else if (avatarValue) imageSrc = URL.createObjectURL(avatarValue as Blob);
 
   return (
     <Stack>
@@ -101,7 +106,7 @@ const AvatarUpload = () => {
         </Stack>
       </Group>
 
-      {avatarError && <Text c="red.6">{avatarError}</Text>}
+      {avatarError && <Text c="red.6">{String(avatarError)}</Text>}
     </Stack>
   );
 };

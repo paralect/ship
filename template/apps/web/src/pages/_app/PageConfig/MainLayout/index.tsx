@@ -1,7 +1,9 @@
 import { FC, ReactElement } from 'react';
 import { AppShell, Stack } from '@mantine/core';
 
-import { accountApi } from 'resources/account';
+import { apiClient } from 'services/api-client.service';
+
+import { useApiQuery } from 'hooks/use-api.hook';
 
 import Header from './Header';
 
@@ -10,7 +12,7 @@ interface MainLayoutProps {
 }
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
-  const { data: account } = accountApi.useGet();
+  const { data: account } = useApiQuery(apiClient.account.get);
 
   if (!account) return null;
 

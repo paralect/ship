@@ -2,7 +2,7 @@ import { FC, ReactNode, useState } from 'react';
 import { Checkbox, Stack, Title, Tooltip } from '@mantine/core';
 import { useFormContext } from 'react-hook-form';
 
-import { PASSWORD_RULES } from 'app-constants';
+import { PASSWORD_RULES } from 'shared';
 
 interface PasswordRulesRenderProps {
   onFocus: () => void;

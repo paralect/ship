@@ -1,12 +1,14 @@
 import { FC } from 'react';
 import { Avatar, UnstyledButton, UnstyledButtonProps, useMantineTheme } from '@mantine/core';
 
-import { accountApi } from 'resources/account';
+import { apiClient } from 'services/api-client.service';
+
+import { useApiQuery } from 'hooks/use-api.hook';
 
 const MenuToggle: FC<UnstyledButtonProps> = (props) => {
   const { primaryColor } = useMantineTheme();
 
-  const { data: account } = accountApi.useGet();
+  const { data: account } = useApiQuery(apiClient.account.get);
 
   if (!account) return null;
 

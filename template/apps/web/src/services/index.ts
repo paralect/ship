@@ -1,5 +1,5 @@
 import * as analyticsService from './analytics.service';
-import apiService from './api.service';
+import { apiClient, apiClientRaw } from './api-client.service';
 import * as socketService from './socket.service';
 
-export { analyticsService, apiService, socketService };
+export { analyticsService, apiClient, apiClientRaw, socketService };

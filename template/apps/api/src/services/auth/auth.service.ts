@@ -1,5 +1,5 @@
 import { tokenService } from 'resources/token';
-import { userService } from 'resources/user';
+import { userService } from 'resources/users';
 
 import { cookieUtil } from 'utils';
 
