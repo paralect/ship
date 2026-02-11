@@ -1,22 +1,24 @@
-import Link from 'next/link';
+import { NextPage } from 'next';
+import Head from 'next/head';
 
-const Home = () => (
-  <div className="flex min-h-screen flex-col items-center justify-center p-8">
-    <h1 className="mb-4 text-4xl font-bold">Ship + shadcn/ui</h1>
+import { accountApi } from 'resources/account';
 
-    <p className="mb-8 text-muted-foreground">
-      Migration in progress. This is a fresh start with Tailwind CSS and shadcn/ui components.
-    </p>
+const Home: NextPage = () => {
+  const { data: account } = accountApi.useGet();
 
-    <div className="flex gap-4">
-      <Link
-        href="/demo"
-        className="rounded-md bg-primary px-4 py-2 text-primary-foreground transition-colors hover:bg-primary/90"
-      >
-        View Demo
-      </Link>
-    </div>
-  </div>
-);
+  return (
+    <>
+      <Head>
+        <title>Home</title>
+      </Head>
+
+      <div className="p-6">
+        <h1 className="mb-4 text-2xl font-semibold">Welcome, {account?.firstName}!</h1>
+
+        <p className="text-muted-foreground">This is your Ship application powered by shadcn/ui.</p>
+      </div>
+    </>
+  );
+};
 
 export default Home;
