@@ -1,6 +1,6 @@
 import { userService } from 'resources/users';
 
-import { createEndpoint } from 'routes/types';
+import createEndpoint from 'routes/createEndpoint';
 
 export default createEndpoint({
   method: 'get',

@@ -1,6 +1,6 @@
 import { authService, googleService } from 'services';
-import { isPublic } from 'routes/middlewares';
-import { createEndpoint } from 'routes/types';
+import isPublic from 'middlewares/isPublic';
+import createEndpoint from 'routes/createEndpoint';
 
 import config from 'config';
 

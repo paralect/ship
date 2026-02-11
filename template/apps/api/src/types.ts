@@ -1,29 +1,8 @@
 import Router from '@koa/router';
 import Koa, { Next, ParameterizedContext, Request } from 'koa';
 import { Template } from 'mailer';
-import { z } from 'zod';
 
-import {
-  forgotPasswordSchema,
-  resendEmailSchema,
-  resetPasswordSchema,
-  signInSchema,
-  signUpSchema,
-} from 'resources/account/account.schema';
-import { tokenSchema, TokenType } from 'resources/token/token.schema';
-import { updateUserSchema, userSchema } from 'resources/users/user.schema';
-
-// Entity types inferred from schemas
-export type User = z.infer<typeof userSchema>;
-export type Token = z.infer<typeof tokenSchema>;
-
-// Request param types inferred from schemas
-export type SignInParams = z.infer<typeof signInSchema>;
-export type SignUpParams = z.infer<typeof signUpSchema>;
-export type ResendEmailParams = z.infer<typeof resendEmailSchema>;
-export type ForgotPasswordParams = z.infer<typeof forgotPasswordSchema>;
-export type ResetPasswordParams = z.infer<typeof resetPasswordSchema>;
-export type UpdateUserParams = z.infer<typeof updateUserSchema>;
+import type { User } from 'resources/users/user.schema';
 
 // File types
 export interface BackendFile {
@@ -32,11 +11,6 @@ export interface BackendFile {
   originalFilename?: string | null;
   newFilename: string;
   size: number;
-}
-
-// User update variants
-export interface UpdateUserParamsBackend extends Omit<UpdateUserParams, 'avatar'> {
-  avatar?: BackendFile | '';
 }
 
 // Utility types
@@ -61,9 +35,6 @@ type CamelCase<S extends string> = S extends `${infer P1}_${infer P2}${infer P3}
 export type ToCamelCase<T> = {
   [K in keyof T as CamelCase<string & K>]: T[K] extends object ? ToCamelCase<T[K]> : T[K];
 };
-
-// Re-export enums
-export { TokenType };
 
 export interface AppKoaContextState {
   user: User;

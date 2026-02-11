@@ -2,12 +2,12 @@ import _ from 'lodash';
 
 import { userService } from 'resources/users';
 
-import { isAdmin } from 'routes/middlewares';
-import { createEndpoint } from 'routes/types';
+import isAdmin from 'middlewares/isAdmin';
+import createEndpoint from 'routes/createEndpoint';
 
 import { userSchema } from '../user.schema';
 
-export const schema = userSchema.pick({ firstName: true, lastName: true, email: true });
+const schema = userSchema.pick({ firstName: true, lastName: true, email: true });
 
 export default createEndpoint({
   method: 'put',

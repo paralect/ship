@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { createMiddleware } from 'routes/types';
+import createMiddleware from 'routes/createMiddleware';
 
 import { AppKoaContextState } from 'types';
 

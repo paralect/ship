@@ -1,4 +1,4 @@
-import { createMiddleware } from 'routes/types';
+import createMiddleware from 'routes/createMiddleware';
 
 export const isPublic = createMiddleware(async (_ctx, next) => next());
 

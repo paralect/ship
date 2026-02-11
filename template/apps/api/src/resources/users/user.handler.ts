@@ -7,7 +7,7 @@ import ioEmitter from 'io-emitter';
 import logger from 'logger';
 
 import { DATABASE_DOCUMENTS } from 'app-constants';
-import { User } from 'types';
+import type { User } from './user.schema';
 
 import userService from './user.service';
 

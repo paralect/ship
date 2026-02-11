@@ -1,16 +1,21 @@
 import { tokenService } from 'resources/token';
 import { userService } from 'resources/users';
 
-import { rateLimitMiddleware } from 'middlewares';
+import { z } from 'zod';
+
+import isPublic from 'middlewares/isPublic';
+import rateLimitMiddleware from 'middlewares/rateLimit';
 import { authService } from 'services';
 import { securityUtil } from 'utils';
-import { isPublic } from 'routes/middlewares';
-import { createEndpoint } from 'routes/types';
+import createEndpoint from 'routes/createEndpoint';
 
-import { signInSchema } from '../account.schema';
-import { TokenType } from 'types';
+import { emailSchema } from '../../base.schema';
+import { TokenType } from 'resources/token/token.schema';
 
-export const schema = signInSchema;
+const schema = z.object({
+  email: emailSchema,
+  password: z.string().min(1, 'Password is required').max(128, 'Password must be less than 128 characters.'),
+});
 
 export default createEndpoint({
   method: 'post',

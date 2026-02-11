@@ -1,7 +1,7 @@
 import { userService } from 'resources/users';
 
-import { isAdmin } from 'routes/middlewares';
-import { createEndpoint } from 'routes/types';
+import isAdmin from 'middlewares/isAdmin';
+import createEndpoint from 'routes/createEndpoint';
 
 export default createEndpoint({
   method: 'delete',

@@ -4,7 +4,8 @@ import { userService } from 'resources/users';
 import { cookieUtil } from 'utils';
 
 import { ACCESS_TOKEN } from 'app-constants';
-import { AppKoaContext, Token, TokenType } from 'types';
+import { type Token, TokenType } from 'resources/token/token.schema';
+import { AppKoaContext } from 'types';
 
 interface SetAccessTokenOptions {
   ctx: AppKoaContext;

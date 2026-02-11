@@ -1,10 +1,10 @@
 import { AppKoa, AppRouter } from 'types';
 
-import attachCustomErrors from './middlewares/attach-custom-errors.middleware';
-import attachCustomProperties from './middlewares/attach-custom-properties.middleware';
-import extractTokens from './middlewares/extract-tokens.middleware';
-import routeErrorHandler from './middlewares/route-error-handler.middleware';
-import tryToAttachUser from './middlewares/try-to-attach-user.middleware';
+import attachCustomErrors from './middlewares/attachCustomErrors';
+import attachCustomProperties from './middlewares/attachCustomProperties';
+import extractTokens from './middlewares/extractTokens';
+import routeErrorHandler from './middlewares/routeErrorHandler';
+import tryToAttachUser from './middlewares/tryToAttachUser';
 import { registerRoutes } from './routes';
 
 const healthCheckRouter = new AppRouter();

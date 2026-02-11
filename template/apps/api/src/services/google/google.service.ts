@@ -15,7 +15,7 @@ import config from 'config';
 
 import logger from 'logger';
 
-import { User } from 'types';
+import type { User } from 'resources/users/user.schema';
 
 const googleUserInfoSchema = z.object({
   sub: z.string().describe('Unique Google user ID'),

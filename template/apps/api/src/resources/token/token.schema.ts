@@ -14,3 +14,5 @@ export const tokenSchema = dbSchema.extend({
   type: z.enum([TokenType.ACCESS, TokenType.EMAIL_VERIFICATION, TokenType.RESET_PASSWORD]),
   expiresOn: z.date(),
 });
+
+export type Token = z.infer<typeof tokenSchema>;

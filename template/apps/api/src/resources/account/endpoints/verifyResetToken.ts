@@ -3,15 +3,15 @@ import { z } from 'zod';
 import { tokenService } from 'resources/token';
 import { userService } from 'resources/users';
 
-import { rateLimitMiddleware } from 'middlewares';
-import { isPublic } from 'routes/middlewares';
-import { createEndpoint } from 'routes/types';
+import isPublic from 'middlewares/isPublic';
+import rateLimitMiddleware from 'middlewares/rateLimit';
+import createEndpoint from 'routes/createEndpoint';
 
 import config from 'config';
 
-import { TokenType } from 'types';
+import { TokenType } from 'resources/token/token.schema';
 
-export const schema = z.object({
+const schema = z.object({
   token: z.string().min(1, 'Token is required'),
 });
 

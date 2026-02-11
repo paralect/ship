@@ -1,6 +1,6 @@
 import { authService } from 'services';
-import { isPublic } from 'routes/middlewares';
-import { createEndpoint } from 'routes/types';
+import isPublic from 'middlewares/isPublic';
+import createEndpoint from 'routes/createEndpoint';
 
 export default createEndpoint({
   method: 'post',

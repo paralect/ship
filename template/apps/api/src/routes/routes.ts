@@ -1,6 +1,7 @@
 import mount from 'koa-mount';
 
-import { validateMiddleware } from 'middlewares';
+import isPublic from 'middlewares/isPublic';
+import validateMiddleware from 'middlewares/validate';
 import { getResourceEndpoints } from 'utils/get-resource-endpoints.util';
 import { getResources } from 'utils/get-resources.util';
 
@@ -8,8 +9,7 @@ import logger from 'logger';
 
 import type { AppKoa, AppRouter, AppRouterMiddleware } from 'types';
 
-import auth from './middlewares/auth.middleware';
-import { isPublic } from 'routes/middlewares';
+import auth from './middlewares/auth';
 import type { EndpointDefinition } from './types';
 
 const registerEndpoint = (router: AppRouter, resourceName: string, endpoint: EndpointDefinition): void => {

@@ -1,15 +1,20 @@
 import { tokenService } from 'resources/token';
 import { userService } from 'resources/users';
 
-import { rateLimitMiddleware } from 'middlewares';
+import { z } from 'zod';
+
+import isPublic from 'middlewares/isPublic';
+import rateLimitMiddleware from 'middlewares/rateLimit';
 import { securityUtil } from 'utils';
-import { isPublic } from 'routes/middlewares';
-import { createEndpoint } from 'routes/types';
+import createEndpoint from 'routes/createEndpoint';
 
-import { resetPasswordSchema } from '../account.schema';
-import { TokenType } from 'types';
+import { passwordSchema } from '../../base.schema';
+import { TokenType } from '../../token/token.schema';
 
-export const schema = resetPasswordSchema;
+const schema = z.object({
+  token: z.string().min(1, 'Token is required'),
+  password: passwordSchema,
+});
 
 export default createEndpoint({
   method: 'put',

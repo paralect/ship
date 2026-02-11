@@ -3,8 +3,7 @@ import { securityUtil } from 'utils';
 import db from 'db';
 
 import { DATABASE_DOCUMENTS } from 'app-constants';
-import { tokenSchema } from './token.schema';
-import { Token, TokenType } from 'types';
+import { tokenSchema, type Token, TokenType } from './token.schema';
 
 const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, {
   schemaValidator: (obj) => tokenSchema.parseAsync(obj),

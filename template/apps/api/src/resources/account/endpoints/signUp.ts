@@ -1,19 +1,26 @@
 import { tokenService } from 'resources/token';
 import { userService } from 'resources/users';
 
-import { rateLimitMiddleware } from 'middlewares';
+import { z } from 'zod';
+
+import isPublic from 'middlewares/isPublic';
+import rateLimitMiddleware from 'middlewares/rateLimit';
 import { emailService } from 'services';
 import { securityUtil } from 'utils';
-import { isPublic } from 'routes/middlewares';
-import { createEndpoint } from 'routes/types';
+import createEndpoint from 'routes/createEndpoint';
 
 import config from 'config';
 
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
-import { signUpSchema } from '../account.schema';
-import { Template, TokenType } from 'types';
+import { emailSchema, passwordSchema } from '../../base.schema';
+import { TokenType } from '../../token/token.schema';
+import { userSchema } from '../../users/user.schema';
+import { Template } from 'types';
 
-export const schema = signUpSchema;
+const schema = userSchema.pick({ firstName: true, lastName: true }).extend({
+  email: emailSchema,
+  password: passwordSchema,
+});
 
 export default createEndpoint({
   method: 'post',

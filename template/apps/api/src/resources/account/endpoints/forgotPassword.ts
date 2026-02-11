@@ -1,18 +1,23 @@
 import { tokenService } from 'resources/token';
 import { userService } from 'resources/users';
 
-import { rateLimitMiddleware } from 'middlewares';
+import { z } from 'zod';
+
+import isPublic from 'middlewares/isPublic';
+import rateLimitMiddleware from 'middlewares/rateLimit';
 import { emailService } from 'services';
-import { isPublic } from 'routes/middlewares';
-import { createEndpoint } from 'routes/types';
+import createEndpoint from 'routes/createEndpoint';
 
 import config from 'config';
 
 import { RESET_PASSWORD_TOKEN } from 'app-constants';
-import { forgotPasswordSchema } from '../account.schema';
-import { Template, TokenType } from 'types';
+import { emailSchema } from '../../base.schema';
+import { TokenType } from '../../token/token.schema';
+import { Template } from 'types';
 
-export const schema = forgotPasswordSchema;
+const schema = z.object({
+  email: emailSchema,
+});
 
 export default createEndpoint({
   method: 'post',
