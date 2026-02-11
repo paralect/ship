@@ -156,7 +156,7 @@ const SignUp: NextPage = () => {
           <div className="space-y-8">
             <Button variant="outline" className="w-full" asChild>
               <a href={`${config.API_URL}/account/sign-in/google`}>
-                <GoogleIcon className="mr-2 size-5" />
+                <GoogleIcon className="mr-2 size-5 shrink-0" />
                 Continue with Google
               </a>
             </Button>
