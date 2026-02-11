@@ -3,32 +3,30 @@ import _ from 'lodash';
 import { userService } from 'resources/users';
 
 import { isAdmin } from 'routes/middlewares';
-import { createEndpoint, createMiddleware } from 'routes/types';
+import { createEndpoint } from 'routes/types';
 
 import { userSchema } from '../user.schema';
 
 export const schema = userSchema.pick({ firstName: true, lastName: true, email: true });
 
-const validator = createMiddleware(async (ctx, next) => {
-  const { id } = ctx.params;
-
-  ctx.assertError(id, 'User ID is required');
-
-  const isUserExists = await userService.exists({ _id: id });
-
-  ctx.assertError(isUserExists, 'User not found');
-
-  await next();
-});
-
 export default createEndpoint({
   method: 'put',
   path: '/:id',
   schema,
-  middlewares: [isAdmin, validator],
+  middlewares: [isAdmin],
 
   async handler(ctx) {
     const { id } = ctx.request.params;
+
+    if (!id) {
+      ctx.throwError('User ID is required');
+    }
+
+    const isUserExists = await userService.exists({ _id: id });
+
+    if (!isUserExists) {
+      ctx.throwError('User not found');
+    }
 
     const nonEmptyValues = _.pickBy(ctx.validatedData, (value) => !_.isUndefined(value));
 

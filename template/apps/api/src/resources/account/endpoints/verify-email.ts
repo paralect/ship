@@ -6,33 +6,14 @@ import { userService } from 'resources/users';
 import { rateLimitMiddleware } from 'middlewares';
 import { authService, emailService } from 'services';
 import { isPublic } from 'routes/middlewares';
-import { createEndpoint, createMiddleware } from 'routes/types';
+import { createEndpoint } from 'routes/types';
 
 import config from 'config';
 
-import { AppKoaContext, Template, TokenType, User } from 'types';
+import { Template, TokenType } from 'types';
 
 export const schema = z.object({
   token: z.string().min(1, 'Token is required'),
-});
-
-interface ValidatedData extends z.infer<typeof schema> {
-  user: User;
-}
-
-const validator = createMiddleware(async (ctx, next) => {
-  const { token } = ctx.validatedData;
-
-  const emailVerificationToken = await tokenService.validateToken(token, TokenType.EMAIL_VERIFICATION);
-  const user = await userService.findOne({ _id: emailVerificationToken?.userId });
-
-  if (!emailVerificationToken || !user) {
-    ctx.throwGlobalErrorWithRedirect('Token is invalid or expired.');
-    return;
-  }
-
-  ctx.validatedData.user = user;
-  await next();
 });
 
 export default createEndpoint({
@@ -45,12 +26,19 @@ export default createEndpoint({
       limitDuration: 60 * 60, // 1 hour
       requestsPerDuration: 10,
     }),
-    validator,
   ],
 
   async handler(ctx) {
     try {
-      const { user } = (ctx as AppKoaContext<ValidatedData>).validatedData;
+      const { token } = ctx.validatedData;
+
+      const emailVerificationToken = await tokenService.validateToken(token, TokenType.EMAIL_VERIFICATION);
+      const user = await userService.findOne({ _id: emailVerificationToken?.userId });
+
+      if (!emailVerificationToken || !user) {
+        ctx.throwGlobalErrorWithRedirect('Token is invalid or expired.');
+        return;
+      }
 
       await tokenService.invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
 

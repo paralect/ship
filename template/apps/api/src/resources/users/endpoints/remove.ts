@@ -1,23 +1,23 @@
 import { userService } from 'resources/users';
 
 import { isAdmin } from 'routes/middlewares';
-import { createEndpoint, createMiddleware } from 'routes/types';
-
-const validator = createMiddleware(async (ctx, next) => {
-  const isUserExists = await userService.exists({ _id: ctx.params.id });
-
-  ctx.assertError(isUserExists, 'User not found');
-
-  await next();
-});
+import { createEndpoint } from 'routes/types';
 
 export default createEndpoint({
   method: 'delete',
   path: '/:id',
-  middlewares: [isAdmin, validator],
+  middlewares: [isAdmin],
 
   async handler(ctx) {
-    await userService.deleteSoft({ _id: ctx.request.params.id });
+    const { id } = ctx.request.params;
+
+    const isUserExists = await userService.exists({ _id: id });
+
+    if (!isUserExists) {
+      ctx.throwError('User not found');
+    }
+
+    await userService.deleteSoft({ _id: id });
 
     ctx.status = 204;
   },

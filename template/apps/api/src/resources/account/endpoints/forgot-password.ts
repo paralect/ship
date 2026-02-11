@@ -4,33 +4,15 @@ import { userService } from 'resources/users';
 import { rateLimitMiddleware } from 'middlewares';
 import { emailService } from 'services';
 import { isPublic } from 'routes/middlewares';
-import { createEndpoint, createMiddleware } from 'routes/types';
+import { createEndpoint } from 'routes/types';
 
 import config from 'config';
 
 import { RESET_PASSWORD_TOKEN } from 'app-constants';
 import { forgotPasswordSchema } from '../account.schema';
-import { AppKoaContext, ForgotPasswordParams, Template, TokenType, User } from 'types';
+import { Template, TokenType } from 'types';
 
 export const schema = forgotPasswordSchema;
-
-interface ValidatedData extends ForgotPasswordParams {
-  user: User;
-}
-
-const validator = createMiddleware(async (ctx, next) => {
-  const { email } = ctx.validatedData;
-
-  const user = await userService.findOne({ email });
-
-  if (!user) {
-    ctx.status = 204;
-    return;
-  }
-
-  ctx.validatedData.user = user;
-  await next();
-});
 
 export default createEndpoint({
   method: 'post',
@@ -42,11 +24,17 @@ export default createEndpoint({
       limitDuration: 60 * 60, // 1 hour
       requestsPerDuration: 10,
     }),
-    validator,
   ],
 
   async handler(ctx) {
-    const { user } = (ctx as AppKoaContext<ValidatedData>).validatedData;
+    const { email } = ctx.validatedData;
+
+    const user = await userService.findOne({ email });
+
+    if (!user) {
+      ctx.status = 204;
+      return;
+    }
 
     await Promise.all([
       tokenService.invalidateUserTokens(user._id, TokenType.ACCESS),

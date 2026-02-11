@@ -46,28 +46,17 @@ export function createMiddleware<TState = object>(
   return fn as TypedMiddleware<TState>;
 }
 
-// Extract state type from middleware
-type ExtractState<T> = T extends TypedMiddleware<infer S> ? S : object;
-
-// Merge states from array of middlewares
-type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
-
-type MergedState<T extends TypedMiddleware<object>[]> = UnionToIntersection<ExtractState<T[number]>>;
-
 export interface EndpointOptions<
   TPath extends string,
   TSchema extends ZodType = ZodType<unknown>,
-  TMiddlewares extends TypedMiddleware<object>[] = [],
   TResponse = void,
 > {
   method: HttpMethod;
   path: TPath;
   schema?: TSchema;
-  middlewares?: [...TMiddlewares];
+  middlewares?: RouteMiddleware[];
   handler: (
-    ctx: AppKoaContext<z.infer<TSchema>, RequestWithParams<TPath>> & {
-      state: MergedState<TMiddlewares>;
-    },
+    ctx: AppKoaContext<z.infer<TSchema>, RequestWithParams<TPath>>,
   ) => Promise<TResponse>;
 }
 
@@ -84,10 +73,9 @@ export interface EndpointResult<
 export function createEndpoint<
   TPath extends string,
   TSchema extends ZodType = ZodType<unknown>,
-  TMiddlewares extends TypedMiddleware<object>[] = [],
   TResponse = void,
 >(
-  options: EndpointOptions<TPath, TSchema, TMiddlewares, TResponse>,
+  options: EndpointOptions<TPath, TSchema, TResponse>,
 ): EndpointResult<TSchema> {
   const wrappedHandler = async (ctx: AppKoaContext) => {
     const result = await options.handler(ctx as never);

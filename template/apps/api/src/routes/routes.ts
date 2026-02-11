@@ -22,12 +22,13 @@ const registerEndpoint = (router: AppRouter, resourceName: string, endpoint: End
     middlewares.push(auth as AppRouterMiddleware);
   }
 
-  if (endpoint.middlewares?.length) {
-    middlewares.push(...(endpoint.middlewares as AppRouterMiddleware[]));
-  }
 
   if (endpoint.schema) {
     middlewares.push(validateMiddleware(endpoint.schema) as AppRouterMiddleware);
+  }
+
+  if (endpoint.middlewares?.length) {
+    middlewares.push(...(endpoint.middlewares as AppRouterMiddleware[]));
   }
 
   middlewares.push(endpoint.handler as AppRouterMiddleware);

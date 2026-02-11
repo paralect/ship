@@ -4,42 +4,31 @@ import { userService } from 'resources/users';
 import { rateLimitMiddleware } from 'middlewares';
 import { emailService } from 'services';
 import { isPublic } from 'routes/middlewares';
-import { createEndpoint, createMiddleware } from 'routes/types';
+import { createEndpoint } from 'routes/types';
 
 import config from 'config';
 
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 import { resendEmailSchema } from '../account.schema';
-import { AppKoaContext, ResendEmailParams, Template, TokenType, User } from 'types';
+import { Template, TokenType } from 'types';
 
 export const schema = resendEmailSchema;
-
-interface ValidatedData extends ResendEmailParams {
-  user: User;
-}
-
-const validator = createMiddleware(async (ctx, next) => {
-  const { email } = ctx.validatedData;
-
-  const user = await userService.findOne({ email });
-
-  if (!user) {
-    ctx.status = 204;
-    return;
-  }
-
-  ctx.validatedData.user = user;
-  await next();
-});
 
 export default createEndpoint({
   method: 'post',
   path: '/resend-email',
   schema,
-  middlewares: [isPublic, rateLimitMiddleware(), validator],
+  middlewares: [isPublic, rateLimitMiddleware()],
 
   async handler(ctx) {
-    const { user } = (ctx as AppKoaContext<ValidatedData>).validatedData;
+    const { email } = ctx.validatedData;
+
+    const user = await userService.findOne({ email });
+
+    if (!user) {
+      ctx.status = 204;
+      return;
+    }
 
     await tokenService.invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
 

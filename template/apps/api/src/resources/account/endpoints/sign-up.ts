@@ -5,36 +5,32 @@ import { rateLimitMiddleware } from 'middlewares';
 import { emailService } from 'services';
 import { securityUtil } from 'utils';
 import { isPublic } from 'routes/middlewares';
-import { createEndpoint, createMiddleware } from 'routes/types';
+import { createEndpoint } from 'routes/types';
 
 import config from 'config';
 
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 import { signUpSchema } from '../account.schema';
-import { AppKoaContext, SignUpParams, Template, TokenType } from 'types';
+import { Template, TokenType } from 'types';
 
 export const schema = signUpSchema;
-
-const validator = createMiddleware(async (ctx, next) => {
-  const { email } = ctx.validatedData;
-
-  const isUserExists = await userService.exists({ email });
-
-  ctx.assertClientError(!isUserExists, {
-    email: 'User with this email is already registered',
-  });
-
-  await next();
-});
 
 export default createEndpoint({
   method: 'post',
   path: '/sign-up',
   schema,
-  middlewares: [isPublic, rateLimitMiddleware(), validator],
+  middlewares: [isPublic, rateLimitMiddleware()],
 
   async handler(ctx) {
     const { firstName, lastName, email, password } = ctx.validatedData;
+
+    const isUserExists = await userService.exists({ email });
+
+    if (isUserExists) {
+      ctx.throwClientError({
+        email: 'User with this email is already registered',
+      });
+    }
 
     const user = await userService.insertOne({
       email,
