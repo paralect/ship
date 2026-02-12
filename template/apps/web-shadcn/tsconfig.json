@@ -12,7 +12,10 @@
       "routes": ["./routes.ts"],
       "services": ["./services/index.ts"],
       "utils": ["./utils/index.ts"],
-      "query-client": ["./query-client.ts"]
+      "query-client": ["./query-client.ts"],
+      "contexts": ["./contexts/index.ts"],
+      "components": ["./components/index.ts"],
+      "pages/*": ["./pages/*"]
     }
   },
   "include": [
