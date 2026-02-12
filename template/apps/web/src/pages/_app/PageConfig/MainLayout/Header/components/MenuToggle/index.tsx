@@ -1,9 +1,8 @@
 import { FC } from 'react';
 import { Avatar, UnstyledButton, UnstyledButtonProps, useMantineTheme } from '@mantine/core';
+import { useApiQuery } from 'hooks/use-api.hook';
 
 import { apiClient } from 'services/api-client.service';
-
-import { useApiQuery } from 'hooks/use-api.hook';
 
 const MenuToggle: FC<UnstyledButtonProps> = (props) => {
   const { primaryColor } = useMantineTheme();

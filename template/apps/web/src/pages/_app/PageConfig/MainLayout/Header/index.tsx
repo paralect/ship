@@ -1,12 +1,11 @@
 import { FC, memo } from 'react';
 import Link from 'next/link';
 import { Anchor, AppShell, Group } from '@mantine/core';
-
-import { apiClient } from 'services/api-client.service';
-
 import { useApiQuery } from 'hooks/use-api.hook';
 
 import { LogoImage } from 'public/images';
+
+import { apiClient } from 'services/api-client.service';
 
 import { RoutePath } from 'routes';
 

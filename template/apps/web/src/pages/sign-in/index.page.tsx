@@ -7,15 +7,13 @@ import { IconAlertCircle } from '@tabler/icons-react';
 import { useApiForm, useApiMutation } from 'hooks';
 import { AccountGetResponse } from 'shared';
 
-import { apiClient } from 'services/api-client.service';
-
 import { GoogleIcon } from 'public/icons';
 
+import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
 
-import queryClient from 'query-client';
-
 import { RoutePath } from 'routes';
+import queryClient from 'query-client';
 import config from 'config';
 
 const SignIn: NextPage = () => {

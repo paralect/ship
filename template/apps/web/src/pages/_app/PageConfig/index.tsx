@@ -2,12 +2,10 @@ import 'services/socket-handlers';
 
 import { FC, Fragment, ReactElement, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
-import { apiClient } from 'services/api-client.service';
-
 import { useApiQuery } from 'hooks/use-api.hook';
 
 import { analyticsService } from 'services';
+import { apiClient } from 'services/api-client.service';
 
 import { LayoutType, RoutePath, routesConfiguration, ScopeType } from 'routes';
 import config from 'config';

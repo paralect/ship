@@ -2,13 +2,12 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Anchor, Button, Group, PasswordInput, Stack, Text, TextInput, Title } from '@mantine/core';
-import { FormProvider } from 'react-hook-form';
 import { useApiForm, useApiMutation } from 'hooks';
-
-import { apiClient } from 'services/api-client.service';
+import { FormProvider } from 'react-hook-form';
 
 import { GoogleIcon } from 'public/icons';
 
+import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';

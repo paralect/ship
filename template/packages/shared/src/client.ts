@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 type ApiErrorHandler = (error: ApiError) => void;
 
@@ -12,9 +12,13 @@ export class ApiError extends Error {
   data: unknown;
   status: number;
 
-  constructor(data: unknown, status = 500, statusText = 'Internal Server Error') {
+  constructor(
+    data: unknown,
+    status = 500,
+    statusText = "Internal Server Error",
+  ) {
     super(`${status} ${statusText}`);
-    this.name = 'ApiError';
+    this.name = "ApiError";
     this.data = data;
     this.status = status;
 
@@ -42,7 +46,7 @@ export class ApiClient {
     this._api = axios.create({
       baseURL: config.baseURL,
       withCredentials: config.withCredentials ?? true,
-      responseType: 'json',
+      responseType: "json",
     });
 
     this._api.interceptors.response.use(
@@ -50,13 +54,17 @@ export class ApiClient {
       (error) => {
         const errorResponse = error.response || {
           status: error.code ? Number.parseInt(error.code, 10) : 500,
-          statusText: error.message || 'Network or timeout error',
+          statusText: error.message || "Network or timeout error",
           data: error.data,
         };
 
-        const apiError = new ApiError(errorResponse.data, errorResponse.status, errorResponse.statusText);
+        const apiError = new ApiError(
+          errorResponse.data,
+          errorResponse.status,
+          errorResponse.statusText,
+        );
 
-        const errorHandlers = this._handlers.get('error');
+        const errorHandlers = this._handlers.get("error");
         errorHandlers?.forEach((handler) => handler(apiError));
 
         throw apiError;
@@ -73,28 +81,51 @@ export class ApiClient {
     handlers.add(handler as EventHandler);
   }
 
-  off<T extends keyof EventHandlers>(event: T, handler: EventHandlers[T]): void {
+  off<T extends keyof EventHandlers>(
+    event: T,
+    handler: EventHandlers[T],
+  ): void {
     const handlers = this._handlers.get(event);
     handlers?.delete(handler as EventHandler);
   }
 
-  get<T, P = unknown>(url: string, params?: P, config?: AxiosRequestConfig): Promise<T> {
-    return this._api({ method: 'get', url, params, ...config });
+  get<T, P = unknown>(
+    url: string,
+    params?: P,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
+    return this._api({ method: "get", url, params, ...config });
   }
 
-  post<T, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-    return this._api({ method: 'post', url, data, ...config });
+  post<T, D = unknown>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
+    return this._api({ method: "post", url, data, ...config });
   }
 
-  put<T, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-    return this._api({ method: 'put', url, data, ...config });
+  put<T, D = unknown>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
+    return this._api({ method: "put", url, data, ...config });
   }
 
-  patch<T, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-    return this._api({ method: 'patch', url, data, ...config });
+  patch<T, D = unknown>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
+    return this._api({ method: "patch", url, data, ...config });
   }
 
-  delete<T, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-    return this._api({ method: 'delete', url, data, ...config });
+  delete<T, D = unknown>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
+    return this._api({ method: "delete", url, data, ...config });
   }
 }

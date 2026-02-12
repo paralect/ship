@@ -1,9 +1,8 @@
 import { FC, ReactElement } from 'react';
 import { AppShell, Stack } from '@mantine/core';
+import { useApiQuery } from 'hooks/use-api.hook';
 
 import { apiClient } from 'services/api-client.service';
-
-import { useApiQuery } from 'hooks/use-api.hook';
 
 import Header from './Header';
 

@@ -4,7 +4,6 @@ import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
 import { useDebouncedValue, useInputState, useSetState } from '@mantine/hooks';
 import { IconSearch, IconSelector, IconX } from '@tabler/icons-react';
 import { set } from 'lodash';
-
 import { UsersListParams } from 'shared';
 
 const selectOptions: ComboboxItem[] = [
@@ -45,9 +44,9 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
     if (endDate) {
       setParams({
         filter: {
-          createdOn: { 
-            startDate: startDate instanceof Date ? startDate : undefined, 
-            endDate: endDate instanceof Date ? endDate : undefined 
+          createdOn: {
+            startDate: startDate instanceof Date ? startDate : undefined,
+            endDate: endDate instanceof Date ? endDate : undefined,
           },
         },
       });

@@ -2,14 +2,12 @@ import { FC } from 'react';
 import Link from 'next/link';
 import { Menu } from '@mantine/core';
 import { IconLogout, IconUserCircle } from '@tabler/icons-react';
+import { useApiMutation } from 'hooks/use-api.hook';
 
 import { apiClient } from 'services/api-client.service';
 
-import { useApiMutation } from 'hooks/use-api.hook';
-
-import queryClient from 'query-client';
-
 import { RoutePath } from 'routes';
+import queryClient from 'query-client';
 
 import MenuToggle from '../MenuToggle';
 

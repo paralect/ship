@@ -1,5 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table';
-
 import { UsersListParams } from 'shared';
 
 import { User } from 'types';

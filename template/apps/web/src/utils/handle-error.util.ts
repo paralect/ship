@@ -1,10 +1,7 @@
 import { FileRejection } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
 import { FieldValues, Path, UseFormSetError } from 'react-hook-form';
-
-import { ApiError } from 'shared';
-
-import { ONE_MB_IN_BYTES } from 'shared';
+import { ApiError, ONE_MB_IN_BYTES } from 'shared';
 
 interface ValidationErrors {
   [name: string]: string[] | string;
