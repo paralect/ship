@@ -1,6 +1,7 @@
+import type { User } from 'resources/users/user.schema';
+
 import { cloudStorageService } from 'services';
 
-import type { User } from 'resources/users/user.schema';
 import { BackendFile } from 'types';
 
 export const removeAvatar = async (user: User) => {

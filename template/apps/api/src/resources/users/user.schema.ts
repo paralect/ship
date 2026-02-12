@@ -13,14 +13,16 @@ export const userSchema = dbSchema.extend({
 
   avatarUrl: z.string().nullable().optional(),
 
-  oauth: z.object({
-    google: z
-      .object({
-        userId: z.string().min(1, 'Google user ID is required'),
-        connectedOn: z.date(),
-      })
-      .optional(),
-  }).optional(),
+  oauth: z
+    .object({
+      google: z
+        .object({
+          userId: z.string().min(1, 'Google user ID is required'),
+          connectedOn: z.date(),
+        })
+        .optional(),
+    })
+    .optional(),
 
   lastRequest: z.date().optional(),
 });
@@ -30,4 +32,3 @@ export type User = z.infer<typeof userSchema>;
 export const userPublicSchema = userSchema.omit({
   passwordHash: true,
 });
-

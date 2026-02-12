@@ -14,7 +14,7 @@ export interface EndpointDefinition {
   endpoint: EndpointConfig;
   handler: Middleware;
   schema?: ZodSchema;
-  middlewares?: Middleware[];
+  middlewares?: (Middleware | TypedMiddleware)[];
 }
 
 // Middleware that declares what it adds to state

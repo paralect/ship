@@ -1,16 +1,15 @@
-import { tokenService } from 'resources/token';
-import { userService } from 'resources/users';
-
 import { z } from 'zod';
+
+import { emailSchema } from 'resources/base.schema';
+import { tokenService } from 'resources/token';
+import { TokenType } from 'resources/token/token.schema';
+import { userService } from 'resources/users';
 
 import isPublic from 'middlewares/isPublic';
 import rateLimitMiddleware from 'middlewares/rateLimit';
 import { authService } from 'services';
 import { securityUtil } from 'utils';
 import createEndpoint from 'routes/createEndpoint';
-
-import { emailSchema } from '../../base.schema';
-import { TokenType } from 'resources/token/token.schema';
 
 const schema = z.object({
   email: emailSchema,
@@ -29,7 +28,7 @@ export default createEndpoint({
     const user = await userService.findOne({ email });
 
     if (!user || !user.passwordHash) {
-      ctx.throwClientError({
+      return ctx.throwClientError({
         credentials: 'The email or password you have entered is invalid',
       });
     }
@@ -37,7 +36,7 @@ export default createEndpoint({
     const isPasswordMatch = await securityUtil.verifyPasswordHash(user.passwordHash, password);
 
     if (!isPasswordMatch) {
-      ctx.throwClientError({
+      return ctx.throwClientError({
         credentials: 'The email or password you have entered is invalid',
       });
     }
@@ -49,14 +48,14 @@ export default createEndpoint({
       );
 
       if (!existingEmailVerificationToken) {
-        ctx.throwClientError({
+        return ctx.throwClientError({
           emailVerificationTokenExpired: true,
         });
       }
     }
 
     if (!user.isEmailVerified) {
-      ctx.throwClientError({
+      return ctx.throwClientError({
         email: 'Please verify your email to sign in',
       });
     }

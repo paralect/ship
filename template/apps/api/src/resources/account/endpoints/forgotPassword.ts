@@ -1,7 +1,9 @@
-import { tokenService } from 'resources/token';
-import { userService } from 'resources/users';
-
 import { z } from 'zod';
+
+import { emailSchema } from 'resources/base.schema';
+import { tokenService } from 'resources/token';
+import { TokenType } from 'resources/token/token.schema';
+import { userService } from 'resources/users';
 
 import isPublic from 'middlewares/isPublic';
 import rateLimitMiddleware from 'middlewares/rateLimit';
@@ -11,8 +13,6 @@ import createEndpoint from 'routes/createEndpoint';
 import config from 'config';
 
 import { RESET_PASSWORD_TOKEN } from 'app-constants';
-import { emailSchema } from '../../base.schema';
-import { TokenType } from '../../token/token.schema';
 import { Template } from 'types';
 
 const schema = z.object({

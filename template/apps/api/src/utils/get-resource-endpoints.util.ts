@@ -26,7 +26,7 @@ export const getResourceEndpoints = async (resourceName: string): Promise<Endpoi
       endpoints.push({
         endpoint: def.endpoint,
         handler: def.handler,
-        schema: module.schema,
+        schema: def.schema,
         middlewares: def.middlewares || [],
       });
     }

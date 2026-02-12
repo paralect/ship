@@ -1,7 +1,8 @@
+import { emailSchema, passwordSchema } from 'resources/base.schema';
 import { tokenService } from 'resources/token';
+import { TokenType } from 'resources/token/token.schema';
 import { userService } from 'resources/users';
-
-import { z } from 'zod';
+import { userSchema } from 'resources/users/user.schema';
 
 import isPublic from 'middlewares/isPublic';
 import rateLimitMiddleware from 'middlewares/rateLimit';
@@ -12,9 +13,6 @@ import createEndpoint from 'routes/createEndpoint';
 import config from 'config';
 
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
-import { emailSchema, passwordSchema } from '../../base.schema';
-import { TokenType } from '../../token/token.schema';
-import { userSchema } from '../../users/user.schema';
 import { Template } from 'types';
 
 const schema = userSchema.pick({ firstName: true, lastName: true }).extend({

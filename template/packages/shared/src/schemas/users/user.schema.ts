@@ -1,26 +1,16 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-import { dbSchema, emailSchema, passwordSchema } from '../base.schema';
-
-const ONE_MB_IN_BYTES = 1_048_576;
-const IMAGE_MIME_TYPE = ['image/jpg', 'image/jpeg', 'image/png'];
-const USER_AVATAR = {
-  MAX_FILE_SIZE: 3 * ONE_MB_IN_BYTES,
-  ACCEPTED_FILE_TYPES: IMAGE_MIME_TYPE,
-};
-
-const oauthSchema = z.object({
-  google: z
-    .object({
-      userId: z.string().min(1, 'Google user ID is required'),
-      connectedOn: z.date(),
-    })
-    .optional(),
-});
+import { dbSchema, emailSchema } from "../base.schema";
 
 export const userSchema = dbSchema.extend({
-  firstName: z.string().min(1, 'First name is required').max(128, 'First name must be less than 128 characters.'),
-  lastName: z.string().min(1, 'Last name is required').max(128, 'Last name must be less than 128 characters.'),
+  firstName: z
+    .string()
+    .min(1, "First name is required")
+    .max(128, "First name must be less than 128 characters."),
+  lastName: z
+    .string()
+    .min(1, "Last name is required")
+    .max(128, "Last name must be less than 128 characters."),
 
   email: emailSchema,
   passwordHash: z.string().optional(),
@@ -29,25 +19,22 @@ export const userSchema = dbSchema.extend({
 
   avatarUrl: z.string().nullable().optional(),
 
-  oauth: oauthSchema.optional(),
+  oauth: z
+    .object({
+      google: z
+        .object({
+          userId: z.string().min(1, "Google user ID is required"),
+          connectedOn: z.date(),
+        })
+        .optional(),
+    })
+    .optional(),
 
   lastRequest: z.date().optional(),
 });
 
+export type User = z.infer<typeof userSchema>;
+
 export const userPublicSchema = userSchema.omit({
   passwordHash: true,
 });
-
-export const updateUserSchema = userSchema
-  .pick({ firstName: true, lastName: true })
-  .extend({
-    password: z.union([
-      passwordSchema,
-      z.literal(''),
-    ]),
-    avatar: z.union([
-      z.any(), // File validation handled at runtime (browser File or formidable File)
-      z.literal(''),
-    ]).nullable(),
-  })
-  .partial();

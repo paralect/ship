@@ -3,21 +3,17 @@ import { Box, Button, Center, Group, Image, Stack, Text, Title } from '@mantine/
 import { Dropzone } from '@mantine/dropzone';
 import { IconPencil, IconPlus } from '@tabler/icons-react';
 import cx from 'clsx';
-import { z } from 'zod';
+import { useApiQuery } from 'hooks/use-api.hook';
 import { Controller, useFormContext } from 'react-hook-form';
+import { schemas, USER_AVATAR } from 'shared';
+import { z } from 'zod';
 
 import { apiClient } from 'services/api-client.service';
-
-import { useApiQuery } from 'hooks/use-api.hook';
-
 import { handleDropzoneError } from 'utils';
-
-import { USER_AVATAR } from 'shared';
-import { updateUserSchema } from 'shared';
 
 import classes from './index.module.css';
 
-type UpdateUserFormData = z.infer<typeof updateUserSchema>;
+type UpdateUserFormData = z.infer<typeof schemas.account.update>;
 
 const AvatarUpload = () => {
   const { data: account } = useApiQuery(apiClient.account.get);

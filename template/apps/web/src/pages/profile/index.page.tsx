@@ -6,7 +6,7 @@ import { useApiForm, useApiMutation, useApiQuery } from 'hooks';
 import { isUndefined, pickBy } from 'lodash';
 import { serialize } from 'object-to-formdata';
 import { FormProvider } from 'react-hook-form';
-import { AccountGetResponse, updateUserSchema  } from 'shared';
+import { AccountGetResponse, schemas } from 'shared';
 import { z } from 'zod';
 
 import { apiClient } from 'services/api-client.service';
@@ -50,7 +50,7 @@ const Profile: NextPage = () => {
       return !isUndefined(value);
     });
 
-    updateAccount(serialize(updateData) as unknown as z.infer<typeof updateUserSchema>, {
+    updateAccount(serialize(updateData) as unknown as z.infer<typeof schemas.account.update>, {
       onSuccess: (data) => {
         queryClient.setQueryData([apiClient.account.get.path], data);
 

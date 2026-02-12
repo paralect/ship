@@ -7,8 +7,8 @@ import ioEmitter from 'io-emitter';
 import logger from 'logger';
 
 import { DATABASE_DOCUMENTS } from 'app-constants';
-import type { User } from './user.schema';
 
+import type { User } from './user.schema';
 import userService from './user.service';
 
 const { USERS } = DATABASE_DOCUMENTS;

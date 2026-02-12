@@ -3,21 +3,18 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Button, PasswordInput, Stack, Text, Title } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useApiMutation } from 'hooks';
 import { useForm } from 'react-hook-form';
+import { schemas } from 'shared';
 import { z } from 'zod';
 
 import { apiClient } from 'services/api-client.service';
-
-import { useApiMutation } from 'hooks';
-
 import { handleApiError } from 'utils';
 
 import { RoutePath } from 'routes';
 
-import { resetPasswordSchema } from 'shared';
-
 // Form schema differs from API schema (token comes from URL, not form)
-const formSchema = resetPasswordSchema.omit({ token: true });
+const formSchema = schemas.account.resetPassword.omit({ token: true });
 
 type ResetPasswordFormData = z.infer<typeof formSchema>;
 

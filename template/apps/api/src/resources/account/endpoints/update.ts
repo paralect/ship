@@ -2,26 +2,19 @@ import _ from 'lodash';
 import { z } from 'zod';
 
 import { accountUtils } from 'resources/account';
+import { passwordSchema } from 'resources/base.schema';
 import { userService } from 'resources/users';
+import type { User } from 'resources/users/user.schema';
+import { userSchema } from 'resources/users/user.schema';
 
 import { securityUtil } from 'utils';
 import createEndpoint from 'routes/createEndpoint';
 
-import { passwordSchema } from '../../base.schema';
-import { userSchema } from '../../users/user.schema';
-import type { User } from '../../users/user.schema';
-
 const schema = userSchema
   .pick({ firstName: true, lastName: true })
   .extend({
-    password: z.union([
-      passwordSchema,
-      z.literal(''),
-    ]),
-    avatar: z.union([
-      z.any(),
-      z.literal(''),
-    ]).nullable(),
+    password: z.union([passwordSchema, z.literal('')]),
+    avatar: z.union([z.any(), z.literal('')]).nullable(),
   })
   .partial();
 

@@ -1,10 +1,11 @@
 import { tokenService } from 'resources/token';
+import type { Token } from 'resources/token/token.schema';
+import { TokenType } from 'resources/token/token.schema';
 import { userService } from 'resources/users';
 
 import { cookieUtil } from 'utils';
 
 import { ACCESS_TOKEN } from 'app-constants';
-import { type Token, TokenType } from 'resources/token/token.schema';
 import { AppKoaContext } from 'types';
 
 interface SetAccessTokenOptions {

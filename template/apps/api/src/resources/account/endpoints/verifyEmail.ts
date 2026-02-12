@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { tokenService } from 'resources/token';
+import { TokenType } from 'resources/token/token.schema';
 import { userService } from 'resources/users';
 
 import isPublic from 'middlewares/isPublic';
@@ -10,7 +11,6 @@ import createEndpoint from 'routes/createEndpoint';
 
 import config from 'config';
 
-import { TokenType } from 'resources/token/token.schema';
 import { Template } from 'types';
 
 const schema = z.object({

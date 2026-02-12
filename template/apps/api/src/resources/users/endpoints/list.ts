@@ -1,12 +1,13 @@
 import { z } from 'zod';
 
+import { paginationSchema } from 'resources/base.schema';
 import { userService } from 'resources/users';
 
 import createEndpoint from 'routes/createEndpoint';
 
-import { paginationSchema } from '../../base.schema';
-import { userPublicSchema } from '../user.schema';
 import type { NestedKeys } from 'types';
+
+import { userPublicSchema } from '../user.schema';
 
 const schema = paginationSchema.extend({
   filter: z
@@ -26,8 +27,6 @@ const schema = paginationSchema.extend({
       createdOn: z.enum(['asc', 'desc']).default('asc'),
     })
     .default({ createdOn: 'asc' }),
-
-  smthElse: z.string(),
 });
 
 export default createEndpoint({

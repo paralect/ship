@@ -1,5 +1,5 @@
-import { authService, googleService } from 'services';
 import isPublic from 'middlewares/isPublic';
+import { authService, googleService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
 
 import config from 'config';

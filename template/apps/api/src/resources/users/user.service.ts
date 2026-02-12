@@ -3,7 +3,9 @@ import _ from 'lodash';
 import db from 'db';
 
 import { DATABASE_DOCUMENTS } from 'app-constants';
-import { userSchema, type User } from './user.schema';
+
+import type { User } from './user.schema';
+import { userSchema } from './user.schema';
 
 const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, {
   schemaValidator: (obj) => userSchema.parseAsync(obj),

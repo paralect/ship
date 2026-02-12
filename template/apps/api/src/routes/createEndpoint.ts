@@ -3,7 +3,7 @@ import type { z, ZodType } from 'zod';
 
 import type { AppKoaContext } from 'types';
 
-import type { EndpointConfig, HttpMethod } from './types';
+import type { EndpointConfig, HttpMethod, TypedMiddleware } from './types';
 
 // Path parameter extraction
 type ExtractPathParams<T extends string> = T extends `${infer _Start}:${infer Param}/${infer Rest}`
@@ -13,41 +13,32 @@ type ExtractPathParams<T extends string> = T extends `${infer _Start}:${infer Pa
     : Record<string, never>;
 
 // Request type with params
-type RequestWithParams<TPath extends string> = ExtractPathParams<TPath> extends Record<string, never>
-  ? object
-  : { params: ExtractPathParams<TPath> };
+type RequestWithParams<TPath extends string> =
+  ExtractPathParams<TPath> extends Record<string, never> ? object : { params: ExtractPathParams<TPath> };
 
-export interface EndpointOptions<
-  TPath extends string,
-  TSchema extends ZodType = ZodType<unknown>,
-  TResponse = void,
-> {
+type AnyMiddleware = Middleware | TypedMiddleware;
+
+export interface EndpointOptions<TPath extends string, TSchema extends ZodType = ZodType<unknown>, TResponse = void> {
   method: HttpMethod;
   path: TPath;
   schema?: TSchema;
-  middlewares?: Middleware[];
-  handler: (
-    ctx: AppKoaContext<z.infer<TSchema>, RequestWithParams<TPath>>,
-  ) => Promise<TResponse>;
+  middlewares?: AnyMiddleware[];
+  handler: (ctx: AppKoaContext<z.infer<TSchema>, RequestWithParams<TPath>>) => Promise<TResponse>;
 }
 
 // Result type that carries schema info for client-side inference
-export interface EndpointResult<
-  TSchema extends ZodType = ZodType<unknown>,
-> {
+export interface EndpointResult<TSchema extends ZodType = ZodType<unknown>> {
   endpoint: EndpointConfig;
   handler: Middleware;
   schema?: TSchema;
-  middlewares?: Middleware[];
+  middlewares?: AnyMiddleware[];
 }
 
 export default function createEndpoint<
   TPath extends string,
   TSchema extends ZodType = ZodType<unknown>,
   TResponse = void,
->(
-  options: EndpointOptions<TPath, TSchema, TResponse>,
-): EndpointResult<TSchema> {
+>(options: EndpointOptions<TPath, TSchema, TResponse>): EndpointResult<TSchema> {
   const wrappedHandler = async (ctx: AppKoaContext) => {
     const result = await options.handler(ctx as never);
     if (result !== undefined) {

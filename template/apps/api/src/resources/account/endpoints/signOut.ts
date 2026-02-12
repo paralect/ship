@@ -1,5 +1,5 @@
-import { authService } from 'services';
 import isPublic from 'middlewares/isPublic';
+import { authService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
 
 export default createEndpoint({
