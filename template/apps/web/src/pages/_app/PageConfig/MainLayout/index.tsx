@@ -1,6 +1,5 @@
 import { FC, ReactElement } from 'react';
-import { AppShell, Stack } from '@mantine/core';
-import { useApiQuery } from 'hooks/use-api.hook';
+import { useApiQuery } from 'hooks';
 
 import { apiClient } from 'services/api-client.service';
 
@@ -16,13 +15,11 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   if (!account) return null;
 
   return (
-    <AppShell component={Stack} bg="gray.0">
+    <div className="flex min-h-screen flex-col bg-muted/40">
       <Header />
 
-      <AppShell.Main p={32} pt={104}>
-        {children}
-      </AppShell.Main>
-    </AppShell>
+      <main className="flex-1 p-8 pt-[104px]">{children}</main>
+    </div>
   );
 };
 

@@ -1,12 +1,12 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { Button, PasswordInput, Stack, TextInput, Title } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
 import { useApiForm, useApiMutation, useApiQuery } from 'hooks';
 import { isUndefined, pickBy } from 'lodash';
+import { Loader2 } from 'lucide-react';
 import { serialize } from 'object-to-formdata';
 import { FormProvider } from 'react-hook-form';
 import { AccountGetResponse, schemas } from 'shared';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { apiClient } from 'services/api-client.service';
@@ -15,6 +15,11 @@ import { handleApiError } from 'utils';
 import queryClient from 'query-client';
 
 import AvatarUpload from './components/AvatarUpload';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
 
 const getFormDefaultValues = (account?: AccountGetResponse) => ({
   firstName: account?.firstName,
@@ -54,10 +59,8 @@ const Profile: NextPage = () => {
       onSuccess: (data) => {
         queryClient.setQueryData([apiClient.account.get.path], data);
 
-        showNotification({
-          title: 'Success',
-          message: 'Your profile has been successfully updated.',
-          color: 'green',
+        toast.success('Success', {
+          description: 'Your profile has been successfully updated.',
         });
 
         reset(getFormDefaultValues(data), { keepValues: true });
@@ -74,44 +77,62 @@ const Profile: NextPage = () => {
         <title>Profile</title>
       </Head>
 
-      <Stack w={408} m="auto" pt={48} gap={32}>
-        <Title order={1}>Profile</Title>
+      <div className="mx-auto w-[408px] pt-12">
+        <div className="flex flex-col gap-8">
+          <h1 className="text-3xl font-bold">Profile</h1>
 
-        <FormProvider {...methods}>
-          <Stack component="form" onSubmit={onSubmit} gap={32}>
-            <AvatarUpload />
+          <FormProvider {...methods}>
+            <form onSubmit={onSubmit} className="flex flex-col gap-8">
+              <AvatarUpload />
 
-            <Stack gap={20}>
-              <TextInput
-                {...register('firstName')}
-                label="First Name"
-                placeholder="Enter first name"
-                error={errors.firstName?.message}
-              />
+              <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="firstName">First Name</Label>
+                  <Input
+                    {...register('firstName')}
+                    id="firstName"
+                    placeholder="Enter first name"
+                    className={errors.firstName ? 'border-destructive' : ''}
+                  />
+                  {errors.firstName && <p className="text-sm text-destructive">{errors.firstName.message}</p>}
+                </div>
 
-              <TextInput
-                {...register('lastName')}
-                label="Last Name"
-                placeholder="Enter last name"
-                error={errors.lastName?.message}
-              />
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="lastName">Last Name</Label>
+                  <Input
+                    {...register('lastName')}
+                    id="lastName"
+                    placeholder="Enter last name"
+                    className={errors.lastName ? 'border-destructive' : ''}
+                  />
+                  {errors.lastName && <p className="text-sm text-destructive">{errors.lastName.message}</p>}
+                </div>
 
-              <TextInput label="Email Address" value={account?.email} disabled />
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input id="email" value={account?.email} disabled />
+                </div>
 
-              <PasswordInput
-                {...register('password')}
-                label="Password"
-                placeholder="Enter password"
-                error={errors.password?.message}
-              />
-            </Stack>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="password">Password</Label>
+                  <PasswordInput
+                    {...register('password')}
+                    id="password"
+                    placeholder="Enter password"
+                    className={errors.password ? 'border-destructive' : ''}
+                  />
+                  {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+                </div>
+              </div>
 
-            <Button type="submit" loading={isUpdatePending} disabled={!isDirty}>
-              Update Profile
-            </Button>
-          </Stack>
-        </FormProvider>
-      </Stack>
+              <Button type="submit" disabled={!isDirty || isUpdatePending}>
+                {isUpdatePending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Update Profile
+              </Button>
+            </form>
+          </FormProvider>
+        </div>
+      </div>
     </>
   );
 };

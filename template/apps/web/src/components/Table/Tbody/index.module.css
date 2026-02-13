@@ -1,8 +1,0 @@
-.tr {
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-
-  @mixin hover {
-    background-color: var(--mantine-color-gray-0);
-  }
-}

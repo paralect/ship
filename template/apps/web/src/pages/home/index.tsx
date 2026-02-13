@@ -1,12 +1,11 @@
+import { useCallback, useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { Stack, Title } from '@mantine/core';
-import { useSetState } from '@mantine/hooks';
-import { showNotification } from '@mantine/notifications';
 import { SortDirection } from '@tanstack/react-table';
 import { useApiQuery } from 'hooks';
 import { pick } from 'lodash';
 import { UsersListParams, UsersListResponse } from 'shared';
+import { toast } from 'sonner';
 
 import { Table } from 'components';
 
@@ -16,13 +15,22 @@ import Filters from './components/Filters';
 import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
 
 const Home: NextPage = () => {
-  const [params, setParams] = useSetState(DEFAULT_PARAMS);
+  const [params, setParamsState] = useState<UsersListParams>(DEFAULT_PARAMS);
+  const setParams = useCallback(
+    (value: Partial<UsersListParams> | ((prev: UsersListParams) => Partial<UsersListParams>)) => {
+      setParamsState((prev) => {
+        const newValue = typeof value === 'function' ? value(prev) : value;
+        return { ...prev, ...newValue };
+      });
+    },
+    [],
+  );
+
   const { data: users, isLoading: isUserListLoading } = useApiQuery(apiClient.users.list, params);
 
   const onSortingChange = (sort: Record<string, SortDirection>) => {
-    setParams((prev: UsersListParams) => {
+    setParams((prev) => {
       const combinedSort = { ...pick(prev.sort, EXTERNAL_SORT_FIELDS), ...sort };
-
       return { sort: combinedSort };
     });
   };
@@ -31,10 +39,8 @@ const Home: NextPage = () => {
   type User = UsersListResponse['results'][number];
 
   const onRowClick = (user: User) => {
-    showNotification({
-      title: 'Success',
-      message: `You clicked on the row for the user with the email address ${user.email}.`,
-      color: 'green',
+    toast.success('Success', {
+      description: `You clicked on the row for the user with the email address ${user.email}.`,
     });
   };
 
@@ -44,8 +50,8 @@ const Home: NextPage = () => {
         <title>Users</title>
       </Head>
 
-      <Stack gap="lg">
-        <Title order={2}>Users</Title>
+      <div className="flex flex-col gap-6 p-6">
+        <h2 className="text-2xl font-semibold">Users</h2>
 
         <Filters setParams={setParams} />
 
@@ -61,7 +67,7 @@ const Home: NextPage = () => {
           onSortingChange={onSortingChange}
           onRowClick={onRowClick}
         />
-      </Stack>
+      </div>
     </>
   );
 };

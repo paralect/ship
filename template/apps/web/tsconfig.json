@@ -3,7 +3,11 @@
   "compilerOptions": {
     "target": "ES2017",
     "baseUrl": "src",
-    "rootDir": "."
+    "rootDir": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "public/*": ["../public/*"]
+    }
   },
   "include": [
     "**/*.ts",

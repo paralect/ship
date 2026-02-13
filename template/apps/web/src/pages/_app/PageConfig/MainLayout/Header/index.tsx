@@ -1,7 +1,6 @@
 import { FC, memo } from 'react';
 import Link from 'next/link';
-import { Anchor, AppShell, Group } from '@mantine/core';
-import { useApiQuery } from 'hooks/use-api.hook';
+import { useApiQuery } from 'hooks';
 
 import { LogoImage } from 'public/images';
 
@@ -17,15 +16,15 @@ const Header: FC = () => {
   if (!account) return null;
 
   return (
-    <AppShell.Header>
-      <Group h={72} px={32} py={0} justify="space-between" bg="white">
-        <Anchor component={Link} href={RoutePath.Home}>
+    <header className="fixed left-0 right-0 top-0 z-50 border-b bg-white">
+      <div className="flex h-[72px] items-center justify-between px-8">
+        <Link href={RoutePath.Home}>
           <LogoImage />
-        </Anchor>
+        </Link>
 
         <UserMenu />
-      </Group>
-    </AppShell.Header>
+      </div>
+    </header>
   );
 };
 

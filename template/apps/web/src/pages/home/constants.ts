@@ -1,9 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { UsersListParams } from 'shared';
-
-import { User } from 'types';
+import { UsersListParams, UsersListResponse } from 'shared';
 
 export const DEFAULT_PAGE = 1;
+
+type User = UsersListResponse['results'][number];
 export const PER_PAGE = 10;
 
 type UserListSortFields = 'createdOn' | 'firstName' | 'lastName';

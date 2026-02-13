@@ -1,102 +1,127 @@
-import { FC, useLayoutEffect, useState } from 'react';
-import { ActionIcon, ComboboxItem, Group, Select, TextInput } from '@mantine/core';
-import { DatePickerInput, DatesRangeValue } from '@mantine/dates';
-import { useDebouncedValue, useInputState, useSetState } from '@mantine/hooks';
-import { IconSearch, IconSelector, IconX } from '@tabler/icons-react';
-import { set } from 'lodash';
+import { FC, useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import { CalendarIcon, Search, X } from 'lucide-react';
+import { DateRange } from 'react-day-picker';
 import { UsersListParams } from 'shared';
+import { useDebounceValue } from 'usehooks-ts';
 
-const selectOptions: ComboboxItem[] = [
-  {
-    value: 'newest',
-    label: 'Newest',
-  },
-  {
-    value: 'oldest',
-    label: 'Oldest',
-  },
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Input } from '@/components/ui/input';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
+
+const selectOptions = [
+  { value: 'newest', label: 'Newest' },
+  { value: 'oldest', label: 'Oldest' },
 ];
 
 interface FiltersProps {
-  setParams: ReturnType<typeof useSetState<UsersListParams>>[1];
+  setParams: (params: Partial<UsersListParams>) => void;
 }
 
 const Filters: FC<FiltersProps> = ({ setParams }) => {
-  const [search, setSearch] = useInputState('');
-  const [sortBy, setSortBy] = useState<string | null>(selectOptions[0].value);
-  const [filterDate, setFilterDate] = useState<DatesRangeValue>();
+  const [search, setSearch] = useState('');
+  const [sortBy, setSortBy] = useState<string>(selectOptions[0].value);
+  const [filterDate, setFilterDate] = useState<DateRange | undefined>();
 
-  const [debouncedSearch] = useDebouncedValue(search, 500);
+  const [debouncedSearch] = useDebounceValue(search, 500);
 
-  const handleSort = (value: string | null) => {
+  const handleSort = (value: string) => {
     setSortBy(value);
-
-    setParams((old: UsersListParams) => set(old, 'sort.createdOn', value === 'newest' ? 'desc' : 'asc'));
+    setParams({ sort: { createdOn: value === 'newest' ? 'desc' : 'asc' } });
   };
 
-  const handleFilter = ([startDate, endDate]: DatesRangeValue) => {
-    setFilterDate([startDate, endDate]);
+  const handleFilter = (range: DateRange | undefined) => {
+    setFilterDate(range);
 
-    if (!startDate) {
+    if (!range?.from) {
       setParams({ filter: undefined });
+      return;
     }
 
-    if (endDate) {
+    if (range.to) {
       setParams({
         filter: {
-          createdOn: {
-            startDate: startDate instanceof Date ? startDate : undefined,
-            endDate: endDate instanceof Date ? endDate : undefined,
-          },
+          createdOn: { startDate: range.from, endDate: range.to },
         },
       });
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setParams({ searchValue: debouncedSearch });
   }, [debouncedSearch]);
 
   return (
-    <Group wrap="nowrap" justify="space-between">
-      <Group wrap="nowrap">
-        <TextInput
-          w={350}
-          size="md"
-          value={search}
-          onChange={setSearch}
-          placeholder="Search by name or email"
-          leftSection={<IconSearch size={16} />}
-          rightSection={
-            search && (
-              <ActionIcon variant="transparent" onClick={() => setSearch('')}>
-                <IconX color="gray" stroke={1} />
-              </ActionIcon>
-            )
-          }
-        />
+    <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="relative w-[350px]">
+          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
-        <Select
-          w={200}
-          size="md"
-          data={selectOptions}
-          value={sortBy}
-          onChange={handleSort}
-          allowDeselect={false}
-          rightSection={<IconSelector size={16} />}
-          comboboxProps={{
-            withinPortal: false,
-            transitionProps: {
-              transition: 'fade',
-              duration: 120,
-              timingFunction: 'ease-out',
-            },
-          }}
-        />
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by name or email"
+            className="pl-9 pr-9"
+          />
 
-        <DatePickerInput type="range" size="md" placeholder="Pick date" value={filterDate} onChange={handleFilter} />
-      </Group>
-    </Group>
+          {search && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={() => setSearch('')}
+              className="absolute top-1/2 right-1 h-7 w-7 -translate-y-1/2"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
+
+        <Select value={sortBy} onValueChange={handleSort}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue />
+          </SelectTrigger>
+
+          <SelectContent>
+            {selectOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn('w-[280px] justify-start text-left font-normal', !filterDate && 'text-muted-foreground')}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {filterDate?.from ? (
+                filterDate.to ? (
+                  <>
+                    {format(filterDate.from, 'LLL dd, y')} - {format(filterDate.to, 'LLL dd, y')}
+                  </>
+                ) : (
+                  format(filterDate.from, 'LLL dd, y')
+                )
+              ) : (
+                <span>Pick a date range</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar mode="range" selected={filterDate} onSelect={handleFilter} numberOfMonths={1} initialFocus />
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
   );
 };
+
 export default Filters;

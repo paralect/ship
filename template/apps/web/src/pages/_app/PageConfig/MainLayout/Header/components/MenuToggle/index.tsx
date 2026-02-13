@@ -1,24 +1,37 @@
-import { FC } from 'react';
-import { Avatar, UnstyledButton, UnstyledButtonProps, useMantineTheme } from '@mantine/core';
-import { useApiQuery } from 'hooks/use-api.hook';
+import { useApiQuery } from 'hooks';
 
 import { apiClient } from 'services/api-client.service';
 
-const MenuToggle: FC<UnstyledButtonProps> = (props) => {
-  const { primaryColor } = useMantineTheme();
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 
+interface MenuToggleProps {
+  onClick?: () => void;
+}
+
+const MenuToggle = ({
+  ref,
+  onClick,
+  ...props
+}: MenuToggleProps & { ref?: React.RefObject<HTMLButtonElement | null> }) => {
   const { data: account } = useApiQuery(apiClient.account.get);
 
   if (!account) return null;
 
   return (
-    <UnstyledButton aria-label="Menu Toggle" {...props}>
-      <Avatar src={account.avatarUrl} color={primaryColor} radius="xl" alt="Avatar">
-        {account.firstName.charAt(0)}
-        {account.lastName.charAt(0)}
+    <Button ref={ref} variant="ghost" size="icon" aria-label="Menu Toggle" onClick={onClick} {...props}>
+      <Avatar>
+        <AvatarImage src={account.avatarUrl ?? undefined} alt="Avatar" />
+
+        <AvatarFallback>
+          {account.firstName.charAt(0)}
+          {account.lastName.charAt(0)}
+        </AvatarFallback>
       </Avatar>
-    </UnstyledButton>
+    </Button>
   );
 };
+
+MenuToggle.displayName = 'MenuToggle';
 
 export default MenuToggle;
