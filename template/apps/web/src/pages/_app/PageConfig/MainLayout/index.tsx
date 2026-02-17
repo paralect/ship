@@ -3,8 +3,6 @@ import { useApiQuery } from 'hooks';
 
 import { apiClient } from 'services/api-client.service';
 
-import Header from './Header';
-
 interface MainLayoutProps {
   children: ReactElement;
 }
@@ -15,10 +13,8 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   if (!account) return null;
 
   return (
-    <div className="flex min-h-screen flex-col bg-muted/40">
-      <Header />
-
-      <main className="flex-1 p-8 pt-[104px]">{children}</main>
+    <div className="flex h-screen flex-col overflow-hidden bg-muted/40">
+      <main className="flex-1 overflow-hidden">{children}</main>
     </div>
   );
 };
