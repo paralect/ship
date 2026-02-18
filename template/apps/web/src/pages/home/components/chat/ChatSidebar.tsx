@@ -1,24 +1,15 @@
 import Link from 'next/link';
-import { useApiMutation, useApiQuery } from 'hooks';
-import { LogOut, MessageSquare, PanelLeftClose, PanelLeftOpen, Plus, Trash2, User } from 'lucide-react';
+import { MessageSquare, PanelLeftClose, PanelLeftOpen, Plus, Trash2 } from 'lucide-react';
 
 import { LogoImage } from 'public/images';
 
-import { apiClient } from 'services/api-client.service';
-
 import { RoutePath } from 'routes';
-import queryClient from 'query-client';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import UserMenu from './UserMenu';
+
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { cn } from '@/lib/utils';
+import { cn, formatRelativeDate } from '@/lib/utils';
 
 export interface Chat {
   id: string;
@@ -45,24 +36,6 @@ const ChatSidebar = ({
   onDeleteChat,
   onToggleCollapse,
 }: ChatSidebarProps) => {
-  const { data: account } = useApiQuery(apiClient.account.get);
-  const { mutate: signOut } = useApiMutation(apiClient.account.signOut, {
-    onSuccess: () => {
-      queryClient.setQueryData([apiClient.account.get.path], null);
-    },
-  });
-
-  const formatDate = (date: Date) => {
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    if (days === 0) return 'Today';
-    if (days === 1) return 'Yesterday';
-    if (days < 7) return `${days} days ago`;
-    return date.toLocaleDateString();
-  };
-
   return (
     <div
       className={cn(
@@ -121,7 +94,7 @@ const ChatSidebar = ({
                           {chat.title || 'New Chat'}
                         </p>
                         {chat.updatedOn && (
-                          <p className="truncate text-xs text-muted-foreground">{formatDate(chat.updatedOn)}</p>
+                          <p className="truncate text-xs text-muted-foreground">{formatRelativeDate(chat.updatedOn)}</p>
                         )}
                       </div>
                       <Button
@@ -142,46 +115,7 @@ const ChatSidebar = ({
         </div>
       </ScrollArea>
 
-      {account && (
-        <div className="border-t p-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className={cn('w-full justify-start gap-2', isCollapsed && 'justify-center px-0')}
-              >
-                <Avatar size="sm">
-                  <AvatarImage src={account.avatarUrl ?? undefined} alt="Avatar" />
-                  <AvatarFallback>
-                    {account.firstName.charAt(0)}
-                    {account.lastName.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-
-                {!isCollapsed && (
-                  <span className="truncate text-sm">
-                    {account.firstName} {account.lastName}
-                  </span>
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent align={isCollapsed ? 'center' : 'start'} side="top">
-              <DropdownMenuItem asChild>
-                <Link href={RoutePath.Profile}>
-                  <User className="mr-2 size-4" />
-                  Profile settings
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem onClick={() => signOut({})}>
-                <LogOut className="mr-2 size-4" />
-                Log out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      )}
+      <UserMenu isCollapsed={isCollapsed} />
     </div>
   );
 };
