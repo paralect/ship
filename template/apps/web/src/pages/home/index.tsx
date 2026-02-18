@@ -1,15 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import type { FC } from 'react';
 
 import type { Chat, Message } from 'services/chats/chat.service';
 import { chatService } from 'services/chats/chat.service';
 
 import { ChatBox, ChatSidebar } from './components/chat';
 
-const Home: NextPage = () => {
+interface HomeProps {
+  chatId?: string;
+}
+
+const Home: FC<HomeProps> = ({ chatId: initialChatId }) => {
+  const router = useRouter();
   const [chats, setChats] = useState<Chat[]>([]);
-  const [activeChatId, setActiveChatId] = useState<string | null>(null);
+  const [activeChatId, setActiveChatId] = useState<string | null>(initialChatId ?? null);
   const [messages, setMessages] = useState<Record<string, Message[]>>({});
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -24,9 +30,6 @@ const Home: NextPage = () => {
       try {
         const loadedChats = await chatService.list();
         setChats(loadedChats);
-        if (loadedChats.length > 0) {
-          setActiveChatId(loadedChats[0]._id);
-        }
       } catch (error) {
         console.error('Failed to load chats:', error);
       }
@@ -55,24 +58,19 @@ const Home: NextPage = () => {
     loadMessages();
   }, [activeChatId, messages]);
 
-  const handleSelectChat = useCallback((chatId: string) => {
-    setActiveChatId(chatId);
+  const handleSelectChat = useCallback(
+    (chatId: string) => {
+      router.push(`/chat/${chatId}`);
+    },
+    [router],
+  );
+
+  const handleNewChat = useCallback(() => {
+    setActiveChatId(null);
     setInput('');
     setStreamingContent('');
-  }, []);
-
-  const handleNewChat = useCallback(async () => {
-    try {
-      const newChat = await chatService.create('New Chat');
-      setChats((prev) => [newChat, ...prev]);
-      setMessages((prev) => ({ ...prev, [newChat._id]: [] }));
-      setActiveChatId(newChat._id);
-      setInput('');
-      setStreamingContent('');
-    } catch (error) {
-      console.error('Failed to create chat:', error);
-    }
-  }, []);
+    router.push('/');
+  }, [router]);
 
   const handleDeleteChat = useCallback(
     async (chatId: string) => {
@@ -84,18 +82,14 @@ const Home: NextPage = () => {
           delete newMessages[chatId];
           return newMessages;
         });
-        setActiveChatId((prev) => {
-          if (prev === chatId) {
-            const remaining = chats.filter((c) => c._id !== chatId);
-            return remaining[0]?._id || null;
-          }
-          return prev;
-        });
+        if (activeChatId === chatId) {
+          router.push('/');
+        }
       } catch (error) {
         console.error('Failed to delete chat:', error);
       }
     },
-    [chats],
+    [activeChatId, router],
   );
 
   const handleSubmit = useCallback(async () => {
@@ -110,6 +104,7 @@ const Home: NextPage = () => {
         setMessages((prev) => ({ ...prev, [newChat._id]: [] }));
         setActiveChatId(newChat._id);
         chatId = newChat._id;
+        window.history.replaceState(null, '', `/chat/${chatId}`);
       } catch (error) {
         console.error('Failed to create chat:', error);
         return;

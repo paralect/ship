@@ -106,7 +106,7 @@ const ChatSidebar = ({
                 <div
                   key={chat.id}
                   className={cn(
-                    'group flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
+                    'group flex cursor-pointer items-center gap-2 overflow-hidden rounded-lg px-3 py-2 transition-colors hover:bg-muted',
                     activeChatId === chat.id && 'bg-muted',
                     isCollapsed && 'justify-center px-0',
                   )}
@@ -116,16 +116,18 @@ const ChatSidebar = ({
                   <MessageSquare className="size-4 shrink-0 text-muted-foreground" />
                   {!isCollapsed && (
                     <>
-                      <div className="flex-1 overflow-hidden">
-                        <p className="truncate text-sm font-medium">{chat.title || 'New Chat'}</p>
+                      <div className="max-w-[150px] flex-1 overflow-hidden">
+                        <p className="truncate text-sm font-medium" title={chat.title || 'New Chat'}>
+                          {chat.title || 'New Chat'}
+                        </p>
                         {chat.updatedOn && (
-                          <p className="text-xs text-muted-foreground">{formatDate(chat.updatedOn)}</p>
+                          <p className="truncate text-xs text-muted-foreground">{formatDate(chat.updatedOn)}</p>
                         )}
                       </div>
                       <Button
                         variant="ghost"
                         size="icon-xs"
-                        className="opacity-0 transition-opacity group-hover:opacity-100"
+                        className="shrink-0 opacity-0 transition-opacity group-hover:opacity-100"
                         onClick={(e) => {
                           e.stopPropagation();
                           onDeleteChat(chat.id);
