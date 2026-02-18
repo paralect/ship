@@ -1,12 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
-import type { Chat, Message } from 'services/chats/chat.service';
-import { chatService } from 'services/chats/chat.service';
-
 import { ChatBox, ChatSidebar } from './components/chat';
+import { useChatManager } from './hooks';
 
 interface HomeProps {
   chatId?: string;
@@ -14,49 +12,36 @@ interface HomeProps {
 
 const Home: FC<HomeProps> = ({ chatId: initialChatId }) => {
   const router = useRouter();
-  const [chats, setChats] = useState<Chat[]>([]);
-  const [activeChatId, setActiveChatId] = useState<string | null>(initialChatId ?? null);
-  const [messages, setMessages] = useState<Record<string, Message[]>>({});
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [streamingContent, setStreamingContent] = useState('');
-  const streamingContentRef = useRef('');
 
-  const activeMessages = activeChatId ? messages[activeChatId] || [] : [];
+  const {
+    chats,
+    activeChatId,
+    displayMessages,
+    input,
+    isLoading,
+    setInput,
+    loadChats,
+    loadMessages,
+    deleteChat,
+    handleSubmit,
+    resetChat,
+  } = useChatManager({
+    initialChatId,
+    onChatCreated: (chatId) => {
+      window.history.replaceState(null, '', `/chat/${chatId}`);
+    },
+  });
 
   useEffect(() => {
-    const loadChats = async () => {
-      try {
-        const loadedChats = await chatService.list();
-        setChats(loadedChats);
-      } catch (error) {
-        console.error('Failed to load chats:', error);
-      }
-    };
-
     loadChats();
-  }, []);
+  }, [loadChats]);
 
   useEffect(() => {
-    const loadMessages = async () => {
-      if (!activeChatId) return;
-
-      if (messages[activeChatId]) return;
-
-      try {
-        const loadedMessages = await chatService.getMessages(activeChatId);
-        setMessages((prev) => ({
-          ...prev,
-          [activeChatId]: loadedMessages,
-        }));
-      } catch (error) {
-        console.error('Failed to load messages:', error);
-      }
-    };
-
-    loadMessages();
-  }, [activeChatId, messages]);
+    if (activeChatId) {
+      loadMessages(activeChatId);
+    }
+  }, [activeChatId, loadMessages]);
 
   const handleSelectChat = useCallback(
     (chatId: string) => {
@@ -66,123 +51,19 @@ const Home: FC<HomeProps> = ({ chatId: initialChatId }) => {
   );
 
   const handleNewChat = useCallback(() => {
-    setActiveChatId(null);
-    setInput('');
-    setStreamingContent('');
+    resetChat();
     router.push('/');
-  }, [router]);
+  }, [router, resetChat]);
 
   const handleDeleteChat = useCallback(
     async (chatId: string) => {
-      try {
-        await chatService.delete(chatId);
-        setChats((prev) => prev.filter((c) => c._id !== chatId));
-        setMessages((prev) => {
-          const newMessages = { ...prev };
-          delete newMessages[chatId];
-          return newMessages;
-        });
-        if (activeChatId === chatId) {
-          router.push('/');
-        }
-      } catch (error) {
-        console.error('Failed to delete chat:', error);
+      const deleted = await deleteChat(chatId);
+      if (deleted && activeChatId === chatId) {
+        router.push('/');
       }
     },
-    [activeChatId, router],
+    [activeChatId, router, deleteChat],
   );
-
-  const handleSubmit = useCallback(async () => {
-    if (!input.trim() || isLoading) return;
-
-    let chatId = activeChatId;
-
-    if (!chatId) {
-      try {
-        const newChat = await chatService.create('New Chat');
-        setChats((prev) => [newChat, ...prev]);
-        setMessages((prev) => ({ ...prev, [newChat._id]: [] }));
-        setActiveChatId(newChat._id);
-        chatId = newChat._id;
-        window.history.replaceState(null, '', `/chat/${chatId}`);
-      } catch (error) {
-        console.error('Failed to create chat:', error);
-        return;
-      }
-    }
-
-    const userMessage: Message = {
-      _id: `temp-${Date.now()}`,
-      chatId,
-      role: 'user',
-      content: input.trim(),
-    };
-
-    setMessages((prev) => ({
-      ...prev,
-      [chatId]: [...(prev[chatId] || []), userMessage],
-    }));
-
-    const messageContent = input.trim();
-    setInput('');
-    setIsLoading(true);
-    streamingContentRef.current = '';
-    setStreamingContent('');
-
-    try {
-      await chatService.sendMessage(chatId, messageContent, {
-        onToken: (token) => {
-          streamingContentRef.current += token;
-          setStreamingContent(streamingContentRef.current);
-        },
-        onDone: (messageId) => {
-          const finalContent = streamingContentRef.current;
-          setMessages((prev) => ({
-            ...prev,
-            [chatId]: [
-              ...(prev[chatId] || []),
-              {
-                _id: messageId,
-                chatId,
-                role: 'assistant',
-                content: finalContent,
-              },
-            ],
-          }));
-          streamingContentRef.current = '';
-          setStreamingContent('');
-          setIsLoading(false);
-
-          chatService.list().then(setChats);
-        },
-        onError: (error) => {
-          console.error('AI error:', error);
-          streamingContentRef.current = '';
-          setStreamingContent('');
-          setIsLoading(false);
-        },
-      });
-    } catch (error) {
-      console.error('Failed to send message:', error);
-      setIsLoading(false);
-    }
-  }, [input, activeChatId, isLoading]);
-
-  const displayMessages = activeChatId
-    ? [
-        ...activeMessages,
-        ...(streamingContent
-          ? [
-              {
-                _id: 'streaming',
-                chatId: activeChatId,
-                role: 'assistant' as const,
-                content: streamingContent,
-              },
-            ]
-          : []),
-      ]
-    : [];
 
   return (
     <>
