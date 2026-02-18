@@ -22,8 +22,8 @@ import { cn } from '@/lib/utils';
 
 export interface Chat {
   id: string;
-  title: string;
-  updatedOn: Date;
+  title?: string;
+  updatedOn?: Date;
 }
 
 interface ChatSidebarProps {
@@ -117,8 +117,10 @@ const ChatSidebar = ({
                   {!isCollapsed && (
                     <>
                       <div className="flex-1 overflow-hidden">
-                        <p className="truncate text-sm font-medium">{chat.title}</p>
-                        <p className="text-xs text-muted-foreground">{formatDate(chat.updatedOn)}</p>
+                        <p className="truncate text-sm font-medium">{chat.title || 'New Chat'}</p>
+                        {chat.updatedOn && (
+                          <p className="text-xs text-muted-foreground">{formatDate(chat.updatedOn)}</p>
+                        )}
                       </div>
                       <Button
                         variant="ghost"
