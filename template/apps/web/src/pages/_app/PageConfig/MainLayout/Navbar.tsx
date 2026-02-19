@@ -22,7 +22,6 @@ const Navbar = () => {
         isCollapsed ? 'w-16' : 'w-64',
       )}
     >
-      {/* Header */}
       <div className="flex h-14 items-center justify-between border-b px-3">
         {!isCollapsed && (
           <Link href={RoutePath.Home}>
@@ -40,12 +39,10 @@ const Navbar = () => {
         </Button>
       </div>
 
-      {/* Navigation */}
       <ScrollArea className="flex-1">
         <Navigation isCollapsed={isCollapsed} />
       </ScrollArea>
 
-      {/* User Menu */}
       <UserMenu isCollapsed={isCollapsed} />
     </div>
   );

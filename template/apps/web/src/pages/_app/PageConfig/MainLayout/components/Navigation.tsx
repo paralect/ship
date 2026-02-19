@@ -49,7 +49,6 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
 
   return (
     <div className="flex flex-col gap-1 p-2">
-      {/* Dashboard */}
       <Link href={RoutePath.Home}>
         <div
           className={cn(
@@ -64,7 +63,6 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
         </div>
       </Link>
 
-      {/* Chat with submenu */}
       <div>
         <div
           className={cn(
@@ -90,16 +88,13 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
           )}
         </div>
 
-        {/* Chat submenu */}
         {!isCollapsed && isChatExpanded && (
           <div className="ml-4 mt-1 flex flex-col gap-1 border-l pl-2">
-            {/* New Chat button */}
             <Button variant="ghost" size="sm" className="justify-start gap-2" onClick={handleNewChat}>
               <Plus className="size-3" />
               New Chat
             </Button>
 
-            {/* Chat list */}
             {chats.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-2 py-4 text-muted-foreground">
                 <p className="text-xs">No chats yet</p>

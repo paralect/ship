@@ -49,6 +49,7 @@ const ChatBox = ({ messages, input, onInputChange, onSubmit, isLoading }: ChatBo
                       <span className="size-2 animate-bounce rounded-full bg-current [animation-delay:-0.15s]" />
                       <span className="size-2 animate-bounce rounded-full bg-current" />
                     </div>
+
                     <span className="text-sm">Assistant is typing...</span>
                   </div>
                 )}
