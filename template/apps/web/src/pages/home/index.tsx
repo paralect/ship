@@ -1,99 +1,37 @@
-import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import Link from 'next/link';
+import { useApiQuery } from 'hooks/use-api.hook';
+import { MessageSquare } from 'lucide-react';
 
-import { ChatBox, ChatSidebar } from './components/chat';
-import { useChatManager } from './hooks';
+import { apiClient } from 'services/api-client.service';
 
-interface HomeProps {
-  chatId?: string;
-}
+import { RoutePath } from 'routes';
 
-const Home: FC<HomeProps> = ({ chatId: initialChatId }) => {
-  const router = useRouter();
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+import { Button } from '@/components/ui/button';
 
-  const {
-    chats,
-    activeChatId,
-    displayMessages,
-    input,
-    isLoading,
-    setInput,
-    loadChats,
-    loadMessages,
-    deleteChat,
-    handleSubmit,
-    resetChat,
-  } = useChatManager({
-    initialChatId,
-    onChatCreated: (chatId) => {
-      window.history.replaceState(null, '', `/chat/${chatId}`);
-    },
-  });
-
-  useEffect(() => {
-    loadChats();
-  }, [loadChats]);
-
-  useEffect(() => {
-    if (activeChatId) {
-      loadMessages(activeChatId);
-    }
-  }, [activeChatId, loadMessages]);
-
-  const handleSelectChat = useCallback(
-    (chatId: string) => {
-      router.push(`/chat/${chatId}`);
-    },
-    [router],
-  );
-
-  const handleNewChat = useCallback(() => {
-    resetChat();
-    router.push('/');
-  }, [router, resetChat]);
-
-  const handleDeleteChat = useCallback(
-    async (chatId: string) => {
-      const deleted = await deleteChat(chatId);
-      if (deleted && activeChatId === chatId) {
-        router.push('/');
-      }
-    },
-    [activeChatId, router, deleteChat],
-  );
+const Home = () => {
+  const { data: account } = useApiQuery(apiClient.account.get);
 
   return (
     <>
       <Head>
-        <title>Chat</title>
+        <title>Home</title>
       </Head>
 
-      <div className="flex h-full">
-        <ChatSidebar
-          chats={chats.map((c) => ({
-            id: c._id,
-            title: c.title,
-            updatedOn: c.updatedOn ? new Date(c.updatedOn) : undefined,
-          }))}
-          activeChatId={activeChatId}
-          isCollapsed={isSidebarCollapsed}
-          onSelectChat={handleSelectChat}
-          onNewChat={handleNewChat}
-          onDeleteChat={handleDeleteChat}
-          onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-        />
+      <div className="flex h-full items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-900">
+            Welcome back{account?.firstName ? `, ${account.firstName}` : ''}!
+          </h1>
 
-        <div className="flex-1 p-4">
-          <ChatBox
-            messages={displayMessages.map((m) => ({ id: m._id, role: m.role, content: m.content }))}
-            input={input}
-            onInputChange={setInput}
-            onSubmit={handleSubmit}
-            isLoading={isLoading}
-          />
+          <p className="mt-4 text-lg text-gray-600">Ready to start a conversation? Head over to the chat.</p>
+
+          <Button asChild className="mt-6">
+            <Link href={RoutePath.ChatIndex}>
+              <MessageSquare className="mr-2 size-4" />
+              Go to Chat
+            </Link>
+          </Button>
         </div>
       </div>
     </>

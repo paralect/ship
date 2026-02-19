@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import Home from 'pages/home';
+import ChatPage from 'pages/chat/index.page';
 
-const ChatPage = () => {
+const ChatWithIdPage = () => {
   const router = useRouter();
   const { chatId } = router.query;
 
@@ -9,7 +9,7 @@ const ChatPage = () => {
     return null;
   }
 
-  return <Home key={chatId} chatId={chatId} />;
+  return <ChatPage key={chatId} chatId={chatId} />;
 };
 
-export default ChatPage;
+export default ChatWithIdPage;
