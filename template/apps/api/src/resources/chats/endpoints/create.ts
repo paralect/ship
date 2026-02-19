@@ -22,6 +22,6 @@ export default createEndpoint({
       title: title || 'New Chat',
     });
 
-    ctx.body = chat;
+    return chat;
   },
 });

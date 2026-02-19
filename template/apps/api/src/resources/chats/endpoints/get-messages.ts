@@ -24,6 +24,6 @@ export default createEndpoint({
 
     const { results: messages } = await messageService.find({ chatId }, {}, { sort: { createdOn: 1 } });
 
-    ctx.body = messages;
+    return messages;
   },
 });

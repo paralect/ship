@@ -311,6 +311,24 @@ function extractResponseType(content: string): string | null {
       return "userPublicSchema";
     }
 
+    // Pattern: chat variable (single chat)
+    if (
+      /^chat$/.test(expr) ||
+      /chatService\.(?:insertOne|findOne|updateOne)/.test(expr)
+    ) {
+      return "chatSchema";
+    }
+
+    // Pattern: chats array (list of chats)
+    if (/^chats$/.test(expr)) {
+      return "chatSchema[]";
+    }
+
+    // Pattern: messages array (list of messages)
+    if (/^messages$/.test(expr)) {
+      return "messageSchema[]";
+    }
+
     // Pattern: inline object literal { key: value, ... }
     if (expr.startsWith("{")) {
       return inferObjectType(expr);
@@ -537,6 +555,12 @@ function generateIndexFile(
               `export type ${responseTypeName} = z.infer<ReturnType<typeof listResultSchema<typeof ${innerSchema}>>>;`,
             );
           }
+        } else if (endpoint.responseType.endsWith("[]")) {
+          // Array of schema like chatSchema[]
+          const schemaName = endpoint.responseType.slice(0, -2);
+          lines.push(
+            `export type ${responseTypeName} = z.infer<typeof ${schemaName}>[];`,
+          );
         } else {
           // Schema reference like userPublicSchema
           lines.push(

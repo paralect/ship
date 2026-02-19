@@ -16,6 +16,6 @@ export default createEndpoint({
 
     const { results: chats } = await chatService.find({ userId }, {}, { sort: { updatedOn: -1 } });
 
-    ctx.body = chats;
+    return chats;
   },
 });

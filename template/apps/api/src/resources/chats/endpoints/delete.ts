@@ -26,6 +26,6 @@ export default createEndpoint({
 
     await chatService.deleteOne({ _id: chatId });
 
-    ctx.body = { success: true };
+    return { success: true };
   },
 });

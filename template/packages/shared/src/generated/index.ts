@@ -2,8 +2,10 @@ import { z } from "zod";
 
 import { ApiClient } from "../client";
 import {
+  chatSchema,
   emailSchema,
   listResultSchema,
+  messageSchema,
   paginationSchema,
   passwordSchema,
   userPublicSchema,
@@ -47,6 +49,17 @@ export const schemas = {
       token: z.string().min(1, "Token is required"),
     }),
   },
+  chats: {
+    create: z.object({
+      title: z.string().min(1).max(255).optional(),
+    }),
+    delete: z.object({}),
+    getMessages: z.object({}),
+    list: z.object({}),
+    sendMessage: z.object({
+      message: z.string().min(1),
+    }),
+  },
   users: {
     list: paginationSchema.extend({
       filter: z
@@ -71,6 +84,15 @@ export const schemas = {
   },
 } as const;
 
+export interface ChatsDeletePathParams {
+  chatId: string;
+}
+export interface ChatsGetMessagesPathParams {
+  chatId: string;
+}
+export interface ChatsSendMessagePathParams {
+  chatId: string;
+}
 export interface UsersRemovePathParams {
   id: string;
 }
@@ -96,6 +118,11 @@ export type AccountVerifyEmailParams = z.infer<
 export type AccountVerifyResetTokenParams = z.infer<
   typeof schemas.account.verifyResetToken
 >;
+export type ChatsCreateParams = z.infer<typeof schemas.chats.create>;
+export type ChatsDeleteParams = z.infer<typeof schemas.chats.delete>;
+export type ChatsGetMessagesParams = z.infer<typeof schemas.chats.getMessages>;
+export type ChatsListParams = z.infer<typeof schemas.chats.list>;
+export type ChatsSendMessageParams = z.infer<typeof schemas.chats.sendMessage>;
 export type UsersListParams = z.infer<typeof schemas.users.list>;
 export type UsersUpdateParams = z.infer<typeof schemas.users.update>;
 
@@ -105,6 +132,9 @@ export interface AccountSignUpResponse {
   emailVerificationToken: string;
 }
 export type AccountUpdateResponse = z.infer<typeof userPublicSchema>;
+export type ChatsCreateResponse = z.infer<typeof chatSchema>;
+export type ChatsGetMessagesResponse = z.infer<typeof messageSchema>[];
+export type ChatsListResponse = z.infer<typeof chatSchema>[];
 export type UsersListResponse = z.infer<
   ReturnType<typeof listResultSchema<typeof userPublicSchema>>
 >;
@@ -199,6 +229,76 @@ function createAccountEndpoints(client: ApiClient) {
   };
 }
 
+function createChatsEndpoints(client: ApiClient) {
+  return {
+    create: {
+      method: "post" as const,
+      path: "/chats" as const,
+      schema: schemas.chats.create,
+      call: (params: ChatsCreateParams) =>
+        client.post<ChatsCreateResponse>("/chats", params),
+    },
+    delete: {
+      method: "delete" as const,
+      path: "/chats/:chatId" as const,
+      schema: schemas.chats.delete,
+      call: (
+        params: ChatsDeleteParams,
+        options: {
+          pathParams: ChatsDeletePathParams;
+          headers?: Record<string, string>;
+        },
+      ) =>
+        client.delete<void>(
+          `/chats/${options.pathParams.chatId}`,
+          params,
+          options.headers ? { headers: options.headers } : undefined,
+        ),
+    },
+    getMessages: {
+      method: "get" as const,
+      path: "/chats/:chatId/messages" as const,
+      schema: schemas.chats.getMessages,
+      call: (
+        params: ChatsGetMessagesParams,
+        options: {
+          pathParams: ChatsGetMessagesPathParams;
+          headers?: Record<string, string>;
+        },
+      ) =>
+        client.get<ChatsGetMessagesResponse>(
+          `/chats/${options.pathParams.chatId}/messages`,
+          params,
+          options.headers ? { headers: options.headers } : undefined,
+        ),
+    },
+    list: {
+      method: "get" as const,
+      path: "/chats" as const,
+      schema: schemas.chats.list,
+      call: (params: ChatsListParams) =>
+        client.get<ChatsListResponse>("/chats", params),
+    },
+    sendMessage: {
+      method: "post" as const,
+      path: "/chats/:chatId/messages" as const,
+      schema: schemas.chats.sendMessage,
+      call: (
+        params: ChatsSendMessageParams,
+        options: {
+          pathParams: ChatsSendMessagePathParams;
+          headers?: Record<string, string>;
+        },
+      ) =>
+        client.post<void>(
+          `/chats/${options.pathParams.chatId}/messages`,
+          params,
+          options.headers ? { headers: options.headers } : undefined,
+        ),
+    },
+  };
+}
+
 function createUsersEndpoints(client: ApiClient) {
   return {
     list: {
@@ -248,6 +348,7 @@ function createUsersEndpoints(client: ApiClient) {
 export function createApiEndpoints(client: ApiClient) {
   return {
     account: createAccountEndpoints(client),
+    chats: createChatsEndpoints(client),
     users: createUsersEndpoints(client),
   };
 }
