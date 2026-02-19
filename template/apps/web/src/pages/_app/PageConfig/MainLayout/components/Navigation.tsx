@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useQueryClient } from '@tanstack/react-query';
 import { useApiQuery } from 'hooks';
-import { ChevronDown, ChevronRight, Home, MessageSquare, Plus, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronRight, Home, MessageSquare, Plus, Trash2, Users } from 'lucide-react';
 
 import { apiClient } from 'services/api-client.service';
 
@@ -60,6 +60,20 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
         >
           <Home className="size-4 shrink-0" />
           {!isCollapsed && <span className="text-sm font-medium">Dashboard</span>}
+        </div>
+      </Link>
+
+      <Link href={RoutePath.Admin}>
+        <div
+          className={cn(
+            'flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
+            currentPath === RoutePath.Admin && 'bg-muted',
+            isCollapsed && 'justify-center px-0',
+          )}
+          title={isCollapsed ? 'Admin' : undefined}
+        >
+          <Users className="size-4 shrink-0" />
+          {!isCollapsed && <span className="text-sm font-medium">Admin</span>}
         </div>
       </Link>
 
