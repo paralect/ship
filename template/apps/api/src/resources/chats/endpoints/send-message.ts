@@ -6,7 +6,7 @@ import { aiService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
 
 const schema = z.object({
-  message: z.string().min(1),
+  content: z.string().min(1),
 });
 
 export default createEndpoint({
@@ -16,7 +16,7 @@ export default createEndpoint({
 
   async handler(ctx) {
     const { chatId } = ctx.params;
-    const { message } = ctx.validatedData;
+    const { content } = ctx.validatedData;
     const userId = ctx.state.user._id;
 
     const chat = await chatService.findOne({ _id: chatId, userId });
@@ -29,7 +29,7 @@ export default createEndpoint({
     await messageService.insertOne({
       chatId,
       role: 'user',
-      content: message,
+      content,
     });
 
     const { results: allMessages } = await messageService.find({ chatId }, {}, { sort: { createdOn: 1 } });
@@ -78,7 +78,7 @@ export default createEndpoint({
           controller.enqueue(textEncoder.encode(`data: ${doneData}\n\n`));
 
           if (!chat.title || chat.title === 'New Chat') {
-            const title = message.slice(0, 50) + (message.length > 50 ? '...' : '');
+            const title = content.slice(0, 50) + (content.length > 50 ? '...' : '');
             await chatService.updateOne({ _id: chatId }, () => ({ title }));
           }
 

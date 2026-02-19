@@ -9,14 +9,14 @@ interface StreamCallbacks {
 }
 
 export const chatService = {
-  async sendMessage(chatId: string, message: string, callbacks: StreamCallbacks): Promise<void> {
+  async sendMessage(chatId: string, content: string, callbacks: StreamCallbacks): Promise<void> {
     const response = await fetch(`${API_URL}/chats/${chatId}/messages`, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ content }),
     });
 
     if (!response.ok) {

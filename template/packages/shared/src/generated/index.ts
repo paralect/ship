@@ -57,7 +57,7 @@ export const schemas = {
     getMessages: z.object({}),
     list: z.object({}),
     sendMessage: z.object({
-      message: z.string().min(1),
+      content: z.string().min(1),
     }),
   },
   users: {
