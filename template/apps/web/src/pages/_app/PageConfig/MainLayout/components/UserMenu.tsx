@@ -23,6 +23,7 @@ interface UserMenuProps {
 
 const UserMenu = ({ isCollapsed }: UserMenuProps) => {
   const { data: account } = useApiQuery(apiClient.account.get);
+
   const { mutate: signOut } = useApiMutation(apiClient.account.signOut, {
     onSuccess: () => {
       queryClient.setQueryData([apiClient.account.get.path], null);

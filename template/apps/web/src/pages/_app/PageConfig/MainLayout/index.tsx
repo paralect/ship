@@ -3,6 +3,8 @@ import { useApiQuery } from 'hooks';
 
 import { apiClient } from 'services/api-client.service';
 
+import Navbar from './Navbar';
+
 interface MainLayoutProps {
   children: ReactElement;
 }
@@ -13,7 +15,8 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   if (!account) return null;
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-muted/40">
+    <div className="flex h-screen overflow-hidden bg-muted/40">
+      <Navbar />
       <main className="flex-1 overflow-hidden">{children}</main>
     </div>
   );
