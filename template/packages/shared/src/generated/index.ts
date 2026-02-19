@@ -59,6 +59,10 @@ export const schemas = {
     sendMessage: z.object({
       content: z.string().min(1),
     }),
+    sendMessageStreamResponse: z.object({
+      type: z.literal("done"),
+      messageId: z.string(),
+    }),
   },
   users: {
     list: paginationSchema.extend({
@@ -133,6 +137,9 @@ export interface AccountSignUpResponse {
 }
 export type AccountUpdateResponse = z.infer<typeof userPublicSchema>;
 export type ChatsCreateResponse = z.infer<typeof chatSchema>;
+export type ChatsSendMessageStreamResponse = z.infer<
+  typeof schemas.chats.sendMessageStreamResponse
+>;
 export type ChatsGetMessagesResponse = z.infer<typeof messageSchema>[];
 export type ChatsListResponse = z.infer<typeof chatSchema>[];
 export type UsersListResponse = z.infer<
@@ -283,6 +290,7 @@ function createChatsEndpoints(client: ApiClient) {
       method: "post" as const,
       path: "/chats/:chatId/messages" as const,
       schema: schemas.chats.sendMessage,
+      streamResponse: {} as ChatsSendMessageStreamResponse,
       call: (
         params: ChatsSendMessageParams,
         options: {

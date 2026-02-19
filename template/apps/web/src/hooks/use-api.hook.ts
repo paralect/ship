@@ -1,8 +1,11 @@
+import { useCallback, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { useForm, UseFormProps, UseFormReturn } from 'react-hook-form';
 import { ApiError } from 'shared';
 import { z, ZodType } from 'zod';
+
+import config from 'config';
 
 type InferParams<T> = T extends { schema: ZodType<infer P> } ? P : Record<string, never>;
 type InferPathParams<T> = T extends { call: (params: infer _P, options: infer O) => unknown }
@@ -11,6 +14,7 @@ type InferPathParams<T> = T extends { call: (params: infer _P, options: infer O)
     : undefined
   : undefined;
 type InferResponse<T> = T extends { call: (...args: never[]) => Promise<infer R> } ? R : unknown;
+type InferStreamResponse<T> = T extends { streamResponse: infer R } ? R : unknown;
 
 type RequestOptions<TPathParams> = TPathParams extends undefined
   ? { pathParams?: never; headers?: Record<string, string> }
@@ -21,6 +25,7 @@ type UseApiQueryOptions<TResponse> = Omit<UseQueryOptions<TResponse>, 'queryKey'
 interface ApiEndpoint {
   schema: ZodType | undefined;
   path: string;
+  streamResponse?: unknown;
   // eslint-disable-next-line ts/no-explicit-any
   call: (...args: any[]) => Promise<any>;
 }
@@ -65,6 +70,141 @@ export function useApiMutation<TEndpoint extends ApiEndpoint>(
       (callOptions ? endpoint.call(params, callOptions) : endpoint.call(params)) as Promise<InferResponse<TEndpoint>>,
     ...mutationOptions,
   }) as ReturnType<typeof useMutation<InferResponse<TEndpoint>, ApiError, InferParams<TEndpoint>>>;
+}
+
+interface StreamCallbacks<TDoneData = unknown> {
+  onToken?: (token: string) => void;
+  onDone?: (data: TDoneData) => void;
+  onError?: (error: string) => void;
+}
+
+type StreamMutateOptions<TPathParams, TDoneData> = StreamCallbacks<TDoneData> &
+  (TPathParams extends undefined ? { pathParams?: never } : { pathParams: TPathParams });
+
+interface UseApiStreamMutationReturn<TParams, TPathParams, TDoneData = unknown> {
+  mutate: (params: TParams, options?: StreamMutateOptions<TPathParams, TDoneData>) => void;
+  mutateAsync: (params: TParams, options?: StreamMutateOptions<TPathParams, TDoneData>) => Promise<void>;
+  isLoading: boolean;
+  reset: () => void;
+}
+
+export function useApiStreamMutation<TEndpoint extends ApiEndpoint>(
+  endpoint: TEndpoint,
+): UseApiStreamMutationReturn<InferParams<TEndpoint>, InferPathParams<TEndpoint>, InferStreamResponse<TEndpoint>> {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const buildUrl = useCallback(
+    (pathParams?: Record<string, string>) => {
+      let url = `${config.API_URL}${endpoint.path}`;
+      if (pathParams) {
+        Object.entries(pathParams).forEach(([key, value]) => {
+          url = url.replace(`:${key}`, value);
+        });
+      }
+      return url;
+    },
+    [endpoint.path],
+  );
+
+  const executeStream = useCallback(
+    async (
+      params: InferParams<TEndpoint>,
+      options?: StreamMutateOptions<InferPathParams<TEndpoint>, InferStreamResponse<TEndpoint>>,
+    ) => {
+      setIsLoading(true);
+
+      const { pathParams, onToken, onDone, onError } = (options ?? {}) as StreamCallbacks<
+        InferStreamResponse<TEndpoint>
+      > & {
+        pathParams?: Record<string, string>;
+      };
+
+      try {
+        const response = await fetch(buildUrl(pathParams), {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(params),
+        });
+
+        if (!response.ok) {
+          onError?.(`HTTP error! status: ${response.status}`);
+          setIsLoading(false);
+          return;
+        }
+
+        const reader = response.body?.getReader();
+        if (!reader) {
+          onError?.('No response body');
+          setIsLoading(false);
+          return;
+        }
+
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              try {
+                const data = JSON.parse(line.slice(6));
+
+                if (data.type === 'text') {
+                  onToken?.(data.content);
+                } else if (data.type === 'done') {
+                  onDone?.(data as InferStreamResponse<TEndpoint>);
+                  setIsLoading(false);
+                } else if (data.type === 'error') {
+                  onError?.(data.message);
+                  setIsLoading(false);
+                }
+              } catch {
+                // Ignore parse errors for incomplete chunks
+              }
+            }
+          }
+        }
+      } catch (error) {
+        const { onError } = (options ?? {}) as StreamCallbacks<InferStreamResponse<TEndpoint>>;
+        onError?.(error instanceof Error ? error.message : 'Stream failed');
+        setIsLoading(false);
+      }
+    },
+    [buildUrl],
+  );
+
+  const mutate = useCallback(
+    (
+      params: InferParams<TEndpoint>,
+      options?: StreamMutateOptions<InferPathParams<TEndpoint>, InferStreamResponse<TEndpoint>>,
+    ) => {
+      executeStream(params, options);
+    },
+    [executeStream],
+  );
+
+  const mutateAsync = useCallback(
+    async (
+      params: InferParams<TEndpoint>,
+      options?: StreamMutateOptions<InferPathParams<TEndpoint>, InferStreamResponse<TEndpoint>>,
+    ) => {
+      await executeStream(params, options);
+    },
+    [executeStream],
+  );
+
+  const reset = useCallback(() => {
+    setIsLoading(false);
+  }, []);
+
+  return { mutate, mutateAsync, isLoading, reset };
 }
 
 interface FormEndpoint {

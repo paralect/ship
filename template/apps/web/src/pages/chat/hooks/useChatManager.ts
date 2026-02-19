@@ -1,10 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useApiMutation, useApiQuery } from 'hooks/use-api.hook';
+import { useApiMutation, useApiQuery, useApiStreamMutation } from 'hooks/use-api.hook';
 import { Message } from 'shared';
 
 import { apiClient } from 'services/api-client.service';
-import { chatService } from 'services/chats/chat.service';
 
 interface UseChatManagerOptions {
   initialChatId?: string;
@@ -16,7 +15,6 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
   const [activeChatId, setActiveChatId] = useState<string | null>(initialChatId ?? null);
   const [messagesCache, setMessagesCache] = useState<Record<string, Message[]>>({});
   const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [streamingContent, setStreamingContent] = useState('');
   const streamingContentRef = useRef('');
 
@@ -25,6 +23,8 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
   const createChatMutation = useApiMutation(apiClient.chats.create, {
     onSuccess: () => refetchChats(),
   });
+
+  const sendMessageMutation = useApiStreamMutation(apiClient.chats.sendMessage);
 
   const activeMessages = activeChatId ? messagesCache[activeChatId] || [] : [];
 
@@ -99,24 +99,25 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
 
   const sendMessage = useCallback(
     async (chatId: string, content: string) => {
-      setIsLoading(true);
       streamingContentRef.current = '';
       setStreamingContent('');
 
-      try {
-        await chatService.sendMessage(chatId, content, {
+      sendMessageMutation.mutate(
+        { content },
+        {
+          pathParams: { chatId },
           onToken: (token) => {
             streamingContentRef.current += token;
             setStreamingContent(streamingContentRef.current);
           },
-          onDone: (messageId) => {
+          onDone: (data) => {
             const finalContent = streamingContentRef.current;
             setMessagesCache((prev) => ({
               ...prev,
               [chatId]: [
                 ...(prev[chatId] || []),
                 {
-                  _id: messageId,
+                  _id: data.messageId,
                   chatId,
                   role: 'assistant',
                   content: finalContent,
@@ -125,26 +126,21 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
             }));
             streamingContentRef.current = '';
             setStreamingContent('');
-            setIsLoading(false);
             refetchChats();
           },
           onError: (error) => {
             console.error('AI error:', error);
             streamingContentRef.current = '';
             setStreamingContent('');
-            setIsLoading(false);
           },
-        });
-      } catch (error) {
-        console.error('Failed to send message:', error);
-        setIsLoading(false);
-      }
+        },
+      );
     },
-    [refetchChats],
+    [sendMessageMutation, refetchChats],
   );
 
   const handleSubmit = useCallback(async () => {
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || sendMessageMutation.isLoading) return;
 
     let chatId = activeChatId;
 
@@ -158,7 +154,7 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
 
     addUserMessage(chatId, content);
     await sendMessage(chatId, content);
-  }, [input, isLoading, activeChatId, createChat, addUserMessage, sendMessage]);
+  }, [input, sendMessageMutation.isLoading, activeChatId, createChat, addUserMessage, sendMessage]);
 
   const resetChat = useCallback(() => {
     setActiveChatId(null);
@@ -189,7 +185,7 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
     activeMessages,
     displayMessages,
     input,
-    isLoading,
+    isLoading: sendMessageMutation.isLoading,
     streamingContent,
 
     // Setters
