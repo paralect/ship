@@ -1,6 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useApiMutation, useApiQuery } from 'hooks/use-api.hook';
+import { Message } from 'shared';
 
-import type { Chat, Message } from 'services/chats/chat.service';
+import { apiClient } from 'services/api-client.service';
 import { chatService } from 'services/chats/chat.service';
 
 interface UseChatManagerOptions {
@@ -9,47 +12,47 @@ interface UseChatManagerOptions {
 }
 
 export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerOptions = {}) => {
-  const [chats, setChats] = useState<Chat[]>([]);
+  const queryClient = useQueryClient();
   const [activeChatId, setActiveChatId] = useState<string | null>(initialChatId ?? null);
-  const [messages, setMessages] = useState<Record<string, Message[]>>({});
+  const [messagesCache, setMessagesCache] = useState<Record<string, Message[]>>({});
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [streamingContent, setStreamingContent] = useState('');
   const streamingContentRef = useRef('');
 
-  const activeMessages = activeChatId ? messages[activeChatId] || [] : [];
+  const { data: chats = [], refetch: refetchChats } = useApiQuery(apiClient.chats.list);
 
-  const loadChats = useCallback(async () => {
-    try {
-      const loadedChats = await chatService.list();
-      setChats(loadedChats);
-    } catch (error) {
-      console.error('Failed to load chats:', error);
-    }
-  }, []);
+  const createChatMutation = useApiMutation(apiClient.chats.create, {
+    onSuccess: () => refetchChats(),
+  });
+
+  const activeMessages = activeChatId ? messagesCache[activeChatId] || [] : [];
+
+  const loadChats = useCallback(() => {
+    refetchChats();
+  }, [refetchChats]);
 
   const loadMessages = useCallback(
     async (chatId: string) => {
-      if (messages[chatId]) return;
+      if (messagesCache[chatId]) return;
 
       try {
-        const loadedMessages = await chatService.getMessages(chatId);
-        setMessages((prev) => ({
+        const messages = await apiClient.chats.getMessages.call({}, { pathParams: { chatId } });
+        setMessagesCache((prev) => ({
           ...prev,
-          [chatId]: loadedMessages,
+          [chatId]: messages,
         }));
       } catch (error) {
         console.error('Failed to load messages:', error);
       }
     },
-    [messages],
+    [messagesCache],
   );
 
   const createChat = useCallback(async (): Promise<string | null> => {
     try {
-      const newChat = await chatService.create('New Chat');
-      setChats((prev) => [newChat, ...prev]);
-      setMessages((prev) => ({ ...prev, [newChat._id]: [] }));
+      const newChat = await createChatMutation.mutateAsync({ title: 'New Chat' });
+      setMessagesCache((prev) => ({ ...prev, [newChat._id]: [] }));
       setActiveChatId(newChat._id);
       onChatCreated?.(newChat._id);
       return newChat._id;
@@ -57,23 +60,26 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
       console.error('Failed to create chat:', error);
       return null;
     }
-  }, [onChatCreated]);
+  }, [createChatMutation, onChatCreated]);
 
-  const deleteChat = useCallback(async (chatId: string): Promise<boolean> => {
-    try {
-      await chatService.delete(chatId);
-      setChats((prev) => prev.filter((c) => c._id !== chatId));
-      setMessages((prev) => {
-        const newMessages = { ...prev };
-        delete newMessages[chatId];
-        return newMessages;
-      });
-      return true;
-    } catch (error) {
-      console.error('Failed to delete chat:', error);
-      return false;
-    }
-  }, []);
+  const deleteChat = useCallback(
+    async (chatId: string): Promise<boolean> => {
+      try {
+        await apiClient.chats.delete.call({}, { pathParams: { chatId } });
+        queryClient.invalidateQueries({ queryKey: [apiClient.chats.list.path] });
+        setMessagesCache((prev) => {
+          const newMessages = { ...prev };
+          delete newMessages[chatId];
+          return newMessages;
+        });
+        return true;
+      } catch (error) {
+        console.error('Failed to delete chat:', error);
+        return false;
+      }
+    },
+    [queryClient],
+  );
 
   const addUserMessage = useCallback((chatId: string, content: string): Message => {
     const userMessage: Message = {
@@ -83,7 +89,7 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
       content,
     };
 
-    setMessages((prev) => ({
+    setMessagesCache((prev) => ({
       ...prev,
       [chatId]: [...(prev[chatId] || []), userMessage],
     }));
@@ -105,7 +111,7 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
           },
           onDone: (messageId) => {
             const finalContent = streamingContentRef.current;
-            setMessages((prev) => ({
+            setMessagesCache((prev) => ({
               ...prev,
               [chatId]: [
                 ...(prev[chatId] || []),
@@ -120,7 +126,7 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
             streamingContentRef.current = '';
             setStreamingContent('');
             setIsLoading(false);
-            loadChats();
+            refetchChats();
           },
           onError: (error) => {
             console.error('AI error:', error);
@@ -134,7 +140,7 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
         setIsLoading(false);
       }
     },
-    [loadChats],
+    [refetchChats],
   );
 
   const handleSubmit = useCallback(async () => {
