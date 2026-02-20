@@ -3,7 +3,7 @@ import { userService } from 'resources/user';
 
 import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
 import { authService } from 'services';
-import { securityUtil } from 'utils';
+import { clientUtil, securityUtil } from 'utils';
 
 import { signInSchema } from 'schemas';
 import { AppKoaContext, AppRouter, Next, SignInParams, TokenType, User } from 'types';
@@ -48,8 +48,17 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { user } = ctx.validatedData;
+  const clientType = clientUtil.detectClientType(ctx);
 
-  await authService.setAccessToken({ ctx, userId: user._id });
+  const accessToken = await authService.setAccessToken({ ctx, userId: user._id });
+
+  if (clientType === clientUtil.ClientType.MOBILE) {
+    ctx.body = {
+      accessToken,
+      user: userService.getPublic(user),
+    };
+    return;
+  }
 
   ctx.body = userService.getPublic(user);
 }

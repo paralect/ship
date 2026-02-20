@@ -3,7 +3,7 @@ import { userService } from 'resources/user';
 
 import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
 import { emailService } from 'services';
-import { securityUtil } from 'utils';
+import { clientUtil, securityUtil } from 'utils';
 
 import config from 'config';
 
@@ -25,6 +25,7 @@ async function validator(ctx: AppKoaContext<SignUpParams>, next: Next) {
 
 async function handler(ctx: AppKoaContext<SignUpParams>) {
   const { firstName, lastName, email, password } = ctx.validatedData;
+  const clientType = clientUtil.detectClientType(ctx);
 
   const user = await userService.insertOne({
     email,
@@ -49,6 +50,14 @@ async function handler(ctx: AppKoaContext<SignUpParams>) {
       href: `${config.API_URL}/account/verify-email?token=${emailVerificationToken}`,
     },
   });
+
+  if (clientType === clientUtil.ClientType.MOBILE) {
+    ctx.body = {
+      emailVerificationToken: config.IS_DEV ? emailVerificationToken : undefined,
+      user: userService.getPublic(user),
+    };
+    return;
+  }
 
   if (config.IS_DEV) {
     ctx.body = { emailVerificationToken };

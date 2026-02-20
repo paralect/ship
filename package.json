@@ -1,7 +1,11 @@
 {
   "name": "ship",
   "version": "1.0.0",
-  "keywords": ["ship", "next", "koa"],
+  "keywords": [
+    "ship",
+    "next",
+    "koa"
+  ],
   "author": "Ship Team <ship@paralect.com>",
   "license": "MIT",
   "scripts": {

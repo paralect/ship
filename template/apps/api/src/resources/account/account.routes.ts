@@ -3,6 +3,7 @@ import { routeUtil } from 'utils';
 import forgotPassword from './actions/forgot-password';
 import get from './actions/get';
 import google from './actions/google';
+import googleMobile from './actions/google-mobile';
 import resendEmail from './actions/resend-email';
 import resetPassword from './actions/reset-password';
 import signIn from './actions/sign-in';
@@ -22,6 +23,7 @@ const publicRoutes = routeUtil.getRoutes([
   verifyResetToken,
   resendEmail,
   google,
+  googleMobile,
 ]);
 
 const privateRoutes = routeUtil.getRoutes([get, update]);
