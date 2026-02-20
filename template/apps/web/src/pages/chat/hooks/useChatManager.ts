@@ -14,6 +14,7 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
   const queryClient = useQueryClient();
   const [activeChatId, setActiveChatId] = useState<string | null>(initialChatId ?? null);
   const [messagesCache, setMessagesCache] = useState<Record<string, Message[]>>({});
+  const [isLoadingMessages, setIsLoadingMessages] = useState(false);
   const [input, setInput] = useState('');
   const [streamingContent, setStreamingContent] = useState('');
   const streamingContentRef = useRef('');
@@ -36,6 +37,7 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
     async (chatId: string) => {
       if (messagesCache[chatId]) return;
 
+      setIsLoadingMessages(true);
       try {
         const messages = await apiClient.chats.getMessages.call({}, { pathParams: { chatId } });
         setMessagesCache((prev) => ({
@@ -44,6 +46,8 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
         }));
       } catch (error) {
         console.error('Failed to load messages:', error);
+      } finally {
+        setIsLoadingMessages(false);
       }
     },
     [messagesCache],
@@ -186,6 +190,7 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
     displayMessages,
     input,
     isLoading: sendMessageMutation.isLoading,
+    isLoadingMessages,
     streamingContent,
 
     // Setters

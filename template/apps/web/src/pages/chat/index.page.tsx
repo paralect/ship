@@ -9,12 +9,13 @@ interface ChatPageProps {
 }
 
 const ChatPage: FC<ChatPageProps> = ({ chatId: initialChatId }) => {
-  const { activeChatId, displayMessages, input, isLoading, setInput, loadMessages, handleSubmit } = useChatManager({
-    initialChatId,
-    onChatCreated: (chatId) => {
-      window.history.replaceState(null, '', `/chat/${chatId}`);
-    },
-  });
+  const { activeChatId, displayMessages, input, isLoading, isLoadingMessages, setInput, loadMessages, handleSubmit } =
+    useChatManager({
+      initialChatId,
+      onChatCreated: (chatId) => {
+        window.history.replaceState(null, '', `/chat/${chatId}`);
+      },
+    });
 
   useEffect(() => {
     if (activeChatId) {
@@ -29,13 +30,14 @@ const ChatPage: FC<ChatPageProps> = ({ chatId: initialChatId }) => {
       </Head>
 
       <div className="flex h-full">
-        <div className="flex-1 p-4">
+        <div className="flex-1">
           <ChatBox
             messages={displayMessages.map((m) => ({ id: m._id, role: m.role, content: m.content }))}
             input={input}
             onInputChange={setInput}
             onSubmit={handleSubmit}
             isLoading={isLoading}
+            isLoadingMessages={isLoadingMessages && !!initialChatId}
           />
         </div>
       </div>

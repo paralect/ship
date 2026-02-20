@@ -1,8 +1,8 @@
-import { Send } from 'lucide-react';
-import type { ChangeEvent, KeyboardEvent } from 'react';
+import { ArrowUp } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { PromptInput, PromptInputAction, PromptInputActions, PromptInputTextarea } from '@/components/ui/prompt-input';
+import { cn } from '@/lib/utils';
 
 interface ChatInputProps {
   value: string;
@@ -10,38 +10,55 @@ interface ChatInputProps {
   onSubmit: () => void;
   isLoading?: boolean;
   placeholder?: string;
+  isCentered?: boolean;
 }
 
-const ChatInput = ({ value, onChange, onSubmit, isLoading, placeholder = 'Type a message...' }: ChatInputProps) => {
-  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      if (value.trim() && !isLoading) {
-        onSubmit();
-      }
+const ChatInput = ({
+  value,
+  onChange,
+  onSubmit,
+  isLoading,
+  placeholder = 'Ask anything...',
+  isCentered = false,
+}: ChatInputProps) => {
+  const handleSubmit = () => {
+    if (value.trim() && !isLoading) {
+      onSubmit();
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    onChange(e.target.value);
-  };
-
   return (
-    <div className="border-t bg-background px-4 py-4">
-      <div className="mx-auto flex max-w-3xl gap-2">
-        <Textarea
-          value={value}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          disabled={isLoading}
-          className="max-h-32 min-h-10 resize-none"
-          rows={1}
-        />
+    <div className={cn('flex w-full items-center justify-center px-4', !isCentered && 'py-4')}>
+      <div className={cn('w-full max-w-2xl', isCentered && 'flex flex-col items-center gap-4')}>
+        {isCentered && (
+          <div className="text-center">
+            <h1 className="text-2xl font-semibold">What can I help with?</h1>
+          </div>
+        )}
 
-        <Button onClick={onSubmit} disabled={!value.trim() || isLoading} size="icon" className="shrink-0">
-          <Send className="size-4" />
-        </Button>
+        <PromptInput
+          value={value}
+          onValueChange={onChange}
+          isLoading={isLoading}
+          onSubmit={handleSubmit}
+          className={cn('w-full', isCentered && 'min-h-[120px]')}
+        >
+          <PromptInputTextarea placeholder={placeholder} className={cn(isCentered && 'min-h-[80px]')} />
+          <PromptInputActions className="justify-end px-2 pb-2">
+            <PromptInputAction tooltip="Send message">
+              <Button
+                onClick={handleSubmit}
+                disabled={!value.trim() || isLoading}
+                size="icon"
+                className="size-8 shrink-0 rounded-full"
+              >
+                <ArrowUp className="size-4" />
+              </Button>
+            </PromptInputAction>
+          </PromptInputActions>
+        </PromptInput>
+
+        {isCentered && <p className="text-xs text-muted-foreground">Press Enter to send, Shift+Enter for new line</p>}
       </div>
     </div>
   );

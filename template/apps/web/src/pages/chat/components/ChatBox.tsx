@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { MessageSquare } from 'lucide-react';
 
 import ChatInput from './ChatInput';
 import type { Message } from './ChatMessage';
 import ChatMessage from './ChatMessage';
+import MessageSkeleton from './MessageSkeleton';
 
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -13,29 +13,32 @@ interface ChatBoxProps {
   onInputChange: (value: string) => void;
   onSubmit: () => void;
   isLoading?: boolean;
+  isLoadingMessages?: boolean;
 }
 
-const ChatBox = ({ messages, input, onInputChange, onSubmit, isLoading }: ChatBoxProps) => {
+const ChatBox = ({ messages, input, onInputChange, onSubmit, isLoading, isLoadingMessages }: ChatBoxProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const isEmpty = messages.length === 0 && !isLoadingMessages;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
+  if (isEmpty) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center bg-background">
+        <ChatInput value={input} onChange={onInputChange} onSubmit={onSubmit} isLoading={isLoading} isCentered />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex h-full flex-col rounded-lg border bg-background">
+    <div className="flex h-full flex-col bg-background">
       <div className="flex-1 overflow-hidden">
         <ScrollArea className="h-full">
           <div className="mx-auto max-w-3xl px-4 py-4">
-            {messages.length === 0 ? (
-              <div className="flex min-h-[400px] flex-col items-center justify-center gap-4 text-muted-foreground">
-                <MessageSquare className="size-12" />
-
-                <div className="text-center">
-                  <p className="text-lg font-medium">No messages yet</p>
-                  <p className="text-sm">Start a conversation by typing a message below</p>
-                </div>
-              </div>
+            {isLoadingMessages ? (
+              <MessageSkeleton />
             ) : (
               <>
                 {messages.map((message) => (
