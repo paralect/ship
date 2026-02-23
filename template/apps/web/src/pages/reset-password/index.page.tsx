@@ -55,7 +55,7 @@ const ResetPassword: NextPage = () => {
 
   if (!token) {
     return (
-      <div className="flex w-[328px] flex-col gap-2">
+      <div className="flex w-full max-w-sm flex-col gap-2">
         <h2 className="mb-0 text-2xl font-semibold">Invalid token</h2>
         <p className="m-0 text-muted-foreground">Sorry, your token is invalid.</p>
       </div>
@@ -69,7 +69,7 @@ const ResetPassword: NextPage = () => {
           <title>Reset Password</title>
         </Head>
 
-        <div className="flex w-[328px] flex-col gap-4">
+        <div className="flex w-full max-w-sm flex-col gap-4">
           <h2 className="text-2xl font-semibold">Password has been updated</h2>
 
           <p className="mt-0 text-muted-foreground">
@@ -88,7 +88,7 @@ const ResetPassword: NextPage = () => {
         <title>Reset Password</title>
       </Head>
 
-      <div className="flex w-[328px] flex-col gap-4">
+      <div className="flex w-full max-w-sm flex-col gap-4">
         <h2 className="text-2xl font-semibold">Reset Password</h2>
 
         <p className="mt-0 text-muted-foreground">Please choose your new password</p>

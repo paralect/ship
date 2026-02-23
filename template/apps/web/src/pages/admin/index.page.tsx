@@ -49,23 +49,25 @@ const Admin: NextPage = () => {
         <title>Admin</title>
       </Head>
 
-      <div className="flex flex-col gap-6 p-6">
-        <h2 className="text-2xl font-semibold">Users</h2>
+      <div className="flex flex-col gap-4 p-4 sm:gap-6 sm:p-6">
+        <h2 className="text-xl font-semibold sm:text-2xl">Users</h2>
 
         <Filters setParams={setParams} />
 
-        <Table<User>
-          data={users?.results}
-          totalCount={users?.count}
-          pageCount={users?.pagesCount}
-          page={DEFAULT_PAGE}
-          perPage={PER_PAGE}
-          columns={COLUMNS}
-          isLoading={isUserListLoading}
-          onPageChange={(page) => setParams({ page })}
-          onSortingChange={onSortingChange}
-          onRowClick={onRowClick}
-        />
+        <div className="overflow-x-auto">
+          <Table<User>
+            data={users?.results}
+            totalCount={users?.count}
+            pageCount={users?.pagesCount}
+            page={DEFAULT_PAGE}
+            perPage={PER_PAGE}
+            columns={COLUMNS}
+            isLoading={isUserListLoading}
+            onPageChange={(page) => setParams({ page })}
+            onSortingChange={onSortingChange}
+            onRowClick={onRowClick}
+          />
+        </div>
       </div>
     </>
   );

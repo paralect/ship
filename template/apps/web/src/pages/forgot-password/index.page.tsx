@@ -46,7 +46,7 @@ const ForgotPassword: NextPage = () => {
           <title>Forgot password</title>
         </Head>
 
-        <div className="flex w-[328px] flex-col gap-4">
+        <div className="flex w-full max-w-sm flex-col gap-4">
           <h2 className="text-2xl font-semibold">Reset link has been sent</h2>
 
           <p className="text-muted-foreground">
@@ -67,7 +67,7 @@ const ForgotPassword: NextPage = () => {
         <title>Forgot password</title>
       </Head>
 
-      <div className="flex w-[400px] flex-col gap-6 text-lg">
+      <div className="flex w-full max-w-md flex-col gap-6 text-lg">
         <h1 className="text-3xl font-bold">Forgot Password</h1>
 
         <p className="m-0 text-muted-foreground">

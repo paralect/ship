@@ -56,8 +56,8 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-4">
-      <div className="flex flex-wrap items-center gap-4">
-        <div className="relative w-[350px]">
+      <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+        <div className="relative w-full sm:w-[350px]">
           <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
           <Input
@@ -80,45 +80,52 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
           )}
         </div>
 
-        <Select value={sortBy} onValueChange={handleSort}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue />
-          </SelectTrigger>
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-4">
+          <Select value={sortBy} onValueChange={handleSort}>
+            <SelectTrigger className="w-full sm:w-[200px]">
+              <SelectValue />
+            </SelectTrigger>
 
-          <SelectContent>
-            {selectOptions.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <SelectContent>
+              {selectOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn('w-[280px] justify-start text-left font-normal', !filterDate && 'text-muted-foreground')}
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {filterDate?.from ? (
-                filterDate.to ? (
-                  <>
-                    {format(filterDate.from, 'LLL dd, y')} - {format(filterDate.to, 'LLL dd, y')}
-                  </>
-                ) : (
-                  format(filterDate.from, 'LLL dd, y')
-                )
-              ) : (
-                <span>Pick a date range</span>
-              )}
-            </Button>
-          </PopoverTrigger>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  'w-full justify-start text-left font-normal sm:w-[280px]',
+                  !filterDate && 'text-muted-foreground',
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
+                <span className="truncate">
+                  {filterDate?.from ? (
+                    filterDate.to ? (
+                      <>
+                        {format(filterDate.from, 'LLL dd, y')} - {format(filterDate.to, 'LLL dd, y')}
+                      </>
+                    ) : (
+                      format(filterDate.from, 'LLL dd, y')
+                    )
+                  ) : (
+                    'Pick a date range'
+                  )}
+                </span>
+              </Button>
+            </PopoverTrigger>
 
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar mode="range" selected={filterDate} onSelect={handleFilter} numberOfMonths={1} initialFocus />
-          </PopoverContent>
-        </Popover>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar mode="range" selected={filterDate} onSelect={handleFilter} numberOfMonths={1} initialFocus />
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
     </div>
   );

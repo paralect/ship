@@ -31,8 +31,8 @@ const ChatInput = ({
     <div className={cn('flex w-full items-center justify-center px-4', !isCentered && 'py-4')}>
       <div className={cn('w-full max-w-2xl', isCentered && 'flex flex-col items-center gap-4')}>
         {isCentered && (
-          <div className="text-center">
-            <h1 className="text-2xl font-semibold">What can I help with?</h1>
+          <div className="text-center px-4">
+            <h1 className="text-xl font-semibold sm:text-2xl">What can I help with?</h1>
           </div>
         )}
 
@@ -43,7 +43,7 @@ const ChatInput = ({
           onSubmit={handleSubmit}
           className={cn('w-full', isCentered && 'min-h-[120px]')}
         >
-          <PromptInputTextarea placeholder={placeholder} className={cn(isCentered && 'min-h-[80px]')} />
+          <PromptInputTextarea autoFocus placeholder={placeholder} className={cn(isCentered && 'min-h-[80px]')} />
           <PromptInputActions className="justify-end px-2 pb-2">
             <PromptInputAction tooltip="Send message">
               <Button

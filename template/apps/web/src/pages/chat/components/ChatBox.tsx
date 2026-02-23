@@ -18,10 +18,22 @@ interface ChatBoxProps {
 
 const ChatBox = ({ messages, input, onInputChange, onSubmit, isLoading, isLoadingMessages }: ChatBoxProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const isInitialLoad = useRef(true);
+  const prevMessagesLength = useRef(0);
   const isEmpty = messages.length === 0 && !isLoadingMessages;
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messages.length === 0) return;
+
+    const isNewMessagesAdded = messages.length > prevMessagesLength.current;
+    const behavior = isInitialLoad.current ? 'instant' : 'smooth';
+
+    messagesEndRef.current?.scrollIntoView({ behavior: isNewMessagesAdded || isLoading ? behavior : 'instant' });
+
+    if (isInitialLoad.current && messages.length > 0) {
+      isInitialLoad.current = false;
+    }
+    prevMessagesLength.current = messages.length;
   }, [messages, isLoading]);
 
   if (isEmpty) {
