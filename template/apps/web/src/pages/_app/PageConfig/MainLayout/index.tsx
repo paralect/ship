@@ -1,7 +1,7 @@
 import { FC, ReactElement, useState } from 'react';
 import Link from 'next/link';
 import { useApiQuery } from 'hooks';
-import { Menu } from 'lucide-react';
+import { PanelLeft, SquarePen } from 'lucide-react';
 
 import { LogoImage } from 'public/images';
 
@@ -29,14 +29,10 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-muted/40 md:flex-row">
       <header className="flex h-14 items-center justify-between border-b bg-background px-4 md:hidden">
-        <Link href={RoutePath.Home}>
-          <LogoImage className="h-6" />
-        </Link>
-
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
-              <Menu className="size-5" />
+              <PanelLeft className="size-5" />
             </Button>
           </SheetTrigger>
 
@@ -58,6 +54,12 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
             <UserMenu isCollapsed={false} />
           </SheetContent>
         </Sheet>
+
+        <Link href={RoutePath.ChatIndex}>
+          <Button variant="ghost" size="icon">
+            <SquarePen className="size-5" />
+          </Button>
+        </Link>
       </header>
 
       <div className="hidden md:block">
