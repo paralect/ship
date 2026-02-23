@@ -55,7 +55,7 @@ const ChatInput = ({
           onSubmit={handleSubmit}
           className={cn('w-full', isCentered && 'min-h-[120px]')}
         >
-          <PromptInputTextarea placeholder={placeholder} className={cn(isCentered && 'min-h-[80px]')} />
+          <PromptInputTextarea autoFocus placeholder={placeholder} className={cn(isCentered && 'min-h-[80px]')} />
           <PromptInputActions className="justify-end px-2 pb-2">
             <PromptInputAction tooltip="Send message">
               <Button
