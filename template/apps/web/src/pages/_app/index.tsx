@@ -12,6 +12,7 @@ import PageConfig from './PageConfig';
 
 import 'globals.css';
 
+import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
@@ -23,18 +24,20 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
       <title>Ship</title>
     </Head>
 
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <PageConfig>
-          <Component {...pageProps} />
-        </PageConfig>
-      </TooltipProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <PageConfig>
+            <Component {...pageProps} />
+          </PageConfig>
+        </TooltipProvider>
 
-      <GlobalErrorHandler />
+        <GlobalErrorHandler />
 
-      <Toaster richColors position="top-right" />
-      <ReactQueryDevtools buttonPosition="bottom-left" />
-    </QueryClientProvider>
+        <Toaster richColors position="top-right" />
+        <ReactQueryDevtools buttonPosition="bottom-left" />
+      </QueryClientProvider>
+    </ThemeProvider>
   </div>
 );
 

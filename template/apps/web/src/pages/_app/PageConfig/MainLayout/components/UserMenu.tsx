@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 import { useApiMutation, useApiQuery } from 'hooks';
-import { LogOut, User } from 'lucide-react';
+import { LogOut, Moon, Sun, User } from 'lucide-react';
 
 import { apiClient } from 'services/api-client.service';
 
@@ -23,6 +24,7 @@ interface UserMenuProps {
 
 const UserMenu = ({ isCollapsed }: UserMenuProps) => {
   const { data: account } = useApiQuery(apiClient.account.get);
+  const { theme, setTheme } = useTheme();
 
   const { mutate: signOut } = useApiMutation(apiClient.account.signOut, {
     onSuccess: () => {
@@ -59,6 +61,11 @@ const UserMenu = ({ isCollapsed }: UserMenuProps) => {
               <User className="mr-2 size-4" />
               Profile settings
             </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+            {theme === 'dark' ? <Sun className="mr-2 size-4" /> : <Moon className="mr-2 size-4" />}
+            {theme === 'dark' ? 'Light mode' : 'Dark mode'}
           </DropdownMenuItem>
 
           <DropdownMenuItem onClick={() => signOut({})}>

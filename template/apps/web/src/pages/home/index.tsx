@@ -20,11 +20,11 @@ const Home = () => {
 
       <div className="flex h-full items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900">
+          <h1 className="text-4xl font-bold text-foreground">
             Welcome back{account?.firstName ? `, ${account.firstName}` : ''}!
           </h1>
 
-          <p className="mt-4 text-lg text-gray-600">Ready to start a conversation? Head over to the chat.</p>
+          <p className="mt-4 text-lg text-muted-foreground">Ready to start a conversation? Head over to the chat.</p>
 
           <Button asChild className="mt-6">
             <Link href={RoutePath.ChatIndex}>
