@@ -50,6 +50,7 @@
     "node-schedule": "2.1.1",
     "resend": "4.5.2",
     "socket.io": "4.8.1",
+    "stripe": "20.3.1",
     "tldts": "7.0.8",
     "winston": "3.17.0",
     "zod": "catalog:"
