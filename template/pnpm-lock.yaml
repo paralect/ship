@@ -156,6 +156,9 @@ importers:
       resend:
         specifier: 4.5.2
         version: 4.5.2(react-dom@19.0.3(react@19.0.3))(react@19.0.3)
+      shared:
+        specifier: workspace:*
+        version: link:../../packages/shared
       socket.io:
         specifier: 4.8.1
         version: 4.8.1

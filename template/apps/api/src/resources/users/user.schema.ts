@@ -1,3 +1,4 @@
+import { subscriptionSchema } from 'shared';
 import { z } from 'zod';
 
 import { dbSchema, emailSchema } from '../base.schema';
@@ -25,6 +26,9 @@ export const userSchema = dbSchema.extend({
     .optional(),
 
   lastRequest: z.date().optional(),
+
+  stripeId: z.string().optional().nullable(),
+  subscription: subscriptionSchema.optional().nullable(),
 });
 
 export type User = z.infer<typeof userSchema>;
