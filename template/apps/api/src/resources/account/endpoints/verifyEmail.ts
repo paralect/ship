@@ -6,7 +6,7 @@ import { userService } from 'resources/users';
 
 import isPublic from 'middlewares/isPublic';
 import rateLimitMiddleware from 'middlewares/rateLimit';
-import { authService, emailService } from 'services';
+import { authService, emailService, stripeService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
 
 import config from 'config';
@@ -44,6 +44,10 @@ export default createEndpoint({
       await tokenService.invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
 
       await userService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }));
+
+      if (!user.stripeId) {
+        await stripeService.createCustomer(user);
+      }
 
       await authService.setAccessToken({ ctx, userId: user._id });
 

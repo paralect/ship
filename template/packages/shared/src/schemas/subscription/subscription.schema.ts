@@ -18,7 +18,6 @@ export const subscriptionSchema = z.object({
   pendingInvoice: z
     .object({
       subtotal: z.number(),
-      tax: z.number().nullable().optional(),
       total: z.number(),
       amountDue: z.number(),
       status: z.string(),
