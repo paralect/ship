@@ -38,6 +38,7 @@
     "ioredis": "5.6.1",
     "koa": "3.0.3",
     "koa-body": "6.0.1",
+    "koa-bodyparser": "4.4.1",
     "koa-compose": "4.1.0",
     "koa-helmet": "8.0.1",
     "koa-logger": "4.0.0",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@types/koa": "2.15.0",
+    "@types/koa-bodyparser": "4.3.13",
     "@types/koa-compose": "3.2.8",
     "@types/koa-logger": "3.1.5",
     "@types/koa-mount": "4.0.5",
