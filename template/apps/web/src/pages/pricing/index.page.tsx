@@ -61,19 +61,13 @@ const Pricing = () => {
   );
 
   useEffect(() => {
-    if (success) {
-      toast.success('Subscription successful! Welcome aboard.');
-      refetchSubscription();
-      router.replace(RoutePath.Pricing);
-    }
-    if (canceled) {
-      toast.info('Checkout was canceled.');
-      router.replace(RoutePath.Pricing);
-    }
-    if (portal) {
-      refetchSubscription();
-      router.replace(RoutePath.Pricing);
-    }
+    if (!success && !canceled && !portal) return;
+
+    if (success) toast.success('Subscription successful! Welcome aboard.');
+    if (canceled) toast.info('Checkout was canceled.');
+    if (success || portal) refetchSubscription();
+
+    router.replace(RoutePath.Pricing);
   }, [success, canceled, portal, router, refetchSubscription]);
 
   const currentPriceId = subscription?.priceId;
@@ -105,84 +99,45 @@ const Pricing = () => {
     const isDowngrade = hasSubscription && targetPlanIndex < currentPlanIndex;
     const isPending = isSubscribePending || isUpgradePending;
 
-    if (!plan.priceId && isCanceled) {
-      return (
-        <Button variant="outline" disabled className="w-full">
-          Starting {periodEndDate}
-        </Button>
-      );
+    interface ButtonConfig {
+      label: string;
+      disabled?: boolean;
+      onClick?: () => void;
+      loading?: boolean;
+      outline?: boolean;
     }
 
-    if (isFreeAndNoSubscription) {
-      return (
-        <Button variant="outline" disabled className="w-full">
-          Current Plan
-        </Button>
-      );
-    }
+    const config: ButtonConfig = (() => {
+      if (!plan.priceId && isCanceled) return { label: `Starting ${periodEndDate}`, disabled: true };
+      if (isFreeAndNoSubscription) return { label: 'Current Plan', disabled: true };
+      if (isCurrentPlan && isCanceled) return { label: `Until ${periodEndDate}`, disabled: true };
+      if (isCurrentPlan) return { label: 'Current Plan', disabled: true };
 
-    if (isCurrentPlan && isCanceled) {
-      return (
-        <Button variant="outline" disabled className="w-full">
-          Until {periodEndDate}
-        </Button>
-      );
-    }
+      if (isCanceled && plan.priceId)
+        return { label: 'Resubscribe', onClick: () => createPortalSession({}), loading: isPortalPending };
+      if (isDowngrade && !plan.priceId)
+        return { label: 'Downgrade', onClick: () => createPortalSession({}), loading: isPortalPending, outline: true };
 
-    if (isCurrentPlan) {
-      return (
-        <Button variant="outline" disabled className="w-full">
-          Current Plan
-        </Button>
-      );
-    }
+      if (isDowngrade)
+        return { label: 'Downgrade', onClick: () => handlePlanAction(plan.priceId), loading: isPending, outline: true };
+      return {
+        label: hasSubscription ? 'Upgrade' : 'Subscribe',
+        onClick: () => handlePlanAction(plan.priceId),
+        loading: isPending,
+      };
+    })();
 
-    if (isCanceled && plan.priceId) {
-      return (
-        <Button
-          onClick={() => createPortalSession({})}
-          disabled={isPortalPending}
-          variant={plan.popular ? 'default' : 'outline'}
-          className="w-full"
-        >
-          {isPortalPending ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
-          Resubscribe
-        </Button>
-      );
-    }
-
-    if (isDowngrade && !plan.priceId) {
-      return (
-        <Button variant="outline" onClick={() => createPortalSession({})} disabled={isPortalPending} className="w-full">
-          {isPortalPending ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
-          Downgrade
-        </Button>
-      );
-    }
-
-    if (isDowngrade && plan.priceId) {
-      return (
-        <Button
-          variant="outline"
-          onClick={() => handlePlanAction(plan.priceId)}
-          disabled={isPending}
-          className="w-full"
-        >
-          {isPending ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
-          Downgrade
-        </Button>
-      );
-    }
+    const showOutline = config.disabled || config.outline || !plan.popular;
 
     return (
       <Button
-        onClick={() => handlePlanAction(plan.priceId)}
-        disabled={isPending}
-        variant={plan.popular ? 'default' : 'outline'}
+        variant={showOutline ? 'outline' : 'default'}
+        disabled={config.disabled || config.loading}
+        onClick={config.onClick}
         className="w-full"
       >
-        {isPending ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
-        {hasSubscription ? 'Upgrade' : 'Subscribe'}
+        {config.loading && <Loader2 className="mr-2 size-4 animate-spin" />}
+        {config.label}
       </Button>
     );
   };
@@ -247,15 +202,6 @@ const Pricing = () => {
             </Card>
           ))}
         </div>
-
-        {hasSubscription && (
-          <div className="mt-8 text-center">
-            <Button variant="link" onClick={() => createPortalSession({})} disabled={isPortalPending}>
-              {isPortalPending ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
-              Manage Subscription
-            </Button>
-          </div>
-        )}
       </div>
     </>
   );

@@ -54,31 +54,12 @@ export default createEndpoint({
 
     const product = await stripeService.products.retrieve(user.subscription.productId);
 
-    let pendingInvoice = null;
-    try {
-      const invoice = await stripeService.invoices.createPreview({
-        subscription: user.subscription.subscriptionId,
-      });
-      pendingInvoice = {
-        subtotal: invoice.subtotal,
-        total: invoice.total,
-        amountDue: invoice.amount_due,
-        status: invoice.status || 'draft',
-        created: invoice.created,
-      };
-    } catch {
-      // No upcoming invoice (subscription may be canceled)
-    }
-
-    const result = {
+    return {
       ...user.subscription,
       product: {
         name: product.name,
         images: product.images,
       },
-      pendingInvoice,
     };
-
-    return result;
   },
 });

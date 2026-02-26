@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-import { userService } from 'resources/users';
-
 import { stripeService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
 
@@ -20,15 +18,10 @@ export default createEndpoint({
     const { user } = ctx.state;
     const { priceId } = ctx.validatedData;
 
-    let stripeId = user.stripeId;
+    const stripeId = user.stripeId || (await stripeService.createCustomer(user));
+
     if (!stripeId) {
-      const customer = await stripeService.customers.create({
-        email: user.email,
-        name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || undefined,
-        metadata: { userId: user._id },
-      });
-      stripeId = customer.id;
-      await userService.atomic.updateOne({ _id: user._id }, { $set: { stripeId } });
+      return ctx.throwError('Failed to create Stripe customer');
     }
 
     if (user.subscription) {
