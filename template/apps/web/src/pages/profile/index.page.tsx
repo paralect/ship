@@ -77,7 +77,7 @@ const Profile: NextPage = () => {
         <title>Profile</title>
       </Head>
 
-      <div className="mx-auto w-[408px] pt-12">
+      <div className="mx-auto w-full max-w-md px-4 pt-6 sm:pt-12">
         <div className="flex flex-col gap-8">
           <h1 className="text-3xl font-bold">Profile</h1>
 

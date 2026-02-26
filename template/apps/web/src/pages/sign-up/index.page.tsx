@@ -51,7 +51,7 @@ const SignUp: NextPage = () => {
           <title>Sign up</title>
         </Head>
 
-        <div className="w-[450px] space-y-4">
+        <div className="w-full max-w-md space-y-4">
           <h2 className="text-2xl font-bold">Thanks!</h2>
 
           <p className="text-muted-foreground">
@@ -85,7 +85,7 @@ const SignUp: NextPage = () => {
       </Head>
 
       <FormProvider {...methods}>
-        <div className="w-[400px] space-y-5">
+        <div className="w-full max-w-md space-y-5">
           <form onSubmit={onSubmit} className="space-y-8">
             <h1 className="text-3xl font-bold">Sign Up</h1>
 
