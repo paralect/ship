@@ -1,10 +1,8 @@
-import { Table } from '@mantine/core';
 import { flexRender, RowData } from '@tanstack/react-table';
-import cx from 'clsx';
 
 import { useTableContext } from 'contexts';
 
-import classes from './index.module.css';
+import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 interface TbodyProps<T> {
   onRowClick?: (value: T) => void;
@@ -18,21 +16,19 @@ const Tbody = <T extends RowData>({ onRowClick }: TbodyProps<T>) => {
   const { rows } = table.getRowModel();
 
   return (
-    <Table.Tbody>
+    <TableBody>
       {rows.map((row) => (
-        <Table.Tr
+        <TableRow
           key={row.id}
           onClick={() => onRowClick && onRowClick(row.original)}
-          className={cx({
-            [classes.tr]: !!onRowClick,
-          })}
+          className={onRowClick ? 'cursor-pointer' : ''}
         >
           {row.getVisibleCells().map((cell) => (
-            <Table.Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Table.Td>
+            <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
           ))}
-        </Table.Tr>
+        </TableRow>
       ))}
-    </Table.Tbody>
+    </TableBody>
   );
 };
 

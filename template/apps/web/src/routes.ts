@@ -11,6 +11,9 @@ export enum LayoutType {
 export enum RoutePath {
   // Private paths
   Home = '/',
+  Admin = '/admin',
+  ChatIndex = '/chat',
+  Chat = '/chat/[chatId]',
   Profile = '/profile',
 
   // Auth paths
@@ -32,6 +35,18 @@ type RoutesConfiguration = {
 export const routesConfiguration: RoutesConfiguration = {
   // Private routes
   [RoutePath.Home]: {
+    scope: ScopeType.PRIVATE,
+    layout: LayoutType.MAIN,
+  },
+  [RoutePath.Admin]: {
+    scope: ScopeType.PRIVATE,
+    layout: LayoutType.MAIN,
+  },
+  [RoutePath.ChatIndex]: {
+    scope: ScopeType.PRIVATE,
+    layout: LayoutType.MAIN,
+  },
+  [RoutePath.Chat]: {
     scope: ScopeType.PRIVATE,
     layout: LayoutType.MAIN,
   },

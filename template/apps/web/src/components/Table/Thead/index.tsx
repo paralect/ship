@@ -1,9 +1,11 @@
 import { FC } from 'react';
-import { Group, Table, UnstyledButton } from '@mantine/core';
-import { IconArrowsSort, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import { flexRender, SortDirection } from '@tanstack/react-table';
+import { ArrowUpDown, SortAsc, SortDesc } from 'lucide-react';
 
 import { useTableContext } from 'contexts';
+
+import { Button } from '@/components/ui/button';
+import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 interface SortIconProps {
   state: false | SortDirection;
@@ -14,11 +16,11 @@ const SortIcon: FC<SortIconProps> = ({ state }) => {
 
   switch (state) {
     case 'asc':
-      return <IconSortAscending size={iconSize} />;
+      return <SortAsc size={iconSize} />;
     case 'desc':
-      return <IconSortDescending size={iconSize} />;
+      return <SortDesc size={iconSize} />;
     case false:
-      return <IconArrowsSort size={iconSize} />;
+      return <ArrowUpDown size={iconSize} />;
     default:
       return null;
   }
@@ -32,36 +34,32 @@ const Thead = () => {
   const headerGroups = table.getHeaderGroups();
 
   return (
-    <Table.Thead>
+    <TableHeader>
       {headerGroups.map((headerGroup) => (
-        <Table.Tr key={headerGroup.id}>
+        <TableRow key={headerGroup.id}>
           {headerGroup.headers.map((header) => {
             const isSortable = header.column.getCanSort();
-
             const headerContent = flexRender(header.column.columnDef.header, header.getContext());
             const columnSize = header.column.columnDef.size;
             const columnWidth = columnSize ? `${columnSize}%` : 'auto';
 
             return (
-              <Table.Th key={header.id} colSpan={header.colSpan} style={{ width: columnWidth }}>
+              <TableHead key={header.id} colSpan={header.colSpan} style={{ width: columnWidth }}>
                 {!header.isPlaceholder &&
                   (isSortable ? (
-                    <UnstyledButton fz="inherit" onClick={header.column.getToggleSortingHandler()}>
-                      <Group gap={8}>
-                        {headerContent}
-
-                        <SortIcon state={header.column.getIsSorted()} />
-                      </Group>
-                    </UnstyledButton>
+                    <Button variant="ghost" onClick={header.column.getToggleSortingHandler()} className="-ml-4 gap-2">
+                      {headerContent}
+                      <SortIcon state={header.column.getIsSorted()} />
+                    </Button>
                   ) : (
                     headerContent
                   ))}
-              </Table.Th>
+              </TableHead>
             );
           })}
-        </Table.Tr>
+        </TableRow>
       ))}
-    </Table.Thead>
+    </TableHeader>
   );
 };
 

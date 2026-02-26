@@ -1,67 +1,41 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
-import { Stack, Title } from '@mantine/core';
-import { useSetState } from '@mantine/hooks';
-import { showNotification } from '@mantine/notifications';
-import { SortDirection } from '@tanstack/react-table';
-import { useApiQuery } from 'hooks';
-import { pick } from 'lodash';
-import { UsersListParams, UsersListResponse } from 'shared';
+import Link from 'next/link';
+import { useApiQuery } from 'hooks/use-api.hook';
+import { MessageSquare } from 'lucide-react';
 
-import { Table } from 'components';
+import { apiClient } from 'services/api-client.service';
 
-import { apiClient } from 'services';
+import { RoutePath } from 'routes';
 
-import Filters from './components/Filters';
-import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
+import { Button } from '@/components/ui/button';
 
-const Home: NextPage = () => {
-  const [params, setParams] = useSetState(DEFAULT_PARAMS);
-  const { data: users, isLoading: isUserListLoading } = useApiQuery(apiClient.users.list, params);
-
-  const onSortingChange = (sort: Record<string, SortDirection>) => {
-    setParams((prev: UsersListParams) => {
-      const combinedSort = { ...pick(prev.sort, EXTERNAL_SORT_FIELDS), ...sort };
-
-      return { sort: combinedSort };
-    });
-  };
-
-  // Get user type from the response
-  type User = UsersListResponse['results'][number];
-
-  const onRowClick = (user: User) => {
-    showNotification({
-      title: 'Success',
-      message: `You clicked on the row for the user with the email address ${user.email}.`,
-      color: 'green',
-    });
-  };
+const Home = () => {
+  const { data: account } = useApiQuery(apiClient.account.get);
 
   return (
     <>
       <Head>
-        <title>Users</title>
+        <title>Home</title>
       </Head>
 
-      <Stack gap="lg">
-        <Title order={2}>Users</Title>
+      <div className="flex h-full items-center justify-center px-4">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-foreground sm:text-4xl">
+            Welcome back{account?.firstName ? `, ${account.firstName}` : ''}!
+          </h1>
 
-        <Filters setParams={setParams} />
+          <p className="mt-4 text-base text-muted-foreground sm:text-lg">
+            Ready to start a conversation? Head over to the chat.
+          </p>
 
-        <Table<User>
-          data={users?.results}
-          totalCount={users?.count}
-          pageCount={users?.pagesCount}
-          page={DEFAULT_PAGE}
-          perPage={PER_PAGE}
-          columns={COLUMNS}
-          isLoading={isUserListLoading}
-          onPageChange={(page) => setParams({ page })}
-          onSortingChange={onSortingChange}
-          onRowClick={onRowClick}
-        />
-      </Stack>
+          <Button asChild className="mt-6">
+            <Link href={RoutePath.ChatIndex}>
+              <MessageSquare className="mr-2 size-4" />
+              Go to Chat
+            </Link>
+          </Button>
+        </div>
+      </div>
     </>
   );
 };
