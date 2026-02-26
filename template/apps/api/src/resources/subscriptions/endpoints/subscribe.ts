@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { userService } from 'resources/users';
+
 import { stripeService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
 
@@ -18,8 +20,15 @@ export default createEndpoint({
     const { user } = ctx.state;
     const { priceId } = ctx.validatedData;
 
-    if (!user.stripeId) {
-      return ctx.throwError('Stripe account not found. Please contact support.');
+    let stripeId = user.stripeId;
+    if (!stripeId) {
+      const customer = await stripeService.customers.create({
+        email: user.email,
+        name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || undefined,
+        metadata: { userId: user._id },
+      });
+      stripeId = customer.id;
+      await userService.atomic.updateOne({ _id: user._id }, { $set: { stripeId } });
     }
 
     if (user.subscription) {
@@ -28,7 +37,7 @@ export default createEndpoint({
 
     const session = await stripeService.checkout.sessions.create({
       mode: 'subscription',
-      customer: user.stripeId,
+      customer: stripeId,
       line_items: [
         {
           quantity: 1,

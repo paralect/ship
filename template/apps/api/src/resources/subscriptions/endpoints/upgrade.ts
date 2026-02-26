@@ -1,4 +1,7 @@
+import Stripe from 'stripe';
 import { z } from 'zod';
+
+import { userService } from 'resources/users';
 
 import { stripeService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
@@ -28,12 +31,13 @@ export default createEndpoint({
 
     if (priceId === 'free') {
       await stripeService.subscriptions.cancel(subscriptionId);
+      await userService.atomic.updateOne({ _id: user._id }, { $unset: { subscription: '' } });
       return { success: true, message: 'Subscription canceled' };
     }
 
-    const subscriptionDetails = await stripeService.subscriptions.retrieve(subscriptionId);
+    const subscriptionDetails = (await stripeService.subscriptions.retrieve(subscriptionId)) as Stripe.Subscription;
 
-    await stripeService.subscriptions.update(subscriptionId, {
+    const updatedStripeSubscription = (await stripeService.subscriptions.update(subscriptionId, {
       proration_behavior: 'always_invoice',
       cancel_at_period_end: false,
       items: [
@@ -42,7 +46,20 @@ export default createEndpoint({
           price: priceId,
         },
       ],
-    });
+    })) as Stripe.Subscription;
+
+    const updatedSubscription = {
+      ...user.subscription,
+      priceId: updatedStripeSubscription.items.data[0]?.price.id ?? priceId,
+      productId: updatedStripeSubscription.items.data[0]?.price.product as string,
+      status: updatedStripeSubscription.status,
+      cancelAtPeriodEnd: updatedStripeSubscription.cancel_at_period_end,
+      currentPeriodStartDate: (updatedStripeSubscription as unknown as { current_period_start: number })
+        .current_period_start,
+      currentPeriodEndDate: (updatedStripeSubscription as unknown as { current_period_end: number }).current_period_end,
+    };
+
+    await userService.atomic.updateOne({ _id: user._id }, { $set: { subscription: updatedSubscription } });
 
     return { success: true };
   },

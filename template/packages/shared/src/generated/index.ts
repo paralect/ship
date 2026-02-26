@@ -8,6 +8,7 @@ import {
   messageSchema,
   paginationSchema,
   passwordSchema,
+  subscriptionSchema,
   userPublicSchema,
   userSchema,
 } from "../schemas";
@@ -59,9 +60,16 @@ export const schemas = {
     sendMessage: z.object({
       content: z.string().min(1),
     }),
-    sendMessageStreamResponse: z.object({
-      type: z.literal("done"),
-      messageId: z.string(),
+  },
+  subscriptions: {
+    previewUpgrade: z.object({
+      priceId: z.string().min(1, "Price ID is required"),
+    }),
+    subscribe: z.object({
+      priceId: z.string().min(1, "Price ID is required"),
+    }),
+    upgrade: z.object({
+      priceId: z.string().min(1, "Price ID is required"),
     }),
   },
   users: {
@@ -86,6 +94,7 @@ export const schemas = {
     }),
     update: userSchema.pick({ firstName: true, lastName: true, email: true }),
   },
+  webhook: {},
 } as const;
 
 export interface ChatsDeletePathParams {
@@ -127,6 +136,15 @@ export type ChatsDeleteParams = z.infer<typeof schemas.chats.delete>;
 export type ChatsGetMessagesParams = z.infer<typeof schemas.chats.getMessages>;
 export type ChatsListParams = z.infer<typeof schemas.chats.list>;
 export type ChatsSendMessageParams = z.infer<typeof schemas.chats.sendMessage>;
+export type SubscriptionsPreviewUpgradeParams = z.infer<
+  typeof schemas.subscriptions.previewUpgrade
+>;
+export type SubscriptionsSubscribeParams = z.infer<
+  typeof schemas.subscriptions.subscribe
+>;
+export type SubscriptionsUpgradeParams = z.infer<
+  typeof schemas.subscriptions.upgrade
+>;
 export type UsersListParams = z.infer<typeof schemas.users.list>;
 export type UsersUpdateParams = z.infer<typeof schemas.users.update>;
 
@@ -137,15 +155,34 @@ export interface AccountSignUpResponse {
 }
 export type AccountUpdateResponse = z.infer<typeof userPublicSchema>;
 export type ChatsCreateResponse = z.infer<typeof chatSchema>;
-export type ChatsSendMessageStreamResponse = z.infer<
-  typeof schemas.chats.sendMessageStreamResponse
->;
 export type ChatsGetMessagesResponse = z.infer<typeof messageSchema>[];
 export type ChatsListResponse = z.infer<typeof chatSchema>[];
+export interface ChatsSendMessageStreamResponse {
+  type: "done";
+  messageId: string;
+}
 export type UsersListResponse = z.infer<
   ReturnType<typeof listResultSchema<typeof userPublicSchema>>
 >;
 export type UsersUpdateResponse = z.infer<typeof userPublicSchema>;
+export type SubscriptionsCurrentResponse = z.infer<
+  typeof subscriptionSchema
+> | null;
+export interface SubscriptionsSubscribeResponse {
+  checkoutUrl: string;
+}
+export interface SubscriptionsUpgradeResponse {
+  subscriptionId: string;
+}
+export interface SubscriptionsPreviewUpgradeResponse {
+  subtotal: number;
+  total: number;
+  amountDue: number;
+  prorationDate: number;
+}
+export interface SubscriptionsPortalResponse {
+  portalUrl: string;
+}
 
 function createAccountEndpoints(client: ApiClient) {
   return {
@@ -307,6 +344,61 @@ function createChatsEndpoints(client: ApiClient) {
   };
 }
 
+function createSubscriptionsEndpoints(client: ApiClient) {
+  return {
+    createPortalSession: {
+      method: "post" as const,
+      path: "/subscriptions/create-portal-session" as const,
+      schema: undefined,
+      call: (params?: Record<string, unknown>) =>
+        client.post<SubscriptionsPortalResponse>(
+          "/subscriptions/create-portal-session",
+          params,
+        ),
+    },
+    getCurrent: {
+      method: "get" as const,
+      path: "/subscriptions/current" as const,
+      schema: undefined,
+      call: (params?: Record<string, unknown>) =>
+        client.get<SubscriptionsCurrentResponse>(
+          "/subscriptions/current",
+          params,
+        ),
+    },
+    previewUpgrade: {
+      method: "get" as const,
+      path: "/subscriptions/preview-upgrade" as const,
+      schema: schemas.subscriptions.previewUpgrade,
+      call: (params: SubscriptionsPreviewUpgradeParams) =>
+        client.get<SubscriptionsPreviewUpgradeResponse>(
+          "/subscriptions/preview-upgrade",
+          params,
+        ),
+    },
+    subscribe: {
+      method: "post" as const,
+      path: "/subscriptions/subscribe" as const,
+      schema: schemas.subscriptions.subscribe,
+      call: (params: SubscriptionsSubscribeParams) =>
+        client.post<SubscriptionsSubscribeResponse>(
+          "/subscriptions/subscribe",
+          params,
+        ),
+    },
+    upgrade: {
+      method: "post" as const,
+      path: "/subscriptions/upgrade" as const,
+      schema: schemas.subscriptions.upgrade,
+      call: (params: SubscriptionsUpgradeParams) =>
+        client.post<SubscriptionsUpgradeResponse>(
+          "/subscriptions/upgrade",
+          params,
+        ),
+    },
+  };
+}
+
 function createUsersEndpoints(client: ApiClient) {
   return {
     list: {
@@ -353,11 +445,25 @@ function createUsersEndpoints(client: ApiClient) {
   };
 }
 
+function createWebhookEndpoints(client: ApiClient) {
+  return {
+    stripe: {
+      method: "post" as const,
+      path: "/webhook/stripe" as const,
+      schema: undefined,
+      call: (params?: Record<string, unknown>) =>
+        client.post<void>("/webhook/stripe", params),
+    },
+  };
+}
+
 export function createApiEndpoints(client: ApiClient) {
   return {
     account: createAccountEndpoints(client),
     chats: createChatsEndpoints(client),
+    subscriptions: createSubscriptionsEndpoints(client),
     users: createUsersEndpoints(client),
+    webhook: createWebhookEndpoints(client),
   };
 }
 

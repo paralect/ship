@@ -15,6 +15,7 @@ interface SubscriptionEventData {
   customer: string;
   status: Stripe.Subscription.Status;
   cancel_at_period_end: boolean;
+  cancel_at: number | null;
   current_period_start: number;
   current_period_end: number;
   plan: {
@@ -25,6 +26,8 @@ interface SubscriptionEventData {
 }
 
 const updateUserSubscription = async (data: SubscriptionEventData) => {
+  const isCanceled = data.cancel_at_period_end || data.cancel_at !== null;
+
   const subscription = {
     subscriptionId: data.id,
     priceId: data.plan.id,
@@ -33,7 +36,7 @@ const updateUserSubscription = async (data: SubscriptionEventData) => {
     interval: data.plan?.interval,
     currentPeriodStartDate: data.current_period_start,
     currentPeriodEndDate: data.current_period_end,
-    cancelAtPeriodEnd: data.cancel_at_period_end,
+    cancelAtPeriodEnd: isCanceled,
   };
 
   return userService.atomic.updateOne({ stripeId: data.customer }, { $set: { subscription } });

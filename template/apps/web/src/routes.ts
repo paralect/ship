@@ -15,6 +15,7 @@ export enum RoutePath {
   ChatIndex = '/chat',
   Chat = '/chat/[chatId]',
   Profile = '/profile',
+  Pricing = '/pricing',
 
   // Auth paths
   SignIn = '/sign-in',
@@ -51,6 +52,10 @@ export const routesConfiguration: RoutesConfiguration = {
     layout: LayoutType.MAIN,
   },
   [RoutePath.Profile]: {
+    scope: ScopeType.PRIVATE,
+    layout: LayoutType.MAIN,
+  },
+  [RoutePath.Pricing]: {
     scope: ScopeType.PRIVATE,
     layout: LayoutType.MAIN,
   },

@@ -1,3 +1,7 @@
+import Stripe from 'stripe';
+
+import { userService } from 'resources/users';
+
 import { stripeService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
 
@@ -10,6 +14,42 @@ export default createEndpoint({
 
     if (!user.subscription) {
       return null;
+    }
+
+    const stripeSubscription = (await stripeService.subscriptions.retrieve(
+      user.subscription.subscriptionId,
+    )) as Stripe.Subscription;
+
+    if (stripeSubscription.status === 'canceled') {
+      await userService.atomic.updateOne({ _id: user._id }, { $unset: { subscription: '' } });
+      return null;
+    }
+
+    const isCanceled = stripeSubscription.cancel_at_period_end || stripeSubscription.cancel_at !== null;
+
+    const stripePeriodEnd =
+      stripeSubscription.cancel_at ??
+      (stripeSubscription as unknown as { current_period_end: number }).current_period_end;
+
+    const needsUpdate =
+      user.subscription.cancelAtPeriodEnd !== isCanceled ||
+      user.subscription.status !== stripeSubscription.status ||
+      user.subscription.priceId !== (stripeSubscription.items.data[0]?.price.id ?? user.subscription.priceId) ||
+      user.subscription.currentPeriodEndDate !== stripePeriodEnd;
+
+    if (needsUpdate) {
+      const updatedSubscription = {
+        ...user.subscription,
+        priceId: stripeSubscription.items.data[0]?.price.id ?? user.subscription.priceId,
+        cancelAtPeriodEnd: isCanceled,
+        status: stripeSubscription.status,
+        currentPeriodStartDate: (stripeSubscription as unknown as { current_period_start: number })
+          .current_period_start,
+        currentPeriodEndDate: stripePeriodEnd,
+      };
+
+      await userService.atomic.updateOne({ _id: user._id }, { $set: { subscription: updatedSubscription } });
+      user.subscription = updatedSubscription;
     }
 
     const product = await stripeService.products.retrieve(user.subscription.productId);
@@ -30,7 +70,7 @@ export default createEndpoint({
       // No upcoming invoice (subscription may be canceled)
     }
 
-    return {
+    const result = {
       ...user.subscription,
       product: {
         name: product.name,
@@ -38,5 +78,7 @@ export default createEndpoint({
       },
       pendingInvoice,
     };
+
+    return result;
   },
 });
