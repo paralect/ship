@@ -1,7 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useApiMutation, useApiQuery, useApiStreamMutation } from 'hooks/use-api.hook';
-import { Message } from 'shared';
+import { ChatsGetMessagesResponse } from 'shared';
+
+type Message = ChatsGetMessagesResponse[number];
 
 import { apiClient } from 'services/api-client.service';
 

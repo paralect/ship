@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import ts from "typescript";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,6 +12,7 @@ const API_RESOURCES_PATH = path.resolve(
   __dirname,
   "../../../apps/api/src/resources",
 );
+const API_ROOT = path.resolve(__dirname, "../../../apps/api");
 const SCHEMAS_OUTPUT_PATH = path.resolve(__dirname, "../src/schemas");
 const GENERATED_PATH = path.resolve(__dirname, "../src/generated");
 const IGNORE_RESOURCES = ["token"];
@@ -24,43 +26,34 @@ function syncSchemas() {
     fs.mkdirSync(SCHEMAS_OUTPUT_PATH, { recursive: true });
   }
 
-  // Find all *.schema.ts files in resources (including base.schema.ts)
   const schemaFiles: { src: string; relativePath: string }[] = [];
 
-  // base.schema.ts in resources root
   const baseSchemaPath = path.join(API_RESOURCES_PATH, "base.schema.ts");
   if (fs.existsSync(baseSchemaPath)) {
     schemaFiles.push({ src: baseSchemaPath, relativePath: "base.schema.ts" });
   }
 
-  // Resource-specific schemas
-  const resources = fs
-    .readdirSync(API_RESOURCES_PATH, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => d.name);
-
-  for (const resource of resources) {
-    const resourceDir = path.join(API_RESOURCES_PATH, resource);
-    const files = fs
-      .readdirSync(resourceDir)
-      .filter((f) => f.endsWith(".schema.ts"));
-
-    for (const file of files) {
-      schemaFiles.push({
-        src: path.join(resourceDir, file),
-        relativePath: `${resource}/${file}`,
-      });
+  const findSchemasRecursively = (dir: string, baseDir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (entry.isDirectory()) {
+        findSchemasRecursively(path.join(dir, entry.name), baseDir);
+      } else if (entry.name.endsWith(".schema.ts")) {
+        const fullPath = path.join(dir, entry.name);
+        const relativePath = path
+          .relative(baseDir, fullPath)
+          .split(path.sep)
+          .join("/");
+        if (relativePath !== "base.schema.ts") {
+          schemaFiles.push({ src: fullPath, relativePath });
+        }
+      }
     }
-  }
+  };
 
-  // Copy and transform each schema file
+  findSchemasRecursively(API_RESOURCES_PATH, API_RESOURCES_PATH);
+
   for (const { src, relativePath } of schemaFiles) {
     const content = fs.readFileSync(src, "utf-8");
-
-    // No import rewriting needed — the relative paths in source schema files
-    // (e.g. ../base.schema from account/account.schema.ts) already work correctly
-    // in the shared package since we preserve the same directory structure.
-
     const outputPath = path.join(SCHEMAS_OUTPUT_PATH, relativePath);
     const outputDir = path.dirname(outputPath);
 
@@ -72,19 +65,10 @@ function syncSchemas() {
     console.log(`   ✓ ${relativePath}`);
   }
 
-  // Generate schemas/index.ts barrel
-  const indexLines: string[] = ["export * from './base.schema';"];
-
-  for (const resource of resources) {
-    const resourceDir = path.join(API_RESOURCES_PATH, resource);
-    const files = fs
-      .readdirSync(resourceDir)
-      .filter((f) => f.endsWith(".schema.ts"));
-
-    for (const file of files) {
-      const moduleName = file.replace(".ts", "");
-      indexLines.push(`export * from './${resource}/${moduleName}';`);
-    }
+  const indexLines: string[] = [];
+  for (const { relativePath } of schemaFiles) {
+    const moduleName = relativePath.replace(".ts", "");
+    indexLines.push(`export * from './${moduleName}';`);
   }
 
   fs.writeFileSync(
@@ -110,7 +94,9 @@ interface ParsedEndpoint {
 }
 
 function toCamelCase(str: string): string {
-  return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+  return str.replace(/[-/]([a-z])/g, (_, letter: string) =>
+    letter.toUpperCase(),
+  );
 }
 
 function toPascalCase(str: string): string {
@@ -118,17 +104,38 @@ function toPascalCase(str: string): string {
   return camel.charAt(0).toUpperCase() + camel.slice(1);
 }
 
+function findResourcesWithEndpoints(
+  dir: string,
+  baseDir: string,
+): string[] {
+  const resources: string[] = [];
+
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (!entry.isDirectory() || IGNORE_RESOURCES.includes(entry.name)) continue;
+
+    const fullPath = path.join(dir, entry.name);
+    const endpointsPath = path.join(fullPath, "endpoints");
+
+    if (
+      fs.existsSync(endpointsPath) &&
+      fs.statSync(endpointsPath).isDirectory()
+    ) {
+      resources.push(
+        path.relative(baseDir, fullPath).split(path.sep).join("/"),
+      );
+    }
+
+    resources.push(...findResourcesWithEndpoints(fullPath, baseDir));
+  }
+
+  return resources;
+}
+
 function getResources(): string[] {
-  return fs
-    .readdirSync(API_RESOURCES_PATH, { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory())
-    .filter((dirent) => !IGNORE_RESOURCES.includes(dirent.name))
-    .map((dirent) => dirent.name);
+  return findResourcesWithEndpoints(API_RESOURCES_PATH, API_RESOURCES_PATH);
 }
 
 function extractBalancedSchema(text: string): string | null {
-  // Extract a schema expression that ends with `;` at depth 0
-  // e.g. `userSchema\n  .pick({...})\n  .extend({...})\n  .partial();`
   let depth = 0;
   let inString = false;
   let stringChar = "";
@@ -149,7 +156,7 @@ function extractBalancedSchema(text: string): string | null {
         depth++;
       } else if (char === ")" || char === "}" || char === "]") {
         depth--;
-      } else if (char === ";" && depth === 0) {
+      } else if ((char === ";" || char === ",") && depth === 0) {
         return text.slice(0, i).trimEnd();
       }
     }
@@ -163,53 +170,86 @@ function extractSchemaFromContent(content: string): {
   fullSchemaCode: string | null;
   isInlineSchema: boolean;
 } {
+  // Pattern 1: schema: someSchema inside createEndpoint({...})
+  const createEndpointSchemaMatch = content.match(
+    /schema\s*:\s*(\w+Schema)\s*[,\n}]/,
+  );
+  if (createEndpointSchemaMatch) {
+    const schemaName = createEndpointSchemaMatch[1];
+
+    const localDefRegex = new RegExp(
+      `(?:const|let)\\s+${schemaName}\\s*=\\s*`,
+    );
+    const isLocalDef = localDefRegex.test(content);
+
+    if (isLocalDef) {
+      const defMatch = content.match(
+        new RegExp(`(?:const|let)\\s+${schemaName}\\s*=\\s*`),
+      );
+      if (defMatch) {
+        const startIdx = content.indexOf(defMatch[0]) + defMatch[0].length;
+        const schemaExpr = content.slice(startIdx);
+        const schemaCode = extractBalancedSchema(schemaExpr);
+        if (schemaCode) {
+          return {
+            schemaImport: null,
+            schemaName,
+            fullSchemaCode: schemaCode,
+            isInlineSchema: true,
+          };
+        }
+      }
+    }
+
+    return {
+      schemaImport: schemaName,
+      schemaName,
+      fullSchemaCode: null,
+      isInlineSchema: false,
+    };
+  }
+
+  // Pattern 1b: Shorthand schema, in createEndpoint with local const schema = ...
+  const shorthandSchemaMatch = content.match(
+    /createEndpoint\s*\(\s*\{[\s\S]*?\bschema\s*[,\n}]/,
+  );
+  if (shorthandSchemaMatch) {
+    const localSchemaMatch = content.match(/(?:const|let)\s+schema\s*=\s*/);
+    if (localSchemaMatch) {
+      const startIdx =
+        content.indexOf(localSchemaMatch[0]) + localSchemaMatch[0].length;
+      const schemaExpr = content.slice(startIdx);
+      const schemaCode = extractBalancedSchema(schemaExpr);
+      if (schemaCode) {
+        return {
+          schemaImport: null,
+          schemaName: "schema",
+          fullSchemaCode: schemaCode,
+          isInlineSchema: true,
+        };
+      }
+    }
+  }
+
+  // Pattern 2: export const schema = someSchema;
   const simpleSchemaMatch = content.match(
     /export\s+const\s+schema\s*=\s*(\w+Schema)\s*;/,
   );
   if (simpleSchemaMatch) {
-    const afterMatch = content.slice(
-      content.indexOf(simpleSchemaMatch[0]) + simpleSchemaMatch[0].length - 1,
-    );
-    if (!afterMatch.startsWith("Schema.")) {
-      return {
-        schemaImport: simpleSchemaMatch[1],
-        schemaName: simpleSchemaMatch[1],
-        fullSchemaCode: null,
-        isInlineSchema: false,
-      };
-    }
+    return {
+      schemaImport: simpleSchemaMatch[1],
+      schemaName: simpleSchemaMatch[1],
+      fullSchemaCode: null,
+      isInlineSchema: false,
+    };
   }
 
-  const exportedInlineStart = content.match(
-    /export\s+const\s+schema\s*=\s*(paginationSchema|userSchema|z)\s*\./,
-  );
-  if (exportedInlineStart) {
-    const matchIdx = content.indexOf(exportedInlineStart[0]);
-    const startIdx =
-      matchIdx + exportedInlineStart[0].indexOf(exportedInlineStart[1]);
-    const schemaExpr = content.slice(startIdx);
-
-    const schemaCode = extractBalancedSchema(schemaExpr);
-    if (schemaCode) {
-      return {
-        schemaImport: null,
-        schemaName: "schema",
-        fullSchemaCode: schemaCode,
-        isInlineSchema: true,
-      };
-    }
-  }
-
-  const inlineSchemaStart = content.match(
-    /(?<!export\s+)const\s+schema\s*=\s*(paginationSchema|userSchema|z)\s*\./,
-  );
+  // Pattern 3: inline schema expressions (schema: z.object(...) or schema: someSchema.extend(...))
+  const inlineSchemaStart = content.match(/schema\s*:\s*(z\.|[\w]+Schema\.)/);
   if (inlineSchemaStart) {
     const matchIdx = content.indexOf(inlineSchemaStart[0]);
-    const startIdx =
-      matchIdx + inlineSchemaStart[0].indexOf(inlineSchemaStart[1]);
+    const startIdx = matchIdx + "schema: ".length;
     const schemaExpr = content.slice(startIdx);
-
-    // Find the end of the schema expression using semicolon after balanced parens
     const schemaCode = extractBalancedSchema(schemaExpr);
     if (schemaCode) {
       return {
@@ -219,18 +259,6 @@ function extractSchemaFromContent(content: string): {
         isInlineSchema: true,
       };
     }
-  }
-
-  const zObjectMatch = content.match(
-    /(?:export\s+)?const\s+schema\s*=\s*(z\.object\s*\([^)]*\))\s*;/,
-  );
-  if (zObjectMatch) {
-    return {
-      schemaImport: null,
-      schemaName: "schema",
-      fullSchemaCode: zObjectMatch[1],
-      isInlineSchema: true,
-    };
   }
 
   return {
@@ -241,118 +269,261 @@ function extractSchemaFromContent(content: string): {
   };
 }
 
-function extractResponseType(content: string): string | null {
-  // Extract the handler body from createEndpoint
-  const handlerMatch = content.match(/async\s+handler\s*\([^)]*\)\s*\{/);
-  if (!handlerMatch) return null;
+// ─── Return Type Inference (TypeScript Compiler) ───────────────────────
 
-  const handlerStart =
-    content.indexOf(handlerMatch[0]) + handlerMatch[0].length;
-
-  // Find the handler body by matching braces
-  let depth = 1;
-  let i = handlerStart;
-  while (i < content.length && depth > 0) {
-    if (content[i] === "{") depth++;
-    else if (content[i] === "}") depth--;
-    i++;
+function inferAllReturnTypes(endpointFiles: string[]): Map<string, string> {
+  const configPath = path.join(API_ROOT, "tsconfig.json");
+  const configFile = ts.readConfigFile(configPath, ts.sys.readFile);
+  if (configFile.error) {
+    console.warn(
+      "⚠️  Could not read API tsconfig.json, skipping return type inference",
+    );
+    return new Map();
   }
-  const handlerBody = content.slice(handlerStart, i - 1);
 
-  // Find return statements (skip ones inside nested functions/callbacks)
-  const returnStatements: string[] = [];
-  const returnRegex = /\breturn\s+([^\s;][^;]*);/g;
-  let match: RegExpExecArray | null = returnRegex.exec(handlerBody);
-  while (match !== null) {
-    // Check if this return is inside a nested function/arrow by looking
-    // for function/arrow signatures before unmatched opening braces
-    const before = handlerBody.slice(0, match.index);
-    let insideNestedFn = false;
-    let braceDepth = 0;
+  const parsedConfig = ts.parseJsonConfigFileContent(
+    configFile.config,
+    ts.sys,
+    API_ROOT,
+  );
 
-    for (let j = before.length - 1; j >= 0; j--) {
-      if (before[j] === "}") braceDepth++;
-      else if (before[j] === "{") {
-        if (braceDepth > 0) {
-          braceDepth--;
-        } else {
-          // Unmatched '{' — check what precedes it
-          const preceding = before.slice(0, j).trimEnd();
-          // Arrow function: => {  or function keyword
+  const program = ts.createProgram(endpointFiles, parsedConfig.options);
+  const checker = program.getTypeChecker();
+  const result = new Map<string, string>();
+
+  for (const filePath of endpointFiles) {
+    const returnType = inferSingleReturnType(checker, program, filePath);
+    if (returnType) {
+      result.set(filePath, returnType);
+    }
+  }
+
+  return result;
+}
+
+function inferSingleReturnType(
+  checker: ts.TypeChecker,
+  program: ts.Program,
+  filePath: string,
+): string | null {
+  const sourceFile = program.getSourceFile(filePath);
+  if (!sourceFile) return null;
+
+  let handlerNode: ts.MethodDeclaration | undefined;
+
+  ts.forEachChild(sourceFile, (node) => {
+    if (
+      ts.isExportAssignment(node) &&
+      !node.isExportEquals &&
+      ts.isCallExpression(node.expression)
+    ) {
+      const arg = node.expression.arguments[0];
+      if (arg && ts.isObjectLiteralExpression(arg)) {
+        for (const prop of arg.properties) {
           if (
-            /=>\s*$/.test(preceding) ||
-            /\bfunction\s*\([^)]*\)\s*$/.test(preceding)
+            ts.isMethodDeclaration(prop) &&
+            prop.name &&
+            ts.isIdentifier(prop.name) &&
+            prop.name.text === "handler"
           ) {
-            insideNestedFn = true;
-            break;
+            handlerNode = prop;
           }
-          // Otherwise it's an if/else/for/while block — still handler level
         }
       }
     }
+  });
 
-    if (!insideNestedFn) {
-      returnStatements.push(match[1].trim());
-    }
+  if (!handlerNode?.body) return null;
 
-    match = returnRegex.exec(handlerBody);
-  }
+  const returnTypes: ts.Type[] = [];
 
-  if (returnStatements.length === 0) return null;
-
-  // Analyze return expressions
-  for (const expr of returnStatements) {
-    // Pattern: userService.getPublic(...)  or  ...then(userService.getPublic)
-    if (/userService\.getPublic/.test(expr)) {
-      // Check if it's a list result pattern: { ...result, results: ...map(userService.getPublic) }
-      if (/results\s*:.*\.map\(userService\.getPublic\)/.test(expr)) {
-        return "listResult(userPublicSchema)";
-      }
-      return "userPublicSchema";
-    }
-
-    // Pattern: chat variable (single chat)
+  function visitReturns(node: ts.Node) {
     if (
-      /^chat$/.test(expr) ||
-      /chatService\.(?:insertOne|findOne|updateOne)/.test(expr)
+      ts.isFunctionExpression(node) ||
+      ts.isArrowFunction(node) ||
+      ts.isFunctionDeclaration(node)
     ) {
-      return "chatSchema";
+      return;
     }
-
-    // Pattern: chats array (list of chats)
-    if (/^chats$/.test(expr)) {
-      return "chatSchema[]";
+    if (ts.isReturnStatement(node) && node.expression) {
+      returnTypes.push(checker.getTypeAtLocation(node.expression));
     }
+    ts.forEachChild(node, visitReturns);
+  }
 
-    // Pattern: messages array (list of messages)
-    if (/^messages$/.test(expr)) {
-      return "messageSchema[]";
-    }
+  ts.forEachChild(handlerNode.body, visitReturns);
 
-    // Pattern: inline object literal { key: value, ... }
-    if (expr.startsWith("{")) {
-      return inferObjectType(expr);
+  if (returnTypes.length === 0) return null;
+
+  const dataTypes = returnTypes.filter(
+    (t) =>
+      !(
+        t.flags &
+        (ts.TypeFlags.Void |
+          ts.TypeFlags.Undefined |
+          ts.TypeFlags.Never |
+          ts.TypeFlags.Unknown |
+          ts.TypeFlags.Any)
+      ),
+  );
+
+  if (dataTypes.length === 0) return null;
+
+  const primaryType = dataTypes[dataTypes.length - 1];
+  let resolved = primaryType;
+
+  if (
+    resolved.symbol?.name === "Promise" ||
+    checker.typeToString(resolved).startsWith("Promise<")
+  ) {
+    const typeArgs = checker.getTypeArguments(resolved as ts.TypeReference);
+    if (typeArgs?.[0]) resolved = typeArgs[0];
+  }
+
+  if (
+    resolved.flags &
+    (ts.TypeFlags.Void |
+      ts.TypeFlags.Undefined |
+      ts.TypeFlags.Unknown |
+      ts.TypeFlags.Any)
+  ) {
+    return null;
+  }
+
+  const serialized = serializeType(checker, resolved);
+  if (
+    !serialized ||
+    serialized === "void" ||
+    serialized === "undefined" ||
+    serialized === "unknown" ||
+    serialized === "any"
+  ) {
+    return null;
+  }
+
+  return serialized;
+}
+
+function serializeType(
+  checker: ts.TypeChecker,
+  type: ts.Type,
+  depth = 0,
+): string {
+  if (depth > 6) return "unknown";
+
+  if (type.symbol?.name === "Date") return "string";
+
+  const primitiveFlags =
+    ts.TypeFlags.String |
+    ts.TypeFlags.Number |
+    ts.TypeFlags.Boolean |
+    ts.TypeFlags.BooleanLiteral |
+    ts.TypeFlags.Null |
+    ts.TypeFlags.Undefined |
+    ts.TypeFlags.Void |
+    ts.TypeFlags.Never |
+    ts.TypeFlags.Any |
+    ts.TypeFlags.Unknown |
+    ts.TypeFlags.BigInt |
+    ts.TypeFlags.StringLiteral |
+    ts.TypeFlags.NumberLiteral |
+    ts.TypeFlags.BigIntLiteral;
+
+  if (type.flags & primitiveFlags) {
+    return checker.typeToString(type);
+  }
+
+  if (type.isUnion()) {
+    const parts = type.types
+      .map((t) => serializeType(checker, t, depth + 1))
+      .filter((s) => s !== "void" && s !== "undefined" && s !== "never");
+    const unique = [...new Set(parts)];
+    if (unique.length === 0) return "void";
+    return unique.length === 1 ? unique[0] : unique.join(" | ");
+  }
+
+  if (type.isIntersection()) {
+    const properties = checker.getPropertiesOfType(type);
+    if (properties.length > 0) {
+      return serializeObjectProperties(checker, properties, depth);
     }
   }
 
-  return null;
-}
+  if (type.flags & ts.TypeFlags.Object) {
+    if (type.symbol?.name === "Promise") {
+      const typeArgs = checker.getTypeArguments(type as ts.TypeReference);
+      if (typeArgs?.[0]) return serializeType(checker, typeArgs[0], depth + 1);
+    }
 
-function inferObjectType(expr: string): string | null {
-  // Simple object literal like { emailVerificationToken }
-  const shorthand = expr.match(/^\{\s*([\w,][\w\s,]*)\}$/);
-  if (shorthand) {
-    const keys = shorthand[1]
-      .split(",")
-      .map((k) => k.trim())
-      .filter(Boolean);
-    const fields = keys.map((k) => `${k}: string`).join("; ");
-    return `{ ${fields} }`;
+    if (checker.isArrayType(type)) {
+      const typeArgs = checker.getTypeArguments(type as ts.TypeReference);
+      if (typeArgs?.[0]) {
+        const elem = serializeType(checker, typeArgs[0], depth + 1);
+        return elem.includes("|") || elem.includes("{")
+          ? `(${elem})[]`
+          : `${elem}[]`;
+      }
+      return "unknown[]";
+    }
+
+    const properties = checker.getPropertiesOfType(type);
+    if (properties.length > 0) {
+      return serializeObjectProperties(checker, properties, depth);
+    }
   }
-  return null;
+
+  const result = checker.typeToString(
+    type,
+    undefined,
+    ts.TypeFormatFlags.NoTruncation,
+  );
+  return result.replace(/\bDate\b/g, "string");
 }
 
-async function getEndpoints(resourceName: string): Promise<ParsedEndpoint[]> {
+function serializeObjectProperties(
+  checker: ts.TypeChecker,
+  properties: ts.Symbol[],
+  depth: number,
+): string {
+  const members: string[] = [];
+
+  for (const prop of properties) {
+    const decl = prop.valueDeclaration || prop.declarations?.[0];
+    if (!decl) continue;
+
+    const propType = checker.getTypeOfSymbolAtLocation(prop, decl);
+    const optional = prop.flags & ts.SymbolFlags.Optional ? "?" : "";
+    const serialized = serializeType(checker, propType, depth + 1);
+    members.push(`${prop.name}${optional}: ${serialized}`);
+  }
+
+  if (members.length === 0) return "Record<string, unknown>";
+
+  return `{ ${members.join("; ")} }`;
+}
+
+// ─── Endpoint Parsing ──────────────────────────────────────────────────
+
+function getEndpointFiles(dir: string): string[] {
+  const files: string[] = [];
+
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+
+    if (entry.isDirectory()) {
+      files.push(...getEndpointFiles(fullPath));
+    } else if (entry.name.endsWith(".ts") && !entry.name.endsWith(".d.ts")) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
+}
+
+function getEndpoints(
+  resourceName: string,
+  returnTypeMap: Map<string, string>,
+): ParsedEndpoint[] {
   const endpointsPath = path.join(
     API_RESOURCES_PATH,
     resourceName,
@@ -363,14 +534,10 @@ async function getEndpoints(resourceName: string): Promise<ParsedEndpoint[]> {
     return [];
   }
 
-  const endpointFiles = fs
-    .readdirSync(endpointsPath)
-    .filter((file) => file.endsWith(".ts") && !file.endsWith(".d.ts"));
-
+  const endpointFiles = getEndpointFiles(endpointsPath);
   const endpoints: ParsedEndpoint[] = [];
 
-  for (const file of endpointFiles) {
-    const filePath = path.join(endpointsPath, file);
+  for (const filePath of endpointFiles) {
     const content = fs.readFileSync(filePath, "utf-8");
 
     let method: string | null = null;
@@ -422,7 +589,7 @@ async function getEndpoints(resourceName: string): Promise<ParsedEndpoint[]> {
 
     const schemaInfo = extractSchemaFromContent(content);
 
-    const baseName = file.replace(".ts", "");
+    const baseName = path.basename(filePath, ".ts");
     const name = toCamelCase(baseName);
 
     endpoints.push({
@@ -435,7 +602,7 @@ async function getEndpoints(resourceName: string): Promise<ParsedEndpoint[]> {
       schemaName: schemaInfo.schemaName,
       fullSchemaCode: schemaInfo.fullSchemaCode,
       isInlineSchema: schemaInfo.isInlineSchema,
-      responseType: extractResponseType(content),
+      responseType: returnTypeMap.get(filePath) || null,
     });
   }
 
@@ -448,8 +615,8 @@ function generateIndexFile(
 ): string {
   const lines: string[] = [`import { z } from 'zod';`];
 
-  // Collect all schema imports needed from ../schemas
   const allSchemaImports = new Set<string>();
+  const allEnumImports = new Set<string>();
 
   for (const [, endpoints] of resourceEndpoints) {
     for (const endpoint of endpoints) {
@@ -460,16 +627,15 @@ function generateIndexFile(
         const schemaNames =
           endpoint.fullSchemaCode.match(/\b(\w+Schema)\b/g) || [];
         schemaNames.forEach((name) => allSchemaImports.add(name));
-      }
-      // Collect schema imports needed for response types
-      if (endpoint.responseType) {
-        const schemaNames =
-          endpoint.responseType.match(/\b(\w+Schema)\b/g) || [];
-        schemaNames.forEach((name) => allSchemaImports.add(name));
-        // If response uses listResult, import listResultSchema
-        if (endpoint.responseType.includes("listResult(")) {
-          allSchemaImports.add("listResultSchema");
-        }
+
+        const enumMatches =
+          endpoint.fullSchemaCode.match(/z\.enum\((\w+)\)/g) || [];
+        enumMatches.forEach((match) => {
+          const enumName = match.match(/z\.enum\((\w+)\)/)?.[1];
+          if (enumName && !enumName.startsWith("[")) {
+            allEnumImports.add(enumName);
+          }
+        });
       }
     }
   }
@@ -479,6 +645,11 @@ function generateIndexFile(
       `import { ${Array.from(allSchemaImports).sort().join(", ")} } from '../schemas';`,
     );
   }
+  if (allEnumImports.size > 0) {
+    lines.push(
+      `import { ${Array.from(allEnumImports).sort().join(", ")} } from 'enums';`,
+    );
+  }
   lines.push(`import { ApiClient } from '../client';`);
   lines.push("");
 
@@ -486,6 +657,7 @@ function generateIndexFile(
   lines.push("export const schemas = {");
 
   for (const [resourceName, endpoints] of resourceEndpoints) {
+    const key = toCamelCase(resourceName);
     const schemaExports: string[] = [];
 
     for (const endpoint of endpoints) {
@@ -497,11 +669,11 @@ function generateIndexFile(
     }
 
     if (schemaExports.length > 0) {
-      lines.push(`  ${resourceName}: {`);
+      lines.push(`  ${key}: {`);
       lines.push(...schemaExports);
       lines.push(`  },`);
     } else {
-      lines.push(`  ${resourceName}: {},`);
+      lines.push(`  ${key}: {},`);
     }
   }
 
@@ -525,9 +697,10 @@ function generateIndexFile(
   for (const [resourceName, endpoints] of resourceEndpoints) {
     for (const endpoint of endpoints) {
       if (endpoint.schemaName) {
+        const key = toCamelCase(resourceName);
         const paramsTypeName = `${toPascalCase(resourceName)}${toPascalCase(endpoint.name)}Params`;
         lines.push(
-          `export type ${paramsTypeName} = z.infer<typeof schemas.${resourceName}.${endpoint.name}>;`,
+          `export type ${paramsTypeName} = z.infer<typeof schemas.${key}.${endpoint.name}>;`,
         );
       }
     }
@@ -535,38 +708,14 @@ function generateIndexFile(
 
   lines.push("");
 
-  // Response types (inferred from handler return values)
+  // Response types (auto-inferred from handler return types)
   for (const [resourceName, endpoints] of resourceEndpoints) {
     for (const endpoint of endpoints) {
       if (endpoint.responseType) {
         const responseTypeName = `${toPascalCase(resourceName)}${toPascalCase(endpoint.name)}Response`;
-
-        if (endpoint.responseType.startsWith("{")) {
-          // Inline object type
-          lines.push(
-            `export type ${responseTypeName} = ${endpoint.responseType};`,
-          );
-        } else if (endpoint.responseType.includes("listResult(")) {
-          // listResult(schema) → z.infer<ReturnType<typeof listResultSchema>>
-          const innerSchema =
-            endpoint.responseType.match(/listResult\((\w+)\)/)?.[1];
-          if (innerSchema) {
-            lines.push(
-              `export type ${responseTypeName} = z.infer<ReturnType<typeof listResultSchema<typeof ${innerSchema}>>>;`,
-            );
-          }
-        } else if (endpoint.responseType.endsWith("[]")) {
-          // Array of schema like chatSchema[]
-          const schemaName = endpoint.responseType.slice(0, -2);
-          lines.push(
-            `export type ${responseTypeName} = z.infer<typeof ${schemaName}>[];`,
-          );
-        } else {
-          // Schema reference like userPublicSchema
-          lines.push(
-            `export type ${responseTypeName} = z.infer<typeof ${endpoint.responseType}>;`,
-          );
-        }
+        lines.push(
+          `export type ${responseTypeName} = ${endpoint.responseType};`,
+        );
       }
     }
   }
@@ -588,6 +737,7 @@ function generateIndexFile(
         hasPathParams,
         schemaName,
       } = endpoint;
+      const key = toCamelCase(resourceName);
       const fullPath = `/${resourceName}${endpointPath === "/" ? "" : endpointPath}`;
 
       const paramsTypeName = schemaName
@@ -612,7 +762,7 @@ function generateIndexFile(
       lines.push(`      method: '${method}' as const,`);
       lines.push(`      path: '${fullPath}' as const,`);
       lines.push(
-        `      schema: ${schemaName ? `schemas.${resourceName}.${name}` : "undefined"},`,
+        `      schema: ${schemaName ? `schemas.${key}.${name}` : "undefined"},`,
       );
 
       if (hasPathParams) {
@@ -630,12 +780,16 @@ function generateIndexFile(
         );
       } else {
         if (schemaName) {
-          lines.push(`      call: (params: ${paramsTypeName}) =>`);
+          lines.push(
+            `      call: (params: ${paramsTypeName}, options?: { headers?: Record<string, string> }) =>`,
+          );
         } else {
-          lines.push(`      call: (params?: Record<string, unknown>) =>`);
+          lines.push(
+            `      call: (params?: Record<string, unknown>, options?: { headers?: Record<string, string> }) =>`,
+          );
         }
         lines.push(
-          `        client.${method}<${responseTypeName}>(${pathExpr}, params),`,
+          `        client.${method}<${responseTypeName}>(${pathExpr}, params, options?.headers ? { headers: options.headers } : undefined),`,
         );
       }
       lines.push(`    },`);
@@ -671,7 +825,9 @@ function generateIndexFile(
   lines.push(`  path: string;`);
   lines.push(`  schema: z.ZodType | undefined;`);
   lines.push(`  call: TPathParams extends never`);
-  lines.push(`    ? (params: TParams) => Promise<TResponse>`);
+  lines.push(
+    `    ? (params: TParams, options?: { headers?: Record<string, string> }) => Promise<TResponse>`,
+  );
   lines.push(
     `    : (params: TParams, options: { pathParams: TPathParams; headers?: Record<string, string> }) => Promise<TResponse>;`,
   );
@@ -699,22 +855,36 @@ function generateIndexFile(
 async function generate() {
   console.log("🔍 Scanning API resources...");
 
+  syncSchemas();
+
   if (!fs.existsSync(GENERATED_PATH)) {
     fs.mkdirSync(GENERATED_PATH, { recursive: true });
   }
 
-  // Step 1: Sync schemas
-  syncSchemas();
-
-  // Step 2: Generate API client
   const resources = getResources();
   console.log(`📦 Found resources: ${resources.join(", ")}`);
+
+  const allEndpointFiles: string[] = [];
+  for (const resource of resources) {
+    const endpointsPath = path.join(
+      API_RESOURCES_PATH,
+      resource,
+      "endpoints",
+    );
+    if (fs.existsSync(endpointsPath)) {
+      allEndpointFiles.push(...getEndpointFiles(endpointsPath));
+    }
+  }
+
+  console.log("🔬 Inferring handler return types...");
+  const returnTypeMap = inferAllReturnTypes(allEndpointFiles);
+  console.log(`   ✓ Inferred ${returnTypeMap.size} response types`);
 
   const resourceEndpoints = new Map<string, ParsedEndpoint[]>();
   const generatedResources: string[] = [];
 
   for (const resource of resources) {
-    const endpoints = await getEndpoints(resource);
+    const endpoints = getEndpoints(resource, returnTypeMap);
 
     if (endpoints.length === 0) {
       console.log(`⏭️  Skipping ${resource}: no endpoints found`);
@@ -729,9 +899,7 @@ async function generate() {
           ? "inline schema"
           : `import: ${endpoint.schemaImport}`
         : "no schema";
-      const responseInfo = endpoint.responseType
-        ? `response: ${endpoint.responseType}`
-        : "void";
+      const responseInfo = endpoint.responseType ? "inferred" : "void";
       console.log(
         `   - ${endpoint.name}: ${endpoint.method.toUpperCase()} ${endpoint.path} (${schemaInfo}, ${responseInfo})`,
       );
@@ -751,6 +919,8 @@ async function generate() {
 const isWatch = process.argv.includes("--watch");
 
 if (isWatch) {
+  const { watch } = await import("chokidar");
+
   console.log("👀 Starting watch mode...");
   await generate();
 
@@ -764,11 +934,14 @@ if (isWatch) {
     }, 300);
   };
 
-  fs.watch(API_RESOURCES_PATH, { recursive: true }, (_, filename) => {
-    if (
-      filename &&
-      (filename.endsWith(".schema.ts") || filename.includes("endpoints/"))
-    ) {
+  const watcher = watch(API_RESOURCES_PATH, {
+    ignoreInitial: true,
+    persistent: true,
+    awaitWriteFinish: { stabilityThreshold: 100, pollInterval: 50 },
+  });
+
+  watcher.on("all", (_event: string, filePath: string) => {
+    if (filePath.includes("endpoints/") || filePath.endsWith(".schema.ts")) {
       debouncedGenerate();
     }
   });

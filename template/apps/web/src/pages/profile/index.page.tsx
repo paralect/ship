@@ -5,9 +5,8 @@ import { isUndefined, pickBy } from 'lodash';
 import { Loader2 } from 'lucide-react';
 import { serialize } from 'object-to-formdata';
 import { FormProvider } from 'react-hook-form';
-import { AccountGetResponse, schemas } from 'shared';
+import { AccountGetResponse, AccountUpdateParams } from 'shared';
 import { toast } from 'sonner';
-import { z } from 'zod';
 
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
@@ -55,7 +54,7 @@ const Profile: NextPage = () => {
       return !isUndefined(value);
     });
 
-    updateAccount(serialize(updateData) as unknown as z.infer<typeof schemas.account.update>, {
+    updateAccount(serialize(updateData) as unknown as AccountUpdateParams, {
       onSuccess: (data) => {
         queryClient.setQueryData([apiClient.account.get.path], data);
 

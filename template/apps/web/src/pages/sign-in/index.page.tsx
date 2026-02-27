@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useApiForm, useApiMutation } from 'hooks';
 import { AlertCircle, Loader2 } from 'lucide-react';
-import { AccountGetResponse } from 'shared';
 import { toast } from 'sonner';
 
 import { GoogleIcon } from 'public/icons';
@@ -37,7 +36,7 @@ const SignIn: NextPage = () => {
   };
 
   const { mutate: signIn, isPending: isSignInPending } = useApiMutation(apiClient.account.signIn, {
-    onSuccess: (data: AccountGetResponse) => {
+    onSuccess: (data) => {
       queryClient.setQueryData([apiClient.account.get.path], data);
     },
   });

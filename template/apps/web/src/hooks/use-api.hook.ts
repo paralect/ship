@@ -16,9 +16,13 @@ type InferPathParams<T> = T extends { call: (params: infer _P, options: infer O)
 type InferResponse<T> = T extends { call: (...args: never[]) => Promise<infer R> } ? R : unknown;
 type InferStreamResponse<T> = T extends { streamResponse: infer R } ? R : unknown;
 
-type RequestOptions<TPathParams> = TPathParams extends undefined
+type QueryRequestOptions<TPathParams> = TPathParams extends undefined
   ? { pathParams?: never; headers?: Record<string, string> }
   : { pathParams: TPathParams; headers?: Record<string, string> };
+
+type MutationRequestOptions<TPathParams> = TPathParams extends undefined
+  ? { pathParams?: never; headers?: Record<string, string> }
+  : { pathParams?: TPathParams; headers?: Record<string, string> };
 
 type UseApiQueryOptions<TResponse> = Omit<UseQueryOptions<TResponse>, 'queryKey' | 'queryFn'>;
 
@@ -30,19 +34,37 @@ interface ApiEndpoint {
   call: (...args: any[]) => Promise<any>;
 }
 
+type QueryOptions<TEndpoint extends ApiEndpoint> = QueryRequestOptions<InferPathParams<TEndpoint>> &
+  UseApiQueryOptions<InferResponse<TEndpoint>>;
+
 export function useApiQuery<TEndpoint extends ApiEndpoint>(
   endpoint: TEndpoint,
-  params?: InferParams<TEndpoint>,
-  options?: RequestOptions<InferPathParams<TEndpoint>> & UseApiQueryOptions<InferResponse<TEndpoint>>,
+  paramsOrOptions?: InferParams<TEndpoint> | QueryOptions<TEndpoint>,
+  options?: QueryOptions<TEndpoint>,
 ): ReturnType<typeof useQuery<InferResponse<TEndpoint>>> {
-  const { pathParams, headers, ...queryOptions } = (options ?? {}) as {
+  let params: InferParams<TEndpoint> | undefined;
+  let resolvedOptions: QueryOptions<TEndpoint> | undefined;
+
+  if (options !== undefined) {
+    params = paramsOrOptions as InferParams<TEndpoint>;
+    resolvedOptions = options;
+  } else if (paramsOrOptions != null && !endpoint.schema) {
+    resolvedOptions = paramsOrOptions as QueryOptions<TEndpoint>;
+  } else {
+    params = paramsOrOptions as InferParams<TEndpoint>;
+  }
+
+  const { pathParams, headers, ...queryOptions } = (resolvedOptions ?? {}) as {
     pathParams?: unknown;
     headers?: Record<string, string>;
   } & UseApiQueryOptions<InferResponse<TEndpoint>>;
 
-  const queryKey = [endpoint.path, params, pathParams].filter((v) => v !== undefined && v !== null);
+  const needsPathParams = endpoint.path.includes(':');
+  const resolvedPathParams = needsPathParams ? (pathParams ?? params) : pathParams;
 
-  const callOptions = pathParams || headers ? { pathParams, headers } : undefined;
+  const queryKey = [endpoint.path, params, resolvedPathParams].filter((v) => v !== undefined && v !== null);
+
+  const callOptions = resolvedPathParams || headers ? { pathParams: resolvedPathParams, headers } : undefined;
 
   return useQuery({
     queryKey,
@@ -55,7 +77,7 @@ type UseApiMutationOptions<TResponse, TParams> = Omit<UseMutationOptions<TRespon
 
 export function useApiMutation<TEndpoint extends ApiEndpoint>(
   endpoint: TEndpoint,
-  options?: RequestOptions<InferPathParams<TEndpoint>> &
+  options?: MutationRequestOptions<InferPathParams<TEndpoint>> &
     UseApiMutationOptions<InferResponse<TEndpoint>, InferParams<TEndpoint>>,
 ): ReturnType<typeof useMutation<InferResponse<TEndpoint>, ApiError, InferParams<TEndpoint>>> {
   const { pathParams, headers, ...mutationOptions } = (options ?? {}) as {
@@ -63,11 +85,16 @@ export function useApiMutation<TEndpoint extends ApiEndpoint>(
     headers?: Record<string, string>;
   } & UseApiMutationOptions<InferResponse<TEndpoint>, InferParams<TEndpoint>>;
 
-  const callOptions = pathParams || headers ? { pathParams, headers } : undefined;
+  const needsPathParams = endpoint.path.includes(':');
 
   return useMutation({
-    mutationFn: (params: InferParams<TEndpoint>) =>
-      (callOptions ? endpoint.call(params, callOptions) : endpoint.call(params)) as Promise<InferResponse<TEndpoint>>,
+    mutationFn: (params: InferParams<TEndpoint>) => {
+      const resolvedPathParams = needsPathParams ? (pathParams ?? params) : pathParams;
+      const callOptions = resolvedPathParams || headers ? { pathParams: resolvedPathParams, headers } : undefined;
+      return (callOptions ? endpoint.call(params, callOptions) : endpoint.call(params)) as Promise<
+        InferResponse<TEndpoint>
+      >;
+    },
     ...mutationOptions,
   }) as ReturnType<typeof useMutation<InferResponse<TEndpoint>, ApiError, InferParams<TEndpoint>>>;
 }

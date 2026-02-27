@@ -507,6 +507,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 22.10.10
+      chokidar:
+        specifier: ^4.0.3
+        version: 4.0.3
       eslint:
         specifier: 'catalog:'
         version: 9.34.0(jiti@2.6.1)

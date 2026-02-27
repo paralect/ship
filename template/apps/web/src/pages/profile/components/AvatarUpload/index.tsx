@@ -4,8 +4,7 @@ import { useApiQuery } from 'hooks';
 import { Pencil, Plus } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import { useFormContext } from 'react-hook-form';
-import { schemas, USER_AVATAR } from 'shared';
-import { z } from 'zod';
+import { AccountUpdateParams, USER_AVATAR } from 'shared';
 
 import { apiClient } from 'services/api-client.service';
 import { handleDropzoneError } from 'utils';
@@ -13,7 +12,7 @@ import { handleDropzoneError } from 'utils';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-type UpdateUserFormData = z.infer<typeof schemas.account.update>;
+type UpdateUserFormData = AccountUpdateParams;
 
 const ACCEPT_TYPES = USER_AVATAR.ACCEPTED_FILE_TYPES.reduce(
   (acc, type) => {

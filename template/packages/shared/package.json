@@ -6,7 +6,7 @@
   "types": "./src/index.ts",
   "scripts": {
     "generate": "tsx scripts/generate.ts",
-    "generate:watch": "tsx watch scripts/generate.ts",
+    "generate:watch": "tsx scripts/generate.ts --watch",
     "tsc": "tsc --noEmit --watch",
     "prettier": "prettier . --write --config .prettierrc.json",
     "eslint": "eslint . --fix",
@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@types/node": "catalog:",
+    "chokidar": "^4.0.3",
     "eslint": "catalog:",
     "eslint-config": "workspace:*",
     "lint-staged": "catalog:",
