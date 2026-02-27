@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+
 import ts from "typescript";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -104,10 +105,7 @@ function toPascalCase(str: string): string {
   return camel.charAt(0).toUpperCase() + camel.slice(1);
 }
 
-function findResourcesWithEndpoints(
-  dir: string,
-  baseDir: string,
-): string[] {
+function findResourcesWithEndpoints(dir: string, baseDir: string): string[] {
   const resources: string[] = [];
 
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -177,9 +175,7 @@ function extractSchemaFromContent(content: string): {
   if (createEndpointSchemaMatch) {
     const schemaName = createEndpointSchemaMatch[1];
 
-    const localDefRegex = new RegExp(
-      `(?:const|let)\\s+${schemaName}\\s*=\\s*`,
-    );
+    const localDefRegex = new RegExp(`(?:const|let)\\s+${schemaName}\\s*=\\s*`);
     const isLocalDef = localDefRegex.test(content);
 
     if (isLocalDef) {
@@ -245,7 +241,7 @@ function extractSchemaFromContent(content: string): {
   }
 
   // Pattern 3: inline schema expressions (schema: z.object(...) or schema: someSchema.extend(...))
-  const inlineSchemaStart = content.match(/schema\s*:\s*(z\.|[\w]+Schema\.)/);
+  const inlineSchemaStart = content.match(/schema\s*:\s*(z\.|\w+Schema\.)/);
   if (inlineSchemaStart) {
     const matchIdx = content.indexOf(inlineSchemaStart[0]);
     const startIdx = matchIdx + "schema: ".length;
@@ -866,11 +862,7 @@ async function generate() {
 
   const allEndpointFiles: string[] = [];
   for (const resource of resources) {
-    const endpointsPath = path.join(
-      API_RESOURCES_PATH,
-      resource,
-      "endpoints",
-    );
+    const endpointsPath = path.join(API_RESOURCES_PATH, resource, "endpoints");
     if (fs.existsSync(endpointsPath)) {
       allEndpointFiles.push(...getEndpointFiles(endpointsPath));
     }
