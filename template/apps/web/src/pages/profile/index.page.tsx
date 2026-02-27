@@ -56,6 +56,8 @@ const Profile: NextPage = () => {
 
     updateAccount(serialize(updateData) as unknown as AccountUpdateParams, {
       onSuccess: (data) => {
+        if (!data) return;
+
         queryClient.setQueryData([apiClient.account.get.path], data);
 
         toast.success('Success', {

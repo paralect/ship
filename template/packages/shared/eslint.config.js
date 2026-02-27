@@ -1,3 +1,3 @@
-import node from "eslint-config/node";
+import { getNodeConfig } from "eslint-config/node";
 
-export default node;
+export default getNodeConfig({ ignores: ["src/generated/**"] });

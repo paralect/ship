@@ -1,9 +1,11 @@
 import { z } from 'zod';
 
 import { chatService, messageService } from 'resources/chats';
+import type { Chat } from 'resources/chats/chat.schema';
 
 import { aiService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
+import shouldExist from 'routes/middlewares/shouldExist';
 
 const schema = z.object({
   content: z.string().min(1),
@@ -13,18 +15,15 @@ export default createEndpoint({
   method: 'post',
   path: '/:chatId/messages',
   schema,
+  middlewares: [
+    shouldExist('chats', {
+      criteria: (ctx) => ({ _id: ctx.params.chatId, userId: ctx.state.user._id }),
+    }),
+  ],
 
   async handler(ctx) {
     const { chatId } = ctx.params;
     const { content } = ctx.validatedData;
-    const userId = ctx.state.user._id;
-
-    const chat = await chatService.findOne({ _id: chatId, userId });
-
-    if (!chat) {
-      ctx.throw(404, 'Chat not found');
-      return;
-    }
 
     await messageService.insertOne({
       chatId,
@@ -77,6 +76,7 @@ export default createEndpoint({
           });
           controller.enqueue(textEncoder.encode(`data: ${doneData}\n\n`));
 
+          const chat = ctx.state.chat as Chat;
           if (!chat.title || chat.title === 'New Chat') {
             const title = content.slice(0, 50) + (content.length > 50 ? '...' : '');
             await chatService.updateOne({ _id: chatId }, () => ({ title }));

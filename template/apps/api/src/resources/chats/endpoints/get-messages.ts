@@ -1,26 +1,19 @@
-import { z } from 'zod';
-
-import { chatService, messageService } from 'resources/chats';
+import { messageService } from 'resources/chats';
 
 import createEndpoint from 'routes/createEndpoint';
-
-const schema = z.object({});
+import shouldExist from 'routes/middlewares/shouldExist';
 
 export default createEndpoint({
   method: 'get',
   path: '/:chatId/messages',
-  schema,
+  middlewares: [
+    shouldExist('chats', {
+      criteria: (ctx) => ({ _id: ctx.params.chatId, userId: ctx.state.user._id }),
+    }),
+  ],
 
   async handler(ctx) {
     const { chatId } = ctx.params;
-    const userId = ctx.state.user._id;
-
-    const chat = await chatService.findOne({ _id: chatId, userId });
-
-    if (!chat) {
-      ctx.throw(404, 'Chat not found');
-      return;
-    }
 
     const { results: messages } = await messageService.find({ chatId }, {}, { sort: { createdOn: 1 } });
 

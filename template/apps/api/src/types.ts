@@ -39,6 +39,7 @@ export type ToCamelCase<T> = {
 export interface AppKoaContextState {
   user: User;
   accessToken: string;
+  [key: string]: unknown;
 }
 
 type JSONPrimitive = string | number | boolean;

@@ -3,9 +3,17 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useApiMutation, useApiQuery, useApiStreamMutation } from 'hooks/use-api.hook';
 import { ChatsGetMessagesResponse } from 'shared';
 
+import { apiClient } from 'services/api-client.service';
+
 type Message = ChatsGetMessagesResponse[number];
 
-import { apiClient } from 'services/api-client.service';
+interface StreamDoneData {
+  messageId: string;
+}
+
+function isStreamDoneData(data: unknown): data is StreamDoneData {
+  return data !== null && typeof data === 'object' && 'messageId' in data!;
+}
 
 interface UseChatManagerOptions {
   initialChatId?: string;
@@ -117,6 +125,8 @@ export const useChatManager = ({ initialChatId, onChatCreated }: UseChatManagerO
             setStreamingContent(streamingContentRef.current);
           },
           onDone: (data) => {
+            if (!isStreamDoneData(data)) return;
+
             const finalContent = streamingContentRef.current;
             setMessagesCache((prev) => ({
               ...prev,

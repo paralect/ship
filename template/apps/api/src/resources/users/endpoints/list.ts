@@ -73,6 +73,6 @@ export default createEndpoint({
       { sort },
     );
 
-    return { ...result, results: result.results.map(userService.getPublic) };
+    return { ...result, results: result.results.map((u) => userService.getPublic(u)) };
   },
 });

@@ -4,6 +4,7 @@ import { userService } from 'resources/users';
 
 import isAdmin from 'middlewares/isAdmin';
 import createEndpoint from 'routes/createEndpoint';
+import shouldExist from 'routes/middlewares/shouldExist';
 
 import { userSchema } from '../user.schema';
 
@@ -13,20 +14,10 @@ export default createEndpoint({
   method: 'put',
   path: '/:id',
   schema,
-  middlewares: [isAdmin],
+  middlewares: [isAdmin, shouldExist('users')],
 
   async handler(ctx) {
     const { id } = ctx.request.params;
-
-    if (!id) {
-      ctx.throwError('User ID is required');
-    }
-
-    const isUserExists = await userService.exists({ _id: id });
-
-    if (!isUserExists) {
-      ctx.throwError('User not found');
-    }
 
     const nonEmptyValues = _.pickBy(ctx.validatedData, (value) => !_.isUndefined(value));
 
