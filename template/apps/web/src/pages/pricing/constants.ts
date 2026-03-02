@@ -22,7 +22,7 @@ export const plans: Plan[] = [
   {
     name: 'Creator',
     price: '$29',
-    priceId: config.PRICE_CREATOR ?? null,
+    priceId: config.PRICE_CREATOR || null,
     description: 'For growing creators',
     features: ['All Free features', 'Advanced features', 'Priority support', 'Higher limits'],
     popular: true,
@@ -30,7 +30,7 @@ export const plans: Plan[] = [
   {
     name: 'Pro',
     price: '$49',
-    priceId: config.PRICE_PRO ?? null,
+    priceId: config.PRICE_PRO || null,
     description: 'For professionals and teams',
     features: ['All Creator features', 'Unlimited usage', 'Premium support', 'Custom integrations'],
   },

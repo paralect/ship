@@ -61,11 +61,16 @@ const Pricing = () => {
   );
 
   useEffect(() => {
-    if (!success && !canceled && !portal) return;
-
-    if (success) toast.success('Subscription successful! Welcome aboard.');
-    if (canceled) toast.info('Checkout was canceled.');
-    if (success || portal) refetchSubscription();
+    if (success) {
+      toast.success('Subscription successful! Welcome aboard.');
+      refetchSubscription();
+    } else if (canceled) {
+      toast.info('Checkout was canceled.');
+    } else if (portal) {
+      refetchSubscription();
+    } else {
+      return;
+    }
 
     router.replace(RoutePath.Pricing);
   }, [success, canceled, portal, router, refetchSubscription]);
@@ -85,7 +90,9 @@ const Pricing = () => {
 
     if (hasSubscription) {
       upgrade({ priceId });
-    } else {
+    }
+
+    if (!hasSubscription) {
       subscribe({ priceId });
     }
   };
@@ -94,10 +101,12 @@ const Pricing = () => {
     const currentPlanIndex = plans.findIndex((p) => p.priceId === currentPriceId);
     const targetPlanIndex = plans.findIndex((p) => p.priceId === plan.priceId);
 
+    const isFreePlan = !plan.priceId;
     const isCurrentPlan = plan.priceId === currentPriceId;
-    const isFreeAndNoSubscription = !plan.priceId && !hasSubscription;
     const isDowngrade = hasSubscription && targetPlanIndex < currentPlanIndex;
     const isPending = isSubscribePending || isUpgradePending;
+
+    const openPortal = () => createPortalSession({});
 
     interface ButtonConfig {
       label: string;
@@ -108,23 +117,17 @@ const Pricing = () => {
     }
 
     const config: ButtonConfig = (() => {
-      if (!plan.priceId && isCanceled) return { label: `Starting ${periodEndDate}`, disabled: true };
-      if (isFreeAndNoSubscription) return { label: 'Current Plan', disabled: true };
-      if (isCurrentPlan && isCanceled) return { label: `Until ${periodEndDate}`, disabled: true };
-      if (isCurrentPlan) return { label: 'Current Plan', disabled: true };
+      if (isFreePlan && isCanceled) return { label: `Starting ${periodEndDate}`, disabled: true };
+      if (isFreePlan && !hasSubscription) return { label: 'Current Plan', disabled: true };
+      if (isCurrentPlan) return { label: isCanceled ? `Until ${periodEndDate}` : 'Current Plan', disabled: true };
 
-      if (isCanceled && plan.priceId)
-        return { label: 'Resubscribe', onClick: () => createPortalSession({}), loading: isPortalPending };
-      if (isDowngrade && !plan.priceId)
-        return { label: 'Downgrade', onClick: () => createPortalSession({}), loading: isPortalPending, outline: true };
+      if (isCanceled) return { label: 'Resubscribe', onClick: openPortal, loading: isPortalPending };
+      if (isDowngrade && isFreePlan)
+        return { label: 'Downgrade', onClick: openPortal, loading: isPortalPending, outline: true };
 
-      if (isDowngrade)
-        return { label: 'Downgrade', onClick: () => handlePlanAction(plan.priceId), loading: isPending, outline: true };
-      return {
-        label: hasSubscription ? 'Upgrade' : 'Subscribe',
-        onClick: () => handlePlanAction(plan.priceId),
-        loading: isPending,
-      };
+      const label = isDowngrade ? 'Downgrade' : hasSubscription ? 'Upgrade' : 'Subscribe';
+
+      return { label, onClick: () => handlePlanAction(plan.priceId), loading: isPending, outline: isDowngrade };
     })();
 
     const showOutline = config.disabled || config.outline || !plan.popular;
