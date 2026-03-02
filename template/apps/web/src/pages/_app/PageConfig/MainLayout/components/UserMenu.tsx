@@ -5,7 +5,6 @@ import { LogOut, Moon, Sun, User } from 'lucide-react';
 
 import { apiClient } from 'services/api-client.service';
 
-import { RoutePath } from 'routes';
 import queryClient from 'query-client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -57,7 +56,7 @@ const UserMenu = ({ isCollapsed }: UserMenuProps) => {
 
         <DropdownMenuContent align={isCollapsed ? 'center' : 'start'} side="top">
           <DropdownMenuItem asChild>
-            <Link href={RoutePath.Profile}>
+            <Link href="/profile">
               <User className="mr-2 size-4" />
               Profile settings
             </Link>

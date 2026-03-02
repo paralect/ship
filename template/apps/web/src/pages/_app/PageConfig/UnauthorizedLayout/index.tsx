@@ -1,8 +1,8 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactNode } from 'react';
 import Image from 'next/image';
 
 interface UnauthorizedLayoutProps {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => (

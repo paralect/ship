@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { useApiQuery } from 'hooks/use-api.hook';
 import { MessageSquare } from 'lucide-react';
 
-import { apiClient } from 'services/api-client.service';
+import { LayoutType, Page, ScopeType } from 'components';
 
-import { RoutePath } from 'routes';
+import { apiClient } from 'services/api-client.service';
 
 import { Button } from '@/components/ui/button';
 
@@ -13,7 +13,7 @@ const Home = () => {
   const { data: account } = useApiQuery(apiClient.account.get);
 
   return (
-    <>
+    <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
       <Head>
         <title>Home</title>
       </Head>
@@ -29,14 +29,14 @@ const Home = () => {
           </p>
 
           <Button asChild className="mt-6">
-            <Link href={RoutePath.ChatIndex}>
+            <Link href="/chat">
               <MessageSquare className="mr-2 size-4" />
               Go to Chat
             </Link>
           </Button>
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 

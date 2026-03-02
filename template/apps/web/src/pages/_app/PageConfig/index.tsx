@@ -1,18 +1,27 @@
 import 'services/socket-handlers';
 
-import { FC, Fragment, ReactElement, useEffect } from 'react';
+import { FC, Fragment, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useApiQuery } from 'hooks/use-api.hook';
 
 import { analyticsService } from 'services';
 import { apiClient } from 'services/api-client.service';
 
-import { LayoutType, RoutePath, routesConfiguration, ScopeType } from 'routes';
 import config from 'config';
 
 import MainLayout from './MainLayout';
 import PrivateScope from './PrivateScope';
 import UnauthorizedLayout from './UnauthorizedLayout';
+
+export enum ScopeType {
+  PUBLIC = 'PUBLIC',
+  PRIVATE = 'PRIVATE',
+}
+
+export enum LayoutType {
+  MAIN = 'MAIN',
+  UNAUTHORIZED = 'UNAUTHORIZED',
+}
 
 const layoutToComponent = {
   [LayoutType.MAIN]: MainLayout,
@@ -25,11 +34,13 @@ const scopeToComponent = {
 };
 
 interface PageConfigProps {
-  children: ReactElement;
+  children: ReactNode;
+  scope?: ScopeType;
+  layout?: LayoutType;
 }
 
-const PageConfig: FC<PageConfigProps> = ({ children }) => {
-  const { route, push } = useRouter();
+const Page: FC<PageConfigProps> = ({ children, scope, layout }) => {
+  const { push } = useRouter();
 
   const { data: account, isLoading: isAccountLoading, dataUpdatedAt } = useApiQuery(apiClient.account.get);
 
@@ -42,17 +53,16 @@ const PageConfig: FC<PageConfigProps> = ({ children }) => {
 
   if (isAccountLoading) return null;
 
-  const { scope, layout } = routesConfiguration[route as RoutePath] || {};
   const Scope = scope ? scopeToComponent[scope] : Fragment;
   const Layout = layout ? layoutToComponent[layout] : Fragment;
 
   if (scope === ScopeType.PRIVATE && !account) {
-    push(RoutePath.SignIn);
+    push('/sign-in');
     return null;
   }
 
   if (scope === ScopeType.PUBLIC && account) {
-    push(RoutePath.Home);
+    push('/');
     return null;
   }
 
@@ -63,4 +73,4 @@ const PageConfig: FC<PageConfigProps> = ({ children }) => {
   );
 };
 
-export default PageConfig;
+export default Page;

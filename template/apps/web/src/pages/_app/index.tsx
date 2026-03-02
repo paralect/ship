@@ -8,7 +8,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import queryClient from 'query-client';
 
 import GlobalErrorHandler from './GlobalErrorHandler';
-import PageConfig from './PageConfig';
 
 import 'globals.css';
 
@@ -27,9 +26,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <PageConfig>
-            <Component {...pageProps} />
-          </PageConfig>
+          <Component {...pageProps} />
         </TooltipProvider>
 
         <GlobalErrorHandler />
