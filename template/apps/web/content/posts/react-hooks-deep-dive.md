@@ -9,8 +9,6 @@ tags: [react, hooks, frontend, javascript]
 published: true
 ---
 
-# React Hooks Deep Dive
-
 React Hooks revolutionized how we write components. Let's explore the most powerful patterns.
 
 ## useState vs useReducer

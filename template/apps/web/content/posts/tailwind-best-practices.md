@@ -9,8 +9,6 @@ tags: [tailwind, css, frontend]
 published: true
 ---
 
-# Tailwind CSS Best Practices
-
 Tailwind is powerful, but it needs discipline to use well.
 
 ## Tips

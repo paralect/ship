@@ -9,8 +9,6 @@ tags: [nextjs, react, tutorial]
 published: true
 ---
 
-# Getting Started with Next.js
-
 Next.js is a powerful React framework that makes building web applications a breeze. In this guide, we'll explore the basics and get you up and running in no time.
 
 ## Why Next.js?

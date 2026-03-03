@@ -9,10 +9,6 @@ tags: [docker, devops, containers, deployment]
 published: true
 ---
 
-# Docker for Developers
-
-Containers have become essential for modern development. Here's everything you need to know.
-
 ## Why Docker?
 
 - Consistent environments across machines

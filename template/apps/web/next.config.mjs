@@ -1,8 +1,7 @@
-import { withContentCollections } from "@content-collections/next";
+import { withContentCollections } from '@content-collections/next';
 import dotenv from 'dotenv-flow';
 import { join } from 'node:path';
 import process from 'node:process';
-
 
 const dotenvConfig = dotenv.config({
   node_env: process.env.NEXT_PUBLIC_APP_ENV,

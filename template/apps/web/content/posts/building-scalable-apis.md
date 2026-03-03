@@ -9,10 +9,6 @@ tags: [nodejs, api, backend, architecture]
 published: true
 ---
 
-# Building Scalable APIs with Node.js
-
-Creating APIs that can handle millions of requests requires careful planning and implementation.
-
 ## Architecture Principles
 
 1. **Separation of Concerns** - Keep your code modular
