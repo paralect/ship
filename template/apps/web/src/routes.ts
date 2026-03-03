@@ -6,12 +6,15 @@ export enum ScopeType {
 export enum LayoutType {
   MAIN = 'MAIN',
   UNAUTHORIZED = 'UNAUTHORIZED',
+  PUBLIC_PAGE = 'PUBLIC_PAGE',
 }
 
 export enum RoutePath {
   // Private paths
   Home = '/',
   Admin = '/admin',
+  Blog = '/blog',
+  Post = '/posts/[slug]',
   ChatIndex = '/chat',
   Chat = '/chat/[chatId]',
   Profile = '/profile',
@@ -41,6 +44,12 @@ export const routesConfiguration: RoutesConfiguration = {
   [RoutePath.Admin]: {
     scope: ScopeType.PRIVATE,
     layout: LayoutType.MAIN,
+  },
+  [RoutePath.Blog]: {
+    layout: LayoutType.PUBLIC_PAGE,
+  },
+  [RoutePath.Post]: {
+    layout: LayoutType.PUBLIC_PAGE,
   },
   [RoutePath.ChatIndex]: {
     scope: ScopeType.PRIVATE,

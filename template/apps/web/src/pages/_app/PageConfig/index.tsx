@@ -12,11 +12,13 @@ import config from 'config';
 
 import MainLayout from './MainLayout';
 import PrivateScope from './PrivateScope';
+import PublicLayout from './PublicLayout';
 import UnauthorizedLayout from './UnauthorizedLayout';
 
 const layoutToComponent = {
   [LayoutType.MAIN]: MainLayout,
   [LayoutType.UNAUTHORIZED]: UnauthorizedLayout,
+  [LayoutType.PUBLIC_PAGE]: PublicLayout,
 };
 
 const scopeToComponent = {
