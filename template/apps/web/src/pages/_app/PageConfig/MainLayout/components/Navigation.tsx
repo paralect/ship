@@ -7,8 +7,6 @@ import { ChevronDown, Home, MessageSquare, Plus, Trash2, Users } from 'lucide-re
 
 import { apiClient } from 'services/api-client.service';
 
-import { RoutePath } from 'routes';
-
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { cn, formatRelativeDate } from '@/lib/utils';
@@ -50,11 +48,11 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
 
   return (
     <div className="flex flex-col gap-1 p-2">
-      <Link href={RoutePath.Home}>
+      <Link href="/">
         <div
           className={cn(
             'flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
-            currentPath === RoutePath.Home && 'bg-muted',
+            currentPath === '/' && 'bg-muted',
             isCollapsed && 'justify-center px-0',
           )}
           title={isCollapsed ? 'Dashboard' : undefined}
@@ -64,11 +62,11 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
         </div>
       </Link>
 
-      <Link href={RoutePath.Admin}>
+      <Link href="/admin">
         <div
           className={cn(
             'flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
-            currentPath === RoutePath.Admin && 'bg-muted',
+            currentPath === '/admin' && 'bg-muted',
             isCollapsed && 'justify-center px-0',
           )}
           title={isCollapsed ? 'Admin' : undefined}
@@ -83,12 +81,12 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
           <div
             className={cn(
               'flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
-              (currentPath === RoutePath.ChatIndex || currentPath === RoutePath.Chat) && 'bg-muted',
+              (currentPath === '/chat' || currentPath === '/chat/[chatId]') && 'bg-muted',
               isCollapsed && 'justify-center px-0',
             )}
             onClick={() => {
               if (isCollapsed) {
-                router.push(RoutePath.ChatIndex);
+                router.push('/chat');
               }
             }}
             title={isCollapsed ? 'Chat' : undefined}

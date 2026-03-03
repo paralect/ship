@@ -6,7 +6,7 @@ import { useMDXComponent } from '@content-collections/mdx/react';
 import { allPosts, Post } from 'content-collections';
 import { ArrowLeft, User } from 'lucide-react';
 
-import { RoutePath } from 'routes';
+import { LayoutType, Page } from 'components';
 
 import { Button } from '@/components/ui/button';
 
@@ -18,7 +18,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }: PostPageProps) => {
   const MDXContent = useMDXComponent(post.mdx);
 
   return (
-    <>
+    <Page layout={LayoutType.PUBLIC_PAGE}>
       <Head>
         <title>{post.title}</title>
         <meta name="description" content={post.excerpt} />
@@ -26,7 +26,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }: PostPageProps) => {
 
       <article className="mx-auto max-w-3xl p-4 sm:p-6">
         <Button variant="ghost" size="sm" asChild className="mb-6">
-          <Link href={RoutePath.Blog}>
+          <Link href="/blog">
             <ArrowLeft className="mr-2 size-4" />
             Back to Blog
           </Link>
@@ -68,7 +68,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }: PostPageProps) => {
           <MDXContent />
         </div>
       </article>
-    </>
+    </Page>
   );
 };
 

@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { allPosts } from 'content-collections';
 import { User } from 'lucide-react';
 
+import { LayoutType, Page } from 'components';
+
 const Blog: NextPage = () => {
   const publishedPosts = allPosts.filter((post) => post.published);
 
   return (
-    <>
+    <Page layout={LayoutType.PUBLIC_PAGE}>
       <Head>
         <title>Blog</title>
       </Head>
@@ -71,7 +73,7 @@ const Blog: NextPage = () => {
           ))}
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 

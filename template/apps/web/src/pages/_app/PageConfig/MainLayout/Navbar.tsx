@@ -4,8 +4,6 @@ import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 
 import { LogoImage } from 'public/images';
 
-import { RoutePath } from 'routes';
-
 import { Navigation, UserMenu } from './components';
 
 import { Button } from '@/components/ui/button';
@@ -24,7 +22,7 @@ const Navbar = () => {
     >
       <div className="flex h-14 items-center justify-between border-b px-3">
         {!isCollapsed && (
-          <Link href={RoutePath.Home}>
+          <Link href="/">
             <LogoImage className="h-6" />
           </Link>
         )}

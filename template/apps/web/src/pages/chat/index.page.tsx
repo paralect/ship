@@ -1,6 +1,8 @@
 import { FC, useEffect } from 'react';
 import Head from 'next/head';
 
+import { LayoutType, Page, ScopeType } from 'components';
+
 import { ChatBox } from './components';
 import { useChatManager } from './hooks';
 
@@ -45,4 +47,12 @@ const ChatPage: FC<ChatPageProps> = ({ chatId: initialChatId }) => {
   );
 };
 
-export default ChatPage;
+export { ChatPage };
+
+const ChatIndexPage = () => (
+  <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
+    <ChatPage />
+  </Page>
+);
+
+export default ChatIndexPage;

@@ -2,8 +2,6 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { RoutePath } from 'routes';
-
 import { Button } from '@/components/ui/button';
 
 const NotFound: NextPage = () => {
@@ -22,7 +20,7 @@ const NotFound: NextPage = () => {
           The page you are looking for may have been removed, or the link you followed may be broken.
         </p>
 
-        <Button onClick={() => replace(RoutePath.Home)}>Go to homepage</Button>
+        <Button onClick={() => replace('/')}>Go to homepage</Button>
       </div>
     </>
   );

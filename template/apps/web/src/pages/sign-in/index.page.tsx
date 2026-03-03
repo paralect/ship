@@ -1,16 +1,16 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useApiForm, useApiMutation } from 'hooks';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
+import { LayoutType, Page, ScopeType } from 'components';
+
 import { GoogleIcon } from 'public/icons';
 
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
 
-import { RoutePath } from 'routes';
 import queryClient from 'query-client';
 import config from 'config';
 
@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password-input';
 
-const SignIn: NextPage = () => {
+const SignIn = () => {
   const {
     register,
     handleSubmit,
@@ -65,7 +65,7 @@ const SignIn: NextPage = () => {
   };
 
   return (
-    <>
+    <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
       <Head>
         <title>Sign in</title>
       </Head>
@@ -123,7 +123,7 @@ const SignIn: NextPage = () => {
                 </Alert>
               )}
 
-              <Link href={RoutePath.ForgotPassword} className="text-sm text-primary hover:underline">
+              <Link href="/forgot-password" className="text-sm text-primary hover:underline">
                 Forgot password?
               </Link>
             </div>
@@ -145,13 +145,13 @@ const SignIn: NextPage = () => {
 
           <div className="flex items-center justify-center gap-3">
             <span>Don&apos;t have an account?</span>
-            <Link href={RoutePath.SignUp} className="text-primary hover:underline">
+            <Link href="/sign-up" className="text-primary hover:underline">
               Sign up
             </Link>
           </div>
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 

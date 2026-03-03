@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
 import { useApiForm, useApiMutation, useApiQuery } from 'hooks';
 import { isUndefined, pickBy } from 'lodash';
@@ -7,6 +6,8 @@ import { serialize } from 'object-to-formdata';
 import { FormProvider } from 'react-hook-form';
 import { AccountGetResponse, AccountUpdateParams } from 'shared';
 import { toast } from 'sonner';
+
+import { LayoutType, Page, ScopeType } from 'components';
 
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
@@ -27,7 +28,7 @@ const getFormDefaultValues = (account?: AccountGetResponse) => ({
   avatar: undefined,
 });
 
-const Profile: NextPage = () => {
+const Profile = () => {
   const { data: account } = useApiQuery(apiClient.account.get);
 
   const methods = useApiForm(apiClient.account.update, {
@@ -73,7 +74,7 @@ const Profile: NextPage = () => {
   });
 
   return (
-    <>
+    <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
       <Head>
         <title>Profile</title>
       </Head>
@@ -134,7 +135,7 @@ const Profile: NextPage = () => {
           </FormProvider>
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 

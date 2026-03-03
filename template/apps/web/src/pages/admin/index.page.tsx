@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { NextPage } from 'next';
 import Head from 'next/head';
 import { SortDirection } from '@tanstack/react-table';
 import { useApiQuery } from 'hooks';
@@ -7,14 +6,14 @@ import { pick } from 'lodash';
 import { UsersListParams, UsersListResponse } from 'shared';
 import { toast } from 'sonner';
 
-import { Table } from 'components';
+import { LayoutType, Page, ScopeType, Table } from 'components';
 
 import { apiClient } from 'services';
 
 import Filters from './components/Filters';
 import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
 
-const Admin: NextPage = () => {
+const Admin = () => {
   const [params, setParamsState] = useState<UsersListParams>(DEFAULT_PARAMS);
   const setParams = useCallback(
     (value: Partial<UsersListParams> | ((prev: UsersListParams) => Partial<UsersListParams>)) => {
@@ -44,7 +43,7 @@ const Admin: NextPage = () => {
   };
 
   return (
-    <>
+    <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
       <Head>
         <title>Admin</title>
       </Head>
@@ -69,7 +68,7 @@ const Admin: NextPage = () => {
           />
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 

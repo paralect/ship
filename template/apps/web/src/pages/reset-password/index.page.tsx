@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,10 +7,10 @@ import { useForm } from 'react-hook-form';
 import { schemas } from 'shared';
 import { z } from 'zod';
 
+import { LayoutType, Page, ScopeType } from 'components';
+
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
-
-import { RoutePath } from 'routes';
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -22,7 +21,7 @@ const formSchema = schemas.account.resetPassword.omit({ token: true });
 
 type ResetPasswordFormData = z.infer<typeof formSchema>;
 
-const ResetPassword: NextPage = () => {
+const ResetPassword = () => {
   const router = useRouter();
 
   const { token } = router.query;
@@ -55,16 +54,18 @@ const ResetPassword: NextPage = () => {
 
   if (!token) {
     return (
-      <div className="flex w-full max-w-sm flex-col gap-2">
-        <h2 className="mb-0 text-2xl font-semibold">Invalid token</h2>
-        <p className="m-0 text-muted-foreground">Sorry, your token is invalid.</p>
-      </div>
+      <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
+        <div className="flex w-full max-w-sm flex-col gap-2">
+          <h2 className="mb-0 text-2xl font-semibold">Invalid token</h2>
+          <p className="m-0 text-muted-foreground">Sorry, your token is invalid.</p>
+        </div>
+      </Page>
     );
   }
 
   if (isResetPasswordSuccess) {
     return (
-      <>
+      <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
         <Head>
           <title>Reset Password</title>
         </Head>
@@ -76,14 +77,14 @@ const ResetPassword: NextPage = () => {
             Your password has been updated successfully. You can now use your new password to sign in.
           </p>
 
-          <Button onClick={() => router.push(RoutePath.SignIn)}>Back to Sign In</Button>
+          <Button onClick={() => router.push('/sign-in')}>Back to Sign In</Button>
         </div>
-      </>
+      </Page>
     );
   }
 
   return (
-    <>
+    <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
       <Head>
         <title>Reset Password</title>
       </Head>
@@ -113,7 +114,7 @@ const ResetPassword: NextPage = () => {
           </div>
         </form>
       </div>
-    </>
+    </Page>
   );
 };
 

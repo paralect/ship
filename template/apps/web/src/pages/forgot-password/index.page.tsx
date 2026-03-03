@@ -1,20 +1,19 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useApiForm, useApiMutation } from 'hooks';
 import { Loader2 } from 'lucide-react';
 
+import { LayoutType, Page, ScopeType } from 'components';
+
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
-
-import { RoutePath } from 'routes';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-const ForgotPassword: NextPage = () => {
+const ForgotPassword = () => {
   const router = useRouter();
 
   const {
@@ -41,7 +40,7 @@ const ForgotPassword: NextPage = () => {
 
   if (isForgotPasswordSuccess && email) {
     return (
-      <>
+      <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
         <Head>
           <title>Forgot password</title>
         </Head>
@@ -55,14 +54,14 @@ const ForgotPassword: NextPage = () => {
             directions to reset your password.
           </p>
 
-          <Button onClick={() => router.push(RoutePath.SignIn)}>Back to Sign In</Button>
+          <Button onClick={() => router.push('/sign-in')}>Back to Sign In</Button>
         </div>
-      </>
+      </Page>
     );
   }
 
   return (
-    <>
+    <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
       <Head>
         <title>Forgot password</title>
       </Head>
@@ -97,12 +96,12 @@ const ForgotPassword: NextPage = () => {
 
         <div className="flex items-center justify-center gap-2">
           <span>Have an account?</span>
-          <Link href={RoutePath.SignIn} className="text-primary hover:underline">
+          <Link href="/sign-in" className="text-primary hover:underline">
             Sign in
           </Link>
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 

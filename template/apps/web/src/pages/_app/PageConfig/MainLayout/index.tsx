@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import Link from 'next/link';
 import { useApiQuery } from 'hooks';
 import { PanelLeft, SquarePen } from 'lucide-react';
@@ -6,8 +6,6 @@ import { PanelLeft, SquarePen } from 'lucide-react';
 import { LogoImage } from 'public/images';
 
 import { apiClient } from 'services/api-client.service';
-
-import { RoutePath } from 'routes';
 
 import { Navigation, UserMenu } from './components';
 import Navbar from './Navbar';
@@ -17,7 +15,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 interface MainLayoutProps {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
@@ -39,7 +37,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
           <SheetContent side="left" className="flex w-72 flex-col p-0">
             <SheetHeader className="border-b px-4 py-3">
               <SheetTitle>
-                <Link href={RoutePath.Home} onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
                   <LogoImage className="h-6" />
                 </Link>
               </SheetTitle>
@@ -55,7 +53,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
           </SheetContent>
         </Sheet>
 
-        <Link href={RoutePath.ChatIndex}>
+        <Link href="/chat">
           <Button variant="ghost" size="icon">
             <SquarePen className="size-5" />
           </Button>

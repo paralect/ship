@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactNode } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useApiQuery } from 'hooks';
@@ -8,12 +8,10 @@ import { LogoImage } from 'public/images';
 
 import { apiClient } from 'services/api-client.service';
 
-import { RoutePath } from 'routes';
-
 import { Button } from '@/components/ui/button';
 
 interface PublicLayoutProps {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const PublicLayout: FC<PublicLayoutProps> = ({ children }) => {
@@ -23,7 +21,7 @@ const PublicLayout: FC<PublicLayoutProps> = ({ children }) => {
   return (
     <div className="flex min-h-screen flex-col bg-muted/40">
       <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background px-4">
-        <Link href={RoutePath.Blog}>
+        <Link href="/blog">
           <LogoImage className="h-6" />
         </Link>
 
@@ -34,11 +32,11 @@ const PublicLayout: FC<PublicLayoutProps> = ({ children }) => {
 
           {account ? (
             <Button asChild>
-              <Link href={RoutePath.Home}>Go to app</Link>
+              <Link href="/">Go to app</Link>
             </Button>
           ) : (
             <Button variant="ghost" asChild>
-              <Link href={RoutePath.SignIn}>Sign In</Link>
+              <Link href="/sign-in">Sign In</Link>
             </Button>
           )}
         </div>

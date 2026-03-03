@@ -4,10 +4,9 @@ title: "Routing"
 
 Our application's routing is powered by [Next.js Pages router](https://nextjs.org/docs/pages), which is a standard for handling routes in Next.js applications.
 
-## Configuration in `routes.ts`
+## Page Configuration with `<Page>`
 
-Each route in our application is configured in the `routes.ts` file, located in the root of the `routes` directory.
-This file defines the structure and access levels of all routes using the `routesConfiguration` object.
+Each page component declares its own scope and layout by wrapping its content in the `<Page>` component (imported from `components`). This co-locates route configuration with the page component itself — no central configuration file to maintain.
 
 ### Scope and Layout Types
 
@@ -21,35 +20,49 @@ Routes are categorized into two scope types and layout types:
 - `MAIN`: Main layout for authenticated users.
 - `UNAUTHORIZED`: Layout for non-authenticated users or authentication pages.
 
-### Route Configuration Example
+### Page Configuration Example
 
-Here's an example of how a private and a public route are configured:
+Here's how a page declares its scope and layout:
 
-- Private Route (Requires authentication):
-```tsx src/routes.ts
-[RoutePath.Profile]: {
-  scope: ScopeType.PRIVATE,
-  layout: LayoutType.MAIN,
-}
+- Private Page (Requires authentication):
+```tsx src/pages/profile/index.page.tsx
+import { Page, ScopeType, LayoutType } from 'components';
+
+const Profile = () => {
+  return (
+    <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
+      <div>Profile page</div>
+    </Page>
+  );
+};
+
+export default Profile;
 ```
 
-- Public Route (Accessible without authentication):
-```tsx src/routes.ts
-[RoutePath.ForgotPassword]: {
-  scope: ScopeType.PUBLIC,
-  layout: LayoutType.UNAUTHORIZED,
-},
+- Public Page (Accessible without authentication):
+```tsx src/pages/forgot-password/index.page.tsx
+import { Page, ScopeType, LayoutType } from 'components';
+
+const ForgotPassword = () => {
+  return (
+    <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
+      <div>Forgot password page</div>
+    </Page>
+  );
+};
+
+export default ForgotPassword;
 ```
 
-## Page Configuration
+## Page Component
 
-The PageConfig (`/pages/_app/PageConfig/index.tsx` file) plays a crucial role in applying these configurations.
-It uses the route configuration from `routes.ts` to determine the appropriate scope and layout for each page.
+The `Page` component (`/pages/_app/PageConfig/index.tsx`, re-exported from `components`) handles scope and layout rendering.
+Each page wraps its content in `<Page scope={...} layout={...}>` to declare its access requirements and layout.
 
 ### How It Works
 
-- The `PageConfig` component, using the Next.js router, matches the current route against the `routesConfiguration`.
-- Based on the route, it applies the designated scope and layout.
+- Each page imports the `Page` component and wraps its returned JSX with the appropriate `scope` and `layout` props.
+- Based on these props, the `Page` component applies the designated scope and layout.
 - For private routes, it redirects unauthenticated users to the sign-in page.
 - Conversely, for public routes, authenticated users are redirected to the home page.
 
