@@ -18,7 +18,7 @@ import {
   validateNpmName,
 } from 'helpers';
 
-import { installPlugin } from 'plugins';
+import { createPlugin, installPlugin } from 'plugins';
 
 import config from 'config';
 
@@ -80,6 +80,15 @@ const run = async (): Promise<void> => {
 
   if (isCommandInstall) {
     await installPlugin(rawArgs[1].toLowerCase());
+
+    return;
+  }
+
+  // rawArgs = ['add', <plugin-name>];
+  const isCommandAdd = rawArgs.length === 2 && rawArgs[0] === 'add';
+
+  if (isCommandAdd) {
+    await createPlugin(rawArgs[1].toLowerCase());
 
     return;
   }
