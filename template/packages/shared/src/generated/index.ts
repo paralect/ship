@@ -44,15 +44,6 @@ export const schemas = {
       token: z.string().min(1, "Token is required"),
     }),
   },
-  chats: {
-    create: z.object({
-      title: z.string().min(1).max(255).optional(),
-    }),
-    list: z.object({}),
-    sendMessage: z.object({
-      content: z.string().min(1),
-    }),
-  },
   users: {
     list: paginationSchema.extend({
       filter: z
@@ -77,9 +68,6 @@ export const schemas = {
   },
 } as const;
 
-export type ChatsDeletePathParams = { chatId: string };
-export type ChatsGetMessagesPathParams = { chatId: string };
-export type ChatsSendMessagePathParams = { chatId: string };
 export type UsersRemovePathParams = { id: string };
 export type UsersUpdatePathParams = { id: string };
 
@@ -101,9 +89,6 @@ export type AccountVerifyEmailParams = z.infer<
 export type AccountVerifyResetTokenParams = z.infer<
   typeof schemas.account.verifyResetToken
 >;
-export type ChatsCreateParams = z.infer<typeof schemas.chats.create>;
-export type ChatsListParams = z.infer<typeof schemas.chats.list>;
-export type ChatsSendMessageParams = z.infer<typeof schemas.chats.sendMessage>;
 export type UsersListParams = z.infer<typeof schemas.users.list>;
 export type UsersUpdateParams = z.infer<typeof schemas.users.update>;
 
@@ -147,32 +132,6 @@ export type AccountUpdateResponse = null | {
   oauth?: { google?: { userId: string; connectedOn: string } };
   lastRequest?: string;
 };
-export type ChatsCreateResponse = {
-  _id: string;
-  userId: string;
-  title: string;
-  createdOn?: string;
-  updatedOn?: string;
-  deletedOn?: null | string;
-};
-export type ChatsDeleteResponse = { success: true };
-export type ChatsGetMessagesResponse = {
-  _id: string;
-  chatId: string;
-  role: "user" | "assistant";
-  content: string;
-  createdOn?: string;
-  updatedOn?: string;
-  deletedOn?: null | string;
-}[];
-export type ChatsListResponse = {
-  _id: string;
-  userId: string;
-  title: string;
-  createdOn?: string;
-  updatedOn?: string;
-  deletedOn?: null | string;
-}[];
 export type UsersListResponse = {
   results: {
     _id: string;
@@ -377,90 +336,6 @@ function createAccountEndpoints(client: ApiClient) {
   };
 }
 
-function createChatsEndpoints(client: ApiClient) {
-  return {
-    create: {
-      method: "post" as const,
-      path: "/chats" as const,
-      schema: schemas.chats.create,
-      call: (
-        params: ChatsCreateParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.post<ChatsCreateResponse>(
-          "/chats",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
-    },
-    delete: {
-      method: "delete" as const,
-      path: "/chats/:chatId" as const,
-      schema: undefined,
-      call: (
-        params: Record<string, unknown> | undefined,
-        options: {
-          pathParams: ChatsDeletePathParams;
-          headers?: Record<string, string>;
-        },
-      ) =>
-        client.delete<ChatsDeleteResponse>(
-          `/chats/${options.pathParams.chatId}`,
-          params,
-          options.headers ? { headers: options.headers } : undefined,
-        ),
-    },
-    getMessages: {
-      method: "get" as const,
-      path: "/chats/:chatId/messages" as const,
-      schema: undefined,
-      call: (
-        params: Record<string, unknown> | undefined,
-        options: {
-          pathParams: ChatsGetMessagesPathParams;
-          headers?: Record<string, string>;
-        },
-      ) =>
-        client.get<ChatsGetMessagesResponse>(
-          `/chats/${options.pathParams.chatId}/messages`,
-          params,
-          options.headers ? { headers: options.headers } : undefined,
-        ),
-    },
-    list: {
-      method: "get" as const,
-      path: "/chats" as const,
-      schema: schemas.chats.list,
-      call: (
-        params: ChatsListParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.get<ChatsListResponse>(
-          "/chats",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
-    },
-    sendMessage: {
-      method: "post" as const,
-      path: "/chats/:chatId/messages" as const,
-      schema: schemas.chats.sendMessage,
-      call: (
-        params: ChatsSendMessageParams,
-        options: {
-          pathParams: ChatsSendMessagePathParams;
-          headers?: Record<string, string>;
-        },
-      ) =>
-        client.post<void>(
-          `/chats/${options.pathParams.chatId}/messages`,
-          params,
-          options.headers ? { headers: options.headers } : undefined,
-        ),
-    },
-  };
-}
-
 function createUsersEndpoints(client: ApiClient) {
   return {
     list: {
@@ -517,7 +392,6 @@ function createUsersEndpoints(client: ApiClient) {
 export function createApiEndpoints(client: ApiClient) {
   return {
     account: createAccountEndpoints(client),
-    chats: createChatsEndpoints(client),
     users: createUsersEndpoints(client),
   };
 }
