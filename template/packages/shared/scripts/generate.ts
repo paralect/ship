@@ -18,6 +18,102 @@ const SCHEMAS_OUTPUT_PATH = path.resolve(__dirname, "../src/schemas");
 const GENERATED_PATH = path.resolve(__dirname, "../src/generated");
 const IGNORE_RESOURCES = ["token"];
 
+// ─── Schema Extensions ────────────────────────────────────────────────
+
+function applySchemaExtensions(
+  content: string,
+  schemaBaseName: string,
+  extendInfos: { fileName: string; content: string }[],
+): string {
+  if (extendInfos.length === 0) return content;
+
+  const extensions: { importName: string; importPath: string }[] = [];
+
+  for (const { fileName, content: extContent } of extendInfos) {
+    const match = extContent.match(/export\s+const\s+(\w+)\s*=/);
+    if (!match) continue;
+    extensions.push({
+      importName: match[1],
+      importPath: `./${fileName.replace(".ts", "")}`,
+    });
+  }
+
+  if (extensions.length === 0) return content;
+
+  const lines = content.split("\n");
+
+  // Add imports after the last existing import
+  let lastImportIndex = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\s*import\s/.test(lines[i])) {
+      lastImportIndex = i;
+    }
+  }
+
+  const importStatements = extensions.map(
+    (e) => `import { ${e.importName} } from '${e.importPath}';`,
+  );
+  lines.splice(lastImportIndex + 1, 0, ...importStatements);
+
+  let result = lines.join("\n");
+
+  // Find the schema variable and append .extend() calls
+  const schemaVarName = `${schemaBaseName}Schema`;
+  const defRegex = new RegExp(`export\\s+const\\s+${schemaVarName}\\s*=`);
+  const defMatch = result.match(defRegex);
+
+  if (!defMatch || defMatch.index === undefined) return result;
+
+  const afterEquals = defMatch.index + defMatch[0].length;
+
+  // Track balanced brackets (with string awareness) to find end of expression
+  let depth = 0;
+  let foundStart = false;
+  let endIndex = -1;
+  let inString = false;
+  let stringChar = "";
+
+  for (let i = afterEquals; i < result.length; i++) {
+    const char = result[i];
+    const prevChar = i > 0 ? result[i - 1] : "";
+
+    if (!inString && (char === '"' || char === "'" || char === "`")) {
+      inString = true;
+      stringChar = char;
+      continue;
+    }
+    if (inString) {
+      if (char === stringChar && prevChar !== "\\") {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (char === "(" || char === "{" || char === "[") {
+      depth++;
+      foundStart = true;
+    } else if (char === ")" || char === "}" || char === "]") {
+      depth--;
+      if (foundStart && depth === 0) {
+        endIndex = i;
+        break;
+      }
+    }
+  }
+
+  if (endIndex === -1) return result;
+
+  const extendCalls = extensions
+    .map((e) => `.extend(${e.importName})`)
+    .join("");
+  result =
+    result.substring(0, endIndex + 1) +
+    extendCalls +
+    result.substring(endIndex + 1);
+
+  return result;
+}
+
 // ─── Schema Sync ───────────────────────────────────────────────────────
 
 function syncSchemas() {
@@ -38,7 +134,10 @@ function syncSchemas() {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       if (entry.isDirectory()) {
         findSchemasRecursively(path.join(dir, entry.name), baseDir);
-      } else if (entry.name.endsWith(".schema.ts")) {
+      } else if (
+        entry.name.endsWith(".schema.ts") ||
+        entry.name.endsWith(".extend.ts")
+      ) {
         const fullPath = path.join(dir, entry.name);
         const relativePath = path
           .relative(baseDir, fullPath)
@@ -53,8 +152,25 @@ function syncSchemas() {
 
   findSchemasRecursively(API_RESOURCES_PATH, API_RESOURCES_PATH);
 
+  // Group extend files by their base schema for auto-extension
+  const extendsBySchema = new Map<
+    string,
+    { fileName: string; src: string }[]
+  >();
   for (const { src, relativePath } of schemaFiles) {
-    const content = fs.readFileSync(src, "utf-8");
+    if (!relativePath.endsWith(".extend.ts")) continue;
+    const dir = path.dirname(relativePath);
+    const baseName = path.basename(relativePath).split(".")[0];
+    const key = `${dir}/${baseName}`;
+    if (!extendsBySchema.has(key)) extendsBySchema.set(key, []);
+    extendsBySchema.get(key)!.push({
+      fileName: path.basename(relativePath),
+      src,
+    });
+  }
+
+  for (const { src, relativePath } of schemaFiles) {
+    let content = fs.readFileSync(src, "utf-8");
     const outputPath = path.join(SCHEMAS_OUTPUT_PATH, relativePath);
     const outputDir = path.dirname(outputPath);
 
@@ -62,12 +178,37 @@ function syncSchemas() {
       fs.mkdirSync(outputDir, { recursive: true });
     }
 
+    // Auto-apply .extend() for matching *.extend.ts files
+    if (
+      relativePath.endsWith(".schema.ts") &&
+      relativePath !== "base.schema.ts"
+    ) {
+      const dir = path.dirname(relativePath);
+      const baseName = path.basename(relativePath, ".schema.ts");
+      const key = `${dir}/${baseName}`;
+      const matchingExtends = extendsBySchema.get(key);
+
+      if (matchingExtends && matchingExtends.length > 0) {
+        const extendInfos = matchingExtends.map((e) => ({
+          fileName: e.fileName,
+          content: fs.readFileSync(e.src, "utf-8"),
+        }));
+        content = applySchemaExtensions(content, baseName, extendInfos);
+        const extNames = matchingExtends.map((e) => e.fileName).join(", ");
+        console.log(`   ✓ ${relativePath} (+ ${extNames})`);
+      } else {
+        console.log(`   ✓ ${relativePath}`);
+      }
+    } else {
+      console.log(`   ✓ ${relativePath}`);
+    }
+
     fs.writeFileSync(outputPath, content);
-    console.log(`   ✓ ${relativePath}`);
   }
 
   const indexLines: string[] = [];
   for (const { relativePath } of schemaFiles) {
+    if (relativePath.endsWith(".extend.ts")) continue;
     const moduleName = relativePath.replace(".ts", "");
     indexLines.push(`export * from './${moduleName}';`);
   }

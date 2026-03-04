@@ -1,9 +1,9 @@
+import type { Message } from 'shared';
+import { messageSchema } from 'shared';
+
 import db from 'db';
 
 import { DATABASE_DOCUMENTS } from 'app-constants';
-
-import type { Message } from './message.schema';
-import { messageSchema } from './message.schema';
 
 const service = db.createService<Message>(DATABASE_DOCUMENTS.MESSAGES, {
   schemaValidator: (obj) => messageSchema.parseAsync(obj),

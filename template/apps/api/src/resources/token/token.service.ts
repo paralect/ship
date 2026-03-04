@@ -1,11 +1,11 @@
+import type { Token } from 'shared';
+import { tokenSchema, TokenType } from 'shared';
+
 import { securityUtil } from 'utils';
 
 import db from 'db';
 
 import { DATABASE_DOCUMENTS } from 'app-constants';
-
-import type { Token } from './token.schema';
-import { tokenSchema, TokenType } from './token.schema';
 
 const service = db.createService<Token>(DATABASE_DOCUMENTS.TOKENS, {
   schemaValidator: (obj) => tokenSchema.parseAsync(obj),

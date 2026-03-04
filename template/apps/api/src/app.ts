@@ -1,5 +1,6 @@
 import cors from '@koa/cors';
 import { koaBody } from 'koa-body';
+import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
 import koaLogger from 'koa-logger';
 import qs from 'koa-qs';
@@ -25,14 +26,21 @@ const initKoa = async () => {
   app.use(helmet());
   qs(app);
   app.use(
-    koaBody({
-      multipart: true,
-      onError: (error, ctx) => {
-        const errText: string = error.stack || error.toString();
-
+    bodyParser({
+      enableTypes: ['json', 'form', 'text'],
+      onerror: (err, ctx) => {
+        const errText: string = err.stack || err.toString();
         logger.warn(`Unable to parse request body. ${errText}`);
         ctx.throw(422, 'Unable to parse request JSON.');
       },
+    }),
+  );
+  app.use(
+    koaBody({
+      multipart: true,
+      json: false,
+      urlencoded: false,
+      text: false,
     }),
   );
   app.use(

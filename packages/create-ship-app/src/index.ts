@@ -18,6 +18,8 @@ import {
   validateNpmName,
 } from 'helpers';
 
+import { installPlugin } from 'plugins';
+
 import config from 'config';
 
 import { Deployment } from 'types';
@@ -69,6 +71,15 @@ const run = async (): Promise<void> => {
     await createResource(rawArgs[2].toLowerCase());
 
     console.log(`Resource ${rawArgs[2]} created successfully.`);
+
+    return;
+  }
+
+  // rawArgs = ['install', <plugin-name>];
+  const isCommandInstall = rawArgs.length === 2 && rawArgs[0] === 'install';
+
+  if (isCommandInstall) {
+    await installPlugin(rawArgs[1].toLowerCase());
 
     return;
   }

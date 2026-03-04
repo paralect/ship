@@ -1,12 +1,11 @@
 import _ from 'lodash';
+import { userSchema } from 'shared';
 
 import { userService } from 'resources/users';
 
 import isAdmin from 'middlewares/isAdmin';
 import createEndpoint from 'routes/createEndpoint';
 import shouldExist from 'routes/middlewares/shouldExist';
-
-import { userSchema } from '../user.schema';
 
 const schema = userSchema.pick({ firstName: true, lastName: true, email: true });
 

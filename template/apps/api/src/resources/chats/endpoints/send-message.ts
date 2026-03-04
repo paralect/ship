@@ -1,7 +1,7 @@
+import type { Chat } from 'shared';
 import { z } from 'zod';
 
 import { chatService, messageService } from 'resources/chats';
-import type { Chat } from 'resources/chats/chat.schema';
 
 import { aiService } from 'services';
 import createEndpoint from 'routes/createEndpoint';
