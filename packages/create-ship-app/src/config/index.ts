@@ -6,6 +6,8 @@ const config = {
   TEMP_DIR_PATH: process.env.TEMP_DIR_PATH,
   CLEANUP_TEMP_DIR: process.env.CLEANUP_TEMP_DIR === 'true' || false,
   PNPM_SILENT: process.env.PNPM_SILENT === 'true' || false,
+  PLUGINS_REPO_OWNER: process.env.PLUGINS_REPO_OWNER || 'paralect',
+  PLUGINS_REPO_NAME: process.env.PLUGINS_REPO_NAME || 'ship-plugins',
 };
 
 export default config;

@@ -1,13 +1,11 @@
+import { paginationSchema, userPublicSchema } from 'shared';
 import { z } from 'zod';
 
-import { paginationSchema } from 'resources/base.schema';
 import { userService } from 'resources/users';
 
 import createEndpoint from 'routes/createEndpoint';
 
 import type { NestedKeys } from 'types';
-
-import { userPublicSchema } from '../user.schema';
 
 const schema = paginationSchema.extend({
   filter: z

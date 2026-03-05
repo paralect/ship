@@ -1,8 +1,7 @@
+import { emailSchema, TokenType } from 'shared';
 import { z } from 'zod';
 
-import { emailSchema } from 'resources/base.schema';
 import { tokenService } from 'resources/token';
-import { TokenType } from 'resources/token/token.schema';
 import { userService } from 'resources/users';
 
 import isPublic from 'middlewares/isPublic';
