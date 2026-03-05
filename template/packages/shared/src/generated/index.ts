@@ -1,69 +1,61 @@
-import { z } from "zod";
-import {
-  emailSchema,
-  paginationSchema,
-  passwordSchema,
-  userSchema,
-} from "../schemas";
-import { ApiClient } from "../client";
+import { z } from 'zod';
+import { emailSchema, paginationSchema, passwordSchema, userSchema } from '../schemas';
+import { ApiClient } from '../client';
 
 export const schemas = {
   account: {
     forgotPassword: z.object({
-      email: emailSchema,
-    }),
+  email: emailSchema,
+}),
     resendEmail: z.object({
-      email: emailSchema,
-    }),
+  email: emailSchema,
+}),
     resetPassword: z.object({
-      token: z.string().min(1, "Token is required"),
-      password: passwordSchema,
-    }),
+  token: z.string().min(1, 'Token is required'),
+  password: passwordSchema,
+}),
     signIn: z.object({
-      email: emailSchema,
-      password: z
-        .string()
-        .min(1, "Password is required")
-        .max(128, "Password must be less than 128 characters."),
-    }),
+  email: emailSchema,
+  password: z.string().min(1, 'Password is required').max(128, 'Password must be less than 128 characters.'),
+}),
     signUp: userSchema.pick({ firstName: true, lastName: true }).extend({
-      email: emailSchema,
-      password: passwordSchema,
-    }),
+  email: emailSchema,
+  password: passwordSchema,
+}),
     update: userSchema
-      .pick({ firstName: true, lastName: true })
-      .extend({
-        password: z.union([passwordSchema, z.literal("")]),
-        avatar: z.union([z.any(), z.literal("")]).nullable(),
-      })
-      .partial(),
+  .pick({ firstName: true, lastName: true })
+  .extend({
+    password: z.union([passwordSchema, z.literal('')]),
+    avatar: z.union([z.any(), z.literal('')]).nullable(),
+  })
+  .partial(),
     verifyEmail: z.object({
-      token: z.string().min(1, "Token is required"),
-    }),
+  token: z.string().min(1, 'Token is required'),
+}),
     verifyResetToken: z.object({
-      token: z.string().min(1, "Token is required"),
-    }),
+  token: z.string().min(1, 'Token is required'),
+}),
   },
   users: {
     list: paginationSchema.extend({
-      filter: z
+  filter: z
+    .object({
+      createdOn: z
         .object({
-          createdOn: z
-            .object({
-              startDate: z.coerce.date().optional(),
-              endDate: z.coerce.date().optional(),
-            })
-            .optional(),
+          startDate: z.coerce.date().optional(),
+          endDate: z.coerce.date().optional(),
         })
         .optional(),
-      sort: z
-        .object({
-          firstName: z.enum(["asc", "desc"]).optional(),
-          lastName: z.enum(["asc", "desc"]).optional(),
-          createdOn: z.enum(["asc", "desc"]).default("asc"),
-        })
-        .default({ createdOn: "asc" }),
-    }),
+    })
+    .optional(),
+  sort: z
+    .object({
+      firstName: z.enum(['asc', 'desc']).optional(),
+      lastName: z.enum(['asc', 'desc']).optional(),
+      createdOn: z.enum(['asc', 'desc']).default('asc'),
+    })
+    .default({ createdOn: 'asc' }),
+}),
     update: userSchema.pick({ firstName: true, lastName: true, email: true }),
   },
 } as const;
@@ -71,267 +63,109 @@ export const schemas = {
 export type UsersRemovePathParams = { id: string };
 export type UsersUpdatePathParams = { id: string };
 
-export type AccountForgotPasswordParams = z.infer<
-  typeof schemas.account.forgotPassword
->;
-export type AccountResendEmailParams = z.infer<
-  typeof schemas.account.resendEmail
->;
-export type AccountResetPasswordParams = z.infer<
-  typeof schemas.account.resetPassword
->;
+export type AccountForgotPasswordParams = z.infer<typeof schemas.account.forgotPassword>;
+export type AccountResendEmailParams = z.infer<typeof schemas.account.resendEmail>;
+export type AccountResetPasswordParams = z.infer<typeof schemas.account.resetPassword>;
 export type AccountSignInParams = z.infer<typeof schemas.account.signIn>;
 export type AccountSignUpParams = z.infer<typeof schemas.account.signUp>;
 export type AccountUpdateParams = z.infer<typeof schemas.account.update>;
-export type AccountVerifyEmailParams = z.infer<
-  typeof schemas.account.verifyEmail
->;
-export type AccountVerifyResetTokenParams = z.infer<
-  typeof schemas.account.verifyResetToken
->;
+export type AccountVerifyEmailParams = z.infer<typeof schemas.account.verifyEmail>;
+export type AccountVerifyResetTokenParams = z.infer<typeof schemas.account.verifyResetToken>;
 export type UsersListParams = z.infer<typeof schemas.users.list>;
 export type UsersUpdateParams = z.infer<typeof schemas.users.update>;
 
-export type AccountGetResponse = {
-  _id: string;
-  createdOn?: string;
-  updatedOn?: string;
-  deletedOn?: null | string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  isEmailVerified: boolean;
-  avatarUrl?: null | string;
-  oauth?: { google?: { userId: string; connectedOn: string } };
-  lastRequest?: string;
-};
-export type AccountSignInResponse = {
-  _id: string;
-  createdOn?: string;
-  updatedOn?: string;
-  deletedOn?: null | string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  isEmailVerified: boolean;
-  avatarUrl?: null | string;
-  oauth?: { google?: { userId: string; connectedOn: string } };
-  lastRequest?: string;
-};
+export type AccountGetResponse = { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string };
+export type AccountSignInResponse = { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string };
 export type AccountSignUpResponse = { emailVerificationToken: string };
-export type AccountUpdateResponse = null | {
-  _id: string;
-  createdOn?: string;
-  updatedOn?: string;
-  deletedOn?: null | string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  isEmailVerified: boolean;
-  avatarUrl?: null | string;
-  oauth?: { google?: { userId: string; connectedOn: string } };
-  lastRequest?: string;
-};
-export type UsersListResponse = {
-  results: {
-    _id: string;
-    createdOn?: string;
-    updatedOn?: string;
-    deletedOn?: null | string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    isEmailVerified: boolean;
-    avatarUrl?: null | string;
-    oauth?: { google?: { userId: unknown; connectedOn: unknown } };
-    lastRequest?: string;
-  }[];
-  pagesCount: number;
-  count: number;
-};
-export type UsersUpdateResponse = null | {
-  _id: string;
-  createdOn?: string;
-  updatedOn?: string;
-  deletedOn?: null | string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  isEmailVerified: boolean;
-  avatarUrl?: null | string;
-  oauth?: { google?: { userId: string; connectedOn: string } };
-  lastRequest?: string;
-};
+export type AccountUpdateResponse = null | { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string };
+export type UsersListResponse = { results: ({ _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: unknown; connectedOn: unknown } }; lastRequest?: string })[]; pagesCount: number; count: number };
+export type UsersUpdateResponse = null | { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string };
 
 function createAccountEndpoints(client: ApiClient) {
   return {
     forgotPassword: {
-      method: "post" as const,
-      path: "/account/forgot-password" as const,
+      method: 'post' as const,
+      path: '/account/forgot-password' as const,
       schema: schemas.account.forgotPassword,
-      call: (
-        params: AccountForgotPasswordParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.post<void>(
-          "/account/forgot-password",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: AccountForgotPasswordParams, options?: { headers?: Record<string, string> }) =>
+        client.post<void>('/account/forgot-password', params, options?.headers ? { headers: options.headers } : undefined),
     },
     get: {
-      method: "get" as const,
-      path: "/account" as const,
+      method: 'get' as const,
+      path: '/account' as const,
       schema: undefined,
-      call: (
-        params?: Record<string, unknown>,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.get<AccountGetResponse>(
-          "/account",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params?: Record<string, unknown>, options?: { headers?: Record<string, string> }) =>
+        client.get<AccountGetResponse>('/account', params, options?.headers ? { headers: options.headers } : undefined),
     },
     google: {
-      method: "get" as const,
-      path: "/account/sign-in/google" as const,
+      method: 'get' as const,
+      path: '/account/sign-in/google' as const,
       schema: undefined,
-      call: (
-        params?: Record<string, unknown>,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.get<void>(
-          "/account/sign-in/google",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params?: Record<string, unknown>, options?: { headers?: Record<string, string> }) =>
+        client.get<void>('/account/sign-in/google', params, options?.headers ? { headers: options.headers } : undefined),
     },
     googleCallback: {
-      method: "get" as const,
-      path: "/account/sign-in/google/callback" as const,
+      method: 'get' as const,
+      path: '/account/sign-in/google/callback' as const,
       schema: undefined,
-      call: (
-        params?: Record<string, unknown>,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.get<void>(
-          "/account/sign-in/google/callback",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params?: Record<string, unknown>, options?: { headers?: Record<string, string> }) =>
+        client.get<void>('/account/sign-in/google/callback', params, options?.headers ? { headers: options.headers } : undefined),
     },
     resendEmail: {
-      method: "post" as const,
-      path: "/account/resend-email" as const,
+      method: 'post' as const,
+      path: '/account/resend-email' as const,
       schema: schemas.account.resendEmail,
-      call: (
-        params: AccountResendEmailParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.post<void>(
-          "/account/resend-email",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: AccountResendEmailParams, options?: { headers?: Record<string, string> }) =>
+        client.post<void>('/account/resend-email', params, options?.headers ? { headers: options.headers } : undefined),
     },
     resetPassword: {
-      method: "put" as const,
-      path: "/account/reset-password" as const,
+      method: 'put' as const,
+      path: '/account/reset-password' as const,
       schema: schemas.account.resetPassword,
-      call: (
-        params: AccountResetPasswordParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.put<void>(
-          "/account/reset-password",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: AccountResetPasswordParams, options?: { headers?: Record<string, string> }) =>
+        client.put<void>('/account/reset-password', params, options?.headers ? { headers: options.headers } : undefined),
     },
     signIn: {
-      method: "post" as const,
-      path: "/account/sign-in" as const,
+      method: 'post' as const,
+      path: '/account/sign-in' as const,
       schema: schemas.account.signIn,
-      call: (
-        params: AccountSignInParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.post<AccountSignInResponse>(
-          "/account/sign-in",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: AccountSignInParams, options?: { headers?: Record<string, string> }) =>
+        client.post<AccountSignInResponse>('/account/sign-in', params, options?.headers ? { headers: options.headers } : undefined),
     },
     signOut: {
-      method: "post" as const,
-      path: "/account/sign-out" as const,
+      method: 'post' as const,
+      path: '/account/sign-out' as const,
       schema: undefined,
-      call: (
-        params?: Record<string, unknown>,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.post<void>(
-          "/account/sign-out",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params?: Record<string, unknown>, options?: { headers?: Record<string, string> }) =>
+        client.post<void>('/account/sign-out', params, options?.headers ? { headers: options.headers } : undefined),
     },
     signUp: {
-      method: "post" as const,
-      path: "/account/sign-up" as const,
+      method: 'post' as const,
+      path: '/account/sign-up' as const,
       schema: schemas.account.signUp,
-      call: (
-        params: AccountSignUpParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.post<AccountSignUpResponse>(
-          "/account/sign-up",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: AccountSignUpParams, options?: { headers?: Record<string, string> }) =>
+        client.post<AccountSignUpResponse>('/account/sign-up', params, options?.headers ? { headers: options.headers } : undefined),
     },
     update: {
-      method: "put" as const,
-      path: "/account" as const,
+      method: 'put' as const,
+      path: '/account' as const,
       schema: schemas.account.update,
-      call: (
-        params: AccountUpdateParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.put<AccountUpdateResponse>(
-          "/account",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: AccountUpdateParams, options?: { headers?: Record<string, string> }) =>
+        client.put<AccountUpdateResponse>('/account', params, options?.headers ? { headers: options.headers } : undefined),
     },
     verifyEmail: {
-      method: "get" as const,
-      path: "/account/verify-email" as const,
+      method: 'get' as const,
+      path: '/account/verify-email' as const,
       schema: schemas.account.verifyEmail,
-      call: (
-        params: AccountVerifyEmailParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.get<void>(
-          "/account/verify-email",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: AccountVerifyEmailParams, options?: { headers?: Record<string, string> }) =>
+        client.get<void>('/account/verify-email', params, options?.headers ? { headers: options.headers } : undefined),
     },
     verifyResetToken: {
-      method: "get" as const,
-      path: "/account/verify-reset-token" as const,
+      method: 'get' as const,
+      path: '/account/verify-reset-token' as const,
       schema: schemas.account.verifyResetToken,
-      call: (
-        params: AccountVerifyResetTokenParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.get<void>(
-          "/account/verify-reset-token",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: AccountVerifyResetTokenParams, options?: { headers?: Record<string, string> }) =>
+        client.get<void>('/account/verify-reset-token', params, options?.headers ? { headers: options.headers } : undefined),
     },
   };
 }
@@ -339,52 +173,25 @@ function createAccountEndpoints(client: ApiClient) {
 function createUsersEndpoints(client: ApiClient) {
   return {
     list: {
-      method: "get" as const,
-      path: "/users" as const,
+      method: 'get' as const,
+      path: '/users' as const,
       schema: schemas.users.list,
-      call: (
-        params: UsersListParams,
-        options?: { headers?: Record<string, string> },
-      ) =>
-        client.get<UsersListResponse>(
-          "/users",
-          params,
-          options?.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: UsersListParams, options?: { headers?: Record<string, string> }) =>
+        client.get<UsersListResponse>('/users', params, options?.headers ? { headers: options.headers } : undefined),
     },
     remove: {
-      method: "delete" as const,
-      path: "/users/:id" as const,
+      method: 'delete' as const,
+      path: '/users/:id' as const,
       schema: undefined,
-      call: (
-        params: Record<string, unknown> | undefined,
-        options: {
-          pathParams: UsersRemovePathParams;
-          headers?: Record<string, string>;
-        },
-      ) =>
-        client.delete<void>(
-          `/users/${options.pathParams.id}`,
-          params,
-          options.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: Record<string, unknown> | undefined, options: { pathParams: UsersRemovePathParams; headers?: Record<string, string> }) =>
+        client.delete<void>(`/users/${options.pathParams.id}`, params, options.headers ? { headers: options.headers } : undefined),
     },
     update: {
-      method: "put" as const,
-      path: "/users/:id" as const,
+      method: 'put' as const,
+      path: '/users/:id' as const,
       schema: schemas.users.update,
-      call: (
-        params: UsersUpdateParams,
-        options: {
-          pathParams: UsersUpdatePathParams;
-          headers?: Record<string, string>;
-        },
-      ) =>
-        client.put<UsersUpdateResponse>(
-          `/users/${options.pathParams.id}`,
-          params,
-          options.headers ? { headers: options.headers } : undefined,
-        ),
+      call: (params: UsersUpdateParams, options: { pathParams: UsersUpdatePathParams; headers?: Record<string, string> }) =>
+        client.put<UsersUpdateResponse>(`/users/${options.pathParams.id}`, params, options.headers ? { headers: options.headers } : undefined),
     },
   };
 }
@@ -398,39 +205,17 @@ export function createApiEndpoints(client: ApiClient) {
 
 export type ApiEndpoints = ReturnType<typeof createApiEndpoints>;
 
-export interface ApiEndpoint<
-  TParams = unknown,
-  TPathParams = never,
-  TResponse = unknown,
-> {
-  method: "get" | "post" | "put" | "patch" | "delete";
+export interface ApiEndpoint<TParams = unknown, TPathParams = never, TResponse = unknown> {
+  method: 'get' | 'post' | 'put' | 'patch' | 'delete';
   path: string;
   schema: z.ZodType | undefined;
   call: TPathParams extends never
-    ? (
-        params: TParams,
-        options?: { headers?: Record<string, string> },
-      ) => Promise<TResponse>
-    : (
-        params: TParams,
-        options: { pathParams: TPathParams; headers?: Record<string, string> },
-      ) => Promise<TResponse>;
+    ? (params: TParams, options?: { headers?: Record<string, string> }) => Promise<TResponse>
+    : (params: TParams, options: { pathParams: TPathParams; headers?: Record<string, string> }) => Promise<TResponse>;
 }
 
-export type InferParams<T> = T extends { schema: infer S }
-  ? S extends z.ZodType
-    ? z.infer<S>
-    : Record<string, unknown>
-  : Record<string, unknown>;
+export type InferParams<T> = T extends { schema: infer S } ? (S extends z.ZodType ? z.infer<S> : Record<string, unknown>) : Record<string, unknown>;
 
-export type InferPathParams<T> = T extends {
-  call: (params: unknown, options: { pathParams: infer PP }) => unknown;
-}
-  ? PP
-  : never;
+export type InferPathParams<T> = T extends { call: (params: unknown, options: { pathParams: infer PP }) => unknown } ? PP : never;
 
-export type InferResponse<T> = T extends {
-  call: (...args: never[]) => Promise<infer R>;
-}
-  ? R
-  : unknown;
+export type InferResponse<T> = T extends { call: (...args: never[]) => Promise<infer R> } ? R : unknown;
