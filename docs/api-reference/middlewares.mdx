@@ -31,27 +31,26 @@ The `rateLimitMiddleware` function accepts an options object with the following 
 ### Example
 
 ```typescript
-import Router from '@koa/router';
+import createEndpoint from 'routes/createEndpoint';
+import { rateLimitMiddleware } from 'middlewares';
 
-import { rateLimitMiddleware, validateMiddleware } from 'middlewares';
-
-async function handler(ctx: AppKoaContext) {
-  // Your handler logic here
-  ctx.body = { success: true };
-}
-
-export default (router: Router) => {
-  router.post(
-    '/send-email',
+export default createEndpoint({
+  method: 'post',
+  path: '/send-email',
+  schema,
+  middlewares: [
     rateLimitMiddleware({
       limitDuration: 300, // 5 minutes
       requestsPerDuration: 5, // 5 requests per 5 minutes
       errorMessage: 'Too many emails sent. Please try again later.',
     }),
-    validateMiddleware(schema),
-    handler,
-  );
-};
+  ],
+
+  async handler(ctx) {
+    // Your handler logic here
+    return { success: true };
+  },
+});
 ```
 
 ### Common Use Cases
@@ -78,11 +77,10 @@ If validation fails, it automatically throws a `400` error with detailed field-l
 ### Example
 
 ```typescript
-import Router from '@koa/router';
 import { z } from 'zod';
 
 import { AppKoaContext } from 'types';
-import { validateMiddleware } from 'middlewares';
+import { createEndpoint } from 'utils/create-endpoint';
 
 // Define your schema
 const schema = z.object({
@@ -102,10 +100,17 @@ async function handler(ctx: AppKoaContext<CreateUserData>) {
   ctx.body = { email, firstName, lastName, age };
 }
 
-export default (router: Router) => {
-  router.post('/users', validateMiddleware(schema), handler);
-};
+export default createEndpoint({
+  method: 'post',
+  path: '/users',
+  schema,
+  handler,
+});
 ```
+
+<Note>
+When a `schema` is provided to `createEndpoint`, validation is applied automatically — there is no need to manually call `validateMiddleware`.
+</Note>
 
 ### Error Response Format
 

@@ -9,14 +9,14 @@ Follow the official guides below to add them to your project.
 
 ## Official Setup Guides
 
-- [Setup Mantine in Storybook Guide](https://mantine.dev/guides/storybook/)
+- [Storybook Getting Started](https://storybook.js.org/docs/get-started)
 - [Chromatic GitHub Actions Guide](https://www.chromatic.com/docs/github-actions/)
 
 ## Project Conventions
 
 - **Stories Organization:**
   - Application components: `src/components`
-  - UI Kit (theme components): `src/theme/components`
+  - UI components (shadcn/ui wrappers): `src/components/ui`
 - **Storybook stories path config:**
 
 ```tsx  .storybook/main.ts
@@ -26,44 +26,40 @@ stories: [
     titlePrefix: 'Application Components',
   },
   {
-    directory: '../src/theme/components',
+    directory: '../src/components/ui',
     titlePrefix: 'UI Kit',
   },
 ],
 ```
 
-## Example: Mantine Button Story
+## Example: Button Story
 
-```tsx src/theme/components/Button/index.stories.tsx
-import { Button, ButtonProps } from '@mantine/core';
+```tsx src/components/ui/Button/index.stories.tsx
+import { Button } from '@/components/ui/button';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   component: Button,
   args: {
     children: 'Button',
-    variant: 'primary',
-    size: 'md',
-    loading: false,
+    variant: 'default',
+    size: 'default',
   },
   argTypes: {
     variant: {
-      options: ['primary', 'outline'],
+      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
       control: { type: 'radio' },
     },
     size: {
-      options: ['md', 'lg'],
+      options: ['default', 'sm', 'lg', 'icon'],
       control: { type: 'radio' },
-    },
-    loading: {
-      control: { type: 'boolean' },
     },
   },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 
-type Story = StoryObj<ButtonProps>;
+type Story = StoryObj<typeof Button>;
 
 export const Basic: Story = {};
 ```
