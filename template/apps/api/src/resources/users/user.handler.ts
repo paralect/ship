@@ -1,4 +1,5 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+import type { User } from 'shared';
 
 import { analyticsService } from 'services';
 
@@ -8,7 +9,6 @@ import logger from 'logger';
 
 import { DATABASE_DOCUMENTS } from 'app-constants';
 
-import type { User } from './user.schema';
 import userService from './user.service';
 
 const { USERS } = DATABASE_DOCUMENTS;

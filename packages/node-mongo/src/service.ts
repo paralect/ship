@@ -104,7 +104,7 @@ class Service<T extends IDocument> {
 
         return result;
       } catch (err: any) {
-        logger.error(`Schema is not valid for ${this._collectionName} collection: ${err.stack || err}`, entity);
+        logger.error(`Schema is not valid for ${this._collectionName} collection: ${err.stack || err}`);
         throw err;
       }
     }
@@ -463,7 +463,7 @@ class Service<T extends IDocument> {
 
     if (!doc) {
       if (isDev) {
-        logger.warn(`Document not found when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+        logger.warn(`Document not found when updating ${this._collectionName} collection.`);
       }
       return null;
     }
@@ -502,7 +502,7 @@ class Service<T extends IDocument> {
 
     if (!isUpdated) {
       if (isDev) {
-        logger.warn(`Document hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+        logger.warn(`Document hasn't changed when updating ${this._collectionName} collection.`);
       }
 
       return newDoc;
@@ -587,7 +587,7 @@ class Service<T extends IDocument> {
 
     if (documents.length === 0) {
       if (isDev) {
-        logger.warn(`Documents not found when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+        logger.warn(`Documents not found when updating ${this._collectionName} collection.`);
       }
       return [];
     }
@@ -637,7 +637,7 @@ class Service<T extends IDocument> {
 
     if (!isUpdated) {
       if (isDev) {
-        logger.warn(`Documents hasn't changed when updating ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+        logger.warn(`Documents hasn't changed when updating ${this._collectionName} collection.`);
       }
 
       return updated.filter(Boolean).map((u) => u?.doc) as U[];
@@ -715,7 +715,7 @@ class Service<T extends IDocument> {
 
     if (!doc) {
       if (isDev) {
-        logger.warn(`Document not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+        logger.warn(`Document not found when deleting ${this._collectionName} collection.`);
       }
 
       return null;
@@ -762,7 +762,7 @@ class Service<T extends IDocument> {
 
     if (documents.length === 0) {
       if (isDev) {
-        logger.warn(`Documents not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+        logger.warn(`Documents not found when deleting ${this._collectionName} collection.`);
       }
 
       return [];
@@ -809,7 +809,7 @@ class Service<T extends IDocument> {
 
     if (documents.length === 0) {
       if (isDev) {
-        logger.warn(`Documents not found when deleting ${this._collectionName} collection. Request query — ${JSON.stringify(filter)}`);
+        logger.warn(`Documents not found when deleting ${this._collectionName} collection.`);
       }
 
       return [];

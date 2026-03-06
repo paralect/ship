@@ -156,7 +156,7 @@ Services are parts of your application packaged as Helm Charts.
 |[**Scheduler**](https://github.com/paralect/ship/blob/main/template/apps/api/src/scheduler)|Service that runs cron jobs|Pod|
 |[**Migrator**](https://github.com/paralect/ship/blob/main/template/apps/api/src/migrator)|Service that migrates database schema. It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
 
-To deploy services in the cluster manually you need to set cluster authorization credentials inside [config](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src/config.js) and run deployment [script](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src/index.js).
+To deploy services in the cluster manually you need to set cluster authorization credentials and run the deployment script.
 
 ```shell deploy/script/src
 node index
@@ -170,7 +170,7 @@ When you will configure GitHub Secrets in your repo, GitHub Actions will automat
 You can check the required secrets inside [workflow](https://github.com/paralect/ship/tree/main/deploy/digital-ocean/.github/workflows) files.
 
 <Tip>
-If you are adding new service, you need to configure it in [**app**](https://github.com/paralect/ship/blob/main/examples/base/deploy/app) and [**script**](https://github.com/paralect/ship/blob/main/examples/base/deploy/script/src) folders.
+If you are adding new service, you need to configure it in the [**app**](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/deploy/app) folder.
 You can do it following the example from neighboring services.
 </Tip>
 
@@ -191,8 +191,7 @@ bash deploy-dependencies.sh
 ```
 
 <Tip>
-If you are adding new dependency, you need to create separate folder inside [**dependencies**](https://github.com/paralect/ship/blob/main/examples/base/deploy/dependencies) folder and configure new Chart.
-Also, you need to add new dependency in [**deploy-dependencies.sh**](https://github.com/paralect/ship/blob/main/examples/base/deploy/bin/deploy-dependencies.sh) script.
+If you are adding new dependency, you need to create separate folder inside [**dependencies**](https://github.com/paralect/ship/blob/main/deploy/digital-ocean/deploy/dependencies) folder and configure new Chart.
 You can do it following the example from neighboring dependencies.
 </Tip>
 

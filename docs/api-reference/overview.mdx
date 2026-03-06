@@ -29,17 +29,23 @@ Here is the resource structure example:
 
 ```shell
 /resource
-  /actions
-    get.ts
+  /endpoints
+    list.ts
     create.ts
-    ...
-  index.ts
+    update.ts
+    remove.ts
+  resource.schema.ts
   resource.service.ts
-  resource.routes.ts
+  resource.handler.ts   # optional: eventBus side effects
+  index.ts              # barrel: export service, import handler
 ```
 
 ## Routing
 
-Ship's API uses a structured routing system built on [Koa](https://koajs.com/) that organizes endpoints into three categories: **public**, **private**, and **admin** routes. All requests pass through global middlewares for authentication, error handling, and request processing.
+Ship's API uses **automatic route discovery**. Endpoints are auto-registered based on their file location — just place files in `resources/<name>/endpoints/` and each file that default-exports `createEndpoint({...})` is automatically mounted.
+
+- Resource name = folder name = URL prefix (`resources/projects/` → `/projects/*`).
+- No manual route registration is needed.
+- Every endpoint requires authentication by default unless `isPublic` is in the `middlewares` array.
 
 Learn more about the routing architecture in the [Routing](/api-reference/routing/overview) section.

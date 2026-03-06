@@ -1,6 +1,7 @@
+import type { Token } from 'shared';
+import { TokenType } from 'shared';
+
 import { tokenService } from 'resources/token';
-import type { Token } from 'resources/token/token.schema';
-import { TokenType } from 'resources/token/token.schema';
 import { userService } from 'resources/users';
 
 import { cookieUtil } from 'utils';

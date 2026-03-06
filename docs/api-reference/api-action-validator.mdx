@@ -4,98 +4,86 @@ title: "API action validator"
 
 ## Overview
 
-**API action validator** — is an array of functions (think middlewares) that is used to make sure that data sent by client is valid.
+**Validation** in Ship is handled automatically by providing a `schema` to `createEndpoint`. When `schema` is present, the `validate` middleware auto-applies and merges `body + files + query + params` into `ctx.validatedData`.
+
+For additional validation logic (e.g. checking uniqueness), add custom middleware functions to the `middlewares` array.
+
+<Note>
+This repo uses **Zod 4**. Use `z.email()`, `z.url()`, `z.uuid()` instead of Zod 3's `z.string().email()`. Search existing schemas for patterns.
+</Note>
 
 ## Examples
+
+### Basic validation with `createEndpoint`
 
 ```typescript
 import { z } from 'zod';
 
-import { AppKoaContext, Next } from 'types';
-import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
-
-import { userService } from 'resources/user';
-
-import { validateMiddleware } from 'middlewares';
+import createEndpoint from 'routes/createEndpoint';
+import isPublic from 'middlewares/isPublic';
 
 const schema = z.object({
-  firstName: z.string().min(1, 'Please enter fist name.').max(100),
+  firstName: z.string().min(1, 'Please enter first name.').max(100),
   lastName: z.string().min(1, 'Please enter last name.').max(100),
-  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z.string().regex(PASSWORD_REGEX, 'The password format is incorrect'),
+  email: z.email('Email format is incorrect.'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
-type ValidatedData = z.infer<typeof schema>;
+export default createEndpoint({
+  method: 'post',
+  path: '/sign-up',
+  schema,
+  middlewares: [isPublic],
 
-async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
-  const { email } = ctx.validatedData;
-
-  const isUserExists = await userService.exists({ email });
-
-  ctx.assertClientError(!isUserExists, {
-    email: 'User with this email is already registered',
-  });
-
-  await next();
-}
-
-async function handler(ctx: AppKoaContext<ValidatedData>) {
-  // ...action code
-}
-
-export default (router: AppRouter) => {
-  router.post('/sign-up', validateMiddleware(schema), validator, handler);
-};
+  async handler(ctx) {
+    const { firstName, lastName, email, password } = ctx.validatedData;
+    // ...action code
+  },
+});
 ```
 
-To pass data from the `validator` to the `handler`, utilize the `ctx.validatedData` object:
+### Custom validation middleware
 
-``` typescript
+To add extra validation logic beyond the Zod schema, add a custom middleware to the `middlewares` array:
+
+```typescript
 import { z } from 'zod';
 
-import { AppKoaContext, AppRouter, Next, User } from 'types';
-import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
-
+import createEndpoint from 'routes/createEndpoint';
+import isPublic from 'middlewares/isPublic';
 import { userService } from 'resources/user';
 
-import { validateMiddleware } from 'middlewares';
-import { securityUtil } from 'utils';
-
 const schema = z.object({
-  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z.string().regex(PASSWORD_REGEX, 'The password format is incorrect'),
+  email: z.email('Email format is incorrect.'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
-interface ValidatedData extends z.infer<typeof schema> {
-  user: User;
-}
+const checkUserExists = async (ctx, next) => {
+  const { email } = ctx.validatedData;
+  const exists = await userService.exists({ email });
 
-async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
-  const { email, password } = ctx.validatedData;
+  if (exists) {
+    ctx.throwClientError({ email: 'User with this email is already registered' });
+    return;
+  }
 
-  const user = await userService.findOne({ email });
-
-  ctx.assertClientError(user && user.passwordHash, {
-    credentials: 'The email or password you have entered is invalid',
-  });
-
-  const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
-
-  ctx.assertClientError(isPasswordMatch, {
-    credentials: 'The email or password you have entered is invalid',
-  });
-
-  ctx.validatedData.user = user;
   await next();
-}
-
-async function handler(ctx: AppKoaContext<ValidatedData>) {
-  const { user } = ctx.validatedData;
-
-  // ...action code
-}
-
-export default (router: AppRouter) => {
-  router.post('/sign-in', validateMiddleware(schema), validator, handler);
 };
+
+export default createEndpoint({
+  method: 'post',
+  path: '/sign-up',
+  schema,
+  middlewares: [isPublic, checkUserExists],
+
+  async handler(ctx) {
+    const { email, password } = ctx.validatedData;
+    // ...action code
+  },
+});
+```
+
+<Warning>
+**Avoid `ctx.assertError()`** in handlers — it's a TypeScript assertion function that causes TS2775 without explicit type annotations on `ctx`. Use `ctx.throwError()` + `return` instead.
+</Warning>
 ```

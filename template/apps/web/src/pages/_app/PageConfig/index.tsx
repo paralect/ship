@@ -12,18 +12,8 @@ import config from 'config';
 import MainLayout from './MainLayout';
 import PrivateScope from './PrivateScope';
 import PublicLayout from './PublicLayout';
+import { LayoutType, ScopeType } from './types';
 import UnauthorizedLayout from './UnauthorizedLayout';
-
-export enum ScopeType {
-  PUBLIC = 'PUBLIC',
-  PRIVATE = 'PRIVATE',
-}
-
-export enum LayoutType {
-  MAIN = 'MAIN',
-  UNAUTHORIZED = 'UNAUTHORIZED',
-  PUBLIC_PAGE = 'PUBLIC_PAGE',
-}
 
 const layoutToComponent = {
   [LayoutType.MAIN]: MainLayout,

@@ -1,8 +1,7 @@
 import Router from '@koa/router';
 import Koa, { Next, ParameterizedContext, Request } from 'koa';
 import { Template } from 'mailer';
-
-import type { User } from 'resources/users/user.schema';
+import type { User } from 'shared';
 
 // File types
 export interface BackendFile {

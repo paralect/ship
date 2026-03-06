@@ -1,7 +1,7 @@
 import { FC, ReactNode, useState } from 'react';
 import Link from 'next/link';
 import { useApiQuery } from 'hooks';
-import { PanelLeft, SquarePen } from 'lucide-react';
+import { PanelLeft } from 'lucide-react';
 
 import { LogoImage } from 'public/images';
 
@@ -53,10 +53,8 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
           </SheetContent>
         </Sheet>
 
-        <Link href="/chat">
-          <Button variant="ghost" size="icon">
-            <SquarePen className="size-5" />
-          </Button>
+        <Link href="/">
+          <LogoImage className="h-6" />
         </Link>
       </header>
 

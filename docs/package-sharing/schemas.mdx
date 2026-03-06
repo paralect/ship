@@ -4,21 +4,21 @@ title: "Schemas"
 
 ## Overview
 
-Schemas package contains **data schemas** for the applications, including resource schemas.
+Data schemas are defined inside each API resource folder (e.g. `apps/api/src/resources/users/users.schema.ts`). They are **auto-copied** to `packages/shared/src/schemas/` during codegen (`pnpm --filter shared generate`).
 
-**Data schema** — is a Zod schema that defines shape of the entity. It must strictly define all fields. Resource schema is defined in entity.schema file e.x. `user.schema`.
+**Data schema** — is a Zod 4 schema that defines shape of the entity. It extends `dbSchema` from `resources/base.schema.ts` which provides `_id`, `createdOn`, `updatedOn`, and `deletedOn` fields.
 
 ```typescript
 import { z } from 'zod';
 
-import dbSchema from './db.schema';
+import dbSchema from 'resources/base.schema';
 
 const schema = dbSchema.extend({
   firstName: z.string(),
   lastName: z.string(),
   fullName: z.string(),
 
-  email: z.string(),
+  email: z.email(),
   passwordHash: z.string().nullable().optional(),
 
   isEmailVerified: z.boolean().default(false),
@@ -37,22 +37,24 @@ const schema = dbSchema.extend({
 export default schema;
 ```
 
+<Note>
+This repo uses **Zod 4**. Use `z.email()`, `z.url()`, `z.uuid()` instead of Zod 3's `z.string().email()`.
+</Note>
+
 ## Validation
 
-Zod schemas simplify form validation in react-hook-form:
+Zod schemas are used both server-side (in `createEndpoint` via the `schema` option) and client-side (via `useApiForm` or manual `zodResolver`):
 
 ```tsx
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
-
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),
   lastName: z.string().min(1, 'Please enter Last name').max(100),
-  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+  email: z.email('Email format is incorrect.'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
 type SignUpParams = z.infer<typeof schema>
@@ -70,9 +72,9 @@ const SignUp = () => {
 export default SignUp;
 ```
 
-Additionally, data can be validated using the `saveParse` method:
+Additionally, data can be validated using the `safeParse` method:
 ```typescript
-const parsed = zodSchema.saveParse(data);
+const parsed = zodSchema.safeParse(data);
 
 if (!parsed.success) {
     throw new Error('Invalid data');

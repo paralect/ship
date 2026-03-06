@@ -1,11 +1,10 @@
 import _ from 'lodash';
+import type { User } from 'shared';
+import { passwordSchema, userSchema } from 'shared';
 import { z } from 'zod';
 
 import { accountUtils } from 'resources/account';
-import { passwordSchema } from 'resources/base.schema';
 import { userService } from 'resources/users';
-import type { User } from 'resources/users/user.schema';
-import { userSchema } from 'resources/users/user.schema';
 
 import { securityUtil } from 'utils';
 import createEndpoint from 'routes/createEndpoint';

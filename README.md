@@ -32,9 +32,6 @@ We encourage developers to share production-ready solutions and help businesses 
 - Code linting and testing ⚙️
 - CI/CD 🤖
 
-## Examples
-- [Stripe](https://stripe.com/) payments and subscriptions 🤑
-
 ## Quick Start
 
 ```shell

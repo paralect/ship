@@ -4,48 +4,69 @@ title: "Calling API"
 
 ## Overview
 
-Ship uses [TanStack Query](https://tanstack.com/query/latest) with our own axios library wrapper.
-All queries are located in the `/resources` folder, organized into sub-folders for each resource.
+Ship uses [TanStack Query](https://tanstack.com/query/latest) v5 with an auto-generated typed API client.
+The typed client is generated from API endpoints via codegen — no manual hook creation needed.
 
-TanStack Query helps easily fetch, cache, and update data.
-Each API endpoint has a related React hook using TanStack Query.
+Import the client from `services/api-client.service`:
 
-When getting data with **apiService** in `services/api.service.ts`, no need to add the full endpoint URL.
-The axios instance already has the base URL set.
-
-If you need to make a request to a new endpoint, for example, for a `project` resource,
-you need to add a new hook to `/resources/project/project.api.ts`
-
-## Examples
-
-```typescript resources/account/account.api.ts
-export function useUpdate<T>() {
-  const update = (data: T) => apiService.put("/account", data);
-
-  return useMutation<User, unknown, T>(update);
-}
+```tsx
+import { apiClient } from 'services/api-client.service';
 ```
 
-```typescript resources/user/user.api.ts
-export function useList<T>(params: T) {
-  const list = () => apiService.get("/users", params);
+## Queries (GET)
 
-  interface UserListResponse {
-    count: number;
-    items: User[];
-    totalPages: number;
-  }
+```tsx
+import { useApiQuery } from 'hooks';
+import { apiClient } from 'services/api-client.service';
 
-  return useQuery<UserListResponse>(["users", params], list);
-}
+// Simple query
+const { data, isLoading } = useApiQuery(apiClient.projects.list);
+
+// With parameters
+const { data } = useApiQuery(apiClient.projects.list, { page: 1, perPage: 10 });
 ```
 
-```typescript pages/profile/index.page.tsx
-type UpdateParams = z.infer<typeof accountUpdateSchema>;
+## Mutations (POST/PUT/DELETE)
 
-const { mutate: update, isLoading: isUpdateLoading } = accountApi.useUpdate<UpdateParams>();
+```tsx
+import { useApiMutation } from 'hooks';
+
+const { mutate, isPending } = useApiMutation(apiClient.projects.create);
+mutate({ name: 'New Project' }, { onError: (e) => handleApiError(e, setError) });
 ```
 
-```typescript pages/home/index.tsx
-const { data: users, isLoading: isUsersLoading } = userApi.useList(params);
+## Dynamic Path Params
+
+`useApiMutation` binds `pathParams` at **hook level** — they're fixed for all `mutate()` calls. For dynamic IDs (e.g., deleting different items in a list), use `endpoint.call()` directly:
+
+```tsx
+import queryClient from 'query-client';
+
+// ✅ Dynamic pathParams — use .call()
+const handleDelete = async (id: string) => {
+  await apiClient.projects.remove.call({}, { pathParams: { id } });
+  queryClient.invalidateQueries({ queryKey: [apiClient.projects.list.path] });
+};
+
+// ✅ Fixed pathParams — hook level is fine
+const { mutate: update } = useApiMutation(apiClient.projects.update, {
+  pathParams: { id: projectId },
+});
 ```
+
+## Query Invalidation
+
+```tsx
+import queryClient from 'query-client';
+
+queryClient.invalidateQueries({ queryKey: [apiClient.projects.list.path] });
+queryClient.setQueryData([apiClient.account.get.path], updatedData);
+```
+
+Query keys = `[endpoint.path, ...params]`. The first element is always the endpoint path string.
+
+## Error Handling
+
+`handleApiError(e, setError)` from `utils`:
+- Maps server validation errors → react-hook-form field errors
+- Shows global errors via Sonner toast

@@ -2,40 +2,60 @@
 title: "Styling"
 ---
 
-Ship aims for efficiency and convenience in styling by leveraging the [Mantine UI](https://v6.mantine.dev/) library.
-Mantine UI offers a wide range of customizable components and hooks that facilitate the creation of visually appealing and functional interfaces.
+Ship uses **Tailwind CSS 4** for utility-first styling and **shadcn/ui** (New York style, no RSC) for accessible, customizable UI components.
 
-### Theme Configuration (`theme/index.ts`)
+### Tailwind CSS
 
-Our application's design system is built on top of Mantine's [theme object](https://v6.mantine.dev/theming/theme-object/).
-The theme object allows us to define global style properties that can be applied consistently across web application.
+All styling is done with Tailwind utility classes. No CSS modules, no styled-components.
 
-### Custom Components (`components/index.js`)
+- **Mobile-first**: Use `sm:`, `md:`, `lg:` breakpoints.
+- **Dark mode**: Use semantic CSS variables (`text-foreground`, `bg-background`, `text-muted-foreground`, `border`, etc.).
+- **Theming**: `next-themes` (system/light/dark). Use CSS variables, not hardcoded colors.
 
-We extend Mantine's components to create custom-styled versions specific to our application needs.
+### Conditional Classes with `cn()`
 
-Here's an example of how we extend the Mantine `Button` component:
+Use `cn()` from `@/lib/utils` for conditional class merging:
 
-- We set the default button size to 'large' (`lg`).
+```tsx
+import { cn } from '@/lib/utils';
 
-``` typescript theme/components/index.ts
-import { Button } from '@mantine/core';
-
-import classes from './index.module.css';
-
-export default Button.extend({
-  defaultProps: {
-    size: 'lg',
-  },
-  classNames: {
-    label: classes.label,
-  },
-});
+<div className={cn('p-4 rounded-lg', isActive && 'bg-primary text-primary-foreground')} />
 ```
 
-- Custom class names are applied for additional styling, defined in our `index.module.css`.
-``` typescript theme/components/index.ts
-.label {
-  font-weight: 500;
-}
+### shadcn/ui Components
+
+UI primitives live in `src/components/ui/`. Add new components via:
+
+```shell
+npx shadcn@latest add <component>
 ```
+
+Import them with the `@/` alias:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+```
+
+<Note>
+**Don't modify shadcn/ui files** unless necessary. Wrap them instead with custom components.
+</Note>
+
+### Icons
+
+Use [lucide-react](https://lucide.dev/) for icons:
+
+```tsx
+import { Plus, Trash, Pencil } from 'lucide-react';
+
+<Button><Plus className="mr-2 h-4 w-4" /> Add Item</Button>
+```
+
+### Component Organization
+
+| Location                   | Scope                | Import pattern              |
+| -------------------------- | -------------------- | --------------------------- |
+| `src/components/ui/`       | shadcn/ui primitives | `@/components/ui/button`    |
+| `src/components/`          | Shared components    | `'components'` (barrel)     |
+| `pages/<name>/components/` | Page-scoped          | Relative import within page |

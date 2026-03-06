@@ -1,8 +1,7 @@
-import { emailSchema, passwordSchema } from 'resources/base.schema';
+import { emailSchema, passwordSchema, TokenType, userSchema } from 'shared';
+
 import { tokenService } from 'resources/token';
-import { TokenType } from 'resources/token/token.schema';
 import { userService } from 'resources/users';
-import { userSchema } from 'resources/users/user.schema';
 
 import isPublic from 'middlewares/isPublic';
 import rateLimitMiddleware from 'middlewares/rateLimit';

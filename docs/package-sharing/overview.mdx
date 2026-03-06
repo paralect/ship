@@ -3,18 +3,21 @@ title: "Overview"
 ---
 
 Ship is monorepo, so it lets you share your code across applications to minimize duplications and reduce errors.
-All shared code are inside **packages/** folder.
+All shared code is inside the **packages/** folder.
 
-By default, packages include app-constants, app-types, enums, schemas and mailer. Learn more about the **mailer**  package [here](/mailer).
+By default, packages include `app-constants`, `shared`, `mailer`, and config packages. Learn more about the **mailer** package [here](/mailer).
 
 ```shell
 /packages
   /app-constants
-  /app-types
-  /enums
+  /shared
   /mailer
-  /schemas
+  /eslint-config
+  /prettier-config
+  /tsconfig
 ```
+
+The **shared** package is special — it contains an auto-generated typed API client that bridges `apps/api` and `apps/web`. Schemas from API resources are automatically copied to `packages/shared/src/schemas/` during codegen. Run `pnpm --filter shared generate` after any API endpoint or schema change.
 
 ## Installation
 
@@ -23,13 +26,11 @@ If you want to add more packages, head to the `package.json` file, and in the de
 
 ```json apps/web/package.json
 "dependencies": {
-    "app-constants": "workspace:*",
-    "app-types": "workspace:*",
-    "schemas": "workspace:*",
+    "shared": "workspace:*",
   },
 ```
 <Tip>
-  The **enums** package comes with **app-types**, so no separate import is needed.
+  The **shared** package provides the typed API client, constants, types, enums, and schemas — so a single import covers most shared needs.
 </Tip>
 
 You can read more about **package sharing**  in [Turborepo documentation](https://turbo.build/repo/docs/handbook/sharing-code/internal-packages).
