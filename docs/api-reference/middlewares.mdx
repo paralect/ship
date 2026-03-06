@@ -79,8 +79,9 @@ If validation fails, it automatically throws a `400` error with detailed field-l
 ```typescript
 import { z } from 'zod';
 
+import createEndpoint from 'routes/createEndpoint';
+
 import { AppKoaContext } from 'types';
-import { createEndpoint } from 'utils/create-endpoint';
 
 // Define your schema
 const schema = z.object({
