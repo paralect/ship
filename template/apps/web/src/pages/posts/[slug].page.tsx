@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,7 +14,7 @@ interface PostPageProps {
   post: Post;
 }
 
-const PostPage: NextPage<PostPageProps> = ({ post }: PostPageProps) => {
+const PostPage = ({ post }: PostPageProps) => {
   const MDXContent = useMDXComponent(post.mdx);
 
   return (

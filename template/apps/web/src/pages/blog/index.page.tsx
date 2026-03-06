@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,7 +6,7 @@ import { User } from 'lucide-react';
 
 import { LayoutType, Page } from 'components';
 
-const Blog: NextPage = () => {
+const Blog = () => {
   const publishedPosts = allPosts.filter((post) => post.published);
 
   return (
@@ -22,14 +21,14 @@ const Blog: NextPage = () => {
             <Link key={post._meta.path} href={`/posts/${post.slug}`}>
               <article className="group relative cursor-pointer overflow-hidden rounded-2xl">
                 <div className="relative aspect-[4/3] bg-muted">
-                  {post.image ? (
+                  {post.image && (
                     <Image
                       src={post.image}
                       alt={post.title}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                  ) : null}
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10 transition-opacity duration-300 group-hover:opacity-90" />
                 </div>
 
