@@ -6,6 +6,13 @@
   --color-background: hsl(0 0% 100%);
   --color-foreground: hsl(222.2 84% 4.9%);
 
+  --color-landing-teal: hsl(173 80% 40%);
+  --color-landing-teal-light: hsl(173 80% 96%);
+  --color-landing-orange: hsl(24 95% 53%);
+  --color-landing-orange-light: hsl(24 95% 96%);
+  --color-landing-cyan: hsl(189 94% 43%);
+  --color-landing-cyan-light: hsl(189 94% 96%);
+
   --color-card: hsl(0 0% 100%);
   --color-card-foreground: hsl(222.2 84% 4.9%);
 
