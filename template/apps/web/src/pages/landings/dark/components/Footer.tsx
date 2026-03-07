@@ -17,7 +17,7 @@ export const Footer = () => {
     <footer className="border-t">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-8 sm:flex-row sm:justify-between sm:px-6">
         <div className="flex items-center gap-6">
-          <Link href="/landing" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <LogoImage className="h-5" />
           </Link>
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">

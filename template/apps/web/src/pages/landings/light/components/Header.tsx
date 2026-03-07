@@ -25,7 +25,7 @@ const Header: FC = () => {
     <header className="sticky top-0 z-50 w-full border-b-4 border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-12">
-          <Link href="/landing" className="flex items-center gap-2 transition-transform hover:scale-105">
+          <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-105">
             <LogoImage className="h-8" />
           </Link>
 
@@ -58,7 +58,7 @@ const Header: FC = () => {
                 className="border-2 border-foreground bg-foreground font-mono text-xs font-black uppercase tracking-widest text-background shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
                 asChild
               >
-                <Link href="/">Go to app</Link>
+                <Link href="/app">Go to app</Link>
               </Button>
             ) : (
               <>

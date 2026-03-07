@@ -1,7 +1,7 @@
 import { FC, ReactNode, useState } from 'react';
 import Link from 'next/link';
 import { useApiQuery } from 'hooks';
-import { PanelLeft } from 'lucide-react';
+import { PanelLeft, SquarePen } from 'lucide-react';
 
 import { LogoImage } from 'public/images';
 
@@ -37,7 +37,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
           <SheetContent side="left" className="flex w-72 flex-col p-0">
             <SheetHeader className="border-b px-4 py-3">
               <SheetTitle>
-                <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href="/app" onClick={() => setIsMobileMenuOpen(false)}>
                   <LogoImage className="h-6" />
                 </Link>
               </SheetTitle>
@@ -53,8 +53,10 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
           </SheetContent>
         </Sheet>
 
-        <Link href="/">
-          <LogoImage className="h-6" />
+        <Link href="/app/chat">
+          <Button variant="ghost" size="icon">
+            <SquarePen className="size-5" />
+          </Button>
         </Link>
       </header>
 

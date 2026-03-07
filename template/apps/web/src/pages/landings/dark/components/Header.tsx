@@ -14,7 +14,7 @@ export const Header = () => {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm">
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center px-4 sm:px-6">
-        <Link href="/landing" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <LogoImage className="h-6" />
         </Link>
 
@@ -37,7 +37,7 @@ export const Header = () => {
           <ThemeToggle />
           {account ? (
             <Button asChild variant="secondary">
-              <Link href="/">Go to app</Link>
+              <Link href="/app">Go to app</Link>
             </Button>
           ) : (
             <Button asChild variant="secondary">

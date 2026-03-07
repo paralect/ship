@@ -8,9 +8,9 @@ const Footer: FC = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
-    { label: 'Features', href: '/landing#features' },
-    { label: 'Pricing', href: '/landing#pricing' },
-    { label: 'FAQ', href: '/landing#faq' },
+    { label: 'Features', href: '/#features' },
+    { label: 'Pricing', href: '/#pricing' },
+    { label: 'FAQ', href: '/#faq' },
     { label: 'Blog', href: '/blog' },
   ];
 
@@ -19,7 +19,7 @@ const Footer: FC = () => {
       <div className="container mx-auto max-w-7xl px-4">
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
           <div className="flex items-center gap-6">
-            <Link href="/landing" className="inline-flex items-center gap-2">
+            <Link href="/" className="inline-flex items-center gap-2">
               <LogoImage className="h-6" />
             </Link>
             <div className="h-8 w-1 bg-foreground opacity-10" />
