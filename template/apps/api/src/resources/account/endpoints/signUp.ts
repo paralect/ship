@@ -6,7 +6,7 @@ import { userService } from 'resources/users';
 import isPublic from 'middlewares/isPublic';
 import rateLimitMiddleware from 'middlewares/rateLimit';
 import { emailService } from 'services';
-import { securityUtil } from 'utils';
+import { clientUtil, securityUtil } from 'utils';
 import createEndpoint from 'routes/createEndpoint';
 
 import config from 'config';
@@ -59,6 +59,15 @@ export default createEndpoint({
         href: `${config.API_URL}/account/verify-email?token=${emailVerificationToken}`,
       },
     });
+
+    const clientType = clientUtil.detectClientType(ctx);
+
+    if (clientType === clientUtil.ClientType.MOBILE) {
+      return {
+        emailVerificationToken: config.IS_DEV ? emailVerificationToken : undefined,
+        user: userService.getPublic(user),
+      };
+    }
 
     if (config.IS_DEV) {
       return { emailVerificationToken };

@@ -8,4 +8,14 @@ import objectUtil from './object.util';
 import promiseUtil from './promise.util';
 import * as securityUtil from './security.util';
 
-export { caseUtil, configUtil, cookieUtil, getResourceEndpoints, getResources, objectUtil, promiseUtil, securityUtil };
+export {
+  caseUtil,
+  clientUtil,
+  configUtil,
+  cookieUtil,
+  getResourceEndpoints,
+  getResources,
+  objectUtil,
+  promiseUtil,
+  securityUtil,
+};

@@ -16,11 +16,10 @@ interface SetAccessTokenOptions {
 
 export const setAccessToken = async ({ ctx, userId }: SetAccessTokenOptions) => {
   const clientType = clientUtil.detectClientType(ctx);
-  const tokenType = clientType === clientUtil.ClientType.MOBILE ? TokenType.ACCESS_MOBILE : TokenType.ACCESS;
 
   const accessToken = await tokenService.createToken({
     userId,
-    type: tokenType,
+    type: TokenType.ACCESS,
     expiresIn: ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS,
   });
 
@@ -49,19 +48,15 @@ export const unsetUserAccessToken = async ({ ctx }: UnsetUserAccessTokenOptions)
 
   if (user) {
     await tokenService.invalidateUserTokens(user._id, TokenType.ACCESS);
-    await tokenService.invalidateUserTokens(user._id, TokenType.ACCESS_MOBILE);
   }
 
   await cookieUtil.unsetTokens({ ctx });
 };
 
 export const validateAccessToken = async (value?: string | null): Promise<Token | null> => {
-  const accessToken = await tokenService.validateToken(value, TokenType.ACCESS);
-  const mobileToken = await tokenService.validateToken(value, TokenType.ACCESS_MOBILE);
+  const token = await tokenService.validateToken(value, TokenType.ACCESS);
 
-  const token = accessToken || mobileToken;
-
-  if (!token || (token.type !== TokenType.ACCESS && token.type !== TokenType.ACCESS_MOBILE)) return null;
+  if (!token || token.type !== TokenType.ACCESS) return null;
 
   const now = new Date();
 
@@ -71,7 +66,7 @@ export const validateAccessToken = async (value?: string | null): Promise<Token 
   ) {
     const newExpiresOn = new Date(now.getTime() + ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS * 1000);
 
-    await tokenService.updateOne({ _id: token._id, type: token.type }, () => ({ expiresOn: newExpiresOn }));
+    await tokenService.updateOne({ _id: token._id, type: TokenType.ACCESS }, () => ({ expiresOn: newExpiresOn }));
 
     token.expiresOn = newExpiresOn;
   }
