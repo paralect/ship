@@ -98,9 +98,25 @@ Ensures user is authenticated by checking if `ctx.state.user` exists. Returns `4
 
 **Usage:**
 
+With auto-discovery routing, `auth` is applied automatically to all endpoints by default. To make an endpoint public (skip auth), include the `isPublic` middleware in the `middlewares` array:
+
 ```typescript
-app.use(mount('/account', compose([auth, accountRoutes.privateRoutes])));
+import isPublic from 'middlewares/isPublic';
+import createEndpoint from 'routes/createEndpoint';
+
+export default createEndpoint({
+  method: 'get',
+  path: '/health',
+  middlewares: [isPublic],
+  async handler(ctx) {
+    ctx.body = { status: 'ok' };
+  },
+});
 ```
+
+<Note>
+`isPublic` is a no-op middleware used as a sentinel — the route registration checks for it by reference identity and skips `auth` when present.
+</Note>
 
 ### adminAuth
 
@@ -108,8 +124,21 @@ Validates admin access by checking the `x-admin-key` header against the `ADMIN_K
 
 **Usage:**
 
+Use `isAdmin` middleware in your endpoint:
+
 ```typescript
-app.use(mount('/admin/users', compose([adminAuth, userRoutes.adminRoutes])));
+import isAdmin from 'middlewares/isAdmin';
+import createEndpoint from 'routes/createEndpoint';
+
+export default createEndpoint({
+  method: 'get',
+  path: '/users',
+  middlewares: [isAdmin],
+  async handler(ctx) {
+    // Admin-only logic
+    ctx.body = { users: [] };
+  },
+});
 ```
 
 **Making admin requests:**

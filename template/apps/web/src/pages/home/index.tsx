@@ -1,66 +1,31 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
-import { Stack, Title } from '@mantine/core';
-import { useSetState } from '@mantine/hooks';
-import { showNotification } from '@mantine/notifications';
-import { SortDirection } from '@tanstack/react-table';
-import { pick } from 'lodash';
+import { useApiQuery } from 'hooks/use-api.hook';
 
-import { userApi, UserListParams } from 'resources/user';
+import { LayoutType, Page, ScopeType } from 'components';
 
-import { Table } from 'components';
+import { apiClient } from 'services/api-client.service';
 
-import { User } from 'types';
-
-import Filters from './components/Filters';
-import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
-
-const Home: NextPage = () => {
-  const [params, setParams] = useSetState<UserListParams>(DEFAULT_PARAMS);
-
-  const { data: users, isLoading: isUserListLoading } = userApi.useList(params);
-
-  const onSortingChange = (sort: Record<string, SortDirection>) => {
-    setParams((prev) => {
-      const combinedSort = { ...pick(prev.sort, EXTERNAL_SORT_FIELDS), ...sort };
-
-      return { sort: combinedSort };
-    });
-  };
-
-  const onRowClick = (user: User) => {
-    showNotification({
-      title: 'Success',
-      message: `You clicked on the row for the user with the email address ${user.email}.`,
-      color: 'green',
-    });
-  };
+const Home = () => {
+  const { data: account } = useApiQuery(apiClient.account.get);
 
   return (
-    <>
+    <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
       <Head>
-        <title>Users</title>
+        <title>Home</title>
       </Head>
 
-      <Stack gap="lg">
-        <Title order={2}>Users</Title>
+      <div className="flex h-full items-center justify-center px-4">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-foreground sm:text-4xl">
+            Welcome back{account?.firstName ? `, ${account.firstName}` : ''}!
+          </h1>
 
-        <Filters setParams={setParams} />
-
-        <Table<User>
-          data={users?.results}
-          totalCount={users?.count}
-          pageCount={users?.pagesCount}
-          page={DEFAULT_PAGE}
-          perPage={PER_PAGE}
-          columns={COLUMNS}
-          isLoading={isUserListLoading}
-          onPageChange={(page) => setParams({ page })}
-          onSortingChange={onSortingChange}
-          onRowClick={onRowClick}
-        />
-      </Stack>
-    </>
+          <p className="mt-4 text-base text-muted-foreground sm:text-lg">
+            This is your dashboard. Explore the features available in the sidebar.
+          </p>
+        </div>
+      </div>
+    </Page>
   );
 };
 

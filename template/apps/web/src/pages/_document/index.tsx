@@ -1,14 +1,14 @@
 import { Head, Html, Main, NextScript } from 'next/document';
-import { ColorSchemeScript } from '@mantine/core';
 
 const Document = () => (
-  <Html>
+  <Html lang="en">
     <Head>
       <link rel="icon" href="/favicon.ico" />
-      <ColorSchemeScript defaultColorScheme="auto" />
     </Head>
-    <body>
+
+    <body className="min-h-screen bg-background font-sans antialiased">
       <Main />
+
       <NextScript />
     </body>
   </Html>

@@ -1,28 +1,74 @@
-import NextImage from 'next/image';
-import { Box, Button, Center, Group, Image, Stack, Text, Title } from '@mantine/core';
-import { Dropzone } from '@mantine/dropzone';
-import { IconPencil, IconPlus } from '@tabler/icons-react';
-import cx from 'clsx';
-import { Controller, useFormContext } from 'react-hook-form';
+import { FC } from 'react';
+import Image from 'next/image';
+import { useApiQuery } from 'hooks';
+import { Pencil, Plus } from 'lucide-react';
+import { useDropzone } from 'react-dropzone';
+import { useFormContext } from 'react-hook-form';
+import { AccountUpdateParams, USER_AVATAR } from 'shared';
 
-import { accountApi } from 'resources/account';
-
+import { apiClient } from 'services/api-client.service';
 import { handleDropzoneError } from 'utils';
 
-import { USER_AVATAR } from 'app-constants';
-import { UpdateUserParamsFrontend } from 'types';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-import classes from './index.module.css';
+type UpdateUserFormData = AccountUpdateParams;
+
+const ACCEPT_TYPES = USER_AVATAR.ACCEPTED_FILE_TYPES.reduce(
+  (acc, type) => {
+    acc[type] = [];
+    return acc;
+  },
+  {} as Record<string, string[]>,
+);
+
+interface AvatarDropzoneProps {
+  imageSrc: string | null | undefined;
+  onChange: (file: File) => void;
+}
+
+const AvatarDropzone: FC<AvatarDropzoneProps> = ({ imageSrc, onChange }) => {
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: ACCEPT_TYPES,
+    maxSize: USER_AVATAR.MAX_FILE_SIZE,
+    onDrop: ([imageFile]) => onChange(imageFile),
+    onDropRejected: handleDropzoneError,
+    multiple: false,
+  });
+
+  return (
+    <div
+      {...getRootProps()}
+      className={cn(
+        'relative flex h-[100px] w-[100px] cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-muted-foreground/25 transition-colors hover:border-muted-foreground/50',
+        imageSrc && 'border-solid border-transparent',
+      )}
+    >
+      <input {...getInputProps()} />
+
+      {imageSrc ? (
+        <>
+          <Image src={imageSrc} alt="Avatar" fill sizes="100px" priority className="rounded-full object-cover" />
+
+          <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity hover:opacity-100">
+            <Pencil className="h-8 w-8 text-white" strokeWidth={1} />
+          </div>
+        </>
+      ) : (
+        <Plus className="h-8 w-8 text-muted-foreground" strokeWidth={1} />
+      )}
+    </div>
+  );
+};
 
 const AvatarUpload = () => {
-  const { data: account } = accountApi.useGet();
+  const { data: account } = useApiQuery(apiClient.account.get);
 
   const {
-    control,
     watch,
     setValue,
     formState: { errors },
-  } = useFormContext<UpdateUserParamsFrontend>();
+  } = useFormContext<UpdateUserFormData>();
 
   const avatarValue = watch('avatar');
   const avatarError = errors.avatar?.message;
@@ -30,79 +76,49 @@ const AvatarUpload = () => {
   let imageSrc: string | null | undefined = account?.avatarUrl;
 
   if (typeof avatarValue === 'string') imageSrc = '';
-  else if (avatarValue) imageSrc = URL.createObjectURL(avatarValue);
+  else if (avatarValue) imageSrc = URL.createObjectURL(avatarValue as Blob);
 
   return (
-    <Stack>
-      <Group align="flex-start" gap={32}>
-        <Stack align="center" gap={12}>
-          <Controller
-            name="avatar"
-            control={control}
-            render={({ field }) => (
-              <Dropzone
-                accept={USER_AVATAR.ACCEPTED_FILE_TYPES}
-                maxSize={USER_AVATAR.MAX_FILE_SIZE}
-                onDrop={([imageFile]) => field.onChange(imageFile)}
-                onReject={handleDropzoneError}
-                multiple={false}
-                classNames={classes}
-                {...field}
-              >
-                <Center
-                  className={cx(classes.browseButton, {
-                    [classes.imageExists]: !!imageSrc,
-                  })}
-                >
-                  {imageSrc ? (
-                    <Box pos="relative" w="100%" h="100%">
-                      <Image
-                        component={NextImage}
-                        src={imageSrc}
-                        alt="Avatar"
-                        pos="absolute"
-                        sizes="100px"
-                        priority
-                        fill
-                      />
-
-                      <Center w="100%" h="100%" pos="absolute" className={classes.editOverlay}>
-                        <IconPencil size={32} stroke={1} className={classes.pencilIcon} />
-                      </Center>
-                    </Box>
-                  ) : (
-                    <IconPlus size={32} stroke={1} className={classes.addIcon} />
-                  )}
-                </Center>
-              </Dropzone>
-            )}
-          />
+    <div className="flex flex-col gap-4">
+      <div className="flex items-start gap-8">
+        <div className="flex flex-col items-center gap-3">
+          <AvatarDropzone imageSrc={imageSrc} onChange={(file) => setValue('avatar', file, { shouldDirty: true })} />
 
           {(avatarValue || imageSrc === '') && (
-            <Button variant="subtle" size="sm" onClick={() => setValue('avatar', undefined, { shouldDirty: true })}>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setValue('avatar', undefined, { shouldDirty: true })}
+            >
               Reset
             </Button>
           )}
 
           {account?.avatarUrl && avatarValue === undefined && (
-            <Button variant="subtle" size="sm" onClick={() => setValue('avatar', '', { shouldDirty: true })}>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setValue('avatar', '', { shouldDirty: true })}
+            >
               Remove
             </Button>
           )}
-        </Stack>
+        </div>
 
-        <Stack gap={4}>
-          <Title order={4}>Profile picture</Title>
+        <div className="flex flex-col gap-1">
+          <h4 className="font-semibold">Profile picture</h4>
 
-          <Stack gap={0} c="gray.6">
-            <Text>JPG, JPEG or PNG</Text>
-            <Text>Max size = 5 MB</Text>
-          </Stack>
-        </Stack>
-      </Group>
+          <div className="text-sm text-muted-foreground">
+            <p>JPG, JPEG or PNG</p>
+            <p>Max size = 5 MB</p>
+          </div>
+        </div>
+      </div>
 
-      {avatarError && <Text c="red.6">{avatarError}</Text>}
-    </Stack>
+      {avatarError && <p className="text-sm text-destructive">{String(avatarError)}</p>}
+    </div>
   );
 };
 

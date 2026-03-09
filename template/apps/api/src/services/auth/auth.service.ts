@@ -1,10 +1,13 @@
+import type { Token } from 'shared';
+import { TokenType } from 'shared';
+
 import { tokenService } from 'resources/token';
-import { userService } from 'resources/user';
+import { userService } from 'resources/users';
 
 import { clientUtil, cookieUtil } from 'utils';
 
 import { ACCESS_TOKEN } from 'app-constants';
-import { AppKoaContext, Token, TokenType } from 'types';
+import { AppKoaContext } from 'types';
 
 interface SetAccessTokenOptions {
   ctx: AppKoaContext;

@@ -1,8 +1,9 @@
 import { FC, ReactNode, useState } from 'react';
-import { Checkbox, Stack, Title, Tooltip } from '@mantine/core';
 import { useFormContext } from 'react-hook-form';
+import { PASSWORD_RULES } from 'shared';
 
-import { PASSWORD_RULES } from 'app-constants';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface PasswordRulesRenderProps {
   onFocus: () => void;
@@ -35,21 +36,25 @@ const PasswordRules: FC<PasswordRulesProps> = ({ render }) => {
     },
   ];
 
-  const label = (
-    <Stack gap={10} p={8} pb={12}>
-      <Title order={5}>Password must:</Title>
-
-      <Stack gap={8}>
-        {rules.map((rule) => (
-          <Checkbox key={rule.title} label={rule.title} checked={rule.done} color="white" iconColor="dark" readOnly />
-        ))}
-      </Stack>
-    </Stack>
-  );
-
   return (
-    <Tooltip label={label} opened={visible} withArrow>
-      {render({ onFocus: () => setVisible(true), onBlur: () => setVisible(false) })}
+    <Tooltip open={visible}>
+      <TooltipTrigger asChild>
+        {render({ onFocus: () => setVisible(true), onBlur: () => setVisible(false) })}
+      </TooltipTrigger>
+
+      <TooltipContent side="right" className="p-4">
+        <div className="space-y-3">
+          <p className="text-sm font-semibold">Password must:</p>
+          <div className="space-y-2">
+            {rules.map((rule) => (
+              <div key={rule.title} className="flex items-center gap-2">
+                <Checkbox checked={rule.done} disabled className="pointer-events-none" />
+                <span className="text-sm">{rule.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </TooltipContent>
     </Tooltip>
   );
 };

@@ -83,36 +83,7 @@
                   }
                 ]
               },
-              "retool",
-              {
-                "group": "Examples",
-                "pages": [
-                  "examples/overview",
-                  {
-                    "group": "Stripe subscriptions",
-                    "pages": [
-                      "examples/stripe-subscriptions/overview",
-                      "examples/stripe-subscriptions/account",
-                      {
-                        "group": "API",
-                        "pages": [
-                          "examples/stripe-subscriptions/api/overview",
-                          "examples/stripe-subscriptions/api/subscriptions",
-                          "examples/stripe-subscriptions/api/payments"
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "group": "API Public Docs",
-                    "pages": [
-                      "examples/api-public-docs/overview",
-                      "examples/api-public-docs/usage",
-                      "examples/api-public-docs/how-it-works"
-                    ]
-                  }
-                ]
-              }
+              "retool"
             ]
           },
           {

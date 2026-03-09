@@ -1,17 +1,14 @@
 import { FC } from 'react';
-import { Center, CenterProps, Text, TextProps } from '@mantine/core';
 
-interface EmptyStateProps extends CenterProps {
+interface EmptyStateProps {
   text?: string;
-  textProps?: TextProps;
+  className?: string;
 }
 
-const EmptyState: FC<EmptyStateProps> = ({ text, textProps, ...rest }) => (
-  <Center py={100} {...rest}>
-    <Text w="fit-content" size="xl" c="gray" {...textProps}>
-      {text || 'No results found, try to adjust your search.'}
-    </Text>
-  </Center>
+const EmptyState: FC<EmptyStateProps> = ({ text, className }) => (
+  <div className={`flex items-center justify-center py-24 ${className ?? ''}`}>
+    <p className="w-fit text-xl text-muted-foreground">{text || 'No results found, try to adjust your search.'}</p>
+  </div>
 );
 
 export default EmptyState;

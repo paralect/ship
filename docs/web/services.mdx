@@ -7,16 +7,20 @@ title: Services
 Services in our application are specific functionalities or data manipulations handled by objects, classes, or functions.
 You can add any service as needed for third-party API integrations or app metrics collection.
 
-### API Service
+### API Client
 **Description:**
-The API Service, represented by the `ApiClient` class, enhances axios client for better error handling and easier configuration.
+The API Client, represented by the `ApiClient` class in `packages/shared`, wraps axios with better error handling and typed endpoint support. The typed client is auto-generated from API endpoints.
 
 **Example Usage:**
 ```typescript
-import { apiService } from 'services';
+import { apiClient } from 'services/api-client.service';
 
-// Making a GET request
-const data = await apiService.get('/users', { sort: { createdOn: 'desc' } });
+// Using typed endpoints
+const projects = await apiClient.projects.list.call({ page: 1, perPage: 10 });
+
+// With useApiQuery hook
+import { useApiQuery } from 'hooks';
+const { data, isLoading } = useApiQuery(apiClient.projects.list);
 ```
 
 ### Socket Service

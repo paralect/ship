@@ -6,23 +6,40 @@ title: "Data service"
 
 **Data Service** — is a layer that has two functions: database updates and domain functions. Database updates encapsulate the logic of updating and reading data in a database (also known as Repository Pattern in DDD). Domain functions use database updates to perform domain changes (e.x. `changeUserEmail`, `updateCredentials`, etc). For simplicity, we break the single responsibility pattern here. Data Service is usually named as `entity.service` (e.x. `user.service`).
 
-
 ## Examples
 
 ```typescript
-import _ from 'lodash';
 import db from 'db';
-import constants from 'app.constants';
+import { DATABASE_DOCUMENTS } from 'app-constants';
 import schema from './user.schema';
-import { User } from './user.types';
 
-const service = db.createService<User>('users', { schema });
+const service = db.createService(DATABASE_DOCUMENTS.USERS, {
+  schemaValidator: (obj) => schema.parseAsync(obj),
+});
 
-async function createInvitationToUser(email: string, companyId: string): Promise<User> {
+async function createInvitationToUser(email: string, companyId: string) {
   // the logic
 }
 
-export default Object.assign(service, { 
-	createInvitationToUser,
+export default Object.assign(service, {
+  createInvitationToUser,
 });
 ```
+
+## Service API Quick Reference
+
+`db.createService` returns a `@paralect/node-mongo` Service. Key methods:
+- `find(filter, { page, perPage }, { sort })` → `{ results, pagesCount, count }`
+- `findOne(filter)`, `insertOne(doc)`, `updateOne(filter, updateFn)`, `deleteSoft(filter)`
+- `exists(filter)`, `distinct(field, filter)`, `countDocuments(filter)`
+- `atomic.updateOne(filter, update)` — raw MongoDB update (bypass schema validator)
+- `createIndex(keys, options?)` — call at module level in the service file
+
+### Soft Deletes
+
+`service.deleteSoft(filter)` sets `deletedOn` timestamp instead of removing.
+All `find`/`findOne` queries auto-exclude `deletedOn !== null`.
+
+<Note>
+The collection name must be registered in `packages/app-constants/src/api.constants.ts` → `DATABASE_DOCUMENTS`.
+</Note>

@@ -1,9 +1,7 @@
-import { FileRejection } from '@mantine/dropzone';
-import { showNotification } from '@mantine/notifications';
+import { FileRejection } from 'react-dropzone';
 import { FieldValues, Path, UseFormSetError } from 'react-hook-form';
-
-import { ONE_MB_IN_BYTES } from 'app-constants';
-import { ApiError } from 'types';
+import { ApiError, ONE_MB_IN_BYTES } from 'shared';
+import { toast } from 'sonner';
 
 interface ValidationErrors {
   [name: string]: string[] | string;
@@ -24,10 +22,8 @@ export const handleApiError = <TFieldValues extends FieldValues>(
   const { global, ...errors } = data.errors;
 
   if (global) {
-    showNotification({
-      title: 'Error',
-      message: global,
-      color: 'red',
+    toast.error('Error', {
+      description: global as string,
     });
   }
 
@@ -83,10 +79,8 @@ export const handleDropzoneError = (fileRejections: FileRejection[]) => {
           break;
       }
 
-      showNotification({
-        title: 'Error',
-        message,
-        color: 'red',
+      toast.error('Error', {
+        description: message,
       });
     });
   });

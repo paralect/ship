@@ -1,1 +1,1 @@
-export * from './table.context';
+export { TableContext, useTableContext } from './table.context';

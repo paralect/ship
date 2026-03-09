@@ -1,24 +1,27 @@
-import { AppKoa } from 'types';
+import { AppKoa, AppRouter } from 'types';
 
-import attachCustomErrors from './middlewares/attach-custom-errors.middleware';
-import attachCustomProperties from './middlewares/attach-custom-properties.middleware';
-import extractTokens from './middlewares/extract-tokens.middleware';
-import routeErrorHandler from './middlewares/route-error-handler.middleware';
-import tryToAttachUser from './middlewares/try-to-attach-user.middleware';
-import adminRoutes from './admin.routes';
-import privateRoutes from './private.routes';
-import publicRoutes from './public.routes';
+import attachCustomErrors from './middlewares/attachCustomErrors';
+import attachCustomProperties from './middlewares/attachCustomProperties';
+import extractTokens from './middlewares/extractTokens';
+import routeErrorHandler from './middlewares/routeErrorHandler';
+import tryToAttachUser from './middlewares/tryToAttachUser';
+import { registerRoutes } from './routes';
 
-const defineRoutes = (app: AppKoa) => {
+const healthCheckRouter = new AppRouter();
+healthCheckRouter.get('/health', (ctx) => {
+  ctx.status = 200;
+});
+
+const defineRoutes = async (app: AppKoa) => {
   app.use(attachCustomErrors);
   app.use(attachCustomProperties);
   app.use(routeErrorHandler);
   app.use(extractTokens);
   app.use(tryToAttachUser);
 
-  publicRoutes(app);
-  privateRoutes(app);
-  adminRoutes(app);
+  app.use(healthCheckRouter.routes());
+
+  await registerRoutes(app, AppRouter);
 };
 
 export default defineRoutes;

@@ -1,24 +1,27 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Button, PasswordInput, Stack, Text, Title } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useApiMutation } from 'hooks';
+import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { schemas } from 'shared';
 import { z } from 'zod';
 
-import { accountApi } from 'resources/account';
+import { LayoutType, Page, ScopeType } from 'components';
 
+import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
 
-import { RoutePath } from 'routes';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
 
-import { resetPasswordSchema } from 'schemas';
+// Form schema differs from API schema (token comes from URL, not form)
+const formSchema = schemas.account.resetPassword.omit({ token: true });
 
-const schema = resetPasswordSchema.omit({ token: true });
+type ResetPasswordFormData = z.infer<typeof formSchema>;
 
-type ResetPasswordParams = z.infer<typeof schema>;
-
-const ResetPassword: NextPage = () => {
+const ResetPassword = () => {
   const router = useRouter();
 
   const { token } = router.query;
@@ -27,15 +30,15 @@ const ResetPassword: NextPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ResetPasswordParams>({ resolver: zodResolver(schema) });
+  } = useForm<ResetPasswordFormData>({ resolver: zodResolver(formSchema) });
 
   const {
     mutate: resetPassword,
     isPending: isResetPasswordPending,
     isSuccess: isResetPasswordSuccess,
-  } = accountApi.useResetPassword();
+  } = useApiMutation(apiClient.account.resetPassword);
 
-  const onSubmit = (data: ResetPasswordParams) => {
+  const onSubmit = (data: ResetPasswordFormData) => {
     if (typeof token !== 'string') return;
 
     resetPassword(
@@ -51,61 +54,67 @@ const ResetPassword: NextPage = () => {
 
   if (!token) {
     return (
-      <Stack w={328} gap="xs">
-        <Title order={2} mb={0}>
-          Invalid token
-        </Title>
-
-        <Text m={0}>Sorry, your token is invalid.</Text>
-      </Stack>
+      <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
+        <div className="flex w-full max-w-sm flex-col gap-2">
+          <h2 className="mb-0 text-2xl font-semibold">Invalid token</h2>
+          <p className="m-0 text-muted-foreground">Sorry, your token is invalid.</p>
+        </div>
+      </Page>
     );
   }
 
   if (isResetPasswordSuccess) {
     return (
-      <>
+      <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
         <Head>
           <title>Reset Password</title>
         </Head>
 
-        <Stack w={328}>
-          <Title order={2}>Password has been updated</Title>
+        <div className="flex w-full max-w-sm flex-col gap-4">
+          <h2 className="text-2xl font-semibold">Password has been updated</h2>
 
-          <Text mt={0}>Your password has been updated successfully. You can now use your new password to sign in.</Text>
+          <p className="mt-0 text-muted-foreground">
+            Your password has been updated successfully. You can now use your new password to sign in.
+          </p>
 
-          <Button onClick={() => router.push(RoutePath.SignIn)}>Back to Sign In</Button>
-        </Stack>
-      </>
+          <Button onClick={() => router.push('/sign-in')}>Back to Sign In</Button>
+        </div>
+      </Page>
     );
   }
 
   return (
-    <>
+    <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
       <Head>
         <title>Reset Password</title>
       </Head>
 
-      <Stack w={328}>
-        <Title order={2}>Reset Password</Title>
+      <div className="flex w-full max-w-sm flex-col gap-4">
+        <h2 className="text-2xl font-semibold">Reset Password</h2>
 
-        <Text mt={0}>Please choose your new password</Text>
+        <p className="mt-0 text-muted-foreground">Please choose your new password</p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack gap={20}>
-            <PasswordInput
-              {...register('password')}
-              label="Password"
-              placeholder="Enter your new password"
-              error={errors.password?.message}
-            />
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="password">Password</Label>
+              <PasswordInput
+                {...register('password')}
+                id="password"
+                placeholder="Enter your new password"
+                className={errors.password ? 'border-destructive' : ''}
+              />
+              {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+            </div>
 
-            <Button type="submit" loading={isResetPasswordPending}>
+            <Button type="submit" disabled={isResetPasswordPending}>
+              {isResetPasswordPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Save New Password
             </Button>
-          </Stack>
+          </div>
         </form>
-      </Stack>
-    </>
+      </div>
+    </Page>
   );
 };
 

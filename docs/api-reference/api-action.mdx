@@ -4,35 +4,37 @@ title: "API action"
 
 ## Overview
 
-**API action** — is HTTP handler that perform database updates and other logic required by the business logic.
-Actions should reside in the `/actions` folder within resource.
-Usually action is a single file that has meaningful name, e.x. `list`, `get-by-id`, `update-email`.
+**API action** (endpoint) — is an HTTP handler that performs database updates and other logic required by the business logic.
+Endpoints reside in the `/endpoints` folder within a resource.
+Each endpoint is a single file with a meaningful name, e.x. `list`, `create`, `update`, `remove`.
 
-If action has a lot of logic and require multiple files it needs to be placed into the folder with name of the action and action need to exposed using module pattern (index.ts file).
+Each endpoint file must **default-export** a `createEndpoint({...})` call. Routes are auto-discovered — no manual registration needed.
 
-Direct database updates of the current resource entity are allowed within action.
+If `schema` is provided, the `validate` middleware auto-applies. Validated data is available on `ctx.validatedData`.
 
 ## Examples
 
 ```typescript
-import Router from '@koa/router';
+import { z } from 'zod';
 
-import { AppKoaContext } from 'types';
+import createEndpoint from 'routes/createEndpoint';
+import { companyService } from 'resources/companies';
 
-import { validateMiddleware } from 'middlewares';
+const schema = z.object({
+  userId: z.string(),
+});
 
-type GetCompanies = {
-  userId: string;
-};
+export default createEndpoint({
+  method: 'get',
+  path: '/',
+  schema,
 
-async function handler(ctx: AppKoaContext<GetCompanies>) {
-  const { userId } = ctx.validatedData; // validatedData is returned by API validator
+  async handler(ctx) {
+    const { userId } = ctx.validatedData;
 
-  ctx.body = {}; // action result sent to the client
-}
+    const companies = await companyService.find({ userId });
 
-export default (router: Router) => {
-  // see Rest API validator
-  router.get('/companies', validateMiddleware(schema), handler);
-};
+    return companies; // returned value becomes ctx.body
+  },
+});
 ```

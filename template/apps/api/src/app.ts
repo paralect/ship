@@ -1,12 +1,13 @@
 import cors from '@koa/cors';
 import { koaBody } from 'koa-body';
+import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
 import koaLogger from 'koa-logger';
 import qs from 'koa-qs';
 import http from 'node:http';
 
 import { socketService } from 'services';
-import routes from 'routes';
+import defineRoutes from 'routes';
 
 import config from 'config';
 
@@ -17,7 +18,7 @@ import logger from 'logger';
 
 import { AppKoa } from 'types';
 
-const initKoa = () => {
+const initKoa = async () => {
   const app = new AppKoa();
   app.proxy = true;
 
@@ -25,14 +26,21 @@ const initKoa = () => {
   app.use(helmet());
   qs(app);
   app.use(
-    koaBody({
-      multipart: true,
-      onError: (error, ctx) => {
-        const errText: string = error.stack || error.toString();
-
+    bodyParser({
+      enableTypes: ['json', 'form', 'text'],
+      onerror: (err, ctx) => {
+        const errText: string = err.stack || err.toString();
         logger.warn(`Unable to parse request body. ${errText}`);
         ctx.throw(422, 'Unable to parse request JSON.');
       },
+    }),
+  );
+  app.use(
+    koaBody({
+      multipart: true,
+      json: false,
+      urlencoded: false,
+      text: false,
     }),
   );
   app.use(
@@ -45,14 +53,13 @@ const initKoa = () => {
     }),
   );
 
-  routes(app);
+  await defineRoutes(app);
 
   return app;
 };
 
-const app = initKoa();
-
 (async () => {
+  const app = await initKoa();
   const server = http.createServer(app.callback());
 
   if (config.REDIS_URI) {
@@ -70,4 +77,4 @@ const app = initKoa();
   });
 })();
 
-export default app;
+export default initKoa;

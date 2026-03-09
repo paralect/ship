@@ -1,9 +1,8 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Button, Stack, Text, Title } from '@mantine/core';
 
-import { RoutePath } from 'routes';
+import { Button } from '@/components/ui/button';
 
 const NotFound: NextPage = () => {
   const { replace } = useRouter();
@@ -14,15 +13,15 @@ const NotFound: NextPage = () => {
         <title>Page not found</title>
       </Head>
 
-      <Stack h="100vh" w={328} justify="center" m="auto">
-        <Title order={2}>Oops! The page is not found.</Title>
+      <div className="m-auto flex h-screen w-[328px] flex-col justify-center">
+        <h2 className="text-2xl font-semibold">Oops! The page is not found.</h2>
 
-        <Text mx={0} mt={20} mb={24} c="gray.6">
+        <p className="mx-0 mt-5 mb-6 text-muted-foreground">
           The page you are looking for may have been removed, or the link you followed may be broken.
-        </Text>
+        </p>
 
-        <Button onClick={() => replace(RoutePath.Home)}>Go to homepage</Button>
-      </Stack>
+        <Button onClick={() => replace('/')}>Go to homepage</Button>
+      </div>
     </>
   );
 };

@@ -2,99 +2,68 @@
 title: "Overview"
 ---
 
-Ship's API routing system is built on [Koa](https://koajs.com/) and organizes routes into three categories: **public**, **private**, and **admin** routes. All routes pass through global middlewares before reaching their handlers.
+Ship's API routing system is built on [Koa](https://koajs.com/) with **automatic route discovery**. Endpoints are auto-registered from `resources/<name>/endpoints/` — no manual route files needed. All routes pass through global middlewares before reaching their handlers.
 
 ## Request Flow
 
 ```mermaid
 flowchart TD
     A[Incoming Request] --> B[Global Middlewares]
-    B --> C{Route Type?}
-    C -->|Public| D[Public Routes]
-    C -->|Private| E[auth middleware]
-    C -->|Admin| F[adminAuth middleware]
-    E --> G[Private Routes]
-    F --> H[Admin Routes]
-    D --> I[Route Handler]
-    G --> I
-    H --> I
+    B --> C{Has isPublic?}
+    C -->|Yes| D[Skip auth]
+    C -->|No| E[auth middleware]
+    C -->|Has isAdmin| F[adminAuth middleware]
+    E --> G[validate if schema]
+    D --> G
+    F --> G
+    G --> H[Custom middlewares]
+    H --> I[Handler]
     I --> J[Response]
 ```
 
-## Route Definition
+## Auto-Discovery
 
-Routes are defined in `/api/src/routes/index.ts`:
+Routes register automatically. Each file in `resources/<name>/endpoints/` that default-exports `createEndpoint({...})` is mounted at `/<name>/<path>`.
 
-```typescript /api/src/routes/index.ts
-const defineRoutes = (app: AppKoa) => {
-  // Global middlewares (applied to all routes)
-  app.use(attachCustomErrors);
-  app.use(attachCustomProperties);
-  app.use(routeErrorHandler);
-  app.use(extractTokens);
-  app.use(tryToAttachUser);
+```typescript resources/projects/endpoints/list.ts
+import createEndpoint from 'routes/createEndpoint';
 
-  // Route registration
-  publicRoutes(app);
-  privateRoutes(app);
-  adminRoutes(app);
-};
+export default createEndpoint({
+  method: 'get',
+  path: '/',
+
+  async handler(ctx) {
+    // GET /projects/
+    return { projects: [] };
+  },
+});
 ```
 
-Global middlewares run for every request. See [Routing Middlewares](/api-reference/routing/middlewares) for details.
+- **Resource name = URL prefix**: `resources/projects/` → `/projects/*`
+- **No manual registration** — just place files in `endpoints/`
+- Check startup logs for: `[routes] METHOD /resource/path`
 
-## Route Types
+## Auth Default
 
-### Public Routes
-
-Accessible without authentication. Defined in `/api/src/routes/public.routes.ts`.
-
-**Examples:**
-- `GET /health` - Health check
-- `POST /account/sign-up` - User registration
-- `POST /account/sign-in` - User authentication
-
-### Private Routes
-
-Require user authentication via the `auth` middleware. Defined in `/api/src/routes/private.routes.ts`.
+Every endpoint requires authentication **unless** `isPublic` is in the `middlewares` array. `isPublic` is a sentinel reference — the route system checks `middleware === isPublic` by identity.
 
 ```typescript
-// Private routes use auth middleware
-app.use(mount('/account', compose([auth, accountRoutes.privateRoutes])));
+import createEndpoint from 'routes/createEndpoint';
+import isPublic from 'middlewares/isPublic';
+
+export default createEndpoint({
+  method: 'post',
+  path: '/sign-up',
+  schema,
+  middlewares: [isPublic],
+
+  async handler(ctx) {
+    // accessible without auth
+  },
+});
 ```
 
-**Examples:**
-- `GET /account` - Get current user account
-- `PUT /account` - Update user profile
-- `GET /users` - List users
-
-### Admin Routes
-
-Require admin authentication via the `adminAuth` middleware (validates `x-admin-key` header). Defined in `/api/src/routes/admin.routes.ts`.
-
-```typescript
-// Admin routes use adminAuth middleware
-app.use(mount('/admin/users', compose([adminAuth, userRoutes.adminRoutes])));
-```
-
-**Examples:**
-- `GET /admin/users` - Admin user management
-- `PUT /admin/users/:id` - Admin user updates
-
-## Route Mounting
-
-Ship uses two Koa utilities:
-
-- **koa-mount** - Mount routes at a specific path prefix
-- **koa-compose** - Compose multiple middlewares together
-
-```typescript
-// Mount routes with prefix
-app.use(mount('/account', accountRoutes.publicRoutes));
-
-// Compose auth middleware with routes
-app.use(mount('/account', compose([auth, accountRoutes.privateRoutes])));
-```
+For admin endpoints, use `isAdmin` middleware which checks the `x-admin-key` header against `config.ADMIN_KEY`.
 
 ## Authentication Flow
 

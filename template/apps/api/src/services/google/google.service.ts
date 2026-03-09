@@ -7,15 +7,14 @@ import {
   OAuth2RequestError,
   OAuth2Tokens,
 } from 'arctic';
+import type { User } from 'shared';
 import { z } from 'zod';
 
-import { userService } from 'resources/user';
+import { userService } from 'resources/users';
 
 import config from 'config';
 
 import logger from 'logger';
-
-import { User } from 'types';
 
 const googleUserInfoSchema = z.object({
   sub: z.string().describe('Unique Google user ID'),

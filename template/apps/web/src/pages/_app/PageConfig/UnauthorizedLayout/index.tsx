@@ -1,18 +1,18 @@
-import { FC, ReactElement } from 'react';
-import { Center, Image, SimpleGrid } from '@mantine/core';
+import { FC, ReactNode } from 'react';
+import Image from 'next/image';
 
 interface UnauthorizedLayoutProps {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => (
-  <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
-    <Image h="100vh" src="/images/ship.svg" alt="App Info" visibleFrom="sm" />
+  <div className="grid min-h-screen grid-cols-1 sm:grid-cols-2">
+    <div className="relative hidden h-screen sm:block">
+      <Image src="/images/ship.svg" alt="App Info" fill className="object-cover object-left" priority />
+    </div>
 
-    <Center component="main" h="100vh" w="100%" px={32}>
-      {children}
-    </Center>
-  </SimpleGrid>
+    <main className="flex h-screen w-full items-center justify-center px-8">{children}</main>
+  </div>
 );
 
 export default UnauthorizedLayout;
