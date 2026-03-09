@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @utility font-display {
   font-family: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
 }

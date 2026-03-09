@@ -1,6 +1,8 @@
 import Head from 'next/head';
 
-import { CTA, FAQ, Features, Footer, Header, Hero, Logos, Pricing, Testimonials } from './components';
+import { CTA, FAQ, Features, Footer, Hero, Logos, Pricing, Testimonials } from './components';
+
+import PublicHeader from '@/components/PublicHeader';
 
 const LightLanding = () => {
   return (
@@ -14,7 +16,8 @@ const LightLanding = () => {
       </Head>
 
       <div className="flex min-h-screen flex-col bg-background selection:bg-teal-300 selection:text-black">
-        <Header />
+        <PublicHeader />
+
         <main className="flex-1">
           <Hero />
           <Logos />

@@ -1,6 +1,8 @@
 import Head from 'next/head';
 
-import { CTA, FAQ, Features, Footer, Header, Hero, Logos, Pricing, Testimonials } from './components';
+import { CTA, FAQ, Features, Footer, Hero, Logos, Pricing, Testimonials } from './components';
+
+import PublicHeader from '@/components/PublicHeader';
 
 const Landing = () => {
   return (
@@ -25,7 +27,8 @@ const Landing = () => {
           }}
         />
 
-        <Header />
+        <PublicHeader />
+
         <main className="flex-1">
           <Hero />
           <div className="h-px bg-border" />

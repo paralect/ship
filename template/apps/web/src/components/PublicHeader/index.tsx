@@ -11,15 +11,15 @@ import { apiClient } from 'services/api-client.service';
 import { Button } from '@/components/ui/button';
 
 const navLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Features', href: '/#features' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'FAQ', href: '/#faq' },
   { label: 'Blog', href: '/blog' },
 ];
 
-const Header: FC = () => {
+const PublicHeader: FC = () => {
   const { data: account } = useApiQuery(apiClient.account.get);
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b-4 border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -46,7 +46,7 @@ const Header: FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="font-mono hover:bg-muted"
           >
             <Sun className="size-5 hidden dark:block" />
@@ -85,4 +85,4 @@ const Header: FC = () => {
   );
 };
 
-export default Header;
+export default PublicHeader;
