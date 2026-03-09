@@ -62,7 +62,7 @@ const Pricing: FC = () => {
   return (
     <section
       id="pricing"
-      className="relative border-y-4 border-foreground bg-background pt-12 pb-24 md:pt-16 md:pb-32 overflow-hidden"
+      className="relative border-y-4 border-foreground bg-background pt-12 pb-24 md:pt-16 md:pb-32 overflow-hidden scroll-mt-20"
     >
       <div className="absolute inset-y-0 -left-[10%] w-[30%] pointer-events-none opacity-[0.08]">
         <div className="h-full w-full bg-[var(--color-landing-cyan)] blur-[120px] rounded-full" />

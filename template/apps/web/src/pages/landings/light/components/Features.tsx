@@ -52,7 +52,7 @@ const Features: FC = () => {
   return (
     <section
       id="features"
-      className="relative border-y-4 border-foreground bg-background pt-12 pb-24 md:pt-16 md:pb-32 overflow-hidden"
+      className="relative border-y-4 border-foreground bg-background pt-12 pb-24 md:pt-16 md:pb-32 overflow-hidden scroll-mt-20"
     >
       <div className="absolute inset-0 z-0 opacity-[0.03] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]">
         <div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>

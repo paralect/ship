@@ -38,7 +38,10 @@ const FAQ: FC = () => {
   ];
 
   return (
-    <section id="faq" className="relative border-y-4 border-foreground bg-background pt-12 pb-16 md:pt-16 md:pb-24">
+    <section
+      id="faq"
+      className="relative border-y-4 border-foreground bg-background pt-12 pb-16 md:pt-16 md:pb-24 scroll-mt-20"
+    >
       <div className="container relative mx-auto max-w-4xl px-4">
         <div className="mb-12 text-center">
           <motion.div
