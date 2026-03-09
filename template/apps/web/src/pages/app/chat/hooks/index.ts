@@ -1,1 +1,0 @@
-export { useChatManager } from './useChatManager';

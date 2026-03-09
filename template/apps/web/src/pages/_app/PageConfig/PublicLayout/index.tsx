@@ -23,7 +23,7 @@ interface PublicLayoutProps {
 
 const PublicLayout: FC<PublicLayoutProps> = ({ children }) => {
   const { data: account } = useApiQuery(apiClient.account.get);
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
 
   return (
     <div className="flex min-h-screen flex-col bg-muted/40">
@@ -51,10 +51,11 @@ const PublicLayout: FC<PublicLayoutProps> = ({ children }) => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onClick={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
               className="font-mono hover:bg-muted"
             >
-              {theme === 'dark' ? <Sun className="size-5" /> : <Moon className="size-5" />}
+              <Sun className="size-5 hidden dark:block" />
+              <Moon className="size-5 block dark:hidden" />
             </Button>
 
             <div className="flex items-center gap-4">

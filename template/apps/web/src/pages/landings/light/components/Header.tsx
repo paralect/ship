@@ -19,7 +19,7 @@ const navLinks = [
 
 const Header: FC = () => {
   const { data: account } = useApiQuery(apiClient.account.get);
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b-4 border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -46,10 +46,11 @@ const Header: FC = () => {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            onClick={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
             className="font-mono hover:bg-muted"
           >
-            {theme === 'dark' ? <Sun className="size-5" /> : <Moon className="size-5" />}
+            <Sun className="size-5 hidden dark:block" />
+            <Moon className="size-5 block dark:hidden" />
           </Button>
 
           <div className="flex items-center gap-4">
