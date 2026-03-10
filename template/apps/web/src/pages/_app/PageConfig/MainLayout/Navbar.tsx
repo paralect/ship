@@ -22,7 +22,7 @@ const Navbar = () => {
     >
       <div className="flex h-14 items-center justify-between border-b px-3">
         {!isCollapsed && (
-          <Link href="/">
+          <Link href="/app">
             <LogoImage className="h-6" />
           </Link>
         )}

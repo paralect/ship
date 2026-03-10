@@ -37,7 +37,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
           <SheetContent side="left" className="flex w-72 flex-col p-0">
             <SheetHeader className="border-b px-4 py-3">
               <SheetTitle>
-                <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href="/app" onClick={() => setIsMobileMenuOpen(false)}>
                   <LogoImage className="h-6" />
                 </Link>
               </SheetTitle>
@@ -53,7 +53,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
           </SheetContent>
         </Sheet>
 
-        <Link href="/">
+        <Link href="/app">
           <LogoImage className="h-6" />
         </Link>
       </header>
@@ -62,7 +62,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
         <Navbar />
       </div>
 
-      <main className="flex-1 overflow-hidden">{children}</main>
+      <main className="flex-1 overflow-auto">{children}</main>
     </div>
   );
 };

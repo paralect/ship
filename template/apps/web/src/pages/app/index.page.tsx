@@ -5,13 +5,13 @@ import { LayoutType, Page, ScopeType } from 'components';
 
 import { apiClient } from 'services/api-client.service';
 
-const Home = () => {
+const Dashboard = () => {
   const { data: account } = useApiQuery(apiClient.account.get);
 
   return (
     <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
       <Head>
-        <title>Home</title>
+        <title>Dashboard</title>
       </Head>
 
       <div className="flex h-full items-center justify-center px-4">
@@ -21,7 +21,7 @@ const Home = () => {
           </h1>
 
           <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-            This is your dashboard. Explore the features available in the sidebar.
+            This is your dashboard. Start building something great!
           </p>
         </div>
       </div>
@@ -29,4 +29,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Dashboard;

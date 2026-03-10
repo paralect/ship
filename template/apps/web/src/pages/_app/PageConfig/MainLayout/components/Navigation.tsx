@@ -15,11 +15,11 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
 
   return (
     <div className="flex flex-col gap-1 p-2">
-      <Link href="/">
+      <Link href="/app">
         <div
           className={cn(
             'flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
-            currentPath === '/' && 'bg-muted',
+            currentPath === '/app' && 'bg-muted',
             isCollapsed && 'justify-center px-0',
           )}
           title={isCollapsed ? 'Dashboard' : undefined}
@@ -29,11 +29,11 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
         </div>
       </Link>
 
-      <Link href="/admin">
+      <Link href="/app/admin">
         <div
           className={cn(
             'flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
-            currentPath === '/admin' && 'bg-muted',
+            currentPath === '/app/admin' && 'bg-muted',
             isCollapsed && 'justify-center px-0',
           )}
           title={isCollapsed ? 'Admin' : undefined}

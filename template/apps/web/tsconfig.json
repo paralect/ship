@@ -6,7 +6,8 @@
     "rootDir": ".",
     "paths": {
       "@/*": ["./*"],
-      "public/*": ["../public/*"]
+      "public/*": ["../public/*"],
+      "content-collections": ["../.content-collections/generated"]
     }
   },
   "include": [

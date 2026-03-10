@@ -1,3 +1,4 @@
+import { withContentCollections } from '@content-collections/next';
 import dotenv from 'dotenv-flow';
 import { join } from 'node:path';
 import process from 'node:process';
@@ -41,4 +42,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withContentCollections(nextConfig);

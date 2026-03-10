@@ -56,7 +56,7 @@ const UserMenu = ({ isCollapsed }: UserMenuProps) => {
 
         <DropdownMenuContent align={isCollapsed ? 'center' : 'start'} side="top">
           <DropdownMenuItem asChild>
-            <Link href="/profile">
+            <Link href="/app/profile">
               <User className="mr-2 size-4" />
               Profile settings
             </Link>
