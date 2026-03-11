@@ -1,4 +1,19 @@
-# [Documentation](https://ship.paralect.com/docs/introduction)
+# Ship
+
+> Full-Stack Node.js boilerplate — [Next.js](https://nextjs.org/) (Pages Router) + [Koa.js](https://koajs.com/) + [MongoDB](https://www.mongodb.com/) + [TypeScript](https://www.typescriptlang.org/)
+
+## [Documentation](https://ship.paralect.com/docs/introduction)
+
+## Tech Stack
+
+| Layer | Technologies |
+|---|---|
+| **Web** | Next.js (Pages Router), Tanstack Query, React Hook Form, Tailwind CSS, shadcn/ui |
+| **API** | Koa.js, Zod validation, auto-discovered endpoints |
+| **Database** | MongoDB with [@paralect/node-mongo](https://ship.paralect.com/docs/packages/node-mongo) |
+| **Shared** | Auto-generated typed API client, Zod schemas |
+| **Infra** | Docker, Turborepo, Redis, GitHub Actions |
+| **Deployment** | Digital Ocean Apps, Render, Kubernetes (DO / AWS EKS) |
 
 ## Prerequisites
 
@@ -57,3 +72,13 @@ pnpm run docker
     ```
 
 You can also run infrastructure services separately using the `./bin/start.sh` bash script.
+
+## Plugins
+
+Extend your project with pre-built features:
+
+```sh
+npx create-ship-app@latest install <plugin-name>
+```
+
+Available plugins: `stripe-subscriptions`, `ai-chat`. See [Plugins docs](https://ship.paralect.com/docs/plugins/overview).
