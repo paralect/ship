@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { Check } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button } from './ui/button';
+
 import { cn } from '@/lib/utils';
 
 const plans = [

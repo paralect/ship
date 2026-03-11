@@ -1,6 +1,6 @@
 import { CreditCard, Database, Mail, Palette, Shield, Zap } from 'lucide-react';
 
-import { GlowingEffect } from '@/components/ui/glowing-effect';
+import { GlowingEffect } from './ui/glowing-effect';
 
 const features = [
   {

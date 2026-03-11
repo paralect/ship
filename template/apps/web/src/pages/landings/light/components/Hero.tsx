@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button } from './ui/button';
 
 const screenshots = [
   {
