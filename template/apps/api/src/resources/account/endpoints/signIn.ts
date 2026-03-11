@@ -7,7 +7,7 @@ import { userService } from 'resources/users';
 import isPublic from 'middlewares/isPublic';
 import rateLimitMiddleware from 'middlewares/rateLimit';
 import { authService } from 'services';
-import { securityUtil } from 'utils';
+import { clientUtil, securityUtil } from 'utils';
 import createEndpoint from 'routes/createEndpoint';
 
 const schema = z.object({
@@ -59,7 +59,15 @@ export default createEndpoint({
       });
     }
 
-    await authService.setAccessToken({ ctx, userId: user._id });
+    const accessToken = await authService.setAccessToken({ ctx, userId: user._id });
+    const clientType = clientUtil.detectClientType(ctx);
+
+    if (clientType === clientUtil.ClientType.MOBILE) {
+      return {
+        accessToken,
+        user: userService.getPublic(user),
+      };
+    }
 
     return userService.getPublic(user);
   },

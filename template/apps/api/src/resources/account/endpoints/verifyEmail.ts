@@ -24,7 +24,7 @@ export default createEndpoint({
   middlewares: [
     isPublic,
     rateLimitMiddleware({
-      limitDuration: 60 * 60, // 1 hour
+      limitDuration: 60 * 60,
       requestsPerDuration: 10,
     }),
   ],

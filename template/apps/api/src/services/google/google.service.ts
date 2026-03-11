@@ -199,3 +199,52 @@ export const validateCallback = async (params: {
     googleUserId,
   });
 };
+
+export const validateIdToken = async (idToken: string): Promise<User | null> => {
+  try {
+    const claims = decodeIdToken(idToken);
+    const parsedUserInfo = googleUserInfoSchema.safeParse(claims);
+
+    if (!parsedUserInfo.success) {
+      const errorMessage = 'Failed to validate Google user info';
+
+      logger.error(`[Google OAuth Mobile] ${errorMessage}`);
+      logger.error(z.treeifyError(parsedUserInfo.error).errors);
+
+      throw new Error(errorMessage);
+    }
+
+    const {
+      sub: googleUserId,
+      email,
+      email_verified: isEmailVerified,
+      picture: avatarUrl,
+      given_name: firstName,
+      family_name: lastName,
+    } = parsedUserInfo.data;
+
+    if (!isEmailVerified) {
+      throw new Error('Google account is not verified');
+    }
+
+    const existingUser = await handleExistingUser(googleUserId);
+
+    if (existingUser) return existingUser;
+
+    const existingUserByEmail = await handleExistingUserByEmail(email, googleUserId);
+
+    if (existingUserByEmail) return existingUserByEmail;
+
+    return createNewUser({
+      firstName,
+      lastName,
+      email,
+      isEmailVerified,
+      avatarUrl,
+      googleUserId,
+    });
+  } catch (error) {
+    logger.error(`[Google OAuth Mobile] ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw error;
+  }
+};

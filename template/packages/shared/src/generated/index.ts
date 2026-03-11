@@ -7,6 +7,9 @@ export const schemas = {
     forgotPassword: z.object({
   email: emailSchema,
 }),
+    googleMobile: z.object({
+  idToken: z.string().min(1, 'ID token is required'),
+}),
     resendEmail: z.object({
   email: emailSchema,
 }),
@@ -30,6 +33,9 @@ export const schemas = {
   })
   .partial(),
     verifyEmail: z.object({
+  token: z.string().min(1, 'Token is required'),
+}),
+    verifyEmailToken: z.object({
   token: z.string().min(1, 'Token is required'),
 }),
     verifyResetToken: z.object({
@@ -64,20 +70,24 @@ export type UsersRemovePathParams = { id: string };
 export type UsersUpdatePathParams = { id: string };
 
 export type AccountForgotPasswordParams = z.infer<typeof schemas.account.forgotPassword>;
+export type AccountGoogleMobileParams = z.infer<typeof schemas.account.googleMobile>;
 export type AccountResendEmailParams = z.infer<typeof schemas.account.resendEmail>;
 export type AccountResetPasswordParams = z.infer<typeof schemas.account.resetPassword>;
 export type AccountSignInParams = z.infer<typeof schemas.account.signIn>;
 export type AccountSignUpParams = z.infer<typeof schemas.account.signUp>;
 export type AccountUpdateParams = z.infer<typeof schemas.account.update>;
 export type AccountVerifyEmailParams = z.infer<typeof schemas.account.verifyEmail>;
+export type AccountVerifyEmailTokenParams = z.infer<typeof schemas.account.verifyEmailToken>;
 export type AccountVerifyResetTokenParams = z.infer<typeof schemas.account.verifyResetToken>;
 export type UsersListParams = z.infer<typeof schemas.users.list>;
 export type UsersUpdateParams = z.infer<typeof schemas.users.update>;
 
 export type AccountGetResponse = { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string };
+export type AccountGoogleMobileResponse = { accessToken: string; user: { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string } };
 export type AccountSignInResponse = { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string };
 export type AccountSignUpResponse = { emailVerificationToken: string };
 export type AccountUpdateResponse = null | { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string };
+export type AccountVerifyEmailTokenResponse = { accessToken: string; user: { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string } };
 export type UsersListResponse = { results: ({ _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: unknown; connectedOn: unknown } }; lastRequest?: string })[]; pagesCount: number; count: number };
 export type UsersUpdateResponse = null | { _id: string; createdOn?: string; updatedOn?: string; deletedOn?: null | string; firstName: string; lastName: string; email: string; isEmailVerified: boolean; avatarUrl?: null | string; oauth?: { google?: { userId: string; connectedOn: string } }; lastRequest?: string };
 
@@ -110,6 +120,13 @@ function createAccountEndpoints(client: ApiClient) {
       schema: undefined,
       call: (params?: Record<string, unknown>, options?: { headers?: Record<string, string> }) =>
         client.get<void>('/account/sign-in/google/callback', params, options?.headers ? { headers: options.headers } : undefined),
+    },
+    googleMobile: {
+      method: 'post' as const,
+      path: '/account/sign-in/google/token' as const,
+      schema: schemas.account.googleMobile,
+      call: (params: AccountGoogleMobileParams, options?: { headers?: Record<string, string> }) =>
+        client.post<AccountGoogleMobileResponse>('/account/sign-in/google/token', params, options?.headers ? { headers: options.headers } : undefined),
     },
     resendEmail: {
       method: 'post' as const,
@@ -159,6 +176,13 @@ function createAccountEndpoints(client: ApiClient) {
       schema: schemas.account.verifyEmail,
       call: (params: AccountVerifyEmailParams, options?: { headers?: Record<string, string> }) =>
         client.get<void>('/account/verify-email', params, options?.headers ? { headers: options.headers } : undefined),
+    },
+    verifyEmailToken: {
+      method: 'post' as const,
+      path: '/account/verify-email/token' as const,
+      schema: schemas.account.verifyEmailToken,
+      call: (params: AccountVerifyEmailTokenParams, options?: { headers?: Record<string, string> }) =>
+        client.post<AccountVerifyEmailTokenResponse>('/account/verify-email/token', params, options?.headers ? { headers: options.headers } : undefined),
     },
     verifyResetToken: {
       method: 'get' as const,
