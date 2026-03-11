@@ -43,7 +43,7 @@ jobs:
 
       - name: Generate Content Collections
         if: inputs.component == 'template/web'
-        run: cd template && pnpm --filter web exec content-collections build
+        run: cd template && pnpm --filter web run content-collections:build
 
       - name: Run Linters
         uses: wearerequired/lint-action@v2

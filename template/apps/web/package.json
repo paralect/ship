@@ -10,6 +10,7 @@
     "dev": "next dev -p 3002",
     "start": "next start -p 3002",
     "tsc": "tsc --noEmit --watch",
+    "content-collections:build": "node --input-type=module -e \"const{createBuilder}=await import('@content-collections/core');const b=await createBuilder('./content-collections.ts');await b.build();\"",
     "prettier": "prettier . --write --config .prettierrc.json",
     "eslint": "eslint . --fix",
     "precommit": "lint-staged"
