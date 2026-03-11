@@ -40,4 +40,13 @@ const addUpdatedOnField = <T>(update: UpdateFilter<T>): UpdateFilter<T> => {
   } as unknown as UpdateFilter<T>;
 };
 
-export { deepCompare, generateId, addUpdatedOnField };
+const omitPrivateFields = <T extends object, K extends keyof T>(
+  doc: T | null,
+  privateFields: ReadonlyArray<K>,
+): Omit<T, K> | null => {
+  if (!doc) return null;
+
+  return _.omit<T, K>(doc, privateFields);
+};
+
+export { deepCompare, generateId, addUpdatedOnField, omitPrivateFields };

@@ -36,6 +36,8 @@ enum AdminPermissions {
   EDIT = 'edit',
 }
 
+const USER_PRIVATE_FIELDS = ['passwordHash'] as const;
+
 const userSchema = z.object({
   _id: z.string(),
   createdOn: z.date().optional(),
@@ -43,6 +45,7 @@ const userSchema = z.object({
   deletedOn: z.date().optional().nullable(),
   fullName: z.string(),
   age: z.number().optional(),
+  passwordHash: z.string().optional(),
   role: z.nativeEnum(UserRoles).default(UserRoles.MEMBER),
   permissions: z.array(z.nativeEnum(AdminPermissions)).optional(),
   birthDate: z.date().optional(),
@@ -64,6 +67,11 @@ const usersServiceEscapeRegExp = database.createService<UserType>('usersEsapeReg
 
 const companyService = database.createService<CompanyType>('companies', {
   schemaValidator: (obj) => companySchema.parseAsync(obj),
+});
+
+const usersServiceWithPrivateFields = database.createService<UserType, typeof USER_PRIVATE_FIELDS>('usersWithPrivateFields', {
+  schemaValidator: (obj) => userSchema.parseAsync(obj),
+  privateFields: USER_PRIVATE_FIELDS,
 });
 
 describe('service.ts', () => {
@@ -1490,5 +1498,49 @@ describe('service.ts', () => {
     updatedUser?.permissions?.[0]?.should.be.undefined;
     updatedUser?.permissions?.[1]?.should.be.undefined;
     updatedUser?.permissions?.length?.should.be.equal(0);
+  });
+
+  it('should omit private fields using array configuration', async () => {
+    const userToInsertPayload = {
+      fullName: 'John Doe',
+      age: 30,
+      role: UserRoles.ADMIN,
+      passwordHash: '123456',
+    };
+
+    const user = await usersServiceWithPrivateFields.insertOne(userToInsertPayload);
+
+    const publicUser = usersServiceWithPrivateFields.getPublic(user);
+
+    // @ts-expect-error Property 'passwordHash' does not exist
+    publicUser?.passwordHash;
+
+    publicUser?.fullName?.should.be.equal(userToInsertPayload.fullName);
+    publicUser?.age?.should.be.equal(userToInsertPayload.age);
+    publicUser?.role?.should.be.equal(userToInsertPayload.role);
+  });
+
+  it('should return original document when no privateFields configured', async () => {
+    const userToInsertPayload = {
+      fullName: 'John Doe',
+      age: 30,
+      role: UserRoles.ADMIN,
+      passwordHash: '123456',
+    };
+
+    const user = await usersService.insertOne(userToInsertPayload);
+
+    const publicUser = usersService.getPublic(user);
+
+    publicUser?.passwordHash?.should.be.equal(userToInsertPayload.passwordHash);
+    publicUser?.fullName?.should.be.equal(userToInsertPayload.fullName);
+    publicUser?.age?.should.be.equal(userToInsertPayload.age);
+    publicUser?.role?.should.be.equal(userToInsertPayload.role);
+  });
+
+  it('should handle null documents in getPublic', async () => {
+    const publicUser = usersServiceWithPrivateFields.getPublic(null);
+    
+    (publicUser === null).should.be.equal(true);
   });
 });

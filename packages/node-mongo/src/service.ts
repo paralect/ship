@@ -33,30 +33,31 @@ import {
 } from './types';
 
 import logger from './utils/logger';
-import { addUpdatedOnField, generateId } from './utils/helpers';
+import { addUpdatedOnField, generateId, omitPrivateFields } from './utils/helpers';
 import PopulateUtil from './utils/populate';
 
 import { inMemoryPublisher } from './events/in-memory';
 
-const defaultOptions: ServiceOptions = {
+const defaultOptions: ServiceOptions<IDocument, ReadonlyArray<keyof IDocument>> = {
   skipDeletedOnDocs: true,
   publishEvents: true,
   outbox: false,
   addCreatedOnField: true,
   addUpdatedOnField: true,
   escapeRegExp: false,
+  privateFields: [],
 };
 
 const isDev = process.env.NODE_ENV === 'development';
 
-class Service<T extends IDocument> {
+class Service<T extends IDocument, PrivateFields extends ReadonlyArray<keyof T> = []> {
   private client?: MongoClient;
 
   private collection: Collection<T> | null;
 
   private _collectionName: string;
 
-  private options: ServiceOptions;
+  private options: ServiceOptions<T, PrivateFields>;
 
   private db;
 
@@ -67,14 +68,14 @@ class Service<T extends IDocument> {
   constructor(
     collectionName: string,
     db: IDatabase,
-    options: ServiceOptions = {},
+    options: ServiceOptions<T, PrivateFields> = {},
   ) {
     this._collectionName = collectionName;
     this.db = db;
     this.options = {
       ...defaultOptions,
       ...options,
-    };
+    } as ServiceOptions<T, PrivateFields>;
     this.waitForConnection = db.waitForConnection;
 
     if (this.options.outbox) {
@@ -239,11 +240,13 @@ class Service<T extends IDocument> {
     readConfig: ReadConfig = {},
     findOptions: FindOptions = {},
   ): Promise<(U & PopulateTypes) | U | null> {
+    const { populate } = readConfig;
+
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, readConfig);
 
-    if (readConfig.populate) {
+    if (populate) {
       const docs = await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions);
 
       return docs[0] || null;
@@ -270,14 +273,15 @@ class Service<T extends IDocument> {
     readConfig: ReadConfig & { page?: number; perPage?: number } = {},
     findOptions: FindOptions = {},
   ): Promise<FindResult<U & PopulateTypes> | FindResult<U>> {
+    const { populate, page, perPage } = readConfig;
+
     const collection = await this.getCollection<U>();
-    const { page, perPage } = readConfig;
     const hasPaging = !!page && !!perPage;
 
     filter = this.handleReadOperations(filter, readConfig);
 
     if (!hasPaging) {
-      const results = readConfig.populate
+      const results = populate
         ? await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
         : await collection.find<U>(filter, findOptions).toArray();
 
@@ -292,7 +296,7 @@ class Service<T extends IDocument> {
     findOptions.limit = perPage;
 
     const [results, count] = await Promise.all([
-      readConfig.populate
+      populate
         ? this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
         : collection.find<U>(filter, findOptions).toArray(),
       collection.countDocuments(filter),
@@ -347,12 +351,14 @@ class Service<T extends IDocument> {
     createConfig: CreateConfig = {},
     insertOneOptions: InsertOneOptions = {},
   ): Promise<U> => {
+    const { publishEvents } = createConfig;
+    
     const collection = await this.getCollection<U>();
 
     const validEntity = await this.validateCreateOperation<U>(object, createConfig);
 
-    const shouldPublishEvents = typeof createConfig.publishEvents === 'boolean'
-      ? createConfig.publishEvents
+    const shouldPublishEvents = typeof publishEvents === 'boolean'
+      ? publishEvents
       : this.options.publishEvents;
 
     if (shouldPublishEvents) {
@@ -384,14 +390,16 @@ class Service<T extends IDocument> {
     createConfig: CreateConfig = {},
     bulkWriteOptions: BulkWriteOptions = {},
   ): Promise<U[]> => {
+    const { publishEvents } = createConfig;
+
     const collection = await this.getCollection<U>();
 
     const validEntities = await Promise.all(objects.map(
       (o) => this.validateCreateOperation<U>(o, createConfig),
     ));
 
-    const shouldPublishEvents = typeof createConfig.publishEvents === 'boolean'
-      ? createConfig.publishEvents
+    const shouldPublishEvents = typeof publishEvents === 'boolean'
+      ? publishEvents
       : this.options.publishEvents;
 
     if (shouldPublishEvents) {
@@ -455,6 +463,8 @@ class Service<T extends IDocument> {
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
   ): Promise<U | null> {
+    const { validateSchema, publishEvents } = updateConfig;
+    
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, updateConfig);
@@ -515,16 +525,16 @@ class Service<T extends IDocument> {
       updateFilter = _.merge(updateFilter, { $set: { updatedOn: updatedOnDate } });
     }
 
-    const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
-      ? updateConfig.validateSchema
+    const shouldValidateSchema = typeof validateSchema === 'boolean'
+      ? validateSchema
       : Boolean(this.options.schemaValidator);
 
     if (shouldValidateSchema) {
       await this.validateSchema(newDoc);
     }
 
-    const shouldPublishEvents = typeof updateConfig.publishEvents === 'boolean'
-      ? updateConfig.publishEvents
+    const shouldPublishEvents = typeof publishEvents === 'boolean'
+      ? publishEvents
       : this.options.publishEvents;
 
     if (shouldPublishEvents) {
@@ -579,6 +589,8 @@ class Service<T extends IDocument> {
     updateConfig: UpdateConfig = {},
     updateOptions: UpdateOptions = {},
   ): Promise<U[]> {
+    const { validateSchema, publishEvents } = updateConfig;
+
     const collection = await this.getCollection<U>();
 
     filter = this.handleReadOperations(filter, updateConfig);
@@ -654,8 +666,8 @@ class Service<T extends IDocument> {
       });
     }
 
-    const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
-      ? updateConfig.validateSchema
+    const shouldValidateSchema = typeof validateSchema === 'boolean'
+      ? validateSchema
       : Boolean(this.options.schemaValidator);
 
     if (shouldValidateSchema) {
@@ -676,8 +688,8 @@ class Service<T extends IDocument> {
       },
     );
 
-    const shouldPublishEvents = typeof updateConfig.publishEvents === 'boolean'
-      ? updateConfig.publishEvents
+    const shouldPublishEvents = typeof publishEvents === 'boolean'
+      ? publishEvents
       : this.options.publishEvents;
 
     if (shouldPublishEvents) {
@@ -701,7 +713,7 @@ class Service<T extends IDocument> {
       await collection.bulkWrite(bulkWriteQuery, updateOptions);
     }
 
-    return updated.map((u) => u?.doc) as U[];
+    return updated.map((u) => u?.doc).filter(Boolean) as U[];
   }
 
   deleteOne = async <U extends T = T>(
@@ -977,6 +989,14 @@ class Service<T extends IDocument> {
       this.collection = null;
     }
   };
+
+  getPublic(doc: null): null;
+
+  getPublic(doc: T): Omit<T, PrivateFields[number]>;
+
+  getPublic(doc: T | null): Omit<T, PrivateFields[number]> | null {
+    return omitPrivateFields<T, PrivateFields[number]>(doc, this.options.privateFields || []);
+  }
 }
 
 export default Service;

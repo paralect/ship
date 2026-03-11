@@ -1,5 +1,5 @@
 import {
-  ClientSession, Collection, CollectionOptions, CreateCollectionOptions, Document, MongoClient,
+  ClientSession, Collection, CollectionOptions, CreateCollectionOptions, Document, FindOptions, MongoClient,
 } from 'mongodb';
 
 export type DbChangeType = 'create' | 'update' | 'delete';
@@ -61,8 +61,8 @@ export type FindResult<T> = {
 };
 
 export type CreateConfig = {
-  validateSchema?: boolean,
-  publishEvents?: boolean,
+  validateSchema?: boolean;
+  publishEvents?: boolean;
 };
 
 export type PopulateOptions = {
@@ -83,7 +83,7 @@ export type ReadConfig = {
 
 // Type-safe discriminated unions for populate operations
 export type ReadConfigWithPopulate = ReadConfig & { 
-  populate: PopulateOptions | PopulateOptions[]; 
+  populate: PopulateOptions | PopulateOptions[];
 };
 
 export type ReadConfigWithoutPopulate = ReadConfig & { 
@@ -91,9 +91,9 @@ export type ReadConfigWithoutPopulate = ReadConfig & {
 };
 
 export type UpdateConfig = {
-  skipDeletedOnDocs?: boolean,
-  validateSchema?: boolean,
-  publishEvents?: boolean,
+  skipDeletedOnDocs?: boolean;
+  validateSchema?: boolean;
+  publishEvents?: boolean;
 };
 
 export type DeleteConfig = {
@@ -118,7 +118,7 @@ interface IDatabase {
   ) => Promise<TRes>,
 }
 
-interface ServiceOptions {
+interface ServiceOptions<T extends IDocument, PrivateFields extends ReadonlyArray<keyof T> = []> {
   skipDeletedOnDocs?: boolean,
   schemaValidator?: (obj: any) => Promise<any>,
   publishEvents?: boolean,
@@ -128,6 +128,7 @@ interface ServiceOptions {
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
   escapeRegExp?: boolean;
+  privateFields?: PrivateFields;
 }
 
 export type UpdateFilterFunction<U> = (doc: U) => Partial<U>;

@@ -253,6 +253,40 @@ Fetches the first document that matches the filter. Returns `null` if document w
 
 **Returns** `Promise<T | null>`.
 
+### `getPublic`
+
+```typescript
+getPublic<U extends T = T>(doc: U | null): Partial<U> | null
+```
+
+```typescript
+const user = await userService.findOne({ _id: u._id });
+
+const publicUser = userService.getPublic(user);
+```
+
+Removes private fields from a document and returns a sanitized version. Private fields are defined in the `privateFields` option when creating the service. Returns `null` if the input document is `null`. If no `privateFields` are configured, returns the original document unchanged.
+
+**Parameters**
+
+- doc: `U | null` - The document to sanitize. Can be `null`.
+
+**Returns** `Partial<U> | null` - A document with private fields omitted, or `null` if the input was `null`.
+
+**Example**
+
+```typescript
+const USER_PRIVATE_FIELDS = ['passwordHash', 'signupToken', 'resetPasswordToken'] as const
+
+const service = db.createService<User, typeof USER_PRIVATE_FIELDS>("users", {
+  privateFields: USER_PRIVATE_FIELDS,
+});
+
+const user = await service.findOne({ _id: userId });
+
+const publicUser = service.getPublic(user);
+```
+
 ### `updateOne`
 
 ```typescript
@@ -1046,15 +1080,11 @@ Extending API for a single service.
 ```typescript
 const service = db.createService<User>("users", {
   schemaValidator: (obj) => schema.parseAsync(obj),
+  privateFields: ['passwordHash', 'signupToken', 'resetPasswordToken'],
 });
-
-const privateFields = ["passwordHash", "signupToken", "resetPasswordToken"];
-
-const getPublic = (user: User | null) => _.omit(user, privateFields);
 
 export default Object.assign(service, {
   updateLastRequest,
-  getPublic,
 });
 ```
 
