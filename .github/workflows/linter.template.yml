@@ -41,6 +41,10 @@ jobs:
       - name: Install Dependencies
         run: cd template && pnpm install
 
+      - name: Generate Content Collections
+        if: inputs.component == 'template/web'
+        run: cd template && pnpm --filter web content-collections build
+
       - name: Run Linters
         uses: wearerequired/lint-action@v2
         with:
