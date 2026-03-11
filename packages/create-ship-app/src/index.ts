@@ -10,7 +10,6 @@ import prompts from 'prompts';
 import checkForUpdate from 'update-check';
 
 import {
-  createResource,
   getDefaultProjectName,
   handleSigTerm,
   isFolderEmpty,
@@ -64,17 +63,6 @@ Available deployment options:
 program.parse(process.argv);
 
 const run = async (): Promise<void> => {
-  // rawArgs = ['create', 'resource', <resource-name>];
-  const isCommandCreateResource = rawArgs.length === 3 && rawArgs[0] === 'create' && rawArgs[1] === 'resource';
-
-  if (isCommandCreateResource) {
-    await createResource(rawArgs[2].toLowerCase());
-
-    console.log(`Resource ${rawArgs[2]} created successfully.`);
-
-    return;
-  }
-
   // rawArgs = ['install', <plugin-name>];
   const isCommandInstall = rawArgs.length === 2 && rawArgs[0] === 'install';
 
