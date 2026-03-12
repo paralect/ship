@@ -4,26 +4,32 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 
+import screenAdmin from '../images/screen_admin.png';
+import screenAdminMobile from '../images/screen_admin_mob.png';
+import screenChat from '../images/screen_chat.png';
+import screenChatMobile from '../images/screen_chat_mob.png';
+import screenProfile from '../images/screen_profile.png';
+import screenProfileMobile from '../images/screen_profile_mob.png';
 import { Button } from './ui/button';
 
 const screenshots = [
   {
-    src: '/images/screen_chat.png',
-    srcMobile: '/images/screen_chat_mob.png',
+    src: screenChat,
+    srcMobile: screenChatMobile,
     title: 'AI Chat Interface',
     description: 'Built-in AI assistant with real-time streaming.',
     url: 'app.ship.dev/chat',
   },
   {
-    src: '/images/screen_admin.png',
-    srcMobile: '/images/screen_admin_mob.png',
+    src: screenAdmin,
+    srcMobile: screenAdminMobile,
     title: 'Admin Dashboard',
     description: 'Powerful user management and analytics.',
     url: 'app.ship.dev/admin',
   },
   {
-    src: '/images/screen_profile.png',
-    srcMobile: '/images/screen_profile_mob.png',
+    src: screenProfile,
+    srcMobile: screenProfileMobile,
     title: 'User Profile',
     description: 'Complete authentication and profile control.',
     url: 'app.ship.dev/profile',
@@ -284,7 +290,7 @@ const Hero: FC = () => {
             {screenshots.map((screenshot, idx) => (
               <button
                 type="button"
-                key={screenshot.src}
+                key={screenshot.title}
                 onClick={() => {
                   setDirection(idx > currentIndex ? 1 : -1);
                   setCurrentIndex(idx);

@@ -2,16 +2,6 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
 import { Button } from './ui/button';
-import { Card } from './ui/card';
-import { Claude } from './ui/svgs/claude';
-import { ClerkIconLight as Clerk } from './ui/svgs/clerk';
-import { Figma } from './ui/svgs/figma';
-import { Firebase } from './ui/svgs/firebase';
-import { Linear } from './ui/svgs/linear';
-import { Slack } from './ui/svgs/slack';
-import { Supabase } from './ui/svgs/supabase';
-import { Twilio } from './ui/svgs/twilio';
-import { Vercel } from './ui/svgs/vercel';
 
 export const Hero = () => {
   return (
@@ -38,73 +28,6 @@ export const Hero = () => {
                 <ChevronRight className="opacity-50" />
               </Link>
             </Button>
-          </div>
-
-          <div className="mx-auto mt-16 max-w-xl">
-            <div className="**:fill-foreground grid scale-95 grid-cols-3 gap-12">
-              <div className="ml-auto blur-[2px]">
-                <Card className="shadow-foreground/10 flex h-8 w-fit items-center gap-2 rounded-xl px-3 sm:h-10 sm:px-4">
-                  <Supabase className="size-4" />
-                  <span className="text-nowrap font-medium max-sm:text-xs">Supabase</span>
-                </Card>
-              </div>
-
-              <div className="ml-auto">
-                <Card className="shadow-foreground/10 flex h-8 w-fit items-center gap-2 rounded-xl px-3 sm:h-10 sm:px-4">
-                  <Slack className="size-4" />
-                  <span className="text-nowrap font-medium max-sm:text-xs">Slack</span>
-                </Card>
-              </div>
-
-              <div className="ml-auto blur-[2px]">
-                <Card className="shadow-foreground/10 flex h-8 w-fit items-center gap-2 rounded-xl px-3 sm:h-10 sm:px-4">
-                  <Figma className="size-4" />
-                  <span className="text-nowrap font-medium max-sm:text-xs">Figma</span>
-                </Card>
-              </div>
-
-              <div className="mr-auto">
-                <Card className="shadow-foreground/10 flex h-8 w-fit items-center gap-2 rounded-xl px-3 sm:h-10 sm:px-4">
-                  <Vercel className="size-4" />
-                  <span className="text-nowrap font-medium max-sm:text-xs">Vercel</span>
-                </Card>
-              </div>
-
-              <div className="blur-[2px]">
-                <Card className="shadow-foreground/10 flex h-8 w-fit items-center gap-2 rounded-xl px-3 sm:h-10 sm:px-4">
-                  <Firebase className="size-3 sm:size-4" />
-                  <span className="text-nowrap font-medium max-sm:text-xs">Firebase</span>
-                </Card>
-              </div>
-
-              <div>
-                <Card className="shadow-foreground/10 mx-a flex h-8 w-fit items-center gap-2 rounded-xl px-3 sm:h-10 sm:px-4">
-                  <Linear className="size-3 sm:size-4" />
-                  <span className="text-nowrap font-medium max-sm:text-xs">Linear</span>
-                </Card>
-              </div>
-
-              <div className="ml-auto blur-[2px]">
-                <Card className="shadow-foreground/10 flex h-8 w-fit items-center gap-2 rounded-xl px-3 sm:h-10 sm:px-4">
-                  <Twilio className="size-3 sm:size-4" />
-                  <span className="text-nowrap font-medium max-sm:text-xs">Twilio</span>
-                </Card>
-              </div>
-
-              <div>
-                <Card className="shadow-foreground/10 mx-a flex h-8 w-fit items-center gap-2 rounded-xl px-3 sm:h-10 sm:px-4">
-                  <Claude className="size-3 sm:size-4" />
-                  <span className="text-nowrap font-medium max-sm:text-xs">Claude AI</span>
-                </Card>
-              </div>
-
-              <div className="blur-[2px]">
-                <Card className="shadow-foreground/10 flex h-8 w-fit items-center gap-2 rounded-xl px-3 sm:h-10 sm:px-4">
-                  <Clerk className="size-3 sm:size-4" />
-                  <span className="text-nowrap font-medium max-sm:text-xs">Clerk</span>
-                </Card>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -1,27 +1,31 @@
 'use client';
 
 import { useState } from 'react';
+import type { StaticImageData } from 'next/image';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
+import screenAdmin from '../images/screen_admin.png';
+import screenChat from '../images/screen_chat.png';
+import screenProfile from '../images/screen_profile.png';
 import { Button } from './ui/button';
 
 import { cn } from '@/lib/utils';
 
 const screenshots = [
   {
-    src: '/images/screen_chat.png',
+    src: screenChat,
     alt: 'AI Chat Interface',
     label: 'Chat',
   },
   {
-    src: '/images/screen_admin.png',
+    src: screenAdmin,
     alt: 'Admin Dashboard',
     label: 'Admin',
   },
   {
-    src: '/images/screen_profile.png',
+    src: screenProfile,
     alt: 'User Profile',
     label: 'Profile',
   },
@@ -29,7 +33,7 @@ const screenshots = [
 
 export const Hero = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [lightboxImage, setLightboxImage] = useState<StaticImageData | null>(null);
 
   const goToPrev = () => {
     setActiveIndex((prev) => (prev - 1 + screenshots.length) % screenshots.length);
