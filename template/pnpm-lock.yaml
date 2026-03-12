@@ -260,7 +260,7 @@ importers:
         specifier: 2.2.6
         version: 2.2.6(@types/react-dom@19.0.4(@types/react@19.0.14))(@types/react@19.0.14)(react-dom@19.0.3(react@19.0.3))(react@19.0.3)
       '@radix-ui/react-slot':
-        specifier: ^1.1.0
+        specifier: ^1.2.4
         version: 1.2.4(@types/react@19.0.14)(react@19.0.3)
       '@svgr/webpack':
         specifier: 8.1.0
@@ -281,7 +281,7 @@ importers:
         specifier: 1.12.2
         version: 1.12.2
       class-variance-authority:
-        specifier: ^0.7.0
+        specifier: ^0.7.1
         version: 0.7.1
       clsx:
         specifier: 2.1.1

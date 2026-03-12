@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useApiQuery } from 'hooks';
@@ -8,16 +7,9 @@ import { LogoImage } from 'public/images';
 
 import { apiClient } from 'services/api-client.service';
 
-import { Button } from '@/components/ui/button';
+import { Button } from './ui/button';
 
-const navLinks = [
-  { label: 'Features', href: '/#features' },
-  { label: 'Pricing', href: '/#pricing' },
-  { label: 'FAQ', href: '/#faq' },
-  { label: 'Blog', href: '/blog' },
-];
-
-const PublicHeader: FC = () => {
+export const Header = () => {
   const { data: account } = useApiQuery(apiClient.account.get);
   const { theme, setTheme } = useTheme();
 
@@ -30,15 +22,18 @@ const PublicHeader: FC = () => {
           </Link>
 
           <nav className="hidden items-center gap-6 md:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+            <Link href="#features" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+              Features
+            </Link>
+            <Link href="#pricing" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+              Pricing
+            </Link>
+            <Link href="#faq" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+              FAQ
+            </Link>
+            <Link href="/blog" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+              Blog
+            </Link>
           </nav>
         </div>
 
@@ -72,5 +67,3 @@ const PublicHeader: FC = () => {
     </header>
   );
 };
-
-export default PublicHeader;
