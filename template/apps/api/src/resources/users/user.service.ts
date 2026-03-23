@@ -1,5 +1,5 @@
-import type { User } from 'shared';
-import { userSchema } from 'shared';
+import type { User } from 'resources/users/user.schema';
+import { userSchema } from 'resources/users/user.schema';
 
 import db from 'db';
 

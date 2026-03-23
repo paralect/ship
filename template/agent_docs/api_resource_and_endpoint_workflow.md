@@ -1,6 +1,6 @@
-# API: Resource & Endpoint Workflow
+# API: Resource & Procedure Workflow
 
-> Read this when adding or modifying API resources, endpoints, or middlewares.
+> Read this when adding or modifying API resources or oRPC procedures.
 
 ---
 
@@ -10,15 +10,35 @@ Every resource lives in `apps/api/src/resources/<name>/` with this layout:
 
 ```
 <name>/
-├── <name>.schema.ts      # Zod schema extending dbSchema
+├── <name>.schema.ts       # Zod schema extending dbSchema
 ├── <name>.service.ts      # db.createService<T>(COLLECTION_NAME, { schemaValidator })
 ├── index.ts               # Barrel: export service, import handler (side-effect)
 ├── <name>.handler.ts      # Optional: eventBus side effects
-└── endpoints/             # One file per HTTP endpoint (auto-discovered)
-    └── *.ts               # Each default-exports createEndpoint({...})
+└── procedures/            # One file per oRPC procedure
+    ├── index.ts           # Barrel: re-exports all procedures
+    ├── list.ts            # export default authed.input(...).output(...).handler(...)
+    ├── update.ts
+    └── remove.ts
 ```
 
-Search existing resources for reference: `grep -r "createEndpoint" apps/api/src/resources/users/endpoints/`.
+Search existing resources for reference: `ls apps/api/src/resources/users/procedures/`.
+
+---
+
+## Add New Procedure
+
+1. Create a file in `resources/<name>/procedures/` (e.g. `create.ts`)
+2. Default-export a procedure:
+   ```typescript
+   import { authed } from '../../../procedures';
+   export default authed.input(...).output(...).handler(async ({ input, context }) => { ... });
+   ```
+3. Add one line to `procedures/index.ts`:
+   ```typescript
+   export { default as create } from './create';
+   ```
+
+Filename (camelCase) = procedure name = client path: `create.ts` → `apiClient.<resource>.create`.
 
 ---
 
@@ -28,36 +48,44 @@ Search existing resources for reference: `grep -r "createEndpoint" apps/api/src/
 - [ ] **Create schema** extending `dbSchema` from `resources/base.schema.ts` (provides `_id`, `createdOn`, `updatedOn`, `deletedOn`)
 - [ ] **Create service** via `db.createService<T>(DATABASE_DOCUMENTS.NAME, { schemaValidator: (obj) => schema.parseAsync(obj) })`
 - [ ] **Create barrel** `index.ts` — export service; if handler exists, `import './name.handler'` at top (side-effect)
-- [ ] **Create endpoint files** in `endpoints/` — each must **default-export** `createEndpoint({...})`
-- [ ] **Run codegen**: `pnpm --filter shared generate`
+- [ ] **Create `procedures/` directory** with individual procedure files (default exports) + barrel `index.ts`
+- [ ] **Register in router** — add import + entry to `src/router.ts`:
+  ```typescript
+  import * as myResource from './resources/my-resource/procedures';
+  // in the router object: myResource: pub.router(myResource),
+  ```
 - [ ] **Verify**: `pnpm --filter api tsc --noEmit`
-- [ ] **Check startup logs**: `[routes] POST /projects`, etc.
 
 ---
 
 ## Critical Invariants
 
-### Auto-discovery
-- Routes register automatically. No manual registration anywhere.
-- Resource name = folder name = URL prefix (`resources/projects/` → `/projects/*`).
-- The `token` resource is in `IGNORE_RESOURCES` and excluded from routes + codegen.
+### Procedures directory
+- Resource name = folder name = router key (`resources/users/` → `apiClient.users.*`).
+- Each `.ts` file in `procedures/` (except index.ts) default-exports one procedure.
+- `procedures/index.ts` re-exports all procedures — add one line per new file.
+- Filenames are camelCase: `forgotPassword.ts` → `forgotPassword`.
+- New resources also need an import + entry in `src/router.ts`.
+- The `token` resource has no procedures — it's an internal service only.
 
-### Auth default
-- Every endpoint requires auth **unless** `isPublic` is in the `middlewares` array.
-- `isPublic` is a sentinel reference — the route system checks `middleware === isPublic` by identity.
-- Import: `import isPublic from 'middlewares/isPublic'`.
+### Auth
+- Use `pub` (from `src/procedures.ts`) for public procedures — no auth required.
+- Use `authed` for protected procedures — requires a valid user in context.
+- `authed` provides `context.user` typed as `User`.
 
 ### Validation
-- If `schema` is provided, `validate` middleware auto-applies.
-- Validate merges `body + files + query + params` into one object, then runs Zod.
-- Result lives on `ctx.validatedData` (typed by schema).
+- Use `.input(zodSchema)` for input validation — oRPC validates automatically.
+- Use `.output(zodSchema)` for output validation — required for type inference to web.
+- Always provide `.output()` so types flow correctly to the web client.
 
 ### Handler return
-- Return a value from `handler` → it becomes `ctx.body` automatically.
-- For 204 no-content: set `ctx.status = 204`, return nothing.
+- Return a value from `handler` → oRPC serializes it as the response.
+- For empty responses, use `z.object({})` output and `return {}`.
 
-### Imports
-- API `tsconfig.baseUrl` is `src`. Use `'resources/...'`, `'routes/...'`, `'config'`, `'db'` — never `'src/...'` or deep relative paths.
+### Imports in procedure files
+- Procedure files MUST use **relative imports** for anything in the type chain (procedures, types, schemas, services).
+- `app-constants` is fine as a bare import (separate package).
+- This is required because TypeScript must resolve these imports when building declarations for the web client.
 
 ### Soft deletes
 - `service.deleteSoft(filter)` sets `deletedOn` timestamp instead of removing.
@@ -65,57 +93,40 @@ Search existing resources for reference: `grep -r "createEndpoint" apps/api/src/
 
 ---
 
-## `shouldExist` Middleware
+## `withEntity` Middleware
 
-Pre-fetches a document and returns 404 if missing. The collection name must match a registered `db.createService` name.
+Real oRPC middleware that loads an entity by `input.id` and throws NOT_FOUND if missing. Defined in `src/middlewares.ts`, used via `.use()` after `.input()`.
 
 ```typescript
-import shouldExist from 'routes/middlewares/shouldExist';
+import { withEntity } from '../../../middlewares';
+import { userService } from '..';
 
-// With custom criteria (e.g., scope to current user):
-middlewares: [
-  shouldExist('projects', {
-    criteria: (ctx) => ({ _id: ctx.params.projectId, userId: ctx.state.user._id }),
-  }),
-],
+export default authed
+  .input(z.object({ id: z.string(), data: ... }))
+  .use(withEntity((id) => userService.findOne({ _id: id }), 'User'))
+  .output(publicUserOutput)
+  .handler(async ({ input }) => {
+    return userService.updateOne({ _id: input.id }, () => input.data);
+  });
 ```
+
+The middleware must be placed **after** `.input()` so it receives the validated input with `id`.
 
 ---
 
 ## User-Scoped CRUD Pattern
 
-When an endpoint modifies a resource owned by the current user, scope queries by `userId` and guard with `throwError`:
+When a procedure modifies a resource owned by the current user, scope queries by `userId`:
 
 ```typescript
-import { myService } from 'resources/my-resource';
-import createEndpoint from 'routes/createEndpoint';
-
-export default createEndpoint({
-  method: 'put',
-  path: '/:id',
-  schema,
-
-  async handler(ctx) {
-    const userId = ctx.state.user._id;
-    const { id } = ctx.request.params;
-
-    const doc = await myService.findOne({ _id: id, userId });
-
-    if (!doc) {
-      ctx.throwError('Not found', 404);
-      return;
-    }
-
-    const updated = await myService.updateOne({ _id: id, userId }, () => ctx.validatedData);
-    return updated;
-  },
-});
+export default authed
+  .input(z.object({ id: z.string(), data: schema }))
+  .use(withEntity((id) => myService.findOne({ _id: id }), 'Resource'))
+  .output(outputSchema)
+  .handler(async ({ input }) => {
+    return myService.updateOne({ _id: input.id }, () => input.data);
+  });
 ```
-
-Key points:
-- Always filter by `userId` in both the guard query and the mutation to prevent access to other users' data.
-- Use `ctx.throwError(message, status?)` — not `ctx.assertError()` — to avoid TS2775 (assertion functions require explicit type annotations on `ctx`).
-- For deletes, use `service.deleteSoft(filter)` and set `ctx.status = 204`.
 
 ---
 
@@ -135,8 +146,7 @@ Event bus: `eventBus.on('collectionName.created' | '.updated' | '.deleted', hand
 ## Update Triggers
 
 Update this doc when:
-- `createEndpoint` signature or behavior changes (see `apps/api/src/routes/createEndpoint.ts`)
-- Route auto-discovery logic changes (see `apps/api/src/routes/routes.ts`)
-- New middleware is added to `apps/api/src/middlewares/` or `apps/api/src/routes/middlewares/`
+- oRPC procedure patterns change
+- New shared middleware/helper is added to `apps/api/src/middlewares.ts`
 - `@paralect/node-mongo` is upgraded with API changes
-- `IGNORE_RESOURCES` list changes in `packages/shared/scripts/generate.ts`
+- Router registration pattern changes in `src/router.ts`

@@ -12,6 +12,8 @@ import { handleApiError } from 'utils';
 
 import config from 'config';
 
+import { signUpSchema } from 'schemas';
+
 import PasswordRules from './components/PasswordRules';
 
 import { Button } from '@/components/ui/button';
@@ -20,7 +22,7 @@ import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password-input';
 
 const SignUp = () => {
-  const methods = useApiForm(apiClient.account.signUp);
+  const methods = useApiForm(signUpSchema);
   const {
     register,
     handleSubmit,

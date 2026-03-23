@@ -10,15 +10,11 @@
 
 - `pages/projects/index.page.tsx` → route `/projects`
 - `pages/projects/[id].page.tsx` → route `/projects/:id`
-- `pages/projects/components/List.tsx` → **NOT a route** (no `.page.tsx` extension)
-
-This is the most common agent mistake. A file named `index.tsx` inside `pages/` will **not** be routed.
+- `pages/projects/components/List.tsx` → not a route (no `.page.tsx`)
 
 ---
 
 ## Page Wrapper (Required)
-
-Every page must wrap its content in the `Page` component:
 
 ```tsx
 import { LayoutType, Page, ScopeType } from 'components';
@@ -36,56 +32,32 @@ export default MyPage;
 | `PRIVATE` | Requires auth — redirects to `/sign-in` if not logged in |
 | `PUBLIC` | Non-auth only — redirects to `/` if already logged in |
 
-| Layout | Effect |
-|--------|--------|
-| `MAIN` | App shell with sidebar navigation |
-| `UNAUTHORIZED` | Centered layout for auth pages |
-
-Import from `'components'` (barrel at `src/components/index.ts`).
-
 ---
 
-## Data Fetching
+## Data Fetching (oRPC)
 
-The typed API client is auto-generated from API endpoints. Import from `services/api-client.service`:
+The API client is typed via oRPC declarations. Import from:
 
 ```tsx
 import { apiClient } from 'services/api-client.service';
 ```
 
-### Queries (GET)
+### Queries
 
 ```tsx
 import { useApiQuery } from 'hooks';
 
-const { data, isLoading } = useApiQuery(apiClient.projects.list);
-const { data } = useApiQuery(apiClient.projects.list, { page: 1, perPage: 10 });
+const { data, isLoading } = useApiQuery(apiClient.account.get);
+const { data } = useApiQuery(apiClient.users.list, { page: 1, perPage: 10 });
 ```
 
-### Mutations (POST/PUT/DELETE)
+### Mutations
 
 ```tsx
 import { useApiMutation } from 'hooks';
 
-const { mutate, isPending } = useApiMutation(apiClient.projects.create);
-mutate({ name: 'New' }, { onError: (e) => handleApiError(e, setError) });
-```
-
-### Dynamic Path Params Gotcha
-
-`useApiMutation` binds `pathParams` at **hook level** — they're fixed for all `mutate()` calls. For dynamic IDs (e.g., deleting different items in a list), use `endpoint.call()` directly:
-
-```tsx
-// ✅ Dynamic pathParams — use .call()
-const handleDelete = async (id: string) => {
-  await apiClient.projects.remove.call({}, { pathParams: { id } });
-  queryClient.invalidateQueries({ queryKey: [apiClient.projects.list.path] });
-};
-
-// ✅ Fixed pathParams — hook level is fine
-const { mutate: update } = useApiMutation(apiClient.projects.update, {
-  pathParams: { id: projectId },
-});
+const { mutate, isPending } = useApiMutation(apiClient.account.signUp);
+mutate({ email, password, firstName, lastName });
 ```
 
 ### Forms
@@ -93,55 +65,41 @@ const { mutate: update } = useApiMutation(apiClient.projects.update, {
 ```tsx
 import { useApiForm, useApiMutation } from 'hooks';
 
-const form = useApiForm(apiClient.projects.create); // auto-resolves Zod schema
-const { mutate } = useApiMutation(apiClient.projects.create);
+const form = useApiForm(zodSchema);
+const { mutate } = useApiMutation(apiClient.account.signUp);
 const onSubmit = form.handleSubmit((data) =>
   mutate(data, { onError: (e) => handleApiError(e, form.setError) })
 );
 ```
 
-### Streaming (SSE)
-
-```tsx
-import { useApiStreamMutation } from 'hooks';
-const { mutate, isLoading } = useApiStreamMutation(apiClient.chats.sendMessage);
-mutate({ content: 'Hi' }, { pathParams: { chatId }, onToken: (t) => {}, onDone: (d) => {} });
-```
-
 ---
 
-## Query Invalidation
+## Query Keys & Invalidation
+
+Query keys are derived automatically from the procedure path:
 
 ```tsx
+import { queryKey } from 'hooks';
 import queryClient from 'query-client';
 
-queryClient.invalidateQueries({ queryKey: [apiClient.projects.list.path] });
-queryClient.setQueryData([apiClient.account.get.path], updatedData);
-```
+// Invalidate
+queryClient.invalidateQueries({ queryKey: queryKey(apiClient.users.list) });
 
-Query keys = `[endpoint.path, ...params]`. The first element is always the endpoint path string.
+// Set data directly
+queryClient.setQueryData(queryKey(apiClient.account.get), updatedUser);
+```
 
 ---
 
 ## Error Handling
 
-`handleApiError(e, setError)` from `utils`:
-- Maps server validation errors → react-hook-form field errors
-- Shows global errors via Sonner toast
+`handleApiError(e, setError)` from `utils` maps server validation errors to react-hook-form field errors and shows global errors via Sonner toast.
 
 ---
 
 ## Verification
 
-After web changes:
 ```bash
-pnpm --filter web tsc --noEmit    # type errors
-pnpm --filter web eslint .        # lint
-pnpm --filter web build           # full build passes
+pnpm --filter web tsc --noEmit
+pnpm --filter web build
 ```
-
----
-
-## Update Triggers
-
-Update this doc when: `pageExtensions`, `PageConfig`, `useApi*` hook signatures, or `handleApiError` behavior changes.

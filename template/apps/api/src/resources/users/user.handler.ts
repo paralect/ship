@@ -1,5 +1,6 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
-import type { User } from 'shared';
+
+import type { User } from 'resources/users/user.schema';
 
 import { analyticsService } from 'services';
 

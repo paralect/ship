@@ -4,81 +4,62 @@
 
 ---
 
-## 1. "Module not found" for a new endpoint/type in web
+## 1. Page exists but returns 404 in browser
 
-**Cause**: Codegen not run after API changes.
-**Fix**: `pnpm --filter shared generate && pnpm --filter web tsc --noEmit`
-
-## 2. Page exists but returns 404 in browser
-
-**Cause**: File is not named `*.page.tsx`. Next.js config only routes files matching `pageExtensions: ['page.tsx', 'api.ts']`.
+**Cause**: File not named `*.page.tsx`.
 **Fix**: Rename to `index.page.tsx` or `[param].page.tsx`.
 
-## 3. Endpoint returns 401 unexpectedly
+## 2. oRPC procedures return 404
 
-**Cause**: Missing `isPublic` in the endpoint's `middlewares` array. All endpoints require auth by default.
-**Fix**: Add `import isPublic from 'middlewares/isPublic'` and include it in `middlewares: [isPublic]`.
+**Cause**: Procedure not registered. Either missing from `procedures/index.ts` barrel or missing from `src/router.ts`.
+**Fix**: Add `export { default as name } from './name'` to the barrel and `import * as resource from './resources/resource/procedures'` + router entry in `src/router.ts`.
 
-## 4. Zod validation errors: "unrecognized key" or wrong method
+## 3. Web types stale after API procedure changes
 
-**Cause**: Using Zod 3 API in a Zod 4 repo. Example: `z.string().email()` doesn't exist in Zod 4.
-**Fix**: Use `z.email()`, `z.url()`, `z.uuid()` etc. Check `node_modules/zod` version. Search existing schemas for patterns.
+**Cause**: Declarations not rebuilt.
+**Fix**: `pnpm --filter api build:types && pnpm --filter web tsc --noEmit`.
 
-## 5. Import errors in API code: "Cannot find module 'src/...'"
+## 4. "Unknown procedure — not found in orpc client"
 
-**Cause**: API `tsconfig.baseUrl` is `src`. Imports should be `'resources/...'`, `'routes/...'`, `'config'`, `'db'` — no `src/` prefix.
-**Fix**: Remove the `src/` prefix from the import path.
+**Cause**: Passing a raw object instead of a stable client reference to `useApiQuery`/`queryKey`.
+**Fix**: Always use `apiClient.resource.procedure` from `services/api-client.service`.
 
-## 6. New resource's endpoints don't appear in startup logs
+## 5. Import errors in API: "Cannot find module 'src/...'"
 
-**Cause**: Either (a) no `endpoints/` subfolder, (b) endpoint files don't default-export `createEndpoint()`, or (c) the resource folder name is in `IGNORE_RESOURCES`.
-**Fix**: Check `apps/api/src/resources/<name>/endpoints/` exists and files use `export default createEndpoint({...})`. Check `generate.ts` for `IGNORE_RESOURCES`.
+**Cause**: API `tsconfig.baseUrl` is `src` — no `src/` prefix needed.
+**Fix**: Use `'resources/...'`, `'config'`, `'db'`, etc.
 
-## 7. `shouldExist` middleware returns "service not found"
+## 6. Procedure files in `procedures/` use bare imports and declarations break
 
-**Cause**: The collection name passed to `shouldExist('name')` doesn't match any `db.createService` registration. Services register into `db.services` by their `DATABASE_DOCUMENTS` name.
-**Fix**: Ensure the service file calls `db.createService(DATABASE_DOCUMENTS.NAME, ...)` and the barrel `index.ts` imports it (triggering registration).
+**Cause**: Files in `procedures/` must use relative imports for the type chain to work.
+**Fix**: Use `../../../procedures`, `../../users`, etc. inside procedure files.
 
-## 8. `useApiMutation` pathParams don't change per call
+## 7. `shouldExist` — entity not found
 
-**Cause**: `pathParams` in `useApiMutation` are bound at hook initialization, not per `mutate()` call.
-**Fix**: For dynamic IDs, use `apiClient.resource.endpoint.call(params, { pathParams })` directly instead of the hook. See `agent_docs/web_pages_and_data_access.md`.
+**Cause**: Wrong filter or entity doesn't exist in DB.
+**Fix**: Check the finder function. `shouldExist(() => service.findOne({ _id: id }), 'Name')`.
 
-## 9. "Command not found: npm" / wrong package manager
+## 8. Env var undefined at runtime
 
-**Cause**: Using npm or yarn. This repo requires pnpm.
-**Fix**: `pnpm install`. The `engines` field in root `package.json` enforces `pnpm ≥9.5.0` and rejects yarn.
+**Cause**: Not in `.env` or not in the Zod config schema. Web vars need `NEXT_PUBLIC_` prefix.
+**Fix**: Add to both `.env` and the validation schema.
 
-## 10. Env var undefined at runtime
+## 9. MongoDB connection fails locally
 
-**Cause**: Either (a) not added to `.env`, (b) not added to the Zod config schema, or (c) web vars missing `NEXT_PUBLIC_` prefix.
-**Fix**: Add to `.env` AND the validation schema in `apps/api/src/config/index.ts` or `apps/web/src/config/index.ts`. Web vars must start with `NEXT_PUBLIC_`.
+**Cause**: Docker not running.
+**Fix**: `pnpm infra`.
 
-## 11. Type errors after editing `packages/shared/src/schemas/*` or `src/generated/*`
+## 10. Handler/event bus side effects not firing
 
-**Cause**: These files are auto-generated and overwritten by codegen.
-**Fix**: Don't edit them. Edit the source in `apps/api/src/resources/`, then run `pnpm --filter shared generate`.
+**Cause**: Handler file not imported as side effect.
+**Fix**: Add `import './<name>.handler'` at top of resource's `index.ts`.
 
-## 12. `eslint` reports import order violations
+## 11. Wrong pnpm/node version
 
-**Cause**: ESLint enforces strict import ordering via `simple-import-sort` with custom groups.
-**Fix**: Run `pnpm --filter <package> eslint . --fix`. Don't hand-sort imports.
+**Cause**: Using npm/yarn or wrong Node version.
+**Fix**: `nvm use` (reads `.nvmrc`), `pnpm install`.
 
-## 13. MongoDB connection fails locally
+## 12. tsbuildinfo cache causes stale declarations
 
-**Cause**: Docker infrastructure not running. MongoDB requires replica set initialization.
-**Fix**: `pnpm infra` — starts MongoDB + Redis + replica set initializer.
-
-## 14. Handler/event bus side effects not firing
-
-**Cause**: The handler file isn't imported. Handler files must be imported as side effects in the resource's `index.ts`.
-**Fix**: Add `import './<name>.handler'` at the top of the resource's `index.ts`.
-
----
-
-## Update Triggers
-
-Update this doc when:
-- New recurring failure patterns are discovered
-- Existing failure modes are fixed by architectural changes
-- Error messages change (update the symptoms)
+**Cause**: Stale incremental build cache.
+**Fix**: `rm -f apps/api/tsconfig.tsbuildinfo && pnpm --filter api build:types`.

@@ -2,9 +2,9 @@ import { FC, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { CalendarIcon, Search, X } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
-import { UsersListParams } from 'shared';
 import { useDebounceValue } from 'usehooks-ts';
 
+import { type UsersListParams } from '../../constants';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';

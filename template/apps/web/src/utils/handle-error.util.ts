@@ -1,6 +1,6 @@
 import { FileRejection } from 'react-dropzone';
 import { FieldValues, Path, UseFormSetError } from 'react-hook-form';
-import { ApiError, ONE_MB_IN_BYTES } from 'shared';
+import { ONE_MB_IN_BYTES } from 'app-constants';
 import { toast } from 'sonner';
 
 interface ValidationErrors {
@@ -12,10 +12,10 @@ interface ErrorData {
 }
 
 export const handleApiError = <TFieldValues extends FieldValues>(
-  e: ApiError,
+  e: Error & { data?: unknown; status?: number },
   setError?: UseFormSetError<TFieldValues>,
 ) => {
-  const data = e.data as ErrorData;
+  const data = (e as { data?: ErrorData }).data as ErrorData | undefined;
 
   if (!data?.errors) return;
 
