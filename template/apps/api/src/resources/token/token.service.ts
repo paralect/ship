@@ -1,5 +1,5 @@
-import type { Token } from 'shared';
-import { tokenSchema, TokenType } from 'shared';
+import type { Token } from 'resources/token/token.schema';
+import { tokenSchema, TokenType } from 'resources/token/token.schema';
 
 import { securityUtil } from 'utils';
 

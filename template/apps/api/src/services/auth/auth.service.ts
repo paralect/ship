@@ -1,16 +1,15 @@
-import type { Token } from 'shared';
-import { TokenType } from 'shared';
-
 import { tokenService } from 'resources/token';
+import type { Token } from 'resources/token/token.schema';
+import { TokenType } from 'resources/token/token.schema';
 import { userService } from 'resources/users';
 
 import { clientUtil, cookieUtil } from 'utils';
 
 import { ACCESS_TOKEN } from 'app-constants';
-import { AppKoaContext } from 'types';
+import type { ORPCContext } from 'types';
 
 interface SetAccessTokenOptions {
-  ctx: AppKoaContext;
+  ctx: ORPCContext;
   userId: string;
 }
 
@@ -40,11 +39,11 @@ export const setAccessToken = async ({ ctx, userId }: SetAccessTokenOptions) => 
 };
 
 interface UnsetUserAccessTokenOptions {
-  ctx: AppKoaContext;
+  ctx: ORPCContext;
 }
 
 export const unsetUserAccessToken = async ({ ctx }: UnsetUserAccessTokenOptions) => {
-  const { user } = ctx.state;
+  const user = ctx.user;
 
   if (user) {
     await tokenService.invalidateUserTokens(user._id, TokenType.ACCESS);

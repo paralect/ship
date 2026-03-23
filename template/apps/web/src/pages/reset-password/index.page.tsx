@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useApiMutation } from 'hooks';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { schemas } from 'shared';
 import { z } from 'zod';
 
 import { LayoutType, Page, ScopeType } from 'components';
@@ -12,12 +11,14 @@ import { LayoutType, Page, ScopeType } from 'components';
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
 
+import { resetPasswordSchema } from 'schemas';
+
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password-input';
 
 // Form schema differs from API schema (token comes from URL, not form)
-const formSchema = schemas.account.resetPassword.omit({ token: true });
+const formSchema = resetPasswordSchema.omit({ token: true });
 
 type ResetPasswordFormData = z.infer<typeof formSchema>;
 

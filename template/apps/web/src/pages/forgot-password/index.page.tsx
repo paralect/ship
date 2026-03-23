@@ -9,6 +9,8 @@ import { LayoutType, Page, ScopeType } from 'components';
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
 
+import { forgotPasswordSchema } from 'schemas';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -28,7 +30,7 @@ const ForgotPassword = () => {
     setError,
     watch,
     formState: { errors },
-  } = useApiForm(apiClient.account.forgotPassword);
+  } = useApiForm(forgotPasswordSchema);
 
   const email = watch('email');
 

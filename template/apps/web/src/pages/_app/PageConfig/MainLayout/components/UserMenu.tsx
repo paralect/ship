@@ -5,6 +5,7 @@ import { LogOut, Moon, Sun, User } from 'lucide-react';
 
 import { apiClient } from 'services/api-client.service';
 
+import { queryKey } from 'hooks';
 import queryClient from 'query-client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -27,7 +28,7 @@ const UserMenu = ({ isCollapsed }: UserMenuProps) => {
 
   const { mutate: signOut } = useApiMutation(apiClient.account.signOut, {
     onSuccess: () => {
-      queryClient.setQueryData([apiClient.account.get.path], null);
+      queryClient.setQueryData(queryKey(apiClient.account.get), null);
     },
   });
 

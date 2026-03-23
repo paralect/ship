@@ -3,15 +3,14 @@ import Head from 'next/head';
 import { SortDirection } from '@tanstack/react-table';
 import { useApiQuery } from 'hooks';
 import { pick } from 'lodash';
-import { UsersListParams, UsersListResponse } from 'shared';
 import { toast } from 'sonner';
 
 import { LayoutType, Page, ScopeType, Table } from 'components';
 
-import { apiClient } from 'services';
+import { apiClient } from 'services/api-client.service';
 
 import Filters from './components/Filters';
-import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
+import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE, type UsersListParams, type UsersListResponse } from './constants';
 
 const Admin = () => {
   const [params, setParamsState] = useState<UsersListParams>(DEFAULT_PARAMS);

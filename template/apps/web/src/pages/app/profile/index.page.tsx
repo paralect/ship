@@ -4,15 +4,18 @@ import { isUndefined, pickBy } from 'lodash';
 import { Loader2 } from 'lucide-react';
 import { serialize } from 'object-to-formdata';
 import { FormProvider } from 'react-hook-form';
-import { AccountGetResponse, AccountUpdateParams } from 'shared';
 import { toast } from 'sonner';
 
 import { LayoutType, Page, ScopeType } from 'components';
 
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
+import { accountUpdateSchema } from 'schemas';
 
+import { queryKey } from 'hooks';
 import queryClient from 'query-client';
+
+import type { User } from 'types';
 
 import AvatarUpload from './components/AvatarUpload';
 
@@ -21,7 +24,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password-input';
 
-const getFormDefaultValues = (account?: AccountGetResponse) => ({
+const getFormDefaultValues = (account?: User) => ({
   firstName: account?.firstName,
   lastName: account?.lastName,
   password: '',
@@ -31,7 +34,7 @@ const getFormDefaultValues = (account?: AccountGetResponse) => ({
 const Profile = () => {
   const { data: account } = useApiQuery(apiClient.account.get);
 
-  const methods = useApiForm(apiClient.account.update, {
+  const methods = useApiForm(accountUpdateSchema, {
     mode: 'onBlur',
     defaultValues: getFormDefaultValues(account),
   });
@@ -55,11 +58,11 @@ const Profile = () => {
       return !isUndefined(value);
     });
 
-    updateAccount(serialize(updateData) as unknown as AccountUpdateParams, {
+    updateAccount(serialize(updateData) as unknown as Record<string, unknown>, {
       onSuccess: (data) => {
         if (!data) return;
 
-        queryClient.setQueryData([apiClient.account.get.path], data);
+        queryClient.setQueryData(queryKey(apiClient.account.get), data);
 
         toast.success('Success', {
           description: 'Your profile has been successfully updated.',

@@ -4,8 +4,10 @@ import { getPublicSuffix, parse } from 'tldts';
 
 import config from 'config';
 
+import logger from 'logger';
+
 import { COOKIES } from 'app-constants';
-import { AppKoaContext } from 'types';
+import type { ORPCContext } from 'types';
 
 /**
  * Determines a valid cookie domain.
@@ -41,42 +43,36 @@ const getCookieDomain = (hostname: string): string | undefined => {
 
 const webUrl = new URL(config.WEB_URL);
 const cookieDomain = getCookieDomain(webUrl.hostname);
-const baseCookieOptions = {
-  domain: cookieDomain,
-  httpOnly: true,
-  sameSite: 'lax' as const,
-};
 
 interface SetTokensOptions {
-  ctx: AppKoaContext;
+  ctx: ORPCContext;
   accessToken: string;
   expiresIn: number;
 }
 
 const setTokens = async ({ ctx, accessToken, expiresIn }: SetTokensOptions) => {
-  ctx.cookies.set(
-    COOKIES.ACCESS_TOKEN,
-    accessToken,
-    Object.assign(baseCookieOptions, {
-      expires: new Date(Date.now() + expiresIn * 1000),
-      secure: ctx.secure,
-    }),
-  );
+  ctx.setCookie(COOKIES.ACCESS_TOKEN, accessToken, {
+    domain: cookieDomain,
+    httpOnly: true,
+    sameSite: 'lax',
+    expires: new Date(Date.now() + expiresIn * 1000),
+    secure: ctx.secure,
+    path: '/',
+  });
 };
 
 interface UnsetTokensOptions {
-  ctx: AppKoaContext;
+  ctx: ORPCContext;
 }
 
 const unsetTokens = async ({ ctx }: UnsetTokensOptions) => {
-  ctx.cookies.set(
-    COOKIES.ACCESS_TOKEN,
-    null,
-    Object.assign(baseCookieOptions, {
-      maxAge: 0,
-      secure: ctx.secure,
-    }),
-  );
+  ctx.deleteCookie(COOKIES.ACCESS_TOKEN, {
+    domain: cookieDomain,
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: ctx.secure,
+    path: '/',
+  });
 };
 
 export default {

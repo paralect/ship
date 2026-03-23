@@ -7,10 +7,10 @@ import {
   OAuth2RequestError,
   OAuth2Tokens,
 } from 'arctic';
-import type { User } from 'shared';
 import { z } from 'zod';
 
 import { userService } from 'resources/users';
+import type { User } from 'resources/users/user.schema';
 
 import config from 'config';
 

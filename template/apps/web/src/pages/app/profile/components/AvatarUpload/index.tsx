@@ -4,7 +4,11 @@ import { useApiQuery } from 'hooks';
 import { Pencil, Plus } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import { useFormContext } from 'react-hook-form';
-import { AccountUpdateParams, USER_AVATAR } from 'shared';
+import { USER_AVATAR } from 'app-constants';
+import type { z } from 'zod';
+import type { accountUpdateSchema } from 'schemas';
+
+type AccountUpdateParams = z.infer<typeof accountUpdateSchema>;
 
 import { apiClient } from 'services/api-client.service';
 import { handleDropzoneError } from 'utils';
@@ -12,7 +16,6 @@ import { handleDropzoneError } from 'utils';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-type UpdateUserFormData = AccountUpdateParams;
 
 const ACCEPT_TYPES = USER_AVATAR.ACCEPTED_FILE_TYPES.reduce(
   (acc, type) => {
@@ -68,7 +71,7 @@ const AvatarUpload = () => {
     watch,
     setValue,
     formState: { errors },
-  } = useFormContext<UpdateUserFormData>();
+  } = useFormContext<AccountUpdateParams>();
 
   const avatarValue = watch('avatar');
   const avatarError = errors.avatar?.message;

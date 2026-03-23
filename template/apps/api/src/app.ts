@@ -1,80 +1,122 @@
-import cors from '@koa/cors';
-import { koaBody } from 'koa-body';
-import bodyParser from 'koa-bodyparser';
-import helmet from 'koa-helmet';
-import koaLogger from 'koa-logger';
-import qs from 'koa-qs';
-import http from 'node:http';
+import { serve } from '@hono/node-server';
+import { RPCHandler } from '@orpc/server/fetch';
+import { Hono } from 'hono';
+import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
+import { cors } from 'hono/cors';
+import { logger as honoLogger } from 'hono/logger';
+import { secureHeaders } from 'hono/secure-headers';
+import { router } from 'router';
 
-import { socketService } from 'services';
-import defineRoutes from 'routes';
+import accountRoutes from 'resources/account/routes';
+import { userService } from 'resources/users';
+
+import { authService, socketService } from 'services';
 
 import config from 'config';
 
 import ioEmitter from 'io-emitter';
 import redisClient, { redisErrorHandler } from 'redis-client';
 
-import logger from 'logger';
+import appLogger from 'logger';
 
-import { AppKoa } from 'types';
+import { COOKIES } from 'app-constants';
+import type { CookieOptions, HonoEnv, ORPCContext } from 'types';
 
-const initKoa = async () => {
-  const app = new AppKoa();
-  app.proxy = true;
+const app = new Hono<HonoEnv>();
 
-  app.use(cors({ credentials: true }));
-  app.use(helmet());
-  qs(app);
-  app.use(
-    bodyParser({
-      enableTypes: ['json', 'form', 'text'],
-      onerror: (err, ctx) => {
-        const errText: string = err.stack || err.toString();
-        logger.warn(`Unable to parse request body. ${errText}`);
-        ctx.throw(422, 'Unable to parse request JSON.');
-      },
-    }),
-  );
-  app.use(
-    koaBody({
-      multipart: true,
-      json: false,
-      urlencoded: false,
-      text: false,
-    }),
-  );
-  app.use(
-    koaLogger({
-      transporter: (message, args) => {
-        const [, method, endpoint, status, time, length] = args;
+app.use(cors({ origin: config.WEB_URL, credentials: true }));
+app.use(secureHeaders());
+app.use(honoLogger((message) => appLogger.http(message)));
 
-        logger.http(message.trim(), { method, endpoint, status, time, length });
-      },
-    }),
-  );
+app.use(async (c, next) => {
+  const headers: Record<string, string> = {};
+  c.req.raw.headers.forEach((value, key) => {
+    headers[key] = value;
+  });
 
-  await defineRoutes(app);
+  const ctx: ORPCContext = {
+    headers,
+    getCookie: (name: string) => getCookie(c, name),
+    setCookie: (name: string, value: string, options?: CookieOptions) => {
+      setCookie(c, name, value, {
+        ...options,
+        sameSite: options?.sameSite
+          ? ((options.sameSite.charAt(0).toUpperCase() + options.sameSite.slice(1)) as 'Strict' | 'Lax' | 'None')
+          : undefined,
+      });
+    },
+    deleteCookie: (name: string, options?: CookieOptions) => {
+      deleteCookie(c, name, {
+        ...options,
+        sameSite: options?.sameSite
+          ? ((options.sameSite.charAt(0).toUpperCase() + options.sameSite.slice(1)) as 'Strict' | 'Lax' | 'None')
+          : undefined,
+      });
+    },
+    secure: c.req.url.startsWith('https'),
+  };
 
-  return app;
-};
+  // Resolve auth from cookie or Authorization header
+  let accessToken = getCookie(c, COOKIES.ACCESS_TOKEN);
+  const authorization = c.req.header('authorization');
+
+  if (!accessToken && authorization) {
+    accessToken = authorization.replace('Bearer', '').trim();
+  }
+
+  if (accessToken) {
+    ctx.accessToken = accessToken;
+
+    const token = await authService.validateAccessToken(accessToken);
+    if (token) {
+      const user = await userService.findOne({ _id: token.userId });
+      if (user) {
+        await userService.updateLastRequest(token.userId);
+        ctx.user = user;
+      }
+    }
+  }
+
+  c.set('ctx', ctx);
+  await next();
+});
+
+app.get('/health', (c) => c.json({ status: 'ok' }, 200));
+
+app.route('/account', accountRoutes);
+
+const rpcHandler = new RPCHandler(router);
+
+app.all('/rpc/*', async (c) => {
+  const { matched, response } = await rpcHandler.handle(c.req.raw, {
+    prefix: '/rpc',
+    context: c.var.ctx,
+  });
+
+  if (matched) {
+    return response;
+  }
+
+  return c.json({ error: 'Not found' }, 404);
+});
 
 (async () => {
-  const app = await initKoa();
-  const server = http.createServer(app.callback());
+  const nodeServer = serve({
+    fetch: app.fetch,
+    port: config.PORT,
+  });
 
   if (config.REDIS_URI) {
     await redisClient
       .connect()
       .then(() => {
         ioEmitter.initClient();
-        socketService(server);
+        socketService(nodeServer as unknown as Parameters<typeof socketService>[0]);
       })
       .catch(redisErrorHandler);
   }
 
-  server.listen(config.PORT, () => {
-    logger.info(`API server is listening on ${config.PORT} in ${config.APP_ENV} environment`);
-  });
+  appLogger.info(`API server is listening on ${config.PORT} in ${config.APP_ENV} environment`);
 })();
 
-export default initKoa;
+export default app;

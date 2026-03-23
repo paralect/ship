@@ -10,7 +10,9 @@ import { GoogleIcon } from 'public/icons';
 
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
+import { signInSchema } from 'schemas';
 
+import { queryKey } from 'hooks';
 import queryClient from 'query-client';
 import config from 'config';
 
@@ -27,7 +29,7 @@ const SignIn = () => {
     watch,
     formState: { errors },
     setError,
-  } = useApiForm(apiClient.account.signIn);
+  } = useApiForm(signInSchema);
 
   // API error fields set via setError
   const apiErrors = errors as typeof errors & {
@@ -37,7 +39,7 @@ const SignIn = () => {
 
   const { mutate: signIn, isPending: isSignInPending } = useApiMutation(apiClient.account.signIn, {
     onSuccess: (data) => {
-      queryClient.setQueryData([apiClient.account.get.path], data);
+      queryClient.setQueryData(queryKey(apiClient.account.get), data);
     },
   });
   const { mutate: resendEmail, isPending: isResendEmailPending } = useApiMutation(apiClient.account.resendEmail);
