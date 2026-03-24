@@ -1,5 +1,6 @@
-import { readdirSync, readFileSync, writeFileSync, existsSync, rmSync, watch } from 'node:fs';
-import { join, basename, dirname } from 'node:path';
+import { existsSync, readdirSync, readFileSync, rmSync, watch, writeFileSync } from 'node:fs';
+import { basename, dirname, join } from 'node:path';
+import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -32,17 +33,16 @@ function buildRouter(resources: string[]): string {
     for (const p of procedures) {
       imports.push(`import ${r}_${p} from './resources/${r}/procedures/${p}';`);
     }
-    const fields = procedures.map((p) => `${p}: ${r}_${p}`).join(', ');
-    routerEntries.push(`  ${r}: pub.router({ ${fields} }),`);
+    const fields = procedures.map((p) => `    ${p}: ${r}_${p},`);
+    routerEntries.push(`  ${r}: pub.router({\n${fields.join('\n')}\n  }),`);
   }
 
   return [
     HEADER,
     "import type { RouterClient } from '@orpc/server';",
     '',
-    "import { pub } from './procedures';",
-    '',
     ...imports,
+    "import { pub } from './procedures';",
     '',
     'export const router = pub.router({',
     ...routerEntries,
@@ -71,6 +71,7 @@ function run(): void {
   if (content !== existing) {
     writeFileSync(ROUTER_PATH, content);
     const total = resources.reduce((sum, r) => sum + getProcedures(r).length, 0);
+    // eslint-disable-next-line no-console
     console.log(`codegen-router: ${resources.length} resources, ${total} procedures`);
   }
 }

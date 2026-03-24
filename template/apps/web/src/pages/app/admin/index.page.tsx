@@ -17,7 +17,7 @@ const Admin = () => {
   const [params, setParamsState] = useState<UsersListParams>(DEFAULT_PARAMS);
   const setParams = useCallback(
     (value: Partial<UsersListParams> | ((prev: UsersListParams) => Partial<UsersListParams>)) => {
-      setParamsState((prev) => {
+      setParamsState((prev: UsersListParams) => {
         const newValue = typeof value === 'function' ? value(prev) : value;
         return { ...prev, ...newValue };
       });
@@ -28,7 +28,7 @@ const Admin = () => {
   const { data: users, isLoading: isUserListLoading } = useApiQuery(apiClient.users.list, params);
 
   const onSortingChange = (sort: Record<string, SortDirection>) => {
-    setParams((prev) => {
+    setParams((prev: UsersListParams) => {
       const combinedSort = { ...pick(prev.sort, EXTERNAL_SORT_FIELDS), ...sort };
       return { sort: combinedSort };
     });

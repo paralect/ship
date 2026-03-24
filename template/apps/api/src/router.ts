@@ -2,8 +2,6 @@
 
 import type { RouterClient } from '@orpc/server';
 
-import { pub } from './procedures';
-
 import account_forgotPassword from './resources/account/procedures/forgotPassword';
 import account_get from './resources/account/procedures/get';
 import account_googleCallback from './resources/account/procedures/googleCallback';
@@ -21,10 +19,30 @@ import account_verifyResetToken from './resources/account/procedures/verifyReset
 import users_list from './resources/users/procedures/list';
 import users_remove from './resources/users/procedures/remove';
 import users_update from './resources/users/procedures/update';
+import { pub } from './procedures';
 
 export const router = pub.router({
-  account: pub.router({ forgotPassword: account_forgotPassword, get: account_get, googleCallback: account_googleCallback, googleMobile: account_googleMobile, googleSignIn: account_googleSignIn, resendEmail: account_resendEmail, resetPassword: account_resetPassword, signIn: account_signIn, signOut: account_signOut, signUp: account_signUp, update: account_update, verifyEmail: account_verifyEmail, verifyEmailToken: account_verifyEmailToken, verifyResetToken: account_verifyResetToken }),
-  users: pub.router({ list: users_list, remove: users_remove, update: users_update }),
+  account: pub.router({
+    forgotPassword: account_forgotPassword,
+    get: account_get,
+    googleCallback: account_googleCallback,
+    googleMobile: account_googleMobile,
+    googleSignIn: account_googleSignIn,
+    resendEmail: account_resendEmail,
+    resetPassword: account_resetPassword,
+    signIn: account_signIn,
+    signOut: account_signOut,
+    signUp: account_signUp,
+    update: account_update,
+    verifyEmail: account_verifyEmail,
+    verifyEmailToken: account_verifyEmailToken,
+    verifyResetToken: account_verifyResetToken,
+  }),
+  users: pub.router({
+    list: users_list,
+    remove: users_remove,
+    update: users_update,
+  }),
 });
 
 export type Router = typeof router;
