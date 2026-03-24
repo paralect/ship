@@ -3,10 +3,11 @@ import { z } from 'zod';
 
 import { TokenType } from 'resources/tokens/tokens.schema';
 import validateToken from 'resources/tokens/methods/validateToken';
-import invalidateUserTokens from 'resources/tokens/methods/invalidateUserTokens';
-import { usersService } from 'db';
 
-import { authService, emailService } from 'services';
+import { usersService, tokensService } from 'db';
+
+import setAccessToken from 'resources/tokens/methods/setAccessToken';
+import { emailService } from 'services';
 
 import config from 'config';
 
@@ -37,10 +38,10 @@ export default pub
         return { headers: { location: url.toString() } };
       }
 
-      await invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
+      await tokensService.deleteMany({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
       await usersService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }));
 
-      await authService.setAccessToken({ ctx: context, userId: user._id });
+      await setAccessToken({ ctx: context, userId: user._id });
 
       await emailService.sendTemplate<typeof Template.SIGN_UP_WELCOME>({
         to: user.email,

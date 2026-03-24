@@ -4,8 +4,8 @@ import { z } from 'zod';
 import { passwordSchema } from 'resources/base.schema';
 import { TokenType } from 'resources/tokens/tokens.schema';
 import validateToken from 'resources/tokens/methods/validateToken';
-import invalidateUserTokens from 'resources/tokens/methods/invalidateUserTokens';
-import { usersService } from 'db';
+
+import { usersService, tokensService } from 'db';
 
 import { securityUtil } from 'utils';
 
@@ -29,7 +29,7 @@ export default pub
 
     const passwordHash = await securityUtil.hashPassword(password);
 
-    await invalidateUserTokens(user._id, TokenType.RESET_PASSWORD);
+    await tokensService.deleteMany({ userId: user._id, type: TokenType.RESET_PASSWORD });
     await usersService.updateOne({ _id: user._id }, () => ({ passwordHash }));
 
     return {};

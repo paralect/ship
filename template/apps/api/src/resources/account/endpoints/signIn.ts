@@ -3,12 +3,11 @@ import { z } from 'zod';
 
 import { emailSchema } from 'resources/base.schema';
 import { TokenType } from 'resources/tokens/tokens.schema';
-import getUserActiveToken from 'resources/tokens/methods/getUserActiveToken';
 import { publicSchema } from 'resources/users/users.schema';
 import getPublic from 'resources/users/methods/getPublic';
-import { usersService } from 'db';
+import { tokensService, usersService } from 'db';
 
-import { authService } from 'services';
+import setAccessToken from 'resources/tokens/methods/setAccessToken';
 import { clientUtil, securityUtil } from 'utils';
 
 import { ClientError } from 'types';
@@ -48,12 +47,10 @@ export default pub
     }
 
     if (!user.isEmailVerified) {
-      const existingEmailVerificationToken = await getUserActiveToken(
-        user._id,
-        TokenType.EMAIL_VERIFICATION,
-      );
+      const token = await tokensService.findOne({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
 
-      if (!existingEmailVerificationToken) {
+      if (!token || token.expiresOn.getTime() <= Date.now()) {
+        if (token) await tokensService.deleteOne({ _id: token._id });
         throw new ClientError({ emailVerificationTokenExpired: 'true' });
       }
     }
@@ -62,7 +59,7 @@ export default pub
       throw new ClientError({ email: 'Please verify your email to sign in' });
     }
 
-    const accessToken = await authService.setAccessToken({ ctx: context, userId: user._id });
+    const accessToken = await setAccessToken({ ctx: context, userId: user._id });
     const clientType = clientUtil.detectClientType(context);
 
     if (clientType === clientUtil.ClientType.MOBILE) {

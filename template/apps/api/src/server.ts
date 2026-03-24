@@ -10,8 +10,9 @@ import { router } from 'router';
 
 import { usersService } from 'db';
 import updateLastRequest from 'resources/users/methods/updateLastRequest';
+import validateAccessToken from 'resources/tokens/methods/validateAccessToken';
 
-import { authService, socketService } from 'services';
+import { socketService } from 'services';
 
 import config from 'config';
 
@@ -68,7 +69,7 @@ app.use(async (c, next) => {
   if (accessToken) {
     ctx.accessToken = accessToken;
 
-    const token = await authService.validateAccessToken(accessToken);
+    const token = await validateAccessToken(accessToken);
     if (token) {
       const user = await usersService.findOne({ _id: token.userId });
       if (user) {

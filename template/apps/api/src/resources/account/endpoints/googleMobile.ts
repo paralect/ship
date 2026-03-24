@@ -4,7 +4,8 @@ import { z } from 'zod';
 import getPublic from 'resources/users/methods/getPublic';
 import { publicSchema } from 'resources/users/users.schema';
 
-import { authService, googleService } from 'services';
+import setAccessToken from 'resources/tokens/methods/setAccessToken';
+import { googleService } from 'services';
 
 import { ClientError } from 'types';
 
@@ -27,7 +28,7 @@ export default pub
       throw new ClientError({ credentials: 'Failed to authenticate with Google' });
     }
 
-    const accessToken = await authService.setAccessToken({ ctx: context, userId: user._id });
+    const accessToken = await setAccessToken({ ctx: context, userId: user._id });
 
     return {
       accessToken,

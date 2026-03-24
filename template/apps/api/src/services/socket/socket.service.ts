@@ -2,7 +2,7 @@ import { createAdapter } from '@socket.io/redis-adapter';
 import http from 'node:http';
 import { Server } from 'socket.io';
 
-import { authService } from 'services';
+import validateAccessToken from 'resources/tokens/methods/validateAccessToken';
 
 import pubClient, { redisErrorHandler } from 'redis-client';
 
@@ -28,7 +28,7 @@ export default (server: http.Server) => {
 
     const accessToken = socketHelper.getCookie(socket.handshake.headers.cookie, COOKIES.ACCESS_TOKEN);
 
-    const token = await authService.validateAccessToken(accessToken);
+    const token = await validateAccessToken(accessToken);
 
     if (token) {
       socket.data = {

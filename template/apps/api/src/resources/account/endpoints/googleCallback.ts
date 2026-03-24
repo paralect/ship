@@ -1,7 +1,8 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { authService, googleService } from 'services';
+import setAccessToken from 'resources/tokens/methods/setAccessToken';
+import { googleService } from 'services';
 
 import config from 'config';
 
@@ -31,7 +32,7 @@ export default pub
         throw new Error('Failed to authenticate with Google');
       }
 
-      await authService.setAccessToken({ ctx: context, userId: user._id });
+      await setAccessToken({ ctx: context, userId: user._id });
 
       return { headers: { location: config.WEB_URL } };
     } catch (error) {

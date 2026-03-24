@@ -4,8 +4,8 @@ import { z } from 'zod';
 import { emailSchema } from 'resources/base.schema';
 import { TokenType } from 'resources/tokens/tokens.schema';
 import createToken from 'resources/tokens/methods/createToken';
-import invalidateUserTokens from 'resources/tokens/methods/invalidateUserTokens';
-import { usersService } from 'db';
+
+import { usersService, tokensService } from 'db';
 
 import { emailService } from 'services';
 
@@ -25,7 +25,7 @@ export default pub
 
     if (!user) return {};
 
-    await invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
+    await tokensService.deleteMany({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
 
     const emailVerificationToken = await createToken({
       userId: user._id,

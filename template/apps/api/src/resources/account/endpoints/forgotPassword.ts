@@ -4,8 +4,8 @@ import { z } from 'zod';
 import { emailSchema } from 'resources/base.schema';
 import { TokenType } from 'resources/tokens/tokens.schema';
 import createToken from 'resources/tokens/methods/createToken';
-import invalidateUserTokens from 'resources/tokens/methods/invalidateUserTokens';
-import { usersService } from 'db';
+
+import { usersService, tokensService } from 'db';
 
 import { emailService } from 'services';
 
@@ -26,8 +26,8 @@ export default pub
     if (!user) return {};
 
     await Promise.all([
-      invalidateUserTokens(user._id, TokenType.ACCESS),
-      invalidateUserTokens(user._id, TokenType.RESET_PASSWORD),
+      tokensService.deleteMany({ userId: user._id, type: TokenType.ACCESS }),
+      tokensService.deleteMany({ userId: user._id, type: TokenType.RESET_PASSWORD }),
     ]);
 
     const resetPasswordToken = await createToken({
