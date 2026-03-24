@@ -1,12 +1,10 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { useApiQuery } from 'hooks';
+import { useCurrentUser } from 'hooks';
 import { Moon, Sun } from 'lucide-react';
 
 import { LogoImage } from 'public/images';
-
-import { apiClient } from 'services/api-client.service';
 
 import { Button } from '@/components/ui/button';
 
@@ -18,11 +16,11 @@ const navLinks = [
 ];
 
 const PublicHeader: FC = () => {
-  const { data: account } = useApiQuery(apiClient.users.getCurrent);
+  const { data: currentUser } = useCurrentUser();
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b-4 border-foreground bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b-4 border-foreground bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-12">
           <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-105">
@@ -54,7 +52,7 @@ const PublicHeader: FC = () => {
           </Button>
 
           <div className="flex items-center gap-4">
-            {account ? (
+            {currentUser ? (
               <Button
                 className="border-2 border-foreground bg-foreground font-mono text-xs font-black uppercase tracking-widest text-background shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
                 asChild

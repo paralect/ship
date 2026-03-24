@@ -1,11 +1,9 @@
 import { FC, ReactNode, useState } from 'react';
 import Link from 'next/link';
-import { useApiQuery } from 'hooks';
+import { useCurrentUser } from 'hooks';
 import { PanelLeft } from 'lucide-react';
 
 import { LogoImage } from 'public/images';
-
-import { apiClient } from 'services/api-client.service';
 
 import { Navigation, UserMenu } from './components';
 import Navbar from './Navbar';
@@ -19,10 +17,10 @@ interface MainLayoutProps {
 }
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
-  const { data: account } = useApiQuery(apiClient.users.getCurrent);
+  const { data: currentUser } = useCurrentUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  if (!account) return null;
+  if (!currentUser) return null;
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-muted/40 md:flex-row">

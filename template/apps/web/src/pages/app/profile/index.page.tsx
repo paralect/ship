@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { queryKey, useApiForm, useApiMutation, useApiQuery } from 'hooks';
+import { queryKey, useApiForm, useApiMutation, useCurrentUser } from 'hooks';
 import { isUndefined, pickBy } from 'lodash';
 import { Loader2 } from 'lucide-react';
 import { FormProvider } from 'react-hook-form';
@@ -30,7 +30,7 @@ const getFormDefaultValues = (user?: User) => ({
 });
 
 const Profile = () => {
-  const { data: currentUser } = useApiQuery(apiClient.users.getCurrent);
+  const { data: currentUser } = useCurrentUser();
 
   const methods = useApiForm(accountUpdateSchema, {
     mode: 'onBlur',

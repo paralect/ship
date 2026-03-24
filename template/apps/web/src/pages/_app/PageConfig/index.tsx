@@ -2,10 +2,9 @@ import 'services/socket-handlers';
 
 import { FC, Fragment, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useApiQuery } from 'hooks/use-api.hook';
+import { useCurrentUser } from 'hooks';
 
 import { analyticsService } from 'services';
-import { apiClient } from 'services/api-client.service';
 
 import config from 'config';
 
@@ -35,26 +34,26 @@ interface PageConfigProps {
 const Page: FC<PageConfigProps> = ({ children, scope, layout }) => {
   const { push } = useRouter();
 
-  const { data: account, isLoading: isAccountLoading, dataUpdatedAt } = useApiQuery(apiClient.users.getCurrent);
+  const { data: currentUser, isLoading: isCurrentUserLoading, dataUpdatedAt } = useCurrentUser();
 
   useEffect(() => {
     if (!dataUpdatedAt || !config.MIXPANEL_API_KEY) return;
 
     analyticsService.init();
-    analyticsService.setUser(account);
+    analyticsService.setUser(currentUser);
   }, [dataUpdatedAt]);
 
-  if (isAccountLoading) return null;
+  if (isCurrentUserLoading) return null;
 
   const Scope = scope ? scopeToComponent[scope] : Fragment;
   const Layout = layout ? layoutToComponent[layout] : Fragment;
 
-  if (scope === ScopeType.PRIVATE && !account) {
+  if (scope === ScopeType.PRIVATE && !currentUser) {
     push('/sign-in');
     return null;
   }
 
-  if (scope === ScopeType.PUBLIC && account) {
+  if (scope === ScopeType.PUBLIC && currentUser) {
     push('/');
     return null;
   }

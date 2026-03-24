@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useApiQuery } from 'hooks';
+import { useCurrentUser } from 'hooks';
 import { Home, Users } from 'lucide-react';
-
-import { apiClient } from 'services/api-client.service';
 
 import { cn } from '@/lib/utils';
 
@@ -13,7 +11,7 @@ interface NavigationProps {
 
 const Navigation = ({ isCollapsed }: NavigationProps) => {
   const router = useRouter();
-  const { data: currentUser } = useApiQuery(apiClient.users.getCurrent);
+  const { data: currentUser } = useCurrentUser();
   const currentPath = router.pathname;
 
   return (
