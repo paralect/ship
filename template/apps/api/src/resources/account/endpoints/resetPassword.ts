@@ -2,12 +2,12 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { passwordSchema } from 'resources/base.schema';
-import { TokenType } from 'resources/tokens/tokens.schema';
 import validateToken from 'resources/tokens/methods/validateToken';
-
-import { usersService, tokensService } from 'db';
+import { TokenType } from 'resources/tokens/tokens.schema';
 
 import { securityUtil } from 'utils';
+
+import { tokensService,usersService } from 'db';
 
 const emptyOutput = z.object({});
 

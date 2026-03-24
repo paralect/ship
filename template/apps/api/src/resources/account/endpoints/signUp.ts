@@ -2,22 +2,19 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema, passwordSchema } from 'resources/base.schema';
-import { TokenType } from 'resources/tokens/tokens.schema';
 import createToken from 'resources/tokens/methods/createToken';
+import { TokenType } from 'resources/tokens/tokens.schema';
 import usersSchema, { publicSchema } from 'resources/users/users.schema';
-import getPublic from 'resources/users/methods/getPublic';
-import { usersService } from 'db';
 
 import { emailService } from 'services';
 import { clientUtil, securityUtil } from 'utils';
 
 import config from 'config';
 
+import { usersService } from 'db';
+
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 import { ClientError, Template } from 'types';
-
-
-const publicUserOutput = publicSchema;
 
 export default pub
   .input(
@@ -29,7 +26,7 @@ export default pub
   .output(
     z.object({
       emailVerificationToken: z.string().optional(),
-      user: publicUserOutput.optional(),
+      user: publicSchema.optional(),
     }),
   )
   .handler(async ({ input, context }) => {
@@ -70,7 +67,7 @@ export default pub
     if (clientType === clientUtil.ClientType.MOBILE) {
       return {
         emailVerificationToken: config.IS_DEV ? emailVerificationToken : undefined,
-        user: getPublic(user),
+        user,
       };
     }
 

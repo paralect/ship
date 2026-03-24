@@ -1,18 +1,14 @@
 import { authed } from 'procedures';
 import { z } from 'zod';
 
+import removeAvatar from 'resources/account/methods/removeAvatar';
+import uploadAvatar from 'resources/account/methods/uploadAvatar';
 import { passwordSchema } from 'resources/base.schema';
 import usersSchema, { publicSchema } from 'resources/users/users.schema';
-import getPublic from 'resources/users/methods/getPublic';
-import { usersService } from 'db';
 
 import { securityUtil } from 'utils';
 
-import removeAvatar from 'resources/account/methods/removeAvatar';
-import uploadAvatar from 'resources/account/methods/uploadAvatar';
-
-
-const publicUserOutput = publicSchema;
+import { usersService } from 'db';
 
 export default authed
   .input(
@@ -24,7 +20,7 @@ export default authed
       })
       .partial(),
   )
-  .output(publicUserOutput)
+  .output(publicSchema)
   .handler(async ({ input, context }) => {
     const { user } = context;
     const { password, avatar, ...rest } = input;
@@ -49,8 +45,8 @@ export default authed
     }
 
     if (Object.keys(updateData).length === 0) {
-      return getPublic(user);
+      return user;
     }
 
-    return usersService.updateOne({ _id: user._id }, () => updateData).then((u) => getPublic(u)!);
+    return usersService.updateOne({ _id: user._id }, () => updateData).then((u) => u!);
   });

@@ -2,14 +2,14 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema } from 'resources/base.schema';
-import { TokenType } from 'resources/tokens/tokens.schema';
 import createToken from 'resources/tokens/methods/createToken';
-
-import { usersService, tokensService } from 'db';
+import { TokenType } from 'resources/tokens/tokens.schema';
 
 import { emailService } from 'services';
 
 import config from 'config';
+
+import { tokensService,usersService } from 'db';
 
 import { RESET_PASSWORD_TOKEN } from 'app-constants';
 import { Template } from 'types';

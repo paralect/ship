@@ -35,6 +35,8 @@ export const publicSchema = schema.omit({
   passwordHash: true,
 });
 
+export const secureFields = ['passwordHash'];
+
 export const indexes = [
   { fields: { email: 1 }, options: { unique: true } },
 ] as const;

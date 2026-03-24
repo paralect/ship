@@ -1,5 +1,5 @@
-import { TokenType } from 'resources/tokens/tokens.schema';
 import createToken from 'resources/tokens/methods/createToken';
+import { TokenType } from 'resources/tokens/tokens.schema';
 import updateLastRequest from 'resources/users/methods/updateLastRequest';
 
 import { clientUtil, cookieUtil } from 'utils';

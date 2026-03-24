@@ -2,18 +2,15 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema } from 'resources/base.schema';
+import setAccessToken from 'resources/tokens/methods/setAccessToken';
 import { TokenType } from 'resources/tokens/tokens.schema';
 import { publicSchema } from 'resources/users/users.schema';
-import getPublic from 'resources/users/methods/getPublic';
-import { tokensService, usersService } from 'db';
 
-import setAccessToken from 'resources/tokens/methods/setAccessToken';
 import { clientUtil, securityUtil } from 'utils';
 
+import { tokensService, usersService } from 'db';
+
 import { ClientError } from 'types';
-
-
-const publicUserOutput = publicSchema;
 
 export default pub
   .input(
@@ -24,17 +21,17 @@ export default pub
   )
   .output(
     z.union([
-      publicUserOutput,
+      publicSchema,
       z.object({
         accessToken: z.string(),
-        user: publicUserOutput,
+        user: publicSchema,
       }),
     ]),
   )
   .handler(async ({ input, context }) => {
     const { email, password } = input;
 
-    const user = await usersService.findOne({ email });
+    const user = await usersService.findOne({ email }, { isIncludeSecureFields: true });
 
     if (!user || !user.passwordHash) {
       throw new ClientError({ credentials: 'The email or password you have entered is invalid' });
@@ -65,9 +62,9 @@ export default pub
     if (clientType === clientUtil.ClientType.MOBILE) {
       return {
         accessToken,
-        user: getPublic(user),
+        user,
       };
     }
 
-    return getPublic(user);
+    return user;
   });

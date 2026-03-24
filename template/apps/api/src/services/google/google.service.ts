@@ -9,12 +9,12 @@ import {
 } from 'arctic';
 import { z } from 'zod';
 
-import { usersService } from 'db';
-import type { User } from 'resources/users/users.schema';
 import updateLastRequest from 'resources/users/methods/updateLastRequest';
-
+import type { User } from 'resources/users/users.schema';
 
 import config from 'config';
+
+import { usersService } from 'db';
 
 import logger from 'logger';
 

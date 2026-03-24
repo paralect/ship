@@ -1,15 +1,15 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { TokenType } from 'resources/tokens/tokens.schema';
-import validateToken from 'resources/tokens/methods/validateToken';
-
-import { usersService, tokensService } from 'db';
-
 import setAccessToken from 'resources/tokens/methods/setAccessToken';
+import validateToken from 'resources/tokens/methods/validateToken';
+import { TokenType } from 'resources/tokens/tokens.schema';
+
 import { emailService } from 'services';
 
 import config from 'config';
+
+import { tokensService,usersService } from 'db';
 
 import { Template } from 'types';
 

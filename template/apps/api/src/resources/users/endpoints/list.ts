@@ -2,15 +2,13 @@ import { admin } from 'procedures';
 import { z } from 'zod';
 
 import { listResultSchema, paginationSchema } from 'resources/base.schema';
-import getPublic from 'resources/users/methods/getPublic';
+
+import { usersService } from 'db';
 
 import type { NestedKeys } from 'types';
 
 import { publicSchema } from '../users.schema';
-import { usersService } from 'db';
 
-
-const publicUserOutput = publicSchema;
 
 export default admin
   .input(
@@ -34,7 +32,7 @@ export default admin
         .default({ createdOn: 'asc' }),
     }),
   )
-  .output(listResultSchema(publicUserOutput))
+  .output(listResultSchema(publicSchema))
   .handler(async ({ input }) => {
     type UserPublic = z.infer<typeof publicSchema>;
     const { perPage, page, sort, searchValue, filter } = input;
@@ -74,5 +72,5 @@ export default admin
       { sort },
     );
 
-    return { ...result, results: result.results.map((u) => getPublic(u)) };
+    return result;
   });

@@ -1,10 +1,9 @@
+import removeAvatar from 'resources/account/methods/removeAvatar';
 import type { User } from 'resources/users/users.schema';
 
 import { cloudStorageService } from 'services';
 
 import { BackendFile } from 'types';
-
-import removeAvatar from 'resources/account/methods/removeAvatar';
 
 export default async function uploadAvatar(user: User, file: BackendFile, customFileName?: string): Promise<string> {
   await removeAvatar(user);

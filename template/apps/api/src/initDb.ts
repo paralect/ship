@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
 import { Database, IDocument, Service, ServiceOptions } from '@paralect/node-mongo';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import config from 'config';
 
@@ -73,6 +72,7 @@ export default async function init() {
 
       const service = createService(collectionName, {
         schemaValidator: (obj) => schema.parseAsync(obj),
+        ...(mod.secureFields && { secureFields: mod.secureFields }),
       });
 
       if (mod.indexes) {
@@ -89,4 +89,4 @@ export default async function init() {
   generateDbTypes(schemas);
 }
 
-export { database, createService };
+export { createService, database };

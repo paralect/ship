@@ -1,8 +1,7 @@
 import { existsSync, readdirSync, readFileSync, watch, writeFileSync } from 'node:fs';
-import { basename, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
+import { basename, dirname,join  } from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SRC_DIR = join(__dirname, '..', 'src');

@@ -1,29 +1,26 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { TokenType } from 'resources/tokens/tokens.schema';
-import validateToken from 'resources/tokens/methods/validateToken';
-
-import { publicSchema } from 'resources/users/users.schema';
-import getPublic from 'resources/users/methods/getPublic';
-import { usersService, tokensService } from 'db';
-
 import setAccessToken from 'resources/tokens/methods/setAccessToken';
+import validateToken from 'resources/tokens/methods/validateToken';
+import { TokenType } from 'resources/tokens/tokens.schema';
+import { publicSchema } from 'resources/users/users.schema';
+
 import { emailService } from 'services';
 
 import config from 'config';
 
+import { tokensService,usersService } from 'db';
+
 import { ClientError, Template } from 'types';
 
-
-const publicUserOutput = publicSchema;
 
 export default pub
   .input(z.object({ token: z.string().min(1, 'Token is required') }))
   .output(
     z.object({
       accessToken: z.string(),
-      user: publicUserOutput,
+      user: publicSchema,
     }),
   )
   .handler(async ({ input, context }) => {
@@ -53,6 +50,6 @@ export default pub
 
     return {
       accessToken,
-      user: getPublic(user),
+      user,
     };
   });

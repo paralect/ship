@@ -1,7 +1,8 @@
-import { tokensService } from 'db';
+import validateToken from 'resources/tokens/methods/validateToken';
 import type { Token } from 'resources/tokens/tokens.schema';
 import { TokenType } from 'resources/tokens/tokens.schema';
-import validateToken from 'resources/tokens/methods/validateToken';
+
+import { tokensService } from 'db';
 
 import { ACCESS_TOKEN } from 'app-constants';
 

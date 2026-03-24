@@ -1,9 +1,9 @@
 import { authed, withEntity } from 'procedures';
 import { z } from 'zod';
 
-import usersSchema, { publicSchema } from '../users.schema';
-import getPublic from 'resources/users/methods/getPublic';
 import { usersService } from 'db';
+
+import usersSchema, { publicSchema } from '../users.schema';
 
 
 const publicUserOutput = publicSchema;
@@ -27,5 +27,5 @@ export default authed
 
     const updatedUser = await usersService.updateOne({ _id: id }, () => nonEmptyValues);
 
-    return getPublic(updatedUser)!;
+    return updatedUser!;
   });

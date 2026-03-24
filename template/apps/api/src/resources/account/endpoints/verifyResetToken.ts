@@ -1,11 +1,12 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { TokenType } from 'resources/tokens/tokens.schema';
 import validateToken from 'resources/tokens/methods/validateToken';
-import { usersService } from 'db';
+import { TokenType } from 'resources/tokens/tokens.schema';
 
 import config from 'config';
+
+import { usersService } from 'db';
 
 export default pub
   .route({

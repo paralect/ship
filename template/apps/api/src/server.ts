@@ -8,14 +8,14 @@ import { logger as honoLogger } from 'hono/logger';
 import { secureHeaders } from 'hono/secure-headers';
 import { router } from 'router';
 
-import { usersService } from 'db';
-import updateLastRequest from 'resources/users/methods/updateLastRequest';
 import validateAccessToken from 'resources/tokens/methods/validateAccessToken';
+import updateLastRequest from 'resources/users/methods/updateLastRequest';
 
 import { socketService } from 'services';
 
 import config from 'config';
 
+import { usersService } from 'db';
 import ioEmitter from 'io-emitter';
 import redisClient, { redisErrorHandler } from 'redis-client';
 
@@ -98,21 +98,23 @@ app.all('/*', async (c) => {
   return c.json({ error: 'Not found' }, 404);
 });
 
-const nodeServer = serve({
-  fetch: app.fetch,
-  port: config.PORT,
-});
+(async () => {
+  const nodeServer = serve({
+    fetch: app.fetch,
+    port: config.PORT,
+  });
 
-if (config.REDIS_URI) {
-  await redisClient
-    .connect()
-    .then(() => {
-      ioEmitter.initClient();
-      socketService(nodeServer as unknown as Parameters<typeof socketService>[0]);
-    })
-    .catch(redisErrorHandler);
-}
+  if (config.REDIS_URI) {
+    await redisClient
+      .connect()
+      .then(() => {
+        ioEmitter.initClient();
+        socketService(nodeServer as unknown as Parameters<typeof socketService>[0]);
+      })
+      .catch(redisErrorHandler);
+  }
 
-appLogger.info(`API server is listening on ${config.PORT} in ${config.APP_ENV} environment`);
+  appLogger.info(`API server is listening on ${config.PORT} in ${config.APP_ENV} environment`);
+})();
 
 export default app;

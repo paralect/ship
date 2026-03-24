@@ -1,10 +1,9 @@
+import { createService } from 'initDb';
 import { readdirSync } from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { Migration } from 'migrator/types';
-
-import { createService } from 'initDb';
 
 import schema from './migration-version.schema';
 import { MigrationVersion } from './migration-version-types';

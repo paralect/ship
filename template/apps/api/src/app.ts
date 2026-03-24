@@ -1,3 +1,4 @@
+/* eslint-disable antfu/no-top-level-await */
 import init from 'initDb';
 
 await init();
