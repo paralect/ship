@@ -41,7 +41,7 @@ export default authed
     }
 
     if (avatar && avatar !== '') {
-      updateData.avatarUrl = await uploadAvatar(user, avatar);
+      updateData.avatarUrl = await uploadAvatar({ user, file: avatar });
     }
 
     if (Object.keys(updateData).length === 0) {

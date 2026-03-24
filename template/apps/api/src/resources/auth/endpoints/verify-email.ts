@@ -29,7 +29,7 @@ export default pub
         return { headers: { location: url.toString() } };
       }
 
-      const emailVerificationToken = await validateToken(input.token, TokenType.EMAIL_VERIFICATION);
+      const emailVerificationToken = await validateToken({ token: input.token, type: TokenType.EMAIL_VERIFICATION });
       const user = await usersService.findOne({ _id: emailVerificationToken?.userId });
 
       if (!emailVerificationToken || !user) {

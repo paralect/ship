@@ -5,7 +5,15 @@ import { cloudStorageService } from 'services';
 
 import { BackendFile } from 'types';
 
-export default async function uploadAvatar(user: User, file: BackendFile, customFileName?: string): Promise<string> {
+export default async function uploadAvatar({
+  user,
+  file,
+  customFileName,
+}: {
+  user: User;
+  file: BackendFile;
+  customFileName?: string;
+}): Promise<string> {
   await removeAvatar(user);
 
   const fileName = customFileName || `${user._id}-${Date.now()}-${file.originalFilename}`;

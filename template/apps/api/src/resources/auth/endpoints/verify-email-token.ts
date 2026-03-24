@@ -25,7 +25,7 @@ export default pub
   .handler(async ({ input, context }) => {
     const { token } = input;
 
-    const emailVerificationToken = await validateToken(token, TokenType.EMAIL_VERIFICATION);
+    const emailVerificationToken = await validateToken({ token, type: TokenType.EMAIL_VERIFICATION });
     const user = await usersService.findOne({ _id: emailVerificationToken?.userId });
 
     if (!emailVerificationToken || !user) {

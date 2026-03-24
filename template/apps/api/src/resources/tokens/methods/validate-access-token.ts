@@ -7,7 +7,7 @@ import { tokensService } from 'db';
 import { ACCESS_TOKEN } from 'app-constants';
 
 export default async function validateAccessToken(value?: string | null): Promise<Token | null> {
-  const token = await validateToken(value, TokenType.ACCESS);
+  const token = await validateToken({ token: value, type: TokenType.ACCESS });
 
   if (!token || token.type !== TokenType.ACCESS) return null;
 

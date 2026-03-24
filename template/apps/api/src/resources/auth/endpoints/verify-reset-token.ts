@@ -24,7 +24,7 @@ export default pub
         return { headers: { location: url.toString() } };
       }
 
-      const resetPasswordToken = await validateToken(input.token, TokenType.RESET_PASSWORD);
+      const resetPasswordToken = await validateToken({ token: input.token, type: TokenType.RESET_PASSWORD });
       const user = await usersService.findOne({ _id: resetPasswordToken?.userId });
 
       if (!resetPasswordToken || !user) {

@@ -24,27 +24,33 @@ const getToken = async (tokenId: string | undefined | null, type: TokenType): Pr
   return token;
 };
 
-export default async function validateToken(value: string | undefined | null, type: TokenType): Promise<Token | null> {
-  if (!value) return null;
+export default async function validateToken({
+  token,
+  type,
+}: {
+  token: string | undefined | null;
+  type: TokenType;
+}): Promise<Token | null> {
+  if (!token) return null;
 
-  const tokenParts = value.split('.');
+  const tokenParts = token.split('.');
 
   if (tokenParts.length !== 2) return null;
 
   const [tokenId, secret] = tokenParts;
 
-  const token = await getToken(tokenId, type);
+  const foundToken = await getToken(tokenId, type);
 
-  const isValid = await securityUtil.verifyTokenHash(token?.value, secret);
+  const isValid = await securityUtil.verifyTokenHash(foundToken?.value, secret);
 
-  if (!isValid || !token) return null;
+  if (!isValid || !foundToken) return null;
 
   const now = new Date();
 
-  if (token.expiresOn.getTime() <= now.getTime()) {
+  if (foundToken.expiresOn.getTime() <= now.getTime()) {
     await tokensService.deleteOne({ _id: tokenId, type });
     return null;
   }
 
-  return token;
+  return foundToken;
 }
