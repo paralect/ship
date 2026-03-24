@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
 import config from '@/config';
-import { pub } from '@/procedures';
+import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
 import { googleService } from '@/services';
 
-export default pub
+export default isPublic
   .route({
     method: 'GET',
     path: '/account/sign-in/google/callback',

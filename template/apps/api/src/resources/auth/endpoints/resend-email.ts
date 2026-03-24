@@ -4,14 +4,14 @@ import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 
 import config from '@/config';
 import { tokensService, usersService } from '@/db';
-import { pub } from '@/procedures';
+import { isPublic } from '@/procedures';
 import { emailSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
 import { TokenType } from '@/resources/tokens/tokens.schema';
 import { emailService } from '@/services';
 import { Template } from '@/types';
 
-export default pub
+export default isPublic
   .input(z.object({ email: emailSchema }))
   .output(z.object({}))
   .handler(async ({ input }) => {

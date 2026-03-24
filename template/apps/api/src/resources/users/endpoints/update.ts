@@ -3,11 +3,9 @@ import { z } from 'zod';
 import usersSchema, { publicSchema } from '../users.schema';
 
 import { usersService } from '@/db';
-import { authed, withEntity } from '@/procedures';
+import { isAuthorized, withEntity } from '@/procedures';
 
-const publicUserOutput = publicSchema;
-
-export default authed
+export default isAuthorized
   .input(
     z.object({
       id: z.string(),
@@ -15,7 +13,7 @@ export default authed
     }),
   )
   .use(withEntity((id) => usersService.findOne({ _id: id }), 'User'))
-  .output(publicUserOutput)
+  .output(publicSchema)
   .handler(async ({ input }) => {
     const { id, data } = input;
 

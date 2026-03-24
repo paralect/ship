@@ -1,8 +1,8 @@
 import config from '@/config';
-import { pub } from '@/procedures';
+import { isPublic } from '@/procedures';
 import { googleService } from '@/services';
 
-export default pub
+export default isPublic
   .route({
     method: 'GET',
     path: '/account/sign-in/google',

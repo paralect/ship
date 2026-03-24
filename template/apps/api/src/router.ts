@@ -22,10 +22,10 @@ import users_list from './resources/users/endpoints/list';
 import users_remove from './resources/users/endpoints/remove';
 import users_update from './resources/users/endpoints/update';
 import users_updateCurrent from './resources/users/endpoints/update-current';
-import { pub } from './procedures';
+import { isPublic } from './procedures';
 
-export const router = pub.router({
-  auth: pub.router({
+export const router = isPublic.router({
+  auth: isPublic.router({
     forgotPassword: auth_forgotPassword,
     googleCallback: auth_googleCallback,
     googleMobile: auth_googleMobile,
@@ -39,7 +39,7 @@ export const router = pub.router({
     verifyEmailToken: auth_verifyEmailToken,
     verifyResetToken: auth_verifyResetToken,
   }),
-  users: pub.router({
+  users: isPublic.router({
     getCurrent: users_getCurrent,
     list: users_list,
     remove: users_remove,

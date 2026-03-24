@@ -53,7 +53,7 @@ function buildRouter(resources: string[]): string {
       imports.push(`import ${id} from './resources/${r}/endpoints/${p}';`);
     }
     const fields = endpoints.map((p) => `    ${toCamelCase(p)}: ${toCamelCase(`${r}_${p}`)},`);
-    routerEntries.push(`  ${r}: pub.router({\n${fields.join('\n')}\n  }),`);
+    routerEntries.push(`  ${r}: isPublic.router({\n${fields.join('\n')}\n  }),`);
   }
 
   return [
@@ -63,9 +63,9 @@ function buildRouter(resources: string[]): string {
     "import type { RouterClient } from '@orpc/server';",
     '',
     ...imports,
-    "import { pub } from './procedures';",
+    "import { isPublic } from './procedures';",
     '',
-    'export const router = pub.router({',
+    'export const router = isPublic.router({',
     ...routerEntries,
     '});',
     '',

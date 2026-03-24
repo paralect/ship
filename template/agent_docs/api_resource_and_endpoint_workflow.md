@@ -16,7 +16,7 @@ Every resource lives in `apps/api/src/resources/<name>/` with this layout:
 ├── <name>.handler.ts      # Optional: eventBus side effects
 └── endpoints/            # One file per oRPC endpoint
     ├── index.ts           # Barrel: re-exports all endpoints
-    ├── list.ts            # export default authed.input(...).output(...).handler(...)
+    ├── list.ts            # export default isAuthorized.input(...).output(...).handler(...)
     ├── update.ts
     └── remove.ts
 ```
@@ -30,8 +30,8 @@ Search existing resources for reference: `ls apps/api/src/resources/users/endpoi
 1. Create a file in `resources/<name>/endpoints/` (e.g. `create.ts`)
 2. Default-export an endpoint:
    ```typescript
-   import { authed } from '../../../procedures';
-   export default authed.input(...).output(...).handler(async ({ input, context }) => { ... });
+   import { isAuthorized } from '../../../procedures';
+   export default isAuthorized.input(...).output(...).handler(async ({ input, context }) => { ... });
    ```
 3. Add one line to `endpoints/index.ts`:
    ```typescript
@@ -52,7 +52,7 @@ Filename (camelCase) = endpoint name = client path: `create.ts` → `apiClient.<
 - [ ] **Register in router** — add import + entry to `src/router.ts`:
   ```typescript
   import * as myResource from './resources/my-resource/endpoints';
-  // in the router object: myResource: pub.router(myResource),
+  // in the router object: myResource: isPublic.router(myResource),
   ```
 - [ ] **Verify**: `pnpm --filter api tsc --noEmit`
 
@@ -69,9 +69,9 @@ Filename (camelCase) = endpoint name = client path: `create.ts` → `apiClient.<
 - The `token` resource has no endpoints — it's an internal service only.
 
 ### Auth
-- Use `pub` (from `src/procedures.ts`) for public endpoints — no auth required.
-- Use `authed` for protected endpoints — requires a valid user in context.
-- `authed` provides `context.user` typed as `User`.
+- Use `isPublic` (from `src/procedures.ts`) for public endpoints — no auth required.
+- Use `isAuthorized` for protected endpoints — requires a valid user in context.
+- `isAuthorized` provides `context.user` typed as `User`.
 
 ### Validation
 - Use `.input(zodSchema)` for input validation — oRPC validates automatically.
@@ -101,7 +101,7 @@ Real oRPC middleware that loads an entity by `input.id` and throws NOT_FOUND if 
 import { withEntity } from '../../../middlewares';
 import { userService } from '..';
 
-export default authed
+export default isAuthorized
   .input(z.object({ id: z.string(), data: ... }))
   .use(withEntity((id) => userService.findOne({ _id: id }), 'User'))
   .output(publicUserOutput)
@@ -119,7 +119,7 @@ The middleware must be placed **after** `.input()` so it receives the validated 
 When a procedure modifies a resource owned by the current user, scope queries by `userId`:
 
 ```typescript
-export default authed
+export default isAuthorized
   .input(z.object({ id: z.string(), data: schema }))
   .use(withEntity((id) => myService.findOne({ _id: id }), 'Resource'))
   .output(outputSchema)

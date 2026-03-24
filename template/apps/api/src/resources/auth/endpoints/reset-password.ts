@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
 import { tokensService, usersService } from '@/db';
-import { pub } from '@/procedures';
+import { isPublic } from '@/procedures';
 import { passwordSchema } from '@/resources/base.schema';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import { TokenType } from '@/resources/tokens/tokens.schema';
 import { securityUtil } from '@/utils';
 
-export default pub
+export default isPublic
   .input(
     z.object({
       token: z.string().min(1, 'Token is required'),

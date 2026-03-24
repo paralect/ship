@@ -2,14 +2,14 @@ import { z } from 'zod';
 
 import config from '@/config';
 import { tokensService, usersService } from '@/db';
-import { pub } from '@/procedures';
+import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import { TokenType } from '@/resources/tokens/tokens.schema';
 import { emailService } from '@/services';
 import { Template } from '@/types';
 
-export default pub
+export default isPublic
   .route({
     method: 'GET',
     path: '/account/verify-email',

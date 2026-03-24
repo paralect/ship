@@ -2,11 +2,11 @@ import { z } from 'zod';
 
 import config from '@/config';
 import { usersService } from '@/db';
-import { pub } from '@/procedures';
+import { isPublic } from '@/procedures';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import { TokenType } from '@/resources/tokens/tokens.schema';
 
-export default pub
+export default isPublic
   .route({
     method: 'GET',
     path: '/account/verify-reset-token',

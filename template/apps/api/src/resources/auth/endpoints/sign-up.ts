@@ -4,7 +4,7 @@ import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 
 import config from '@/config';
 import { usersService } from '@/db';
-import { pub } from '@/procedures';
+import { isPublic } from '@/procedures';
 import { emailSchema, passwordSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
 import { TokenType } from '@/resources/tokens/tokens.schema';
@@ -13,7 +13,7 @@ import { emailService } from '@/services';
 import { ClientError, Template } from '@/types';
 import { clientUtil, securityUtil } from '@/utils';
 
-export default pub
+export default isPublic
   .input(
     usersSchema.pick({ firstName: true, lastName: true }).extend({
       email: emailSchema,

@@ -3,11 +3,11 @@ import { z } from 'zod';
 import { publicSchema } from '../users.schema';
 
 import { usersService } from '@/db';
-import { admin } from '@/procedures';
+import { isAdmin } from '@/procedures';
 import { listResultSchema, paginationSchema } from '@/resources/base.schema';
 import type { NestedKeys } from '@/types';
 
-export default admin
+export default isAdmin
   .input(
     paginationSchema.extend({
       filter: z
