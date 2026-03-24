@@ -1,8 +1,8 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import setAccessToken from 'resources/tokens/methods/setAccessToken';
-import validateToken from 'resources/tokens/methods/validateToken';
+import setAccessToken from 'resources/tokens/methods/set-access-token';
+import validateToken from 'resources/tokens/methods/validate-token';
 import { TokenType } from 'resources/tokens/tokens.schema';
 import { publicSchema } from 'resources/users/users.schema';
 

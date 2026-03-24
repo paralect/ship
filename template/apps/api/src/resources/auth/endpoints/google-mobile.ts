@@ -1,7 +1,7 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import setAccessToken from 'resources/tokens/methods/setAccessToken';
+import setAccessToken from 'resources/tokens/methods/set-access-token';
 import { publicSchema } from 'resources/users/users.schema';
 
 import { googleService } from 'services';

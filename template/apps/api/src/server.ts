@@ -8,8 +8,8 @@ import { logger as honoLogger } from 'hono/logger';
 import { secureHeaders } from 'hono/secure-headers';
 import { router } from 'router';
 
-import validateAccessToken from 'resources/tokens/methods/validateAccessToken';
-import updateLastRequest from 'resources/users/methods/updateLastRequest';
+import validateAccessToken from 'resources/tokens/methods/validate-access-token';
+import updateLastRequest from 'resources/users/methods/update-last-request';
 
 import { socketService } from 'services';
 

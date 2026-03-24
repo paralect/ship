@@ -9,7 +9,7 @@ import {
 } from 'arctic';
 import { z } from 'zod';
 
-import updateLastRequest from 'resources/users/methods/updateLastRequest';
+import updateLastRequest from 'resources/users/methods/update-last-request';
 import type { User } from 'resources/users/users.schema';
 
 import config from 'config';

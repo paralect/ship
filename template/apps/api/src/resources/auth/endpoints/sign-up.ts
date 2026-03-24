@@ -2,7 +2,7 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema, passwordSchema } from 'resources/base.schema';
-import createToken from 'resources/tokens/methods/createToken';
+import createToken from 'resources/tokens/methods/create-token';
 import { TokenType } from 'resources/tokens/tokens.schema';
 import usersSchema, { publicSchema } from 'resources/users/users.schema';
 

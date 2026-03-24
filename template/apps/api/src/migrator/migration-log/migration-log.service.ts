@@ -1,4 +1,4 @@
-import { createService } from 'initDb';
+import { createService } from 'init-db';
 
 import schema from './migration-log.schema';
 import { MigrationLog } from './migration-log.types';

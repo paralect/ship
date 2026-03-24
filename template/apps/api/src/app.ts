@@ -1,5 +1,5 @@
 /* eslint-disable antfu/no-top-level-await */
-import init from 'initDb';
+import init from 'init-db';
 
 await init();
 

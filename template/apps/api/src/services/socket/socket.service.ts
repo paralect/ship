@@ -2,7 +2,7 @@ import { createAdapter } from '@socket.io/redis-adapter';
 import http from 'node:http';
 import { Server } from 'socket.io';
 
-import validateAccessToken from 'resources/tokens/methods/validateAccessToken';
+import validateAccessToken from 'resources/tokens/methods/validate-access-token';
 
 import pubClient, { redisErrorHandler } from 'redis-client';
 

@@ -2,7 +2,7 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema } from 'resources/base.schema';
-import setAccessToken from 'resources/tokens/methods/setAccessToken';
+import setAccessToken from 'resources/tokens/methods/set-access-token';
 import { TokenType } from 'resources/tokens/tokens.schema';
 import { publicSchema } from 'resources/users/users.schema';
 

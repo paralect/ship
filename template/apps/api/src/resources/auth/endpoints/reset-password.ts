@@ -2,7 +2,7 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { passwordSchema } from 'resources/base.schema';
-import validateToken from 'resources/tokens/methods/validateToken';
+import validateToken from 'resources/tokens/methods/validate-token';
 import { TokenType } from 'resources/tokens/tokens.schema';
 
 import { securityUtil } from 'utils';

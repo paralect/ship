@@ -1,6 +1,6 @@
-import createToken from 'resources/tokens/methods/createToken';
+import createToken from 'resources/tokens/methods/create-token';
 import { TokenType } from 'resources/tokens/tokens.schema';
-import updateLastRequest from 'resources/users/methods/updateLastRequest';
+import updateLastRequest from 'resources/users/methods/update-last-request';
 
 import { clientUtil, cookieUtil } from 'utils';
 

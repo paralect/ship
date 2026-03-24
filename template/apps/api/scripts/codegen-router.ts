@@ -33,6 +33,10 @@ function getHandlers(resource: string): string[] {
     .sort();
 }
 
+function toCamelCase(str: string): string {
+  return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+}
+
 function buildRouter(resources: string[]): string {
   const handlerImports: string[] = [];
   const imports: string[] = [];
@@ -45,9 +49,10 @@ function buildRouter(resources: string[]): string {
 
     const endpoints = getEndpoints(r);
     for (const p of endpoints) {
-      imports.push(`import ${r}_${p} from './resources/${r}/endpoints/${p}';`);
+      const id = toCamelCase(`${r}_${p}`);
+      imports.push(`import ${id} from './resources/${r}/endpoints/${p}';`);
     }
-    const fields = endpoints.map((p) => `    ${p}: ${r}_${p},`);
+    const fields = endpoints.map((p) => `    ${toCamelCase(p)}: ${toCamelCase(`${r}_${p}`)},`);
     routerEntries.push(`  ${r}: pub.router({\n${fields.join('\n')}\n  }),`);
   }
 

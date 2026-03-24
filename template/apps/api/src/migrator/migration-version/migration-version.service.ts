@@ -1,4 +1,4 @@
-import { createService } from 'initDb';
+import { createService } from 'init-db';
 import { readdirSync } from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';

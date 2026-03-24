@@ -1,4 +1,4 @@
-import validateToken from 'resources/tokens/methods/validateToken';
+import validateToken from 'resources/tokens/methods/validate-token';
 import type { Token } from 'resources/tokens/tokens.schema';
 import { TokenType } from 'resources/tokens/tokens.schema';
 
