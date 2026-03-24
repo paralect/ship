@@ -3,7 +3,7 @@ import { z } from 'zod';
 import usersSchema, { publicSchema } from '../users.schema';
 
 import { usersService } from '@/db';
-import { isAdmin, withEntity } from '@/procedures';
+import { isAdmin, shouldExist } from '@/procedures';
 
 export default isAdmin
   .input(
@@ -12,7 +12,7 @@ export default isAdmin
       data: usersSchema.pick({ firstName: true, lastName: true, email: true }),
     }),
   )
-  .use(withEntity((id) => usersService.findOne({ _id: id }), 'User'))
+  .use(shouldExist((id) => usersService.findOne({ _id: id }), 'User'))
   .output(publicSchema)
   .handler(async ({ input }) => {
     const { id, data } = input;

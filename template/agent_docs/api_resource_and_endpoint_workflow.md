@@ -93,17 +93,17 @@ Filename (camelCase) = endpoint name = client path: `create.ts` → `apiClient.<
 
 ---
 
-## `withEntity` Middleware
+## `shouldExist` Middleware
 
 Real oRPC middleware that loads an entity by `input.id` and throws NOT_FOUND if missing. Defined in `src/middlewares.ts`, used via `.use()` after `.input()`.
 
 ```typescript
-import { withEntity } from '../../../middlewares';
+import { shouldExist } from '../../../middlewares';
 import { userService } from '..';
 
 export default isAuthorized
   .input(z.object({ id: z.string(), data: ... }))
-  .use(withEntity((id) => userService.findOne({ _id: id }), 'User'))
+  .use(shouldExist((id) => userService.findOne({ _id: id }), 'User'))
   .output(publicUserOutput)
   .handler(async ({ input }) => {
     return userService.updateOne({ _id: input.id }, () => input.data);
@@ -121,7 +121,7 @@ When a procedure modifies a resource owned by the current user, scope queries by
 ```typescript
 export default isAuthorized
   .input(z.object({ id: z.string(), data: schema }))
-  .use(withEntity((id) => myService.findOne({ _id: id }), 'Resource'))
+  .use(shouldExist((id) => myService.findOne({ _id: id }), 'Resource'))
   .output(outputSchema)
   .handler(async ({ input }) => {
     return myService.updateOne({ _id: input.id }, () => input.data);

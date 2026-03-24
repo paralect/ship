@@ -26,7 +26,7 @@ const adminMiddleware = isAuthorizedContext.middleware(async ({ context, next })
 
 export const isAdmin = isAuthorized.use(adminMiddleware);
 
-export function withEntity<T>(load: (id: string) => Promise<T | null>, name: string) {
+export function shouldExist<T>(load: (id: string) => Promise<T | null>, name: string) {
   const key = name.toLowerCase();
 
   return os.middleware(async ({ context, next }, input: { id: string }) => {
