@@ -35,7 +35,7 @@ interface PageConfigProps {
 const Page: FC<PageConfigProps> = ({ children, scope, layout }) => {
   const { push } = useRouter();
 
-  const { data: account, isLoading: isAccountLoading, dataUpdatedAt } = useApiQuery(apiClient.account.get);
+  const { data: account, isLoading: isAccountLoading, dataUpdatedAt } = useApiQuery(apiClient.users.getCurrent);
 
   useEffect(() => {
     if (!dataUpdatedAt || !config.MIXPANEL_API_KEY) return;

@@ -26,9 +26,7 @@ interface SchemaEntry {
 }
 
 function generateDbTypes(schemas: SchemaEntry[]) {
-  const imports = schemas.map(
-    (s) => `import type ${s.name}Schema from 'resources/${s.resourceDir}/${s.name}.schema';`,
-  );
+  const imports = schemas.map((s) => `import type ${s.name}Schema from 'resources/${s.resourceDir}/${s.name}.schema';`);
 
   const serviceExports = schemas.map(
     (s) => `export const ${s.name}Service = services.${s.name} as Service<z.infer<typeof ${s.name}Schema>>;`,

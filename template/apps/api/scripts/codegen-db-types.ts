@@ -1,5 +1,5 @@
 import { existsSync, readdirSync, readFileSync, watch, writeFileSync } from 'node:fs';
-import { basename, dirname,join  } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
@@ -37,9 +37,7 @@ function discoverSchemas(): SchemaEntry[] {
 export function run(): void {
   const schemas = discoverSchemas();
 
-  const imports = schemas.map(
-    (s) => `import type ${s.name}Schema from 'resources/${s.resourceDir}/${s.name}.schema';`,
-  );
+  const imports = schemas.map((s) => `import type ${s.name}Schema from 'resources/${s.resourceDir}/${s.name}.schema';`);
 
   const serviceExports = schemas.map(
     (s) => `export const ${s.name}Service = services.${s.name} as Service<z.infer<typeof ${s.name}Schema>>;`,

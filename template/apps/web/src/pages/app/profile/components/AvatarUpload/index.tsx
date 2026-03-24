@@ -65,7 +65,7 @@ const AvatarDropzone: FC<AvatarDropzoneProps> = ({ imageSrc, onChange }) => {
 };
 
 const AvatarUpload = () => {
-  const { data: account } = useApiQuery(apiClient.account.get);
+  const { data: account } = useApiQuery(apiClient.users.getCurrent);
 
   const {
     watch,

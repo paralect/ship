@@ -19,7 +19,7 @@ interface MainLayoutProps {
 }
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
-  const { data: account } = useApiQuery(apiClient.account.get);
+  const { data: account } = useApiQuery(apiClient.users.getCurrent);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   if (!account) return null;

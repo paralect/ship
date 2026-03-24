@@ -10,10 +10,9 @@ import { emailService } from 'services';
 
 import config from 'config';
 
-import { tokensService,usersService } from 'db';
+import { tokensService, usersService } from 'db';
 
 import { ClientError, Template } from 'types';
-
 
 export default pub
   .input(z.object({ token: z.string().min(1, 'Token is required') }))

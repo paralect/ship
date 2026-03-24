@@ -1,8 +1,8 @@
 import { authed } from 'procedures';
 import { z } from 'zod';
 
-import removeAvatar from 'resources/account/methods/removeAvatar';
-import uploadAvatar from 'resources/account/methods/uploadAvatar';
+import removeAvatar from 'resources/auth/methods/removeAvatar';
+import uploadAvatar from 'resources/auth/methods/uploadAvatar';
 import { passwordSchema } from 'resources/base.schema';
 import usersSchema, { publicSchema } from 'resources/users/users.schema';
 

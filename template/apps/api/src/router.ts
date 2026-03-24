@@ -5,46 +5,46 @@ import './resources/users/handlers/toSockets';
 
 import type { RouterClient } from '@orpc/server';
 
-import account_forgotPassword from './resources/account/endpoints/forgotPassword';
-import account_get from './resources/account/endpoints/get';
-import account_googleCallback from './resources/account/endpoints/googleCallback';
-import account_googleMobile from './resources/account/endpoints/googleMobile';
-import account_googleSignIn from './resources/account/endpoints/googleSignIn';
-import account_resendEmail from './resources/account/endpoints/resendEmail';
-import account_resetPassword from './resources/account/endpoints/resetPassword';
-import account_signIn from './resources/account/endpoints/signIn';
-import account_signOut from './resources/account/endpoints/signOut';
-import account_signUp from './resources/account/endpoints/signUp';
-import account_update from './resources/account/endpoints/update';
-import account_verifyEmail from './resources/account/endpoints/verifyEmail';
-import account_verifyEmailToken from './resources/account/endpoints/verifyEmailToken';
-import account_verifyResetToken from './resources/account/endpoints/verifyResetToken';
+import auth_forgotPassword from './resources/auth/endpoints/forgotPassword';
+import auth_googleCallback from './resources/auth/endpoints/googleCallback';
+import auth_googleMobile from './resources/auth/endpoints/googleMobile';
+import auth_googleSignIn from './resources/auth/endpoints/googleSignIn';
+import auth_resendEmail from './resources/auth/endpoints/resendEmail';
+import auth_resetPassword from './resources/auth/endpoints/resetPassword';
+import auth_signIn from './resources/auth/endpoints/signIn';
+import auth_signOut from './resources/auth/endpoints/signOut';
+import auth_signUp from './resources/auth/endpoints/signUp';
+import auth_verifyEmail from './resources/auth/endpoints/verifyEmail';
+import auth_verifyEmailToken from './resources/auth/endpoints/verifyEmailToken';
+import auth_verifyResetToken from './resources/auth/endpoints/verifyResetToken';
+import users_getCurrent from './resources/users/endpoints/getCurrent';
 import users_list from './resources/users/endpoints/list';
 import users_remove from './resources/users/endpoints/remove';
 import users_update from './resources/users/endpoints/update';
+import users_updateCurrent from './resources/users/endpoints/updateCurrent';
 import { pub } from './procedures';
 
 export const router = pub.router({
-  account: pub.router({
-    forgotPassword: account_forgotPassword,
-    get: account_get,
-    googleCallback: account_googleCallback,
-    googleMobile: account_googleMobile,
-    googleSignIn: account_googleSignIn,
-    resendEmail: account_resendEmail,
-    resetPassword: account_resetPassword,
-    signIn: account_signIn,
-    signOut: account_signOut,
-    signUp: account_signUp,
-    update: account_update,
-    verifyEmail: account_verifyEmail,
-    verifyEmailToken: account_verifyEmailToken,
-    verifyResetToken: account_verifyResetToken,
+  auth: pub.router({
+    forgotPassword: auth_forgotPassword,
+    googleCallback: auth_googleCallback,
+    googleMobile: auth_googleMobile,
+    googleSignIn: auth_googleSignIn,
+    resendEmail: auth_resendEmail,
+    resetPassword: auth_resetPassword,
+    signIn: auth_signIn,
+    signOut: auth_signOut,
+    signUp: auth_signUp,
+    verifyEmail: auth_verifyEmail,
+    verifyEmailToken: auth_verifyEmailToken,
+    verifyResetToken: auth_verifyResetToken,
   }),
   users: pub.router({
+    getCurrent: users_getCurrent,
     list: users_list,
     remove: users_remove,
     update: users_update,
+    updateCurrent: users_updateCurrent,
   }),
 });
 

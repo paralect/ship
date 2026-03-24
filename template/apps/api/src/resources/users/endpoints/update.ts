@@ -5,7 +5,6 @@ import { usersService } from 'db';
 
 import usersSchema, { publicSchema } from '../users.schema';
 
-
 const publicUserOutput = publicSchema;
 
 export default authed

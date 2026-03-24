@@ -9,7 +9,6 @@ import type { NestedKeys } from 'types';
 
 import { publicSchema } from '../users.schema';
 
-
 export default admin
   .input(
     paginationSchema.extend({

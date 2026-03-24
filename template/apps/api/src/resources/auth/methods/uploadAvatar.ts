@@ -1,4 +1,4 @@
-import removeAvatar from 'resources/account/methods/removeAvatar';
+import removeAvatar from 'resources/auth/methods/removeAvatar';
 import type { User } from 'resources/users/users.schema';
 
 import { cloudStorageService } from 'services';

@@ -22,7 +22,7 @@ const ForgotPassword = () => {
     mutate: forgotPassword,
     isPending: isForgotPasswordPending,
     isSuccess: isForgotPasswordSuccess,
-  } = useApiMutation(apiClient.account.forgotPassword);
+  } = useApiMutation(apiClient.auth.forgotPassword);
 
   const {
     register,

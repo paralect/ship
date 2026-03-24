@@ -18,7 +18,7 @@ const navLinks = [
 ];
 
 const PublicHeader: FC = () => {
-  const { data: account } = useApiQuery(apiClient.account.get);
+  const { data: account } = useApiQuery(apiClient.users.getCurrent);
   const { theme, setTheme } = useTheme();
 
   return (

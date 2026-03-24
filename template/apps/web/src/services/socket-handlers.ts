@@ -7,7 +7,7 @@ import queryClient from 'query-client';
 
 import type { User } from 'types';
 
-const accountKey = queryKey(apiClient.account.get);
+const accountKey = queryKey(apiClient.users.getCurrent);
 
 socketService.on('connect', () => {
   const account = queryClient.getQueryData<User | null>(accountKey);

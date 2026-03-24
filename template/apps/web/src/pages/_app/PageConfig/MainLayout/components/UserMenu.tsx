@@ -22,12 +22,12 @@ interface UserMenuProps {
 }
 
 const UserMenu = ({ isCollapsed }: UserMenuProps) => {
-  const { data: account } = useApiQuery(apiClient.account.get);
+  const { data: account } = useApiQuery(apiClient.users.getCurrent);
   const { theme, setTheme } = useTheme();
 
-  const { mutate: signOut } = useApiMutation(apiClient.account.signOut, {
+  const { mutate: signOut } = useApiMutation(apiClient.auth.signOut, {
     onSuccess: () => {
-      queryClient.setQueryData(queryKey(apiClient.account.get), null);
+      queryClient.setQueryData(queryKey(apiClient.users.getCurrent), null);
     },
   });
 

@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { queryKey, useApiForm, useApiMutation, useApiQuery } from 'hooks';
 import { isUndefined, pickBy } from 'lodash';
 import { Loader2 } from 'lucide-react';
-import { serialize } from 'object-to-formdata';
 import { FormProvider } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -23,19 +22,19 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password-input';
 
-const getFormDefaultValues = (account?: User) => ({
-  firstName: account?.firstName,
-  lastName: account?.lastName,
+const getFormDefaultValues = (user?: User) => ({
+  firstName: user?.firstName,
+  lastName: user?.lastName,
   password: '',
   avatar: undefined,
 });
 
 const Profile = () => {
-  const { data: account } = useApiQuery(apiClient.account.get);
+  const { data: currentUser } = useApiQuery(apiClient.users.getCurrent);
 
   const methods = useApiForm(accountUpdateSchema, {
     mode: 'onBlur',
-    defaultValues: getFormDefaultValues(account),
+    defaultValues: getFormDefaultValues(currentUser),
   });
 
   const {
@@ -47,21 +46,21 @@ const Profile = () => {
     formState: { errors, isDirty },
   } = methods;
 
-  const { mutate: updateAccount, isPending: isUpdatePending } = useApiMutation(apiClient.account.update);
+  const { mutate: updateCurrentUser, isPending: isUpdatePending } = useApiMutation(apiClient.users.updateCurrent);
 
   const onSubmit = handleSubmit((submitData) => {
-    const updateData = pickBy(submitData, (value, key) => {
-      if (account && (account as Record<string, unknown>)[key] === value) return false;
+    const dataToUpdate = pickBy(submitData, (value, key) => {
+      if (currentUser && (currentUser as Record<string, unknown>)[key] === value) return false;
       if (key === 'password' && value === '') return false;
 
       return !isUndefined(value);
     });
 
-    updateAccount(serialize(updateData) as unknown as Record<string, unknown>, {
+    updateCurrentUser(dataToUpdate, {
       onSuccess: (data) => {
         if (!data) return;
 
-        queryClient.setQueryData(queryKey(apiClient.account.get), data);
+        queryClient.setQueryData(queryKey(apiClient.users.getCurrent), data);
 
         toast.success('Success', {
           description: 'Your profile has been successfully updated.',
@@ -114,7 +113,7 @@ const Profile = () => {
 
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="email">Email Address</Label>
-                  <Input id="email" value={account?.email} disabled />
+                  <Input id="email" value={currentUser?.email} disabled />
                 </div>
 
                 <div className="flex flex-col gap-2">

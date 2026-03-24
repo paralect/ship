@@ -9,7 +9,7 @@ import { emailService } from 'services';
 
 import config from 'config';
 
-import { tokensService,usersService } from 'db';
+import { tokensService, usersService } from 'db';
 
 import { Template } from 'types';
 

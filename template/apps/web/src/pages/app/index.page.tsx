@@ -6,7 +6,7 @@ import { LayoutType, Page, ScopeType } from 'components';
 import { apiClient } from 'services/api-client.service';
 
 const Dashboard = () => {
-  const { data: account } = useApiQuery(apiClient.account.get);
+  const { data: account } = useApiQuery(apiClient.users.getCurrent);
 
   return (
     <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>

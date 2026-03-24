@@ -9,7 +9,7 @@ import { emailService } from 'services';
 
 import config from 'config';
 
-import { tokensService,usersService } from 'db';
+import { tokensService, usersService } from 'db';
 
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 import { Template } from 'types';

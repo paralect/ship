@@ -38,7 +38,7 @@ const SignUp = () => {
     isPending: isSignUpPending,
     isSuccess: isSignUpSuccess,
     data: signUpData,
-  } = useApiMutation(apiClient.account.signUp);
+  } = useApiMutation(apiClient.auth.signUp);
 
   const onSubmit = handleSubmit((data) =>
     signUp(data, {

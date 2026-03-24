@@ -37,12 +37,12 @@ const SignIn = () => {
     emailVerificationTokenExpired?: { message?: string };
   };
 
-  const { mutate: signIn, isPending: isSignInPending } = useApiMutation(apiClient.account.signIn, {
+  const { mutate: signIn, isPending: isSignInPending } = useApiMutation(apiClient.auth.signIn, {
     onSuccess: (data) => {
-      queryClient.setQueryData(queryKey(apiClient.account.get), data);
+      queryClient.setQueryData(queryKey(apiClient.users.getCurrent), data);
     },
   });
-  const { mutate: resendEmail, isPending: isResendEmailPending } = useApiMutation(apiClient.account.resendEmail);
+  const { mutate: resendEmail, isPending: isResendEmailPending } = useApiMutation(apiClient.auth.resendEmail);
 
   const onSubmit = handleSubmit((data) =>
     signIn(data, {
