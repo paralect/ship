@@ -1,7 +1,8 @@
-import * as socketService from 'services/socket.service';
-import { apiClient } from 'services/api-client.service';
-
 import { queryKey } from 'hooks';
+
+import { apiClient } from 'services/api-client.service';
+import * as socketService from 'services/socket.service';
+
 import queryClient from 'query-client';
 
 import type { User } from 'types';

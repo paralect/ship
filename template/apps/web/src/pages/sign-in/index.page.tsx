@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useApiForm, useApiMutation } from 'hooks';
+import { queryKey, useApiForm, useApiMutation } from 'hooks';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -10,11 +10,11 @@ import { GoogleIcon } from 'public/icons';
 
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
-import { signInSchema } from 'schemas';
 
-import { queryKey } from 'hooks';
 import queryClient from 'query-client';
 import config from 'config';
+
+import { signInSchema } from 'schemas';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';

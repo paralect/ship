@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { PASSWORD_RULES } from 'app-constants';
 
 export const emailSchema = z
@@ -43,9 +44,11 @@ export const resendEmailSchema = z.object({
   email: emailSchema,
 });
 
-export const accountUpdateSchema = z.object({
-  firstName: z.string().min(1, 'First name is required').max(128, 'First name must be less than 128 characters.'),
-  lastName: z.string().min(1, 'Last name is required').max(128, 'Last name must be less than 128 characters.'),
-  password: z.union([passwordSchema, z.literal('')]),
-  avatar: z.union([z.any(), z.literal('')]).nullable(),
-}).partial();
+export const accountUpdateSchema = z
+  .object({
+    firstName: z.string().min(1, 'First name is required').max(128, 'First name must be less than 128 characters.'),
+    lastName: z.string().min(1, 'Last name is required').max(128, 'Last name must be less than 128 characters.'),
+    password: z.union([passwordSchema, z.literal('')]),
+    avatar: z.union([z.any(), z.literal('')]).nullable(),
+  })
+  .partial();

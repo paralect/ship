@@ -1,5 +1,6 @@
-import { ColumnDef } from '@tanstack/react-table';
 import type { InferClientInputs, InferClientOutputs } from '@orpc/client';
+import { ColumnDef } from '@tanstack/react-table';
+
 import type { orpc } from 'services/api-client.service';
 
 export const DEFAULT_PAGE = 1;

@@ -1,7 +1,8 @@
 import { FileRejection } from 'react-dropzone';
 import { FieldValues, Path, UseFormSetError } from 'react-hook-form';
-import { ONE_MB_IN_BYTES } from 'app-constants';
 import { toast } from 'sonner';
+
+import { ONE_MB_IN_BYTES } from 'app-constants';
 
 interface ValidationErrors {
   [name: string]: string[] | string;

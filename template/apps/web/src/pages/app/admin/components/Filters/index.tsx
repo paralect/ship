@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { CalendarIcon, Search, X } from 'lucide-react';
+import type { UsersListParams } from 'pages/app/admin/constants';
 import { DateRange } from 'react-day-picker';
 import { useDebounceValue } from 'usehooks-ts';
 
-import { type UsersListParams } from '../../constants';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';

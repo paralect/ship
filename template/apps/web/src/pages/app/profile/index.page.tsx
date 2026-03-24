@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useApiForm, useApiMutation, useApiQuery } from 'hooks';
+import { queryKey, useApiForm, useApiMutation, useApiQuery } from 'hooks';
 import { isUndefined, pickBy } from 'lodash';
 import { Loader2 } from 'lucide-react';
 import { serialize } from 'object-to-formdata';
@@ -10,11 +10,10 @@ import { LayoutType, Page, ScopeType } from 'components';
 
 import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
-import { accountUpdateSchema } from 'schemas';
 
-import { queryKey } from 'hooks';
 import queryClient from 'query-client';
 
+import { accountUpdateSchema } from 'schemas';
 import type { User } from 'types';
 
 import AvatarUpload from './components/AvatarUpload';

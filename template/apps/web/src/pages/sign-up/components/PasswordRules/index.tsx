@@ -1,5 +1,6 @@
 import { FC, ReactNode, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+
 import { PASSWORD_RULES } from 'app-constants';
 
 import { Checkbox } from '@/components/ui/checkbox';

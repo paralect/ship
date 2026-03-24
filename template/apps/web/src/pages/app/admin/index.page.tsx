@@ -10,7 +10,8 @@ import { LayoutType, Page, ScopeType, Table } from 'components';
 import { apiClient } from 'services/api-client.service';
 
 import Filters from './components/Filters';
-import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE, type UsersListParams, type UsersListResponse } from './constants';
+import type { UsersListParams, UsersListResponse } from './constants';
+import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
 
 const Admin = () => {
   const [params, setParamsState] = useState<UsersListParams>(DEFAULT_PARAMS);

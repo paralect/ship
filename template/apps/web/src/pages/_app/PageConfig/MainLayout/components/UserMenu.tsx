@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { useApiMutation, useApiQuery } from 'hooks';
+import { queryKey, useApiMutation, useApiQuery } from 'hooks';
 import { LogOut, Moon, Sun, User } from 'lucide-react';
 
 import { apiClient } from 'services/api-client.service';
 
-import { queryKey } from 'hooks';
 import queryClient from 'query-client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
