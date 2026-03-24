@@ -1,4 +1,4 @@
-import { authed } from 'procedures';
+import { admin } from 'procedures';
 import { z } from 'zod';
 
 import { listResultSchema, paginationSchema } from 'resources/base.schema';
@@ -10,7 +10,7 @@ import { userService } from '..';
 
 const publicUserOutput = userPublicSchema;
 
-export default authed
+export default admin
   .input(
     paginationSchema.extend({
       filter: z

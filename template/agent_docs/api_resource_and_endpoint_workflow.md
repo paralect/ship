@@ -1,6 +1,6 @@
-# API: Resource & Procedure Workflow
+# API: Resource & Endpoint Workflow
 
-> Read this when adding or modifying API resources or oRPC procedures.
+> Read this when adding or modifying API resources or oRPC endpoints.
 
 ---
 
@@ -14,31 +14,31 @@ Every resource lives in `apps/api/src/resources/<name>/` with this layout:
 ├── <name>.service.ts      # db.createService<T>(COLLECTION_NAME, { schemaValidator })
 ├── index.ts               # Barrel: export service, import handler (side-effect)
 ├── <name>.handler.ts      # Optional: eventBus side effects
-└── procedures/            # One file per oRPC procedure
-    ├── index.ts           # Barrel: re-exports all procedures
+└── endpoints/            # One file per oRPC endpoint
+    ├── index.ts           # Barrel: re-exports all endpoints
     ├── list.ts            # export default authed.input(...).output(...).handler(...)
     ├── update.ts
     └── remove.ts
 ```
 
-Search existing resources for reference: `ls apps/api/src/resources/users/procedures/`.
+Search existing resources for reference: `ls apps/api/src/resources/users/endpoints/`.
 
 ---
 
-## Add New Procedure
+## Add New Endpoint
 
-1. Create a file in `resources/<name>/procedures/` (e.g. `create.ts`)
-2. Default-export a procedure:
+1. Create a file in `resources/<name>/endpoints/` (e.g. `create.ts`)
+2. Default-export an endpoint:
    ```typescript
    import { authed } from '../../../procedures';
    export default authed.input(...).output(...).handler(async ({ input, context }) => { ... });
    ```
-3. Add one line to `procedures/index.ts`:
+3. Add one line to `endpoints/index.ts`:
    ```typescript
    export { default as create } from './create';
    ```
 
-Filename (camelCase) = procedure name = client path: `create.ts` → `apiClient.<resource>.create`.
+Filename (camelCase) = endpoint name = client path: `create.ts` → `apiClient.<resource>.create`.
 
 ---
 
@@ -48,10 +48,10 @@ Filename (camelCase) = procedure name = client path: `create.ts` → `apiClient.
 - [ ] **Create schema** extending `dbSchema` from `resources/base.schema.ts` (provides `_id`, `createdOn`, `updatedOn`, `deletedOn`)
 - [ ] **Create service** via `db.createService<T>(DATABASE_DOCUMENTS.NAME, { schemaValidator: (obj) => schema.parseAsync(obj) })`
 - [ ] **Create barrel** `index.ts` — export service; if handler exists, `import './name.handler'` at top (side-effect)
-- [ ] **Create `procedures/` directory** with individual procedure files (default exports) + barrel `index.ts`
+- [ ] **Create `endpoints/` directory** with individual endpoint files (default exports) + barrel `index.ts`
 - [ ] **Register in router** — add import + entry to `src/router.ts`:
   ```typescript
-  import * as myResource from './resources/my-resource/procedures';
+  import * as myResource from './resources/my-resource/endpoints';
   // in the router object: myResource: pub.router(myResource),
   ```
 - [ ] **Verify**: `pnpm --filter api tsc --noEmit`
@@ -60,17 +60,17 @@ Filename (camelCase) = procedure name = client path: `create.ts` → `apiClient.
 
 ## Critical Invariants
 
-### Procedures directory
+### Endpoints directory
 - Resource name = folder name = router key (`resources/users/` → `apiClient.users.*`).
-- Each `.ts` file in `procedures/` (except index.ts) default-exports one procedure.
-- `procedures/index.ts` re-exports all procedures — add one line per new file.
+- Each `.ts` file in `endpoints/` (except index.ts) default-exports one endpoint.
+- `endpoints/index.ts` re-exports all endpoints — add one line per new file.
 - Filenames are camelCase: `forgotPassword.ts` → `forgotPassword`.
 - New resources also need an import + entry in `src/router.ts`.
-- The `token` resource has no procedures — it's an internal service only.
+- The `token` resource has no endpoints — it's an internal service only.
 
 ### Auth
-- Use `pub` (from `src/procedures.ts`) for public procedures — no auth required.
-- Use `authed` for protected procedures — requires a valid user in context.
+- Use `pub` (from `src/procedures.ts`) for public endpoints — no auth required.
+- Use `authed` for protected endpoints — requires a valid user in context.
 - `authed` provides `context.user` typed as `User`.
 
 ### Validation
@@ -83,7 +83,7 @@ Filename (camelCase) = procedure name = client path: `create.ts` → `apiClient.
 - For empty responses, use `z.object({})` output and `return {}`.
 
 ### Imports in procedure files
-- Procedure files MUST use **relative imports** for anything in the type chain (procedures, types, schemas, services).
+- Endpoint files MUST use **relative imports** for anything in the type chain (procedures, types, schemas, services).
 - `app-constants` is fine as a bare import (separate package).
 - This is required because TypeScript must resolve these imports when building declarations for the web client.
 

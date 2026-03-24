@@ -9,12 +9,12 @@
 **Cause**: File not named `*.page.tsx`.
 **Fix**: Rename to `index.page.tsx` or `[param].page.tsx`.
 
-## 2. oRPC procedures return 404
+## 2. oRPC endpoints return 404
 
-**Cause**: Procedure not registered. Either missing from `procedures/index.ts` barrel or missing from `src/router.ts`.
-**Fix**: Add `export { default as name } from './name'` to the barrel and `import * as resource from './resources/resource/procedures'` + router entry in `src/router.ts`.
+**Cause**: Endpoint not registered. Either missing from `endpoints/index.ts` barrel or missing from `src/router.ts`.
+**Fix**: Add `export { default as name } from './name'` to the barrel and `import * as resource from './resources/resource/endpoints'` + router entry in `src/router.ts`.
 
-## 3. Web types stale after API procedure changes
+## 3. Web types stale after API endpoint changes
 
 **Cause**: Declarations not rebuilt.
 **Fix**: `pnpm --filter api build:types && pnpm --filter web tsc --noEmit`.
@@ -29,10 +29,10 @@
 **Cause**: API `tsconfig.baseUrl` is `src` — no `src/` prefix needed.
 **Fix**: Use `'resources/...'`, `'config'`, `'db'`, etc.
 
-## 6. Procedure files in `procedures/` use bare imports and declarations break
+## 6. Endpoint files in `endpoints/` use bare imports and declarations break
 
-**Cause**: Files in `procedures/` must use relative imports for the type chain to work.
-**Fix**: Use `../../../procedures`, `../../users`, etc. inside procedure files.
+**Cause**: Files in `endpoints/` must use relative imports for the type chain to work.
+**Fix**: Use `../../../procedures`, `../../users`, etc. inside endpoint files.
 
 ## 7. `shouldExist` — entity not found
 

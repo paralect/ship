@@ -8,10 +8,10 @@
 
 Hono + oRPC + MongoDB (`@paralect/node-mongo`) + Zod. ESM (`"type": "module"`). TypeScript with `baseUrl: "src"`.
 
-- **Procedures** (`src/resources/*/procedures/`) — oRPC typed RPC endpoints. Return JSON data.
-- **Routes** (`src/resources/*/routes/`) — Hono HTTP handlers for redirects (OAuth, email verification). These can't be procedures because they return `302 Redirect`, not JSON.
+- **Endpoints** (`src/resources/*/endpoints/`) — oRPC typed RPC endpoints. Return JSON data.
+- **Routes** (`src/resources/*/routes/`) — Hono HTTP handlers for redirects (OAuth, email verification). These can't be endpoints because they return `302 Redirect`, not JSON.
 - **Services** (`src/services/`) — external integrations (auth, email, google, cloud-storage, socket, analytics).
-- **Resources** (`src/resources/`) — domain logic (schemas, services, handlers, procedures).
+- **Resources** (`src/resources/`) — domain logic (schemas, services, handlers, endpoints).
 
 ---
 
@@ -25,11 +25,11 @@ import config from 'config'; // ✅
 import db from 'db'; // ✅
 ```
 
-Exception: files inside `procedures/` use **relative imports** for anything in the type chain (required for declaration emission).
+Exception: files inside `endpoints/` use **relative imports** for anything in the type chain (required for declaration emission).
 
 ---
 
-## oRPC Procedures
+## oRPC Endpoints
 
 - `pub` (from `src/procedures.ts`) — public, no auth.
 - `authed` — requires authenticated user. Provides `context.user` typed as `User`.
@@ -43,7 +43,7 @@ export default authed.input(schema).output(schema).handler(async ({ input, conte
 
 ## oRPC Context
 
-Built in `app.ts` middleware, passed to all procedures:
+Built in `app.ts` middleware, passed to all endpoints:
 
 ```typescript
 interface ORPCContext {

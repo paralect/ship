@@ -2,23 +2,23 @@
 
 import type { RouterClient } from '@orpc/server';
 
-import account_forgotPassword from './resources/account/procedures/forgotPassword';
-import account_get from './resources/account/procedures/get';
-import account_googleCallback from './resources/account/procedures/googleCallback';
-import account_googleMobile from './resources/account/procedures/googleMobile';
-import account_googleSignIn from './resources/account/procedures/googleSignIn';
-import account_resendEmail from './resources/account/procedures/resendEmail';
-import account_resetPassword from './resources/account/procedures/resetPassword';
-import account_signIn from './resources/account/procedures/signIn';
-import account_signOut from './resources/account/procedures/signOut';
-import account_signUp from './resources/account/procedures/signUp';
-import account_update from './resources/account/procedures/update';
-import account_verifyEmail from './resources/account/procedures/verifyEmail';
-import account_verifyEmailToken from './resources/account/procedures/verifyEmailToken';
-import account_verifyResetToken from './resources/account/procedures/verifyResetToken';
-import users_list from './resources/users/procedures/list';
-import users_remove from './resources/users/procedures/remove';
-import users_update from './resources/users/procedures/update';
+import account_forgotPassword from './resources/account/endpoints/forgotPassword';
+import account_get from './resources/account/endpoints/get';
+import account_googleCallback from './resources/account/endpoints/googleCallback';
+import account_googleMobile from './resources/account/endpoints/googleMobile';
+import account_googleSignIn from './resources/account/endpoints/googleSignIn';
+import account_resendEmail from './resources/account/endpoints/resendEmail';
+import account_resetPassword from './resources/account/endpoints/resetPassword';
+import account_signIn from './resources/account/endpoints/signIn';
+import account_signOut from './resources/account/endpoints/signOut';
+import account_signUp from './resources/account/endpoints/signUp';
+import account_update from './resources/account/endpoints/update';
+import account_verifyEmail from './resources/account/endpoints/verifyEmail';
+import account_verifyEmailToken from './resources/account/endpoints/verifyEmailToken';
+import account_verifyResetToken from './resources/account/endpoints/verifyResetToken';
+import users_list from './resources/users/endpoints/list';
+import users_remove from './resources/users/endpoints/remove';
+import users_update from './resources/users/endpoints/update';
 import { pub } from './procedures';
 
 export const router = pub.router({
