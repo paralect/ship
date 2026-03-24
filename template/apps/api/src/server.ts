@@ -17,7 +17,7 @@ import redisClient, { redisErrorHandler } from '@/redis-client';
 import validateAccessToken from '@/resources/tokens/methods/validate-access-token';
 import updateLastRequest from '@/resources/users/methods/update-last-request';
 import { router } from '@/router';
-import { socketService } from '@/services';
+import socketServer from '@/socket-server';
 import type { CookieOptions, HonoEnv, ORPCContext } from '@/types';
 
 const app = new Hono<HonoEnv>();
@@ -105,7 +105,7 @@ app.all('/*', async (c) => {
       .connect()
       .then(() => {
         ioEmitter.initClient();
-        socketService(nodeServer as unknown as Parameters<typeof socketService>[0]);
+        socketServer(nodeServer as unknown as Parameters<typeof socketServer>[0]);
       })
       .catch(redisErrorHandler);
   }
