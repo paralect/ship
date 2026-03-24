@@ -8,7 +8,8 @@ import { logger as honoLogger } from 'hono/logger';
 import { secureHeaders } from 'hono/secure-headers';
 import { router } from 'router';
 
-import { userService } from 'resources/users';
+import userService from 'resources/users/user.service';
+import updateLastRequest from 'resources/users/methods/updateLastRequest';
 
 import { authService, socketService } from 'services';
 
@@ -71,7 +72,7 @@ app.use(async (c, next) => {
     if (token) {
       const user = await userService.findOne({ _id: token.userId });
       if (user) {
-        await userService.updateLastRequest(token.userId);
+        await updateLastRequest(token.userId);
         ctx.user = user;
       }
     }

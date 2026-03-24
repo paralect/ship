@@ -12,16 +12,6 @@ const service = db.createService<User>(DATABASE_DOCUMENTS.USERS, {
 
 service.createIndex({ email: 1 }, { unique: true });
 
-const updateLastRequest = (_id: string) =>
-  service.atomic.updateOne(
-    { _id },
-    {
-      $set: {
-        lastRequest: new Date(),
-      },
-    },
-  );
-
 type PublicUser = Omit<User, 'passwordHash'>;
 
 function getPublic(user: User): PublicUser;
@@ -34,6 +24,5 @@ function getPublic(user: User | null): PublicUser | null {
 }
 
 export default Object.assign(service, {
-  updateLastRequest,
   getPublic,
 });

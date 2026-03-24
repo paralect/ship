@@ -9,8 +9,9 @@ import {
 } from 'arctic';
 import { z } from 'zod';
 
-import { userService } from 'resources/users';
+import userService from 'resources/users/user.service';
 import type { User } from 'resources/users/user.schema';
+import updateLastRequest from 'resources/users/methods/updateLastRequest';
 
 import config from 'config';
 
@@ -54,7 +55,7 @@ const handleExistingUser = async (userId: string): Promise<User | null> => {
   const existingUser = await userService.findOne({ 'oauth.google.userId': userId });
 
   if (existingUser) {
-    await userService.updateLastRequest(existingUser._id);
+    await updateLastRequest(existingUser._id);
 
     return existingUser;
   }
@@ -75,7 +76,7 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
       },
     }));
 
-    await userService.updateLastRequest(existingUserByEmail._id);
+    await updateLastRequest(existingUserByEmail._id);
 
     return existingUserByEmail;
   }

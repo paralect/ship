@@ -2,9 +2,10 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema } from 'resources/base.schema';
-import { tokenService } from 'resources/token';
 import { TokenType } from 'resources/token/token.schema';
-import { userService } from 'resources/users';
+import createToken from 'resources/token/methods/createToken';
+import invalidateUserTokens from 'resources/token/methods/invalidateUserTokens';
+import userService from 'resources/users/user.service';
 
 import { emailService } from 'services';
 
@@ -24,9 +25,9 @@ export default pub
 
     if (!user) return {};
 
-    await tokenService.invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
+    await invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
 
-    const emailVerificationToken = await tokenService.createToken({
+    const emailVerificationToken = await createToken({
       userId: user._id,
       type: TokenType.EMAIL_VERIFICATION,
       expiresIn: EMAIL_VERIFICATION_TOKEN.EXPIRATION_SECONDS,

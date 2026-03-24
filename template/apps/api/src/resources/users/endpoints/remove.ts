@@ -1,7 +1,7 @@
 import { admin, withEntity } from 'procedures';
 import { z } from 'zod';
 
-import { userService } from '..';
+import userService from '../user.service';
 
 const emptyOutput = z.object({});
 

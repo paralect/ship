@@ -1,7 +1,7 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { userService } from 'resources/users';
+import userService from 'resources/users/user.service';
 import { userPublicSchema } from 'resources/users/user.schema';
 
 import { authService, googleService } from 'services';

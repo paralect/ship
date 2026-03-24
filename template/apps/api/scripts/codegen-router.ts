@@ -24,11 +24,25 @@ function getEndpoints(resource: string): string[] {
     .sort();
 }
 
+function getHandlers(resource: string): string[] {
+  const dir = join(RESOURCES_DIR, resource, 'handlers');
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith('.ts'))
+    .map((f) => basename(f, '.ts'))
+    .sort();
+}
+
 function buildRouter(resources: string[]): string {
+  const handlerImports: string[] = [];
   const imports: string[] = [];
   const routerEntries: string[] = [];
 
   for (const r of resources) {
+    for (const h of getHandlers(r)) {
+      handlerImports.push(`import './resources/${r}/handlers/${h}';`);
+    }
+
     const endpoints = getEndpoints(r);
     for (const p of endpoints) {
       imports.push(`import ${r}_${p} from './resources/${r}/endpoints/${p}';`);
@@ -39,6 +53,8 @@ function buildRouter(resources: string[]): string {
 
   return [
     HEADER,
+    ...handlerImports,
+    ...(handlerImports.length ? [''] : []),
     "import type { RouterClient } from '@orpc/server';",
     '',
     ...imports,

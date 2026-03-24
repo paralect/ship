@@ -2,12 +2,13 @@ import { authed } from 'procedures';
 import { z } from 'zod';
 
 import { passwordSchema } from 'resources/base.schema';
-import { userService } from 'resources/users';
+import userService from 'resources/users/user.service';
 import { userPublicSchema, userSchema } from 'resources/users/user.schema';
 
 import { securityUtil } from 'utils';
 
-import * as accountUtils from '../account.utils';
+import removeAvatar from 'resources/account/methods/removeAvatar';
+import uploadAvatar from 'resources/account/methods/uploadAvatar';
 
 const publicUserOutput = userPublicSchema;
 
@@ -37,12 +38,12 @@ export default authed
     }
 
     if (avatar === '') {
-      await accountUtils.removeAvatar(user);
+      await removeAvatar(user);
       updateData.avatarUrl = null;
     }
 
     if (avatar && avatar !== '') {
-      updateData.avatarUrl = await accountUtils.uploadAvatar(user, avatar);
+      updateData.avatarUrl = await uploadAvatar(user, avatar);
     }
 
     if (Object.keys(updateData).length === 0) {

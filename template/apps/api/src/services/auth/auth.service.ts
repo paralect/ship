@@ -1,7 +1,10 @@
-import { tokenService } from 'resources/token';
+import tokenService from 'resources/token/token.service';
 import type { Token } from 'resources/token/token.schema';
 import { TokenType } from 'resources/token/token.schema';
-import { userService } from 'resources/users';
+import createToken from 'resources/token/methods/createToken';
+import invalidateUserTokens from 'resources/token/methods/invalidateUserTokens';
+import validateToken from 'resources/token/methods/validateToken';
+import updateLastRequest from 'resources/users/methods/updateLastRequest';
 
 import { clientUtil, cookieUtil } from 'utils';
 
@@ -16,14 +19,14 @@ interface SetAccessTokenOptions {
 export const setAccessToken = async ({ ctx, userId }: SetAccessTokenOptions) => {
   const clientType = clientUtil.detectClientType(ctx);
 
-  const accessToken = await tokenService.createToken({
+  const accessToken = await createToken({
     userId,
     type: TokenType.ACCESS,
     expiresIn: ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS,
   });
 
   if (clientType === clientUtil.ClientType.MOBILE) {
-    userService.updateLastRequest(userId);
+    updateLastRequest(userId);
     return accessToken;
   }
 
@@ -33,7 +36,7 @@ export const setAccessToken = async ({ ctx, userId }: SetAccessTokenOptions) => 
     expiresIn: ACCESS_TOKEN.ABSOLUTE_EXPIRATION_SECONDS,
   });
 
-  userService.updateLastRequest(userId);
+  updateLastRequest(userId);
 
   return accessToken;
 };
@@ -46,14 +49,14 @@ export const unsetUserAccessToken = async ({ ctx }: UnsetUserAccessTokenOptions)
   const user = ctx.user;
 
   if (user) {
-    await tokenService.invalidateUserTokens(user._id, TokenType.ACCESS);
+    await invalidateUserTokens(user._id, TokenType.ACCESS);
   }
 
   await cookieUtil.unsetTokens({ ctx });
 };
 
 export const validateAccessToken = async (value?: string | null): Promise<Token | null> => {
-  const token = await tokenService.validateToken(value, TokenType.ACCESS);
+  const token = await validateToken(value, TokenType.ACCESS);
 
   if (!token || token.type !== TokenType.ACCESS) return null;
 

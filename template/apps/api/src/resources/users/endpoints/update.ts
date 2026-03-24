@@ -2,7 +2,7 @@ import { authed, withEntity } from 'procedures';
 import { z } from 'zod';
 
 import { userPublicSchema, userSchema } from '../user.schema';
-import { userService } from '..';
+import userService from '../user.service';
 
 const publicUserOutput = userPublicSchema;
 

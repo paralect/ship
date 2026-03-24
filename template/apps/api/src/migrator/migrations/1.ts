@@ -1,4 +1,4 @@
-import { userService } from 'resources/users';
+import userService from 'resources/users/user.service';
 
 import { promiseUtil } from 'utils';
 

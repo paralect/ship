@@ -1,9 +1,9 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { tokenService } from 'resources/token';
 import { TokenType } from 'resources/token/token.schema';
-import { userService } from 'resources/users';
+import validateToken from 'resources/token/methods/validateToken';
+import userService from 'resources/users/user.service';
 
 import config from 'config';
 
@@ -23,7 +23,7 @@ export default pub
         return { headers: { location: url.toString() } };
       }
 
-      const resetPasswordToken = await tokenService.validateToken(input.token, TokenType.RESET_PASSWORD);
+      const resetPasswordToken = await validateToken(input.token, TokenType.RESET_PASSWORD);
       const user = await userService.findOne({ _id: resetPasswordToken?.userId });
 
       if (!resetPasswordToken || !user) {

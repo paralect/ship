@@ -1,9 +1,10 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { tokenService } from 'resources/token';
 import { TokenType } from 'resources/token/token.schema';
-import { userService } from 'resources/users';
+import validateToken from 'resources/token/methods/validateToken';
+import invalidateUserTokens from 'resources/token/methods/invalidateUserTokens';
+import userService from 'resources/users/user.service';
 
 import { authService, emailService } from 'services';
 
@@ -27,7 +28,7 @@ export default pub
         return { headers: { location: url.toString() } };
       }
 
-      const emailVerificationToken = await tokenService.validateToken(input.token, TokenType.EMAIL_VERIFICATION);
+      const emailVerificationToken = await validateToken(input.token, TokenType.EMAIL_VERIFICATION);
       const user = await userService.findOne({ _id: emailVerificationToken?.userId });
 
       if (!emailVerificationToken || !user) {
@@ -36,7 +37,7 @@ export default pub
         return { headers: { location: url.toString() } };
       }
 
-      await tokenService.invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
+      await invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
       await userService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }));
 
       await authService.setAccessToken({ ctx: context, userId: user._id });

@@ -4,15 +4,9 @@ import { cloudStorageService } from 'services';
 
 import { BackendFile } from 'types';
 
-export const removeAvatar = async (user: User) => {
-  if (user.avatarUrl) {
-    const fileKey = cloudStorageService.getFileKey(user.avatarUrl);
+import removeAvatar from 'resources/account/methods/removeAvatar';
 
-    await cloudStorageService.deleteObject(fileKey);
-  }
-};
-
-export const uploadAvatar = async (user: User, file: BackendFile, customFileName?: string): Promise<string> => {
+export default async function uploadAvatar(user: User, file: BackendFile, customFileName?: string): Promise<string> {
   await removeAvatar(user);
 
   const fileName = customFileName || `${user._id}-${Date.now()}-${file.originalFilename}`;
@@ -24,4 +18,4 @@ export const uploadAvatar = async (user: User, file: BackendFile, customFileName
   }
 
   return avatarUrl;
-};
+}

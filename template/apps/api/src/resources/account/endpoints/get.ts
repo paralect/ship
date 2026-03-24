@@ -1,6 +1,6 @@
 import { authed } from 'procedures';
 
-import { userService } from 'resources/users';
+import userService from 'resources/users/user.service';
 import { userPublicSchema } from 'resources/users/user.schema';
 
 const publicUserOutput = userPublicSchema;

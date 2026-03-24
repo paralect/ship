@@ -2,9 +2,9 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema, passwordSchema } from 'resources/base.schema';
-import { tokenService } from 'resources/token';
 import { TokenType } from 'resources/token/token.schema';
-import { userService } from 'resources/users';
+import createToken from 'resources/token/methods/createToken';
+import userService from 'resources/users/user.service';
 import { userPublicSchema, userSchema } from 'resources/users/user.schema';
 
 import { emailService } from 'services';
@@ -47,7 +47,7 @@ export default pub
       isEmailVerified: false,
     });
 
-    const emailVerificationToken = await tokenService.createToken({
+    const emailVerificationToken = await createToken({
       userId: user._id,
       type: TokenType.EMAIL_VERIFICATION,
       expiresIn: EMAIL_VERIFICATION_TOKEN.EXPIRATION_SECONDS,

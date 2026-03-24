@@ -6,7 +6,7 @@ import { listResultSchema, paginationSchema } from 'resources/base.schema';
 import type { NestedKeys } from 'types';
 
 import { userPublicSchema } from '../user.schema';
-import { userService } from '..';
+import userService from '../user.service';
 
 const publicUserOutput = userPublicSchema;
 

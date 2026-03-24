@@ -2,9 +2,9 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema } from 'resources/base.schema';
-import { tokenService } from 'resources/token';
 import { TokenType } from 'resources/token/token.schema';
-import { userService } from 'resources/users';
+import getUserActiveToken from 'resources/token/methods/getUserActiveToken';
+import userService from 'resources/users/user.service';
 import { userPublicSchema } from 'resources/users/user.schema';
 
 import { authService } from 'services';
@@ -46,7 +46,7 @@ export default pub
     }
 
     if (!user.isEmailVerified) {
-      const existingEmailVerificationToken = await tokenService.getUserActiveToken(
+      const existingEmailVerificationToken = await getUserActiveToken(
         user._id,
         TokenType.EMAIL_VERIFICATION,
       );

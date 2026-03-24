@@ -2,9 +2,10 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { passwordSchema } from 'resources/base.schema';
-import { tokenService } from 'resources/token';
 import { TokenType } from 'resources/token/token.schema';
-import { userService } from 'resources/users';
+import validateToken from 'resources/token/methods/validateToken';
+import invalidateUserTokens from 'resources/token/methods/invalidateUserTokens';
+import userService from 'resources/users/user.service';
 
 import { securityUtil } from 'utils';
 
@@ -21,14 +22,14 @@ export default pub
   .handler(async ({ input }) => {
     const { token, password } = input;
 
-    const resetPasswordToken = await tokenService.validateToken(token, TokenType.RESET_PASSWORD);
+    const resetPasswordToken = await validateToken(token, TokenType.RESET_PASSWORD);
     const user = await userService.findOne({ _id: resetPasswordToken?.userId });
 
     if (!resetPasswordToken || !user) return {};
 
     const passwordHash = await securityUtil.hashPassword(password);
 
-    await tokenService.invalidateUserTokens(user._id, TokenType.RESET_PASSWORD);
+    await invalidateUserTokens(user._id, TokenType.RESET_PASSWORD);
     await userService.updateOne({ _id: user._id }, () => ({ passwordHash }));
 
     return {};

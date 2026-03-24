@@ -2,9 +2,10 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema } from 'resources/base.schema';
-import { tokenService } from 'resources/token';
 import { TokenType } from 'resources/token/token.schema';
-import { userService } from 'resources/users';
+import createToken from 'resources/token/methods/createToken';
+import invalidateUserTokens from 'resources/token/methods/invalidateUserTokens';
+import userService from 'resources/users/user.service';
 
 import { emailService } from 'services';
 
@@ -25,11 +26,11 @@ export default pub
     if (!user) return {};
 
     await Promise.all([
-      tokenService.invalidateUserTokens(user._id, TokenType.ACCESS),
-      tokenService.invalidateUserTokens(user._id, TokenType.RESET_PASSWORD),
+      invalidateUserTokens(user._id, TokenType.ACCESS),
+      invalidateUserTokens(user._id, TokenType.RESET_PASSWORD),
     ]);
 
-    const resetPasswordToken = await tokenService.createToken({
+    const resetPasswordToken = await createToken({
       userId: user._id,
       type: TokenType.RESET_PASSWORD,
       expiresIn: RESET_PASSWORD_TOKEN.EXPIRATION_SECONDS,
