@@ -1,4 +1,5 @@
 import { serve } from '@hono/node-server';
+import { OpenAPIHandler } from '@orpc/openapi/fetch';
 import { RPCHandler } from '@orpc/server/fetch';
 import { Hono } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
@@ -7,7 +8,6 @@ import { logger as honoLogger } from 'hono/logger';
 import { secureHeaders } from 'hono/secure-headers';
 import { router } from 'router';
 
-import accountRoutes from 'resources/account/routes';
 import { userService } from 'resources/users';
 
 import { authService, socketService } from 'services';
@@ -83,19 +83,15 @@ app.use(async (c, next) => {
 
 app.get('/health', (c) => c.json({ status: 'ok' }, 200));
 
-app.route('/account', accountRoutes);
-
 const rpcHandler = new RPCHandler(router);
+const openApiHandler = new OpenAPIHandler(router);
 
-app.all('/rpc/*', async (c) => {
-  const { matched, response } = await rpcHandler.handle(c.req.raw, {
-    prefix: '/rpc',
-    context: c.var.ctx,
-  });
+app.all('/*', async (c) => {
+  const rpc = await rpcHandler.handle(c.req.raw, { context: c.var.ctx });
+  if (rpc.matched) return rpc.response;
 
-  if (matched) {
-    return response;
-  }
+  const openApi = await openApiHandler.handle(c.req.raw, { context: c.var.ctx });
+  if (openApi.matched) return openApi.response;
 
   return c.json({ error: 'Not found' }, 404);
 });

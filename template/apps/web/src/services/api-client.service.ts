@@ -6,7 +6,7 @@ import type { AppClient } from 'api';
 import config from 'config';
 
 const link = new RPCLink({
-  url: `${config.API_URL}/rpc`,
+  url: config.API_URL,
   headers: () => ({
     'Content-Type': 'application/json',
   }),
