@@ -1,14 +1,14 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import userService from 'resources/users/user.service';
-import { userPublicSchema } from 'resources/users/user.schema';
+import getPublic from 'resources/users/methods/getPublic';
+import { publicSchema } from 'resources/users/users.schema';
 
 import { authService, googleService } from 'services';
 
 import { ClientError } from 'types';
 
-const publicUserOutput = userPublicSchema;
+const publicUserOutput = publicSchema;
 
 export default pub
   .input(z.object({ idToken: z.string().min(1, 'ID token is required') }))
@@ -31,6 +31,6 @@ export default pub
 
     return {
       accessToken,
-      user: userService.getPublic(user),
+      user: getPublic(user),
     };
   });

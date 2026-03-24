@@ -1,10 +1,10 @@
 import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { TokenType } from 'resources/token/token.schema';
-import validateToken from 'resources/token/methods/validateToken';
-import invalidateUserTokens from 'resources/token/methods/invalidateUserTokens';
-import userService from 'resources/users/user.service';
+import { TokenType } from 'resources/tokens/tokens.schema';
+import validateToken from 'resources/tokens/methods/validateToken';
+import invalidateUserTokens from 'resources/tokens/methods/invalidateUserTokens';
+import { usersService } from 'db';
 
 import { authService, emailService } from 'services';
 
@@ -29,7 +29,7 @@ export default pub
       }
 
       const emailVerificationToken = await validateToken(input.token, TokenType.EMAIL_VERIFICATION);
-      const user = await userService.findOne({ _id: emailVerificationToken?.userId });
+      const user = await usersService.findOne({ _id: emailVerificationToken?.userId });
 
       if (!emailVerificationToken || !user) {
         const url = new URL(config.WEB_URL);
@@ -38,7 +38,7 @@ export default pub
       }
 
       await invalidateUserTokens(user._id, TokenType.EMAIL_VERIFICATION);
-      await userService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }));
+      await usersService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }));
 
       await authService.setAccessToken({ ctx: context, userId: user._id });
 

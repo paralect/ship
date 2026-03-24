@@ -2,17 +2,19 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema } from 'resources/base.schema';
-import { TokenType } from 'resources/token/token.schema';
-import getUserActiveToken from 'resources/token/methods/getUserActiveToken';
-import userService from 'resources/users/user.service';
-import { userPublicSchema } from 'resources/users/user.schema';
+import { TokenType } from 'resources/tokens/tokens.schema';
+import getUserActiveToken from 'resources/tokens/methods/getUserActiveToken';
+import { publicSchema } from 'resources/users/users.schema';
+import getPublic from 'resources/users/methods/getPublic';
+import { usersService } from 'db';
 
 import { authService } from 'services';
 import { clientUtil, securityUtil } from 'utils';
 
 import { ClientError } from 'types';
 
-const publicUserOutput = userPublicSchema;
+
+const publicUserOutput = publicSchema;
 
 export default pub
   .input(
@@ -33,7 +35,7 @@ export default pub
   .handler(async ({ input, context }) => {
     const { email, password } = input;
 
-    const user = await userService.findOne({ email });
+    const user = await usersService.findOne({ email });
 
     if (!user || !user.passwordHash) {
       throw new ClientError({ credentials: 'The email or password you have entered is invalid' });
@@ -66,9 +68,9 @@ export default pub
     if (clientType === clientUtil.ClientType.MOBILE) {
       return {
         accessToken,
-        user: userService.getPublic(user),
+        user: getPublic(user),
       };
     }
 
-    return userService.getPublic(user);
+    return getPublic(user);
   });

@@ -1,16 +1,12 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
-import type { User } from 'resources/users/user.schema';
+import type { User } from 'resources/users/users.schema';
 
 import { analyticsService } from 'services';
 
 import logger from 'logger';
 
-import { DATABASE_DOCUMENTS } from 'app-constants';
-
-const { USERS } = DATABASE_DOCUMENTS;
-
-eventBus.on(`${USERS}.created`, (data: InMemoryEvent<User>) => {
+eventBus.on(`users.created`, (data: InMemoryEvent<User>) => {
   try {
     const user = data.doc;
 
@@ -21,6 +17,6 @@ eventBus.on(`${USERS}.created`, (data: InMemoryEvent<User>) => {
       lastName,
     });
   } catch (err) {
-    logger.error(`${USERS}.created handler error: ${err}`);
+    logger.error(`users.created handler error: ${err}`);
   }
 });

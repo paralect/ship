@@ -2,10 +2,11 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema, passwordSchema } from 'resources/base.schema';
-import { TokenType } from 'resources/token/token.schema';
-import createToken from 'resources/token/methods/createToken';
-import userService from 'resources/users/user.service';
-import { userPublicSchema, userSchema } from 'resources/users/user.schema';
+import { TokenType } from 'resources/tokens/tokens.schema';
+import createToken from 'resources/tokens/methods/createToken';
+import usersSchema, { publicSchema } from 'resources/users/users.schema';
+import getPublic from 'resources/users/methods/getPublic';
+import { usersService } from 'db';
 
 import { emailService } from 'services';
 import { clientUtil, securityUtil } from 'utils';
@@ -15,11 +16,12 @@ import config from 'config';
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 import { ClientError, Template } from 'types';
 
-const publicUserOutput = userPublicSchema;
+
+const publicUserOutput = publicSchema;
 
 export default pub
   .input(
-    userSchema.pick({ firstName: true, lastName: true }).extend({
+    usersSchema.pick({ firstName: true, lastName: true }).extend({
       email: emailSchema,
       password: passwordSchema,
     }),
@@ -33,13 +35,13 @@ export default pub
   .handler(async ({ input, context }) => {
     const { firstName, lastName, email, password } = input;
 
-    const isUserExists = await userService.exists({ email });
+    const isUserExists = await usersService.exists({ email });
 
     if (isUserExists) {
       throw new ClientError({ email: 'User with this email is already registered' });
     }
 
-    const user = await userService.insertOne({
+    const user = await usersService.insertOne({
       email,
       firstName,
       lastName,
@@ -68,7 +70,7 @@ export default pub
     if (clientType === clientUtil.ClientType.MOBILE) {
       return {
         emailVerificationToken: config.IS_DEV ? emailVerificationToken : undefined,
-        user: userService.getPublic(user),
+        user: getPublic(user),
       };
     }
 

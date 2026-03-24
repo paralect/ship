@@ -2,10 +2,10 @@ import { pub } from 'procedures';
 import { z } from 'zod';
 
 import { emailSchema } from 'resources/base.schema';
-import { TokenType } from 'resources/token/token.schema';
-import createToken from 'resources/token/methods/createToken';
-import invalidateUserTokens from 'resources/token/methods/invalidateUserTokens';
-import userService from 'resources/users/user.service';
+import { TokenType } from 'resources/tokens/tokens.schema';
+import createToken from 'resources/tokens/methods/createToken';
+import invalidateUserTokens from 'resources/tokens/methods/invalidateUserTokens';
+import { usersService } from 'db';
 
 import { emailService } from 'services';
 
@@ -21,7 +21,7 @@ export default pub
   .output(emptyOutput)
   .handler(async ({ input }) => {
     const { email } = input;
-    const user = await userService.findOne({ email });
+    const user = await usersService.findOne({ email });
 
     if (!user) return {};
 

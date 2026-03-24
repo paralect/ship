@@ -1,7 +1,7 @@
-import userService from 'resources/users/user.service';
+import { usersService } from 'db';
 
 export default function updateLastRequest(_id: string) {
-  return userService.atomic.updateOne(
+  return usersService.atomic.updateOne(
     { _id },
     {
       $set: {

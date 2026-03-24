@@ -1,6 +1,6 @@
 import { ORPCError, os } from '@orpc/server';
 
-import type { User } from './resources/users/user.schema';
+import type { User } from './resources/users/users.schema';
 import config from './config';
 import type { ORPCContext } from './types';
 

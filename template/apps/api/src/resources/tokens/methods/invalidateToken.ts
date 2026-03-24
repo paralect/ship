@@ -1,6 +1,6 @@
-import { TokenType } from 'resources/token/token.schema';
+import { TokenType } from 'resources/tokens/tokens.schema';
 
-import tokenService from 'resources/token/token.service';
+import { tokensService } from 'db';
 
 export default async function invalidateToken(token?: string | null): Promise<void> {
   if (!token) return;
@@ -11,5 +11,5 @@ export default async function invalidateToken(token?: string | null): Promise<vo
 
   const [tokenId] = tokenParts;
 
-  await tokenService.deleteOne({ _id: tokenId, type: TokenType.ACCESS });
+  await tokensService.deleteOne({ _id: tokenId, type: TokenType.ACCESS });
 }

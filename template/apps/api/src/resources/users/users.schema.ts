@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { dbSchema, emailSchema } from '../base.schema';
 
-export const userSchema = dbSchema.extend({
+const schema = dbSchema.extend({
   firstName: z.string().min(1, 'First name is required').max(128, 'First name must be less than 128 characters.'),
   lastName: z.string().min(1, 'Last name is required').max(128, 'Last name must be less than 128 characters.'),
 
@@ -27,8 +27,14 @@ export const userSchema = dbSchema.extend({
   lastRequest: z.date().optional(),
 });
 
-export type User = z.infer<typeof userSchema>;
+export default schema;
 
-export const userPublicSchema = userSchema.omit({
+export type User = z.infer<typeof schema>;
+
+export const publicSchema = schema.omit({
   passwordHash: true,
 });
+
+export const indexes = [
+  { fields: { email: 1 }, options: { unique: true } },
+] as const;

@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 import { Migration } from 'migrator/types';
 
-import db from 'db';
+import { createService } from 'initDb';
 
 import schema from './migration-version.schema';
 import { MigrationVersion } from './migration-version-types';
@@ -12,7 +12,7 @@ import { MigrationVersion } from './migration-version-types';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const service = db.createService<MigrationVersion>('__migrationVersion', {
+const service = createService<MigrationVersion>('__migrationVersion', {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 

@@ -1,16 +1,16 @@
 import { admin, withEntity } from 'procedures';
 import { z } from 'zod';
 
-import userService from '../user.service';
+import { usersService } from 'db';
 
 const emptyOutput = z.object({});
 
 export default admin
   .input(z.object({ id: z.string() }))
-  .use(withEntity((id) => userService.findOne({ _id: id }), 'User'))
+  .use(withEntity((id) => usersService.findOne({ _id: id }), 'User'))
   .output(emptyOutput)
   .handler(async ({ input }) => {
-    await userService.deleteSoft({ _id: input.id });
+    await usersService.deleteSoft({ _id: input.id });
 
     return {};
   });

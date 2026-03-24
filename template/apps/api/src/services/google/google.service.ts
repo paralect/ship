@@ -9,9 +9,10 @@ import {
 } from 'arctic';
 import { z } from 'zod';
 
-import userService from 'resources/users/user.service';
-import type { User } from 'resources/users/user.schema';
+import { usersService } from 'db';
+import type { User } from 'resources/users/users.schema';
 import updateLastRequest from 'resources/users/methods/updateLastRequest';
+
 
 import config from 'config';
 
@@ -52,7 +53,7 @@ interface GoogleUserData {
 }
 
 const handleExistingUser = async (userId: string): Promise<User | null> => {
-  const existingUser = await userService.findOne({ 'oauth.google.userId': userId });
+  const existingUser = await usersService.findOne({ 'oauth.google.userId': userId });
 
   if (existingUser) {
     await updateLastRequest(existingUser._id);
@@ -64,10 +65,10 @@ const handleExistingUser = async (userId: string): Promise<User | null> => {
 };
 
 const handleExistingUserByEmail = async (email: string, googleUserId: string): Promise<User | null> => {
-  const existingUserByEmail = await userService.findOne({ email });
+  const existingUserByEmail = await usersService.findOne({ email });
 
   if (existingUserByEmail) {
-    await userService.updateOne({ _id: existingUserByEmail._id }, () => ({
+    await usersService.updateOne({ _id: existingUserByEmail._id }, () => ({
       oauth: {
         google: {
           userId: googleUserId,
@@ -87,7 +88,7 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
 const createNewUser = async (userData: GoogleUserData): Promise<User | null> => {
   const { firstName, lastName, email, isEmailVerified, avatarUrl, googleUserId } = userData;
 
-  return userService.insertOne({
+  return usersService.insertOne({
     firstName,
     lastName,
     email,

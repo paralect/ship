@@ -1,10 +1,10 @@
 import { authed } from 'procedures';
 
-import userService from 'resources/users/user.service';
-import { userPublicSchema } from 'resources/users/user.schema';
+import getPublic from 'resources/users/methods/getPublic';
+import { publicSchema } from 'resources/users/users.schema';
 
-const publicUserOutput = userPublicSchema;
+const publicUserOutput = publicSchema;
 
 export default authed.output(publicUserOutput).handler(async ({ context }) => {
-  return userService.getPublic(context.user);
+  return getPublic(context.user);
 });

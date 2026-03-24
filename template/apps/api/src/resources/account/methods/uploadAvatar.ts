@@ -1,4 +1,4 @@
-import type { User } from 'resources/users/user.schema';
+import type { User } from 'resources/users/users.schema';
 
 import { cloudStorageService } from 'services';
 

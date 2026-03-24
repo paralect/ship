@@ -1,22 +1,18 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
-import type { User } from 'resources/users/user.schema';
-import userService from 'resources/users/user.service';
+import type { User } from 'resources/users/users.schema';
+import getPublic from 'resources/users/methods/getPublic';
 
 import ioEmitter from 'io-emitter';
 
 import logger from 'logger';
 
-import { DATABASE_DOCUMENTS } from 'app-constants';
-
-const { USERS } = DATABASE_DOCUMENTS;
-
-eventBus.on(`${USERS}.updated`, (data: InMemoryEvent<User>) => {
+eventBus.on(`users.updated`, (data: InMemoryEvent<User>) => {
   try {
     const user = data.doc;
 
-    ioEmitter.publishToUser(user._id, 'user:updated', userService.getPublic(user));
+    ioEmitter.publishToUser(user._id, 'user:updated', getPublic(user));
   } catch (err) {
-    logger.error(`${USERS}.updated handler error: ${err}`);
+    logger.error(`users.updated handler error: ${err}`);
   }
 });

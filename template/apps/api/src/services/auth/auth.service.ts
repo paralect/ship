@@ -1,9 +1,9 @@
-import tokenService from 'resources/token/token.service';
-import type { Token } from 'resources/token/token.schema';
-import { TokenType } from 'resources/token/token.schema';
-import createToken from 'resources/token/methods/createToken';
-import invalidateUserTokens from 'resources/token/methods/invalidateUserTokens';
-import validateToken from 'resources/token/methods/validateToken';
+import { tokensService } from 'db';
+import type { Token } from 'resources/tokens/tokens.schema';
+import { TokenType } from 'resources/tokens/tokens.schema';
+import createToken from 'resources/tokens/methods/createToken';
+import invalidateUserTokens from 'resources/tokens/methods/invalidateUserTokens';
+import validateToken from 'resources/tokens/methods/validateToken';
 import updateLastRequest from 'resources/users/methods/updateLastRequest';
 
 import { clientUtil, cookieUtil } from 'utils';
@@ -68,7 +68,7 @@ export const validateAccessToken = async (value?: string | null): Promise<Token 
   ) {
     const newExpiresOn = new Date(now.getTime() + ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS * 1000);
 
-    await tokenService.updateOne({ _id: token._id, type: TokenType.ACCESS }, () => ({ expiresOn: newExpiresOn }));
+    await tokensService.updateOne({ _id: token._id, type: TokenType.ACCESS }, () => ({ expiresOn: newExpiresOn }));
 
     token.expiresOn = newExpiresOn;
   }
