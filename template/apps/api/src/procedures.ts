@@ -1,10 +1,10 @@
 import { ORPCError, os } from '@orpc/server';
 
 import type { User } from './resources/users/users.schema';
-import config from './config';
 import type { ORPCContext } from './types';
 
 export const isPublic = os.$context<ORPCContext>();
+const isAuthorizedContext = os.$context<ORPCContext & { user: User }>();
 
 const authMiddleware = isPublic.middleware(async ({ context, next }) => {
   if (!context.user) {
@@ -16,17 +16,15 @@ const authMiddleware = isPublic.middleware(async ({ context, next }) => {
 
 export const isAuthorized = isPublic.use(authMiddleware);
 
-const adminMiddleware = isPublic.middleware(async ({ context, next }) => {
-  const adminKey = context.headers['x-admin-key'];
-
-  if (!config.ADMIN_KEY || config.ADMIN_KEY !== adminKey) {
-    throw new ORPCError('UNAUTHORIZED', { message: 'Admin access required' });
+const adminMiddleware = isAuthorizedContext.middleware(async ({ context, next }) => {
+  if (!context.user.isAdmin) {
+    throw new ORPCError('FORBIDDEN', { message: 'Admin access required' });
   }
 
   return next({ context: { ...context, isAdmin: true as const } });
 });
 
-export const isAdmin = isPublic.use(adminMiddleware);
+export const isAdmin = isAuthorized.use(adminMiddleware);
 
 export function withEntity<T>(load: (id: string) => Promise<T | null>, name: string) {
   const key = name.toLowerCase();

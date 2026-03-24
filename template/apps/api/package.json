@@ -8,6 +8,7 @@
   "main": "./src/router.ts",
   "types": "./dist/router.d.ts",
   "scripts": {
+    "admin:set": "NODE_ENV=development APP_ENV=development tsx --env-file=.env src/admin-set.ts",
     "build": "pnpm codegen && tsc",
     "build:types": "pnpm codegen && tsc --emitDeclarationOnly",
     "dev": "tsx scripts/codegen-router.ts --watch & NODE_ENV=development APP_ENV=development tsx watch --clear-screen=false --env-file=.env src/app.ts",

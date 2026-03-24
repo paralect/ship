@@ -3,9 +3,9 @@ import { z } from 'zod';
 import usersSchema, { publicSchema } from '../users.schema';
 
 import { usersService } from '@/db';
-import { isAuthorized, withEntity } from '@/procedures';
+import { isAdmin, withEntity } from '@/procedures';
 
-export default isAuthorized
+export default isAdmin
   .input(
     z.object({
       id: z.string(),

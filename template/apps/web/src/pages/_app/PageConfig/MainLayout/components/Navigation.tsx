@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useApiQuery } from 'hooks';
 import { Home, Users } from 'lucide-react';
+
+import { apiClient } from 'services/api-client.service';
 
 import { cn } from '@/lib/utils';
 
@@ -10,7 +13,7 @@ interface NavigationProps {
 
 const Navigation = ({ isCollapsed }: NavigationProps) => {
   const router = useRouter();
-
+  const { data: currentUser } = useApiQuery(apiClient.users.getCurrent);
   const currentPath = router.pathname;
 
   return (
@@ -29,19 +32,21 @@ const Navigation = ({ isCollapsed }: NavigationProps) => {
         </div>
       </Link>
 
-      <Link href="/app/admin">
-        <div
-          className={cn(
-            'flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
-            currentPath === '/app/admin' && 'bg-muted',
-            isCollapsed && 'justify-center px-0',
-          )}
-          title={isCollapsed ? 'Admin' : undefined}
-        >
-          <Users className="size-4 shrink-0" />
-          {!isCollapsed && <span className="text-sm font-medium">Admin</span>}
-        </div>
-      </Link>
+      {currentUser?.isAdmin && (
+        <Link href="/app/admin">
+          <div
+            className={cn(
+              'flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-muted',
+              currentPath === '/app/admin' && 'bg-muted',
+              isCollapsed && 'justify-center px-0',
+            )}
+            title={isCollapsed ? 'Admin' : undefined}
+          >
+            <Users className="size-4 shrink-0" />
+            {!isCollapsed && <span className="text-sm font-medium">Admin</span>}
+          </div>
+        </Link>
+      )}
     </div>
   );
 };
