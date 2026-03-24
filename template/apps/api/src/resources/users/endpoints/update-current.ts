@@ -1,14 +1,12 @@
-import { authed } from 'procedures';
 import { z } from 'zod';
 
-import removeAvatar from 'resources/auth/methods/remove-avatar';
-import uploadAvatar from 'resources/auth/methods/upload-avatar';
-import { passwordSchema } from 'resources/base.schema';
-import usersSchema, { publicSchema } from 'resources/users/users.schema';
-
-import { securityUtil } from 'utils';
-
-import { usersService } from 'db';
+import { usersService } from '@/db';
+import { authed } from '@/procedures';
+import removeAvatar from '@/resources/auth/methods/remove-avatar';
+import uploadAvatar from '@/resources/auth/methods/upload-avatar';
+import { passwordSchema } from '@/resources/base.schema';
+import usersSchema, { publicSchema } from '@/resources/users/users.schema';
+import { securityUtil } from '@/utils';
 
 export default authed
   .input(

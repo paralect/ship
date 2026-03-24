@@ -1,7 +1,7 @@
-import { createService } from 'init-db';
-
 import schema from './migration-log.schema';
 import { MigrationLog } from './migration-log.types';
+
+import { createService } from '@/init-db';
 
 const service = createService<MigrationLog>('__migrationLog', {
   schemaValidator: (obj) => schema.parseAsync(obj),

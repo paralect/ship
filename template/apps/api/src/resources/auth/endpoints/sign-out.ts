@@ -1,11 +1,9 @@
-import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { TokenType } from 'resources/tokens/tokens.schema';
-
-import { cookieUtil } from 'utils';
-
-import { tokensService } from 'db';
+import { tokensService } from '@/db';
+import { pub } from '@/procedures';
+import { TokenType } from '@/resources/tokens/tokens.schema';
+import { cookieUtil } from '@/utils';
 
 export default pub.output(z.object({})).handler(async ({ context }) => {
   if (context.user) {

@@ -1,10 +1,9 @@
-import validateToken from 'resources/tokens/methods/validate-token';
-import type { Token } from 'resources/tokens/tokens.schema';
-import { TokenType } from 'resources/tokens/tokens.schema';
-
-import { tokensService } from 'db';
-
 import { ACCESS_TOKEN } from 'app-constants';
+
+import { tokensService } from '@/db';
+import validateToken from '@/resources/tokens/methods/validate-token';
+import type { Token } from '@/resources/tokens/tokens.schema';
+import { TokenType } from '@/resources/tokens/tokens.schema';
 
 export default async function validateAccessToken(value?: string | null): Promise<Token | null> {
   const token = await validateToken({ token: value, type: TokenType.ACCESS });

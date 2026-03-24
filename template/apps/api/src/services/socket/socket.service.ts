@@ -2,15 +2,13 @@ import { createAdapter } from '@socket.io/redis-adapter';
 import http from 'node:http';
 import { Server } from 'socket.io';
 
-import validateAccessToken from 'resources/tokens/methods/validate-access-token';
-
-import pubClient, { redisErrorHandler } from 'redis-client';
-
-import logger from 'logger';
-
 import { COOKIES } from 'app-constants';
 
 import socketHelper from './socket.helper';
+
+import logger from '@/logger';
+import pubClient, { redisErrorHandler } from '@/redis-client';
+import validateAccessToken from '@/resources/tokens/methods/validate-access-token';
 
 export default (server: http.Server) => {
   const io = new Server(server);

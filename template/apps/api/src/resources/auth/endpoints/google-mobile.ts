@@ -1,12 +1,10 @@
-import { pub } from 'procedures';
 import { z } from 'zod';
 
-import setAccessToken from 'resources/tokens/methods/set-access-token';
-import { publicSchema } from 'resources/users/users.schema';
-
-import { googleService } from 'services';
-
-import { ClientError } from 'types';
+import { pub } from '@/procedures';
+import setAccessToken from '@/resources/tokens/methods/set-access-token';
+import { publicSchema } from '@/resources/users/users.schema';
+import { googleService } from '@/services';
+import { ClientError } from '@/types';
 
 export default pub
   .input(z.object({ idToken: z.string().min(1, 'ID token is required') }))

@@ -1,15 +1,11 @@
-import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { passwordSchema } from 'resources/base.schema';
-import validateToken from 'resources/tokens/methods/validate-token';
-import { TokenType } from 'resources/tokens/tokens.schema';
-
-import { securityUtil } from 'utils';
-
-import { tokensService, usersService } from 'db';
-
-const emptyOutput = z.object({});
+import { tokensService, usersService } from '@/db';
+import { pub } from '@/procedures';
+import { passwordSchema } from '@/resources/base.schema';
+import validateToken from '@/resources/tokens/methods/validate-token';
+import { TokenType } from '@/resources/tokens/tokens.schema';
+import { securityUtil } from '@/utils';
 
 export default pub
   .input(
@@ -18,7 +14,7 @@ export default pub
       password: passwordSchema,
     }),
   )
-  .output(emptyOutput)
+  .output(z.object({}))
   .handler(async ({ input }) => {
     const { token, password } = input;
 

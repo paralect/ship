@@ -1,10 +1,8 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
-import type { User } from 'resources/users/users.schema';
-
-import { analyticsService } from 'services';
-
-import logger from 'logger';
+import logger from '@/logger';
+import type { User } from '@/resources/users/users.schema';
+import { analyticsService } from '@/services';
 
 eventBus.on(`users.created`, (data: InMemoryEvent<User>) => {
   try {

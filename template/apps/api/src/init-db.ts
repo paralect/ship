@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import config from 'config';
+import config from '@/config';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -26,7 +26,9 @@ interface SchemaEntry {
 }
 
 function generateDbTypes(schemas: SchemaEntry[]) {
-  const imports = schemas.map((s) => `import type ${s.name}Schema from 'resources/${s.resourceDir}/${s.name}.schema';`);
+  const imports = schemas.map(
+    (s) => `import type ${s.name}Schema from '@/resources/${s.resourceDir}/${s.name}.schema';`,
+  );
 
   const serviceExports = schemas.map(
     (s) => `export const ${s.name}Service = services.${s.name} as Service<z.infer<typeof ${s.name}Schema>>;`,
@@ -37,7 +39,7 @@ function generateDbTypes(schemas: SchemaEntry[]) {
     "import type { z } from 'zod';",
     "import type { Service } from '@paralect/node-mongo';",
     ...imports,
-    "import { services } from 'init-db';",
+    "import { services } from '@/init-db';",
     '',
     ...serviceExports,
     '',

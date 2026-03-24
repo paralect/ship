@@ -1,6 +1,5 @@
-import type { User } from 'resources/users/users.schema';
-
-import { cloudStorageService } from 'services';
+import type { User } from '@/resources/users/users.schema';
+import { cloudStorageService } from '@/services';
 
 export default async function removeAvatar(user: User) {
   if (user.avatarUrl) {

@@ -1,8 +1,7 @@
 import { Redis } from 'ioredis';
 
-import config from 'config';
-
-import logger from 'logger';
+import config from '@/config';
+import logger from '@/logger';
 
 const client = new Redis(config.REDIS_URI as string, {
   lazyConnect: true,

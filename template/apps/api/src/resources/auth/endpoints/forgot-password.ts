@@ -1,24 +1,19 @@
-import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { emailSchema } from 'resources/base.schema';
-import createToken from 'resources/tokens/methods/create-token';
-import { TokenType } from 'resources/tokens/tokens.schema';
-
-import { emailService } from 'services';
-
-import config from 'config';
-
-import { tokensService, usersService } from 'db';
-
 import { RESET_PASSWORD_TOKEN } from 'app-constants';
-import { Template } from 'types';
 
-const emptyOutput = z.object({});
+import config from '@/config';
+import { tokensService, usersService } from '@/db';
+import { pub } from '@/procedures';
+import { emailSchema } from '@/resources/base.schema';
+import createToken from '@/resources/tokens/methods/create-token';
+import { TokenType } from '@/resources/tokens/tokens.schema';
+import { emailService } from '@/services';
+import { Template } from '@/types';
 
 export default pub
   .input(z.object({ email: emailSchema }))
-  .output(emptyOutput)
+  .output(z.object({}))
   .handler(async ({ input }) => {
     const { email } = input;
     const user = await usersService.findOne({ email });

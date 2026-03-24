@@ -1,8 +1,6 @@
-import { promiseUtil } from 'utils';
-
-import { Migration } from 'migrator/types';
-
-import { usersService } from 'db';
+import { usersService } from '@/db';
+import { Migration } from '@/migrator/types';
+import { promiseUtil } from '@/utils';
 
 const migration = new Migration(1, 'Example');
 

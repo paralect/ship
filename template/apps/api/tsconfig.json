@@ -5,6 +5,9 @@
     "jsx": "react", // for using Mailer
     "baseUrl": "src",
     "rootDir": "src",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "declaration": true,
     "declarationMap": true,
 

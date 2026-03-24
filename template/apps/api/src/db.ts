@@ -2,9 +2,9 @@
 
 import type { z } from 'zod';
 import type { Service } from '@paralect/node-mongo';
-import type tokensSchema from 'resources/tokens/tokens.schema';
-import type usersSchema from 'resources/users/users.schema';
-import { services } from 'init-db';
+import type tokensSchema from '@/resources/tokens/tokens.schema';
+import type usersSchema from '@/resources/users/users.schema';
+import { services } from '@/init-db';
 
 export const tokensService = services.tokens as Service<z.infer<typeof tokensSchema>>;
 export const usersService = services.users as Service<z.infer<typeof usersSchema>>;

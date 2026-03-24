@@ -1,5 +1,6 @@
 import { COOKIES } from 'app-constants';
-import type { ORPCContext } from 'types';
+
+import type { ORPCContext } from '@/types';
 
 export enum ClientType {
   WEB = 'web',

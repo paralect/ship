@@ -1,10 +1,8 @@
 import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
 
-import type { User } from 'resources/users/users.schema';
-
-import ioEmitter from 'io-emitter';
-
-import logger from 'logger';
+import ioEmitter from '@/io-emitter';
+import logger from '@/logger';
+import type { User } from '@/resources/users/users.schema';
 
 eventBus.on(`users.updated`, (data: InMemoryEvent<User>) => {
   try {

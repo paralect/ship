@@ -1,18 +1,14 @@
-import { pub } from 'procedures';
 import { z } from 'zod';
 
-import setAccessToken from 'resources/tokens/methods/set-access-token';
-import validateToken from 'resources/tokens/methods/validate-token';
-import { TokenType } from 'resources/tokens/tokens.schema';
-import { publicSchema } from 'resources/users/users.schema';
-
-import { emailService } from 'services';
-
-import config from 'config';
-
-import { tokensService, usersService } from 'db';
-
-import { ClientError, Template } from 'types';
+import config from '@/config';
+import { tokensService, usersService } from '@/db';
+import { pub } from '@/procedures';
+import setAccessToken from '@/resources/tokens/methods/set-access-token';
+import validateToken from '@/resources/tokens/methods/validate-token';
+import { TokenType } from '@/resources/tokens/tokens.schema';
+import { publicSchema } from '@/resources/users/users.schema';
+import { emailService } from '@/services';
+import { ClientError, Template } from '@/types';
 
 export default pub
   .input(z.object({ token: z.string().min(1, 'Token is required') }))

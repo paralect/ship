@@ -6,23 +6,19 @@ import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import { cors } from 'hono/cors';
 import { logger as honoLogger } from 'hono/logger';
 import { secureHeaders } from 'hono/secure-headers';
-import { router } from 'router';
-
-import validateAccessToken from 'resources/tokens/methods/validate-access-token';
-import updateLastRequest from 'resources/users/methods/update-last-request';
-
-import { socketService } from 'services';
-
-import config from 'config';
-
-import { usersService } from 'db';
-import ioEmitter from 'io-emitter';
-import redisClient, { redisErrorHandler } from 'redis-client';
-
-import appLogger from 'logger';
 
 import { COOKIES } from 'app-constants';
-import type { CookieOptions, HonoEnv, ORPCContext } from 'types';
+
+import config from '@/config';
+import { usersService } from '@/db';
+import ioEmitter from '@/io-emitter';
+import appLogger from '@/logger';
+import redisClient, { redisErrorHandler } from '@/redis-client';
+import validateAccessToken from '@/resources/tokens/methods/validate-access-token';
+import updateLastRequest from '@/resources/users/methods/update-last-request';
+import { router } from '@/router';
+import { socketService } from '@/services';
+import type { CookieOptions, HonoEnv, ORPCContext } from '@/types';
 
 const app = new Hono<HonoEnv>();
 

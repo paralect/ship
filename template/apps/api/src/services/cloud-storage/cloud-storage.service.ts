@@ -13,13 +13,11 @@ import { Upload } from '@aws-sdk/lib-storage';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { readFile } from 'node:fs/promises';
 
-import { caseUtil } from 'utils';
-
-import config from 'config';
-
-import { BackendFile, ToCamelCase } from 'types';
-
 import * as helpers from './cloud-storage.helper';
+
+import config from '@/config';
+import { BackendFile, ToCamelCase } from '@/types';
+import { caseUtil } from '@/utils';
 
 const client = new S3Client({
   forcePathStyle: false, // Configures to use subdomain/virtual calling format.

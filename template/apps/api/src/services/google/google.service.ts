@@ -9,14 +9,11 @@ import {
 } from 'arctic';
 import { z } from 'zod';
 
-import updateLastRequest from 'resources/users/methods/update-last-request';
-import type { User } from 'resources/users/users.schema';
-
-import config from 'config';
-
-import { usersService } from 'db';
-
-import logger from 'logger';
+import config from '@/config';
+import { usersService } from '@/db';
+import logger from '@/logger';
+import updateLastRequest from '@/resources/users/methods/update-last-request';
+import type { User } from '@/resources/users/users.schema';
 
 const googleUserInfoSchema = z.object({
   sub: z.string().describe('Unique Google user ID'),

@@ -3,11 +3,11 @@ import dayjs from 'dayjs';
 import durationPlugin from 'dayjs/plugin/duration';
 import process from 'node:process';
 
-import logger from 'logger';
-
 import migrationLogService from './migration-log/migration-log.service';
 import migrationVersionService from './migration-version/migration-version.service';
 import { Migration } from './types';
+
+import logger from '@/logger';
 
 dayjs.extend(durationPlugin);
 

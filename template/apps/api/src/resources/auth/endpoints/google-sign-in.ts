@@ -1,8 +1,6 @@
-import { pub } from 'procedures';
-
-import { googleService } from 'services';
-
-import config from 'config';
+import config from '@/config';
+import { pub } from '@/procedures';
+import { googleService } from '@/services';
 
 export default pub
   .route({

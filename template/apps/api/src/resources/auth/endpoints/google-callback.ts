@@ -1,11 +1,9 @@
-import { pub } from 'procedures';
 import { z } from 'zod';
 
-import setAccessToken from 'resources/tokens/methods/set-access-token';
-
-import { googleService } from 'services';
-
-import config from 'config';
+import config from '@/config';
+import { pub } from '@/procedures';
+import setAccessToken from '@/resources/tokens/methods/set-access-token';
+import { googleService } from '@/services';
 
 export default pub
   .route({

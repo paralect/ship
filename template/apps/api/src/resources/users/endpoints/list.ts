@@ -1,13 +1,11 @@
-import { admin } from 'procedures';
 import { z } from 'zod';
 
-import { listResultSchema, paginationSchema } from 'resources/base.schema';
-
-import { usersService } from 'db';
-
-import type { NestedKeys } from 'types';
-
 import { publicSchema } from '../users.schema';
+
+import { usersService } from '@/db';
+import { admin } from '@/procedures';
+import { listResultSchema, paginationSchema } from '@/resources/base.schema';
+import type { NestedKeys } from '@/types';
 
 export default admin
   .input(

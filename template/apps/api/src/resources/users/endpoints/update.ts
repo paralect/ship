@@ -1,9 +1,9 @@
-import { authed, withEntity } from 'procedures';
 import { z } from 'zod';
 
-import { usersService } from 'db';
-
 import usersSchema, { publicSchema } from '../users.schema';
+
+import { usersService } from '@/db';
+import { authed, withEntity } from '@/procedures';
 
 const publicUserOutput = publicSchema;
 

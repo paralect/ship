@@ -1,20 +1,17 @@
-import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { emailSchema, passwordSchema } from 'resources/base.schema';
-import createToken from 'resources/tokens/methods/create-token';
-import { TokenType } from 'resources/tokens/tokens.schema';
-import usersSchema, { publicSchema } from 'resources/users/users.schema';
-
-import { emailService } from 'services';
-import { clientUtil, securityUtil } from 'utils';
-
-import config from 'config';
-
-import { usersService } from 'db';
-
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
-import { ClientError, Template } from 'types';
+
+import config from '@/config';
+import { usersService } from '@/db';
+import { pub } from '@/procedures';
+import { emailSchema, passwordSchema } from '@/resources/base.schema';
+import createToken from '@/resources/tokens/methods/create-token';
+import { TokenType } from '@/resources/tokens/tokens.schema';
+import usersSchema, { publicSchema } from '@/resources/users/users.schema';
+import { emailService } from '@/services';
+import { ClientError, Template } from '@/types';
+import { clientUtil, securityUtil } from '@/utils';
 
 export default pub
   .input(

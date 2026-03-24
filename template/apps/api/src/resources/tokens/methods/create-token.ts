@@ -1,8 +1,6 @@
-import { TokenType } from 'resources/tokens/tokens.schema';
-
-import { securityUtil } from 'utils';
-
-import { tokensService } from 'db';
+import { tokensService } from '@/db';
+import { TokenType } from '@/resources/tokens/tokens.schema';
+import { securityUtil } from '@/utils';
 
 interface CreateTokenOptions {
   userId: string;

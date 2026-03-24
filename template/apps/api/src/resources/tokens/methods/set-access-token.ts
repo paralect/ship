@@ -1,11 +1,10 @@
-import createToken from 'resources/tokens/methods/create-token';
-import { TokenType } from 'resources/tokens/tokens.schema';
-import updateLastRequest from 'resources/users/methods/update-last-request';
-
-import { clientUtil, cookieUtil } from 'utils';
-
 import { ACCESS_TOKEN } from 'app-constants';
-import type { ORPCContext } from 'types';
+
+import createToken from '@/resources/tokens/methods/create-token';
+import { TokenType } from '@/resources/tokens/tokens.schema';
+import updateLastRequest from '@/resources/users/methods/update-last-request';
+import type { ORPCContext } from '@/types';
+import { clientUtil, cookieUtil } from '@/utils';
 
 interface SetAccessTokenOptions {
   ctx: ORPCContext;

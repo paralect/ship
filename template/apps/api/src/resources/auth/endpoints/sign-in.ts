@@ -1,16 +1,13 @@
-import { pub } from 'procedures';
 import { z } from 'zod';
 
-import { emailSchema } from 'resources/base.schema';
-import setAccessToken from 'resources/tokens/methods/set-access-token';
-import { TokenType } from 'resources/tokens/tokens.schema';
-import { publicSchema } from 'resources/users/users.schema';
-
-import { clientUtil, securityUtil } from 'utils';
-
-import { tokensService, usersService } from 'db';
-
-import { ClientError } from 'types';
+import { tokensService, usersService } from '@/db';
+import { pub } from '@/procedures';
+import { emailSchema } from '@/resources/base.schema';
+import setAccessToken from '@/resources/tokens/methods/set-access-token';
+import { TokenType } from '@/resources/tokens/tokens.schema';
+import { publicSchema } from '@/resources/users/users.schema';
+import { ClientError } from '@/types';
+import { clientUtil, securityUtil } from '@/utils';
 
 export default pub
   .input(
