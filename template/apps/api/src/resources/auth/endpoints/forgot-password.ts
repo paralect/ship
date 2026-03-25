@@ -1,14 +1,11 @@
 import { z } from 'zod';
 
-import { RESET_PASSWORD_TOKEN } from 'app-constants';
-
 import config from '@/config';
 import db from '@/db';
 import { isPublic } from '@/procedures';
 import createToken from '@/resources/tokens/methods/create-token';
 import { emailSchema } from '@/resources/users/users.schema';
 import { emailService } from '@/services';
-import { Template } from '@/types';
 
 export default isPublic
   .input(z.object({ email: emailSchema }))
@@ -29,16 +26,15 @@ export default isPublic
     const resetPasswordToken = await createToken({
       userId: user.id,
       type: 'reset-password',
-      expiresIn: RESET_PASSWORD_TOKEN.EXPIRATION_SECONDS,
     });
 
     const resetPasswordUrl = new URL(`${config.API_URL}/account/verify-reset-token`);
     resetPasswordUrl.searchParams.set('token', resetPasswordToken);
 
-    await emailService.sendTemplate<typeof Template.RESET_PASSWORD>({
+    await emailService.sendTemplate({
       to: user.email,
       subject: 'Password Reset Request for Ship',
-      template: Template.RESET_PASSWORD,
+      template: 'reset-password',
       params: {
         firstName: user.firstName,
         href: resetPasswordUrl.toString(),

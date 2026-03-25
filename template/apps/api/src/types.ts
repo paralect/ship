@@ -1,5 +1,4 @@
 import type { Context } from 'hono';
-import { Template } from 'mailer';
 
 import type { User } from '@/db';
 
@@ -36,8 +35,6 @@ export interface CookieOptions {
   secure?: boolean;
   sameSite?: 'strict' | 'lax' | 'none';
 }
-
-export { Template };
 
 export type { Context };
 

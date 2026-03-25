@@ -51,7 +51,7 @@ export default (server: http.Server) => {
 
     const accessToken = getCookie(socket.handshake.headers.cookie, COOKIES.ACCESS_TOKEN);
 
-    const token = await validateAccessToken(accessToken);
+    const token = await validateAccessToken({ value: accessToken });
 
     if (token) {
       socket.data = {

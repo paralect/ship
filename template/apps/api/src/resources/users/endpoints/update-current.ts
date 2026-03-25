@@ -33,7 +33,7 @@ export default isAuthorized
     }
 
     if (avatar === '') {
-      await removeAvatar(user);
+      await removeAvatar({ user });
       dataToUpdate.avatarUrl = null;
     }
 

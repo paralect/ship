@@ -4,7 +4,13 @@ import { securityUtil } from '@/utils';
 
 type TokenType = Token['type'];
 
-const getToken = async (tokenId: string | undefined | null, type: TokenType): Promise<Token | null> => {
+const getToken = async ({
+  tokenId,
+  type,
+}: {
+  tokenId: string | undefined | null;
+  type: TokenType;
+}): Promise<Token | null> => {
   if (!tokenId) {
     return null;
   }
@@ -44,7 +50,7 @@ export default async function validateToken({
 
   const [tokenId, secret] = tokenParts;
 
-  const foundToken = await getToken(tokenId, type);
+  const foundToken = await getToken({ tokenId, type });
 
   const isValid = await securityUtil.verifyTokenHash(foundToken?.value, secret);
 

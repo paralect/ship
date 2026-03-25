@@ -1,4 +1,5 @@
-import { renderEmailHtml, Template } from 'mailer';
+import type { Template } from 'mailer';
+import { renderEmailHtml } from 'mailer';
 import { Resend } from 'resend';
 
 import { EmailServiceConstructorProps, From, SendTemplateParams } from './email.types';

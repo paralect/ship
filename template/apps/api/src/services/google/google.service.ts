@@ -53,7 +53,7 @@ const handleExistingUser = async (userId: string): Promise<User | null> => {
   const existingUser = await db.users.findFirst({ where: { googleUserId: userId } });
 
   if (existingUser) {
-    await updateLastRequest(existingUser.id);
+    await updateLastRequest({ userId: existingUser.id });
 
     return existingUser as User;
   }
@@ -73,7 +73,7 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
       },
     );
 
-    await updateLastRequest(existingUserByEmail.id);
+    await updateLastRequest({ userId: existingUserByEmail.id });
 
     return updated as User;
   }
