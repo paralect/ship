@@ -1,7 +1,7 @@
 import process from 'node:process';
 import { z } from 'zod';
 
-import configUtil from 'utils/config.util';
+import configUtil from '@/utils/config.util';
 
 /**
  * Specify your environment variables schema here.

@@ -141,6 +141,11 @@ class Service<T extends IDocument> {
     return query;
   };
 
+  private omitSecureFields = <U>(doc: U): U => {
+    if (!this.options.secureFields?.length) return doc;
+    return _.omit(doc as object, this.options.secureFields) as U;
+  };
+
   protected validateCreateOperation = async <U extends T = T>(
     object: Partial<U>,
     createConfig: CreateConfig,
@@ -245,11 +250,14 @@ class Service<T extends IDocument> {
 
     if (readConfig.populate) {
       const docs = await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions);
+      const doc = docs[0] || null;
 
-      return docs[0] || null;
+      return doc && !readConfig.isIncludeSecureFields ? this.omitSecureFields(doc) : doc;
     }
 
-    return collection.findOne<U>(filter, findOptions);
+    const doc = await collection.findOne<U>(filter, findOptions);
+
+    return doc && !readConfig.isIncludeSecureFields ? this.omitSecureFields(doc) : doc;
   }
 
   // Method overloading for find
@@ -276,6 +284,10 @@ class Service<T extends IDocument> {
 
     filter = this.handleReadOperations(filter, readConfig);
 
+    const omit = !readConfig.isIncludeSecureFields
+      ? <R>(docs: R[]) => docs.map((d) => this.omitSecureFields(d))
+      : <R>(docs: R[]) => docs;
+
     if (!hasPaging) {
       const results = readConfig.populate
         ? await this.populateAggregate<U, PopulateTypes>(collection, filter, readConfig, findOptions)
@@ -283,7 +295,7 @@ class Service<T extends IDocument> {
 
       return {
         pagesCount: 1,
-        results,
+        results: omit(results),
         count: results.length,
       };
     }
@@ -302,7 +314,7 @@ class Service<T extends IDocument> {
 
     return {
       pagesCount,
-      results,
+      results: omit(results),
       count,
     };
   }
@@ -376,7 +388,7 @@ class Service<T extends IDocument> {
       await collection.insertOne(validEntity as OptionalUnlessRequiredId<U>, insertOneOptions);
     }
 
-    return validEntity;
+    return createConfig.isIncludeSecureFields ? validEntity : this.omitSecureFields(validEntity);
   };
 
   insertMany = async <U extends T = T>(
@@ -415,7 +427,7 @@ class Service<T extends IDocument> {
       await collection.insertMany(validEntities as OptionalUnlessRequiredId<U>[], bulkWriteOptions);
     }
 
-    return validEntities;
+    return createConfig.isIncludeSecureFields ? validEntities : validEntities.map((e) => this.omitSecureFields(e));
   };
 
   replaceOne = async (
@@ -505,7 +517,7 @@ class Service<T extends IDocument> {
         logger.warn(`Document hasn't changed when updating ${this._collectionName} collection.`);
       }
 
-      return newDoc;
+      return updateConfig.isIncludeSecureFields ? newDoc : this.omitSecureFields(newDoc);
     }
 
     if (this.options.addUpdatedOnField) {
@@ -556,7 +568,7 @@ class Service<T extends IDocument> {
       );
     }
 
-    return newDoc;
+    return updateConfig.isIncludeSecureFields ? newDoc : this.omitSecureFields(newDoc);
   }
 
   updateMany<U extends T = T>(
@@ -640,7 +652,8 @@ class Service<T extends IDocument> {
         logger.warn(`Documents hasn't changed when updating ${this._collectionName} collection.`);
       }
 
-      return updated.filter(Boolean).map((u) => u?.doc) as U[];
+      const docs = updated.filter(Boolean).map((u) => u?.doc) as U[];
+      return updateConfig.isIncludeSecureFields ? docs : docs.map((d) => this.omitSecureFields(d));
     }
 
     if (this.options.addUpdatedOnField) {
@@ -701,7 +714,8 @@ class Service<T extends IDocument> {
       await collection.bulkWrite(bulkWriteQuery, updateOptions);
     }
 
-    return updated.map((u) => u?.doc) as U[];
+    const docs = updated.map((u) => u?.doc) as U[];
+    return updateConfig.isIncludeSecureFields ? docs : docs.map((d) => this.omitSecureFields(d));
   }
 
   deleteOne = async <U extends T = T>(

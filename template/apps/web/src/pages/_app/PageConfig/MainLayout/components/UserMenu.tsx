@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { queryKey, useApiMutation, useApiQuery } from 'hooks';
+import { queryKey, useApiMutation, useCurrentUser } from 'hooks';
 import { LogOut, Moon, Sun, User } from 'lucide-react';
 
 import { apiClient } from 'services/api-client.service';
@@ -22,16 +22,16 @@ interface UserMenuProps {
 }
 
 const UserMenu = ({ isCollapsed }: UserMenuProps) => {
-  const { data: account } = useApiQuery(apiClient.account.get);
+  const { data: currentUser } = useCurrentUser();
   const { theme, setTheme } = useTheme();
 
-  const { mutate: signOut } = useApiMutation(apiClient.account.signOut, {
+  const { mutate: signOut } = useApiMutation(apiClient.auth.signOut, {
     onSuccess: () => {
-      queryClient.setQueryData(queryKey(apiClient.account.get), null);
+      queryClient.setQueryData(queryKey(apiClient.users.getCurrent), null);
     },
   });
 
-  if (!account) return null;
+  if (!currentUser) return null;
 
   return (
     <div className="border-t p-2">
@@ -39,16 +39,16 @@ const UserMenu = ({ isCollapsed }: UserMenuProps) => {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className={cn('w-full justify-start gap-2', isCollapsed && 'justify-center px-0')}>
             <Avatar size="sm">
-              <AvatarImage src={account.avatarUrl ?? undefined} alt="Avatar" />
+              <AvatarImage src={currentUser.avatarUrl ?? undefined} alt="Avatar" />
               <AvatarFallback>
-                {account.firstName.charAt(0)}
-                {account.lastName.charAt(0)}
+                {currentUser.firstName.charAt(0)}
+                {currentUser.lastName.charAt(0)}
               </AvatarFallback>
             </Avatar>
 
             {!isCollapsed && (
               <span className="truncate text-sm">
-                {account.firstName} {account.lastName}
+                {currentUser.firstName} {currentUser.lastName}
               </span>
             )}
           </Button>

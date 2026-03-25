@@ -16,8 +16,6 @@ const link = new RPCLink({
     }),
 });
 
-const rawClient = createORPCClient<AppClient>(link);
-
 // Stable-identity wrapper: oRPC proxies create new objects on every access,
 // so we cache children and track paths via a symbol for query key derivation.
 export const ORPC_PATH = Symbol('orpc-path');
@@ -44,5 +42,5 @@ function createStableClient<T>(target: T, path: string[] = []): T {
   }) as T;
 }
 
-export const orpc = createStableClient(rawClient);
+export const orpc = createStableClient(createORPCClient<AppClient>(link));
 export const apiClient = orpc;

@@ -37,7 +37,7 @@ const ResetPassword = () => {
     mutate: resetPassword,
     isPending: isResetPasswordPending,
     isSuccess: isResetPasswordSuccess,
-  } = useApiMutation(apiClient.account.resetPassword);
+  } = useApiMutation(apiClient.auth.resetPassword);
 
   const onSubmit = (data: ResetPasswordFormData) => {
     if (typeof token !== 'string') return;

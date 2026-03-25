@@ -1,16 +1,14 @@
-import { admin, withEntity } from 'procedures';
 import { z } from 'zod';
 
-import { userService } from '..';
+import { usersService } from '@/db';
+import { isAdmin, shouldExist } from '@/procedures';
 
-const emptyOutput = z.object({});
-
-export default admin
+export default isAdmin
   .input(z.object({ id: z.string() }))
-  .use(withEntity((id) => userService.findOne({ _id: id }), 'User'))
-  .output(emptyOutput)
+  .use(shouldExist((id) => usersService.findOne({ _id: id }), 'User'))
+  .output(z.object({}))
   .handler(async ({ input }) => {
-    await userService.deleteSoft({ _id: input.id });
+    await usersService.deleteSoft({ _id: input.id });
 
     return {};
   });

@@ -1,11 +1,10 @@
 import { renderEmailHtml, Template } from 'mailer';
 import { Resend } from 'resend';
 
-import config from 'config';
-
-import logger from 'logger';
-
 import { EmailServiceConstructorProps, From, SendTemplateParams } from './email.types';
+
+import config from '@/config';
+import logger from '@/logger';
 
 class EmailService {
   resend?: Resend;

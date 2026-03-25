@@ -1,6 +1,7 @@
 {
   "name": "ship",
   "scripts": {
+    "admin:set": "pnpm --filter api admin:set",
     "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
     "turbo-start": "turbo run development",
     "docker": "bash ./bin/start.sh",

@@ -9,12 +9,11 @@ import {
 } from 'arctic';
 import { z } from 'zod';
 
-import { userService } from 'resources/users';
-import type { User } from 'resources/users/user.schema';
-
-import config from 'config';
-
-import logger from 'logger';
+import config from '@/config';
+import { usersService } from '@/db';
+import logger from '@/logger';
+import updateLastRequest from '@/resources/users/methods/update-last-request';
+import type { User } from '@/resources/users/users.schema';
 
 const googleUserInfoSchema = z.object({
   sub: z.string().describe('Unique Google user ID'),
@@ -51,10 +50,10 @@ interface GoogleUserData {
 }
 
 const handleExistingUser = async (userId: string): Promise<User | null> => {
-  const existingUser = await userService.findOne({ 'oauth.google.userId': userId });
+  const existingUser = await usersService.findOne({ 'oauth.google.userId': userId });
 
   if (existingUser) {
-    await userService.updateLastRequest(existingUser._id);
+    await updateLastRequest(existingUser._id);
 
     return existingUser;
   }
@@ -63,10 +62,10 @@ const handleExistingUser = async (userId: string): Promise<User | null> => {
 };
 
 const handleExistingUserByEmail = async (email: string, googleUserId: string): Promise<User | null> => {
-  const existingUserByEmail = await userService.findOne({ email });
+  const existingUserByEmail = await usersService.findOne({ email });
 
   if (existingUserByEmail) {
-    await userService.updateOne({ _id: existingUserByEmail._id }, () => ({
+    await usersService.updateOne({ _id: existingUserByEmail._id }, () => ({
       oauth: {
         google: {
           userId: googleUserId,
@@ -75,7 +74,7 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
       },
     }));
 
-    await userService.updateLastRequest(existingUserByEmail._id);
+    await updateLastRequest(existingUserByEmail._id);
 
     return existingUserByEmail;
   }
@@ -86,7 +85,7 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
 const createNewUser = async (userData: GoogleUserData): Promise<User | null> => {
   const { firstName, lastName, email, isEmailVerified, avatarUrl, googleUserId } = userData;
 
-  return userService.insertOne({
+  return usersService.insertOne({
     firstName,
     lastName,
     email,

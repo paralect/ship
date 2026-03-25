@@ -2,12 +2,11 @@ import _ from 'lodash';
 import { URL } from 'node:url';
 import { getPublicSuffix, parse } from 'tldts';
 
-import config from 'config';
-
-import logger from 'logger';
-
 import { COOKIES } from 'app-constants';
-import type { ORPCContext } from 'types';
+
+import config from '@/config';
+import logger from '@/logger';
+import type { ORPCContext } from '@/types';
 
 /**
  * Determines a valid cookie domain.

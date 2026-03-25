@@ -1,16 +1,13 @@
-import { admin } from 'procedures';
 import { z } from 'zod';
 
-import { listResultSchema, paginationSchema } from 'resources/base.schema';
+import { publicSchema } from '../users.schema';
 
-import type { NestedKeys } from 'types';
+import { usersService } from '@/db';
+import { isAdmin } from '@/procedures';
+import { listResultSchema, paginationSchema } from '@/resources/base.schema';
+import type { NestedKeys } from '@/types';
 
-import { userPublicSchema } from '../user.schema';
-import { userService } from '..';
-
-const publicUserOutput = userPublicSchema;
-
-export default admin
+export default isAdmin
   .input(
     paginationSchema.extend({
       filter: z
@@ -32,9 +29,9 @@ export default admin
         .default({ createdOn: 'asc' }),
     }),
   )
-  .output(listResultSchema(publicUserOutput))
+  .output(listResultSchema(publicSchema))
   .handler(async ({ input }) => {
-    type UserPublic = z.infer<typeof userPublicSchema>;
+    type UserPublic = z.infer<typeof publicSchema>;
     const { perPage, page, sort, searchValue, filter } = input;
 
     const filterOptions = [];
@@ -66,11 +63,11 @@ export default admin
       });
     }
 
-    const result = await userService.find(
+    const result = await usersService.find(
       { ...(filterOptions.length && { $and: filterOptions }) },
       { page, perPage },
       { sort },
     );
 
-    return { ...result, results: result.results.map((u) => userService.getPublic(u)) };
+    return result;
   });

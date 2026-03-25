@@ -2,17 +2,16 @@ import { readdirSync } from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { Migration } from 'migrator/types';
-
-import db from 'db';
-
 import schema from './migration-version.schema';
 import { MigrationVersion } from './migration-version-types';
+
+import { createService } from '@/init-db';
+import { Migration } from '@/migrator/types';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const service = db.createService<MigrationVersion>('__migrationVersion', {
+const service = createService<MigrationVersion>('__migrationVersion', {
   schemaValidator: (obj) => schema.parseAsync(obj),
 });
 

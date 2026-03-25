@@ -63,6 +63,7 @@ export type FindResult<T> = {
 export type CreateConfig = {
   validateSchema?: boolean,
   publishEvents?: boolean,
+  isIncludeSecureFields?: boolean,
 };
 
 export type PopulateOptions = {
@@ -79,6 +80,7 @@ export type PopulateOptions = {
 export type ReadConfig = {
   skipDeletedOnDocs?: boolean,
   populate?: PopulateOptions | PopulateOptions[];
+  isIncludeSecureFields?: boolean,
 };
 
 // Type-safe discriminated unions for populate operations
@@ -94,6 +96,7 @@ export type UpdateConfig = {
   skipDeletedOnDocs?: boolean,
   validateSchema?: boolean,
   publishEvents?: boolean,
+  isIncludeSecureFields?: boolean,
 };
 
 export type DeleteConfig = {
@@ -128,6 +131,7 @@ interface ServiceOptions {
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;
   escapeRegExp?: boolean;
+  secureFields?: string[];
 }
 
 export type UpdateFilterFunction<U> = (doc: U) => Partial<U>;

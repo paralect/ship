@@ -31,12 +31,12 @@ Exception: files inside `endpoints/` use **relative imports** for anything in th
 
 ## oRPC Endpoints
 
-- `pub` (from `src/procedures.ts`) — public, no auth.
-- `authed` — requires authenticated user. Provides `context.user` typed as `User`.
+- `isPublic` (from `src/procedures.ts`) — public, no auth.
+- `isAuthorized` — requires authenticated user. Provides `context.user` typed as `User`.
 
 ```typescript
-import { authed } from '../../../procedures';
-export default authed.input(schema).output(schema).handler(async ({ input, context }) => { ... });
+import { isAuthorized } from '../../../procedures';
+export default isAuthorized.input(schema).output(schema).handler(async ({ input, context }) => { ... });
 ```
 
 ---

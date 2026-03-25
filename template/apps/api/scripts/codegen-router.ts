@@ -24,27 +24,48 @@ function getEndpoints(resource: string): string[] {
     .sort();
 }
 
+function getHandlers(resource: string): string[] {
+  const dir = join(RESOURCES_DIR, resource, 'handlers');
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith('.ts'))
+    .map((f) => basename(f, '.ts'))
+    .sort();
+}
+
+function toCamelCase(str: string): string {
+  return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+}
+
 function buildRouter(resources: string[]): string {
+  const handlerImports: string[] = [];
   const imports: string[] = [];
   const routerEntries: string[] = [];
 
   for (const r of resources) {
+    for (const h of getHandlers(r)) {
+      handlerImports.push(`import './resources/${r}/handlers/${h}';`);
+    }
+
     const endpoints = getEndpoints(r);
     for (const p of endpoints) {
-      imports.push(`import ${r}_${p} from './resources/${r}/endpoints/${p}';`);
+      const id = toCamelCase(`${r}_${p}`);
+      imports.push(`import ${id} from './resources/${r}/endpoints/${p}';`);
     }
-    const fields = endpoints.map((p) => `    ${p}: ${r}_${p},`);
-    routerEntries.push(`  ${r}: pub.router({\n${fields.join('\n')}\n  }),`);
+    const fields = endpoints.map((p) => `    ${toCamelCase(p)}: ${toCamelCase(`${r}_${p}`)},`);
+    routerEntries.push(`  ${r}: isPublic.router({\n${fields.join('\n')}\n  }),`);
   }
 
   return [
     HEADER,
+    ...handlerImports,
+    ...(handlerImports.length ? [''] : []),
     "import type { RouterClient } from '@orpc/server';",
     '',
     ...imports,
-    "import { pub } from './procedures';",
+    "import { isPublic } from './procedures';",
     '',
-    'export const router = pub.router({',
+    'export const router = isPublic.router({',
     ...routerEntries,
     '});',
     '',

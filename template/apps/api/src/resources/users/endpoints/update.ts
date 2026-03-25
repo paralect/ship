@@ -1,20 +1,19 @@
-import { authed, withEntity } from 'procedures';
 import { z } from 'zod';
 
-import { userPublicSchema, userSchema } from '../user.schema';
-import { userService } from '..';
+import usersSchema, { publicSchema } from '../users.schema';
 
-const publicUserOutput = userPublicSchema;
+import { usersService } from '@/db';
+import { isAdmin, shouldExist } from '@/procedures';
 
-export default authed
+export default isAdmin
   .input(
     z.object({
       id: z.string(),
-      data: userSchema.pick({ firstName: true, lastName: true, email: true }),
+      data: usersSchema.pick({ firstName: true, lastName: true, email: true }),
     }),
   )
-  .use(withEntity((id) => userService.findOne({ _id: id }), 'User'))
-  .output(publicUserOutput)
+  .use(shouldExist((id) => usersService.findOne({ _id: id }), 'User'))
+  .output(publicSchema)
   .handler(async ({ input }) => {
     const { id, data } = input;
 
@@ -23,7 +22,7 @@ export default authed
       if (value !== undefined) nonEmptyValues[key] = value;
     }
 
-    const updatedUser = await userService.updateOne({ _id: id }, () => nonEmptyValues);
+    const updatedUser = await usersService.updateOne({ _id: id }, () => nonEmptyValues);
 
-    return userService.getPublic(updatedUser)!;
+    return updatedUser!;
   });

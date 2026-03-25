@@ -47,7 +47,7 @@ import { apiClient } from 'services/api-client.service';
 ```tsx
 import { useApiQuery } from 'hooks';
 
-const { data, isLoading } = useApiQuery(apiClient.account.get);
+const { data, isLoading } = useApiQuery(apiClient.users.getCurrent);
 const { data } = useApiQuery(apiClient.users.list, { page: 1, perPage: 10 });
 ```
 
@@ -56,7 +56,7 @@ const { data } = useApiQuery(apiClient.users.list, { page: 1, perPage: 10 });
 ```tsx
 import { useApiMutation } from 'hooks';
 
-const { mutate, isPending } = useApiMutation(apiClient.account.signUp);
+const { mutate, isPending } = useApiMutation(apiClient.auth.signUp);
 mutate({ email, password, firstName, lastName });
 ```
 
@@ -66,7 +66,7 @@ mutate({ email, password, firstName, lastName });
 import { useApiForm, useApiMutation } from 'hooks';
 
 const form = useApiForm(zodSchema);
-const { mutate } = useApiMutation(apiClient.account.signUp);
+const { mutate } = useApiMutation(apiClient.auth.signUp);
 const onSubmit = form.handleSubmit((data) =>
   mutate(data, { onError: (e) => handleApiError(e, form.setError) })
 );
@@ -86,7 +86,7 @@ import queryClient from 'query-client';
 queryClient.invalidateQueries({ queryKey: queryKey(apiClient.users.list) });
 
 // Set data directly
-queryClient.setQueryData(queryKey(apiClient.account.get), updatedUser);
+queryClient.setQueryData(queryKey(apiClient.users.getCurrent), updatedUser);
 ```
 
 ---

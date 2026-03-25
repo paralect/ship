@@ -1,12 +1,11 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import { useApiQuery } from 'hooks';
+import { useCurrentUser } from 'hooks';
 import { Pencil, Plus } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import { useFormContext } from 'react-hook-form';
 import type { z } from 'zod';
 
-import { apiClient } from 'services/api-client.service';
 import { handleDropzoneError } from 'utils';
 
 import { USER_AVATAR } from 'app-constants';
@@ -65,7 +64,7 @@ const AvatarDropzone: FC<AvatarDropzoneProps> = ({ imageSrc, onChange }) => {
 };
 
 const AvatarUpload = () => {
-  const { data: account } = useApiQuery(apiClient.account.get);
+  const { data: currentUser } = useCurrentUser();
 
   const {
     watch,
@@ -76,7 +75,7 @@ const AvatarUpload = () => {
   const avatarValue = watch('avatar');
   const avatarError = errors.avatar?.message;
 
-  let imageSrc: string | null | undefined = account?.avatarUrl;
+  let imageSrc: string | null | undefined = currentUser?.avatarUrl;
 
   if (typeof avatarValue === 'string') imageSrc = '';
   else if (avatarValue) imageSrc = URL.createObjectURL(avatarValue as Blob);
@@ -98,7 +97,7 @@ const AvatarUpload = () => {
             </Button>
           )}
 
-          {account?.avatarUrl && avatarValue === undefined && (
+          {currentUser?.avatarUrl && avatarValue === undefined && (
             <Button
               type="button"
               variant="ghost"
