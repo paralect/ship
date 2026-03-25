@@ -1,10 +1,9 @@
-import { and, eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { RESET_PASSWORD_TOKEN } from 'app-constants';
 
 import config from '@/config';
-import { db, tokens, users } from '@/db';
+import db from '@/db';
 import { isPublic } from '@/procedures';
 import { emailSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
@@ -17,13 +16,15 @@ export default isPublic
   .output(z.object({}))
   .handler(async ({ input }) => {
     const { email } = input;
-    const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    const user = await db.users.findFirst({ where: { email } });
 
-    if (!user) return {};
+    if (!user) {
+      return {};
+    }
 
     await Promise.all([
-      db.delete(tokens).where(and(eq(tokens.userId, user.id), eq(tokens.type, TokenType.ACCESS))),
-      db.delete(tokens).where(and(eq(tokens.userId, user.id), eq(tokens.type, TokenType.RESET_PASSWORD))),
+      db.tokens.deleteMany({ userId: user.id, type: TokenType.ACCESS }),
+      db.tokens.deleteMany({ userId: user.id, type: TokenType.RESET_PASSWORD }),
     ]);
 
     const resetPasswordToken = await createToken({

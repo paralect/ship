@@ -1,7 +1,6 @@
-import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { db, users } from '@/db';
+import db from '@/db';
 import { isAuthorized } from '@/procedures';
 import removeAvatar from '@/resources/auth/methods/remove-avatar';
 import uploadAvatar from '@/resources/auth/methods/upload-avatar';
@@ -24,30 +23,30 @@ export default isAuthorized
     const { user } = context;
     const { password, avatar, ...rest } = input;
 
-    const updateData: Record<string, unknown> = {};
+    const dataToUpdate: Record<string, unknown> = {};
 
     for (const [key, value] of Object.entries(rest)) {
-      if (value !== undefined) updateData[key] = value;
+      if (value !== undefined) dataToUpdate[key] = value;
     }
 
     if (password) {
-      updateData.passwordHash = await securityUtil.hashPassword(password);
+      dataToUpdate.passwordHash = await securityUtil.hashPassword(password);
     }
 
     if (avatar === '') {
       await removeAvatar(user);
-      updateData.avatarUrl = null;
+      dataToUpdate.avatarUrl = null;
     }
 
     if (avatar && avatar !== '') {
-      updateData.avatarUrl = await uploadAvatar({ user, file: avatar });
+      dataToUpdate.avatarUrl = await uploadAvatar({ user, file: avatar });
     }
 
-    if (Object.keys(updateData).length === 0) {
+    if (Object.keys(dataToUpdate).length === 0) {
       return user;
     }
 
-    const [updated] = await db.update(users).set(updateData).where(eq(users.id, user.id)).returning();
+    const updatedUser = await db.users.updateOne({ id: user.id }, dataToUpdate);
 
-    return updated!;
+    return updatedUser!;
   });

@@ -2,7 +2,6 @@ import { serve } from '@hono/node-server';
 import { OpenAPIHandler } from '@orpc/openapi/fetch';
 import { ORPCError } from '@orpc/server';
 import { RPCHandler } from '@orpc/server/fetch';
-import { and, eq, isNull } from 'drizzle-orm';
 import { Hono } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import { cors } from 'hono/cors';
@@ -12,7 +11,7 @@ import { secureHeaders } from 'hono/secure-headers';
 import { COOKIES } from 'app-constants';
 
 import config from '@/config';
-import { db, users } from '@/db';
+import db from '@/db';
 import ioEmitter from '@/io-emitter';
 import appLogger from '@/logger';
 import redisClient, { redisErrorHandler } from '@/redis-client';
@@ -70,11 +69,7 @@ app.use(async (c, next) => {
 
     const token = await validateAccessToken(accessToken);
     if (token) {
-      const [user] = await db
-        .select()
-        .from(users)
-        .where(and(eq(users.id, token.userId), isNull(users.deletedOn)))
-        .limit(1);
+      const user = await db.users.findFirst({ where: { id: token.userId, deletedOn: null } });
       if (user) {
         await updateLastRequest(token.userId);
         ctx.user = user;

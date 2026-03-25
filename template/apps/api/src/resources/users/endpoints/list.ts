@@ -1,10 +1,8 @@
-import type { SQL } from 'drizzle-orm';
-import { and, asc, count, desc, gte, ilike, isNull, lt, or } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { publicSchema } from '../users.schema';
 
-import { db, users } from '@/db';
+import db from '@/db';
 import { isAdmin } from '@/procedures';
 import { listResultSchema, paginationSchema } from '@/resources/base.schema';
 
@@ -34,55 +32,25 @@ export default isAdmin
   .handler(async ({ input }) => {
     const { perPage, page, sort, searchValue, filter } = input;
 
-    const conditions: SQL[] = [isNull(users.deletedOn)];
-
-    if (searchValue) {
-      conditions.push(
-        or(
-          ilike(users.firstName, `%${searchValue}%`),
-          ilike(users.lastName, `%${searchValue}%`),
-          ilike(users.email, `%${searchValue}%`),
-        )!,
-      );
+    const createdOnFilter: Record<string, Date> = {};
+    if (filter?.createdOn?.startDate) {
+      createdOnFilter.gte = filter.createdOn.startDate;
+    }
+    if (filter?.createdOn?.endDate) {
+      createdOnFilter.lt = filter.createdOn.endDate;
     }
 
-    if (filter?.createdOn) {
-      const { startDate, endDate } = filter.createdOn;
-      if (startDate) conditions.push(gte(users.createdOn, startDate));
-      if (endDate) conditions.push(lt(users.createdOn, endDate));
-    }
-
-    const where = conditions.length ? and(...conditions) : undefined;
-
-    const sortColumns = {
-      firstName: users.firstName,
-      lastName: users.lastName,
-      createdOn: users.createdOn,
-    } as const;
-
-    const orderBy = Object.entries(sort)
-      .filter(([, dir]) => dir)
-      .map(([key, dir]) => {
-        const col = sortColumns[key as keyof typeof sortColumns];
-        return dir === 'desc' ? desc(col) : asc(col);
-      });
-
-    const offset = (page - 1) * perPage;
-
-    const [results, [{ total }]] = await Promise.all([
-      db
-        .select()
-        .from(users)
-        .where(where)
-        .orderBy(...orderBy)
-        .limit(perPage)
-        .offset(offset),
-      db.select({ total: count() }).from(users).where(where),
-    ]);
-
-    return {
-      results,
-      count: total,
-      pagesCount: Math.ceil(total / perPage),
+    const where = {
+      deletedOn: null,
+      ...(searchValue && {
+        OR: [
+          { firstName: { ilike: `%${searchValue}%` } },
+          { lastName: { ilike: `%${searchValue}%` } },
+          { email: { ilike: `%${searchValue}%` } },
+        ],
+      }),
+      ...(Object.keys(createdOnFilter).length && { createdOn: createdOnFilter }),
     };
+
+    return db.users.findPage({ where, orderBy: sort, page, perPage });
   });

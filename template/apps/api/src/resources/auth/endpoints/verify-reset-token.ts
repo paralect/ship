@@ -1,8 +1,7 @@
-import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 import config from '@/config';
-import { db, users } from '@/db';
+import db from '@/db';
 import { isPublic } from '@/procedures';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import { TokenType } from '@/resources/tokens/tokens.schema';
@@ -25,9 +24,9 @@ export default isPublic
 
       const resetPasswordToken = await validateToken({ token: input.token, type: TokenType.RESET_PASSWORD });
 
-      const [user] = resetPasswordToken
-        ? await db.select().from(users).where(eq(users.id, resetPasswordToken.userId)).limit(1)
-        : [];
+      const user = resetPasswordToken
+        ? await db.users.findFirst({ where: { id: resetPasswordToken.userId } })
+        : undefined;
 
       if (!resetPasswordToken || !user) {
         const url = new URL(config.WEB_URL);

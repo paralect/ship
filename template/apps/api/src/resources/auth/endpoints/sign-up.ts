@@ -1,10 +1,9 @@
-import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 
 import config from '@/config';
-import { db, users } from '@/db';
+import db from '@/db';
 import { eventBus } from '@/event-bus';
 import { isPublic } from '@/procedures';
 import { emailSchema, passwordSchema } from '@/resources/base.schema';
@@ -31,22 +30,19 @@ export default isPublic
   .handler(async ({ input, context }) => {
     const { firstName, lastName, email, password } = input;
 
-    const [existing] = await db.select({ id: users.id }).from(users).where(eq(users.email, email)).limit(1);
+    const existingUser = await db.users.findFirst({ where: { email } });
 
-    if (existing) {
+    if (existingUser) {
       throw new ClientError({ email: 'User with this email is already registered' });
     }
 
-    const [user] = await db
-      .insert(users)
-      .values({
-        email,
-        firstName,
-        lastName,
-        passwordHash: await securityUtil.hashPassword(password),
-        isEmailVerified: false,
-      })
-      .returning();
+    const user = await db.users.insertOne({
+      email,
+      firstName,
+      lastName,
+      passwordHash: await securityUtil.hashPassword(password),
+      isEmailVerified: false,
+    });
 
     eventBus.emit('users.created', { doc: user });
 
@@ -56,8 +52,8 @@ export default isPublic
       expiresIn: EMAIL_VERIFICATION_TOKEN.EXPIRATION_SECONDS,
     });
 
-    await emailService.sendTemplate<typeof Template.VERIFY_EMAIL>({
-      to: user.email,
+    await emailService.sendTemplate({
+      to: email,
       subject: 'Please Confirm Your Email Address for Ship',
       template: Template.VERIFY_EMAIL,
       params: {

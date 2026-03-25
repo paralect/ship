@@ -1,7 +1,6 @@
-import { eq } from 'drizzle-orm';
 import process from 'node:process';
 
-import { db, users } from '@/db';
+import db from '@/db';
 import logger from '@/logger';
 import { emailSchema } from '@/resources/base.schema';
 
@@ -17,7 +16,7 @@ const main = async () => {
 
   const email = emailSchema.parse(rawEmail);
 
-  const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  const user = await db.users.findFirst({ where: { email } });
 
   if (!user) {
     throw new Error(`User not found: ${email}`);
@@ -28,7 +27,7 @@ const main = async () => {
     return;
   }
 
-  await db.update(users).set({ isAdmin: true }).where(eq(users.id, user.id));
+  await db.users.updateOne({ id: user.id }, { isAdmin: true });
 
   logger.info(`User ${email} was promoted to admin.`);
 };

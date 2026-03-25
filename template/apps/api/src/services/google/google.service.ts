@@ -7,11 +7,10 @@ import {
   OAuth2RequestError,
   OAuth2Tokens,
 } from 'arctic';
-import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 import config from '@/config';
-import { db, users } from '@/db';
+import db from '@/db';
 import logger from '@/logger';
 import updateLastRequest from '@/resources/users/methods/update-last-request';
 import type { User } from '@/resources/users/users.schema';
@@ -51,7 +50,7 @@ interface GoogleUserData {
 }
 
 const handleExistingUser = async (userId: string): Promise<User | null> => {
-  const [existingUser] = await db.select().from(users).where(eq(users.googleUserId, userId)).limit(1);
+  const existingUser = await db.users.findFirst({ where: { googleUserId: userId } });
 
   if (existingUser) {
     await updateLastRequest(existingUser.id);
@@ -63,17 +62,16 @@ const handleExistingUser = async (userId: string): Promise<User | null> => {
 };
 
 const handleExistingUserByEmail = async (email: string, googleUserId: string): Promise<User | null> => {
-  const [existingUserByEmail] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  const existingUserByEmail = await db.users.findFirst({ where: { email } });
 
   if (existingUserByEmail) {
-    const [updated] = await db
-      .update(users)
-      .set({
+    const updated = await db.users.updateOne(
+      { id: existingUserByEmail.id },
+      {
         googleUserId,
         googleConnectedOn: new Date(),
-      })
-      .where(eq(users.id, existingUserByEmail.id))
-      .returning();
+      },
+    );
 
     await updateLastRequest(existingUserByEmail.id);
 
@@ -86,18 +84,15 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
 const createNewUser = async (userData: GoogleUserData): Promise<User | null> => {
   const { firstName, lastName, email, isEmailVerified, avatarUrl, googleUserId } = userData;
 
-  const [newUser] = await db
-    .insert(users)
-    .values({
-      firstName,
-      lastName,
-      email,
-      isEmailVerified,
-      avatarUrl,
-      googleUserId,
-      googleConnectedOn: new Date(),
-    })
-    .returning();
+  const newUser = await db.users.insertOne({
+    firstName,
+    lastName,
+    email,
+    isEmailVerified,
+    avatarUrl,
+    googleUserId,
+    googleConnectedOn: new Date(),
+  });
 
   return newUser as User;
 };
@@ -190,11 +185,15 @@ export const validateCallback = async (params: {
 
   const existingUser = await handleExistingUser(googleUserId);
 
-  if (existingUser) return existingUser;
+  if (existingUser) {
+    return existingUser;
+  }
 
   const existingUserByEmail = await handleExistingUserByEmail(email, googleUserId);
 
-  if (existingUserByEmail) return existingUserByEmail;
+  if (existingUserByEmail) {
+    return existingUserByEmail;
+  }
 
   return createNewUser({
     firstName,
@@ -235,11 +234,15 @@ export const validateIdToken = async (idToken: string): Promise<User | null> => 
 
     const existingUser = await handleExistingUser(googleUserId);
 
-    if (existingUser) return existingUser;
+    if (existingUser) {
+      return existingUser;
+    }
 
     const existingUserByEmail = await handleExistingUserByEmail(email, googleUserId);
 
-    if (existingUserByEmail) return existingUserByEmail;
+    if (existingUserByEmail) {
+      return existingUserByEmail;
+    }
 
     return createNewUser({
       firstName,

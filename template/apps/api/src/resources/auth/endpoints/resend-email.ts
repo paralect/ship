@@ -1,10 +1,9 @@
-import { and, eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 
 import config from '@/config';
-import { db, tokens, users } from '@/db';
+import db from '@/db';
 import { isPublic } from '@/procedures';
 import { emailSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
@@ -17,11 +16,13 @@ export default isPublic
   .output(z.object({}))
   .handler(async ({ input }) => {
     const { email } = input;
-    const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    const user = await db.users.findFirst({ where: { email } });
 
-    if (!user) return {};
+    if (!user) {
+      return {};
+    }
 
-    await db.delete(tokens).where(and(eq(tokens.userId, user.id), eq(tokens.type, TokenType.EMAIL_VERIFICATION)));
+    await db.tokens.deleteMany({ userId: user.id, type: TokenType.EMAIL_VERIFICATION });
 
     const emailVerificationToken = await createToken({
       userId: user.id,

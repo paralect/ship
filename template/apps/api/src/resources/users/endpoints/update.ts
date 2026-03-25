@@ -1,9 +1,8 @@
-import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 import usersSchema, { publicSchema } from '../users.schema';
 
-import { db, users } from '@/db';
+import db from '@/db';
 import { isAdmin, shouldExist } from '@/procedures';
 
 export default isAdmin
@@ -15,7 +14,7 @@ export default isAdmin
   )
   .use(
     shouldExist(async (id) => {
-      const [user] = await db.select().from(users).where(eq(users.id, id)).limit(1);
+      const user = await db.users.findFirst({ where: { id } });
       return user ?? null;
     }, 'User'),
   )
@@ -28,7 +27,7 @@ export default isAdmin
       if (value !== undefined) nonEmptyValues[key] = value;
     }
 
-    const [updatedUser] = await db.update(users).set(nonEmptyValues).where(eq(users.id, id)).returning();
+    const updatedUser = await db.users.updateOne({ id }, nonEmptyValues);
 
     return updatedUser!;
   });
