@@ -2,9 +2,8 @@ import { z } from 'zod';
 
 import db from '@/db';
 import { isPublic } from '@/procedures';
-import { passwordSchema } from '@/resources/base.schema';
 import validateToken from '@/resources/tokens/methods/validate-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
+import { passwordSchema } from '@/resources/users/drizzle.schema';
 import { securityUtil } from '@/utils';
 
 export default isPublic
@@ -18,7 +17,7 @@ export default isPublic
   .handler(async ({ input }) => {
     const { token, password } = input;
 
-    const resetPasswordToken = await validateToken({ token, type: TokenType.RESET_PASSWORD });
+    const resetPasswordToken = await validateToken({ token, type: 'reset-password' });
 
     const user = resetPasswordToken
       ? await db.users.findFirst({ where: { id: resetPasswordToken.userId } })
@@ -30,7 +29,7 @@ export default isPublic
 
     const passwordHash = await securityUtil.hashPassword(password);
 
-    await db.tokens.deleteMany({ userId: user.id, type: TokenType.RESET_PASSWORD });
+    await db.tokens.deleteMany({ userId: user.id, type: 'reset-password' });
     await db.users.updateOne({ id: user.id }, { passwordHash });
 
     return {};

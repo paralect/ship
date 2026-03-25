@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import { Template } from 'mailer';
 
-import type { User } from './resources/users/users.schema';
+import type { User } from '@/db';
 
 export interface BackendFile {
   filepath: string;

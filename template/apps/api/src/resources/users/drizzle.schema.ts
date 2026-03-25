@@ -1,4 +1,6 @@
 import { boolean, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { createSelectSchema } from 'drizzle-orm/zod';
+import { z } from 'zod';
 
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -22,3 +24,37 @@ export const users = pgTable('users', {
   updatedOn: timestamp('updated_on', { withTimezone: true }),
   deletedOn: timestamp('deleted_on', { withTimezone: true }),
 });
+
+export const emailSchema = z
+  .email()
+  .min(1, 'Email is required')
+  .toLowerCase()
+  .trim()
+  .max(255, 'Email must be less than 255 characters.');
+
+const PASSWORD_RULES = {
+  MIN_LENGTH: 8,
+  MAX_LENGTH: 128,
+  REGEX: /^(?=.*[a-z])(?=.*\d).+$/i,
+};
+
+export const passwordSchema = z
+  .string()
+  .min(1, 'Password is required')
+  .min(PASSWORD_RULES.MIN_LENGTH, `Password must be at least ${PASSWORD_RULES.MIN_LENGTH} characters.`)
+  .max(PASSWORD_RULES.MAX_LENGTH, `Password must be less than ${PASSWORD_RULES.MAX_LENGTH} characters.`)
+  .regex(
+    PASSWORD_RULES.REGEX,
+    `The password must contain ${PASSWORD_RULES.MIN_LENGTH} or more characters with at least one letter (a-z) and one number (0-9).`,
+  );
+
+const usersSchema = createSelectSchema(users, {
+  firstName: (schema) =>
+    schema.min(1, 'First name is required').max(128, 'First name must be less than 128 characters.'),
+  lastName: (schema) => schema.min(1, 'Last name is required').max(128, 'Last name must be less than 128 characters.'),
+  email: () => emailSchema,
+});
+
+export default usersSchema;
+
+export const publicSchema = usersSchema.omit({ passwordHash: true });

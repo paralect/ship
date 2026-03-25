@@ -4,8 +4,7 @@ import db from '@/db';
 import { isAuthorized } from '@/procedures';
 import removeAvatar from '@/resources/auth/methods/remove-avatar';
 import uploadAvatar from '@/resources/auth/methods/upload-avatar';
-import { passwordSchema } from '@/resources/base.schema';
-import usersSchema, { publicSchema } from '@/resources/users/users.schema';
+import usersSchema, { passwordSchema, publicSchema } from '@/resources/users/drizzle.schema';
 import { securityUtil } from '@/utils';
 
 export default isAuthorized

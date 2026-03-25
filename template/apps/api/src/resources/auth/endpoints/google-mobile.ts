@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
-import { publicSchema } from '@/resources/users/users.schema';
+import { publicSchema } from '@/resources/users/drizzle.schema';
 import { googleService } from '@/services';
 import { ClientError } from '@/types';
 

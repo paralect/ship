@@ -1,5 +1,5 @@
+import type { User } from '@/db';
 import removeAvatar from '@/resources/auth/methods/remove-avatar';
-import type { User } from '@/resources/users/users.schema';
 import { cloudStorageService } from '@/services';
 import { BackendFile } from '@/types';
 

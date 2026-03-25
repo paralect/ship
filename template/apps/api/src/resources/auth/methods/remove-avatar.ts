@@ -1,4 +1,4 @@
-import type { User } from '@/resources/users/users.schema';
+import type { User } from '@/db';
 import { cloudStorageService } from '@/services';
 
 export default async function removeAvatar(user: User) {

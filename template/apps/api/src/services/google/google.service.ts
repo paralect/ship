@@ -10,10 +10,10 @@ import {
 import { z } from 'zod';
 
 import config from '@/config';
+import type { User } from '@/db';
 import db from '@/db';
 import logger from '@/logger';
 import updateLastRequest from '@/resources/users/methods/update-last-request';
-import type { User } from '@/resources/users/users.schema';
 
 const googleUserInfoSchema = z.object({
   sub: z.string().describe('Unique Google user ID'),

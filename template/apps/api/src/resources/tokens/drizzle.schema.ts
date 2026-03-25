@@ -1,6 +1,8 @@
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 import { users } from '../users/drizzle.schema';
+
+export const tokenTypeEnum = pgEnum('token_type', ['access', 'email-verification', 'reset-password']);
 
 export const tokens = pgTable('tokens', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -9,7 +11,7 @@ export const tokens = pgTable('tokens', {
   userId: uuid('user_id')
     .notNull()
     .references(() => users.id),
-  type: text('type').notNull(),
+  type: tokenTypeEnum('type').notNull(),
   expiresOn: timestamp('expires_on', { withTimezone: true }).notNull(),
 
   createdOn: timestamp('created_on', { withTimezone: true }).defaultNow(),

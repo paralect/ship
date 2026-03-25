@@ -6,10 +6,8 @@ import config from '@/config';
 import db from '@/db';
 import { eventBus } from '@/event-bus';
 import { isPublic } from '@/procedures';
-import { emailSchema, passwordSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
-import usersSchema, { publicSchema } from '@/resources/users/users.schema';
+import usersSchema, { emailSchema, passwordSchema, publicSchema } from '@/resources/users/drizzle.schema';
 import { emailService } from '@/services';
 import { ClientError, Template } from '@/types';
 import { clientUtil, securityUtil } from '@/utils';
@@ -48,7 +46,7 @@ export default isPublic
 
     const emailVerificationToken = await createToken({
       userId: user.id,
-      type: TokenType.EMAIL_VERIFICATION,
+      type: 'email-verification',
       expiresIn: EMAIL_VERIFICATION_TOKEN.EXPIRATION_SECONDS,
     });
 

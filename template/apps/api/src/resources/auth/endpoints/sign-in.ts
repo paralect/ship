@@ -2,10 +2,8 @@ import { z } from 'zod';
 
 import db from '@/db';
 import { isPublic } from '@/procedures';
-import { emailSchema } from '@/resources/base.schema';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
-import { publicSchema } from '@/resources/users/users.schema';
+import { emailSchema, passwordSchema, publicSchema } from '@/resources/users/drizzle.schema';
 import { ClientError } from '@/types';
 import { clientUtil, securityUtil } from '@/utils';
 
@@ -13,7 +11,7 @@ export default isPublic
   .input(
     z.object({
       email: emailSchema,
-      password: z.string().min(1, 'Password is required').max(128, 'Password must be less than 128 characters.'),
+      password: passwordSchema,
     }),
   )
   .output(
@@ -42,7 +40,7 @@ export default isPublic
 
     if (!user.isEmailVerified) {
       const token = await db.tokens.findFirst({
-        where: { userId: user.id, type: TokenType.EMAIL_VERIFICATION },
+        where: { userId: user.id, type: 'email-verification' },
       });
 
       if (!token || token.expiresOn.getTime() <= Date.now()) {

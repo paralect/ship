@@ -1,10 +1,10 @@
+import type { Token } from '@/db';
 import db from '@/db';
-import { TokenType } from '@/resources/tokens/tokens.schema';
 import { securityUtil } from '@/utils';
 
 interface CreateTokenOptions {
   userId: string;
-  type: TokenType;
+  type: Token['type'];
   expiresIn: number;
 }
 

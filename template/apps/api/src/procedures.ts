@@ -1,7 +1,8 @@
 import { ORPCError, os } from '@orpc/server';
 
-import type { User } from './resources/users/users.schema';
 import type { ORPCContext } from './types';
+
+import type { User } from '@/db';
 
 export const isPublic = os.$context<ORPCContext>();
 const isAuthorizedContext = os.$context<ORPCContext & { user: User }>();

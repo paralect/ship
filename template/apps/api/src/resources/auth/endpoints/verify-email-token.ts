@@ -5,8 +5,7 @@ import db from '@/db';
 import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
 import validateToken from '@/resources/tokens/methods/validate-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
-import { publicSchema } from '@/resources/users/users.schema';
+import { publicSchema } from '@/resources/users/drizzle.schema';
 import { emailService } from '@/services';
 import { ClientError, Template } from '@/types';
 
@@ -21,7 +20,7 @@ export default isPublic
   .handler(async ({ input, context }) => {
     const { token } = input;
 
-    const emailVerificationToken = await validateToken({ token, type: TokenType.EMAIL_VERIFICATION });
+    const emailVerificationToken = await validateToken({ token, type: 'email-verification' });
 
     const user = emailVerificationToken
       ? await db.users.findFirst({ where: { id: emailVerificationToken.userId } })
@@ -31,7 +30,7 @@ export default isPublic
       throw new ClientError({ token: 'Token is invalid or expired' });
     }
 
-    await db.tokens.deleteMany({ userId: user.id, type: TokenType.EMAIL_VERIFICATION });
+    await db.tokens.deleteMany({ userId: user.id, type: 'email-verification' });
     await db.users.updateOne({ id: user.id }, { isEmailVerified: true });
 
     const accessToken = await setAccessToken({ ctx: context, userId: user.id });

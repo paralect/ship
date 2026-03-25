@@ -1,7 +1,6 @@
 import { ACCESS_TOKEN } from 'app-constants';
 
 import createToken from '@/resources/tokens/methods/create-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
 import updateLastRequest from '@/resources/users/methods/update-last-request';
 import type { ORPCContext } from '@/types';
 import { clientUtil, cookieUtil } from '@/utils';
@@ -16,7 +15,7 @@ export default async function setAccessToken({ ctx, userId }: SetAccessTokenOpti
 
   const accessToken = await createToken({
     userId,
-    type: TokenType.ACCESS,
+    type: 'access',
     expiresIn: ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS,
   });
 

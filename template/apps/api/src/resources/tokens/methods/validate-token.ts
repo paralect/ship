@@ -1,7 +1,8 @@
+import type { Token } from '@/db';
 import db from '@/db';
-import type { Token } from '@/resources/tokens/tokens.schema';
-import { TokenType } from '@/resources/tokens/tokens.schema';
 import { securityUtil } from '@/utils';
+
+type TokenType = Token['type'];
 
 const getToken = async (tokenId: string | undefined | null, type: TokenType): Promise<Token | null> => {
   if (!tokenId) {

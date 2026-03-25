@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { publicSchema } from '../users.schema';
+import { publicSchema } from '../drizzle.schema';
 
 import db from '@/db';
 import { isAdmin } from '@/procedures';

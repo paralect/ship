@@ -1,6 +1,6 @@
 import { EventEmitter } from 'node:events';
 
-import type { User } from '@/resources/users/users.schema';
+import type { User } from '@/db';
 
 interface EventMap {
   'users.created': { doc: User };

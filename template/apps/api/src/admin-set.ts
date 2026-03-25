@@ -2,7 +2,7 @@ import process from 'node:process';
 
 import db from '@/db';
 import logger from '@/logger';
-import { emailSchema } from '@/resources/base.schema';
+import { emailSchema } from '@/resources/users/drizzle.schema';
 
 const usage = 'Usage: pnpm admin:set -- <email>';
 

@@ -5,9 +5,8 @@ import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 import config from '@/config';
 import db from '@/db';
 import { isPublic } from '@/procedures';
-import { emailSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
+import { emailSchema } from '@/resources/users/drizzle.schema';
 import { emailService } from '@/services';
 import { Template } from '@/types';
 
@@ -22,11 +21,11 @@ export default isPublic
       return {};
     }
 
-    await db.tokens.deleteMany({ userId: user.id, type: TokenType.EMAIL_VERIFICATION });
+    await db.tokens.deleteMany({ userId: user.id, type: 'email-verification' });
 
     const emailVerificationToken = await createToken({
       userId: user.id,
-      type: TokenType.EMAIL_VERIFICATION,
+      type: 'email-verification',
       expiresIn: EMAIL_VERIFICATION_TOKEN.EXPIRATION_SECONDS,
     });
 
