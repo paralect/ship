@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import config from '@/config';
-import { tokensService, usersService } from '@/db';
+import db from '@/db';
 import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
 import validateToken from '@/resources/tokens/methods/validate-token';
@@ -26,7 +26,7 @@ export default isPublic
       }
 
       const emailVerificationToken = await validateToken({ token: input.token, type: TokenType.EMAIL_VERIFICATION });
-      const user = await usersService.findOne({ _id: emailVerificationToken?.userId });
+      const user = await db.users.findOne({ _id: emailVerificationToken?.userId });
 
       if (!emailVerificationToken || !user) {
         const url = new URL(config.WEB_URL);
@@ -34,8 +34,8 @@ export default isPublic
         return { headers: { location: url.toString() } };
       }
 
-      await tokensService.deleteMany({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
-      await usersService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }));
+      await db.tokens.deleteMany({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
+      await db.users.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }));
 
       await setAccessToken({ ctx: context, userId: user._id });
 

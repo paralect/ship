@@ -18,8 +18,8 @@ const main = async () => {
 
   await init();
 
-  const { usersService } = await import('@/db');
-  const user = await usersService.findOne({ email });
+  const { default: db } = await import('@/db');
+  const user = await db.users.findOne({ email });
 
   if (!user) {
     throw new Error(`User not found: ${email}`);
@@ -30,7 +30,7 @@ const main = async () => {
     return;
   }
 
-  await usersService.updateOne({ _id: user._id }, () => ({ isAdmin: true }));
+  await db.users.updateOne({ _id: user._id }, () => ({ isAdmin: true }));
 
   logger.info(`User ${email} was promoted to admin.`);
 };

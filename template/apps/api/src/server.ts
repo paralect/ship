@@ -11,7 +11,7 @@ import { secureHeaders } from 'hono/secure-headers';
 import { COOKIES } from 'app-constants';
 
 import config from '@/config';
-import { usersService } from '@/db';
+import db from '@/db';
 import ioEmitter from '@/io-emitter';
 import appLogger from '@/logger';
 import redisClient, { redisErrorHandler } from '@/redis-client';
@@ -69,7 +69,7 @@ app.use(async (c, next) => {
 
     const token = await validateAccessToken(accessToken);
     if (token) {
-      const user = await usersService.findOne({ _id: token.userId });
+      const user = await db.users.findOne({ _id: token.userId });
       if (user) {
         await updateLastRequest(token.userId);
         ctx.user = user;

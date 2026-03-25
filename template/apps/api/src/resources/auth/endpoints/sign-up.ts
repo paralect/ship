@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 
 import config from '@/config';
-import { usersService } from '@/db';
+import db from '@/db';
 import { isPublic } from '@/procedures';
 import { emailSchema, passwordSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
@@ -29,13 +29,13 @@ export default isPublic
   .handler(async ({ input, context }) => {
     const { firstName, lastName, email, password } = input;
 
-    const isUserExists = await usersService.exists({ email });
+    const isUserExists = await db.users.exists({ email });
 
     if (isUserExists) {
       throw new ClientError({ email: 'User with this email is already registered' });
     }
 
-    const user = await usersService.insertOne({
+    const user = await db.users.insertOne({
       email,
       firstName,
       lastName,

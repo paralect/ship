@@ -1,4 +1,4 @@
-import { tokensService } from '@/db';
+import db from '@/db';
 import type { Token } from '@/resources/tokens/tokens.schema';
 import { TokenType } from '@/resources/tokens/tokens.schema';
 import { securityUtil } from '@/utils';
@@ -6,7 +6,7 @@ import { securityUtil } from '@/utils';
 const getToken = async (tokenId: string | undefined | null, type: TokenType): Promise<Token | null> => {
   if (!tokenId) return null;
 
-  const token = await tokensService.findOne({ _id: tokenId, type });
+  const token = await db.tokens.findOne({ _id: tokenId, type });
 
   if (type && token?.type !== type) return null;
 
@@ -15,7 +15,7 @@ const getToken = async (tokenId: string | undefined | null, type: TokenType): Pr
   const now = new Date();
 
   if (token.expiresOn.getTime() <= now.getTime()) {
-    await tokensService.deleteOne({ _id: tokenId, type });
+    await db.tokens.deleteOne({ _id: tokenId, type });
     return null;
   }
 
@@ -46,7 +46,7 @@ export default async function validateToken({
   const now = new Date();
 
   if (foundToken.expiresOn.getTime() <= now.getTime()) {
-    await tokensService.deleteOne({ _id: tokenId, type });
+    await db.tokens.deleteOne({ _id: tokenId, type });
     return null;
   }
 

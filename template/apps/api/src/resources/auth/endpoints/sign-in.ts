@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { tokensService, usersService } from '@/db';
+import db from '@/db';
 import { isPublic } from '@/procedures';
 import { emailSchema } from '@/resources/base.schema';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
@@ -28,7 +28,7 @@ export default isPublic
   .handler(async ({ input, context }) => {
     const { email, password } = input;
 
-    const user = await usersService.findOne({ email }, { isIncludeSecureFields: true } as Record<string, unknown>);
+    const user = await db.users.findOne({ email }, { isIncludeSecureFields: true } as Record<string, unknown>);
 
     if (!user || !user.passwordHash) {
       throw new ClientError({ credentials: 'The email or password you have entered is invalid' });
@@ -41,10 +41,10 @@ export default isPublic
     }
 
     if (!user.isEmailVerified) {
-      const token = await tokensService.findOne({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
+      const token = await db.tokens.findOne({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
 
       if (!token || token.expiresOn.getTime() <= Date.now()) {
-        if (token) await tokensService.deleteOne({ _id: token._id });
+        if (token) await db.tokens.deleteOne({ _id: token._id });
         throw new ClientError({ emailVerificationTokenExpired: 'true' });
       }
     }

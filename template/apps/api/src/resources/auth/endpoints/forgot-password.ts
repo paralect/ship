@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { RESET_PASSWORD_TOKEN } from 'app-constants';
 
 import config from '@/config';
-import { tokensService, usersService } from '@/db';
+import db from '@/db';
 import { isPublic } from '@/procedures';
 import { emailSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
@@ -16,13 +16,13 @@ export default isPublic
   .output(z.object({}))
   .handler(async ({ input }) => {
     const { email } = input;
-    const user = await usersService.findOne({ email });
+    const user = await db.users.findOne({ email });
 
     if (!user) return {};
 
     await Promise.all([
-      tokensService.deleteMany({ userId: user._id, type: TokenType.ACCESS }),
-      tokensService.deleteMany({ userId: user._id, type: TokenType.RESET_PASSWORD }),
+      db.tokens.deleteMany({ userId: user._id, type: TokenType.ACCESS }),
+      db.tokens.deleteMany({ userId: user._id, type: TokenType.RESET_PASSWORD }),
     ]);
 
     const resetPasswordToken = await createToken({

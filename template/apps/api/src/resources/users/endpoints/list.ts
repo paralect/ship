@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { publicSchema } from '../users.schema';
 
-import { usersService } from '@/db';
+import db from '@/db';
 import { isAdmin } from '@/procedures';
 import { listResultSchema, paginationSchema } from '@/resources/base.schema';
 import type { NestedKeys } from '@/types';
@@ -63,7 +63,7 @@ export default isAdmin
       });
     }
 
-    const result = await usersService.find(
+    const result = await db.users.find(
       { ...(filterOptions.length && { $and: filterOptions }) },
       { page, perPage },
       { sort },

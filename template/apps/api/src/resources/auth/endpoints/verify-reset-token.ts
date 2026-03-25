@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import config from '@/config';
-import { usersService } from '@/db';
+import db from '@/db';
 import { isPublic } from '@/procedures';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import { TokenType } from '@/resources/tokens/tokens.schema';
@@ -23,7 +23,7 @@ export default isPublic
       }
 
       const resetPasswordToken = await validateToken({ token: input.token, type: TokenType.RESET_PASSWORD });
-      const user = await usersService.findOne({ _id: resetPasswordToken?.userId });
+      const user = await db.users.findOne({ _id: resetPasswordToken?.userId });
 
       if (!resetPasswordToken || !user) {
         const url = new URL(config.WEB_URL);

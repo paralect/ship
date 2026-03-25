@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { usersService } from '@/db';
+import db from '@/db';
 import { isAuthorized } from '@/procedures';
 import removeAvatar from '@/resources/auth/methods/remove-avatar';
 import uploadAvatar from '@/resources/auth/methods/upload-avatar';
@@ -46,5 +46,5 @@ export default isAuthorized
       return user;
     }
 
-    return usersService.updateOne({ _id: user._id }, () => updateData).then((u) => u!);
+    return db.users.updateOne({ _id: user._id }, () => updateData).then((u) => u!);
   });

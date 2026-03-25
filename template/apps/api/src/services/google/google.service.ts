@@ -10,7 +10,7 @@ import {
 import { z } from 'zod';
 
 import config from '@/config';
-import { usersService } from '@/db';
+import db from '@/db';
 import logger from '@/logger';
 import updateLastRequest from '@/resources/users/methods/update-last-request';
 import type { User } from '@/resources/users/users.schema';
@@ -50,7 +50,7 @@ interface GoogleUserData {
 }
 
 const handleExistingUser = async (userId: string): Promise<User | null> => {
-  const existingUser = await usersService.findOne({ 'oauth.google.userId': userId });
+  const existingUser = await db.users.findOne({ 'oauth.google.userId': userId });
 
   if (existingUser) {
     await updateLastRequest(existingUser._id);
@@ -62,10 +62,10 @@ const handleExistingUser = async (userId: string): Promise<User | null> => {
 };
 
 const handleExistingUserByEmail = async (email: string, googleUserId: string): Promise<User | null> => {
-  const existingUserByEmail = await usersService.findOne({ email });
+  const existingUserByEmail = await db.users.findOne({ email });
 
   if (existingUserByEmail) {
-    await usersService.updateOne({ _id: existingUserByEmail._id }, () => ({
+    await db.users.updateOne({ _id: existingUserByEmail._id }, () => ({
       oauth: {
         google: {
           userId: googleUserId,
@@ -85,7 +85,7 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
 const createNewUser = async (userData: GoogleUserData): Promise<User | null> => {
   const { firstName, lastName, email, isEmailVerified, avatarUrl, googleUserId } = userData;
 
-  return usersService.insertOne({
+  return db.users.insertOne({
     firstName,
     lastName,
     email,
