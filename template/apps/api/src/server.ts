@@ -11,13 +11,11 @@ import { secureHeaders } from 'hono/secure-headers';
 import { COOKIES } from 'app-constants';
 
 import config from '@/config';
-import db from '@/db';
 import ioEmitter from '@/io-emitter';
 import appLogger from '@/logger';
 import redisClient, { redisErrorHandler } from '@/redis-client';
-import validateAccessToken from '@/resources/tokens/methods/validate-access-token';
-import updateLastRequest from '@/resources/users/methods/update-last-request';
 import { router } from '@/router';
+import serverConfig from '@/server-config';
 import socketServer from '@/socket-server';
 import type { CookieOptions, HonoEnv, ORPCContext } from '@/types';
 import { AppError, ClientError } from '@/types';
@@ -66,15 +64,7 @@ app.use(async (c, next) => {
 
   if (accessToken) {
     ctx.accessToken = accessToken;
-
-    const token = await validateAccessToken({ value: accessToken });
-    if (token) {
-      const user = await db.users.findFirst({ where: { id: token.userId, deletedAt: null } });
-      if (user) {
-        await updateLastRequest({ userId: token.userId });
-        ctx.user = user;
-      }
-    }
+    await serverConfig.resolveUser(ctx);
   }
 
   c.set('ctx', ctx);

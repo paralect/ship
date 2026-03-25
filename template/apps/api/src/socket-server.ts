@@ -2,26 +2,9 @@ import { createAdapter } from '@socket.io/redis-adapter';
 import http from 'node:http';
 import { Server } from 'socket.io';
 
-import { COOKIES } from 'app-constants';
-
 import logger from '@/logger';
 import pubClient, { redisErrorHandler } from '@/redis-client';
-import validateAccessToken from '@/resources/tokens/methods/validate-access-token';
-
-const getCookie = (cookieString: string, name: string) => {
-  const value = `; ${cookieString}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts && parts.length === 2) {
-    const part = parts.pop();
-    if (!part) {
-      return null;
-    }
-
-    return part.split(';').shift();
-  }
-
-  return null;
-};
+import serverConfig from '@/server-config';
 
 const checkAccessToRoom = (roomId: string, data: { userId: string }) => {
   const [roomType, ...rest] = roomId.split('-');
@@ -49,9 +32,7 @@ export default (server: http.Server) => {
   io.use(async (socket, next) => {
     if (!socket.handshake.headers.cookie) return next(new Error('Cookie not found'));
 
-    const accessToken = getCookie(socket.handshake.headers.cookie, COOKIES.ACCESS_TOKEN);
-
-    const token = await validateAccessToken({ value: accessToken });
+    const token = await serverConfig.socketAuth(socket.handshake.headers.cookie);
 
     if (token) {
       socket.data = {

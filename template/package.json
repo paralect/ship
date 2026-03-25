@@ -6,11 +6,16 @@
     "turbo-start": "turbo run development",
     "docker": "bash ./bin/start.sh",
     "start": "bash ./bin/run-all.sh",
+    "plugin:install": "tsx scripts/plugin.ts install",
+    "plugin:uninstall": "tsx scripts/plugin.ts uninstall",
+    "plugin:list": "tsx scripts/plugin.ts list",
+    "plugin:dev": "tsx scripts/plugin.ts dev",
     "prepare": "cd .. && husky template/.husky"
   },
   "devDependencies": {
     "husky": "9.0.11",
-    "turbo": "2.5.4"
+    "turbo": "2.5.4",
+    "tsx": "4.20.4"
   },
   "optionalDependencies": {
     "turbo-darwin-64": "2.5.4",

@@ -60,12 +60,18 @@ importers:
       husky:
         specifier: 9.0.11
         version: 9.0.11
+      tsx:
+        specifier: 4.20.4
+        version: 4.20.4
       turbo:
         specifier: 2.5.4
         version: 2.5.4
 
   apps/api:
     dependencies:
+      '@ai-sdk/google':
+        specifier: 3.0.53
+        version: 3.0.53(zod@4.0.5)
       '@aws-sdk/client-s3':
         specifier: 3.828.0
         version: 3.828.0
@@ -99,6 +105,9 @@ importers:
       '@socket.io/redis-emitter':
         specifier: 5.1.0
         version: 5.1.0
+      ai:
+        specifier: 6.0.138
+        version: 6.0.138(zod@4.0.5)
       app-constants:
         specifier: workspace:*
         version: link:../../packages/app-constants
@@ -496,8 +505,26 @@ packages:
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
+  '@ai-sdk/gateway@3.0.80':
+    resolution: {integrity: sha512-uM7kpZB5l977lW7+2X1+klBUxIZQ78+1a9jHlaHFEzcOcmmslTl3sdP0QqfuuBcO0YBM2gwOiqVdp8i4TRQYcw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
+  '@ai-sdk/google@3.0.53':
+    resolution: {integrity: sha512-uz8tIlkDgQJG9Js2Wh9JHzd4kI9+hYJqf9XXJLx60vyN5mRIqhr49iwR5zGP5Gl8odp2PeR3Gh2k+5bh3Z1HHw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
   '@ai-sdk/provider-utils@4.0.15':
     resolution: {integrity: sha512-8XiKWbemmCbvNN0CLR9u3PQiet4gtEVIrX4zzLxnCj06AwsEDJwJVBbKrEI4t6qE8XRSIvU2irka0dcpziKW6w==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
+  '@ai-sdk/provider-utils@4.0.21':
+    resolution: {integrity: sha512-MtFUYI1/8mgDvRmaBDjbLJPFFrMG777AvSgyIFQtZHIMzm88R/12vYBBpnk7pfiWLFE1DSZzY4WDYzGbKAcmiw==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -3935,6 +3962,12 @@ packages:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
     engines: {node: '>= 14'}
 
+  ai@6.0.138:
+    resolution: {integrity: sha512-49OfPe0f5uxJ6jUdA5BBXjIinP6+ZdYfAtpF2aEH64GA5wPcxH2rf/TBUQQ0bbamBz/D+TLMV18xilZqOC+zaA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
   ai@6.0.86:
     resolution: {integrity: sha512-U2W2LBCHA/pr0Ui7vmmsjBiLEzBbZF3yVHNy7Rbzn7IX+SvoQPFM5rN74hhfVzZoE8zBuGD4nLLk+j0elGacvQ==}
     engines: {node: '>=18'}
@@ -5238,9 +5271,6 @@ packages:
   get-symbol-description@1.1.0:
     resolution: {integrity: sha512-w9UMqWwJxHNOvoNzSJ2oPF5wvYcvP7jUvYzhp67yEhTi17ZDBBC1z9pTdGuzjD+EFIqLSYRweZjqfiPzQ06Ebg==}
     engines: {node: '>= 0.4'}
-
-  get-tsconfig@4.13.0:
-    resolution: {integrity: sha512-1VKTZJCwBrvbd+Wn3AOgQP/2Av+TfTCOlE4AcRJE72W1ksZXbAx8PPBR9RzgTeSPzlPMHrbANMH3LbltH73wxQ==}
 
   get-tsconfig@4.13.7:
     resolution: {integrity: sha512-7tN6rFgBlMgpBML5j8typ92BKFi2sFQvIdpAqLA2beia5avZDrMs0FLZiM5etShWq5irVyGcGMEA1jcDaK7A/Q==}
@@ -7446,7 +7476,27 @@ snapshots:
       '@vercel/oidc': 3.1.0
       zod: 4.0.5
 
+  '@ai-sdk/gateway@3.0.80(zod@4.0.5)':
+    dependencies:
+      '@ai-sdk/provider': 3.0.8
+      '@ai-sdk/provider-utils': 4.0.21(zod@4.0.5)
+      '@vercel/oidc': 3.1.0
+      zod: 4.0.5
+
+  '@ai-sdk/google@3.0.53(zod@4.0.5)':
+    dependencies:
+      '@ai-sdk/provider': 3.0.8
+      '@ai-sdk/provider-utils': 4.0.21(zod@4.0.5)
+      zod: 4.0.5
+
   '@ai-sdk/provider-utils@4.0.15(zod@4.0.5)':
+    dependencies:
+      '@ai-sdk/provider': 3.0.8
+      '@standard-schema/spec': 1.1.0
+      eventsource-parser: 3.0.6
+      zod: 4.0.5
+
+  '@ai-sdk/provider-utils@4.0.21(zod@4.0.5)':
     dependencies:
       '@ai-sdk/provider': 3.0.8
       '@standard-schema/spec': 1.1.0
@@ -11590,6 +11640,14 @@ snapshots:
 
   agent-base@7.1.4: {}
 
+  ai@6.0.138(zod@4.0.5):
+    dependencies:
+      '@ai-sdk/gateway': 3.0.80(zod@4.0.5)
+      '@ai-sdk/provider': 3.0.8
+      '@ai-sdk/provider-utils': 4.0.21(zod@4.0.5)
+      '@opentelemetry/api': 1.9.0
+      zod: 4.0.5
+
   ai@6.0.86(zod@4.0.5):
     dependencies:
       '@ai-sdk/gateway': 3.0.46(zod@4.0.5)
@@ -12499,7 +12557,7 @@ snapshots:
       enhanced-resolve: 5.18.3
       eslint: 9.34.0(jiti@2.6.1)
       eslint-plugin-es-x: 7.8.0(eslint@9.34.0(jiti@2.6.1))
-      get-tsconfig: 4.13.0
+      get-tsconfig: 4.13.7
       globals: 15.15.0
       globrex: 0.1.2
       ignore: 5.3.2
@@ -13055,10 +13113,6 @@ snapshots:
       call-bound: 1.0.4
       es-errors: 1.3.0
       get-intrinsic: 1.3.0
-
-  get-tsconfig@4.13.0:
-    dependencies:
-      resolve-pkg-maps: 1.0.0
 
   get-tsconfig@4.13.7:
     dependencies:
@@ -15470,8 +15524,8 @@ snapshots:
 
   tsx@4.20.4:
     dependencies:
-      esbuild: 0.25.10
-      get-tsconfig: 4.13.0
+      esbuild: 0.25.12
+      get-tsconfig: 4.13.7
     optionalDependencies:
       fsevents: 2.3.3
 

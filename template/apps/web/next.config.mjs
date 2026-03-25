@@ -17,6 +17,12 @@ const nextConfig = {
       use: ['@svgr/webpack'],
     });
 
+    // Ensure symlinked plugin files resolve bare imports (components, hooks, etc.)
+    // and node_modules from the web app, not from the plugin's real path.
+    const webSrc = join(process.cwd(), 'src');
+    const webNodeModules = join(process.cwd(), 'node_modules');
+    config.resolve.modules = [webSrc, webNodeModules, ...config.resolve.modules || ['node_modules']];
+
     return config;
   },
   reactStrictMode: true,

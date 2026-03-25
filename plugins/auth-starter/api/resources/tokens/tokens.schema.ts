@@ -1,7 +1,7 @@
 import { pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
-import { baseColumns } from '../base.schema';
-import { users } from '../users/users.schema';
+import { baseColumns } from '@/resources/base.schema';
+import { users } from '@/resources/users/users.schema';
 
 export const tokenTypeEnum = pgEnum('token_type', ['access', 'email-verification', 'reset-password']);
 

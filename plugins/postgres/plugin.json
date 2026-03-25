@@ -1,0 +1,5 @@
+{
+  "name": "postgres",
+  "version": "1.0.0",
+  "description": "Drizzle ORM + PostgreSQL — database layer with auto-generated db.ts, DbService, users schema, and migrations"
+}
