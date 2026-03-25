@@ -1,19 +1,4 @@
 services:
-  postgres:
-    container_name: ship-postgres
-    image: postgres:17
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: api-development
-    networks:
-      - ship
-    ports:
-      - 5432:5432
-    volumes:
-      - type: volume
-        source: pgdata
-        target: /var/lib/postgresql/data
   redis:
     container_name: ship-redis
     image: redis:8.0.2
@@ -42,7 +27,6 @@ services:
       - 3001:3001
     depends_on:
       - redis
-      - postgres
   migrator:
     container_name: ship-migrator
     build:
@@ -56,8 +40,6 @@ services:
       - ship
     volumes:
       - ./apps/api/src:/app/apps/api/src
-    depends_on:
-      - postgres
   scheduler:
     container_name: ship-scheduler
     build:
@@ -71,8 +53,6 @@ services:
       - ship
     volumes:
       - ./apps/api/src:/app/apps/api/src
-    depends_on:
-      - postgres
   web:
     container_name: ship-web
     build:
@@ -92,6 +72,3 @@ services:
 networks:
   ship:
     name: ship-network
-
-volumes:
-  pgdata:

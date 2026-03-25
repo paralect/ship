@@ -24,8 +24,8 @@ class EventBus {
       ...event,
     };
 
-    if (!evtCopy.createdOn) {
-      evtCopy.createdOn = new Date();
+    if (!evtCopy.createdAt) {
+      evtCopy.createdAt = new Date();
     }
 
     this._bus.emit(name, evtCopy);

@@ -33,17 +33,17 @@ import {
 } from './types';
 
 import logger from './utils/logger';
-import { addUpdatedOnField, generateId } from './utils/helpers';
+import { addUpdatedAtField, generateId } from './utils/helpers';
 import PopulateUtil from './utils/populate';
 
 import { inMemoryPublisher } from './events/in-memory';
 
 const defaultOptions: ServiceOptions = {
-  skipDeletedOnDocs: true,
+  skipDeletedAtDocs: true,
   publishEvents: true,
   outbox: false,
-  addCreatedOnField: true,
-  addUpdatedOnField: true,
+  addCreatedAtField: true,
+  addUpdatedAtField: true,
   escapeRegExp: false,
 };
 
@@ -126,12 +126,12 @@ class Service<T extends IDocument> {
     query: Filter<U>,
     readConfig: ReadConfig,
   ): Filter<U> => {
-    const shouldSkipDeletedDocs = typeof readConfig.skipDeletedOnDocs === 'boolean'
-      ? readConfig.skipDeletedOnDocs
-      : this.options.skipDeletedOnDocs;
+    const shouldSkipDeletedDocs = typeof readConfig.skipDeletedAtDocs === 'boolean'
+      ? readConfig.skipDeletedAtDocs
+      : this.options.skipDeletedAtDocs;
 
-    if (!query.deletedOn && shouldSkipDeletedDocs) {
-      query = { ...query, deletedOn: { $exists: false } };
+    if (!query.deletedAt && shouldSkipDeletedDocs) {
+      query = { ...query, deletedAt: { $exists: false } };
     }
 
     if (this.options.escapeRegExp) {
@@ -158,12 +158,12 @@ class Service<T extends IDocument> {
 
     const timestamp = new Date();
 
-    if (!entity.createdOn && this.options.addCreatedOnField) {
-      entity.createdOn = timestamp;
+    if (!entity.createdAt && this.options.addCreatedAtField) {
+      entity.createdAt = timestamp;
     }
 
-    if (!entity.updatedOn && this.options.addUpdatedOnField) {
-      entity.updatedOn = timestamp;
+    if (!entity.updatedAt && this.options.addUpdatedAtField) {
+      entity.updatedAt = timestamp;
     }
 
     const shouldValidateSchema = typeof createConfig.validateSchema === 'boolean'
@@ -440,8 +440,8 @@ class Service<T extends IDocument> {
 
     filter = this.handleReadOperations(filter, readConfig);
 
-    if (this.options.addUpdatedOnField) {
-      replacement.updatedOn = new Date();
+    if (this.options.addUpdatedAtField) {
+      replacement.updatedAt = new Date();
     }
 
     return collection.replaceOne(filter, replacement as WithoutId<T>, replaceOptions);
@@ -520,11 +520,11 @@ class Service<T extends IDocument> {
       return updateConfig.isIncludeSecureFields ? newDoc : this.omitSecureFields(newDoc);
     }
 
-    if (this.options.addUpdatedOnField) {
-      const updatedOnDate = new Date();
+    if (this.options.addUpdatedAtField) {
+      const updatedAtDate = new Date();
 
-      newDoc.updatedOn = updatedOnDate;
-      updateFilter = _.merge(updateFilter, { $set: { updatedOn: updatedOnDate } });
+      newDoc.updatedAt = updatedAtDate;
+      updateFilter = _.merge(updateFilter, { $set: { updatedAt: updatedAtDate } });
     }
 
     const shouldValidateSchema = typeof updateConfig.validateSchema === 'boolean'
@@ -656,13 +656,13 @@ class Service<T extends IDocument> {
       return updateConfig.isIncludeSecureFields ? docs : docs.map((d) => this.omitSecureFields(d));
     }
 
-    if (this.options.addUpdatedOnField) {
-      const updatedOnDate = new Date();
+    if (this.options.addUpdatedAtField) {
+      const updatedAtDate = new Date();
 
       updated.forEach((u) => {
         if (u?.isUpdated) {
-          u.doc.updatedOn = updatedOnDate;
-          u.updateFilter = _.merge(u.updateFilter, { $set: { updatedOn: updatedOnDate } });
+          u.doc.updatedAt = updatedAtDate;
+          u.updateFilter = _.merge(u.updateFilter, { $set: { updatedAt: updatedAtDate } });
         }
       });
     }
@@ -829,8 +829,8 @@ class Service<T extends IDocument> {
       return [];
     }
 
-    const deletedOnDate = new Date();
-    const deletedDocuments = documents.map((doc) => ({ ...doc, deletedOn: deletedOnDate }));
+    const deletedAtDate = new Date();
+    const deletedDocuments = documents.map((doc) => ({ ...doc, deletedAt: deletedAtDate }));
 
     const shouldPublishEvents = typeof deleteConfig.publishEvents === 'boolean'
       ? deleteConfig.publishEvents
@@ -840,7 +840,7 @@ class Service<T extends IDocument> {
       const deleteSoftWithEvent = async (opts: UpdateOptions): Promise<void> => {
         await collection.updateMany(
           filter,
-          { $set: { deletedOn: deletedOnDate } } as UpdateFilter<U>,
+          { $set: { deletedAt: deletedAtDate } } as UpdateFilter<U>,
           opts,
         );
 
@@ -860,7 +860,7 @@ class Service<T extends IDocument> {
     } else {
       await collection.updateMany(
         filter,
-        { $set: { deletedOn: deletedOnDate } } as UpdateFilter<U>,
+        { $set: { deletedAt: deletedAtDate } } as UpdateFilter<U>,
         deleteOptions,
       );
     }
@@ -879,8 +879,8 @@ class Service<T extends IDocument> {
 
       filter = this.handleReadOperations(filter, readConfig);
 
-      if (this.options.addUpdatedOnField) {
-        updateFilter = addUpdatedOnField(updateFilter);
+      if (this.options.addUpdatedAtField) {
+        updateFilter = addUpdatedAtField(updateFilter);
       }
 
       return collection.updateOne(filter, updateFilter, updateOptions);
@@ -895,8 +895,8 @@ class Service<T extends IDocument> {
 
       filter = this.handleReadOperations(filter, readConfig);
 
-      if (this.options.addUpdatedOnField) {
-        updateFilter = addUpdatedOnField(updateFilter);
+      if (this.options.addUpdatedAtField) {
+        updateFilter = addUpdatedAtField(updateFilter);
       }
 
       return collection.updateMany(filter, updateFilter, updateOptions);

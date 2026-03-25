@@ -1,7 +1,7 @@
 import { cpSync, existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, symlinkSync, unlinkSync, watch, writeFileSync } from 'node:fs';
 import { basename, dirname, join, resolve } from 'node:path';
 import process from 'node:process';
-import { execSync } from 'node:child_process';
+import { execSync, spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -330,7 +330,7 @@ function copyTemplateToPluginTest(): void {
 
 }
 
-function mergePluginFiles(absPath: string): void {
+function mergePluginFiles(absPath: string, dbVariant?: string): void {
   const destApi = join(PLUGIN_TEST_DIR, 'apps', 'api');
 
   // api/src/resources/* → apps/api/src/resources/
@@ -401,6 +401,17 @@ function mergePluginFiles(absPath: string): void {
       console.log(`  Merged pages/${entry.name}`);
     }
   }
+
+  // DB-variant: merge _postgres_api/ or _mongo_api/ as additional api/ source
+  if (dbVariant) {
+    const variantDir = join(absPath, dbVariant);
+    if (existsSync(variantDir)) {
+      console.log(`  Applying ${dbVariant}/...`);
+      // The variant dir has the same structure as the plugin root (api/, web/, etc.)
+      // Re-run merge treating it as a separate plugin root (without further variant recursion)
+      mergePluginFiles(variantDir);
+    }
+  }
 }
 
 function dev(pluginPaths: string[]): void {
@@ -421,10 +432,16 @@ function dev(pluginPaths: string[]): void {
   console.log('Setting up plugin-dev-server directory...');
   copyTemplateToPluginTest();
 
+  // Detect DB variant from plugin names
+  const pluginNames = plugins.map((p) => p.plugin.name);
+  const dbVariant = pluginNames.includes('postgres') ? '_postgres_api'
+    : pluginNames.includes('mongo') ? '_mongo_api'
+    : undefined;
+
   // Merge all plugins
   for (const { absPath, plugin } of plugins) {
     console.log(`Merging plugin "${plugin.name}"...`);
-    mergePluginFiles(absPath);
+    mergePluginFiles(absPath, dbVariant);
 
     // Add plugin deps to plugin-dev-server's package.json (not template's)
     if (plugin.dependencies?.api) {
@@ -455,7 +472,11 @@ function dev(pluginPaths: string[]): void {
   const watchers: ReturnType<typeof watch>[] = [];
 
   for (const { absPath } of plugins) {
-    const watchDirs = [join(absPath, 'api'), join(absPath, 'web')].filter(existsSync);
+    const watchDirs = [
+      join(absPath, 'api'),
+      join(absPath, 'web'),
+      ...(dbVariant ? [join(absPath, dbVariant)] : []),
+    ].filter(existsSync);
 
     for (const dir of watchDirs) {
       let timeout: ReturnType<typeof setTimeout> | null = null;
@@ -464,30 +485,28 @@ function dev(pluginPaths: string[]): void {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
           console.log(`\n  Plugin file changed: ${filename}, re-merging...`);
-          mergePluginFiles(absPath);
+          mergePluginFiles(absPath, dbVariant);
         }, 200);
       });
       watchers.push(watcher);
     }
   }
 
-  const cleanup = () => {
-    console.log('\nCleaning up...');
-    for (const w of watchers) w.close();
-  };
-
-  process.on('SIGINT', () => { cleanup(); process.exit(0); });
-  process.on('SIGTERM', () => { cleanup(); process.exit(0); });
-
   const names = plugins.map((p) => p.plugin.name).join(', ');
   console.log(`\nStarting dev server with plugins: ${names}`);
   console.log('Press Ctrl+C to stop.\n');
 
-  try {
-    execSync('pnpm turbo-start', { cwd: PLUGIN_TEST_DIR, stdio: 'inherit' });
-  } finally {
-    cleanup();
-  }
+  const child = spawn('pnpm', ['turbo-start'], { cwd: PLUGIN_TEST_DIR, stdio: 'inherit' });
+
+  const cleanup = () => {
+    console.log('\nCleaning up...');
+    for (const w of watchers) w.close();
+    child.kill();
+  };
+
+  process.on('SIGINT', () => { cleanup(); process.exit(0); });
+  process.on('SIGTERM', () => { cleanup(); process.exit(0); });
+  child.on('exit', (code) => { cleanup(); process.exit(code ?? 0); });
 }
 
 // ── CLI ──────────────────────────────────────────────────────────────────────

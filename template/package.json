@@ -2,7 +2,9 @@
   "name": "ship",
   "scripts": {
     "admin:set": "pnpm --filter api admin:set",
-    "infra": "bash ./bin/start.sh postgres redis",
+    "infra": "bash ./bin/start.sh redis",
+    "infra:postgres": "docker compose -f docker-compose.yml -f docker-compose.postgres.yml up postgres redis",
+    "infra:mongo": "docker compose -f docker-compose.yml -f docker-compose.mongo.yml up mongo mongo-replicator redis",
     "turbo-start": "turbo run development",
     "docker": "bash ./bin/start.sh",
     "start": "bash ./bin/run-all.sh",

@@ -1,0 +1,10 @@
+{
+  "name": "mongo",
+  "version": "1.0.0",
+  "description": "MongoDB with @paralect/node-mongo — auto-discovery of schemas, services, and indexes",
+  "dependencies": {
+    "api": {
+      "@paralect/node-mongo": "link:../../../../packages/node-mongo"
+    }
+  }
+}

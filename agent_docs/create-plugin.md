@@ -6,20 +6,37 @@ A plugin is a directory under `plugins/` containing API resources (endpoints, sc
 
 ## Plugin structure
 
+### Without database
+
 ```
 plugins/<name>/
-  plugin.json                          # required
+  plugin.json
   api/
-    resources/<name>/
-      <name>.schema.ts                 # Drizzle pgTable — auto-registered in db.ts
-      endpoints/*.ts                   # oRPC endpoints — auto-registered in router.ts
-      methods/*.ts                     # business logic
-      handlers/*.ts                    # event handlers — auto-imported
-    server-config.ts                   # optional — overrides template server hooks
+    src/resources/<name>/
+      endpoints/*.ts
+      methods/*.ts
   web/
-    pages/
-      app/<name>/index.page.tsx        # pages under /app (authenticated)
+    pages/app/<name>/index.page.tsx
 ```
+
+### With database (multi-DB support)
+
+```
+plugins/<name>/
+  plugin.json
+  _postgres_api/
+    api/src/resources/<name>/
+      <name>.schema.ts               # Drizzle pgTable
+      endpoints/*.ts                 # PostgreSQL-specific endpoints
+  _mongo_api/
+    api/src/resources/<name>/
+      <name>.schema.ts               # Zod schema for MongoDB
+      endpoints/*.ts                 # MongoDB-specific endpoints
+  web/
+    pages/app/<name>/index.page.tsx   # Shared UI
+```
+
+The plugin system detects which DB plugin (`postgres` or `mongodb`) is in the list and merges the matching `_*_api/` directory.
 
 ## plugin.json
 
@@ -27,11 +44,17 @@ plugins/<name>/
 {
   "name": "<plugin-name>",
   "version": "1.0.0",
-  "description": "<what it does>"
+  "description": "<what it does>",
+  "requires": ["postgres"],
+  "dependencies": {
+    "api": { "some-package": "^1.0.0" },
+    "web": { "some-ui-lib": "^2.0.0" }
+  }
 }
 ```
 
-Add `dependencies.api` and/or `dependencies.web` if the plugin needs extra npm packages.
+- `requires` documents which plugins must be included alongside this one
+- `dependencies` are installed into `plugin-dev-server/` during `plugin:dev`
 
 ## Key conventions
 
@@ -45,24 +68,21 @@ import { isAuthorized } from '@/procedures';
 import { z } from 'zod';
 
 const inputSchema = z.object({ /* ... */ });
-const outputSchema = z.object({ /* ... */ });
 
 export default isAuthorized
   .input(inputSchema)
-  .output(outputSchema)
   .handler(async ({ context, input }) => {
     // context.user is the authenticated user
-    // db.<tableName> has find, findFirst, insertOne, updateOne, deleteOne, etc.
+    return db.things.insertOne({ userId: context.user._id, name: input.name });
   });
 ```
 
 Procedure builders: `isPublic` (no auth), `isAuthorized` (logged in), `isAdmin` (admin only).
 
-### DB schemas
-
-Export a `pgTable` call. Use `baseColumns` for id/timestamps and `@/` imports for template resources:
+### PostgreSQL schemas
 
 ```typescript
+// _postgres_api/api/src/resources/things/things.schema.ts
 import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { baseColumns } from '@/resources/base.schema';
 import { users } from '@/resources/users/users.schema';
@@ -76,7 +96,43 @@ export const things = pgTable('things', {
 
 `baseColumns` provides: `id` (uuid), `createdAt`, `updatedAt`, `deletedAt`.
 
-The codegen auto-creates `db.things` with a `DbService` instance. Available methods: `find`, `findFirst`, `findPage`, `count`, `insertOne`, `insertMany`, `updateOne`, `updateMany`, `deleteOne`, `deleteMany`.
+The codegen auto-creates `db.things` with a `DbService` instance. Methods: `find`, `findFirst`, `findPage`, `count`, `insertOne`, `insertMany`, `updateOne`, `updateMany`, `deleteOne`, `deleteMany`.
+
+### MongoDB schemas
+
+```typescript
+// _mongo_api/api/src/resources/things/things.schema.ts
+import { z } from 'zod';
+import { dbSchema } from '@/resources/base.schema';
+
+const schema = dbSchema.extend({
+  name: z.string().min(1),
+  userId: z.string(),
+});
+
+export default schema;
+
+export const indexes = [
+  { fields: { userId: 1 }, options: {} },
+] as const;
+```
+
+`dbSchema` provides: `_id` (string), `createdAt`, `updatedAt`, `deletedAt`.
+
+MongoDB services are auto-discovered by `init-db.ts`. Access via `db.things` with methods: `findOne`, `find`, `exists`, `insertOne`, `updateOne`, `deleteOne`, `distinct`.
+
+### Key differences between DB implementations
+
+| Concept | PostgreSQL | MongoDB |
+|---------|------------|---------|
+| ID field | `context.user.id` | `context.user._id` |
+| Check exists | `db.things.findFirst({ where: { email } })` | `db.things.findOne({ email })` |
+| Filter syntax | `{ where: { userId, deletedAt: null } }` | `{ userId, deletedAt: null }` |
+| Find list | `db.things.find({ where: {...} })` returns array | `db.things.find({...})` returns `{ results, count, pagesCount }` |
+| Insert | `db.things.insertOne({...})` | `db.things.insertOne({...})` |
+| Update | `db.things.updateOne({ id }, data)` | `db.things.updateOne({ _id }, updateFn)` |
+| Delete | `db.things.deleteOne({ id })` | `db.things.deleteOne({ _id })` |
+| Timestamps | `createdAt`, `updatedAt`, `deletedAt` | `createdAt`, `updatedAt`, `deletedAt` |
 
 ### Web pages
 
@@ -91,31 +147,38 @@ import { apiClient } from 'services/api-client.service';
 
 IMPORTANT: Import `useQueryClient` from `hooks`, NOT from `@tanstack/react-query`.
 
-Use `ScopeType.PRIVATE` + `LayoutType.MAIN` for authenticated pages. Use `ScopeType.PUBLIC` for public pages.
+Use `ScopeType.PRIVATE` + `LayoutType.MAIN` for authenticated pages.
 
 ### Import rules
 
-- Use `@/` for all template imports: `@/db`, `@/procedures`, `@/config`, `@/resources/base.schema`
-- Use `@/resources/users/users.schema` (not `../users/users.schema`) when referencing template schemas
+- Use `@/` for all template imports: `@/db`, `@/procedures`, `@/config`
+- Use `@/resources/base.schema` and `@/resources/users/users.schema` (not relative `../` paths)
 - Relative imports within the same resource directory are fine
 
 ## Testing
 
+Start infra in one terminal, plugins in another:
+
 ```bash
-pnpm plugin:dev plugins/<name>
-# or combine with other plugins:
-pnpm plugin:dev plugins/auth-starter plugins/<name>
+# Terminal 1
+cd template && pnpm infra:postgres  # or pnpm infra:mongo
+
+# Terminal 2 (from repo root)
+pnpm plugin:dev plugins/postgres plugins/<name>
+# or
+pnpm plugin:dev plugins/mongo plugins/<name>
+# combine with auth:
+pnpm plugin:dev plugins/postgres plugins/auth-starter plugins/<name>
 ```
 
 ## Steps to create a plugin
 
 1. Create `plugins/<name>/plugin.json`
-2. Create the DB schema if needed (`api/resources/<name>/<name>.schema.ts`)
-3. Create endpoints (`api/resources/<name>/endpoints/*.ts`)
-4. Create web pages (`web/pages/app/<name>/index.page.tsx`)
-5. Test with `pnpm plugin:dev plugins/<name>`
+2. If it needs a database, create both `_postgres_api/` and `_mongo_api/` with DB-specific schemas and endpoints
+3. Create shared web pages in `web/pages/app/<name>/`
+4. Test with `pnpm plugin:dev plugins/<db> plugins/<name>`
 
 ## Reference
 
-Look at `plugins/notes/` as a minimal working example with schema, 3 endpoints, and a page.
-Look at `plugins/auth-starter/` for a full-featured example with auth, multiple resources, and server-config override.
+- `plugins/notes/` — minimal example with schema, 3 endpoints, and a page (both DB variants)
+- `plugins/auth-starter/` — full-featured example with auth, multiple resources, server-config override, dual-DB

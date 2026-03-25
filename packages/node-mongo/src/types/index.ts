@@ -37,21 +37,21 @@ export type OutboxEvent<T = any> = {
   type: 'create' | 'update' | 'delete',
   doc: T,
   prevDoc?: T,
-  createdOn: Date
+  createdAt: Date
 };
 
 export type InMemoryEvent<T = any> = {
   doc: T,
   prevDoc?: T,
   name: string,
-  createdOn: Date
+  createdAt: Date
 };
 
 export interface IDocument extends Document {
   _id: string;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
-  createdOn?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
+  createdAt?: Date;
 }
 
 export type FindResult<T> = {
@@ -78,7 +78,7 @@ export type PopulateOptions = {
 };
 
 export type ReadConfig = {
-  skipDeletedOnDocs?: boolean,
+  skipDeletedAtDocs?: boolean,
   populate?: PopulateOptions | PopulateOptions[];
   isIncludeSecureFields?: boolean,
 };
@@ -93,14 +93,14 @@ export type ReadConfigWithoutPopulate = ReadConfig & {
 };
 
 export type UpdateConfig = {
-  skipDeletedOnDocs?: boolean,
+  skipDeletedAtDocs?: boolean,
   validateSchema?: boolean,
   publishEvents?: boolean,
   isIncludeSecureFields?: boolean,
 };
 
 export type DeleteConfig = {
-  skipDeletedOnDocs?: boolean,
+  skipDeletedAtDocs?: boolean,
   publishEvents?: boolean,
 };
 
@@ -122,11 +122,11 @@ interface IDatabase {
 }
 
 interface ServiceOptions {
-  skipDeletedOnDocs?: boolean,
+  skipDeletedAtDocs?: boolean,
   schemaValidator?: (obj: any) => Promise<any>,
   publishEvents?: boolean,
-  addCreatedOnField?: boolean,
-  addUpdatedOnField?: boolean,
+  addCreatedAtField?: boolean,
+  addUpdatedAtField?: boolean,
   outbox?: boolean,
   collectionOptions?: CollectionOptions;
   collectionCreateOptions?: CreateCollectionOptions;

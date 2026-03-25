@@ -6,33 +6,51 @@ Plugins add features to the Ship template without modifying it. Each plugin is a
 
 | Plugin | Description | Requires |
 |--------|-------------|----------|
-| `plugins/postgres` | Drizzle ORM + PostgreSQL — db.service, codegen-db, users schema, base schema | — |
-| `plugins/auth-starter` | Authentication, user management, dashboard | postgres |
-| `plugins/notes` | Simple notes CRUD — example plugin | postgres |
+| `plugins/postgres` | Drizzle ORM + PostgreSQL — DbService, codegen-db, users/tokens schemas, base schema, migrations | — |
+| `plugins/mongo` | MongoDB with @paralect/node-mongo — auto-discovery of schemas, services, and indexes | — |
+| `plugins/auth-starter` | Authentication (sign-in/up, forgot/reset password, Google OAuth), user management, dashboard | postgres or mongodb |
+| `plugins/notes` | Simple notes CRUD — example plugin | postgres or mongodb |
 
 ## Plugin Structure
 
 ```
 my-plugin/
-  plugin.json                    # required — metadata
+  plugin.json                        # required
   api/
-    resources/
-      things/
-        things.schema.ts         # Drizzle schema (auto-registered in db.ts)
-        endpoints/
-          list.ts                # oRPC endpoints (auto-registered in router.ts)
-          create.ts
-        methods/
-          do-something.ts        # Business logic
-        handlers/
-          on-create.ts           # Event handlers (auto-imported)
-    server-config.ts             # Optional — overrides template's server-config.ts
+    src/
+      resources/
+        things/
+          endpoints/*.ts             # oRPC endpoints (auto-registered in router.ts)
+          methods/*.ts               # business logic
+          handlers/*.ts              # event handlers (auto-imported)
+      server-config.ts               # optional — overrides template server hooks
+    scripts/                         # optional — codegen scripts
   web/
     pages/
-      app/
-        things/
-          index.page.tsx         # Next.js pages (auto-discovered)
+      app/things/index.page.tsx      # Next.js pages (auto-discovered)
 ```
+
+### Multi-DB plugins
+
+Plugins that need a database provide separate implementations via `_postgres_api/` and `_mongo_api/`:
+
+```
+my-plugin/
+  plugin.json
+  _postgres_api/
+    api/
+      src/resources/things/          # Drizzle/PostgreSQL implementation
+        things.schema.ts             # pgTable export — auto-registered in db.ts
+        endpoints/*.ts
+  _mongo_api/
+    api/
+      src/resources/things/          # MongoDB implementation
+        things.schema.ts             # Zod schema — auto-discovered by init-db.ts
+        endpoints/*.ts
+  web/pages/...                      # Shared UI (same for both DBs)
+```
+
+The plugin system detects which DB plugin (`postgres` or `mongodb`) is in the list and merges the matching `_*_api/` directory.
 
 ### plugin.json
 
@@ -41,6 +59,7 @@ my-plugin/
   "name": "my-plugin",
   "version": "1.0.0",
   "description": "What this plugin does",
+  "requires": ["postgres"],
   "dependencies": {
     "api": { "some-package": "^1.0.0" },
     "web": { "some-ui-lib": "^2.0.0" }
@@ -51,81 +70,35 @@ my-plugin/
 ## How It Works
 
 - **API endpoints** in `resources/*/endpoints/*.ts` are auto-discovered by `codegen-router.ts`
-- **DB schemas** with `pgTable()` exports in `resources/*/*.schema.ts` are auto-discovered by `codegen-db.ts`
+- **PostgreSQL schemas** with `pgTable()` exports are auto-discovered by `codegen-db.ts` (postgres plugin)
+- **MongoDB schemas** are auto-discovered by `init-db.ts` at startup (mongodb plugin)
 - **Web pages** matching `*.page.tsx` are auto-discovered by Next.js
-- **server-config.ts** at `api/` root overrides the template's default (no-op) server hooks
+- **server-config.ts** overrides the template's default (no-op) server hooks for auth resolution
 
-Plugin files are **merged** into the template — existing template files (like `users.schema.ts`) are preserved.
-
-## Writing Plugin Code
-
-### API Endpoints
-
-Use the same patterns as the template:
-
-```typescript
-// api/resources/things/endpoints/create.ts
-import db from '@/db';
-import { isAuthorized } from '@/procedures';
-import { z } from 'zod';
-
-const inputSchema = z.object({ name: z.string().min(1) });
-
-export default isAuthorized.input(inputSchema).handler(async ({ context, input }) => {
-  return db.things.insertOne({ name: input.name, userId: context.user.id });
-});
-```
-
-Available procedure builders: `isPublic`, `isAuthorized`, `isAdmin`.
-
-### DB Schemas
-
-```typescript
-// api/resources/things/things.schema.ts
-import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
-import { baseColumns } from '@/resources/base.schema';
-import { users } from '@/resources/users/users.schema';
-
-export const things = pgTable('things', {
-  ...baseColumns,
-  name: text('name').notNull(),
-  userId: uuid('user_id').notNull().references(() => users.id),
-});
-```
-
-The table gets a `DbService` instance automatically at `db.things` with `find`, `findFirst`, `findPage`, `insertOne`, `updateOne`, `deleteOne`, etc.
-
-### Web Pages
-
-```typescript
-// web/pages/app/things/index.page.tsx
-import { LayoutType, Page, ScopeType } from 'components';
-import { useApiQuery, useApiMutation, useQueryClient, queryKey } from 'hooks';
-import { apiClient } from 'services/api-client.service';
-```
-
-**Important:** Import `useQueryClient` from `hooks`, not from `@tanstack/react-query` directly.
-
-### Imports
-
-- Use `@/` for template utilities: `@/db`, `@/procedures`, `@/config`, `@/resources/...`
-- Use `@/resources/base.schema` and `@/resources/users/users.schema` (not relative `../` paths) when referencing template resources from a plugin
+Plugin files are **merged** into the template — existing files are preserved.
 
 ## Dev Testing
 
-Run one or more plugins from the repo root:
+Start infrastructure in one terminal, run plugins in another:
 
 ```bash
-pnpm plugin:dev plugins/auth-starter
-pnpm plugin:dev plugins/auth-starter plugins/notes
+# Terminal 1 — infrastructure
+cd template
+pnpm infra:postgres   # or pnpm infra:mongo
+
+# Terminal 2 — run plugins (from repo root)
+pnpm plugin:dev plugins/postgres plugins/auth-starter plugins/notes
+# or
+pnpm plugin:dev plugins/mongo plugins/auth-starter plugins/notes
 ```
 
 This:
 1. Copies the template into `plugin-dev-server/` (gitignored)
-2. Merges plugin files in
-3. Runs codegen (router + db) and `db:push`
-4. Starts the dev server
-5. Watches plugin files for changes and re-merges automatically
+2. Merges plugin files + DB-specific variant
+3. Installs plugin dependencies
+4. Runs codegen and `db:push`
+5. Starts the dev server
+6. Watches plugin files for changes and re-merges automatically
 
 ## Install (permanent)
 
@@ -141,8 +114,9 @@ After install, the files are yours to edit.
 
 ## Creating a New Plugin
 
-1. Create a directory under `plugins/` (or a separate git repo)
-2. Add `plugin.json` with at least `name`
-3. Add resources under `api/resources/` and/or pages under `web/pages/`
-4. Test with `pnpm plugin:dev plugins/your-plugin`
-5. Verify endpoints, pages, and DB tables work
+1. Create `plugins/<name>/plugin.json`
+2. If it needs a database, create `_postgres_api/` and/or `_mongo_api/` with DB-specific code
+3. Add shared web pages in `web/pages/`
+4. Test: `pnpm plugin:dev plugins/<db> plugins/<name>`
+
+See `plugins/notes/` as a minimal working example.
