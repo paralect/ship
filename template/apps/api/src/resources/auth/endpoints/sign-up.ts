@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
-
 import config from '@/config';
 import db from '@/db';
 import { isPublic } from '@/procedures';
@@ -9,7 +7,7 @@ import { emailSchema, passwordSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
 import usersSchema, { publicSchema } from '@/resources/users/users.schema';
 import { emailService } from '@/services';
-import { ClientError, Template } from '@/types';
+import { ClientError } from '@/types';
 import { clientUtil, securityUtil } from '@/utils';
 
 export default isPublic
@@ -45,13 +43,12 @@ export default isPublic
     const emailVerificationToken = await createToken({
       userId: user._id,
       type: 'email-verification',
-      expiresIn: EMAIL_VERIFICATION_TOKEN.EXPIRATION_SECONDS,
     });
 
-    await emailService.sendTemplate<typeof Template.VERIFY_EMAIL>({
+    await emailService.sendTemplate({
       to: user.email,
       subject: 'Please Confirm Your Email Address for Ship',
-      template: Template.VERIFY_EMAIL,
+      template: 'verify-email',
       params: {
         firstName: user.firstName,
         href: `${config.API_URL}/account/verify-email?token=${emailVerificationToken}`,

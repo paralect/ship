@@ -2,20 +2,16 @@ import { ResetPassword, ResetPasswordProps } from '../emails/reset-password';
 import { SignUpWelcome, SignUpWelcomeProps } from '../emails/sign-up-welcome';
 import { VerifyEmail, VerifyEmailProps } from '../emails/verify-email';
 
-export enum Template {
-  RESET_PASSWORD = 'RESET_PASSWORD',
-  SIGN_UP_WELCOME = 'SIGN_UP_WELCOME',
-  VERIFY_EMAIL = 'VERIFY_EMAIL',
-}
+export type Template = 'reset-password' | 'sign-up-welcome' | 'verify-email';
 
 export const EmailComponent = {
-  [Template.RESET_PASSWORD]: ResetPassword,
-  [Template.SIGN_UP_WELCOME]: SignUpWelcome,
-  [Template.VERIFY_EMAIL]: VerifyEmail,
+  'reset-password': ResetPassword,
+  'sign-up-welcome': SignUpWelcome,
+  'verify-email': VerifyEmail,
 };
 
 export interface TemplateProps {
-  [Template.RESET_PASSWORD]: ResetPasswordProps;
-  [Template.SIGN_UP_WELCOME]: SignUpWelcomeProps;
-  [Template.VERIFY_EMAIL]: VerifyEmailProps;
+  'reset-password': ResetPasswordProps;
+  'sign-up-welcome': SignUpWelcomeProps;
+  'verify-email': VerifyEmailProps;
 }

@@ -67,11 +67,11 @@ app.use(async (c, next) => {
   if (accessToken) {
     ctx.accessToken = accessToken;
 
-    const token = await validateAccessToken(accessToken);
+    const token = await validateAccessToken({ value: accessToken });
     if (token) {
       const user = await db.users.findOne({ _id: token.userId });
       if (user) {
-        await updateLastRequest(token.userId);
+        await updateLastRequest({ userId: token.userId });
         ctx.user = user;
       }
     }

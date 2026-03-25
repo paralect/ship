@@ -7,7 +7,7 @@ import setAccessToken from '@/resources/tokens/methods/set-access-token';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import { publicSchema } from '@/resources/users/users.schema';
 import { emailService } from '@/services';
-import { ClientError, Template } from '@/types';
+import { ClientError } from '@/types';
 
 export default isPublic
   .input(z.object({ token: z.string().min(1, 'Token is required') }))
@@ -32,10 +32,10 @@ export default isPublic
 
     const accessToken = await setAccessToken({ ctx: context, userId: user._id });
 
-    await emailService.sendTemplate<typeof Template.SIGN_UP_WELCOME>({
+    await emailService.sendTemplate({
       to: user.email,
       subject: 'Welcome to Ship Community!',
-      template: Template.SIGN_UP_WELCOME,
+      template: 'sign-up-welcome',
       params: {
         firstName: user.firstName,
         href: `${config.WEB_URL}/sign-in`,

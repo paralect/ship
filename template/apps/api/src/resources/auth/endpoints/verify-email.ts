@@ -6,7 +6,6 @@ import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import { emailService } from '@/services';
-import { Template } from '@/types';
 
 export default isPublic
   .route({
@@ -38,10 +37,10 @@ export default isPublic
 
       await setAccessToken({ ctx: context, userId: user._id });
 
-      await emailService.sendTemplate<typeof Template.SIGN_UP_WELCOME>({
+      await emailService.sendTemplate({
         to: user.email,
         subject: 'Welcome to Ship Community!',
-        template: Template.SIGN_UP_WELCOME,
+        template: 'sign-up-welcome',
         params: {
           firstName: user.firstName,
           href: `${config.WEB_URL}/sign-in`,

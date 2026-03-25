@@ -53,7 +53,7 @@ const handleExistingUser = async (userId: string): Promise<User | null> => {
   const existingUser = await db.users.findOne({ 'oauth.google.userId': userId });
 
   if (existingUser) {
-    await updateLastRequest(existingUser._id);
+    await updateLastRequest({ userId: existingUser._id });
 
     return existingUser;
   }
@@ -74,7 +74,7 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
       },
     }));
 
-    await updateLastRequest(existingUserByEmail._id);
+    await updateLastRequest({ userId: existingUserByEmail._id });
 
     return existingUserByEmail;
   }

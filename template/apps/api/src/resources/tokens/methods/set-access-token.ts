@@ -16,11 +16,10 @@ export default async function setAccessToken({ ctx, userId }: SetAccessTokenOpti
   const accessToken = await createToken({
     userId,
     type: 'access',
-    expiresIn: ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS,
   });
 
   if (clientType === clientUtil.ClientType.MOBILE) {
-    updateLastRequest(userId);
+    updateLastRequest({ userId });
     return accessToken;
   }
 
@@ -30,7 +29,7 @@ export default async function setAccessToken({ ctx, userId }: SetAccessTokenOpti
     expiresIn: ACCESS_TOKEN.ABSOLUTE_EXPIRATION_SECONDS,
   });
 
-  updateLastRequest(userId);
+  updateLastRequest({ userId });
 
   return accessToken;
 }

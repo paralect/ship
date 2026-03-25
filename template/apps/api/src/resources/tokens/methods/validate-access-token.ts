@@ -4,7 +4,7 @@ import db from '@/db';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import type { Token } from '@/resources/tokens/tokens.schema';
 
-export default async function validateAccessToken(value?: string | null): Promise<Token | null> {
+export default async function validateAccessToken({ value }: { value?: string | null }): Promise<Token | null> {
   const token = await validateToken({ token: value, type: 'access' });
 
   if (!token || token.type !== 'access') return null;

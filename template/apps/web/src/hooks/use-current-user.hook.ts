@@ -13,6 +13,7 @@ export function useCurrentUser(options?: UseCurrentUserOptions) {
   return useQuery<User>({
     queryKey: queryKey(apiClient.users.getCurrent),
     queryFn: () => apiClient.users.getCurrent(),
+    staleTime: Number.POSITIVE_INFINITY,
     ...options,
   });
 }

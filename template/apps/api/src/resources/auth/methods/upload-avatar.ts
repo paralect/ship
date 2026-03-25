@@ -12,7 +12,7 @@ export default async function uploadAvatar({
   file: BackendFile;
   customFileName?: string;
 }): Promise<string> {
-  await removeAvatar(user);
+  await removeAvatar({ user });
 
   const fileName = customFileName || `${user._id}-${Date.now()}-${file.originalFilename}`;
 

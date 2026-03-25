@@ -1,4 +1,4 @@
-import { Template, TemplateProps } from 'mailer';
+import type { Template, TemplateProps } from 'mailer';
 import { Buffer } from 'node:buffer';
 
 export interface From {

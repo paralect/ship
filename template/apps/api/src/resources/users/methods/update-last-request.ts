@@ -1,8 +1,8 @@
 import db from '@/db';
 
-export default function updateLastRequest(_id: string) {
+export default function updateLastRequest({ userId }: { userId: string }) {
   return db.users.atomic.updateOne(
-    { _id },
+    { _id: userId },
     {
       $set: {
         lastRequest: new Date(),

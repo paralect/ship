@@ -2,7 +2,13 @@ import db from '@/db';
 import type { Token, TokenType } from '@/resources/tokens/tokens.schema';
 import { securityUtil } from '@/utils';
 
-const getToken = async (tokenId: string | undefined | null, type: TokenType): Promise<Token | null> => {
+const getToken = async ({
+  tokenId,
+  type,
+}: {
+  tokenId: string | undefined | null;
+  type: TokenType;
+}): Promise<Token | null> => {
   if (!tokenId) return null;
 
   const token = await db.tokens.findOne({ _id: tokenId, type });
@@ -36,7 +42,7 @@ export default async function validateToken({
 
   const [tokenId, secret] = tokenParts;
 
-  const foundToken = await getToken(tokenId, type);
+  const foundToken = await getToken({ tokenId, type });
 
   const isValid = await securityUtil.verifyTokenHash(foundToken?.value, secret);
 

@@ -1,5 +1,4 @@
 import type { Context } from 'hono';
-import { Template } from 'mailer';
 
 import type { User } from './resources/users/users.schema';
 
@@ -48,8 +47,6 @@ export interface CookieOptions {
   secure?: boolean;
   sameSite?: 'strict' | 'lax' | 'none';
 }
-
-export { Template };
 
 export type { Context };
 
