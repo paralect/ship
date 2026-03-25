@@ -69,7 +69,7 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
       { id: existingUserByEmail.id },
       {
         googleUserId,
-        googleConnectedOn: new Date(),
+        googleConnectedAt: new Date(),
       },
     );
 
@@ -91,7 +91,7 @@ const createNewUser = async (userData: GoogleUserData): Promise<User | null> => 
     isEmailVerified,
     avatarUrl,
     googleUserId,
-    googleConnectedOn: new Date(),
+    googleConnectedAt: new Date(),
   });
 
   return newUser as User;

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import db from '@/db';
 import { isPublic } from '@/procedures';
 import validateToken from '@/resources/tokens/methods/validate-token';
-import { passwordSchema } from '@/resources/users/drizzle.schema';
+import { passwordSchema } from '@/resources/users/users.schema';
 import { securityUtil } from '@/utils';
 
 export default isPublic

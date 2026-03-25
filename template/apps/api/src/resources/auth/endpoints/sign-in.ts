@@ -3,7 +3,7 @@ import { z } from 'zod';
 import db from '@/db';
 import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
-import { emailSchema, passwordSchema, publicSchema } from '@/resources/users/drizzle.schema';
+import { emailSchema, passwordSchema, publicSchema } from '@/resources/users/users.schema';
 import { ClientError } from '@/types';
 import { clientUtil, securityUtil } from '@/utils';
 
@@ -43,7 +43,7 @@ export default isPublic
         where: { userId: user.id, type: 'email-verification' },
       });
 
-      if (!token || token.expiresOn.getTime() <= Date.now()) {
+      if (!token || token.expiresAt.getTime() <= Date.now()) {
         if (token) {
           await db.tokens.deleteOne({ id: token.id });
         }

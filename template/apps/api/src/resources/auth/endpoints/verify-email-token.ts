@@ -5,7 +5,7 @@ import db from '@/db';
 import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
 import validateToken from '@/resources/tokens/methods/validate-token';
-import { publicSchema } from '@/resources/users/drizzle.schema';
+import { publicSchema } from '@/resources/users/users.schema';
 import { emailService } from '@/services';
 import { ClientError, Template } from '@/types';
 

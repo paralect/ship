@@ -14,8 +14,8 @@ export default async function createToken({ userId, type, expiresIn }: CreateTok
   const value = await securityUtil.hashToken(secureToken);
 
   const now = new Date();
-  const expiresOn = new Date(now.getTime() + expiresIn * 1000);
-  const token = await db.tokens.insertOne({ type, value, userId, expiresOn });
+  const expiresAt = new Date(now.getTime() + expiresIn * 1000);
+  const token = await db.tokens.insertOne({ type, value, userId, expiresAt });
 
   return `${token.id}.${secureToken}`;
 }

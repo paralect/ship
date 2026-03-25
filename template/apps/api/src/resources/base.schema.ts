@@ -1,12 +1,12 @@
+import { timestamp, uuid } from 'drizzle-orm/pg-core';
 import { z } from 'zod';
 
-export const dbSchema = z.object({
-  id: z.string().uuid(),
-
-  createdOn: z.date().nullable(),
-  updatedOn: z.date().nullable(),
-  deletedOn: z.date().nullable(),
-});
+export const baseColumns = {
+  id: uuid('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(() => new Date()),
+  deletedAt: timestamp('deleted_at', { withTimezone: true }),
+};
 
 export const paginationSchema = z.object({
   page: z.coerce.number().default(1),
@@ -16,9 +16,9 @@ export const paginationSchema = z.object({
 
   sort: z
     .object({
-      createdOn: z.enum(['asc', 'desc']).default('asc'),
+      createdAt: z.enum(['asc', 'desc']).default('asc'),
     })
-    .default({ createdOn: 'asc' }),
+    .default({ createdAt: 'asc' }),
 });
 
 export const listResultSchema = <T extends z.ZodType>(itemSchema: T) =>

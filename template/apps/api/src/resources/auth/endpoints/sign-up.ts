@@ -7,7 +7,7 @@ import db from '@/db';
 import { eventBus } from '@/event-bus';
 import { isPublic } from '@/procedures';
 import createToken from '@/resources/tokens/methods/create-token';
-import usersSchema, { emailSchema, passwordSchema, publicSchema } from '@/resources/users/drizzle.schema';
+import usersSchema, { emailSchema, passwordSchema, publicSchema } from '@/resources/users/users.schema';
 import { emailService } from '@/services';
 import { ClientError, Template } from '@/types';
 import { clientUtil, securityUtil } from '@/utils';

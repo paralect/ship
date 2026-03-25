@@ -14,14 +14,14 @@ export default async function validateAccessToken(value?: string | null): Promis
   const now = new Date();
 
   if (
-    token.expiresOn.getTime() - now.getTime() <=
+    token.expiresAt.getTime() - now.getTime() <=
     ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS * 1000 - ACCESS_TOKEN.ACTIVITY_CHECK_INTERVAL_SECONDS * 1000
   ) {
     const newExpiresOn = new Date(now.getTime() + ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS * 1000);
 
-    await db.tokens.updateOne({ id: token.id, type: 'access' }, { expiresOn: newExpiresOn });
+    await db.tokens.updateOne({ id: token.id, type: 'access' }, { expiresAt: newExpiresOn });
 
-    token.expiresOn = newExpiresOn;
+    token.expiresAt = newExpiresOn;
   }
 
   return token;

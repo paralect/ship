@@ -54,7 +54,7 @@ type OrderBy<T extends PgTable> = Partial<Record<keyof Select<T>, 'asc' | 'desc'
 // eslint-disable-next-line ts/no-explicit-any
 type AnyTable = any;
 
-export class Collection<T extends PgTable> {
+export class DbService<T extends PgTable> {
   readonly table: T;
   private db: PostgresJsDatabase<Record<string, unknown>>;
 

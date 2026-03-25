@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { publicSchema } from '../drizzle.schema';
+import { publicSchema } from '../users.schema';
 
 import db from '@/db';
 import { isAdmin } from '@/procedures';
@@ -11,7 +11,7 @@ export default isAdmin
     paginationSchema.extend({
       filter: z
         .object({
-          createdOn: z
+          createdAt: z
             .object({
               startDate: z.coerce.date().optional(),
               endDate: z.coerce.date().optional(),
@@ -23,25 +23,25 @@ export default isAdmin
         .object({
           firstName: z.enum(['asc', 'desc']).optional(),
           lastName: z.enum(['asc', 'desc']).optional(),
-          createdOn: z.enum(['asc', 'desc']).default('asc'),
+          createdAt: z.enum(['asc', 'desc']).default('asc'),
         })
-        .default({ createdOn: 'asc' }),
+        .default({ createdAt: 'asc' }),
     }),
   )
   .output(listResultSchema(publicSchema))
   .handler(async ({ input }) => {
     const { perPage, page, sort, searchValue, filter } = input;
 
-    const createdOnFilter: Record<string, Date> = {};
-    if (filter?.createdOn?.startDate) {
-      createdOnFilter.gte = filter.createdOn.startDate;
+    const createdAtFilter: Record<string, Date> = {};
+    if (filter?.createdAt?.startDate) {
+      createdAtFilter.gte = filter.createdAt.startDate;
     }
-    if (filter?.createdOn?.endDate) {
-      createdOnFilter.lt = filter.createdOn.endDate;
+    if (filter?.createdAt?.endDate) {
+      createdAtFilter.lt = filter.createdAt.endDate;
     }
 
     const where = {
-      deletedOn: null,
+      deletedAt: null,
       ...(searchValue && {
         OR: [
           { firstName: { ilike: `%${searchValue}%` } },
@@ -49,7 +49,7 @@ export default isAdmin
           { email: { ilike: `%${searchValue}%` } },
         ],
       }),
-      ...(Object.keys(createdOnFilter).length && { createdOn: createdOnFilter }),
+      ...(Object.keys(createdAtFilter).length && { createdAt: createdAtFilter }),
     };
 
     return db.users.findPage({ where, orderBy: sort, page, perPage });

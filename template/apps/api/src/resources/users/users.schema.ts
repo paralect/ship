@@ -1,9 +1,11 @@
-import { boolean, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-orm/zod';
 import { z } from 'zod';
 
+import { baseColumns } from '../base.schema';
+
 export const users = pgTable('users', {
-  id: uuid('id').defaultRandom().primaryKey(),
+  ...baseColumns,
 
   firstName: text('first_name').notNull(),
   lastName: text('last_name').notNull(),
@@ -16,13 +18,9 @@ export const users = pgTable('users', {
   avatarUrl: text('avatar_url'),
 
   googleUserId: text('google_user_id'),
-  googleConnectedOn: timestamp('google_connected_on', { withTimezone: true }),
+  googleConnectedAt: timestamp('google_connected_at', { withTimezone: true }),
 
   lastRequest: timestamp('last_request', { withTimezone: true }),
-
-  createdOn: timestamp('created_on', { withTimezone: true }).defaultNow(),
-  updatedOn: timestamp('updated_on', { withTimezone: true }),
-  deletedOn: timestamp('deleted_on', { withTimezone: true }),
 });
 
 export const emailSchema = z

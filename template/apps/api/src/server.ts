@@ -69,7 +69,7 @@ app.use(async (c, next) => {
 
     const token = await validateAccessToken(accessToken);
     if (token) {
-      const user = await db.users.findFirst({ where: { id: token.userId, deletedOn: null } });
+      const user = await db.users.findFirst({ where: { id: token.userId, deletedAt: null } });
       if (user) {
         await updateLastRequest(token.userId);
         ctx.user = user;

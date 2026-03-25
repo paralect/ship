@@ -17,7 +17,7 @@ const getToken = async (tokenId: string | undefined | null, type: TokenType): Pr
 
   const now = new Date();
 
-  if (token.expiresOn.getTime() <= now.getTime()) {
+  if (token.expiresAt.getTime() <= now.getTime()) {
     await db.tokens.deleteMany({ id: tokenId, type });
     return null;
   }
@@ -54,7 +54,7 @@ export default async function validateToken({
 
   const now = new Date();
 
-  if (foundToken.expiresOn.getTime() <= now.getTime()) {
+  if (foundToken.expiresAt.getTime() <= now.getTime()) {
     await db.tokens.deleteMany({ id: tokenId, type });
     return null;
   }

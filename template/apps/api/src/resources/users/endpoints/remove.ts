@@ -13,7 +13,7 @@ export default isAdmin
   )
   .output(z.object({}))
   .handler(async ({ input }) => {
-    await db.users.updateOne({ id: input.id }, { deletedOn: new Date() });
+    await db.users.updateOne({ id: input.id }, { deletedAt: new Date() });
 
     return {};
   });
