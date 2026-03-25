@@ -28,7 +28,7 @@ export default isPublic
   .handler(async ({ input, context }) => {
     const { email, password } = input;
 
-    const user = await usersService.findOne({ email }, { isIncludeSecureFields: true });
+    const user = await usersService.findOne({ email }, { isIncludeSecureFields: true } as Record<string, unknown>);
 
     if (!user || !user.passwordHash) {
       throw new ClientError({ credentials: 'The email or password you have entered is invalid' });

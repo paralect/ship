@@ -1,5 +1,6 @@
 import { serve } from '@hono/node-server';
 import { OpenAPIHandler } from '@orpc/openapi/fetch';
+import { ORPCError } from '@orpc/server';
 import { RPCHandler } from '@orpc/server/fetch';
 import { Hono } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
@@ -19,6 +20,7 @@ import updateLastRequest from '@/resources/users/methods/update-last-request';
 import { router } from '@/router';
 import socketServer from '@/socket-server';
 import type { CookieOptions, HonoEnv, ORPCContext } from '@/types';
+import { AppError, ClientError } from '@/types';
 
 const app = new Hono<HonoEnv>();
 
@@ -81,8 +83,26 @@ app.use(async (c, next) => {
 
 app.get('/health', (c) => c.json({ status: 'ok' }, 200));
 
-const rpcHandler = new RPCHandler(router);
-const openApiHandler = new OpenAPIHandler(router);
+const errorInterceptor = async <T>(options: { next: () => Promise<T> }): Promise<T> => {
+  try {
+    return await options.next();
+  } catch (e) {
+    if (e instanceof ClientError) {
+      throw new ORPCError('BAD_REQUEST', { status: e.status, data: { errors: e.errors }, cause: e });
+    }
+    if (e instanceof AppError) {
+      throw new ORPCError('BAD_REQUEST', { status: e.status, message: e.message, cause: e });
+    }
+    throw e;
+  }
+};
+
+const rpcHandler = new RPCHandler(router, {
+  interceptors: [errorInterceptor],
+});
+const openApiHandler = new OpenAPIHandler(router, {
+  interceptors: [errorInterceptor],
+});
 
 app.all('/*', async (c) => {
   const rpc = await rpcHandler.handle(c.req.raw, { context: c.var.ctx });
