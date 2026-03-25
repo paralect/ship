@@ -31,7 +31,7 @@ export default isPublic
         throw new Error('Failed to authenticate with Google');
       }
 
-      await setAccessToken({ ctx: context, userId: user._id });
+      await setAccessToken({ ctx: context, userId: user.id });
 
       return { headers: { location: config.WEB_URL } };
     } catch (error) {

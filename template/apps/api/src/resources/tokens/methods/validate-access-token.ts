@@ -1,6 +1,8 @@
+import { and, eq } from 'drizzle-orm';
+
 import { ACCESS_TOKEN } from 'app-constants';
 
-import { tokensService } from '@/db';
+import { db, tokens } from '@/db';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import type { Token } from '@/resources/tokens/tokens.schema';
 import { TokenType } from '@/resources/tokens/tokens.schema';
@@ -18,7 +20,10 @@ export default async function validateAccessToken(value?: string | null): Promis
   ) {
     const newExpiresOn = new Date(now.getTime() + ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS * 1000);
 
-    await tokensService.updateOne({ _id: token._id, type: TokenType.ACCESS }, () => ({ expiresOn: newExpiresOn }));
+    await db
+      .update(tokens)
+      .set({ expiresOn: newExpiresOn })
+      .where(and(eq(tokens.id, token.id), eq(tokens.type, TokenType.ACCESS)));
 
     token.expiresOn = newExpiresOn;
   }

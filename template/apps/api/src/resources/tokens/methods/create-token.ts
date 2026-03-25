@@ -1,4 +1,4 @@
-import { tokensService } from '@/db';
+import { db, tokens } from '@/db';
 import { TokenType } from '@/resources/tokens/tokens.schema';
 import { securityUtil } from '@/utils';
 
@@ -15,12 +15,7 @@ export default async function createToken({ userId, type, expiresIn }: CreateTok
 
   const now = new Date();
   const expiresOn = new Date(now.getTime() + expiresIn * 1000);
-  const token = await tokensService.insertOne({
-    type,
-    value,
-    userId,
-    expiresOn,
-  });
+  const [token] = await db.insert(tokens).values({ type, value, userId, expiresOn }).returning({ id: tokens.id });
 
-  return `${token._id}.${secureToken}`;
+  return `${token.id}.${secureToken}`;
 }

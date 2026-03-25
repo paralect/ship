@@ -10,7 +10,7 @@ export enum TokenType {
 
 const schema = dbSchema.extend({
   value: z.string(),
-  userId: z.string(),
+  userId: z.string().uuid(),
   type: z.enum([TokenType.ACCESS, TokenType.EMAIL_VERIFICATION, TokenType.RESET_PASSWORD]),
   expiresOn: z.date(),
 });
@@ -18,8 +18,3 @@ const schema = dbSchema.extend({
 export default schema;
 
 export type Token = z.infer<typeof schema>;
-
-export const indexes = [
-  { fields: { expiresOn: 1 }, options: { expireAfterSeconds: 0 } },
-  { fields: { userId: 1, type: 1 } },
-] as const;

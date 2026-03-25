@@ -1,6 +1,7 @@
+import { and, eq } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { tokensService, usersService } from '@/db';
+import { db, tokens, users } from '@/db';
 import { isPublic } from '@/procedures';
 import { passwordSchema } from '@/resources/base.schema';
 import validateToken from '@/resources/tokens/methods/validate-token';
@@ -19,14 +20,17 @@ export default isPublic
     const { token, password } = input;
 
     const resetPasswordToken = await validateToken({ token, type: TokenType.RESET_PASSWORD });
-    const user = await usersService.findOne({ _id: resetPasswordToken?.userId });
+
+    const [user] = resetPasswordToken
+      ? await db.select().from(users).where(eq(users.id, resetPasswordToken.userId)).limit(1)
+      : [];
 
     if (!resetPasswordToken || !user) return {};
 
     const passwordHash = await securityUtil.hashPassword(password);
 
-    await tokensService.deleteMany({ userId: user._id, type: TokenType.RESET_PASSWORD });
-    await usersService.updateOne({ _id: user._id }, () => ({ passwordHash }));
+    await db.delete(tokens).where(and(eq(tokens.userId, user.id), eq(tokens.type, TokenType.RESET_PASSWORD)));
+    await db.update(users).set({ passwordHash }).where(eq(users.id, user.id));
 
     return {};
   });

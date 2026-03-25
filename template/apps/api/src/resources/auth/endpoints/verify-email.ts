@@ -1,7 +1,8 @@
+import { and, eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 import config from '@/config';
-import { tokensService, usersService } from '@/db';
+import { db, tokens, users } from '@/db';
 import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
 import validateToken from '@/resources/tokens/methods/validate-token';
@@ -26,7 +27,10 @@ export default isPublic
       }
 
       const emailVerificationToken = await validateToken({ token: input.token, type: TokenType.EMAIL_VERIFICATION });
-      const user = await usersService.findOne({ _id: emailVerificationToken?.userId });
+
+      const [user] = emailVerificationToken
+        ? await db.select().from(users).where(eq(users.id, emailVerificationToken.userId)).limit(1)
+        : [];
 
       if (!emailVerificationToken || !user) {
         const url = new URL(config.WEB_URL);
@@ -34,10 +38,10 @@ export default isPublic
         return { headers: { location: url.toString() } };
       }
 
-      await tokensService.deleteMany({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
-      await usersService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }));
+      await db.delete(tokens).where(and(eq(tokens.userId, user.id), eq(tokens.type, TokenType.EMAIL_VERIFICATION)));
+      await db.update(users).set({ isEmailVerified: true }).where(eq(users.id, user.id));
 
-      await setAccessToken({ ctx: context, userId: user._id });
+      await setAccessToken({ ctx: context, userId: user.id });
 
       await emailService.sendTemplate<typeof Template.SIGN_UP_WELCOME>({
         to: user.email,

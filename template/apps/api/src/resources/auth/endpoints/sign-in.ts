@@ -1,6 +1,7 @@
+import { and, eq } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { tokensService, usersService } from '@/db';
+import { db, tokens, users } from '@/db';
 import { isPublic } from '@/procedures';
 import { emailSchema } from '@/resources/base.schema';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
@@ -28,7 +29,7 @@ export default isPublic
   .handler(async ({ input, context }) => {
     const { email, password } = input;
 
-    const user = await usersService.findOne({ email }, { isIncludeSecureFields: true } as Record<string, unknown>);
+    const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
 
     if (!user || !user.passwordHash) {
       throw new ClientError({ credentials: 'The email or password you have entered is invalid' });
@@ -41,10 +42,14 @@ export default isPublic
     }
 
     if (!user.isEmailVerified) {
-      const token = await tokensService.findOne({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
+      const [token] = await db
+        .select()
+        .from(tokens)
+        .where(and(eq(tokens.userId, user.id), eq(tokens.type, TokenType.EMAIL_VERIFICATION)))
+        .limit(1);
 
       if (!token || token.expiresOn.getTime() <= Date.now()) {
-        if (token) await tokensService.deleteOne({ _id: token._id });
+        if (token) await db.delete(tokens).where(eq(tokens.id, token.id));
         throw new ClientError({ emailVerificationTokenExpired: 'true' });
       }
     }
@@ -53,7 +58,7 @@ export default isPublic
       throw new ClientError({ email: 'Please verify your email to sign in' });
     }
 
-    const accessToken = await setAccessToken({ ctx: context, userId: user._id });
+    const accessToken = await setAccessToken({ ctx: context, userId: user.id });
     const clientType = clientUtil.detectClientType(context);
 
     if (clientType === clientUtil.ClientType.MOBILE) {

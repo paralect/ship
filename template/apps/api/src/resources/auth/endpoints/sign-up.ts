@@ -1,9 +1,11 @@
+import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { EMAIL_VERIFICATION_TOKEN } from 'app-constants';
 
 import config from '@/config';
-import { usersService } from '@/db';
+import { db, users } from '@/db';
+import { eventBus } from '@/event-bus';
 import { isPublic } from '@/procedures';
 import { emailSchema, passwordSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
@@ -29,22 +31,27 @@ export default isPublic
   .handler(async ({ input, context }) => {
     const { firstName, lastName, email, password } = input;
 
-    const isUserExists = await usersService.exists({ email });
+    const [existing] = await db.select({ id: users.id }).from(users).where(eq(users.email, email)).limit(1);
 
-    if (isUserExists) {
+    if (existing) {
       throw new ClientError({ email: 'User with this email is already registered' });
     }
 
-    const user = await usersService.insertOne({
-      email,
-      firstName,
-      lastName,
-      passwordHash: await securityUtil.hashPassword(password),
-      isEmailVerified: false,
-    });
+    const [user] = await db
+      .insert(users)
+      .values({
+        email,
+        firstName,
+        lastName,
+        passwordHash: await securityUtil.hashPassword(password),
+        isEmailVerified: false,
+      })
+      .returning();
+
+    eventBus.emit('users.created', { doc: user });
 
     const emailVerificationToken = await createToken({
-      userId: user._id,
+      userId: user.id,
       type: TokenType.EMAIL_VERIFICATION,
       expiresIn: EMAIL_VERIFICATION_TOKEN.EXPIRATION_SECONDS,
     });

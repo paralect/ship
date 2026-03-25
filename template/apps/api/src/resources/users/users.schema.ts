@@ -9,24 +9,16 @@ const schema = dbSchema.extend({
   lastName: z.string().min(1, 'Last name is required').max(128, 'Last name must be less than 128 characters.'),
 
   email: emailSchema,
-  passwordHash: z.string().optional(),
+  passwordHash: z.string().nullable(),
 
   isEmailVerified: z.boolean().default(false),
 
-  avatarUrl: z.string().nullable().optional(),
+  avatarUrl: z.string().nullable(),
 
-  oauth: z
-    .object({
-      google: z
-        .object({
-          userId: z.string().min(1, 'Google user ID is required'),
-          connectedOn: z.date(),
-        })
-        .optional(),
-    })
-    .optional(),
+  googleUserId: z.string().nullable(),
+  googleConnectedOn: z.date().nullable(),
 
-  lastRequest: z.date().optional(),
+  lastRequest: z.date().nullable(),
 });
 
 export default schema;
@@ -36,7 +28,3 @@ export type User = z.infer<typeof schema>;
 export const publicSchema = schema.omit({
   passwordHash: true,
 });
-
-export const secureFields = ['passwordHash'];
-
-export const indexes = [{ fields: { email: 1 }, options: { unique: true } }] as const;

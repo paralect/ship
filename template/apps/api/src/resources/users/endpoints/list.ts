@@ -1,11 +1,12 @@
+import type { SQL } from 'drizzle-orm';
+import { and, asc, count, desc, gte, ilike, isNull, lt, or } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { publicSchema } from '../users.schema';
 
-import { usersService } from '@/db';
+import { db, users } from '@/db';
 import { isAdmin } from '@/procedures';
 import { listResultSchema, paginationSchema } from '@/resources/base.schema';
-import type { NestedKeys } from '@/types';
 
 export default isAdmin
   .input(
@@ -31,43 +32,57 @@ export default isAdmin
   )
   .output(listResultSchema(publicSchema))
   .handler(async ({ input }) => {
-    type UserPublic = z.infer<typeof publicSchema>;
     const { perPage, page, sort, searchValue, filter } = input;
 
-    const filterOptions = [];
+    const conditions: SQL[] = [isNull(users.deletedOn)];
 
     if (searchValue) {
-      const searchFields: NestedKeys<UserPublic>[] = ['firstName', 'lastName', 'email'];
-
-      filterOptions.push({
-        $or: searchFields.map((field) => ({ [field]: { $regex: searchValue } })),
-      });
+      conditions.push(
+        or(
+          ilike(users.firstName, `%${searchValue}%`),
+          ilike(users.lastName, `%${searchValue}%`),
+          ilike(users.email, `%${searchValue}%`),
+        )!,
+      );
     }
 
-    if (filter) {
-      const { createdOn, ...otherFilters } = filter;
-
-      if (createdOn) {
-        const { startDate, endDate } = createdOn;
-
-        filterOptions.push({
-          createdOn: {
-            ...(startDate && { $gte: startDate }),
-            ...(endDate && { $lt: endDate }),
-          },
-        });
-      }
-
-      Object.entries(otherFilters).forEach(([key, value]) => {
-        filterOptions.push({ [key]: value });
-      });
+    if (filter?.createdOn) {
+      const { startDate, endDate } = filter.createdOn;
+      if (startDate) conditions.push(gte(users.createdOn, startDate));
+      if (endDate) conditions.push(lt(users.createdOn, endDate));
     }
 
-    const result = await usersService.find(
-      { ...(filterOptions.length && { $and: filterOptions }) },
-      { page, perPage },
-      { sort },
-    );
+    const where = conditions.length ? and(...conditions) : undefined;
 
-    return result;
+    const sortColumns = {
+      firstName: users.firstName,
+      lastName: users.lastName,
+      createdOn: users.createdOn,
+    } as const;
+
+    const orderBy = Object.entries(sort)
+      .filter(([, dir]) => dir)
+      .map(([key, dir]) => {
+        const col = sortColumns[key as keyof typeof sortColumns];
+        return dir === 'desc' ? desc(col) : asc(col);
+      });
+
+    const offset = (page - 1) * perPage;
+
+    const [results, [{ total }]] = await Promise.all([
+      db
+        .select()
+        .from(users)
+        .where(where)
+        .orderBy(...orderBy)
+        .limit(perPage)
+        .offset(offset),
+      db.select({ total: count() }).from(users).where(where),
+    ]);
+
+    return {
+      results,
+      count: total,
+      pagesCount: Math.ceil(total / perPage),
+    };
   });

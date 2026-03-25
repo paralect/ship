@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
 export const dbSchema = z.object({
-  _id: z.string(),
+  id: z.string().uuid(),
 
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+  createdOn: z.date().nullable(),
+  updatedOn: z.date().nullable(),
+  deletedOn: z.date().nullable(),
 });
 
 export const paginationSchema = z.object({

@@ -14,7 +14,7 @@ export default async function uploadAvatar({
 }): Promise<string> {
   await removeAvatar(user);
 
-  const fileName = customFileName || `${user._id}-${Date.now()}-${file.originalFilename}`;
+  const fileName = customFileName || `${user.id}-${Date.now()}-${file.originalFilename}`;
 
   const { location: avatarUrl } = await cloudStorageService.uploadPublic(`avatars/${fileName}`, file);
 

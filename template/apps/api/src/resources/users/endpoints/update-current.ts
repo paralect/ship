@@ -1,6 +1,7 @@
+import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
-import { usersService } from '@/db';
+import { db, users } from '@/db';
 import { isAuthorized } from '@/procedures';
 import removeAvatar from '@/resources/auth/methods/remove-avatar';
 import uploadAvatar from '@/resources/auth/methods/upload-avatar';
@@ -46,5 +47,7 @@ export default isAuthorized
       return user;
     }
 
-    return usersService.updateOne({ _id: user._id }, () => updateData).then((u) => u!);
+    const [updated] = await db.update(users).set(updateData).where(eq(users.id, user.id)).returning();
+
+    return updated!;
   });

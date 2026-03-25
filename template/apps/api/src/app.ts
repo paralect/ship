@@ -1,7 +1,6 @@
 /* eslint-disable antfu/no-top-level-await */
-import init from '@/init-db';
-
-await init();
+import './resources/users/handlers/sync-analytics';
+import './resources/users/handlers/to-sockets';
 
 const { default: app } = await import('server');
 

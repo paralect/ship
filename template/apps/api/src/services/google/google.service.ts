@@ -7,10 +7,11 @@ import {
   OAuth2RequestError,
   OAuth2Tokens,
 } from 'arctic';
+import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
 import config from '@/config';
-import { usersService } from '@/db';
+import { db, users } from '@/db';
 import logger from '@/logger';
 import updateLastRequest from '@/resources/users/methods/update-last-request';
 import type { User } from '@/resources/users/users.schema';
@@ -50,33 +51,33 @@ interface GoogleUserData {
 }
 
 const handleExistingUser = async (userId: string): Promise<User | null> => {
-  const existingUser = await usersService.findOne({ 'oauth.google.userId': userId });
+  const [existingUser] = await db.select().from(users).where(eq(users.googleUserId, userId)).limit(1);
 
   if (existingUser) {
-    await updateLastRequest(existingUser._id);
+    await updateLastRequest(existingUser.id);
 
-    return existingUser;
+    return existingUser as User;
   }
 
   return null;
 };
 
 const handleExistingUserByEmail = async (email: string, googleUserId: string): Promise<User | null> => {
-  const existingUserByEmail = await usersService.findOne({ email });
+  const [existingUserByEmail] = await db.select().from(users).where(eq(users.email, email)).limit(1);
 
   if (existingUserByEmail) {
-    await usersService.updateOne({ _id: existingUserByEmail._id }, () => ({
-      oauth: {
-        google: {
-          userId: googleUserId,
-          connectedOn: new Date(),
-        },
-      },
-    }));
+    const [updated] = await db
+      .update(users)
+      .set({
+        googleUserId,
+        googleConnectedOn: new Date(),
+      })
+      .where(eq(users.id, existingUserByEmail.id))
+      .returning();
 
-    await updateLastRequest(existingUserByEmail._id);
+    await updateLastRequest(existingUserByEmail.id);
 
-    return existingUserByEmail;
+    return updated as User;
   }
 
   return null;
@@ -85,14 +86,20 @@ const handleExistingUserByEmail = async (email: string, googleUserId: string): P
 const createNewUser = async (userData: GoogleUserData): Promise<User | null> => {
   const { firstName, lastName, email, isEmailVerified, avatarUrl, googleUserId } = userData;
 
-  return usersService.insertOne({
-    firstName,
-    lastName,
-    email,
-    isEmailVerified,
-    avatarUrl,
-    oauth: { google: { userId: googleUserId, connectedOn: new Date() } },
-  });
+  const [newUser] = await db
+    .insert(users)
+    .values({
+      firstName,
+      lastName,
+      email,
+      isEmailVerified,
+      avatarUrl,
+      googleUserId,
+      googleConnectedOn: new Date(),
+    })
+    .returning();
+
+  return newUser as User;
 };
 
 export const createAuthUrl = () => {

@@ -23,7 +23,7 @@ export default isPublic
       throw new ClientError({ credentials: 'Failed to authenticate with Google' });
     }
 
-    const accessToken = await setAccessToken({ ctx: context, userId: user._id });
+    const accessToken = await setAccessToken({ ctx: context, userId: user.id });
 
     return {
       accessToken,
