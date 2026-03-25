@@ -2,16 +2,13 @@ import { z } from 'zod';
 
 import { dbSchema } from '../base.schema';
 
-export enum TokenType {
-  ACCESS = 'access',
-  EMAIL_VERIFICATION = 'email-verification',
-  RESET_PASSWORD = 'reset-password',
-}
+const tokenTypes = ['access', 'email-verification', 'reset-password'] as const;
+export type TokenType = (typeof tokenTypes)[number];
 
 const schema = dbSchema.extend({
   value: z.string(),
   userId: z.string(),
-  type: z.enum([TokenType.ACCESS, TokenType.EMAIL_VERIFICATION, TokenType.RESET_PASSWORD]),
+  type: z.enum(tokenTypes),
   expiresOn: z.date(),
 });
 

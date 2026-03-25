@@ -5,7 +5,6 @@ import db from '@/db';
 import { isPublic } from '@/procedures';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
 import validateToken from '@/resources/tokens/methods/validate-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
 import { emailService } from '@/services';
 import { Template } from '@/types';
 
@@ -25,7 +24,7 @@ export default isPublic
         return { headers: { location: url.toString() } };
       }
 
-      const emailVerificationToken = await validateToken({ token: input.token, type: TokenType.EMAIL_VERIFICATION });
+      const emailVerificationToken = await validateToken({ token: input.token, type: 'email-verification' });
       const user = await db.users.findOne({ _id: emailVerificationToken?.userId });
 
       if (!emailVerificationToken || !user) {
@@ -34,7 +33,7 @@ export default isPublic
         return { headers: { location: url.toString() } };
       }
 
-      await db.tokens.deleteMany({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
+      await db.tokens.deleteMany({ userId: user._id, type: 'email-verification' });
       await db.users.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }));
 
       await setAccessToken({ ctx: context, userId: user._id });

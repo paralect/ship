@@ -4,7 +4,6 @@ import config from '@/config';
 import db from '@/db';
 import { isPublic } from '@/procedures';
 import validateToken from '@/resources/tokens/methods/validate-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
 
 export default isPublic
   .route({
@@ -22,7 +21,7 @@ export default isPublic
         return { headers: { location: url.toString() } };
       }
 
-      const resetPasswordToken = await validateToken({ token: input.token, type: TokenType.RESET_PASSWORD });
+      const resetPasswordToken = await validateToken({ token: input.token, type: 'reset-password' });
       const user = await db.users.findOne({ _id: resetPasswordToken?.userId });
 
       if (!resetPasswordToken || !user) {

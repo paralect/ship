@@ -3,12 +3,11 @@ import { ACCESS_TOKEN } from 'app-constants';
 import db from '@/db';
 import validateToken from '@/resources/tokens/methods/validate-token';
 import type { Token } from '@/resources/tokens/tokens.schema';
-import { TokenType } from '@/resources/tokens/tokens.schema';
 
 export default async function validateAccessToken(value?: string | null): Promise<Token | null> {
-  const token = await validateToken({ token: value, type: TokenType.ACCESS });
+  const token = await validateToken({ token: value, type: 'access' });
 
-  if (!token || token.type !== TokenType.ACCESS) return null;
+  if (!token || token.type !== 'access') return null;
 
   const now = new Date();
 
@@ -18,7 +17,7 @@ export default async function validateAccessToken(value?: string | null): Promis
   ) {
     const newExpiresOn = new Date(now.getTime() + ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS * 1000);
 
-    await db.tokens.updateOne({ _id: token._id, type: TokenType.ACCESS }, () => ({ expiresOn: newExpiresOn }));
+    await db.tokens.updateOne({ _id: token._id, type: 'access' }, () => ({ expiresOn: newExpiresOn }));
 
     token.expiresOn = newExpiresOn;
   }

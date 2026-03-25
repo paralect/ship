@@ -4,7 +4,6 @@ import db from '@/db';
 import { isPublic } from '@/procedures';
 import { emailSchema } from '@/resources/base.schema';
 import setAccessToken from '@/resources/tokens/methods/set-access-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
 import { publicSchema } from '@/resources/users/users.schema';
 import { ClientError } from '@/types';
 import { clientUtil, securityUtil } from '@/utils';
@@ -41,7 +40,7 @@ export default isPublic
     }
 
     if (!user.isEmailVerified) {
-      const token = await db.tokens.findOne({ userId: user._id, type: TokenType.EMAIL_VERIFICATION });
+      const token = await db.tokens.findOne({ userId: user._id, type: 'email-verification' });
 
       if (!token || token.expiresOn.getTime() <= Date.now()) {
         if (token) await db.tokens.deleteOne({ _id: token._id });

@@ -7,7 +7,6 @@ import db from '@/db';
 import { isPublic } from '@/procedures';
 import { emailSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
-import { TokenType } from '@/resources/tokens/tokens.schema';
 import { emailService } from '@/services';
 import { Template } from '@/types';
 
@@ -21,13 +20,13 @@ export default isPublic
     if (!user) return {};
 
     await Promise.all([
-      db.tokens.deleteMany({ userId: user._id, type: TokenType.ACCESS }),
-      db.tokens.deleteMany({ userId: user._id, type: TokenType.RESET_PASSWORD }),
+      db.tokens.deleteMany({ userId: user._id, type: 'access' }),
+      db.tokens.deleteMany({ userId: user._id, type: 'reset-password' }),
     ]);
 
     const resetPasswordToken = await createToken({
       userId: user._id,
-      type: TokenType.RESET_PASSWORD,
+      type: 'reset-password',
       expiresIn: RESET_PASSWORD_TOKEN.EXPIRATION_SECONDS,
     });
 

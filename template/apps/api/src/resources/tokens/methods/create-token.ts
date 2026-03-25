@@ -1,5 +1,5 @@
 import db from '@/db';
-import { TokenType } from '@/resources/tokens/tokens.schema';
+import type { TokenType } from '@/resources/tokens/tokens.schema';
 import { securityUtil } from '@/utils';
 
 interface CreateTokenOptions {
