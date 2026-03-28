@@ -1,23 +1,23 @@
-import { Database, IDocument, Service, ServiceOptions } from '@paralect/node-mongo';
+import { Database, type IDocument, Service, type ServiceOptions } from '@paralect/node-mongo';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-import config from '@/config';
+// eslint-disable-next-line ts/no-explicit-any
+export type User = Record<string, any>;
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// eslint-disable-next-line ts/no-explicit-any
+const db: Record<string, any> = {};
 
-const database = new Database(config.MONGO_URI, config.MONGO_DB_NAME);
-database.connect();
+let database: Database;
 
 function createService<T extends IDocument>(collectionName: string, options: ServiceOptions = {}): Service<T> {
   return new Service<T>(collectionName, database, options);
 }
 
-export const services: Record<string, Service<IDocument>> = {};
+export async function initDb(mongoUri: string, dbName: string, resourcesDir: string) {
+  database = new Database(mongoUri, dbName);
+  database.connect();
 
-export default async function init() {
-  const resourcesDir = path.join(__dirname, 'resources');
   const entries = fs.readdirSync(resourcesDir, { withFileTypes: true });
 
   for (const entry of entries) {
@@ -25,7 +25,7 @@ export default async function init() {
 
     const dirPath = path.join(resourcesDir, entry.name);
     const files = fs.readdirSync(dirPath);
-    const schemaFiles = files.filter((f) => f.endsWith('.schema.ts') || f.endsWith('.schema.js'));
+    const schemaFiles = files.filter((f: string) => f.endsWith('.schema.ts') || f.endsWith('.schema.js'));
 
     for (const schemaFile of schemaFiles) {
       const collectionName = schemaFile.replace(/\.schema\.(ts|js)$/, '');
@@ -33,7 +33,7 @@ export default async function init() {
       const schema = mod.default;
 
       const service = createService(collectionName, {
-        schemaValidator: (obj) => schema.parseAsync(obj),
+        schemaValidator: (obj: unknown) => schema.parseAsync(obj),
         ...(mod.secureFields && { secureFields: mod.secureFields }),
       });
 
@@ -43,9 +43,12 @@ export default async function init() {
         }
       }
 
-      services[collectionName] = service;
+      db[collectionName] = service;
     }
   }
 }
 
 export { createService, database };
+export { eventBus, type InMemoryEvent } from '@paralect/node-mongo';
+
+export default db;

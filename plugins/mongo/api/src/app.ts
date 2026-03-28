@@ -1,7 +1,13 @@
 /* eslint-disable antfu/no-top-level-await */
-import init from '@/init-db';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-await init();
+import config from '@/config';
+import { initDb } from '@ship/db';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+await initDb(config.MONGO_URI, config.MONGO_DB_NAME, path.join(__dirname, 'resources'));
 
 const { default: app } = await import('server');
 

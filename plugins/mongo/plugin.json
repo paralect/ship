@@ -4,7 +4,7 @@
   "description": "MongoDB with @paralect/node-mongo — auto-discovery of schemas, services, and indexes",
   "dependencies": {
     "api": {
-      "@paralect/node-mongo": "link:../../../../packages/node-mongo"
+      "@ship/db": "workspace:*"
     }
   }
 }

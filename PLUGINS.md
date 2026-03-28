@@ -6,8 +6,8 @@ Plugins add features to the Ship template without modifying it. Each plugin is a
 
 | Plugin | Description | Requires |
 |--------|-------------|----------|
-| `plugins/postgres` | Drizzle ORM + PostgreSQL — DbService, codegen-db, users/tokens schemas, base schema, migrations | — |
-| `plugins/mongo` | MongoDB with @paralect/node-mongo — auto-discovery of schemas, services, and indexes | — |
+| `plugins/postgres` | Drizzle ORM + PostgreSQL — `@ship/db` package with DbService, codegen-db, base schema, migrations | — |
+| `plugins/mongo` | MongoDB with @paralect/node-mongo — `@ship/db` package with auto-discovery of schemas, services, and indexes | — |
 | `plugins/auth-starter` | Authentication (sign-in/up, forgot/reset password, Google OAuth), user management, dashboard | postgres or mongodb |
 | `plugins/notes` | Simple notes CRUD — example plugin | postgres or mongodb |
 | `plugins/ai-chat` | AI chat with configurable LLM model via `@ship/ai` package | postgres, auth-starter |
@@ -93,8 +93,8 @@ During `plugin:dev`, these are copied into `plugin-dev-server/packages/` and bec
 ## How It Works
 
 - **API endpoints** in `resources/*/endpoints/*.ts` are auto-discovered by `codegen-router.ts`
-- **PostgreSQL schemas** with `pgTable()` exports are auto-discovered by `codegen-db.ts` (postgres plugin)
-- **MongoDB schemas** are auto-discovered by `init-db.ts` at startup (mongodb plugin)
+- **PostgreSQL schemas** with `pgTable()` exports are auto-discovered by `codegen-db.ts` (postgres plugin) and registered with `@ship/db`
+- **MongoDB schemas** are auto-discovered by `@ship/db` at startup (mongo plugin)
 - **Web pages** matching `*.page.tsx` are auto-discovered by Next.js
 - **server-config.ts** overrides the template's default (no-op) server hooks for auth resolution
 

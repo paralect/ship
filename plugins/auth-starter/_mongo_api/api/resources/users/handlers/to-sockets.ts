@@ -1,4 +1,4 @@
-import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+import { eventBus, type InMemoryEvent } from '@ship/db';
 
 import ioEmitter from '@/io-emitter';
 import logger from '@/logger';

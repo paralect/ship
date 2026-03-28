@@ -1,4 +1,4 @@
-import { eventBus, InMemoryEvent } from '@paralect/node-mongo';
+import { eventBus, type InMemoryEvent } from '@ship/db';
 
 import logger from '@/logger';
 import type { User } from '@/resources/users/users.schema';

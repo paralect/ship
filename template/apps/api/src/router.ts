@@ -4,8 +4,7 @@ import type { RouterClient } from '@orpc/server';
 
 import { isPublic } from './procedures';
 
-export const router = isPublic.router({
-});
+export const router = isPublic.router({});
 
 export type Router = typeof router;
 export type AppClient = RouterClient<Router>;

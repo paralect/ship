@@ -101,7 +101,7 @@ export const things = pgTable('things', {
 
 `baseColumns` provides: `id` (uuid), `createdAt`, `updatedAt`, `deletedAt`.
 
-The codegen auto-creates `db.things` with a `DbService` instance. Methods: `find`, `findFirst`, `findPage`, `count`, `insertOne`, `insertMany`, `updateOne`, `updateMany`, `deleteOne`, `deleteMany`.
+The codegen auto-creates `db.things` with a `DbService` instance (from `@ship/db` package). Methods: `find`, `findFirst`, `findPage`, `count`, `insertOne`, `insertMany`, `updateOne`, `updateMany`, `deleteOne`, `deleteMany`.
 
 ### MongoDB schemas
 
@@ -124,7 +124,7 @@ export const indexes = [
 
 `dbSchema` provides: `_id` (string), `createdAt`, `updatedAt`, `deletedAt`.
 
-MongoDB services are auto-discovered by `init-db.ts`. Access via `db.things` with methods: `findOne`, `find`, `exists`, `insertOne`, `updateOne`, `deleteOne`, `distinct`.
+MongoDB services are auto-discovered by `@ship/db` at startup. Access via `db.things` with methods: `findOne`, `find`, `exists`, `insertOne`, `updateOne`, `deleteOne`, `distinct`.
 
 ### Key differences between DB implementations
 
