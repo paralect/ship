@@ -467,7 +467,43 @@ function dev(pluginPaths: string[]): void {
       Object.assign(pkgJson.dependencies ??= {}, plugin.dependencies.web);
       writeFileSync(join(PLUGIN_TEST_DIR, 'apps', 'web', 'package.json'), JSON.stringify(pkgJson, null, 2) + '\n');
     }
+
+    // Copy docker-compose.yml → plugin-dev-server/docker-compose.<plugin-name>.yml
+    const composeFile = join(absPath, 'docker-compose.yml');
+    if (existsSync(composeFile)) {
+      cpSync(composeFile, join(PLUGIN_TEST_DIR, `docker-compose.${plugin.name}.yml`));
+      console.log(`  Copied docker-compose.${plugin.name}.yml`);
+    }
+
+    // Copy extra config files referenced by docker-compose (e.g. garage.toml)
+    for (const file of readdirSync(absPath)) {
+      if (file.endsWith('.toml') || file.endsWith('.conf')) {
+        cpSync(join(absPath, file), join(PLUGIN_TEST_DIR, file));
+        console.log(`  Copied ${file}`);
+      }
+    }
+
+    // Append .env.<plugin-name> vars to plugin-dev-server/apps/api/.env
+    const envFile = join(absPath, `.env.${plugin.name}`);
+    if (existsSync(envFile)) {
+      const envPath = join(PLUGIN_TEST_DIR, 'apps', 'api', '.env');
+      const existing = existsSync(envPath) ? readFileSync(envPath, 'utf-8') : '';
+      const envContent = readFileSync(envFile, 'utf-8');
+      writeFileSync(envPath, existing.trimEnd() + '\n\n' + envContent);
+      console.log(`  Appended .env.${plugin.name} to apps/api/.env`);
+    }
   }
+
+  // Add infra scripts for plugins with docker-compose files
+  const rootPkgPath = join(PLUGIN_TEST_DIR, 'package.json');
+  const rootPkg = JSON.parse(readFileSync(rootPkgPath, 'utf-8'));
+  for (const { absPath, plugin } of plugins) {
+    if (existsSync(join(absPath, 'docker-compose.yml'))) {
+      const composeFlag = `-f docker-compose.${plugin.name}.yml`;
+      rootPkg.scripts[`infra:${plugin.name}`] = `docker compose ${composeFlag} up`;
+    }
+  }
+  writeFileSync(rootPkgPath, JSON.stringify(rootPkg, null, 2) + '\n');
 
   // Install dependencies inside plugin-dev-server
   console.log('Installing dependencies...');

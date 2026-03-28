@@ -21,10 +21,6 @@ const schema = z.object({
   RESEND_API_KEY: z.string().optional(),
   ADMIN_KEY: z.string().optional(),
   MIXPANEL_API_KEY: z.string().optional(),
-  CLOUD_STORAGE_ENDPOINT: z.string().optional(),
-  CLOUD_STORAGE_BUCKET: z.string().optional(),
-  CLOUD_STORAGE_ACCESS_KEY_ID: z.string().optional(),
-  CLOUD_STORAGE_SECRET_ACCESS_KEY: z.string().optional(),
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
 });

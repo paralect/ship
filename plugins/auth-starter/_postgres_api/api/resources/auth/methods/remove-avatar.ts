@@ -1,5 +1,5 @@
 import type { User } from '@/db';
-import { cloudStorageService } from '@/services';
+import { cloudStorageService } from '@ship/cloud-storage';
 
 export default async function removeAvatar({ user }: { user: User }) {
   if (user.avatarUrl) {

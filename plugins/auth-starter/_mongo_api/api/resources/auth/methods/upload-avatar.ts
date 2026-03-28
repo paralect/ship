@@ -1,7 +1,6 @@
 import removeAvatar from '@/resources/auth/methods/remove-avatar';
 import type { User } from '@/resources/users/users.schema';
-import { cloudStorageService } from '@/services';
-import { BackendFile } from '@/types';
+import { cloudStorageService, type BackendFile } from '@ship/cloud-storage';
 
 export default async function uploadAvatar({
   user,
