@@ -82,7 +82,7 @@ const AiChatPage = ({ chatId: initialChatId }: AiChatPageProps) => {
         const newChat = await createChatMutation.mutateAsync({ title: 'New Chat' });
         chatId = newChat.id;
         setActiveChatId(chatId);
-        window.history.replaceState(null, '', `/ai-chat/${chatId}`);
+        window.history.replaceState(null, '', `/app/ai-chat/${chatId}`);
       } catch {
         return;
       }

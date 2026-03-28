@@ -443,6 +443,19 @@ function dev(pluginPaths: string[]): void {
     console.log(`Merging plugin "${plugin.name}"...`);
     mergePluginFiles(absPath, dbVariant);
 
+    // Copy plugin packages/ → plugin-dev-server/packages/
+    const pluginPackagesDir = join(absPath, 'packages');
+    if (existsSync(pluginPackagesDir)) {
+      const destPackages = join(PLUGIN_TEST_DIR, 'packages');
+      for (const entry of readdirSync(pluginPackagesDir, { withFileTypes: true })) {
+        if (!entry.isDirectory()) continue;
+        const src = join(pluginPackagesDir, entry.name);
+        const dest = join(destPackages, entry.name);
+        cpSync(src, dest, { recursive: true });
+        console.log(`  Copied packages/${entry.name}`);
+      }
+    }
+
     // Add plugin deps to plugin-dev-server's package.json (not template's)
     if (plugin.dependencies?.api) {
       const pkgJson = JSON.parse(readFileSync(join(PLUGIN_TEST_DIR, 'apps', 'api', 'package.json'), 'utf-8'));
@@ -475,6 +488,7 @@ function dev(pluginPaths: string[]): void {
     const watchDirs = [
       join(absPath, 'api'),
       join(absPath, 'web'),
+      join(absPath, 'packages'),
       ...(dbVariant ? [join(absPath, dbVariant)] : []),
     ].filter(existsSync);
 
@@ -486,6 +500,15 @@ function dev(pluginPaths: string[]): void {
         timeout = setTimeout(() => {
           console.log(`\n  Plugin file changed: ${filename}, re-merging...`);
           mergePluginFiles(absPath, dbVariant);
+          // Re-copy packages if changed
+          const pluginPkgDir = join(absPath, 'packages');
+          if (existsSync(pluginPkgDir)) {
+            const destPackages = join(PLUGIN_TEST_DIR, 'packages');
+            for (const entry of readdirSync(pluginPkgDir, { withFileTypes: true })) {
+              if (!entry.isDirectory()) continue;
+              cpSync(join(pluginPkgDir, entry.name), join(destPackages, entry.name), { recursive: true });
+            }
+          }
         }, 200);
       });
       watchers.push(watcher);

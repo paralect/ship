@@ -58,7 +58,8 @@ function buildRouter(resources: string[]): string {
       imports.push(`import ${id} from './resources/${r}/endpoints/${p}';`);
     }
     const fields = endpoints.map((p) => `    ${toCamelCase(p)}: ${toCamelCase(`${r}_${p}`)},`);
-    routerEntries.push(`  ${r}: isPublic.router({\n${fields.join('\n')}\n  }),`);
+    const key = r.includes('-') ? `'${r}'` : r;
+    routerEntries.push(`  ${key}: isPublic.router({\n${fields.join('\n')}\n  }),`);
   }
 
   return [

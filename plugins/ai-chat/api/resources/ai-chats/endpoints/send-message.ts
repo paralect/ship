@@ -1,8 +1,7 @@
 import db from '@/db';
 import { isAuthorized, ORPCError } from '@/procedures';
 import { z } from 'zod';
-
-import generateResponse from '../methods/generate-response';
+import { generateResponse } from '@ship/ai';
 
 const inputSchema = z.object({
   chatId: z.string(),

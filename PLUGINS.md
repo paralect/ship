@@ -10,6 +10,7 @@ Plugins add features to the Ship template without modifying it. Each plugin is a
 | `plugins/mongo` | MongoDB with @paralect/node-mongo — auto-discovery of schemas, services, and indexes | — |
 | `plugins/auth-starter` | Authentication (sign-in/up, forgot/reset password, Google OAuth), user management, dashboard | postgres or mongodb |
 | `plugins/notes` | Simple notes CRUD — example plugin | postgres or mongodb |
+| `plugins/ai-chat` | AI chat with configurable LLM model via `@ship/ai` package | postgres, auth-starter |
 
 ## Plugin Structure
 
@@ -51,6 +52,28 @@ my-plugin/
 ```
 
 The plugin system detects which DB plugin (`postgres` or `mongodb`) is in the list and merges the matching `_*_api/` directory.
+
+### Monorepo packages
+
+Plugins can include shared packages under `packages/`:
+
+```
+my-plugin/
+  packages/
+    my-lib/
+      package.json              # { "name": "@ship/my-lib", ... }
+      src/index.ts
+```
+
+During `plugin:dev`, these are copied into `plugin-dev-server/packages/` and become available as workspace dependencies. Reference them in `plugin.json` dependencies:
+
+```json
+{
+  "dependencies": {
+    "api": { "@ship/my-lib": "workspace:*" }
+  }
+}
+```
 
 ### plugin.json
 

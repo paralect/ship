@@ -15,6 +15,10 @@ plugins/<name>/
     src/resources/<name>/
       endpoints/*.ts
       methods/*.ts
+  packages/                            # optional monorepo packages
+    <pkg-name>/
+      package.json
+      src/index.ts
   web/
     pages/app/<name>/index.page.tsx
 ```
@@ -55,6 +59,7 @@ The plugin system detects which DB plugin (`postgres` or `mongodb`) is in the li
 
 - `requires` documents which plugins must be included alongside this one
 - `dependencies` are installed into `plugin-dev-server/` during `plugin:dev`
+- Use `"workspace:*"` for dependencies on packages included in the plugin's `packages/` directory
 
 ## Key conventions
 
@@ -182,3 +187,4 @@ pnpm plugin:dev plugins/postgres plugins/auth-starter plugins/<name>
 
 - `plugins/notes/` — minimal example with schema, 3 endpoints, and a page (both DB variants)
 - `plugins/auth-starter/` — full-featured example with auth, multiple resources, server-config override, dual-DB
+- `plugins/ai-chat/` — example with a monorepo package (`packages/ai`) for shared AI logic

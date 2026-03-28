@@ -4,8 +4,7 @@
   "description": "AI chat with Google Gemini — create conversations, send messages, get AI responses",
   "dependencies": {
     "api": {
-      "@ai-sdk/google": "^3.0.29",
-      "ai": "^6.0.86"
+      "@ship/ai": "workspace:*"
     }
   }
 }
