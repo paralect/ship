@@ -6,7 +6,7 @@ import { eventBus } from '@/event-bus';
 import { isPublic } from '@/procedures';
 import createToken from '@/resources/tokens/methods/create-token';
 import usersSchema, { emailSchema, passwordSchema, publicSchema } from '@/resources/users/users.schema';
-import { emailService } from '@/services';
+import { emailService } from '@ship/emails';
 import { ClientError } from '@/types';
 import { clientUtil, securityUtil } from '@/utils';
 

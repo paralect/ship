@@ -2,5 +2,5 @@
   "name": "auth-starter",
   "version": "1.0.0",
   "description": "Authentication, users, and dashboard — the default Ship starter kit",
-  "requires": ["postgres"]
+  "requires": ["postgres", "mailer"]
 }

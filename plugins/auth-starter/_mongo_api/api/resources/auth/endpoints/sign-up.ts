@@ -6,7 +6,7 @@ import { isPublic } from '@/procedures';
 import { emailSchema, passwordSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
 import usersSchema, { publicSchema } from '@/resources/users/users.schema';
-import { emailService } from '@/services';
+import { emailService } from '@ship/emails';
 import { ClientError } from '@/types';
 import { clientUtil, securityUtil } from '@/utils';
 

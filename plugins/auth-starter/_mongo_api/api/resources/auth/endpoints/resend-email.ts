@@ -5,7 +5,7 @@ import db from '@/db';
 import { isPublic } from '@/procedures';
 import { emailSchema } from '@/resources/base.schema';
 import createToken from '@/resources/tokens/methods/create-token';
-import { emailService } from '@/services';
+import { emailService } from '@ship/emails';
 
 export default isPublic
   .input(z.object({ email: emailSchema }))
