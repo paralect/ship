@@ -48,7 +48,12 @@ export async function initDb(mongoUri: string, dbName: string, resourcesDir: str
   }
 }
 
+export function getMongoDb() {
+  // Access the internal Db instance from the Database class
+  return (database as unknown as { db: import('mongodb').Db }).db;
+}
+
 export { createService, database };
-export { eventBus, type InMemoryEvent } from '@paralect/node-mongo';
+export { eventBus, generateId, type InMemoryEvent } from '@paralect/node-mongo';
 
 export default db;

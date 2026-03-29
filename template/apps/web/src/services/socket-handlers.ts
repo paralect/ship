@@ -1,22 +1,15 @@
-import { queryKey } from 'hooks';
+import { currentUserKey } from 'hooks';
 
-import { apiClient } from 'services/api-client.service';
 import * as socketService from 'services/socket.service';
 
 import queryClient from 'query-client';
 
 import type { User } from 'types';
 
-const accountKey = queryKey(apiClient.users.getCurrent);
-
 socketService.on('connect', () => {
-  const account = queryClient.getQueryData<User | null>(accountKey);
+  const currentUser = queryClient.getQueryData<User | null>(currentUserKey);
 
-  if (account) {
-    socketService.emit('subscribe', `user-${account._id}`);
+  if (currentUser) {
+    socketService.emit('subscribe', `user-${currentUser._id}`);
   }
-});
-
-socketService.on('user:updated', (user: User) => {
-  queryClient.setQueryData<User | null>(accountKey, user);
 });

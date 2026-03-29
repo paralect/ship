@@ -15,7 +15,7 @@ const Dashboard = () => {
       <div className="flex h-full items-center justify-center px-4">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground sm:text-4xl">
-            Welcome back{currentUser?.firstName ? `, ${currentUser.firstName}` : ''}!
+            Welcome back{currentUser?.fullName ? `, ${currentUser.fullName}` : ''}!
           </h1>
 
           <p className="mt-4 text-base text-muted-foreground sm:text-lg">

@@ -8,8 +8,6 @@ import { cors } from 'hono/cors';
 import { logger as honoLogger } from 'hono/logger';
 import { secureHeaders } from 'hono/secure-headers';
 
-import { COOKIES } from 'app-constants';
-
 import config from '@/config';
 import ioEmitter from '@/io-emitter';
 import appLogger from '@/logger';
@@ -34,6 +32,7 @@ app.use(async (c, next) => {
 
   const ctx: ORPCContext = {
     headers,
+    rawRequest: c.req.raw,
     getCookie: (name: string) => getCookie(c, name),
     setCookie: (name: string, value: string, options?: CookieOptions) => {
       setCookie(c, name, value, {
@@ -54,24 +53,20 @@ app.use(async (c, next) => {
     secure: c.req.url.startsWith('https'),
   };
 
-  // Resolve auth from cookie or Authorization header
-  let accessToken = getCookie(c, COOKIES.ACCESS_TOKEN);
-  const authorization = c.req.header('authorization');
-
-  if (!accessToken && authorization) {
-    accessToken = authorization.replace('Bearer', '').trim();
-  }
-
-  if (accessToken) {
-    ctx.accessToken = accessToken;
-    await serverConfig.resolveUser(ctx);
-  }
+  await serverConfig.resolveUser(ctx);
 
   c.set('ctx', ctx);
   await next();
 });
 
 app.get('/health', (c) => c.json({ status: 'ok' }, 200));
+
+app.all('/api/auth/*', async (c) => {
+  if (serverConfig.authHandler) {
+    return serverConfig.authHandler(c.req.raw);
+  }
+  return c.json({ error: 'Auth not configured' }, 404);
+});
 
 const errorInterceptor = async <T>(options: { next: () => Promise<T> }): Promise<T> => {
   try {

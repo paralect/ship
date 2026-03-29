@@ -1,18 +1,19 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { queryKey, useApiForm, useApiMutation } from 'hooks';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { queryKey, useApiForm } from 'hooks';
 import { AlertCircle, Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
 
 import { LayoutType, Page, ScopeType } from 'components';
 
 import { GoogleIcon } from 'public/icons';
 
-import { apiClient } from 'services/api-client.service';
-import { handleApiError } from 'utils';
+import { authClient } from 'services/auth-client.service';
 
 import queryClient from 'query-client';
-import config from 'config';
+
+import { apiClient } from 'services/api-client.service';
 
 import { signInSchema } from 'schemas';
 
@@ -23,47 +24,41 @@ import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password-input';
 
 const SignIn = () => {
+  const router = useRouter();
+  const [isSignInPending, setIsSignInPending] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-    setError,
   } = useApiForm(signInSchema);
 
-  // API error fields set via setError
-  const apiErrors = errors as typeof errors & {
-    credentials?: { message?: string };
-    emailVerificationTokenExpired?: { message?: string };
-  };
+  const onSubmit = handleSubmit(async (data) => {
+    setIsSignInPending(true);
+    setApiError(null);
 
-  const { mutate: signIn, isPending: isSignInPending } = useApiMutation(apiClient.auth.signIn, {
-    onSuccess: (data) => {
-      queryClient.setQueryData(queryKey(apiClient.users.getCurrent), data);
-    },
+    const { error } = await authClient.signIn.email({
+      email: data.email,
+      password: data.password,
+    });
+
+    setIsSignInPending(false);
+
+    if (error) {
+      setApiError(error.message || 'The email or password you have entered is invalid');
+      return;
+    }
+
+    await router.push('/app');
+    queryClient.invalidateQueries({ queryKey: queryKey(apiClient.users.getCurrent) });
   });
-  const { mutate: resendEmail, isPending: isResendEmailPending } = useApiMutation(apiClient.auth.resendEmail);
 
-  const onSubmit = handleSubmit((data) =>
-    signIn(data, {
-      onError: (e) => handleApiError(e, setError),
-    }),
-  );
-
-  const onResendEmail = () => {
-    if (isResendEmailPending) return;
-
-    resendEmail(
-      { email: watch('email') },
-      {
-        onError: (e) => handleApiError(e, setError),
-        onSuccess: () => {
-          toast.success('Verification email sent', {
-            description: 'Please check your email to verify your account.',
-          });
-        },
-      },
-    );
+  const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: 'google',
+      callbackURL: '/app',
+    });
   };
 
   return (
@@ -101,27 +96,10 @@ const SignIn = () => {
                 {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
               </div>
 
-              {apiErrors.credentials && (
+              {apiError && (
                 <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>{apiErrors.credentials.message}</AlertDescription>
-                </Alert>
-              )}
-
-              {apiErrors.emailVerificationTokenExpired && (
-                <Alert variant="default" className="border-yellow-500 bg-yellow-50 text-yellow-800">
-                  <AlertCircle className="h-4 w-4 text-yellow-600" />
-                  <AlertDescription>
-                    <div className="flex flex-col gap-1">
-                      <span>Please verify your email to sign in.</span>
-                      <div className="flex items-center gap-2">
-                        <button type="button" onClick={onResendEmail} className="text-sm underline hover:no-underline">
-                          Resend verification email
-                        </button>
-                        {isResendEmailPending && <Loader2 className="h-3 w-3 animate-spin" />}
-                      </div>
-                    </div>
-                  </AlertDescription>
+                  <AlertDescription>{apiError}</AlertDescription>
                 </Alert>
               )}
 
@@ -138,11 +116,9 @@ const SignIn = () => {
         </div>
 
         <div className="flex flex-col gap-8">
-          <Button variant="outline" asChild>
-            <a href={`${config.API_URL}/account/sign-in/google`} className="flex items-center gap-2">
-              <GoogleIcon className="size-5 shrink-0" />
-              Continue with Google
-            </a>
+          <Button variant="outline" onClick={handleGoogleSignIn}>
+            <GoogleIcon className="mr-2 size-5 shrink-0" />
+            Continue with Google
           </Button>
 
           <div className="flex items-center justify-center gap-3">

@@ -10,8 +10,6 @@ const API_RESOURCES = join(ROOT, 'apps', 'api', 'src', 'resources');
 const WEB_PAGES = join(ROOT, 'apps', 'web', 'src', 'pages');
 const LOCK_PATH = join(ROOT, 'plugins.lock.json');
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
 interface PluginJson {
   name: string;
   version?: string;
@@ -64,8 +62,6 @@ function collectFiles(dir: string, base: string): string[] {
 function exec(cmd: string): string {
   return execSync(cmd, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
 }
-
-// ── Install ──────────────────────────────────────────────────────────────────
 
 function install(source: string): void {
   const tmpDir = join(ROOT, '.plugin-tmp-' + Date.now());
@@ -186,7 +182,7 @@ function install(source: string): void {
     let commit = 'unknown';
     try {
       commit = exec(`git -C ${tmpDir} rev-parse HEAD`);
-    } catch {}
+    } catch { }
 
     // Update lock
     lock[plugin.name] = {
@@ -227,7 +223,7 @@ function removePluginFiles(entry: LockEntry): void {
     try {
       const contents = readdirSync(dir);
       if (contents.length === 0) rmSync(dir, { recursive: true });
-    } catch {}
+    } catch { }
   }
 }
 
@@ -256,7 +252,7 @@ function uninstall(pluginName: string): void {
       .filter((p) => !otherDeps.has(p));
     if (toRemove.length) {
       console.log(`  Removing API dependencies: ${toRemove.join(', ')}`);
-      try { execSync(`pnpm remove ${toRemove.join(' ')} --filter api`, { cwd: ROOT, stdio: 'inherit' }); } catch {}
+      try { execSync(`pnpm remove ${toRemove.join(' ')} --filter api`, { cwd: ROOT, stdio: 'inherit' }); } catch { }
     }
   }
   if (entry.dependencies?.web) {
@@ -265,13 +261,13 @@ function uninstall(pluginName: string): void {
       .filter((p) => !otherDeps.has(p));
     if (toRemove.length) {
       console.log(`  Removing web dependencies: ${toRemove.join(', ')}`);
-      try { execSync(`pnpm remove ${toRemove.join(' ')} --filter web`, { cwd: ROOT, stdio: 'inherit' }); } catch {}
+      try { execSync(`pnpm remove ${toRemove.join(' ')} --filter web`, { cwd: ROOT, stdio: 'inherit' }); } catch { }
     }
   }
 
   // Re-run codegen
   console.log('  Running API codegen...');
-  try { execSync('pnpm --filter api codegen', { cwd: ROOT, stdio: 'inherit' }); } catch {}
+  try { execSync('pnpm --filter api codegen', { cwd: ROOT, stdio: 'inherit' }); } catch { }
 
   delete lock[pluginName];
   writeLock(lock);
@@ -390,19 +386,19 @@ function mergePluginFiles(absPath: string, dbVariant?: string): void {
     }
   }
 
-  // web/pages/* → apps/web/src/pages/
-  const webPagesDir = join(absPath, 'web', 'pages');
-  const destWebPages = join(PLUGIN_TEST_DIR, 'apps', 'web', 'src', 'pages');
-  if (existsSync(webPagesDir)) {
-    for (const entry of readdirSync(webPagesDir, { withFileTypes: true })) {
+  // web/* → apps/web/src/* (pages/, services/, hooks/, etc.)
+  const webDir = join(absPath, 'web');
+  const destWebSrc = join(PLUGIN_TEST_DIR, 'apps', 'web', 'src');
+  if (existsSync(webDir)) {
+    for (const entry of readdirSync(webDir, { withFileTypes: true })) {
       if (!entry.isDirectory()) continue;
-      const target = join(destWebPages, entry.name);
-      cpSync(join(webPagesDir, entry.name), target, { recursive: true });
-      console.log(`  Merged pages/${entry.name}`);
+      const target = join(destWebSrc, entry.name);
+      cpSync(join(webDir, entry.name), target, { recursive: true });
+      console.log(`  Merged web/${entry.name}`);
     }
   }
 
-  // DB-variant: merge _postgres_api/ or _mongo_api/ as additional api/ source
+  // DB-variant: merge postgres/ or mongo/ as additional api/ source
   if (dbVariant) {
     const variantDir = join(absPath, dbVariant);
     if (existsSync(variantDir)) {
@@ -434,9 +430,9 @@ function dev(pluginPaths: string[]): void {
 
   // Detect DB variant from plugin names
   const pluginNames = plugins.map((p) => p.plugin.name);
-  const dbVariant = pluginNames.includes('postgres') ? '_postgres_api'
-    : pluginNames.includes('mongo') ? '_mongo_api'
-    : undefined;
+  const dbVariant = pluginNames.includes('postgres') ? 'postgres'
+    : pluginNames.includes('mongo') ? 'mongo'
+      : undefined;
 
   // Merge all plugins
   for (const { absPath, plugin } of plugins) {
@@ -511,11 +507,11 @@ function dev(pluginPaths: string[]): void {
 
   // Run codegen inside plugin-dev-server
   console.log('Running API codegen...');
-  try { execSync('pnpm --filter api codegen', { cwd: PLUGIN_TEST_DIR, stdio: 'inherit' }); } catch {}
+  try { execSync('pnpm --filter api codegen', { cwd: PLUGIN_TEST_DIR, stdio: 'inherit' }); } catch { }
 
   // Push DB schema
   console.log('Pushing DB schema...');
-  try { execSync('pnpm --filter api db:push', { cwd: PLUGIN_TEST_DIR, stdio: 'inherit' }); } catch {}
+  try { execSync('pnpm --filter api db:push', { cwd: PLUGIN_TEST_DIR, stdio: 'inherit' }); } catch { }
 
   // Watch all plugin sources for changes and re-merge
   const watchers: ReturnType<typeof watch>[] = [];
@@ -549,6 +545,39 @@ function dev(pluginPaths: string[]): void {
       });
       watchers.push(watcher);
     }
+  }
+
+  // Watch template apps/ for changes and re-copy + re-merge
+  for (const templateDir of [join(ROOT, 'apps'), join(ROOT, 'packages')]) {
+    if (!existsSync(templateDir)) continue;
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    const watcher = watch(templateDir, { recursive: true }, (_, filename) => {
+      if (!filename || filename.includes('node_modules') || filename.includes('.next')) return;
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        console.log(`\n  Template file changed: ${filename}, re-syncing...`);
+        // Re-copy template dirs (overwrite plugin-dev-server)
+        for (const dir of ['apps', 'packages']) {
+          const src = join(ROOT, dir);
+          if (existsSync(src)) {
+            cpSync(src, join(PLUGIN_TEST_DIR, dir), { recursive: true, filter: (s) => !s.includes('node_modules') && !s.includes('.next') });
+          }
+        }
+        // Re-merge all plugins on top
+        for (const { absPath, plugin: p } of plugins) {
+          mergePluginFiles(absPath, dbVariant);
+          const pluginPkgDir = join(absPath, 'packages');
+          if (existsSync(pluginPkgDir)) {
+            const destPackages = join(PLUGIN_TEST_DIR, 'packages');
+            for (const entry of readdirSync(pluginPkgDir, { withFileTypes: true })) {
+              if (!entry.isDirectory()) continue;
+              cpSync(join(pluginPkgDir, entry.name), join(destPackages, entry.name), { recursive: true });
+            }
+          }
+        }
+      }, 300);
+    });
+    watchers.push(watcher);
   }
 
   const names = plugins.map((p) => p.plugin.name).join(', ');

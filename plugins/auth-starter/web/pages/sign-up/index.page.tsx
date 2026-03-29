@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useApiForm, useApiMutation } from 'hooks';
+import { useState } from 'react';
+import { useApiForm } from 'hooks';
 import { FormProvider } from 'react-hook-form';
 
 import { LayoutType, Page, ScopeType } from 'components';
@@ -8,9 +9,7 @@ import { LayoutType, Page, ScopeType } from 'components';
 import { GoogleIcon } from 'public/icons';
 
 import { apiClient } from 'services/api-client.service';
-import { handleApiError } from 'utils';
-
-import config from 'config';
+import { authClient } from 'services/auth-client.service';
 
 import { signUpSchema } from 'schemas';
 
@@ -26,25 +25,43 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    setError,
     watch,
     formState: { errors },
   } = methods;
 
+  const [isSignUpPending, setIsSignUpPending] = useState(false);
+  const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [isVerified, setIsVerified] = useState(false);
+
   const emailValue = watch('email');
 
-  const {
-    mutate: signUp,
-    isPending: isSignUpPending,
-    isSuccess: isSignUpSuccess,
-    data: signUpData,
-  } = useApiMutation(apiClient.auth.signUp);
+  const onSubmit = handleSubmit(async (data) => {
+    setIsSignUpPending(true);
+    setApiError(null);
 
-  const onSubmit = handleSubmit((data) =>
-    signUp(data, {
-      onError: (e) => handleApiError(e, setError),
-    }),
-  );
+    const { error } = await authClient.signUp.email({
+      name: data.fullName,
+      email: data.email,
+      password: data.password,
+    });
+
+    setIsSignUpPending(false);
+
+    if (error) {
+      setApiError(error.message || 'Sign up failed');
+      return;
+    }
+
+    setIsSignUpSuccess(true);
+  });
+
+  const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: 'google',
+      callbackURL: '/app',
+    });
+  };
 
   if (isSignUpSuccess) {
     return (
@@ -61,18 +78,29 @@ const SignUp = () => {
             confirmation link to <span className="font-semibold text-foreground">{emailValue}</span>
           </p>
 
-          {signUpData?.emailVerificationToken && (
+          {process.env.NODE_ENV === 'development' && !isVerified && (
             <div className="space-y-1">
-              <p>You look like a cool developer 🧑‍💻</p>
+              <p>You look like a cool developer</p>
 
-              <a
-                className="text-sm text-primary underline-offset-4 hover:underline"
-                href={`${config.API_URL}/account/verify-email?token=${signUpData.emailVerificationToken}`}
-                target="_blank"
-                rel="noreferrer"
+              <Button
+                variant="link"
+                className="h-auto p-0 text-sm"
+                onClick={async () => {
+                  await apiClient.users.devVerifyEmail({ email: emailValue });
+                  setIsVerified(true);
+                }}
               >
                 Verify email
-              </a>
+              </Button>
+            </div>
+          )}
+
+          {isVerified && (
+            <div className="space-y-1">
+              <p className="text-sm text-green-600">Email verified!</p>
+              <Link href="/sign-in" className="text-sm text-primary underline-offset-4 hover:underline">
+                Sign in
+              </Link>
             </div>
           )}
         </div>
@@ -93,27 +121,15 @@ const SignUp = () => {
 
             <div className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name</Label>
+                <Label htmlFor="fullName">Full Name</Label>
                 <Input
-                  id="firstName"
-                  {...register('firstName')}
-                  maxLength={100}
-                  placeholder="Enter first Name"
-                  aria-invalid={!!errors.firstName}
+                  id="fullName"
+                  {...register('fullName')}
+                  maxLength={128}
+                  placeholder="Enter full name"
+                  aria-invalid={!!errors.fullName}
                 />
-                {errors.firstName && <p className="text-sm text-destructive">{errors.firstName.message}</p>}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name</Label>
-                <Input
-                  id="lastName"
-                  {...register('lastName')}
-                  maxLength={100}
-                  placeholder="Enter last Name"
-                  aria-invalid={!!errors.lastName}
-                />
-                {errors.lastName && <p className="text-sm text-destructive">{errors.lastName.message}</p>}
+                {errors.fullName && <p className="text-sm text-destructive">{errors.fullName.message}</p>}
               </div>
 
               <div className="space-y-2">
@@ -121,7 +137,7 @@ const SignUp = () => {
                 <Input
                   id="email"
                   {...register('email')}
-                  placeholder="Enter email Address"
+                  placeholder="Enter email address"
                   aria-invalid={!!errors.email}
                 />
                 {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
@@ -143,6 +159,8 @@ const SignUp = () => {
                   </div>
                 )}
               />
+
+              {apiError && <p className="text-sm text-destructive">{apiError}</p>}
             </div>
 
             <Button type="submit" disabled={isSignUpPending} className="mt-8 w-full">
@@ -151,11 +169,9 @@ const SignUp = () => {
           </form>
 
           <div className="space-y-8">
-            <Button variant="outline" className="w-full" asChild>
-              <a href={`${config.API_URL}/account/sign-in/google`}>
-                <GoogleIcon className="mr-2 size-5 shrink-0" />
-                Continue with Google
-              </a>
+            <Button variant="outline" className="w-full" onClick={handleGoogleSignIn}>
+              <GoogleIcon className="mr-2 size-5 shrink-0" />
+              Continue with Google
             </Button>
 
             <div className="flex items-center justify-center gap-3">

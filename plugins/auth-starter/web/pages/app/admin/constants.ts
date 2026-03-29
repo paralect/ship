@@ -10,7 +10,7 @@ export type UsersListResponse = InferClientOutputs<typeof orpc>['users']['list']
 type User = UsersListResponse['results'][number];
 export const PER_PAGE = 10;
 
-type UserListSortFields = 'createdOn' | 'firstName' | 'lastName';
+type UserListSortFields = 'createdOn' | 'fullName';
 export const EXTERNAL_SORT_FIELDS: Array<UserListSortFields> = ['createdOn'];
 
 export const DEFAULT_PARAMS: UsersListParams = {
@@ -24,13 +24,8 @@ export const DEFAULT_PARAMS: UsersListParams = {
 
 export const COLUMNS: ColumnDef<User>[] = [
   {
-    accessorKey: 'firstName',
-    header: 'First Name',
-    enableSorting: true,
-  },
-  {
-    accessorKey: 'lastName',
-    header: 'Last Name',
+    accessorKey: 'fullName',
+    header: 'Full Name',
     enableSorting: true,
   },
   {

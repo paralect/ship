@@ -13,7 +13,7 @@
     "dev": "tsx scripts/codegen-router.ts --watch & [ -f scripts/codegen-db.ts ] && tsx scripts/codegen-db.ts --watch & NODE_ENV=development APP_ENV=development tsx watch --clear-screen=false --env-file=.env src/app.ts",
     "codegen": "tsx scripts/codegen-router.ts && ([ -f scripts/codegen-db.ts ] && tsx scripts/codegen-db.ts || true) && eslint --fix src/router.ts src/db.ts && prettier --write src/router.ts src/db.ts",
     "start": "NODE_ENV=development APP_ENV=development tsx --env-file=.env src/app.ts",
-    "admin:set": "[ -f src/admin-set.ts ] && NODE_ENV=development APP_ENV=development tsx --env-file=.env src/admin-set.ts || echo 'Install postgres plugin first'",
+    "admin:set": "sh -c '[ -f src/admin-set.ts ] && NODE_ENV=development APP_ENV=development tsx --env-file=.env src/admin-set.ts \"$@\" || echo Install postgres plugin first' --",
     "migrate": "[ -f drizzle.config.ts ] && NODE_ENV=development APP_ENV=development tsx --env-file=.env -e 'import {migrate} from \"drizzle-orm/postgres-js/migrator\"; import {rawDb as db} from \"./src/db\"; await migrate(db, {migrationsFolder: \"./drizzle\"}); process.exit(0);' || echo 'Install postgres plugin first'",
     "generate": "[ -f drizzle.config.ts ] && drizzle-kit generate || echo 'Install postgres plugin first'",
     "db:push": "[ -f drizzle.config.ts ] && drizzle-kit push || echo 'Install postgres plugin first'",

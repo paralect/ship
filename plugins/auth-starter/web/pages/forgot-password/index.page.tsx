@@ -1,13 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useApiForm, useApiMutation } from 'hooks';
+import { useState } from 'react';
+import { useApiForm } from 'hooks';
 import { Loader2 } from 'lucide-react';
 
 import { LayoutType, Page, ScopeType } from 'components';
 
-import { apiClient } from 'services/api-client.service';
-import { handleApiError } from 'utils';
+import { authClient } from 'services/auth-client.service';
 
 import { forgotPasswordSchema } from 'schemas';
 
@@ -17,30 +17,31 @@ import { Label } from '@/components/ui/label';
 
 const ForgotPassword = () => {
   const router = useRouter();
-
-  const {
-    mutate: forgotPassword,
-    isPending: isForgotPasswordPending,
-    isSuccess: isForgotPasswordSuccess,
-  } = useApiMutation(apiClient.auth.forgotPassword);
+  const [isPending, setIsPending] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const {
     register,
     handleSubmit,
-    setError,
     watch,
     formState: { errors },
   } = useApiForm(forgotPasswordSchema);
 
   const email = watch('email');
 
-  const onSubmit = handleSubmit((data) =>
-    forgotPassword(data, {
-      onError: (e) => handleApiError(e, setError),
-    }),
-  );
+  const onSubmit = handleSubmit(async (data) => {
+    setIsPending(true);
 
-  if (isForgotPasswordSuccess && email) {
+    await authClient.forgetPassword({
+      email: data.email,
+      redirectTo: '/reset-password',
+    });
+
+    setIsPending(false);
+    setIsSuccess(true);
+  });
+
+  if (isSuccess && email) {
     return (
       <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
         <Head>
@@ -89,8 +90,8 @@ const ForgotPassword = () => {
               {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
             </div>
 
-            <Button type="submit" disabled={isForgotPasswordPending}>
-              {isForgotPasswordPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            <Button type="submit" disabled={isPending}>
+              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Send reset link
             </Button>
           </div>

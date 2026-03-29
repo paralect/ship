@@ -25,8 +25,7 @@ export const signInSchema = z.object({
 });
 
 export const signUpSchema = z.object({
-  firstName: z.string().min(1, 'First name is required').max(128, 'First name must be less than 128 characters.'),
-  lastName: z.string().min(1, 'Last name is required').max(128, 'Last name must be less than 128 characters.'),
+  fullName: z.string().min(1, 'Full name is required').max(128, 'Full name must be less than 128 characters.'),
   email: emailSchema,
   password: passwordSchema,
 });
@@ -46,9 +45,7 @@ export const resendEmailSchema = z.object({
 
 export const accountUpdateSchema = z
   .object({
-    firstName: z.string().min(1, 'First name is required').max(128, 'First name must be less than 128 characters.'),
-    lastName: z.string().min(1, 'Last name is required').max(128, 'Last name must be less than 128 characters.'),
-    password: z.union([passwordSchema, z.literal('')]),
+    fullName: z.string().min(1, 'Full name is required').max(128, 'Full name must be less than 128 characters.'),
     avatar: z.union([z.any(), z.literal('')]).nullable(),
   })
   .partial();

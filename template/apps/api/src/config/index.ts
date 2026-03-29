@@ -23,6 +23,7 @@ const schema = z.object({
   MIXPANEL_API_KEY: z.string().optional(),
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
+  BETTER_AUTH_SECRET: z.string().optional(),
 });
 
 type Config = z.infer<typeof schema>;

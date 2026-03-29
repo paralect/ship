@@ -1,11 +1,7 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { queryKey, useApiMutation, useCurrentUser } from 'hooks';
-import { LogOut, Moon, Sun, User } from 'lucide-react';
-
-import { apiClient } from 'services/api-client.service';
-
-import queryClient from 'query-client';
+import { useCurrentUser } from 'hooks';
+import { Moon, Sun, User } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -25,13 +21,15 @@ const UserMenu = ({ isCollapsed }: UserMenuProps) => {
   const { data: currentUser } = useCurrentUser();
   const { theme, setTheme } = useTheme();
 
-  const { mutate: signOut } = useApiMutation(apiClient.auth.signOut, {
-    onSuccess: () => {
-      queryClient.setQueryData(queryKey(apiClient.users.getCurrent), null);
-    },
-  });
-
   if (!currentUser) return null;
+
+  const initials = currentUser.fullName
+    ? currentUser.fullName
+      .split(' ')
+      .map((n: string) => n.charAt(0))
+      .slice(0, 2)
+      .join('')
+    : '';
 
   return (
     <div className="border-t p-2">
@@ -40,17 +38,10 @@ const UserMenu = ({ isCollapsed }: UserMenuProps) => {
           <Button variant="ghost" className={cn('w-full justify-start gap-2', isCollapsed && 'justify-center px-0')}>
             <Avatar size="sm">
               <AvatarImage src={currentUser.avatarUrl ?? undefined} alt="Avatar" />
-              <AvatarFallback>
-                {currentUser.firstName.charAt(0)}
-                {currentUser.lastName.charAt(0)}
-              </AvatarFallback>
+              <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>
 
-            {!isCollapsed && (
-              <span className="truncate text-sm">
-                {currentUser.firstName} {currentUser.lastName}
-              </span>
-            )}
+            {!isCollapsed && <span className="truncate text-sm">{currentUser.fullName}</span>}
           </Button>
         </DropdownMenuTrigger>
 
@@ -65,11 +56,6 @@ const UserMenu = ({ isCollapsed }: UserMenuProps) => {
           <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
             {theme === 'dark' ? <Sun className="mr-2 size-4" /> : <Moon className="mr-2 size-4" />}
             {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-          </DropdownMenuItem>
-
-          <DropdownMenuItem onClick={() => signOut({})}>
-            <LogOut className="mr-2 size-4" />
-            Log out
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

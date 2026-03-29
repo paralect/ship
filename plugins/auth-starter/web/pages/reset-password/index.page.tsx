@@ -1,31 +1,34 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useApiMutation } from 'hooks';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { LayoutType, Page, ScopeType } from 'components';
 
-import { apiClient } from 'services/api-client.service';
-import { handleApiError } from 'utils';
+import { authClient } from 'services/auth-client.service';
 
-import { resetPasswordSchema } from 'schemas';
+import { passwordSchema } from 'schemas';
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { PasswordInput } from '@/components/ui/password-input';
 
-// Form schema differs from API schema (token comes from URL, not form)
-const formSchema = resetPasswordSchema.omit({ token: true });
+const formSchema = z.object({
+  password: passwordSchema,
+});
 
 type ResetPasswordFormData = z.infer<typeof formSchema>;
 
 const ResetPassword = () => {
   const router = useRouter();
-
   const { token } = router.query;
+
+  const [isPending, setIsPending] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const {
     register,
@@ -33,24 +36,25 @@ const ResetPassword = () => {
     formState: { errors },
   } = useForm<ResetPasswordFormData>({ resolver: zodResolver(formSchema) });
 
-  const {
-    mutate: resetPassword,
-    isPending: isResetPasswordPending,
-    isSuccess: isResetPasswordSuccess,
-  } = useApiMutation(apiClient.auth.resetPassword);
-
-  const onSubmit = (data: ResetPasswordFormData) => {
+  const onSubmit = async (data: ResetPasswordFormData) => {
     if (typeof token !== 'string') return;
 
-    resetPassword(
-      {
-        ...data,
-        token,
-      },
-      {
-        onError: (e) => handleApiError(e),
-      },
-    );
+    setIsPending(true);
+    setApiError(null);
+
+    const { error } = await authClient.resetPassword({
+      newPassword: data.password,
+      token,
+    });
+
+    setIsPending(false);
+
+    if (error) {
+      setApiError(error.message || 'Failed to reset password');
+      return;
+    }
+
+    setIsSuccess(true);
   };
 
   if (!token) {
@@ -64,7 +68,7 @@ const ResetPassword = () => {
     );
   }
 
-  if (isResetPasswordSuccess) {
+  if (isSuccess) {
     return (
       <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
         <Head>
@@ -108,8 +112,10 @@ const ResetPassword = () => {
               {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
             </div>
 
-            <Button type="submit" disabled={isResetPasswordPending}>
-              {isResetPasswordPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {apiError && <p className="text-sm text-destructive">{apiError}</p>}
+
+            <Button type="submit" disabled={isPending}>
+              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Save New Password
             </Button>
           </div>

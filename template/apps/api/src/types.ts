@@ -41,6 +41,7 @@ export type { Context };
 export interface ORPCContext {
   user?: User;
   accessToken?: string;
+  rawRequest?: Request;
   headers: Record<string, string>;
   getCookie: (name: string) => string | undefined;
   setCookie: (name: string, value: string, options?: CookieOptions) => void;

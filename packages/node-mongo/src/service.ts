@@ -461,7 +461,7 @@ class Service<T extends IDocument> {
     updateOptions?: UpdateOptions,
   ): Promise<U | null>;
 
-  async updateOne <U extends T = T>(
+  async updateOne<U extends T = T>(
     filter: Filter<U>,
     updateFilterOrFn: UpdateFilterFunction<U> | UpdateFilter<U>,
     updateConfig: UpdateConfig = {},
@@ -481,7 +481,7 @@ class Service<T extends IDocument> {
     }
 
     const prevDoc = cloneDeep(doc);
-        
+
     let newDoc: U;
     let updateFilter: UpdateFilter<U>;
 
@@ -874,7 +874,7 @@ class Service<T extends IDocument> {
       updateFilter: UpdateFilter<T>,
       readConfig: ReadConfig = {},
       updateOptions: UpdateOptions = {},
-    ):Promise<UpdateResult> => {
+    ): Promise<UpdateResult> => {
       const collection = await this.getCollection();
 
       filter = this.handleReadOperations(filter, readConfig);

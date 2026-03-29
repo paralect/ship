@@ -6,21 +6,17 @@ import { baseColumns } from '../base.schema';
 
 export const users = pgTable('users', {
   ...baseColumns,
+  id: text('id').primaryKey(),
 
-  firstName: text('first_name').notNull(),
-  lastName: text('last_name').notNull(),
+  fullName: text('full_name').notNull(),
   email: text('email').notNull().unique(),
-  passwordHash: text('password_hash'),
 
   isAdmin: boolean('is_admin').default(false).notNull(),
   isEmailVerified: boolean('is_email_verified').default(false).notNull(),
 
   avatarUrl: text('avatar_url'),
 
-  googleUserId: text('google_user_id'),
-  googleConnectedAt: timestamp('google_connected_at', { withTimezone: true }),
-
-  lastRequest: timestamp('last_request', { withTimezone: true }),
+  lastRequestAt: timestamp('last_request_at', { withTimezone: true }),
 });
 
 export const emailSchema = z
@@ -47,12 +43,11 @@ export const passwordSchema = z
   );
 
 const usersSchema = createSelectSchema(users, {
-  firstName: (schema) =>
-    schema.min(1, 'First name is required').max(128, 'First name must be less than 128 characters.'),
-  lastName: (schema) => schema.min(1, 'Last name is required').max(128, 'Last name must be less than 128 characters.'),
+  fullName: (schema) =>
+    schema.min(1, 'Full name is required').max(128, 'Full name must be less than 128 characters.'),
   email: () => emailSchema,
 });
 
 export default usersSchema;
 
-export const publicSchema = usersSchema.omit({ passwordHash: true });
+export const publicSchema = usersSchema;

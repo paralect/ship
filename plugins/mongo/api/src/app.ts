@@ -7,7 +7,7 @@ import { initDb } from '@ship/db';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-await initDb(config.MONGO_URI, config.MONGO_DB_NAME, path.join(__dirname, 'resources'));
+await initDb(config.MONGO_URI!, config.MONGO_DB_NAME!, path.join(__dirname, 'resources'));
 
 const { default: app } = await import('server');
 
