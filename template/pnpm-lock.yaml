@@ -242,7 +242,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/app-constants
       class-variance-authority:
-        specifier: ^0.7.0
+        specifier: ^0.7.1
         version: 0.7.1
       clsx:
         specifier: 2.1.1

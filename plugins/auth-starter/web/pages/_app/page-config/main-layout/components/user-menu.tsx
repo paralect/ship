@@ -1,7 +1,6 @@
-import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { queryKey, useCurrentUser } from 'hooks';
-import { LogOut, Moon, Sun, User } from 'lucide-react';
+import { ChevronsUpDown, LogOut, Moon, Sun } from 'lucide-react';
 
 import { authClient } from 'services/auth-client.service';
 
@@ -10,21 +9,18 @@ import queryClient from 'query-client';
 import { apiClient } from 'services/api-client.service';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 
-interface UserMenuProps {
-  isCollapsed: boolean;
-}
-
-const UserMenu = ({ isCollapsed }: UserMenuProps) => {
+const UserMenu = () => {
   const { data: currentUser } = useCurrentUser();
+  const { isMobile } = useSidebar();
   const { theme, setTheme } = useTheme();
 
   const handleSignOut = async () => {
@@ -43,39 +39,46 @@ const UserMenu = ({ isCollapsed }: UserMenuProps) => {
     : '';
 
   return (
-    <div className="border-t p-2">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className={cn('w-full justify-start gap-2', isCollapsed && 'justify-center px-0')}>
-            <Avatar size="sm">
-              <AvatarImage src={currentUser.avatarUrl ?? undefined} alt="Avatar" />
-              <AvatarFallback>{initials}</AvatarFallback>
-            </Avatar>
-
-            {!isCollapsed && <span className="truncate text-sm">{currentUser.fullName}</span>}
-          </Button>
-        </DropdownMenuTrigger>
-
-        <DropdownMenuContent align={isCollapsed ? 'center' : 'start'} side="top">
-          <DropdownMenuItem asChild>
-            <Link href="/app/settings/profile">
-              <User className="mr-2 size-4" />
-              Profile settings
-            </Link>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-            {theme === 'dark' ? <Sun className="mr-2 size-4" /> : <Moon className="mr-2 size-4" />}
-            {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-          </DropdownMenuItem>
-
-          <DropdownMenuItem onClick={handleSignOut}>
-            <LogOut className="mr-2 size-4" />
-            Log out
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuButton
+              size="lg"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            >
+              <Avatar size="sm" className="rounded-lg">
+                <AvatarImage src={currentUser.avatarUrl ?? undefined} alt={currentUser.fullName} />
+                <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
+              </Avatar>
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-medium">{currentUser.fullName}</span>
+                {currentUser.email && (
+                  <span className="truncate text-xs text-muted-foreground">{currentUser.email}</span>
+                )}
+              </div>
+              <ChevronsUpDown className="ml-auto size-4" />
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+            side={isMobile ? 'bottom' : 'right'}
+            align="end"
+            sideOffset={4}
+          >
+            <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+              {theme === 'dark' ? <Sun /> : <Moon />}
+              {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={handleSignOut}>
+              <LogOut />
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarMenuItem>
+    </SidebarMenu>
   );
 };
 

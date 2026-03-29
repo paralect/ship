@@ -1,16 +1,10 @@
-import { FC, ReactNode, useState } from 'react';
-import Link from 'next/link';
+import { FC, ReactNode } from 'react';
 import { useCurrentUser } from 'hooks';
-import { PanelLeft } from 'lucide-react';
 
-import { LogoImage } from 'public/images';
+import AppSidebar from './app-sidebar';
+import SiteHeader from './site-header';
 
-import { Navigation, UserMenu } from './components';
-import Navbar from './navbar';
-
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -18,50 +12,17 @@ interface MainLayoutProps {
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   const { data: currentUser } = useCurrentUser();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   if (!currentUser) return null;
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-muted/40 md:flex-row">
-      <header className="flex h-14 items-center justify-between border-b bg-background px-4 md:hidden">
-        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <PanelLeft className="size-5" />
-            </Button>
-          </SheetTrigger>
-
-          <SheetContent side="left" className="flex w-72 flex-col p-0">
-            <SheetHeader className="border-b px-4 py-3">
-              <SheetTitle>
-                <Link href="/app" onClick={() => setIsMobileMenuOpen(false)}>
-                  <LogoImage className="h-6" />
-                </Link>
-              </SheetTitle>
-            </SheetHeader>
-
-            <ScrollArea className="flex-1">
-              <div onClick={() => setIsMobileMenuOpen(false)}>
-                <Navigation isCollapsed={false} />
-              </div>
-            </ScrollArea>
-
-            <UserMenu isCollapsed={false} />
-          </SheetContent>
-        </Sheet>
-
-        <Link href="/app">
-          <LogoImage className="h-6" />
-        </Link>
-      </header>
-
-      <div className="hidden md:block">
-        <Navbar />
-      </div>
-
-      <main className="flex-1 overflow-auto">{children}</main>
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <SiteHeader />
+        <main className="flex-1 overflow-auto p-4">{children}</main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 };
 

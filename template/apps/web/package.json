@@ -35,7 +35,7 @@
     "@tanstack/react-table": "8.19.2",
     "api": "workspace:*",
     "app-constants": "workspace:*",
-    "class-variance-authority": "^0.7.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "2.1.1",
     "date-fns": "4.1.0",
     "dayjs": "1.11.10",
