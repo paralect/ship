@@ -2,17 +2,18 @@ import _ from 'lodash';
 import process from 'node:process';
 import winston from 'winston';
 
-const formatToPrettyJson = winston.format.printf(({ level, message }) => {
+const formatToPrettyJson = winston.format.printf(({ level, message, stack }) => {
   if (_.isPlainObject(message)) {
     message = JSON.stringify(message, null, 4);
   }
 
-  return `${level}: ${message}`;
+  return stack ? `${level}: ${message}\n${stack}` : `${level}: ${message}`;
 });
 
 const getFormat = (isDev: boolean) => {
   if (isDev) {
     return winston.format.combine(
+      winston.format.errors({ stack: true }),
       winston.format.colorize({
         colors: {
           http: 'cyan',

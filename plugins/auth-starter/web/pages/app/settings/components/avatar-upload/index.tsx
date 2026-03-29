@@ -77,36 +77,13 @@ const AvatarUpload = () => {
 
   let imageSrc: string | null | undefined = currentUser?.avatarUrl;
 
-  if (typeof avatarValue === 'string') imageSrc = '';
-  else if (avatarValue) imageSrc = URL.createObjectURL(avatarValue as Blob);
+  if (avatarValue) imageSrc = URL.createObjectURL(avatarValue as Blob);
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-start gap-8">
         <div className="flex flex-col items-center gap-3">
           <AvatarDropzone imageSrc={imageSrc} onChange={(file) => setValue('avatar', file, { shouldDirty: true })} />
-
-          {(avatarValue || imageSrc === '') && (
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => setValue('avatar', undefined, { shouldDirty: true })}
-            >
-              Reset
-            </Button>
-          )}
-
-          {currentUser?.avatarUrl && avatarValue === undefined && (
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => setValue('avatar', '', { shouldDirty: true })}
-            >
-              Remove
-            </Button>
-          )}
         </div>
 
         <div className="flex flex-col gap-1">

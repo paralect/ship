@@ -206,7 +206,7 @@ const SecurityTab = () => {
             <CardTitle>Active Sessions</CardTitle>
             <CardDescription>Devices where you&apos;re currently signed in.</CardDescription>
           </div>
-          {otherSessions.length > 0 && (
+          {!isSessionsLoading && otherSessions.length > 0 && (
             <Button
               variant="outline"
               size="sm"

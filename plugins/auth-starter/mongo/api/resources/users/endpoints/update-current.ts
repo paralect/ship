@@ -2,42 +2,51 @@ import { z } from 'zod';
 
 import db from '@/db';
 import { isAuthorized } from '@/procedures';
-import removeAvatar from '@/resources/users/methods/remove-avatar';
-import uploadAvatar from '@/resources/users/methods/upload-avatar';
 import usersSchema, { publicSchema } from '@/resources/users/users.schema';
+import type { User } from '@/resources/users/users.schema';
+import { cloudStorageService } from '@ship/cloud-storage';
+
+async function uploadAvatar(user: User, file: File): Promise<string> {
+  if (user.avatarUrl) {
+    await cloudStorageService.deleteObject(cloudStorageService.getFileKey(user.avatarUrl));
+  }
+
+  const key = `avatars/${user._id}-${Date.now()}-${file.name}`;
+  const buffer = Buffer.from(await file.arrayBuffer());
+  await cloudStorageService.uploadBuffer(key, buffer, file.type);
+
+  const url = await cloudStorageService.getSignedDownloadUrl(key);
+
+  return url;
+}
 
 export default isAuthorized
   .input(
     usersSchema
       .pick({ fullName: true })
       .extend({
-        avatar: z.union([z.any(), z.literal('')]).nullable(),
+        avatar: z.instanceof(File).optional(),
       })
       .partial(),
   )
   .output(publicSchema)
   .handler(async ({ input, context }) => {
     const { user } = context;
-    const { avatar, ...rest } = input;
+    const { fullName, avatar } = input;
 
-    const updateData: Record<string, unknown> = {};
+    const dataToUpdate: Record<string, unknown> = {};
 
-    for (const [key, value] of Object.entries(rest)) {
-      if (value !== undefined) updateData[key] = value;
+    if (fullName) {
+      dataToUpdate.fullName = fullName;
     }
 
-    if (avatar === '') {
-      await removeAvatar({ user });
-      updateData.avatarUrl = null;
+    if (avatar) {
+      dataToUpdate.avatarUrl = await uploadAvatar(user, avatar);
     }
 
-    if (avatar && avatar !== '') {
-      updateData.avatarUrl = await uploadAvatar({ user, file: avatar });
-    }
-
-    if (Object.keys(updateData).length === 0) {
+    if (Object.keys(dataToUpdate).length === 0) {
       return user;
     }
 
-    return db.users.updateOne({ _id: user._id }, () => updateData).then((u: typeof user) => u!);
+    return db.users.updateOne({ _id: user._id }, () => dataToUpdate).then((u: typeof user) => u!);
   });

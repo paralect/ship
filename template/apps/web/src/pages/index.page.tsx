@@ -1,3 +1,3 @@
-import Landing from './landings/light';
+import Landing from './landings/dark';
 
 export default Landing;

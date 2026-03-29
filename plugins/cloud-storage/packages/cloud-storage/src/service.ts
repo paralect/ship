@@ -46,23 +46,31 @@ function toCamelCase<T>(obj: T): T {
 type UploadOutput = ToCamelCase<{ Location: string; Bucket: string; Key: string }>;
 
 export class CloudStorageService {
-  private client: S3Client;
-  private bucket: string;
+  private _client: S3Client | null = null;
+  private _bucket: string | null = null;
 
-  constructor() {
-    this.bucket = process.env.CLOUD_STORAGE_BUCKET || '';
+  private get client(): S3Client {
+    if (!this._client) {
+      const forcePathStyle = process.env.CLOUD_STORAGE_FORCE_PATH_STYLE !== 'false';
 
-    const forcePathStyle = process.env.CLOUD_STORAGE_FORCE_PATH_STYLE !== 'false';
+      this._client = new S3Client({
+        forcePathStyle,
+        region: process.env.CLOUD_STORAGE_REGION || 'us-east-1',
+        endpoint: process.env.CLOUD_STORAGE_ENDPOINT,
+        credentials: {
+          accessKeyId: process.env.CLOUD_STORAGE_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.CLOUD_STORAGE_SECRET_ACCESS_KEY || '',
+        },
+      });
+    }
+    return this._client;
+  }
 
-    this.client = new S3Client({
-      forcePathStyle,
-      region: process.env.CLOUD_STORAGE_REGION || 'us-east-1',
-      endpoint: process.env.CLOUD_STORAGE_ENDPOINT,
-      credentials: {
-        accessKeyId: process.env.CLOUD_STORAGE_ACCESS_KEY_ID || '',
-        secretAccessKey: process.env.CLOUD_STORAGE_SECRET_ACCESS_KEY || '',
-      },
-    });
+  private get bucket(): string {
+    if (this._bucket === null) {
+      this._bucket = process.env.CLOUD_STORAGE_BUCKET || '';
+    }
+    return this._bucket;
   }
 
   getFileKey(url: string | null | undefined): string {
@@ -84,8 +92,9 @@ export class CloudStorageService {
     };
 
     const multipartUpload = new Upload({ client: this.client, params });
+    const result = await multipartUpload.done();
 
-    return multipartUpload.done().then((value) => toCamelCase<UploadOutput>(value as unknown as UploadOutput));
+    return toCamelCase<UploadOutput>(result as unknown as UploadOutput);
   }
 
   async uploadPublic(fileName: string, file: BackendFile): Promise<UploadOutput> {
@@ -98,8 +107,9 @@ export class CloudStorageService {
     };
 
     const multipartUpload = new Upload({ client: this.client, params });
+    const result = await multipartUpload.done();
 
-    return multipartUpload.done().then((value) => toCamelCase<UploadOutput>(value as unknown as UploadOutput));
+    return toCamelCase<UploadOutput>(result as unknown as UploadOutput);
   }
 
   async uploadBuffer(fileName: string, body: Buffer | Uint8Array, contentType: string): Promise<UploadOutput> {
@@ -111,26 +121,27 @@ export class CloudStorageService {
     };
 
     const multipartUpload = new Upload({ client: this.client, params });
+    const result = await multipartUpload.done();
 
-    return multipartUpload.done().then((value) => toCamelCase<UploadOutput>(value as unknown as UploadOutput));
+    return toCamelCase<UploadOutput>(result as unknown as UploadOutput);
   }
 
-  getSignedDownloadUrl(fileName: string): Promise<string> {
+  async getSignedDownloadUrl(fileName: string): Promise<string> {
     const command = new GetObjectCommand({
       Bucket: this.bucket,
       Key: fileName,
     });
 
-    return getSignedUrl(this.client, command, { expiresIn: 1800 });
+    return await getSignedUrl(this.client, command, { expiresIn: 1800 });
   }
 
-  getObject(fileName: string): Promise<GetObjectOutput> {
+  async getObject(fileName: string): Promise<GetObjectOutput> {
     const command = new GetObjectCommand({
       Bucket: this.bucket,
       Key: fileName,
     });
 
-    return this.client.send(command);
+    return await this.client.send(command);
   }
 
   async copyObject(filePath: string, copyFilePath: string): Promise<ToCamelCase<CopyObjectCommandOutput>> {
@@ -140,7 +151,9 @@ export class CloudStorageService {
       Key: filePath,
     });
 
-    return this.client.send(command).then((value) => toCamelCase(value));
+    const result = await this.client.send(command);
+
+    return toCamelCase(result);
   }
 
   async deleteObject(fileName: string): Promise<ToCamelCase<DeleteObjectCommandOutput>> {
@@ -149,6 +162,8 @@ export class CloudStorageService {
       Key: fileName,
     });
 
-    return this.client.send(command).then((value) => toCamelCase(value));
+    const result = await this.client.send(command);
+
+    return toCamelCase(result);
   }
 }

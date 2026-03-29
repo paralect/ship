@@ -72,6 +72,8 @@ const errorInterceptor = async <T>(options: { next: () => Promise<T> }): Promise
   try {
     return await options.next();
   } catch (e) {
+    appLogger.error(e);
+
     if (e instanceof ClientError) {
       throw new ORPCError('BAD_REQUEST', { status: e.status, data: { errors: e.errors }, cause: e });
     }
@@ -91,10 +93,14 @@ const openApiHandler = new OpenAPIHandler(router, {
 
 app.all('/*', async (c) => {
   const rpc = await rpcHandler.handle(c.req.raw, { context: c.var.ctx });
-  if (rpc.matched) return rpc.response;
+  if (rpc.matched) {
+    return rpc.response;
+  }
 
   const openApi = await openApiHandler.handle(c.req.raw, { context: c.var.ctx });
-  if (openApi.matched) return openApi.response;
+  if (openApi.matched) {
+    return openApi.response;
+  }
 
   return c.json({ error: 'Not found' }, 404);
 });

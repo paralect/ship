@@ -46,6 +46,6 @@ export const resendEmailSchema = z.object({
 export const accountUpdateSchema = z
   .object({
     fullName: z.string().min(1, 'Full name is required').max(128, 'Full name must be less than 128 characters.'),
-    avatar: z.union([z.any(), z.literal('')]).nullable(),
+    avatar: z.any().optional(),
   })
   .partial();
