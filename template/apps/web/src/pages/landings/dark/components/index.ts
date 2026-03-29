@@ -1,8 +1,8 @@
-export { CTA } from './CTA';
-export { FAQ } from './FAQ';
-export { Features } from './Features';
-export { Footer } from './Footer';
-export { Hero } from './Hero';
-export { Logos } from './Logos';
-export { Pricing } from './Pricing';
-export { Testimonials } from './Testimonials';
+export { CTA } from './cta';
+export { FAQ } from './faq';
+export { Features } from './features';
+export { Footer } from './footer';
+export { Hero } from './hero';
+export { Logos } from './logos';
+export { Pricing } from './pricing';
+export { Testimonials } from './testimonials';

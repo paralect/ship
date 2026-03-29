@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 import { CTA, FAQ, Features, Footer, Hero, Logos, Pricing, Testimonials } from './components';
 
-import PublicHeader from '@/components/PublicHeader';
+import PublicHeader from '@/components/public-header';
 
 const Landing = () => {
   return (

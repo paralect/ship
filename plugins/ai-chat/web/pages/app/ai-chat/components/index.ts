@@ -1,4 +1,4 @@
-export { default as AiChatBox } from './AiChatBox';
-export { default as AiChatMessage } from './AiChatMessage';
-export type { AiChatDisplayMessage } from './AiChatMessage';
-export { default as AiMessageSkeleton } from './AiMessageSkeleton';
+export { default as AiChatBox } from './ai-chat-box';
+export { default as AiChatMessage } from './ai-chat-message';
+export type { AiChatDisplayMessage } from './ai-chat-message';
+export { default as AiMessageSkeleton } from './ai-message-skeleton';

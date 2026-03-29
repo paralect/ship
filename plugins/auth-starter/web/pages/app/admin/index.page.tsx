@@ -9,7 +9,7 @@ import { LayoutType, Page, ScopeType, Table } from 'components';
 
 import { apiClient } from 'services/api-client.service';
 
-import Filters from './components/Filters';
+import Filters from './components/filters';
 import type { UsersListParams, UsersListResponse } from './constants';
 import { COLUMNS, DEFAULT_PAGE, DEFAULT_PARAMS, EXTERNAL_SORT_FIELDS, PER_PAGE } from './constants';
 

@@ -1,7 +1,7 @@
 import { useCurrentUser } from 'hooks';
 
-import SettingsLayout from '../components/SettingsLayout';
-import ProfileTab from '../components/ProfileTab';
+import SettingsLayout from '../components/settings-layout';
+import ProfileTab from '../components/profile-tab';
 
 const ProfileSettings = () => {
   const { data: currentUser } = useCurrentUser();

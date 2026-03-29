@@ -13,11 +13,11 @@ import {
 
 import { TableContext } from 'contexts';
 
-import TableEmptyState from './EmptyState';
-import TableLoadingState from './LoadingState';
-import TablePagination from './Pagination';
-import Tbody from './Tbody';
-import Thead from './Thead';
+import TableEmptyState from './empty-state';
+import TableLoadingState from './loading-state';
+import TablePagination from './pagination';
+import Tbody from './tbody';
+import Thead from './thead';
 
 import { Card } from '@/components/ui/card';
 import { Table as TableContainer } from '@/components/ui/table';

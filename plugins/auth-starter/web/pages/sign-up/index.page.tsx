@@ -13,7 +13,7 @@ import { authClient } from 'services/auth-client.service';
 
 import { signUpSchema } from 'schemas';
 
-import PasswordRules from './components/PasswordRules';
+import PasswordRules from './components/password-rules';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

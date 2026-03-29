@@ -6,7 +6,7 @@ import { PanelLeft } from 'lucide-react';
 import { LogoImage } from 'public/images';
 
 import { Navigation, UserMenu } from './components';
-import Navbar from './Navbar';
+import Navbar from './navbar';
 
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';

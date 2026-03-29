@@ -8,11 +8,11 @@ import { analyticsService } from 'services';
 
 import config from 'config';
 
-import MainLayout from './MainLayout';
-import PrivateScope from './PrivateScope';
-import PublicLayout from './PublicLayout';
+import MainLayout from './main-layout';
+import PrivateScope from './private-scope';
+import PublicLayout from './public-layout';
 import { LayoutType, ScopeType } from './types';
-import UnauthorizedLayout from './UnauthorizedLayout';
+import UnauthorizedLayout from './unauthorized-layout';
 
 const layoutToComponent = {
   [LayoutType.MAIN]: MainLayout,

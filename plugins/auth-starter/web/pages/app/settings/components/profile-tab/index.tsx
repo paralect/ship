@@ -13,7 +13,7 @@ import queryClient from 'query-client';
 import { accountUpdateSchema } from 'schemas';
 import type { User } from 'types';
 
-import AvatarUpload from '../AvatarUpload';
+import AvatarUpload from '../avatar-upload';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';

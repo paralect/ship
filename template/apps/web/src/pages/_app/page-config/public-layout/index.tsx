@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import PublicHeader from '@/components/PublicHeader';
+import PublicHeader from '@/components/public-header';
 
 interface PublicLayoutProps {
   children: ReactNode;

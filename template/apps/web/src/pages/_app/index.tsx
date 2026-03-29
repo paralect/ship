@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import queryClient from 'query-client';
 
-import GlobalErrorHandler from './GlobalErrorHandler';
+import GlobalErrorHandler from './global-error-handler';
 
 import 'globals.css';
 

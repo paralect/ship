@@ -1,5 +1,5 @@
-import SettingsLayout from '../components/SettingsLayout';
-import SecurityTab from '../components/SecurityTab';
+import SettingsLayout from '../components/settings-layout';
+import SecurityTab from '../components/security-tab';
 
 const SecuritySettings = () => {
   return (

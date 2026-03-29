@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react';
 
 import { ScrollArea } from 'components/ui/scroll-area';
 
-import AiChatInput from './AiChatInput';
-import type { AiChatDisplayMessage } from './AiChatMessage';
-import AiChatMessage from './AiChatMessage';
-import AiMessageSkeleton from './AiMessageSkeleton';
+import AiChatInput from './ai-chat-input';
+import type { AiChatDisplayMessage } from './ai-chat-message';
+import AiChatMessage from './ai-chat-message';
+import AiMessageSkeleton from './ai-message-skeleton';
 
 interface AiChatBoxProps {
   messages: AiChatDisplayMessage[];
