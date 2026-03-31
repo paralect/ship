@@ -8,6 +8,7 @@ import { listResultSchema, paginationSchema } from '@/resources/base.schema';
 
 
 export default isAdmin
+  .route({ method: 'GET', path: '/users' })
   .input(
     paginationSchema.extend({
       filter: z

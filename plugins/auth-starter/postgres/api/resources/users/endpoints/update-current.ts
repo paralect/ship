@@ -20,6 +20,7 @@ async function uploadAvatar(user: User, file: File): Promise<string> {
 }
 
 export default isAuthorized
+  .route({ method: 'PATCH', path: '/users/current' })
   .input(
     usersSchema
       .pick({ fullName: true })

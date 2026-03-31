@@ -17,6 +17,7 @@ const outputSchema = z.array(
 );
 
 export default isAuthorized
+  .route({ method: 'GET', path: '/ai-chats/{chatId}/messages' })
   .input(inputSchema)
   .output(outputSchema)
   .handler(async ({ context, input }) => {

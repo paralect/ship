@@ -10,7 +10,10 @@ const outputSchema = z.array(
   }),
 );
 
-export default isAuthorized.output(outputSchema).handler(async ({ context }) => {
+export default isAuthorized
+  .route({ method: 'GET', path: '/notes' })
+  .output(outputSchema)
+  .handler(async ({ context }) => {
   const results = await db.notes.find({ where: { userId: context.user.id, deletedAt: null } });
 
   return results.map((n) => ({

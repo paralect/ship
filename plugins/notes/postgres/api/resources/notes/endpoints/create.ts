@@ -12,7 +12,11 @@ const outputSchema = z.object({
   createdAt: z.string().nullable(),
 });
 
-export default isAuthorized.input(inputSchema).output(outputSchema).handler(async ({ context, input }) => {
+export default isAuthorized
+  .route({ method: 'POST', path: '/notes' })
+  .input(inputSchema)
+  .output(outputSchema)
+  .handler(async ({ context, input }) => {
   const note = await db.notes.insertOne({
     userId: context.user.id,
     text: input.text,
