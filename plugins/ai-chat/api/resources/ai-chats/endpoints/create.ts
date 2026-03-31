@@ -13,6 +13,7 @@ const outputSchema = z.object({
 });
 
 export default isAuthorized
+  .route({ method: 'POST', path: '/ai-chats' })
   .input(inputSchema)
   .output(outputSchema)
   .handler(async ({ context, input }) => {

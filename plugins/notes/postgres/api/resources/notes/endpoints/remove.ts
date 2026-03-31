@@ -6,7 +6,11 @@ const inputSchema = z.object({
   id: z.string(),
 });
 
-export default isAuthorized.input(inputSchema).output(z.void()).handler(async ({ context, input }) => {
+export default isAuthorized
+  .route({ method: 'DELETE', path: '/notes/{id}' })
+  .input(inputSchema)
+  .output(z.void())
+  .handler(async ({ context, input }) => {
   const note = await db.notes.findFirst({ where: { id: input.id, userId: context.user.id, deletedAt: null } });
 
   if (!note) {

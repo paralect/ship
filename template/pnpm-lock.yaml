@@ -78,6 +78,9 @@ importers:
       '@node-rs/argon2':
         specifier: 2.0.2
         version: 2.0.2
+      '@orpc/contract':
+        specifier: 1.13.9
+        version: 1.13.9(@opentelemetry/api@1.9.0)
       '@orpc/openapi':
         specifier: 1.13.9
         version: 1.13.9(@opentelemetry/api@1.9.0)
@@ -201,6 +204,9 @@ importers:
         version: 5.2.2(react-hook-form@7.57.0(react@19.0.3))
       '@orpc/client':
         specifier: ^1.5.0
+        version: 1.13.9(@opentelemetry/api@1.9.0)
+      '@orpc/openapi-client':
+        specifier: 1.13.9
         version: 1.13.9(@opentelemetry/api@1.9.0)
       '@radix-ui/react-accordion':
         specifier: 1.2.12

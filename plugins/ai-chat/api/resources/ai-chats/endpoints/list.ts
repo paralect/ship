@@ -11,7 +11,10 @@ const outputSchema = z.array(
   }),
 );
 
-export default isAuthorized.output(outputSchema).handler(async ({ context }) => {
+export default isAuthorized
+  .route({ method: 'GET', path: '/ai-chats' })
+  .output(outputSchema)
+  .handler(async ({ context }) => {
   const chats = await db.aiChats.find({
     where: { userId: context.user.id, deletedAt: null },
     orderBy: { updatedAt: 'desc' },

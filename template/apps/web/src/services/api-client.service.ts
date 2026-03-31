@@ -1,10 +1,11 @@
 import { createORPCClient } from '@orpc/client';
-import { RPCLink } from '@orpc/client/fetch';
+import { OpenAPILink } from '@orpc/openapi-client/fetch';
 import type { AppClient } from 'api';
+import { contract } from 'api/contract';
 
 import config from 'config';
 
-const link = new RPCLink({
+const link = new OpenAPILink(contract, {
   url: config.API_URL,
   headers: () => ({
     'Content-Type': 'application/json',

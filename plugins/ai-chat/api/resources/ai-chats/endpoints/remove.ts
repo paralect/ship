@@ -7,6 +7,7 @@ const inputSchema = z.object({
 });
 
 export default isAuthorized
+  .route({ method: 'DELETE', path: '/ai-chats/{chatId}' })
   .input(inputSchema)
   .output(z.void())
   .handler(async ({ context, input }) => {

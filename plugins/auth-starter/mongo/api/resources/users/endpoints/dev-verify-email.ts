@@ -5,6 +5,7 @@ import db from '@/db';
 import { isPublic } from '@/procedures';
 
 export default isPublic
+  .route({ method: 'POST', path: '/users/dev-verify-email' })
   .input(z.object({ email: z.string() }))
   .handler(async ({ input }) => {
     if (!config.IS_DEV) {
