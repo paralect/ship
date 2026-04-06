@@ -10,13 +10,14 @@ import prompts from 'prompts';
 import checkForUpdate from 'update-check';
 
 import {
-  createResource,
   getDefaultProjectName,
   handleSigTerm,
   isFolderEmpty,
   onPromptState,
   validateNpmName,
 } from 'helpers';
+
+import { createPlugin, installPlugin } from 'plugins';
 
 import config from 'config';
 
@@ -62,13 +63,20 @@ Available deployment options:
 program.parse(process.argv);
 
 const run = async (): Promise<void> => {
-  // rawArgs = ['create', 'resource', <resource-name>];
-  const isCommandCreateResource = rawArgs.length === 3 && rawArgs[0] === 'create' && rawArgs[1] === 'resource';
+  // rawArgs = ['install', <plugin-name>];
+  const isCommandInstall = rawArgs.length === 2 && rawArgs[0] === 'install';
 
-  if (isCommandCreateResource) {
-    await createResource(rawArgs[2].toLowerCase());
+  if (isCommandInstall) {
+    await installPlugin(rawArgs[1].toLowerCase());
 
-    console.log(`Resource ${rawArgs[2]} created successfully.`);
+    return;
+  }
+
+  // rawArgs = ['add', <plugin-name>];
+  const isCommandAdd = rawArgs.length === 2 && rawArgs[0] === 'add';
+
+  if (isCommandAdd) {
+    await createPlugin(rawArgs[1].toLowerCase());
 
     return;
   }

@@ -1,0 +1,101 @@
+---
+title: "Stripe Subscriptions"
+---
+
+The `stripe-subscriptions` plugin adds subscription-based billing to your Ship project using [Stripe](https://stripe.com). It includes a complete pricing page, Stripe Checkout integration, webhook handling, and subscription management APIs.
+
+## Installation
+
+```shell
+npx create-ship-app@latest install stripe-subscriptions
+```
+
+## What gets installed
+
+### Dependencies
+
+| Workspace | Package | Version |
+|---|---|---|
+| `apps/api` | `stripe` | `20.3.1` |
+
+### Files
+
+**API (`apps/api`):**
+
+| File | Description |
+|---|---|
+| `src/config/stripe.config.ts` | Environment config for `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` |
+| `src/services/stripe/stripe.service.ts` | Stripe SDK wrapper — customer creation, subscription helpers, billing portal access |
+| `src/resources/subscriptions/subscription.schema.ts` | Zod schema for subscription data |
+| `src/resources/subscriptions/endpoints/subscribe.ts` | Creates a Stripe Checkout session for new subscriptions |
+| `src/resources/subscriptions/endpoints/getCurrent.ts` | Returns the current user's active subscription with live Stripe sync |
+| `src/resources/subscriptions/endpoints/upgrade.ts` | Upgrades/downgrades/cancels the current subscription |
+| `src/resources/subscriptions/endpoints/previewUpgrade.ts` | Previews proration costs before upgrading |
+| `src/resources/subscriptions/endpoints/createPortalSession.ts` | Creates a Stripe Billing Portal session |
+| `src/resources/webhook/endpoints/stripe.ts` | Handles Stripe webhook events (subscription created/updated/deleted) |
+| `src/resources/users/user.stripe.extend.ts` | Extends the user schema with `stripeId` and `subscription` fields |
+
+**Web (`apps/web`):**
+
+| File | Description |
+|---|---|
+| `src/config/stripe.config.ts` | Client-side config for Stripe public key and price IDs |
+| `src/pages/pricing/constants.ts` | Plan definitions (Free, Creator, Pro) with price IDs |
+| `src/pages/pricing/index.page.tsx` | Full pricing page with plan selection, subscribe, upgrade, and billing portal |
+
+## Environment variables
+
+After installing, add the following environment variables:
+
+### API (`apps/api`)
+
+| Variable | Description |
+|---|---|
+| `STRIPE_SECRET_KEY` | Your Stripe secret key from the [Developers dashboard](https://dashboard.stripe.com/test/developers) |
+| `STRIPE_WEBHOOK_SECRET` | Webhook signing secret from your Stripe webhook endpoint |
+
+### Web (`apps/web`)
+
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` | Your Stripe publishable key |
+| `NEXT_PUBLIC_PRICE_CREATOR` | Stripe Price ID for the Creator plan |
+| `NEXT_PUBLIC_PRICE_PRO` | Stripe Price ID for the Pro plan |
+
+## Stripe setup
+
+### 1. Get API keys
+
+Navigate to the [Developers](https://dashboard.stripe.com/test/developers) tab and select **API keys**.
+
+- **Publishable key** → `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` (web)
+- **Secret key** → `STRIPE_SECRET_KEY` (api)
+
+### 2. Create subscription products
+
+Go to the [Products](https://dashboard.stripe.com/test/products) tab and create your subscription products. Each product needs a recurring price. Copy the Price IDs into your web environment variables.
+
+### 3. Set up webhooks
+
+Create a webhook endpoint pointing to `https://<your-api-url>/webhook/stripe` with the following events:
+
+- `customer.subscription.created`
+- `customer.subscription.updated`
+- `customer.subscription.deleted`
+
+Copy the webhook signing secret into `STRIPE_WEBHOOK_SECRET`.
+
+<Tip>
+  For local development, use the [Stripe CLI](https://stripe.com/docs/stripe-cli) to forward webhook events to your localhost.
+</Tip>
+
+## API endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| `POST` | `/subscriptions/subscribe` | Create a Checkout session for a new subscription |
+| `GET` | `/subscriptions/current` | Get the current user's subscription (syncs with Stripe) |
+| `POST` | `/subscriptions/upgrade` | Change plan or cancel subscription |
+| `GET` | `/subscriptions/preview-upgrade` | Preview proration costs |
+| `POST` | `/subscriptions/create-portal-session` | Open the Stripe Billing Portal |
+| `POST` | `/webhook/stripe` | Stripe webhook handler (public endpoint) |

@@ -256,12 +256,12 @@ Fetches the first document that matches the filter. Returns `null` if document w
 ### `updateOne`
 
 ```typescript
-updateOne: (
-  filter: Filter<T>,
-  updateFn: (doc: T) => Partial<T>,
+updateOne<U extends T = T>: (
+  filter: Filter<U>,
+  updateFilterOrFn: (doc: U) => Partial<U> | UpdateFilter<U>,
   updateConfig: UpdateConfig = {},
   updateOptions: UpdateOptions = {},
-): Promise<T | null>
+): Promise<U | null>
 ```
 
 ```typescript
@@ -292,12 +292,12 @@ Updates a single document and returns it. Returns `null` if document was not fou
 ### `updateMany`
 
 ```typescript
-updateMany: (
-  filter: Filter<T>,
-  updateFn: (doc: T) => Partial<T>,
+updateMany<U extends T = T>: (
+  filter: Filter<U>,
+  updateFilterOrFn: (doc: U) => Partial<U> | UpdateFilter<U>,
   updateConfig: UpdateConfig = {},
   updateOptions: UpdateOptions = {},
-): Promise<T[]>
+): Promise<U[]>
 ```
 
 ```typescript

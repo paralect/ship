@@ -14,7 +14,7 @@ const client = new Redis(config.REDIS_URI as string, {
 });
 
 export const redisErrorHandler = (error: Error) => {
-  const errorMessage = `[Redis] ${error.stack || error}`;
+  const errorMessage = `[Redis] ${error.message || error.stack || error}`;
 
   if (config.REDIS_ERRORS_POLICY === 'throw') {
     throw new Error(errorMessage);

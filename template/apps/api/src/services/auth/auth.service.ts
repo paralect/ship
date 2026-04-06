@@ -1,10 +1,13 @@
-import { tokenService } from 'resources/token';
-import { userService } from 'resources/user';
+import type { Token } from 'shared';
+import { TokenType } from 'shared';
 
-import { cookieUtil } from 'utils';
+import { tokenService } from 'resources/token';
+import { userService } from 'resources/users';
+
+import { clientUtil, cookieUtil } from 'utils';
 
 import { ACCESS_TOKEN } from 'app-constants';
-import { AppKoaContext, Token, TokenType } from 'types';
+import { AppKoaContext } from 'types';
 
 interface SetAccessTokenOptions {
   ctx: AppKoaContext;
@@ -12,11 +15,18 @@ interface SetAccessTokenOptions {
 }
 
 export const setAccessToken = async ({ ctx, userId }: SetAccessTokenOptions) => {
+  const clientType = clientUtil.detectClientType(ctx);
+
   const accessToken = await tokenService.createToken({
     userId,
     type: TokenType.ACCESS,
     expiresIn: ACCESS_TOKEN.INACTIVITY_TIMEOUT_SECONDS,
   });
+
+  if (clientType === clientUtil.ClientType.MOBILE) {
+    userService.updateLastRequest(userId);
+    return accessToken;
+  }
 
   await cookieUtil.setTokens({
     ctx,
@@ -36,7 +46,9 @@ interface UnsetUserAccessTokenOptions {
 export const unsetUserAccessToken = async ({ ctx }: UnsetUserAccessTokenOptions) => {
   const { user } = ctx.state;
 
-  if (user) await tokenService.invalidateUserTokens(user._id, TokenType.ACCESS);
+  if (user) {
+    await tokenService.invalidateUserTokens(user._id, TokenType.ACCESS);
+  }
 
   await cookieUtil.unsetTokens({ ctx });
 };

@@ -64,7 +64,7 @@ Fetches the first document that matches the filter. Returns `null` if document w
 ```typescript
 updateOne = async <U extends T = T>(
   filter: Filter<U>,
-  updateFn: (doc: U) => Partial<U>,
+  updateFilterOrFn: (doc: U) => Partial<U> | UpdateFilter<U>,
   updateConfig: UpdateConfig = {},
   updateOptions: UpdateOptions = {},
 ): Promise<U | null>
@@ -81,13 +81,18 @@ const updatedUser = await userService.updateOne(
   (doc) => ({ fullName: 'Updated fullname' }),
   { publishEvents: false }
 );
+
+const updatedUserWithUpdateFilter = await userService.updateOne(
+  { _id: u._id },
+  { $set: { fullName: 'Updated fullname' }},
+);
 ```
 
 Updates a single document and returns it. Returns `null` if document was not found.
 
 **Parameters**
 - filter: [`Filter<U>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#Filter);
-- updateFn: `(doc: U) => Partial<U>`;  
+- updateFilterOrFn: `(doc: U) => Partial<U>` | [`UpdateFilter<U>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#UpdateFilter);
   Function that accepts current document and returns object containing fields to update.
 - updateConfig: [`UpdateConfig`](#updateconfig);
 - updateOptions: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/UpdateOptions.html);
@@ -99,7 +104,7 @@ Updates a single document and returns it. Returns `null` if document was not fou
 ```typescript
 updateMany = async <U extends T = T>(
   filter: Filter<U>,
-  updateFn: (doc: U) => Partial<U>,
+  updateFilterOrFn: (doc: U) => Partial<U> | UpdateFilter<U>,
   updateConfig: UpdateConfig = {},
   updateOptions: UpdateOptions = {},
 ): Promise<U[]>
@@ -110,13 +115,18 @@ const updatedUsers = await userService.updateMany(
   { status: 'active' },
   (doc) => ({ isEmailVerified: true }),
 );
+
+const updatedUsersWithUpdateFilter = await userService.updateMany(
+  { status: 'active' },
+  { $set: { isEmailVerified: true } },
+);
 ```
 
 Updates multiple documents that match the query. Returns array with updated documents.
 
 **Parameters**
 - filter: [`Filter<U>`](https://mongodb.github.io/node-mongodb-native/4.7/modules.html#Filter);
-- updateFn: `(doc: U) => Partial<U>`;  
+- updateFilterOrFn: `(doc: U) => Partial<U>` | [`UpdateFilter<U>`](https://mongodb.github.io/node-mongodb-native/4.10/modules.html#UpdateFilter);  
   Function that accepts current document and returns object containing fields to update.
 - updateConfig: [`UpdateConfig`](#updateconfig);
 - updateOptions: [`UpdateOptions`](https://mongodb.github.io/node-mongodb-native/4.10/interfaces/UpdateOptions.html);

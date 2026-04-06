@@ -1,3 +1,4 @@
+import process from 'process';
 import { z } from 'zod';
 
 import { validateConfig } from 'utils/config.util';

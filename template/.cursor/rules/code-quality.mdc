@@ -1,0 +1,147 @@
+---
+alwaysApply: true
+---
+
+# Code Quality and Style Guidelines
+
+## Linting and Formatting
+
+### ESLint
+
+Shared ESLint configuration in [packages/eslint-config/](mdc:packages/eslint-config/):
+- `node.js` - For API and Node.js packages
+- `next.js` - For Next.js web application
+
+Run ESLint:
+```bash
+# Per workspace, fix issues automatically
+pnpm --filter api eslint
+pnpm --filter web eslint
+```
+
+### Prettier
+
+Shared Prettier config in [packages/prettier-config/index.js](mdc:packages/prettier-config/index.js)
+
+Run Prettier:
+```bash
+pnpm --filter api prettier
+pnpm --filter web prettier
+```
+
+## Pre-commit Hooks
+
+Husky + lint-staged configured at root:
+- Run script: `pnpm prepare` (runs automatically after install)
+
+Each workspace has lint-staged configuration in their package.json
+
+Run precommit manually:
+```bash
+pnpm --filter api precommit
+pnpm --filter web precommit
+```
+
+## Code Organization
+
+### Import Sorting
+
+After implementing a feature, run ESLint to automatically sort and organize imports:
+```bash
+pnpm --filter api eslint
+pnpm --filter web eslint
+```
+
+ESLint is configured to automatically organize imports in the following order:
+1. External dependencies (React, Next.js, third-party packages)
+2. Internal packages (app-constants, app-types, schemas, etc.)
+3. Local imports (relative paths)
+
+The import sorting happens automatically during:
+- Pre-commit hooks (via lint-staged)
+- Running `eslint . --fix` manually
+- IDE auto-fix on save (if configured)
+
+### File Naming
+
+- **API**: Use kebab-case for files (e.g., `user.service.ts`, `auth.middleware.ts`)
+- **Web**: Use kebab-case for files (e.g., `index.page.tsx`, `user.api.ts`)
+- **Components**: PascalCase for directories and files (e.g., `Button/index.tsx`)
+- **Types/Interfaces**: PascalCase with descriptive names
+- **Constants**: SCREAMING_SNAKE_CASE
+
+### Export Patterns
+
+Prefer named exports over default exports, except for:
+- Next.js pages (require default export)
+- React components (can use either, but be consistent)
+
+Use barrel exports (index.ts) for cleaner imports:
+```typescript
+// components/index.ts
+export { Button } from './Button';
+export { Input } from './Input';
+
+// Usage
+import { Button, Input } from 'components';
+```
+
+## Error Handling
+
+### API
+
+- Throw descriptive errors that will be caught by error middleware
+- Use appropriate HTTP status codes
+- Include error context
+
+### Web
+
+- Use try-catch with the error handler utility
+- Show user-friendly messages via notifications
+- Log errors to analytics if needed
+
+## Comments and Documentation
+
+- Write self-documenting code with clear variable and function names
+- Add comments for complex business logic
+- Document non-obvious behavior
+- Use JSDoc for public APIs and complex functions
+
+## Performance Best Practices
+
+### API
+- Use MongoDB indexes for frequently queried fields
+- Cache expensive operations in Redis
+- Use pagination for list endpoints
+- Avoid N+1 queries
+
+### Web
+- Use React.memo for expensive components
+- Implement code splitting with dynamic imports
+- Optimize images (use Next.js Image component)
+- Use React Query's caching effectively
+- Memoize expensive calculations with useMemo/useCallback
+
+## Security Best Practices
+
+### API
+- Validate all input with Zod schemas
+- Use rate limiting middleware when applicable
+- Sanitize user input
+- Use secure password hashing (argon2)
+- Implement CORS properly
+- Don't include sensitive data in response
+
+
+### Web
+- Sanitize HTML with DOMPurify before rendering
+- Don't expose sensitive data in client code
+- Implement CSRF protection for forms
+- Don't store sensitive data in localStorage
+
+## Typescript
+- Always use TypeScript strict mode (enabled in all tsconfig.json files)
+- Prefer explicit types over `any`
+- Use type inference where appropriate to reduce verbosity
+- Export types and interfaces from shared packages when used across apps
+

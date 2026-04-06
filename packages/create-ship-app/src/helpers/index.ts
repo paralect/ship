@@ -1,5 +1,4 @@
 export * from './common';
-export * from './create-resource';
 export * from './git';
 export * from './install';
 export * from './is-folder-empty';

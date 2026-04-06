@@ -1,0 +1,83 @@
+---
+title: "Overview"
+---
+
+Plugins are pre-built features that can be installed into your Ship project with a single command. They add new functionality by scaffolding files across your monorepo (`apps/api`, `apps/web`, `packages/shared`) and merging the required dependencies into the respective `package.json` files.
+
+Plugins are hosted in the public [ship-plugins](https://github.com/paralect/ship-plugins) repository and installed via the `create-ship-app` CLI.
+
+## Installing a plugin
+
+Run the following command from your project root:
+
+```shell
+npx create-ship-app@latest install <plugin-name>
+```
+
+For example:
+
+```shell
+npx create-ship-app@latest install stripe-subscriptions
+```
+
+The install process will:
+
+1. **Download** the plugin files from the [ship-plugins](https://github.com/paralect/ship-plugins) repository.
+2. **Copy files** into your project, preserving the directory structure. Existing files are never overwritten.
+3. **Merge dependencies** declared in the plugin manifest into the appropriate workspace `package.json` files.
+4. **Run post-install** — executes `pnpm install` and `pnpm run --filter shared generate` to install new dependencies and regenerate shared schemas.
+
+## Available plugins
+
+| Plugin | Description |
+|---|---|
+| [stripe-subscriptions](/plugins/stripe-subscriptions) | Subscription billing with Stripe Checkout, webhooks, and a pricing page |
+| [ai-chat](/plugins/ai-chat) | AI chat with streaming responses powered by Google Gemini |
+
+## Plugin structure
+
+Each plugin in the [ship-plugins](https://github.com/paralect/ship-plugins) repository follows the same convention:
+
+```
+<plugin-name>/
+├── package.json          # Plugin manifest (name, version, dependencies)
+└── apps/
+    ├── api/              # API-side files (configs, resources, services)
+    └── web/              # Web-side files (pages, components, configs)
+```
+
+The `package.json` manifest declares which npm packages should be added to which workspace. For example:
+
+```json
+{
+  "name": "ship-plugin-stripe-subscriptions",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "apps/api": {
+      "stripe": "20.3.1"
+    }
+  }
+}
+```
+
+This tells the installer to add `stripe@20.3.1` to `apps/api/package.json`.
+
+## Creating a plugin
+
+Ship also provides a command to package your own feature as a plugin from the last git commit:
+
+```shell
+npx create-ship-app@latest create-plugin <plugin-name>
+```
+
+This will:
+
+1. Extract new files added in the last commit.
+2. Detect dependency changes from modified workspace `package.json` files.
+3. Package everything into the plugin format.
+4. Push to a new branch on the [ship-plugins](https://github.com/paralect/ship-plugins) repository and provide a PR link.
+
+<Note>
+  You need push access to the [ship-plugins](https://github.com/paralect/ship-plugins) repository to use `create-plugin`.
+</Note>

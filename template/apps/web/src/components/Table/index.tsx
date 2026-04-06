@@ -1,6 +1,4 @@
-import { ComponentType, useEffect, useMemo, useState } from 'react';
-import { Paper, Stack, Table as TableContainer, TableProps as TableContainerProps } from '@mantine/core';
-import { useSetState } from '@mantine/hooks';
+import { ComponentType, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ColumnDef,
   getCoreRowModel,
@@ -17,9 +15,12 @@ import { TableContext } from 'contexts';
 
 import TableEmptyState from './EmptyState';
 import TableLoadingState from './LoadingState';
-import Pagination from './Pagination';
+import TablePagination from './Pagination';
 import Tbody from './Tbody';
 import Thead from './Thead';
+
+import { Card } from '@/components/ui/card';
+import { Table as TableContainer } from '@/components/ui/table';
 
 type SortingFieldsState = Record<string, SortDirection>;
 
@@ -34,13 +35,12 @@ interface TableProps<T> {
   onSortingChange?: (sort: SortingFieldsState) => void;
   onPageChange?: (page: number) => void;
   onRowClick?: (value: T) => void;
-  tableContainerProps?: TableContainerProps;
   EmptyState?: ComponentType;
   LoadingState?: ComponentType;
 }
 
 const Table = <T extends RowData>({
-  data = [],
+  data,
   totalCount = data?.length || 0,
   columns,
   pageCount,
@@ -50,19 +50,26 @@ const Table = <T extends RowData>({
   onSortingChange,
   onPageChange,
   onRowClick,
-  tableContainerProps,
   EmptyState = TableEmptyState,
   LoadingState = TableLoadingState,
 }: TableProps<T>) => {
-  const [pagination, setPagination] = useSetState<PaginationState>({
+  const [pagination, setPaginationState] = useState<PaginationState>({
     pageIndex: (page && page - 1) || 0,
     pageSize: perPage,
   });
+  const setPagination = useCallback(
+    (value: Partial<PaginationState> | ((prev: PaginationState) => Partial<PaginationState>)) => {
+      setPaginationState((prev) => {
+        const newValue = typeof value === 'function' ? value(prev) : value;
+        return { ...prev, ...newValue };
+      });
+    },
+    [],
+  );
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable<T>({
-    data,
-    // disable column sorting and reset size by default.
+    data: data || [],
     columns: columns.map((c) => ({ ...c, enableSorting: c.enableSorting || false, size: 0 })),
     state: {
       pagination,
@@ -82,7 +89,6 @@ const Table = <T extends RowData>({
       onSortingChange(
         sorting.reduce<SortingFieldsState>((acc, value) => {
           acc[value.id] = value.desc ? 'desc' : 'asc';
-
           return acc;
         }, {}),
       );
@@ -94,26 +100,25 @@ const Table = <T extends RowData>({
   }, [pagination]);
 
   return (
-    <TableContext.Provider value={useMemo(() => table as TanstackTable<T | unknown>, [table])}>
+    <TableContext value={useMemo(() => table as TanstackTable<T | unknown>, [table])}>
       {isLoading && <LoadingState />}
 
       {!isLoading &&
         (totalCount > 0 ? (
-          <Stack gap="lg">
-            <Paper radius="md" withBorder>
-              <TableContainer horizontalSpacing="xl" verticalSpacing="lg" {...tableContainerProps}>
+          <div className="flex flex-col gap-4">
+            <Card className="overflow-hidden py-0">
+              <TableContainer>
                 <Thead />
-
                 <Tbody<T> onRowClick={onRowClick} />
               </TableContainer>
-            </Paper>
+            </Card>
 
-            <Pagination totalCount={totalCount} />
-          </Stack>
+            <TablePagination totalCount={totalCount} />
+          </div>
         ) : (
           <EmptyState />
         ))}
-    </TableContext.Provider>
+    </TableContext>
   );
 };
 

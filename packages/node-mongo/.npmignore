@@ -2,3 +2,4 @@
 .eslintrc.js
 src/config
 src/*.test.js
+.env

@@ -1,13 +1,21 @@
 import { FC } from 'react';
-import { Group, Pagination as MantinePagination, PaginationProps as MantinePaginationProps, Text } from '@mantine/core';
 
 import { useTableContext } from 'contexts';
 
-interface PaginationProps extends Omit<MantinePaginationProps, 'total' | 'value'> {
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
+
+interface TablePaginationProps {
   totalCount?: number;
 }
 
-const Pagination: FC<PaginationProps> = ({ totalCount, ...rest }) => {
+const TablePagination: FC<TablePaginationProps> = ({ totalCount }) => {
   const table = useTableContext();
 
   if (!table) return null;
@@ -17,21 +25,63 @@ const Pagination: FC<PaginationProps> = ({ totalCount, ...rest }) => {
 
   if (pageCount === 1) return null;
 
+  const getVisiblePages = () => {
+    const pages: number[] = [];
+    const maxVisible = 5;
+
+    let start = Math.max(0, currentPage - Math.floor(maxVisible / 2));
+    const end = Math.min(pageCount, start + maxVisible);
+
+    if (end - start < maxVisible) {
+      start = Math.max(0, end - maxVisible);
+    }
+
+    for (let i = start; i < end; i++) {
+      pages.push(i);
+    }
+
+    return pages;
+  };
+
   return (
-    <Group justify="flex-end">
+    <div className="flex items-center justify-end gap-4">
       {totalCount && (
-        <Text size="sm" c="gray.6">
+        <p className="text-sm text-muted-foreground">
           Showing <b>{table.getRowModel().rows.length}</b> of <b>{totalCount}</b> results
-        </Text>
+        </p>
       )}
 
-      <MantinePagination
-        total={pageCount}
-        value={currentPage + 1}
-        onChange={(v) => table.setPageIndex(v - 1)}
-        {...rest}
-      />
-    </Group>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              onClick={() => table.previousPage()}
+              className={!table.getCanPreviousPage() ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+            />
+          </PaginationItem>
+
+          {getVisiblePages().map((page) => (
+            <PaginationItem key={page}>
+              <PaginationLink
+                onClick={() => table.setPageIndex(page)}
+                isActive={page === currentPage}
+                className="cursor-pointer"
+              >
+                {page + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+
+          <PaginationItem>
+            <PaginationNext
+              onClick={() => table.nextPage()}
+              className={!table.getCanNextPage() ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    </div>
   );
 };
-export default Pagination;
+
+export default TablePagination;

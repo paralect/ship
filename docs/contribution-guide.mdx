@@ -41,27 +41,40 @@ and [Mintlify documentation](https://mintlify.com/docs/quickstart) to become fam
   Ensure that your Node.js version is 19.00.0 or higher.
 </Warning>
 
-```shell
-pnpm i -g mintlify
-```
+<CodeGroup>
+    ```shell pnpm
+    pnpm add -g mint
+    ```
+
+    ```shell npm
+    npm i -g mint
+    ```
+</CodeGroup>
 
 2. Execute the following command in the project's root directory:
 
-```shell
+<CodeGroup>
+```shell pnpm
 pnpm run docs
 ```
 
-Documentation will be opened on [http://localhost:3000](http://localhost:3000) if it's not in use.
+```shell npm
+npm run docs
+```
+
+</CodeGroup>
+
+Documentation will be opened on [http://localhost:4100](http://localhost:4100) if it's not in use.
 
 ## Packages
 
-Within the `/package` folder, you'll find two essential packages: `create-ship-app` and `node-mongo`.
+Within the `/packages` folder, you'll find two essential packages: `create-ship-app` and `node-mongo`.
 
 **create-ship-app** is simple CLI tool for bootstrapping Ship applications. Downloads actual template from Ship monorepo and configures it to run.
-Learn more in the [documentation](/packages/create-ship-app.mdx).
+Learn more in the [documentation](/packages/create-ship-app).
 
 **node-mongo** is lightweight reactive extension to official Node.js MongoDB [driver](https://mongodb.github.io/node-mongodb-native/4.10/).
-It's used in the Ship template, and you can find details in the [documentation](/packages/node-mongo.mdx).
+It's used in the Ship template, and you can find details in the [documentation](/packages/node-mongo).
 
 ## Ship template structure
 
@@ -72,9 +85,9 @@ Let's explore the structure:
 - **.github** - contains scripts for Github actions.
 - **.husky** - contains a script that runs before committing and checks for ESLint errors.
 - **.vscode** - VS Code settings.
-- **apps** - contains [API](/api-reference/overview.mdx) and [WEB](/web/overview.mdx).
+- **apps** - contains [API](/api-reference/overview) and [WEB](/web/overview).
 - **bin** - contains scripts for setting up and starting the project.
-- **packages** - contains packages with shared code. Find more details about package sharing in our [documentation](/package-sharing/overview.mdx).
+- **packages** - contains packages with shared code (`app-constants`, `shared`, `mailer`, config packages). Find more details about package sharing in our [documentation](/package-sharing/overview).
 
 ### How to run Ship template
 
@@ -97,7 +110,7 @@ pnpm i
 pnpm run start
 ```
 
-The **API** will work on port 3001, **WEB** on port 3002, and **Mailer** on port 3003.
+The **API** will work on port 3001, **WEB** on port 3002, and **Mailer** on port 4000.
 
 ### Deployment
 

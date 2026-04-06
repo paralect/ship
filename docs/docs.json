@@ -16,7 +16,7 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["introduction", "contribution-guide"]
+            "pages": ["introduction", "contribution-guide", "llms"]
           },
           {
             "group": "Ship Components",
@@ -26,6 +26,13 @@
                 "group": "API",
                 "pages": [
                   "api-reference/overview",
+                  {
+                    "group": "Routing",
+                    "pages": [
+                      "api-reference/routing/overview",
+                      "api-reference/routing/middlewares"
+                    ]
+                  },
                   "api-reference/api-limitations",
                   "api-reference/using-events",
                   "api-reference/data-service",
@@ -33,6 +40,7 @@
                   "api-reference/api-action-validator",
                   "api-reference/event-handler",
                   "api-reference/events",
+                  "api-reference/middlewares",
                   "api-reference/testing",
                   "api-reference/workflow"
                 ]
@@ -44,6 +52,8 @@
               "migrator",
               "scheduler",
               "mailer",
+              "github-actions",
+              "git-hooks",
               {
                 "group": "Web",
                 "pages": [
@@ -73,36 +83,7 @@
                   }
                 ]
               },
-              "retool",
-              {
-                "group": "Examples",
-                "pages": [
-                  "examples/overview",
-                  {
-                    "group": "Stripe subscriptions",
-                    "pages": [
-                      "examples/stripe-subscriptions/overview",
-                      "examples/stripe-subscriptions/account",
-                      {
-                        "group": "API",
-                        "pages": [
-                          "examples/stripe-subscriptions/api/overview",
-                          "examples/stripe-subscriptions/api/subscriptions",
-                          "examples/stripe-subscriptions/api/payments"
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "group": "API Public Docs",
-                    "pages": [
-                      "examples/api-public-docs/overview",
-                      "examples/api-public-docs/usage",
-                      "examples/api-public-docs/how-it-works"
-                    ]
-                  }
-                ]
-              }
+              "retool"
             ]
           },
           {
@@ -124,6 +105,14 @@
                 ]
               },
               "packages/create-ship-app"
+            ]
+          },
+          {
+            "group": "Plugins",
+            "pages": [
+              "plugins/overview",
+              "plugins/stripe-subscriptions",
+              "plugins/ai-chat"
             ]
           }
         ]

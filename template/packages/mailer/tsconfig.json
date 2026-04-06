@@ -1,8 +1,8 @@
 {
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": "."
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.json"]
 }

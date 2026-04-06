@@ -1,3 +1,3 @@
-import Home from 'pages/home';
+import Landing from './landings/light';
 
-export default Home;
+export default Landing;

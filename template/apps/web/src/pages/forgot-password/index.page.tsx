@@ -1,28 +1,26 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Anchor, Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useApiForm, useApiMutation } from 'hooks';
+import { Loader2 } from 'lucide-react';
 
-import { accountApi } from 'resources/account';
+import { LayoutType, Page, ScopeType } from 'components';
 
+import { apiClient } from 'services/api-client.service';
 import { handleApiError } from 'utils';
 
-import { RoutePath } from 'routes';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-import { forgotPasswordSchema } from 'schemas';
-import { ForgotPasswordParams } from 'types';
-
-const ForgotPassword: NextPage = () => {
+const ForgotPassword = () => {
   const router = useRouter();
 
   const {
     mutate: forgotPassword,
     isPending: isForgotPasswordPending,
     isSuccess: isForgotPasswordSuccess,
-  } = accountApi.useForgotPassword();
+  } = useApiMutation(apiClient.account.forgotPassword);
 
   const {
     register,
@@ -30,75 +28,80 @@ const ForgotPassword: NextPage = () => {
     setError,
     watch,
     formState: { errors },
-  } = useForm<ForgotPasswordParams>({
-    resolver: zodResolver(forgotPasswordSchema),
-  });
+  } = useApiForm(apiClient.account.forgotPassword);
 
   const email = watch('email');
 
-  const onSubmit = (data: ForgotPasswordParams) =>
+  const onSubmit = handleSubmit((data) =>
     forgotPassword(data, {
       onError: (e) => handleApiError(e, setError),
-    });
+    }),
+  );
 
   if (isForgotPasswordSuccess && email) {
     return (
-      <>
+      <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
         <Head>
           <title>Forgot password</title>
         </Head>
-        <Stack w={328}>
-          <Title order={2}>Reset link has been sent</Title>
 
-          <Text>
+        <div className="flex w-full max-w-sm flex-col gap-4">
+          <h2 className="text-2xl font-semibold">Reset link has been sent</h2>
+
+          <p className="text-muted-foreground">
             A link to reset your password has just been sent to{' '}
-            <Text fw={600} span>
-              {email}
-            </Text>
-            . Please check your email inbox and follow the directions to reset your password.
-          </Text>
+            <span className="font-semibold text-foreground">{email}</span>. Please check your email inbox and follow the
+            directions to reset your password.
+          </p>
 
-          <Button onClick={() => router.push(RoutePath.SignIn)}>Back to Sign In</Button>
-        </Stack>
-      </>
+          <Button onClick={() => router.push('/sign-in')}>Back to Sign In</Button>
+        </div>
+      </Page>
     );
   }
 
   return (
-    <>
+    <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
       <Head>
         <title>Forgot password</title>
       </Head>
 
-      <Stack w={400} fz={18} gap={24}>
-        <Title order={1}>Forgot Password</Title>
+      <div className="flex w-full max-w-md flex-col gap-6 text-lg">
+        <h1 className="text-3xl font-bold">Forgot Password</h1>
 
-        <Text m={0}>Please enter your email and we&apos;ll send a link to reset your password.</Text>
+        <p className="m-0 text-muted-foreground">
+          Please enter your email and we&apos;ll send a link to reset your password.
+        </p>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack gap={34}>
-            <TextInput
-              {...register('email')}
-              type="email"
-              label="Email address"
-              placeholder="Enter your email address"
-              error={errors.email?.message}
-            />
+        <form onSubmit={onSubmit}>
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="email">Email address</Label>
+              <Input
+                {...register('email')}
+                id="email"
+                type="email"
+                placeholder="Enter your email address"
+                className={errors.email ? 'border-destructive' : ''}
+              />
+              {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+            </div>
 
-            <Button type="submit" loading={isForgotPasswordPending}>
+            <Button type="submit" disabled={isForgotPasswordPending}>
+              {isForgotPasswordPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Send reset link
             </Button>
-          </Stack>
+          </div>
         </form>
 
-        <Group justify="center">
-          Have an account?
-          <Anchor component={Link} href={RoutePath.SignIn}>
+        <div className="flex items-center justify-center gap-2">
+          <span>Have an account?</span>
+          <Link href="/sign-in" className="text-primary hover:underline">
             Sign in
-          </Anchor>
-        </Group>
-      </Stack>
-    </>
+          </Link>
+        </div>
+      </div>
+    </Page>
   );
 };
 

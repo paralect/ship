@@ -1,6 +1,8 @@
+import type { User } from 'shared';
+
 import { cloudStorageService } from 'services';
 
-import { BackendFile, User } from 'types';
+import { BackendFile } from 'types';
 
 export const removeAvatar = async (user: User) => {
   if (user.avatarUrl) {

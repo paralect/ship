@@ -3,7 +3,7 @@ import { z } from 'zod';
 const schema = z.object({
   _id: z.string(),
 
-  version: z.number(),
+  version: z.int(),
 
   createdOn: z.date().optional(),
   updatedOn: z.date().optional(),

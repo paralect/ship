@@ -1,0 +1,21 @@
+name: Lint API
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - apps/api/**
+      - packages/**
+  workflow_dispatch:
+
+permissions:
+  checks: write
+  contents: write
+
+jobs:
+  lint:
+    uses: ./.github/workflows/linter.template.yml
+    with:
+      component: api
+      dir: apps/api

@@ -1,9 +1,10 @@
 import { Template, TemplateProps } from 'mailer';
+import { Buffer } from 'node:buffer';
 
-export type From = {
+export interface From {
   email: string;
   name: string;
-};
+}
 
 export interface EmailServiceConstructorProps {
   apiKey: string | undefined;

@@ -1,0 +1,88 @@
+---
+title: "AI Chat"
+---
+
+The `ai-chat` plugin adds an AI-powered chat interface to your Ship project. It features real-time streaming responses using Google Gemini, persistent chat history stored in MongoDB, and a polished chat UI with multiple conversation support.
+
+## Installation
+
+```shell
+npx create-ship-app@latest install ai-chat
+```
+
+## What gets installed
+
+### Dependencies
+
+| Workspace | Package | Version |
+|---|---|---|
+| `apps/api` | `@ai-sdk/google` | `3.0.29` |
+| `apps/api` | `ai` | `6.0.86` |
+| `apps/web` | `@ai-sdk/react` | `3.0.88` |
+
+### Files
+
+**API (`apps/api`):**
+
+| File | Description |
+|---|---|
+| `src/config/ai.config.ts` | Environment config for `GOOGLE_GENERATIVE_AI_API_KEY` |
+| `src/services/ai/ai.service.ts` | AI service using Google Gemini (`gemini-2.5-flash`) with streaming support |
+| `src/resources/ai-chat/ai-chat.schema.ts` | Zod schema for chat conversations |
+| `src/resources/ai-chat/ai-chat.service.ts` | Database service for chat CRUD operations |
+| `src/resources/ai-chat/ai-message.schema.ts` | Zod schema for individual messages (role, content) |
+| `src/resources/ai-chat/ai-message.service.ts` | Database service for message CRUD operations |
+| `src/resources/ai-chat/endpoints/create.ts` | Create a new chat conversation |
+| `src/resources/ai-chat/endpoints/list.ts` | List all chats for the current user |
+| `src/resources/ai-chat/endpoints/delete.ts` | Delete a chat and its messages |
+| `src/resources/ai-chat/endpoints/get-messages.ts` | Get all messages in a chat |
+| `src/resources/ai-chat/endpoints/send-message.ts` | Send a message and stream the AI response via SSE |
+| `src/resources/ai-chat/index.ts` | Barrel export for services |
+
+**Web (`apps/web`):**
+
+| File | Description |
+|---|---|
+| `src/components/ui/prompt-input.tsx` | Reusable prompt input component with auto-resize and keyboard shortcuts |
+| `src/pages/ai-chat/index.page.tsx` | Main AI chat page with conversation sidebar |
+| `src/pages/ai-chat/[chatId].page.tsx` | Individual chat page (route handler) |
+| `src/pages/ai-chat/components/AiChatBox.tsx` | Chat container with message list and input |
+| `src/pages/ai-chat/components/AiChatInput.tsx` | Chat input with send button |
+| `src/pages/ai-chat/components/AiChatMessage.tsx` | Individual message bubble (user/assistant) |
+| `src/pages/ai-chat/components/AiMessageSkeleton.tsx` | Loading skeleton for messages |
+| `src/pages/ai-chat/hooks/useAiChatManager.ts` | Hook managing chat state, SSE streaming, and message history |
+
+## Environment variables
+
+### API (`apps/api`)
+
+| Variable | Description |
+|---|---|
+| `GOOGLE_GENERATIVE_AI_API_KEY` | Google AI API key from [Google AI Studio](https://aistudio.google.com/apikey) |
+
+## How it works
+
+### Streaming responses
+
+The plugin uses **Server-Sent Events (SSE)** for real-time AI response streaming:
+
+1. The user sends a message via `POST /:chatId/messages`.
+2. The API saves the user message, loads the full conversation history, and calls Google Gemini.
+3. The response is streamed back chunk by chunk as SSE events.
+4. Once complete, the assistant message is saved to the database.
+
+The frontend `useAiChatManager` hook handles parsing the SSE stream and updating the UI in real time.
+
+### Chat management
+
+Each user can have multiple chat conversations. Chats are automatically titled based on the first message. All data is stored in MongoDB via Ship's data service layer.
+
+## API endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/ai-chat/` | List all chats for the current user |
+| `POST` | `/ai-chat/` | Create a new chat |
+| `DELETE` | `/ai-chat/:chatId` | Delete a chat and its messages |
+| `GET` | `/ai-chat/:chatId/messages` | Get messages for a chat |
+| `POST` | `/ai-chat/:chatId/messages` | Send a message and stream AI response |

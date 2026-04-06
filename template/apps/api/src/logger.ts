@@ -1,7 +1,6 @@
 import _ from 'lodash';
+import process from 'node:process';
 import winston from 'winston';
-
-import config from 'config';
 
 const formatToPrettyJson = winston.format.printf(({ level, message }) => {
   if (_.isPlainObject(message)) {
@@ -47,8 +46,8 @@ const createConsoleLogger = (isDev = false) => {
   });
 };
 
-const consoleLogger = createConsoleLogger(config?.IS_DEV ?? process.env.APP_ENV === 'development');
+const consoleLogger = createConsoleLogger(process.env.APP_ENV === 'development' || process.env.NODE_ENV === 'test');
 
-global.logger = consoleLogger;
+globalThis.logger = consoleLogger;
 
 export default consoleLogger;

@@ -6,24 +6,22 @@ import {
   Google,
   OAuth2RequestError,
   OAuth2Tokens,
-  // @ts-expect-error - `arctic` is an ESM-only package, but `ts-node` can handle this import.
 } from 'arctic';
+import type { User } from 'shared';
 import { z } from 'zod';
 
-import { userService } from 'resources/user';
+import { userService } from 'resources/users';
 
 import config from 'config';
 
 import logger from 'logger';
 
-import { User } from 'types';
-
 const googleUserInfoSchema = z.object({
   sub: z.string().describe('Unique Google user ID'),
-  email: z.string().email().describe('User email'),
+  email: z.email().describe('User email'),
   email_verified: z.boolean().describe('Email verification status'),
   name: z.string().describe('User full name'),
-  picture: z.string().url().describe('Profile picture URL').optional(),
+  picture: z.url().describe('Profile picture URL').optional(),
   given_name: z.string().describe('First name'),
   family_name: z.string().describe('Last name'),
 });
@@ -35,7 +33,7 @@ const googleCallbackParamsSchema = z
     storedState: z.string(),
     codeVerifier: z.string(),
   })
-  .refine((data) => data.state === data.storedState, { message: 'OAuth state mismatch' });
+  .refine((data) => data.state === data.storedState, { error: 'OAuth state mismatch' });
 
 export const googleClient = new Google(
   config.GOOGLE_CLIENT_ID!,
@@ -43,14 +41,14 @@ export const googleClient = new Google(
   `${config.API_URL}/account/sign-in/google/callback`,
 );
 
-type GoogleUserData = {
+interface GoogleUserData {
   googleUserId: string;
   firstName: string;
   lastName: string;
   email: string;
   isEmailVerified: boolean;
   avatarUrl?: string;
-};
+}
 
 const handleExistingUser = async (userId: string): Promise<User | null> => {
   const existingUser = await userService.findOne({ 'oauth.google.userId': userId });
@@ -133,7 +131,7 @@ export const validateCallback = async (params: {
     const errorMessage = 'Failed to validate Google authentication data.';
 
     logger.error(`[Google OAuth] ${errorMessage}`);
-    logger.error(parsedParams.error.flatten().fieldErrors);
+    logger.error(z.treeifyError(parsedParams.error).errors);
 
     throw new Error(errorMessage);
   }
@@ -166,7 +164,7 @@ export const validateCallback = async (params: {
     const errorMessage = 'Failed to validate Google user info';
 
     logger.error(`[Google OAuth] ${errorMessage}`);
-    logger.error(parsedUserInfo.error.flatten().fieldErrors);
+    logger.error(z.treeifyError(parsedUserInfo.error).errors);
 
     throw new Error(errorMessage);
   }
@@ -200,4 +198,53 @@ export const validateCallback = async (params: {
     avatarUrl,
     googleUserId,
   });
+};
+
+export const validateIdToken = async (idToken: string): Promise<User | null> => {
+  try {
+    const claims = decodeIdToken(idToken);
+    const parsedUserInfo = googleUserInfoSchema.safeParse(claims);
+
+    if (!parsedUserInfo.success) {
+      const errorMessage = 'Failed to validate Google user info';
+
+      logger.error(`[Google OAuth Mobile] ${errorMessage}`);
+      logger.error(z.treeifyError(parsedUserInfo.error).errors);
+
+      throw new Error(errorMessage);
+    }
+
+    const {
+      sub: googleUserId,
+      email,
+      email_verified: isEmailVerified,
+      picture: avatarUrl,
+      given_name: firstName,
+      family_name: lastName,
+    } = parsedUserInfo.data;
+
+    if (!isEmailVerified) {
+      throw new Error('Google account is not verified');
+    }
+
+    const existingUser = await handleExistingUser(googleUserId);
+
+    if (existingUser) return existingUser;
+
+    const existingUserByEmail = await handleExistingUserByEmail(email, googleUserId);
+
+    if (existingUserByEmail) return existingUserByEmail;
+
+    return createNewUser({
+      firstName,
+      lastName,
+      email,
+      isEmailVerified,
+      avatarUrl,
+      googleUserId,
+    });
+  } catch (error) {
+    logger.error(`[Google OAuth Mobile] ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw error;
+  }
 };

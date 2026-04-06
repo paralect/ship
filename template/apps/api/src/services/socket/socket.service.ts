@@ -1,5 +1,5 @@
 import { createAdapter } from '@socket.io/redis-adapter';
-import http from 'http';
+import http from 'node:http';
 import { Server } from 'socket.io';
 
 import { authService } from 'services';

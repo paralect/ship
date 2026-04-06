@@ -3,13 +3,12 @@
   "display": "Node.js",
   "extends": "./base.json",
   "compilerOptions": {
-    "moduleResolution": "NodeNext",
-    "lib": ["es2023"],
-    "module": "NodeNext",
+    "lib": ["esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
     "target": "es2022",
 
     "allowSyntheticDefaultImports": true,
     "useUnknownInCatchVariables": true
-  },
-  "ts-node": { "transpileOnly": true }
+  }
 }

@@ -45,12 +45,12 @@ There are three types of events:
 };
 ```
 
-- entity.removed event (e.x. user.removed). 
+- entity.deleted event (e.x. user.deleted). Ship uses soft deletes (`deleteSoft`) which set a `deletedOn` timestamp.
 ```typescript
 {
   _id: string,
   createdOn: Date,
-  type: 'user.removed',
+  type: 'user.deleted',
   userId: string,
   companyId: string,
   data: {

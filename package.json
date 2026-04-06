@@ -1,10 +1,14 @@
 {
   "name": "ship",
   "version": "1.0.0",
-  "keywords": ["ship", "next", "koa"],
+  "keywords": [
+    "ship",
+    "next",
+    "koa"
+  ],
   "author": "Ship Team <ship@paralect.com>",
   "license": "MIT",
   "scripts": {
-    "docs": "cd docs && mintlify dev"
+    "docs": "cd docs && mint dev --port 4100"
   }
 }
