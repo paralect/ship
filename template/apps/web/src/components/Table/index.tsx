@@ -1,4 +1,4 @@
-import { ComponentType, useCallback, useEffect, useMemo, useState } from 'react';
+import { ComponentType, useCallback, useMemo, useState } from "react";
 import {
   ColumnDef,
   getCoreRowModel,
@@ -9,18 +9,18 @@ import {
   SortingState,
   Table as TanstackTable,
   useReactTable,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table";
 
-import { TableContext } from 'contexts';
+import { TableContext } from "contexts";
 
-import TableEmptyState from './empty-state';
-import TableLoadingState from './loading-state';
-import TablePagination from './pagination';
-import Tbody from './tbody';
-import Thead from './thead';
+import TableEmptyState from "./empty-state";
+import TableLoadingState from "./loading-state";
+import TablePagination from "./pagination";
+import Tbody from "./tbody";
+import Thead from "./thead";
 
-import { Card } from '@/components/ui/card';
-import { Table as TableContainer } from '@/components/ui/table';
+import { Card } from "@/components/ui/card";
+import { Table as TableContainer } from "@/components/ui/table";
 
 type SortingFieldsState = Record<string, SortDirection>;
 
@@ -58,9 +58,13 @@ const Table = <T extends RowData>({
     pageSize: perPage,
   });
   const setPagination = useCallback(
-    (value: Partial<PaginationState> | ((prev: PaginationState) => Partial<PaginationState>)) => {
+    (
+      value:
+        | Partial<PaginationState>
+        | ((prev: PaginationState) => Partial<PaginationState>),
+    ) => {
       setPaginationState((prev) => {
-        const newValue = typeof value === 'function' ? value(prev) : value;
+        const newValue = typeof value === "function" ? value(prev) : value;
         return { ...prev, ...newValue };
       });
     },
@@ -68,39 +72,63 @@ const Table = <T extends RowData>({
   );
   const [sorting, setSorting] = useState<SortingState>([]);
 
+  const handleSortingChange = useCallback(
+    (updaterOrValue: SortingState | ((prev: SortingState) => SortingState)) => {
+      setSorting((prev) => {
+        const newSorting =
+          typeof updaterOrValue === "function"
+            ? updaterOrValue(prev)
+            : updaterOrValue;
+        if (onSortingChange) {
+          onSortingChange(
+            newSorting.reduce<SortingFieldsState>((acc, value) => {
+              acc[value.id] = value.desc ? "desc" : "asc";
+              return acc;
+            }, {}),
+          );
+        }
+        return newSorting;
+      });
+    },
+    [onSortingChange],
+  );
+
   const table = useReactTable<T>({
     data: data || [],
-    columns: columns.map((c) => ({ ...c, enableSorting: c.enableSorting || false, size: 0 })),
+    columns: columns.map((c) => ({
+      ...c,
+      enableSorting: c.enableSorting || false,
+      size: 0,
+    })),
     state: {
       pagination,
       sorting,
     },
-    onPaginationChange: setPagination,
-    pageCount: pageCount || (totalCount ? Math.ceil((totalCount || 0) / perPage) : -1),
+    onPaginationChange: (updaterOrValue) => {
+      setPagination((prev) => {
+        const newValue =
+          typeof updaterOrValue === "function"
+            ? updaterOrValue(prev)
+            : updaterOrValue;
+        if (onPageChange) {
+          onPageChange(newValue.pageIndex + 1);
+        }
+        return newValue;
+      });
+    },
+    pageCount:
+      pageCount || (totalCount ? Math.ceil((totalCount || 0) / perPage) : -1),
     manualPagination: true,
-    onSortingChange: setSorting,
+    onSortingChange: handleSortingChange,
     manualSorting: true,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
 
-  useEffect(() => {
-    if (onSortingChange) {
-      onSortingChange(
-        sorting.reduce<SortingFieldsState>((acc, value) => {
-          acc[value.id] = value.desc ? 'desc' : 'asc';
-          return acc;
-        }, {}),
-      );
-    }
-  }, [sorting]);
-
-  useEffect(() => {
-    if (onPageChange) onPageChange(pagination.pageIndex + 1);
-  }, [pagination]);
-
   return (
-    <TableContext value={useMemo(() => table as TanstackTable<T | unknown>, [table])}>
+    <TableContext
+      value={useMemo(() => table as TanstackTable<T | unknown>, [table])}
+    >
       {isLoading && <LoadingState />}
 
       {!isLoading &&

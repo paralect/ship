@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "no-use-effect": {
+      "source": "factory-ai/factory-plugins",
+      "sourceType": "github",
+      "skillPath": "plugins/typescript/skills/no-use-effect/SKILL.md",
+      "computedHash": "3c4d9c9a65312482569bf3ad27d149c5c339567b52009f90ac29d212beee3766"
+    }
+  }
+}

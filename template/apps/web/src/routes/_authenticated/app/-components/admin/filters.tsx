@@ -1,21 +1,31 @@
-import { FC, useEffect, useState } from 'react';
-import { format } from 'date-fns';
-import { CalendarIcon, Search, X } from 'lucide-react';
-import { DateRange } from 'react-day-picker';
-import { useDebounceValue } from 'usehooks-ts';
+import { FC, useState } from "react";
+import { format } from "date-fns";
+import { CalendarIcon, Search, X } from "lucide-react";
+import { DateRange } from "react-day-picker";
+import { useDebounceCallback } from "usehooks-ts";
 
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { cn } from '@/lib/utils';
+import type { UsersListParams } from "./constants";
 
-import type { UsersListParams } from './constants';
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 const selectOptions = [
-  { value: 'newest', label: 'Newest' },
-  { value: 'oldest', label: 'Oldest' },
+  { value: "newest", label: "Newest" },
+  { value: "oldest", label: "Oldest" },
 ];
 
 interface FiltersProps {
@@ -23,15 +33,22 @@ interface FiltersProps {
 }
 
 const Filters: FC<FiltersProps> = ({ setParams }) => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState<string>(selectOptions[0].value);
   const [filterDate, setFilterDate] = useState<DateRange | undefined>();
 
-  const [debouncedSearch] = useDebounceValue(search, 500);
+  const debouncedSetSearch = useDebounceCallback((value: string) => {
+    setParams({ searchValue: value });
+  }, 500);
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    debouncedSetSearch(value);
+  };
 
   const handleSort = (value: string) => {
     setSortBy(value);
-    setParams({ sort: { createdOn: value === 'newest' ? 'desc' : 'asc' } });
+    setParams({ sort: { createdOn: value === "newest" ? "desc" : "asc" } });
   };
 
   const handleFilter = (range: DateRange | undefined) => {
@@ -51,10 +68,6 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
     }
   };
 
-  useEffect(() => {
-    setParams({ searchValue: debouncedSearch });
-  }, [debouncedSearch, setParams]);
-
   return (
     <div className="flex flex-wrap items-center justify-between gap-4">
       <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
@@ -63,7 +76,7 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
 
           <Input
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Search by name or email"
             className="pl-9 pr-9"
           />
@@ -73,7 +86,7 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
               type="button"
               variant="ghost"
               size="icon"
-              onClick={() => setSearch('')}
+              onClick={() => handleSearchChange("")}
               className="absolute top-1/2 right-1 h-7 w-7 -translate-y-1/2"
             >
               <X className="h-4 w-4" />
@@ -101,8 +114,8 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
               <Button
                 variant="outline"
                 className={cn(
-                  'w-full justify-start text-left font-normal sm:w-[280px]',
-                  !filterDate && 'text-muted-foreground',
+                  "w-full justify-start text-left font-normal sm:w-[280px]",
+                  !filterDate && "text-muted-foreground",
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
@@ -110,20 +123,27 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
                   {filterDate?.from ? (
                     filterDate.to ? (
                       <>
-                        {format(filterDate.from, 'LLL dd, y')} - {format(filterDate.to, 'LLL dd, y')}
+                        {format(filterDate.from, "LLL dd, y")} -{" "}
+                        {format(filterDate.to, "LLL dd, y")}
                       </>
                     ) : (
-                      format(filterDate.from, 'LLL dd, y')
+                      format(filterDate.from, "LLL dd, y")
                     )
                   ) : (
-                    'Pick a date range'
+                    "Pick a date range"
                   )}
                 </span>
               </Button>
             </PopoverTrigger>
 
             <PopoverContent className="w-auto p-0" align="start">
-              <Calendar mode="range" selected={filterDate} onSelect={handleFilter} numberOfMonths={1} initialFocus />
+              <Calendar
+                mode="range"
+                selected={filterDate}
+                onSelect={handleFilter}
+                numberOfMonths={1}
+                initialFocus
+              />
             </PopoverContent>
           </Popover>
         </div>
