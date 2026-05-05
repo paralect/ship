@@ -6,7 +6,7 @@ import type { UseFormProps, UseFormReturn } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { z, ZodType } from 'zod';
 
-import { ORPC_PATH } from 'services/api-client.service';
+import { ORPC_PATH } from '@/services/api-client.service';
 
 // eslint-disable-next-line ts/no-explicit-any
 type AnyClient = Client<any, any, any, any>;

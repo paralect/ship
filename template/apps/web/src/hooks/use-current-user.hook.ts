@@ -1,12 +1,12 @@
 import type { UseQueryOptions } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 
-import { apiClient } from 'services/api-client.service';
-import * as socketService from 'services/socket.service';
+import { apiClient } from '@/services/api-client.service';
+import * as socketService from '@/services/socket.service';
 
-import queryClient from 'query-client';
+import queryClient from '@/query-client';
 
-import type { User } from 'types';
+import type { User } from '@/types';
 
 import { queryKey } from './use-api.hook';
 

@@ -1,10 +1,10 @@
-import { currentUserKey } from 'hooks';
+import { currentUserKey } from '@/hooks';
 
-import * as socketService from 'services/socket.service';
+import * as socketService from '@/services/socket.service';
 
-import queryClient from 'query-client';
+import queryClient from '@/query-client';
 
-import type { User } from 'types';
+import type { User } from '@/types';
 
 socketService.on('connect', () => {
   const currentUser = queryClient.getQueryData<User | null>(currentUserKey);
