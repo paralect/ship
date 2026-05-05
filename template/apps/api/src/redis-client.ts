@@ -6,7 +6,9 @@ import logger from '@/logger';
 const client = new Redis(config.REDIS_URI as string, {
   lazyConnect: true,
   retryStrategy: (times) => {
-    if (times > 20) return null;
+    if (times > 20) {
+      return null;
+    }
 
     return Math.max(Math.min(Math.exp(times), 15_000), 1_000);
   },

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { AsyncLocalStorage } from 'node:async_hooks';
 import process from 'node:process';
 import winston from 'winston';
 
@@ -49,6 +50,20 @@ const createConsoleLogger = (isDev = false) => {
 
 const consoleLogger = createConsoleLogger(process.env.APP_ENV === 'development' || process.env.NODE_ENV === 'test');
 
+export const loggerStorage = new AsyncLocalStorage<winston.Logger>();
+
+const logger = new Proxy(consoleLogger, {
+  get(target, prop) {
+    const scoped = loggerStorage.getStore();
+    const actual = scoped ?? target;
+    const value = Reflect.get(actual, prop, actual);
+    if (typeof value === 'function') {
+      return value.bind(actual);
+    }
+    return value;
+  },
+});
+
 globalThis.logger = consoleLogger;
 
-export default consoleLogger;
+export default logger;

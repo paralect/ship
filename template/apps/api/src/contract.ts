@@ -3,4 +3,15 @@
 import { oc } from '@orpc/contract';
 
 export const contract = oc.router({
+  files: oc.router({
+    getUrl: oc.route({ method: 'POST', path: '/files/get-url' }),
+    remove: oc.route({ method: 'POST', path: '/files/remove' }),
+    upload: oc.route({ method: 'POST', path: '/files/upload' }),
+  }),
+  users: oc.router({
+    getCurrent: oc.route({ method: 'GET', path: '/users/current' }),
+    patchCurrent: oc.route({ method: 'PATCH', path: '/users/current' }),
+    devVerifyEmail: oc.route({ method: 'POST', path: '/users/dev-verify-email' }),
+    list: oc.route({ method: 'GET', path: '/users' }),
+  }),
 });

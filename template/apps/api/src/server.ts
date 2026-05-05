@@ -72,6 +72,10 @@ const errorInterceptor = async <T>(options: { next: () => Promise<T> }): Promise
   try {
     return await options.next();
   } catch (e) {
+    if (e instanceof ORPCError && (e.code === 'UNAUTHORIZED' || e.code === 'FORBIDDEN')) {
+      throw e;
+    }
+
     appLogger.error(e);
 
     if (e instanceof ClientError) {

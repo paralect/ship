@@ -30,7 +30,9 @@ export default (server: http.Server) => {
   logger.info('[Socket.io] Server initialized successfully.');
 
   io.use(async (socket, next) => {
-    if (!socket.handshake.headers.cookie) return next(new Error('Cookie not found'));
+    if (!socket.handshake.headers.cookie) {
+      return next(new Error('Cookie not found'));
+    }
 
     const token = await serverConfig.socketAuth(socket.handshake.headers.cookie);
 

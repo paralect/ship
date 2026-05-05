@@ -5,8 +5,6 @@
   "description": "Hono + oRPC API",
   "author": "Paralect",
   "license": "MIT",
-  "main": "./src/router.ts",
-  "types": "./dist/router.d.ts",
   "exports": {
     ".": {
       "types": "./dist/router.d.ts",
@@ -15,8 +13,14 @@
     "./contract": {
       "types": "./dist/contract.d.ts",
       "default": "./src/contract.ts"
+    },
+    "./resource-client": {
+      "types": "./dist/resource-client.d.ts",
+      "default": "./src/resource-client.ts"
     }
   },
+  "main": "./src/router.ts",
+  "types": "./dist/router.d.ts",
   "scripts": {
     "build": "pnpm codegen && tsc",
     "build:types": "pnpm codegen && tsc --emitDeclarationOnly",
@@ -43,13 +47,17 @@
     "@orpc/server": "^1.5.0",
     "@oslojs/crypto": "1.0.1",
     "@oslojs/encoding": "1.1.0",
+    "@ship/cloud-storage": "workspace:*",
+    "@ship/db": "workspace:*",
+    "@ship/emails": "workspace:*",
     "@socket.io/redis-adapter": "8.3.0",
     "@socket.io/redis-emitter": "5.1.0",
     "ai": "6.0.138",
     "app-constants": "workspace:*",
     "arctic": "3.7.0",
+    "better-auth": "^1.0.0",
     "dayjs": "1.11.13",
-    "drizzle-orm": "1.0.0-beta.19",
+    "drizzle-orm": "catalog:",
     "hono": "^4.7.0",
     "ioredis": "5.6.1",
     "lodash": "4.17.21",
