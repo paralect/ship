@@ -1,0 +1,15 @@
+{
+  "name": "@ship/db",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "postgres": "^3.4.7"
+  },
+  "peerDependencies": {
+    "drizzle-orm": "*"
+  }
+}

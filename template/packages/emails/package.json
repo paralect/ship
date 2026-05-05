@@ -1,0 +1,26 @@
+{
+  "name": "@ship/emails",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "email dev --port 4000"
+  },
+  "dependencies": {
+    "@react-email/components": "1.0.1",
+    "@react-email/render": "2.0.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "resend": "4.5.2"
+  },
+  "devDependencies": {
+    "@react-email/preview-server": "5.0.8",
+    "@types/react": "catalog:",
+    "react-email": "5.0.8"
+  }
+}
