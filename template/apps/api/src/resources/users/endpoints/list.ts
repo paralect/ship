@@ -1,76 +1,51 @@
-import { paginationSchema, userPublicSchema } from 'shared';
 import { z } from 'zod';
 
-import { userService } from 'resources/users';
+import { publicSchema } from '../users.schema';
 
-import createEndpoint from 'routes/createEndpoint';
+import db from '@/db';
+import { isAdmin } from '@/procedures';
+import { listResultSchema, paginationSchema } from '@/resources/base.schema';
 
-import type { NestedKeys } from 'types';
-
-const schema = paginationSchema.extend({
-  filter: z
-    .object({
-      createdOn: z
+export default isAdmin
+  .input(
+    paginationSchema.extend({
+      filter: z
         .object({
-          startDate: z.coerce.date().optional(),
-          endDate: z.coerce.date().optional(),
+          createdAt: z
+            .object({
+              startDate: z.coerce.date().optional(),
+              endDate: z.coerce.date().optional(),
+            })
+            .optional(),
         })
         .optional(),
-    })
-    .optional(),
-  sort: z
-    .object({
-      firstName: z.enum(['asc', 'desc']).optional(),
-      lastName: z.enum(['asc', 'desc']).optional(),
-      createdOn: z.enum(['asc', 'desc']).default('asc'),
-    })
-    .default({ createdOn: 'asc' }),
-});
+      sort: z
+        .object({
+          fullName: z.enum(['asc', 'desc']).optional(),
+          createdAt: z.enum(['asc', 'desc']).default('asc'),
+        })
+        .default({ createdAt: 'asc' }),
+    }),
+  )
+  .output(listResultSchema(publicSchema))
+  .handler(async ({ input }) => {
+    const { perPage, page, sort, searchValue, filter } = input;
 
-export default createEndpoint({
-  method: 'get',
-  path: '/',
-  schema,
-
-  async handler(ctx) {
-    type User = z.infer<typeof userPublicSchema>;
-    const { perPage, page, sort, searchValue, filter } = ctx.validatedData;
-
-    const filterOptions = [];
-
-    if (searchValue) {
-      const searchFields: NestedKeys<User>[] = ['firstName', 'lastName', 'email'];
-
-      filterOptions.push({
-        $or: searchFields.map((field) => ({ [field]: { $regex: searchValue } })),
-      });
+    const createdAtFilter: Record<string, Date> = {};
+    if (filter?.createdAt?.startDate) {
+      createdAtFilter.gte = filter.createdAt.startDate;
+    }
+    if (filter?.createdAt?.endDate) {
+      createdAtFilter.lt = filter.createdAt.endDate;
     }
 
-    if (filter) {
-      const { createdOn, ...otherFilters } = filter;
+    const where = {
+      deletedAt: null,
+      ...(searchValue && {
+        OR: [{ fullName: { ilike: `%${searchValue}%` } }, { email: { ilike: `%${searchValue}%` } }],
+      }),
+      ...(Object.keys(createdAtFilter).length && { createdAt: createdAtFilter }),
+    };
 
-      if (createdOn) {
-        const { startDate, endDate } = createdOn;
-
-        filterOptions.push({
-          createdOn: {
-            ...(startDate && { $gte: startDate }),
-            ...(endDate && { $lt: endDate }),
-          },
-        });
-      }
-
-      Object.entries(otherFilters).forEach(([key, value]) => {
-        filterOptions.push({ [key]: value });
-      });
-    }
-
-    const result = await userService.find(
-      { ...(filterOptions.length && { $and: filterOptions }) },
-      { page, perPage },
-      { sort },
-    );
-
-    return { ...result, results: result.results.map((u) => userService.getPublic(u)) };
-  },
-});
+    return db.users.findPage({ where, orderBy: sort, page, perPage });
+  });

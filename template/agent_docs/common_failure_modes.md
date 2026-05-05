@@ -4,81 +4,62 @@
 
 ---
 
-## 1. "Module not found" for a new endpoint/type in web
+## 1. Endpoint returns 404
 
-**Cause**: Codegen not run after API changes.
-**Fix**: `pnpm --filter shared generate && pnpm --filter web tsc --noEmit`
+**Cause**: Codegen not run after adding/removing endpoint file.
+**Fix**: `cd apps/api && npx tsx scripts/codegen-router.ts`
 
-## 2. Page exists but returns 404 in browser
+## 2. Web types stale after API changes
 
-**Cause**: File is not named `*.page.tsx`. Next.js config only routes files matching `pageExtensions: ['page.tsx', 'api.ts']`.
+**Cause**: Declarations not rebuilt.
+**Fix**: `pnpm --filter api build:types && pnpm --filter web tsc --noEmit`.
+
+## 3. Import error: "Cannot find module '@/...'"
+
+**Cause**: API uses `@/` alias (baseUrl: `src`). Wrong path or missing file.
+**Fix**: Check that the file exists at `apps/api/src/<path>`.
+
+## 4. Inline string enum in Zod schema
+
+**Cause**: Using `z.enum(['ready', 'failed'])` instead of constants.
+**Fix**: Import from `app-constants`: `z.enum(STATUSES)`.
+
+## 5. Page exists but returns 404 in browser
+
+**Cause**: File not named `*.page.tsx`.
 **Fix**: Rename to `index.page.tsx` or `[param].page.tsx`.
 
-## 3. Endpoint returns 401 unexpectedly
+## 6. Env var undefined at runtime
 
-**Cause**: Missing `isPublic` in the endpoint's `middlewares` array. All endpoints require auth by default.
-**Fix**: Add `import isPublic from 'middlewares/isPublic'` and include it in `middlewares: [isPublic]`.
+**Cause**: Not in `.env` or not in the Zod config schema. Web vars need `NEXT_PUBLIC_` prefix.
+**Fix**: Add to both `.env` and `src/config/index.ts` schema.
 
-## 4. Zod validation errors: "unrecognized key" or wrong method
+## 7. Postgres connection fails locally
 
-**Cause**: Using Zod 3 API in a Zod 4 repo. Example: `z.string().email()` doesn't exist in Zod 4.
-**Fix**: Use `z.email()`, `z.url()`, `z.uuid()` etc. Check `node_modules/zod` version. Search existing schemas for patterns.
+**Cause**: Docker not running.
+**Fix**: `pnpm infra`
 
-## 5. Import errors in API code: "Cannot find module 'src/...'"
+## 8. tsbuildinfo cache causes stale declarations
 
-**Cause**: API `tsconfig.baseUrl` is `src`. Imports should be `'resources/...'`, `'routes/...'`, `'config'`, `'db'` — no `src/` prefix.
-**Fix**: Remove the `src/` prefix from the import path.
+**Cause**: Stale incremental build cache.
+**Fix**: `rm -f apps/api/tsconfig.tsbuildinfo && pnpm --filter api build:types`
 
-## 6. New resource's endpoints don't appear in startup logs
+## 9. `shouldExist` — entity not found
 
-**Cause**: Either (a) no `endpoints/` subfolder, (b) endpoint files don't default-export `createEndpoint()`, or (c) the resource folder name is in `IGNORE_RESOURCES`.
-**Fix**: Check `apps/api/src/resources/<name>/endpoints/` exists and files use `export default createEndpoint({...})`. Check `generate.ts` for `IGNORE_RESOURCES`.
+**Cause**: Wrong filter or entity doesn't exist in DB.
+**Fix**: Check the finder function. `shouldExist((id) => db.users.findFirst({ where: { id } }), 'Name')`.
 
-## 7. `shouldExist` middleware returns "service not found"
+## 10. Router codegen produces wrong nesting
 
-**Cause**: The collection name passed to `shouldExist('name')` doesn't match any `db.createService` registration. Services register into `db.services` by their `DATABASE_DOCUMENTS` name.
-**Fix**: Ensure the service file calls `db.createService(DATABASE_DOCUMENTS.NAME, ...)` and the barrel `index.ts` imports it (triggering registration).
+**Cause**: Non-param subdirectories inside `endpoints/` become nested router groups (camelCased). Param dirs (`[id]/`) are part of the URL path, not nesting.
+**Fix**: Understand the convention: `endpoints/nested-dir/action.post.ts` → `resource.nestedDir.action`. Only `[param]/` dirs add URL segments.
 
-## 8. `useApiMutation` pathParams don't change per call
+## 11. Wrong pnpm/node version
 
-**Cause**: `pathParams` in `useApiMutation` are bound at hook initialization, not per `mutate()` call.
-**Fix**: For dynamic IDs, use `apiClient.resource.endpoint.call(params, { pathParams })` directly instead of the hook. See `agent_docs/web_pages_and_data_access.md`.
+**Cause**: Using npm/yarn or wrong Node version.
+**Fix**: `nvm use` (reads `.nvmrc`), use pnpm only.
 
-## 9. "Command not found: npm" / wrong package manager
+## 12. Pre-existing db.ts type errors
 
-**Cause**: Using npm or yarn. This repo requires pnpm.
-**Fix**: `pnpm install`. The `engines` field in root `package.json` enforces `pnpm ≥9.5.0` and rejects yarn.
-
-## 10. Env var undefined at runtime
-
-**Cause**: Either (a) not added to `.env`, (b) not added to the Zod config schema, or (c) web vars missing `NEXT_PUBLIC_` prefix.
-**Fix**: Add to `.env` AND the validation schema in `apps/api/src/config/index.ts` or `apps/web/src/config/index.ts`. Web vars must start with `NEXT_PUBLIC_`.
-
-## 11. Type errors after editing `packages/shared/src/schemas/*` or `src/generated/*`
-
-**Cause**: These files are auto-generated and overwritten by codegen.
-**Fix**: Don't edit them. Edit the source in `apps/api/src/resources/`, then run `pnpm --filter shared generate`.
-
-## 12. `eslint` reports import order violations
-
-**Cause**: ESLint enforces strict import ordering via `simple-import-sort` with custom groups.
-**Fix**: Run `pnpm --filter <package> eslint . --fix`. Don't hand-sort imports.
-
-## 13. MongoDB connection fails locally
-
-**Cause**: Docker infrastructure not running. MongoDB requires replica set initialization.
-**Fix**: `pnpm infra` — starts MongoDB + Redis + replica set initializer.
-
-## 14. Handler/event bus side effects not firing
-
-**Cause**: The handler file isn't imported. Handler files must be imported as side effects in the resource's `index.ts`.
-**Fix**: Add `import './<name>.handler'` at the top of the resource's `index.ts`.
-
----
-
-## Update Triggers
-
-Update this doc when:
-- New recurring failure patterns are discovered
-- Existing failure modes are fixed by architectural changes
-- Error messages change (update the symptoms)
+**Cause**: Drizzle version compatibility issue with `PgTable.getSQL`. Known, not blocking.
+**Fix**: Ignore. Use `--skipLibCheck --noCheck` for declaration emission. These don't affect runtime.

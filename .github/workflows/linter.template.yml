@@ -41,6 +41,10 @@ jobs:
       - name: Install Dependencies
         run: cd template && pnpm install
 
+      - name: Build API Types
+        if: inputs.component == 'template/web'
+        run: cd template && pnpm --filter api run build:types
+
       - name: Generate Content Collections
         if: inputs.component == 'template/web'
         run: cd template && pnpm --filter web run content-collections:build

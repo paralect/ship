@@ -1,15 +1,23 @@
 {
   "name": "ship",
   "scripts": {
-    "infra": "bash ./bin/start.sh mongo redis mongo-replicator",
-    "turbo-start": "turbo run development",
+    "admin:set": "pnpm --filter api admin:set",
+    "infra": "bash ./bin/start.sh redis",
+    "infra:postgres": "docker compose -f docker-compose.yml -f docker-compose.postgres.yml up postgres redis",
+    "infra:mongo": "docker compose -f docker-compose.yml -f docker-compose.mongo.yml up mongo mongo-replicator redis",
+    "turbo-start": "turbo run dev api#schedule-dev",
     "docker": "bash ./bin/start.sh",
     "start": "bash ./bin/run-all.sh",
+    "plugin:install": "tsx scripts/plugin.ts install",
+    "plugin:uninstall": "tsx scripts/plugin.ts uninstall",
+    "plugin:list": "tsx scripts/plugin.ts list",
+    "plugin:dev": "tsx scripts/plugin.ts dev",
     "prepare": "cd .. && husky template/.husky"
   },
   "devDependencies": {
     "husky": "9.0.11",
-    "turbo": "2.5.4"
+    "turbo": "2.5.4",
+    "tsx": "4.20.4"
   },
   "optionalDependencies": {
     "turbo-darwin-64": "2.5.4",

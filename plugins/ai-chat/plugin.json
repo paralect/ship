@@ -1,0 +1,10 @@
+{
+  "name": "ai-chat",
+  "version": "1.0.0",
+  "description": "AI chat with Google Gemini — create conversations, send messages, get AI responses",
+  "dependencies": {
+    "api": {
+      "@ship/ai": "workspace:*"
+    }
+  }
+}

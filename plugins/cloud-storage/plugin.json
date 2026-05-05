@@ -1,0 +1,10 @@
+{
+  "name": "cloud-storage",
+  "version": "1.0.0",
+  "description": "S3-compatible cloud storage with local Garage dev server",
+  "dependencies": {
+    "api": {
+      "@ship/cloud-storage": "workspace:*"
+    }
+  }
+}

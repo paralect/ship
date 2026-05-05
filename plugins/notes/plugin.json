@@ -1,0 +1,6 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "Notes plugin with CRUD endpoints and UI",
+  "requires": ["postgres"]
+}

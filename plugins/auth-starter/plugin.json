@@ -1,0 +1,10 @@
+{
+  "name": "auth-starter",
+  "version": "2.0.0",
+  "description": "Authentication with better-auth, users, and dashboard",
+  "requires": ["postgres", "mailer", "cloud-storage"],
+  "dependencies": {
+    "api": { "better-auth": "^1.0.0" },
+    "web": { "better-auth": "^1.0.0" }
+  }
+}

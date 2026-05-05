@@ -1,9 +1,7 @@
-import Router from '@koa/router';
-import Koa, { Next, ParameterizedContext, Request } from 'koa';
-import { Template } from 'mailer';
-import type { User } from 'shared';
+import type { Context } from 'hono';
 
-// File types
+import type { User } from '@/db';
+
 export interface BackendFile {
   filepath: string;
   mimetype?: string | null;
@@ -11,19 +9,6 @@ export interface BackendFile {
   newFilename: string;
   size: number;
 }
-
-// Utility types
-type Path<T> = T extends object
-  ? {
-      [K in keyof T]: K extends string
-        ? T[K] extends (...args: never[]) => unknown
-          ? never
-          : `${K}` | (Path<T[K]> extends infer R ? (R extends never ? never : `${K}.${R & string}`) : never)
-        : never;
-    }[keyof T]
-  : never;
-
-export type NestedKeys<T> = Path<Required<T>>;
 
 type CamelCase<S extends string> = S extends `${infer P1}_${infer P2}${infer P3}`
   ? `${Lowercase<P1>}${Uppercase<P2>}${CamelCase<P3>}`
@@ -35,34 +20,64 @@ export type ToCamelCase<T> = {
   [K in keyof T as CamelCase<string & K>]: T[K] extends object ? ToCamelCase<T[K]> : T[K];
 };
 
-export interface AppKoaContextState {
-  user: User;
-  accessToken: string;
-  [key: string]: unknown;
-}
-
 type JSONPrimitive = string | number | boolean;
 
 export type CustomErrors = Record<string, JSONPrimitive>;
 
-export interface AppKoaContext<T = unknown, R = unknown> extends ParameterizedContext<AppKoaContextState> {
-  request: Request & R;
-  validatedData: T & object;
-  throwError: (message: string, status?: number) => never;
-  assertError: (condition: unknown, message: string, status?: number) => asserts condition;
-  throwClientError: (errors: CustomErrors, status?: number) => never;
-  assertClientError: (condition: unknown, errors: CustomErrors, status?: number) => asserts condition;
-  throwGlobalErrorWithRedirect: (message: string, redirectUrl?: string) => void;
-}
-
-export class AppRouter extends Router<AppKoaContextState, AppKoaContext> {}
-
-export class AppKoa extends Koa<AppKoaContextState, AppKoaContext> {}
-
-export type AppRouterMiddleware = Router.Middleware<AppKoaContextState, AppKoaContext>;
-
 export type ValidationErrors = Record<string, JSONPrimitive | JSONPrimitive[]>;
 
-export { Template };
+export interface CookieOptions {
+  domain?: string;
+  path?: string;
+  expires?: Date;
+  maxAge?: number;
+  httpOnly?: boolean;
+  secure?: boolean;
+  sameSite?: 'strict' | 'lax' | 'none';
+}
 
-export type { Next };
+export type { Context };
+
+export interface ORPCContext {
+  user?: User;
+  accessToken?: string;
+  rawRequest?: Request;
+  headers: Record<string, string>;
+  getCookie: (name: string) => string | undefined;
+  setCookie: (name: string, value: string, options?: CookieOptions) => void;
+  deleteCookie: (name: string, options?: CookieOptions) => void;
+  secure: boolean;
+  signal?: AbortSignal;
+}
+
+export class ClientError extends Error {
+  status: number;
+  errors: ValidationErrors;
+
+  constructor(errors: CustomErrors, status = 400) {
+    const formatted: ValidationErrors = {};
+    for (const [key, value] of Object.entries(errors)) {
+      formatted[key] = Array.isArray(value) ? value : [value];
+    }
+    super(JSON.stringify(formatted));
+    this.name = 'ClientError';
+    this.status = status;
+    this.errors = formatted;
+  }
+}
+
+export class AppError extends Error {
+  status: number;
+
+  constructor(message: string, status = 400) {
+    super(message);
+    this.name = 'AppError';
+    this.status = status;
+  }
+}
+
+export interface HonoEnv {
+  Variables: {
+    ctx: ORPCContext;
+  };
+}

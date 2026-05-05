@@ -4,126 +4,95 @@
 
 ---
 
-## Architecture at a Glance
+## Architecture
 
-Koa 3 + MongoDB (`@paralect/node-mongo`) + Zod 4. ESM (`"type": "module"`). TypeScript with `baseUrl: "src"`.
+Hono + oRPC + Postgres (Drizzle ORM) + Zod. ESM (`"type": "module"`). TypeScript with `@/` path alias (baseUrl: `src`).
 
-Domain logic lives in `src/resources/`. External integrations live in `src/services/`.
+- **Endpoints** (`src/resources/*/endpoints/`) — oRPC typed RPC. Filesystem-routed via codegen.
+- **Schemas** (`src/resources/*/*.schema.ts`) — Drizzle `pgTable` definitions.
+- **Services** (`src/services/`) — external integrations (auth, email, cloud-storage, socket, analytics).
+- **Handlers** (`src/resources/*/handlers/`) — event-bus side-effect handlers.
+- **Config** (`src/config/`) — Zod-validated env vars.
 
 ---
 
 ## Import Convention
 
-`tsconfig.baseUrl` is `src`. Always use bare specifiers:
+Use `@/` path alias everywhere:
 
 ```typescript
-import { userService } from 'resources/users'; // ✅
-import createEndpoint from 'routes/createEndpoint'; // ✅
-import config from 'config'; // ✅
-import db from 'db'; // ✅
-
-import { something } from 'src/resources/users'; // ❌ never
-import { something } from '../../../resources/users'; // ❌ never
-```
-
-The ESLint plugin `no-relative-import-paths` enforces this (max depth 1, same-folder allowed).
-
----
-
-## Middleware Chain (Global → Per-Route)
-
-Global (applied to all requests in order):
-
-1. `cors` → `helmet` → `qs` → `bodyParser` / `koaBody`
-2. `attachCustomErrors` → `attachCustomProperties` → `routeErrorHandler`
-3. `extractTokens` → `tryToAttachUser`
-
-Per-route (auto-applied by route registration): 4. `auth` (unless `isPublic` present) → `validate` (if schema present) → custom middlewares → `handler`
-
-The `auth` check (`routes/middlewares/auth.ts`) just verifies `ctx.state.user` exists; the actual token parsing happens in step 3.
-
----
-
-## Available Middlewares
-
-| Middleware                       | Import                           | Effect                                                        |
-| -------------------------------- | -------------------------------- | ------------------------------------------------------------- |
-| `isPublic`                       | `middlewares/isPublic`           | Sentinel — skips auth for this endpoint                       |
-| `isAdmin`                        | `middlewares/isAdmin`            | Checks `x-admin-key` header against `config.ADMIN_KEY`        |
-| `shouldExist(collection, opts?)` | `routes/middlewares/shouldExist` | Pre-fetches doc by ID param, 404 if missing                   |
-| `rateLimitMiddleware(opts?)`     | `middlewares/rateLimit`          | Rate limit (default 10 req/60s/user, uses Redis if available) |
-
----
-
-## Context Helpers
-
-Available on `ctx` after global middleware:
-
-- `ctx.state.user` — authenticated user (always present unless `isPublic`)
-- `ctx.state.accessToken` — raw token string
-- `ctx.validatedData` — Zod-validated merged input (body + query + params + files)
-- `ctx.throwError(message, status?)` — throws structured error response (default status 400)
-- `ctx.throwClientError({ field: 'message' })` — 400 with field errors
-- `ctx.assertError(condition, message, status?)` — assert or throw (default status 400). **⚠️ This is a TypeScript assertion function — calling it inside `handler(ctx)` without an explicit type annotation on `ctx` causes TS2775. Prefer the `if + throwError + return` pattern instead:**
-
-```typescript
-// ✅ Preferred — no type annotation needed
-const doc = await service.findOne({ _id: id, userId: ctx.state.user._id });
-if (!doc) {
-  ctx.throwError('Not found', 404);
-  return;
-}
-
-// ❌ Avoid — requires explicit ctx type to compile
-ctx.assertError(doc, 'Not found', 404);
+import db from '@/db';
+import { isAuthorized, ORPCError } from '@/procedures';
+import { BankLinkStatus } from 'app-constants'; // separate package — bare import OK
 ```
 
 ---
 
-## Config (Environment Variables)
+## Endpoint Structure
 
-Zod-validated in `src/config/index.ts`. When adding a new env var:
+```typescript
+import { z } from 'zod';
+import db from '@/db';
+import { isAuthorized, ORPCError } from '@/procedures';
 
-1. Add it to the Zod schema in `src/config/index.ts`
-2. Add it to `.env` and `.env.example`
+export default isAuthorized
+  .input(z.object({ id: z.string() }))
+  .output(z.object({ name: z.string() }))
+  .handler(async ({ input, context }) => {
+    const { user } = context;
+    // ...
+  });
+```
 
-Required vars: `APP_ENV`, `API_URL`, `WEB_URL`, `MONGO_URI`, `MONGO_DB_NAME`.
-Optional vars: `REDIS_URI`, `RESEND_API_KEY`, `ADMIN_KEY`, `MIXPANEL_API_KEY`, cloud storage, Google OAuth.
+---
+
+## Auth Procedures
+
+- `isPublic` — no auth. For webhooks, public status endpoints.
+- `isAuthorized` — requires user. `context.user` typed as `User`.
+- `isAdmin` — requires admin flag.
+
+---
+
+## Codegen (Auto-generated files — never edit manually)
+
+| File                     | Generated by                | Regenerate when                     |
+| ------------------------ | --------------------------- | ----------------------------------- |
+| `src/router.ts`          | `scripts/codegen-router.ts` | Endpoint file added/removed/renamed |
+| `src/contract.ts`        | `scripts/codegen-router.ts` | Same                                |
+| `src/resource-client.ts` | `scripts/codegen-router.ts` | Same                                |
+| `src/db.ts`              | `scripts/codegen-db.ts`     | Schema file added/removed           |
+
+```bash
+npx tsx scripts/codegen-router.ts   # after endpoint changes
+npx tsx scripts/codegen-db.ts       # after schema changes
+```
+
+---
+
+## Config
+
+Zod-validated in `src/config/index.ts`. Add new env vars to both the schema and `.env`.
 
 ---
 
 ## Services (`src/services/`)
 
-External integrations — not domain logic. Current services: `analytics`, `auth`, `cloud-storage`, `email`, `google`, `socket`, `stripe`.
-
-To add a new service: create a folder in `src/services/`, export the service. Import where needed.
+External integrations: `analytics`, `auth`, `cloud-storage`, `email`, `socket`.
 
 ---
 
 ## Migrator & Scheduler
 
-- Migrator: `src/migrator/migrations/<version>.ts` — each exports `Migration` with `migrate()`. Runs before dev via Turbo.
-- Scheduler: `src/scheduler/handlers/*.handler.ts` — cron handlers listening on `cron:every-minute`/`cron:every-hour`. Register by importing in `src/scheduler.ts`.
+- Migrator: `src/migrator/migrations/<version>.ts` — runs before dev via Turbo.
+- Scheduler: `src/scheduler/handlers/*.handler.ts` — cron handlers. Register by importing in `src/scheduler.ts`.
 
 ---
 
 ## Verification
 
 ```bash
-pnpm --filter api tsc --noEmit    # typecheck
-pnpm --filter api eslint .        # lint
-pnpm --filter api build           # full build
+pnpm --filter api tsc --noEmit        # typecheck
+pnpm --filter api build:types         # rebuild declarations for web
+npx tsx scripts/codegen-router.ts     # regenerate router after endpoint changes
 ```
-
-After adding endpoints, check startup logs for: `[routes] METHOD /resource/path`.
-
----
-
-## Update Triggers
-
-Update this file when:
-
-- Global middleware chain changes (`src/routes/index.ts`, `src/app.ts`)
-- New context helpers are added
-- Config schema changes significantly
-- New service directories are added

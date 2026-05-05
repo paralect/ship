@@ -14,7 +14,7 @@ export const getNodeConfig = (antfuOptions) =>
         'ts/no-explicit-any': 'error',
         'ts/consistent-type-imports': 'off',
 
-        curly: 'off',
+        curly: ['error', 'all'],
 
         'no-console': [
           'error',

@@ -60,7 +60,7 @@ const { mutate: update } = useApiMutation(apiClient.projects.update, {
 import queryClient from 'query-client';
 
 queryClient.invalidateQueries({ queryKey: [apiClient.projects.list.path] });
-queryClient.setQueryData([apiClient.account.get.path], updatedData);
+queryClient.setQueryData([apiClient.users.getCurrent.path], updatedData);
 ```
 
 Query keys = `[endpoint.path, ...params]`. The first element is always the endpoint path string.

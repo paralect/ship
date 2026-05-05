@@ -9,6 +9,10 @@
   "author": "Ship Team <ship@paralect.com>",
   "license": "MIT",
   "scripts": {
-    "docs": "cd docs && mint dev --port 4100"
+    "docs": "cd docs && mint dev --port 4100",
+    "plugin:dev": "npx tsx template/scripts/plugin.ts dev",
+    "plugin:install": "npx tsx template/scripts/plugin.ts install",
+    "plugin:uninstall": "npx tsx template/scripts/plugin.ts uninstall",
+    "plugin:list": "npx tsx template/scripts/plugin.ts list"
   }
 }
