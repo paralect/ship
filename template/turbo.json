@@ -9,18 +9,15 @@
       "dependsOn": ["^build", "^build:types"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
     "api#migrate-dev": {
       "cache": false
     },
     "api#schedule-dev": {
       "dependsOn": ["api#migrate-dev"],
-      "cache": false
-    },
-    "dev": {
-      "cache": false
-    },
-    "development": {
-      "dependsOn": ["api#migrate-dev", "api#schedule-dev", "dev"],
       "cache": false,
       "persistent": true
     },
