@@ -8,7 +8,7 @@
 
 - **Node ≥22.13.0** (see `.nvmrc`). Use `nvm use` if needed.
 - **pnpm ≥9.5.0** (`corepack enable && corepack prepare pnpm@9.5.0 --activate`).
-- **Docker** for local MongoDB + Redis.
+- **Docker** for local Postgres + Redis.
 
 ---
 
@@ -23,10 +23,8 @@ pnpm install
 ## Infrastructure (Local)
 
 ```bash
-pnpm infra          # starts MongoDB (27017) + Redis (6379) via Docker
+pnpm infra          # starts Postgres + Redis via Docker
 ```
-
-MongoDB runs as a replica set — required for change streams and transactions.
 
 ---
 
@@ -58,8 +56,17 @@ pnpm --filter api build:types    # declarations only (for web type consumption)
 ## Typecheck
 
 ```bash
-pnpm --filter api tsc --noEmit
-pnpm --filter web tsc --noEmit
+pnpm --filter api tsc --noEmit    # API
+pnpm --filter web tsc --noEmit    # Web
+```
+
+---
+
+## Codegen
+
+```bash
+cd apps/api && npx tsx scripts/codegen-router.ts   # after endpoint file changes
+cd apps/api && npx tsx scripts/codegen-db.ts       # after schema file changes
 ```
 
 ---
@@ -69,8 +76,10 @@ pnpm --filter web tsc --noEmit
 | I changed... | Run |
 |---|---|
 | Any `package.json` | `pnpm install` |
-| API procedure or schema | `pnpm --filter api build:types`, then typecheck web |
+| API endpoint file added/removed | `npx tsx scripts/codegen-router.ts` then `build:types` |
+| API schema file added/removed | `npx tsx scripts/codegen-db.ts` then `build:types` |
+| API endpoint input/output schema | `pnpm --filter api build:types` then typecheck web |
 | API code (any) | `pnpm --filter api tsc --noEmit` |
 | Web code (any) | `pnpm --filter web tsc --noEmit` |
 | `app-constants` | Typecheck any package that imports it |
-| Before committing | `pnpm --filter api tsc --noEmit && pnpm --filter web tsc --noEmit` |
+| Before committing | Typecheck both API and web |
