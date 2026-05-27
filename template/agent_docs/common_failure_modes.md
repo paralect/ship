@@ -7,7 +7,7 @@
 ## 1. Endpoint returns 404
 
 **Cause**: Codegen not run after adding/removing endpoint file.
-**Fix**: `cd apps/api && npx tsx scripts/codegen-router.ts`
+**Fix**: `pnpm --filter api codegen` (regenerates router + db + contract).
 
 ## 2. Web types stale after API changes
 
@@ -24,20 +24,20 @@
 **Cause**: Using `z.enum(['ready', 'failed'])` instead of constants.
 **Fix**: Import from `app-constants`: `z.enum(STATUSES)`.
 
-## 5. Page exists but returns 404 in browser
+## 5. Route exists but 404 in browser
 
-**Cause**: File not named `*.page.tsx`.
-**Fix**: Rename to `index.page.tsx` or `[param].page.tsx`.
+**Cause**: TanStack Router route tree (`src/routeTree.gen.ts`) hasn't regenerated, or the file is under a `-components/` prefix.
+**Fix**: Restart `pnpm --filter web dev` to retrigger the Vite Start plugin. Confirm the file path matches a real URL segment and that `-`-prefixed directories are only used for non-route helpers.
 
 ## 6. Env var undefined at runtime
 
-**Cause**: Not in `.env` or not in the Zod config schema. Web vars need `NEXT_PUBLIC_` prefix.
+**Cause**: Not in `.env` or not in the Zod config schema. Web vars need `VITE_` prefix (Vite convention).
 **Fix**: Add to both `.env` and `src/config/index.ts` schema.
 
 ## 7. Postgres connection fails locally
 
 **Cause**: Docker not running.
-**Fix**: `pnpm infra`
+**Fix**: `pnpm infra:postgres`
 
 ## 8. tsbuildinfo cache causes stale declarations
 
@@ -53,6 +53,16 @@
 
 **Cause**: Non-param subdirectories inside `endpoints/` become nested router groups (camelCased). Param dirs (`[id]/`) are part of the URL path, not nesting.
 **Fix**: Understand the convention: `endpoints/nested-dir/action.post.ts` → `resource.nestedDir.action`. Only `[param]/` dirs add URL segments.
+
+## 13. `tx.<resource>` is `any` inside a transaction
+
+**Cause**: Drizzle's `transaction()` callback was used directly instead of `db.transaction()`.
+**Fix**: Always use `db.transaction(async (tx) => {...})`. The `tx` argument is the same typed `DBType` as `db`, so `tx.users.insertOne(...)` etc. all stay typed.
+
+## 14. `eventBus.on('users.update', ...)` handler never fires
+
+**Cause**: codegen-db only wires `DbService` to the event bus when the resource has a `handlers/` directory at codegen time. Without it, the `onMutation` callback is omitted.
+**Fix**: Ensure `apps/api/src/resources/<name>/handlers/` exists with at least one file. Re-run `pnpm --filter api codegen`. The generated `db.ts` should show `new DbService(<table>, db, eventBus.hook('<table>'))`.
 
 ## 11. Wrong pnpm/node version
 

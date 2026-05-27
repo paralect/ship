@@ -8,9 +8,12 @@ Plugins add features to the Ship template without modifying it. Each plugin is a
 |--------|-------------|----------|
 | `plugins/postgres` | Drizzle ORM + PostgreSQL — `@ship/db` package with DbService, codegen-db, base schema, migrations | — |
 | `plugins/mongo` | MongoDB with @paralect/node-mongo — `@ship/db` package with auto-discovery of schemas, services, and indexes | — |
-| `plugins/auth-starter` | Authentication (sign-in/up, forgot/reset password, Google OAuth), user management, dashboard | postgres or mongodb |
-| `plugins/notes` | Simple notes CRUD — example plugin | postgres or mongodb |
+| `plugins/auth-starter` | better-auth wiring (API only — web routes promoted to template). Provides Postgres/Mongo `auth.ts`, `server-config.ts`, and DB-flavor users/sessions/accounts/verifications schemas | postgres or mongo |
+| `plugins/admin` | Admin dashboard with paginated user list. Canonical TanStack Router plugin example. Web routes at `/app/admin` | postgres, auth-starter |
+| `plugins/notes` | Simple notes CRUD — example plugin (Next.js Pages — pending TanStack Router migration) | postgres or mongo |
 | `plugins/ai-chat` | AI chat with configurable LLM model via `@ship/ai` package | postgres, auth-starter |
+| `plugins/mailer` | Resend + React Email — provides `@ship/emails` package | — |
+| `plugins/cloud-storage` | S3-compatible storage (local Garage dev server) — provides `@ship/cloud-storage` | — |
 
 ## Plugin Structure
 
@@ -27,9 +30,15 @@ my-plugin/
       server-config.ts               # optional — overrides template server hooks
     scripts/                         # optional — codegen scripts
   web/
-    pages/
-      app/things/index.page.tsx      # Next.js pages (auto-discovered)
+    routes/
+      _authenticated/app/things/     # → apps/web/src/routes/_authenticated/app/things/
+        index.tsx
+        -components/                  # private (skipped by routing)
 ```
+
+> Plugin merger flattens `plugin/web/X/...` → `apps/web/src/X/...`. Do not add an extra `src/` step in the plugin layout.
+>
+> Older plugins (`notes`, `ai-chat`) still ship `web/pages/*.page.tsx` from when the template was on Next.js. `apps/web/src/pages/` is no longer a TanStack Router-recognised location, so those plugins won't expose routes until converted to `web/routes/...`. The canonical post-migration example is `plugins/admin`.
 
 ### Multi-DB plugins
 

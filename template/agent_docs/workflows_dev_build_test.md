@@ -23,7 +23,9 @@ pnpm install
 ## Infrastructure (Local)
 
 ```bash
-pnpm infra          # starts Postgres + Redis via Docker
+pnpm infra              # Redis only
+pnpm infra:postgres     # Redis + Postgres (default DB plugin)
+pnpm infra:mongo        # Redis + MongoDB (alternate DB plugin)
 ```
 
 ---
@@ -64,9 +66,20 @@ pnpm --filter web tsc --noEmit    # Web
 
 ## Codegen
 
+`scripts/codegen-router.ts` and `scripts/codegen-db.ts` run automatically in `pnpm --filter api dev` (watch mode). To regenerate ad-hoc:
+
 ```bash
-cd apps/api && npx tsx scripts/codegen-router.ts   # after endpoint file changes
-cd apps/api && npx tsx scripts/codegen-db.ts       # after schema file changes
+pnpm --filter api codegen     # runs both, then eslint --fix + prettier
+```
+
+---
+
+## Drizzle Migrations
+
+```bash
+pnpm --filter api generate    # diff schemas → new migration in apps/api/drizzle/
+pnpm --filter api migrate     # apply pending migrations to the configured DB
+pnpm --filter api db:push     # push schema to DB without writing migration files (dev only)
 ```
 
 ---
@@ -76,8 +89,8 @@ cd apps/api && npx tsx scripts/codegen-db.ts       # after schema file changes
 | I changed... | Run |
 |---|---|
 | Any `package.json` | `pnpm install` |
-| API endpoint file added/removed | `npx tsx scripts/codegen-router.ts` then `build:types` |
-| API schema file added/removed | `npx tsx scripts/codegen-db.ts` then `build:types` |
+| API endpoint added/removed | `pnpm --filter api codegen` then `build:types` |
+| API schema added/removed | `pnpm --filter api codegen` then `pnpm --filter api generate` (commit the migration) |
 | API endpoint input/output schema | `pnpm --filter api build:types` then typecheck web |
 | API code (any) | `pnpm --filter api tsc --noEmit` |
 | Web code (any) | `pnpm --filter web tsc --noEmit` |
