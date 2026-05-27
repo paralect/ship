@@ -1,6 +1,5 @@
 import { Link, useLocation } from '@tanstack/react-router';
-import { useCurrentUser } from '@/hooks';
-import { Home, Users } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 import {
   SidebarGroup,
@@ -12,12 +11,11 @@ import {
 
 const NavMain = () => {
   const location = useLocation();
-  const { data: currentUser } = useCurrentUser();
   const currentPath = location.pathname;
 
+  // Top-level nav entries. Plugins (e.g. admin) extend this list when installed.
   const items = [
     { title: 'Dashboard', url: '/app', icon: Home },
-    ...(currentUser?.isAdmin ? [{ title: 'Admin', url: '/app/admin', icon: Users }] : []),
   ];
 
   return (

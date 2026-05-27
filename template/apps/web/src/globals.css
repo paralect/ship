@@ -44,6 +44,22 @@
   --color-input: hsl(214.3 31.8% 91.4%);
   --color-ring: hsl(222.2 84% 4.9%);
 
+  /* Chambers-derived neutral palette — consumed by AppDrawer, PillTabBar,
+   * ContentLayout, and other widgets ported from chambers. Keep aligned with
+   * chambers/apps/web/src/styles/tokens.css. */
+  --color-bg-neutral-grey-100: #ffffff;
+  --color-bg-neutral-grey-200: #fbfbfc;
+  --color-bg-neutral-grey-300: #f7f8f9;
+  --color-bg-neutral-grey-400: #eef0f4;
+  --color-bg-neutral-grey-500: #eaedf1;
+  --color-bg-neutral-grey-600: #e2e5eb;
+  --color-text-secondary: #515b69;
+  --color-text-tertiary: #8f9194;
+  --color-icon-secondary: #515b69;
+  --color-border-primary: #d5dae3;
+  --color-border-secondary: #e4e7ec;
+  --color-border-tertiary: #eaedf1;
+
   /* Border Radius */
   --radius-lg: 0.5rem;
   --radius-md: calc(var(--radius-lg) - 2px);

@@ -17,7 +17,6 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
-import { Route as AuthenticatedAppAdminRouteImport } from './routes/_authenticated/app/admin'
 import { Route as AuthenticatedAppSettingsSecurityRouteImport } from './routes/_authenticated/app/settings/security'
 import { Route as AuthenticatedAppSettingsProfileRouteImport } from './routes/_authenticated/app/settings/profile'
 
@@ -60,11 +59,6 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/app/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedAppAdminRoute = AuthenticatedAppAdminRouteImport.update({
-  id: '/app/admin',
-  path: '/app/admin',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedAppSettingsSecurityRoute =
   AuthenticatedAppSettingsSecurityRouteImport.update({
     id: '/app/settings/security',
@@ -85,7 +79,6 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/app/admin': typeof AuthenticatedAppAdminRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/settings/profile': typeof AuthenticatedAppSettingsProfileRoute
   '/app/settings/security': typeof AuthenticatedAppSettingsSecurityRoute
@@ -97,7 +90,6 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/app/admin': typeof AuthenticatedAppAdminRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/settings/profile': typeof AuthenticatedAppSettingsProfileRoute
   '/app/settings/security': typeof AuthenticatedAppSettingsSecurityRoute
@@ -111,7 +103,6 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/_authenticated/app/admin': typeof AuthenticatedAppAdminRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/settings/profile': typeof AuthenticatedAppSettingsProfileRoute
   '/_authenticated/app/settings/security': typeof AuthenticatedAppSettingsSecurityRoute
@@ -125,7 +116,6 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
-    | '/app/admin'
     | '/app/'
     | '/app/settings/profile'
     | '/app/settings/security'
@@ -137,7 +127,6 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
-    | '/app/admin'
     | '/app'
     | '/app/settings/profile'
     | '/app/settings/security'
@@ -150,7 +139,6 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
-    | '/_authenticated/app/admin'
     | '/_authenticated/app/'
     | '/_authenticated/app/settings/profile'
     | '/_authenticated/app/settings/security'
@@ -224,13 +212,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/app/admin': {
-      id: '/_authenticated/app/admin'
-      path: '/app/admin'
-      fullPath: '/app/admin'
-      preLoaderRoute: typeof AuthenticatedAppAdminRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/app/settings/security': {
       id: '/_authenticated/app/settings/security'
       path: '/app/settings/security'
@@ -249,14 +230,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedAppAdminRoute: typeof AuthenticatedAppAdminRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
   AuthenticatedAppSettingsProfileRoute: typeof AuthenticatedAppSettingsProfileRoute
   AuthenticatedAppSettingsSecurityRoute: typeof AuthenticatedAppSettingsSecurityRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAppAdminRoute: AuthenticatedAppAdminRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
   AuthenticatedAppSettingsProfileRoute: AuthenticatedAppSettingsProfileRoute,
   AuthenticatedAppSettingsSecurityRoute: AuthenticatedAppSettingsSecurityRoute,
@@ -278,3 +257,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
