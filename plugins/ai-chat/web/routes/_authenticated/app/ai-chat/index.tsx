@@ -1,18 +1,17 @@
-import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
+import { createFileRoute } from '@tanstack/react-router';
 
-import { LayoutType, Page, ScopeType } from 'components';
-import { useApiQuery, useApiMutation, useQueryClient, queryKey } from 'hooks';
-import { apiClient } from 'services/api-client.service';
+import { queryKey, useApiMutation, useApiQuery, useQueryClient } from '@/hooks';
+import { apiClient } from '@/services/api-client.service';
 
-import { AiChatBox } from './components';
-import type { AiChatDisplayMessage } from './components';
+import type { AiChatDisplayMessage } from './-components';
+import { AiChatBox } from './-components';
 
-interface AiChatPageProps {
-  chatId?: string;
-}
+export const Route = createFileRoute('/_authenticated/app/ai-chat/')({
+  component: AiChatIndexPage,
+});
 
-const AiChatPage = ({ chatId: initialChatId }: AiChatPageProps) => {
+export function AiChatPage({ chatId: initialChatId }: { chatId?: string }) {
   const queryClient = useQueryClient();
   const [activeChatId, setActiveChatId] = useState<string | null>(initialChatId ?? null);
   const [messages, setMessages] = useState<AiChatDisplayMessage[]>([]);
@@ -42,26 +41,23 @@ const AiChatPage = ({ chatId: initialChatId }: AiChatPageProps) => {
     },
   });
 
-  const loadMessages = useCallback(
-    async (chatId: string) => {
-      setIsLoadingMessages(true);
-      try {
-        const result = await apiClient['ai-chats'].getMessages({ chatId });
-        setMessages(
-          result.map((m) => ({
-            id: m.id,
-            role: m.role,
-            content: m.content,
-          })),
-        );
-      } catch (error) {
-        console.error('Failed to load messages:', error);
-      } finally {
-        setIsLoadingMessages(false);
-      }
-    },
-    [],
-  );
+  const loadMessages = useCallback(async (chatId: string) => {
+    setIsLoadingMessages(true);
+    try {
+      const result = await apiClient['ai-chats'].getMessages({ chatId });
+      setMessages(
+        result.map((m) => ({
+          id: m.id,
+          role: m.role,
+          content: m.content,
+        })),
+      );
+    } catch (error) {
+      console.error('Failed to load messages:', error);
+    } finally {
+      setIsLoadingMessages(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (activeChatId) {
@@ -70,7 +66,9 @@ const AiChatPage = ({ chatId: initialChatId }: AiChatPageProps) => {
   }, [activeChatId, loadMessages]);
 
   const handleSubmit = useCallback(async () => {
-    if (!input.trim() || sendMessageMutation.isPending) return;
+    if (!input.trim() || sendMessageMutation.isPending) {
+      return;
+    }
 
     const content = input.trim();
     setInput('');
@@ -97,33 +95,21 @@ const AiChatPage = ({ chatId: initialChatId }: AiChatPageProps) => {
   }, [input, activeChatId, sendMessageMutation, createChatMutation]);
 
   return (
-    <>
-      <Head>
-        <title>AI Chat</title>
-      </Head>
-
-      <div className="flex h-full">
-        <div className="flex-1">
-          <AiChatBox
-            messages={messages}
-            input={input}
-            onInputChange={setInput}
-            onSubmit={handleSubmit}
-            isLoading={sendMessageMutation.isPending}
-            isLoadingMessages={isLoadingMessages && !!initialChatId}
-          />
-        </div>
+    <div className="flex h-full">
+      <div className="flex-1">
+        <AiChatBox
+          messages={messages}
+          input={input}
+          onInputChange={setInput}
+          onSubmit={handleSubmit}
+          isLoading={sendMessageMutation.isPending}
+          isLoadingMessages={isLoadingMessages && !!initialChatId}
+        />
       </div>
-    </>
+    </div>
   );
-};
+}
 
-export { AiChatPage };
-
-const AiChatIndexPage = () => (
-  <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
-    <AiChatPage />
-  </Page>
-);
-
-export default AiChatIndexPage;
+function AiChatIndexPage() {
+  return <AiChatPage />;
+}
