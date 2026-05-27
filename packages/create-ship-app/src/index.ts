@@ -21,11 +21,16 @@ import { createPlugin, installPlugin } from 'plugins';
 
 import config from 'config';
 
-import { Deployment } from 'types';
+import { AVAILABLE_PLUGINS, Backend, Deployment } from 'types';
 import { DEPLOYMENT_SHORTCUTS } from 'app.constants';
 
 import packageJson from '../package.json';
 import { createApp, DownloadError } from './create-app';
+
+// Pre-parse `--local` so it takes effect before `config` reads `process.env`.
+if (process.argv.includes('--local')) {
+  process.env.USE_LOCAL_REPO = 'true';
+}
 
 let projectPath = getDefaultProjectName();
 let rawArgs: string[] = [];
@@ -58,6 +63,10 @@ Available deployment options:
   aws-eks            AWS EKS
 `,
   )
+  .option(
+    '--local',
+    'Copy the local Ship monorepo (the one containing this CLI) instead of downloading paralect/ship#main from GitHub. Use this while iterating on the template before publishing.',
+  )
   .allowUnknownOption();
 
 program.parse(process.argv);
@@ -85,6 +94,11 @@ const run = async (): Promise<void> => {
 
   console.clear();
   console.log(`Hey! Let’s build your ${gradient.pastel('Ship')} 🚀`);
+  console.log();
+  console.log(`${gray('Working directory:')} ${cyan(process.cwd())}`);
+  console.log(
+    `${gray('Template source: ')} ${cyan(config.USE_LOCAL_REPO ? 'local checkout (next to this CLI)' : 'paralect/ship#main (GitHub)')}`,
+  );
   console.log();
 
   projectPath = projectPath.trim();
@@ -179,6 +193,48 @@ const run = async (): Promise<void> => {
     }
   }
 
+  const { backend } = (await prompts({
+    onState: onPromptState,
+    type: 'select',
+    name: 'backend',
+    message: `Which ${blue('backend')} do you want?`,
+    initial: 0,
+    choices: [
+      { title: 'PostgreSQL + Drizzle (default)', value: 'postgres' as Backend },
+      { title: 'MongoDB + @paralect/node-mongo', value: 'mongo' as Backend },
+      { title: 'None — web-only (drop apps/api)', value: 'none' as Backend },
+    ],
+  })) as { backend?: Backend };
+
+  if (!backend) {
+    process.exit(1);
+  }
+
+  const pluginChoices = AVAILABLE_PLUGINS.filter(
+    (p) => backend !== 'none' || !p.requiresBackend,
+  );
+
+  let selectedPlugins: string[] = [];
+  if (pluginChoices.length > 0) {
+    const { plugins } = (await prompts({
+      onState: onPromptState,
+      type: 'multiselect',
+      name: 'plugins',
+      message: `Which ${blue('plugins')} do you want to install? (space to toggle, enter to confirm)`,
+      hint: '- Space to select. Return to submit',
+      choices: pluginChoices.map((p) => ({
+        title: p.name,
+        description: p.description,
+        value: p.name,
+        selected: ['auth-starter', 'admin'].includes(p.name) && backend !== 'none',
+      })),
+    })) as { plugins?: string[] };
+
+    selectedPlugins = plugins ?? [];
+  }
+
+  preferences.backend = backend;
+
   if (typeof options.deployment !== 'string' || !options.deployment.length) {
     const { deployment } = await prompts({
       onState: onPromptState,
@@ -203,6 +259,8 @@ const run = async (): Promise<void> => {
       projectName,
       appPath: resolvedProjectPath,
       deployment: options.deployment,
+      backend,
+      plugins: selectedPlugins,
     });
   } catch (reason) {
     if (!(reason instanceof DownloadError)) {
@@ -227,6 +285,8 @@ const run = async (): Promise<void> => {
       projectName,
       appPath: resolvedProjectPath,
       deployment: options.deployment,
+      backend,
+      plugins: selectedPlugins,
     });
   }
 
@@ -246,18 +306,17 @@ const notifyUpdate = async (): Promise<void> => {
         `${yellow(bold('A new version of `create-ship-app` is available!'))}\n` +
           `Update by running: ${cyan(updateMessage)}\n`,
       );
-
-      process.exit(1);
     }
-
-    process.exit();
   } catch {
-    console.log('Something went wrong. Code UPDMSG');
+    // Update check failed — non-fatal. Don't block on it.
   }
 };
 
 run()
-  .then(notifyUpdate)
+  .then(async () => {
+    await notifyUpdate();
+    process.exit(0);
+  })
   .catch(async (reason) => {
     console.log();
     console.log('Aborting installation.');
