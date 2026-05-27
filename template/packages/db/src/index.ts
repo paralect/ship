@@ -1,4 +1,5 @@
 export { DbService } from './service';
+export type { MutationEvent, MutationType } from './service';
 
 // eslint-disable-next-line ts/no-explicit-any
 export type User = Record<string, any>;

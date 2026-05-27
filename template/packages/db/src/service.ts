@@ -1,4 +1,4 @@
-import type { InferInsertModel, InferSelectModel, Table } from 'drizzle-orm';
+import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import {
   and,
   asc,
@@ -19,11 +19,24 @@ import {
   or,
   SQL,
 } from 'drizzle-orm';
-
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
-type Select<T extends Table> = InferSelectModel<T>;
-type Insert<T extends Table> = InferInsertModel<T>;
+// eslint-disable-next-line ts/no-explicit-any
+type AnyTable = any;
+
+// eslint-disable-next-line ts/no-explicit-any
+type TableLike = { $inferSelect: any; $inferInsert: any; [key: string]: any };
+
+type Select<T extends TableLike> = T['$inferSelect'];
+type Insert<T extends TableLike> = T['$inferInsert'];
+
+export type MutationType = 'insert' | 'update' | 'delete';
+
+export interface MutationEvent<T extends TableLike = TableLike> {
+  type: MutationType;
+  docs: Select<T>[];
+  prevDocs?: Select<T>[];
+}
 
 interface ColumnOps<V> {
   eq?: V;
@@ -40,7 +53,7 @@ interface ColumnOps<V> {
   isNotNull?: true;
 }
 
-type Filter<T extends Table> =
+type Filter<T extends TableLike> =
   | ({
       [K in keyof Select<T>]?: Select<T>[K] | ColumnOps<NonNullable<Select<T>[K]>>;
     } & {
@@ -49,21 +62,18 @@ type Filter<T extends Table> =
     })
   | SQL;
 
-type OrderBy<T extends Table> = Partial<Record<keyof Select<T>, 'asc' | 'desc'>>;
+type OrderBy<T extends TableLike> = Partial<Record<keyof Select<T>, 'asc' | 'desc'>>;
 
-// eslint-disable-next-line ts/no-explicit-any
-type AnyTable = any;
-
-// eslint-disable-next-line ts/no-explicit-any
-export class DbService<T extends Table = any> {
+export class DbService<T extends TableLike = AnyTable> {
   readonly table: T;
-  // eslint-disable-next-line ts/no-explicit-any
-  private db: any;
+  private db: PostgresJsDatabase<Record<string, unknown>>;
+  private onMutation?: (event: MutationEvent<T>) => void;
 
   // eslint-disable-next-line ts/no-explicit-any
-  constructor(table: any, db: any) {
+  constructor(table: any, db: any, onMutation?: (event: MutationEvent<T>) => void) {
     this.table = table;
     this.db = db;
+    this.onMutation = onMutation;
   }
 
   private get t(): AnyTable {
@@ -187,6 +197,7 @@ export class DbService<T extends Table = any> {
       .insert(this.t)
       .values(data as AnyTable)
       .returning();
+    this.onMutation?.({ type: 'insert', docs: [result as Select<T>] });
     return result as Select<T>;
   }
 
@@ -195,34 +206,55 @@ export class DbService<T extends Table = any> {
       .insert(this.t)
       .values(data as Insert<T>[])
       .returning();
+    this.onMutation?.({ type: 'insert', docs: results as Select<T>[] });
     return results as Select<T>[];
   }
 
   async updateOne(filter: Filter<T>, data: Partial<Insert<T>>): Promise<Select<T> | undefined> {
+    let prevDoc: Select<T> | undefined;
+    if (this.onMutation) {
+      prevDoc = await this.findFirst({ where: filter });
+    }
     const [result] = await this.db
       .update(this.t)
       .set(data as AnyTable)
       .where(this.resolveFilter(filter))
       .returning();
+    if (result) {
+      this.onMutation?.({ type: 'update', docs: [result as Select<T>], prevDocs: prevDoc ? [prevDoc] : undefined });
+    }
     return result as Select<T> | undefined;
   }
 
   async updateMany(filter: Filter<T>, data: Partial<Insert<T>>): Promise<Select<T>[]> {
+    let prevDocs: Select<T>[] | undefined;
+    if (this.onMutation) {
+      prevDocs = await this.find({ where: filter });
+    }
     const results = await this.db
       .update(this.t)
       .set(data as AnyTable)
       .where(this.resolveFilter(filter))
       .returning();
+    if (results.length) {
+      this.onMutation?.({ type: 'update', docs: results as Select<T>[], prevDocs });
+    }
     return results as Select<T>[];
   }
 
   async deleteOne(filter: Filter<T>): Promise<Select<T> | undefined> {
     const [result] = await this.db.delete(this.t).where(this.resolveFilter(filter)).returning();
+    if (result) {
+      this.onMutation?.({ type: 'delete', docs: [result as Select<T>] });
+    }
     return result as Select<T> | undefined;
   }
 
   async deleteMany(filter: Filter<T>): Promise<Select<T>[]> {
     const results = await this.db.delete(this.t).where(this.resolveFilter(filter)).returning();
+    if (results.length) {
+      this.onMutation?.({ type: 'delete', docs: results as Select<T>[] });
+    }
     return results as Select<T>[];
   }
 }
