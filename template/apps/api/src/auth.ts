@@ -1,9 +1,9 @@
-import { rawDb } from '@ship/db';
 import { emailService } from '@ship/emails';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import config from '@/config';
+import { rawDb } from '@/db';
 
 export const auth = betterAuth({
   secret: config.BETTER_AUTH_SECRET,

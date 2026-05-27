@@ -76,6 +76,12 @@ const errorInterceptor = async <T>(options: { next: () => Promise<T> }): Promise
       throw e;
     }
 
+    // Expected client errors get warn-logged instead of error-logged.
+    if (e instanceof ORPCError && ['BAD_REQUEST', 'NOT_FOUND', 'CONFLICT'].includes(e.code)) {
+      appLogger.warn(`${e.code}: ${e.message}`);
+      throw e;
+    }
+
     appLogger.error(e);
 
     if (e instanceof ClientError) {
@@ -96,14 +102,14 @@ const openApiHandler = new OpenAPIHandler(router, {
 });
 
 app.all('/*', async (c) => {
-  const rpc = await rpcHandler.handle(c.req.raw, { context: c.var.ctx });
-  if (rpc.matched) {
-    return rpc.response;
-  }
-
   const openApi = await openApiHandler.handle(c.req.raw, { context: c.var.ctx });
   if (openApi.matched) {
     return openApi.response;
+  }
+
+  const rpc = await rpcHandler.handle(c.req.raw, { context: c.var.ctx });
+  if (rpc.matched) {
+    return rpc.response;
   }
 
   return c.json({ error: 'Not found' }, 404);

@@ -14,9 +14,21 @@ type _BindInput<T extends AnyFn, K extends string> =
 
 export type FilesResource = AppClient['files'];
 
-export type UsersResource = AppClient['users'];
+export type InviteTokensResource = AppClient['invite-tokens'];
+
+export interface UsersResource {
+  (params: { userId: string }): {
+    delete: _BindInput<AppClient['users']['delete'], 'userId'>;
+    update: _BindInput<AppClient['users']['update'], 'userId'>;
+  };
+  getCurrent: AppClient['users']['getCurrent'];
+  patchCurrent: AppClient['users']['patchCurrent'];
+  devVerifyEmail: AppClient['users']['devVerifyEmail'];
+  list: AppClient['users']['list'];
+}
 
 export interface ResourceClient {
   files: FilesResource;
+  'invite-tokens': InviteTokensResource;
   users: UsersResource;
 }

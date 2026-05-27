@@ -9,6 +9,8 @@ import { implement } from '@orpc/server';
 import filesGetUrl from './resources/files/endpoints/get-url';
 import filesRemove from './resources/files/endpoints/remove';
 import filesUpload from './resources/files/endpoints/upload';
+import usersUserIdDelete from './resources/users/endpoints/[userId]/delete';
+import usersUserIdUpdate from './resources/users/endpoints/[userId]/update';
 import usersCurrentGet from './resources/users/endpoints/current.get';
 import usersCurrentPatch from './resources/users/endpoints/current.patch';
 import usersDevVerifyEmail from './resources/users/endpoints/dev-verify-email.post';
@@ -22,7 +24,12 @@ export const router = implement(contract).$context<ORPCContext>().router({
     remove: filesRemove,
     upload: filesUpload,
   },
+  'invite-tokens': {
+
+  },
   users: {
+    delete: usersUserIdDelete,
+    update: usersUserIdUpdate,
     getCurrent: usersCurrentGet,
     patchCurrent: usersCurrentPatch,
     devVerifyEmail: usersDevVerifyEmail,

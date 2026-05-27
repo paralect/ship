@@ -1,21 +1,28 @@
+import type { MutationEvent, MutationType } from '@ship/db';
 import { EventEmitter } from 'node:events';
 
-import type { User } from '@/db';
+type TableName = string;
+type EventKey = `${TableName}.${MutationType}`;
 
-interface EventMap {
-  'users.created': { doc: User };
-  'users.updated': { doc: User; prevDoc?: User };
-}
+// eslint-disable-next-line ts/no-explicit-any
+type EventData = MutationEvent<any>;
 
 class TypedEventBus {
   private emitter = new EventEmitter();
 
-  emit<K extends keyof EventMap>(event: K, data: EventMap[K]) {
+  emit(event: EventKey, data: EventData) {
     this.emitter.emit(event, data);
   }
 
-  on<K extends keyof EventMap>(event: K, handler: (data: EventMap[K]) => void) {
+  on(event: EventKey, handler: (data: EventData) => void) {
     this.emitter.on(event, handler);
+  }
+
+  /** Create an onMutation callback for a given table name */
+  hook(tableName: TableName) {
+    return (event: EventData) => {
+      this.emit(`${tableName}.${event.type}`, event);
+    };
   }
 }
 

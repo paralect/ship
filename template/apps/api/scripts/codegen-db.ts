@@ -31,14 +31,27 @@ function getSchemaResources(): TableInfo[] {
 
     for (const file of schemaFiles) {
       const content = readFileSync(join(dir, file), 'utf-8');
-      const matches = content.matchAll(/export const (\w+)\s*=\s*pgTable\(/g);
 
-      for (const match of matches) {
+      const tableNames = new Set<string>();
+      const pgTableMatches = content.matchAll(/export const (\w+)\s*=\s*pgTable\(/g);
+      for (const match of pgTableMatches) {
+        tableNames.add(match[1]);
         tables.push({
           resource: entry.name,
           name: match[1],
           schemaFile: basename(file, '.ts'),
         });
+      }
+
+      const aliasMatches = content.matchAll(/export const (\w+)\s*=\s*(\w+);/g);
+      for (const match of aliasMatches) {
+        if (tableNames.has(match[2]) && !tableNames.has(match[1])) {
+          tables.push({
+            resource: entry.name,
+            name: match[1],
+            schemaFile: basename(file, '.ts'),
+          });
+        }
       }
     }
   }
@@ -53,30 +66,85 @@ function toTypeName(tableName: string): string {
 }
 
 function buildDb(tables: TableInfo[]): string {
-  const schemaImports = tables.map((t) => `import { ${t.name} } from '@/resources/${t.resource}/${t.schemaFile}';`);
+  const importGroups = new Map<string, Set<string>>();
+  for (const t of tables) {
+    const key = `@/resources/${t.resource}/${t.schemaFile}`;
+    if (!importGroups.has(key)) {importGroups.set(key, new Set());}
+    importGroups.get(key)!.add(t.name);
+  }
+  const schemaImports = [...importGroups.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([path, names]) => `import { ${[...names].sort().join(', ')} } from '${path}';`);
 
-  const schemaObj = tables.map((t) => t.name).join(', ');
-  const dbFields = tables.map((t) => `  ${t.name}: new DbService(${t.name}, rawDb),`);
+  const schemaObj = tables.map((t) => `    ${t.name},`).join('\n');
+
+  // Detect which tables have handlers/ directories → auto-hook to eventBus
+  const hookedTables = new Set<string>();
+  for (const t of tables) {
+    const handlersDir = join(RESOURCES_DIR, t.resource, 'handlers');
+    if (existsSync(handlersDir) && statSync(handlersDir).isDirectory()) {
+      hookedTables.add(t.name);
+    }
+  }
+
+  const hasEventBus = existsSync(join(SRC_DIR, 'event-bus.ts')) && hookedTables.size > 0;
+
+  const createDbFields = tables.map((t) => {
+    const hook = hasEventBus && hookedTables.has(t.name) ? `, eventBus.hook('${t.name}')` : '';
+    return `  ${t.name}: new DbService(${t.name}, db${hook}),`;
+  });
+
+  const dbTypeFields = tables.map((t) => `  ${t.name}: DbService<typeof ${t.name}>;`);
+
   const typeExports = tables.map((t) => `export type ${toTypeName(t.name)} = typeof ${t.name}.$inferSelect;`);
+
+  const hasRelations = existsSync(join(SRC_DIR, 'relations.ts'));
 
   return [
     HEADER,
+    "import _db, { DbService, registerDb } from '@ship/db';",
     "import { drizzle } from 'drizzle-orm/postgres-js';",
     "import postgres from 'postgres';",
     '',
     "import config from '@/config';",
-    "import { DbService, registerDb } from '@ship/db';",
+    ...(hasEventBus ? ["import { eventBus } from '@/event-bus';"] : []),
+    ...(hasRelations ? ["import { relations } from '@/relations';"] : []),
     ...schemaImports,
     '',
     'const client = postgres(config.DATABASE_URL);',
     '',
-    `const rawDb = drizzle({ client, schema: { ${schemaObj} } });`,
+    'export const rawDb = drizzle({',
+    '  client,',
+    "  casing: 'snake_case',",
+    '  schema: {',
+    schemaObj,
+    '  },',
+    ...(hasRelations ? ['  relations,'] : []),
+    '});',
     '',
-    `registerDb({`,
-    ...dbFields,
-    '}, rawDb);',
+    'const createDB = (db: typeof rawDb) => ({',
+    ...createDbFields,
+    '  transaction: getTransactionalDB,',
+    '});',
     '',
-    "export { default } from '@ship/db';",
+    'type TransactionCallback<T> = (db: DBType) => Promise<T>;',
+    '',
+    'function getTransactionalDB<T>(callback: TransactionCallback<T>): Promise<T> {',
+    '  return rawDb.transaction(async (tx) => {',
+    '    // eslint-disable-next-line ts/no-explicit-any',
+    '    return await callback(createDB(tx as any));',
+    '  });',
+    '}',
+    '',
+    'registerDb(createDB(rawDb), rawDb);',
+    '',
+    'interface DBType {',
+    ...dbTypeFields,
+    '  transaction: <T>(callback: TransactionCallback<T>) => Promise<T>;',
+    '}',
+    '',
+    '// eslint-disable-next-line ts/no-explicit-any',
+    'export default _db as any as DBType;',
     '',
     ...typeExports,
     '',

@@ -8,7 +8,12 @@ export const contract = oc.router({
     remove: oc.route({ method: 'POST', path: '/files/remove' }),
     upload: oc.route({ method: 'POST', path: '/files/upload' }),
   }),
+  'invite-tokens': oc.router({
+
+  }),
   users: oc.router({
+    delete: oc.route({ method: 'DELETE', path: '/users/{userId}' }),
+    update: oc.route({ method: 'PUT', path: '/users/{userId}' }),
     getCurrent: oc.route({ method: 'GET', path: '/users/current' }),
     patchCurrent: oc.route({ method: 'PATCH', path: '/users/current' }),
     devVerifyEmail: oc.route({ method: 'POST', path: '/users/dev-verify-email' }),
