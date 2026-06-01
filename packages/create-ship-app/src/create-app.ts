@@ -523,6 +523,9 @@ async function stripApiFromTurboAndDocker(root: string): Promise<void> {
     if (pkg.scripts) {
       delete pkg.scripts['infra:postgres'];
       delete pkg.scripts['infra:mongo'];
+      delete pkg.scripts.dashboard;
+      // Drop api#* tasks from turbo-start (no apps/api in web-only mode).
+      pkg.scripts['turbo-start'] = 'turbo run dev';
     }
     await fs.writeFile(pkgJsonPath, `${JSON.stringify(pkg, null, 2)}\n`);
   }

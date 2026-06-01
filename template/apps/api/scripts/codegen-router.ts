@@ -372,6 +372,34 @@ function renderRouterNode(node: RouterNode, indent: number): string {
   return fields.join('\n');
 }
 
+// The served `router` is built via `implement(contract)`, which hides the
+// procedures' own input/output schemas from oRPC's OpenAPIGenerator (it reads
+// the thin contract instead). For docs we emit a parallel PLAIN router whose
+// procedures carry route + input + output together, so the generator produces
+// a complete spec. This object is for spec generation only — never served.
+function renderOpenApiRouterNode(node: RouterNode, indent: number): string {
+  const innerPad = ' '.repeat(indent + 2);
+  const fields: string[] = [];
+
+  for (const ep of node.endpoints) {
+    const props = [`method: '${ep.method}'`, `path: '${ep.httpPath}'`];
+    if (ep.extraRouteProps.successStatus) {
+      props.push(`successStatus: ${ep.extraRouteProps.successStatus}`);
+    }
+    if (ep.extraRouteProps.outputStructure) {
+      props.push(`outputStructure: '${ep.extraRouteProps.outputStructure}'`);
+    }
+    fields.push(`${innerPad}${toCamelCase(ep.routerKey)}: ${ep.importId}.route({ ${props.join(', ')} }),`);
+  }
+
+  for (const child of node.children.sort((a, b) => a.key.localeCompare(b.key))) {
+    const childContent = renderOpenApiRouterNode(child, indent + 2);
+    fields.push(`${innerPad}${quoteKey(child.key)}: {\n${childContent}\n${innerPad}},`);
+  }
+
+  return fields.join('\n');
+}
+
 function buildRouter(resources: ResourceInfo[]): string {
   const tree = buildTree(resources);
   const handlerImports: string[] = [];
@@ -386,10 +414,18 @@ function buildRouter(resources: ResourceInfo[]): string {
     }
   }
 
+  const sortedTree = tree.sort((a, b) => a.key.localeCompare(b.key));
+
   const routerEntries: string[] = [];
-  for (const node of tree.sort((a, b) => a.key.localeCompare(b.key))) {
+  for (const node of sortedTree) {
     const content = renderRouterNode(node, 2);
     routerEntries.push(`  ${quoteKey(node.key)}: {\n${content}\n  },`);
+  }
+
+  const openApiEntries: string[] = [];
+  for (const node of sortedTree) {
+    const content = renderOpenApiRouterNode(node, 2);
+    openApiEntries.push(`  ${quoteKey(node.key)}: {\n${content}\n  },`);
   }
 
   return [
@@ -406,6 +442,12 @@ function buildRouter(resources: ResourceInfo[]): string {
     'export const router = implement(contract).$context<ORPCContext>().router({',
     ...routerEntries,
     '});',
+    '',
+    '// Spec-only router (see codegen-router.ts) — procedures carry route + schemas',
+    '// for OpenAPIGenerator. Not served.',
+    'export const openApiRouter = {',
+    ...openApiEntries,
+    '};',
     '',
     'export type Router = typeof router;',
     'export type AppClient = RouterClient<Router>;',

@@ -21,6 +21,10 @@
       "cache": false,
       "persistent": true
     },
+    "api#studio": {
+      "cache": false,
+      "persistent": true
+    },
     "precommit": {
       "outputs": []
     },

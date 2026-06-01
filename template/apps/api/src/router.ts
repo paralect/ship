@@ -18,24 +18,43 @@ import usersList from './resources/users/endpoints/list';
 import { contract } from './contract';
 import type { ORPCContext } from './types';
 
-export const router = implement(contract).$context<ORPCContext>().router({
-  files: {
-    getUrl: filesGetUrl,
-    remove: filesRemove,
-    upload: filesUpload,
-  },
-  'invite-tokens': {
+export const router = implement(contract)
+  .$context<ORPCContext>()
+  .router({
+    files: {
+      getUrl: filesGetUrl,
+      remove: filesRemove,
+      upload: filesUpload,
+    },
+    'invite-tokens': {},
+    users: {
+      delete: usersUserIdDelete,
+      update: usersUserIdUpdate,
+      getCurrent: usersCurrentGet,
+      patchCurrent: usersCurrentPatch,
+      devVerifyEmail: usersDevVerifyEmail,
+      list: usersList,
+    },
+  });
 
+// Spec-only router (see codegen-router.ts) — procedures carry route + schemas
+// for OpenAPIGenerator. Not served.
+export const openApiRouter = {
+  files: {
+    getUrl: filesGetUrl.route({ method: 'POST', path: '/files/get-url' }),
+    remove: filesRemove.route({ method: 'POST', path: '/files/remove' }),
+    upload: filesUpload.route({ method: 'POST', path: '/files/upload' }),
   },
+  'invite-tokens': {},
   users: {
-    delete: usersUserIdDelete,
-    update: usersUserIdUpdate,
-    getCurrent: usersCurrentGet,
-    patchCurrent: usersCurrentPatch,
-    devVerifyEmail: usersDevVerifyEmail,
-    list: usersList,
+    delete: usersUserIdDelete.route({ method: 'DELETE', path: '/users/{userId}' }),
+    update: usersUserIdUpdate.route({ method: 'PUT', path: '/users/{userId}' }),
+    getCurrent: usersCurrentGet.route({ method: 'GET', path: '/users/current' }),
+    patchCurrent: usersCurrentPatch.route({ method: 'PATCH', path: '/users/current' }),
+    devVerifyEmail: usersDevVerifyEmail.route({ method: 'POST', path: '/users/dev-verify-email' }),
+    list: usersList.route({ method: 'GET', path: '/users' }),
   },
-});
+};
 
 export type Router = typeof router;
 export type AppClient = RouterClient<Router>;

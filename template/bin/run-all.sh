@@ -4,7 +4,8 @@ set -e
 export COREPACK_ENABLE_STRICT=0
 
 # Kill any stale dev processes on this project's app ports
-lsof -ti :3001 :3002 :4000 :4001 2>/dev/null | xargs kill -9 2>/dev/null || true
+# (3001=api, 3002=web, 4000=emails preview, 4001=emails fallback, 4983=drizzle studio)
+lsof -ti :3001 :3002 :4000 :4001 :4983 2>/dev/null | xargs kill -9 2>/dev/null || true
 sleep 1
 
 # Detect which DB this scaffold uses, derived from the compose file present.
@@ -59,5 +60,15 @@ if [ -d apps/api ]; then
   pnpm --filter api migrate
 fi
 
-# Run all dev services (API + web + scheduler)
+echo ""
+echo "──────────────────────────────────────────────────"
+echo "  API:        http://localhost:3001"
+echo "  API docs:   http://localhost:3001/docs"
+echo "  Web:        http://localhost:3002"
+echo "  Emails:     http://localhost:4000"
+echo "  DB studio:  https://local.drizzle.studio (→ :4983)"
+echo "──────────────────────────────────────────────────"
+echo ""
+
+# Run all dev services (API + web + scheduler + drizzle studio dashboard)
 pnpm run turbo-start

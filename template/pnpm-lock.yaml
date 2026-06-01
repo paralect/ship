@@ -90,12 +90,18 @@ importers:
       '@orpc/server':
         specifier: ^1.5.0
         version: 1.13.9(@opentelemetry/api@1.9.0)(crossws@0.3.5)
+      '@orpc/zod':
+        specifier: 1.13.9
+        version: 1.13.9(@opentelemetry/api@1.9.0)(@orpc/contract@1.13.9(@opentelemetry/api@1.9.0))(@orpc/server@1.13.9(@opentelemetry/api@1.9.0)(crossws@0.3.5))(crossws@0.3.5)(zod@4.0.5)
       '@oslojs/crypto':
         specifier: 1.0.1
         version: 1.0.1
       '@oslojs/encoding':
         specifier: 1.1.0
         version: 1.1.0
+      '@scalar/hono-api-reference':
+        specifier: 0.10.19
+        version: 0.10.19(hono@4.12.8)
       '@ship/cloud-storage':
         specifier: workspace:*
         version: link:../../packages/cloud-storage
@@ -1896,6 +1902,9 @@ packages:
   '@orpc/interop@1.13.9':
     resolution: {integrity: sha512-9ulQSO/aUq1yP5CIqBxhqnPKQE7cDMPo+PFUTfYgIwjuV0mFgyMjopSw4YsNxLnbXBaDbn3WNx7rPQKhCTAV1Q==}
 
+  '@orpc/json-schema@1.13.9':
+    resolution: {integrity: sha512-aoJErSkL5Xq8KgQBZc7Q2YCsBZ0SBbtse+yIgieA/q7TlYYUtpU528o4Coh1HDr4REuiZ3UWFoWL5Xq3FP9wUQ==}
+
   '@orpc/openapi-client@1.13.9':
     resolution: {integrity: sha512-zvNrc7wgF/INKeewH2ih48U/q9tG7rLZCnmMrb5/1jdZgYYOBAEuILlDAejeQwGdRce6W18GTBjLKIEdP3WwqA==}
 
@@ -1943,6 +1952,13 @@ packages:
 
   '@orpc/standard-server@1.13.9':
     resolution: {integrity: sha512-dwsky7CScgOaDBa7CBF85aPGk/3UoB4fJjitVghb/sZD0Nt+CGIeiPHMsjEgxw5rJwgawMWLI5KxFH9euAJlWw==}
+
+  '@orpc/zod@1.13.9':
+    resolution: {integrity: sha512-U0v5+pUGNOYT6JJ9CFdLIWG/5xeOre8pwg9Xr+ML2EfeGr+D2NvuOzQJoNW/tJAEznN1WU9y9FJ8ZJjc2kJuKQ==}
+    peerDependencies:
+      '@orpc/contract': 1.13.9
+      '@orpc/server': 1.13.9
+      zod: '>=3.25.0'
 
   '@oslojs/asn1@1.0.0':
     resolution: {integrity: sha512-zw/wn0sj0j0QKbIXfIlnEcTviaCzYOY3V5rAyjR6YtOByFtJiT574+8p9Wlach0lZH9fddD4yb9laEAIl4vXQA==}
@@ -3116,6 +3132,32 @@ packages:
 
   '@rrweb/types@2.0.0-alpha.18':
     resolution: {integrity: sha512-iMH3amHthJZ9x3gGmBPmdfim7wLGygC2GciIkw2A6SO8giSn8PHYtRT8OKNH4V+k3SZ6RSnYHcTQxBA7pSWZ3Q==}
+
+  '@scalar/client-side-rendering@0.1.12':
+    resolution: {integrity: sha512-prwHK4ozTU268BHZ/5OstoKB23JSidDuvddAOp0bVz9c29ZxsyzzxPtPcVgF7X16LiZnS1OzY030FoDCM+iC9Q==}
+    engines: {node: '>=22'}
+
+  '@scalar/helpers@0.8.0':
+    resolution: {integrity: sha512-gmOC6VravNB9VDl6wnt/GOj4K/hn48tj5bpW4AM4MhH8Ubil6uu7g1DSoKHwltu8Ks79KEtR6JmOrROi9R7jaQ==}
+    engines: {node: '>=22'}
+
+  '@scalar/hono-api-reference@0.10.19':
+    resolution: {integrity: sha512-6EfwN/lfPvePzAxe9UE8fr/ZuAAqS6ttUwQu9JTgk2Xl/clicaVVSOc0gyGt+8GLXdysoNinjZ74we8xqNWyCA==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      hono: ^4.12.5
+
+  '@scalar/schemas@0.3.2':
+    resolution: {integrity: sha512-iadXBgJ02XUU5C5s6/xh/PmGLzUPd7X8upXIvPWBXDcQ4FHACNgkG8PPZ/beYM8UPDDkTUPM3ygEs0G6jKwGjQ==}
+    engines: {node: '>=22'}
+
+  '@scalar/types@0.12.2':
+    resolution: {integrity: sha512-EzLkubCb7xioiTm9eYnmn/032akaq4kkrrdclgV2uezwtniR8ErQICjhMl2AjBWL6nstHiFZ9RnPZm2Z2/KM0Q==}
+    engines: {node: '>=22'}
+
+  '@scalar/validation@0.6.0':
+    resolution: {integrity: sha512-tpmmG+/xRE2Kn9RpflU3AIyZv08v10+E1ZrJCx7z6+/91zHVxy0M73kC1LT4/8PbYNt85ywyC8+n+D99JdMcGA==}
+    engines: {node: '>=20'}
 
   '@selderee/plugin-htmlparser2@0.11.0':
     resolution: {integrity: sha512-P33hHGdldxGabLFjPPpaTxVolMrzrcegejx+0GxjrIb9Zv48D8yAIA/QTDR2dFl7Uz7urX8aX6+5bCZslr+gWQ==}
@@ -6163,6 +6205,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  nanoid@5.1.11:
+    resolution: {integrity: sha512-v+KEsUv2ps74PaSKv0gHTxTCgMXOIfBEbaqa6w6ISIGC7ZsvHN4N9oJ8d4cmf0n5oTzQz2SLmThbQWhjd/8eKg==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+
   nanostores@1.3.0:
     resolution: {integrity: sha512-XPUa/jz+P1oJvN9VBxw4L9MtdFfaH3DAryqPssqhb2kXjmb9npz0dly6rCsgFWOPr4Yg9mTfM3MDZgZZ+7A3lA==}
     engines: {node: ^20.0.0 || >=22.0.0}
@@ -7298,6 +7345,9 @@ packages:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
     hasBin: true
+
+  wildcard-match@5.1.4:
+    resolution: {integrity: sha512-wldeCaczs8XXq7hj+5d/F38JE2r7EXgb6WQDM84RVwxy81T/sxB5e9+uZLK9Q9oNz1mlvjut+QtvgaOQFPVq/g==}
 
   winston-transport@4.9.0:
     resolution: {integrity: sha512-8drMJ4rkgaPo1Me4zD/3WLfI/zPdA9o2IipKODunnGDcuqbHwjsbB79ylv04LCGGzU0xQ6vTznOMpQGaLhhm6A==}
@@ -9082,6 +9132,20 @@ snapshots:
 
   '@orpc/interop@1.13.9': {}
 
+  '@orpc/json-schema@1.13.9(@opentelemetry/api@1.9.0)(crossws@0.3.5)':
+    dependencies:
+      '@orpc/contract': 1.13.9(@opentelemetry/api@1.9.0)
+      '@orpc/interop': 1.13.9
+      '@orpc/openapi': 1.13.9(@opentelemetry/api@1.9.0)(crossws@0.3.5)
+      '@orpc/server': 1.13.9(@opentelemetry/api@1.9.0)(crossws@0.3.5)
+      '@orpc/shared': 1.13.9(@opentelemetry/api@1.9.0)
+      json-schema-typed: 8.0.2
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+      - crossws
+      - fastify
+      - ws
+
   '@orpc/openapi-client@1.13.9(@opentelemetry/api@1.9.0)':
     dependencies:
       '@orpc/client': 1.13.9(@opentelemetry/api@1.9.0)
@@ -9178,6 +9242,22 @@ snapshots:
       '@orpc/shared': 1.13.9(@opentelemetry/api@1.9.0)
     transitivePeerDependencies:
       - '@opentelemetry/api'
+
+  '@orpc/zod@1.13.9(@opentelemetry/api@1.9.0)(@orpc/contract@1.13.9(@opentelemetry/api@1.9.0))(@orpc/server@1.13.9(@opentelemetry/api@1.9.0)(crossws@0.3.5))(crossws@0.3.5)(zod@4.0.5)':
+    dependencies:
+      '@orpc/contract': 1.13.9(@opentelemetry/api@1.9.0)
+      '@orpc/json-schema': 1.13.9(@opentelemetry/api@1.9.0)(crossws@0.3.5)
+      '@orpc/openapi': 1.13.9(@opentelemetry/api@1.9.0)(crossws@0.3.5)
+      '@orpc/server': 1.13.9(@opentelemetry/api@1.9.0)(crossws@0.3.5)
+      '@orpc/shared': 1.13.9(@opentelemetry/api@1.9.0)
+      escape-string-regexp: 5.0.0
+      wildcard-match: 5.1.4
+      zod: 4.0.5
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+      - crossws
+      - fastify
+      - ws
 
   '@oslojs/asn1@1.0.0':
     dependencies:
@@ -10258,6 +10338,33 @@ snapshots:
     optional: true
 
   '@rrweb/types@2.0.0-alpha.18': {}
+
+  '@scalar/client-side-rendering@0.1.12':
+    dependencies:
+      '@scalar/schemas': 0.3.2
+      '@scalar/types': 0.12.2
+      '@scalar/validation': 0.6.0
+
+  '@scalar/helpers@0.8.0': {}
+
+  '@scalar/hono-api-reference@0.10.19(hono@4.12.8)':
+    dependencies:
+      '@scalar/client-side-rendering': 0.1.12
+      hono: 4.12.8
+
+  '@scalar/schemas@0.3.2':
+    dependencies:
+      '@scalar/helpers': 0.8.0
+      '@scalar/validation': 0.6.0
+
+  '@scalar/types@0.12.2':
+    dependencies:
+      '@scalar/helpers': 0.8.0
+      nanoid: 5.1.11
+      type-fest: 5.5.0
+      zod: 4.4.3
+
+  '@scalar/validation@0.6.0': {}
 
   '@selderee/plugin-htmlparser2@0.11.0':
     dependencies:
@@ -13816,6 +13923,8 @@ snapshots:
 
   nanoid@3.3.11: {}
 
+  nanoid@5.1.11: {}
+
   nanostores@1.3.0: {}
 
   native-duplexpair@1.0.0: {}
@@ -15147,6 +15256,8 @@ snapshots:
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
+
+  wildcard-match@5.1.4: {}
 
   winston-transport@4.9.0:
     dependencies:

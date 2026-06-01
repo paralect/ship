@@ -1,7 +1,10 @@
 import { serve } from '@hono/node-server';
+import { OpenAPIGenerator } from '@orpc/openapi';
 import { OpenAPIHandler } from '@orpc/openapi/fetch';
 import { ORPCError } from '@orpc/server';
 import { RPCHandler } from '@orpc/server/fetch';
+import { ZodToJsonSchemaConverter } from '@orpc/zod/zod4';
+import { Scalar } from '@scalar/hono-api-reference';
 import { Hono } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import { cors } from 'hono/cors';
@@ -12,7 +15,7 @@ import config from '@/config';
 import ioEmitter from '@/io-emitter';
 import appLogger from '@/logger';
 import redisClient, { redisErrorHandler } from '@/redis-client';
-import { router } from '@/router';
+import { openApiRouter, router } from '@/router';
 import serverConfig from '@/server-config';
 import socketServer from '@/socket-server';
 import type { CookieOptions, HonoEnv, ORPCContext } from '@/types';
@@ -60,6 +63,26 @@ app.use(async (c, next) => {
 });
 
 app.get('/health', (c) => c.json({ status: 'ok' }, 200));
+
+// In-process OpenAPI docs (non-production only). `/spec.json` serves the spec
+// generated live from the oRPC router; `/docs` renders the Scalar UI against
+// it with an interactive "try it out". Registered before the oRPC catch-all
+// so Hono matches them first.
+if (config.APP_ENV !== 'production') {
+  const openApiGenerator = new OpenAPIGenerator({
+    schemaConverters: [new ZodToJsonSchemaConverter()],
+  });
+
+  app.get('/spec.json', async (c) => {
+    const spec = await openApiGenerator.generate(openApiRouter, {
+      info: { title: 'Ship API', version: '1.0.0' },
+      servers: [{ url: config.API_URL }],
+    });
+    return c.json(spec);
+  });
+
+  app.get('/docs', Scalar({ url: '/spec.json' }));
+}
 
 app.all('/api/auth/*', async (c) => {
   if (serverConfig.authHandler) {
