@@ -35,8 +35,9 @@ For the plugin system (when working at the repo root, not inside `template/`):
 pnpm install                        # after pulling or changing deps
 pnpm infra:postgres                 # start Postgres + Redis via Docker (default DB)
 pnpm infra:mongo                    # alt: Mongo + Redis (with plugins/mongo)
-pnpm start                          # everything (infra → migrate → schedule → api + web)
+pnpm start                          # everything (infra → migrate → schedule → api + web + db studio)
 pnpm turbo-start                    # dev via Turborepo (assumes infra running)
+pnpm dashboard                      # Drizzle Studio — DB browser + query runner (https://local.drizzle.studio)
 
 pnpm --filter api tsc --noEmit      # typecheck API
 pnpm --filter web tsc --noEmit      # typecheck web
@@ -46,6 +47,11 @@ pnpm --filter api generate          # new drizzle migration
 pnpm --filter api migrate           # apply pending migrations
 pnpm --filter api build:types       # rebuild API .d.ts (required after endpoint I/O changes)
 ```
+
+**Dev dashboards** (auto-opened by `pnpm start` / `pnpm turbo-start`):
+
+- **API docs:** <http://localhost:3001/docs> — interactive Scalar reference; raw OpenAPI 3.1.1 spec at `/spec.json`. Non-production only.
+- **DB studio:** <https://local.drizzle.studio> — Drizzle Studio (proxy on `:4983`); requires the postgres plugin, no-op on mongo/web-only.
 
 ---
 

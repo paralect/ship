@@ -28,6 +28,7 @@ You can start the application in two ways:
    ```sh
    pnpm start
    ```
+   This also starts the [developer dashboards](#developer-dashboards) (DB studio + API docs).
 
 ## Features
 
@@ -42,6 +43,19 @@ You can start the application in two ways:
 - **Automatic Restart**: Utilizes [tsx](https://tsx.is/) for automatic application restart on code changes.
 - **Code Quality**: Enforces code linting with [ESLint](https://eslint.org/) and formatting with [Prettier](https://prettier.io/).
 - **TypeScript Support**: Full support for TypeScript for a better development experience.
+
+### Developer Dashboards
+
+Two interactive dashboards are available during development (both auto-started by `pnpm start`):
+
+- **Database Studio** — visual table/relations browser + query runner (Drizzle Studio).
+  - URL: <https://local.drizzle.studio> (proxy on `:4983`)
+  - Standalone: `pnpm dashboard` (alias for `pnpm --filter api studio`)
+  - Requires the PostgreSQL plugin; no-op on Mongo / web-only.
+- **API Documentation** — interactive OpenAPI reference with "try it out" (Scalar).
+  - URL: <http://localhost:3001/docs>
+  - Raw spec: <http://localhost:3001/spec.json> (OpenAPI 3.1.1, generated live from the oRPC router)
+  - Served in-process by the API; non-production only.
 
 ### API and Authentication
 

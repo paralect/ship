@@ -33,7 +33,7 @@ pnpm install
 pnpm start            # spins up infra (postgres + redis), runs codegen + migrations, then api + web
 ```
 
-Web: <http://localhost:3002>  ·  API: <http://localhost:3001>  ·  Email preview: <http://localhost:4000>
+Web: <http://localhost:3002>  ·  API: <http://localhost:3001>  ·  API docs: <http://localhost:3001/docs>  ·  Email preview: <http://localhost:4000>  ·  DB studio: <https://local.drizzle.studio>
 
 ## Common commands
 
@@ -50,6 +50,7 @@ Web: <http://localhost:3002>  ·  API: <http://localhost:3001>  ·  Email previe
 | `pnpm --filter api seed:dev` | Seed dev data (if present). |
 | `pnpm --filter api tsc --noEmit` / `pnpm --filter web tsc --noEmit` | Typecheck. |
 | `pnpm admin:set <email>` | Promote a user to admin. |
+| `pnpm dashboard` | Drizzle Studio — DB schema/relations viewer + query runner on `:4983` (also auto-launched by `pnpm start`). |
 
 ## Plugins
 

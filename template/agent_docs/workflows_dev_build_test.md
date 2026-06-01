@@ -46,6 +46,24 @@ pnpm --filter web dev       # Web on :3002
 
 ---
 
+## Dashboards
+
+When you run `pnpm start` (or `pnpm turbo-start`), these dashboards come up alongside the app:
+
+### API docs (OpenAPI / Scalar)
+
+- **URL:** <http://localhost:3001/docs>
+- **Raw spec:** <http://localhost:3001/spec.json> (OpenAPI 3.1.1, generated live from the oRPC router)
+- **Details:** Interactive reference with "try it out" — served in-process by the Hono API on `:3001`. Disabled in production (`APP_ENV=production`).
+
+### Database studio (Drizzle)
+
+- **Standalone:** `pnpm dashboard` (alias for `pnpm --filter api studio`)
+- **URL:** <https://local.drizzle.studio> (proxy on `:4983`)
+- **Details:** Visual table/relation browser + query runner. Requires the Postgres plugin (`drizzle.config.ts`); no-op on Mongo / web-only.
+
+---
+
 ## Build
 
 ```bash
