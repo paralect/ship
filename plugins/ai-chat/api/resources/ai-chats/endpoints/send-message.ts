@@ -1,5 +1,7 @@
 import db from '@/db';
-import { isAuthorized, ORPCError } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
+import shouldOwnChat from '@/resources/ai-chats/middlewares/should-own-chat';
 import { z } from 'zod';
 import { generateResponse } from '@ship/ai';
 
@@ -21,19 +23,13 @@ const outputSchema = z.object({
   }),
 });
 
-export default isAuthorized
+export default endpoint
+  .use(isAuthorized)
   .route({ method: 'POST', path: '/ai-chats/{chatId}/messages' })
   .input(inputSchema)
+  .use(shouldOwnChat)
   .output(outputSchema)
   .handler(async ({ context, input }) => {
-    const chat = await db.aiChats.findFirst({
-      where: { id: input.chatId, userId: context.user.id, deletedAt: null },
-    });
-
-    if (!chat) {
-      throw new ORPCError('NOT_FOUND', { message: 'Chat not found' });
-    }
-
     const userMessage = await db.aiMessages.insertOne({
       chatId: input.chatId,
       role: 'user',
@@ -58,7 +54,7 @@ export default isAuthorized
       content: responseText,
     });
 
-    if (chat.title === 'New Chat') {
+    if (context.chat.title === 'New Chat') {
       const title = input.content.slice(0, 50) + (input.content.length > 50 ? '...' : '');
       await db.aiChats.updateOne({ id: input.chatId }, { title });
     }

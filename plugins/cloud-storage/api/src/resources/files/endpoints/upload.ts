@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { isAuthorized } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
 import { cloudStorageService } from '@ship/cloud-storage';
 
 const outputSchema = z.object({
@@ -8,7 +9,8 @@ const outputSchema = z.object({
   url: z.string(),
 });
 
-export default isAuthorized
+export default endpoint
+  .use(isAuthorized)
   .input(z.object({ file: z.instanceof(File) }))
   .output(outputSchema)
   .handler(async ({ input }) => {

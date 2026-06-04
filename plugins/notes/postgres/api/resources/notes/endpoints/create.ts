@@ -1,5 +1,6 @@
 import db from '@/db';
-import { isAuthorized } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
 import { z } from 'zod';
 
 const inputSchema = z.object({
@@ -12,7 +13,8 @@ const outputSchema = z.object({
   createdAt: z.string().nullable(),
 });
 
-export default isAuthorized
+export default endpoint
+  .use(isAuthorized)
   .route({ method: 'POST', path: '/notes' })
   .input(inputSchema)
   .output(outputSchema)
