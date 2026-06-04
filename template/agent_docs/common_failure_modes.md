@@ -47,7 +47,7 @@
 ## 9. `shouldExist` — entity not found
 
 **Cause**: Wrong filter or entity doesn't exist in DB.
-**Fix**: Check the finder function. `shouldExist((id) => db.users.findFirst({ where: { id } }), 'Name')`.
+**Fix**: Check the `load` function. `shouldExist(ctxKey, ({ input, context }) => db.users.findFirst({ where: { id: input.id } }), message?)` loads into `context[ctxKey]`. For the common owned-by-id case use `shouldOwn(ctxKey, db.users, { owner: 'userId' })`, which resolves `input.<ctxKey>Id ?? input.id`, matches `owner` against `context.user.id`, and is soft-delete aware.
 
 ## 10. Router codegen produces wrong nesting
 
@@ -62,7 +62,7 @@
 ## 14. `eventBus.on('users.update', ...)` handler never fires
 
 **Cause**: codegen-db only wires `DbService` to the event bus when the resource has a `handlers/` directory at codegen time. Without it, the `onMutation` callback is omitted.
-**Fix**: Ensure `apps/api/src/resources/<name>/handlers/` exists with at least one file. Re-run `pnpm --filter api codegen`. The generated `db.ts` should show `new DbService(<table>, db, eventBus.hook('<table>'))`.
+**Fix**: Ensure `apps/api/src/resources/<name>/handlers/` exists with at least one file. Re-run `pnpm --filter api codegen`. The generated `db.ts` should show `new DbService(<table>, db, '<name>', eventBus.hook('<name>'))`.
 
 ## 11. Wrong pnpm/node version
 

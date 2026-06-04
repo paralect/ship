@@ -6,7 +6,7 @@ Plugins add features to the Ship template without modifying it. Each plugin is a
 
 | Plugin | Description | Requires |
 |--------|-------------|----------|
-| `plugins/postgres` | Drizzle ORM + PostgreSQL — `@ship/db` package with DbService, codegen-db, base schema, migrations | — |
+| `plugins/postgres` | Drizzle ORM + PostgreSQL — `@ship/db` package with DbService (relations generic + `with`/`columns` relation loading), codegen-db, base schema, migrations | — |
 | `plugins/mongo` | MongoDB with @paralect/node-mongo — `@ship/db` package with auto-discovery of schemas, services, and indexes | — |
 | `plugins/auth-starter` | better-auth wiring (API only — web routes promoted to template). Provides Postgres/Mongo `auth.ts`, `server-config.ts`, and DB-flavor users/sessions/accounts/verifications schemas | postgres or mongo |
 | `plugins/admin` | Admin dashboard with paginated user list. Canonical TanStack Router plugin example. Web routes at `/app/admin` | postgres, auth-starter |
@@ -101,7 +101,7 @@ During `plugin:dev`, these are copied into `plugin-dev-server/packages/` and bec
 
 ## How It Works
 
-- **API endpoints** in `resources/*/endpoints/*.ts` are auto-discovered by `codegen-router.ts`
+- **API endpoints** in `resources/*/endpoints/*.ts` are auto-discovered by `codegen-router.ts` via filename conventions. They build on the shared `@/endpoint` base (oRPC builder with global middlewares applied) and `@/middlewares/*` gates (`is-authorized`, `is-admin`) — not the removed `@/procedures`. Per-resource ownership lives in `<resource>/middlewares/should-own-*.ts`.
 - **PostgreSQL schemas** with `pgTable()` exports are auto-discovered by `codegen-db.ts` (postgres plugin) and registered with `@ship/db`
 - **MongoDB schemas** are auto-discovered by `@ship/db` at startup (mongo plugin)
 - **Web pages** matching `*.page.tsx` are auto-discovered by Next.js

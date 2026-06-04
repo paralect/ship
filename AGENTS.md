@@ -9,7 +9,7 @@ Monorepo template with API (Hono + oRPC + Drizzle + better-auth) and web (Vite +
 
 ## Template Agent Docs (read these first when working inside the template)
 
-- `template/agent_docs/api_resource_and_endpoint_workflow.md` — Resource/endpoint convention, procedures, transactions, event hooks
+- `template/agent_docs/api_resource_and_endpoint_workflow.md` — Resource/endpoint convention, endpoint entry point + global middleware registry + per-resource ownership gates, transactions, event hooks
 - `template/agent_docs/web_pages_and_data_access.md` — File routes, oRPC client, useApiQuery/Mutation/Form, AppDrawer + Table widgets
 - `template/agent_docs/workflows_dev_build_test.md` — Commands for dev/build/codegen/migrate
 - `template/agent_docs/common_failure_modes.md` — Known pitfalls and fixes
@@ -17,7 +17,7 @@ Monorepo template with API (Hono + oRPC + Drizzle + better-auth) and web (Vite +
 ## Key Files
 
 - `template/apps/api/scripts/codegen-router.ts` — Auto-generates `src/router.ts` + `src/contract.ts` from `resources/*/endpoints/*.ts`
-- `template/apps/api/scripts/codegen-db.ts` — Auto-generates `src/db.ts` with typed `DbService<T>` wrappers + `transaction()` + event-bus hooks
+- `template/apps/api/scripts/codegen-db.ts` — Auto-generates `src/db.ts` with typed `DbService<typeof t, typeof rawDb.query.t>` (relations generic) wrappers + `transaction()` + event-bus hooks
 - `template/scripts/plugin.ts` — Plugin CLI (`install`, `uninstall`, `list`, `dev`)
 - `template/apps/web/vite.config.ts` — TanStack Start plugin (`tanstackStart({ spa: { … } })`)
 - `template/apps/web/src/routes/__root.tsx` — Root route with `head`, `shellComponent`, providers

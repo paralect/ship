@@ -103,14 +103,17 @@ After dropping a route file, the Vite Start plugin regenerates `template/apps/we
 Each file in `endpoints/` exports a default oRPC procedure:
 
 ```typescript
+import { ORPCError } from '@orpc/server';
 import { z } from 'zod';
 
 import db from '@/db';
-import { isAuthorized, ORPCError } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
 
 const inputSchema = z.object({ /* … */ });
 
-export default isAuthorized
+export default endpoint
+  .use(isAuthorized)
   .input(inputSchema)
   .output(/* … */)
   .handler(async ({ context, input }) => {
@@ -119,7 +122,9 @@ export default isAuthorized
   });
 ```
 
-Procedure builders: `isPublic` (no auth), `isAuthorized` (logged in), `isAdmin` (admin only). `ORPCError` is re-exported from `@/procedures`.
+Plugin endpoints import the base builder from `@/endpoint` (global middlewares already applied) and gates from `@/middlewares/*`: `isAuthorized` (logged in), `isAdmin` (admin only). A public endpoint is just `endpoint.input(...)` with no gate. `ORPCError` comes from `@orpc/server`.
+
+Per-resource ownership lives in `<resource>/middlewares/should-own-*.ts` (a configured `shouldOwn(...)`), applied with `.use(shouldOwnX)` after `.input(...)` so it reads the validated input; the handler then reads the loaded entity from `context.<ctxKey>`.
 
 ### Postgres schemas
 
@@ -139,7 +144,7 @@ export const things = pgTable('things', {
 
 `baseColumns` provides: `id` (uuid), `createdAt`, `updatedAt`, `deletedAt` (soft delete). Snake-case column names are auto-derived via `casing: 'snake_case'` in `drizzle.config.ts`.
 
-Codegen-db auto-creates `db.things` with a `DbService<typeof things>` instance. Methods: `find`, `findFirst`, `findPage`, `count`, `insertOne`, `insertMany`, `updateOne`, `transaction`.
+Codegen-db auto-creates `db.things` with a `DbService<typeof things>` instance. Methods: `find`, `findFirst`, `findPage`, `count`, `insertOne`, `insertMany`, `updateOne`, `transaction`. `findFirst`/`find`/`findPage` also accept `with`/`columns` to load relations (requires a `src/relations.ts`).
 
 Add a `handlers/` directory in your resource to subscribe to mutation events on the typed event bus (`<table>.insert | update | delete`). See `apps/api/src/resources/users/handlers/` for the canonical pattern.
 

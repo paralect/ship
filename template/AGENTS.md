@@ -18,7 +18,7 @@
 | Doc | When to read |
 |-----|-------------|
 | `agent_docs/workflows_dev_build_test.md` | Any task: install, dev, build, codegen, migrate |
-| `agent_docs/api_resource_and_endpoint_workflow.md` | Adding/modifying API resources or oRPC endpoints |
+| `agent_docs/api_resource_and_endpoint_workflow.md` | Endpoint entry point + global middleware registry + gate/ownership middlewares |
 | `agent_docs/web_pages_and_data_access.md` | Adding/modifying web routes or API data consumption |
 | `agent_docs/common_failure_modes.md` | When debugging errors or before submitting changes |
 

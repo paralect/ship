@@ -21,7 +21,7 @@ We encourage developers to share production-ready solutions and help businesses 
 - Full-stack boilerplate tested on production projects 🔥
 - Plugin system — feature add-ons (admin, notes, ai-chat, files, …) merge into the template via `pnpm plugin:dev` 🔌
 - Filesystem-routed oRPC API with auto-generated typed client and contract 🛣
-- `DbService<T>` Drizzle wrappers with typed `transaction()` and event-bus hooks ⚙️
+- `DbService<T>` Drizzle wrappers with a relations generic for relation loading (`with`/`columns`), typed `transaction()`, and mutation event-bus hooks ⚙️
 - shadcn/ui primitives + Tailwind v4 `@theme` tokens + ported widgets (`AppDrawer`, `PillTabBar`, `ContentLayout`) 🧱
 - Auth flows out of the box: email/password + verification + reset + Google OAuth via better-auth 🔐
 - File upload via S3-compatible storage (Garage locally, Wasabi/AWS in prod) 🗃

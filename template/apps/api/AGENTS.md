@@ -22,7 +22,9 @@ Use `@/` path alias everywhere:
 
 ```typescript
 import db from '@/db';
-import { isAuthorized, ORPCError } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
+import { ORPCError } from '@orpc/server';
 import { BankLinkStatus } from 'app-constants'; // separate package — bare import OK
 ```
 
@@ -33,9 +35,12 @@ import { BankLinkStatus } from 'app-constants'; // separate package — bare imp
 ```typescript
 import { z } from 'zod';
 import db from '@/db';
-import { isAuthorized, ORPCError } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
+import { ORPCError } from '@orpc/server';
 
-export default isAuthorized
+export default endpoint
+  .use(isAuthorized)
   .input(z.object({ id: z.string() }))
   .output(z.object({ name: z.string() }))
   .handler(async ({ input, context }) => {
@@ -46,11 +51,21 @@ export default isAuthorized
 
 ---
 
-## Auth Procedures
+## Gate & Ownership Middlewares
 
-- `isPublic` — no auth. For webhooks, public status endpoints.
+Gates are default-export middlewares in `src/middlewares/`, applied right after the base via `endpoint.use(...)`:
+
 - `isAuthorized` — requires user. `context.user` typed as `User`.
-- `isAdmin` — requires admin flag.
+- `isAdmin` — also requires the admin flag.
+
+A public (no-auth) endpoint is just `endpoint.input(...)` with no gate — there is no `isPublic` anymore.
+
+Ownership/existence is covered by two generic factories in `src/middlewares/`:
+
+- `shouldExist(ctxKey, load, message?)` — loads an entity into `context[ctxKey]`, throws `NOT_FOUND` if absent.
+- `shouldOwn(ctxKey, dbService, { idKey?, owner?, message? })` — sugar for the owned-by-id case (soft-delete aware, `NOT_FOUND` on mismatch).
+
+Per resource, default-export a configured factory from `resources/<r>/middlewares/should-own-<x>.ts` and apply it after `.input(...)` with `.use(shouldOwnX)`; the handler reads the loaded entity from `context.<ctxKey>`.
 
 ---
 
