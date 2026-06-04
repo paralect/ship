@@ -64,16 +64,85 @@ type Filter<T extends TableLike> =
 
 type OrderBy<T extends TableLike> = Partial<Record<keyof Select<T>, 'asc' | 'desc'>>;
 
-export class DbService<T extends TableLike = AnyTable> {
+// eslint-disable-next-line ts/no-explicit-any
+type WithOption = Record<string, any>;
+type ColumnsOption = Record<string, boolean>;
+
+interface RelationalReadOptions<T extends TableLike> {
+  where?: Filter<T>;
+  orderBy?: OrderBy<T>;
+  limit?: number;
+  offset?: number;
+  with?: WithOption;
+  columns?: ColumnsOption;
+}
+
+type WithResult<T extends TableLike> = Select<T> & Record<string, unknown>;
+
+type CrudFindFirst<T extends TableLike> = (
+  options?: { where?: Filter<T>; orderBy?: OrderBy<T> },
+) => Promise<Select<T> | undefined>;
+
+type CrudFind<T extends TableLike> = (
+  options?: { where?: Filter<T>; orderBy?: OrderBy<T>; limit?: number; offset?: number },
+) => Promise<Select<T>[]>;
+
+// Relational variants delegate to the generated Drizzle query builder (`Rel`),
+// so `findFirst`/`find` with `with`/`columns` keep Drizzle's precise inference.
+type RelFindFirst<Rel> = Rel extends { findFirst: infer F } ? F : (options?: object) => Promise<unknown>;
+type RelFind<Rel> = Rel extends { findMany: infer F } ? F : (options?: object) => Promise<unknown[]>;
+
+function toRelationalWhere(filter: unknown): unknown {
+  if (filter === null || filter === undefined) return filter;
+  if (filter instanceof SQL) return filter;
+  if (Array.isArray(filter)) return filter.map(toRelationalWhere);
+  if (typeof filter !== 'object' || filter instanceof Date) return filter;
+
+  const out: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(filter as Record<string, unknown>)) {
+    if (value === undefined) continue;
+    if (value === null) {
+      out[key] = { isNull: true };
+      continue;
+    }
+    if (key === 'OR' || key === 'AND') {
+      out[key] = (value as unknown[]).map(toRelationalWhere);
+      continue;
+    }
+    out[key] = value;
+  }
+  return out;
+}
+
+// eslint-disable-next-line ts/no-explicit-any
+export class DbService<T extends TableLike = AnyTable, Rel = any> {
   readonly table: T;
+  readonly key: string;
   private db: PostgresJsDatabase<Record<string, unknown>>;
   private onMutation?: (event: MutationEvent<T>) => void;
 
   // eslint-disable-next-line ts/no-explicit-any
-  constructor(table: any, db: any, onMutation?: (event: MutationEvent<T>) => void) {
+  constructor(table: any, db: any, key: string, onMutation?: (event: MutationEvent<T>) => void) {
     this.table = table;
     this.db = db;
+    this.key = key;
     this.onMutation = onMutation;
+  }
+
+  private get relational(): Rel {
+    // eslint-disable-next-line ts/no-explicit-any
+    return (this.db as any).query[this.key] as Rel;
+  }
+
+  private relRead(options: RelationalReadOptions<T>) {
+    return {
+      where: options.where ? toRelationalWhere(options.where) : undefined,
+      orderBy: options.orderBy,
+      with: options.with,
+      columns: options.columns,
+      limit: options.limit,
+      offset: options.offset,
+    };
   }
 
   private get t(): AnyTable {
@@ -144,18 +213,30 @@ export class DbService<T extends TableLike = AnyTable> {
       });
   }
 
-  async findFirst(options?: { where?: Filter<T> }): Promise<Select<T> | undefined> {
-    const where = options?.where ? this.resolveFilter(options.where) : undefined;
-    const [result] = await this.db.select().from(this.t).where(where).limit(1);
-    return result as Select<T> | undefined;
-  }
+  // Overloaded: `with`/`columns` → Drizzle relational inference (via `Rel`); otherwise plain row.
+  findFirst = (async (options?: RelationalReadOptions<T>): Promise<Select<T> | WithResult<T> | undefined> => {
+    if (options?.with || options?.columns) {
+      // eslint-disable-next-line ts/no-explicit-any
+      return (this.relational as any).findFirst(this.relRead(options));
+    }
 
-  async find(options?: {
-    where?: Filter<T>;
-    orderBy?: OrderBy<T>;
-    limit?: number;
-    offset?: number;
-  }): Promise<Select<T>[]> {
+    const where = options?.where ? this.resolveFilter(options.where) : undefined;
+    let query: AnyTable = this.db.select().from(this.t).where(where);
+    if (options?.orderBy) {
+      const order = this.resolveOrderBy(options.orderBy);
+      if (order.length) query = query.orderBy(...order);
+    }
+    const [result] = await query.limit(1);
+    return result as Select<T> | undefined;
+  }) as unknown as CrudFindFirst<T> & RelFindFirst<Rel>;
+
+  // Overloaded: `with`/`columns` → Drizzle relational inference (via `Rel`); otherwise plain rows.
+  find = (async (options?: RelationalReadOptions<T>): Promise<Select<T>[] | WithResult<T>[]> => {
+    if (options?.with || options?.columns) {
+      // eslint-disable-next-line ts/no-explicit-any
+      return (this.relational as any).findMany(this.relRead(options));
+    }
+
     let query: AnyTable = this.db.select().from(this.t);
 
     if (options?.where) query = query.where(this.resolveFilter(options.where));
@@ -167,19 +248,25 @@ export class DbService<T extends TableLike = AnyTable> {
     if (options?.offset) query = query.offset(options.offset);
 
     return query as Select<T>[];
-  }
+  }) as unknown as CrudFind<T> & RelFind<Rel>;
 
-  async findPage(options: {
-    where?: Filter<T>;
-    orderBy?: OrderBy<T>;
-    page: number;
-    perPage: number;
-  }): Promise<{ results: Select<T>[]; count: number; pagesCount: number }> {
+  async findPage(
+    options: { where?: Filter<T>; orderBy?: OrderBy<T>; page: number; perPage: number; columns?: ColumnsOption; with: WithOption },
+  ): Promise<{ results: WithResult<T>[]; count: number; pagesCount: number }>;
+  async findPage(
+    options: { where?: Filter<T>; orderBy?: OrderBy<T>; page: number; perPage: number },
+  ): Promise<{ results: Select<T>[]; count: number; pagesCount: number }>;
+  async findPage(
+    options: RelationalReadOptions<T> & { page: number; perPage: number },
+  ): Promise<{ results: Select<T>[] | WithResult<T>[]; count: number; pagesCount: number }> {
     const { page, perPage } = options;
     const offset = (page - 1) * perPage;
 
     const [results, total] = await Promise.all([
-      this.find({ where: options.where, orderBy: options.orderBy, limit: perPage, offset }),
+      options.with
+        // eslint-disable-next-line ts/no-explicit-any
+        ? (this.relational as any).findMany(this.relRead({ ...options, limit: perPage, offset })) as Promise<WithResult<T>[]>
+        : this.find({ where: options.where, orderBy: options.orderBy, limit: perPage, offset }),
       this.count({ where: options.where }),
     ]);
 

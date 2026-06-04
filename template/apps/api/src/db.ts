@@ -27,11 +27,11 @@ export const rawDb = drizzle({
 });
 
 const createDB = (db: typeof rawDb) => ({
-  accounts: new DbService(accounts, db),
-  inviteTokens: new DbService(inviteTokens, db),
-  sessions: new DbService(sessions, db),
-  users: new DbService(users, db, eventBus.hook('users')),
-  verifications: new DbService(verifications, db),
+  accounts: new DbService<typeof accounts>(accounts, db, 'accounts'),
+  inviteTokens: new DbService<typeof inviteTokens>(inviteTokens, db, 'inviteTokens'),
+  sessions: new DbService<typeof sessions>(sessions, db, 'sessions'),
+  users: new DbService<typeof users>(users, db, 'users', eventBus.hook('users')),
+  verifications: new DbService<typeof verifications>(verifications, db, 'verifications'),
   transaction: getTransactionalDB,
 });
 

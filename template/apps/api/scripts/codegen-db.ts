@@ -69,7 +69,9 @@ function buildDb(tables: TableInfo[]): string {
   const importGroups = new Map<string, Set<string>>();
   for (const t of tables) {
     const key = `@/resources/${t.resource}/${t.schemaFile}`;
-    if (!importGroups.has(key)) {importGroups.set(key, new Set());}
+    if (!importGroups.has(key)) {
+      importGroups.set(key, new Set());
+    }
     importGroups.get(key)!.add(t.name);
   }
   const schemaImports = [...importGroups.entries()]
@@ -88,17 +90,22 @@ function buildDb(tables: TableInfo[]): string {
   }
 
   const hasEventBus = existsSync(join(SRC_DIR, 'event-bus.ts')) && hookedTables.size > 0;
+  const hasRelations = existsSync(join(SRC_DIR, 'relations.ts'));
+
+  // With a relations.ts, expose Drizzle's relational query type as the `Rel` generic so
+  // findFirst/find/findPage infer `with`/`columns` results. Without it `rawDb.query` is empty,
+  // so emit the single-generic form (DbService's `Rel` then defaults to `any`).
+  const generics = (name: string) =>
+    hasRelations ? `<typeof ${name}, typeof rawDb.query.${name}>` : `<typeof ${name}>`;
 
   const createDbFields = tables.map((t) => {
     const hook = hasEventBus && hookedTables.has(t.name) ? `, eventBus.hook('${t.name}')` : '';
-    return `  ${t.name}: new DbService(${t.name}, db${hook}),`;
+    return `  ${t.name}: new DbService${generics(t.name)}(${t.name}, db, '${t.name}'${hook}),`;
   });
 
-  const dbTypeFields = tables.map((t) => `  ${t.name}: DbService<typeof ${t.name}>;`);
+  const dbTypeFields = tables.map((t) => `  ${t.name}: DbService${generics(t.name)};`);
 
   const typeExports = tables.map((t) => `export type ${toTypeName(t.name)} = typeof ${t.name}.$inferSelect;`);
-
-  const hasRelations = existsSync(join(SRC_DIR, 'relations.ts'));
 
   return [
     HEADER,
