@@ -23,3 +23,22 @@ export const EMAIL_VERIFICATION_TOKEN = {
 export const RESET_PASSWORD_TOKEN = {
   EXPIRATION_SECONDS: 60 * 60 * 3, // 3 hours
 };
+
+export const INVITE_TOKEN = {
+  EXPIRATION_SECONDS: 60 * 60 * 24 * 5, // 5 days
+};
+
+export const UserStatus = {
+  INVITED: 'invited',
+  ACTIVE: 'active',
+  CANCELLED: 'cancelled',
+  ARCHIVED: 'archived',
+} as const;
+export const USER_STATUSES = [
+  UserStatus.INVITED,
+  UserStatus.ACTIVE,
+  UserStatus.CANCELLED,
+  UserStatus.ARCHIVED,
+] as const;
+// eslint-disable-next-line ts/no-redeclare
+export type UserStatus = (typeof USER_STATUSES)[number];
