@@ -1,10 +1,13 @@
+import { ORPCError } from '@orpc/server';
 import { z } from 'zod';
 
 import db from '@/db';
-import { isAdmin, ORPCError } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
 import { publicSchema } from '@/resources/users/users.schema';
 
-export default isAdmin
+export default endpoint
+  .use(isAdmin)
   .input(
     z.object({
       userId: z.string().min(1),

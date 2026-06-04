@@ -4,7 +4,8 @@ import { z } from 'zod';
 
 import type { User } from '@/db';
 import db from '@/db';
-import { isAuthorized } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
 import usersSchema, { publicSchema } from '@/resources/users/users.schema';
 
 async function uploadAvatar(user: User, file: File): Promise<string> {
@@ -21,7 +22,8 @@ async function uploadAvatar(user: User, file: File): Promise<string> {
   return url;
 }
 
-export default isAuthorized
+export default endpoint
+  .use(isAuthorized)
   .input(
     usersSchema
       .pick({ fullName: true })

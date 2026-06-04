@@ -1,9 +1,12 @@
+import { ORPCError } from '@orpc/server';
 import { z } from 'zod';
 
 import db from '@/db';
-import { isAdmin, ORPCError } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
 
-export default isAdmin
+export default endpoint
+  .use(isAdmin)
   .input(z.object({ userId: z.string().min(1) }))
   .output(z.object({ success: z.boolean() }))
   .handler(async ({ input }) => {

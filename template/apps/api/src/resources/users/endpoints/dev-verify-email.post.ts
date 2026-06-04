@@ -2,9 +2,9 @@ import { z } from 'zod';
 
 import config from '@/config';
 import db from '@/db';
-import { isPublic } from '@/procedures';
+import endpoint from '@/endpoint';
 
-export default isPublic.input(z.object({ email: z.string() })).handler(async ({ input }) => {
+export default endpoint.input(z.object({ email: z.string() })).handler(async ({ input }) => {
   if (!config.IS_DEV) {
     throw new Error('This endpoint is only available in development');
   }

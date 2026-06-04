@@ -3,10 +3,12 @@ import { z } from 'zod';
 import { publicSchema } from '../users.schema';
 
 import db from '@/db';
-import { isAdmin } from '@/procedures';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
 import { listResultSchema, paginationSchema } from '@/resources/base.schema';
 
-export default isAdmin
+export default endpoint
+  .use(isAdmin)
   .input(
     paginationSchema.extend({
       filter: z
