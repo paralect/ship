@@ -45,9 +45,8 @@ Use the five rules below to pick the right replacement.
 ### 3. Verify
 
 ```
-npm run lint -- --filter=<package>
-npm run typecheck -- --filter=<package>
-npm run test -- --filter=<package>
+pnpm --filter web tsc --noEmit
+pnpm --filter web eslint
 ```
 
 ## The Escape Hatch: useMountEffect

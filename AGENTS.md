@@ -1,6 +1,13 @@
 # Ship
 
+AI-native, batteries-included full-stack TypeScript SaaS starter: standardised patterns and one obvious way to build, so you and your agents work without guesswork.
+
 Monorepo template with API (Hono + oRPC + Drizzle + better-auth) and web (Vite + TanStack Start SPA + TanStack Router + shadcn + Tailwind v4) apps, plus a plugin system that merges feature add-ons into the template.
+
+The CLI scaffolds the template in one of two shapes:
+
+- **PostgreSQL full-stack** — `apps/api` (Hono + oRPC + Drizzle) + `apps/web` (TanStack Start), end-to-end types from API → web.
+- **Web-only** — `apps/web` only (TanStack Start landing + server functions); no `apps/api`, backend logic lives in `createServerFn` handlers.
 
 ## Agent Docs
 
@@ -28,6 +35,6 @@ Monorepo template with API (Hono + oRPC + Drizzle + better-auth) and web (Vite +
 ## Project Layout
 
 - `template/` — The Ship template (API + web monorepo). What `create-ship-app` scaffolds.
-- `plugins/` — Plugin directories: `postgres`, `mongo`, `auth-starter`, `admin`, `notes`, `ai-chat`, `mailer`, `cloud-storage`.
+- `plugins/` — Plugin directories: `postgres`, `auth-starter`, `admin`, `notes`, `ai-chat`, `mailer`, `cloud-storage`.
 - `template/plugin-dev-server/` — Gitignored merge target for `pnpm plugin:dev`.
 - `packages/create-ship-app/` — The CLI that bootstraps a new project from the template.

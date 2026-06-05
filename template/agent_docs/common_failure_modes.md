@@ -44,10 +44,10 @@
 **Cause**: Stale incremental build cache.
 **Fix**: `rm -f apps/api/tsconfig.tsbuildinfo && pnpm --filter api build:types`
 
-## 9. `shouldExist` — entity not found
+## 9. `canAccess` — entity not found
 
 **Cause**: Wrong filter or entity doesn't exist in DB.
-**Fix**: Check the `load` function. `shouldExist(ctxKey, ({ input, context }) => db.users.findFirst({ where: { id: input.id } }), message?)` loads into `context[ctxKey]`. For the common owned-by-id case use `shouldOwn(ctxKey, db.users, { owner: 'userId' })`, which resolves `input.<ctxKey>Id ?? input.id`, matches `owner` against `context.user.id`, and is soft-delete aware.
+**Fix**: Check the `load` function. `canAccess(ctxKey, ({ input, context }) => db.users.findFirst({ where: { id: input.id } }), message?)` loads into `context[ctxKey]`. For the common owned-by-id case use `canEdit(ctxKey, db.users, { owner: 'userId' })`, which resolves `input.<ctxKey>Id ?? input.id`, matches `owner` against `context.user.id`, and is soft-delete aware.
 
 ## 10. Router codegen produces wrong nesting
 

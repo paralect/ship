@@ -4,136 +4,116 @@ description: "Guidelines for using and creating Zod validation schemas"
 
 # Validation and Schema Guidelines
 
-## Zod Schemas Package
+Zod schemas are the contract. The same schema validates at runtime **and** produces the types the typed client sees — there is no separate `schemas` or `enums` package.
 
-All validation schemas are centralized in the `schemas` package: [packages/schemas/src/](mdc:packages/schemas/src/)
+## Where schemas live
 
-This ensures type-safe validation shared between API and web applications.
-
-## Using Schemas
-
-Import schemas from the `schemas` package:
-```typescript
-import { userSchema, accountSchema, commonSchema } from 'schemas';
-```
-## API Validation
-
-Use the validate middleware in the API:
-```typescript
-import { validateMiddleware } from 'middlewares';
-
-import { createUserSchema } from 'schemas';
-
-router.post('/users',
-  validateMiddleware(createUserSchema),
-  handler
-);
-```
-
-The middleware validates:
-- `ctx.request.body` - Request body
-- `ctx.request.files` - Uploaded formidable files
-- `ctx.query` - Query parameters
-- `ctx.params` - URL parameters
-
-## Web/Frontend Validation
-
-### With React Hook Form
+Each resource owns its schemas, colocated with its Drizzle table in `apps/api/src/resources/<name>/<name>.schema.ts`:
 
 ```typescript
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-import { createUserSchema } from 'schemas';
-import { CreateUserSchema } from 'types';
-
-const form = useForm<CreateUserSchema>({
-  resolver: zodResolver(createUserSchema),
-});
-```
-
-### Manual Validation
-
-```typescript
-import { createUserSchema } from 'schemas';
-
-const result = createUserSchema.safeParse(data);
-
-if (!result.success) {
-  console.error(result.error.errors);
-}
-```
-
-## Creating New Schemas
-
-When adding new schemas:
-
-1. Add to the appropriate file in `packages/schemas/src/`
-2. Export from [packages/schemas/src/index.ts](mdc:packages/schemas/src/index.ts)
-3. Use Zod's built-in validators and composability
-
-Example structure:
-```typescript
+// apps/api/src/resources/users/users.schema.ts
+import { pgTable, text } from 'drizzle-orm/pg-core';
+import { createSelectSchema } from 'drizzle-orm/zod';
 import { z } from 'zod';
 
-import { dbSchema } from './db.schema';
+import { baseColumns } from '../base.schema';
 
-export const userSchema = dbSchema.extend({
-  firstName: z.string(),
-  lastName: z.string(),
+export const users = pgTable('users', {
+  ...baseColumns,
+  fullName: text('full_name').notNull(),
+  email: text('email').notNull().unique(),
+});
+
+export const emailSchema = z.email().toLowerCase().trim().max(255);
+
+const usersSchema = createSelectSchema(users, {
+  fullName: (schema) => schema.min(1, 'Full name is required').max(128),
+  email: () => emailSchema,
+});
+
+export const publicSchema = usersSchema;
+export default usersSchema;
+```
+
+`createSelectSchema` derives a Zod schema straight from the table, so the schema and the columns can't drift. Refine individual fields in the second argument.
+
+Shared building blocks live in `apps/api/src/resources/base.schema.ts`: `baseColumns` (the `id` / `createdAt` / `updatedAt` / `deletedAt` columns every table extends), `paginationSchema`, and `listResultSchema(itemSchema)`.
+
+## API validation is the endpoint contract
+
+Pass schemas to oRPC's `.input()` and `.output()`. Input is validated before the handler runs; output is the typed shape the client receives.
+
+```typescript
+// apps/api/src/resources/users/endpoints/list.ts
+import db from '@/db';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
+import { listResultSchema, paginationSchema } from '@/resources/base.schema';
+
+import { publicSchema } from '../users.schema';
+
+export default endpoint
+  .use(isAdmin)
+  .input(paginationSchema)
+  .output(listResultSchema(publicSchema))
+  .handler(async ({ input }) => {
+    return db.users.findPage({ where: { deletedAt: null }, ...input });
+  });
+```
+
+There is no validate-middleware and no `ctx.*`. The handler receives a typed, already-validated `input`.
+
+## Web validation with `useApiForm`
+
+Forms in `apps/web` bind a Zod schema with `useApiForm` (from `@/hooks/use-api.hook`). It wires resolver, submit, and maps server-side field errors back onto the form.
+
+```tsx
+import { z } from 'zod';
+
+import { useApiForm } from '@/hooks/use-api.hook';
+
+const schema = z.object({
   email: z.email(),
-  passwordHash: z.string().optional(),
+  password: z.string().min(8),
 });
 
-// Compose schemas (mostly based on entity schema)
-export const createUserSchema = userSchema.pick({
-  firstName: true,
-  lastName: true,
-  email: true,
-});
-
-export const updateUserSchema = userSchema
-  .pick({ firstName: true, lastName: true })
-  .extend({
-    password: userSchema.shape.passwordHash.optional(),
-  })
-  .partial();
-```
-
-## Enums in Schemas
-
-Enums are centralized in [packages/enums/src/](mdc:packages/enums/src/). Use `z.enum()` for validation:
-
-```typescript
-import { TokenType } from 'enums';
-
-export const tokenSchema = dbSchema.extend({
-  type: z.enum(TokenType),
-});
-```
-
-When creating new enums, add to `packages/enums/src/*.enum.ts` and export from index:
-```typescript
-export enum TokenType {
-  ACCESS = 'access',
-  RESET_PASSWORD = 'reset-password',
+function SignInForm() {
+  const { register, handleSubmit, formState } = useApiForm({ schema });
+  // ...
 }
 ```
 
-## Type Inference
+For one-off manual checks, use Zod directly:
 
-Extract TypeScript types from Zod schemas:
 ```typescript
-import { z } from 'zod';
-
-import { createUserSchema, updateUserSchema } from 'schemas';
-
-type CreateUser = z.infer<typeof createUserSchema>;
-type UpdateUser = z.infer<typeof updateUserSchema>;
+const result = schema.safeParse(data);
+if (!result.success) {
+  console.error(result.error.issues);
+}
 ```
 
-For API types, consider adding to [packages/app-types/](mdc:packages/app-types/) if used across applications.
+## Enums and constants come from `app-constants`
 
-## Constants
+Never inline string-literal enums. Shared values live in the `app-constants` package; feed them straight into `z.enum`:
 
-Validation-related constants in [packages/app-constants/src/validation.constants.ts](mdc:packages/app-constants/src/validation.constants.ts)
+```typescript
+import { USER_STATUSES } from 'app-constants';
+
+const filterSchema = z.object({
+  status: z.enum(USER_STATUSES).optional(),
+});
+```
+
+Define new sets as `as const` arrays in `packages/app-constants/src/*.constants.ts` and export them from `index.ts`. The same array drives both the Zod schema and the TypeScript union (`type UserStatus = (typeof USER_STATUSES)[number]`).
+
+## Type inference
+
+Derive TypeScript types from schemas instead of declaring them twice:
+
+```typescript
+import { paginationSchema } from '@/resources/base.schema';
+
+type Pagination = z.infer<typeof paginationSchema>;
+```
+
+The web app gets endpoint input/output types for free through the typed client (`import type { AppClient } from 'api'`) — no shared schema package to keep in sync.

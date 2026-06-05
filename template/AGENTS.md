@@ -4,6 +4,17 @@
 
 ---
 
+## Two scaffold shapes
+
+This template scaffolds in one of two shapes — check which one you're in before you start:
+
+- **PostgreSQL full-stack** — both `apps/api` and `apps/web`. Endpoints live in `apps/api/src/resources/<name>/endpoints/`; the web app consumes them through the typed oRPC client. This is what most docs below assume.
+- **Web-only** — `apps/web` only, no `apps/api`. Backend logic runs in TanStack Start **server functions** (`createServerFn`) called from route loaders. There's no oRPC router, no Drizzle, no migrations. See `agent_docs/web_pages_and_data_access.md` ("Data access without apps/api") and the "Web-only mode" section of `agent_docs/workflows_dev_build_test.md`.
+
+If `apps/api` does not exist, you're in web-only mode — skip every API/codegen/migration step.
+
+---
+
 ## Before You Code
 
 1. **Read this file** for universal rules and commands.
@@ -33,8 +44,7 @@ For the plugin system (when working at the repo root, not inside `template/`):
 
 ```bash
 pnpm install                        # after pulling or changing deps
-pnpm infra:postgres                 # start Postgres + Redis via Docker (default DB)
-pnpm infra:mongo                    # alt: Mongo + Redis (with plugins/mongo)
+pnpm infra:postgres                 # start Postgres + Redis via Docker (the database)
 pnpm start                          # everything (infra → migrate → schedule → api + web + db studio)
 pnpm turbo-start                    # dev via Turborepo (assumes infra running)
 pnpm dashboard                      # Drizzle Studio — DB browser + query runner (https://local.drizzle.studio)
@@ -51,7 +61,7 @@ pnpm --filter api build:types       # rebuild API .d.ts (required after endpoint
 **Dev dashboards** (auto-opened by `pnpm start` / `pnpm turbo-start`):
 
 - **API docs:** <http://localhost:3001/docs> — interactive Scalar reference; raw OpenAPI 3.1.1 spec at `/spec.json`. Non-production only.
-- **DB studio:** <https://local.drizzle.studio> — Drizzle Studio (proxy on `:4983`); requires the postgres plugin, no-op on mongo/web-only.
+- **DB studio:** <https://local.drizzle.studio> — Drizzle Studio (proxy on `:4983`); full-stack only, no-op in web-only mode.
 
 ---
 
@@ -92,6 +102,8 @@ Endpoints live in `apps/api/src/resources/<name>/endpoints/`. The router is rege
 | `name.post.ts` | POST | `/<resource>/name` |
 | `[param]/get.ts` | GET | `/<resource>/{param}` |
 | `nested-dir/action.post.ts` | POST | `/<resource>/nested-dir/action` (nested router group, camelCased) |
+
+Authorization is middleware stacked with `.use()`: `isAuthorized` (signed-in `context.user`), `isAdmin`, `canAccess(key, load)` (loads an entity into `context[key]` or throws `NOT_FOUND`), and `canEdit(key, service)` (ownership gate built on `canAccess`; `NOT_FOUND` on mismatch — no existence leak). Per-resource ownership gates live in `<resource>/middlewares/can-edit-*.ts`. See `agent_docs/api_resource_and_endpoint_workflow.md`.
 
 ### Web (TanStack Router)
 

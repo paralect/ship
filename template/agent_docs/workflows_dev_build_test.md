@@ -24,9 +24,10 @@ pnpm install
 
 ```bash
 pnpm infra              # Redis only
-pnpm infra:postgres     # Redis + Postgres (default DB plugin)
-pnpm infra:mongo        # Redis + MongoDB (alternate DB plugin)
+pnpm infra:postgres     # Redis + Postgres (the database)
 ```
+
+(Web-only scaffolds have no `apps/api` and no database — skip this step.)
 
 ---
 
@@ -60,7 +61,7 @@ When you run `pnpm start` (or `pnpm turbo-start`), these dashboards come up alon
 
 - **Standalone:** `pnpm dashboard` (alias for `pnpm --filter api studio`)
 - **URL:** <https://local.drizzle.studio> (proxy on `:4983`)
-- **Details:** Visual table/relation browser + query runner. Requires the Postgres plugin (`drizzle.config.ts`); no-op on Mongo / web-only.
+- **Details:** Visual table/relation browser + query runner. Full-stack only (`apps/api/drizzle.config.ts`); no-op in web-only mode.
 
 ---
 
@@ -98,6 +99,25 @@ pnpm --filter api codegen     # runs both, then eslint --fix + prettier
 pnpm --filter api generate    # diff schemas → new migration in apps/api/drizzle/
 pnpm --filter api migrate     # apply pending migrations to the configured DB
 pnpm --filter api db:push     # push schema to DB without writing migration files (dev only)
+```
+
+---
+
+## Web-only Mode
+
+If the scaffold has no `apps/api`, you're in web-only mode. There is **no oRPC router, no Drizzle, no codegen, and no migrations** — so skip every `--filter api` command above.
+
+Data access runs through TanStack Start **server functions** (`createServerFn`), which execute on the Start/Nitro server even though the app is in SPA mode. See `web_pages_and_data_access.md` ("Data access without apps/api").
+
+```bash
+pnpm --filter web dev         # Web on :3002 (server functions run on the dev server)
+```
+
+Verify (the whole Definition of Done in web-only mode):
+
+```bash
+pnpm --filter web tsc --noEmit
+pnpm --filter web build
 ```
 
 ---

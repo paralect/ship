@@ -6,13 +6,12 @@ alwaysApply: false
 
 ## Package Manager: pnpm
 
-This project uses **pnpm** as the package manager. Never use npm or yarn.
+This project uses **pnpm**. Never use npm or yarn.
 
 ### Installing Packages
 
-**Always use the workspace filter flag when adding packages to specific apps or packages.**
+**Always use the workspace filter flag when adding packages to a specific app or package.**
 
-Examples:
 ```bash
 # Add a package to the api app
 pnpm add stripe --filter api
@@ -23,22 +22,30 @@ pnpm add -D @types/lodash --filter web
 # Add a package to a shared package
 pnpm add lodash --filter app-constants
 
-# Add a package to all workspaces
-pnpm add -w zod
-
 # Add a package to the root workspace
 pnpm add -w -D husky
 ```
 
 ### Workspace Dependencies
 
-When referencing internal packages, use the `workspace:*` protocol in package.json:
+Reference internal packages with the `workspace:*` protocol in `package.json`:
+
 ```json
 {
   "dependencies": {
     "app-constants": "workspace:*",
-    "app-types": "workspace:*",
-    "schemas": "workspace:*"
+    "@ship/db": "workspace:*",
+    "@ship/emails": "workspace:*"
+  }
+}
+```
+
+The API also depends on its sibling via `workspace:*` so the web app can import the typed client:
+
+```json
+{
+  "dependencies": {
+    "api": "workspace:*"
   }
 }
 ```

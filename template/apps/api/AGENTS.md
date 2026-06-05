@@ -11,7 +11,7 @@ Hono + oRPC + Postgres (Drizzle ORM) + Zod. ESM (`"type": "module"`). TypeScript
 - **Endpoints** (`src/resources/*/endpoints/`) — oRPC typed RPC. Filesystem-routed via codegen.
 - **Schemas** (`src/resources/*/*.schema.ts`) — Drizzle `pgTable` definitions.
 - **Services** (`src/services/`) — external integrations (auth, email, cloud-storage, socket, analytics).
-- **Handlers** (`src/resources/*/handlers/`) — event-bus side-effect handlers.
+- **Handlers** (`src/resources/*/handlers/`) — `MutationEvent` side-effect handlers (every write emits a typed `{ type, docs, prevDocs }`).
 - **Config** (`src/config/`) — Zod-validated env vars.
 
 ---
@@ -62,10 +62,10 @@ A public (no-auth) endpoint is just `endpoint.input(...)` with no gate — there
 
 Ownership/existence is covered by two generic factories in `src/middlewares/`:
 
-- `shouldExist(ctxKey, load, message?)` — loads an entity into `context[ctxKey]`, throws `NOT_FOUND` if absent.
-- `shouldOwn(ctxKey, dbService, { idKey?, owner?, message? })` — sugar for the owned-by-id case (soft-delete aware, `NOT_FOUND` on mismatch).
+- `canAccess(ctxKey, load, message?)` from `@/middlewares/can-access` — loads an entity into `context[ctxKey]`, throws `NOT_FOUND` if absent.
+- `canEdit(ctxKey, dbService, { idKey?, owner?, message? })` from `@/middlewares/can-edit` — sugar for the owned-by-id case, built on `canAccess` (soft-delete aware, `NOT_FOUND` on mismatch — no existence leak).
 
-Per resource, default-export a configured factory from `resources/<r>/middlewares/should-own-<x>.ts` and apply it after `.input(...)` with `.use(shouldOwnX)`; the handler reads the loaded entity from `context.<ctxKey>`.
+Per resource, default-export a configured factory from `resources/<r>/middlewares/can-edit-<x>.ts` and apply it after `.input(...)` with `.use(canEditX)`; the handler reads the loaded entity from `context.<ctxKey>`.
 
 ---
 
@@ -97,10 +97,19 @@ External integrations: `analytics`, `auth`, `cloud-storage`, `email`, `socket`.
 
 ---
 
-## Migrator & Scheduler
+## Migrations & Scheduler
 
-- Migrator: `src/migrator/migrations/<version>.ts` — runs before dev via Turbo.
-- Scheduler: `src/scheduler/handlers/*.handler.ts` — cron handlers. Register by importing in `src/scheduler.ts`.
+- Migrations: Drizzle. `pnpm --filter api generate` writes SQL to `drizzle/`, `pnpm --filter api migrate` applies it (`db:push` for dev).
+- Scheduler: a cron is one file that default-exports `scheduler({ cron, handler })` (from `@/scheduler`), living in `resources/<name>/crons/*.ts` and auto-discovered like endpoints — no central registry. Run with `pnpm --filter api schedule` / `schedule-dev`.
+
+```ts
+import scheduler from '@/scheduler';
+
+export default scheduler({
+  cron: '0 * * * *',
+  handler: async () => { /* ... */ },
+});
+```
 
 ---
 

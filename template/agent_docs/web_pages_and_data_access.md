@@ -39,7 +39,9 @@ Root shell + providers live in [`src/routes/__root.tsx`](../apps/web/src/routes/
 
 ## Data Fetching (oRPC + TanStack Query)
 
-Client lives at [`src/services/api-client.service.ts`](../apps/web/src/services/api-client.service.ts). Hooks live at [`src/hooks/use-api.hook.ts`](../apps/web/src/hooks/use-api.hook.ts).
+> Full-stack scaffolds (with `apps/api`) only. In web-only mode there's no API client — jump to "Data access without apps/api" below.
+
+The oRPC client (`src/services/api-client.service.ts`) and the `useApiQuery` / `useApiMutation` / `useApiForm` hooks (`src/hooks/use-api.hook.ts`) are delivered by the **Auth plugin** (`plugins/auth-starter`), which wires the typed client to the API. They exist in your repo once that plugin is installed.
 
 ### Queries
 
@@ -108,6 +110,46 @@ Components consume chambers-derived tokens from [`src/globals.css`](../apps/web/
 ## Error Handling
 
 Server validation errors flow back as oRPC `BAD_REQUEST` with a `data.errors` payload. `handleApiError(e, setError)` maps those onto react-hook-form fields and shows global errors via Sonner toast.
+
+---
+
+## Data Access Without apps/api (Web-only)
+
+In a web-only scaffold there is no `apps/api`, no oRPC client, and no `useApi*` hooks. Backend logic lives in TanStack Start **server functions**. SPA mode does **not** disable the server — server functions still run on the Start/Nitro server, so this is your secure place for DB calls, secrets, and third-party APIs.
+
+Define a server function with `createServerFn` from `@tanstack/react-start` (not `@tanstack/react-router`):
+
+```ts
+// src/server/get-stats.ts
+import { createServerFn } from '@tanstack/react-start';
+
+export const getStats = createServerFn({ method: 'GET' }).handler(async () => {
+  // runs on the server: read env, hit a DB or external API, etc.
+  return { users: 42 };
+});
+```
+
+Call it from a route loader and read it with `Route.useLoaderData()` — no client fetch, no `useEffect`:
+
+```tsx
+// src/routes/stats.tsx
+import { createFileRoute } from '@tanstack/react-router';
+
+import { getStats } from '@/server/get-stats';
+
+export const Route = createFileRoute('/stats')({
+  loader: () => getStats(),
+  component: StatsPage,
+});
+
+function StatsPage() {
+  const stats = Route.useLoaderData();
+
+  return <div>{stats.users} users</div>;
+}
+```
+
+Inputs are passed and validated through the function's `.validator(...)`/`data` argument; call the same function from an event handler for mutations. Keep secrets server-side — only the loader's return value reaches the client.
 
 ---
 

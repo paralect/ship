@@ -8,11 +8,22 @@
 [![Follow](https://img.shields.io/twitter/follow/paralect.svg?style=social&label=Follow)](https://twitter.com/paralect)
 [![Tweet](https://img.shields.io/twitter/url/https/github.com/paralect/ship.svg?style=social)](https://twitter.com/intent/tweet?text=I%2)
 
-The [Ship](https://ship.paralect.com) is a toolkit for makers to **ship** better products faster 🚀.
+The [Ship](https://ship.paralect.com) is an AI-native, batteries-included full-stack TypeScript SaaS starter — a toolkit for makers to **ship** better products faster 🚀.
 
-It is based on several open-source components, resulting from years of hard work by the [Paralect](https://www.paralect.com) team. We carefully select, document, and share our production-ready knowledge with you.
+> **Build products, not boilerplate.**
 
-**Stack:** [TanStack Start](https://tanstack.com/start) (SPA) + [TanStack Router](https://tanstack.com/router) + [TanStack Query](https://tanstack.com/query) + [shadcn/ui](https://ui.shadcn.com/) + [Tailwind v4](https://tailwindcss.com/) on the web; [Hono](https://hono.dev/) + [oRPC](https://orpc.unnoq.com/) + [Drizzle ORM](https://orm.drizzle.team/) + [PostgreSQL](https://www.postgresql.org/) (or [MongoDB](https://www.mongodb.com/) via plugin) + [better-auth](https://better-auth.com/) on the API; [react-hook-form](https://react-hook-form.com/) + [zod](https://zod.dev/) for forms; [Socket.IO](https://socket.io/); [Turborepo](https://turbo.build/repo/docs); [pnpm](https://pnpm.io/); [Docker](https://www.docker.com/); [TypeScript](https://www.typescriptlang.org/).
+It is based on several open-source components, resulting from years of hard work by the [Paralect](https://www.paralect.com) team. We carefully select, document, and share our production-ready knowledge with you — and write it so coding agents have ground truth and one obvious way to do things.
+
+**Stack:** [TanStack Start](https://tanstack.com/start) (SPA) + [TanStack Router](https://tanstack.com/router) + [TanStack Query](https://tanstack.com/query) + [shadcn/ui](https://ui.shadcn.com/) + [Tailwind v4](https://tailwindcss.com/) on the web; [Hono](https://hono.dev/) + [oRPC](https://orpc.unnoq.com/) + [Drizzle ORM](https://orm.drizzle.team/) + [PostgreSQL](https://www.postgresql.org/) + [better-auth](https://better-auth.com/) on the API; [react-hook-form](https://react-hook-form.com/) + [zod](https://zod.dev/) for forms; [Socket.IO](https://socket.io/); [Turborepo](https://turbo.build/repo/docs); [pnpm](https://pnpm.io/); [Docker](https://www.docker.com/); [TypeScript](https://www.typescriptlang.org/).
+
+## Two shapes
+
+`@paralect/ship` scaffolds a monorepo in one of two shapes:
+
+- **PostgreSQL + TanStack Start (full-stack)** — a Hono + oRPC + Drizzle API (`apps/api`) and a TanStack Start web app (`apps/web`), with end-to-end type safety flowing from the API to the client.
+- **TanStack Start web-only** — a standalone SPA (`apps/web`) with no separate API; backend logic lives in type-safe **server functions** that run on the Start server.
+
+Auth, file storage, email, AI chat and an admin panel are **plugins** you opt into — each copies into your codebase, so you own and can edit every line.
 
 We encourage developers to share production-ready solutions and help businesses ship something people need as quickly as possible.
 
@@ -35,10 +46,12 @@ We encourage developers to share production-ready solutions and help businesses 
 ## Quick Start
 
 ```shell
-npx create-ship-app@latest init
+npx @paralect/ship init
 ```
 
-## [Documentation](https://ship.paralect.com/docs/intro)
+`npx create-ship-app@latest init` works too — it resolves to the same CLI.
+
+## [Documentation](https://ship.paralect.com/docs/introduction)
 
 ## Why Ship?
 

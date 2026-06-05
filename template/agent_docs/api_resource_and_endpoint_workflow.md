@@ -23,9 +23,28 @@ Every resource lives in [`apps/api/src/resources/<name>/`](../apps/api/src/resou
 │   └── nested-group/      # Non-param subdirs = nested router groups (camelCased)
 │       └── action.post.ts
 ├── methods/               # Optional: shared business logic (not routed)
-└── handlers/              # Optional: event-bus side-effect handlers
-    └── on-insert.ts       # subscribes to `<table>.insert`, `<table>.update`, `<table>.delete`
+├── handlers/              # Optional: event-bus side-effect handlers
+│   └── on-insert.ts       # subscribes to `<table>.insert`, `<table>.update`, `<table>.delete`
+└── crons/                 # Optional: scheduled jobs — one file per cron (auto-discovered)
+    └── cleanup.ts         # default-exports scheduler({ cron, handler })
 ```
+
+A cron job is one file that default-exports `scheduler({ cron, handler })`, auto-discovered like endpoints:
+
+```typescript
+// resources/users/crons/cleanup.ts
+import db from '@/db';
+import scheduler from '@/scheduler';
+
+export default scheduler({
+  cron: '0 * * * *',
+  handler: async () => {
+    await db.users.deleteMany({ where: { status: 'pending' } });
+  },
+});
+```
+
+Run the scheduler with `pnpm --filter api schedule` (or `schedule-dev`).
 
 No `index.ts` barrels needed — codegen discovers endpoints from the filesystem.
 
@@ -65,12 +84,12 @@ The base builder is [`src/endpoint.ts`](../apps/api/src/endpoint.ts) — `import
 
 **Ownership / existence** uses two generic factories in `src/middlewares/`:
 
-| Factory | Signature | Effect |
-|---|---|---|
-| `shouldExist(ctxKey, load, message?)` | `load` is `({ input, context }) => Promise<T \| null>` | Loads the entity into `context[ctxKey]`, throws `NOT_FOUND` if absent. |
-| `shouldOwn(ctxKey, dbService, { idKey?, owner?, message? })` | sugar over `shouldExist` for the owned-by-id case | Resolves the id as `input[idKey] ?? input.id` (`idKey` defaults to `${ctxKey}Id`), matches `owner` (defaults to `'userId'`) against `context.user.id`, soft-delete aware; `NOT_FOUND` on mismatch (no existence leak). |
+| Factory | Import | Signature | Effect |
+|---|---|---|---|
+| `canAccess(ctxKey, load, message?)` | `@/middlewares/can-access` | `load` is `({ input, context }) => Promise<T \| null>` | Loads the entity into `context[ctxKey]`, throws `NOT_FOUND` if absent. |
+| `canEdit(ctxKey, dbService, { idKey?, owner?, message? })` | `@/middlewares/can-edit` | sugar over `canAccess` for the owned-by-id case | Resolves the id as `input[idKey] ?? input.id` (`idKey` defaults to `${ctxKey}Id`), matches `owner` (defaults to `'userId'`) against `context.user.id`, soft-delete aware; `NOT_FOUND` on mismatch (no existence leak). |
 
-Per resource, create `resources/<r>/middlewares/should-own-<x>.ts` that default-exports a configured `shouldOwn(...)`, and apply it with `.use(shouldOwnX)` **after** `.input(...)` (it reads the validated input). The handler then reads the loaded entity from `context.<ctxKey>`.
+Per resource, create `resources/<r>/middlewares/can-edit-<x>.ts` that default-exports a configured `canEdit(...)`, and apply it with `.use(canEditX)` **after** `.input(...)` (it reads the validated input). The handler then reads the loaded entity from `context.<ctxKey>`.
 
 `ORPCError` comes from `@orpc/server`: `import { ORPCError } from '@orpc/server'`.
 
@@ -100,13 +119,13 @@ With a per-resource ownership middleware, apply it after `.input(...)` and read 
 ```typescript
 import endpoint from '@/endpoint';
 import isAuthorized from '@/middlewares/is-authorized';
-import shouldOwnPost from '@/resources/posts/middlewares/should-own-post';
+import canEditPost from '@/resources/posts/middlewares/can-edit-post';
 import { idSchema, publicSchema } from '@/resources/posts/posts.schema';
 
 export default endpoint
   .use(isAuthorized)
   .input(idSchema)
-  .use(shouldOwnPost)
+  .use(canEditPost)
   .output(publicSchema)
   .handler(async ({ context }) => {
     // context.post is loaded and owned by context.user
@@ -206,6 +225,6 @@ Update this doc when:
 - Codegen script behavior changes (`scripts/codegen-router.ts`, `scripts/codegen-db.ts`).
 - A new gate or middleware added in `src/middlewares/`.
 - A new always-on middleware added to `src/middlewares/global/`.
-- A per-resource ownership middleware (`shouldOwn`/`shouldExist`) added or changed.
+- A per-resource ownership middleware (`canEdit`/`canAccess`) added or changed.
 - `DbService` API or transaction shape changes.
 - Event-bus key format changes.
