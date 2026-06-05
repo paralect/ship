@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useCurrentUser } from '@/hooks';
+import { useCurrentUser } from '@/hooks/use-current-user.hook';
 import { Pencil, Plus } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import { useFormContext } from 'react-hook-form';

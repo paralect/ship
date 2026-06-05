@@ -1,8 +1,3 @@
-// User type is inferred from the oRPC router
-import type { orpc } from '@/services/api-client.service';
-
-export type User = Awaited<ReturnType<typeof orpc.users.getCurrent>>;
-
 export type QueryParam = string | string[] | undefined;
 
 export type SortOrder = 'asc' | 'desc';

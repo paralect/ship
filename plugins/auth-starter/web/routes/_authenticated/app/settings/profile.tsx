@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useCurrentUser } from '@/hooks';
+import { useCurrentUser } from '@/hooks/use-current-user.hook';
 
 import SettingsLayout from '../-components/settings/settings-layout';
 import ProfileTab from '../-components/settings/profile-tab';

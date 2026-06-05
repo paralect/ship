@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { useApiForm } from '@/hooks';
+import { useApiForm } from '@/hooks/use-api.hook';
 import { Loader2 } from 'lucide-react';
 
 import { authClient } from '@/services/auth-client.service';
@@ -31,7 +31,7 @@ function ForgotPassword() {
   const onSubmit = handleSubmit(async (data) => {
     setIsPending(true);
 
-    await authClient.forgetPassword({
+    await authClient.requestPasswordReset({
       email: data.email,
       redirectTo: '/reset-password',
     });

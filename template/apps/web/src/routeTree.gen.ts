@@ -9,39 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignUpRouteImport } from './routes/sign-up'
-import { Route as SignInRouteImport } from './routes/sign-in'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as DemoRouteImport } from './routes/demo'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
-import { Route as AuthenticatedAppSettingsSecurityRouteImport } from './routes/_authenticated/app/settings/security'
-import { Route as AuthenticatedAppSettingsProfileRouteImport } from './routes/_authenticated/app/settings/profile'
 
-const SignUpRoute = SignUpRouteImport.update({
-  id: '/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SignInRoute = SignInRouteImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
+const DemoRoute = DemoRouteImport.update({
+  id: '/demo',
+  path: '/demo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SplatRoute = SplatRouteImport.update({
@@ -54,141 +28,44 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
-  id: '/app/',
-  path: '/app/',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedAppSettingsSecurityRoute =
-  AuthenticatedAppSettingsSecurityRouteImport.update({
-    id: '/app/settings/security',
-    path: '/app/settings/security',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedAppSettingsProfileRoute =
-  AuthenticatedAppSettingsProfileRouteImport.update({
-    id: '/app/settings/profile',
-    path: '/app/settings/profile',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/forgot-password': typeof ForgotPasswordRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/sign-in': typeof SignInRoute
-  '/sign-up': typeof SignUpRoute
-  '/app/': typeof AuthenticatedAppIndexRoute
-  '/app/settings/profile': typeof AuthenticatedAppSettingsProfileRoute
-  '/app/settings/security': typeof AuthenticatedAppSettingsSecurityRoute
+  '/demo': typeof DemoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/forgot-password': typeof ForgotPasswordRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/sign-in': typeof SignInRoute
-  '/sign-up': typeof SignUpRoute
-  '/app': typeof AuthenticatedAppIndexRoute
-  '/app/settings/profile': typeof AuthenticatedAppSettingsProfileRoute
-  '/app/settings/security': typeof AuthenticatedAppSettingsSecurityRoute
+  '/demo': typeof DemoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/forgot-password': typeof ForgotPasswordRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/sign-in': typeof SignInRoute
-  '/sign-up': typeof SignUpRoute
-  '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
-  '/_authenticated/app/settings/profile': typeof AuthenticatedAppSettingsProfileRoute
-  '/_authenticated/app/settings/security': typeof AuthenticatedAppSettingsSecurityRoute
+  '/demo': typeof DemoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/$'
-    | '/forgot-password'
-    | '/reset-password'
-    | '/sign-in'
-    | '/sign-up'
-    | '/app/'
-    | '/app/settings/profile'
-    | '/app/settings/security'
+  fullPaths: '/' | '/$' | '/demo'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/$'
-    | '/forgot-password'
-    | '/reset-password'
-    | '/sign-in'
-    | '/sign-up'
-    | '/app'
-    | '/app/settings/profile'
-    | '/app/settings/security'
-  id:
-    | '__root__'
-    | '/'
-    | '/$'
-    | '/_authenticated'
-    | '/forgot-password'
-    | '/reset-password'
-    | '/sign-in'
-    | '/sign-up'
-    | '/_authenticated/app/'
-    | '/_authenticated/app/settings/profile'
-    | '/_authenticated/app/settings/security'
+  to: '/' | '/$' | '/demo'
+  id: '__root__' | '/' | '/$' | '/demo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  ForgotPasswordRoute: typeof ForgotPasswordRoute
-  ResetPasswordRoute: typeof ResetPasswordRoute
-  SignInRoute: typeof SignInRoute
-  SignUpRoute: typeof SignUpRoute
+  DemoRoute: typeof DemoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sign-up': {
-      id: '/sign-up'
-      path: '/sign-up'
-      fullPath: '/sign-up'
-      preLoaderRoute: typeof SignUpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sign-in': {
-      id: '/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof SignInRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/forgot-password': {
-      id: '/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof ForgotPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteImport
+    '/demo': {
+      id: '/demo'
+      path: '/demo'
+      fullPath: '/demo'
+      preLoaderRoute: typeof DemoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$': {
@@ -205,54 +82,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/app/': {
-      id: '/_authenticated/app/'
-      path: '/app'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/app/settings/security': {
-      id: '/_authenticated/app/settings/security'
-      path: '/app/settings/security'
-      fullPath: '/app/settings/security'
-      preLoaderRoute: typeof AuthenticatedAppSettingsSecurityRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/app/settings/profile': {
-      id: '/_authenticated/app/settings/profile'
-      path: '/app/settings/profile'
-      fullPath: '/app/settings/profile'
-      preLoaderRoute: typeof AuthenticatedAppSettingsProfileRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
   }
 }
-
-interface AuthenticatedRouteChildren {
-  AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
-  AuthenticatedAppSettingsProfileRoute: typeof AuthenticatedAppSettingsProfileRoute
-  AuthenticatedAppSettingsSecurityRoute: typeof AuthenticatedAppSettingsSecurityRoute
-}
-
-const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
-  AuthenticatedAppSettingsProfileRoute: AuthenticatedAppSettingsProfileRoute,
-  AuthenticatedAppSettingsSecurityRoute: AuthenticatedAppSettingsSecurityRoute,
-}
-
-const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
-  AuthenticatedRoute: AuthenticatedRouteWithChildren,
-  ForgotPasswordRoute: ForgotPasswordRoute,
-  ResetPasswordRoute: ResetPasswordRoute,
-  SignInRoute: SignInRoute,
-  SignUpRoute: SignUpRoute,
+  DemoRoute: DemoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

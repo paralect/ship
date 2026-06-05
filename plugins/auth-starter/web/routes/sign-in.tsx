@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { queryKey, useApiForm } from '@/hooks';
+import { queryKey, useApiForm } from '@/hooks/use-api.hook';
 import { AlertCircle, Loader2 } from 'lucide-react';
 
 import { authClient } from '@/services/auth-client.service';

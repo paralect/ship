@@ -2,19 +2,18 @@ import mixpanel from 'mixpanel-browser';
 
 import config from 'config';
 
-import { User } from '@/types';
+import { User } from '@/services/api-client.service';
 
 export const init = () => {
   mixpanel.init(config.MIXPANEL_API_KEY ?? '', { debug: config.IS_DEV });
 };
 
 export const setUser = (user: User | undefined) => {
-  mixpanel.identify(user?._id);
+  mixpanel.identify(user?.id);
 
   if (user) {
     mixpanel.people.set({
-      firstName: user.firstName,
-      lastName: user.lastName,
+      name: user.fullName,
     });
   }
 };

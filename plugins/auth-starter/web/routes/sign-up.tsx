@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useState } from 'react';
-import { useApiForm } from '@/hooks';
+import { useApiForm } from '@/hooks/use-api.hook';
 import { FormProvider } from 'react-hook-form';
 
 import { apiClient } from '@/services/api-client.service';

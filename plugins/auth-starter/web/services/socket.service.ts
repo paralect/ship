@@ -2,9 +2,9 @@ import io from 'socket.io-client';
 
 import config from 'config';
 
-import { User } from '@/types';
+import { User } from '@/services/api-client.service';
 
-const socket = io(config.WS_URL, {
+const socket = io(config.WS_URL!, {
   transports: ['websocket'],
   autoConnect: false,
 });

@@ -1,7 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useCurrentUser } from '@/hooks';
+import { Home } from 'lucide-react';
+import { useCurrentUser } from '@/hooks/use-current-user.hook';
 
 export const Route = createFileRoute('/_authenticated/app/')({
+  staticData: { nav: { label: 'Dashboard', icon: Home, order: 0 } },
   component: Dashboard,
 });
 

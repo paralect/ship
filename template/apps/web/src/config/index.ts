@@ -5,9 +5,9 @@ import { validateConfig } from '@/utils/config.util';
 const schema = z.object({
   APP_ENV: z.enum(['development', 'staging', 'production']).default('development'),
   IS_DEV: z.preprocess(() => import.meta.env.VITE_APP_ENV === 'development', z.boolean()),
-  API_URL: z.string(),
-  WS_URL: z.string(),
-  WEB_URL: z.string(),
+  API_URL: z.string().optional(),
+  WS_URL: z.string().optional(),
+  WEB_URL: z.string().optional(),
   MIXPANEL_API_KEY: z.string().optional(),
 });
 

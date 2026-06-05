@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { useCurrentUser } from '@/hooks';
+import { useCurrentUser } from '@/hooks/use-current-user.hook';
 
 import AppSidebar from './app-sidebar';
 import SiteHeader from './site-header';

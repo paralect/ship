@@ -6,7 +6,7 @@ import { contract } from 'api/contract';
 import config from 'config';
 
 const link = new OpenAPILink(contract, {
-  url: config.API_URL,
+  url: config.API_URL!,
   headers: () => ({
     'Content-Type': 'application/json',
   }),
@@ -45,3 +45,5 @@ function createStableClient<T>(target: T, path: string[] = []): T {
 
 export const orpc = createStableClient(createORPCClient<AppClient>(link));
 export const apiClient = orpc;
+
+export type User = Awaited<ReturnType<typeof orpc.users.getCurrent>>;

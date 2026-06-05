@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { queryKey, useApiForm, useApiMutation } from '@/hooks';
+import { queryKey, useApiForm, useApiMutation } from '@/hooks/use-api.hook';
 import { isUndefined, pickBy } from 'lodash';
 import { Loader2 } from 'lucide-react';
 import { FormProvider } from 'react-hook-form';
@@ -11,7 +11,7 @@ import { handleApiError } from '@/utils';
 import queryClient from '@/query-client';
 
 import { accountUpdateSchema } from '@/schemas';
-import type { User } from '@/types';
+import type { User } from '@/services/api-client.service';
 
 import AvatarUpload from './avatar-upload';
 
@@ -44,7 +44,7 @@ const ProfileTab: FC<ProfileTabProps> = ({ currentUser }) => {
     formState: { errors, isDirty },
   } = methods;
 
-  const { mutate: updateCurrentUser, isPending: isUpdatePending } = useApiMutation(apiClient.users.updateCurrent);
+  const { mutate: updateCurrentUser, isPending: isUpdatePending } = useApiMutation(apiClient.users.patchCurrent);
 
   const onSubmit = handleSubmit((submitData) => {
     const dataToUpdate = pickBy(submitData, (value, key) => {

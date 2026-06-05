@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTheme } from 'next-themes';
-import { useCurrentUser } from '@/hooks';
+import { useCurrentUser } from '@/hooks/use-current-user.hook';
 import { ChevronsUpDown, LogOut, Moon, Sun } from 'lucide-react';
 import { toast } from 'sonner';
 

@@ -5,6 +5,13 @@
   "requires": ["postgres", "mailer", "cloud-storage"],
   "dependencies": {
     "api": { "better-auth": "^1.0.0" },
-    "web": { "better-auth": "^1.0.0" }
+    "web": {
+      "api": "workspace:*",
+      "@orpc/client": "^1.5.0",
+      "@orpc/openapi-client": "1.13.9",
+      "better-auth": "^1.0.0",
+      "mixpanel-browser": "2.53.0",
+      "socket.io-client": "4.7.5"
+    }
   }
 }
