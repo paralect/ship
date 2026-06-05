@@ -10,15 +10,15 @@ export type UsersListResponse = InferClientOutputs<typeof orpc>['users']['list']
 type User = UsersListResponse['results'][number];
 export const PER_PAGE = 10;
 
-type UserListSortFields = 'createdOn' | 'fullName';
-export const EXTERNAL_SORT_FIELDS: Array<UserListSortFields> = ['createdOn'];
+type UserListSortFields = 'createdAt' | 'fullName';
+export const EXTERNAL_SORT_FIELDS: Array<UserListSortFields> = ['createdAt'];
 
 export const DEFAULT_PARAMS: UsersListParams = {
   page: DEFAULT_PAGE,
   searchValue: '',
   perPage: PER_PAGE,
   sort: {
-    createdOn: 'desc',
+    createdAt: 'desc',
   },
 };
 

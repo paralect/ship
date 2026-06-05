@@ -48,7 +48,7 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
 
   const handleSort = (value: string) => {
     setSortBy(value);
-    setParams({ sort: { createdOn: value === "newest" ? "desc" : "asc" } });
+    setParams({ sort: { createdAt: value === "newest" ? "desc" : "asc" } });
   };
 
   const handleFilter = (range: DateRange | undefined) => {
@@ -62,7 +62,7 @@ const Filters: FC<FiltersProps> = ({ setParams }) => {
     if (range.to) {
       setParams({
         filter: {
-          createdOn: { startDate: range.from, endDate: range.to },
+          createdAt: { startDate: range.from, endDate: range.to },
         },
       });
     }
