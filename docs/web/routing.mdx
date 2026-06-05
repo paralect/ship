@@ -1,78 +1,183 @@
 ---
 title: "Routing"
+description: "TanStack Router file-based routes — the directory tree is the route table. __root.tsx, params, splats, guards, loaders and private folders."
 ---
 
-Our application's routing is powered by [Next.js Pages router](https://nextjs.org/docs/pages), which is a standard for handling routes in Next.js applications.
+`apps/web` uses [TanStack Router](https://tanstack.com/router) with **file-based routing**. Every file under `src/routes/**` is a route, and the directory tree *is* the route table — there's no central registry to maintain. The Vite plugin (`tanstackStart`) watches that folder and regenerates `src/routeTree.gen.ts` on every change, so the routes an agent reads are always real.
 
-## Page Configuration with `<Page>`
+## The root route
 
-Each page component declares its own scope and layout by wrapping its content in the `<Page>` component (imported from `components`). This co-locates route configuration with the page component itself — no central configuration file to maintain.
+`src/routes/__root.tsx` is the parent of every route. It defines the document shell, the `<head>`, and the providers shared app-wide, then renders matched children through `<Outlet />`:
 
-### Scope and Layout Types
+```tsx src/routes/__root.tsx
+import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
 
-Routes are categorized into two scope types and layout types:
-
-1. **Scope Types**:
-- `PUBLIC`: Routes accessible without user authentication.
-- `PRIVATE`: Routes requiring user authentication.
-
-2. **Layout Types**:
-- `MAIN`: Main layout for authenticated users.
-- `UNAUTHORIZED`: Layout for non-authenticated users or authentication pages.
-
-### Page Configuration Example
-
-Here's how a page declares its scope and layout:
-
-- Private Page (Requires authentication):
-```tsx src/pages/profile/index.page.tsx
-import { Page, ScopeType, LayoutType } from 'components';
-
-const Profile = () => {
-  return (
-    <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
-      <div>Profile page</div>
-    </Page>
-  );
-};
-
-export default Profile;
+export const Route = createRootRoute({
+  ssr: false,
+  head: () => ({ meta: [{ title: 'Ship' }], links: [/* fonts, favicon */] }),
+  shellComponent: RootDocument,
+  component: RootLayout, // renders <Outlet /> inside the shared providers
+});
 ```
 
-- Public Page (Accessible without authentication):
-```tsx src/pages/forgot-password/index.page.tsx
-import { Page, ScopeType, LayoutType } from 'components';
+## A route is a file
 
-const ForgotPassword = () => {
-  return (
-    <Page scope={ScopeType.PUBLIC} layout={LayoutType.UNAUTHORIZED}>
-      <div>Forgot password page</div>
-    </Page>
-  );
-};
+Each route file exports a `Route` created with `createFileRoute`. The path string is the route's URL, and it's **managed for you** — the Vite plugin writes it to match the file's location, so you never hand-edit it:
 
-export default ForgotPassword;
+```tsx src/routes/index.tsx
+import { createFileRoute } from '@tanstack/react-router';
+
+import Landing from '@/components/landings/dark';
+
+export const Route = createFileRoute('/')({
+  component: Landing,
+});
 ```
 
-## Page Component
+| File | URL |
+| --- | --- |
+| `routes/index.tsx` | `/` |
+| `routes/sign-in.tsx` | `/sign-in` |
+| `routes/app/settings/profile.tsx` | `/app/settings/profile` |
 
-The `Page` component (`/pages/_app/PageConfig/index.tsx`, re-exported from `components`) handles scope and layout rendering.
-Each page wraps its content in `<Page scope={...} layout={...}>` to declare its access requirements and layout.
+<Note>You don't write the `createFileRoute('/...')` path by hand — the `tanstackStart` Vite plugin keeps it in sync with the filename. If it ever drifts, the dev server fixes it on save.</Note>
 
-### How It Works
+## Dynamic params: `$param`
 
-- Each page imports the `Page` component and wraps its returned JSX with the appropriate `scope` and `layout` props.
-- Based on these props, the `Page` component applies the designated scope and layout.
-- For private routes, it redirects unauthenticated users to the sign-in page.
-- Conversely, for public routes, authenticated users are redirected to the home page.
+A `$`-prefixed segment is a dynamic parameter. Read it with `Route.useParams()`:
 
-## Naming Conventions for Route Files
+```tsx src/routes/app/ai-chat/$chatId.tsx
+export const Route = createFileRoute('/app/ai-chat/$chatId')({
+  component: ChatPage,
+});
 
-- **Page Routes**: Each file representing a page route should have the `.page.tsx` postfix.
-- **API Routes/Middleware**: Files for Next.js API routes or middleware should have the `.api.ts` postfix.
+function ChatPage() {
+  const { chatId } = Route.useParams();
+  return <Chat key={chatId} chatId={chatId} />;
+}
+```
 
-<Note>
-These conventions can be modified in `next.config.js` if needed.
-</Note>
+## Catch-all: the `$` splat
 
-By following this structure, our application maintains a clear, manageable, and scalable routing system.
+A bare `$.tsx` matches anything that no other route claims — Ship uses it for the 404 page:
+
+```tsx src/routes/$.tsx
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+
+import { Button } from '@/components/ui/button';
+
+export const Route = createFileRoute('/$')({
+  component: NotFound,
+});
+
+function NotFound() {
+  const navigate = useNavigate();
+  return <Button onClick={() => navigate({ to: '/' })}>Go to homepage</Button>;
+}
+```
+
+## Guarding routes: `_authenticated`
+
+A `_`-prefixed segment is a **pathless layout route** — it wraps its children with shared logic and layout without adding a URL segment. The **Auth plugin** ships an `_authenticated` layout that gates everything beneath it: its `beforeLoad` checks for the current user and redirects to `/sign-in` if there isn't one.
+
+```tsx src/routes/_authenticated.tsx
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+
+export const Route = createFileRoute('/_authenticated')({
+  beforeLoad: async () => {
+    const user = await loadCurrentUser();
+    if (!user) throw redirect({ to: '/sign-in' });
+  },
+  component: () => (
+    <MainLayout>
+      <Outlet />
+    </MainLayout>
+  ),
+});
+```
+
+Anything you drop under `routes/_authenticated/app/**` is signed-in-only and rendered inside `MainLayout` — no per-page auth checks. Plugins follow the same convention: the Notes, Admin and AI-chat plugins all merge their routes under `routes/_authenticated/app/**`.
+
+<Info>`_authenticated` and the sign-in/up pages come from the **Auth plugin**. The base `apps/web` is just the landing page and the 404; add Auth and you get the guarded app shell.</Info>
+
+## Loaders
+
+A route's `loader` runs before its component renders — the place to fetch data so it's ready on first paint. In the web-only shape, a loader calls a [server function](/web/server-functions) directly:
+
+```tsx src/routes/app/stats.tsx
+import { createFileRoute } from '@tanstack/react-router';
+
+import { getStats } from '@/server/stats';
+
+export const Route = createFileRoute('/app/stats')({
+  loader: () => getStats(),
+  component: Stats,
+});
+
+function Stats() {
+  const stats = Route.useLoaderData();
+  return <div>{stats.count}</div>;
+}
+```
+
+In the full-stack shape you typically fetch inside the component with the Auth plugin's `useApiQuery` hook instead, so TanStack Query owns caching and refetching. See [Server functions](/web/server-functions) and [How Ship works](/how-ship-works).
+
+## Private folders: `-components/`
+
+A folder prefixed with `-` is **ignored by the router** — it's never a route. Use it to colocate the pieces a route needs (components, hooks) right next to it without polluting the URL space:
+
+```
+routes/_authenticated/app/
+  settings/
+    profile.tsx                 # /app/settings/profile
+    security.tsx                # /app/settings/security
+  -components/                  # ignored by the router
+    settings/
+      profile-tab.tsx
+      settings-layout.tsx
+```
+
+Import upward from the route into the private folder as usual:
+
+```tsx
+import SettingsLayout from '../-components/settings/settings-layout';
+```
+
+## Sidebar nav from route metadata
+
+The app sidebar isn't a hand-maintained list — it builds itself from the route tree. A route appears in the sidebar by declaring `staticData.nav`:
+
+```tsx src/routes/_authenticated/app/notes/index.tsx
+import { createFileRoute } from '@tanstack/react-router';
+import { FileText } from 'lucide-react';
+
+export const Route = createFileRoute('/_authenticated/app/notes/')({
+  staticData: { nav: { label: 'Notes', icon: FileText, order: 10 } },
+  component: NotesPage,
+});
+```
+
+The sidebar scans the route tree and renders an item per declaring route, sorted by `order`. This is how a [plugin](/plugins/overview) feature shows up in the nav the moment it's installed — no central nav file to edit, the same file-based philosophy as the rest of Ship.
+
+## The generated route tree
+
+`src/routeTree.gen.ts` is written by the Vite plugin from your `routes/**` tree. It's how the router knows every route and how TanStack Query and `<Link to="...">` get full type safety on paths and params.
+
+<Warning>**Never edit `routeTree.gen.ts` by hand** — it's regenerated on every change to `routes/**` and your edits will be overwritten. It's also excluded from lint and formatting.</Warning>
+
+## Conventions at a glance
+
+| Pattern | Meaning |
+| --- | --- |
+| `__root.tsx` | the root route — shell, head, shared providers |
+| `index.tsx` | the index (`/`) of its folder |
+| `$param.tsx` | dynamic segment, read via `Route.useParams()` |
+| `$.tsx` | catch-all splat (404) |
+| `_layout.tsx` | pathless layout route (e.g. `_authenticated`) |
+| `-folder/` | private folder, ignored by the router |
+| `routeTree.gen.ts` | auto-generated, do not edit |
+
+## Next
+
+- [Server functions](/web/server-functions) — backend logic behind loaders.
+- [Web overview](/web/overview) — the stack and how data flows.

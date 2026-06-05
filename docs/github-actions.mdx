@@ -1,36 +1,46 @@
 ---
 title: "GitHub Actions"
-description: "Pre-configured CI/CD workflows for automated building and linting"
+description: "Pre-wired CI — Docker build checks and a reusable lint workflow on every pull request."
 ---
 
-Ship includes GitHub Actions workflows in `.github/workflows/` that run automatically on pull requests to validate builds and enforce code quality.
-
-## Workflows Overview
+Generated projects ship with GitHub Actions in `.github/workflows/`. They run on pull requests to `main` to verify Docker builds and enforce lint, type and format checks.
 
 <CardGroup cols={2}>
-  <Card title="Build Workflows" icon="docker" iconType="duotone">
-    Validate Docker builds for API and Web
+  <Card title="Build workflows" icon="docker">
+    Build the API and Web Docker images to prove they compile.
   </Card>
-  <Card title="Lint Workflows" icon="broom" iconType="duotone">
-    Run ESLint, TypeScript, and Prettier
+  <Card title="Lint workflows" icon="broom">
+    Run ESLint, TypeScript and Prettier via one reusable template.
   </Card>
 </CardGroup>
 
-## Build Workflows
+The template provides five workflow files:
 
-Workflows build Docker images to ensure they compile successfully before merging. They use BuildKit caching to speed up builds.
+| File | Purpose |
+| --- | --- |
+| `build-api.yml` | Build the API Docker image |
+| `build-web.yml` | Build the Web Docker image |
+| `linter.template.yml` | Reusable lint job |
+| `run-api-linter.yml` | Lint the API |
+| `run-web-linter.yml` | Lint the Web app |
 
-### Build API
+<Note>
+  **Web-only projects** have no `apps/api`, so the `build-api.yml` and `run-api-linter.yml` workflows aren't included — only the web build and lint workflows ship.
+</Note>
 
-**File**: `.github/workflows/build-api.yml`
+## Build workflows
 
-**Triggers**: PRs to `main` with changes in `apps/api/**` or `packages/**`
+Each build workflow builds the app's Docker image with BuildKit layer caching, to catch a broken build before merge.
 
-<CodeGroup>
-```yaml Key Configuration
+### Build API — `build-api.yml`
+
+Triggers on PRs to `main` touching `apps/api/**` or `packages/**`.
+
+```yaml
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main
     paths:
       - apps/api/**
       - packages/**
@@ -40,80 +50,59 @@ jobs:
     steps:
       - uses: docker/build-push-action@v5
         with:
+          context: .
           file: ./apps/api/Dockerfile
           push: false
           cache-from: type=local,src=/tmp/.buildx-cache
 ```
-</CodeGroup>
 
-### Build Web
+### Build Web — `build-web.yml`
 
-**File**: `.github/workflows/build-web.yml`
+Same shape, scoped to `apps/web/**` (and `packages/**`), building `./apps/web/Dockerfile`.
 
-**Triggers**: PRs to `main` with changes in `apps/web/**` or `packages/**`
-
-<CodeGroup>
-```yaml Key Configuration
+```yaml
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main
     paths:
       - apps/web/**
       - packages/**
-
-jobs:
-  build:
-    steps:
-      - uses: docker/build-push-action@v5
-        with:
-          file: ./apps/web/Dockerfile
-          push: false
-          cache-from: type=local,src=/tmp/.buildx-cache
 ```
-</CodeGroup>
 
-## Lint Workflows
+## Lint workflows
 
-Linting uses a reusable template workflow that runs ESLint, TypeScript, and Prettier checks.
+Linting runs through one reusable workflow that both the API and Web jobs call.
 
-### Linter Template
+### Reusable template — `linter.template.yml`
 
-**File**: `.github/workflows/linter.template.yml`
+Pins the toolchain and runs ESLint, TypeScript and Prettier through [lint-action](https://github.com/wearerequired/lint-action), which posts inline comments on the PR.
 
-Reusable workflow for running linters with pnpm and Node.js.
-
-<CodeGroup>
-```yaml Environment
+```yaml
 env:
   PNPM_VERSION: 9.5.0
   NODE_VERSION: 22.13.0
+
+# ...
+      - name: Run Linters
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          eslint_dir: ${{ inputs.dir }}
+          eslint_extensions: ts,tsx
+          tsc: true
+          tsc_dir: ${{ inputs.dir }}
+          tsc_extensions: ts,tsx
+          prettier: true
+          prettier_dir: ${{ inputs.dir }}
 ```
 
-```yaml Linters
-- name: Run Linters
-  uses: wearerequired/lint-action@v2
-  with:
-    eslint: true
-    eslint_dir: ${{ inputs.dir }}
-    tsc: true
-    tsc_dir: ${{ inputs.dir }}
-    prettier: true
-    prettier_dir: ${{ inputs.dir }}
-```
-</CodeGroup>
+### Lint API & Web — `run-api-linter.yml`, `run-web-linter.yml`
 
-<Info>
-  The [lint-action](https://github.com/wearerequired/lint-action) automatically posts inline comments on PRs for linting issues.
-</Info>
-
-### Lint API & Web
-
-**Files**: `.github/workflows/run-api-linter.yml`, `.github/workflows/run-web-linter.yml`
-
-**Triggers**: PRs to `main` with changes in respective apps or packages
+Each one is a thin caller that passes a `component` and `dir` into the template:
 
 <CodeGroup>
-```yaml API
+```yaml run-api-linter.yml
 jobs:
   lint:
     uses: ./.github/workflows/linter.template.yml
@@ -122,7 +111,7 @@ jobs:
       dir: apps/api
 ```
 
-```yaml Web
+```yaml run-web-linter.yml
 jobs:
   lint:
     uses: ./.github/workflows/linter.template.yml
@@ -132,19 +121,20 @@ jobs:
 ```
 </CodeGroup>
 
+Both trigger on PRs to `main` that touch the matching app or `packages/**`.
+
 ## Customization
 
-### Update Node.js/pnpm Versions
+### Update Node.js / pnpm versions
 
-Edit `.github/workflows/linter.template.yml`:
+Bump them once in `linter.template.yml` — both lint jobs inherit the change:
 
 ```yaml
 env:
-  PNPM_VERSION: 9.5.0    # Update version
-  NODE_VERSION: 22.13.0  # Update version
+  PNPM_VERSION: 9.5.0
+  NODE_VERSION: 22.13.0
 ```
 
 <Tip>
-  All workflows support manual triggering via `workflow_dispatch` for testing.
+  Every workflow also defines `workflow_dispatch`, so you can trigger any of them manually from the Actions tab.
 </Tip>
-

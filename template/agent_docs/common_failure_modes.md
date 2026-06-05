@@ -4,81 +4,72 @@
 
 ---
 
-## 1. "Module not found" for a new endpoint/type in web
+## 1. Endpoint returns 404
 
-**Cause**: Codegen not run after API changes.
-**Fix**: `pnpm --filter shared generate && pnpm --filter web tsc --noEmit`
+**Cause**: Codegen not run after adding/removing endpoint file.
+**Fix**: `pnpm --filter api codegen` (regenerates router + db + contract).
 
-## 2. Page exists but returns 404 in browser
+## 2. Web types stale after API changes
 
-**Cause**: File is not named `*.page.tsx`. Next.js config only routes files matching `pageExtensions: ['page.tsx', 'api.ts']`.
-**Fix**: Rename to `index.page.tsx` or `[param].page.tsx`.
+**Cause**: Declarations not rebuilt.
+**Fix**: `pnpm --filter api build:types && pnpm --filter web tsc --noEmit`.
 
-## 3. Endpoint returns 401 unexpectedly
+## 3. Import error: "Cannot find module '@/...'"
 
-**Cause**: Missing `isPublic` in the endpoint's `middlewares` array. All endpoints require auth by default.
-**Fix**: Add `import isPublic from 'middlewares/isPublic'` and include it in `middlewares: [isPublic]`.
+**Cause**: API uses `@/` alias (baseUrl: `src`). Wrong path or missing file.
+**Fix**: Check that the file exists at `apps/api/src/<path>`.
 
-## 4. Zod validation errors: "unrecognized key" or wrong method
+## 4. Inline string enum in Zod schema
 
-**Cause**: Using Zod 3 API in a Zod 4 repo. Example: `z.string().email()` doesn't exist in Zod 4.
-**Fix**: Use `z.email()`, `z.url()`, `z.uuid()` etc. Check `node_modules/zod` version. Search existing schemas for patterns.
+**Cause**: Using `z.enum(['ready', 'failed'])` instead of constants.
+**Fix**: Import from `app-constants`: `z.enum(STATUSES)`.
 
-## 5. Import errors in API code: "Cannot find module 'src/...'"
+## 5. Route exists but 404 in browser
 
-**Cause**: API `tsconfig.baseUrl` is `src`. Imports should be `'resources/...'`, `'routes/...'`, `'config'`, `'db'` — no `src/` prefix.
-**Fix**: Remove the `src/` prefix from the import path.
+**Cause**: TanStack Router route tree (`src/routeTree.gen.ts`) hasn't regenerated, or the file is under a `-components/` prefix.
+**Fix**: Restart `pnpm --filter web dev` to retrigger the Vite Start plugin. Confirm the file path matches a real URL segment and that `-`-prefixed directories are only used for non-route helpers.
 
-## 6. New resource's endpoints don't appear in startup logs
+## 6. Env var undefined at runtime
 
-**Cause**: Either (a) no `endpoints/` subfolder, (b) endpoint files don't default-export `createEndpoint()`, or (c) the resource folder name is in `IGNORE_RESOURCES`.
-**Fix**: Check `apps/api/src/resources/<name>/endpoints/` exists and files use `export default createEndpoint({...})`. Check `generate.ts` for `IGNORE_RESOURCES`.
+**Cause**: Not in `.env` or not in the Zod config schema. Web vars need `VITE_` prefix (Vite convention).
+**Fix**: Add to both `.env` and `src/config/index.ts` schema.
 
-## 7. `shouldExist` middleware returns "service not found"
+## 7. Postgres connection fails locally
 
-**Cause**: The collection name passed to `shouldExist('name')` doesn't match any `db.createService` registration. Services register into `db.services` by their `DATABASE_DOCUMENTS` name.
-**Fix**: Ensure the service file calls `db.createService(DATABASE_DOCUMENTS.NAME, ...)` and the barrel `index.ts` imports it (triggering registration).
+**Cause**: Docker not running.
+**Fix**: `pnpm infra:postgres`
 
-## 8. `useApiMutation` pathParams don't change per call
+## 8. tsbuildinfo cache causes stale declarations
 
-**Cause**: `pathParams` in `useApiMutation` are bound at hook initialization, not per `mutate()` call.
-**Fix**: For dynamic IDs, use `apiClient.resource.endpoint.call(params, { pathParams })` directly instead of the hook. See `agent_docs/web_pages_and_data_access.md`.
+**Cause**: Stale incremental build cache.
+**Fix**: `rm -f apps/api/tsconfig.tsbuildinfo && pnpm --filter api build:types`
 
-## 9. "Command not found: npm" / wrong package manager
+## 9. `canAccess` — entity not found
 
-**Cause**: Using npm or yarn. This repo requires pnpm.
-**Fix**: `pnpm install`. The `engines` field in root `package.json` enforces `pnpm ≥9.5.0` and rejects yarn.
+**Cause**: Wrong filter or entity doesn't exist in DB.
+**Fix**: Check the `load` function. `canAccess(ctxKey, ({ input, context }) => db.users.findFirst({ where: { id: input.id } }), message?)` loads into `context[ctxKey]`. For the common owned-by-id case use `canEdit(ctxKey, db.users, { owner: 'userId' })`, which resolves `input.<ctxKey>Id ?? input.id`, matches `owner` against `context.user.id`, and is soft-delete aware.
 
-## 10. Env var undefined at runtime
+## 10. Router codegen produces wrong nesting
 
-**Cause**: Either (a) not added to `.env`, (b) not added to the Zod config schema, or (c) web vars missing `NEXT_PUBLIC_` prefix.
-**Fix**: Add to `.env` AND the validation schema in `apps/api/src/config/index.ts` or `apps/web/src/config/index.ts`. Web vars must start with `NEXT_PUBLIC_`.
+**Cause**: Non-param subdirectories inside `endpoints/` become nested router groups (camelCased). Param dirs (`[id]/`) are part of the URL path, not nesting.
+**Fix**: Understand the convention: `endpoints/nested-dir/action.post.ts` → `resource.nestedDir.action`. Only `[param]/` dirs add URL segments.
 
-## 11. Type errors after editing `packages/shared/src/schemas/*` or `src/generated/*`
+## 13. `tx.<resource>` is `any` inside a transaction
 
-**Cause**: These files are auto-generated and overwritten by codegen.
-**Fix**: Don't edit them. Edit the source in `apps/api/src/resources/`, then run `pnpm --filter shared generate`.
+**Cause**: Drizzle's `transaction()` callback was used directly instead of `db.transaction()`.
+**Fix**: Always use `db.transaction(async (tx) => {...})`. The `tx` argument is the same typed `DBType` as `db`, so `tx.users.insertOne(...)` etc. all stay typed.
 
-## 12. `eslint` reports import order violations
+## 14. `eventBus.on('users.update', ...)` handler never fires
 
-**Cause**: ESLint enforces strict import ordering via `simple-import-sort` with custom groups.
-**Fix**: Run `pnpm --filter <package> eslint . --fix`. Don't hand-sort imports.
+**Cause**: codegen-db only wires `DbService` to the event bus when the resource has a `handlers/` directory at codegen time. Without it, the `onMutation` callback is omitted.
+**Fix**: Ensure `apps/api/src/resources/<name>/handlers/` exists with at least one file. Re-run `pnpm --filter api codegen`. The generated `db.ts` should show `new DbService(<table>, db, '<name>', eventBus.hook('<name>'))`.
 
-## 13. MongoDB connection fails locally
+## 11. Wrong pnpm/node version
 
-**Cause**: Docker infrastructure not running. MongoDB requires replica set initialization.
-**Fix**: `pnpm infra` — starts MongoDB + Redis + replica set initializer.
+**Cause**: Using npm/yarn or wrong Node version.
+**Fix**: `nvm use` (reads `.nvmrc`), use pnpm only.
 
-## 14. Handler/event bus side effects not firing
+## 12. Pre-existing db.ts type errors
 
-**Cause**: The handler file isn't imported. Handler files must be imported as side effects in the resource's `index.ts`.
-**Fix**: Add `import './<name>.handler'` at the top of the resource's `index.ts`.
-
----
-
-## Update Triggers
-
-Update this doc when:
-- New recurring failure patterns are discovered
-- Existing failure modes are fixed by architectural changes
-- Error messages change (update the symptoms)
+**Cause**: Drizzle version compatibility issue with `PgTable.getSQL`. Known, not blocking.
+**Fix**: Ignore. Use `--skipLibCheck --noCheck` for declaration emission. These don't affect runtime.

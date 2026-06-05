@@ -13,6 +13,7 @@
 
 # misc
 .DS_Store
+plugin-dev-server
 .dev
 .turbo
 *.pem

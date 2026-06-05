@@ -21,7 +21,7 @@ We have templates of deployment scripts for Digital Ocean and AWS, but you can u
 * Kubernetes cluster, you can create [DO Managed Kubernetes](https://www.digitalocean.com/products/kubernetes) or [AWS EKS](https://aws.amazon.com/eks/);
 * Container registry for your Docker images, mostly cloud providers has it own: [DO Container Registry](https://www.digitalocean.com/products/container-registry), [AWS ECR](https://aws.amazon.com/ecr/);
 * DNS provider account. We recommend [CloudFlare](https://www.cloudflare.com/), for AWS you can use [Route 53](https://aws.amazon.com/route53/);
-* Managed MongoDB. We recommend [MongoDB Atlas](https://www.mongodb.com/atlas/database) or [DO Managed MongoDB](https://www.digitalocean.com/products/managed-databases-mongodb);
+* Managed PostgreSQL. We recommend [DO Managed PostgreSQL](https://www.digitalocean.com/products/managed-databases-postgresql) or [AWS RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/);
 
 ## Deployment schema
 
@@ -133,7 +133,7 @@ corresponding to the environment-specific files mentioned earlier.
 
 ## Database setup
 
-We recommend avoiding self-managed database solutions and use cloud service like [MongoDB Atlas](https://www.mongodb.com/atlas/database) that provides managed database. It handles many quite complex things: database deployment, backups, scaling, and security.
+We recommend avoiding self-managed database solutions and use a managed PostgreSQL service like [DO Managed PostgreSQL](https://www.digitalocean.com/products/managed-databases-postgresql) or [AWS RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/). It handles many quite complex things: database deployment, backups, scaling, and security. The API connects through a single `DATABASE_URL` connection string, and the Migrator applies Drizzle migrations against it before API and Scheduler roll out.
 
 ## SSL
 
@@ -151,10 +151,10 @@ Services are parts of your application packaged as Helm Charts.
 
 |Service|Description|Kubernetes Resource|
 |:---|:---|:---|
-|[**Web**](https://github.com/paralect/ship/blob/main/template/apps/web)|Next.js server that serves static files and API endpoints|Pod|
+|[**Web**](https://github.com/paralect/ship/blob/main/template/apps/web)|TanStack Start server that serves the SPA and its server functions|Pod|
 |[**API**](https://github.com/paralect/ship/blob/main/template/apps/api)|Backend server|Pod|
 |[**Scheduler**](https://github.com/paralect/ship/blob/main/template/apps/api/src/scheduler)|Service that runs cron jobs|Pod|
-|[**Migrator**](https://github.com/paralect/ship/blob/main/template/apps/api/src/migrator)|Service that migrates database schema. It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
+|[**Migrator**](https://github.com/paralect/ship/blob/main/template/apps/api/scripts/migrate.ts)|Job that applies Drizzle migrations (`pnpm --filter api migrate`). It deploys before api through Helm pre-upgrade [hook](https://helm.sh/docs/topics/charts_hooks/)|Job|
 
 To deploy services in the cluster manually you need to set cluster authorization credentials and run the deployment script.
 

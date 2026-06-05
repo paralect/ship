@@ -1,128 +1,169 @@
 ---
 title: "Mailer"
+description: "Transactional email as a plugin — Resend for delivery, React Email for templates, a live preview server, and one typed sendTemplate call."
 ---
 
-### Overview
+The **Mailer** plugin gives you transactional email with full type safety: write templates as [React Email](https://react.email/) components, send them through [Resend](https://resend.com/), and call one typed `sendTemplate` method from anywhere in the API.
 
-The **Mailer** package is a utility designed to facilitate the process of generating email templates. This package provides a way to style, template, and generate HTML for sending emails using the [`React Email`](https://react.email/) library
+It's a plugin — installing it merges the `@ship/emails` package (`packages/emails`) into your repo, so every template and the service itself are yours to edit.
 
-### Template System
-
-The template system is key to the functionality of the **Mailer** package. Each template corresponds to a different type of email that can be sent. The specific variables available for substitution in a template depend on the template itself.
-
-The Template type should be used to reference the available templates.  For example, to reference to verify email template, you would use `Template.VERIFY_EMAIL`.
-
-
-## Adding new Template
-
-All development takes place in the package turborepo `packages/mailer`. The preview of emails is launched automatically when you launch the application using turborepo or Docker, the application will be available on port 4000.
-
-1. Create a new template in the `emails` folder.
-2. Export your component and props interface from the file.
-
-```typescript my-app/packages/mailer/emails/verify-email.tsx
-import React, { FC } from 'react';
-import { Text } from '@react-email/components';
-
-import Layout from './_layout';
-import Button from './components/button';
-
-export interface VerifyEmailProps {
-  firstName: string;
-  href: string;
-}
-
-export const VerifyEmail:FC<VerifyEmailProps> = ({
-  firstName = 'John',
-  href = 'https://ship.paralect.com',
-}) => (
-  <Layout previewText="Welcome on board the Ship!">
-    <Text>
-      Dear
-      {' '}
-      {firstName}
-      ,
-    </Text>
-
-    <Text>
-      Welcome to Ship! We are excited to have you on board.
-    </Text>
-
-    <Text>
-      Before we get started, we just need to verify your email address.
-      This is to ensure that you have access to all our features and so we can send you important account notifications.
-    </Text>
-
-    <Text>
-      Please verify your account by clicking the button below:
-    </Text>
-
-    <Button href={href}>
-      Verify email
-    </Button>
-  </Layout>
-);
-
-export default VerifyEmail;
+```mermaid
+flowchart LR
+  T["emails/*.tsx<br/>React Email"] -- "render" --> HTML[HTML]
+  API["emailService.sendTemplate"] --> HTML
+  HTML -- "Resend" --> INBOX([Inbox])
 ```
 
-3. Navigate to `src/template.ts` file, import your component and props interface.
-4. Add your template to the `Template` enum, `EmailComponent` object and `TemplateProps` type.
+## The package
 
-```typescript my-app/packages/mailer/src/template.ts
-import { ResetPassword, ResetPasswordProps } from 'emails/reset-password';
-import { SignUpWelcome, SignUpWelcomeProps } from 'emails/sign-up-welcome';
-import { VerifyEmail, VerifyEmailProps } from 'emails/verify-email';
+`@ship/emails` exports a single `emailService` plus the template types:
 
-export enum Template {
-  RESET_PASSWORD,
-  SIGN_UP_WELCOME,
-  VERIFY_EMAIL,
-}
+```ts packages/emails/src/index.ts
+export * from './template';
+export * from './utils';
+export { default as emailService } from './email.service';
+```
+
+Templates and their props are registered in `template.ts` — a `Template` union, the `EmailComponent` map, and a `TemplateProps` map that ties each template to its prop type:
+
+```ts packages/emails/src/template.ts
+import { ResetPassword, ResetPasswordProps } from '../emails/reset-password';
+import { SignUpWelcome, SignUpWelcomeProps } from '../emails/sign-up-welcome';
+import { VerifyEmail, VerifyEmailProps } from '../emails/verify-email';
+
+export type Template = 'reset-password' | 'sign-up-welcome' | 'verify-email';
 
 export const EmailComponent = {
-  [Template.RESET_PASSWORD]: ResetPassword,
-  [Template.SIGN_UP_WELCOME]: SignUpWelcome,
-  [Template.VERIFY_EMAIL]: VerifyEmail,
+  'reset-password': ResetPassword,
+  'sign-up-welcome': SignUpWelcome,
+  'verify-email': VerifyEmail,
 };
 
-export type TemplateProps = {
-  [Template.RESET_PASSWORD]: ResetPasswordProps;
-  [Template.SIGN_UP_WELCOME]: SignUpWelcomeProps;
-  [Template.VERIFY_EMAIL]: VerifyEmailProps;
-};
-
+export interface TemplateProps {
+  'reset-password': ResetPasswordProps;
+  'sign-up-welcome': SignUpWelcomeProps;
+  'verify-email': VerifyEmailProps;
+}
 ```
 
-<Tip>
-When you change the email template, you need to rebuild the API to see the changes when sending emails.
-</Tip>
+This is what makes the API end type-safe: pick `template: 'verify-email'` and TypeScript requires exactly `VerifyEmailProps`.
 
-## Usage in API
+## Sending email
 
-### Importing
+Import `emailService` and call `sendTemplate`. The `params` are checked against the chosen template's props:
 
-To use the **Mailer** package within the API, the necessary services and types need to be imported:
+```ts apps/api/src/auth.ts
+import { emailService } from '@ship/emails';
 
-```typescript
-import { Template } from 'types';
-import { emailService } from 'services';
-```
-
-### Sending an Email
-
-To send an email, the `sendTemplate` function from the `emailService` is used. This function accepts an object with properties specifying the recipient, subject line, template to be used, and an object with parameters to be filled into the template:
-
-```typescript
-await emailService.sendTemplate<Template.VERIFY_EMAIL>({
-    to: user.email,
-    subject: 'Please Confirm Your Email Address for Ship',
-    template: Template.VERIFY_EMAIL,
-    params: {
-      firstName: user.firstName,
-      href: `${config.API_URL}/account/verify-email?token=${signupToken}`,
-    },
+await emailService.sendTemplate({
+  to: user.email,
+  subject: 'Please Confirm Your Email Address for Ship',
+  template: 'verify-email',
+  params: {
+    name: user.name,
+    href: url,
+  },
 });
 ```
 
-In this example, a password reset email is dispatched. The `VERIFY_EMAIL` template is used, and the user's first name and the reset password URL are passed as parameters to be substituted into the template.
+Under the hood `sendTemplate` renders the React component to HTML and hands it to Resend:
+
+```ts packages/emails/src/email.service.ts
+async sendTemplate<T extends Template>({ to, subject, template, params, attachments }: SendTemplateParams<T>) {
+  if (!this.resend) {
+    console.error('[Resend] API key is not provided');
+    return null;
+  }
+
+  const html = await renderEmailHtml({ template, params });
+
+  return this.resend.emails.send({
+    from: `${this.from.name} <${this.from.email}>`,
+    to,
+    subject,
+    html,
+    attachments,
+  });
+}
+```
+
+<Note>
+With no `RESEND_API_KEY`, `sendTemplate` logs the email payload and returns `null` instead of sending — so local development and tests never hit Resend.
+</Note>
+
+## Configuration
+
+The service is constructed from environment variables, with sensible fallbacks for the sender:
+
+```ts packages/emails/src/email.service.ts
+export default new EmailService({
+  apiKey: process.env.RESEND_API_KEY,
+  from: {
+    email: process.env.RESEND_FROM_EMAIL || 'no-reply@ship.paralect.com',
+    name: process.env.RESEND_FROM_NAME || 'Ship',
+  },
+});
+```
+
+| Variable | Purpose |
+| --- | --- |
+| `RESEND_API_KEY` | Resend API key. Unset → emails are logged, not sent |
+| `RESEND_FROM_EMAIL` | Sender address (default `no-reply@ship.paralect.com`) |
+| `RESEND_FROM_NAME` | Sender display name (default `Ship`) |
+
+## Writing a template
+
+A template is a React Email component plus an exported props interface. It composes the shared `Layout` and `_components`:
+
+```tsx packages/emails/emails/sign-up-welcome.tsx
+import React, { FC } from 'react';
+import { Text } from '@react-email/components';
+
+import Button from './_components/button';
+import Layout from './_layout';
+
+export interface SignUpWelcomeProps {
+  name: string;
+  href: string;
+}
+
+export const SignUpWelcome: FC<SignUpWelcomeProps> = ({ name = 'John', href = 'https://ship.paralect.com' }) => (
+  <Layout previewText="Welcome on board the Ship!">
+    <Text>Dear {name},</Text>
+    <Text>We are excited to have you join our growing Ship community.</Text>
+    <Button href={href}>Get Started</Button>
+  </Layout>
+);
+
+export default SignUpWelcome;
+```
+
+To add one:
+
+<Steps>
+  <Step title="Create the component">
+    Add `emails/<name>.tsx`, exporting the component and its `Props` interface.
+  </Step>
+  <Step title="Register it">
+    In `src/template.ts`, add the name to the `Template` union, the `EmailComponent` map, and `TemplateProps`.
+  </Step>
+  <Step title="Send it">
+    `emailService.sendTemplate({ template: '<name>', params: { ... } })` — typed end to end.
+  </Step>
+</Steps>
+
+## Local preview
+
+React Email ships a live preview server. Run it to see your templates in the browser with hot reload:
+
+```bash
+pnpm --filter @ship/emails dev
+```
+
+This serves the `emails/` folder at [http://localhost:4000](http://localhost:4000). Default prop values (like `name = 'John'`) render so every template has realistic content without wiring up data.
+
+![React Email preview](/images/dashboards/mailer-preview.png)
+
+<Tip>
+Preview renders straight from the React components, so what you see is exactly what `sendTemplate` produces — no separate build step.
+</Tip>

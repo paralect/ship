@@ -1,7 +1,7 @@
 import process from 'node:process';
 import { z } from 'zod';
 
-import configUtil from 'utils/config.util';
+import configUtil from '@/utils/config.util';
 
 /**
  * Specify your environment variables schema here.
@@ -13,19 +13,15 @@ const schema = z.object({
   PORT: z.coerce.number().optional().default(3001),
   API_URL: z.string(),
   WEB_URL: z.string(),
-  MONGO_URI: z.string(),
-  MONGO_DB_NAME: z.string(),
+  DATABASE_URL: z.string(),
   REDIS_URI: z.string().optional(),
   REDIS_ERRORS_POLICY: z.enum(['throw', 'log']).default('log'),
   RESEND_API_KEY: z.string().optional(),
   ADMIN_KEY: z.string().optional(),
   MIXPANEL_API_KEY: z.string().optional(),
-  CLOUD_STORAGE_ENDPOINT: z.string().optional(),
-  CLOUD_STORAGE_BUCKET: z.string().optional(),
-  CLOUD_STORAGE_ACCESS_KEY_ID: z.string().optional(),
-  CLOUD_STORAGE_SECRET_ACCESS_KEY: z.string().optional(),
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
+  BETTER_AUTH_SECRET: z.string().optional(),
 });
 
 type Config = z.infer<typeof schema>;

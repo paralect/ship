@@ -1,47 +1,132 @@
 ---
 title: "create-ship-app"
+description: "The Ship CLI: scaffold a new project, pick your shape, choose plugins and a deployment target — in one command."
 ---
 
-[![npm version](https://badge.fury.io/js/create-ship-app.svg)](https://badge.fury.io/js/create-ship-app)
+`create-ship-app` is the Ship CLI. One command scaffolds a [pnpm](https://pnpm.io/) + [Turborepo](https://turbo.build/repo/docs) monorepo, copies your chosen plugins into the repo, and wires a deployment target — ready to run.
 
-Simple CLI tool for bootstrapping Ship applications.
-Downloads actual template from Ship [monorepo](https://github.com/paralect/ship) and configures it to run.
-
-![Init project](/images/init-project.png)
-
-## Build options
-
-### Deployment type
-
-- [**Digital Ocean Apps**](/deployment/digital-ocean-apps)
-- [**Render**](/deployment/render)
-- [**Digital Ocean Managed Kubernetes**](/deployment/kubernetes/digital-ocean)
-- [**AWS EKS**](/deployment/kubernetes/aws)
-
-## Usage
-
-```shell
-npx create-ship-app@latest init
+```bash
+npx @paralect/ship init
 ```
 
-or
+<Info>`npx create-ship-app@latest init` resolves to the same CLI. Both run version **3.0.0**.</Info>
 
-```shell
-npx create-ship-app@latest my-project
+It downloads the real template from [paralect/ship](https://github.com/paralect/ship), so what you scaffold is exactly what the docs describe — no abstraction layer between you and your code.
+
+## The scaffold flow
+
+`init` walks you through three questions, then builds the project.
+
+<Steps>
+  <Step title="Pick a setup">
+    Two shapes — see [Architecture](/architecture) for the full picture:
+
+    - **PostgreSQL + TanStack Start** — full-stack. You get `apps/api` (Hono + oRPC + Drizzle + PostgreSQL) and `apps/web` (TanStack Start), with end-to-end types flowing from the API to the client.
+    - **TanStack Start web-only** — `apps/web` only, no `apps/api`. Backend logic runs as type-safe [server functions](/web/server-functions) inside the Start server. No database, no API to maintain.
+  </Step>
+  <Step title="Choose plugins">
+    A multiselect — space to toggle, enter to confirm. Each plugin **merges into your codebase**, the same way `shadcn/ui` adds components. See [Plugins](/plugins/overview).
+
+    | Plugin | What it adds |
+    | --- | --- |
+    | `auth-starter` | better-auth wiring + the web sign-in/up pages and app shell |
+    | `admin` | Admin dashboard with a user list (requires `auth-starter`) |
+    | `mailer` | Resend + React Email templates → `@ship/emails` |
+    | `cloud-storage` | S3-compatible file upload (Garage in dev, Wasabi/AWS in prod) |
+    | `notes` | Notes CRUD — a worked example resource |
+    | `ai-chat` | Streaming AI chat via `@ship/ai` (requires `auth-starter`) |
+
+    `auth-starter` and `admin` are pre-selected for the full-stack setup. In the web-only setup, plugins that need a backend are hidden.
+  </Step>
+  <Step title="Choose a deployment target">
+    Pick where this ships. The CLI drops the matching CI workflows and infrastructure-as-code into your repo.
+
+    | Choice | Docs |
+    | --- | --- |
+    | Digital Ocean Apps | [/deployment/digital-ocean-apps](/deployment/digital-ocean-apps) |
+    | Render | [/deployment/render](/deployment/render) |
+    | Digital Ocean Managed Kubernetes | [/deployment/kubernetes/digital-ocean](/deployment/kubernetes/digital-ocean) |
+    | AWS EKS | [/deployment/kubernetes/aws](/deployment/kubernetes/aws) |
+  </Step>
+</Steps>
+
+A run looks like this:
+
+```text
+Hey! Let's build your Ship 🚀
+
+✔ What is the name of your project? … my-ship-app
+? Which setup do you want? › - Use arrow-keys. Return to submit.
+❯  PostgreSQL + TanStack Start (full-stack)
+   TanStack Start web-only
+? Which plugins do you want to install? (space to toggle, enter to confirm)
+❯ ◉ auth-starter   better-auth wiring + web sign-in/up
+  ◉ admin          Admin dashboard with a user list
+  ◯ mailer         Resend + React Email templates
+  ◯ cloud-storage  S3-compatible file upload
+  ◯ notes          Notes CRUD — example resource
+  ◯ ai-chat        Streaming AI chat via @ship/ai
+? What deployment type would you like to use? › - Use arrow-keys. Return to submit.
+❯  Digital Ocean Apps
+   Render
+   Digital Ocean Managed Kubernetes
+   AWS EKS
 ```
 
-## Plugins
+Then start it:
 
-The CLI also supports installing pre-built features via the plugin system:
-
-```shell
-npx create-ship-app@latest install <plugin-name>
+```bash
+cd my-ship-app
+pnpm start
 ```
 
-For example:
+`pnpm start` brings up infrastructure, runs migrations, and starts every service.
 
-```shell
-npx create-ship-app@latest install stripe-subscriptions
+## Naming the project
+
+Pass a directory to skip the name prompt:
+
+```bash
+npx @paralect/ship my-ship-app
 ```
 
-See the [Plugins documentation](/plugins/overview) for the full list of available plugins and how they work.
+The CLI validates the name against npm rules and refuses to scaffold into a non-empty folder.
+
+## Skipping the deployment prompt
+
+Pass `--deployment` (`-d`) with a shortcut to answer that question up front:
+
+```bash
+npx @paralect/ship my-ship-app --deployment do-apps
+```
+
+| Shortcut | Target |
+| --- | --- |
+| `do-apps` | Digital Ocean Apps |
+| `render` | Render |
+| `do-kubernetes` | Digital Ocean Managed Kubernetes |
+| `aws-eks` | AWS EKS |
+
+## Adding plugins later
+
+The CLI doesn't stop at scaffold time. From inside an existing Ship project, pull a plugin into your repo:
+
+```bash
+npx @paralect/ship install <plugin-name>
+```
+
+```bash
+npx @paralect/ship install ai-chat
+```
+
+`install` copies the plugin's resources, routes and packages into your codebase — `apps/api/src/resources/...`, `apps/web/src/routes/...`, `packages/...` — so from then on every line is yours to edit. See [Plugins](/plugins/overview) for the full catalog.
+
+## Command reference
+
+| Command | Does |
+| --- | --- |
+| `init` | Scaffold a new project interactively |
+| `<project-directory>` | Scaffold into a named directory |
+| `install <plugin>` | Merge a plugin into the current project |
+| `-d, --deployment <type>` | Preselect the deployment target |
+| `-v, --version` | Print the CLI version |

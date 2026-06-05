@@ -31,31 +31,39 @@ CMD pnpm turbo run dev --filter=web
 # APP_BUILDER - Stage 4
 FROM installer AS app_builder
 
-ARG APP_ENV
-ENV NEXT_PUBLIC_APP_ENV=$APP_ENV
+ARG APP_ENV=production
+ENV NODE_ENV=production
 
-RUN pnpm turbo run build --filter=web...
+# turbo prune may not include dotenv files — copy the env-specific file explicitly
+COPY --from=builder /app/apps/web/.env.${APP_ENV} apps/web/.env.${APP_ENV}
+RUN cp apps/web/.env.${APP_ENV} apps/web/.env
+
+RUN pnpm turbo run build --filter=web
 
 # RUNNER - Stage 5
-FROM node:22-alpine AS runner
-WORKDIR /app
+FROM nginx:alpine AS runner
 
-# Don't run production as root
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-USER nextjs
+RUN rm /etc/nginx/conf.d/default.conf
 
-COPY --from=app_builder /app/apps/web/next.config.mjs .
-COPY --from=app_builder /app/apps/web/package.json .
+# TanStack Start (SPA mode) emits the prerendered client into dist/client;
+# serve it and route everything through index.html for client-side routing.
+COPY --from=app_builder /app/apps/web/dist/client /usr/share/nginx/html
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=app_builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=app_builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
-COPY --from=app_builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+RUN printf 'server {\n\
+    listen 3002;\n\
+    root /usr/share/nginx/html;\n\
+    index index.html;\n\
+\n\
+    location / {\n\
+        try_files $uri $uri/ /index.html;\n\
+    }\n\
+\n\
+    location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {\n\
+        expires 1y;\n\
+        add_header Cache-Control "public, immutable";\n\
+    }\n\
+}\n' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 3002
 
-ENV PORT=3002
-
-CMD ["node", "apps/web/server.js"]
+CMD ["nginx", "-g", "daemon off;"]

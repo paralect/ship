@@ -20,9 +20,9 @@ const database = new Database(config.mongo.connection, config.mongo.dbName);
 
 const userSchema = z.object({
   _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  deletedAt: z.date().optional().nullable(),
   fullName: z.string(),
   role: z.string().optional(),
   permissions: z.array(z.string()).optional(),
@@ -31,9 +31,9 @@ const userSchema = z.object({
 
 const postSchema = z.object({
   _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  deletedAt: z.date().optional().nullable(),
   title: z.string(),
   content: z.string(),
   authorId: z.string().optional(),
@@ -52,9 +52,9 @@ const postSchema = z.object({
 
 const categorySchema = z.object({
   _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  deletedAt: z.date().optional().nullable(),
   name: z.string(),
 });
 

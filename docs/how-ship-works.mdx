@@ -1,0 +1,99 @@
+---
+title: "How Ship works"
+description: "Every resource owns its endpoints, schemas, jobs, crons and methods. File-based mounting, end-to-end type safety, one obvious way to build."
+---
+
+Ship has a single organising idea: **a resource owns everything about itself**, and the filesystem is the wiring. There's one place for each thing, so you — and your agents — never have to guess where code lives or how it's connected.
+
+## A resource owns everything
+
+Each API resource is a folder under `apps/api/src/resources/<name>/`:
+
+```
+resources/users/
+  users.schema.ts        # Drizzle table + Zod schemas
+  endpoints/             # oRPC endpoints, mounted by file path
+    list.ts              # GET  /users
+    [userId]/update.ts   # PUT  /users/{userId}
+  methods/               # reusable business logic
+  handlers/              # mutation-event handlers (side effects)
+  crons/                 # scheduled jobs — scheduler({ cron, handler })
+  middlewares/           # per-resource gates (e.g. can-edit-*.ts)
+```
+
+File-based mounting means the route table *is* the directory tree. `list.ts` → `GET`, `create.ts` → `POST`, `[userId]/update.ts` → `PUT /users/{userId}`. No route registry to maintain.
+
+## Endpoints are oRPC, not controllers
+
+Every endpoint builds on the shared `@/endpoint` builder — the oRPC builder with all global middlewares already applied — and declares its input, output and handler:
+
+```ts
+import db from '@/db';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
+import { listResultSchema, paginationSchema } from '@/resources/base.schema';
+import { publicSchema } from '../users.schema';
+
+export default endpoint
+  .use(isAdmin)
+  .input(paginationSchema)
+  .output(listResultSchema(publicSchema))
+  .handler(async ({ input }) => {
+    return db.users.findPage({ where: { deletedAt: null }, ...input });
+  });
+```
+
+Validation is the contract: `.input()`/`.output()` Zod schemas are the single source of truth for the runtime *and* the types the client sees.
+
+### Gates compose with `.use()`
+
+Authorization is middleware you stack onto an endpoint — no scattered `if` checks:
+
+| Gate | Guarantees |
+| --- | --- |
+| `isAuthorized` | a signed-in `context.user` |
+| `isAdmin` | the user is an admin |
+| `canAccess(key, load)` | loads an entity into `context[key]` or throws `NOT_FOUND` |
+| `canEdit(key, service)` | the current user owns the entity (or `NOT_FOUND` — no existence leak) |
+
+`canEdit` is built on `canAccess`; per-resource ownership rules live in `<resource>/middlewares/can-edit-*.ts`.
+
+## Data access is a typed service
+
+`codegen-db.ts` generates a `DbService` per table, exported from `@/db`. It's a thin, typed wrapper over Drizzle with a uniform filter API:
+
+```ts
+await db.users.findPage({
+  where: { deletedAt: null, email: { ilike: '%@acme.com' } },
+  orderBy: { createdAt: 'desc' },
+  page: 1,
+  perPage: 20,
+});
+```
+
+`find` / `findFirst` / `findPage` / `count` / `insertOne` / `insertMany` / `updateOne` / `updateMany` / `deleteOne` / `deleteMany`, plus `db.transaction(...)` and relation loading via `with` / `columns`. Every table extends `baseColumns` — a `uuid` id, `createdAt`, `updatedAt`, and a `deletedAt` soft-delete column.
+
+### Mutations emit events
+
+Every write publishes a typed `MutationEvent` (`{ type, docs, prevDocs }`). Drop a handler in `<resource>/handlers/` to react — sync to analytics, push over a socket, denormalise — without coupling it to the endpoint that caused the change.
+
+## Types flow without codegen
+
+The web app never imports a generated client. The API emits TypeScript declarations (`pnpm --filter api build:types`); the web app imports `import type { AppClient } from 'api'` through its `workspace:*` dependency. Change an endpoint's `.output()` and the web app's types update on the next build — no shared types package, no drift.
+
+## Everything is a plugin
+
+Auth, file storage, email, AI chat and the admin panel are plugins, not framework internals. A plugin is a folder of resources, routes and packages that **merges into your codebase** — `apps/api/src/resources/...`, `apps/web/src/routes/...`, `packages/...`. Install copies the files in; from then on they're yours to edit, extend or delete. Like shadcn/ui, but for your entire stack. See [Plugins](/plugins/overview).
+
+## The web app mirrors the model
+
+`apps/web` is a [TanStack Start](https://tanstack.com/start) SPA with file-based routes (`src/routes/**`). Two data-access patterns, depending on the shape:
+
+- **Full-stack** — consume the API with the typed oRPC client and the `useApiQuery` / `useApiMutation` / `useApiForm` hooks (provided by the Auth plugin).
+- **Web-only** — call [server functions](/web/server-functions) (`createServerFn`) directly from a route loader. Backend logic, no separate API.
+
+Components avoid `useEffect` (there's a skill enforcing it) and colocate private pieces in `-components/` folders the router ignores.
+
+## Why this matters for agents
+
+Standardised patterns mean a coding agent reading your repo finds exactly one way to add an endpoint, a table, a route or a side effect — and the codegen and type flow guarantee the wiring it generates is real. Less to infer, less to get wrong. That's what *AI-native* means in Ship: the structure is the prompt.

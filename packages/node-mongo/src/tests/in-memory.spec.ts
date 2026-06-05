@@ -16,9 +16,9 @@ const database = new Database(config.mongo.connection, config.mongo.dbName);
 
 const schema = z.object({
   _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  deletedAt: z.date().optional().nullable(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
   fullName: z.string(),
@@ -127,7 +127,7 @@ describe('events/in-memory.ts', () => {
       spy.should.have.been.called.at.least(2);
     });
 
-    it('should publish users.deleted event when deletedOn set', async () => {
+    it('should publish users.deleted event when deletedAt set', async () => {
       const spy = chai.spy();
       eventBus.on('users.deleted', spy);
 

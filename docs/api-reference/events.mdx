@@ -1,60 +1,97 @@
 ---
-title: "CUD events"
+title: "Mutation events"
+description: "Every write to the database emits a typed MutationEvent. React to inserts, updates and deletes without coupling side effects to the endpoint that caused them."
 ---
 
-## Overview
+In Ship, **every write to the database emits an event**. Insert a row, update one, delete one — the typed `DbService` publishes a `MutationEvent` describing exactly what changed. Handlers subscribe to those events and run side effects: track analytics, push over a socket, denormalise a counter, fire a webhook. The endpoint stays a thin write; the reactions live elsewhere.
 
-**CUD events (Create, Update, Delete)** — is a set of events published by `data layer` (`@paralect/node-mongo` npm package). Events are the best solve three main problems:
+This is the seam that keeps resources decoupled. The endpoint that updates a user doesn't know — or care — that a socket handler broadcasts the change to the browser.
 
-- nicely update denormalized data (e.x.: use user.created and user.deleted to maintain usersCount field in the company)
-- avoid tight coupling between your app entities (e.x. if you need to keep user updates history you can just subscribe to user updates in the history resource vs using history.service inside user.resource and marry user and history)
-- they’re the best to integrate with external systems (e.x. events can be published as web hooks and webhooks can power real time Zapier triggers)
+## The event shape
 
+Mutation events are emitted by `@ship/db`'s `DbService` and typed against the table they came from:
 
-## Examples
+```ts
+import type { MutationEvent } from '@ship/db';
 
-There are three types of events:
-
-- entity.created event (e.x. user.created)
-```typescript
-{
-  _id: string,
-  createdOn: Date,
-  type: 'user.created',
-  userId: string,
-  companyId: string,
-  data: {
-    object: {}, // user object stored here
-  },
-};
+interface MutationEvent<T> {
+  type: 'insert' | 'update' | 'delete';
+  docs: T[];        // the rows that were written
+  prevDocs?: T[];   // the rows as they were before (update / delete only)
+}
 ```
 
-- entity.updated event (e.x. user.updated). We use [diff](https://github.com/flitbit/diff) to calculate the raw difference between previous and current version of updated entity. diff object is too complex and should not be used directly. Instead, fields required by business logic should be exposed via change object e.x. previousUserEmail
-```typescript
-{
-  _id: string,
-  createdOn: Date,
-  type: 'user.updated',
-  userId: string,
-  companyId: string,
-  data: {
-    object: {}, // user object stored here
-    diff: {},
-    change: {}
-  },
-};
+A single event carries the full set of affected rows — `insertMany`, `updateMany` and `deleteMany` emit one event with every row in `docs`, so a handler always iterates.
+
+## What each type carries
+
+<Tabs>
+  <Tab title="insert">
+    `insertOne` / `insertMany` emit `type: 'insert'`. `docs` holds the new rows; there is no `prevDocs`.
+
+    ```ts
+    { type: 'insert', docs: [user] }
+    ```
+  </Tab>
+  <Tab title="update">
+    `updateOne` / `updateMany` emit `type: 'update'`. `docs` holds the rows after the write, `prevDocs` the same rows before it — diff them to see exactly what changed.
+
+    ```ts
+    { type: 'update', docs: [user], prevDocs: [userBefore] }
+    ```
+  </Tab>
+  <Tab title="delete">
+    `deleteOne` / `deleteMany` emit `type: 'delete'`. `docs` holds the rows that were removed.
+
+    ```ts
+    { type: 'delete', docs: [user] }
+    ```
+  </Tab>
+</Tabs>
+
+<Note>
+  Ship tables use soft deletes by default — `deletedAt` lives on `baseColumns`, so a "delete" in your domain is usually an `updateOne(..., { deletedAt: new Date() })`, which emits `type: 'update'`. A hard `deleteOne` / `deleteMany` is what emits `type: 'delete'`.
+</Note>
+
+## Comparing before and after
+
+For updates, `prevDocs` is the previous version of each row, in the same order as `docs`. That makes "did this field actually change?" a one-liner — no diff library, no change object:
+
+```ts
+eventBus.on('users.update', ({ docs, prevDocs }) => {
+  for (const [i, user] of docs.entries()) {
+    const before = prevDocs?.[i];
+    if (before && before.email !== user.email) {
+      logger.info(`User ${user.id} email changed: ${before.email} → ${user.email}`);
+    }
+  }
+});
 ```
 
-- entity.deleted event (e.x. user.deleted). Ship uses soft deletes (`deleteSoft`) which set a `deletedOn` timestamp.
-```typescript
-{
-  _id: string,
-  createdOn: Date,
-  type: 'user.deleted',
-  userId: string,
-  companyId: string,
-  data: {
-    object: {}, // user object stored here
-  },
-};
-```
+<Info>
+  `prevDocs` is only loaded when a table actually has handlers wired up — `DbService` reads the previous rows before an update or delete, then skips that read when nothing is listening. You don't pay for events you don't use.
+</Info>
+
+## Event keys
+
+Each event is published under a key of `` `${table}.${type}` ``, so handlers subscribe to a specific table-and-operation pair:
+
+| Key | Fires when |
+| --- | --- |
+| `users.insert` | a row is inserted into `users` |
+| `users.update` | a row in `users` is updated |
+| `users.delete` | a row in `users` is hard-deleted |
+
+The keys are typed — `eventBus.on` only accepts `` `${TableName}.${MutationType}` ``, so a typo or a non-existent operation won't compile.
+
+## Why events
+
+Events solve two problems cleanly:
+
+- **Cross-resource side effects without coupling.** Keep a change history, broadcast over a socket, or sync to an external system by *subscribing* to a resource's events — not by importing its service into yours. The resource that owns the write stays unaware of who reacts.
+- **One place that describes system behaviour.** Every meaningful change flows through the same typed channel. Reading the `handlers/` folders tells you everything that happens as a consequence of a write — much like Stripe exposing [an event for every change](https://stripe.com/docs/api/events/types) in their system.
+
+## Next steps
+
+- Write a handler in [Event handlers](/api-reference/event-handler).
+- See the decoupling patterns in [Using events](/api-reference/using-events).

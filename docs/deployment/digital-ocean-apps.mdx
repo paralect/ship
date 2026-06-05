@@ -9,14 +9,14 @@ There is a simplified deployment type without Kubernetes. This type is **recomme
     For a detailed guide, check out our [documentation on this approach](/deployment/digital-ocean-apps-iac).
 </Tip>
 
-It's a step-by-step Ship deployment guide. We will use the [Digital Ocean Apps](https://www.digitalocean.com/products/app-platform) and [GitHub Actions](https://github.com/features/actions) for automated deployment. [Mongo Atlas](https://www.mongodb.com/) and [Redis Cloud](https://redis.com/try-free/) for databases deployment, and [Cloudflare](https://www.cloudflare.com/) for DNS and SSL configuration.
+It's a step-by-step Ship deployment guide. We will use the [Digital Ocean Apps](https://www.digitalocean.com/products/app-platform) and [GitHub Actions](https://github.com/features/actions) for automated deployment. A [DigitalOcean Managed PostgreSQL](https://www.digitalocean.com/products/managed-databases-postgresql) database and [Redis Cloud](https://redis.com/try-free/) for data storage, and [Cloudflare](https://www.cloudflare.com/) for DNS and SSL configuration.
 
-You need to create [GitHub](https://github.com/), [Digital Ocean](https://www.digitalocean.com/), [CloudFlare](https://www.cloudflare.com/), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [Redis Cloud](https://redis.com/try-free/) accounts.
+You need to create [GitHub](https://github.com/), [Digital Ocean](https://www.digitalocean.com/), [CloudFlare](https://www.cloudflare.com/) and [Redis Cloud](https://redis.com/try-free/) accounts.
 
 Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) if you already haven't.
 
 <Note>
-[Migrator](/migrator) and [Scheduler](/scheduler) will run in a Docker container for API. Unlike [Kubernetes](https://github.com/docs/deployment/kubernetes/digital-ocean.md), where separate containers are used for them.
+[Migrator](/migrator) (Drizzle migrations) and [Scheduler](/scheduler) run from the API image inside the same application. Unlike [Kubernetes](https://github.com/docs/deployment/kubernetes/digital-ocean.md), where separate containers are used for them.
 </Note>
 
 
@@ -24,7 +24,9 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose desired build type and **Digital Ocean Apps** as a cloud service provider.
 
-![Init project](/images/init-project.png)
+```bash
+npx @paralect/ship init
+```
 
 You will have next project structure.
 
@@ -49,46 +51,28 @@ git branch -M main
 git push -u origin main
 ```
 
-## MongoDB Atlas
+## PostgreSQL
 
-Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account and create a new database.
+Ship runs on PostgreSQL via Drizzle ORM. DigitalOcean offers a managed PostgreSQL database you can provision next to your app.
 
 ### Database creation
 
-1. Select the appropriate type. Dedicated for a production environment, shared for staging/demo.
-2. Select provider and region. We recommend selecting the same or closest region to the DO application.
-3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M2 or higher.
-4. Enter cluster name
+1. In the [DigitalOcean Control Panel](https://cloud.digitalocean.com/), open the **Databases** tab and click `Create Database Cluster`.
+2. Select **PostgreSQL** as the database engine.
+3. Choose a region. We recommend the same region as your App Platform application to keep latency low.
+4. Select a plan. A basic single-node plan is enough for staging/demo environments. For production, pick a plan with standby nodes and automated backups.
+5. Name the cluster and click `Create Database Cluster`.
 
-![Mongo cluster](/images/mongo-create.png)
+### Connection
 
-### Security and connection
+After the cluster is provisioned, open its **Overview** page and find the **Connection Details** section. Switch the connection string format to `Connection string` and copy it. This is your `DATABASE_URL` value in the form `postgresql://user:password@host:port/dbname?sslmode=require`.
 
-After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
-
-<Warning>
-Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password.
-Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
-</Warning>
-
-![Mongo setup authentication](/images/mongo-create-password.png)
-
-Add IP addresses list, which should have access to your cluster. Add 0.0.0.0/0 IP address to allow anyone with credentials to connect.
-
-![Mongo setup ip white list](/images/mongo-create-ip-list.png)
-
-After database creation, go to the dashboard page and get the URI connection string by pressing the `connect` button.
-
-![Mongo dashboard](/images/mongo-dashboard.png)
-
-Select `Connect your application` option. Choose driver and mongo version, and copy connection string. Don't forget to replace `<password>` with your credentials.
-
-![Mongo connect dialog](/images/mongo-connection-string.png)
+Under **Settings → Trusted Sources**, add your App Platform app so the API can reach the database.
 
 Save this value. It will be needed later when creating the app in Digital Ocean.
 
 <Tip>
-Before moving to production, it's crucial to set up [MongoDB backup methods](https://www.mongodb.com/docs/manual/core/backups).
+Before moving to production, enable automated backups on your PostgreSQL cluster.
 
 This ensures that you can reliably restore your data in the event of unforeseen circumstances.
 </Tip>
@@ -110,7 +94,7 @@ Form Redis connection string using public endpoint and password `redis://:<passw
 
 ## Digital Ocean
 
-Navigate to the Digital Ocean Control Panel and select the **Apps** tab. The `Full-Stack` build type requires 2 applications. First for [Web](/web/overview) and second for [API](/api-reference/overview), [Migrator](https://github.com/docs/migrator.md), and [Scheduler](https://github.com/docs/scheduler.md) services.
+Navigate to the Digital Ocean Control Panel and select the **Apps** tab. The `Full-Stack` build type requires 2 applications. First for the [Web](/web/overview) (TanStack Start) app and second for the [API](/api-reference/overview), plus the Migrator and Scheduler services that run from the same API image.
 
 
 ### Initial step
@@ -135,7 +119,7 @@ Its value corresponds to the specific environment, such as "development", "stagi
 This variable helps the application identify its current environment and load the corresponding configuration.
 
 For the web application, by setting the environment variable ```APP_ENV```,
-the application can determine the environment in which it is running and download the appropriate configuration file:
+the application can determine the environment in which it is running and load the appropriate configuration file:
 
 | APP_ENV       | File              |
 | ------------- |-------------------|
@@ -143,7 +127,7 @@ the application can determine the environment in which it is running and downloa
 | staging       | .env.staging      |
 | production    | .env.production   |
 
-These files should contain specific configuration variables required for each environment.
+These files hold the client config for each environment. The web app is built with Vite, so client-side variables are prefixed with `VITE_` and read through `import.meta.env` (for example `VITE_API_URL`, `VITE_WS_URL`, `VITE_WEB_URL`). They are baked in at build time, so commit up-to-date values before you deploy.
 
 In contrast, the API utilizes a single `.env` file that houses its environment-specific configuration.
 This file typically contains variables like API keys, secrets, or other sensitive information.
@@ -152,9 +136,9 @@ preventing it from being tracked and committed to the repository.
 
 So just specify the environment variables that will contain the values of your secrets.
 For example, if you have a secret named `API_KEY`,
-create an environment variable named `API_KEY` and set the value of the corresponding secret for it
+create an environment variable named `API_KEY` and set the value of the corresponding secret for it. The API needs at least `DATABASE_URL` (your PostgreSQL connection string) and `REDIS_URI` (your Redis connection string).
 
-Variables, added in the `Global` section will be available to all resources within the application, while ones added in the `ship` section will be available only for that resource. Adding `MONGO_CONNECTION` in the global section allows you to use it later if you decide to set up migrator/scheduler resources
+Variables added in the `Global` section will be available to all resources within the application, while ones added in the `ship` section will be available only for that resource. Adding `DATABASE_URL` and `REDIS_URI` in the global section lets the migrator and scheduler resources reuse them later.
 
 ![Create app environment variables](/images/do-create-app-step-3.png)
 
@@ -240,6 +224,8 @@ Done! Application deployed and can be accessed by provided domain.
 ## Set up migrator and scheduler (Optional)
 
 Digital Ocean Apps allows configuring additional resources within one application, which can serve as background workers and jobs, and a scheduler to run before/after the deployment process.
+
+The migrator is a pre-deploy `Job` that applies Drizzle migrations (`pnpm --filter api migrate`, built from `apps/api/Dockerfile.migrator`), and the scheduler is a `Worker` that runs background jobs (`pnpm --filter api schedule`, built from `apps/api/Dockerfile.scheduler`). Both reuse the API image and the global `DATABASE_URL` and `REDIS_URI` variables.
 
 Navigate to your Digital Ocean application. **Make sure to select the application with API server**, open a `Create` dropdown menu in the top-right corner, and select the `Create Resources From Source Code` option.
 

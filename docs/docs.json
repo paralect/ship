@@ -16,12 +16,13 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["introduction", "contribution-guide", "llms"]
+            "pages": ["introduction", "how-ship-works", "packages/create-ship-app", "contribution-guide", "llms"]
           },
           {
             "group": "Ship Components",
             "pages": [
               "architecture",
+              "dashboards",
               {
                 "group": "API",
                 "pages": [
@@ -33,16 +34,30 @@
                       "api-reference/routing/middlewares"
                     ]
                   },
-                  "api-reference/api-limitations",
-                  "api-reference/using-events",
-                  "api-reference/data-service",
                   "api-reference/api-action",
                   "api-reference/api-action-validator",
+                  "api-reference/api-limitations",
+                  "api-reference/data-service",
                   "api-reference/event-handler",
                   "api-reference/events",
+                  "api-reference/using-events",
                   "api-reference/middlewares",
-                  "api-reference/testing",
-                  "api-reference/workflow"
+                  "api-reference/workflow",
+                  "api-reference/testing"
+                ]
+              },
+              {
+                "group": "Web",
+                "pages": [
+                  "web/overview",
+                  "web/routing",
+                  "web/server-functions",
+                  "web/calling-api",
+                  "web/forms",
+                  "web/services",
+                  "web/styling",
+                  "web/environment-variables",
+                  "web/storybook"
                 ]
               },
               {
@@ -54,19 +69,6 @@
               "mailer",
               "github-actions",
               "git-hooks",
-              {
-                "group": "Web",
-                "pages": [
-                  "web/overview",
-                  "web/styling",
-                  "web/routing",
-                  "web/calling-api",
-                  "web/forms",
-                  "web/services",
-                  "web/environment-variables",
-                  "web/storybook"
-                ]
-              },
               {
                 "group": "Deployment",
                 "pages": [
@@ -82,36 +84,15 @@
                     ]
                   }
                 ]
-              },
-              "retool"
-            ]
-          },
-          {
-            "group": "Packages",
-            "pages": [
-              {
-                "group": "node-mongo",
-                "pages": [
-                  "packages/node-mongo/overview",
-                  "packages/node-mongo/changelog",
-                  {
-                    "group": "API Reference",
-                    "pages": [
-                      "packages/node-mongo/api-reference/service",
-                      "packages/node-mongo/api-reference/events",
-                      "packages/node-mongo/api-reference/transactions"
-                    ]
-                  }
-                ]
-              },
-              "packages/create-ship-app"
+              }
             ]
           },
           {
             "group": "Plugins",
             "pages": [
               "plugins/overview",
-              "plugins/stripe-subscriptions",
+              "plugins/auth-starter",
+              "plugins/admin",
               "plugins/ai-chat"
             ]
           }
@@ -142,7 +123,7 @@
     "links": [
       {
         "label": "What's Ship?",
-        "href": "https://ship.paralect.com/#product-platform"
+        "href": "https://www.paralect.com/ship"
       },
       {
         "label": "Showcase",

@@ -7,14 +7,10 @@ import {
   OAuth2RequestError,
   OAuth2Tokens,
 } from 'arctic';
-import type { User } from 'shared';
 import { z } from 'zod';
 
-import { userService } from 'resources/users';
-
-import config from 'config';
-
-import logger from 'logger';
+import config from '@/config';
+import logger from '@/logger';
 
 const googleUserInfoSchema = z.object({
   sub: z.string().describe('Unique Google user ID'),
@@ -41,7 +37,7 @@ export const googleClient = new Google(
   `${config.API_URL}/account/sign-in/google/callback`,
 );
 
-interface GoogleUserData {
+export interface GoogleUserData {
   googleUserId: string;
   firstName: string;
   lastName: string;
@@ -50,50 +46,32 @@ interface GoogleUserData {
   avatarUrl?: string;
 }
 
-const handleExistingUser = async (userId: string): Promise<User | null> => {
-  const existingUser = await userService.findOne({ 'oauth.google.userId': userId });
+const parseGoogleUserInfo = (claims: object): GoogleUserData => {
+  const parsedUserInfo = googleUserInfoSchema.safeParse(claims);
 
-  if (existingUser) {
-    await userService.updateLastRequest(existingUser._id);
+  if (!parsedUserInfo.success) {
+    const errorMessage = 'Failed to validate Google user info';
 
-    return existingUser;
+    logger.error(`[Google OAuth] ${errorMessage}`);
+    logger.error(z.treeifyError(parsedUserInfo.error).errors);
+
+    throw new Error(errorMessage);
   }
 
-  return null;
-};
-
-const handleExistingUserByEmail = async (email: string, googleUserId: string): Promise<User | null> => {
-  const existingUserByEmail = await userService.findOne({ email });
-
-  if (existingUserByEmail) {
-    await userService.updateOne({ _id: existingUserByEmail._id }, () => ({
-      oauth: {
-        google: {
-          userId: googleUserId,
-          connectedOn: new Date(),
-        },
-      },
-    }));
-
-    await userService.updateLastRequest(existingUserByEmail._id);
-
-    return existingUserByEmail;
-  }
-
-  return null;
-};
-
-const createNewUser = async (userData: GoogleUserData): Promise<User | null> => {
-  const { firstName, lastName, email, isEmailVerified, avatarUrl, googleUserId } = userData;
-
-  return userService.insertOne({
-    firstName,
-    lastName,
+  const {
+    sub: googleUserId,
     email,
-    isEmailVerified,
-    avatarUrl,
-    oauth: { google: { userId: googleUserId, connectedOn: new Date() } },
-  });
+    email_verified: isEmailVerified,
+    picture: avatarUrl,
+    given_name: firstName,
+    family_name: lastName,
+  } = parsedUserInfo.data;
+
+  if (!isEmailVerified) {
+    throw new Error('Google account is not verified');
+  }
+
+  return { googleUserId, email, isEmailVerified, avatarUrl, firstName, lastName };
 };
 
 export const createAuthUrl = () => {
@@ -119,7 +97,7 @@ export const validateCallback = async (params: {
   state: string | undefined;
   storedState: string | undefined;
   codeVerifier: string | undefined;
-}): Promise<User | null> => {
+}): Promise<GoogleUserData> => {
   const parsedParams = googleCallbackParamsSchema.safeParse({
     code: params.code,
     state: params.state,
@@ -158,91 +136,15 @@ export const validateCallback = async (params: {
   }
 
   const claims = decodeIdToken(tokens.idToken());
-  const parsedUserInfo = googleUserInfoSchema.safeParse(claims);
 
-  if (!parsedUserInfo.success) {
-    const errorMessage = 'Failed to validate Google user info';
-
-    logger.error(`[Google OAuth] ${errorMessage}`);
-    logger.error(z.treeifyError(parsedUserInfo.error).errors);
-
-    throw new Error(errorMessage);
-  }
-
-  const {
-    sub: googleUserId,
-    email,
-    email_verified: isEmailVerified,
-    picture: avatarUrl,
-    given_name: firstName,
-    family_name: lastName,
-  } = parsedUserInfo.data;
-
-  if (!isEmailVerified) {
-    throw new Error('Google account is not verified');
-  }
-
-  const existingUser = await handleExistingUser(googleUserId);
-
-  if (existingUser) return existingUser;
-
-  const existingUserByEmail = await handleExistingUserByEmail(email, googleUserId);
-
-  if (existingUserByEmail) return existingUserByEmail;
-
-  return createNewUser({
-    firstName,
-    lastName,
-    email,
-    isEmailVerified,
-    avatarUrl,
-    googleUserId,
-  });
+  return parseGoogleUserInfo(claims);
 };
 
-export const validateIdToken = async (idToken: string): Promise<User | null> => {
+export const validateIdToken = async (idToken: string): Promise<GoogleUserData> => {
   try {
     const claims = decodeIdToken(idToken);
-    const parsedUserInfo = googleUserInfoSchema.safeParse(claims);
 
-    if (!parsedUserInfo.success) {
-      const errorMessage = 'Failed to validate Google user info';
-
-      logger.error(`[Google OAuth Mobile] ${errorMessage}`);
-      logger.error(z.treeifyError(parsedUserInfo.error).errors);
-
-      throw new Error(errorMessage);
-    }
-
-    const {
-      sub: googleUserId,
-      email,
-      email_verified: isEmailVerified,
-      picture: avatarUrl,
-      given_name: firstName,
-      family_name: lastName,
-    } = parsedUserInfo.data;
-
-    if (!isEmailVerified) {
-      throw new Error('Google account is not verified');
-    }
-
-    const existingUser = await handleExistingUser(googleUserId);
-
-    if (existingUser) return existingUser;
-
-    const existingUserByEmail = await handleExistingUserByEmail(email, googleUserId);
-
-    if (existingUserByEmail) return existingUserByEmail;
-
-    return createNewUser({
-      firstName,
-      lastName,
-      email,
-      isEmailVerified,
-      avatarUrl,
-      googleUserId,
-    });
+    return parseGoogleUserInfo(claims);
   } catch (error) {
     logger.error(`[Google OAuth Mobile] ${error instanceof Error ? error.message : 'Unknown error'}`);
     throw error;

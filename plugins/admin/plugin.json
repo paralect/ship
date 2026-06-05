@@ -1,0 +1,6 @@
+{
+  "name": "admin",
+  "version": "1.0.0",
+  "description": "Admin dashboard with paginated user list",
+  "requires": ["postgres", "auth-starter"]
+}

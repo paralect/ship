@@ -1,19 +1,29 @@
 # Web Component
 
-This is a [Next.js](https://nextjs.org/) web application starter,
-designed to streamline the development of web frontends by addressing common setup and infrastructure tasks,
-allowing developers to focus on unique features and business logic.
+A [TanStack Start](https://tanstack.com/start) SPA — TanStack Router (file-based routes),
+TanStack Query, react-hook-form, [shadcn/ui](https://ui.shadcn.com/) and Tailwind v4.
 
-For more detailed information,
-refer to the [API section in Ship documentation](https://ship.paralect.com/docs/web/overview).
+The base web app ships the public surface: a landing page and type-safe **server functions**
+for web-only backend logic. The oRPC client, the data hooks and the auth pages
+(sign-in/up, forgot/reset, the authenticated app shell) are delivered by the **Auth plugin**,
+which merges into your codebase.
+
+For more detailed information, refer to the
+[Web section in Ship documentation](https://ship.paralect.com/docs/web/overview).
 
 ## Getting Started
+
+### Prerequisites
+
+Ensure you have a `.env` file. If not, create one by copying the relevant `.env.*` file
+(for example `.env.development`). Client env vars use the `VITE_` prefix and are read via
+`import.meta.env`.
 
 ### Running the Application
 
 You can start the application in two ways:
 
-1. **Independent Start**: Navigate to the `web` folder and run:
+1. **Independent Start**: From the `apps/web` folder, run:
    ```sh
    pnpm run dev
    ```
@@ -22,29 +32,83 @@ You can start the application in two ways:
    pnpm start
    ```
 
+The web app listens on `http://localhost:3002`.
+
+## Routes
+
+Routes are file-based under `src/routes/**` and mounted by [TanStack Router](https://tanstack.com/router):
+
+```tsx
+import { createFileRoute } from '@tanstack/react-router';
+
+import Landing from '@/components/landings/dark';
+
+export const Route = createFileRoute('/')({
+  component: Landing,
+});
+```
+
+Colocate private pieces in `-components/` folders the router ignores. Components avoid
+`useEffect` (there's a skill enforcing it).
+
+## Server functions (web-only data layer)
+
+When you scaffold the **web-only** shape there's no `apps/api` — backend logic lives in
+[TanStack Start server functions](https://ship.paralect.com/docs/web/server-functions).
+SPA mode does **not** disable the server: server functions run on the Start/Nitro server,
+where you can safely reach for secrets or a database.
+
+Import `createServerFn` from `@tanstack/react-start` (the framework package) — **not** from
+`@tanstack/react-router`:
+
+```ts
+import { createServerFn } from '@tanstack/react-start';
+
+export const getGreeting = createServerFn({ method: 'GET' }).handler(async () => {
+  return { message: 'Hello from the Start server' };
+});
+```
+
+Call it from a route loader and read the result with `Route.useLoaderData()`:
+
+```tsx
+import { createFileRoute } from '@tanstack/react-router';
+
+import { getGreeting } from '@/server/greeting';
+
+export const Route = createFileRoute('/')({
+  loader: () => getGreeting(),
+  component: Home,
+});
+
+function Home() {
+  const { message } = Route.useLoaderData();
+
+  return <h1>{message}</h1>;
+}
+```
+
+## Consuming the API (full-stack)
+
+In the full-stack shape the **Auth plugin** adds the typed oRPC client and the
+`useApiQuery` / `useApiMutation` / `useApiForm` hooks. The client is built from the API's
+exported types — `import type { AppClient } from 'api'` over a `workspace:*` dependency — so
+changing an endpoint's `.output()` updates the web types on the next build, with no codegen
+and no shared types package.
+
 ## Features
+
+### Development Tools
+
+- **Fast HMR**: powered by [Vite](https://vite.dev/).
+- **Code Quality**: linting with [ESLint](https://eslint.org/) and formatting with [Prettier](https://prettier.io/).
+- **TypeScript Support**: full TypeScript support for a better development experience.
+
+### Communication
+
+- **WebSocket**: [Socket.IO](https://socket.io/) client wired up in `src/services/`.
 
 ### Styling
 
-- Leverage [Mantine](https://mantine.dev/) for robust UI development. Detailed styling guide available [here](https://ship.paralect.com/docs/web/styling).
-
-### API Interactions
-
-- Manage API calls efficiently using [Axios](https://axios-http.com/) and handle server state with [@tanstack/react-query](https://tanstack.com/query). Details on API interactions are [here](https://ship.paralect.com/docs/web/calling-api).
-
-### Form Handling
-
-- Implement forms using [React Hook Form](https://react-hook-form.com/) integrated with [Zod](https://zod.dev/) for schema validation. Explore more on form handling [here](https://ship.paralect.com/docs/web/forms).
-
-### Services
-
-- Use built-in service architecture for clean separation of concerns. Service implementation details can be found [here](https://ship.paralect.com/docs/web/services).
-
-### Environment Variables
-
-- Secure and manage application configuration using environment-specific `.env` files. Learn about managing environment variables [here](https://ship.paralect.com/docs/web/environment-variables).
-
-## Development Tools
-
-- **Linting and Formatting**: Enforce coding standards using [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/).
-- **TypeScript**: Leverage TypeScript for safer and more reliable coding thanks to static type checking.
+- **UI**: [shadcn/ui](https://ui.shadcn.com/) components on [Tailwind v4](https://tailwindcss.com/),
+  with light/dark theming.

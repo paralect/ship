@@ -44,6 +44,22 @@
   --color-input: hsl(214.3 31.8% 91.4%);
   --color-ring: hsl(222.2 84% 4.9%);
 
+  /* Chambers-derived neutral palette — consumed by AppDrawer, PillTabBar,
+   * ContentLayout, and other widgets ported from chambers. Keep aligned with
+   * chambers/apps/web/src/styles/tokens.css. */
+  --color-bg-neutral-grey-100: #ffffff;
+  --color-bg-neutral-grey-200: #fbfbfc;
+  --color-bg-neutral-grey-300: #f7f8f9;
+  --color-bg-neutral-grey-400: #eef0f4;
+  --color-bg-neutral-grey-500: #eaedf1;
+  --color-bg-neutral-grey-600: #e2e5eb;
+  --color-text-secondary: #515b69;
+  --color-text-tertiary: #8f9194;
+  --color-icon-secondary: #515b69;
+  --color-border-primary: #d5dae3;
+  --color-border-secondary: #e4e7ec;
+  --color-border-tertiary: #eaedf1;
+
   /* Border Radius */
   --radius-lg: 0.5rem;
   --radius-md: calc(var(--radius-lg) - 2px);
@@ -241,26 +257,60 @@
     color: var(--color-foreground);
     background-color: var(--color-background);
   }
+
+  .dark [data-slot='sidebar-inset'] {
+    border: 0.5px solid lch(11 1.38 272);
+  }
+}
+
+:root {
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 .dark {
-  --color-background: hsl(240 10% 4%);
+  --color-background: hsl(59.31 3.23% 6.08%);
   --color-foreground: hsl(0 0% 95%);
-  --color-card: hsl(240 10% 6%);
+  --color-card: hsl(240 6% 12%);
   --color-card-foreground: hsl(0 0% 95%);
-  --color-popover: hsl(240 10% 6%);
+  --color-popover: hsl(240 6% 12%);
   --color-popover-foreground: hsl(0 0% 95%);
   --color-primary: hsl(0 0% 98%);
   --color-primary-foreground: hsl(240 10% 4%);
-  --color-secondary: hsl(240 5% 15%);
+  --color-secondary: hsl(240 5% 17%);
   --color-secondary-foreground: hsl(0 0% 95%);
-  --color-muted: hsl(240 5% 15%);
+  --color-muted: hsl(240 5% 17%);
   --color-muted-foreground: hsl(240 5% 55%);
-  --color-accent: hsl(240 5% 15%);
+  --color-accent: hsl(240 5% 17%);
   --color-accent-foreground: hsl(0 0% 95%);
   --color-destructive: hsl(0 62.8% 30.6%);
   --color-destructive-foreground: hsl(0 0% 95%);
-  --color-border: hsl(240 5% 18%);
-  --color-input: hsl(240 5% 18%);
+  --color-border: hsl(240 5% 20%);
+  --color-input: hsl(240 5% 20%);
   --color-ring: hsl(180 70% 50%);
+  --sidebar: hsl(0 0% 3.9%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 12%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 12%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }

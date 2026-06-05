@@ -1,314 +1,369 @@
 ---
 title: "Testing"
+description: "Ship ships no test harness in apps/api — by design. Here's the recommended way to add one: a real Postgres test database, Drizzle, and oRPC handlers called directly."
 ---
 
-## Overview
+## There's no test harness in the template
 
-Tests in Ship applications are **optional by default**. The template excludes testing dependencies to keep it lightweight and focused on rapid development. However, as your project grows in complexity or requires higher reliability, testing becomes essential.
+Ship's `apps/api` ships **without** a test runner. There is no `vitest.config.ts`, no test framework in `package.json`, and no `*.test.ts` / `*.spec.ts` files in the scaffold — the only test-adjacent scripts in `apps/api/package.json` are `tsc` and the linters.
 
-Testing is implemented using the [Jest](https://jestjs.io/) framework and [MongoDB memory server](https://github.com/typegoose/mongodb-memory-server). The setup supports execution in CI/CD pipelines. MongoDB memory server allows connecting to an in-memory MongoDB instance and running integration tests in isolation, ensuring reliable and fast test execution without affecting your production database.
+That's deliberate. Tests are a choice, not boilerplate, and the patterns Ship uses — file-mounted oRPC endpoints, a typed `DbService`, Zod contracts — make most logic trivial to test once you decide to. This page documents the **recommended setup** for the real stack: [Vitest](https://vitest.dev/), a throwaway PostgreSQL database, [Drizzle](https://orm.drizzle.team/), and oRPC handlers called directly.
+
+<Note>
+  Everything below is a recommendation you opt into. None of these files exist in a fresh Ship project until you add them — so adapt freely to your project.
+</Note>
+
+## What to test
 
 <CardGroup cols={2}>
-  <Card title="When to Add Testing" icon="shield-check">
-    - Complex and confusing business rules
-    - Critical calculations/algorithms
-    - Core flows that affect other features
-    - Logic reused across the applications
-    - Areas with recurring hard bugs
+  <Card title="Worth testing" icon="shield-check">
+    - Non-trivial business logic in `methods/`
+    - Authorization gates (`canAccess` / `canEdit`)
+    - Endpoint input/output contracts
+    - Mutation-event `handlers/` (side effects)
+    - Reused or hard-to-reason-about utilities
   </Card>
-  <Card title="When to Skip Testing" icon="ban">
-    - Simple CRUD operations
-    - Prototype/MVP development
-    - Short-term projects
-    - Basic UI components
-    - Static content pages
+  <Card title="Skip it" icon="ban">
+    - Plain pass-through CRUD endpoints
+    - Throwaway prototypes and MVPs
+    - Anything the Zod schema already guarantees
+    - Static UI and content
   </Card>
 </CardGroup>
 
-## Installation and Setup
+## Why Vitest
 
-### Installing Dependencies
+The Ship toolchain is already Vite + TypeScript + ESM with the `@/*` path alias. Vitest reuses your Vite resolver, so it understands `@/db`, `@/endpoint` and the rest with zero extra config. It's the natural fit for both `apps/api` and the TanStack Start web app.
 
-Add the necessary testing packages to your project:
+## Two flavours of test
 
-```shell
-pnpm add -D --filter=api \
-     jest \
-     @types/jest \
-     ts-jest \
-     @shelf/jest-mongodb \
-     mongodb-memory-server \
-     supertest \
-     @types/supertest \
-     dotenv
-```
+| Flavour | Hits the DB? | Test against |
+| --- | --- | --- |
+| **Unit** | No | A pure `method`, a Zod schema, a utility |
+| **Integration** | Yes | A real Postgres + the `db` service, or an oRPC handler end-to-end |
 
-### Jest Configuration
+Unit tests need nothing special. Integration tests need a Postgres database — keep it separate from your dev DB so a test run can truncate tables freely.
 
+## Setup
 
-Navigate to the root of `apps/api`.
+<Steps>
+  <Step title="Add Vitest">
+    ```bash
+    pnpm --filter api add -D vitest
+    ```
+  </Step>
 
-Create configuration file for jest:
+  <Step title="Add a test script">
+    In `apps/api/package.json`:
 
-```javascript jest.config.js
-/** @type {import('jest').Config} */
-const config = {
-  preset: '@shelf/jest-mongodb',
-  verbose: true,
-  testEnvironment: 'node',
-  testMatch: ['**/?(*.)+(spec.ts)'],
-  transform: {
-    '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true, diagnostics: false }],
-  },
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],
-  watchPathIgnorePatterns: ['globalConfig'],
-  roots: ['<rootDir>'],
-  modulePaths: ['src'],
-  moduleDirectories: ['node_modules'],
-  testTimeout: 10000,
-  forceExit: true,
-  detectOpenHandles: true,
-  setupFiles: ['dotenv/config'],
-};
+    ```json
+    {
+      "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest"
+      }
+    }
+    ```
+  </Step>
 
-export default config;
-```
+  <Step title="Point tests at a throwaway database">
+    Integration tests read `DATABASE_URL` (the same env var the app validates in `src/config/index.ts`). Give them their own database so a run can wipe tables without touching dev data. Create `apps/api/.env.test`:
 
-After, create configuration file for jest-mongodb:
+    ```bash .env.test
+    APP_ENV=development
+    API_URL=http://localhost:3001
+    WEB_URL=http://localhost:3002
+    DATABASE_URL=postgresql://root:root@localhost:5433/api-test
+    ```
 
-```javascript jest-mongodb-config.js
-module.exports = {
-  mongoURLEnvName: 'MONGO_URI',
-  mongodbMemoryServerOptions: {
-    binary: {
-      version: '8.0.0',
-    },
-    autoStart: false,
-  },
-};
-```
+    The local Postgres from `pnpm infra` already listens on `:5433` — you only need a separate database name. Create it once:
 
-Jest requires set of environment variables to work properly. Create `.env.test` file in the root of `apps/api` and set the following variables:
+    ```bash
+    psql postgresql://root:root@localhost:5433/postgres -c 'CREATE DATABASE "api-test";'
+    ```
+  </Step>
 
-```shell .env.test
-APP_ENV=staging
+  <Step title="Load the env and apply the schema before tests">
+    Create `apps/api/vitest.config.ts`:
 
-API_URL=http://localhost:3001
-WEB_URL=http://localhost:3002
+    ```ts vitest.config.ts
+    import { fileURLToPath } from 'node:url';
 
-MONGO_DB_NAME=api-tests
-```
+    import { config as loadEnv } from 'dotenv';
+    import { defineConfig } from 'vitest/config';
 
-### package.json scripts
+    loadEnv({ path: '.env.test' });
 
-Add test scripts to your `apps/api/package.json`:
-
-```json apps/api/package.json
-{
-  "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=.env.test jest --runInBand",
-    "test:watch": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=.env.test jest --watch",
-    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=.env.test jest --coverage",
-  }
-}
-```
-
-### Test Structure
-
-Tests should be placed next to the code they are testing inside a `tests/` folder. Use `*.spec.ts` suffixes and standardize by unit type:
-
-- `.endpoint.spec.ts` — for endpoint handler + validator (HTTP via supertest)
-- `.service.spec.ts` — for data/service layer
-- `.validator.spec.ts` — for standalone schema/validators
-
-#### API resource example
-
-```text
-apps/api/src/resources/user/
-├── endpoints/
-│   ├── create.ts
-│   └── tests/
-│       └── create.endpoint.spec.ts
-├── user.service.ts
-├── user.handler.ts
-└── tests/
-    ├── user.service.spec.ts
-    └── factories/
-        └── user.factory.ts
-```
-
-#### Utilities 
-
-Colocate tests for utility modules. Keep them small and pure (no DB).
-
-Create `tests/` folder inside `utils`
-
-```text
-apps/api/src/utils/
-├── cookie.util.ts
-├── promise.util.ts
-├── security.util.ts
-└── tests/
-    ├── cookie.util.spec.ts
-    ├── promise.util.spec.ts
-    └── security.util.spec.ts
-```
-
-
-## Testing Examples
-
-### Service Integration Test Example
-
-```typescript user.service.spec.ts
-import { generateId } from '@paralect/node-mongo';
-
-import { userService } from 'resources/user';
-
-describe('user service', () => {
-  beforeEach(async () => await userService.deleteMany({}));
-
-  it('should create user', async () => {
-    const mockUser = {
-      _id: generateId(),
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@example.com',
-      isEmailVerified: false,
-    };
-
-    await userService.insertOne(mockUser, { publishEvents: false });
-
-    const insertedUser = await userService.findOne({ _id: mockUser._id });
-
-    expect(insertedUser).not.toBeNull();
-    expect(insertedUser?.email).toBe(mockUser.email);
-  });
-
-  it('should update user', async () => {
-    const user = await userService.insertOne(
-      {
-        _id: generateId(),
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john@example.com',
-        isEmailVerified: false,
+    export default defineConfig({
+      resolve: {
+        alias: {
+          '@': fileURLToPath(new URL('./src', import.meta.url)),
+        },
       },
-      { publishEvents: false },
-    );
-
-    await userService.updateOne({ _id: user._id }, () => ({ isEmailVerified: true }), { publishEvents: false });
-
-    const updatedUser = await userService.findOne({ _id: user._id });
-    expect(updatedUser?.isEmailVerified).toBe(true);
-  });
-});
-```
-
-### API Action Test Example
-
-Test your API endpoints:
-
-```typescript sign-up.endpoint.spec.ts
-import app from 'app';
-import request from 'supertest';
-
-import { tokenService } from 'resources/token';
-import { userService } from 'resources/user';
-
-describe('post /account/sign-up', () => {
-  beforeEach(async () => await Promise.all([userService.deleteMany({}), tokenService.deleteMany({})]));
-
-  it('should create user with valid data', async () => {
-    const userData = {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@example.com',
-      password: 'Password123!',
-    };
-
-    await request(app.callback()).post('/account/sign-up').send(userData).expect(204);
-  });
-
-  it('should return validation error for invalid email', async () => {
-    const userData = {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'invalid-email',
-      password: 'Password123!',
-    };
-
-    await request(app.callback()).post('/account/sign-up').send(userData).expect(400);
-  });
-});
-```
-
-### Testing Utilities
-``` typescript security.util.spec.ts
-import { securityUtil } from 'utils';
-
-describe('security utils', () => {
-  describe('generateSecureToken', () => {
-    it('should generate token of specified length', async () => {
-      const token = await securityUtil.generateSecureToken(32);
-
-      expect(token).toHaveLength(32);
-      expect(typeof token).toBe('string');
+      test: {
+        environment: 'node',
+        include: ['src/**/*.test.ts'],
+        globalSetup: './test/global-setup.ts',
+        fileParallelism: false,
+      },
     });
+    ```
+
+    The `@` alias mirrors `tsconfig.json`, so `@/db` and friends resolve in tests exactly as they do at runtime. `fileParallelism: false` keeps integration tests that share one database from stepping on each other.
+
+    Push the Drizzle schema into the test database once per run in `apps/api/test/global-setup.ts`:
+
+    ```ts test/global-setup.ts
+    import { execSync } from 'node:child_process';
+
+    export default function setup() {
+      // Sync the current Drizzle schema into the test DB (drizzle-kit reads
+      // DATABASE_URL, which vitest.config.ts loaded from .env.test).
+      execSync('pnpm db:push --force', { stdio: 'inherit' });
+    }
+    ```
+  </Step>
+</Steps>
+
+## Where tests live
+
+Colocate tests with the code they cover. Use the `.test.ts` suffix so the Vitest `include` glob picks them up:
+
+```
+resources/users/
+  users.schema.ts
+  endpoints/
+    list.ts
+    list.test.ts          # endpoint contract + handler
+  methods/
+    get-by-email.ts
+    get-by-email.test.ts   # pure business logic
+  handlers/
+    sync-analytics.ts
+    sync-analytics.test.ts # mutation-event side effect
+```
+
+## Unit test: a method or schema
+
+Pure logic needs no database. Import the function or Zod schema and assert:
+
+```ts users.schema.test.ts
+import { describe, expect, it } from 'vitest';
+
+import { emailSchema, passwordSchema } from '@/resources/users/users.schema';
+
+describe('users schema', () => {
+  it('lowercases and trims the email', () => {
+    expect(emailSchema.parse('  John@Acme.COM ')).toBe('john@acme.com');
   });
 
-  describe('hashPassword', () => {
-    it('should hash password correctly', async () => {
-      const password = 'test-password-123';
-      const hash = await securityUtil.hashPassword(password);
-
-      expect(hash).not.toBe(password);
-
-      const isValid = await securityUtil.verifyPasswordHash(hash, password);
-      expect(isValid).toBe(true);
-    });
+  it('rejects a password with no digit', () => {
+    expect(() => passwordSchema.parse('onlyletters')).toThrow();
   });
 });
 ```
 
-## Best Practices
+## Integration test: the `db` service
 
-### Test Isolation
+The generated `db` service from `@/db` is the real thing — it talks to Postgres over the `DATABASE_URL` you set in `.env.test`. Clean the table in `beforeEach` so tests stay isolated:
 
-Each test should be isolated from the others.
+```ts users.db.test.ts
+import { beforeEach, describe, expect, it } from 'vitest';
 
-Use `beforeEach` to clean the database before each test.
+import db from '@/db';
 
-```typescript
-describe('user service', () => {
+describe('users table', () => {
   beforeEach(async () => {
-    // Clean database before each test
-    await userService.deleteMany({});
+    // Hard-delete every row before each test (bypasses the soft-delete filter).
+    await db.users.deleteMany({});
+  });
+
+  it('inserts and reads a user back', async () => {
+    const created = await db.users.insertOne({
+      id: crypto.randomUUID(),
+      fullName: 'John Doe',
+      email: 'john.doe@example.com',
+    });
+
+    const found = await db.users.findFirst({ where: { id: created.id } });
+
+    expect(found?.email).toBe('john.doe@example.com');
+  });
+
+  it('soft-deletes are hidden by the deletedAt filter', async () => {
+    const user = await db.users.insertOne({
+      id: crypto.randomUUID(),
+      fullName: 'Jane Doe',
+      email: 'jane@example.com',
+    });
+
+    await db.users.updateOne({ id: user.id }, { deletedAt: new Date() });
+
+    const visible = await db.users.findFirst({
+      where: { id: user.id, deletedAt: null },
+    });
+
+    expect(visible).toBeUndefined();
   });
 });
 ```
 
-### Test Naming
+<Tip>
+  `db.users.insertOne` emits a typed `MutationEvent`, so this test also exercises any handler in `resources/users/handlers/`. If a handler reaches a real external service, mock it (see [Mocking external services](#mocking-external-services)).
+</Tip>
 
-Use descriptive test names that explain the expected behavior:
+## Integration test: an oRPC endpoint
 
-```typescript
-// Good
-it('should return user data when valid ID is provided', () => {});
+Endpoints are oRPC procedures, so you can call them server-side without an HTTP server. Build a client over the generated `router` with [`createRouterClient`](https://orpc.unnoq.com/docs/client/server-side) from `@orpc/server` and pass the `context` an endpoint expects — that's where `context.user` and the gates' loaded entities live. This runs the full stack the request would: every global middleware, the `.use(...)` gates, input validation, your handler, and output validation.
 
-// Bad
-it('should work', () => {});
+```ts list.test.ts
+import { createRouterClient } from '@orpc/server';
+import { beforeEach, describe, expect, it } from 'vitest';
+
+import db from '@/db';
+import { router } from '@/router';
+import type { ORPCContext } from '@/types';
+
+// The fields the endpoint's middlewares actually read. `isAdmin` checks
+// `context.user.isAdmin`; the cookie/header helpers are no-ops in tests.
+const adminContext = (user: ORPCContext['user']): ORPCContext => ({
+  user,
+  headers: {},
+  getCookie: () => undefined,
+  setCookie: () => {},
+  deleteCookie: () => {},
+  secure: false,
+});
+
+describe('users.list', () => {
+  beforeEach(async () => {
+    await db.users.deleteMany({});
+  });
+
+  it('returns a page of users for an admin', async () => {
+    const admin = await db.users.insertOne({
+      id: crypto.randomUUID(),
+      fullName: 'Admin',
+      email: 'admin@example.com',
+      isAdmin: true,
+    });
+
+    await db.users.insertOne({
+      id: crypto.randomUUID(),
+      fullName: 'Member',
+      email: 'member@example.com',
+    });
+
+    const client = createRouterClient(router, { context: adminContext(admin) });
+    const result = await client.users.list({ page: 1, perPage: 10 });
+
+    expect(result.count).toBe(2);
+    expect(result.results).toHaveLength(2);
+  });
+
+  it('rejects a non-admin with FORBIDDEN', async () => {
+    const member = await db.users.insertOne({
+      id: crypto.randomUUID(),
+      fullName: 'Member',
+      email: 'member@example.com',
+    });
+
+    const client = createRouterClient(router, { context: adminContext(member) });
+
+    await expect(client.users.list({ page: 1, perPage: 10 })).rejects.toThrow();
+  });
+});
 ```
 
+This is the highest-value integration test: it proves the gate (`isAdmin`), the contract (`paginationSchema` in, `listResultSchema(publicSchema)` out), and the handler's Drizzle query all agree — the same wiring [codegen](/how-ship-works) emits into `router.ts`.
 
-### Mock External Services
+<Note>
+  Endpoints under a dynamic segment like `[userId]/update.ts` read their id from the validated input. Pass it the same way the typed client would — `client.users.update({ userId, ...patch })`. See the [resource-owns-everything model](/how-ship-works) for how files map to procedures.
+</Note>
 
-Mock external API calls and services:
+## Testing the gates directly
 
-```typescript
-jest.mock('@aws-sdk/client-s3', () => ({
-  S3Client: jest.fn(),
-  PutObjectCommand: jest.fn(),
+`canAccess(key, load)` loads an entity into `context[key]` or throws `NOT_FOUND`; `canEdit(key, service)` builds on it and throws `NOT_FOUND` on an ownership mismatch — so a non-owner can't even tell the row exists. Cover both the allow and deny paths through a real endpoint that uses them:
+
+```ts update.test.ts
+import { createRouterClient } from '@orpc/server';
+import { beforeEach, describe, expect, it } from 'vitest';
+
+import db from '@/db';
+import { router } from '@/router';
+
+import { userContext } from '@/test/helpers';
+
+describe('users.update authorization', () => {
+  beforeEach(async () => {
+    await db.users.deleteMany({});
+  });
+
+  it('NOT_FOUND when editing someone else (no existence leak)', async () => {
+    const [owner, intruder] = await db.users.insertMany([
+      { id: crypto.randomUUID(), fullName: 'Owner', email: 'owner@example.com' },
+      { id: crypto.randomUUID(), fullName: 'Intruder', email: 'intruder@example.com' },
+    ]);
+
+    const client = createRouterClient(router, { context: userContext(intruder) });
+
+    await expect(
+      client.users.update({ userId: owner.id, fullName: 'Hacked' }),
+    ).rejects.toMatchObject({ code: 'NOT_FOUND' });
+  });
+});
+```
+
+Factor the context builder into a shared `src/test/helpers.ts` so every endpoint test reuses it instead of re-declaring the `ORPCContext` shape.
+
+## Mocking external services
+
+Keep tests hermetic — never hit Resend, S3, Mixpanel or an OAuth provider. Vitest's `vi.mock` replaces a module for the test file:
+
+```ts
+import { vi } from 'vitest';
+
+vi.mock('@ship/emails', () => ({
+  sendEmail: vi.fn().mockResolvedValue(undefined),
 }));
 ```
 
+For Redis-backed bits (Socket.IO emitter, rate limits) prefer asserting that your code *would* call them via a mock, rather than standing up a real broker in tests.
 
+## Running in CI
+
+`pnpm --filter api test` is all CI needs, given a Postgres service and a `.env.test` that points at it. A GitHub Actions sketch:
+
+```yaml .github/workflows/test.yml
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: api-test
+        ports: ['5433:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 10s
+          --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter api test
+        env:
+          DATABASE_URL: postgresql://root:root@localhost:5433/api-test
+```
+
+`globalSetup` runs `pnpm db:push` against that service, so the schema is in place before the first test.
+
+## Best practices
+
+- **Isolate every test.** Truncate the relevant tables in `beforeEach` — don't rely on test order.
+- **Test through the contract.** Calling an endpoint via `createRouterClient` exercises the gates, validation and handler together; that's where bugs hide.
+- **Name the behaviour.** `it('returns NOT_FOUND when editing another user')`, not `it('works')`.
+- **Mock the edges, not the core.** Stub Resend/S3/OAuth; let Postgres and the `db` service run for real.
+- **Keep the test DB disposable.** A run should be free to wipe it — never point `.env.test` at your dev database.

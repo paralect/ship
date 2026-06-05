@@ -1,58 +1,86 @@
 ---
 title: "Scheduler"
+description: "One file pairs a cron schedule with its handler. Drop it in a resource's crons/ folder and it runs — including from plugins."
 ---
 
-Sometimes building web applications, you meet repetitive tasks that should be run at a specific time every day, month, or year.
-Some of these tasks may include:
+Ship runs scheduled work as part of the API. A cron job is **one file** that pairs a cron expression with a handler, defined with the `scheduler({ cron, handler })` factory and auto-discovered from any resource's `crons/` folder — so a plugin adds scheduled work exactly the way it adds an endpoint.
 
-- Sending periodic emails to customers;
-- Backing up the organization’s data;
-- Clearing logs from databases;
+## Define a cron job
 
-Here is where **Scheduler** comes in. It allows you to schedule jobs (arbitrary functions) for execution at specific dates, with optional recurrence rules.
-Scheduler service shares the same code base with **[API](/api-reference/overview)** and located in the [`scheduler`](https://github.com/paralect/ship/tree/main/template/apps/api/src/scheduler) folder.
+```ts
+// apps/api/src/resources/invite-tokens/crons/cleanup-expired.ts
+import scheduler from '@/scheduler';
+import db from '@/db';
 
-It runs and deploys as a standalone service with its own Dockerfile. This workflow allows time-consuming tasks not to interfere with the server processing requests.
-
-Scheduler consists of two parts: [Cron jobs](#cron-jobs) and [Handlers](#handlers).
-
-## Cron jobs
-
-```typescript
-import schedule from 'node-schedule';
-import { EventEmitter } from 'events';
-
-const eventEmitter = new EventEmitter();
-
-schedule.scheduleJob('* * * * *', () => {
-  eventEmitter.emit('cron:every-hour');
+export default scheduler({
+  cron: '0 * * * *', // every hour, on the hour
+  handler: async () => {
+    await db.inviteTokens.deleteMany({ where: { expiresAt: { lte: new Date() } } });
+  },
 });
-
-export default eventEmitter;
 ```
 
-The cron jobs part is responsible for waiting some moment and emitting more specific events. It uses a [node-schedule](https://www.npmjs.com/package/node-schedule) library. In short, you should create a cron job in the appropriate format and emit an event using [EventEmitter](https://nodejs.dev/en/learn/the-nodejs-event-emitter/) that will be handled in the [Handlers](#handlers) part forward.
+The schedule and the work live together — no separate cron registry, no event names to keep in sync. The handler runs in the API context, so it has full access to `@/db`, services, and everything else.
 
-**Cron format**
+## Where cron files live
+
+Cron files are owned by the resource they belong to:
+
+```
+resources/invite-tokens/
+  invite-tokens.schema.ts
+  endpoints/
+  crons/
+    cleanup-expired.ts      # ← auto-registered
+```
+
+Every `**/crons/*.ts` default export is collected when the scheduler process starts and registered with [node-schedule](https://www.npmjs.com/package/node-schedule) — the same filesystem-driven wiring as [endpoints](/api-reference/routing/overview). There is no central list to edit.
+
+```mermaid
+flowchart LR
+  A["resources/*/crons/*.ts<br/>scheduler({ cron, handler })"] --> B[Scheduler process]
+  B -->|registers each| C[node-schedule]
+  C -->|on tick| D["handler → @/db, services"]
+```
+
+## Add a cron from a plugin
+
+Because discovery is by file path, a plugin just ships a `crons/` file in one of its resources:
+
+```ts
+// plugins/billing/api/resources/subscriptions/crons/sync-invoices.ts
+import scheduler from '@/scheduler';
+import { syncInvoices } from '../methods/sync-invoices';
+
+export default scheduler({
+  cron: '*/15 * * * *', // every 15 minutes
+  handler: syncInvoices,
+});
+```
+
+When the plugin merges into a project, its cron files are picked up automatically — no scheduler wiring to touch.
+
+## Run the scheduler
+
+```bash
+pnpm --filter api schedule       # production
+pnpm --filter api schedule-dev   # local, watch mode
+```
+
+`pnpm start` runs the scheduler alongside the API and web app. In production it runs as its own process from the API image (`apps/api/Dockerfile.scheduler`), started **after** the [Migrator](/migrator) so it always works against an up-to-date schema — see [deployment](/deployment/digital-ocean-apps).
+
+## Cron format
+
+The `cron` field is a standard five-field cron expression:
 
 ![Cron format](/images/cron-format.png)
 
-## Handlers
+| Expression | Runs |
+| --- | --- |
+| `* * * * *` | every minute |
+| `*/15 * * * *` | every 15 minutes |
+| `0 * * * *` | every hour |
+| `0 0 * * *` | every day at midnight |
+| `0 9 * * 1` | every Monday at 09:00 |
 
-```typescript
-import cron from 'scheduler/cron';
-
-cron.on('cron:every-hour', async () => {
-  try {
-    const users = await userService.find({
-      'scheduledEmail.deliveryDate': { $lte: new Date() },
-    });
-
-    users.map((u) => emailService.sendSignupWelcome(u.email))
-  } catch (err) {
-    console.log(`cron:every-hour error: ${err}`);
-  }
-});
-```
-
-The handlers part is responsible for listening to events from Cron jobs and running some handlers. Wrap handlers with try/catch to prevent a server from stopping or rebooting and create error logs.
+<Tip>Keep handlers idempotent and quick, and always let errors surface to the logger. For long or heavy work, have the cron enqueue it or emit a [mutation event](/api-reference/using-events) and do the work elsewhere.</Tip>

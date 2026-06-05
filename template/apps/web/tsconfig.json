@@ -1,22 +1,22 @@
 {
-  "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "baseUrl": "src",
-    "rootDir": ".",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["./*"],
-      "public/*": ["../public/*"],
-      "content-collections": ["../.content-collections/generated"]
-    }
+      "@/*": ["./*"]
+    },
+    "resolveJsonModule": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.json",
-    ".next/types/**/*.ts",
-    "next-env.d.ts",
-    "next.config.mjs",
-    "postcss.config.json"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts"],
+  "exclude": ["node_modules"]
 }

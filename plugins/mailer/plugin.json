@@ -1,0 +1,10 @@
+{
+  "name": "mailer",
+  "version": "1.0.0",
+  "description": "Email service with Resend + React Email templates",
+  "dependencies": {
+    "api": {
+      "@ship/emails": "workspace:*"
+    }
+  }
+}

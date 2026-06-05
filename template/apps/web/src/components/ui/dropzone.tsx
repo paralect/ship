@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { UploadCloud, X } from 'lucide-react';
 import { useDropzone, type DropzoneOptions, type FileRejection } from 'react-dropzone';

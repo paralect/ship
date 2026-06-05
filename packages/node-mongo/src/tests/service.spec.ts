@@ -18,9 +18,9 @@ const database = new Database(config.mongo.connection, config.mongo.dbName);
 
 const companySchema = z.object({
   _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  deletedAt: z.date().optional().nullable(),
   users: z.array(z.string()),
 });
 
@@ -38,9 +38,9 @@ enum AdminPermissions {
 
 const userSchema = z.object({
   _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  deletedAt: z.date().optional().nullable(),
   fullName: z.string(),
   age: z.number().optional(),
   role: z.nativeEnum(UserRoles).default(UserRoles.MEMBER),
@@ -119,7 +119,7 @@ describe('service.ts', () => {
     const notFoundUser = await usersService.findOne({ _id: u._id });
     const foundUser = await usersService.findOne(
       { _id: u._id },
-      { skipDeletedOnDocs: false },
+      { skipDeletedAtDocs: false },
     );
 
     (notFoundUser === null).should.be.equal(true);
@@ -320,7 +320,7 @@ describe('service.ts', () => {
     removedUsers.length.should.be.equal(0);
   });
 
-  it('should set deletedOn date to current JS date on remove', async () => {
+  it('should set deletedAt date to current JS date on remove', async () => {
     const u = await usersService.insertOne({
       fullName: 'User to remove',
     });
@@ -331,7 +331,7 @@ describe('service.ts', () => {
 
     const updatedUser = await usersService.findOne(
       { _id: u._id },
-      { skipDeletedOnDocs: false },
+      { skipDeletedAtDocs: false },
     );
 
     const deletedUser = await usersService.findOne({
@@ -339,7 +339,7 @@ describe('service.ts', () => {
     });
 
     (deletedUser === null).should.be.equal(true);
-    assert.exists(updatedUser?.deletedOn);
+    assert.exists(updatedUser?.deletedAt);
   });
 
   it('should return sum of documents through aggregation', async () => {
@@ -377,7 +377,7 @@ describe('service.ts', () => {
   it('should create and delete indexes', async () => {
     const indexes = await usersService.createIndexes([
       { key: { fullName: 1 } },
-      { key: { createdOn: 1 } },
+      { key: { createdAt: 1 } },
     ]) as string[];
 
     const isIndexesExists = await usersService.indexExists(indexes);

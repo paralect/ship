@@ -31,13 +31,13 @@ const generateId = (): string => {
   return objectId.toHexString();
 };
 
-const addUpdatedOnField = <T>(update: UpdateFilter<T>): UpdateFilter<T> => {
+const addUpdatedAtField = <T>(update: UpdateFilter<T>): UpdateFilter<T> => {
   const setCommand = update.$set || {};
 
   return {
     ...update,
-    $set: { ...setCommand, updatedOn: new Date() },
+    $set: { ...setCommand, updatedAt: new Date() },
   } as unknown as UpdateFilter<T>;
 };
 
-export { deepCompare, generateId, addUpdatedOnField };
+export { deepCompare, generateId, addUpdatedAtField };

@@ -1,11 +1,13 @@
+/* eslint-disable react/no-nested-component-definitions, jsx-react/prop-types, ts/no-use-before-define */
 import * as React from 'react';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { DayPicker, getDefaultClassNames, type DayButton } from 'react-day-picker';
+import type { DayButton } from 'react-day-picker';
+import { DayPicker, getDefaultClassNames } from 'react-day-picker';
 
-import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-function Calendar({
+const Calendar = ({
   className,
   classNames,
   showOutsideDays = true,
@@ -16,7 +18,7 @@ function Calendar({
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant'];
-}) {
+}) => {
   const defaultClassNames = getDefaultClassNames();
 
   return (
@@ -124,15 +126,19 @@ function Calendar({
       {...props}
     />
   );
-}
+};
 
-function CalendarDayButton({ className, day, modifiers, ...props }: React.ComponentProps<typeof DayButton>) {
+const CalendarDayButton = ({ className, day, modifiers, ...props }: React.ComponentProps<typeof DayButton>) => {
   const defaultClassNames = getDefaultClassNames();
 
-  const ref = React.useRef<HTMLButtonElement>(null);
-  React.useEffect(() => {
-    if (modifiers.focused) ref.current?.focus();
-  }, [modifiers.focused]);
+  const ref = React.useCallback(
+    (node: HTMLButtonElement | null) => {
+      if (node && modifiers.focused) {
+        node.focus();
+      }
+    },
+    [modifiers.focused],
+  );
 
   return (
     <Button
@@ -154,6 +160,6 @@ function CalendarDayButton({ className, day, modifiers, ...props }: React.Compon
       {...props}
     />
   );
-}
+};
 
 export { Calendar, CalendarDayButton };

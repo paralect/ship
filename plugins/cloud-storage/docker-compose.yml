@@ -1,0 +1,98 @@
+services:
+  garage:
+    container_name: ship-garage
+    image: dxflrs/garage:v2.2.0
+    hostname: garage
+    networks:
+      - ship
+    ports:
+      - 3900:3900 # S3 API
+      - 3902:3902 # S3 Web / static website hosting
+      - 3903:3903 # Admin API
+    volumes:
+      - ./garage.toml:/etc/garage.toml
+      - garage-meta:/var/lib/garage/meta
+      - garage-data:/var/lib/garage/data
+    healthcheck:
+      test: ["CMD", "/garage", "status"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+      start_period: 3s
+
+  garage-init:
+    container_name: ship-garage-init
+    image: alpine:3.21
+    depends_on:
+      garage:
+        condition: service_healthy
+    networks:
+      - ship
+    restart: "no"
+    entrypoint: ["sh", "-c"]
+    command:
+      - |
+        set -e
+        apk add --no-cache curl jq > /dev/null 2>&1
+
+        API="http://garage:3903"
+        AUTH="Authorization: Bearer ship-admin-token"
+
+        echo "--- Getting cluster status ---"
+        NODE_ID=$$(curl -sf -H "$$AUTH" "$$API/v2/GetClusterStatus" | jq -r '.nodes[0].id')
+        echo "Node ID: $$NODE_ID"
+
+        echo "--- Assigning cluster layout ---"
+        curl -sf -X POST -H "$$AUTH" -H "Content-Type: application/json" \
+          "$$API/v2/UpdateClusterLayout" \
+          -d "{\"roles\":[{\"id\":\"$$NODE_ID\",\"zone\":\"dc1\",\"capacity\":1073741824,\"tags\":[]}]}" \
+          || echo "Layout may already be assigned, continuing..."
+
+        echo "--- Applying cluster layout ---"
+        curl -sf -X POST -H "$$AUTH" -H "Content-Type: application/json" \
+          "$$API/v2/ApplyClusterLayout" \
+          -d '{"version":1}' \
+          || echo "Layout already applied or version conflict, continuing..."
+
+        echo "--- Importing access key ---"
+        curl -sf -X POST -H "$$AUTH" -H "Content-Type: application/json" \
+          "$$API/v2/ImportKey" \
+          -d '{"name":"ship-key","accessKeyId":"GK31c2f218a2e44f485b94239e","secretAccessKey":"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789"}' \
+          || echo "Key may already exist, continuing..."
+
+        echo "--- Creating bucket ---"
+        BUCKET_RESP=$$(curl -sf -X POST -H "$$AUTH" -H "Content-Type: application/json" \
+          "$$API/v2/CreateBucket" \
+          -d '{"globalAlias":"ship-storage"}' \
+          || echo '{}')
+        BUCKET_ID=$$(echo "$$BUCKET_RESP" | jq -r '.id // empty')
+
+        if [ -z "$$BUCKET_ID" ]; then
+          echo "Bucket may already exist, looking it up..."
+          BUCKET_ID=$$(curl -sf -H "$$AUTH" "$$API/v2/ListBuckets" \
+            | jq -r '.[] | select(.globalAliases[]? == "ship-storage") | .id')
+        fi
+
+        echo "Bucket ID: $$BUCKET_ID"
+
+        echo "--- Granting key access to bucket ---"
+        curl -sf -X POST -H "$$AUTH" -H "Content-Type: application/json" \
+          "$$API/v2/AllowBucketKey" \
+          -d "{\"bucketId\":\"$$BUCKET_ID\",\"accessKeyId\":\"GK31c2f218a2e44f485b94239e\",\"permissions\":{\"read\":true,\"write\":true,\"owner\":true}}"
+
+        echo ""
+        echo "=== Garage S3 setup complete ==="
+        echo "  S3 Endpoint:  http://garage:3900 (internal) / http://localhost:3900 (host)"
+        echo "  Region:       garage"
+        echo "  Bucket:       ship-storage"
+        echo "  Access Key:   GK31c2f218a2e44f485b94239e"
+        echo "  Secret Key:   abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789"
+        echo ""
+
+volumes:
+  garage-meta:
+  garage-data:
+
+networks:
+  ship:
+    name: ship-network

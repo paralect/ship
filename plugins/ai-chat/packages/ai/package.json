@@ -1,0 +1,13 @@
+{
+  "name": "@ship/ai",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^3.0.29",
+    "ai": "^6.0.86"
+  }
+}

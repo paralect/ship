@@ -1,19 +1,26 @@
 # AGENTS.md — Ship Monorepo
 
-> pnpm monorepo (Turborepo): `apps/api` (Koa + MongoDB), `apps/web` (Next.js Pages Router), `packages/shared` (auto-generated typed API client), plus `app-constants`, `mailer`, config packages.
+> pnpm monorepo (Turborepo). **Web:** `apps/web` — Vite + TanStack Start (SPA) + TanStack Router + shadcn + Tailwind v4. **API:** `apps/api` — Hono + oRPC + Drizzle + better-auth. Types flow from API → web via TypeScript declarations (`tsc --emitDeclarationOnly`), no codegen output crosses the workspace.
+
+---
+
+## Two scaffold shapes
+
+This template scaffolds in one of two shapes — check which one you're in before you start:
+
+- **PostgreSQL full-stack** — both `apps/api` and `apps/web`. Endpoints live in `apps/api/src/resources/<name>/endpoints/`; the web app consumes them through the typed oRPC client. This is what most docs below assume.
+- **Web-only** — `apps/web` only, no `apps/api`. Backend logic runs in TanStack Start **server functions** (`createServerFn`) called from route loaders. There's no oRPC router, no Drizzle, no migrations. See `agent_docs/web_pages_and_data_access.md` ("Data access without apps/api") and the "Web-only mode" section of `agent_docs/workflows_dev_build_test.md`.
+
+If `apps/api` does not exist, you're in web-only mode — skip every API/codegen/migration step.
 
 ---
 
 ## Before You Code
 
 1. **Read this file** for universal rules and commands.
-2. **Read the scoped file** nearest to your task:
-   - API work → `apps/api/AGENTS.md`
-   - Web work → `apps/web/AGENTS.md`
-   - Codegen / shared types → `packages/shared/AGENTS.md`
-3. **Read the relevant workflow doc** from the index below.
-4. **Scan existing code** — search for a similar resource/page/endpoint before creating new patterns.
-5. **Plan, implement, verify** — every task ends with a verification command.
+2. **Read the scoped doc** nearest to your task (see the index below).
+3. **Scan existing code** — search for a similar resource/route/procedure before creating new patterns.
+4. **Plan → implement → verify** — every task ends with a verification command.
 
 ---
 
@@ -21,80 +28,103 @@
 
 | Doc | When to read |
 |-----|-------------|
-| `agent_docs/workflows_dev_build_test.md` | Any task: install, dev, build, typecheck, lint, test |
-| `agent_docs/api_resource_and_endpoint_workflow.md` | Adding/modifying API resources or endpoints |
-| `agent_docs/web_pages_and_data_access.md` | Adding/modifying web pages or API data consumption |
-| `agent_docs/shared_codegen_contract.md` | After any API endpoint/schema change; understanding the type bridge |
+| `agent_docs/workflows_dev_build_test.md` | Any task: install, dev, build, codegen, migrate |
+| `agent_docs/api_resource_and_endpoint_workflow.md` | Endpoint entry point + global middleware registry + gate/ownership middlewares |
+| `agent_docs/web_pages_and_data_access.md` | Adding/modifying web routes or API data consumption |
 | `agent_docs/common_failure_modes.md` | When debugging errors or before submitting changes |
-| `apps/api/AGENTS.md` | API-specific invariants (middleware, services, config) |
-| `apps/web/AGENTS.md` | Web-specific invariants (routing, components, styling) |
-| `packages/shared/AGENTS.md` | What's generated, what's hand-written, what not to touch |
+
+For the plugin system (when working at the repo root, not inside `template/`):
+
+- `../PLUGINS.md` — Plugin catalog + layout convention
+- `../agent_docs/create-plugin.md` — How to create a new plugin
 
 ---
 
 ## Universal Commands
 
 ```bash
-# Install (always after pulling or changing deps)
-pnpm install
+pnpm install                        # after pulling or changing deps
+pnpm infra:postgres                 # start Postgres + Redis via Docker (the database)
+pnpm start                          # everything (infra → migrate → schedule → api + web + db studio)
+pnpm turbo-start                    # dev via Turborepo (assumes infra running)
+pnpm dashboard                      # Drizzle Studio — DB browser + query runner (https://local.drizzle.studio)
 
-# Start infra (MongoDB + Redis via Docker)
-pnpm infra
+pnpm --filter api tsc --noEmit      # typecheck API
+pnpm --filter web tsc --noEmit      # typecheck web
 
-# Start everything (infra → migrator → scheduler → api + web)
-pnpm start
-
-# Dev mode (with Turborepo — runs migrate, schedule, then dev for all apps)
-pnpm turbo-start
-
-# Build all
-pnpm turbo build
-
-# Typecheck (per-package)
-pnpm --filter api tsc --noEmit
-pnpm --filter web tsc --noEmit
-
-# Lint (per-package)
-pnpm --filter api eslint .
-pnpm --filter web eslint .
-
-# Regenerate shared typed client (REQUIRED after any API endpoint/schema change)
-pnpm --filter shared generate
+pnpm --filter api codegen           # regen src/{router,contract,db}.ts
+pnpm --filter api generate          # new drizzle migration
+pnpm --filter api migrate           # apply pending migrations
+pnpm --filter api build:types       # rebuild API .d.ts (required after endpoint I/O changes)
 ```
+
+**Dev dashboards** (auto-opened by `pnpm start` / `pnpm turbo-start`):
+
+- **API docs:** <http://localhost:3001/docs> — interactive Scalar reference; raw OpenAPI 3.1.1 spec at `/spec.json`. Non-production only.
+- **DB studio:** <https://local.drizzle.studio> — Drizzle Studio (proxy on `:4983`); full-stack only, no-op in web-only mode.
 
 ---
 
 ## Never Do
 
-- **Use npm or yarn.** `engines` block rejects them. pnpm ≥9.5.0 only.
-- **Use Node < 22.13.0.** See `.nvmrc`.
-- **Hand-edit `packages/shared/src/generated/`** or `packages/shared/src/schemas/`. These are overwritten by codegen.
-- **Forget to run codegen** after changing any `*.schema.ts` or `endpoints/*.ts` in the API.
-- **Register routes manually.** Endpoint auto-discovery handles it — just put files in `resources/<name>/endpoints/`.
-- **Create a web page without `.page.tsx` extension.** Next.js config only recognizes `*.page.tsx` and `*.api.ts`.
-- **Skip the `<Page>` wrapper** in web pages. Every page needs `<Page scope={...} layout={...}>`.
-- **Import from `src/...`** in API code. `tsconfig.baseUrl` is `src`, so use `'resources/...'`, `'routes/...'`, `'config'`, etc.
-- **Use Zod 3 API.** This repo uses Zod 4 (e.g., `z.email()` not `z.string().email()`).
-- **Add env vars without updating the Zod config schema** in `apps/api/src/config/` or `apps/web/src/config/`.
+- Use npm or yarn. **pnpm ≥9.5.0** only.
+- Use Node < 22.13.0. See `.nvmrc`.
+- Use relative `../` imports in API code. `tsconfig.baseUrl` is `src` — use `@/` alias.
+- Add env vars without updating the zod config schema.
+- Inline string-enums in zod schemas — pull from `app-constants` (`z.enum(USER_STATUSES)`).
+- Manually edit `apps/api/src/{router,contract,db}.ts` — they are auto-generated by `scripts/codegen-*.ts`.
+
+---
+
+## Type Flow: API → Web
+
+1. API endpoints declare `.input(zodSchema).output(zodSchema).handler(...)`.
+2. `pnpm --filter api build:types` builds `.d.ts` to `apps/api/dist/`.
+3. Web imports the typed client via `import type { AppClient } from 'api'` (`workspace:*` dep).
+4. `useApiQuery(apiClient.<resource>.<endpoint>, input)` is fully typed for both input + output.
+
+---
+
+## Filesystem-Based Routing
+
+### API (codegen-router)
+
+Endpoints live in `apps/api/src/resources/<name>/endpoints/`. The router is regenerated automatically in `pnpm --filter api dev` (watcher).
+
+| File | Method | Path |
+|---|---|---|
+| `list.ts` | GET | `/<resource>` |
+| `create.ts` | POST | `/<resource>` |
+| `get.ts` | GET | `/<resource>` |
+| `update.ts` | PUT | `/<resource>` |
+| `delete.ts` | DELETE | `/<resource>` |
+| `name.get.ts` | GET | `/<resource>/name` |
+| `name.post.ts` | POST | `/<resource>/name` |
+| `[param]/get.ts` | GET | `/<resource>/{param}` |
+| `nested-dir/action.post.ts` | POST | `/<resource>/nested-dir/action` (nested router group, camelCased) |
+
+Authorization is middleware stacked with `.use()`: `isAuthorized` (signed-in `context.user`), `isAdmin`, `canAccess(key, load)` (loads an entity into `context[key]` or throws `NOT_FOUND`), and `canEdit(key, service)` (ownership gate built on `canAccess`; `NOT_FOUND` on mismatch — no existence leak). Per-resource ownership gates live in `<resource>/middlewares/can-edit-*.ts`. See `agent_docs/api_resource_and_endpoint_workflow.md`.
+
+### Web (TanStack Router)
+
+Routes live in `apps/web/src/routes/`. `routeTree.gen.ts` regenerates automatically.
+
+| File | URL |
+|---|---|
+| `index.tsx` | `/` |
+| `sign-in.tsx` | `/sign-in` |
+| `_authenticated.tsx` | guarded layout |
+| `_authenticated/app/index.tsx` | `/app` |
+| `_authenticated/app/users/$userId.tsx` | `/app/users/:userId` |
+| `_authenticated/app/admin/-components/filters.tsx` | (private — `-` prefix opts out of routing) |
+| `$.tsx` | catch-all 404 |
 
 ---
 
 ## Definition of Done
 
-Every change must pass before submission:
-
-- [ ] `pnpm --filter <affected-package> tsc --noEmit` — no type errors
-- [ ] `pnpm --filter <affected-package> eslint .` — no lint errors
-- [ ] If API endpoints/schemas changed → `pnpm --filter shared generate` ran and output committed
-- [ ] If new env vars → added to `.env.example` AND the Zod config schema
-- [ ] Spot-check: the feature works (dev server loads, endpoint responds, page renders)
-
----
-
-## Self-Maintenance
-
-Update **this file** when: monorepo structure changes, new packages added, universal commands change, or new "never do" items discovered.
-
-Update **scoped files** (`apps/*/AGENTS.md`, `packages/shared/AGENTS.md`) when the invariants they document change.
-
-Update **`agent_docs/*`** when workflows, checklists, or failure modes change. Each doc lists its own update triggers.
+- [ ] `pnpm --filter api tsc --noEmit` — no type errors
+- [ ] `pnpm --filter web tsc --noEmit` — no type errors
+- [ ] If API endpoints/schemas changed → `pnpm --filter api codegen && pnpm --filter api build:types` ran
+- [ ] If new schema field/table → `pnpm --filter api generate` committed the migration
+- [ ] If new env var → added to `.env.example` AND zod config schema

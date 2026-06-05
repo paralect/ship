@@ -8,25 +8,25 @@ const database = new Database(config.mongo.connection, config.mongo.dbName);
 
 type JoiUserType = {
   _id: string;
-  createdOn?: Date;
-  updatedOn?: Date;
-  deletedOn?: Date | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
   fullName: string;
 };
 
 const joiSchema = Joi.object({
   _id: Joi.string().required(),
-  createdOn: Joi.date(),
-  updatedOn: Joi.date(),
-  deletedOn: Joi.date().allow(null),
+  createdAt: Joi.date(),
+  updatedAt: Joi.date(),
+  deletedAt: Joi.date().allow(null),
   fullName: Joi.string().required(),
 });
 
 const zodSchema = z.object({
   _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  deletedAt: z.date().optional().nullable(),
   fullName: z.string(),
 });
 

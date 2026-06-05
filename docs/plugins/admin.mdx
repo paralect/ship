@@ -1,0 +1,46 @@
+---
+title: "Admin"
+description: "A paginated, searchable user list at /app/admin — Ship's built-in admin panel and the canonical TanStack Router plugin."
+---
+
+The **Admin** plugin adds an admin dashboard to your app, starting with a paginated, searchable, filterable **user list** at `/app/admin`. It merges into `apps/web` as your own code, so it's the natural place to grow an internal admin UI — and it's the canonical example of a TanStack Router plugin.
+
+<Tip>Prefer this to wiring up an external tool: the admin panel is type-safe, owned by you, and ships with your app. (If you'd still rather use something like Retool, point it at your Postgres `DATABASE_URL`.)</Tip>
+
+<Info>Requires **PostgreSQL** + the [Auth](/plugins/auth-starter) plugin.</Info>
+
+## What it adds
+
+- A route at `web/routes/_authenticated/app/admin/` — a paginated user table with search and date filters, built on the shared `Table` widget.
+- It reads users through the `isAdmin`-gated `users.list` endpoint using the typed `apiClient` and `useApiQuery` — no direct DB access from the web app.
+
+## Grant admin access
+
+Admin routes are gated by the `isAdmin` middleware. Make a user an admin:
+
+```bash
+pnpm --filter api admin:set -- user@example.com
+```
+
+That user can now reach `/app/admin`.
+
+## How it's built
+
+It's a normal TanStack Router file route consuming the typed client:
+
+```tsx
+// web/routes/_authenticated/app/admin/index.tsx
+import { createFileRoute } from '@tanstack/react-router';
+import { apiClient, useApiQuery } from '@/services/api-client.service';
+
+export const Route = createFileRoute('/_authenticated/app/admin/')({
+  component: AdminPage,
+});
+
+function AdminPage() {
+  const { data } = useApiQuery(apiClient.users.list, { page: 1, perPage: 20 });
+  // ...render the Table widget with data.results
+}
+```
+
+Because it's just a route plus an `isAdmin`-gated endpoint, extending the dashboard — more columns, more resources, bulk actions — is the same pattern you already use everywhere else. See [How Ship works](/how-ship-works).

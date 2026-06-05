@@ -1,17 +1,15 @@
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
 
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
+# build
+/dist
 
-# production
-/build
+# vite
+*.local
+app.config.timestamp_*
 
 # misc
 .DS_Store
@@ -26,11 +24,5 @@ yarn-error.log*
 # local env files
 .env*.local
 
-# vercel
-.vercel
-
 # typescript
 *.tsbuildinfo
-
-# content-collections
-.content-collections

@@ -2,146 +2,160 @@
 
 > Read this when adding or modifying web pages, consuming API data, or working with forms.
 
----
-
-## Page File Convention
-
-**Only `*.page.tsx` files are treated as routes** (configured in `next.config.mjs` → `pageExtensions`).
-
-- `pages/projects/index.page.tsx` → route `/projects`
-- `pages/projects/[id].page.tsx` → route `/projects/:id`
-- `pages/projects/components/List.tsx` → **NOT a route** (no `.page.tsx` extension)
-
-This is the most common agent mistake. A file named `index.tsx` inside `pages/` will **not** be routed.
+Stack: **TanStack Start** (SPA mode) + **TanStack Router** (file-based) + **TanStack Query** + **oRPC client** + **react-hook-form** + **zod** + **shadcn/ui** + **Tailwind v4**.
 
 ---
 
-## Page Wrapper (Required)
+## Route File Convention (TanStack Router)
 
-Every page must wrap its content in the `Page` component:
+Routes live in [`apps/web/src/routes/`](../apps/web/src/routes/). The Vite plugin (`@tanstack/react-start/plugin/vite`) regenerates `src/routeTree.gen.ts` on save.
 
-```tsx
-import { LayoutType, Page, ScopeType } from 'components';
+- `src/routes/index.tsx` → `/` (public landing)
+- `src/routes/sign-in.tsx` → `/sign-in`
+- `src/routes/_authenticated.tsx` → guarded layout (auth required; redirects to `/sign-in`)
+- `src/routes/_authenticated/app/index.tsx` → `/app` (dashboard)
+- `src/routes/_authenticated/app/settings/profile.tsx` → `/app/settings/profile`
+- `src/routes/$.tsx` → catch-all 404
 
-const MyPage = () => (
-  <Page scope={ScopeType.PRIVATE} layout={LayoutType.MAIN}>
-    {/* content */}
-  </Page>
-);
-export default MyPage;
-```
+Routes that are not files: anything under `-components/` (the leading `-` tells TanStack Router to skip it). Use that pattern for route-private helpers.
 
-| Scope | Effect |
-|-------|--------|
-| `PRIVATE` | Requires auth — redirects to `/sign-in` if not logged in |
-| `PUBLIC` | Non-auth only — redirects to `/` if already logged in |
-
-| Layout | Effect |
-|--------|--------|
-| `MAIN` | App shell with sidebar navigation |
-| `UNAUTHORIZED` | Centered layout for auth pages |
-
-Import from `'components'` (barrel at `src/components/index.ts`).
-
----
-
-## Data Fetching
-
-The typed API client is auto-generated from API endpoints. Import from `services/api-client.service`:
+Each route file exports `Route` via `createFileRoute(...)` and a component:
 
 ```tsx
-import { apiClient } from 'services/api-client.service';
-```
+import { createFileRoute } from '@tanstack/react-router';
 
-### Queries (GET)
-
-```tsx
-import { useApiQuery } from 'hooks';
-
-const { data, isLoading } = useApiQuery(apiClient.projects.list);
-const { data } = useApiQuery(apiClient.projects.list, { page: 1, perPage: 10 });
-```
-
-### Mutations (POST/PUT/DELETE)
-
-```tsx
-import { useApiMutation } from 'hooks';
-
-const { mutate, isPending } = useApiMutation(apiClient.projects.create);
-mutate({ name: 'New' }, { onError: (e) => handleApiError(e, setError) });
-```
-
-### Dynamic Path Params Gotcha
-
-`useApiMutation` binds `pathParams` at **hook level** — they're fixed for all `mutate()` calls. For dynamic IDs (e.g., deleting different items in a list), use `endpoint.call()` directly:
-
-```tsx
-// ✅ Dynamic pathParams — use .call()
-const handleDelete = async (id: string) => {
-  await apiClient.projects.remove.call({}, { pathParams: { id } });
-  queryClient.invalidateQueries({ queryKey: [apiClient.projects.list.path] });
-};
-
-// ✅ Fixed pathParams — hook level is fine
-const { mutate: update } = useApiMutation(apiClient.projects.update, {
-  pathParams: { id: projectId },
+export const Route = createFileRoute('/_authenticated/app/admin/')({
+  component: AdminPage,
 });
+
+function AdminPage() {
+  return <div>…</div>;
+}
 ```
 
-### Forms
+Root shell + providers live in [`src/routes/__root.tsx`](../apps/web/src/routes/__root.tsx). The HTML document is rendered by `shellComponent: RootDocument` (TanStack Start handles `<html>`/`<head>`/`<body>` — no `index.html` in the source).
+
+---
+
+## Data Fetching (oRPC + TanStack Query)
+
+> Full-stack scaffolds (with `apps/api`) only. In web-only mode there's no API client — jump to "Data access without apps/api" below.
+
+The oRPC client (`src/services/api-client.service.ts`) and the `useApiQuery` / `useApiMutation` / `useApiForm` hooks (`src/hooks/use-api.hook.ts`) are delivered by the **Auth plugin** (`plugins/auth-starter`), which wires the typed client to the API. They exist in your repo once that plugin is installed.
+
+### Queries
 
 ```tsx
-import { useApiForm, useApiMutation } from 'hooks';
+import { useApiQuery } from '@/hooks';
+import { apiClient } from '@/services/api-client.service';
 
-const form = useApiForm(apiClient.projects.create); // auto-resolves Zod schema
-const { mutate } = useApiMutation(apiClient.projects.create);
+const { data, isLoading } = useApiQuery(apiClient.users.getCurrent);
+const { data } = useApiQuery(apiClient.users.list, { page: 1, perPage: 10 });
+```
+
+### Mutations
+
+```tsx
+import { useApiMutation } from '@/hooks';
+
+const { mutate, isPending } = useApiMutation(apiClient.users.patchCurrent);
+mutate({ fullName: 'New Name' });
+```
+
+### Forms (react-hook-form + zod)
+
+```tsx
+import { useApiForm, useApiMutation } from '@/hooks';
+
+const form = useApiForm(zodSchema);
+const { mutate } = useApiMutation(apiClient.users.patchCurrent);
+
 const onSubmit = form.handleSubmit((data) =>
-  mutate(data, { onError: (e) => handleApiError(e, form.setError) })
+  mutate(data, { onError: (e) => handleApiError(e, form.setError) }),
 );
-```
-
-### Streaming (SSE)
-
-```tsx
-import { useApiStreamMutation } from 'hooks';
-const { mutate, isLoading } = useApiStreamMutation(apiClient.chats.sendMessage);
-mutate({ content: 'Hi' }, { pathParams: { chatId }, onToken: (t) => {}, onDone: (d) => {} });
 ```
 
 ---
 
-## Query Invalidation
+## Query Keys & Invalidation
+
+`queryKey(procedure, input?)` derives a stable key from the oRPC path:
 
 ```tsx
-import queryClient from 'query-client';
+import { queryKey } from '@/hooks';
+import queryClient from '@/query-client';
 
-queryClient.invalidateQueries({ queryKey: [apiClient.projects.list.path] });
-queryClient.setQueryData([apiClient.account.get.path], updatedData);
+queryClient.invalidateQueries({ queryKey: queryKey(apiClient.users.list) });
+queryClient.setQueryData(queryKey(apiClient.users.getCurrent), updatedUser);
 ```
 
-Query keys = `[endpoint.path, ...params]`. The first element is always the endpoint path string.
+Socket events (`'user:updated'`) auto-invalidate the current-user query — see `src/hooks/use-current-user.hook.ts`.
+
+---
+
+## Reusable Widgets
+
+| Widget | File | When to use |
+|---|---|---|
+| `Table` (TanStack Table wrapper) | `src/components/Table` | Any paginated list. Pass `data`, `columns`, `page`, `perPage`, `onSortingChange`, `onPageChange`, optional `onRowClick`. |
+| `AppDrawer` | `src/components/app-drawer.tsx` | Right-side sheet for forms/details. Slots: header (`title`), body (children), footer buttons (`submitLabel`/`cancelLabel`). |
+| `PillTabBar` | `src/components/pill-tab-bar.tsx` | Tab navigation with rounded grey-on-active background. |
+| `ContentLayout` | `src/layouts/main-layout/content-layout.tsx` | Detail-page chrome (back button + bordered white card). |
+| shadcn primitives | `src/components/ui/*` | Buttons, dialogs, dropdowns, popovers, etc. |
+
+Components consume chambers-derived tokens from [`src/globals.css`](../apps/web/src/globals.css) — see `--color-bg-neutral-grey-*`, `--color-border-tertiary`, `--color-text-secondary`, etc.
 
 ---
 
 ## Error Handling
 
-`handleApiError(e, setError)` from `utils`:
-- Maps server validation errors → react-hook-form field errors
-- Shows global errors via Sonner toast
+Server validation errors flow back as oRPC `BAD_REQUEST` with a `data.errors` payload. `handleApiError(e, setError)` maps those onto react-hook-form fields and shows global errors via Sonner toast.
+
+---
+
+## Data Access Without apps/api (Web-only)
+
+In a web-only scaffold there is no `apps/api`, no oRPC client, and no `useApi*` hooks. Backend logic lives in TanStack Start **server functions**. SPA mode does **not** disable the server — server functions still run on the Start/Nitro server, so this is your secure place for DB calls, secrets, and third-party APIs.
+
+Define a server function with `createServerFn` from `@tanstack/react-start` (not `@tanstack/react-router`):
+
+```ts
+// src/server/get-stats.ts
+import { createServerFn } from '@tanstack/react-start';
+
+export const getStats = createServerFn({ method: 'GET' }).handler(async () => {
+  // runs on the server: read env, hit a DB or external API, etc.
+  return { users: 42 };
+});
+```
+
+Call it from a route loader and read it with `Route.useLoaderData()` — no client fetch, no `useEffect`:
+
+```tsx
+// src/routes/stats.tsx
+import { createFileRoute } from '@tanstack/react-router';
+
+import { getStats } from '@/server/get-stats';
+
+export const Route = createFileRoute('/stats')({
+  loader: () => getStats(),
+  component: StatsPage,
+});
+
+function StatsPage() {
+  const stats = Route.useLoaderData();
+
+  return <div>{stats.users} users</div>;
+}
+```
+
+Inputs are passed and validated through the function's `.validator(...)`/`data` argument; call the same function from an event handler for mutations. Keep secrets server-side — only the loader's return value reaches the client.
 
 ---
 
 ## Verification
 
-After web changes:
 ```bash
-pnpm --filter web tsc --noEmit    # type errors
-pnpm --filter web eslint .        # lint
-pnpm --filter web build           # full build passes
+pnpm --filter web tsc --noEmit
+pnpm --filter web build
 ```
-
----
-
-## Update Triggers
-
-Update this doc when: `pageExtensions`, `PageConfig`, `useApi*` hook signatures, or `handleApiError` behavior changes.

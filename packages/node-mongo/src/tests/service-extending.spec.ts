@@ -34,9 +34,9 @@ function createService<T extends IDocument>(collectionName: string, options: Ser
 
 const schema = z.object({
   _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  deletedAt: z.date().optional().nullable(),
   fullName: z.string(),
 });
 

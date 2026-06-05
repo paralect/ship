@@ -1,127 +1,96 @@
 ---
 title: "Middlewares"
+description: "Global middlewares run on every endpoint; per-endpoint gates run on the ones that opt in. Both are oRPC middleware."
 ---
 
-## Overview
+Ship has two layers of middleware, and they're the same primitive — an oRPC middleware that either refines `context` or throws before the handler runs:
 
-Ship provides two essential middleware utilities for API routes:
-- **Rate Limit Middleware** — protects your API endpoints from excessive requests
-- **Validate Middleware** — validates incoming request data using Zod schemas
+- **Global middlewares** — applied to *every* endpoint automatically. Cross-cutting concerns: logging, timing, request context.
+- **Per-endpoint gates** — opt-in with `.use(...)`: `isAuthorized`, `isAdmin`, `canAccess`, `canEdit`. Covered in [Routing → Middlewares](/api-reference/routing/middlewares).
 
-Both middlewares are located in `/api/src/middlewares` and can be imported and applied to any route.
+## Global middlewares
 
-## Rate Limit Middleware
+Every endpoint builds on the `@/endpoint` builder, which applies the whole `@/middlewares/global` list — in order — before any per-endpoint `.use(...)`:
 
-The rate limit middleware protects your API endpoints from abuse by limiting the number of requests a user can make within a specified time window. It automatically uses Redis when available, falling back to in-memory storage for development environments.
+```ts middlewares/global/index.ts
+import logger from '@/middlewares/global/logger';
 
-### Parameters
+// Applied to every endpoint, in order, before any per-endpoint `.use(...)`.
+// Must be context-preserving (cross-cutting side effects: logging, timing, request-id).
+const globalMiddlewares = [logger];
 
-The `rateLimitMiddleware` function accepts an options object with the following parameters:
-
-- `limitDuration` (optional) — Time window in seconds. Default: `60` seconds
-- `requestsPerDuration` (optional) — Maximum number of requests allowed within the time window. Default: `10`
-- `errorMessage` (optional) — Custom error message shown when rate limit is exceeded. Default: `'Looks like you are moving too fast. Retry again in few minutes.'`
-
-### Key Features
-
-- **Automatic Storage Selection**: Uses Redis if `REDIS_URI` is configured, otherwise falls back to in-memory storage
-- **User-Specific Limits**: Rate limits are applied per authenticated user (based on `user._id`) or per IP address for unauthenticated requests
-- **Response Headers**: Includes rate limit headers in the response for client-side tracking
-
-### Example
-
-```typescript
-import createEndpoint from 'routes/createEndpoint';
-import { rateLimitMiddleware } from 'middlewares';
-
-export default createEndpoint({
-  method: 'post',
-  path: '/send-email',
-  schema,
-  middlewares: [
-    rateLimitMiddleware({
-      limitDuration: 300, // 5 minutes
-      requestsPerDuration: 5, // 5 requests per 5 minutes
-      errorMessage: 'Too many emails sent. Please try again later.',
-    }),
-  ],
-
-  async handler(ctx) {
-    // Your handler logic here
-    return { success: true };
-  },
-});
+export default globalMiddlewares;
 ```
 
-### Common Use Cases
+`endpoint.ts` reduces that list onto the oRPC base, so adding an always-on middleware is a one-line change — register it in `@/middlewares/global` and every endpoint picks it up. Nothing in `endpoint.ts` changes:
 
-- Protecting email sending endpoints
-- Rate limiting authentication attempts
-- Preventing API abuse on expensive operations
-- Throttling public API endpoints
+```ts endpoint.ts
+import { os } from '@orpc/server';
 
-## Validate Middleware
+import globalMiddlewares from '@/middlewares/global';
+import type { ORPCContext } from '@/types';
 
-The validate middleware automatically validates incoming request data against a Zod schema. It combines data from request body, files, query parameters, and route parameters into a single validated object.
+const base = os.$context<ORPCContext>();
 
-### How It Works
-
-The middleware validates the following request data:
-- **Request body** (`ctx.request.body`)
-- **Uploaded files** (`ctx.request.files`)
-- **Query parameters** (`ctx.query`)
-- **Route parameters** (`ctx.params`)
-
-If validation fails, it automatically throws a `400` error with detailed field-level error messages. If validation succeeds, the validated data is available via `ctx.validatedData`.
-
-### Example
-
-```typescript
-import { z } from 'zod';
-
-import createEndpoint from 'routes/createEndpoint';
-
-import { AppKoaContext } from 'types';
-
-// Define your schema
-const schema = z.object({
-  email: z.email('Email format is incorrect'),
-  firstName: z.string().min(1, 'First name is required').max(100),
-  lastName: z.string().min(1, 'Last name is required').max(100),
-  age: z.number().int().positive().optional(),
-});
-
-type CreateUserData = z.infer<typeof schema>;
-
-async function handler(ctx: AppKoaContext<CreateUserData>) {
-  // Access validated data
-  const { email, firstName, lastName, age } = ctx.validatedData;
-
-  // Your handler logic here
-  ctx.body = { email, firstName, lastName, age };
-}
-
-export default createEndpoint({
-  method: 'post',
-  path: '/users',
-  schema,
-  handler,
-});
+export default globalMiddlewares.reduce(
+  (builder, middleware) => builder.use(middleware),
+  base,
+);
 ```
 
 <Note>
-When a `schema` is provided to `createEndpoint`, validation is applied automatically — there is no need to manually call `validateMiddleware`.
+Global middlewares must be **context-preserving** — cross-cutting side effects only. Anything that narrows the context (auth, ownership) is a [gate](/api-reference/routing/middlewares) you stack per-endpoint, so its type narrowing reaches the handler.
 </Note>
 
-### Error Response Format
+### `logger`
 
-When validation fails, the middleware returns a structured error response with field-specific error messages:
+The default global middleware binds a request-scoped logger. It derives the endpoint name from the oRPC `path` and runs the rest of the request inside an `AsyncLocalStorage` scope, so every log line downstream is tagged automatically:
 
-```json
-{
-  "clientErrors": {
-    "email": ["Email format is incorrect"],
-    "firstName": ["First name is required"]
-  }
-}
+```ts middlewares/global/logger.ts
+export default base.middleware(async ({ context, path, next }) => {
+  const endpoint = path.at(-1) ?? 'unknown';
+  const child = appLogger.child({ endpoint });
+  return loggerStorage.run(child, () => next({ context }));
+});
 ```
+
+## Adding a global middleware
+
+Write a context-preserving oRPC middleware, then register it:
+
+```ts middlewares/global/timing.ts
+import { os } from '@orpc/server';
+import type { ORPCContext } from '@/types';
+
+const base = os.$context<ORPCContext>();
+
+export default base.middleware(async ({ context, path, next }) => {
+  const start = performance.now();
+  const result = await next({ context });
+  appLogger.info(`${path.at(-1)} took ${Math.round(performance.now() - start)}ms`);
+  return result;
+});
+```
+
+```ts middlewares/global/index.ts
+import logger from '@/middlewares/global/logger';
+import timing from '@/middlewares/global/timing';
+
+const globalMiddlewares = [logger, timing];
+
+export default globalMiddlewares;
+```
+
+## Where the context comes from
+
+Global middlewares don't build the context — Hono does, before oRPC takes over. `server.ts` constructs an `ORPCContext` per request (cookies, headers, the resolved better-auth session) and hands it to the oRPC handler. By the time `logger` runs, `context.user` is already populated for signed-in requests. See [Routing overview](/api-reference/routing/overview).
+
+## Validation and errors
+
+You don't reach for a validate middleware — validation *is* the endpoint. `.input(zodSchema)` validates the request and `.output(zodSchema)` shapes the response; a parse failure surfaces as a `BAD_REQUEST` with field-level errors. Throw `ORPCError` (or a `ClientError` / `AppError` from `@/types`) for everything else; `server.ts` normalises them into the response. See [Routing → Middlewares](/api-reference/routing/middlewares) for the gate-level errors (`UNAUTHORIZED`, `FORBIDDEN`, `NOT_FOUND`).
+
+## See also
+
+- [Routing → Middlewares](/api-reference/routing/middlewares) — per-endpoint gate composition
+- [Routing overview](/api-reference/routing/overview) — how endpoints mount and the contract is generated
+- [API overview](/api-reference/overview) — the full Hono + oRPC story

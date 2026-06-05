@@ -1,112 +1,134 @@
 ---
 title: "Migrator"
+description: "Schema changes become versioned SQL migrations with Drizzle. Generate, review, apply — one obvious flow, deployed before the API."
 ---
 
-As the application grows your database schema also will evolve. The problem is pretty common: when you add some feature that influences a database schema(adding, removing, or replacing some fields) you will have to update already existing documents to the latest schema version. Otherwise working with old documents will be impossible, because you will struggle with errors when you will rely on an updated field in your code. So you will run migrations where you will resolve code and schema mismatching.
+Your schema is the source of truth. You edit a Drizzle `pgTable`, Ship turns the diff into a versioned SQL migration, and the migrator applies it before anything else ships. No hand-written DDL, no drift between your types and your database.
 
-Migrator is a service that runs MongoDB migrations, handles versioning, and keeps logs for every migration. It performs changes/migrations to current database data, to match new schema or new requirements. Those changes are stored in the `migrator/migrations` folder.
+Migrations are powered by [drizzle-kit](https://orm.drizzle.team/kit-docs/overview) and applied by a small standalone script (`apps/api/scripts/migrate.ts`) that runs as its own service — so a long-running migration never blocks the API.
 
-<Tip>
-Any changes to the project's database are very sensitive and should be consistent. But also frequently migrations have operations that can take a lot of time to apply. It can create downtime for both database and API services. So to reduce these effects - Migrator is running as a separate service.
-</Tip>
+## The flow
 
-## How it works in the Ship
+<Steps>
+  <Step title="Edit the schema">
+    Change the Drizzle table in `resources/<name>/<name>.schema.ts`.
+  </Step>
+  <Step title="Generate SQL">
+    `pnpm --filter api generate` diffs your schema against the last snapshot and writes a timestamped migration into `apps/api/drizzle/`.
+  </Step>
+  <Step title="Review">
+    Read the generated `.sql`. It's plain SQL — commit it like any other code.
+  </Step>
+  <Step title="Apply">
+    `pnpm --filter api migrate` runs every pending migration in order.
+  </Step>
+</Steps>
 
-Every time Migrator is started, it is getting current successful migration version from the `migrationVersion` collection. And tries to apply every migration above this version in a sequence. Every `migration` from `migrator/migrations` will be called one by one, and every time it will be logged to the `migrationLog` collection either with:
+```mermaid
+flowchart LR
+  S["*.schema.ts<br/>(Drizzle pgTable)"] -- "generate" --> SQL["drizzle/&lt;ts&gt;_name/<br/>migration.sql"]
+  SQL -- "migrate" --> DB[(PostgreSQL)]
+```
 
-1. `completed` status with updating the current version
-2. `failed` status *without* updating the current version
+## Configuration
 
-<Warning>
-**Warning:** Sequence of migrations will stop on `failed` migration and won't apply versions above it.
-</Warning>
+drizzle-kit reads `apps/api/drizzle.config.ts`. It picks up every schema file by glob and writes migrations to `./drizzle`:
 
-## How to add a new migration.
+```ts apps/api/drizzle.config.ts
+import { defineConfig } from 'drizzle-kit';
+import process from 'node:process';
 
-1. To add new migration - add new `#.ts` file inside еру `migrator/migrations` folder (with the name of the next version, that is higher than the current version)ю
-2. Create new `Migration` with the `#.ts` migration number and description.
-
-### Example
-
-We already have migration `1.ts`, so let's add another one. We have a collection of `users`, but we need to assign some of them special rights within our app. Let's add a new boolean field `isAdmin` to the user schema.
-
-```typescript user.schema.ts
-const schema = z.object({
-  _id: z.string(),
-  createdOn: z.date().optional(),
-  updatedOn: z.date().optional(),
-  deletedOn: z.date().optional().nullable(),
-  role: z.string(),
-  isAdmin: z.boolean().default(false)
+export default defineConfig({
+  dialect: 'postgresql',
+  casing: 'snake_case',
+  schema: './src/resources/*/*.schema.ts',
+  out: './drizzle',
+  dbCredentials: {
+    url: process.env.DATABASE_URL!,
+  },
 });
 ```
 
-After adding this field to the schema, every new user will automatically have `isAdmin` upon creation with `true` or `false`.
-But old users don't have the field `isAdmin` at all. So let's add it.
+Because the glob is `resources/*/*.schema.ts`, any new resource schema is picked up automatically — there's no central registry to update.
 
-```typescript migrator/migrations/2.ts
-const migration = new Migration(2, 'Add isAdmin field to users');
+## Example: add a column
 
-migration.migrate = async () => {
-  const userIds = await userService.distinct('_id', {
-    role: 'admin',
-  });
+Say you want a `lastRequestAt` timestamp on `users`. Add the column to the table:
 
-  const updateFn = (userId: string) => userService.atomic.updateOne(
-    { _id: userId },
-    { $set: { isAdmin: true } },
-  );
+```ts apps/api/src/resources/users/users.schema.ts
+export const users = pgTable('users', {
+  ...baseColumns,
+  fullName: text('full_name').notNull(),
+  email: text('email').notNull().unique(),
+  isAdmin: boolean('is_admin').default(false).notNull(),
 
-  await promiseUtil.promiseLimit(userIds, 50, updateFn);
-};
-
-export default migration;
+  lastRequestAt: timestamp('last_request_at', { withTimezone: true }),
+});
 ```
+
+Generate the migration:
+
+```bash
+pnpm --filter api generate
+```
+
+drizzle-kit writes a new folder under `apps/api/drizzle/`, e.g. `20260526112053_fancy_magneto/`, containing:
+
+- `migration.sql` — the DDL to apply
+- `snapshot.json` — the schema state used to diff the next migration
+
+```sql apps/api/drizzle/20260526112053_fancy_magneto/migration.sql
+ALTER TABLE "users" ADD COLUMN "last_request_at" timestamp with time zone;
+```
+
+Apply it:
+
+```bash
+pnpm --filter api migrate
+```
+
+<Tip>
+Every table extends `baseColumns` (`id`, `createdAt`, `updatedAt`, `deletedAt`). Soft deletes are a `deletedAt` timestamp, not a `DELETE` — so most "remove a row" changes need no migration at all.
+</Tip>
+
+## How `migrate` works
+
+`pnpm --filter api migrate` runs `scripts/migrate.ts`, which hands the `drizzle/` folder to drizzle-orm's migrator. drizzle tracks which migrations have already run in its own table, so applying twice is a no-op:
+
+```ts apps/api/scripts/migrate.ts
+import { migrate } from 'drizzle-orm/postgres-js/migrator';
+import process from 'node:process';
+
+import { rawDb as db } from '../src/db';
+
+await migrate(db, { migrationsFolder: './drizzle' });
+process.exit(0);
+```
+
+## Commands
+
+| Command | What it does |
+| --- | --- |
+| `pnpm --filter api generate` | Diff the schema, write SQL into `apps/api/drizzle/` |
+| `pnpm --filter api migrate` | Apply all pending migrations (via `scripts/migrate.ts`) |
+| `pnpm --filter api db:push` | Push the schema straight to the DB — **dev only**, no SQL file |
 
 <Warning>
-**Warning:** Don't use methods that emit **[events](packages/node-mongo#reactivity)** during the operation. Instead, use atomic operations like **[atomic.updateOne](packages/node-mongo#atomicupdateone)** or **[updateOne](packages/node-mongo#updateconfig)** with `publishEvents: false`
+`db:push` skips the migration history. It's great for fast local iteration, but never use it against staging or production — `generate` + `migrate` is the deployable path.
 </Warning>
 
-## Promise Limit
+<Note>
+These scripts only exist once you have a database. They're guarded on `drizzle.config.ts`; without it they print "Install postgres plugin first".
+</Note>
 
-Every migration should use `promiseLimit` to perform changes to the collections, to avoid insufficient resources to complete operations:
-```typescript
-promiseLimit(documents: unknown[], limit: number, operator: (doc: any) => any)
-```
+## Browse your data
 
-## How it deploys and runs
+Run `pnpm dashboard` to open [Drizzle Studio](https://orm.drizzle.team/drizzle-studio/overview) at [https://local.drizzle.studio](https://local.drizzle.studio) — a live browser for your tables, rows and relations, backed by the same schema your migrations build.
 
-The main idea behind the ship's Migrator is to run it **before** **[API](api-reference/overview)** and **[Scheduler](scheduler)** deployment.
-Therefore, if any migration fails, then the API or Scheduler updates will not be applied. And they will always work with an up-to-date schema.
+![Drizzle Studio](/images/dashboards/drizzle-studio.png)
 
-More on **[Kubernetes](deployment/kubernetes/overview#deployment-flow)** and **[DO Apps](deployment/digital-ocean-apps#set-up-migrator-and-scheduleroptional)** deployment.
+## How it deploys
 
-## How to re-run failed migration
+The migrator ships as a standalone service with its own `Dockerfile.migrator`, and runs **before** the [API](/api-reference/overview) and [Scheduler](/scheduler). Its production command is `pnpm --filter api migrate`. If a migration fails, the rollout stops there — the API and Scheduler are never started against a schema they don't expect, so they always run against an up-to-date database.
 
-Migrator always run migrations only above already applied ones.
-
-So to re-run failed one, you simply start to migrate the process again.
-
-For development:
-```
-pnpm run migrate-dev
-```
-
-For production:
-```
-pnpm run migrate
-```
-## How to check failed migration logs
-
-First, you can check `migrationLog` and find your migration with the status `failed`. It contains the `error` and `errorStack` fields.
-
-For Kubernetes deployment, you can check the log inside its container by:
-
-```
-kubectl get pods -A
-```
-which is used to check `migrator_container_name` and `namespace`, and then:
-
-```
-kubectl log -f migrator_container_name -n namespace
-```
+See the [Deployment](/deployment/digital-ocean-apps) guides for wiring the migrator into your target.

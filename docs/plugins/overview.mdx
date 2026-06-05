@@ -1,83 +1,102 @@
 ---
 title: "Overview"
+description: "Everything is a plugin. Every plugin is your code. Features merge into your repo like shadcn/ui — yours to edit, extend, or delete."
 ---
 
-Plugins are pre-built features that can be installed into your Ship project with a single command. They add new functionality by scaffolding files across your monorepo (`apps/api`, `apps/web`, `packages/shared`) and merging the required dependencies into the respective `package.json` files.
+A plugin is a feature delivered as **source you own**. Auth, the admin panel, file storage, email, AI chat — none of them are framework internals. Each is a folder of resources, routes, and packages that **merges into your codebase** when you install it. From that point on, the files are yours to edit, extend, or delete.
 
-Plugins are hosted in the public [ship-plugins](https://github.com/paralect/ship-plugins) repository and installed via the `create-ship-app` CLI.
+> **Everything is a plugin. Every plugin is your code.** Like shadcn/ui, but for your entire stack.
 
-## Installing a plugin
+## How merging works
 
-Run the following command from your project root:
+Installing a plugin doesn't add a dependency you import from `node_modules` — it copies files into the three places your code already lives:
 
-```shell
-npx create-ship-app@latest install <plugin-name>
+- `apps/api/src/resources/<name>/` — endpoints, methods, handlers, middlewares, schemas
+- `apps/web/src/routes/<name>/` — [TanStack Router](https://tanstack.com/router) routes, auto-discovered by file path
+- `packages/<pkg>/` — any shared package the plugin ships (e.g. `@ship/ai`, `@ship/emails`)
+
+The merge is **copy-new-files-only**: your curated files always win, so a plugin can only contribute *new* files, never overwrite yours. Its declared dependencies are appended to the right `package.json`, and any infra it needs (a `docker-compose.<plugin>.yml`, an `infra:<plugin>` script, extra `.env` lines) is wired in too.
+
+After files land, codegen runs so the new resources and routes are live:
+
+```bash
+pnpm --filter api codegen
 ```
 
-For example:
+That regenerates `src/router.ts`, `src/contract.ts`, and `src/db.ts` to include the plugin's endpoints and tables. For a fresh scaffold, the CLI runs this for you after install.
 
-```shell
-npx create-ship-app@latest install stripe-subscriptions
+## Installing plugins
+
+Pick plugins during scaffolding — the [`init`](/packages/create-ship-app) flow shows a multiselect, then merges your choices into the new project:
+
+```bash
+npx @paralect/ship init
 ```
 
-The install process will:
+You can also merge a plugin into an existing project from its source:
 
-1. **Download** the plugin files from the [ship-plugins](https://github.com/paralect/ship-plugins) repository.
-2. **Copy files** into your project, preserving the directory structure. Existing files are never overwritten.
-3. **Merge dependencies** declared in the plugin manifest into the appropriate workspace `package.json` files.
-4. **Run post-install** — executes `pnpm install` and `pnpm run --filter shared generate` to install new dependencies and regenerate shared schemas.
-
-## Available plugins
-
-| Plugin | Description |
-|---|---|
-| [stripe-subscriptions](/plugins/stripe-subscriptions) | Subscription billing with Stripe Checkout, webhooks, and a pricing page |
-| [ai-chat](/plugins/ai-chat) | AI chat with streaming responses powered by Google Gemini |
-
-## Plugin structure
-
-Each plugin in the [ship-plugins](https://github.com/paralect/ship-plugins) repository follows the same convention:
-
-```
-<plugin-name>/
-├── package.json          # Plugin manifest (name, version, dependencies)
-└── apps/
-    ├── api/              # API-side files (configs, resources, services)
-    └── web/              # Web-side files (pages, components, configs)
+```bash
+pnpm plugin:install <git-url>
+pnpm plugin:uninstall <name>
+pnpm plugin:list
 ```
 
-The `package.json` manifest declares which npm packages should be added to which workspace. For example:
+<Info>Auth is plugin-delivered. The base `apps/web` ships only a landing page; the **Auth** plugin (`auth-starter`) adds the API wiring, the sign-in/up and reset pages, the authenticated app shell, and the typed oRPC client. A full-stack project that needs accounts starts with this plugin.</Info>
 
-```json
+## The catalog
+
+| Plugin | What it adds | Requires |
+| --- | --- | --- |
+| **auth-starter** | better-auth wiring — email/password, verification, reset, Google OAuth — plus the web auth pages, app shell, and oRPC client. | postgres, mailer, cloud-storage |
+| **admin** | An admin dashboard with a paginated user list at `/app/admin`. The canonical TanStack Router plugin example. | postgres, auth-starter |
+| **notes** | A small notes CRUD resource and UI — the minimal end-to-end plugin example. | postgres |
+| **ai-chat** | Streaming AI chat via the `@ship/ai` package (Google Gemini): conversations, messages, AI responses. | postgres, auth-starter |
+| **mailer** | Transactional email — [Resend](https://resend.com/) + [React Email](https://react.email/) templates, exposed as `@ship/emails`. | — |
+| **cloud-storage** | S3-compatible file storage with a local [Garage](https://garagehq.deuxfleurs.fr/) dev server, exposed as `@ship/cloud-storage`. | — |
+
+A plugin's `requires` are merged in automatically — selecting **admin** pulls in `auth-starter`, which pulls in `mailer` and `cloud-storage`.
+
+## Anatomy of a plugin
+
+A plugin mirrors the [resource-owns-everything](/how-ship-works) layout of the app it merges into:
+
+```text
+my-plugin/
+  plugin.json                 # name, version, requires, dependencies
+  api/
+    src/resources/things/
+      things.schema.ts         # pgTable + Zod → picked up by codegen-db
+      endpoints/*.ts           # oRPC endpoints → picked up by codegen-router
+      methods/*.ts             # business logic
+      handlers/*.ts            # mutation-event handlers (side effects)
+      middlewares/*.ts         # per-resource gates (can-edit-*.ts)
+  web/
+    routes/_authenticated/app/things/
+      index.tsx                # → apps/web/src/routes/...
+      -components/             # private, ignored by the router
+  packages/
+    my-lib/                    # → packages/my-lib (workspace:*)
+```
+
+The plugin's API resources build on the same `@/endpoint` base and the same `@/middlewares/*` gates (`is-authorized`, `is-admin`, `can-access`, `can-edit`) as the rest of your code — there's nothing plugin-specific to learn. Web routes go under `web/routes/**` and TanStack Router discovers them by path.
+
+### `plugin.json`
+
+The manifest names the plugin, lists what it `requires`, and declares which dependencies go to which app:
+
+```json plugin.json
 {
-  "name": "ship-plugin-stripe-subscriptions",
+  "name": "ai-chat",
   "version": "1.0.0",
-  "private": true,
+  "description": "AI chat with Google Gemini",
   "dependencies": {
-    "apps/api": {
-      "stripe": "20.3.1"
-    }
+    "api": { "@ship/ai": "workspace:*" }
   }
 }
 ```
 
-This tells the installer to add `stripe@20.3.1` to `apps/api/package.json`.
+`dependencies.api` is appended to `apps/api/package.json`; `dependencies.web` to `apps/web/package.json`.
 
-## Creating a plugin
+## Why this matters
 
-Ship also provides a command to package your own feature as a plugin from the last git commit:
-
-```shell
-npx create-ship-app@latest create-plugin <plugin-name>
-```
-
-This will:
-
-1. Extract new files added in the last commit.
-2. Detect dependency changes from modified workspace `package.json` files.
-3. Package everything into the plugin format.
-4. Push to a new branch on the [ship-plugins](https://github.com/paralect/ship-plugins) repository and provide a PR link.
-
-<Note>
-  You need push access to the [ship-plugins](https://github.com/paralect/ship-plugins) repository to use `create-plugin`.
-</Note>
+Because a plugin is just your code in the standard layout, there's no abstraction boundary to fight. You can read every line, set a breakpoint in it, refactor a handler, or delete the feature outright. Coding agents see the same one-obvious-way structure they see everywhere else in the repo — the plugin is indistinguishable from code you wrote by hand, because after install, it is.

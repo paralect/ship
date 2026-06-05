@@ -1,100 +1,172 @@
 ---
-title: Environment Variables
+title: "Environment Variables"
+description: "Typed, Vite-prefixed, Zod-validated. One config object, no guesswork."
 ---
 
-## Overview
+`apps/web` reads environment variables through [Vite](https://vite.dev/guide/env-and-mode), validates them with [Zod](https://zod.dev/) at startup, and exposes a single typed `config` object. If a required variable is missing or malformed, the app fails fast instead of breaking at runtime.
 
-We use different environment variables for different stages like developing, testing, and when the app is live.
+## The `VITE_` prefix
 
-This is done by using special files that have environments in them.
+Vite only exposes variables that start with `VITE_` to client code, and it does so on `import.meta.env`. Anything without the prefix stays server-side and is invisible to the browser.
 
-### How the App Chooses the Right Environment Variables File
-The app knows which file to use based on a special environment variable called `APP_ENV`.
-
-If `APP_ENV` is set to **staging**, the app will use the variables from the staging file.
-
-<Card title="Development Stage" icon="code" iconType="light" color="#F96F5D">
-    In this stage, we work on making the app and adding new things.
-
-    The app uses a file named `.env.development` which has special environment variables just for people who are building the app.
-</Card>
-
-<Card title="Testing Stage (Staging)" icon="bug" iconType="light" color="#ca8b04">
-    Here, we test the app to make sure it's ready to go live.
-
-    We use the `.env.staging` file which has variables that help us test everything properly.
-</Card>
-
-<Card title="Live Stage (Production)" icon="industry-windows" iconType="light" color="#02C39A">
-    In the Production, the app is all done and people can use it.
-
-    App uses a file named `.env.production` which has environment variables for the app when it's being used by everyone.
-</Card>
-
-### Environment Variables Schema Validation
-We use [Zod](https://zod.dev/) to check that our config is correct and in the right format.
-This is important to make sure the app works without any problems.
-
-This setup is found in the `src/config/index.ts` file.
-
-<Tip>
-To prefix any variables intended for client-side exposure with `NEXT_PUBLIC_`.
-</Tip>
-
-When we add new environment variables to .env files, we need to make sure they match what we set up in the `Zod` schema.
-
-## Adding a New Variable
-
-Here's how to add a new environment variable to the application:
-
-<Steps>
-    <Step title="Identify the Environment Stages">
-        Determine the environment stages where the new variable will be used.
-
-        Refer to the following table for file associations:
-
-        | APP_ENV     | File             |
-        |-------------|------------------|
-        | development | .env.development |
-        | staging     | .env.staging     |
-        | production  | .env.production  |
-    </Step>
-
-    <Step title="Update `.env` Files">
-        Add the new variable to the respective `.env` files. For client-side variables, prefix them with `NEXT_PUBLIC_`.
-
-        ```bash
-        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_TYooMQauvdEDq54NiTphI7jx
-        ```
-    </Step>
-
-    <Step title="Modify the Schema in `src/config/index.ts`">
-        Update the schema in the `config/index.ts` file to include the new variable.
-        This step is crucial for schema validation.
-
-        ```typescript config/index.ts
-        const schema = z.object({
-            ...
-            STRIPE_PUBLISHABLE_KEY: z.string(),
-        });
-        ```
-    </Step>
-
-    <Step title="Update the Configuration Object">
-        Add the new variable to the configuration object within the same file (`config/index.ts`), ensuring it matches the schema.
-
-        ```typescript config/index.ts
-        const processEnv = {
-            ...
-            STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
-        };
-        ```
-    </Step>
-</Steps>
+```ts
+import.meta.env.VITE_API_URL; // available in the browser
+```
 
 <Warning>
-    All the environment variables we use in the front-end part of our app can be seen by everyone.
-    So, don't put any secret stuff like passwords or private keys there.
-
-    Keep those safe and only on the server side! 🛡️✨
+Every `VITE_`-prefixed variable is bundled into the client and visible to anyone who opens devtools. Never put secrets — API keys with write scope, database URLs, signing keys — behind a `VITE_` prefix.
 </Warning>
+
+## One typed config object
+
+Don't read `import.meta.env` directly in components. Read from the validated `config` object in `src/config/index.ts`, which is the single source of truth:
+
+```ts src/config/index.ts
+import { z } from 'zod';
+
+import { validateConfig } from '@/utils/config.util';
+
+const schema = z.object({
+  APP_ENV: z.enum(['development', 'staging', 'production']).default('development'),
+  IS_DEV: z.preprocess(() => import.meta.env.VITE_APP_ENV === 'development', z.boolean()),
+  API_URL: z.string(),
+  WS_URL: z.string(),
+  WEB_URL: z.string(),
+  MIXPANEL_API_KEY: z.string().optional(),
+});
+
+type Config = z.infer<typeof schema>;
+
+const processEnv = {
+  APP_ENV: import.meta.env.VITE_APP_ENV,
+  API_URL: import.meta.env.VITE_API_URL,
+  WS_URL: import.meta.env.VITE_WS_URL,
+  WEB_URL: import.meta.env.VITE_WEB_URL,
+  MIXPANEL_API_KEY: import.meta.env.VITE_MIXPANEL_API_KEY,
+} as Record<keyof Config, string | undefined>;
+
+const config = validateConfig<Config>(schema, processEnv);
+
+export default config;
+```
+
+The raw `VITE_*` names map onto clean, prefix-free config keys. Consume them anywhere:
+
+```ts
+import config from '@/config';
+
+const ws = io(config.WS_URL);
+if (config.IS_DEV) {
+  // dev-only behaviour
+}
+```
+
+`validateConfig` (in `src/utils/config.util.ts`) parses the env with the schema and throws a readable error if anything is wrong:
+
+```ts src/utils/config.util.ts
+export const validateConfig = <T>(schema: ZodType<T>, processEnv: Record<keyof T, string | undefined>): T => {
+  const parsed = schema.safeParse(processEnv);
+
+  if (!parsed.success) {
+    console.error('❌ Invalid environment variables ❌');
+    console.error(z.prettifyError(parsed.error));
+
+    throw new Error('Invalid environment variables');
+  }
+
+  return parsed.data;
+};
+```
+
+## TypeScript autocomplete on `import.meta.env`
+
+`src/env.d.ts` augments Vite's types so each `VITE_*` variable is typed and autocompletable:
+
+```ts src/env.d.ts
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_APP_ENV: string;
+  readonly VITE_API_URL: string;
+  readonly VITE_WS_URL: string;
+  readonly VITE_WEB_URL: string;
+  readonly VITE_MIXPANEL_API_KEY?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+```
+
+## Per-environment `.env` files
+
+Vite loads the right file from the **mode** it runs in. `vite dev` uses `development`, `vite build` uses `production`, and you can target any mode explicitly with `--mode`:
+
+```bash
+vite build --mode staging   # loads .env.staging
+```
+
+| Mode | File | `VITE_APP_ENV` |
+| --- | --- | --- |
+| `development` | `.env.development` | `development` |
+| `staging` | `.env.staging` | `staging` |
+| `production` | `.env.production` | `production` |
+
+A development file looks like this:
+
+```bash .env.development
+VITE_APP_ENV=development
+VITE_API_URL=http://localhost:3001
+VITE_WS_URL=http://localhost:3001
+VITE_WEB_URL=http://localhost:3002
+
+# VITE_MIXPANEL_API_KEY=...
+```
+
+## Adding a new variable
+
+<Steps>
+  <Step title="Add it to the .env files">
+    Prefix client-side variables with `VITE_` so Vite exposes them. Add the variable to each environment file that needs it.
+
+    ```bash .env.development
+    VITE_STRIPE_PUBLIC_KEY=pk_test_TYooMQauvdEDq54NiTphI7jx
+    ```
+  </Step>
+
+  <Step title="Extend the schema in src/config/index.ts">
+    Add the variable to the Zod `schema` so it's validated. Use `.optional()` if it isn't required in every environment.
+
+    ```ts src/config/index.ts
+    const schema = z.object({
+      // ...existing keys
+      STRIPE_PUBLIC_KEY: z.string(),
+    });
+    ```
+  </Step>
+
+  <Step title="Map it in processEnv">
+    Wire the raw `VITE_` name to the config key in the same file.
+
+    ```ts src/config/index.ts
+    const processEnv = {
+      // ...existing keys
+      STRIPE_PUBLIC_KEY: import.meta.env.VITE_STRIPE_PUBLIC_KEY,
+    } as Record<keyof Config, string | undefined>;
+    ```
+  </Step>
+
+  <Step title="Read it through config">
+    Import `config` and use the typed key. `config.STRIPE_PUBLIC_KEY` is now strongly typed everywhere.
+
+    ```ts
+    import config from '@/config';
+
+    const stripe = loadStripe(config.STRIPE_PUBLIC_KEY);
+    ```
+  </Step>
+</Steps>
+
+<Tip>
+Keep `src/env.d.ts` in sync too — adding the new `VITE_*` key there gives you autocomplete and type-safety on `import.meta.env`.
+</Tip>

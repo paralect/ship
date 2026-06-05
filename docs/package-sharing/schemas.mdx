@@ -1,83 +1,175 @@
 ---
 title: "Schemas"
+description: "One file per resource: a Drizzle table and the Zod schemas that validate it. The same Zod is the contract for every endpoint."
 ---
 
 ## Overview
 
-Data schemas are defined inside each API resource folder (e.g. `apps/api/src/resources/users/users.schema.ts`). They are **auto-copied** to `packages/shared/src/schemas/` during codegen (`pnpm --filter shared generate`).
+A schema in Ship is two things in one file: the **Drizzle table** that defines the database shape and the **Zod schemas** that validate input and output at the edge. Both colocate in the resource folder:
 
-**Data schema** — is a Zod 4 schema that defines shape of the entity. It extends `dbSchema` from `resources/base.schema.ts` which provides `_id`, `createdOn`, `updatedOn`, and `deletedOn` fields.
+```text
+apps/api/src/resources/users/
+  users.schema.ts        # pgTable + Zod schemas
+  endpoints/             # .input()/.output() reference the Zod schemas
+```
 
-```typescript
-import { z } from 'zod';
+There is no separate schemas package and no generate step that copies schemas around. The schema file *is* the source of truth; codegen reads it to build the typed `DbService` (`pnpm --filter api codegen`).
 
-import dbSchema from 'resources/base.schema';
+## The Drizzle table
 
-const schema = dbSchema.extend({
-  firstName: z.string(),
-  lastName: z.string(),
-  fullName: z.string(),
+Every table spreads `baseColumns` from `resources/base.schema.ts`, which gives it a `uuid` id, timestamps, and a soft-delete column:
 
-  email: z.email(),
-  passwordHash: z.string().nullable().optional(),
+```ts apps/api/src/resources/base.schema.ts
+import { timestamp, uuid } from 'drizzle-orm/pg-core';
 
-  isEmailVerified: z.boolean().default(false),
+export const baseColumns = {
+  id: uuid('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(() => new Date()),
+  deletedAt: timestamp('deleted_at', { withTimezone: true }),
+};
+```
 
-  signupToken: z.string().nullable().optional(),
-  resetPasswordToken: z.string().nullable().optional(),
+A resource table extends it with its own columns:
 
-  avatarUrl: z.string().nullable().optional(),
-  oauth: z.object({
-    google: z.boolean().default(false),
-  }).optional(),
+```ts apps/api/src/resources/users/users.schema.ts
+import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
-  lastRequest: z.date().optional(),
-}).strict();
+import { baseColumns } from '../base.schema';
 
-export default schema;
+export const users = pgTable('users', {
+  ...baseColumns,
+
+  fullName: text('full_name').notNull(),
+  email: text('email').notNull().unique(),
+
+  isAdmin: boolean('is_admin').default(false).notNull(),
+  isEmailVerified: boolean('is_email_verified').default(false).notNull(),
+
+  avatarUrl: text('avatar_url'),
+
+  lastRequestAt: timestamp('last_request_at', { withTimezone: true }),
+});
 ```
 
 <Note>
-This repo uses **Zod 4**. Use `z.email()`, `z.url()`, `z.uuid()` instead of Zod 3's `z.string().email()`.
+`deletedAt` is the soft-delete column. Reads filter `where: { deletedAt: null }`; deletes set the timestamp instead of removing the row. Every `baseColumns` table works this way.
 </Note>
 
-## Validation
+## The Zod schemas
 
-Zod schemas are used both server-side (in `createEndpoint` via the `schema` option) and client-side (via `useApiForm` or manual `zodResolver`):
+Derive the validation schema from the table with `createSelectSchema`, then refine the fields you want stricter rules on. Export a `publicSchema` — the shape endpoints return to clients:
 
-```tsx
+```ts apps/api/src/resources/users/users.schema.ts
+import { createSelectSchema } from 'drizzle-orm/zod';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-const schema = z.object({
-  firstName: z.string().min(1, 'Please enter First name').max(100),
-  lastName: z.string().min(1, 'Please enter Last name').max(100),
-  email: z.email('Email format is incorrect.'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+export const emailSchema = z
+  .email()
+  .min(1, 'Email is required')
+  .toLowerCase()
+  .trim()
+  .max(255, 'Email must be less than 255 characters.');
+
+const usersSchema = createSelectSchema(users, {
+  fullName: (schema) => schema.min(1, 'Full name is required').max(128),
+  email: () => emailSchema,
 });
 
-type SignUpParams = z.infer<typeof schema>
+export default usersSchema;
 
-const SignUp = () => {
-    const methods = useForm<SignUpParams>({
-        resolver: zodResolver(schema),
-    });
-
-    return (
-        //your code here
-    )
-}
-
-export default SignUp;
+export const publicSchema = usersSchema;
 ```
 
-Additionally, data can be validated using the `safeParse` method:
-```typescript
-const parsed = zodSchema.safeParse(data);
+<Note>
+Ship is on **Zod 4**. Use `z.email()`, `z.url()`, `z.uuid()` — not Zod 3's `z.string().email()`.
+</Note>
+
+### Enums come from `app-constants`
+
+Never inline a string enum. Shared constants live in the `app-constants` package, so the API, the web app, and your schemas agree on the same values:
+
+```ts
+import { USER_STATUSES } from 'app-constants';
+import { z } from 'zod';
+
+const statusSchema = z.enum(USER_STATUSES);
+```
+
+## Schemas are the endpoint contract
+
+The same Zod schemas drive every endpoint. `.input()` and `.output()` validate at runtime *and* define the types the typed client sees — there is no second source of truth to keep in sync:
+
+```ts apps/api/src/resources/users/endpoints/list.ts
+import db from '@/db';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
+import { listResultSchema, paginationSchema } from '@/resources/base.schema';
+import { publicSchema } from '../users.schema';
+
+export default endpoint
+  .use(isAdmin)
+  .input(paginationSchema)
+  .output(listResultSchema(publicSchema))
+  .handler(async ({ input }) => {
+    return db.users.findPage({ where: { deletedAt: null }, ...input });
+  });
+```
+
+`paginationSchema` and `listResultSchema(itemSchema)` come from `resources/base.schema.ts` and standardise paged responses (`{ results, count, pagesCount }`).
+
+### Reusing a schema for input
+
+Build write inputs by `pick`-ing, `extend`-ing, or `partial`-ing the resource schema. The avatar update endpoint takes only `fullName` plus an uploaded file:
+
+```ts apps/api/src/resources/users/endpoints/current.patch.ts
+import { z } from 'zod';
+
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
+import usersSchema, { publicSchema } from '@/resources/users/users.schema';
+
+export default endpoint
+  .use(isAuthorized)
+  .input(
+    usersSchema
+      .pick({ fullName: true })
+      .extend({ avatar: z.instanceof(File).optional() })
+      .partial(),
+  )
+  .output(publicSchema)
+  .handler(async ({ input, context }) => {
+    /* ... */
+  });
+```
+
+## Validating elsewhere
+
+The same Zod schema validates on the client too — feed it to `useApiForm` (provided by the Auth plugin) or a manual `zodResolver`:
+
+```tsx
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+const schema = z.object({
+  fullName: z.string().min(1, 'Full name is required').max(128),
+  email: z.email('Email format is incorrect.'),
+});
+
+type SignUpParams = z.infer<typeof schema>;
+
+const methods = useForm<SignUpParams>({ resolver: zodResolver(schema) });
+```
+
+Or parse imperatively with `safeParse`:
+
+```ts
+const parsed = schema.safeParse(data);
 
 if (!parsed.success) {
-    throw new Error('Invalid data');
+  throw new Error('Invalid data');
 }
 ```
-For more details on Zod, check the [documentation](https://zod.dev/).
+
+For more on Zod, see the [Zod documentation](https://zod.dev/).

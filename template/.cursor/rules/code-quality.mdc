@@ -4,26 +4,25 @@ alwaysApply: true
 
 # Code Quality and Style Guidelines
 
+Stack: **Hono + oRPC + Drizzle + PostgreSQL** (`apps/api`), **TanStack Start + TanStack Router + TanStack Query** (`apps/web`), pnpm + Turborepo monorepo. ESM everywhere, TypeScript strict.
+
 ## Linting and Formatting
 
 ### ESLint
 
-Shared ESLint configuration in [packages/eslint-config/](mdc:packages/eslint-config/):
-- `node.js` - For API and Node.js packages
-- `next.js` - For Next.js web application
+Shared flat config in `packages/eslint-config/`. Each app imports it from its own `eslint.config.js`.
 
-Run ESLint:
 ```bash
-# Per workspace, fix issues automatically
 pnpm --filter api eslint
 pnpm --filter web eslint
 ```
 
+ESLint also sorts and organizes imports (via `eslint-plugin-simple-import-sort`) — run it after writing a feature and let it fix the ordering for you.
+
 ### Prettier
 
-Shared Prettier config in [packages/prettier-config/index.js](mdc:packages/prettier-config/index.js)
+Shared config in `packages/prettier-config/`. Referenced from each app's `.prettierrc`.
 
-Run Prettier:
 ```bash
 pnpm --filter api prettier
 pnpm --filter web prettier
@@ -31,117 +30,109 @@ pnpm --filter web prettier
 
 ## Pre-commit Hooks
 
-Husky + lint-staged configured at root:
-- Run script: `pnpm prepare` (runs automatically after install)
-
-Each workspace has lint-staged configuration in their package.json
-
-Run precommit manually:
-```bash
-pnpm --filter api precommit
-pnpm --filter web precommit
-```
+Husky + lint-staged at the root. `pnpm prepare` installs the hooks (runs automatically after install). Each workspace declares its own lint-staged config in `package.json`.
 
 ## Code Organization
 
 ### Import Sorting
 
-After implementing a feature, run ESLint to automatically sort and organize imports:
+After implementing a feature, run ESLint so imports are organized:
+
 ```bash
 pnpm --filter api eslint
 pnpm --filter web eslint
 ```
 
-ESLint is configured to automatically organize imports in the following order:
-1. External dependencies (React, Next.js, third-party packages)
-2. Internal packages (app-constants, app-types, schemas, etc.)
-3. Local imports (relative paths)
+The order is:
 
-The import sorting happens automatically during:
-- Pre-commit hooks (via lint-staged)
-- Running `eslint . --fix` manually
-- IDE auto-fix on save (if configured)
+1. External dependencies (`react`, `zod`, third-party packages)
+2. Internal workspace packages (`app-constants`, `@ship/db`, `@ship/emails`, …)
+3. Local imports (`@/` alias, then relative paths)
+
+It happens automatically on pre-commit (lint-staged), on `eslint . --fix`, and on IDE auto-fix-on-save if configured.
 
 ### File Naming
 
-- **API**: Use kebab-case for files (e.g., `user.service.ts`, `auth.middleware.ts`)
-- **Web**: Use kebab-case for files (e.g., `index.page.tsx`, `user.api.ts`)
-- **Components**: PascalCase for directories and files (e.g., `Button/index.tsx`)
-- **Types/Interfaces**: PascalCase with descriptive names
-- **Constants**: SCREAMING_SNAKE_CASE
+- **API**: kebab-case files (`is-admin.ts`, `users.schema.ts`, `list.ts`). Endpoint files are mounted by path, so the filename **is** the route segment.
+- **Web**: kebab-case files. Routes are file-based under `src/routes/**`; private pieces colocate in `-components/` folders the router ignores.
+- **Types / Interfaces**: PascalCase, descriptive.
+- **Constants**: SCREAMING_SNAKE_CASE.
 
 ### Export Patterns
 
-Prefer named exports over default exports, except for:
-- Next.js pages (require default export)
-- React components (can use either, but be consistent)
+Prefer **named exports** so imports stay greppable and tree-shake cleanly. The two intentional exceptions, both convention-driven:
 
-Use barrel exports (index.ts) for cleaner imports:
+- API **endpoint** files `export default endpoint.use(...).input(...).output(...).handler(...)` — codegen discovers the default export.
+- API **cron** files `export default scheduler({ cron, handler })` — same discovery rule.
+
+Barrel `index.ts` files keep package imports tidy:
+
 ```typescript
-// components/index.ts
-export { Button } from './Button';
-export { Input } from './Input';
+// packages/app-constants/src/index.ts
+export * from './api.constants';
+export * from './file.constants';
+export * from './validation.constants';
 
 // Usage
-import { Button, Input } from 'components';
+import { USER_STATUSES } from 'app-constants';
 ```
 
 ## Error Handling
 
 ### API
 
-- Throw descriptive errors that will be caught by error middleware
-- Use appropriate HTTP status codes
-- Include error context
+- Throw `ORPCError` with a typed code: `throw new ORPCError('NOT_FOUND', { message: 'User not found' })`. oRPC maps it to the right HTTP status and the typed client sees the error shape.
+- Let gate middlewares (`isAuthorized`, `isAdmin`, `canAccess`, `canEdit`) own auth/existence/ownership failures — don't re-check inside the handler.
 
 ### Web
 
-- Use try-catch with the error handler utility
-- Show user-friendly messages via notifications
-- Log errors to analytics if needed
+- Surface errors through the data layer (`useApiQuery` / `useApiMutation` / `useApiForm` from `@/hooks/use-api.hook`); show user-facing messages via notifications.
+- Field errors from a failed mutation map back onto the form automatically through `useApiForm`.
 
 ## Comments and Documentation
 
-- Write self-documenting code with clear variable and function names
-- Add comments for complex business logic
-- Document non-obvious behavior
-- Use JSDoc for public APIs and complex functions
+- Write self-documenting code — clear names beat comments.
+- Comment only non-obvious business logic.
+- No section-divider banners, no "matches design" notes, no phase labels.
 
 ## Performance Best Practices
 
 ### API
-- Use MongoDB indexes for frequently queried fields
-- Cache expensive operations in Redis
-- Use pagination for list endpoints
-- Avoid N+1 queries
+
+- Add Drizzle indexes (`index(...)` in the `pgTable` definition) for frequently queried columns.
+- Use `findPage` for list endpoints — never hand-roll pagination.
+- Load relations with `with` instead of issuing follow-up queries (avoid N+1).
+- Batch writes with `insertMany` / `updateMany`; wrap multi-step writes in `db.transaction(...)`.
 
 ### Web
-- Use React.memo for expensive components
-- Implement code splitting with dynamic imports
-- Optimize images (use Next.js Image component)
-- Use React Query's caching effectively
-- Memoize expensive calculations with useMemo/useCallback
+
+- Let TanStack Query own caching, staleness, and dedupe — don't fetch in effects.
+- Code-split heavy routes with TanStack Router's lazy routes.
+- Memoize genuinely expensive calculations with `useMemo` / `useCallback`; derive everything else inline.
 
 ## Security Best Practices
 
 ### API
-- Validate all input with Zod schemas
-- Use rate limiting middleware when applicable
-- Sanitize user input
-- Use secure password hashing (argon2)
-- Implement CORS properly
-- Don't include sensitive data in response
 
+- Validate every input with a Zod schema on `.input()`; constrain output with `.output()`.
+- Never trust the client for ownership — gate with `canEdit` (or `canAccess`), which returns `NOT_FOUND` on mismatch so existence never leaks.
+- Auth (sessions, password hashing, OAuth) is handled by **better-auth** — don't roll your own.
+- Keep secrets in `src/config` (Zod-validated env); never inline them.
+- Don't return sensitive columns — shape the response with `.output()`.
 
 ### Web
-- Sanitize HTML with DOMPurify before rendering
-- Don't expose sensitive data in client code
-- Implement CSRF protection for forms
-- Don't store sensitive data in localStorage
 
-## Typescript
-- Always use TypeScript strict mode (enabled in all tsconfig.json files)
-- Prefer explicit types over `any`
-- Use type inference where appropriate to reduce verbosity
-- Export types and interfaces from shared packages when used across apps
+- Never put secrets in client code. Only `VITE_`-prefixed env vars (read via `import.meta.env`) reach the browser.
+- Sanitize any HTML you render from user input.
+- Don't store sensitive data in `localStorage`.
 
+## TypeScript
+
+- Strict mode is on in every `tsconfig.json` (`extends: "tsconfig/base.json"`). Keep it on.
+- No `any` — `ts/no-explicit-any` is an **error** in the shared ESLint config.
+- Prefer inference where it's obvious; add explicit types at boundaries (function signatures, exported APIs).
+- Types flow API → web automatically: `pnpm --filter api build:types` emits `.d.ts`, and web consumes `import type { AppClient } from 'api'` via its `workspace:*` dependency. No shared types package.
+
+## No useEffect
+
+`useEffect` is banned in `apps/web` (`no-restricted-syntax`). Derive state inline, fetch with TanStack Query, act in event handlers, and use the `useMountEffect` escape hatch for genuine mount-time external sync. See the `no-use-effect` skill (`.agents/skills/no-use-effect/`).

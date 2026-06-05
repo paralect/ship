@@ -1,0 +1,36 @@
+---
+title: "Dev dashboards"
+description: "Three local UIs come with a Ship project — a live API reference, a database browser, and an email previewer. No setup, always in sync with your code."
+---
+
+A running full-stack project gives you three local dashboards out of the box. They're the fastest way to poke at your API, your data, and your emails while you build — and because each is generated from your real code, they never drift.
+
+## API reference — Scalar
+
+A full [Scalar](https://scalar.com/) API reference at [http://localhost:3001/docs](http://localhost:3001/docs), served in-process by Hono (non-production only). Every endpoint, its `.input()` / `.output()` schema, and a built-in "Test Request" client — generated from your oRPC contract, so it's always current. The raw OpenAPI 3.1 document is at `/spec.json`.
+
+![Scalar API reference](/images/dashboards/scalar-docs.png)
+
+## Database browser — Drizzle Studio
+
+[Drizzle Studio](https://orm.drizzle.team/drizzle-studio/overview) at [https://local.drizzle.studio](https://local.drizzle.studio), opened with `pnpm dashboard`. Browse tables, rows and relations, edit data, and run SQL against your local Postgres — backed by the same schema your [migrations](/migrator) build.
+
+![Drizzle Studio](/images/dashboards/drizzle-studio.png)
+
+## Email preview — React Email
+
+A live [React Email](https://react.email/) preview at [http://localhost:4000](http://localhost:4000), provided by the [Mailer](/mailer) plugin. Every template re-renders as you edit, so you can design transactional emails without sending a single message.
+
+![React Email preview](/images/dashboards/mailer-preview.png)
+
+## Where each comes from
+
+| Dashboard | URL | Start it | Needs |
+| --- | --- | --- | --- |
+| Scalar API reference | `localhost:3001/docs` | `pnpm start` | `apps/api` (full-stack) |
+| Drizzle Studio | `local.drizzle.studio` | `pnpm dashboard` | PostgreSQL |
+| React Email preview | `localhost:4000` | `pnpm start` | [Mailer](/mailer) plugin |
+
+`pnpm start` brings up the API (with Scalar) and, when the Mailer plugin is installed, the email preview. `pnpm dashboard` opens Drizzle Studio on demand.
+
+<Note>These dashboards are **dev-only** — Scalar is disabled in production, and Studio/preview are local tools. A web-only project has none of them (it ships just the TanStack Start SPA).</Note>

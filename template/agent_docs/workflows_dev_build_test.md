@@ -8,7 +8,7 @@
 
 - **Node ≥22.13.0** (see `.nvmrc`). Use `nvm use` if needed.
 - **pnpm ≥9.5.0** (`corepack enable && corepack prepare pnpm@9.5.0 --activate`).
-- **Docker** for local MongoDB + Redis.
+- **Docker** for local Postgres + Redis.
 
 ---
 
@@ -18,47 +18,58 @@
 pnpm install
 ```
 
-Run after pulling, after changing any `package.json`, or after modifying `pnpm-workspace.yaml` catalog.
-
 ---
 
 ## Infrastructure (Local)
 
 ```bash
-pnpm infra          # starts MongoDB (27017) + Redis (6379) via Docker
+pnpm infra              # Redis only
+pnpm infra:postgres     # Redis + Postgres (the database)
 ```
 
-MongoDB runs as a replica set (`rs`) — required for change streams and transactions.
+(Web-only scaffolds have no `apps/api` and no database — skip this step.)
 
 ---
 
 ## Dev Mode
 
 ```bash
-# Everything at once (infra → migrate → schedule → api + web dev):
-pnpm start
-
-# Or with Turborepo (assumes infra already running):
-pnpm turbo-start
+pnpm start          # everything (infra → migrate → schedule → api + web)
+pnpm turbo-start    # Turborepo (assumes infra running)
 ```
 
-Individual apps:
+Individual:
 
 ```bash
-pnpm --filter api dev       # API on :3001 (tsx watch)
-pnpm --filter web dev       # Web on :3002 (next dev)
+pnpm --filter api dev       # API on :3001
+pnpm --filter web dev       # Web on :3002
 ```
 
-Turbo pipeline order: `api#migrate-dev` → `api#schedule-dev` → `dev` (all apps).
+---
+
+## Dashboards
+
+When you run `pnpm start` (or `pnpm turbo-start`), these dashboards come up alongside the app:
+
+### API docs (OpenAPI / Scalar)
+
+- **URL:** <http://localhost:3001/docs>
+- **Raw spec:** <http://localhost:3001/spec.json> (OpenAPI 3.1.1, generated live from the oRPC router)
+- **Details:** Interactive reference with "try it out" — served in-process by the Hono API on `:3001`. Disabled in production (`APP_ENV=production`).
+
+### Database studio (Drizzle)
+
+- **Standalone:** `pnpm dashboard` (alias for `pnpm --filter api studio`)
+- **URL:** <https://local.drizzle.studio> (proxy on `:4983`)
+- **Details:** Visual table/relation browser + query runner. Full-stack only (`apps/api/drizzle.config.ts`); no-op in web-only mode.
 
 ---
 
 ## Build
 
 ```bash
-pnpm turbo build            # builds all packages + apps
-pnpm --filter api build     # API only (tsc)
-pnpm --filter web build     # Web only (next build)
+pnpm turbo build
+pnpm --filter api build:types    # declarations only (for web type consumption)
 ```
 
 ---
@@ -66,40 +77,48 @@ pnpm --filter web build     # Web only (next build)
 ## Typecheck
 
 ```bash
-pnpm --filter api tsc --noEmit
-pnpm --filter web tsc --noEmit
-pnpm --filter shared tsc --noEmit
+pnpm --filter api tsc --noEmit    # API
+pnpm --filter web tsc --noEmit    # Web
 ```
-
-No project-wide `tsc` — run per-package. These are the verification commands to run after changes.
-
----
-
-## Lint
-
-```bash
-pnpm --filter api eslint .
-pnpm --filter web eslint .
-```
-
-Uses `@antfu/eslint-config` (flat config, ESLint 9). Key enforced rules:
-- `no-explicit-any` is an **error** (not warning)
-- Import ordering is enforced (don't hand-sort — let eslint fix)
-- No relative imports beyond 1 level deep in API (`no-relative-import-paths` plugin)
-
-Run `eslint . --fix` to auto-fix. Don't fight the linter — if it's enforced, comply.
 
 ---
 
 ## Codegen
 
+`scripts/codegen-router.ts` and `scripts/codegen-db.ts` run automatically in `pnpm --filter api dev` (watch mode). To regenerate ad-hoc:
+
 ```bash
-pnpm --filter shared generate          # one-shot
-pnpm --filter shared generate:watch    # watches API resources for changes
+pnpm --filter api codegen     # runs both, then eslint --fix + prettier
 ```
 
-Must run after any change to `apps/api/src/resources/*/endpoints/*.ts` or `*.schema.ts`.
-See `agent_docs/shared_codegen_contract.md` for details.
+---
+
+## Drizzle Migrations
+
+```bash
+pnpm --filter api generate    # diff schemas → new migration in apps/api/drizzle/
+pnpm --filter api migrate     # apply pending migrations to the configured DB
+pnpm --filter api db:push     # push schema to DB without writing migration files (dev only)
+```
+
+---
+
+## Web-only Mode
+
+If the scaffold has no `apps/api`, you're in web-only mode. There is **no oRPC router, no Drizzle, no codegen, and no migrations** — so skip every `--filter api` command above.
+
+Data access runs through TanStack Start **server functions** (`createServerFn`), which execute on the Start/Nitro server even though the app is in SPA mode. See `web_pages_and_data_access.md` ("Data access without apps/api").
+
+```bash
+pnpm --filter web dev         # Web on :3002 (server functions run on the dev server)
+```
+
+Verify (the whole Definition of Done in web-only mode):
+
+```bash
+pnpm --filter web tsc --noEmit
+pnpm --filter web build
+```
 
 ---
 
@@ -107,33 +126,11 @@ See `agent_docs/shared_codegen_contract.md` for details.
 
 | I changed... | Run |
 |---|---|
-| Any `package.json` or catalog | `pnpm install` |
-| API endpoint or schema file | `pnpm --filter shared generate`, then typecheck |
+| Any `package.json` | `pnpm install` |
+| API endpoint added/removed | `pnpm --filter api codegen` then `build:types` |
+| API schema added/removed | `pnpm --filter api codegen` then `pnpm --filter api generate` (commit the migration) |
+| API endpoint input/output schema | `pnpm --filter api build:types` then typecheck web |
 | API code (any) | `pnpm --filter api tsc --noEmit` |
 | Web code (any) | `pnpm --filter web tsc --noEmit` |
-| Shared package code | `pnpm --filter shared tsc --noEmit`, then typecheck consumers |
 | `app-constants` | Typecheck any package that imports it |
-| Before committing | `pnpm --filter api tsc --noEmit && pnpm --filter web tsc --noEmit` |
-
----
-
-## Turborepo Filter Patterns
-
-```bash
-pnpm --filter api <script>        # apps/api
-pnpm --filter web <script>        # apps/web
-pnpm --filter shared <script>     # packages/shared
-pnpm --filter app-constants <script>
-```
-
-Package names match their `package.json` `name` field. Check with `pnpm ls --depth -1` if unsure.
-
----
-
-## Update Triggers
-
-Update this doc when:
-- Root or app-level `package.json` scripts change
-- `turbo.json` pipeline tasks change
-- Node/pnpm version requirements change
-- New packages are added to the workspace
+| Before committing | Typecheck both API and web |

@@ -1,51 +1,149 @@
 ---
 title: "Workflow"
+description: "Multi-step business operations that touch more than one table. Wrap them in db.transaction so every write commits together or none does."
 ---
 
-## Overview
+A **workflow** is a business operation that writes to more than one table and must succeed or fail as a unit — create a user *and* their credentials, accept an invite *and* mark the token used. In Ship you don't reach for a session object or a separate orchestration layer. You wrap the writes in `db.transaction`, and the same typed `DbService` API works inside it.
 
-`Workflow` — is a complex business operation that requires two or more data services to be used together. If a workflow is simple enough and used only in one place — it can be defined right in the endpoint handler. If not — it should be placed into the ‘workflowName.workflow’ file. A most common workflow example is a `signup.workflow` that exposes `createUserAccount` function and used when new user signs up or receive an invite.
+> **Standardised patterns. Zero guesswork.**
 
-## Examples
+## db.transaction
 
+`db.transaction(async (tx) => ...)` runs a function against a transactional copy of the whole data layer. The `tx` you receive has the same shape as `db` — every table service, fully typed — but every call runs inside one Postgres transaction. Return a value and it resolves; throw and the entire transaction rolls back.
 
-```typescript
-import userService from 'resources/user/user.service';
-import companyService from 'resources/company/company.service';
+```ts
+import db from '@/db';
 
-const signup = async ({
-  firstName,
-  surname,
-  email,
-}: {
-  firstName: string;
-  surname: string;
-  email: string,
-}) : Promise<User> => {
- 
-  let signedUpUser = null;
-  await companyService.withTransaction(async (session: any) => {
-    const companyId = companyService.generateId();
-    await companyService.insertOne({
-      _id: companyId,
-      name: '',
-    },
-    { session });
-
-    signedUpUser = await userService.insertOne({
-      _id: userId,
-      companyId,
-      email,
-      firstName,
-      surname,
-    },
-    { session });
+const user = await db.transaction(async (tx) => {
+  const created = await tx.users.insertOne({
+    id: userId,
+    email,
+    fullName,
   });
 
-  return signedUpUser;
-};
+  await tx.accounts.insertOne({
+    id: accountId,
+    userId: created.id,
+    providerId: 'credential',
+    accountId: created.email,
+    password: hashedPassword,
+  });
 
-export default {
-  signup,
-};
+  return created;
+});
 ```
+
+If the second insert throws, the first is undone. No partial user with no credentials, ever.
+
+<Note>
+Use `tx`, not `db`, for every call inside the callback. A call on the outer `db` runs in its own connection and won't be part of the transaction — so it won't roll back with the rest.
+</Note>
+
+## Where workflows live
+
+A workflow that's used in one place can live right in the endpoint handler. Once it's reused — or just large enough to deserve a name — move it into the resource's `methods/` folder, where shared business logic lives:
+
+```
+resources/users/
+  methods/
+    sign-up.ts          # the workflow
+  endpoints/
+    sign-up.post.ts     # calls the workflow
+```
+
+A method is a plain function that calls `db` (or `db.transaction`) — no base class, no registration:
+
+```ts
+// resources/users/methods/sign-up.ts
+import db from '@/db';
+
+interface SignUpParams {
+  email: string;
+  fullName: string;
+  hashedPassword: string;
+}
+
+export default function signUp({ email, fullName, hashedPassword }: SignUpParams) {
+  return db.transaction(async (tx) => {
+    const user = await tx.users.insertOne({ email, fullName });
+
+    await tx.accounts.insertOne({
+      userId: user.id,
+      providerId: 'credential',
+      accountId: email,
+      password: hashedPassword,
+    });
+
+    return user;
+  });
+}
+```
+
+The endpoint just calls it — the gate stack and the Zod contract stay in the endpoint, the multi-table write stays in the method:
+
+```ts
+// resources/users/endpoints/sign-up.post.ts
+import endpoint from '@/endpoint';
+import signUp from '@/resources/users/methods/sign-up';
+import usersSchema, { passwordSchema, publicSchema } from '@/resources/users/users.schema';
+
+export default endpoint
+  .input(usersSchema.pick({ email: true, fullName: true }).extend({ password: passwordSchema }))
+  .output(publicSchema)
+  .handler(async ({ input }) => {
+    const hashedPassword = await hash(input.password);
+
+    return signUp({
+      email: input.email,
+      fullName: input.fullName,
+      hashedPassword,
+    });
+  });
+```
+
+## Inside a transaction, the full API still works
+
+`tx` is the same typed surface as `db`, so reads, filters, soft deletes and updates all behave identically — they're just scoped to the transaction. A typical accept-invite workflow reads a token, creates a user, and marks the token used, all atomically:
+
+```ts
+import db from '@/db';
+
+export default function acceptInvite({ token, fullName, hashedPassword }: AcceptInviteParams) {
+  return db.transaction(async (tx) => {
+    const invite = await tx.inviteTokens.findFirst({
+      where: { tokenHash: hashToken(token), usedAt: { isNull: true } },
+    });
+
+    if (!invite) {
+      throw new ORPCError('NOT_FOUND', { message: 'Invite is invalid or already used.' });
+    }
+
+    const user = await tx.users.insertOne({
+      email: invite.email,
+      fullName,
+      isEmailVerified: true,
+    });
+
+    await tx.accounts.insertOne({
+      userId: user.id,
+      providerId: 'credential',
+      accountId: invite.email,
+      password: hashedPassword,
+    });
+
+    await tx.inviteTokens.updateOne({ id: invite.id }, { usedAt: new Date() });
+
+    return user;
+  });
+}
+```
+
+Throwing inside the callback — here an `ORPCError` from `@orpc/server` — rolls the whole thing back. The user is only ever created together with their account and a consumed token.
+
+## Mutation events and transactions
+
+Each write inside a transaction still emits its typed `MutationEvent` through the [event bus](/api-reference/data-service#mutations-emit-events). Handlers run after the surrounding write returns, so keep transaction callbacks focused on the writes themselves — push notifications, analytics and socket pushes belong in `<resource>/handlers/*.ts`, reacting to the committed change rather than running inside the transaction.
+
+<Tip>
+Return the value you need from the callback — `db.transaction` resolves to whatever the callback returns. That's usually the primary entity (the new user), which the endpoint then maps to its `.output()` schema.
+</Tip>

@@ -1,31 +1,156 @@
 ---
 title: "Overview"
+description: "apps/web is a TanStack Start SPA — file-based routing, TanStack Query, shadcn/ui and Tailwind v4, with end-to-end type safety from the API."
 ---
 
-Web Starter is our starting point for React front-end applications.
-It's crafted using a selection of advanced technologies and tools, making it a robust and efficient foundation for development.
+`apps/web` is Ship's front-end: a [TanStack Start](https://tanstack.com/start) application running in **SPA mode**. It's the same base whether you scaffolded full-stack or web-only — what changes is where the data comes from.
 
-The core technologies include:
+![The Ship web app](/images/dashboards/web-home.png)
 
-- [Next.js](https://nextjs.org/) (Pages Router): A React framework that supports features like server-side rendering, static site generation and routing.
-- [TanStack Query](https://tanstack.com/query): A library for managing data fetching, caching, and updating in React apps.
-- [React Hook Form](https://react-hook-form.com/) + [Zod 4](https://zod.dev/): Efficient form management and schema validation tools.
-- [Tailwind CSS 4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/): Utility-first CSS framework with accessible, customizable UI components.
-- [lucide-react](https://lucide.dev/): Beautiful & consistent icon set.
-- [Typescript](https://www.typescriptlang.org/): JavaScript with syntax for types, enhancing scalability and maintainability.
+## The stack
 
-## Web Starter Documentation Sections
+| Concern | Tool |
+| --- | --- |
+| App framework | [TanStack Start](https://tanstack.com/start) (SPA) on [Vite](https://vite.dev/) |
+| Routing | [TanStack Router](https://tanstack.com/router) — file-based, in `src/routes/**` |
+| Server state | [TanStack Query](https://tanstack.com/query) |
+| UI | [shadcn/ui](https://ui.shadcn.com/) + [Tailwind v4](https://tailwindcss.com/) |
+| Forms | [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) |
+| Icons | [lucide-react](https://lucide.dev/) · [@tabler/icons-react](https://tabler.io/icons) |
+| Language | [TypeScript](https://www.typescriptlang.org/) |
 
-Explore the following sections for detailed information on different aspects of the Web Starter:
+The whole app is wired in [`vite.config.ts`](https://tanstack.com/start) with the `tanstackStart` plugin in `spa` mode, plus `@tailwindcss/vite` and `vite-tsconfig-paths` (the `@/...` alias):
 
-- [Styling](/web/styling): Focuses on the styling approach using Tailwind CSS 4 and shadcn/ui, with `cn()` for conditional class merging and CSS variables for theming.
-- [Routing](/web/routing): Covers the routing mechanism within the application, explaining how to organize navigation flow.
-- [Calling API](/web/calling-api): Dedicated to API interactions using the auto-generated typed API client, with `useApiQuery` and `useApiMutation` hooks for data fetching and mutations.
-- [Forms](/web/forms): Discusses form management, highlighting the integration of React Hook Form and Zod 4 with `useApiForm` for automatic schema resolution.
-- [Services](/web/services): Describes the various service layers used in the application, such as the API client, socket, and analytics services.
-- [Environment Variables](/web/environment-variables): Guides on managing environment-specific configurations, explaining the use of different `.env` files for development, staging, and production environments, and the importance of securing sensitive data.
+```ts vite.config.ts
+import tailwindcss from '@tailwindcss/vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import viteReact from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
-## React TypeScript Cheatsheet
+export default defineConfig({
+  server: { port: 3002, strictPort: true },
+  plugins: [
+    tsconfigPaths(),
+    tailwindcss(),
+    tanstackStart({
+      spa: { enabled: true, prerender: { outputPath: 'index.html' } },
+    }),
+    viteReact(),
+    svgr(),
+  ],
+});
+```
 
-For a detailed guide on using React with TypeScript,
-visit the [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup/).
+<Info>**SPA mode does not mean "no server."** TanStack Start still runs a server — it just doesn't server-render your routes. That server is where [server functions](/web/server-functions) execute, which is how the web-only shape does its backend work.</Info>
+
+## The root
+
+Everything hangs off `src/routes/__root.tsx`. It defines the document shell, the head (meta, fonts, favicon), and the providers every route shares — TanStack Query, theming, tooltips, and the toaster:
+
+```tsx src/routes/__root.tsx
+export const Route = createRootRoute({
+  ssr: false,
+  head: () => ({
+    meta: [{ title: 'Ship' }, /* charset, viewport */],
+    links: [/* favicon, fonts */],
+  }),
+  shellComponent: RootDocument,
+  component: RootLayout,
+});
+
+function RootLayout() {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Outlet />
+        </TooltipProvider>
+        <Toaster richColors position="top-right" />
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+How routes are organised under this root — files, params, guards, loaders — is its own page: [Routing](/web/routing).
+
+## Two ways to get data
+
+The base `apps/web` ships a landing page and nothing else to fetch. How you add data depends on the shape you scaffolded.
+
+<CardGroup cols={2}>
+  <Card title="Full-stack" icon="plug">
+    Talk to `apps/api` through a fully typed **oRPC client**. The client and the `useApiQuery` / `useApiMutation` / `useApiForm` hooks arrive with the **Auth** plugin, which also adds the sign-in/up pages and the authenticated app shell.
+  </Card>
+  <Card title="Web-only" icon="server" href="/web/server-functions">
+    No separate API. Backend logic runs as **server functions** (`createServerFn`) on the Start server, called straight from a route loader.
+  </Card>
+</CardGroup>
+
+### Full-stack: the typed oRPC client
+
+Add the Auth plugin and your routes get an `apiClient` whose methods mirror the API contract one-to-one — every input and return type is inferred from the endpoint's `.input()` / `.output()` schemas. Wrap a call in TanStack Query with the plugin's hooks:
+
+```tsx
+import { apiClient } from '@/services/api-client.service';
+import { useApiQuery, useApiMutation, queryKey, useQueryClient } from '@/hooks';
+
+function Notes() {
+  const queryClient = useQueryClient();
+  const { data: notes = [] } = useApiQuery(apiClient.notes.list);
+
+  const create = useApiMutation(apiClient.notes.create, {
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKey(apiClient.notes.list) }),
+  });
+
+  return <button onClick={() => create.mutate({ text: 'hi' })}>Add</button>;
+}
+```
+
+Types flow end-to-end with no codegen and no shared types package: the API emits `.d.ts` (`pnpm --filter api build:types`) and the web app imports them through its `"api": "workspace:*"` dependency. Change an endpoint's output and the client's types change on the next build. See [How Ship works](/how-ship-works).
+
+### Web-only: server functions
+
+With no `apps/api`, your backend is a `createServerFn` handler that runs on the Start server and is consumed by a route loader:
+
+```ts
+import { createServerFn } from '@tanstack/react-start';
+
+export const getStats = createServerFn({ method: 'GET' }).handler(async () => {
+  return { count: 42 };
+});
+```
+
+Full pattern — loaders, mutations, validation — on the [Server functions](/web/server-functions) page.
+
+## Styling
+
+Tailwind v4 is wired through `@tailwindcss/vite`; tokens live in `src/globals.css`. UI primitives are [shadcn/ui](https://ui.shadcn.com/) components copied into `src/components/ui/**` — your code, edit freely. Conditional classes use the `cn()` helper. See [Styling](/web/styling).
+
+## Run it
+
+```bash
+pnpm --filter web dev   # web only, http://localhost:3002
+pnpm start              # full stack: infra → migrate → api + web
+```
+
+## Where things live
+
+```
+apps/web/
+  vite.config.ts          # TanStack Start (SPA) + Tailwind + svgr + path alias
+  src/
+    routes/               # file-based routes — __root.tsx + route files
+    components/
+      ui/                 # shadcn/ui primitives (yours to edit)
+    globals.css           # Tailwind v4 tokens
+    routeTree.gen.ts      # auto-generated route tree (do not edit)
+```
+
+## Next
+
+- [Routing](/web/routing) — file-based routes, params, guards and loaders.
+- [Server functions](/web/server-functions) — backend logic for the web-only shape.
+- [Styling](/web/styling) — Tailwind v4 and shadcn/ui.

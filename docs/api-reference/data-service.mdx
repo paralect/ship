@@ -1,45 +1,235 @@
 ---
 title: "Data service"
+description: "DbService — one typed, generated data layer per table. A uniform filter API over Drizzle, soft deletes, relation loading and mutation events."
 ---
 
-## Overview
+Ship's data layer is a single, typed service per table. You never hand-write a query builder or a repository — `codegen-db.ts` reads your schema files and generates a `DbService` for every `pgTable`, exported from `@/db`. One obvious way to read and write, the same on every table.
 
-**Data Service** — is a layer that has two functions: database updates and domain functions. Database updates encapsulate the logic of updating and reading data in a database (also known as Repository Pattern in DDD). Domain functions use database updates to perform domain changes (e.x. `changeUserEmail`, `updateCredentials`, etc). For simplicity, we break the single responsibility pattern here. Data Service is usually named as `entity.service` (e.x. `user.service`).
+> **Standardised patterns. Zero guesswork.**
 
-## Examples
+## Where it comes from
 
-```typescript
-import db from 'db';
-import { DATABASE_DOCUMENTS } from 'app-constants';
-import schema from './user.schema';
+`DbService` lives in the `@ship/db` package; the generated wiring lives in `apps/api/src/db.ts`. Add or change a `*.schema.ts` file, run codegen, and `@/db` gains a fully typed service for that table:
 
-const service = db.createService(DATABASE_DOCUMENTS.USERS, {
-  schemaValidator: (obj) => schema.parseAsync(obj),
-});
+```bash
+cd apps/api && npx tsx scripts/codegen-db.ts   # or: pnpm --filter api codegen
+```
 
-async function createInvitationToUser(email: string, companyId: string) {
-  // the logic
-}
+The generated `@/db` looks like this — one `DbService` per table, plus `transaction`:
 
-export default Object.assign(service, {
-  createInvitationToUser,
+```ts
+// apps/api/src/db.ts — auto-generated, do not edit
+const createDB = (db: typeof rawDb) => ({
+  accounts: new DbService<typeof accounts>(accounts, db, 'accounts'),
+  sessions: new DbService<typeof sessions>(sessions, db, 'sessions'),
+  users: new DbService<typeof users>(users, db, 'users', eventBus.hook('users')),
+  // ...one per pgTable
+  transaction: getTransactionalDB,
 });
 ```
 
-## Service API Quick Reference
+You import the default export and call methods off the table name:
 
-`db.createService` returns a `@paralect/node-mongo` Service. Key methods:
-- `find(filter, { page, perPage }, { sort })` → `{ results, pagesCount, count }`
-- `findOne(filter)`, `insertOne(doc)`, `updateOne(filter, updateFn)`, `deleteSoft(filter)`
-- `exists(filter)`, `distinct(field, filter)`, `countDocuments(filter)`
-- `atomic.updateOne(filter, update)` — raw MongoDB update (bypass schema validator)
-- `createIndex(keys, options?)` — call at module level in the service file
+```ts
+import db from '@/db';
 
-### Soft Deletes
+const user = await db.users.findFirst({ where: { id, deletedAt: null } });
+```
 
-`service.deleteSoft(filter)` sets `deletedOn` timestamp instead of removing.
-All `find`/`findOne` queries auto-exclude `deletedOn !== null`.
+## Methods
+
+Every `db.<table>` exposes the same surface. Reads take a uniform options object; writes return the affected rows.
+
+| Method | Returns | Notes |
+| --- | --- | --- |
+| `find(options?)` | `Row[]` | `where`, `orderBy`, `limit`, `offset` |
+| `findFirst(options?)` | `Row \| undefined` | `where`, `orderBy` — limits to one |
+| `findPage(options)` | `{ results, count, pagesCount }` | requires `page` + `perPage` |
+| `count(options?)` | `number` | `where` |
+| `insertOne(data)` | `Row` | emits an `insert` event |
+| `insertMany(data[])` | `Row[]` | emits an `insert` event |
+| `updateOne(where, data)` | `Row \| undefined` | emits an `update` event |
+| `updateMany(where, data)` | `Row[]` | emits an `update` event |
+| `deleteOne(where)` | `Row \| undefined` | hard delete; emits a `delete` event |
+| `deleteMany(where)` | `Row[]` | hard delete; emits a `delete` event |
+
+Inputs and outputs are inferred from the Drizzle table, so `data`, `where` columns and returned rows are all typed against the real schema.
+
+### Reads
+
+```ts
+import db from '@/db';
+
+// One row
+const user = await db.users.findFirst({ where: { id, deletedAt: null } });
+
+// Many rows
+const admins = await db.users.find({
+  where: { isAdmin: true, deletedAt: null },
+  orderBy: { createdAt: 'desc' },
+});
+
+// Count
+const total = await db.users.count({ where: { deletedAt: null } });
+```
+
+### Pagination
+
+`findPage` runs the page query and a matching `count` in parallel and returns `{ results, count, pagesCount }` — the exact shape of `listResultSchema(itemSchema)` from `@/resources/base.schema`, so it drops straight into an endpoint's `.output()`:
+
+```ts
+return db.users.findPage({
+  where: { deletedAt: null, email: { ilike: '%@acme.com' } },
+  orderBy: { createdAt: 'desc' },
+  page: 1,
+  perPage: 20,
+});
+```
+
+### Writes
+
+```ts
+// Insert
+const user = await db.users.insertOne({ email, fullName });
+await db.users.insertMany([{ email, fullName }, /* ... */]);
+
+// Update — filter, then patch
+const updated = await db.users.updateOne({ id }, { lastRequestAt: new Date() });
+await db.users.updateMany({ isEmailVerified: false }, { isAdmin: false });
+```
+
+Every mutation returns the affected row(s) via `RETURNING`, so you rarely need a follow-up read.
+
+## The filter API
+
+`where` is a plain object. A bare value means equality; an object of operators expresses everything else. `OR` and `AND` take arrays of nested filters.
+
+```ts
+where: {
+  deletedAt: null,                          // IS NULL
+  isAdmin: true,                            // equality
+  createdAt: { gte: startDate, lt: endDate }, // range
+  email: { ilike: '%@acme.com' },           // case-insensitive LIKE
+  OR: [
+    { fullName: { ilike: `%${q}%` } },
+    { email: { ilike: `%${q}%` } },
+  ],
+}
+```
+
+Supported operators:
+
+| Operator | SQL |
+| --- | --- |
+| `eq` / bare value | `=` |
+| `ne` | `<>` |
+| `gt` `gte` `lt` `lte` | `>` `>=` `<` `<=` |
+| `like` `ilike` | `LIKE` / `ILIKE` |
+| `in` `notIn` | `IN` / `NOT IN` |
+| `isNull` `isNotNull` | `IS NULL` / `IS NOT NULL` |
+
+A bare `null` is shorthand for `isNull`, which is why soft-delete reads spell it `deletedAt: null`. `OR` and `AND` nest arbitrarily.
+
+<Tip>
+Need raw SQL? `where` also accepts a Drizzle `SQL` expression directly, so you can drop down for anything the operator set doesn't cover.
+</Tip>
+
+### Ordering
+
+`orderBy` maps columns to a direction:
+
+```ts
+orderBy: { createdAt: 'desc', fullName: 'asc' }
+```
+
+## Soft delete
+
+Every table built on `baseColumns` (from `@/resources/base.schema`) carries a `deletedAt` timestamp:
+
+```ts
+export const baseColumns = {
+  id: uuid('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(() => new Date()),
+  deletedAt: timestamp('deleted_at', { withTimezone: true }),
+};
+```
+
+There's no magic auto-exclusion: a soft delete is an `updateOne` that sets `deletedAt`, and live reads filter `deletedAt: null` explicitly.
+
+```ts
+// "Delete" — keep the row, stamp deletedAt
+await db.users.updateOne({ id }, { deletedAt: new Date() });
+
+// Live reads exclude soft-deleted rows
+await db.users.find({ where: { deletedAt: null } });
+```
 
 <Note>
-The collection name must be registered in `packages/app-constants/src/api.constants.ts` → `DATABASE_DOCUMENTS`.
+`deleteOne` / `deleteMany` are real `DELETE` statements. Prefer the soft-delete pattern for user-facing data and keep `deletedAt: null` in your read filters.
 </Note>
+
+## Relation loading
+
+Pass `with` or `columns` to `findFirst` / `find` / `findPage` and the call transparently delegates to Drizzle's relational query builder, keeping precise inference of the joined result.
+
+```ts
+const user = await db.users.findFirst({
+  where: { id, deletedAt: null },
+  columns: { id: true, email: true, fullName: true }, // shape the row
+  with: { accounts: true },                            // load relations
+});
+```
+
+Relation loading requires an `apps/api/src/relations.ts`. When it exists, `codegen-db.ts` emits the relations-aware generic — `DbService<typeof table, typeof rawDb.query.table>` — so `with`/`columns` results are fully typed. Without it, the generated service is `DbService<typeof table>` and plain reads still work.
+
+## Mutations emit events
+
+Any resource with a `handlers/` directory is auto-wired so its `DbService` publishes a typed `MutationEvent` after each write commits:
+
+```ts
+export interface MutationEvent<T> {
+  type: 'insert' | 'update' | 'delete';
+  docs: Row[];        // the affected rows
+  prevDocs?: Row[];   // previous state, on update/delete
+}
+```
+
+Subscribe in `<resource>/handlers/*.ts` to run side effects without coupling them to the endpoint that caused the change:
+
+```ts
+// resources/users/handlers/sync-analytics.ts
+import { eventBus } from '@/event-bus';
+
+eventBus.on('users.insert', (data) => {
+  for (const user of data.docs) {
+    analyticsService.track('New user created', { fullName: user.fullName });
+  }
+});
+```
+
+Event keys are `<table>.{insert,update,delete}`. See the [event handlers](/how-ship-works) model for how this keeps writes decoupled from their side effects.
+
+## In an endpoint
+
+The data service is the body of most handlers. Compose gates with `.use()`, declare the contract with `.input()`/`.output()`, then call `db`:
+
+```ts
+import { z } from 'zod';
+
+import db from '@/db';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
+import { listResultSchema, paginationSchema } from '@/resources/base.schema';
+import { publicSchema } from '../users.schema';
+
+export default endpoint
+  .use(isAdmin)
+  .input(paginationSchema)
+  .output(listResultSchema(publicSchema))
+  .handler(async ({ input }) => {
+    return db.users.findPage({ where: { deletedAt: null }, ...input });
+  });
+```
+
+For writes that span more than one table, wrap them in [`db.transaction`](/api-reference/workflow).

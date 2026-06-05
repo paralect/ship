@@ -1,72 +1,127 @@
 ---
-title: "Calling API"
+title: "Calling the API"
+description: "Consume the typed oRPC client from the web app with useApiQuery and useApiMutation — query keys derived from the client itself, zero hand-written hooks."
 ---
 
-## Overview
+In a full-stack project the web app talks to `apps/api` through a fully typed [oRPC](https://orpc.unnoq.com/) client. You call endpoints as plain methods — `apiClient.users.getCurrent()` — and wrap them in [TanStack Query](https://tanstack.com/query) with two thin hooks: `useApiQuery` and `useApiMutation`.
 
-Ship uses [TanStack Query](https://tanstack.com/query/latest) v5 with an auto-generated typed API client.
-The typed client is generated from API endpoints via codegen — no manual hook creation needed.
+<Info>
+The oRPC client and these hooks ship with the **Auth plugin** (`auth-starter`). Install it and `apps/web` gains the client, the hooks, and the authenticated app shell. The base web app has no API wiring.
+</Info>
 
-Import the client from `services/api-client.service`:
+## The client
 
-```tsx
-import { apiClient } from 'services/api-client.service';
+The client lives in `@/services/api-client.service.ts`. It's an oRPC client typed by the API's exported `AppClient`, so every resource, method, input and output is real — change an endpoint's `.output()` and the call site's types update on the next API type build.
+
+```ts
+import { apiClient } from '@/services/api-client.service';
+
+// resource → method → call
+const user = await apiClient.users.getCurrent();
+const page = await apiClient.users.list({ page: 1, perPage: 20 });
 ```
 
-## Queries (GET)
+The shape mirrors the API directory: `apiClient.<resource>.<method>(input)`. Method names are the codegen-derived names from the contract — `users.getCurrent`, `users.patchCurrent`, `users.list`, `files.upload`, `files.getUrl`, `files.remove`.
+
+## Queries
+
+`useApiQuery` takes a procedure and an optional input. It derives the query key from the procedure itself, so you never hand-write keys.
 
 ```tsx
-import { useApiQuery } from 'hooks';
-import { apiClient } from 'services/api-client.service';
+import { useApiQuery } from '@/hooks';
+import { apiClient } from '@/services/api-client.service';
 
-// Simple query
-const { data, isLoading } = useApiQuery(apiClient.projects.list);
+// no input
+const { data: user, isLoading } = useApiQuery(apiClient.users.getCurrent);
 
-// With parameters
-const { data } = useApiQuery(apiClient.projects.list, { page: 1, perPage: 10 });
+// with input
+const { data: page } = useApiQuery(apiClient.users.list, { page: 1, perPage: 20 });
+
+// with TanStack Query options
+const { data } = useApiQuery(apiClient.users.list, { page: 1 }, { staleTime: 30_000 });
 ```
 
-## Mutations (POST/PUT/DELETE)
+`data` is typed from the endpoint's `.output()` schema. When the procedure takes no input you can pass query options as the second argument directly — the hook tells an input apart from an options object for you.
+
+## Mutations
+
+`useApiMutation` wraps a procedure in `useMutation`. The error type is `ORPCError` (an `Error` with optional `data` and `status`), which is exactly what [`handleApiError`](/web/forms) expects.
 
 ```tsx
-import { useApiMutation } from 'hooks';
+import { useApiMutation } from '@/hooks';
+import { apiClient } from '@/services/api-client.service';
+import { handleApiError } from '@/utils';
 
-const { mutate, isPending } = useApiMutation(apiClient.projects.create);
-mutate({ name: 'New Project' }, { onError: (e) => handleApiError(e, setError) });
+const { mutate, isPending } = useApiMutation(apiClient.users.patchCurrent);
+
+mutate(
+  { fullName: 'Ada Lovelace' },
+  { onError: (e) => handleApiError(e) },
+);
 ```
 
-## Dynamic Path Params
+Dynamic path params come from the input — there's no separate `pathParams` argument. `apiClient.users.update({ userId, ...changes })` resolves to `PUT /users/{userId}`; the path segment and the body are one typed input.
 
-`useApiMutation` binds `pathParams` at **hook level** — they're fixed for all `mutate()` calls. For dynamic IDs (e.g., deleting different items in a list), use `endpoint.call()` directly:
+## Query keys
+
+Keys are derived from the procedure via the `ORPC_PATH` symbol the client attaches to every node. `queryKey(procedure, input)` returns the path array (plus the input when present), so invalidating or seeding a query never means stringly-typed keys.
 
 ```tsx
-import queryClient from 'query-client';
+import { queryKey } from '@/hooks';
+import { apiClient } from '@/services/api-client.service';
+import queryClient from '@/query-client';
 
-// ✅ Dynamic pathParams — use .call()
-const handleDelete = async (id: string) => {
-  await apiClient.projects.remove.call({}, { pathParams: { id } });
-  queryClient.invalidateQueries({ queryKey: [apiClient.projects.list.path] });
-};
+// key for a list query with input
+const key = queryKey(apiClient.users.list, { page: 1 });
 
-// ✅ Fixed pathParams — hook level is fine
-const { mutate: update } = useApiMutation(apiClient.projects.update, {
-  pathParams: { id: projectId },
+// invalidate every users.list query
+queryClient.invalidateQueries({ queryKey: queryKey(apiClient.users.list) });
+
+// seed the cache after a mutation
+queryClient.setQueryData(queryKey(apiClient.users.getCurrent), updatedUser);
+```
+
+`useApiQuery` calls `queryKey` for you; reach for it directly only when you invalidate or write the cache by hand. This is the same primitive the authenticated route uses to prefetch the current user:
+
+```tsx
+import { createFileRoute, redirect } from '@tanstack/react-router';
+
+import { queryKey } from '@/hooks';
+import { apiClient } from '@/services/api-client.service';
+import queryClient from '@/query-client';
+
+export const Route = createFileRoute('/_authenticated')({
+  beforeLoad: async () => {
+    const key = queryKey(apiClient.users.getCurrent);
+    if (queryClient.getQueryData(key)) return;
+
+    try {
+      await queryClient.fetchQuery({
+        queryKey: key,
+        queryFn: () => apiClient.users.getCurrent(),
+      });
+    } catch {
+      throw redirect({ to: '/sign-in' });
+    }
+  },
 });
 ```
 
-## Query Invalidation
+## The current user
+
+Reading the signed-in user is common enough to have its own hook, `useCurrentUser`, built on the same pieces — `apiClient.users.getCurrent` and a derived key cached forever:
 
 ```tsx
-import queryClient from 'query-client';
+import { useCurrentUser } from '@/hooks';
 
-queryClient.invalidateQueries({ queryKey: [apiClient.projects.list.path] });
-queryClient.setQueryData([apiClient.account.get.path], updatedData);
+function Greeting() {
+  const { data: user } = useCurrentUser();
+  return <span>Hi, {user?.fullName}</span>;
+}
 ```
 
-Query keys = `[endpoint.path, ...params]`. The first element is always the endpoint path string.
+It also subscribes to the `user:updated` socket event and writes fresh data straight into the cache, so the UI stays current without refetching. See [Services](/web/services) for the socket wiring.
 
-## Error Handling
+## Where types come from
 
-`handleApiError(e, setError)` from `utils`:
-- Maps server validation errors → react-hook-form field errors
-- Shows global errors via Sonner toast
+The web app never imports a generated client bundle. The API emits TypeScript declarations (`pnpm --filter api build:types`) and the web app depends on `"api": "workspace:*"`, importing `import type { AppClient } from 'api'`. The contract — `import { contract } from 'api/contract'` — drives the oRPC link's routing. One source of truth, no drift. See [How Ship works](/how-ship-works).

@@ -1,63 +1,131 @@
 ---
-title: Services
+title: "Services"
+description: "The thin modules in apps/web that wrap external systems — the oRPC API client, the Socket.IO connection, and analytics."
 ---
 
-## Overview
+A service in `apps/web` is a small module under `@/services` that wraps an external system behind a typed interface. The base web app ships three, all re-exported from `@/services`:
 
-Services in our application are specific functionalities or data manipulations handled by objects, classes, or functions.
-You can add any service as needed for third-party API integrations or app metrics collection.
-
-### API Client
-**Description:**
-The API Client, represented by the `ApiClient` class in `packages/shared`, wraps axios with better error handling and typed endpoint support. The typed client is auto-generated from API endpoints.
-
-**Example Usage:**
-```typescript
-import { apiClient } from 'services/api-client.service';
-
-// Using typed endpoints
-const projects = await apiClient.projects.list.call({ page: 1, perPage: 10 });
-
-// With useApiQuery hook
-import { useApiQuery } from 'hooks';
-const { data, isLoading } = useApiQuery(apiClient.projects.list);
+```ts
+import { analyticsService, apiClient, socketService } from '@/services';
 ```
 
-### Socket Service
-**Description:**
-Socket Service provides functions for managing websocket connections, including connecting, disconnecting, and handling events.
+<Info>
+The oRPC API client is delivered by the **Auth plugin** (`auth-starter`) alongside the hooks and the authenticated shell. The socket and analytics services live in the base web app.
+</Info>
 
-**Example Usage:**
-```tsx
-import { socketService } from 'services';
+## API client
 
-// Listening for an event
-socketService.on('user:updated', (data: User) => {
-  queryClient.setQueryData(['account'], data);
+The API client **is** the oRPC client, in `@/services/api-client.service.ts`. It's typed by the API's exported `AppClient`, so calls are fully checked end to end. There is no axios wrapper and no separate client class to construct.
+
+```ts
+import { createORPCClient } from '@orpc/client';
+import { OpenAPILink } from '@orpc/openapi-client/fetch';
+import type { AppClient } from 'api';
+import { contract } from 'api/contract';
+
+import config from 'config';
+
+const link = new OpenAPILink(contract, {
+  url: config.API_URL,
+  fetch: (input, init) => fetch(input, { ...init, credentials: 'include' }),
 });
 
-// In React component
-const onCardUpdated = () => {
-  console.log('Card updated')
+export const apiClient = createORPCClient<AppClient>(link);
+```
+
+Call it directly, or through the [`useApiQuery` / `useApiMutation`](/web/calling-api) hooks for TanStack Query integration:
+
+```ts
+import { apiClient } from '@/services/api-client.service';
+
+const user = await apiClient.users.getCurrent();
+const page = await apiClient.users.list({ page: 1, perPage: 20 });
+```
+
+`credentials: 'include'` ships the better-auth session cookie with every request, and the client exposes an `ORPC_PATH` symbol so query keys derive straight from the procedure — covered in [Calling the API](/web/calling-api).
+
+## Socket service
+
+`@/services/socket.service.ts` wraps a [Socket.IO](https://socket.io/) client pointed at `config.WS_URL`. It connects lazily (`autoConnect: false`) over the WebSocket transport and exposes a small surface:
+
+```ts
+import * as socketService from '@/services/socket.service';
+
+socketService.connect();          // open the connection
+socketService.emit('subscribe', 'user-<id>');
+socketService.on('user:updated', (user) => { /* ... */ });
+socketService.off('user:updated', handler);
+socketService.disconnect();
+```
+
+Subscribe at **module scope**, not in a `useEffect` — listeners are wired once when the module loads and push into the TanStack Query cache. This is how `useCurrentUser` stays live:
+
+```ts
+import { apiClient } from '@/services/api-client.service';
+import * as socketService from '@/services/socket.service';
+import queryClient from '@/query-client';
+import { queryKey } from './use-api.hook';
+
+import type { User } from '@/types';
+
+const currentUserKey = queryKey(apiClient.users.getCurrent);
+
+socketService.on('user:updated', (user: User) => {
+  queryClient.setQueryData<User>(currentUserKey, user);
+});
+```
+
+<Note>
+Ship enforces a **no-`useEffect`** rule (there's a skill for it). Socket listeners that feed the cache live at module scope, like the snippet above — not inside component effects.
+</Note>
+
+Connection-time subscriptions live in `@/services/socket-handlers.ts`. On `connect`, it reads the cached user and joins that user's room so server-side mutation handlers can target them:
+
+```ts
+import { currentUserKey } from '@/hooks';
+import * as socketService from '@/services/socket.service';
+import queryClient from '@/query-client';
+
+import type { User } from '@/types';
+
+socketService.on('connect', () => {
+  const user = queryClient.getQueryData<User | null>(currentUserKey);
+  if (user) socketService.emit('subscribe', `user-${user._id}`);
+});
+```
+
+## Analytics service
+
+`@/services/analytics.service.ts` wraps [Mixpanel](https://mixpanel.com/), guarded by `config.MIXPANEL_API_KEY` (optional — analytics is a no-op when it's unset).
+
+```ts
+import { analyticsService } from '@/services';
+
+analyticsService.init();                 // once, on app start
+analyticsService.setUser(currentUser);   // identify after sign-in
+analyticsService.track('Project created', { name });
+```
+
+`track` swallows its own errors, so a failed analytics call never breaks a user flow. Swap Mixpanel for another provider by editing this one file — like every Ship service, it's yours to change.
+
+## Config and env
+
+Services read configuration from `config`, a validated, typed object. Client env vars use the `VITE_` prefix and are read via `import.meta.env`:
+
+```ts
+const schema = z.object({
+  API_URL: z.string(),
+  WS_URL: z.string(),
+  WEB_URL: z.string(),
+  MIXPANEL_API_KEY: z.string().optional(),
+});
+
+const processEnv = {
+  API_URL: import.meta.env.VITE_API_URL,
+  WS_URL: import.meta.env.VITE_WS_URL,
+  WEB_URL: import.meta.env.VITE_WEB_URL,
+  MIXPANEL_API_KEY: import.meta.env.VITE_MIXPANEL_API_KEY,
 };
-
-useEffect(() => {
-  socketService.on('card:updated', onCardUpdated);
-
-  return () => {
-    socketService.off('card:updated', onCardUpdated);
-  };
-}, []);
 ```
 
-### Analytics Service
-**Description:**
-Analytics Service offers a set of functionalities for working with third-party analytics systems like Mixpanel. It can be adapted to other platforms as needed.
-
-**Example Usage:**
-```typescript
-import { analyticsService } from 'services';
-
-// Tracking an event
-analyticsService.track('New user created', { firstName, lastName });
-```
+Add a new external integration by dropping another module in `@/services` and re-exporting it from `@/services/index.ts`.

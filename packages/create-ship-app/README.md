@@ -8,53 +8,81 @@
 [![Follow](https://img.shields.io/twitter/follow/paralect.svg?style=social&label=Follow)](https://twitter.com/paralect)
 [![Tweet](https://img.shields.io/twitter/url/https/github.com/paralect/ship.svg?style=social)](https://twitter.com/intent/tweet?text=I%2)
 
-The [Ship](https://ship.paralect.com) is a toolkit for makers to **ship** better products faster 🚀.
+**[Ship](https://ship.paralect.com)** is an AI-native, batteries-included full-stack TypeScript SaaS starter. It scaffolds a production-ready monorepo with standardised patterns that you — and your AI agents — can build on without guesswork.
 
-It is based on several open-source components, resulting from years of hard work by the [Paralect](https://www.paralect.com) team. We carefully select, document, and share our production-ready knowledge with you. Our technological choices are based on the following main tools: [Next.js](https://nextjs.org/), [Tanstack Query](https://tanstack.com/query/latest/), [React Hook Form](https://react-hook-form.com/), [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/), [Koa.js](https://koajs.com/), [Socket.IO](https://socket.io/), [MongoDB](https://www.mongodb.com/), [Turborepo](https://turbo.build/repo/docs), [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/), [GitHub Actions](https://github.com/features/actions) and [TypeScript](https://www.typescriptlang.org/).
+> **Build products, not boilerplate.**
 
-We encourage developers to share production-ready solutions and help businesses ship something people need as quickly as possible.
+Ship has been live-tested on 100+ products at [Paralect](https://www.paralect.com). 3.0.0 rebuilds it on a modern, type-safe stack and ships first-class context for coding agents.
 
-## Features
-
-- Full-stack boilerplate tested on production projects 🔥
-- Customizable UI with [shadcn/ui](https://ui.shadcn.com/) and [Tailwind CSS](https://tailwindcss.com/) 🧱
-- Email/password and Google OAuth authentication 🔐
-- Plugin system — install pre-built features with a single command 🔌
-- Multiple environments support 📝
-- Reactive MongoDB [configuration](https://ship.paralect.com/docs/packages/node-mongo) with CUD events publishing 🍃
-- [Kubernetes](https://ship.paralect.com/docs/deployment/kubernetes/overview) and [DO Apps](https://ship.paralect.com/docs/deployment/digital-ocean-apps) deployment for AWS and Digital Ocean platforms ☁
-- Turborepo packages sharing 🏎
-- Files upload to cloud storage 🗃
-- Sendgrid and React Email emails 📧
-- Websockets 🔌
-- Database [migrations](https://ship.paralect.com/docs/migrator) 🌖
-- [CRON jobs](https://ship.paralect.com/docs/scheduler) ⏰
-- Logging and monitoring 📈
-- Code linting and testing ⚙️
-- CI/CD 🤖
+**Stack:** [TanStack Start](https://tanstack.com/start) (SPA) + [TanStack Router](https://tanstack.com/router) + [TanStack Query](https://tanstack.com/query) + [shadcn/ui](https://ui.shadcn.com/) + [Tailwind v4](https://tailwindcss.com/) on the web; [Hono](https://hono.dev/) + [oRPC](https://orpc.unnoq.com/) + [Drizzle](https://orm.drizzle.team/) + [PostgreSQL](https://www.postgresql.org/) + [better-auth](https://better-auth.com/) on the API; [react-hook-form](https://react-hook-form.com/) + [zod](https://zod.dev/); [Socket.IO](https://socket.io/); [Turborepo](https://turbo.build/repo/docs); [Docker](https://www.docker.com/); [TypeScript](https://www.typescriptlang.org/).
 
 ## Quick Start
 
 ```shell
-npx create-ship-app@latest init
+npx @paralect/ship init
 ```
 
-## Plugins
+`npx create-ship-app@latest init` works too — it resolves to the same CLI.
 
-Extend your project with pre-built features using the plugin system:
+The CLI walks you through three choices interactively:
+
+1. **Setup** — pick one of two shapes (see below).
+2. **Plugins** — multi-select checkbox list (space toggles, enter confirms). Pre-selected: `auth-starter`, `admin`. Other options: `mailer`, `cloud-storage`, `notes`, `ai-chat`. Plugins that require a backend are hidden in the web-only shape.
+3. **Deployment target** — `Digital Ocean Apps`, `Render`, `DO Managed Kubernetes`, or `AWS EKS`.
+
+Then:
 
 ```shell
-npx create-ship-app@latest install <plugin-name>
+cd my-ship-app
+pnpm start
 ```
 
-Available plugins:
+`pnpm start` brings up infrastructure, runs migrations, and starts every service. 🚀
 
-| Plugin | Description |
-|---|---|
-| `stripe-subscriptions` | Subscription billing with Stripe Checkout, webhooks, and a pricing page |
-| `ai-chat` | AI chat with streaming responses powered by Google Gemini |
+## Two shapes
 
-See the [Plugins documentation](https://ship.paralect.com/docs/plugins/overview) for details.
+### PostgreSQL + TanStack Start (full-stack)
+
+A Hono + oRPC + Drizzle API (`apps/api`) and a TanStack Start web app (`apps/web`), with end-to-end type safety flowing from the API to the client. The web app consumes the API through a typed oRPC client — change an endpoint's `.output()` and the web types update on the next build.
+
+### TanStack Start web-only
+
+A standalone TanStack Start SPA (`apps/web`) with no separate API. Your backend logic lives in type-safe **server functions** that run on the Start server and are called straight from a route loader:
+
+```ts
+import { createServerFn } from '@tanstack/react-start';
+
+export const getGreeting = createServerFn({ method: 'GET' }).handler(async () => {
+  return { message: 'Hello from the Start server' };
+});
+```
+
+SPA mode does **not** disable the server — server functions still execute on the Start/Nitro server. Web-only means no separate API app, not no server.
+
+## AI-native by design
+
+Ship is built so coding agents have ground truth and one obvious way to do things:
+
+- **`AGENTS.md`** at the repo root and scoped to `apps/api` and `apps/web`, plus a progressive-disclosure index of workflow docs.
+- **Skills** for the patterns that matter — `no-useEffect`, server functions, scaffolding with the CLI.
+- **Codegen** keeps the oRPC router, contract, typed client and `DbService` in sync, so the types an agent reads are always real.
+- **Standardised patterns** — every resource owns its endpoints, schemas, jobs, crons and methods, mounted by file path. Less to infer, less to get wrong.
+
+## Features
+
+- Full-stack boilerplate tested on production projects 🔥
+- Plugin system — features (`auth-starter`, `admin`, `notes`, `ai-chat`, `cloud-storage`, `mailer`) that **merge into your codebase**, like shadcn/ui 🔌
+- Filesystem-routed oRPC API with auto-generated typed client + contract 🛣
+- `DbService` Drizzle wrappers with typed `transaction()` and mutation event handlers ⚙️
+- shadcn/ui + Tailwind v4 + ported widgets (`AppDrawer`, `PillTabBar`, `ContentLayout`) 🧱
+- Auth flows: email/password + verification + reset + Google OAuth (better-auth) 🔐
+- File upload via S3-compatible storage (Garage locally, Wasabi/AWS in prod) 🗃
+- React Email templates + Resend delivery 📧
+- Socket.IO websockets 🔌
+- Drizzle migrations + `db:push` + seed scripts 🌖
+- Scheduled jobs runner ⏰
+- Multi-environment config validated via zod 📝
+- Logging (Winston), CI-friendly type checks, lint, format ⚙️
 
 ## [Documentation](https://ship.paralect.com/docs/introduction)
 

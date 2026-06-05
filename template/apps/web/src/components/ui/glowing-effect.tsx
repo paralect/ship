@@ -1,8 +1,8 @@
-'use client';
-
-import { memo, useCallback, useEffect, useRef } from 'react';
-import { cn } from '@/lib/utils';
+import { memo, useCallback, useRef } from 'react';
 import { animate } from 'motion/react';
+
+import { useMountEffect } from '@/hooks/use-mount-effect';
+import { cn } from '@/lib/utils';
 
 interface GlowingEffectProps {
   blur?: number;
@@ -35,7 +35,9 @@ const GlowingEffect = memo(
 
     const handleMove = useCallback(
       (e?: MouseEvent | { x: number; y: number }) => {
-        if (!containerRef.current) return;
+        if (!containerRef.current) {
+          return;
+        }
 
         if (animationFrameRef.current) {
           cancelAnimationFrame(animationFrameRef.current);
@@ -43,7 +45,9 @@ const GlowingEffect = memo(
 
         animationFrameRef.current = requestAnimationFrame(() => {
           const element = containerRef.current;
-          if (!element) return;
+          if (!element) {
+            return;
+          }
 
           const { left, top, width, height } = element.getBoundingClientRect();
           const mouseX = e?.x ?? lastPosition.current.x;
@@ -70,10 +74,12 @@ const GlowingEffect = memo(
 
           element.style.setProperty('--active', isActive ? '1' : '0');
 
-          if (!isActive) return;
+          if (!isActive) {
+            return;
+          }
 
-          const currentAngle = parseFloat(element.style.getPropertyValue('--start')) || 0;
-          let targetAngle = (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
+          const currentAngle = Number.parseFloat(element.style.getPropertyValue('--start')) || 0;
+          const targetAngle = (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
 
           const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
           const newAngle = currentAngle + angleDiff;
@@ -90,11 +96,22 @@ const GlowingEffect = memo(
       [inactiveZone, proximity, movementDuration],
     );
 
-    useEffect(() => {
-      if (disabled) return;
+    const handleMoveRef = useRef(handleMove);
+    handleMoveRef.current = handleMove;
+    const disabledRef = useRef(disabled);
+    disabledRef.current = disabled;
 
-      const handleScroll = () => handleMove();
-      const handlePointerMove = (e: PointerEvent) => handleMove(e);
+    useMountEffect(() => {
+      const handleScroll = () => {
+        if (!disabledRef.current) {
+          handleMoveRef.current();
+        }
+      };
+      const handlePointerMove = (e: PointerEvent) => {
+        if (!disabledRef.current) {
+          handleMoveRef.current(e);
+        }
+      };
 
       window.addEventListener('scroll', handleScroll, { passive: true });
       document.body.addEventListener('pointermove', handlePointerMove, {
@@ -108,7 +125,7 @@ const GlowingEffect = memo(
         window.removeEventListener('scroll', handleScroll);
         document.body.removeEventListener('pointermove', handlePointerMove);
       };
-    }, [handleMove, disabled]);
+    });
 
     return (
       <>
