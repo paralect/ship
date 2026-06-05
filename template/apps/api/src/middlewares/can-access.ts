@@ -3,12 +3,7 @@ import { ORPCError, os } from '@orpc/server';
 import type { User } from '@/db';
 import type { ORPCContext } from '@/types';
 
-/**
- * Loads an entity into `context[ctxKey]` and throws NOT_FOUND when it is absent.
- * The loader decides what "exists" means (custom where, relationship/link check,
- * relation-loaded query). Use `shouldOwn` for the common load-by-id-owned case.
- */
-export default function shouldExist<K extends string, T>(
+export default function canAccess<K extends string, T>(
   ctxKey: K,
   load: (args: {
     input: Record<string, unknown>;

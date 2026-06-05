@@ -1,7 +1,7 @@
 import db from '@/db';
 import endpoint from '@/endpoint';
 import isAuthorized from '@/middlewares/is-authorized';
-import shouldOwnChat from '@/resources/ai-chats/middlewares/should-own-chat';
+import canEditChat from '@/resources/ai-chats/middlewares/can-edit-chat';
 import { z } from 'zod';
 
 const inputSchema = z.object({
@@ -22,7 +22,7 @@ export default endpoint
   .use(isAuthorized)
   .route({ method: 'GET', path: '/ai-chats/{chatId}/messages' })
   .input(inputSchema)
-  .use(shouldOwnChat)
+  .use(canEditChat)
   .output(outputSchema)
   .handler(async ({ input }) => {
     const messages = await db.aiMessages.find({
