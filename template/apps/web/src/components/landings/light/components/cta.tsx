@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { ArrowRight, Zap } from 'lucide-react';
 
@@ -46,10 +45,10 @@ const CTA: FC = () => {
             asChild
             className="group h-20 px-12 font-mono text-2xl font-black uppercase tracking-tighter bg-foreground text-background border-4 border-foreground shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:scale-[1.02]"
           >
-            <Link to="/sign-up">
+            <a href="/sign-up">
               Get Started
               <ArrowRight className="ml-3 size-6 transition-transform group-hover:translate-x-2" />
-            </Link>
+            </a>
           </Button>
         </div>
 

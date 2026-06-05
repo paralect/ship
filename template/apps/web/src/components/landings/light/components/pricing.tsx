@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 
@@ -143,7 +142,7 @@ const Pricing: FC = () => {
                     : 'bg-background text-foreground shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
                 }`}
               >
-                <Link to="/sign-in">{plan.buttonText}</Link>
+                <a href="/sign-in">{plan.buttonText}</a>
               </Button>
             </motion.div>
           ))}
@@ -153,12 +152,12 @@ const Pricing: FC = () => {
           <p className="font-mono text-sm font-bold uppercase tracking-widest text-muted-foreground">
             Looking for a custom license or have questions?
           </p>
-          <Link
+          <a
             href="#"
             className="font-mono text-sm font-black uppercase tracking-widest text-foreground underline decoration-4 decoration-[var(--color-landing-orange)] underline-offset-8 hover:text-[var(--color-landing-orange)] transition-colors"
           >
             Contact our team →
-          </Link>
+          </a>
         </div>
       </div>
     </section>

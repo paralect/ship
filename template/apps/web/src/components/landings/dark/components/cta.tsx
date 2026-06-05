@@ -1,4 +1,3 @@
-import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -25,13 +24,13 @@ export const CTA = () => {
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link to="/sign-up">
+                <a href="/sign-up">
                   Get Started for Free
                   <ArrowRight className="ml-2 size-4" />
-                </Link>
+                </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-                <Link to="/blog">View Documentation</Link>
+                <a href="/blog">View Documentation</a>
               </Button>
             </div>
           </div>

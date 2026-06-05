@@ -1,4 +1,3 @@
-import { Link } from '@tanstack/react-router';
 import { Check } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -101,7 +100,7 @@ export const Pricing = () => {
                     plan.popular ? 'bg-cyan-500 text-black hover:bg-cyan-400' : 'border-border/50 hover:bg-muted',
                   )}
                 >
-                  <Link to="/sign-up">{plan.cta}</Link>
+                  <a href="/sign-up">{plan.cta}</a>
                 </Button>
 
                 <div className="mt-6 border-t border-border/50 pt-6">

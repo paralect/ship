@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 
-import { Link } from '@tanstack/react-router';
 import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -70,13 +69,13 @@ export const Hero = () => {
               size="lg"
               className="w-full bg-white text-black hover:bg-neutral-100 dark:bg-white dark:text-black dark:hover:bg-neutral-200 sm:w-auto"
             >
-              <Link to="/sign-up">
+              <a href="/sign-up">
                 Get Started
                 <ArrowRight className="ml-2 size-4" />
-              </Link>
+              </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <Link to="/blog">Learn more</Link>
+              <a href="/blog">Learn more</a>
             </Button>
           </div>
         </div>

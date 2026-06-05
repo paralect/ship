@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Link } from '@tanstack/react-router';
 import { Github, Twitter } from 'lucide-react';
 
 import { LogoImage } from '@/assets/images';
@@ -19,9 +18,9 @@ const Footer: FC = () => {
       <div className="container mx-auto max-w-7xl px-4">
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
           <div className="flex items-center gap-6">
-            <Link to="/" className="inline-flex items-center gap-2">
+            <a href="/" className="inline-flex items-center gap-2">
               <LogoImage className="h-6" />
-            </Link>
+            </a>
             <div className="h-8 w-1 bg-foreground opacity-10" />
             <p className="font-mono text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               Built for speed. Ship 2026.
@@ -30,23 +29,23 @@ const Footer: FC = () => {
 
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
             {footerLinks.map((item) => (
-              <Link
+              <a
                 key={item.label}
                 href={item.href}
                 className="font-mono text-xs font-black uppercase tracking-widest text-foreground hover:text-[var(--color-landing-orange)] transition-colors"
               >
                 {item.label}
-              </Link>
+              </a>
             ))}
           </div>
 
           <div className="flex items-center gap-6">
-            <Link to="#" className="text-foreground hover:scale-110 transition-transform">
+            <a href="#" className="text-foreground hover:scale-110 transition-transform">
               <Twitter size={18} fill="currentColor" />
-            </Link>
-            <Link to="#" className="text-foreground hover:scale-110 transition-transform">
+            </a>
+            <a href="#" className="text-foreground hover:scale-110 transition-transform">
               <Github size={18} fill="currentColor" />
-            </Link>
+            </a>
           </div>
         </div>
 

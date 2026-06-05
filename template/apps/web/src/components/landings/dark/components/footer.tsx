@@ -1,4 +1,3 @@
-import { Link } from '@tanstack/react-router';
 import { Github, Twitter } from 'lucide-react';
 
 import { LogoImage } from '@/assets/images';
@@ -17,18 +16,18 @@ export const Footer = () => {
     <footer className="border-t">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-8 sm:flex-row sm:justify-between sm:px-6">
         <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center gap-2">
+          <a href="/" className="flex items-center gap-2">
             <LogoImage className="h-5" />
-          </Link>
+          </a>
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {footerLinks.map((link) => (
-              <Link
+              <a
                 key={link.label}
                 href={link.href}
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
           </nav>
         </div>

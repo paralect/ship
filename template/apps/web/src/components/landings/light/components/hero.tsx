@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 
@@ -126,10 +125,10 @@ const Hero: FC = () => {
               asChild
               className="group h-14 px-10 font-mono text-lg font-bold bg-foreground text-background hover:bg-foreground/90 transition-all hover:scale-105 active:scale-95"
             >
-              <Link to="/sign-up">
+              <a href="/sign-up">
                 Start Building
                 <ArrowRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
-              </Link>
+              </a>
             </Button>
             <Button
               size="lg"
@@ -137,7 +136,7 @@ const Hero: FC = () => {
               asChild
               className="h-14 px-10 font-mono text-lg font-bold bg-background/50 backdrop-blur-sm transition-all hover:scale-105 active:scale-95 border-2"
             >
-              <Link to="#features">Features</Link>
+              <a href="#features">Features</a>
             </Button>
           </div>
 
