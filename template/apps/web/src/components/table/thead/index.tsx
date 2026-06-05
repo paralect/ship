@@ -29,7 +29,7 @@ const SortIcon: FC<SortIconProps> = ({ state }) => {
 const Thead = () => {
   const table = useTableContext();
 
-  if (!table) return null;
+  if (!table) {return null;}
 
   const headerGroups = table.getHeaderGroups();
 

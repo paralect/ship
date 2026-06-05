@@ -6,6 +6,7 @@ import fs from 'fs';
 import gradient from 'gradient-string';
 import path from 'path';
 import { blue, bold, cyan, gray, green, red, yellow } from 'picocolors';
+import { createPlugin, installPlugin } from 'plugins';
 import prompts from 'prompts';
 import checkForUpdate from 'update-check';
 
@@ -16,8 +17,6 @@ import {
   onPromptState,
   validateNpmName,
 } from 'helpers';
-
-import { createPlugin, installPlugin } from 'plugins';
 
 import config from 'config';
 

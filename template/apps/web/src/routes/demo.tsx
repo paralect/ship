@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 
-import { getGreeting } from '@/server/greeting';
-
 import { Button } from '@/components/ui/button';
+import { getGreeting } from '@/server/greeting';
 
 export const Route = createFileRoute('/demo')({
   loader: () => getGreeting(),

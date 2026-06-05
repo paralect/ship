@@ -105,7 +105,7 @@ const TechCard = ({ tech }: TechCardProps) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current) {return;}
 
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;

@@ -3,7 +3,6 @@ import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
 
 import { LogoImage } from '@/assets/images';
-
 import { Button } from '@/components/ui/button';
 
 const navLinks = [
