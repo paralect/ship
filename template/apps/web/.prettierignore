@@ -1,0 +1,22 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# generated
+src/routeTree.gen.ts
+
+# misc
+.DS_Store
+*.pem
+*.tsbuildinfo
+
+# docker
+Dockerfile
+
+.prettierignore

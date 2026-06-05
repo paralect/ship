@@ -1,31 +1,31 @@
-import { FC, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
+import { FC, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
-import { useMountEffect } from "@/hooks/use-mount-effect";
+import { Button } from '@/components/ui/button';
+import { useMountEffect } from '@/hooks/use-mount-effect';
 
 const screenshots = [
   {
-    src: "/images/screen_chat.png",
-    srcMobile: "/images/screen_chat_mob.png",
-    title: "AI Chat Interface",
-    description: "Built-in AI assistant with real-time streaming.",
-    url: "app.ship.dev/chat",
+    src: '/images/screen_chat.png',
+    srcMobile: '/images/screen_chat_mob.png',
+    title: 'AI Chat Interface',
+    description: 'Built-in AI assistant with real-time streaming.',
+    url: 'app.ship.dev/chat',
   },
   {
-    src: "/images/screen_admin.png",
-    srcMobile: "/images/screen_admin_mob.png",
-    title: "Admin Dashboard",
-    description: "Powerful user management and analytics.",
-    url: "app.ship.dev/admin",
+    src: '/images/screen_admin.png',
+    srcMobile: '/images/screen_admin_mob.png',
+    title: 'Admin Dashboard',
+    description: 'Powerful user management and analytics.',
+    url: 'app.ship.dev/admin',
   },
   {
-    src: "/images/screen_profile.png",
-    srcMobile: "/images/screen_profile_mob.png",
-    title: "User Profile",
-    description: "Complete authentication and profile control.",
-    url: "app.ship.dev/profile",
+    src: '/images/screen_profile.png',
+    srcMobile: '/images/screen_profile_mob.png',
+    title: 'User Profile',
+    description: 'Complete authentication and profile control.',
+    url: 'app.ship.dev/profile',
   },
 ];
 
@@ -40,9 +40,7 @@ const Hero: FC = () => {
 
   const prevScreenshot = () => {
     setDirection(-1);
-    setCurrentIndex(
-      (prev) => (prev - 1 + screenshots.length) % screenshots.length,
-    );
+    setCurrentIndex((prev) => (prev - 1 + screenshots.length) % screenshots.length);
   };
 
   useMountEffect(() => {
@@ -84,9 +82,8 @@ const Hero: FC = () => {
               linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px),
               linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)
             `,
-            backgroundSize: "4rem 4rem",
-            maskImage:
-              "radial-gradient(ellipse at center, black, transparent 80%)",
+            backgroundSize: '4rem 4rem',
+            maskImage: 'radial-gradient(ellipse at center, black, transparent 80%)',
           }}
         />
       </div>
@@ -100,9 +97,7 @@ const Hero: FC = () => {
           >
             <Sparkles className="size-4 text-[var(--color-landing-teal)] fill-current" />
             <span className="font-mono text-xs font-black uppercase tracking-[0.2em] text-foreground">
-              Ship:{" "}
-              <span className="text-[var(--color-landing-teal)]">v2.4.0</span>{" "}
-              {/* PRODUCTION READY */}
+              Ship: <span className="text-[var(--color-landing-teal)]">v2.4.0</span> {/* PRODUCTION READY */}
             </span>
           </motion.div>
 
@@ -115,8 +110,7 @@ const Hero: FC = () => {
           </h1>
 
           <p className="mx-auto mt-8 max-w-2xl font-mono text-lg font-medium leading-relaxed text-muted-foreground md:text-xl">
-            The ultimate modern toolkit for high-performance SaaS. Launch in
-            days, not months. Focus on your product.
+            The ultimate modern toolkit for high-performance SaaS. Launch in days, not months. Focus on your product.
           </p>
 
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -186,7 +180,7 @@ const Hero: FC = () => {
                   animate="center"
                   exit="exit"
                   transition={{
-                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    x: { type: 'spring', stiffness: 300, damping: 30 },
                     opacity: { duration: 0.2 },
                   }}
                   className="absolute inset-0"
@@ -227,7 +221,7 @@ const Hero: FC = () => {
                   animate="center"
                   exit="exit"
                   transition={{
-                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    x: { type: 'spring', stiffness: 300, damping: 30 },
                     opacity: { duration: 0.2 },
                   }}
                   className="absolute inset-0"
@@ -289,9 +283,7 @@ const Hero: FC = () => {
                   setCurrentIndex(idx);
                 }}
                 className={`h-3 rounded-full border-2 border-foreground transition-all duration-300 ${
-                  idx === currentIndex
-                    ? "w-12 bg-foreground"
-                    : "w-3 bg-transparent"
+                  idx === currentIndex ? 'w-12 bg-foreground' : 'w-3 bg-transparent'
                 }`}
               />
             ))}

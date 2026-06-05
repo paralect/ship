@@ -18,12 +18,16 @@ interface TablePaginationProps {
 const TablePagination: FC<TablePaginationProps> = ({ totalCount }) => {
   const table = useTableContext();
 
-  if (!table) {return null;}
+  if (!table) {
+    return null;
+  }
 
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex;
 
-  if (pageCount === 1) {return null;}
+  if (pageCount === 1) {
+    return null;
+  }
 
   const getVisiblePages = () => {
     const pages: number[] = [];

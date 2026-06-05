@@ -36,14 +36,14 @@ The document shell, head and shared providers (TanStack Query, theming, tooltips
 
 Routes live in `src/routes/`. The filename maps to the URL; `routeTree.gen.ts` regenerates on dev (never edit it).
 
-| File | URL / role |
-| --- | --- |
-| `index.tsx` | `/` |
-| `about.tsx` | `/about` |
-| `users/$userId.tsx` | `/users/:userId` (route param) |
-| `_authenticated.tsx` | pathless guarded layout |
+| File                      | URL / role                                                 |
+| ------------------------- | ---------------------------------------------------------- |
+| `index.tsx`               | `/`                                                        |
+| `about.tsx`               | `/about`                                                   |
+| `users/$userId.tsx`       | `/users/:userId` (route param)                             |
+| `_authenticated.tsx`      | pathless guarded layout                                    |
 | `-components/filters.tsx` | private — the `-` prefix opts a folder/file out of routing |
-| `$.tsx` | catch-all 404 |
+| `$.tsx`                   | catch-all 404                                              |
 
 A route file default-exports a `Route` built with `createFileRoute`:
 

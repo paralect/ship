@@ -18,7 +18,9 @@ export const handleApiError = <TFieldValues extends FieldValues>(
 ) => {
   const data = (e as { data?: ErrorData }).data as ErrorData | undefined;
 
-  if (!data?.errors) {return;}
+  if (!data?.errors) {
+    return;
+  }
 
   const { global, ...errors } = data.errors;
 

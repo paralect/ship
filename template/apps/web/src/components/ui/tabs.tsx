@@ -15,7 +15,7 @@ const TabsList = ({ className, ...props }: React.ComponentProps<typeof TabsPrimi
       {...props}
     />
   );
-}
+};
 
 const TabsTrigger = ({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>) => {
   return (
@@ -27,7 +27,7 @@ const TabsTrigger = ({ className, ...props }: React.ComponentProps<typeof TabsPr
       {...props}
     />
   );
-}
+};
 
 const TabsContent = ({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) => {
   return (
@@ -39,6 +39,6 @@ const TabsContent = ({ className, ...props }: React.ComponentProps<typeof TabsPr
       {...props}
     />
   );
-}
+};
 
 export { Tabs, TabsContent, TabsList, TabsTrigger };

@@ -25,12 +25,12 @@ In the **web-only** Ship shape there is no `apps/api` and no oRPC client. Backen
 - SPA mode does **not** disable the server — handlers run on the TanStack Start (Nitro) server.
 - Shipped example: `apps/web/src/server/greeting.ts` (`getGreeting` → `{ message }`).
 
-| Need | Reach for |
-| --- | --- |
-| Read backend data (web-only) | `createServerFn({ method: 'GET' }).handler(...)` |
-| Write backend data (web-only) | `createServerFn({ method: 'POST' }).inputValidator(...).handler(...)` |
-| Validate/parse the input | `.inputValidator(zodSchema)` → `ctx.data` |
-| Run it before a route renders | route `loader: () => fn()` + `Route.useLoaderData()` |
+| Need                                | Reach for                                                                 |
+| ----------------------------------- | ------------------------------------------------------------------------- |
+| Read backend data (web-only)        | `createServerFn({ method: 'GET' }).handler(...)`                          |
+| Write backend data (web-only)       | `createServerFn({ method: 'POST' }).inputValidator(...).handler(...)`     |
+| Validate/parse the input            | `.inputValidator(zodSchema)` → `ctx.data`                                 |
+| Run it before a route renders       | route `loader: () => fn()` + `Route.useLoaderData()`                      |
 | Full-stack project (has `apps/api`) | the oRPC client + `useApiQuery` / `useApiMutation` (NOT server functions) |
 
 ## When to Use This Skill
@@ -146,9 +146,9 @@ pnpm --filter web tsc --noEmit
 
 The choice is determined by which shape you scaffolded — not a per-feature decision.
 
-| You scaffolded | Data layer | Import from |
-| --- | --- | --- |
-| **TanStack Start web-only** | Server functions | `@tanstack/react-start` |
+| You scaffolded                  | Data layer        | Import from                                   |
+| ------------------------------- | ----------------- | --------------------------------------------- |
+| **TanStack Start web-only**     | Server functions  | `@tanstack/react-start`                       |
 | **PostgreSQL + TanStack Start** | oRPC typed client | `@/services/api-client.service` (Auth plugin) |
 
 - **Web-only** → there is no `apps/api`. Backend logic runs on the Start server as `createServerFn` handlers, called from loaders and components. Reach for server-only deps directly in the handler.

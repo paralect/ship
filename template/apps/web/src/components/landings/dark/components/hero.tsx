@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
@@ -121,13 +120,7 @@ export const Hero = () => {
                     pointerEvents: Math.abs(normalizedOffset) > 1 ? 'none' : 'auto',
                   }}
                 >
-                  <img
-                    src={screenshot.src}
-                    alt={screenshot.alt}
-                    width={1200}
-                    height={800}
-                    className="h-auto w-full"
-                  />
+                  <img src={screenshot.src} alt={screenshot.alt} width={1200} height={800} className="h-auto w-full" />
                   {normalizedOffset === 0 && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
                       <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">

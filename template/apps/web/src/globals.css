@@ -258,7 +258,7 @@
     background-color: var(--color-background);
   }
 
-  .dark [data-slot="sidebar-inset"] {
+  .dark [data-slot='sidebar-inset'] {
     border: 0.5px solid lch(11 1.38 272);
   }
 }

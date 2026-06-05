@@ -1,13 +1,8 @@
-import { Loader2, X } from "lucide-react";
-import type { FC, ReactNode } from "react";
+import { Loader2, X } from 'lucide-react';
+import type { FC, ReactNode } from 'react';
 
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet';
 
 interface AppDrawerProps {
   open: boolean;
@@ -28,7 +23,7 @@ const AppDrawer: FC<AppDrawerProps> = ({
   title,
   children,
   footer,
-  cancelLabel = "Cancel",
+  cancelLabel = 'Cancel',
   submitLabel,
   isPending = false,
   onSubmit,
@@ -36,20 +31,14 @@ const AppDrawer: FC<AppDrawerProps> = ({
 }) => {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent
-        side="right"
-        showCloseButton={false}
-        className="w-[440px] gap-0 border-l-0 p-0 sm:max-w-[440px]"
-      >
+      <SheetContent side="right" showCloseButton={false} className="w-[440px] gap-0 border-l-0 p-0 sm:max-w-[440px]">
         <SheetTitle className="sr-only">{title}</SheetTitle>
         <SheetDescription className="sr-only">{title}</SheetDescription>
         <div className="flex h-full flex-col gap-8 p-10 shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.08),0px_4px_6px_-2px_rgba(16,24,40,0.03)]">
           {/* Header */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] uppercase leading-6 tracking-[0.33px] text-foreground">
-                {title}
-              </span>
+              <span className="text-[11px] uppercase leading-6 tracking-[0.33px] text-foreground">{title}</span>
             </div>
             <div className="h-px w-full bg-[#eaedf1]" />
           </div>
@@ -70,14 +59,12 @@ const AppDrawer: FC<AppDrawerProps> = ({
                   {cancelLabel}
                 </Button>
                 <Button
-                  type={onSubmit ? "button" : "submit"}
+                  type={onSubmit ? 'button' : 'submit'}
                   className="flex-1 rounded-md bg-black text-sm text-white hover:bg-black/90"
                   disabled={isPending}
                   onClick={onSubmit}
                 >
-                  {isPending && (
-                    <Loader2 className="mr-1.5 size-3.5 animate-spin" />
-                  )}
+                  {isPending && <Loader2 className="mr-1.5 size-3.5 animate-spin" />}
                   {submitLabel}
                 </Button>
               </div>
