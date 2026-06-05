@@ -1,10 +1,17 @@
 {
-  "name": "create-ship-app",
-  "version": "2.1.4",
+  "name": "@paralect/ship",
+  "version": "3.0.0",
   "keywords": [
     "ship",
-    "next",
-    "koa"
+    "tanstack-start",
+    "tanstack-router",
+    "hono",
+    "orpc",
+    "drizzle",
+    "postgres",
+    "typescript",
+    "ai-native",
+    "boilerplate"
   ],
   "description": "Initialize Ship app with one command",
   "author": "Ship Team <ship@paralect.com>",
@@ -15,11 +22,15 @@
     "directory": "packages/create-ship-app"
   },
   "bin": {
+    "ship": "./dist/index.js",
     "create-ship-app": "./dist/index.js"
   },
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --onSuccess \"node dist/index.js\"",
@@ -27,7 +38,8 @@
     "tsc": "tsc --noEmit --watch",
     "prettier": "prettier . --write --config .prettierrc.json",
     "eslint": "eslint . --fix",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "@types/async-retry": "1.4.5",
@@ -82,6 +94,6 @@
     ]
   },
   "engines": {
-    "node": ">=16.16.0"
+    "node": ">=22.13.0"
   }
 }

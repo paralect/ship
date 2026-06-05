@@ -13,7 +13,7 @@ export enum Deployment {
   AWS_KUBERNETES = 'AWS EKS',
 }
 
-export type Backend = 'postgres' | 'mongo' | 'none';
+export type Backend = 'postgres' | 'none';
 
 /** Plugins that can be opted into at scaffold time. `requiresBackend` filters
  *  the list when the user picks the web-only flow. */

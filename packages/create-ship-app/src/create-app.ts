@@ -226,7 +226,7 @@ async function ensureBetterAuthSecret(envPath: string): Promise<void> {
  * DB's docker-compose file and removes its `infra:<other>` script.
  */
 async function applyBackendChoice(projectRoot: string, backend: Exclude<Backend, 'none'>): Promise<void> {
-  const other = backend === 'postgres' ? 'mongo' : 'postgres';
+  const other = 'mongo';
   const otherCompose = path.join(projectRoot, `docker-compose.${other}.yml`);
   if (existsSync(otherCompose)) {
     await fs.rm(otherCompose);
@@ -240,20 +240,6 @@ async function applyBackendChoice(projectRoot: string, backend: Exclude<Backend,
       delete pkg.scripts[`infra:${other}`];
     }
     await fs.writeFile(pkgJsonPath, `${JSON.stringify(pkg, null, 2)}\n`);
-  }
-
-  // For mongo, flip `.env`: comment DATABASE_URL, uncomment MONGO_URI / MONGO_DB_NAME.
-  // (`bin/run-all.sh` auto-detects the DB from compose files at runtime, so no script rewrite needed.)
-  if (backend === 'mongo') {
-    const envFile = path.join(projectRoot, 'apps/api/.env');
-    if (existsSync(envFile)) {
-      const raw = await fs.readFile(envFile, 'utf-8');
-      const flipped = raw
-        .replace(/^(DATABASE_URL=.*)$/m, '# $1')
-        .replace(/^# (MONGO_URI=.*)$/m, '$1')
-        .replace(/^# (MONGO_DB_NAME=.*)$/m, '$1');
-      await fs.writeFile(envFile, flipped);
-    }
   }
 }
 
@@ -270,7 +256,7 @@ async function installSelectedPlugins(
   backend: Exclude<Backend, 'none'>,
 ): Promise<void> {
   const destPluginsDir = path.join(projectRoot, 'plugins');
-  const otherDb = backend === 'postgres' ? 'mongo' : 'postgres';
+  const otherDb = 'mongo';
 
   for (const name of names) {
     const src = path.join(srcPluginsDir, name);

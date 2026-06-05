@@ -8,32 +8,72 @@
 [![Follow](https://img.shields.io/twitter/follow/paralect.svg?style=social&label=Follow)](https://twitter.com/paralect)
 [![Tweet](https://img.shields.io/twitter/url/https/github.com/paralect/ship.svg?style=social)](https://twitter.com/intent/tweet?text=I%2)
 
-The [Ship](https://ship.paralect.com) is a toolkit for makers to **ship** better products faster 🚀.
+**[Ship](https://ship.paralect.com)** is an AI-native, batteries-included full-stack TypeScript SaaS starter. It scaffolds a production-ready monorepo with standardised patterns that you — and your AI agents — can build on without guesswork.
 
-It is based on several open-source components, resulting from years of hard work by the [Paralect](https://www.paralect.com) team. We carefully select, document, and share our production-ready knowledge with you.
+> **Build products, not boilerplate.**
 
-**Stack:** [TanStack Start](https://tanstack.com/start) (SPA) + [TanStack Router](https://tanstack.com/router) + [TanStack Query](https://tanstack.com/query) + [shadcn/ui](https://ui.shadcn.com/) + [Tailwind v4](https://tailwindcss.com/) on the web; [Hono](https://hono.dev/) + [oRPC](https://orpc.unnoq.com/) + [Drizzle](https://orm.drizzle.team/) + [PostgreSQL](https://www.postgresql.org/) (or [MongoDB](https://www.mongodb.com/) via plugin) + [better-auth](https://better-auth.com/) on the API; [react-hook-form](https://react-hook-form.com/) + [zod](https://zod.dev/); [Socket.IO](https://socket.io/); [Turborepo](https://turbo.build/repo/docs); [Docker](https://www.docker.com/); [TypeScript](https://www.typescriptlang.org/).
+Ship has been live-tested on 100+ products at [Paralect](https://www.paralect.com). 3.0.0 rebuilds it on a modern, type-safe stack and ships first-class context for coding agents.
+
+**Stack:** [TanStack Start](https://tanstack.com/start) (SPA) + [TanStack Router](https://tanstack.com/router) + [TanStack Query](https://tanstack.com/query) + [shadcn/ui](https://ui.shadcn.com/) + [Tailwind v4](https://tailwindcss.com/) on the web; [Hono](https://hono.dev/) + [oRPC](https://orpc.unnoq.com/) + [Drizzle](https://orm.drizzle.team/) + [PostgreSQL](https://www.postgresql.org/) + [better-auth](https://better-auth.com/) on the API; [react-hook-form](https://react-hook-form.com/) + [zod](https://zod.dev/); [Socket.IO](https://socket.io/); [Turborepo](https://turbo.build/repo/docs); [Docker](https://www.docker.com/); [TypeScript](https://www.typescriptlang.org/).
 
 ## Quick Start
 
 ```shell
-npx create-ship-app@latest init
+npx @paralect/ship init
 ```
+
+`npx create-ship-app@latest init` works too — it resolves to the same CLI.
 
 The CLI walks you through three choices interactively:
 
-1. **Backend** — `PostgreSQL + Drizzle` (default), `MongoDB + @paralect/node-mongo`, or `none` (web-only; drops `apps/api/`).
-2. **Plugins** — multi-select checkbox list (space toggles, enter confirms). Pre-selected: `auth-starter`, `admin`. Other options: `mailer`, `cloud-storage`, `notes`, `ai-chat`. Plugin choices that require a backend are hidden when you pick web-only.
+1. **Setup** — pick one of two shapes (see below).
+2. **Plugins** — multi-select checkbox list (space toggles, enter confirms). Pre-selected: `auth-starter`, `admin`. Other options: `mailer`, `cloud-storage`, `notes`, `ai-chat`. Plugins that require a backend are hidden in the web-only shape.
 3. **Deployment target** — `Digital Ocean Apps`, `Render`, `DO Managed Kubernetes`, or `AWS EKS`.
 
-The selected DB plugin + chosen feature plugins are copied into `plugins/` next to your new project, so `pnpm plugin:dev` works on first run.
+Then:
+
+```shell
+cd my-ship-app
+pnpm start
+```
+
+`pnpm start` brings up infrastructure, runs migrations, and starts every service. 🚀
+
+## Two shapes
+
+### PostgreSQL + TanStack Start (full-stack)
+
+A Hono + oRPC + Drizzle API (`apps/api`) and a TanStack Start web app (`apps/web`), with end-to-end type safety flowing from the API to the client. The web app consumes the API through a typed oRPC client — change an endpoint's `.output()` and the web types update on the next build.
+
+### TanStack Start web-only
+
+A standalone TanStack Start SPA (`apps/web`) with no separate API. Your backend logic lives in type-safe **server functions** that run on the Start server and are called straight from a route loader:
+
+```ts
+import { createServerFn } from '@tanstack/react-start';
+
+export const getGreeting = createServerFn({ method: 'GET' }).handler(async () => {
+  return { message: 'Hello from the Start server' };
+});
+```
+
+SPA mode does **not** disable the server — server functions still execute on the Start/Nitro server. Web-only means no separate API app, not no server.
+
+## AI-native by design
+
+Ship is built so coding agents have ground truth and one obvious way to do things:
+
+- **`AGENTS.md`** at the repo root and scoped to `apps/api` and `apps/web`, plus a progressive-disclosure index of workflow docs.
+- **Skills** for the patterns that matter — `no-useEffect`, server functions, scaffolding with the CLI.
+- **Codegen** keeps the oRPC router, contract, typed client and `DbService` in sync, so the types an agent reads are always real.
+- **Standardised patterns** — every resource owns its endpoints, schemas, jobs, crons and methods, mounted by file path. Less to infer, less to get wrong.
 
 ## Features
 
 - Full-stack boilerplate tested on production projects 🔥
-- Plugin system — feature add-ons (`auth-starter`, `admin`, `notes`, `ai-chat`, `cloud-storage`, `mailer`, `postgres`/`mongo`) 🔌
+- Plugin system — features (`auth-starter`, `admin`, `notes`, `ai-chat`, `cloud-storage`, `mailer`) that **merge into your codebase**, like shadcn/ui 🔌
 - Filesystem-routed oRPC API with auto-generated typed client + contract 🛣
-- `DbService<T>` Drizzle wrappers with typed `transaction()` and mutation event hooks ⚙️
+- `DbService` Drizzle wrappers with typed `transaction()` and mutation event handlers ⚙️
 - shadcn/ui + Tailwind v4 + ported widgets (`AppDrawer`, `PillTabBar`, `ContentLayout`) 🧱
 - Auth flows: email/password + verification + reset + Google OAuth (better-auth) 🔐
 - File upload via S3-compatible storage (Garage locally, Wasabi/AWS in prod) 🗃

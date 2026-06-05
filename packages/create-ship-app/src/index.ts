@@ -197,12 +197,11 @@ const run = async (): Promise<void> => {
     onState: onPromptState,
     type: 'select',
     name: 'backend',
-    message: `Which ${blue('backend')} do you want?`,
+    message: `Which ${blue('setup')} do you want?`,
     initial: 0,
     choices: [
-      { title: 'PostgreSQL + Drizzle (default)', value: 'postgres' as Backend },
-      { title: 'MongoDB + @paralect/node-mongo', value: 'mongo' as Backend },
-      { title: 'None — web-only (drop apps/api)', value: 'none' as Backend },
+      { title: 'PostgreSQL + TanStack Start — full-stack (default)', value: 'postgres' as Backend },
+      { title: 'TanStack Start — web-only (no apps/api)', value: 'none' as Backend },
     ],
   })) as { backend?: Backend };
 

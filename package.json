@@ -1,10 +1,16 @@
 {
   "name": "ship",
   "version": "1.0.0",
+  "private": true,
   "keywords": [
     "ship",
-    "next",
-    "koa"
+    "tanstack-start",
+    "hono",
+    "orpc",
+    "drizzle",
+    "postgres",
+    "typescript",
+    "ai-native"
   ],
   "author": "Ship Team <ship@paralect.com>",
   "license": "MIT",
