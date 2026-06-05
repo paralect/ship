@@ -3,12 +3,12 @@ title: "Digital Ocean"
 ---
 
 import UpstashRedis from '/snippets/upstash-redis-aws-eks.mdx';
-import MongoAtlas from '/snippets/mongo-atlas-section.mdx';
+import ManagedPostgres from '/snippets/managed-postgres-section.mdx';
 import EnvironmentVariables from '/snippets/environment-variables.mdx';
 
-It's a step-by-step Ship deployment guide. We will use Digital Ocean Managed [Kubernetes](https://www.digitalocean.com/products/kubernetes), [Container Registry](https://www.digitalocean.com/products/container-registry), [Mongo Atlas](https://www.mongodb.com/), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com/) for DNS and SSL configuration.
+It's a step-by-step Ship deployment guide. We will use Digital Ocean Managed [Kubernetes](https://www.digitalocean.com/products/kubernetes), [Container Registry](https://www.digitalocean.com/products/container-registry), [Managed PostgreSQL](https://www.digitalocean.com/products/managed-databases-postgresql), [GitHub Actions](https://github.com/features/actions) for automated deployment, and [CloudFlare](https://www.cloudflare.com/) for DNS and SSL configuration.
 
-You need to create [GitHub](https://github.com/), [CloudFlare](https://www.cloudflare.com/), [Digital Ocean](https://www.digitalocean.com/) and [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) accounts and install the next tools on your machine before starting:
+You need to create [GitHub](https://github.com/), [CloudFlare](https://www.cloudflare.com/) and [Digital Ocean](https://www.digitalocean.com/) accounts and install the next tools on your machine before starting:
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - CLI tool for accessing Kubernetes cluster;
 * [kubectx](https://github.com/ahmetb/kubectx) - CLI tool for easier switching between Kubernetes contexts;
@@ -47,7 +47,9 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 First, initialize your project. Type `npx create-ship-app@latest` in the terminal then choose **Digital Ocean Managed Kubernetes** deployment type.
 
-![Init project](/images/init-project.png)
+```bash
+npx @paralect/ship init
+```
 
 You will have next project structure.
 
@@ -475,8 +477,8 @@ We will need this token soon, so don't close this page yet.
   </Step>
 </Steps>
 
-## MongoDB Atlas
-<MongoAtlas provider="do" />
+## Managed PostgreSQL
+<ManagedPostgres provider="do" />
 
 # Environment variables
 <EnvironmentVariables />

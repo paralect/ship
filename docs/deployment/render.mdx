@@ -6,9 +6,9 @@ There is a simplified type of deployment where you can try to deploy Ship for fr
 This type allows you to set up infrastructure faster and doesn't require additional DevOps knowledge from the development team.
 You can switch to a more complex Kubernetes solution when your application will be at scale.
 
-It's a step-by-step Ship deployment guide. We will use the [Render](https://render.com), [Mongo Atlas](https://www.mongodb.com/) and [Redis Cloud](https://redis.com/try-free/) for databases deployment and [Cloudflare](https://www.cloudflare.com/) **(optional)** for DNS and SSL configuration.
+It's a step-by-step Ship deployment guide. We will use [Render](https://render.com) with a managed PostgreSQL database and [Redis Cloud](https://redis.com/try-free/) for data storage, and [Cloudflare](https://www.cloudflare.com/) **(optional)** for DNS and SSL configuration.
 
-You need to create [GitHub](https://github.com/), [Render](https://render.com), [CloudFlare](https://www.cloudflare.com/), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [Redis Cloud](https://redis.com/try-free/) accounts.
+You need to create [GitHub](https://github.com/), [Render](https://render.com), [CloudFlare](https://www.cloudflare.com/) and [Redis Cloud](https://redis.com/try-free/) accounts.
 
 Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) if you already haven't.
 
@@ -16,7 +16,9 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose desired build type and **Render** as a cloud service provider.
 
-![Init project](/images/init-project-koa-render.png)
+```bash
+npx @paralect/ship init
+```
 
 You will have next project structure.
 
@@ -41,48 +43,25 @@ git branch -M main
 git push -u origin main
 ```
 
-## MongoDB Atlas
+## PostgreSQL
 
-Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account and create a new database.
+Ship runs on PostgreSQL via Drizzle ORM. Render offers a managed PostgreSQL instance you can provision in a few clicks.
 
 ### Database creation
 
-1. Select the appropriate type. Dedicated for a production environment, shared for staging/demo.
-2. Select provider and region. We recommend selecting the same or closest region to the DO application.
-3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M2 or higher.
-4. Enter cluster name
+1. In the [Render Dashboard](https://dashboard.render.com/), click `New` and select `PostgreSQL`.
+2. Enter a database name and select a region. We recommend the same or closest region to your services.
+3. Select an instance plan. The free plan is enough for staging/demo environments. For production, pick a paid plan that includes automated backups.
+4. Click `Create Database`.
 
-![Mongo cluster](/images/mongo-create.png)
+### Connection
 
-### Security and connection
+After the database is provisioned, open its page and copy the `Internal Database URL` (for services hosted on Render) or the `External Database URL`. This is your `DATABASE_URL` connection string in the form `postgresql://user:password@host:port/dbname`.
 
-After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
-
-<Warning>
-Please be aware that the initial character of the generated password should be a letter. If it isn't, you'll need to create a new password.
-Failing to do this may lead to DigitalOcean parsing the `MONGO_URI` variable incorrectly.
-</Warning>
-
-![Mongo setup authentication](/images/mongo-create-password.png)
-
-Add IP addresses list, which should have access to your cluster. Add 0.0.0.0/0 IP address to allow anyone with credentials to connect.
-
-![Mongo setup ip white list](/images/mongo-create-ip-list.png)
-
-After database creation, go to the dashboard page and get the URI connection string by pressing the `connect` button.
-
-![Mongo dashboard](/images/mongo-dashboard.png)
-
-Select `Connect your application` option. Choose driver and mongo version, and copy connection string. Don't forget to replace `<password>` with your credentials.
-
-![Mongo connect dialog](/images/mongo-connection-string.png)
-
-Save this value. It will be needed later when creating the app in Digital Ocean.
+Save this value. You'll set it as the `DATABASE_URL` environment variable on the API service later.
 
 <Tip>
-Before moving to production, it's crucial to set up [MongoDB backup methods](https://www.mongodb.com/docs/manual/core/backups).
-
-This ensures that you can reliably restore your data in the event of unforeseen circumstances.
+Before moving to production, enable automated backups on your PostgreSQL instance so you can reliably restore your data in the event of unforeseen circumstances.
 </Tip>
 
 ## Redis Cloud
@@ -104,7 +83,9 @@ Form Redis connection string using public endpoint and password `redis://:<passw
 
 Navigate to the [Render Dashboard Panel](https://dashboard.render.com/) and select the **Blueprints** tab.
 
-The `Full-Stack` build type requires 2 applications. First for [Web](/web/overview) and second for [API](/api-reference/overview), [Migrator (TBD)](https://github.com/docs/migrator.md), and [Scheduler (TBD)](https://github.com/docs/scheduler.md) services.
+The `Full-Stack` build type requires 2 applications. First for the [Web](/web/overview) (TanStack Start) app and second for the [API](/api-reference/overview), plus the Migrator and Scheduler services that run alongside it.
+
+The Migrator applies Drizzle migrations (`pnpm --filter api migrate`) before each deploy, and the Scheduler runs background jobs (`pnpm --filter api schedule`). Both share the API image and need the same `DATABASE_URL` and `REDIS_URI` values.
 
 ![Render Blueprints Tab](/images/render-blueprints.png)
 
@@ -130,7 +111,7 @@ Its value corresponds to the specific environment, such as "development", "stagi
 This variable helps the application identify its current environment and load the corresponding configuration.
 
 For the web application, by setting the environment variable ```APP_ENV```,
-the application can determine the environment in which it is running and download the appropriate configuration file:
+the application can determine the environment in which it is running and load the appropriate configuration file:
 
 | APP_ENV       | File              |
 | ------------- |-------------------|
@@ -138,7 +119,7 @@ the application can determine the environment in which it is running and downloa
 | staging       | .env.staging      |
 | production    | .env.production   |
 
-These files should contain specific configuration variables required for each environment.
+These files hold the client config for each environment. The web app is built with Vite, so client-side variables are prefixed with `VITE_` and read through `import.meta.env` (for example `VITE_API_URL`, `VITE_WS_URL`, `VITE_WEB_URL`). They are baked in at build time, so make sure the values in your `.env.{environment}` files are up to date and committed before you deploy.
 
 In contrast, the API utilizes a single `.env` file that houses its environment-specific configuration.
 This file typically contains variables like API keys, secrets, or other sensitive information.
@@ -147,8 +128,7 @@ preventing it from being tracked and committed to the repository.
 
 So just specify the environment variables that will contain the values of your secrets.
 For example, if you have a secret named `API_KEY`,
-create an environment variable named `API_KEY` and set the value of the corresponding secret for it
-
+create an environment variable named `API_KEY` and set the value of the corresponding secret for it.
 
 Now navigate to **Dashboard**, select your instance of *Web Service* and select the **Environment** tab in the sidebar.
 
@@ -157,7 +137,7 @@ Make sure that your web application has up-to-date environment data in the repos
 
 ![Configuration Web Environments](/images/render-web-env.png)
 
-In the same way, specify the necessary environments in the *API Service* instance.
+In the same way, open your *API Service* instance and add the variables it needs. At a minimum set `DATABASE_URL` to the PostgreSQL connection string you copied earlier and `REDIS_URI` to your Redis connection string. The same values are required by the Migrator and Scheduler services, so add them there too.
 
 ## Cloudflare
 

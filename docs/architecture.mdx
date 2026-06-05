@@ -1,78 +1,86 @@
 ---
 title: "Architecture"
-description: "Every technological decision is driven by simplicity. We believe that product used by people is the only reason why technologies exist. Our goal is to help products stand up on their feet without investing too much on early stages."
+description: "Standardised patterns, zero guesswork — one obvious way to build, from the API to the web app to deployment."
 ---
 
 ## Overview
 
-Our technological choices based on the following main tools: [Next.js](https://nextjs.org/), [Tanstack Query](https://tanstack.com/query/latest/), [React Hook Form](https://react-hook-form.com/), [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/), [Koa.js](https://koajs.com/), [Socket.IO](https://socket.io/), [MongoDB](https://www.mongodb.com/), [Turborepo](https://turbo.build/repo/docs), [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/), [GitHub Actions](https://github.com/features/actions) and [TypeScript](https://www.typescriptlang.org/).
+Ship is a [pnpm](https://pnpm.io/) + [Turborepo](https://turbo.build/repo/docs) monorepo built on a focused, modern TypeScript stack.
 
-On a high-level Ship consist of the following parts:
+| Layer | Stack |
+| --- | --- |
+| **Web** (`apps/web`) | [TanStack Start](https://tanstack.com/start) (SPA) · [TanStack Router](https://tanstack.com/router) · [TanStack Query](https://tanstack.com/query) · [shadcn/ui](https://ui.shadcn.com/) · [Tailwind v4](https://tailwindcss.com/) |
+| **API** (`apps/api`) | [Hono](https://hono.dev/) · [oRPC](https://orpc.unnoq.com/) · [Drizzle ORM](https://orm.drizzle.team/) · [PostgreSQL](https://www.postgresql.org/) · [better-auth](https://better-auth.com/) · [Socket.IO](https://socket.io/) |
+| **Tooling** | [Turborepo](https://turbo.build/repo/docs) · [pnpm](https://pnpm.io/) · [Docker](https://www.docker.com/) · [drizzle-kit](https://orm.drizzle.team/kit-docs/overview) · [TypeScript](https://www.typescriptlang.org/) |
 
-<Card title="Web" icon="browser" iconType="duotone" href="/web/overview"></Card>
-<Card
-  title="API"
-  icon="square-terminal"
-  iconType="duotone"
-  href="/api-reference/overview"
-></Card>
-<Card
-  title="Scheduler"
-  icon="calendar"
-  iconType="duotone"
-  href="/scheduler"
-></Card>
-<Card
-  title="Migrator"
-  icon="truck-moving"
-  iconType="duotone"
-  href="/migrator"
-></Card>
-<Card
-  title="Deployment"
-  icon="upload"
-  iconType="duotone"
-  href="/deployment/digital-ocean-apps"
-></Card>
+On a high level Ship consists of these parts:
 
-The image below illustrates the main components and key relationships between them:
+<CardGroup cols={3}>
+  <Card title="Web" icon="browser" href="/web/overview" />
+  <Card title="API" icon="square-terminal" href="/api-reference/overview" />
+  <Card title="Plugins" icon="puzzle-piece" href="/plugins/overview" />
+  <Card title="Scheduler" icon="calendar" href="/scheduler" />
+  <Card title="Migrator" icon="truck-moving" href="/migrator" />
+  <Card title="Deployment" icon="upload" href="/deployment/digital-ocean-apps" />
+</CardGroup>
 
-![](/images/architecture.png)
-
-## Starting application with Turborepo
-
-To run infra and all services -- just run: `pnpm start` 🚀
-
-### Turborepo: Running infra and services separately
-
-1. Start base infra services in Docker containers:
-
-```bash
-pnpm run infra
+```mermaid
+flowchart LR
+  subgraph web["apps/web — TanStack Start"]
+    R[Router + Query]
+    SF[Server functions]
+  end
+  subgraph api["apps/api — Hono + oRPC"]
+    EP[Resources / endpoints]
+    SCH[Scheduler]
+    MIG[Migrator]
+  end
+  DB[(PostgreSQL)]
+  RDS[(Redis)]
+  R -- "oRPC typed client" --> EP
+  SF -- "in-process" --> DB
+  EP --> DB
+  EP --> RDS
+  SCH --> DB
+  MIG --> DB
 ```
 
-2. Run services with Turborepo
+## Two shapes
+
+Both options share the same `apps/web` base (a landing page + an example server function). They differ in whether an API app exists:
+
+- **PostgreSQL + TanStack Start** — full-stack. `apps/web` talks to `apps/api` through a fully typed oRPC client. Add the **Auth** plugin and the web app gains sign-in/up, the authenticated app shell, and the client wiring.
+- **TanStack Start web-only** — no `apps/api`. Backend logic runs as [server functions](/web/server-functions) inside the Start server. No database or auth unless you add them.
+
+## End-to-end type safety
+
+Types flow from the API to the web app **through TypeScript declarations — no codegen, no shared types package**:
+
+1. An endpoint declares `.input(zodSchema).output(zodSchema).handler(...)`.
+2. `pnpm --filter api build:types` emits `.d.ts` files.
+3. The web app depends on `"api": "workspace:*"` and imports `import type { AppClient } from 'api'`.
+
+Within the API, three codegen scripts keep the wiring in sync with the filesystem:
+
+| Script | Generates | Run after |
+| --- | --- | --- |
+| `scripts/codegen-router.ts` | `src/router.ts` + `src/contract.ts` | adding/removing an endpoint file |
+| `scripts/codegen-db.ts` | `src/db.ts` (typed `DbService` per table) | adding/removing a schema file |
+
+See [How Ship works](/how-ship-works) for the resource-owns-everything model behind this.
+
+## Dev dashboards
+
+A running full-stack project exposes two local dashboards:
+
+- **API reference** — a [Scalar](https://scalar.com/) UI at [http://localhost:3001/docs](http://localhost:3001/docs) (raw OpenAPI 3.1 at `/spec.json`), served in-process by Hono in non-production.
+- **Database browser** — [Drizzle Studio](https://orm.drizzle.team/drizzle-studio/overview) at [https://local.drizzle.studio](https://local.drizzle.studio), started with `pnpm dashboard`.
+
+## Running the app
 
 ```bash
-pnpm turbo-start
+pnpm start        # infra → migrate → scheduler → api + web
+pnpm turbo-start  # dev via Turborepo (assumes infra already running)
 ```
 
-## Using Ship with Docker
-
-To run infra and all services -- just run: `pnpm run docker` 🚀
-
-### Docker: Running infra and services separately
-
-1. Start base infra services in Docker containers:
-
-```bash
-pnpm run infra
-```
-
-2. Run services you need:
-
-```bash
-./bin/start.sh api web
-```
-
-You can also run infra services separately with `./bin/start.sh` bash script.
+Run infrastructure (PostgreSQL + Redis) on its own with `pnpm infra`, or individual services with `pnpm --filter api dev` / `pnpm --filter web dev`.

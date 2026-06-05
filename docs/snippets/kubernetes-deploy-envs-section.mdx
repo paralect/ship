@@ -14,8 +14,7 @@ For the API deployment, you need to set up environment variables using Kubernete
 </Info>
 
 Before deploying the app, make sure all necessary variables from the API config are set. Here are the default required variables:
-* **MONGO_URI** (requires encoding)
-* **MONGO_DB_NAME**
+* **DATABASE_URL** (requires encoding)
 * **API_URL**
 * **WEB_URL**
 
@@ -45,9 +44,10 @@ When updating, you only need to input the variables that require changes, not al
 To modify environment variables in web, access the `.env.staging` or `.env.production` file:
 
 ```plaintext apps/web/.env.production
-NEXT_PUBLIC_API_URL=https://my-app-api.paralect.com
-NEXT_PUBLIC_WS_URL=https://my-app-api.paralect.com
-NEXT_PUBLIC_WEB_URL=https://my-app.paralect.com
+VITE_APP_ENV=production
+VITE_API_URL=https://my-app-api.paralect.com
+VITE_WS_URL=https://my-app-api.paralect.com
+VITE_WEB_URL=https://my-app.paralect.com
 ```
 
 <Warning>

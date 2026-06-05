@@ -1,89 +1,176 @@
 ---
 title: "API action validator"
+description: "Validation is the contract — Zod schemas on .input() / .output() drive the runtime and the client's types. Ownership and uniqueness are middleware."
 ---
 
 ## Overview
 
-**Validation** in Ship is handled automatically by providing a `schema` to `createEndpoint`. When `schema` is present, the `validate` middleware auto-applies and merges `body + files + query + params` into `ctx.validatedData`.
+In Ship, **validation is the contract**. An endpoint's `.input()` and `.output()` Zod schemas are the single source of truth for two things at once:
 
-For additional validation logic (e.g. checking uniqueness), add custom middleware functions to the `middlewares` array.
+1. **Runtime** — input is parsed and validated before your handler runs; output is validated before it's sent.
+2. **Types** — the same schemas type the oRPC client, so the web app sees exactly what the endpoint accepts and returns.
+
+There's no separate validation step and no parsed-data bag to fish through — `input` arrives already parsed and typed.
 
 <Note>
-This repo uses **Zod 4**. Use `z.email()`, `z.url()`, `z.uuid()` instead of Zod 3's `z.string().email()`. Search existing schemas for patterns.
+  Ship is on **Zod 4**. Use the top-level formats — `z.email()`, `z.url()`, `z.uuid()` — instead of Zod 3's `z.string().email()`. Match the existing schemas in `resources/<name>/<name>.schema.ts`.
 </Note>
 
-## Examples
+## Schemas live with the resource
 
-### Basic validation with `createEndpoint`
+Each resource colocates its Drizzle table and its Zod schemas in `resources/<name>/<name>.schema.ts`. From `users.schema.ts`:
 
-```typescript
+```ts
+import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { createSelectSchema } from 'drizzle-orm/zod';
 import { z } from 'zod';
 
-import createEndpoint from 'routes/createEndpoint';
-import isPublic from 'middlewares/isPublic';
+import { baseColumns } from '../base.schema';
 
-const schema = z.object({
-  firstName: z.string().min(1, 'Please enter first name.').max(100),
-  lastName: z.string().min(1, 'Please enter last name.').max(100),
-  email: z.email('Email format is incorrect.'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+export const users = pgTable('users', {
+  ...baseColumns,
+  id: text('id').primaryKey(),
+  fullName: text('full_name').notNull(),
+  email: text('email').notNull().unique(),
+  isAdmin: boolean('is_admin').default(false).notNull(),
+  avatarUrl: text('avatar_url'),
 });
 
-export default createEndpoint({
-  method: 'post',
-  path: '/sign-up',
-  schema,
-  middlewares: [isPublic],
+export const emailSchema = z
+  .email()
+  .min(1, 'Email is required')
+  .toLowerCase()
+  .trim()
+  .max(255, 'Email must be less than 255 characters.');
 
-  async handler(ctx) {
-    const { firstName, lastName, email, password } = ctx.validatedData;
-    // ...action code
-  },
+const usersSchema = createSelectSchema(users, {
+  fullName: (schema) => schema.min(1, 'Full name is required').max(128),
+  email: () => emailSchema,
 });
+
+export default usersSchema;
+
+export const publicSchema = usersSchema;
 ```
 
-### Custom validation middleware
+`createSelectSchema` derives a Zod schema from the table, so the row shape and the validation shape never drift. Reuse it in endpoints with `.pick()`, `.extend()`, `.partial()` rather than re-declaring fields.
 
-To add extra validation logic beyond the Zod schema, add a custom middleware to the `middlewares` array:
+### Shared building blocks
 
-```typescript
+`resources/base.schema.ts` provides the pagination input and the list-result wrapper used across resources:
+
+```ts
 import { z } from 'zod';
 
-import createEndpoint from 'routes/createEndpoint';
-import isPublic from 'middlewares/isPublic';
-import { userService } from 'resources/user';
-
-const schema = z.object({
-  email: z.email('Email format is incorrect.'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+export const paginationSchema = z.object({
+  page: z.coerce.number().default(1),
+  perPage: z.coerce.number().default(10),
+  searchValue: z.string().optional(),
 });
 
-const checkUserExists = async (ctx, next) => {
-  const { email } = ctx.validatedData;
-  const exists = await userService.exists({ email });
+export const listResultSchema = <T extends z.ZodType>(itemSchema: T) =>
+  z.object({
+    results: z.array(itemSchema),
+    pagesCount: z.number(),
+    count: z.number(),
+  });
+```
 
-  if (exists) {
-    ctx.throwClientError({ email: 'User with this email is already registered' });
-    return;
-  }
+## Validating input and output
 
-  await next();
-};
+Compose schemas right on the builder. The `current.patch.ts` endpoint picks one field off the table schema, adds an upload field, and makes everything optional:
 
-export default createEndpoint({
-  method: 'post',
-  path: '/sign-up',
-  schema,
-  middlewares: [isPublic, checkUserExists],
+```ts
+import { z } from 'zod';
 
-  async handler(ctx) {
-    const { email, password } = ctx.validatedData;
-    // ...action code
-  },
-});
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
+import usersSchema, { publicSchema } from '@/resources/users/users.schema';
+
+export default endpoint
+  .use(isAuthorized)
+  .input(
+    usersSchema
+      .pick({ fullName: true })
+      .extend({ avatar: z.instanceof(File).optional() })
+      .partial(),
+  )
+  .output(publicSchema)
+  .handler(async ({ input, context }) => {
+    // input.fullName is typed string | undefined; already validated
+  });
+```
+
+The matching `.output(publicSchema)` means the client knows the exact response type, and oRPC rejects a handler that returns the wrong shape.
+
+## Ownership and existence are gates, not handler code
+
+Don't re-check "does this exist?" or "may this user touch it?" inside the handler. Those are authorization concerns, and Ship expresses them as middleware you stack with `.use()`:
+
+| Gate | Import | Guarantees |
+| --- | --- | --- |
+| `isAuthorized` | `@/middlewares/is-authorized` | a signed-in `context.user` |
+| `isAdmin` | `@/middlewares/is-admin` | the user is an admin |
+| `canAccess(key, load)` | `@/middlewares/can-access` | loads an entity into `context[key]` or throws `NOT_FOUND` |
+| `canEdit(key, service)` | `@/middlewares/can-edit` | the current user owns the entity, loaded into `context[key]` (or `NOT_FOUND` — no existence leak) |
+
+`canEdit` is built on `canAccess`. A per-resource ownership gate is a one-liner in `<resource>/middlewares/can-edit-*.ts`:
+
+```ts
+import db from '@/db';
+import canEdit from '@/middlewares/can-edit';
+
+// Loads the current user's note into context.note, or throws NOT_FOUND.
+export default canEdit('note', db.notes, { message: 'Note not found' });
+```
+
+Apply it **after `.input()`** so it can read the id from the parsed input:
+
+```ts
+export default endpoint
+  .use(isAuthorized)
+  .input(z.object({ id: z.string() }))
+  .use(canEditNote)
+  .output(z.void())
+  .handler(async ({ input }) => {
+    await db.notes.deleteOne({ id: input.id });
+  });
+```
+
+Because mismatches return `NOT_FOUND` rather than `FORBIDDEN`, the gate never leaks whether a resource exists to a user who isn't allowed to see it.
+
+### Custom existence checks
+
+When "exists" means something more than load-by-id — a relationship, a link table, a relation-loaded query — reach for `canAccess` directly. It takes a loader and stores whatever it returns:
+
+```ts
+import canAccess from '@/middlewares/can-access';
+
+const memberCanAccessTeam = canAccess('team', async ({ input, context }) =>
+  db.teams.findFirst({
+    where: { id: input.teamId, ownerId: context.user.id, deletedAt: null },
+  }),
+);
+```
+
+## Uniqueness
+
+Uniqueness is best enforced at the database level — note `email: text('email').notNull().unique()` on the `users` table. When you also want a friendly, field-targeted error before the insert, check it in the handler and throw:
+
+```ts
+import { ORPCError } from '@orpc/server';
+
+const existing = await db.users.findFirst({ where: { email, deletedAt: null } });
+if (existing) {
+  throw new ORPCError('CONFLICT', { message: 'User with this email is already registered' });
+}
 ```
 
 <Warning>
-**Avoid `ctx.assertError()`** in handlers — it's a TypeScript assertion function that causes TS2775 without explicit type annotations on `ctx`. Use `ctx.throwError()` + `return` instead.
+  To fail a request, **throw an `ORPCError`** with a standard code (`NOT_FOUND`, `UNAUTHORIZED`, `FORBIDDEN`, `CONFLICT`, `BAD_REQUEST`). Don't write to a response object — the handler's return value is the only success path.
 </Warning>
-```
+
+## Next steps
+
+- [API action](/api-reference/api-action) — authoring the endpoint the validator wraps.
+- [API conventions](/api-reference/api-limitations) — where schemas, gates and services belong.

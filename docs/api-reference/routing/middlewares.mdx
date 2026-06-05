@@ -1,167 +1,139 @@
 ---
 title: "Middlewares"
+description: "Authorization is middleware. Stack gates onto an endpoint with .use() — no scattered if-checks."
 ---
 
-## Overview
+In Ship, authorization is composition. You don't write `if (!user) throw` inside handlers — you stack **gates** onto an endpoint with `.use(...)`. Each gate is an oRPC middleware that guarantees something about `context` (or throws) before the handler runs.
 
-Ship uses middlewares for authentication, error handling, and request processing. Middlewares are applied in two ways:
+## How `.use()` composes
 
-- **Global Middlewares** — Run for all routes in a specific order
-- **Route-Specific Middlewares** — Applied only to private or admin routes
+`@/endpoint` already carries every [global middleware](/api-reference/middlewares). Per-endpoint, `.use(...)` adds gates in order. Order matters — a gate can refine the context the next one reads:
 
-## Execution Order
+```ts resources/users/endpoints/[userId]/update.ts
+import db from '@/db';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
 
-```mermaid
-sequenceDiagram
-    participant Request
-    participant Global Middlewares
-    participant Auth Middleware
-    participant Handler
-
-    Request->>Global Middlewares: 1-5: Process all global middlewares
-    Note over Global Middlewares: attachCustomErrors<br/>attachCustomProperties<br/>routeErrorHandler<br/>extractTokens<br/>tryToAttachUser
-    Global Middlewares->>Auth Middleware: 6: auth or adminAuth (if needed)
-    Auth Middleware->>Handler: 7: Execute route handler
-    Handler-->>Request: Response
+export default endpoint
+  .use(isAdmin)              // 1. require an admin
+  .input(updateSchema)       // 2. validate input
+  .output(publicSchema)      // 3. shape the response
+  .handler(async ({ input, context }) => {
+    // context.user is present and an admin here
+  });
 ```
 
-## Global Middlewares
+A gate either calls `next({ context })` — optionally narrowing the context type — or throws an `ORPCError`. Because the narrowing flows through `.use()`, your handler's `context` is correctly typed without a single cast.
 
-### 1. attachCustomErrors
+## The gates
 
-Adds custom error handling methods to the context (`ctx`).
+| Gate | Import | Guarantees |
+| --- | --- | --- |
+| `isAuthorized` | `@/middlewares/is-authorized` | a signed-in `context.user` (else `UNAUTHORIZED`) |
+| `isAdmin` | `@/middlewares/is-admin` | `context.user` exists and is an admin (else `FORBIDDEN`) |
+| `canAccess(key, load)` | `@/middlewares/can-access` | loads an entity into `context[key]` or throws `NOT_FOUND` |
+| `canEdit(key, service)` | `@/middlewares/can-edit` | the current user owns the entity (else `NOT_FOUND` — no existence leak) |
 
-**Available methods:**
+### `isAuthorized`
 
-```typescript
-// Throw simple error
-ctx.throwError('User not found', 404);
+Requires a session. Stack it when an endpoint needs *any* signed-in user:
 
-// Conditional error
-ctx.assertError(user.isActive, 'User account is disabled', 403);
+```ts resources/users/endpoints/current.get.ts
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
+import { publicSchema } from '@/resources/users/users.schema';
 
-// Field-level validation errors
-ctx.throwClientError({
-  email: 'Email is required',
-  password: 'Password must be at least 8 characters'
-});
-
-// Conditional client error
-ctx.assertClientError(!existingUser, { email: 'Email already exists' });
-
-// Redirect with error message
-ctx.throwGlobalErrorWithRedirect('Authentication failed', 'https://example.com/login');
+export default endpoint
+  .use(isAuthorized)
+  .output(publicSchema)
+  .handler(async ({ context }) => context.user);
 ```
 
-### 2. attachCustomProperties
+Under the hood it's a thin guard:
 
-Initializes `ctx.validatedData = {}` which is later populated by the [validate middleware](/api-reference/middlewares#validate-middleware).
-
-### 3. routeErrorHandler
-
-Catches and formats errors from route handlers. Logs errors with request context and hides sensitive details in production.
-
-**Error response format:**
-
-```json
-{
-  "errors": {
-    "email": ["Email is required"],
-    "password": ["Password must be at least 8 characters"]
+```ts middlewares/is-authorized.ts
+export default base.middleware(async ({ context, next }) => {
+  if (!context.user) {
+    throw new ORPCError('UNAUTHORIZED', { message: 'Authentication required' });
   }
-}
-```
-
-### 4. extractTokens
-
-Extracts access tokens from requests and stores in `ctx.state.accessToken`.
-
-**Token sources (checked in order):**
-1. `ACCESS_TOKEN` cookie
-2. `Authorization: Bearer <token>` header
-
-### 5. tryToAttachUser
-
-Validates the access token and attaches the user to `ctx.state.user` if valid. Also updates the user's last request timestamp.
-
-<Note>
-This middleware doesn't block requests if the token is invalid. Use the `auth` middleware to enforce authentication.
-</Note>
-
-## Route-Specific Middlewares
-
-Applied to specific route types for authentication and authorization.
-
-### auth
-
-Ensures user is authenticated by checking if `ctx.state.user` exists. Returns `401` if not authenticated.
-
-**Usage:**
-
-With auto-discovery routing, `auth` is applied automatically to all endpoints by default. To make an endpoint public (skip auth), include the `isPublic` middleware in the `middlewares` array:
-
-```typescript
-import isPublic from 'middlewares/isPublic';
-import createEndpoint from 'routes/createEndpoint';
-
-export default createEndpoint({
-  method: 'get',
-  path: '/health',
-  middlewares: [isPublic],
-  async handler(ctx) {
-    ctx.body = { status: 'ok' };
-  },
+  return next({ context: { ...context, user: context.user } });
 });
 ```
 
+### `isAdmin`
+
+Requires the user to be an admin. It checks the session first, then `user.isAdmin`, throwing `FORBIDDEN` otherwise — the admin user list and other admin endpoints stack this:
+
+```ts
+export default endpoint
+  .use(isAdmin)
+  .input(paginationSchema)
+  .output(listResultSchema(publicSchema))
+  .handler(async ({ input }) => db.users.findPage({ where: { deletedAt: null }, ...input }));
+```
+
+### `canAccess`
+
+The general "load it or 404" gate. You pass a `load` function — the gate runs it, stores the result in `context[key]`, and throws `NOT_FOUND` if it comes back empty. The loader decides what "exists" means (a custom `where`, a relationship check, a relation-loaded query):
+
+```ts
+endpoint
+  .use(isAuthorized)
+  .input(z.object({ noteId: z.string() }))
+  .use(canAccess('note', ({ input }) =>
+    db.notes.findFirst({ where: { id: input.noteId, deletedAt: null } }),
+  ))
+  .handler(async ({ context }) => context.note); // typed, guaranteed present
+```
+
+### `canEdit`
+
+The common ownership case, built on `canAccess`. Pass the context key and a `@ship/db` service; it loads the entity by id, scoped to the current user, and throws `NOT_FOUND` on a mismatch — so a non-owner can't tell the row exists. Defaults: `idKey` = `` `${key}Id` `` (falling back to `input.id`), owner column = `userId`, soft-delete aware:
+
+```ts
+endpoint
+  .use(isAuthorized)
+  .input(z.object({ id: z.string() }))
+  .use(canEdit('note', db.notes, { message: 'Note not found' }))
+  .handler(async ({ input }) => db.notes.deleteOne({ id: input.id }));
+```
+
+## Per-resource gates
+
+When an ownership rule recurs across a resource's endpoints, factor it into `<resource>/middlewares/can-edit-*.ts` and reuse it. The Notes plugin ships exactly this:
+
+```ts resources/notes/middlewares/can-edit-note.ts
+import db from '@/db';
+import canEdit from '@/middlewares/can-edit';
+
+// Loads the current user's note (by id) into context.note, or throws NOT_FOUND.
+export default canEdit('note', db.notes, { message: 'Note not found' });
+```
+
+```ts resources/notes/endpoints/remove.ts
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
+import canEditNote from '@/resources/notes/middlewares/can-edit-note';
+import db from '@/db';
+import { z } from 'zod';
+
+export default endpoint
+  .use(isAuthorized)
+  .route({ method: 'DELETE', path: '/notes/{id}' })
+  .input(z.object({ id: z.string() }))
+  .use(canEditNote)
+  .output(z.void())
+  .handler(async ({ input }) => {
+    await db.notes.deleteOne({ id: input.id });
+  });
+```
+
 <Note>
-`isPublic` is a no-op middleware used as a sentinel — the route registration checks for it by reference identity and skips `auth` when present.
+`canEdit` runs **after** `.input()` — it reads the validated id off `input`. Stack `.use(isAuthorized)` before it so `context.user` is guaranteed.
 </Note>
 
-### adminAuth
+## See also
 
-Validates admin access by checking the `x-admin-key` header against the `ADMIN_KEY` environment variable. Returns `401` if invalid.
-
-**Usage:**
-
-Use `isAdmin` middleware in your endpoint:
-
-```typescript
-import isAdmin from 'middlewares/isAdmin';
-import createEndpoint from 'routes/createEndpoint';
-
-export default createEndpoint({
-  method: 'get',
-  path: '/users',
-  middlewares: [isAdmin],
-  async handler(ctx) {
-    // Admin-only logic
-    ctx.body = { users: [] };
-  },
-});
-```
-
-**Making admin requests:**
-
-```bash
-curl -X GET https://api.example.com/admin/users \
-  -H "x-admin-key: your-admin-key-here"
-```
-
-## Summary
-
-**Execution order:**
-1. `attachCustomErrors` - Adds error methods
-2. `attachCustomProperties` - Initializes properties
-3. `routeErrorHandler` - Wraps in error handler
-4. `extractTokens` - Extracts token from cookie/header
-5. `tryToAttachUser` - Validates token, attaches user
-6. `auth` or `adminAuth` (if applicable)
-7. Route handler
-
-## See Also
-
-- [Routing](/api-reference/routing/overview) - Routing architecture overview
-- [Middlewares](/api-reference/middlewares) - Validation and rate limiting
-- [API Actions](/api-reference/api-action) - Creating resource endpoints
-
+- [Global middlewares](/api-reference/middlewares) — the always-on layer every endpoint inherits
+- [Routing overview](/api-reference/routing/overview) — how endpoints mount and the contract is generated
+- [How Ship works](/how-ship-works) — the resource-owns-everything model

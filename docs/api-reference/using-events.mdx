@@ -1,12 +1,134 @@
 ---
 title: "Using events"
+description: "Use mutation events to run cross-resource side effects and integrate external systems — without coupling resources to each other."
 ---
 
-We are using events to keep our systems simple and use the [full power of denormalized data in MongoDB.](https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-2) Denormalization is a database optimization technique in which we add redundant data to one or more tables. It can help us avoid costly joins in a database. You can find a simple example of this technique below.
+Events exist to **decouple**. A resource owns its writes; anything that should happen *as a consequence* of a write lives in a [handler](/api-reference/event-handler) that subscribes to the resource's [mutation events](/api-reference/events). The resource doing the write never imports the code that reacts to it — so features stay independent and easy for you, and your agents, to add or remove.
 
-![Denormalization](/images/denormalization.png)
+Three patterns cover almost everything you'll do with events.
 
-The picture below shows the 'events part' of a sample API implementation:
-![Event handlers](/images/events.png)
+## Cross-resource side effects
 
-In Ship, every resource produces events on create, update and delete database operations. As a result, we have all events in one place and these events describe system behavior. Stripe has [an event for any change](https://stripe.com/docs/api/events/types) that happens in their system. We do pretty much the same.
+When a change in one resource needs to update another, subscribe instead of reaching in. Say you keep a `notesCount` on each user so a profile page doesn't have to aggregate. Rather than incrementing the counter inside every notes endpoint, the `users` resource owns the rule and listens to `notes` events:
+
+```ts
+// resources/users/handlers/sync-notes-count.ts
+import db from '@/db';
+import { eventBus } from '@/event-bus';
+import logger from '@/logger';
+
+async function recount(userId: string) {
+  const notesCount = await db.notes.count({
+    where: { userId, deletedAt: null },
+  });
+  await db.users.updateOne({ id: userId }, { notesCount });
+}
+
+eventBus.on('notes.insert', async ({ docs }) => {
+  try {
+    const userIds = [...new Set(docs.map((note) => note.userId))];
+    await Promise.all(userIds.map(recount));
+  } catch (err) {
+    logger.error(`notes.insert handler error: ${err}`);
+  }
+});
+
+eventBus.on('notes.update', async ({ docs }) => {
+  try {
+    const userIds = [...new Set(docs.map((note) => note.userId))];
+    await Promise.all(userIds.map(recount));
+  } catch (err) {
+    logger.error(`notes.update handler error: ${err}`);
+  }
+});
+```
+
+The notes endpoints stay thin — they insert a note and return. The "keep the count fresh" rule lives with the resource that owns the count. Delete the feature later? Remove the handler file and re-run codegen. Nothing else changes.
+
+<Note>
+  Soft deletes flow through `notes.update`, since deleting a note sets `deletedAt`. Filtering `deletedAt: null` in the `count` keeps a deleted note out of the total. Wire a `notes.delete` handler too only if you hard-delete.
+</Note>
+
+## Decoupling history and audit
+
+Want to keep a record of every change to a resource without threading audit logic through its endpoints? Let the audit resource subscribe. The `users` resource has no idea it's being audited:
+
+```ts
+// resources/audit-logs/handlers/track-user-changes.ts
+import db from '@/db';
+import { eventBus } from '@/event-bus';
+import logger from '@/logger';
+
+eventBus.on('users.update', async ({ docs, prevDocs }) => {
+  try {
+    for (const [i, user] of docs.entries()) {
+      const before = prevDocs?.[i];
+      if (before && before.email !== user.email) {
+        await db.auditLogs.insertOne({
+          userId: user.id,
+          action: 'email_changed',
+          from: before.email,
+          to: user.email,
+        });
+      }
+    }
+  } catch (err) {
+    logger.error(`users.update audit handler error: ${err}`);
+  }
+});
+```
+
+`prevDocs` gives you the before-and-after for free — no diff library, no change payload to assemble. This is the inverse of importing a `historyService` into the users endpoints: the dependency points *into* the audit resource, not out of users.
+
+## Integrating external systems
+
+Events are the natural place to fan out to anything outside your database — analytics, sockets, email, webhooks. Ship ships two of these in the base template.
+
+<CardGroup cols={2}>
+  <Card title="Analytics" icon="chart-line">
+    `users/handlers/sync-analytics.ts` subscribes to `users.insert` and tracks a "New user created" event through `analyticsService`.
+  </Card>
+  <Card title="Realtime sockets" icon="bolt">
+    `users/handlers/to-sockets.ts` subscribes to `users.update` and pushes the updated row to that user's browser over Socket.IO via `ioEmitter.publishToUser`.
+  </Card>
+</CardGroup>
+
+The same shape covers webhooks — subscribe to a resource's events and POST the payload out, turning your database mutations into real-time triggers for downstream systems:
+
+```ts
+// resources/users/handlers/forward-webhooks.ts
+import { eventBus } from '@/event-bus';
+import logger from '@/logger';
+
+eventBus.on('users.insert', async ({ docs }) => {
+  try {
+    await Promise.all(
+      docs.map((user) =>
+        fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ type: 'user.created', data: user }),
+        }),
+      ),
+    );
+  } catch (err) {
+    logger.error(`users.insert webhook handler error: ${err}`);
+  }
+});
+```
+
+## When to use an event vs. a method
+
+Not every consequence belongs in a handler. A quick rule:
+
+- **Use an event** when the side effect belongs to a *different* resource, is best-effort, or fans out to an external system — analytics, sockets, audit logs, denormalised counts, webhooks.
+- **Use a [method](/how-ship-works) or do it inline** when the work is part of the same transaction or is required for the write to be correct (e.g. validating a foreign key). Events fire after the write; they're reactions, not preconditions.
+
+<Tip>
+  Reading a resource's `handlers/` folders tells you everything that happens as a consequence of its writes — one place, no hidden coupling. That's the payoff: every meaningful change flows through the same typed channel, and the structure is the documentation.
+</Tip>
+
+## Next steps
+
+- The event shape and types: [Mutation events](/api-reference/events).
+- How to write and register one: [Event handlers](/api-reference/event-handler).

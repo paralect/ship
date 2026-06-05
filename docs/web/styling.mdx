@@ -1,61 +1,131 @@
 ---
 title: "Styling"
+description: "Tailwind v4, shadcn/ui, and one cn() helper. Theme tokens, not hardcoded colors."
 ---
 
-Ship uses **Tailwind CSS 4** for utility-first styling and **shadcn/ui** (New York style, no RSC) for accessible, customizable UI components.
+`apps/web` styles with [Tailwind CSS v4](https://tailwindcss.com/) for utility-first classes and [shadcn/ui](https://ui.shadcn.com/) for accessible, owned-in-your-repo components. No CSS modules, no styled-components — utilities and semantic theme tokens.
 
-### Tailwind CSS
+## Tailwind v4
 
-All styling is done with Tailwind utility classes. No CSS modules, no styled-components.
+Tailwind is wired in through the Vite plugin (`@tailwindcss/vite`) and a single stylesheet, `src/globals.css`, that imports the framework and declares your theme:
 
-- **Mobile-first**: Use `sm:`, `md:`, `lg:` breakpoints.
-- **Dark mode**: Use semantic CSS variables (`text-foreground`, `bg-background`, `text-muted-foreground`, `border`, etc.).
-- **Theming**: `next-themes` (system/light/dark). Use CSS variables, not hardcoded colors.
+```css src/globals.css
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
-### Conditional Classes with `cn()`
+@custom-variant dark (&:where(.dark, .dark *));
 
-Use `cn()` from `@/lib/utils` for conditional class merging:
+@theme {
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(222.2 84% 4.9%);
+  --color-primary: hsl(222.2 47.4% 11.2%);
+  --color-primary-foreground: hsl(210 40% 98%);
+  --color-border: hsl(214.3 31.8% 91.4%);
+
+  --radius-lg: 0.5rem;
+  --radius-md: calc(var(--radius-lg) - 2px);
+  --radius-sm: calc(var(--radius-lg) - 4px);
+}
+```
+
+Theme tokens defined in `@theme` become utilities automatically — `--color-primary` gives you `bg-primary` / `text-primary`, `--radius-md` gives you `rounded-md`. Style with these semantic tokens, never hardcoded hex values, so light and dark modes stay consistent:
+
+- `bg-background` / `text-foreground`
+- `bg-primary` / `text-primary-foreground`
+- `text-muted-foreground`, `border-border`, `bg-card`
+
+Use mobile-first breakpoints (`sm:`, `md:`, `lg:`) and state variants (`hover:`, `focus-visible:`, `disabled:`) as usual.
+
+## Dark mode
+
+Dark mode is class-based. `globals.css` registers a `dark` variant and redefines the same tokens under `.dark`, so every component reacts to one class toggle:
+
+```css src/globals.css
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-background: hsl(59.31 3.23% 6.08%);
+  --color-foreground: hsl(0 0% 95%);
+  --color-primary: hsl(0 0% 98%);
+  --color-border: hsl(240 5% 20%);
+}
+```
+
+The `.dark` class is driven by [`next-themes`](https://github.com/pacocoursey/next-themes) through the `ThemeProvider` in `src/components/theme-provider.tsx`:
+
+```tsx src/components/theme-provider.tsx
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+
+export const ThemeProvider = ({ children, ...props }: React.ComponentProps<typeof NextThemesProvider>) => {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+};
+```
+
+Because everything reads theme tokens, no component needs to know which theme is active.
+
+## Conditional classes with `cn()`
+
+Compose and de-conflict classes with `cn()` from `@/lib/utils` — a `clsx` + `tailwind-merge` wrapper, so the last conflicting utility wins:
+
+```tsx src/lib/utils.ts
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
 
 ```tsx
 import { cn } from '@/lib/utils';
 
-<div className={cn('p-4 rounded-lg', isActive && 'bg-primary text-primary-foreground')} />
+<div className={cn('rounded-lg p-4', isActive && 'bg-primary text-primary-foreground')} />;
 ```
 
-### shadcn/ui Components
+## shadcn/ui components
 
-UI primitives live in `src/components/ui/`. Add new components via:
-
-```shell
-npx shadcn@latest add <component>
-```
-
-Import them with the `@/` alias:
+UI primitives live in `src/components/ui/` — `button.tsx`, `input.tsx`, `card.tsx`, `dialog.tsx`, `form.tsx`, `table.tsx`, and more. They're plain files in your repo (like everything in Ship), so you own and can edit them. Import with the `@/` alias:
 
 ```tsx
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+```
+
+Add more primitives with the [shadcn CLI](https://ui.shadcn.com/docs/cli):
+
+```bash
+npx shadcn@latest add <component>
 ```
 
 <Note>
-**Don't modify shadcn/ui files** unless necessary. Wrap them instead with custom components.
+Prefer wrapping shadcn primitives in your own components over editing them in place — it keeps the base components clean and your customisations in one obvious spot.
 </Note>
 
-### Icons
+## Icons
 
 Use [lucide-react](https://lucide.dev/) for icons:
 
 ```tsx
-import { Plus, Trash, Pencil } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
-<Button><Plus className="mr-2 h-4 w-4" /> Add Item</Button>
+<Button>
+  <Plus className="h-4 w-4" /> Add item
+</Button>;
 ```
 
-### Component Organization
+## Component organisation
 
-| Location                   | Scope                | Import pattern              |
-| -------------------------- | -------------------- | --------------------------- |
-| `src/components/ui/`       | shadcn/ui primitives | `@/components/ui/button`    |
-| `src/components/`          | Shared components    | `'components'` (barrel)     |
-| `pages/<name>/components/` | Page-scoped          | Relative import within page |
+The web app is a [TanStack Start](https://tanstack.com/start) SPA with file-based routes in `src/routes/**`. Components live in two places — shared ones under `src/components`, and route-private ones colocated with the route that uses them:
+
+| Location | Scope | Import pattern |
+| --- | --- | --- |
+| `src/components/ui/` | shadcn/ui primitives | `@/components/ui/button` |
+| `src/components/` | shared app components | `'components'` barrel (`src/components/index.ts`) |
+| `src/routes/-<name>/` | route-private components | relative import within the route |
+
+TanStack Router **ignores any folder or file prefixed with `-`**, so route-private pieces never become routes. Colocate them next to the route — e.g. `src/routes/-sign-up-components/` holds the components only the sign-up route needs.
+
+<Tip>
+Avoid `useEffect` for styling state and data sync — there's a skill that enforces it. Reach for derived values, TanStack Query, and route loaders instead.
+</Tip>

@@ -1,47 +1,78 @@
 ---
 title: "Introduction"
+description: "Ship is an AI-native, batteries-included full-stack TypeScript SaaS starter. Build products, not boilerplate."
 ---
 
 ![](/images/ship.png)
 
-The [Ship](https://ship.paralect.com/) is a Full-Stack Node.js boilerplate that will help you build and launch products faster. You can focus on getting things done, not building infrastructure.
+**Ship** is an AI-native, batteries-included full-stack TypeScript SaaS starter. It gives you a production-ready API and web app, a plugin system for every feature, and **standardised patterns** that you — and your AI agents — can build on without guesswork.
 
-Ship uses simple tools and approaches and has built-in support for everything from the frontend to CI/CD automation. The Ship was first created in 2015 and since then we keep testing it on real products at [Paralect](https://www.paralect.com/).
+> **Build products, not boilerplate.**
+
+Ship has been live-tested on 100+ products at [Paralect](https://www.paralect.com/). 3.0.0 rebuilds it on a modern, type-safe stack — [TanStack Start](https://tanstack.com/start), [Hono](https://hono.dev/) + [oRPC](https://orpc.unnoq.com/), [Drizzle](https://orm.drizzle.team/) + [PostgreSQL](https://www.postgresql.org/) — and ships first-class context for coding agents.
+
+## What you get
+
+`@paralect/ship` scaffolds a [pnpm](https://pnpm.io/) + [Turborepo](https://turbo.build/repo/docs) monorepo in one of two shapes:
+
+<CardGroup cols={2}>
+  <Card title="PostgreSQL + TanStack Start" icon="layer-group" href="/architecture">
+    **Full-stack.** A Hono + oRPC + Drizzle API (`apps/api`) and a TanStack Start web app (`apps/web`), with end-to-end type safety flowing from the API to the client.
+  </Card>
+  <Card title="TanStack Start web-only" icon="browser" href="/web/server-functions">
+    **Web-only.** A standalone TanStack Start SPA (`apps/web`) with no separate API — your backend logic lives in type-safe **server functions**.
+  </Card>
+</CardGroup>
+
+Auth, file storage, email, AI chat and an admin panel are **plugins** you opt into — each copies into your codebase, so you own and can edit every line.
+
+## AI-native by design
+
+Ship is built so coding agents have ground truth and one obvious way to do things:
+
+- **`AGENTS.md`** at the repo root and scoped to `apps/api` and `apps/web`, plus a progressive-disclosure index of workflow docs.
+- **Skills** for the patterns that matter — `no-useEffect`, TanStack Start server functions, scaffolding with the CLI.
+- **Codegen** keeps the oRPC router, contract, typed client and `DbService` in sync, so the types an agent reads are always real.
+- **Standardised patterns** — every resource owns its endpoints, schemas, jobs, crons and methods, mounted by file path. Less to infer, less to get wrong.
+- **[`llms.txt`](/llms)** for dropping the whole docs set into Cursor, Claude or ChatGPT.
+
+## Quick start
+
+```bash
+npx @paralect/ship init
+```
+
+<Info>`npx create-ship-app@latest init` works too — it resolves to the same CLI.</Info>
+
+The CLI asks which setup you want, lets you pick plugins, and chooses a deployment target. Then:
+
+```bash
+cd my-ship-app
+pnpm start
+```
+
+`pnpm start` brings up infrastructure, runs migrations, and starts every service. 🚀
 
 ## Key principles
 
-### 😊 Simplicity
+### 🧭 Standardised patterns. Zero guesswork.
 
-We use the most simple solutions in every part of the Ship. They are easier to understand, test, and maintain.
+Every resource owns its endpoints, schemas, jobs, crons and methods. File-based mounting and end-to-end type safety mean there's one obvious way to build — easy for you and your agents to follow.
 
-### 📈 Product comes first
+### 🔌 Everything is a plugin. Every plugin is your code.
 
-Our jobs from engineer to CEO only exist because there are customers who use the products we create. We encourage developers to focus on a product more than on technology. Get things done as quickly as possible with the Ship.
+Install a feature with one command and it copies into your repo — edit, extend, delete. Like shadcn/ui, but for your entire stack.
 
-### 🚀 Production ready
+### 🚀 Production-ready.
 
-You can use Ship to create production-ready products. We prefer to use well-tested technologies.
+Auth, migrations, background jobs, file storage, websockets, email, logging and CI are wired up and battle-tested on real products.
 
-### 🥷 For developers
+### 🥷 For developers and their agents.
 
-Ship is written for developers and easy to use and understand. We write documentation to explain how things work.
-
-## Getting started
-
-The best way to get started with Ship is to use [Ship CLI](/packages/create-ship-app) to bootstrap your project.
-
-```
-npx create-ship-app@latest init
-```
-
-This command will create everything you need to develop, launch locally and deploy your product.
+Ship is written to be read — by humans and by the models that now write half the code. The docs explain how things work and why.
 
 ## Next steps
 
-### Launch your project
-
-We use [Turborepo](https://turborepo.org/docs) for managing monorepo. To run infra and all services -- just run: `pnpm start` 🚀
-
-### Learn key concepts
-
-Learn about Ship [architecture](/architecture) and key components([Web](/web/overview), [API](/api-reference/overview), [Deployment](/deployment/digital-ocean-apps), [Migrator](/migrator), [Scheduler](/scheduler).
+- Learn the [architecture](/architecture) and [how Ship works](/how-ship-works).
+- Explore the [API](/api-reference/overview), the [Web app](/web/overview), and [server functions](/web/server-functions).
+- [Scaffold a project](/packages/create-ship-app) and [deploy it](/deployment/digital-ocean-apps).

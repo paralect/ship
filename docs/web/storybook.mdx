@@ -1,25 +1,38 @@
 ---
 title: "Storybook"
+description: "Develop and review UI components in isolation. Opt-in, colocated with your shadcn primitives."
 ---
 
-Storybook is powerful tool for developing, testing, and reviewing UI components in isolation.
-Chromatic helps you to automate the process of reviewing UI changes.
+[Storybook](https://storybook.js.org/) lets you build, test, and review UI components in isolation, and [Chromatic](https://www.chromatic.com/) automates visual review of UI changes on every PR.
 
-Follow the official guides below to add them to your project.
+<Note>
+Storybook is **not preinstalled** in `apps/web`. It's an opt-in addition — set it up with the official guide below, then follow the conventions on this page so stories sit naturally next to your components.
+</Note>
 
-## Official Setup Guides
+## Setup
 
-- [Storybook Getting Started](https://storybook.js.org/docs/get-started)
-- [Chromatic GitHub Actions Guide](https://www.chromatic.com/docs/github-actions/)
+Storybook is stack-agnostic and works with the Vite-based `apps/web` out of the box. Initialise it from the web app:
 
-## Project Conventions
+```bash
+cd apps/web
+npx storybook@latest init
+```
 
-- **Stories Organization:**
-  - Application components: `src/components`
-  - UI components (shadcn/ui wrappers): `src/components/ui`
-- **Storybook stories path config:**
+For visual review, follow the [Chromatic GitHub Actions guide](https://www.chromatic.com/docs/github-actions/).
 
-```tsx  .storybook/main.ts
+- [Storybook — Getting started](https://storybook.js.org/docs/get-started)
+- [Chromatic — GitHub Actions](https://www.chromatic.com/docs/github-actions/)
+
+## Conventions
+
+Keep stories where Ship keeps components:
+
+- **shadcn/ui primitives** — `src/components/ui/` (e.g. `button.tsx`, `input.tsx`, `card.tsx`)
+- **Shared app components** — `src/components/`
+
+Point Storybook at both directories and label them so the sidebar mirrors the codebase:
+
+```ts .storybook/main.ts
 stories: [
   {
     directory: '../src/components',
@@ -32,11 +45,14 @@ stories: [
 ],
 ```
 
-## Example: Button Story
+## Example: a Button story
 
-```tsx src/components/ui/Button/index.stories.tsx
-import { Button } from '@/components/ui/button';
+Colocate the story with the primitive and import it through the `@/` alias. Mirror the component's real variants — Ship's `Button` exposes `default`, `destructive`, `outline`, `secondary`, `ghost`, and `link`, with `default`, `sm`, `lg`, and `icon` sizes:
+
+```tsx src/components/ui/button.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
+
+import { Button } from '@/components/ui/button';
 
 const meta = {
   component: Button,
@@ -64,4 +80,6 @@ type Story = StoryObj<typeof Button>;
 export const Basic: Story = {};
 ```
 
-
+<Tip>
+Stories render in isolation, so they pick up your Tailwind theme tokens only if the global stylesheet is loaded. Import `src/globals.css` in `.storybook/preview.ts` to get the same `bg-background` / `text-foreground` tokens you see in the app.
+</Tip>

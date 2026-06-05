@@ -1,0 +1,102 @@
+
+
+A managed PostgreSQL service provides automated backups, scaling, and security so you don't have to operate a database yourself. The API connects through a single `DATABASE_URL` connection string, and the Migrator applies Drizzle migrations against it before the API and Scheduler roll out.
+
+{provider === 'aws' && (
+  <div>
+    <p>We recommend <strong><a href="https://aws.amazon.com/rds/postgresql/">AWS RDS for PostgreSQL</a></strong>. Create the instance in the <strong>same region and VPC</strong> as your EKS cluster so the API can reach it over the private network.</p>
+  </div>
+)}
+{provider === 'do' && (
+  <div>
+    <p>We recommend <strong><a href="https://www.digitalocean.com/products/managed-databases-postgresql">DO Managed PostgreSQL</a></strong>. Create the cluster in the <strong>same region</strong> as your Kubernetes cluster for the lowest latency.</p>
+  </div>
+)}
+
+### Create the Database
+
+<Steps>
+  <Step title="Provision a PostgreSQL cluster">
+    {provider === 'aws' && (
+      <div>
+        <p>In the AWS console open <strong>RDS</strong> → <strong>Create database</strong> → <strong>PostgreSQL</strong>.</p>
+        <ul>
+          <li><strong>Staging</strong>: a small burstable instance (e.g. <code>db.t4g.micro</code>) is enough for development and testing.</li>
+          <li><strong>Production</strong>: choose an instance class with the resources your workload needs and enable Multi-AZ for high availability.</li>
+          <li>Place the instance in the <strong>same VPC</strong> as your EKS cluster and attach a security group that allows inbound traffic from the cluster nodes on port <code>5432</code>.</li>
+        </ul>
+      </div>
+    )}
+    {provider === 'do' && (
+      <div>
+        <p>In the Digital Ocean console open <strong>Databases</strong> → <strong>Create Database Cluster</strong> → <strong>PostgreSQL</strong>.</p>
+        <ul>
+          <li><strong>Staging</strong>: the smallest single-node plan is enough for development and testing.</li>
+          <li><strong>Production</strong>: pick a plan with standby nodes for automated failover and daily backups.</li>
+          <li>Select the <strong>same region</strong> as your Kubernetes cluster.</li>
+        </ul>
+      </div>
+    )}
+  </Step>
+
+  <Step title="Choose a major version">
+    Use a currently supported PostgreSQL major version (16 or newer). Ship's Drizzle migrations target standard PostgreSQL and have no version-specific requirements.
+  </Step>
+
+  <Step title="Name your databases">
+    Use environment-specific database names so staging and production never share data, for example `api-staging` and `api-production`.
+  </Step>
+</Steps>
+
+### Configure Access
+
+<Steps>
+  <Step title="Create a database user">
+    Create a dedicated user for the API with read and write access to its database. Use environment-specific names (e.g. `api-production`, `api-staging`) and generate a strong password.
+
+    <Warning>
+      Give each environment its own user and database. Never reuse production credentials in staging or in documentation.
+    </Warning>
+  </Step>
+
+  <Step title="Restrict network access">
+    {provider === 'aws' && (
+      <div>
+        <p>Keep the instance private. Allow inbound connections only from your EKS cluster's security group rather than opening it to the public internet.</p>
+      </div>
+    )}
+    {provider === 'do' && (
+      <div>
+        <p>Under <strong>Trusted Sources</strong>, add your Kubernetes cluster so only it can connect. Avoid allowing access from any IP in production.</p>
+      </div>
+    )}
+  </Step>
+</Steps>
+
+### Get the Connection String
+
+<Steps>
+  <Step title="Copy connection details">
+    From your database dashboard, copy the host, port, user, password, and database name, or the ready-made connection string if the provider gives you one.
+  </Step>
+
+  <Step title="Build the DATABASE_URL">
+    The API reads a single `DATABASE_URL` connection string. Compose it in the standard PostgreSQL format:
+
+    ```bash
+    postgresql://api-production:your-password@db-host.example.com:5432/api-production?sslmode=require
+    ```
+
+    <Note>
+      Managed providers require TLS. Keep `sslmode=require` (or stricter) in the connection string for staging and production.
+    </Note>
+  </Step>
+
+  <Step title="Save the connection string">
+    Store `DATABASE_URL` securely — you'll add it to the API secret during environment configuration. The Migrator and API both read it from the same secret.
+  </Step>
+</Steps>
+
+<Tip>
+  Before deploying to production, confirm automated backups are enabled in your provider's console so you can recover data if needed.
+</Tip>

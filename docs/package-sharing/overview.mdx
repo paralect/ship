@@ -1,36 +1,109 @@
 ---
 title: "Overview"
+description: "Ship is a pnpm + Turborepo monorepo. Shared code lives in packages/ — one source of truth, imported as workspace dependencies."
 ---
 
-Ship is monorepo, so it lets you share your code across applications to minimize duplications and reduce errors.
-All shared code is inside the **packages/** folder.
+Ship is a [pnpm](https://pnpm.io/) + [Turborepo](https://turbo.build/repo/docs) monorepo, so code shared between `apps/api` and `apps/web` lives in one place: the **`packages/`** folder. Define a constant, a UI library, or a config once, depend on it as `workspace:*`, and every app stays in sync.
 
-By default, packages include `app-constants`, `shared`, `mailer`, and config packages. Learn more about the **mailer** package [here](/mailer).
+## What's in `packages/`
 
-```shell
-/packages
-  /app-constants
-  /shared
-  /mailer
-  /eslint-config
-  /prettier-config
-  /tsconfig
+A scaffolded project ships these workspace packages:
+
+```text
+packages/
+  app-constants     # shared enums + constants (USER_STATUSES, file rules, token TTLs)
+  db                # @ship/db — DbService, the typed Drizzle wrapper
+  emails            # @ship/emails — React Email templates (mailer plugin)
+  cloud-storage     # @ship/cloud-storage — S3 client (cloud-storage plugin)
+  mailer            # Resend + React Email runtime (mailer plugin)
+  eslint-config     # shared ESLint config
+  prettier-config   # shared Prettier config
+  tsconfig          # shared TypeScript base configs
 ```
 
-The **shared** package is special — it contains an auto-generated typed API client that bridges `apps/api` and `apps/web`. Schemas from API resources are automatically copied to `packages/shared/src/schemas/` during codegen. Run `pnpm --filter shared generate` after any API endpoint or schema change.
+| Package | Name | Provides |
+| --- | --- | --- |
+| `app-constants` | `app-constants` | Cross-app enums and constants — `USER_STATUSES`, `USER_AVATAR`, token TTLs. Import these into Zod schemas instead of inlining string literals. |
+| `db` | `@ship/db` | The `DbService` class and `MutationEvent` types behind the generated `@/db` service. |
+| `emails` | `@ship/emails` | React Email templates, rendered server-side. Added by the **mailer** plugin. |
+| `cloud-storage` | `@ship/cloud-storage` | The S3-compatible `cloudStorageService`. Added by the **cloud-storage** plugin. |
+| `eslint-config` / `prettier-config` / `tsconfig` | same | Shared lint, format, and compiler config consumed by every workspace. |
 
-## Installation
+<Note>
+There is no `shared` package. The typed API client is **not** a package — it lives in the API workspace and reaches the web app through TypeScript declarations. See [Typed client, no shared package](#typed-client-no-shared-package) below.
+</Note>
 
-We've included all essential packages in your apps.
-If you want to add more packages, head to the `package.json` file, and in the dependencies section, add to **dependencies** package name with value "workspace:*".
+## Using a package
 
-```json apps/web/package.json
+Workspace packages are referenced with the `workspace:*` protocol. Add one to the dependencies of the app that needs it:
+
+```json apps/api/package.json
 "dependencies": {
-    "shared": "workspace:*",
-  },
+  "app-constants": "workspace:*",
+  "@ship/db": "workspace:*"
+}
 ```
-<Tip>
-  The **shared** package provides the typed API client, constants, types, enums, and schemas — so a single import covers most shared needs.
-</Tip>
 
-You can read more about **package sharing**  in [Turborepo documentation](https://turbo.build/repo/docs/handbook/sharing-code/internal-packages).
+Then import it like any module:
+
+```ts
+import { USER_STATUSES } from 'app-constants';
+import { DbService } from '@ship/db';
+```
+
+Run `pnpm install` once to link the workspace, and the import resolves to your local source — no publish, no build step for the consumer.
+
+## Typed client, no shared package
+
+End-to-end type safety does not flow through a shared package. It flows through the API workspace itself:
+
+1. Endpoints declare their shape with `.input(zodSchema).output(zodSchema)`.
+2. `pnpm --filter api build:types` emits `.d.ts` files for the API package.
+3. The web app depends on `"api": "workspace:*"` and imports the typed oRPC client:
+
+```ts apps/web — typed client
+import type { AppClient } from 'api';
+```
+
+Inside the API, codegen keeps the oRPC router, contract, and `DbService` in lockstep with the filesystem. After adding or removing an endpoint or schema file, run:
+
+```bash
+pnpm --filter api codegen
+```
+
+That regenerates `src/router.ts`, `src/contract.ts`, and `src/db.ts` from the resources on disk — the types an agent (or you) reads are always real. See [How Ship works](/how-ship-works) for the resource model and [Schemas](/package-sharing/schemas) for the schema layer.
+
+## Adding your own package
+
+Create a folder under `packages/`, give it a `package.json` with a `workspace:*`-friendly name, and add it to whichever app depends on it.
+
+<Steps>
+  <Step title="Scaffold the package">
+    ```bash
+    mkdir -p packages/billing/src
+    ```
+    ```json packages/billing/package.json
+    {
+      "name": "@ship/billing",
+      "type": "module",
+      "version": "0.0.0",
+      "main": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+    ```
+  </Step>
+  <Step title="Depend on it">
+    ```json apps/api/package.json
+    "dependencies": {
+      "@ship/billing": "workspace:*"
+    }
+    ```
+  </Step>
+  <Step title="Link the workspace">
+    ```bash
+    pnpm install
+    ```
+  </Step>
+</Steps>
+
+Read more about internal packages in the [Turborepo documentation](https://turbo.build/repo/docs/core-concepts/internal-packages).

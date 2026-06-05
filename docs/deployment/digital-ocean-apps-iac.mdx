@@ -4,9 +4,9 @@ title: "Digital Ocean Apps (IaC)"
 
 There is a simplified deployment type without Kubernetes. This type is **recommended** for most new applications because it allows you to set up infrastructure faster and doesn't require additional DevOps knowledge from the development team. You can switch to a more complex Kubernetes solution when your application will be at scale.
 
-It's a step-by-step Ship deployment guide. We will use the [Digital Ocean Apps](https://www.digitalocean.com/products/app-platform) and [GitHub Actions](https://github.com/features/actions) for automated deployment. [Mongo Atlas](https://www.mongodb.com/) and [Redis Cloud](https://redis.com/try-free/) for databases deployment, [Cloudflare](https://www.cloudflare.com/) for DNS and SSL configuration and [Pulumi](https://www.pulumi.com/) for Infrastructure as Code
+It's a step-by-step Ship deployment guide. We will use the [Digital Ocean Apps](https://www.digitalocean.com/products/app-platform) and [GitHub Actions](https://github.com/features/actions) for automated deployment. A [DigitalOcean Managed PostgreSQL](https://www.digitalocean.com/products/managed-databases-postgresql) database and [Redis Cloud](https://redis.com/try-free/) for data storage, [Cloudflare](https://www.cloudflare.com/) for DNS and SSL configuration and [Pulumi](https://www.pulumi.com/) for Infrastructure as Code.
 
-You need to create [GitHub](https://github.com/), [Digital Ocean](https://www.digitalocean.com/), [CloudFlare](https://www.cloudflare.com/), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and [Redis Cloud](https://redis.com/try-free/) accounts.
+You need to create [GitHub](https://github.com/), [Digital Ocean](https://www.digitalocean.com/), [CloudFlare](https://www.cloudflare.com/) and [Redis Cloud](https://redis.com/try-free/) accounts.
 
 Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) if you already haven't.
 
@@ -15,7 +15,9 @@ Also, you need [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/)
 
 First, initialize your project. Type ```npx create-ship-app init``` in the terminal then choose desired build type and **Digital Ocean Apps** as a cloud service provider.
 
-![Init project](/images/init-project.png)
+```bash
+npx @paralect/ship init
+```
 
 You will have the next project structure.
 
@@ -41,41 +43,30 @@ git branch -M main
 git push -u origin main
 ```
 
-## MongoDB Atlas
+## PostgreSQL
 
-Navigate to [MongoDB Atlas](https://cloud.mongodb.com/), sign in to your account and create a new database.
+Ship runs on PostgreSQL via Drizzle ORM. Provision a [DigitalOcean Managed PostgreSQL](https://www.digitalocean.com/products/managed-databases-postgresql) cluster for your app.
 
 ### Database creation
 
-1. Select the appropriate type. Dedicated for a production environment, shared for staging/demo.
-2. Select provider and region. We recommend selecting the same or closest region to the DO application.
-3. Select cluster tier. Free M0 Sandbox should be enough for staging/demo environments. For production environment we recommended selecting the option that supports cloud backups, M10 or higher.
-4. Enter cluster name
+1. In the [DigitalOcean Control Panel](https://cloud.digitalocean.com/), open the **Databases** tab and click `Create Database Cluster`.
+2. Select **PostgreSQL** as the database engine.
+3. Choose a region. We recommend the same region you set in your Pulumi config to keep latency low.
+4. Select a plan. A basic single-node plan is enough for staging/demo environments. For production, pick a plan with standby nodes and automated backups.
+5. Name the cluster and click `Create Database Cluster`.
 
-![Mongo cluster](/images/mongo-create.png)
+### Connection
 
-### Security and connection
+After the cluster is provisioned, open its **Overview** page and copy the connection string from the **Connection Details** section. This is your `DATABASE_URL` value in the form `postgresql://user:password@host:port/dbname?sslmode=require`.
 
-After cluster creation, you'll need to set up security. Select the authentication type (username and password) and create a user.
+Save this value. You'll add it to your Pulumi environment file in the next step.
 
-![Mongo setup authentication](/images/mongo-create-password.png)
-
-Add IP addresses list, which should have access to your cluster. Add 0.0.0.0/0 IP address to allow anyone with credentials to connect.
-
-![Mongo setup ip white list](/images/mongo-create-ip-list.png)
-
-After database creation, go to the dashboard page and get the URI connection string by pressing the `connect` button.
-
-![Mongo dashboard](/images/mongo-dashboard.png)
-
-Select `Connect your application` option. Choose driver and mongo version, and copy connection string. Don't forget to replace `<password>` with your credentials.
-
-![Mongo connect dialog](/images/mongo-connection-string.png)
-
-Save this value. It will be needed later when creating the app in Digital Ocean.
+<Note>
+The Pulumi program reads `DATABASE_URL` from your environment file and passes it to the API, migrator, and scheduler resources as a secret env var. If you prefer to manage the database with Pulumi as well, you can declare a `digitalocean.DatabaseCluster` resource with `engine: "pg"` and wire its `uri` output into `DATABASE_URL` instead of pasting the value by hand.
+</Note>
 
 <Tip>
-Before moving to production, it's crucial to set up [MongoDB backup methods](https://www.mongodb.com/docs/manual/core/backups).
+Before moving to production, enable automated backups on your PostgreSQL cluster.
 
 This ensures that you can reliably restore your data in the event of unforeseen circumstances.
 </Tip>
@@ -100,7 +91,7 @@ Its value corresponds to the specific environment, such as "development", "stagi
 This variable helps the application identify its current environment and load the corresponding configuration.
 
 For the web application, by setting the environment variable ```APP_ENV```,
-the application can determine the environment in which it is running and download the appropriate configuration file:
+the application can determine the environment in which it is running and load the appropriate configuration file:
 
 | APP_ENV       | File              |
 | ------------- |-------------------|
@@ -108,7 +99,7 @@ the application can determine the environment in which it is running and downloa
 | staging       | .env.staging      |
 | production    | .env.production   |
 
-These files should contain specific configuration variables required for each environment.
+These files hold the client config for each environment. The web app is built with Vite, so client-side variables are prefixed with `VITE_` and read through `import.meta.env` (for example `VITE_API_URL`, `VITE_WS_URL`, `VITE_WEB_URL`). They are baked in at build time, so commit up-to-date values before you deploy.
 
 In contrast, the API utilizes a single `.env` file that houses its environment-specific configuration.
 This file typically contains variables like API keys, secrets, or other sensitive information.
@@ -117,12 +108,14 @@ preventing it from being tracked and committed to the repository.
 
 So just specify the environment variables that will contain the values of your secrets.
 For example, if you have a secret named `API_KEY`,
-create an environment variable named `API_KEY` and set the value of the corresponding secret for it.
+create an environment variable named `API_KEY` and set the value of the corresponding secret for it. The API needs at least `DATABASE_URL` (your PostgreSQL connection string) and `REDIS_URI` (your Redis connection string).
 
 ## Digital Ocean via Pulumi
 
 [Pulumi](https://www.pulumi.com/) is an open-source [Infrastructure as Code (IaC)](https://www.pulumi.com/what-is/what-is-infrastructure-as-code/) platform that allows developers to define and provision cloud infrastructure using familiar programming languages. <br/>
 Instead of using domain-specific languages or YAML templates, Pulumi leverages existing languages like TypeScript, Python, Go, and C#.
+
+The Ship Pulumi program defines the web app (TanStack Start), the API service, a pre-deploy migrator job that applies Drizzle migrations, and a scheduler worker. It injects `DATABASE_URL` and `REDIS_URI` into the API, migrator, and scheduler as secret env vars.
 
 Go to the `/deploy` directory at the root of your project and proceed to the next steps:
 

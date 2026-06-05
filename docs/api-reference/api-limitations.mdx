@@ -1,57 +1,83 @@
 ---
-title: "API limitations"
-description: "To keep things simple and maintainable we enforce some limitations on the API level. Limitations are more conventions and are not enforced in the code. If followed, they guarantee you can continue ship things quickly even after years of development."
+title: "API conventions"
+description: "A few conventions keep the API discoverable and refactor-safe. They're not enforced by the compiler — follow them and you can keep shipping fast years in."
 ---
 
-## Resource updates
+These are conventions, not compiler rules. Ship doesn't force them, but every resource in the template and every plugin follows them — and that consistency is what lets you (and your agents) add code without first reverse-engineering the last person's choices. **Standardised patterns. Zero guesswork.**
 
-### Rule
-**Every** entity update should stay within a resource folder. Direct database updates are allowed in data services, handlers and endpoints. 
-
-### Explanation
-This restriction makes sure that entity updates are not exposed outside the resource. This enables the discoverability of all updates and simplifies resource changes. 
-
-
-
-## Complex read operations
-
-### Rule
-Complex data read operations (e.x. aggregation, complex queries) must be defined in the data service.
-
-### Explanation
-Complex operations often require maintenance and need to be edited, when the code (especially data schema) changes. The goal of that rule is to keep all such operations in the data service or near it in a separate file, so it's easy to discover them.
-
-
-
-## Predictable file location
+## A resource owns its data access
 
 ### Rule
 
-Put things as close as possible to the place where they are used.
+Every read or write to a table goes through that table's resource. Direct `db.<table>` calls belong in the resource's endpoints, methods and handlers — not in unrelated resources.
 
-### Explanation
-We want to keep things together that belong together and keep them apart if they belong apart. With that rule in mind, every resource has clear boundaries. 
+### Why
 
+Keeping access inside the resource keeps every update discoverable in one folder. When the table changes, the blast radius is one directory. The `users` resource reads and writes `db.users`; nothing outside `resources/users/` reaches into that table.
 
-
-## Two data services
-
-### Rule
-Two data services can not use each other directly. You may use two services together in actions or (better!) in workflows.
-
-### Explanation
-Use of two data services inside each other leads to circular dependencies and unnecessary complexities. We encourage the use of CUD events to protect the boundaries of different resources and services. You can use two services together in the workflow.
-
-
-## Dependencies relatively to the /src folder
-
-### Rule
-Files shoud be required from the current folder or from the root, `../` is not allowed. E.x.:
-
-```typescript
-import service from 'resources/user/user.service';
+```ts
+// resources/users/endpoints/list.ts
+return db.users.findPage({ where: { deletedAt: null }, orderBy: sort, page, perPage });
 ```
 
-### Explanation
+## Complex reads live in methods
 
-This makes it easy to move files around without breaking an app and also much simpler to understand where the actual file is located, compared to something like: `../../user.service`.
+### Rule
+
+Aggregations, multi-step queries and any non-trivial read live in the resource's `methods/` folder — not inlined across endpoints.
+
+### Why
+
+Complex queries are the code most coupled to the schema, so they need maintenance when the data shape changes. Keeping them in `resources/<name>/methods/` puts every such query in one predictable place, easy to find and update when `<name>.schema.ts` moves.
+
+## Put things where they're used
+
+### Rule
+
+Keep code as close as possible to where it runs. An endpoint's schema, its ownership gate and its handler all live within the same resource folder.
+
+### Why
+
+Things that change together should sit together; things that don't should stay apart. That's what gives each resource clear boundaries — `resources/users/` contains its schema (`users.schema.ts`), endpoints (`endpoints/`), gates (`middlewares/`) and side effects (`handlers/`), and nothing it doesn't need.
+
+## Resources talk through events, not each other
+
+### Rule
+
+One resource shouldn't reach into another's data service. Compose them in an endpoint, or — better — react to the other resource's mutation events.
+
+### Why
+
+Calling one service from inside another creates circular dependencies and quietly couples two boundaries. Every write already publishes a typed `MutationEvent` (`{ type, docs, prevDocs }`); drop a handler in `resources/<name>/handlers/` to react to another resource's changes without importing it:
+
+```ts
+// resources/users/handlers/on-user-deleted.ts — react, don't reach in
+export default async function onUserDeleted({ docs }: MutationEvent<User>) {
+  // clean up things that belong to this user
+}
+```
+
+## Import from the root with `@/`
+
+### Rule
+
+Import from the `@/` alias (the API `src` root) — never with `../` chains. So:
+
+```ts
+import db from '@/db';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
+import { publicSchema } from '@/resources/users/users.schema';
+```
+
+not `import service from '../../users/users.schema'`.
+
+### Why
+
+Absolute `@/` imports survive moving files around and make it obvious where something actually lives. Note also that resource folders are **plural** (`resources/users/`, `resources/notes/`), and a resource's schema is its `<name>.schema.ts`. Relative-only imports from the same folder are fine; reaching up with `../` is what we avoid.
+
+## See also
+
+- [API action](/api-reference/api-action) — the endpoint builder these conventions shape.
+- [Validation](/api-reference/api-action-validator) — schemas and gates per resource.
+- [How Ship works](/how-ship-works) — the resource-owns-everything model in full.

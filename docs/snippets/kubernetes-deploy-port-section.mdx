@@ -1,9 +1,9 @@
 ## Port
 
-To configure the web application to use port 3002, add the line **ENV PORT=3002** to the web Dockerfile:
+The web app is a TanStack Start SPA served by Vite's preview server on port **3002**, matching `server.port` in `apps/web/vite.config.ts` and the `port` value in the web Helm chart. Make sure the web Dockerfile builds the app and starts the preview server on that port:
 
 ```Dockerfile apps/web/Dockerfile
-ENV PORT=3002
+EXPOSE 3002
 
-CMD ["node", "apps/web/server.js"]
+CMD ["pnpm", "--filter=web", "start"]
 ```

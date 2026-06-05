@@ -1,0 +1,136 @@
+---
+title: "Server functions"
+description: "API as a function. TanStack Start server functions are the web-only data layer — typed backend logic that runs on the Start server and is called straight from a route loader."
+---
+
+In the **web-only** shape there's no `apps/api` and no oRPC client. Your backend logic lives in **server functions**: typed async functions you write once and call from the client, while the body only ever runs on the server.
+
+> **API as a function.** No routes to register, no client to generate — `createServerFn(...).handler(...)`, then call it.
+
+This is TanStack Start's [`createServerFn`](https://tanstack.com/start). Ship wires it up for you; this page is the one obvious way to use it.
+
+## SPA mode still has a server
+
+Ship runs `apps/web` in **SPA mode** — see `vite.config.ts`:
+
+```ts vite.config.ts
+tanstackStart({
+  spa: {
+    enabled: true,
+    prerender: { outputPath: 'index.html' },
+  },
+}),
+```
+
+<Warning>
+**SPA mode does *not* disable the Start server.** It only turns off server-rendering your routes — the routes ship as a static SPA. The TanStack Start (Nitro) server is still there, and it's exactly where your server functions execute. Web-only means *no separate API app*, not *no server*.
+</Warning>
+
+## Import from `@tanstack/react-start`
+
+`createServerFn` comes from **`@tanstack/react-start`** — the framework package — not from `@tanstack/react-router`.
+
+<Warning>
+**The footgun:** `@tanstack/react-router` is the package you import `createFileRoute`, `useNavigate` and `Link` from. It does **not** export `createServerFn`. Reach for the router package out of habit and you'll get an undefined import that fails at runtime. Server functions live in `@tanstack/react-start`.
+</Warning>
+
+```ts
+// ✅ server functions
+import { createServerFn } from '@tanstack/react-start';
+
+// ✅ routes, links, navigation — a different package
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+```
+
+## The shipped example
+
+The web-only template ships one server function at `apps/web/src/server/greeting.ts` so you have a working pattern to copy:
+
+```ts apps/web/src/server/greeting.ts
+import { createServerFn } from '@tanstack/react-start';
+
+export const getGreeting = createServerFn({ method: 'GET' }).handler(async () => {
+  return { message: 'Hello from the Start server' };
+});
+```
+
+Three things define it:
+
+- **`createServerFn({ method })`** — `'GET'` for reads, `'POST'` for writes. The method is how the client transports the call to the server.
+- **`.handler(async (...) => ...)`** — the body. It runs **only on the server**, so this is where you reach for secrets, a database, or any server-only dependency. Nothing here ships to the browser.
+- The **return value** is sent back to the caller, fully typed end-to-end. The client sees the handler's return type with no codegen.
+
+## Consume it from a route loader
+
+A server function is just an async function, so you can call it anywhere. The idiomatic place is a route **`loader`**: TanStack Router runs it before the route renders, and the component reads the result with `Route.useLoaderData()`.
+
+```tsx apps/web/src/routes/index.tsx
+import { createFileRoute } from '@tanstack/react-router';
+
+import { getGreeting } from '@/server/greeting';
+
+export const Route = createFileRoute('/')({
+  loader: () => getGreeting(),
+  component: Home,
+});
+
+function Home() {
+  const { message } = Route.useLoaderData();
+
+  return <h1>{message}</h1>;
+}
+```
+
+The loader calls the server function; from the browser that's a request to the Start server, which runs the handler and returns the value. `Route.useLoaderData()` reads it back, typed.
+
+## Inputs and validation
+
+Pass data with `.inputValidator()`. It parses the input on the server before the handler runs — give it a Zod schema and you get a validated, typed `data` argument:
+
+```ts apps/web/src/server/notes.ts
+import { createServerFn } from '@tanstack/react-start';
+import { z } from 'zod';
+
+export const createNote = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({ text: z.string().min(1) }))
+  .handler(async ({ data }) => {
+    // data.text is validated and typed
+    return { id: crypto.randomUUID(), text: data.text };
+  });
+```
+
+Call it with the argument the validator expects:
+
+```tsx
+const note = await createNote({ data: { text: 'first note' } });
+```
+
+For reads that take parameters, do the same with `method: 'GET'` and read `data` in the handler.
+
+## When to use what
+
+Server functions are the web-only data layer. In a full-stack project you have a different, richer option.
+
+<CardGroup cols={2}>
+  <Card title="Server functions — web-only" icon="server">
+    No `apps/api`. Backend logic runs on the Start server as `createServerFn` handlers, called from loaders and components. Reach for server-only deps directly in the handler.
+  </Card>
+  <Card title="oRPC client — full-stack" icon="plug" href="/web/overview">
+    There's an `apps/api`. The web app talks to it through a fully typed **oRPC client** and the `useApiQuery` / `useApiMutation` / `useApiForm` hooks the **Auth** plugin adds.
+  </Card>
+</CardGroup>
+
+| You scaffolded | Data layer | Import from |
+| --- | --- | --- |
+| **TanStack Start web-only** | Server functions | `@tanstack/react-start` |
+| **PostgreSQL + TanStack Start** | oRPC typed client | `@/services/api-client.service` (Auth plugin) |
+
+<Note>
+Both shapes start from the **same** `apps/web` base — a landing page plus the `getGreeting` example. The difference is where data comes from. If you later add an API, you move data fetching from server functions to the oRPC client; the routing, components and TanStack Query setup are unchanged.
+</Note>
+
+## Next
+
+- [Overview](/web/overview) — the `apps/web` stack and the two data-fetching shapes.
+- [Routing](/web/routing) — loaders, params and guards in depth.
+- [How Ship works](/how-ship-works) — the resource-owns-everything model and end-to-end type flow.

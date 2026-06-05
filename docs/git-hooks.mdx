@@ -1,160 +1,145 @@
 ---
 title: "Git Hooks"
-description: "Automated code quality checks with Husky and lint-staged"
+description: "Pre-commit linting and formatting with Husky, Turborepo and lint-staged."
 ---
 
-Ship uses [Husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/lint-staged/lint-staged) to automatically validate and auto-fix the entire project before each commit, ensuring consistent code quality across the codebase.
+Ship runs lint and format checks before every commit so the codebase stays consistent — for you and for your agents. The wiring is [Husky](https://typicode.github.io/husky/) → [Turborepo](https://turbo.build/repo/docs) → [lint-staged](https://github.com/lint-staged/lint-staged).
 
-## How It Works
+## How it works
 
-When you commit changes, Husky triggers a pre-commit hook that runs lint-staged. The configuration runs linters on the **entire project** to ensure project-wide code quality.
+A Husky `pre-commit` hook runs Turborepo's `precommit` task across the monorepo. Each package's `precommit` script is `lint-staged`, which applies that package's linters and formatters.
+
+```mermaid
+flowchart LR
+  C[git commit] --> H[".husky/pre-commit"]
+  H --> T["turbo run precommit"]
+  T --> A["apps/api · lint-staged"]
+  T --> W["apps/web · lint-staged"]
+  T --> P["packages/* · lint-staged"]
+```
+
+The hook itself is tiny — `template/.husky/pre-commit`:
+
+```bash
+cd template
+pnpm exec turbo run precommit --concurrency=1
+```
 
 <Info>
-  The pre-commit hook is automatically installed when you run `pnpm install` via the `prepare` script.
+  The hook is installed automatically. `template/package.json` has a `prepare` script (`cd .. && husky template/.husky`) that runs on `pnpm install`.
 </Info>
-
-<Note>
-  **Project-wide Validation**: Ship intentionally runs linters on ALL project files (using `.`), not just staged files. This defensive approach ensures that if someone bypassed hooks with `--no-verify`, the next commit will auto-fix those issues and prevent blocking other team members.
-</Note>
 
 ## Configuration
 
-### API
+`lint-staged` lives in each package's `package.json` under a `lint-staged` key, and `precommit` is just `"precommit": "lint-staged"`.
 
-<CodeGroup>
-```json TypeScript Files
+### API — `apps/api/package.json`
+
+```json
 "lint-staged": {
   "*.ts": [
     "eslint . --fix",
     "bash -c 'tsc --noEmit'",
     "prettier . --write"
-  ]
-}
-```
-
-```json JSON & Markdown
-"lint-staged": {
+  ],
   "*.{json,md}": [
-    "prettier . --write"
+    "prettier --write"
   ]
 }
 ```
-</CodeGroup>
 
-When any `.ts` file is staged, runs on **entire project**:
-1. **ESLint** - Auto-fixes all `.ts` files (note the `.`)
-2. **TypeScript** - Type checks all files
-3. **Prettier** - Formats all files (note the `.`)
+When a `.ts` file is staged, the API runs ESLint with `--fix`, a project-wide `tsc --noEmit` type check, and Prettier across the package (the trailing `.` means whole-project, not only staged files — so a bypassed `--no-verify` commit gets cleaned up on the next one).
 
-### Web
+### Web — `apps/web/package.json`
 
-<CodeGroup>
-```json TypeScript/React Files
+```json
 "lint-staged": {
   "*.{ts,tsx}": [
-    "eslint . --fix",
-    "bash -c 'tsc --noEmit'",
-    "prettier . --write"
-  ]
-}
-```
-
-```json CSS Files
-"lint-staged": {
+    "eslint --fix",
+    "prettier --write"
+  ],
   "*.css": [
-    "stylelint . --fix",
-    "prettier . --write"
+    "prettier --write"
+  ],
+  "*.{json,md}": [
+    "prettier --write"
   ]
 }
 ```
 
-```json JSON & Markdown
-"lint-staged": {
-  "*.{json,md}": [
-    "prettier . --write"
-  ]
-}
-```
-</CodeGroup>
+The web app lints and formats the staged files only (no trailing `.`), and there's no `tsc` step in the hook — type errors surface in the editor and in CI instead. See [GitHub Actions](/github-actions).
 
 ### Packages
 
-All shared packages (`app-constants`, `shared`, `mailer`, etc.) have similar lint-staged configurations tailored to their file types.
-
-## Customization
-
-### Modify Linters
-
-Edit `lint-staged` in your `package.json`:
+Shared packages carry their own `lint-staged`. For example `template/packages/app-constants/package.json`:
 
 ```json
 "lint-staged": {
   "*.ts": [
-    "eslint . --fix",       // The '.' runs on entire project
-    "prettier . --write"    // The '.' formats all files
-    // Add or remove tools as needed
+    "eslint . --fix",
+    "bash -c 'tsc --noEmit'",
+    "prettier . --write"
+  ],
+  "*.{json,md}": [
+    "prettier . --write"
   ]
 }
 ```
 
-### Run on Staged Files Only (Alternative)
+The other shared packages — `@ship/db`, `@ship/emails`, `@ship/cloud-storage`, `eslint-config`, `prettier-config`, `tsconfig` — are checked through the same Turborepo `precommit` task.
 
-If you prefer to only lint staged files instead of the entire project:
+## Customization
+
+### Change the linters
+
+Edit the `lint-staged` block in the relevant `package.json`:
 
 ```json
 "lint-staged": {
   "*.ts": [
-    "eslint --fix",         // No '.' - only staged files
-    "prettier --write"      // No '.' - only staged files
+    "eslint . --fix",
+    "prettier . --write"
+  ]
+}
+```
+
+A trailing `.` runs the tool on the whole package; omit it to act on staged files only.
+
+```json
+"lint-staged": {
+  "*.ts": [
+    "eslint --fix",
+    "prettier --write"
   ]
 }
 ```
 
 <Warning>
-  Linting only staged files means errors in other parts of the codebase (e.g., from `--no-verify` commits) won't be caught or fixed until those files are modified.
+  Linting only staged files means problems elsewhere (for instance from a `--no-verify` commit) won't be caught until those files change again.
 </Warning>
 
-### Skip Hooks Temporarily
+### Skip the hook
 
 ```bash
-# Bypass pre-commit hook (not recommended)
 git commit --no-verify -m "message"
 ```
 
 <Tip>
-  Only skip hooks when absolutely necessary, as they help maintain code quality.
+  Skip only when you truly must — the hook is what keeps the build green for everyone else.
 </Tip>
 
 ## Troubleshooting
 
-### Hook Not Running
+**Hook not running?**
 
-If pre-commit hooks don't run:
+1. Reinstall to re-run `prepare`:
+   ```bash
+   pnpm install
+   ```
+2. Check that `template/.husky/pre-commit` exists.
+3. Confirm Git's hooks path:
+   ```bash
+   git config core.hooksPath
+   ```
 
-1. Ensure Husky is installed:
-```bash
-pnpm install
-```
-
-2. Check if `.husky/pre-commit` exists in your project root
-
-3. Verify Git hooks path:
-```bash
-git config core.hooksPath
-```
-
-### Linter Errors Blocking Commits
-
-If linters fail:
-
-1. Review the error output
-2. Fix the issues manually or let auto-fix handle them
-3. Stage the fixed files: `git add .`
-4. Commit again
-
-## Best Practices
-
-- **Never use `--no-verify`** - It bypasses quality checks and can break the build for teammates
-- **Fix issues early** - Don't accumulate linting errors across the codebase
-- **Keep configs in sync** - Ensure lint-staged matches your editor settings
-
+**Linter blocking the commit?** Read the output, let `--fix` resolve what it can, `git add` the changes, and commit again.

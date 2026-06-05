@@ -1,51 +1,120 @@
 ---
 title: "Overview"
+description: "The Ship API: Hono + oRPC over Drizzle and PostgreSQL, with a contract-first router generated from the filesystem."
 ---
 
-`/api` is a source folder for three independent services:
-- API — REST API, entry file is `/api/src/app.ts`
-- Migrator — small utility that runs MongoDB migrations, entry file is `/api/src/migrator.ts`
-- Scheduler — standalone service, that runs background jobs, entry file is `/api/src/scheduler.ts`
+`apps/api` is the full-stack backend. One source tree hosts three entry points that share the same code — resources, schemas, the `@/db` service:
 
-## What is resource?
+| Service | Entry | Job |
+| --- | --- | --- |
+| **API** | `src/app.ts` → `src/server.ts` | The HTTP server: a [Hono](https://hono.dev/) app serving the [oRPC](https://orpc.unnoq.com/) router |
+| **Scheduler** | `src/scheduler.ts` | A standalone process that runs crons and background jobs — see [Scheduler](/scheduler) |
+| **Migrator** | `scripts/migrate.ts` | Applies pending Drizzle migrations against PostgreSQL — see [Migrator](/migrator) |
 
-From the outside world, the resource is a set of REST API endpoints that allow managing a particular business entity (e.x. user). Inside, the resource includes methods to work with the database, business logic, database data, request validation, events and event handlers. Most of the time, a resource has 1 on 1 mapping to the database entity. The resource describes how you can work with any given entity. E.x. User API needs to create new users, edit an existing user, list all users.
+The stack is [Hono](https://hono.dev/) · [oRPC](https://orpc.unnoq.com/) · [Drizzle ORM](https://orm.drizzle.team/) · [PostgreSQL](https://www.postgresql.org/) · [better-auth](https://better-auth.com/) · [Socket.IO](https://socket.io/). No controllers, no route registry — the filesystem is the wiring.
 
-## Resource components
+## A resource owns everything
 
-A resource represents on REST endpoint and most of the time one database table or collection. The resource usually consists of the following parts:
-- [API actions](./api-action). Each action consists of three things: the handler, validator, and route.
-- [A data service](./data-service). Typically this service is used to access databases. For simplicity, we mix the data access layer with the domain operations associated with a given entity.
-- [Event handlers](./event-handler). Event handlers include any updates that come as a reaction to what happens outside the boundaries of any given entity.
-- [Workflows](./workflow). They are essentially updates that require multiple resources to work together. E.x. User Signup is usually a workflow, as it requires to a) create user b) create company 3) create authentication token.
-- [Data schema](/package-sharing/schemas). We use [Zod](https://zod.dev/) to define database schemas and validate them in runtime. (we’ve used [Joi](https://joi.dev/) in the past).
-- Type definitions. If typescript is used for the project.
+Every business entity is a folder under `apps/api/src/resources/<name>/`. The resource owns its table, its schemas, its endpoints, its side effects and its gates:
 
-The data schemas and type definitions can be found in the `packages` folder. Check out the ["Package sharing" section](/package-sharing/overview) for more information on data sharing.
-
-## Example structure
-
-Here is the resource structure example:
-
-```shell
-/resource
-  /endpoints
-    list.ts
-    create.ts
-    update.ts
-    remove.ts
-  resource.schema.ts
-  resource.service.ts
-  resource.handler.ts   # optional: eventBus side effects
-  index.ts              # barrel: export service, import handler
+```
+resources/users/
+  users.schema.ts          # Drizzle table + Zod schemas
+  endpoints/               # oRPC endpoints, mounted by file path
+    list.ts                # GET  /users
+    current.get.ts         # GET  /users/current
+    [userId]/update.ts     # PUT  /users/{userId}
+  methods/                 # reusable business logic
+  handlers/                # mutation-event handlers (side effects)
+  middlewares/             # per-resource gates (e.g. can-edit-*.ts)
 ```
 
-## Routing
+There's one place for each thing, so you — and your agents — never guess where code lives. See [How Ship works](/how-ship-works) for the full model.
 
-Ship's API uses **automatic route discovery**. Endpoints are auto-registered based on their file location — just place files in `resources/<name>/endpoints/` and each file that default-exports `createEndpoint({...})` is automatically mounted.
+## Endpoints are oRPC
 
-- Resource name = folder name = URL prefix (`resources/projects/` → `/projects/*`).
-- No manual route registration is needed.
-- Every endpoint requires authentication by default unless `isPublic` is in the `middlewares` array.
+Every endpoint builds on the shared `@/endpoint` builder — the oRPC builder with all [global middlewares](/api-reference/middlewares) already applied — and declares its input, output and handler:
 
-Learn more about the routing architecture in the [Routing](/api-reference/routing/overview) section.
+```ts resources/users/endpoints/list.ts
+import db from '@/db';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
+import { listResultSchema, paginationSchema } from '@/resources/base.schema';
+import { publicSchema } from '../users.schema';
+
+export default endpoint
+  .use(isAdmin)
+  .input(paginationSchema)
+  .output(listResultSchema(publicSchema))
+  .handler(async ({ input }) => {
+    return db.users.findPage({ where: { deletedAt: null }, ...input });
+  });
+```
+
+`.input()` / `.output()` are Zod schemas — the single source of truth for the runtime *and* the types the client sees. Gates compose with `.use(...)`. The handler returns a value; oRPC serialises it. See [Routing](/api-reference/routing/overview) and [Middlewares](/api-reference/routing/middlewares).
+
+## Contract-first, generated from the filesystem
+
+oRPC separates a thin **contract** (route methods + paths) from the **router** (the implementations). Ship generates both from your endpoint files so you never hand-edit a route table:
+
+```bash
+pnpm --filter api codegen
+```
+
+`scripts/codegen-router.ts` walks `resources/**/endpoints/` and writes:
+
+- **`src/contract.ts`** — the `oc.router(...)` contract, one `oc.route({ method, path })` per endpoint file.
+- **`src/router.ts`** — `implement(contract).router({...})` wiring each endpoint into its slot, plus the exported `AppClient` type the web app consumes.
+
+`list.ts` → `GET /users`, `create.ts` → `POST`, `[userId]/update.ts` → `PUT /users/{userId}`. The route table *is* the directory tree.
+
+## Data access is a typed service
+
+`scripts/codegen-db.ts` generates a `DbService` per table, exported from `@/db` — a thin, typed wrapper over Drizzle with a uniform filter API:
+
+```ts
+await db.users.findPage({
+  where: { deletedAt: null, email: { ilike: '%@acme.com' } },
+  orderBy: { createdAt: 'desc' },
+  page: 1,
+  perPage: 20,
+});
+```
+
+`find` / `findFirst` / `findPage` / `count` / `insertOne` / `insertMany` / `updateOne` / `updateMany` / `deleteOne` / `deleteMany`, plus `db.transaction(...)` and relation loading via `with` / `columns`. Every table extends `baseColumns` — a `uuid` id, `createdAt`, `updatedAt` and a `deletedAt` soft-delete column. Mutations emit a typed `MutationEvent`; drop a handler in `<resource>/handlers/` to react. The `DbService` lives in the `@ship/db` package; see [How Ship works](/how-ship-works) for the full data-access model.
+
+## Migrations
+
+Drizzle owns the schema lifecycle:
+
+```bash
+pnpm --filter api generate    # drizzle-kit emits SQL into apps/api/drizzle/
+pnpm --filter api migrate     # apply pending migrations (scripts/migrate.ts)
+pnpm --filter api db:push     # push the schema directly (dev only)
+```
+
+See [Migrator](/migrator) for the full flow.
+
+## Auth and context
+
+better-auth resolves the session on every request. `server.ts` builds an `ORPCContext` and calls `serverConfig.resolveUser`, which reads the better-auth session from the request headers and attaches the row to `context.user` when signed in:
+
+```ts
+const session = await auth.api.getSession({ headers: ctx.rawRequest.headers });
+if (session?.user) {
+  ctx.user = await db.users.findFirst({ where: { id: session.user.id } });
+}
+```
+
+From there, the [`isAuthorized`](/api-reference/routing/middlewares) and [`isAdmin`](/api-reference/routing/middlewares) gates read `context.user`. The full auth surface — sign-in/up, verification, reset, Google OAuth, plus the web pages — is delivered by the Auth plugin (see [Plugins](/plugins/overview)).
+
+## Interactive API reference
+
+In non-production, Hono serves a live [Scalar](https://scalar.com/) UI in-process. `server.ts` generates an OpenAPI 3.1 spec from the router and renders the docs with an interactive "try it out":
+
+- **Scalar UI** — [http://localhost:3001/docs](http://localhost:3001/docs)
+- **Raw spec** — `http://localhost:3001/spec.json`
+
+![Scalar API reference](/images/dashboards/scalar-docs.png)
+
+<Tip>Browse your tables with [Drizzle Studio](https://orm.drizzle.team/drizzle-studio/overview) too — run `pnpm dashboard` and open [https://local.drizzle.studio](https://local.drizzle.studio).</Tip>

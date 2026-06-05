@@ -1,40 +1,176 @@
 ---
 title: "API action"
+description: "An endpoint is an oRPC handler that owns its input, output and logic — mounted by file path, validated by Zod, gated by middleware."
 ---
 
 ## Overview
 
-**API action** (endpoint) — is an HTTP handler that performs database updates and other logic required by the business logic.
-Endpoints reside in the `/endpoints` folder within a resource.
-Each endpoint is a single file with a meaningful name, e.x. `list`, `create`, `update`, `remove`.
+An **API action** is an endpoint: an HTTP handler that runs the business logic for a resource. Endpoints live in `apps/api/src/resources/<name>/endpoints/`, and the filesystem *is* the route table — there's no registry to maintain.
 
-Each endpoint file must **default-export** a `createEndpoint({...})` call. Routes are auto-discovered — no manual registration needed.
+| File | Route |
+| --- | --- |
+| `endpoints/list.ts` | `GET /users` |
+| `endpoints/create.ts` | `POST /users` |
+| `endpoints/[userId]/update.ts` | `PUT /users/{userId}` |
+| `endpoints/current.get.ts` | `GET /users/current` |
+| `endpoints/current.patch.ts` | `PATCH /users/current` |
 
-If `schema` is provided, the `validate` middleware auto-applies. Validated data is available on `ctx.validatedData`.
+Every file **default-exports** an endpoint built on the shared `@/endpoint` builder. After adding or removing a file, run codegen to refresh the router and contract:
 
-## Examples
+```bash
+pnpm --filter api codegen
+```
 
-```typescript
+## The builder
+
+`@/endpoint` is the oRPC builder with every middleware in `@/middlewares/global` already applied. You chain four things onto it:
+
+```ts
+endpoint
+  .use(gate)          // 0+ authorization / loader middlewares
+  .input(zodSchema)   // request schema — also the client's input type
+  .output(zodSchema)  // response schema — also the client's return type
+  .handler(async ({ input, context }) => {
+    // ...return a value — the return is the response
+  });
+```
+
+The handler **returns a value** — that return *is* the response, validated against `.output()` before it's sent. There's no mutable response object to write to.
+
+## A real endpoint
+
+This is `apps/api/src/resources/users/endpoints/list.ts` — admin-only, paginated, with search and a date filter:
+
+```ts
 import { z } from 'zod';
 
-import createEndpoint from 'routes/createEndpoint';
-import { companyService } from 'resources/companies';
+import { publicSchema } from '../users.schema';
 
-const schema = z.object({
-  userId: z.string(),
-});
+import db from '@/db';
+import endpoint from '@/endpoint';
+import isAdmin from '@/middlewares/is-admin';
+import { listResultSchema, paginationSchema } from '@/resources/base.schema';
 
-export default createEndpoint({
-  method: 'get',
-  path: '/',
-  schema,
+export default endpoint
+  .use(isAdmin)
+  .input(
+    paginationSchema.extend({
+      sort: z
+        .object({
+          fullName: z.enum(['asc', 'desc']).optional(),
+          createdAt: z.enum(['asc', 'desc']).default('asc'),
+        })
+        .default({ createdAt: 'asc' }),
+    }),
+  )
+  .output(listResultSchema(publicSchema))
+  .handler(async ({ input }) => {
+    const { perPage, page, sort, searchValue } = input;
 
-  async handler(ctx) {
-    const { userId } = ctx.validatedData;
+    const where = {
+      deletedAt: null,
+      ...(searchValue && {
+        OR: [{ fullName: { ilike: `%${searchValue}%` } }, { email: { ilike: `%${searchValue}%` } }],
+      }),
+    };
 
-    const companies = await companyService.find({ userId });
-
-    return companies; // returned value becomes ctx.body
-  },
-});
+    return db.users.findPage({ where, orderBy: sort, page, perPage });
+  });
 ```
+
+What to notice:
+
+- `db.users` is a generated, typed `DbService` exported from `@/db`. Its uniform filter API (`where`, `orderBy`, `ilike`, `findPage`) is the same on every table.
+- `deletedAt: null` respects soft-delete — every table extends `baseColumns`.
+- The handler `return`s the page result directly; oRPC validates it against `listResultSchema(publicSchema)`.
+
+## Handler arguments
+
+The handler receives a single object. The two you reach for:
+
+- **`input`** — the parsed, typed result of your `.input()` schema. Already validated; no manual parsing.
+- **`context`** — the request context. Gates populate it: `isAuthorized` and `isAdmin` guarantee `context.user`; `canAccess` / `canEdit` load entities into it.
+
+A minimal authorized read — `current.get.ts` returns the signed-in user straight off the context:
+
+```ts
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
+import { publicSchema } from '@/resources/users/users.schema';
+
+export default endpoint
+  .use(isAuthorized)
+  .output(publicSchema)
+  .handler(async ({ context }) => {
+    return context.user;
+  });
+```
+
+No `.input()` is needed when the endpoint takes no arguments.
+
+## Mutations and context
+
+A write reads `context`, mutates through the typed service, and returns the fresh row. From `current.patch.ts`:
+
+```ts
+import { z } from 'zod';
+
+import db from '@/db';
+import endpoint from '@/endpoint';
+import isAuthorized from '@/middlewares/is-authorized';
+import usersSchema, { publicSchema } from '@/resources/users/users.schema';
+
+export default endpoint
+  .use(isAuthorized)
+  .input(
+    usersSchema
+      .pick({ fullName: true })
+      .extend({ avatar: z.instanceof(File).optional() })
+      .partial(),
+  )
+  .output(publicSchema)
+  .handler(async ({ input, context }) => {
+    const { user } = context;
+    const { fullName } = input;
+
+    if (!fullName) {
+      return user;
+    }
+
+    const updatedUser = await db.users.updateOne({ id: user.id }, { fullName });
+
+    return updatedUser!;
+  });
+```
+
+<Note>
+  Throw, don't write error responses. To fail a request, throw an `ORPCError` — e.g. `throw new ORPCError('NOT_FOUND', { message: 'User not found' })`. Gates like `canAccess` and `canEdit` already do this for you.
+</Note>
+
+## Custom routes
+
+File-path mounting covers the common cases. To override the method or path explicitly, chain `.route(...)` — as the Notes plugin does for `DELETE /notes/{id}`:
+
+```ts
+export default endpoint
+  .use(isAuthorized)
+  .route({ method: 'DELETE', path: '/notes/{id}' })
+  .input(z.object({ id: z.string() }))
+  .use(canEditNote)
+  .output(z.void())
+  .handler(async ({ input }) => {
+    await db.notes.deleteOne({ id: input.id });
+  });
+```
+
+## See it live
+
+Every endpoint shows up in the Scalar API reference at [http://localhost:3001/docs](http://localhost:3001/docs) (raw OpenAPI 3.1 at `/spec.json`), generated from your `.input()` / `.output()` schemas — no annotations to write.
+
+![Scalar API reference](/images/dashboards/scalar-docs.png)
+
+## Next steps
+
+- [Validation](/api-reference/api-action-validator) — how `.input()` / `.output()` and gates enforce the contract.
+- [API conventions](/api-reference/api-limitations) — the rules that keep resources clean as the app grows.
+- [How Ship works](/how-ship-works) — the resource-owns-everything model behind this.
