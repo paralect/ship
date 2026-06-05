@@ -5,12 +5,11 @@ import type { AppClient } from './router';
 // eslint-disable-next-line ts/no-explicit-any
 type AnyFn = (...args: any[]) => any;
 
-type _BindInput<T extends AnyFn, K extends string> =
-  T extends (input: infer I, ...rest: infer R) => infer O
-    ? keyof Omit<I & {}, K> extends never
-      ? (...rest: R) => O
-      : (input: Omit<I & {}, K>, ...rest: R) => O
-    : T;
+type _BindInput<T extends AnyFn, K extends string> = T extends (input: infer I, ...rest: infer R) => infer O
+  ? keyof Omit<I & {}, K> extends never
+    ? (...rest: R) => O
+    : (input: Omit<I & {}, K>, ...rest: R) => O
+  : T;
 
 export type FilesResource = AppClient['files'];
 

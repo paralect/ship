@@ -2,9 +2,7 @@
   "version": "8",
   "dialect": "postgres",
   "id": "326d981e-aeeb-406f-9633-b351dfbefc5e",
-  "prevIds": [
-    "00000000-0000-0000-0000-000000000000"
-  ],
+  "prevIds": ["00000000-0000-0000-0000-000000000000"],
   "ddl": [
     {
       "isRlsEnabled": false,
@@ -623,14 +621,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
       "name": "accounts_user_id_users_id_fkey",
@@ -640,14 +634,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "invited_by_id"
-      ],
+      "columns": ["invited_by_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
       "name": "invite_tokens_invited_by_id_users_id_fkey",
@@ -657,14 +647,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
       "name": "sessions_user_id_users_id_fkey",
@@ -673,9 +659,7 @@
       "table": "sessions"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "accounts_pkey",
       "schema": "public",
@@ -683,9 +667,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "invite_tokens_pkey",
       "schema": "public",
@@ -693,9 +675,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "sessions_pkey",
       "schema": "public",
@@ -703,9 +683,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "users_pkey",
       "schema": "public",
@@ -713,9 +691,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verifications_pkey",
       "schema": "public",
@@ -724,9 +700,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "token"
-      ],
+      "columns": ["token"],
       "nullsNotDistinct": false,
       "name": "sessions_token_key",
       "schema": "public",
@@ -735,9 +709,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "email"
-      ],
+      "columns": ["email"],
       "nullsNotDistinct": false,
       "name": "users_email_key",
       "schema": "public",

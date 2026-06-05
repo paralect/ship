@@ -107,7 +107,9 @@ import scheduler from '@/scheduler';
 
 export default scheduler({
   cron: '0 * * * *',
-  handler: async () => { /* ... */ },
+  handler: async () => {
+    /* ... */
+  },
 });
 ```
 

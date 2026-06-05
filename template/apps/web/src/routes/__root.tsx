@@ -1,16 +1,16 @@
 /// <reference types="vite/client" />
-import type { ReactNode } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import type { ReactNode } from 'react';
+
+import '@/globals.css';
 
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import queryClient from '@/query-client';
-
-import '@/globals.css';
 
 export const Route = createRootRoute({
   ssr: false,

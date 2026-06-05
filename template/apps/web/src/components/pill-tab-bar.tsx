@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 
 export interface PillTab<T extends string = string> {
   id: T;

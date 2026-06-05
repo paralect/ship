@@ -59,7 +59,7 @@ export default endpoint
   });
 ```
 
-`.input()` / `.output()` Zod schemas are the single source of truth — for the runtime *and*
+`.input()` / `.output()` Zod schemas are the single source of truth — for the runtime _and_
 for the types the web client sees. Gates compose with `.use(...)`: `isAuthorized`
 (signed-in `context.user`), `isAdmin`, `canAccess(key, load)` (loads an entity into
 `context[key]` or throws `NOT_FOUND`), and `canEdit(key, service)` (ownership gate built on
@@ -112,6 +112,7 @@ the **Auth plugin** (`plugins/auth-starter`), which merges into your codebase.
 - **WebSocket**: integrated [Socket.IO](https://socket.io/) server (Redis adapter for
   multi-instance fan-out).
 - **Scheduler**: a cron job is one file that default-exports `scheduler({ cron, handler })`:
+
   ```ts
   import scheduler from '@/scheduler';
 
@@ -122,6 +123,7 @@ the **Auth plugin** (`plugins/auth-starter`), which merges into your codebase.
     },
   });
   ```
+
   Cron files live in `<resource>/crons/*.ts` and are auto-discovered like endpoints, so plugins
   add crons by dropping a file. Run with `pnpm schedule` (or `pnpm schedule-dev` in watch mode).
 
