@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
+import { MessageSquare } from 'lucide-react';
 
 import { queryKey, useApiMutation, useApiQuery, useQueryClient } from '@/hooks';
 import { apiClient } from '@/services/api-client.service';
@@ -8,6 +9,7 @@ import type { AiChatDisplayMessage } from './-components';
 import { AiChatBox } from './-components';
 
 export const Route = createFileRoute('/_authenticated/app/ai-chat/')({
+  staticData: { nav: { label: 'AI Chat', icon: MessageSquare, order: 20 } },
   component: AiChatIndexPage,
 });
 

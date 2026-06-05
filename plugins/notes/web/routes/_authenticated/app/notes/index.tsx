@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
+import { FileText } from 'lucide-react';
 
 import { queryKey, useApiMutation, useApiQuery, useQueryClient } from '@/hooks';
 import { apiClient } from '@/services/api-client.service';
 
 export const Route = createFileRoute('/_authenticated/app/notes/')({
+  staticData: { nav: { label: 'Notes', icon: FileText, order: 10 } },
   component: NotesPage,
 });
 

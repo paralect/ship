@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { SortDirection } from '@tanstack/react-table';
+import { Users } from 'lucide-react';
 import { pick } from 'lodash';
 import { toast } from 'sonner';
 
@@ -19,6 +20,7 @@ import {
 import Filters from './-components/filters';
 
 export const Route = createFileRoute('/_authenticated/app/admin/')({
+  staticData: { nav: { label: 'Admin', icon: Users, order: 30 } },
   component: Admin,
 });
 
