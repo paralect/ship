@@ -23,21 +23,47 @@ COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=builder /app/out/full/ .
 RUN pnpm install -r --prefer-offline --ignore-scripts
 COPY --from=builder /app/out/full/turbo.json ./turbo.json
-RUN pnpm turbo build --filter=web
 
 # DEVELOPMENT - Stage 3
 FROM installer AS development
-CMD ["pnpm", "--filter=web", "dev"]
+CMD pnpm turbo run dev --filter=web
 
-# RUNNER - Stage 4
-FROM installer AS runner
-WORKDIR /app
+# APP_BUILDER - Stage 4
+FROM installer AS app_builder
 
-# Don't run production as root
-RUN addgroup --system --gid 1001 app
-RUN adduser --system --uid 1001 app
-USER app
+ARG APP_ENV=production
+ENV NODE_ENV=production
+
+# turbo prune may not include dotenv files — copy the env-specific file explicitly
+COPY --from=builder /app/apps/web/.env.${APP_ENV} apps/web/.env.${APP_ENV}
+RUN cp apps/web/.env.${APP_ENV} apps/web/.env
+
+RUN pnpm turbo run build --filter=web
+
+# RUNNER - Stage 5
+FROM nginx:alpine AS runner
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+# TanStack Start (SPA mode) emits the prerendered client into dist/client;
+# serve it and route everything through index.html for client-side routing.
+COPY --from=app_builder /app/apps/web/dist/client /usr/share/nginx/html
+
+RUN printf 'server {\n\
+    listen 3002;\n\
+    root /usr/share/nginx/html;\n\
+    index index.html;\n\
+\n\
+    location / {\n\
+        try_files $uri $uri/ /index.html;\n\
+    }\n\
+\n\
+    location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {\n\
+        expires 1y;\n\
+        add_header Cache-Control "public, immutable";\n\
+    }\n\
+}\n' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 3002
 
-CMD ["pnpm", "--filter=web", "exec", "vite", "preview", "--host", "--port", "3002"]
+CMD ["nginx", "-g", "daemon off;"]
